@@ -1,8 +1,14 @@
+---
+description: >-
+  List available error message locales. View the language IDs, names, and
+  descriptions for supported localization settings.
+---
+
 # SHOW LOCALES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW LOCALES
 ```
 

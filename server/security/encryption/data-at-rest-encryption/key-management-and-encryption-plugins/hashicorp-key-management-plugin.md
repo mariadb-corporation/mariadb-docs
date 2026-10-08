@@ -1,0 +1,233 @@
+---
+description: >-
+  Guide to using the HashiCorp Key Management plugin, which integrates MariaDB
+  with HashiCorp Vault for centralized, secure key storage and lifecycle
+  management.
+---
+
+# Hashicorp Key Management Plugin
+
+{% hint style="info" %}
+**Key Rotation and Cache Flushing**
+
+As of MariaDB 12.3, you can manually rotate keys and flush the cache without restarting the server. See [Key Rotation and Cache Flushing](hashicorp-key-management-plugin.md#key-rotation-and-cache-flushing) for details.
+{% endhint %}
+
+{% hint style="info" %}
+The configured Vault token requires specific read-only permissions. See [Required Vault Token Permissions](hashicorp-key-management-plugin.md#required-vault-token-permissions) for details to prevent authorization failures during plugin initialization.
+{% endhint %}
+
+The Hashicorp Key Management Plugin is used to implement encryption using keys stored in the Hashicorp Vault KMS. For more information, see [Hashicorp Vault and MariaDB](../../../../server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb.md), and for how to install Vault, see [Install Vault](https://www.vaultproject.io/docs/install), as well as [MySQL/MariaDB Database Secrets Engine](https://developer.hashicorp.com/vault/docs/secrets/databases/mysql-maria).
+
+The current version of this plugin implements the following features:
+
+* Authentication is done using Hashicorp Vault's token authentication method.
+* If additional client authentication is required, then the path to the CA authentication bundle file may be passed
+  as a plugin parameter;
+* The creation of the keys and their management is carried out using the Hashicorp Vault KMS and its tools.
+* The plugin uses libcurl (https) as an interface to the HashiCorp Vault server.
+* JSON parsing is performed through the JSON service (through the include/mysql/service\_json.h).
+* HashiCorp Vault 1.2.4 was used for development and testing.
+* As of MariaDB 10.11.16, 11.4.10, 11.8.6, and 12.2.2, and MariaDB Enterprise Server 10.6.24-20, the plugin uses cached keys for all errors when accessing the Vault server, not just for timeouts, and does so by default. This keeps the server running when the Vault server is temporarily unreachable. See [hashicorp-key-management-use-cache-on-timeout](hashicorp-key-management-plugin.md#hashicorp-key-management-use-cache-on-timeout).
+
+Since we require support for key versioning, the key-value storage must be configured in Hashicorp Vault as a key-value storage that uses the interface of the second version. For example, you can create it as follows:
+
+```bash
+~$ vault secrets enable -path /test -version=2 kv
+```
+
+Key names must correspond to their numerical identifiers. Key identifiers themselves, their possible values, and rules of use are described in more detail in the MariaDB main documentation.
+
+From the point of view of the key-value storage (in terms of Hashicorp Vault), the key is a secret containing one key-value pair with the name "data" and a value representing a binary string
+containing the key value, for example:
+
+```bash
+~$ vault kv get /test/1
+
+====== Metadata ======
+Key              Value
+---              -----
+created_time     2019-12-14T14:19:19.42432951Z
+deletion_time    n/a
+destroyed        false
+version          1
+
+==== Data ====
+Key     Value
+---     -----
+data    0123456789ABCDEF0123456789ABCDEF
+```
+
+Key values are strings containing binary data. MariaDB uses the AES algorithm with 256-bit keys as the default encryption method. In this case, the keys that will be stored in the Hashicorp Vault should be 32-byte strings. Most likely, you will use some utilities for creating and administering keys designed to work with Hashicorp Vault. But in the simplest case, keys can be created from the command line through the vault utility, for example, as follows:
+
+```bash
+~$ vault kv put /test/1 data="0123456789ABCDEF0123456789ABCDEF"
+```
+
+If you use default encryption (AES), you should ensure that the key length is 32 bytes, as it may fail to use InnoDB as a data storage.
+
+The plugin does not unseal Hashicorp Vault on its own; you must do this in advance and on your own.
+
+To use Hashicorp Vault KMS, the plugin must be preloaded and activated on the server. Most of its parameters should not be changed during plugin operation and therefore must be preconfigured as part of the server configuration through configuration file or command line options:
+
+```
+--plugin-load-add=hashicorp_key_management.so
+--loose-hashicorp-key-management
+--loose-hashicorp-key-management-vault-url="$VAULT_ADDR/v1/test"
+--loose-hashicorp-key-management-token="$VAULT_TOKEN"
+```
+
+### Options
+
+The plugin supports the following parameters, which must be set in advance and cannot be changed during server operation:
+
+#### `hashicorp-key-management-vault-url`
+
+* Description: HTTP\[s] URL that is used to connect to the Hashicorp Vault server. It must include the name of the scheme (`https://` for a secure connection) and, according to the API rules for storage of the key-value type in Hashicorp Vault, after the server address, the path must begin with the "/v1/" string (as prefix), for example: `https://127.0.0.1:8200/v1/my_secrets`. By default, the path is not set; therefore, you must replace it with the correct path to your secrets.
+* Command line: `--[loose-]hashicorp-key-management-vault-url="<url>"`
+
+#### `hashicorp-key-management-token`
+
+* Description: An Authentication token that is passed to the Hashicorp Vault in the request header. By default, this parameter contains an empty string, so you must specify the correct value for it, otherwise the Hashicorp Vault server will refuse authorization. Alternatively, you can define an environment variable `VAULT_TOKEN` and store the token there. `mariadb-backup` doesn't read this option from configuration files and doesn't get it from the server, so it usually needs the environment variable. See [Using mariadb-backup](hashicorp-key-management-plugin.md#using-mariadb-backup).
+* Command line: `--[loose-]hashicorp-key-management-token="<token>"`
+
+#### `hashicorp-key-management-vault-ca`
+
+* Description: Path to the Certificate Authority (CA) bundle (is a file that contains root and intermediate certificates). By default, this parameter contains an empty string, which means no CA bundle.
+* Command line: `--[loose-]hashicorp-key-management-vault-ca="<path>"`
+
+#### `hashicorp-key-management-timeout`
+
+* Description: Set the duration (in seconds) for the Hashicorp Vault server connection timeout. The default value is 15 seconds. The allowed range is from 1 to 86400 seconds. The user can also specify a zero value, which means the default timeout value set by the libcurl library (300 seconds).
+* Command line: `--[loose-]hashicorp-key-management-timeout=<timeout>`
+
+#### `hashicorp-key-management-max-retries`
+
+* Description: Number of server request retries in case of timeout. Default is three retries.
+* Command line: `--[loose-]hashicorp-key-management-max-retries=<retries>`
+
+#### `hashicorp-key-management-caching-enabled`
+
+* Description: Enable key caching (storing key values received from the Hashicorp Vault server in the local memory). By default, caching is enabled.
+* Command line: `--[loose-]hashicorp-key-management-caching-enabled="on"|"off"`
+
+#### `hashicorp-key-management-use-cache-on-timeout`
+
+* Description: This parameter instructs the plugin to use the key values or version numbers taken from the cache when accessing the vault server fails. The cache is used only after the number of retries set by [--\[loose-\]hashicorp-key-management-max-retries](hashicorp-key-management-plugin.md#hashicorp-key-management-max-retries) is exhausted.
+* Default: `ON` as of MariaDB 10.11.16, 11.4.10, 11.8.6, and 12.2.2, and MariaDB Enterprise Server 10.6.24-20. In these releases, the option applies to all errors, not just timeouts. In earlier releases, the default was `OFF`, and the option applied only to timeouts.
+* Command line: `--[loose-]hashicorp-key-management-use-cache-on-timeout="on"|"off"`
+* Deprecated in MariaDB 10.11.16, 11.4.10, 11.8.6, and 12.2.2, and MariaDB Enterprise Server 10.6.24-20.
+
+#### `hashicorp-key-management-cache-timeout`
+
+* Description: The time (in milliseconds) after which the value of the key stored in the cache becomes invalid and an attempt to read this data causes a new request to be sent to the vault server. If the value of this parameter is zero, then the keys will always be considered invalid, but they still can be used if the vault server is unavailable and the corresponding cache operating mode (`--[loose-]hashicorp-key-management-use-cache-on-timeout="on"`) is enabled.
+* Default: the maximum value, so cached keys effectively never expire. This applies as of MariaDB 10.11.16, 11.4.10, 11.8.6, and 12.2.2, and MariaDB Enterprise Server 10.6.24-20. In earlier releases, the default was 86,400,000 milliseconds (one day), or 60,000 milliseconds (one minute) in MariaDB Enterprise Server 10.6.
+* As of MariaDB 10.11.19, 11.4.13, 11.8.9, 12.3.3, and 13.0.2, this timeout is measured as elapsed time. Earlier releases measured it as process CPU time, so a cache entry could stay valid for much longer than the configured interval on a lightly loaded server.
+* Command line: `--[loose-]hashicorp-key-management-cache-timeout=<timeout>`
+* Deprecated in MariaDB 10.11.16, 11.4.10, 11.8.6, and 12.2.2, and MariaDB Enterprise Server 10.6.24-20.
+
+#### `hashicorp-key-management-cache-version-timeout`
+
+* Description: The time (in milliseconds) after which the information about the latest version number of the key (which is stored in the cache) becomes invalid and an attempt to read this information causes a new request to be sent to the vault server. If the value of this parameter is zero, then information about the latest key version numbers is always considered invalid, unless there is no communication with the vault server, and use of the cache is allowed when the server is unavailable.
+* Default: 60,000 milliseconds (one minute) as of MariaDB 10.11.15, 11.4.9, 11.8.4, and 12.1.2, and MariaDB Enterprise Server 10.6.24-20. In earlier releases, the default was zero, so cached version information was always considered invalid.
+* As of MariaDB 10.11.19, 11.4.13, 11.8.9, 12.3.3, and 13.0.2, this timeout is measured as elapsed time. Earlier releases measured it as process CPU time, so cached version information could stay valid for much longer than the configured interval on a lightly loaded server.
+* Command line: `--[loose-]hashicorp-key-management-cache-version-timeout=<timeout>`
+
+#### `hashicorp-key-management-check-kv-version`
+
+* Description: This parameter enables ("on", this is the default value) or disables ("off") checking the kv storage version during plugin initialization. The plugin requires storage version 2 or later in order for it to work properly.
+* When this option is enabled, the configured Vault token must also have read access to the `sys/mounts/my_vault/tune` endpoint, allowing the plugin to determine the kv storage version. See [Required Vault Token Permissions](hashicorp-key-management-plugin.md#required-vault-token-permissions) for details.
+* Command line: `--[loose-]hashicorp-key-management-check-kv-version="on"|"off"`
+
+## Using mariadb-backup
+
+`mariadb-backup` can't get the Vault token from the server or from the server's configuration file:
+
+* During `--backup`, `mariadb-backup` copies the plugin's settings from `SHOW VARIABLES` on the server. The token isn't a system variable, so it isn't among them.
+* During `--prepare`, `mariadb-backup` reads the plugin's settings from the `backup-my.cnf` file in the backup directory, not from `my.cnf`. That file records the plugin's other settings, including the Vault URL, but not the token.
+
+Set the token in the `VAULT_TOKEN` environment variable for both steps:
+
+```bash
+export VAULT_TOKEN="<token>"
+mariadb-backup --backup --target-dir=/var/mariadb/backup --user=mariadb-backup --password=mypassword
+mariadb-backup --prepare --target-dir=/var/mariadb/backup
+```
+
+For `--prepare` only, you can pass the token on the command line instead, with the `loose-` prefix: `--loose-hashicorp-key-management-token="<token>"`. `mariadb-backup` prints an "unknown variable" warning but passes the option on to the plugin. Without the prefix, `mariadb-backup` rejects the option as an unknown variable and exits. During `--backup`, the plugin gets only the settings read from the server, so this option has no effect there. Other users can see command-line arguments in the process list, so prefer `VAULT_TOKEN`. Configuration files don't work for either step.
+
+Because `--prepare` contacts Vault at the URL recorded in `backup-my.cnf`, Vault must be reachable from the host where you prepare the backup. If no token is available, loading the plugin fails with this error:
+
+```
+The --hashicorp-key-management-token option value or the value of the corresponding parameter in the configuration file must be specified, otherwise the VAULT_TOKEN environment variable must be set
+```
+
+{% hint style="info" %}
+When the server reads the token from `hashicorp-key-management-token`, the plugin also sets `VAULT_TOKEN` in the server's environment. Programs the server starts inherit it, such as `mariadb-backup` during a Galera Cluster [state snapshot transfer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method). A `mariadb-backup` that you start yourself doesn't inherit it.
+{% endhint %}
+
+## Required Vault Token Permissions
+
+The token provided through `hashicorp-key-management-token` must have the following Vault access privileges.
+
+Given a `hashicorp-key-management-vault-url` of `http://vault-server/v1/my_vault`, the token requires:
+
+<table><thead><tr><th>Value Path</th><th width="211.22216796875">Access Required</th><th>Condition</th></tr></thead><tbody><tr><td><code>my_vault/data</code></td><td>read</td><td>Always required</td></tr><tr><td><code>sys/mounts/my_vault/tune</code></td><td>read</td><td>Required unless <code>hashicorp-key-management-check-kv-version</code> is set to <code>off</code></td></tr></tbody></table>
+
+**Note**: During plugin initialization, the kv storage version is verified using the `sys/mounts/my_vault/tune` path. Most configurations require this permission because `hashicorp-key-management-check-kv-version` is set to `on` by default.
+
+### Example Minimal Vault Policy for Read-Only Access
+
+The following example provides a minimal Vault policy that grants the required privileges:
+
+```sql
+path "my_vault/data/*" {
+  capabilities = ["read"]
+}
+
+path "sys/mounts/my_vault/tune" {
+  capabilities = ["read"]
+}
+```
+
+Replace `my_vault` with the path segment of your `hashicorp-key-management-vault-url` configuration.
+
+This ensures that the plugin does not require additional permissions to access encryption keys or verify the kv storage version.
+
+## Key Rotation and Cache Flushing
+
+{% hint style="info" %}
+This functionality is available from MariaDB 12.3.
+{% endhint %}
+
+The HashiCorp Key Management plugin supports key versioning provided by the HashiCorp Vault Server. In previous versions, rotating keys required a server restart to clear the internal cache. As of MariaDB 12.3, you can flush the plugin cache manually while the server is running.
+
+#### Flushing the Cache
+
+To rotate keys, you must flush the cached keys using the `FLUSH` command. This clears the local cache, forcing the server to re-fetch the latest key versions from the HashiCorp Vault server upon the next access.
+
+Executing this command requires the `RELOAD` privilege.
+
+```sql
+FLUSH HASHICORP_KEY_MANAGEMENT_CACHE;
+```
+
+#### Verifying Key Versions
+
+To view the current Key IDs and Key Versions stored in the latest version cache, you can query the Information Schema table or use the `SHOW` command.
+
+See [Information Schema HASHICORP\_KEY\_MANAGEMENT\_CACHE](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-hashicorp_key_management_cache.md) for table details.
+
+Using the SHOW command:
+
+```sql
+SHOW HASHICORP_KEY_MANAGEMENT_CACHE;
+```
+
+## See Also
+
+* [HashiCorp Vault and MariaDB](../../../../server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

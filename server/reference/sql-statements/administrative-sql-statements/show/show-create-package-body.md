@@ -1,8 +1,14 @@
+---
+description: >-
+  Display the CREATE statement for a package body. This Oracle-compatible
+  statement shows the implementation code of a stored package.
+---
+
 # SHOW CREATE PACKAGE BODY
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE PACKAGE BODY  [ db_name . ] package_name
 ```
 
@@ -10,10 +16,18 @@ SHOW CREATE PACKAGE BODY  [ db_name . ] package_name
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `SHOW CREATE PACKAGE BODY` statement shows the `CREATE PACKAGE BODY` statement that creates the given package body (that is, the implementation of the package).
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `SHOW CREATE PACKAGE BODY` statement shows the `CREATE PACKAGE BODY` statement that creates the given package body (that is, the implementation of the package). `CREATE PACKAGE BODY` can be used when [Oracle SQL\_MODE](https://kb-archive.mariadb.net/kb/en/sql_modeoracle-from-mariadb-103/) is set.
 {% endtab %}
 {% endtabs %}
@@ -79,7 +93,7 @@ collation_connection: utf8_general_ci
 * [DROP PACKAGE](../../data-definition/drop/drop-package.md)
 * [CREATE PACKAGE BODY](../../data-definition/create/create-package-body.md)
 * [DROP PACKAGE BODY](../../data-definition/drop/drop-package-body.md)
-* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md)
+* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

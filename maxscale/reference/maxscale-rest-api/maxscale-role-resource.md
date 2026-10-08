@@ -1,7 +1,12 @@
-# MaxScale Admin Role Resource
+---
+description: >-
+  Define and assign access roles. This resource allows you to manage permissions
+  for MaxScale administrative users, controlling their access to API resources.
+---
 
-Admin roles represent a set of permissions that define which operations are
-allowed on the REST-API.
+# MaxScale Role Resource
+
+Admin roles represent a set of permissions that define which operations are allowed on the REST-API.
 
 ## Resource Operations
 
@@ -125,35 +130,18 @@ POST /v1/roles
 Create a new role. The request body must define the following fields.
 
 * `data.id`
-
   * The role name
-
 * `data.attributes.permissions`
-
-  * A JSON array of strings that define the permissions. Any permissions that
-    are unknown are stored as extra user-defined permissions that are available
-    in the `/roles` endpoint. These extra permissions can then be used by
-    external systems or as a way to label account types.
+  * A JSON array of strings that define the permissions. Any permissions that are unknown are stored as extra user-defined permissions that are available in the `/roles` endpoint. These extra permissions can then be used by external systems or as a way to label account types.
 
 The supported permissions are:
 
-* `admin`: Access to the administrative endpoints `/users` and `/roles` which
-  are used to create new user accounts and roles.
+* `admin`: Access to the administrative endpoints `/users` and `/roles` which are used to create new user accounts and roles.
+* `edit`: Write access to all endpoints that create objects except the administrative endpoints `/users` and `/roles`. This permission is required for creating, modifying or destroying objects via the REST-API.
+* `sql`: Read-only access to the `/maxscale`, `/servers`, `/services` and `/listeners` endpoints as well as full permissions on the `/sql` endpoint. This permission is needed by the Query Editor feature.
+* `view`: Read-only access to all endpoints except the administrative endpoints `/users` and `/roles`. This permission is required for most read-only operations in the GUI.
 
-* `edit`: Write access to all endpoints that create objects except the
-  administrative endpoints `/users` and `/roles`. This permission is required
-  for creating, modifying or destroying objects via the REST-API.
-
-* `sql`: Read-only access to the `/maxscale`, `/servers`, `/services` and
-  `/listeners` endpoints as well as full permissions on the `/sql`
-  endpoint. This permission is needed by the Query Editor feature.
-
-* `view`: Read-only access to all endpoints except the administrative endpoints
-  `/users` and `/roles`. This permission is required for most read-only
-  operations in the GUI.
-
-Here is an example request that defines a new role `my-role` that can view and
-edit objects but cannot use the Query Editor.
+Here is an example request that defines a new role `my-role` that can view and edit objects but cannot use the Query Editor.
 
 ```javascript
 {
@@ -178,8 +166,7 @@ Status: 204 No Content
 PATCH /v1/roles/:name
 ```
 
-Update a role. Only the `data.attributes.permissions` field can be
-modified. Modifying a role requires administrative privileges.
+Update a role. Only the `data.attributes.permissions` field can be modified. Modifying a role requires administrative privileges.
 
 Here is an example request body that updates the permissions of a role.
 

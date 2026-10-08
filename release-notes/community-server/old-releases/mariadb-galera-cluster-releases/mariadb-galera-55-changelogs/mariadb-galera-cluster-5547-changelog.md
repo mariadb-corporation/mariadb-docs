@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 5.5.47 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.47)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5547-release-notes.md)[Changelog](mariadb-galera-cluster-5547-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.47)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5547-release-notes.md)[Changelog](mariadb-galera-cluster-5547-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 24 Dec 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5547-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #70113ee](https://github.com/MariaDB/server/commit/70113ee)\
   2015-12-22 14:58:02 -0500
@@ -116,7 +115,7 @@ modified in that revision.
   * [MDEV-7762](https://jira.mariadb.org/browse/MDEV-7762) InnoDB: Failing assertion: block->page.buf\_fix\_count > 0 in buf0buf.ic line 730
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #43a5090](https://github.com/MariaDB/server/commit/43a5090)\
   2015-11-18 11:20:59 +0100
   * [MDEV-9051](https://jira.mariadb.org/browse/MDEV-9051) mysqld got signal 11, after upgrade to 10.1.8
@@ -144,6 +143,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

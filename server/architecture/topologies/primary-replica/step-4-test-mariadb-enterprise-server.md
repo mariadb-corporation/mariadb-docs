@@ -123,7 +123,7 @@ If `Slave_IO_Running` column is not `Yes` on any replica server, then check:
 
 If `Slave_SQL_Running` column is not Yes on any replica server, then check:
 
-* The GTID position in [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos)
+* The GTID position in [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos)
 * The `Last_SQL_Error` column for details on any errors
 
 If both columns are not `Yes` on any replica server, then check:
@@ -217,6 +217,6 @@ This page was step 4 of 7.
 
 Next: Step 5: Install MariaDB MaxScale
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

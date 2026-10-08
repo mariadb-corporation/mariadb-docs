@@ -1,3 +1,10 @@
+---
+description: >-
+  Batch operations with the MariaDB Connector/R2DBC native API group
+  multiple DML statements into a single io.r2dbc.spi.Batch to reduce
+  per-statement network overhead.
+---
+
 # Batch Operations with MariaDB Connector/R2DBC (Native API)
 
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes R2DBC more scalable than Java's standard JDBC API.
@@ -88,9 +95,9 @@ public class App {
 ## Example Output:
 
 ```
-- Walker Percy <w.percy@example.com>
- - Flannery OConnor <f.oconnor@example.com>
- - Kate Chopin <k.chopin@example.com>
+- Kai Devi <kai.devi@example.com>
+- Lee Wang <lee.wang@example.com>
+- Dani Smith <dani.smith@example.com>
 ```
 
 ## Code Example: Batching DDL
@@ -204,6 +211,6 @@ SELECT * FROM contact_copy;
 +----+------------+-----------+------------------------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

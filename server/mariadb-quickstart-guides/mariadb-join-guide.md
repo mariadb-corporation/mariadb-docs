@@ -1,8 +1,10 @@
 ---
-description: Basic Joins Guide
+description: >-
+  This guide introduces the different types of JOINs (INNER, LEFT, RIGHT, CROSS)
+  and demonstrates how to combine data from multiple tables.
 ---
 
-# Joining Tables with JOIN Clauses Guide
+# Joining Tables with JOIN Clauses
 
 This guide offers a simple, hands-on introduction to three basic `JOIN` types in MariaDB: `INNER JOIN`, `CROSS JOIN`, and `LEFT JOIN`. Use these examples to understand how different joins combine data from multiple tables based on specified conditions.
 
@@ -92,6 +94,8 @@ SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;
 
 _Explanation:_ All rows from `t1` are present. For `t1.a = 1` and `t1.a = 3`, there are no matching `t2.b` values, so `b` is `NULL`. For `t1.a = 2`, a match is found (`t2.b = 2`), so `b` is `2`.
 
+> Starting with MariaDB 12.3, multiple independent `LEFT JOIN` operations can be reordered by the optimizer for better performance if the [reorder\_outer\_joins](../ha-and-performance/optimization-and-tuning/query-optimizations/reorder_outer_joins.md) flag is enabled in [optimizer\_switch](../ha-and-performance/optimization-and-tuning/query-optimizations/optimizer-switch.md)_._ It is also recommended to set `optimizer_prune_level=0` to prevent heuristic pruning from eliminating optimal join orders.
+
 #### RIGHT JOIN (t1 RIGHT JOIN t2)
 
 A `RIGHT JOIN` (or `RIGHT OUTER JOIN`) produces a result set with all rows from the "right" table (`t2` in this case). If a match is found in the "left" table (`t1`), the corresponding columns from the left table are included. If no match is found, these columns are filled with `NULL`.
@@ -169,8 +173,8 @@ While this syntax works, the explicit `JOIN` syntax (`INNER JOIN`, `LEFT JOIN`, 
 ### See Also
 
 * [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
-* [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md)
-* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/comma-vs-join.md)
+* [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
+* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 * [Joins, Subqueries and SET](../reference/sql-structure/joins-subqueries-set.md)
 
 _The initial version of this article was copied, with permission, from_ [_Introduction\_to\_Joins_](https://hashmysql.org/wiki/Introduction_to_Joins) _on 2012-10-05._

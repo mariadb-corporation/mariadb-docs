@@ -1,3 +1,9 @@
+---
+description: >-
+  Using qualifiers (such as db.table.column) to reference database objects in
+  SQL.
+---
+
 # Identifier Qualifiers
 
 Qualifiers are used within SQL statements to reference data structures, such as databases, tables, or columns. For example, typically a `SELECT` query contains references to some columns and at least one table.

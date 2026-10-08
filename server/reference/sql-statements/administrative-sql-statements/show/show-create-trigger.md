@@ -1,23 +1,37 @@
+---
+description: >-
+  Retrieve the CREATE TRIGGER statement. This statement displays the SQL syntax
+  defining a specific trigger and its timing events.
+---
+
 # SHOW CREATE TRIGGER
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE TRIGGER trigger_name
 ```
 
 ## Description
 
-This statement shows a [CREATE TRIGGER](../../../../../server-usage/programming-customizing-mariadb/triggers-events/triggers/create-trigger.md) statement that creates the given trigger, as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) that was used when the trigger has been created and the character set used by the connection.
+This statement shows a [CREATE TRIGGER](../../../../server-usage/triggers-events/triggers/create-trigger.md) statement that creates the given trigger, as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger has been created and the character set used by the connection.
 
-The [TRIGGER](../../account-management-sql-commands/grant.md#table-privileges) privilege is required on the table the trigger is defined for to execute this statement.
+The [TRIGGER](../../account-management-sql-statements/grant.md#table-privileges) privilege is required on the table the trigger is defined for to execute this statement.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE TRIGGER` quotes identifiers, according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 
-{% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% tab title="< 10.6.5" %}
+{% hint style="info" %}
+Before MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE TRIGGER` quotes identifiers, according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable. However, the output of this statement is unreliably affected by the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 {% endtabs %}
@@ -42,15 +56,7 @@ END
   Created: 2016-09-29 13:53:34.35
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 The `Created` column serves to better view multiple trigger events.
-{% endtab %}
-
-{% tab title="< 10.2.3" %}
-The `Created` column is unavailable.
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

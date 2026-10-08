@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete CONCAT reference for MariaDB. Complete function guide with syntax,
+  parameters, return values, and usage examples with comprehensive examples and.
+---
+
 # CONCAT
 
 ## Syntax
 
-```sql
+```bnf
 CONCAT(str1,str2,...)
 ```
 

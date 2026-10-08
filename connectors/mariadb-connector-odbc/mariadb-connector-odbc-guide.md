@@ -1,19 +1,51 @@
+---
+description: >-
+  Complete Connector/ODBC setup guide: Windows ODBC Administrator,
+  odbcinst.ini/odbc.ini configuration, isql DSN testing, and DSN-less connection
+  strings.
+---
+
 # About MariaDB Connector/ODBC
 
 [Download MariaDB Connector/ODBC](https://mariadb.com/downloads/#connectors)
 
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:
 
-* It is [LGPL-licensed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
-* It is compliant with the ODBC 3.5 standard.
+* It is LGPL-licensed.
+* It is compliant with the ODBC 3.8 standard.
 * It can be used as a drop-in replacement for MySQL Connector/ODBC.
 * It supports both Unicode and ANSI modes.
-* It primarily uses the MariaDB/MySQL binary protocol (i.e. server-side [prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/prepared-statements)).
+* It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
-The current release series are:
+## Supported Versions
 
-* MariaDB Connector/ODBC 3.1 is the current stable release series.
-* MariaDB Connector/ODBC 3.0 and 2.0 are both previous stable release series.
+### Server Compatibility
+
+MariaDB Connector/ODBC connects to MariaDB and MySQL database servers, and can be used as a drop-in replacement for MySQL Connector/ODBC.
+
+### Supported Release Series
+
+The following MariaDB Connector/ODBC release series are supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 3.2            | June 2024        |
+| 3.1            | May 2019         |
+
+3.2 is the current stable release series. The 3.1 series has passed End of Standard Support and remains available under extended support only. The 3.0 and 2.0 series are no longer supported.
+
+For End of Standard Support and End of Life dates, along with the supported operating systems for each series, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+### Checking Your Installed Version
+
+An application can retrieve the driver version at runtime by calling `SQLGetInfo()` with `SQL_DRIVER_VER`:
+
+```c
+SQLCHAR     version[32];
+SQLSMALLINT length;
+
+SQLGetInfo(connection, SQL_DRIVER_VER, version, sizeof(version), &length);
+```
 
 ## Recent Releases
 
@@ -44,7 +76,7 @@ It is generally a good idea to download and install both the 32-bit and 64-bit [
 
 ### Installing MariaDB Connector/ODBC on Linux
 
-To install MariaDB Connector/ODBC on Linux, we currently only distribute [binary tarball packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
+To install MariaDB Connector/ODBC on Linux, we only distribute [binary tarball packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
 
 The installation process is fairly easy. First, you need to extract the files from the binary tarball. Then, you need to install the driver's shared library to the appropriate place in your system. The driver's shared library is called `libmaodbc.so` and it is located in either the `lib` directory or the `lib64` directory, depending on whether you downloaded a 32-bit or 64-bit package. The driver's shared library can be installed anywhere, but for simplicity, the instructions below will assume that you are installing it to `/usr/lib64`, which is a common directory for 64-bit shared libraries on many Linux distributions.
 
@@ -109,7 +141,7 @@ See [Building MariaDB Connector/ODBC from Source](building-mariadb-connectorodbc
 
 ## Installing UnixODBC on Linux
 
-In order to use MariaDB Connector/ODBC on Linux, you will also need to install a supported Driver Manager. The only Driver Manager that we currently support on Linux is [UnixODBC](https://www.unixodbc.org/). In most Linux distributions, you can install UnixODBC by using your Linux distribution's package manager.
+In order to use MariaDB Connector/ODBC on Linux, you will also need to install a supported Driver Manager. The only Driver Manager that we support on Linux is [UnixODBC](https://www.unixodbc.org/). In most Linux distributions, you can install UnixODBC by using your Linux distribution's package manager.
 
 For example, the following command would install the `unixODBC` package on RHEL, CentOS, and similar Linux distributions:
 
@@ -162,7 +194,7 @@ The connector will need to use client authentication plugins in the following sc
 
 If you need client authentication plugins in a version which does not bundle them with the connector, then you will also need to install [MariaDB Connector/C](../connectors-quickstart-guides/mariadb-connector-c-guide.md), which installs the client authentication plugins as shared libraries, which can be used by MariaDB Connector/ODBC.
 
-MariaDB Connector/ODBC can be configured to use MariaDB Connector/C's client authentication plugins by setting the `PLUGINDIR` parameter to the MariaDB Connector/C's plugin directory. The plugin directory can also be specified with the `MARIADB_PLUGIN_DIR` environment variable.
+MariaDB Connector/ODBC can be configured to use MariaDB Connector/C's client authentication plugins by setting the `PLUGIN_DIR` parameter to the MariaDB Connector/C's plugin directory. The plugin directory can also be specified with the `MARIADB_PLUGIN_DIR` environment variable.
 
 On Windows, MariaDB Connector/C often installs plugins to one of the following directories:
 
@@ -181,7 +213,7 @@ When you install the client authentication plugins, ensure that they are for the
 ### DSN-Related Parameters
 
 * `DSN`: Name of the DSN
-* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.1 Driver}` for 3.1 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).
+* `Driver`: The name of the MariaDB ODBC Driver. On Windows, this must be `{MariaDB ODBC 3.2 Driver}` for 3.2 drivers, or for versions from other release series, you must use the corresponding version number for that release series. On Linux, either this must be a path to the driver's shared library or it must match the `Driver` name that you provided when you [configured the Driver with UnixODBC](creating-a-data-source-with-mariadb-connectorodbc.md#configuring-mariadb-connector-odbc-as-a-unixodbc-driver-on-linux).
 * `Description`: Description of the data source.
 * `SaveFile`: Save a string representation of the DSN to this file.
 * `FileDSN`: The file where the string representation of the DSN can be read.
@@ -199,12 +231,12 @@ When you install the client authentication plugins, ensure that they are for the
 * `DATABASE`: default database. Aliases: `DB`
 * `PORT`: TCP/IP Port of the database server
 * `OPTION`: For MySQL Connector/ODBC compatibility. Aliases: `OPTIONS`. Here are used bits meaning:
-  * 0(1) - Currently is not used
+  * 0(1) - Not used
   * 1(2) - Tells connector to return the number of matched rows instead of number of changed rows
   * 4(16) - See `NO_PROMPT`
   * 5(32) - Forces use of dynamic cursor
   * 6(64) - Forbids the use of database.tablename.column syntax
-  * 7(128) Allows `[load-data-infile|LOAD DATA INFILE LOCAL]`
+  * 7(128) - No default cursor
   * 11(2048) - Tells connector to use compression protocol
   * 13(8192) - See `NAMEDPIPE`
   * 16(65536) - See `USE_MYCNF`
@@ -265,28 +297,28 @@ PORT = 3306
 
 The following TLS-related connection parameters are available in MariaDB Connector/ODBC 3.0 and later:
 
-* `SSLCERT`: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
-* `SSLKEY`: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). The key file must be unencrypted. This parameter requires that you use the absolute path, not a relative path.
-* `SSLCA`: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
-  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
-* `SSLCAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
-  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
-  * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
-* `SSLCIPHER`: Defines a list of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption)..
-* `SSLVERIFY`: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
-* `SSLCRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
-  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
-  * This parameter is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
-* `SSLCRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
-  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
-  * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
-* `TLSVERSION`: Specify which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) versions are allowed. The value can be a comma-separated list of string names consisting of TLSv1.1, TLSv1.2, and TLSv1.3, or it can be an integer value that represents a bitmap, where TLSv1.1 corresponds to bit 1, TLSv1.2 corresponds to bit 2, and TLSv1.3 corresponds to bit 3.
+* `SSLCERT`: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
+* `SSLKEY`: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). The key file must be unencrypted. This parameter requires that you use the absolute path, not a relative path.
+* `SSLCA`: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
+  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
+* `SSLCAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
+  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
+  * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* `SSLCIPHER`: Defines a list of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption)..
+* `SSLVERIFY`: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
+* `SSLCRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path.
+  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
+  * This parameter is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* `SSLCRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This parameter requires that you use the absolute path, not a relative path. The directory specified by this parameter needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
+  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
+  * This parameter is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this parameter is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* `TLSVERSION`: Specify which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) versions are allowed. The value can be a comma-separated list of string names consisting of TLSv1.1, TLSv1.2, and TLSv1.3, or it can be an integer value that represents a bitmap, where TLSv1.1 corresponds to bit 1, TLSv1.2 corresponds to bit 2, and TLSv1.3 corresponds to bit 3.
   * This parameter is available starting with MariaDB Connector/ODBC versions 3.0.9 and 3.1.1.
-* `FORCETLS`: Whether to force [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+* `FORCETLS`: Whether to force [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
   * This parameter is available starting with MariaDB Connector/ODBC versions 3.0.9 and 3.1.1.
-* `TLSPEERFP`: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake. Aliases: `SSLFP`
+* `TLSPEERFP`: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Aliases: `SSLFP`
   * This parameter is available starting with MariaDB Connector/ODBC version 3.1.4.
-* `TLSPEERFPLIST`: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake. Aliases: `SSLFPLIST`
+* `TLSPEERFPLIST`: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Aliases: `SSLFPLIST`
   * This parameter is available starting with MariaDB Connector/ODBC version 3.1.4.
 * `TLSKEYPWD`: Specify a passphrase for a passphrase-protected private key, as configured by the SSLKEY option. This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported.
   * This parameter is available starting with MariaDB Connector/ODBC version 3.1.8.
@@ -326,7 +358,7 @@ SSLVERIFY = 1
 
 **One-Way TLS with Server Certificate Verification Example**
 
-One-way TLS means that only the server provides TLS certificates and keys. [Server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification) means that the client verifies that the certificate belongs to the server.
+One-way TLS means that only the server provides TLS certificates and keys. [Server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification) means that the client verifies that the certificate belongs to the server.
 
 For example, to set these parameters in a connection string via C/C++ code, you could do something like the following:
 
@@ -385,7 +417,7 @@ Independence from the data source is one of the greatest values that using of th
 
 The values of these attribute types are defined in the sqlmariadb.h that will be included in our distribution packages and installed under include/mariadb. However application developers might consider to use attribute type literal values and not their defined names in order to avoid extra build dependency.
 
-Here is the list of currently supported attributes
+Here is the list of supported attributes
 
 * `SQL_ATTR_EXECDIRECT_ON_SERVER`=`25100` Can be set at statement or connection level.\
   It controls if SQLExecDirect should use server(if set to `SQL_TRUE`) or client side(if set to `SQL_FALSE`, the default) prepared statements. At the connection level it will define default attribute value for all statements created for the connection and is equivalent of use of the `EDSERVER` connection string option. The type of the attribute value is `SQLLEN`.
@@ -518,6 +550,8 @@ The source code is available at the [mariadb-connector-odbc repository](https://
 
 GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
 
-For licensing questions, see the [Licensing FAQ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/faq/licensing-questions/licensing-faq).
+For licensing questions, see the Licensing FAQ.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

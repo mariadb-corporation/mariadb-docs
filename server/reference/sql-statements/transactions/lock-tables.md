@@ -1,8 +1,15 @@
+---
+description: >-
+  Complete LOCK TABLES reference: READ/WRITE/WRITE CONCURRENT lock syntax, table
+  aliases, WAIT n|NOWAIT timeouts, UNLOCK TABLES, and innodb_table_locks
+  behavior.
+---
+
 # LOCK TABLES
 
 ## Syntax
 
-```sql
+```bnf
 LOCK TABLE[S]
     tbl_name [[AS] alias] lock_type
     [, tbl_name [[AS] alias] lock_type] ...
@@ -15,6 +22,12 @@ lock_type:
 
 UNLOCK TABLES
 ```
+
+![Railroad diagram of LOCK TABLES](../../../.gitbook/assets/lock-tables-railroad.svg)
+
+![Railroad diagram of lock_type](../../../.gitbook/assets/lock-tables-type-railroad.svg)
+
+![Railroad diagram of UNLOCK TABLES](../../../.gitbook/assets/unlock-tables-railroad.svg)
 
 ## Description
 

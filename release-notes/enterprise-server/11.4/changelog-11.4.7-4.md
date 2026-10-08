@@ -1,19 +1,22 @@
 ---
 hidden: true
+description: >-
+  MariaDB Enterprise Server 11.4.7-4 is a Stable (GA) maintenance release of
+  MariaDB Enterprise Server 11.4, released on 2025-06-11
 ---
 
 # Changelog for MariaDB Enterprise Server 11.4.7-4
 
 {% include "../../.gitbook/includes/latest-es-11.4.md" %}
 
-MariaDB Enterprise Server 11.4.7-4 is a maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 11.4. For the categorized highlights and other details of this release, see the [release notes](11.4.7-4.md).
+MariaDB Enterprise Server 11.4.7-4 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 11.4. For the categorized highlights and other details of this release, see the [release notes](11.4.7-4.md).
 
 ## Changes <a href="#changes" id="changes"></a>
 
 * ([MDEV-36519](https://jira.mariadb.org/browse/MDEV-36519)) Q2 2025 release merge
 * ([MDEV-35746](https://jira.mariadb.org/browse/MDEV-35746)) support fmtlib-11.1.0
 * ([MDEV-33474](https://jira.mariadb.org/browse/MDEV-33474)) Not for Release Notes
-* (MENT-2301) New user variable, analyze\_max\_length, default value 4G. Any field that is bigger than this value in bytes will be ignored by ANALYZE TABLE PERSISTENT to not collect statistics for long char/varchars unless it is specified in FOR COLUMNS().
+* ([MENT-2301](https://jira.mariadb.org/browse/MENT-2301)) New user variable, analyze\_max\_length, default value 4G. Any field that is bigger than this value in bytes will be ignored by ANALYZE TABLE PERSISTENT to not collect statistics for long char/varchars unless it is specified in FOR COLUMNS().
 * ([MDEV-29445](https://jira.mariadb.org/browse/MDEV-29445)) reorganise innodb buffer pool (and remove buffer pool chunks)
 
 ## Issues Fixed <a href="#issues-fixed" id="issues-fixed"></a>
@@ -79,7 +82,7 @@ could cause a crash in the optimizer. The essential part is that ON expression h
 * ([MDEV-36220](https://jira.mariadb.org/browse/MDEV-36220)) When executing SELECT MIN using loose index scan, if at least one of the WHERE condition is "f IS NULL", a memory violation may happen resulting in unexpected behaviour
 * ([MDEV-35983](https://jira.mariadb.org/browse/MDEV-35983)) Error while installing MariaDB on Windows Server 2022 due to antivirus interference.
 * ([MDEV-36268](https://jira.mariadb.org/browse/MDEV-36268)) mariadb-dump used wrong quoting character
-* (MENT-2081) After a corrupted table on one node triggers the cluster to vote to evict a node that failed a transaction, the current master can't commit any more and hangs. To avoid this crash in the future, the user should also update the galera library to version 26.4.21+.
+* ([MENT-2081](https://jira.mariadb.org/browse/MENT-2081)) After a corrupted table on one node triggers the cluster to vote to evict a node that failed a transaction, the current master can't commit any more and hangs. To avoid this crash in the future, the user should also update the galera library to version 26.4.21+.
 * ([MDEV-34998](https://jira.mariadb.org/browse/MDEV-34998)) After a corrupted table on one node triggers the cluster to vote to evict a node that failed a transaction, the current master can't commit any more and hangs. To avoid this crash in the future, the user should also update the galera library to version 26.4.21+.
 * ([MDEV-35614](https://jira.mariadb.org/browse/MDEV-35614)) JSON\_UNQUOTE doesn't work with emojis
 * ([MDEV-36216](https://jira.mariadb.org/browse/MDEV-36216)) TO\_CHAR FM format not recognized in SQL\_MODE=Oracle
@@ -98,13 +101,13 @@ could cause a crash in the optimizer. The essential part is that ON expression h
 * ([MDEV-36380](https://jira.mariadb.org/browse/MDEV-36380)) User has unauthorized access to a sequence through a view with security invoker
 * ([MDEV-35953](https://jira.mariadb.org/browse/MDEV-35953)) mysql\_stmt\_errno() returns 0 after an error in mysql\_stmt\_execute()
 * ([MDEV-36248](https://jira.mariadb.org/browse/MDEV-36248)) Connect crashes server because of duplicate 'free()' in GetUser
-* (MENT-2156) Failure in the galera\_sr.galera\_xa\_multi\_se test due to bug in server code, which causes 'used ENGINE (in Galera cluster)' error message in the log and this caused by the fixes for the server code (related to galera) were not fully migrated from the CS edition to ES.
+* ([MENT-2156](https://jira.mariadb.org/browse/MENT-2156)) Failure in the galera\_sr.galera\_xa\_multi\_se test due to bug in server code, which causes 'used ENGINE (in Galera cluster)' error message in the log and this caused by the fixes for the server code (related to galera) were not fully migrated from the CS edition to ES.
 * ([MDEV-36026](https://jira.mariadb.org/browse/MDEV-36026)) Problem with INSERT SELECT on NOT NULL columns while having BEFORE UPDATE trigger
 * ([MDEV-36138](https://jira.mariadb.org/browse/MDEV-36138)) Server null-pointer crash at startup when tmptables left in --tmpdir
 * ([MDEV-35813](https://jira.mariadb.org/browse/MDEV-35813)) Performance regression in INSERT…SELECT due to unnecessarily making InnoDB log durable.
 * ([MDEV-36781](https://jira.mariadb.org/browse/MDEV-36781)) Assertion \`i < (srv\_page\_size\_shift - 10U)' failed in buf\_block\_t \*buf\_buddy\_shrink(buf\_page\_t \*, buf\_block\_t \*)
 * ([MDEV-36684](https://jira.mariadb.org/browse/MDEV-36684)) main.mdl\_sync fails under valgrind (test for Bug#42643)
-* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/mariadb-10-6-series/mariadb-10-6-11-release-notes.md) with asan, we failed to run the testcase of rocksdb.
+* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/10.6/10.6.11.md) with asan, we failed to run the testcase of rocksdb.
 * ([MDEV-36461](https://jira.mariadb.org/browse/MDEV-36461)) In non-explain queries, optimizer trace is flooded with join\_execution nodes
 * ([MDEV-36730](https://jira.mariadb.org/browse/MDEV-36730)) Spuštění nežádoucího triggeru, Zmatení engine, generování null
 * ([MDEV-36516](https://jira.mariadb.org/browse/MDEV-36516)) galera\_3nodes.galera\_gtid\_2\_cluster test failed on 10.5 (these are flaws in the test itself; the fix did not require changing the main server code)
@@ -209,6 +212,6 @@ could cause a crash in the optimizer. The essential part is that ON expression h
 * ([MDEV-36307](https://jira.mariadb.org/browse/MDEV-36307)) group by handler missing constant fields when selecting from a view
 * ([MDEV-36335](https://jira.mariadb.org/browse/MDEV-36335)) Tests calling the udf spider\_copy\_tables fail with --view-protocol
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

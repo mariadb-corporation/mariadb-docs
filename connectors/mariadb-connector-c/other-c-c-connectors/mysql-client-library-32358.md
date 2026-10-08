@@ -1,6 +1,13 @@
+---
+description: >-
+  MySQL client library 3.23.58 is an archived LGPL release for non-GPL
+  distribution use cases, with known limitations including no prepared
+  statements and deprecated password authentication.
+---
+
 # MySQL Client Library 3.23.58
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:LGPL_MySQL_Client_Library_3.23.58) | **Release Notes**
+Download | **Release Notes**
 
 **Release date:** 30 Aug 2010
 
@@ -34,20 +41,22 @@ Monty Program AB is about to start a project for creating a new free client libr
 
 If you want to be part of this development effort, you can discuss this on the [maria-developers mailing list](https://launchpad.net/~maria-developers).
 
-If you are interested in sponsoring this effort, you can [contact Monty Program](https://montyprogram.com/contact).
+If you are interested in sponsoring this effort, you can contact Monty Program.
 
 ## See also:
 
 * The new [MariaDB Client Library for C](../) is also LGPL.
-* [Worklog for the MySQL 3.23 client library](https://askmonty.org/worklog/Client-Sprint/index.pl?tid=134)
-* [Worklog for a new free MariaDB client library](https://askmonty.org/worklog/Client-Sprint/index.pl?tid=171)
+* Worklog for the MySQL 3.23 client library
+* Worklog for a new free MariaDB client library
 
 {% hint style="info" %}
 Be notified of new MariaDB Server releases automatically by [subscribing](https://lists.mariadb.org/postorius/lists/announce.lists.mariadb.org/) to the MariaDB Foundation community announcement 'at lists.mariadb.org announcement list (this is a low traffic, announce-only list). MariaDB plc customers will be notified of all new releases, security issues, and low-traffic critical bug fixes for all MariaDB plc products, thanks to the Notification Services.
 
 MariaDB may already be included in your favorite OS distribution. More\
-Information can be found on the [Distributions Include MariaDB](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb)\
+Information can be found on the [Distributions Include MariaDB](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb)
 page.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

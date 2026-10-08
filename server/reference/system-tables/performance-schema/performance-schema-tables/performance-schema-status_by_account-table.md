@@ -1,8 +1,10 @@
-# Performance Schema status\_by\_account Table
+---
+description: >-
+  The status_by_account table aggregates session status variables by client
+  account, showing cumulative counters for specific user-host combinations.
+---
 
-{% hint style="info" %}
-The `status_by_account` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema status\_by\_account Table
 
 The `status_by_account` table contains status variable information by user/host account. The table does not collect statistics for `Com_xxx` variables.
 

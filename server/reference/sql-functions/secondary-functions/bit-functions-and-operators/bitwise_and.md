@@ -1,8 +1,14 @@
+---
+description: >-
+  Perform bitwise AND. This operator compares bits of two operands and returns 1
+  only if both corresponding bits are 1.
+---
+
 # &
 
 ## Syntax
 
-```sql
+```bnf
 &
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Discover techniques to optimize your backup processes, including
+  multithreading, incremental backups, and leveraging storage snapshots.
+---
+
 # Backup Optimization
 
 ## Overview
 
-Backup and restore implementations can help overcome specific technical challenges that would otherwise pose a barrier to meeting business requirements.
+Backup and restore implementations can help overcome specific technical challenges that would otherwise pose a barrier to meeting business requirements. 
 
 Each of these practices represents a trade-off. Understand risks before implementing any of these practices.
 
@@ -103,9 +109,11 @@ Just as traditional full, incremental, and partial backups should be tested, so 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
 
-
-MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#non-blocking-backups) functionality to reduce the impact of backup operations:
+MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#nonblocking-backups) functionality to reduce the impact of backup operations:
 
 1. Connect with a client and issue a `BACKUP STAGE START` statement and then a `BACKUP STAGE BLOCK_COMMIT` statement.
 2. Take the snapshot.
@@ -115,6 +123,10 @@ MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#non-block
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 It is recommended to briefly prevent writes while snapshotting. Specific commands vary depending on storage platform, business requirements, and setup, but a general approach is to:
 
 1. Connect with a client and issue a `FLUSH TABLES WITH READ LOCK` statement, leaving the client connected.
@@ -124,6 +136,6 @@ It is recommended to briefly prevent writes while snapshotting. Specific command
 {% endtab %}
 {% endtabs %}
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

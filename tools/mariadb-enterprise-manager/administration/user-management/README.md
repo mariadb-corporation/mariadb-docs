@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the Role-Based Access Control (RBAC) system, including how to create
+  custom roles, manage base permissions (admin, edit, view, sql), and add or
+  modify users.
+---
+
 # User Management
 
 MariaDB Enterprise Manager uses a Role-Based Access Control (RBAC) system to manage user permissions. This guide explains how to manage users and create custom roles to fit your organization's security needs.
@@ -6,13 +13,13 @@ MariaDB Enterprise Manager uses a Role-Based Access Control (RBAC) system to man
 
 {% stepper %}
 {% step %}
-### Open Settings
+**Open Settings**
 
 Click the **Settings icon (⚙️)** in the left navigation bar.
 {% endstep %}
 
 {% step %}
-### Open User Management
+**Open User Management**
 
 Select **User management**.
 
@@ -37,8 +44,7 @@ This structure allows administrators to manage access by assigning roles to user
 Access to the User Management page is restricted based on a user's assigned permissions.
 
 * ✅ Only users with `admin` permissions (assigned via a role) can add, modify, or remove other users and roles.
-*   ❌ Non-admin users cannot access or change these settings, but they can update their own password via their Profile page.\
-
+*   ❌ Non-admin users cannot access or change these settings, but they can update their own password via their Profile page.
 
     <figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
@@ -77,31 +83,31 @@ Only users with the `admin` permission can create or modify roles.
 
 {% stepper %}
 {% step %}
-### Roles tab
+**Roles tab**
 
 From the User Management page, select the **Roles** tab.
 {% endstep %}
 
 {% step %}
-### Add role
+**Add role**
 
 Click the **Add** button.
 {% endstep %}
 
 {% step %}
-### Name role
+**Name role**
 
 Enter a name for your new role (e.g., "Developer" or "Auditor").
 {% endstep %}
 
 {% step %}
-### Select base permissions
+**Select base permissions**
 
 Select the checkboxes for the **Base Permissions** you want to grant.
 {% endstep %}
 
 {% step %}
-### Confirm
+**Confirm**
 
 Click **Add**.
 
@@ -110,11 +116,11 @@ Click **Add**.
 {% hint style="info" %}
 If you select the `sql` permission, a **"Query editor row limit"** dropdown will appear. You can adjust this value as needed.
 
-![](<../../../.gitbook/assets/image (26).png>)
+<img src="../../../.gitbook/assets/image (24).png" alt="" data-size="original">
 {% endhint %}
 
 {% hint style="warning" %}
-When creating a role, selecting the `edit` permission requires you to also select the `view` permission.&#x20;
+When creating a role, selecting the `edit` permission requires you to also select the `view` permission.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -123,19 +129,19 @@ When creating a role, selecting the `edit` permission requires you to also selec
 
 {% stepper %}
 {% step %}
-### Locate role
+**Locate role**
 
 From the **Roles** tab, locate the custom role you wish to change.
 {% endstep %}
 
 {% step %}
-### Open role menu
+**Open role menu**
 
 Click the three-dot menu (⋮) on the right side of the role's row.
 {% endstep %}
 
 {% step %}
-### Choose action
+**Choose action**
 
 Select one of the following options:
 
@@ -156,39 +162,39 @@ Roles that are currently assigned to any user cannot be deleted.
 
 {% stepper %}
 {% step %}
-### Users tab
+**Users tab**
 
 From the User Management page, ensure you are on the **Users** tab.
 
 {% hint style="info" %}
-Users tab show the list of User associated with your Enterprise Manager instance.&#x20;
+Users tab show the list of User associated with your Enterprise Manager instance.
 
-![](<../../../.gitbook/assets/image (60).png>)
+<img src="../../../.gitbook/assets/image (60).png" alt="" data-size="original">
 
 The User you're logged in with to Enterprise Manager is shown in **bold**.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-### Add user
+**Add user**
 
 Click the **Add** button.
 {% endstep %}
 
 {% step %}
-### Enter credentials
+**Enter credentials**
 
 Enter a unique **Username** and a secure **Password**.
 {% endstep %}
 
 {% step %}
-### Assign role
+**Assign role**
 
 Select a **Role** for the user from the dropdown menu.
 {% endstep %}
 
 {% step %}
-### Confirm
+**Confirm**
 
 Click **Add**.
 {% endstep %}
@@ -198,19 +204,19 @@ Click **Add**.
 
 {% stepper %}
 {% step %}
-### Locate user
+**Locate user**
 
 From the **Users** tab, locate the user you wish to change.
 {% endstep %}
 
 {% step %}
-### Open user menu
+**Open user menu**
 
 Click the three-dot menu (⋮) on the right side of the user's row.
 {% endstep %}
 
 {% step %}
-### Choose action
+**Choose action**
 
 Select one of the following options:
 
@@ -228,3 +234,7 @@ You cannot delete the user account that you are currently logged in with. To del
 ## The Default Admin User
 
 Upon installation of MariaDB Enterprise Manager, a default `admin` user is created with an automatically generated password.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

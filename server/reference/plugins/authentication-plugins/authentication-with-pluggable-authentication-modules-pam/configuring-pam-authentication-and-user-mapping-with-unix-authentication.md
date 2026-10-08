@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide shows how to authenticate database users using local Unix accounts
+  and map Unix groups to MariaDB users with the PAM plugin.
+---
+
 # Configuring PAM Authentication and User Mapping with Unix Authentication
 
 We walk through the configuration of PAM authentication using the [pam](authentication-plugin-pam.md) authentication plugin and user and group mapping with the [pam\_user\_map](user-and-group-mapping-with-pam.md) PAM module. The primary authentication will be handled by the [pam\_unix](https://linux.die.net/man/8/pam_unix) PAM module, which performs standard Unix password authentication.

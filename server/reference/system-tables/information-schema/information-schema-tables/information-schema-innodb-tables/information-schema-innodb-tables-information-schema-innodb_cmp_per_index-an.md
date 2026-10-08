@@ -1,3 +1,9 @@
+---
+description: >-
+  These tables provide status information on compression operations for
+  XtraDB/InnoDB tables, grouped by individual indexes.
+---
+
 # Information Schema INNODB\_CMP\_PER\_INDEX and INNODB\_CMP\_PER\_INDEX\_RESET Tables
 
 The `INNODB_CMP_PER_INDEX` and `INNODB_CMP_PER_INDEX_RESET` tables contain status information on compression operations related to [compressed XtraDB/InnoDB tables](../../../../../server-usage/storage-engines/innodb/innodb-row-formats/innodb-row-formats-overview.md), grouped by individual indexes. These tables are only populated if the [innodb\_cmp\_per\_index\_enabled](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_cmp_per_index_enabled) system variable is set to `ON`.

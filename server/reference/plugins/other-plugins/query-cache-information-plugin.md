@@ -1,3 +1,9 @@
+---
+description: >-
+  This plugin exposes the contents of the query cache via the QUERY_CACHE_INFO
+  table in the Information Schema, aiding in performance analysis.
+---
+
 # Query Cache Information Plugin
 
 The `QUERY_CACHE_INFO` plugin creates the [QUERY\_CACHE\_INFO](../../system-tables/information-schema/information-schema-tables/information-schema-query_cache_info-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. This table shows all queries in the [query cache](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md). Querying this table acquires the query cache lock and will result in lock waits for queries that are using or expiring from the query cache. You must have the [PROCESS](../../sql-statements/account-management-sql-statements/grant.md#global-privileges) privilege to query this table.

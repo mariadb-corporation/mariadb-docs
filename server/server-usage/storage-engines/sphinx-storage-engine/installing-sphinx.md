@@ -1,8 +1,14 @@
+---
+description: >-
+  Instructions for installing the standalone Sphinx search server on various
+  operating systems, a prerequisite for using the SphinxSE storage engine.
+---
+
 # Installing Sphinx
 
 In order to use the [Sphinx Storage Engine](./), it is necessary to install the Sphinx daemon.
 
-Many Linux distributions have Sphinx in their repositories. These can be used to install Sphinx instead of following the instructions below, but these are usually quite old versions and don't all include API's for easy integration. Ubuntu users can use the updated repository at [sphinxsearch-rel21](https://launchpad.net/~builds/+archive/sphinxsearch-rel21) (see instructions below). Alternatively, download from
+Many Linux distributions have Sphinx in their repositories. These can be used to install Sphinx instead of following the instructions below, but these are usually quite old versions and don't all include API's for easy integration. Ubuntu users can use the updated repository at [sphinxsearch-rel21](https://launchpad.net/~builds/+archive/sphinxsearch-rel21) (see instructions below).
 
 ## Debian and Ubuntu
 

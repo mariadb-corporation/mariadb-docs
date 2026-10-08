@@ -1,3 +1,9 @@
+---
+description: >-
+  The setup_instruments table lists all supported instruments, allowing
+  administrators to enable collection and configure timing for specific events.
+---
+
 # Performance Schema setup\_instruments Table
 
 The `setup_instruments` table contains a list of instrumented object classes for which it is possible to collect events. There is one row for each instrument in the source code. When an instrument is enabled and executed, instances are created which are then stored in the [cond\_instances](performance-schema-cond_instances-table.md), [file\_instances](performance-schema-file_instances-table.md), [mutex\_instances](performance-schema-mutex_instances-table.md), [rwlock\_instances](performance-schema-rwlock_instances-table.md) or [socket\_instance](performance-schema-socket_instances-table.md) tables.

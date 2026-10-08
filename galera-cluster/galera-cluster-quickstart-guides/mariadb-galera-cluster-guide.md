@@ -6,7 +6,7 @@ description: MariaDB Galera Cluster quickstart guide
 
 ### Quickstart Guide: MariaDB Galera Cluster
 
-MariaDB Galera Cluster provides a multi-primary (active-active) cluster solution for MariaDB, enabling high availability, read/write scalability, and true synchronous replication. This means any node can handle read and write operations, with changes instantly replicated to all other nodes, ensuring no replica lag and no lost transactions. It's exclusively available on Linux.
+MariaDB Galera Cluster provides a multi-primary (active-active) cluster solution for MariaDB, enabling high availability, read/write scalability, and true synchronous replication. This means any node can handle read and write operations, with changes are certified synchronously across the Primary Component before a transaction is committed. This ensures that nodes remain in a consistent logical order, though individual nodes may experience temporal 'apply lag' as changes are processed from their receive queues by slave threads. It's exclusively available on Linux.
 
 #### 1. Prerequisites
 
@@ -41,7 +41,7 @@ sudo apt update
 **b. Install MariaDB Server and Galera:**
 
 ```bash
-sudo apt install mariadb-server mariadb-client galera-4 -y # For MariaDB 10.4+ or later, galera-4 is the provider.
+sudo apt install mariadb-server mariadb-client galera-4 -y # galera-4 is the Galera provider.
                                                            # For older versions (e.g., 10.3), use galera-3.
 ```
 
@@ -117,8 +117,7 @@ Start MariaDB on the first node with the --wsrep-new-cluster option. This tells 
 
 ```bash
 sudo systemctl stop mariadb # Ensure it's stopped
-sudo galera_new_cluster    # This command often wraps the systemctl start --wsrep-new-cluster
-                           # Alternatively: sudo systemctl start mariadb --wsrep-new-cluster
+sudo galera_new_cluster    # This command often wraps the mariadbd --wsrep-new-cluster
 ```
 
 b. Starting Subsequent Nodes:
@@ -182,6 +181,7 @@ This confirms synchronous replication is working.
 
 #### Further Resources:
 
-* [How to Set up MariaDB Galera Clusters on Ubuntu 22.04 (Linode)](https://www.linode.com/docs/guides/how-to-set-up-mariadb-galera-clusters-on-ubuntu-2204/)
-* [MariaDB Galera Cluster - Binary Installation (galeracluster.com)](https://galeracluster.com/documentation/html_docs_mariadb-installation/documentation/install-mariadb.html)
+* [How to Set up MariaDB Galera Clusters on Ubuntu 22.04 (Akamai Cloud)](https://www.akamai.com/cloud/guides/how-to-set-up-mariadb-galera-clusters-on-ubuntu-2204/)
 * [Getting Started with MariaDB Galera Cluster (MariaDB.com/kb)](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

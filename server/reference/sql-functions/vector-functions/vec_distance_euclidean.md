@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate Euclidean distance. This function computes the Euclidean (L2)
+  distance between two vectors, representing the straight-line distance.
+---
+
 # VEC\_DISTANCE\_EUCLIDEAN
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -6,7 +12,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 VEC_DISTANCE_EUCLIDEAN(v, s)
 ```
 
@@ -14,7 +20,7 @@ VEC_DISTANCE_EUCLIDEAN(v, s)
 
 `VEC_Distance_Euclidean` is an SQL function that calculates a Euclidean (L2) distance between two points.
 
-Vectors must be of the same length, a distance between two vectors of different lengths is not defined and `VEC_Distance_Euclidean` returns  `NULL` in such cases.
+Vectors must be of the same length, a distance between two vectors of different lengths is not defined and `VEC_Distance_Euclidean` returns `NULL` in such cases.
 
 If the vector index was not built for the euclidean function (see [CREATE TABLE with Vectors](../../sql-structure/vectors/create-table-with-vectors.md)), the index is not used, and a full table scan performed instead. The [VEC\_DISTANCE](vector-functions-vec_distance.md) function is a generic function that behaves either as `VEC_DISTANCE_EUCLIDEAN` or [VEC\_DISTANCE\_COSINE](vec_distance_cosine.md), depending on the underlying index type.
 
@@ -34,7 +40,7 @@ INSERT INTO v VALUES
      (10,x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
 
 SELECT id FROM v 
-  ORDER BY VEC_Distance_Euclidean(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
+  ORDER BY VEC_Distance_Euclidean(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e') LIMIT 10;
 +----+
 | id |
 +----+
@@ -50,6 +56,10 @@ SELECT id FROM v
 |  8 |
 +----+
 ```
+
+{% hint style="info" %}
+The vector index is only used for nearest-neighbor search when the query combines `ORDER BY VEC_DISTANCE_EUCLIDEAN(...)` with a `LIMIT`. Without `LIMIT`, the distance is computed for every row (a full table scan). See [Vector Overview](../../sql-structure/vectors/vector-overview.md).
+{% endhint %}
 
 ## See Also
 

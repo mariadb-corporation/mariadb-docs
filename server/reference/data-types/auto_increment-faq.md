@@ -1,3 +1,9 @@
+---
+description: >-
+  Answers to common questions about AUTO_INCREMENT. Learn about gaps in
+  sequences, resetting values, and behavior in different storage engines.
+---
+
 # AUTO\_INCREMENT FAQ
 
 ## How do I get the last inserted auto\_increment value?
@@ -105,7 +111,7 @@ SELECT * FROM autoinc_test;
 * [AUTO\_INCREMENT](auto_increment.md)
 * [AUTO\_INCREMENT handling in XtraDB/InnoDB](../../server-usage/storage-engines/innodb/auto_increment-handling-in-innodb.md)
 * [LAST\_INSERT\_ID()](../sql-functions/secondary-functions/information-functions/last_insert_id.md)
-* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#blackhole-and-auto_increment)
+* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#using-with-auto_increment)
 * [Sequences](../sql-structure/sequences/) - an alternative to `AUTO_INCREMENT`
 
 _The initial version of this article was copied, with permission, from_ [_Autoincrement\_FAQ_](https://hashmysql.org/wiki/Autoincrement_FAQ) _on 2012-10-05._

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to design a robust backup strategy tailored to your business needs,
+  balancing recovery time objectives and data retention policies.
+---
+
 # Forming a Backup Strategy
 
 ## Overview
@@ -87,6 +93,6 @@ Testing has been identified as a critical success factor for the successful oper
 
 Backups should be tested. Recovery using backups and recovery procedures should be tested.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

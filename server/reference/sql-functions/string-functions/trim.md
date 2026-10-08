@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove spaces from both ends. This function removes leading and trailing
+  whitespace (or other specified characters) from a string.
+---
+
 # TRIM
 
 ## Syntax
 
-```sql
+```bnf
 TRIM_ORACLE([{BOTH | LEADING | TRAILING} [remstr] FROM] str), TRIM([remstr FROM] str)
 ```
 

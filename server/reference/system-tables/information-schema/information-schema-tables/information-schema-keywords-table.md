@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema KEYWORDS table contains a complete list of reserved and
+  non-reserved keywords recognized by the MariaDB server.
+---
+
 # Information Schema KEYWORDS Table
 
 {% hint style="info" %}

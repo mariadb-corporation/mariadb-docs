@@ -1,13 +1,21 @@
+---
+description: >-
+  Access data from a preceding row. This function returns the value of an
+  expression from a row at a specified physical offset prior to the current row.
+---
+
 # LAG
 
 ## Syntax
 
-```sql
+```bnf
 LAG (expr[, offset]) OVER ( 
   [ PARTITION BY partition_expression ] 
-  < ORDER BY order_list >
+  ORDER BY order_list
 )
 ```
+
+![Railroad diagram of LAG — equivalent to the BNF above](../../../../.gitbook/assets/lag-railroad.svg)
 
 ## Description
 

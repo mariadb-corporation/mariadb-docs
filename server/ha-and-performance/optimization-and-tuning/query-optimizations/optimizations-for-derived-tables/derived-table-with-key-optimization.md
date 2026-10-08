@@ -4,7 +4,7 @@
 
 If a derived table cannot be merged into its parent SELECT, it will be materialized in a temporary table, and then parent select will treat it as a regular base table.
 
-Before [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)/MySQL 5.6, the temporary table would never have any indexes, and the only way to read records from it would be a full table scan. Starting from the mentioned versions of the server, the optimizer has an option to create an index and use it for joins with other tables.
+The optimizer can create an index on the temporary table and use it for joins with other tables. (Before MySQL 5.6, the temporary table never had any indexes, and the only way to read records from it was a full table scan.)
 
 ## Example
 
@@ -49,7 +49,7 @@ One can see here that
 * The idea of "derived table with key" optimization is to let the materialized derived table have one key which is used for joins with other tables.
 * The optimization is applied then the derived table could not be merged into its parent SELECT
   * which happens when the derived table doesn't meet criteria for mergeable VIEW
-* The optimization is ON by default, it can be switched off like so:
+* The optimization is ON by default; it can be switched off like so:
 
 ```sql
 SET optimizer_switch='derived_with_keys=off'
@@ -58,7 +58,6 @@ SET optimizer_switch='derived_with_keys=off'
 ## See Also
 
 * [Optimizing Subqueries in the FROM Clause](https://dev.mysql.com/doc/refman/5.6/en/from-clause-subquery-optimization.html) in MySQL 5.6 manual
-* [What is MariaDB 5.3](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/broken-reference/README.md)
 * [Subquery Optimizations Map](../subquery-optimizations/subquery-optimizations-map.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

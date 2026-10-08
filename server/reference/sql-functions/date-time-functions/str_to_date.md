@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete STR_TO_DATE() reference: parse strings to DATE/TIME/DATETIME, format
+  specifiers (%Y %m %d %H %i %s), invalid input handling, and SQL_MODE errors.
+---
+
 # STR\_TO\_DATE
 
 ## Syntax
 
-```sql
+```bnf
 STR_TO_DATE(str,format)
 ```
 
@@ -12,11 +18,11 @@ This is the inverse of the [DATE\_FORMAT](date_format.md)() function. It takes a
 
 The date, time, or datetime values contained in `str` should be given in the format indicated by format. If str contains an illegal date, time, or datetime value, `STR_TO_DATE()` returns `NULL`. An illegal value also produces a warning.
 
-Under specific [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) settings an error may also be generated if the `str` isn't a valid date:
+Under specific [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) settings an error may also be generated if the `str` isn't a valid date:
 
-* [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql-mode.md#allow_invalid_dates)
-* [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_date)
-* [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_in_date)
+* [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql_mode.md#allow_invalid_dates)
+* [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_date)
+* [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_in_date)
 
 The options that can be used by STR\_TO\_DATE(), as well as its inverse [DATE\_FORMAT()](date_format.md) and the [FROM\_UNIXTIME()](from_unixtime.md) function, are:
 
@@ -54,7 +60,7 @@ The options that can be used by STR\_TO\_DATE(), as well as its inverse [DATE\_F
 | %Y     | Year with 4 digits.                                                                                                                                                               |
 | %y     | Year with 2 digits.                                                                                                                                                               |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                          |
-| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctation characters.                                                                                                            |
+| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                            |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                 |
 | %%     | A literal % character.                                                                                                                                                            |
 
@@ -100,3 +106,4 @@ SELECT STR_TO_DATE('Wednesday23423, June 2, 2014', '%W%#, %M %e, %Y');
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+

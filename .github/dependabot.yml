@@ -1,0 +1,47 @@
+version: 2
+
+# Keeps the pinned GitHub Actions in .github/workflows/ current, so runtime
+# deprecations (e.g. the Node 20 -> Node 24 move that prompted DOCS-6362) arrive
+# as a reviewable PR instead of accumulating as a warning on every job.
+#
+# Scoped to the github-actions ecosystem on purpose. The Python used by the
+# help-tables and PDF pipelines is invoked from the runner's stock interpreter
+# with no pinned requirements file, so there is nothing for a pip ecosystem
+# entry to track.
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    # One PR per batch rather than per action: these bumps are reviewed together
+    # and almost always land together.
+    groups:
+      actions:
+        patterns:
+          - "*"
+    # Two majors are held back on purpose, because they change behavior rather
+    # than just the Node runtime. Without these entries every monthly run
+    # re-proposes them (PR #802 did on day one) and the reasoning below gets
+    # undone by a routine-looking bump. Revisit deliberately, not by deleting
+    # the entry to make a PR go green.
+    ignore:
+      # v8 makes an artifact digest mismatch a hard failure and stops
+      # auto-unzipping based on Content-Type. The PDF release job downloads
+      # eleven artifacts up to ~94 MB each, so both changes need a real run
+      # behind them first. See DOCS-5710.
+      - dependency-name: actions/download-artifact
+        versions: [">=8"]
+      # v4 pulls in js-yaml v5, which parses multi-line values more strictly.
+      # Two workflows pass a Slack message as a multi-line payload: block, which
+      # is exactly that shape: generate-help-tables.yml, and the failure notice
+      # in nightly-unlabeled-prs.yml. That digest's own message goes through
+      # payload-file-path instead, so it is unaffected -- but the failure notice
+      # is the path that only runs when something is already broken, so a parse
+      # regression there would surface at the worst moment.
+      - dependency-name: slackapi/slack-github-action
+        versions: [">=4"]
+    commit-message:
+      prefix: "CI"
+    labels:
+      - dependencies
+    open-pull-requests-limit: 3

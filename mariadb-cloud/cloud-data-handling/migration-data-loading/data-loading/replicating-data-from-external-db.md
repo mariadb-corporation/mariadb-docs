@@ -1,21 +1,30 @@
+---
+description: >-
+  Configure inbound replication into MariaDB Cloud from an external MySQL or
+  MariaDB source database, using stored procedures provided by the Replicated
+  Transactions service.
+---
+
 # Replicating Data From an External Database to MariaDB Cloud
 
-MariaDB MariaDB Cloud customers can configure inbound replication from both **MySQL** and **MariaDB** to a compatible MariaDB running in MariaDB Cloud. This guide will walk you through setting up replication for both MySQL and MariaDB as the source databases.
+MariaDB Cloud customers can configure inbound replication from both **MySQL** and **MariaDB** to a compatible MariaDB running in MariaDB Cloud. This guide will walk you through setting up replication for both MySQL and MariaDB as the source databases.
 
-For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](https://docs.skysql.com/Reference%20Guide/Sky%20Stored%20Procedures/).
+For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../../reference/stored-procedures.md).
 
 ## Requirements
 
-1. **For MySQL** :
-   * Replication must be configured using the binary log file and position (GTID is not supported).
-2. **For MariaDB**:
-   * GTID-based replication can be used instead of binary log for complex replication setups.
+| Database | Replication Configuration                             |
+| -------- | ----------------------------------------------------- |
+| MySQL    | Use binary log file and position (GTID not supported) |
+| MariaDB  | Supports GTID-based replication for complex setups    |
 
 Ensure that the external primary server is compatible with the version of MariaDB used in MariaDB Cloud.
 
-## Step 1: Obtain the Log File and Position
+{% stepper %}
+{% step %}
+### Obtain the Log File and Position
 
-### MySQL:
+#### MySQL:
 
 If using MySQL, obtain the binary log file and position from which to start replication. This can be retrieved from a logical dump or `xtrabackup_binlog_info` file.\
 If the source database is idle, use the `SHOW MASTER STATUS` statement to get the current binary log file and position:
@@ -24,17 +33,19 @@ If the source database is idle, use the `SHOW MASTER STATUS` statement to get th
 SHOW MASTER STATUS;
 ```
 
-### MariaDB:
+#### MariaDB:
 
 For MariaDB, replication can be done using GTID. Obtain the GTID position using the `@@current_gtid_pos` variable:
 
 ```sql
 SELECT @@current_gtid_pos;
 ```
+{% endstep %}
 
-## Step 2: Configure the Log File and Position
+{% step %}
+### Configure the Log File and Position
 
-### For MySQL (Binary Log Position Based)
+#### For MySQL (Binary Log Position Based)
 
 Configure the binary log file and position on the MariaDB Cloud service using the following stored procedure:
 
@@ -43,7 +54,7 @@ CALL sky.change_external_primary('mysql1.example.com', 3306, 'mysql-bin.000001',
 ```
 
 This procedure can be referenced in the official documentation:\
-[sky.change\_external\_primary()](https://docs.skysql.com/Reference%20Guide/Sky%20Stored%20Procedures/#change_external_primary)
+[sky.change\_external\_primary()](../../../reference/stored-procedures.md#change_external_primary)
 
 This will return a `GRANT` statement that needs to be executed on the external MySQL server:
 
@@ -51,9 +62,11 @@ This will return a `GRANT` statement that needs to be executed on the external M
 GRANT REPLICATION SLAVE ON *.* TO 'skysql_replication'@'%' IDENTIFIED BY '<password_hash>';
 ```
 
-For MariaDB (GTID Based) if preferred refer to [sky.change\_external\_primary\_gtid()](https://docs.skysql.com/Reference%20Guide/Sky%20Stored%20Procedures/#change_external_primary_gtid)
+For MariaDB (GTID Based) if preferred refer to [sky.change\_external\_primary\_gtid()](../../../reference/stored-procedures.md#change_external_primary_gtid)
+{% endstep %}
 
-## Step 3: Start Replication
+{% step %}
+### Start Replication
 
 Once the configuration is complete, start replication on the MariaDB Cloud service using the following command:
 
@@ -63,7 +76,7 @@ CALL sky.start_replication();
 
 This will return a confirmation message such as:
 
-```sql
+```
 +----------------------------------------+
 | Message                                |
 +----------------------------------------+
@@ -71,9 +84,11 @@ This will return a confirmation message such as:
 +----------------------------------------+
 ```
 
-You can find the documentation for this procedure [here](../../../Reference%20Guide/Stored%20Procedures.md#start_replication).
+You can find the documentation for this procedure [here](../../../reference/stored-procedures.md).
+{% endstep %}
 
-## Step 4: Check Replication Status
+{% step %}
+### Check Replication Status
 
 To verify the status of replication, you can run the following stored procedure on MariaDB Cloud:
 
@@ -83,7 +98,7 @@ CALL sky.replication_status()\G;
 
 The output will provide detailed information about the replication process, including the position of the replication logs and the state of the slave threads. An example output is shown below:
 
-```sql
+```
 *************************** 1. row ***************************
                 Slave_IO_State: Waiting for master to send event
                    Master_Host: mariadb1.example.com
@@ -140,9 +155,13 @@ Slave_Non_Transactional_Groups: 0
     Slave_Transactional_Groups: 0
 ```
 
-You can reference the replication status procedure [here](<../../../Reference Guide/Stored Procedures.md#replication_status>).
+You can reference the replication status procedure [here](../../../reference/stored-procedures.md#replication_status)
+{% endstep %}
+{% endstepper %}
 
 ## Compatibility Notes
 
 * **For MySQL**: Only binary log-based replication is supported; GTID is not available.
 * **For MariaDB**: GTID-based replication can be used.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

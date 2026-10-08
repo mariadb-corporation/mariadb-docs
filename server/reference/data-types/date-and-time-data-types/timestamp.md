@@ -1,10 +1,16 @@
+---
+description: >-
+  Complete TIMESTAMP data type guide for MariaDB. Complete reference for syntax,
+  valid values, storage requirements, and range limits for production use.
+---
+
 # TIMESTAMP
 
 This page is about the `TIMESTAMP` **data type**. For the timestamp function, see [TIMESTAMP FUNCTION](../../sql-functions/date-time-functions/timestamp-function.md).
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMP [(<microsecond precision)]
 ```
 
@@ -22,10 +28,18 @@ For more information, see [Internal Format](timestamp.md#internal-format).
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 MariaDB stores values that use the `TIMESTAMP` data type as the number of seconds since '1970-01-01 00:00:00' ([UTC](../string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)). This means that the `TIMESTAMP` data type can hold values between '1970-01-01 00:00:01' ([UTC](../string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) and '2106-02-07 06:28:15 UTC'.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 MariaDB stores values that use the `TIMESTAMP` data type as the number of seconds since '1970-01-01 00:00:00' ([UTC](../string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)). This means that the `TIMESTAMP` data type can hold values between '1970-01-01 00:00:01' ([UTC](../string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) and '2038-01-19 03:14:07' ([UTC](../string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)).
 {% endtab %}
 {% endtabs %}
@@ -34,7 +48,7 @@ MariaDB can also store [microseconds](../../sql-functions/date-time-functions/mi
 
 ## Automatic Values
 
-MariaDB has special behavior for the first column that uses the `TIMESTAMP` data type in a specific table when the system variable [explicit\_defaults\_for\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp) is not set (which was the default until [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)). For the first column that uses the `TIMESTAMP` data type in a specific table, MariaDB automatically assigns the following properties to the column:
+MariaDB has special behavior for the first column that uses the `TIMESTAMP` data type in a specific table when the system variable [explicit\_defaults\_for\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp) is not set (which was the default until [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)). For the first column that uses the `TIMESTAMP` data type in a specific table, MariaDB automatically assigns the following properties to the column:
 
 * `DEFAULT CURRENT_TIMESTAMP`
 * `ON UPDATE CURRENT_TIMESTAMP`
@@ -67,7 +81,7 @@ MariaDB does not support time zone literals that contain time zone identifiers. 
 
 ## SQL\_MODE=MAXDB
 
-If the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is set to `MAXDB`, TIMESTAMP fields will be silently converted to [DATETIME](datetime.md).
+If the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is set to `MAXDB`, TIMESTAMP fields will be silently converted to [DATETIME](datetime.md).
 
 ## Internal Format
 
@@ -95,15 +109,7 @@ When MariaDB executes the [ALTER TABLE](../../sql-statements/data-definition/alt
 
 In the event that you have several tables and columns using temporal data types that you want to switch over to the new format, make sure the system variable is enabled, then perform a dump and restore using [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md). The columns using relevant temporal data types are restored using the new temporal format.
 
-{% tabs %}
-{% tab title="Current" %}
 Columns with old temporal formats are marked with a `/* mariadb-5.3 */` comment in the output of [SHOW CREATE TABLE](../../sql-statements/administrative-sql-statements/show/show-create-table.md), [SHOW COLUMNS](../../sql-statements/administrative-sql-statements/show/show-columns.md), [DESCRIBE](../../sql-statements/administrative-sql-statements/describe.md) statements, as well as in the `COLUMN_TYPE` column of the [INFORMATION\_SCHEMA.COLUMNS Table](../../system-tables/information-schema/information-schema-tables/information-schema-columns-table.md).
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-Columns with old temporal formats are **not** marked with a `/* mariadb-5.3 */` comment in the output of [SHOW CREATE TABLE](../../sql-statements/administrative-sql-statements/show/show-create-table.md), [SHOW COLUMNS](../../sql-statements/administrative-sql-statements/show/show-columns.md), [DESCRIBE](../../sql-statements/administrative-sql-statements/describe.md) statements, as well as in the `COLUMN_TYPE` column of the [INFORMATION\_SCHEMA.COLUMNS Table](../../system-tables/information-schema/information-schema-tables/information-schema-columns-table.md).
-{% endtab %}
-{% endtabs %}
 
 ```sql
 SHOW CREATE TABLE mariadb5312_timestamp\G

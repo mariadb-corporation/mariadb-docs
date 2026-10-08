@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for TINYINT(1). This type is commonly used to represent boolean
+  values, where 0 is considered false and non-zero values are true.
+---
+
 # BOOL
 
 ## Overview
@@ -24,6 +30,6 @@ Create Table: CREATE TABLE `bool_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

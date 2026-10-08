@@ -1,3 +1,9 @@
+---
+description: >-
+  This table aggregates table lock wait events, allowing administrators to
+  identify tables experiencing high contention due to locking.
+---
+
 # Performance Schema table\_lock\_waits\_summary\_by\_table Table
 
 The `table_lock_waits_summary_by_table` table records table lock waits by table.

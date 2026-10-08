@@ -1,3 +1,12 @@
+---
+description: >-
+  Install and run MariaDB AI RAG on Ubuntu without Docker, covering MariaDB
+  setup, security hardening, service startup, functional testing, and
+  performance tuning for production.
+hidden: true
+noIndex: true
+---
+
 # Ubuntu Deployment Guide
 
 ## MariaDB AI RAG - Ubuntu Native Deployment Guide
@@ -223,9 +232,9 @@ MCP_PORT=8002
 
 # ===== EMBEDDING & LLM =====
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.0-flash
+LLM_MODEL=gemini-2.5-flash-lite
 
 # ===== TABLE NAMES =====
 DOCUMENTS_TABLE=documents_DEMO_gemini
@@ -777,3 +786,7 @@ Your MariaDB AI RAG is now running natively on Ubuntu.
 * Check logs
 * Verify config: `nano /path/to/config.env`
 * Test health: `curl http://localhost:8000/health`
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

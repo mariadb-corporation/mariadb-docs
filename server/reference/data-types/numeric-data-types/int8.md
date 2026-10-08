@@ -1,3 +1,7 @@
+---
+description: Synonym for BIGINT. This type uses 8 bytes of storage.
+---
+
 # INT8
 
 `INT8` is a synonym for [BIGINT](bigint.md).

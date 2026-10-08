@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema USERS_VARIABLES table lists user accounts, including
+  whether they are global or local, and details about their password expiration.
+---
+
 # Information Schema USER\_VARIABLES Table
 
 ## Description

@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes wait events aggregated by thread and event name, useful
+  for pinpointing threads experiencing high wait times.
+---
+
 # Performance Schema events\_waits\_summary\_by\_thread\_by\_event\_name Table
 
 The [Performance Schema](../) `events_waits_summary_by_thread_by_event_name` table contains wait events summarized by thread and event name. It contains the following columns:

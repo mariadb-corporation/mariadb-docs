@@ -1,8 +1,15 @@
+---
+description: >-
+  Returns a geometry representing all points within a given distance of the
+  geometry. This standard-compliant function creates a buffer zone around the
+  object.
+---
+
 # ST\_BUFFER
 
 ## Syntax
 
-```sql
+```bnf
 ST_BUFFER(g1,r)
 BUFFER(g1,r)
 ```

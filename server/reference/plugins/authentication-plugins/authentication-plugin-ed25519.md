@@ -1,6 +1,13 @@
+---
+description: >-
+  The ed25519 authentication plugin provides high-security password
+  authentication using the Elliptic Curve Digital Signature Algorithm, a modern
+  alternative to SHA-1.
+---
+
 # Authentication Plugin - ed25519
 
-MySQL has used SHA-1 based authentication since version 4.1. The authentication plugin is called [mysql\_native\_password](authentication-plugin-mysql_native_password.md). Over the years as computers became faster, new attacks on SHA-1 were being developed. Nowadays SHA-1 is no longer considered as secure as it was in 2001. That's why the `ed25519` authentication plugin was created.
+MySQL has used SHA-1 based authentication since version 4.1. The authentication plugin is called [mysql\_native\_password](authentication-plugin-mysql_native_password.md). Over the years as computers became faster, new attacks on SHA-1 were being developed. SHA-1 is no longer considered as secure as it was in 2001. That's why the `ed25519` authentication plugin was created.
 
 The `ed25519` authentication plugin uses [Elliptic Curve Digital Signature Algorithm (ECDSA)](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) to securely store users' passwords and to authenticate users. The [ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519) algorithm is the same one that is [used by OpenSSH](https://www.openssh.com/txt/release-6.5). It is based on the elliptic curve and code created by [Daniel J. Bernstein](https://en.wikipedia.org/wiki/Daniel_J._Bernstein).
 
@@ -30,23 +37,25 @@ You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../s
 UNINSTALL SONAME 'auth_ed25519';
 ```
 
-If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), those options must be removed to prevent the plugin from being loaded the next time the server is restarted.
+If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), those options must be removed to prevent the plugin from being loaded the next time the server is restarted.
 
 ## Creating Users
 
-You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause followied by the name of the plugin, `ed25519`, and providing the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function, with the plain-text password as an argument:
+You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause followied by the name of the plugin, `ed25519`, and providing the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function, with the plain-text password as an argument:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
-The [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statements don't work with the `ed25519` authentication plugin. Instead, you have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+The [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function and the [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement support the `ed25519` authentication plugin ([MDEV-12321](https://jira.mariadb.org/browse/MDEV-12321)).
+
+Alternatively, you can create the account from a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";
@@ -65,14 +74,14 @@ SELECT ed25519_password("secret");
 
 Now you can use it to create the user account using the new password hash. As with any password, you should always use a complex password that isn't easy to guess. If you don't, if anyone gets access to the stored passwords in the `mysql.user` table, they could use [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table) to figure out the original password.
 
-To create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause while providing the password hash as the `USING` clause:
+To create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause while providing the password hash as the `USING` clause:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA ed25519 
   USING 'ZIgUREUg5PVgQ6LskhXmO+eZLS0nC8be6HPjYWR4YJY';
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 
@@ -91,13 +100,13 @@ You can change a user account's password by executing the [SET PASSWORD](../../s
 SET PASSWORD =  PASSWORD('new_secret')
 ```
 
-You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You would have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-viawith-authentication_plugin) clause while providing the plain-text password as an argument to the `PASSWORD()` function in the `USING` clause:
+You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You would have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-via-or-with-authentication_plugin) clause while providing the plain-text password as an argument to the `PASSWORD()` function in the `USING` clause:
 
 ```sql
 ALTER USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('new_secret');
 ```
 
-The `PASSWORD()` function and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) statement did not work with the `ed25519` authentication plugin. Instead, you would have to use the [UDF](../../../server-usage/user-defined-functions/) that comes with the authentication plugin to calculate the password hash:
+Alternatively, you can change the password using a pre-computed password hash instead of a plain-text password. The `ed25519` authentication plugin ships a [UDF](../../../server-usage/user-defined-functions/) that calculates this hash:
 
 ```sql
 CREATE FUNCTION ed25519_password RETURNS STRING SONAME "auth_ed25519.so";
@@ -116,7 +125,7 @@ SELECT ed25519_password("secret");
 
 Now you can change the user account's password using the new password hash.
 
-You can change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-viawith-authentication_plugin) clause, while providing the password hash as the `USING` clause:
+You can change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/alter-user.md#identified-via-or-with-authentication_plugin) clause, while providing the password hash as the `USING` clause:
 
 ```sql
 ALTER USER username@hostname IDENTIFIED VIA ed25519 

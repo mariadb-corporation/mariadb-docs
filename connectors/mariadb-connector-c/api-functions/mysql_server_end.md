@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_server_end is an alias for mysql_library_end in MariaDB Connector/C,
+  used to finalize and clean up the client library.
+---
+
 # mysql\_server\_end
 
 ## Syntax
@@ -10,9 +16,11 @@ void mysql_server_end(void );
 
 `mysql_server_end()` is an alias for [mysql\_library\_end()](mysql_library_end.md).
 
-## See also
+## See Also
 
 * [mysql\_library\_init()](mysql_library_init.md)
 * [mysql\_library\_end()](mysql_library_end.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

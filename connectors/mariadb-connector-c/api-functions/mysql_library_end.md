@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_library_end finalizes the MariaDB Connector/C library after use,
+  performing memory cleanup and shutting down the embedded server if applicable.
+---
+
 # mysql\_library\_end
 
 ## Syntax
@@ -14,8 +20,10 @@ Call when finished using the library, such as after disconnecting from the serve
 `mysql_server_end()` is an alias.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_library\_init()](mysql_library_init.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

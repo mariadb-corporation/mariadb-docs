@@ -1,3 +1,10 @@
+---
+description: >-
+  Use HANDLER commands efficiently with MEMORY/HEAP tables, including
+  creating BTREE keys for range scans and the limitations of HASH and
+  BTREE keys and table scans.
+---
+
 # HANDLER for MEMORY Tables
 
 This article explains how to use [HANDLER commands](handler-commands.md) efficiently with [MEMORY/HEAP](../../../../server-usage/storage-engines/memory-storage-engine.md) tables.
@@ -16,11 +23,11 @@ The limitations for `HANDLER READ` with `MEMORY|HEAP` tables are:
 
 * You must use all key parts when searching for a row.
 * You can't do a key scan of all values. You can only find all rows with the same key value.
-* `READ NEXT` gives an [error 1031](broken-reference) if the tables changed since last read.
+* `READ NEXT` gives an [error 1031](../../../error-codes/mariadb-error-codes-1000-to-1099/e1031.md) if the tables changed since last read.
 
 ## Limitations for BTREE keys
 
-* `READ NEXT` gives an error 1031 if the tables changed since last read. This limitation can be lifted in the future.
+* `READ NEXT` gives an error 1031 if the tables changed since last read.
 
 ## Limitations for table scans
 

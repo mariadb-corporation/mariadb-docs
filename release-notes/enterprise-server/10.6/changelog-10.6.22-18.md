@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.22-18 is a maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.22-18.md).
+MariaDB Enterprise Server 10.6.22-18 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.22-18.md).
 
 MariaDB Enterprise Server 10.6.22-18 was released on 11 Jun 2025.
 
@@ -68,7 +68,7 @@ MariaDB Enterprise Server 10.6.22-18 was released on 11 Jun 2025.
 * ([MDEV-36138](https://jira.mariadb.org/browse/MDEV-36138)) Server null-pointer crash at startup when tmptables left in --tmpdir
 * ([MDEV-35813](https://jira.mariadb.org/browse/MDEV-35813)) Performance regression in INSERT…SELECT due to unnecessarily making InnoDB log durable.
 * ([MDEV-36684](https://jira.mariadb.org/browse/MDEV-36684)) main.mdl\_sync fails under valgrind (test for Bug#42643)
-* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/mariadb-10-6-series/mariadb-10-6-11-release-notes.md) with asan, we failed to run the testcase of rocksdb.
+* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/10.6/10.6.11.md) with asan, we failed to run the testcase of rocksdb.
 * ([MDEV-36730](https://jira.mariadb.org/browse/MDEV-36730)) Spuštění nežádoucího triggeru, Zmatení engine, generování null
 * ([MDEV-36516](https://jira.mariadb.org/browse/MDEV-36516)) galera\_3nodes.galera\_gtid\_2\_cluster test failed on 10.5 (these are flaws in the test itself; the fix did not require changing the main server code)
 * ([MDEV-36666](https://jira.mariadb.org/browse/MDEV-36666)) atomic.alter\_table still times out often
@@ -130,6 +130,6 @@ MariaDB Enterprise Server 10.6.22-18 was released on 11 Jun 2025.
 * ([MDEV-36307](https://jira.mariadb.org/browse/MDEV-36307)) group by handler missing constant fields when selecting from a view
 * ([MDEV-36335](https://jira.mariadb.org/browse/MDEV-36335)) Tests calling the udf spider\_copy\_tables fail with --view-protocol
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

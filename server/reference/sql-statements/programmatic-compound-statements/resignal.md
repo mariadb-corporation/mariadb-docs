@@ -1,8 +1,15 @@
+---
+description: >-
+  Propagate error conditions. This statement allows a handler to pass an error
+  condition back to the caller or modify the error information before passing it
+  on.
+---
+
 # RESIGNAL
 
 ## Syntax
 
-```sql
+```bnf
 RESIGNAL [error_condition]
     [SET error_property
     [, error_property] ...]
@@ -45,19 +52,11 @@ If used out of a [HANDLER](../../sql-structure/nosql/handler/) construct, RESIGN
 ERROR 1645 (0K000): RESIGNAL when handler not active
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`, but trying to do this raises the above error.
-{% endtab %}
 
-{% tab title="< 5.6" %}
-If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`.
-{% endtab %}
-{% endtabs %}
+For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../error-codes/mariadb-error-code-reference.md).
 
-For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
-
-The following procedure tries to query two tables which don't exist, producing a 1146 error in both cases. Those errors will trigger the [HANDLER](../../sql-structure/nosql/handler/). The first time the error will be ignored and the client will not receive it, but the second time, the error is re-signaled, so the client will receive it.
+The following procedure tries to query two tables which don't exist, producing a 1146 error in both cases. Those errors will trigger the [HANDLER](../../sql-structure/nosql/handler/). The first time the error will be ignored, and the client will not receive it, but the second time, the error is re-signaled, so the client will receive it.
 
 ```sql
 CREATE PROCEDURE test_error( )
@@ -130,7 +129,7 @@ END;
 * [SIGNAL](signal.md)
 * [HANDLER](../../sql-structure/nosql/handler/)
 * [Stored Routines](../../../server-usage/stored-routines/)
-* [MariaDB Error Codes](broken-reference)
+* [MariaDB Error Codes](../../error-codes/mariadb-error-code-reference.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

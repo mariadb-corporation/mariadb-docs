@@ -1,8 +1,10 @@
-# Performance Schema events\_transactions\_summary\_by\_host\_by\_event\_name Table
+---
+description: >-
+  This table summarizes stage events aggregated by the client host and the event
+  name, allowing performance analysis per host.
+---
 
-{% hint style="info" %}
-The `events_transactions_summary_by_host_by_event_name` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema events\_transactions\_summary\_by\_host\_by\_event\_name Table
 
 The `events_transactions_summary_by_host_by_event_name` table contains information on transaction events aggregated by host and event name.
 

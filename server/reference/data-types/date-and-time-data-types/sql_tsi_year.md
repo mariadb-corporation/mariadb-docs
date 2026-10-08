@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for YEAR. This keyword is an alias used for declaring a column to
+  store year values.
+---
+
 # SQL\_TSI\_YEAR
 
 ## Overview
@@ -24,6 +30,6 @@ Create Table: CREATE TABLE `sql_tsi_year_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

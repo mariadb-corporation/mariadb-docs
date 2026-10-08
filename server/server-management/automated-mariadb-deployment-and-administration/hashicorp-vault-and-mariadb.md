@@ -1,10 +1,25 @@
+---
+description: >-
+  Discusses the integration of HashiCorp Vault with MariaDB for managing
+  secrets, including using MariaDB as a storage backend for Vault.
+---
+
 # HashiCorp Vault and MariaDB
 
 Vault is open source software for secret management provided by HashiCorp. It is designed to avoid sharing secrets of various types, like passwords and private keys. When building automation, Vault is a good solution to avoid storing secrets in plain text in a repository.
 
+{% hint style="danger" %}
+**Unsafe Operations** \
+It is unsafe to execute `vault secrets disable` or `vault token revoke` while MariaDB is running. Abruptly removing access to the Vault could prevent InnoDB from encrypting data pages during background flushes or log writes, which can lead to a server crash.
+{% endhint %}
+
+{% hint style="success" %}
+Always ensure the MariaDB server has completed a clean shutdown before disabling Vault secrets or revoking access tokens.
+{% endhint %}
+
 MariaDB and Vault may relate to each other in several ways:
 
-* MariaDB has a [Hashicorp Key Management plugin](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md), to manage and rotate SSH keys.
+* MariaDB has a [Hashicorp Key Management plugin](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md), to manage and rotate SSH keys.
 * Users passwords can be stored in Vault.
 * MariaDB (and MySQL) can be used as a secret engine, a component which stores, generates, or encrypts data.
 * MariaDB (and MySQL) can be used as a backend storage, providing durability for Vault data.

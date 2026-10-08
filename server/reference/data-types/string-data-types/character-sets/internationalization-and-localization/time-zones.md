@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Time Zones data type guide for MariaDB. Complete reference for
+  syntax, valid values, storage requirements, and range limits for production
+  use.
+---
+
 # Time Zones
 
 MariaDB keeps track of several time zone settings.
@@ -91,7 +98,7 @@ $ sudo ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
 sudo dpkg-reconfigure tzdata
 ```
 
-* On Linux operating systems that use [systemd](../../../../../server-management/starting-and-stopping-mariadb/systemd.md), you can change the default time zone for the whole system by using the [timedatectl](https://www.freedesktop.org/software/systemd/man/timedatectl.html) utility. For example:
+* On Linux operating systems that use [systemd](../../../../../server-management/starting-and-stopping-mariadb/systemd/README.md), you can change the default time zone for the whole system by using the [timedatectl](https://www.freedesktop.org/software/systemd/man/timedatectl.html) utility. For example:
 
 ```bash
 sudo timedatectl set-timezone America/New_York
@@ -120,7 +127,7 @@ Some functions are not affected. These include:
 Some data types are affected by the time zone settings.
 
 * [TIMESTAMP](../../../date-and-time-data-types/timestamp.md) - See [TIMESTAMP: Time Zones](../../../date-and-time-data-types/timestamp.md#time-zones) for information on how this data type is affected by time zones.
-* [DATETIME](../../../date-and-time-data-types/datetime.md) - See [DATETIME: Time Zones](../../../date-and-time-data-types/datetime.md#time-zones) for information on how this data type is affected by time zones.
+* [DATETIME](../../../date-and-time-data-types/datetime.md) - Unlike `TIMESTAMP`, `DATETIME` values are not converted to or from the session’s time zone.
 
 ## mysql Time Zone Tables
 

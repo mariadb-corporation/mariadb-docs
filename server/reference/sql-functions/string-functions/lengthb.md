@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the length of a string in bytes. This function is a synonym for
+  LENGTH() in default mode, returning the byte count.
+---
+
 # LENGTHB
 
 ## Syntax
 
-```sql
+```bnf
 LENGTHB(str)
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonyms for DECIMAL. These keywords declare fixed-point numbers, which store
+  exact numeric data with a defined precision and scale.
+---
+
 # DEC, NUMERIC, FIXED
 
 ## Syntax
 
-```sql
+```bnf
 DEC[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]
 
 NUMERIC[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]

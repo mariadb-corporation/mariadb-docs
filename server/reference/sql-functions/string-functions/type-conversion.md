@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand Type Conversion in MariaDB. Learn the rules for implicit conversion
+  during comparisons and arithmetic, and how to use CAST for predictable
+  results.
+---
+
 # Type Conversion
 
 Implicit type conversion takes place when MariaDB is using operands or different types, in order to make the operands compatible.

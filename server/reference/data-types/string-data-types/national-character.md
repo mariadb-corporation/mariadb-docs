@@ -1,3 +1,9 @@
+---
+description: >-
+  NATIONAL CHARACTER is a synonym for the CHAR data type using the predefined
+  utf8 character set.
+---
+
 # NATIONAL CHARACTER
 
 ## Overview
@@ -24,6 +30,6 @@ Create Table: CREATE TABLE `national_character_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

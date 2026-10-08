@@ -1,15 +1,15 @@
 ---
 description: >-
-  Implement semi-synchronous replication in MariaDB Server. How to ensure data
-  durability by requiring at least one replica to acknowledge receipt of
-  transactions before the master commits.
+  Enhance data consistency with semisynchronous replication. Ensure that the
+  primary waits for at least one replica to acknowledge receipt of a transaction
+  before committing.
 ---
 
 # Semisynchronous Replication
 
 ## Description
 
-[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available. In versions prior to [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103), it was a separate plugin that needed to be installed.
+[Standard MariaDB replication](./) is asynchronous, but MariaDB also provides a semisynchronous replication option. The feature is built into the server and is always available; nothing needs to be installed to use it.
 
 With regular asynchronous replication, replicas request events from the primary's binary log whenever the replicas are ready. The primary does not wait for a replica to confirm that an event has been received.
 
@@ -19,7 +19,7 @@ Semisynchronous replication waits for just one replica to acknowledge that it ha
 
 Semisynchronous replication therefore comes with some negative performance impact, but increased data integrity. Since the delay is based on the roundtrip time to the replica and back, this delay is minimized for servers in close proximity over fast networks.
 
-Semisynchronous replication is built into the server. See [MDEV-13073](https://jira.mariadb.org/browse/MDEV-13073) for more information.
+The guarantee is about the replica's [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), not about the replica's data: an acknowledged transaction has been written to a replica's relay log, but it has not necessarily been applied there yet. How durable that relay log entry is depends on the replica's configuration, so read [Relay Log Durability](semisynchronous-replication.md#relay-log-durability) before relying on semisynchronous replication to prevent data loss.
 
 ## Enabling Semisynchronous Replication
 
@@ -59,7 +59,7 @@ It can also be set in a server [option group](../../server-management/install-an
 rpl_semi_sync_slave_enabled=ON
 ```
 
-When switching between semisynchronous replication and asynchronous replication on a replica with [replica IO threads](replication-threads.md#threads-on-the-slave) already running, the replica I/O thread will need to be restarted. For example:
+When switching between semisynchronous replication and asynchronous replication on a replica with [replica IO threads](replication-threads.md#threads-on-the-replica) already running, the replica I/O thread will need to be restarted. For example:
 
 ```sql
 STOP SLAVE IO_THREAD;
@@ -70,7 +70,7 @@ If this is not done, then the replica IO thread will continue to use the previou
 
 ## Configuring the Primary Timeout
 
-In semisynchronous replication, only after the events have been written to the relay log and flushed does the replica acknowledge receipt of a transaction's events. If the replica does not acknowledge the transaction before a certain amount of time has passed, then a timeout occurs and the primary switches to asynchronous replication. This will be reflected in the primary's [error log](../../server-management/server-monitoring-logs/error-log.md) with messages like the following:
+In semisynchronous replication, the replica acknowledges receipt of a transaction's events only after it has written them to its relay log. Whether they have also been synced to disk at that point depends on [sync\_relay\_log](replication-and-binary-log-system-variables.md#sync_relay_log). If the replica does not acknowledge the transaction before a certain amount of time has passed, then a timeout occurs and the primary switches to asynchronous replication. This will be reflected in the primary's [error log](../../server-management/server-monitoring-logs/error-log.md) with messages like the following:
 
 ```
 [Warning] Timeout waiting for reply of binlog (file: mariadb-1-bin.000002, pos: 538), semi-sync up to file , position 0.
@@ -112,7 +112,9 @@ In semisynchronous replication, there are two potential points at which the prim
 The wait point is configured by the [rpl\_semi\_sync\_master\_wait\_point](semisynchronous-replication.md#rpl_semi_sync_master_wait_point) system variable. The supported values are:
 
 * `AFTER_SYNC`
-* `AFTER_COMMIT`
+* `AFTER_COMMIT`&#x20;
+
+> When using the [InnoDB-based Binary Log](innodb-based-binary-log.md) (`--binary-storage-engine=innodb`), the `AFTER_SYNC` wait point is not supported. Only `AFTER_COMMIT` is available, since the traditional two-phase commit between the binary log and the InnoDB storage engine is no longer used.
 
 It can be set dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session). For example:
 
@@ -130,6 +132,10 @@ rpl_semi_sync_master_wait_point=AFTER_SYNC
 
 When this variable is set to `AFTER_SYNC`, the primary performs the following steps:
 
+> The `AFTER_SYNC` wait point is only supported with the traditional binlog implementation and is not available when the
+> \
+> InnoDB-based Binary Log is enabled.
+
 1. Prepares the transaction in the storage engine.
 2. Syncs the transaction to the [binary log](../../server-management/server-monitoring-logs/binary-log/).
 3. Waits for acknowledgement from the replica.
@@ -140,14 +146,18 @@ The effects of the `AFTER_SYNC` wait point are:
 
 * All clients see the same data on the primary at the same time; after acknowledgement by the replica and after being committed to the storage engine on the primary.
 * If the primary crashes, then failover should be lossless, because all transactions committed on the primary would have been replicated to the replica.
-* However, if the primary crashes, then its [binary log](../../server-management/server-monitoring-logs/binary-log/) may also contain events for transactions that were prepared by the storage engine and written to the binary log, but that were never actually committed by the storage engine. As part of the server's [automatic crash recovery](../../server-management/server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) process, the server may recover these prepared transactions when the server is restarted. This could cause the "old" crashed primary to become inconsistent with its former replicas when they have\
-  been reconfigured to replace the old primary with a new one.\
-  The old primary in such a scenario can be re-introduced only as a [semisync replica](semisynchronous-replication.md#rpl_semi_sync_slave_enabled).\
-  The server post-crash recovery of the server configured with `rpl_semi_sync_slave_enabled = ON`\
-  ensures through [MDEV-21117](https://jira.mariadb.org/browse/MDEV-21117) that the server will not have extra transactions.\
-  The reconfigured as semisync replica server's binlog gets truncated to discard transactions proven\
-  not to be committed, in any of their branches if they are multi-engine.\
-  Truncation does not occur though when there exists a non-transactional group of events beyond the truncation position in which case recovery reports an error.\
+* However, if the primary crashes, then its [binary log](../../server-management/server-monitoring-logs/binary-log/) may also contain events for transactions that were prepared by the storage engine and written to the binary log, but that were never actually committed by the storage engine. As part of the server's [automatic crash recovery](../../server-management/server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) process, the server may recover these prepared transactions when the server is restarted. This could cause the "old" crashed primary to become inconsistent with its former replicas when they have
+  been reconfigured to replace the old primary with a new one.
+  The old primary in such a scenario can be re-introduced only as a [semisync replica](semisynchronous-replication.md#rpl_semi_sync_slave_enabled).
+  To recover it safely, start the server with `--init-rpl-role=SLAVE`. This tells the server its
+  role in the replication topology, so that post-crash recovery discards transactions proven not
+  to be committed and the server will not have extra transactions ([MDEV-21117](https://jira.mariadb.org/browse/MDEV-21117),
+  [MDEV-33465](https://jira.mariadb.org/browse/MDEV-33465)). Before MDEV-33465, this recovery was
+  instead deduced from the semisync variables (`rpl_semi_sync_slave_enabled = ON`), which did not
+  work reliably in mixed topologies; setting `--init-rpl-role=SLAVE` is now required.
+  The server's binlog gets truncated to discard transactions proven
+  not to be committed, in any of their branches if they are multi-engine.
+  Truncation does not occur though when there exists a non-transactional group of events beyond the truncation position in which case recovery reports an error.
   When the semisync replica recovery can't be carried out, the crashed primary may need to be rebuilt.
 
 When this variable is set to `AFTER_COMMIT`, the primary performs the following steps:
@@ -163,15 +173,111 @@ The effects of the `AFTER_COMMIT` wait point are:
 * Other clients may see the committed transaction before the committing client.
 * If the primary crashes, then failover may involve some data loss, because the primary may have committed transactions that had not yet been acknowledged by the replicas.
 
-## Versions
+### Failover Implications
 
-| Version | Status  | Introduced                                                                                                                                                                                                                  |
-| ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| N/A     | N/A     | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) (feature is built-in, no longer available as a separate plugin) |
-| 1.0     | Stable  | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10113-release-notes)                                                               |
-| 1.0     | Gamma   | [MariaDB 10.0.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes)                                                               |
-| 1.0     | Unknown | [MariaDB 10.0.11](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md)                                                                   |
-| 1.0     | N/A     | [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)                                                            |
+System administrators implementing a semi-synchronous replication
+fail-over strategy must understand the distinction between the
+`AFTER_SYNC` and `AFTER_COMMIT` wait points. This choice has
+irreversible implications for the server recovery process: if a
+pre-crash semi-sync master is brought back online as a post-crash
+semi-sync slave, the recovery process will truncate any transactions
+from the binary log that were not committed in the storage engine.
+
+Conceptually, the two configurations differ in which server may be
+logically ahead of the other:
+
+* `AFTER_SYNC`: The slave may be ahead of the master.
+* `AFTER_COMMIT`: The master will always be ahead of the slave.
+
+In either configuration, data loss is possible if the logically behind
+server is promoted to master after a crash.
+
+
+#### Recommended Fail-Over Strategy
+
+To prevent data loss, the fail-over strategy should align with the
+configured wait point:
+
+* `AFTER_COMMIT` configurations: Always wait for a failed master to be
+  brought back online to resume its role as master.
+
+* `AFTER_SYNC` configurations: Demote the failed master to a slave of a
+  newly-promoted master.
+
+
+####  Recovery Procedure for Guaranteed Consistency
+
+If neither of the above strategies is feasible, the following procedure
+ensures data consistency after a crash:
+
+1. Configure all servers in the topology with `SET GLOBAL read_only=1`.
+   This prevents the failed master from accidentally resuming its master
+role
+2. After the master fails, select any node (hereafter node A) as the new
+master candidate. Choosing the most up-to-date node will minimize the
+time required to complete this process
+3. On another node (hereafter node B), run `SELECT @@gtid_current_pos`.
+4. Configure node A as a slave of node B using `CHANGE MASTER TO` (if
+   this replication channel does not already exist).
+5. On node A, run `START SLAVE UNTIL` with the GTID value retrieved in
+step 3
+6. Repeat steps 3–5 for each remaining node in the topology, using node
+A as the slave in each iteration.
+7. Once all nodes have been processed, node A is guaranteed to be the
+furthest-progressed node in the topology and is safe to promote as the
+new master.
+8. On node A, run `SET GLOBAL read_only=0`.
+9. Configure all other nodes as slaves of node A using
+   `CHANGE MASTER TO` followed by `START SLAVE`.
+
+
+## Relay Log Durability
+
+The guarantee semisynchronous replication provides is that a committed transaction has reached at least one replica's [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) before the commit is acknowledged to the client. That guarantee is only as strong as that relay log entry: it holds if the entry survives a crash and a restart of the replica.
+
+Two settings on the replica determine that, and one case cannot be covered by any replica-side setting.
+
+### Syncing the Relay Log
+
+A replica acknowledges a transaction as soon as the transaction's events have been written to its relay log file. Writing is not the same as syncing. By default, the relay log is only synced to disk after every 10,000 events, as set by [sync\_relay\_log](replication-and-binary-log-system-variables.md#sync_relay_log). If the replica's operating system or host crashes in between, the replica loses events that the primary has already counted as safely replicated.
+
+With `sync_relay_log=1`, each event is synced to disk before the replica acknowledges it, so an acknowledged transaction is durable on the replica at the moment the primary is told so. That is the value at which semisynchronous replication delivers the durability it appears to promise, at the cost of one sync per event rather than one per 10,000.
+
+### Surviving a Replica Restart
+
+Whether an acknowledged transaction is still in the relay log after the replica restarts is controlled by [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery), which defaults to `0` (`OFF`). When it is set to `1`, the replica discards the relay logs it has not yet applied on startup and fetches those events from the primary again.
+
+Normally that is harmless, because the primary still has the events. It stops being harmless when the primary has lost them: transactions that existed only in the replica's relay log are then lost, which defeats the purpose of semisynchronous replication. This is worth checking in an existing configuration, since `relay_log_recovery=1` is often enabled for crash safety without this interaction in mind.
+
+Leaving [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge) at its default of `1` is safe with semisynchronous replication. A relay log is only purged once the [replica's SQL thread](replication-threads.md#replica-sql-thread) has applied all of its events, so purging never discards an acknowledged transaction that has not been applied yet. Do not combine `relay_log_purge=0` with `relay_log_recovery=1`, which can cause the replica to read relay logs that were not purged, leading to data inconsistencies.
+
+### The Case That Cannot Be Covered
+
+{% hint style="warning" %}
+A replica that connects using [GTIDs](gtid/README.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart of the replica, regardless of `relay_log_recovery`. Transactions that reached only the replica's relay log therefore do not survive a restart of that replica. If the primary lost them as well, they are gone, and no setting on the replica closes that window. The server-side work on this limitation is tracked in [MDEV-4698](https://jira.mariadb.org/browse/MDEV-4698).
+{% endhint %}
+
+Losing the primary and a replica at the same time is unlikely, so in practice the exposure is narrow. It is worth stating plainly, though, because GTID-based replication is the recommended configuration, so this is the case most deployments are in. What keeps the exposure small there is the primary's own durability, rather than anything on the replica: a crashed primary that has not lost committed transactions can supply them again once it is back.
+
+From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`) is the better way to get that durability, because the binary log is written through InnoDB's own crash recovery. With it, `sync_binlog` is not needed and is effectively ignored, and commit durability is controlled solely by [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit). On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` is what provides it.
+
+### Recommended Settings
+
+On every semisynchronous replica:
+
+* `sync_relay_log=1`, so that events acknowledged to the primary are durable on the replica.
+
+On semisynchronous replicas that connect using binary log file and position coordinates:
+
+* `relay_log_recovery=0`, so that relay logs survive a restart of the replica and the transactions semisynchronous replication placed there are not discarded.
+* `relay_log_purge=1` (the default). `relay_log_purge=0` also preserves the guarantee, but only combine it with `relay_log_recovery=0`.
+
+On the primary:
+
+* From MariaDB 12.3, the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`), with [innodb\_flush\_log\_at\_trx\_commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit)`=1` (the default). `sync_binlog` does not apply here and is effectively ignored.
+* On a traditional file-based binary log, [sync\_binlog](replication-and-binary-log-system-variables.md#sync_binlog)`=1` together with `innodb_flush_log_at_trx_commit=1`.
+
+Either way, the point is that the primary can supply transactions again after a crash. This is what limits the exposure for replicas that connect using GTIDs, where relay logs are always purged when the replication threads start.
 
 ## System Variables
 
@@ -234,7 +340,6 @@ The effects of the `AFTER_COMMIT` wait point are:
     3. Commits the transaction to the storage engine.
     4. Waits for acknowledgement from the replica.
     5. Returns an acknowledgement to the client.
-  * In [MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-2-release-notes) and before, this system variable does not exist. However, in those versions, the primary waits for the acknowledgement from replicas at a point that is equivalent to `AFTER_COMMIT`.
   * See [Configuring the Primary Wait Point](semisynchronous-replication.md#configuring-the-primary-wait-point) for more information.
 * Command line: `--rpl-semi-sync-master-wait-point=value`
 * Scope: Global
@@ -283,43 +388,13 @@ The effects of the `AFTER_COMMIT` wait point are:
 
 ## Options
 
-### `init-rpl-rol`
+### `init-rpl-role`
 
-* From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), changes the condition for semi-sync recovery to truncate the [binlog](../../server-management/server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This avoids a possible error state where the replica’s state is ahead of the primary’s. See [-init-rpl-role](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-init-rpl-role).
-
-### `rpl-semi-sync_master`
-
-* Description: Controls how the server should treat the plugin when the server starts up.
-  * Valid values are:
-    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../reference/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
-    * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
-    * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
-    * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
-  * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../../reference/plugins/plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-* Command line: `--rpl-semi-sync-master=value`
-* Data Type: `enumerated`
-* Default Value: `ON`
-* Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-
-### `rpl-semi-sync_slave`
-
-* Description: Controls how the server should treat the plugin when the server starts up.
-  * Valid values are:
-    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../reference/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
-    * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
-    * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
-    * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
-  * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../../reference/plugins/plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-* Command line: `--rpl-semi-sync-slave=value`
-* Data Type: `enumerated`
-* Default Value: `ON`
-* Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), changes the condition for semi-sync recovery to truncate the [binlog](../../server-management/server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This avoids a possible error state where the replica’s state is ahead of the primaries. See [--init-rpl-role](replication-and-binary-log-system-variables.md#init_rpl_role).
 
 ## Status Variables
 
-For a list of status variables added when the plugin is installed, see [Semisynchronous Replication Plugin Status Variables](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md).
+For a list of the status variables that report on semisynchronous replication, see [Semisynchronous Replication Status Variables](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

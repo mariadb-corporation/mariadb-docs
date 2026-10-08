@@ -1,3 +1,9 @@
+---
+description: >-
+  A list of constraints and limits within the InnoDB engine, including maximum
+  table size, column counts, and index key lengths.
+---
+
 # InnoDB Limitations
 
 The [InnoDB storage engine](./) has the following limitations.

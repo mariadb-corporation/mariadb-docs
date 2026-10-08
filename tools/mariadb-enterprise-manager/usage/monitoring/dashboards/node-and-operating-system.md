@@ -1,3 +1,10 @@
+---
+description: >-
+  Monitors the underlying host infrastructure, providing detailed metrics for
+  CPU utilization, memory consumption, disk I/O, and network throughput for each
+  database node.
+---
+
 # Node and Operating System
 
 The Node Dashboard pane provides detailed visibility into the health and performance of individual nodes that run MariaDB Server and MaxScale. It combines uptime, system capacity, operating system details, and hardware utilization with disk and network activity. This view helps administrators ensure each node has sufficient resources and can support the workloads running on it.
@@ -44,3 +51,7 @@ Monitors disk performance and utilization for the node’s storage devices.
 | Disk Throughput  | Read and write throughput (bytes per second) per device.             |
 | Disk IOPS        | Number of input/output operations per second for reads and writes.   |
 | Disk Utilisation | Percentage of time that disk devices are busy handling I/O requests. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

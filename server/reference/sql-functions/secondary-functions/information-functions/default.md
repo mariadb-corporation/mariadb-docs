@@ -1,14 +1,20 @@
+---
+description: >-
+  Return the default value for a column. This function retrieves the value
+  assigned to a column if no explicit value is provided during insertion.
+---
+
 # DEFAULT
 
 ## Syntax
 
-```sql
+```bnf
 DEFAULT(col_name)
 ```
 
 ## Description
 
-Returns the default value for a table column. If the column has no default value (and is not NULLABLE - NULLABLE fields have a `NULL` default), an error is returned.
+Returns the default value for a table column. If the column has no default value (and is not `NULLABLE` - `NULLABLE` fields have a `NULL` default), an error is returned.
 
 For integer columns using [AUTO\_INCREMENT](../../../data-types/auto_increment.md), `0` is returned.
 

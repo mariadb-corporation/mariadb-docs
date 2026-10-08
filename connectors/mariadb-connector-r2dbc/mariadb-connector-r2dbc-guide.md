@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/R2DBC enables Java applications to connect to MariaDB
+  using the non-blocking R2DBC API, with a native R2DBC implementation and
+  Spring Data R2DBC framework integration.
+---
+
 # About MariaDB Connector/R2DBC
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}
@@ -11,8 +18,8 @@
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes the R2DBC API more scalable than Java's standard JDBC API. MariaDB Connector/R2DBC has a native R2DBC implementation and the Spring Data R2DBC framework.
 
 | Connector                    | MariaDB Connector/R2DBC                                                                                           |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Supported Versions           | 1.2                                                                                                               |
+| ---------------------------- |-------------------------------------------------------------------------------------------------------------------|
+| Supported Versions           | 1.4                                                                                                               |
 | Programming Language         | JAVA                                                                                                              |
 | Programming Language Version | Java 8+                                                                                                           |
 | API                          | [R2DBC 0.9.1](https://r2dbc.io/spec/0.9.1.RELEASE/api/) , [R2DBC 1.0.0](https://r2dbc.io/spec/1.0.0.RELEASE/api/) |
@@ -37,17 +44,7 @@ Current connector supporting 1.0.0 R2DBC spec is:
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.2.x</version>
-</dependency>
-```
-
-To support R2DBC 0.9.1 spec that is incompatible with 1.0.0 spec:
-
-```xml
-<dependency>
-    <groupId>org.mariadb</groupId>
-    <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.x</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -88,6 +85,6 @@ For details on how to use MariaDB Connector/R2DBC, choose a supported framework:
 * [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/)
 * [GitHub](https://github.com/mariadb-corporation/mariadb-connector-r2dbc/)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

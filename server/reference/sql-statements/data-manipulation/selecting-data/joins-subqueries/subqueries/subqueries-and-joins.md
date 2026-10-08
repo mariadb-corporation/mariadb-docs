@@ -1,22 +1,29 @@
+---
+description: >-
+  Understand when to use subqueries versus joins. This guide explains
+  performance implications and how to rewrite subqueries as joins for
+  efficiency.
+---
+
 # Subqueries and JOINs
 
-A [subquery](./) can quite often, but not in all cases, be rewritten as a [JOIN](../joins/join-syntax.md).
+A [subquery](./) can quite often, but not in all cases, be rewritten as a [JOIN](../../joins/join-syntax.md).
 
 ## Rewriting Subqueries as JOINS
 
-A subquery using `IN` can be rewritten with the `DISTINCT` keyword, for example:
+A subquery using `IN` can be rewritten with the `DISTINCT` keyword. Consider this query:
 
 ```sql
 SELECT * FROM table1 WHERE col1 IN (SELECT col1 FROM table2);
 ```
 
-can be rewritten as:
+It can be rewritten like this:
 
 ```sql
 SELECT DISTINCT table1.* FROM table1, table2 WHERE table1.col1=table2.col1;
 ```
 
-`NOT IN` or `NOT EXISTS` queries can also be rewritten. For example, these two queries returns the same result:
+`NOT IN` or `NOT EXISTS` queries can also be rewritten. For example, these two queries return the same result when the compared columns contain no `NULL` values. They can differ when `NULL`s are present, because `NOT IN` evaluates to `UNKNOWN` against a `NULL`:
 
 ```sql
 SELECT * FROM table1 WHERE col1 NOT IN (SELECT col1 FROM table2);
@@ -24,11 +31,11 @@ SELECT * FROM table1 WHERE NOT EXISTS (SELECT col1 FROM table2
          WHERE table1.col1=table2.col1);
 ```
 
-and both can be rewritten as:
+They can both be rewritten like this:
 
 ```sql
-SELECT table1.* FROM table1 LEFT JOIN table2 ON table1.id=table2.id 
-       WHERE table2.id IS NULL;
+SELECT table1.* FROM table1 LEFT JOIN table2 ON table1.col1=table2.col1 
+       WHERE table2.col1 IS NULL;
 ```
 
 Subqueries that can be rewritten as a `LEFT JOIN` are sometimes more efficient.
@@ -39,7 +46,7 @@ There are some scenarios, though, which call for subqueries rather than joins:
 
 * When you want duplicates, but not false duplicates. Suppose `Table_1` has three rows — {`1`,`1`,`2`}\
   — and `Table_2` has two rows\
-  — {`1`,`2`,`2`}. If you need to list the rows\
+  — {`1`,`2`,`2`}. If you need to list the rows
   in `Table_1` which are also in `Table_2`, only this subquery-based `SELECT` statement will give the right answer (`1`,`1`,`2`):
 
 ```sql

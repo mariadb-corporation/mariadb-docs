@@ -1,3 +1,9 @@
+---
+description: >-
+  Use myisamchk options to report information about MyISAM tables and their
+  indexes.
+---
+
 # myisamchk Table Information
 
 [myisamchk](myisamchk.md) can be used to obtain information about MyISAM tables, particularly with the _-d_, _-e_, _-i_ and _-v_ options.
@@ -20,7 +26,7 @@ The following table describes the output from the running myisamchk with the _-d
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MyISAM file         | Name and path of the MyISAM index file (without the extension)                                                                                                                                                          |
 | Record format       | [Storage format](../../server-usage/storage-engines/myisam-storage-engine/myisam-storage-formats.md). One of packed (dynamic), fixed or compressed.                                                                     |
-| Chararacter set     | Default [character set](../../reference/data-types/string-data-types/character-sets/) for the table.                                                                                                                    |
+| Character set     | Default [character set](../../reference/data-types/string-data-types/character-sets/) for the table.                                                                                                                    |
 | File-version        | Always 1.                                                                                                                                                                                                               |
 | Creation time       | Time the data file was created                                                                                                                                                                                          |
 | Recover time        | Most recent time the file was reconstructed.                                                                                                                                                                            |

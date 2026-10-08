@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the binary representation of a number. This function converts a number
+  to its binary string equivalent.
+---
+
 # BIN
 
 ## Syntax
 
-```sql
+```bnf
 BIN(N)
 ```
 

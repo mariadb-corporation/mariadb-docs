@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete guide to creating MariaDB user accounts. Complete CREATE USER syntax
+  for authentication methods and password policies with comprehensive examples.
+---
+
 # CREATE USER
 
 ## Syntax
@@ -45,22 +51,29 @@ password_option:
 lock_option:
     ACCOUNT LOCK
   | ACCOUNT UNLOCK
-}
 ```
+
+![Railroad diagram of CREATE USER — equivalent to the BNF above](../../../.gitbook/assets/create-user-railroad.svg)
+
+![Railroad diagram of user_specification](../../../.gitbook/assets/create-user-specification-railroad.svg)
+
+![Railroad diagram of authentication_option](../../../.gitbook/assets/create-user-authentication-option-railroad.svg)
+
+![Railroad diagram of authentication_rule](../../../.gitbook/assets/create-user-authentication-rule-railroad.svg)
+
+![Railroad diagram of tls_option](../../../.gitbook/assets/create-user-tls-option-railroad.svg)
+
+![Railroad diagram of resource_option](../../../.gitbook/assets/create-user-resource-option-railroad.svg)
+
+![Railroad diagram of password_option](../../../.gitbook/assets/create-user-password-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../.gitbook/assets/create-user-lock-option-railroad.svg)
 
 ## Description
 
 The `CREATE USER` statement creates new MariaDB accounts. To use it, you must have the global [CREATE USER](grant.md#create-user) privilege or the [INSERT](grant.md#table-privileges) privilege for the [mysql](../../system-tables/the-mysql-database-tables/) database.
 
-{% tabs %}
-{% tab title="Current" %}
 For each account, `CREATE USER` creates a new row in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) view (and the underlying [mysql.global\_priv](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table) that has no privileges.
-{% endtab %}
-
-{% tab title="< 10.4" %}
-For each account, `CREATE USER` creates a new row in [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table that has no privileges.
-{% endtab %}
-{% endtabs %}
 
 If any of the specified accounts, or any permissions for the specified accounts, already exist, then the server returns `ERROR 1396 (HY000)`. If an error occurs, `CREATE USER` will still create the accounts that do not result in an error. Only one error is produced for all users which have not been created:
 
@@ -73,7 +86,7 @@ CREATE USER, [DROP USER](drop-user.md), [CREATE ROLE](create-role.md), and [DROP
 
 See [Account Names](create-user.md#account-names) below for details on how account names are specified.
 
-One can also create users with [GRANT](grant.md) if [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have [NO\_AUTO\_CREATE\_USER](../../../server-management/variables-and-modes/sql-mode.md#no_auto_create_user) set. `NO_AUTO_CREATE_USER` is set by default.
+One can also create users with [GRANT](grant.md) if [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have [NO\_AUTO\_CREATE\_USER](../../../server-management/variables-and-modes/sql_mode.md#no_auto_create_user) set. `NO_AUTO_CREATE_USER` is set by default.
 
 ## OR REPLACE
 
@@ -129,9 +142,9 @@ For example, if our password is `mariadb`, then we can create the user with:
 CREATE USER foo2@test IDENTIFIED BY 'mariadb';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
-to match any password. The user must connect without providing a password if no\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
+to match any password. The user must connect without providing a password if no
 password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).
@@ -202,17 +215,25 @@ By default, when you create a user without specifying an authentication plugin, 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 MariaDB allows you to encrypt data in transit between the server and clients using the Transport Layer Security (TLS) protocol. TLS was formerly known as Secure Socket Layer (SSL), but strictly speaking the SSL protocol is a predecessor to TLS and, that version of the protocol is now considered insecure. The documentation still uses the term SSL often and for compatibility reasons TLS-related server system and status variables still use the prefix ssl\_, but internally, MariaDB only supports its secure successors.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 By default, MariaDB transmits data between the server and clients **without encrypting it**. This is generally acceptable when the server and client run on the same host or in networks where security is guaranteed through other means. However, in cases where the server and client exist on separate networks or they are in a high-risk network, the lack of encryption does introduce security concerns as a malicious actor could potentially eavesdrop on the traffic as it is sent over the network between them.
 
 To mitigate this concern, MariaDB allows you to encrypt data in transit between the server and clients using the Transport Layer Security (TLS) protocol. TLS was formerly known as Secure Socket Layer (SSL), but strictly speaking the SSL protocol is a predecessor to TLS and, that version of the protocol is now considered insecure. The documentation still uses the term SSL often and for compatibility reasons TLS-related server system and status variables still use the prefix ssl\_, but internally, MariaDB only supports its secure successors.
 {% endtab %}
 {% endtabs %}
 
-See [Secure Connections Overview](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
+See [Secure Connections Overview](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
 
 You can set certain TLS-related restrictions for specific user accounts. For instance, you might use this with user accounts that require access to sensitive data while sending it across networks that you do not control. These restrictions can be enabled for a user account with the [CREATE USER](create-user.md), [ALTER USER](alter-user.md), or [GRANT](grant.md) statements. The following options are available:
 
@@ -224,6 +245,8 @@ You can set certain TLS-related restrictions for specific user accounts. For ins
 | REQUIRE ISSUER 'issuer'   | The account must use TLS and must have a valid X509 certificate. Also, the Certificate Authority must be the one specified via the string issuer. This option implies REQUIRE X509. This option can be combined with the SUBJECT, and CIPHER options in any order.                                  |
 | REQUIRE SUBJECT 'subject' | The account must use TLS and must have a valid X509 certificate. Also, the certificate's Subject must be the one specified via the string subject. This option implies REQUIRE X509. This option can be combined with the ISSUER, and CIPHER options in any order.                                  |
 | REQUIRE CIPHER 'cipher'   | The account must use TLS, but no valid X509 certificate is required. Also, the encryption used for the connection must use a specific cipher method specified in the string cipher. This option implies REQUIRE SSL. This option can be combined with the ISSUER, and SUBJECT options in any order. |
+
+`REQUIRE SSL` and `REQUIRE X509` guarantee only that the connection is encrypted and that the client presented some certificate signed by a trusted CA — neither identifies *which* client connected. `REQUIRE SUBJECT` ties the account to a certificate identity instead; see [Matching the Certificate Subject](#matching-the-certificate-subject) below for how that comparison works and its limits.
 
 The `REQUIRE` keyword must be used only once for all specified options, and the `AND` keyword can be used to separate individual options, but it is not required.
 
@@ -238,13 +261,37 @@ CREATE USER 'alice'@'%'
 
 If any of these options are set for a specific user account, then any client who tries to connect with that user account will have to be configured to connect with TLS.
 
-See [Securing Connections for Client and Server](../../../security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+See [Securing Connections for Client and Server](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+
+### Matching the Certificate Subject
+
+The subject comparison is a byte-for-byte string comparison. Three consequences follow, and all of them bite in practice:
+
+* **Case matters.** `/CN=alice` and `/CN=Alice` are different subjects.
+* **Field order matters.** `/CN=alice/O=Example Ltd` and `/O=Example Ltd/CN=alice` are different subjects.
+* **The TLS library matters.** OpenSSL 3.0 and later render a literal `/` or `+` inside a field value with a backslash escape. OpenSSL 1.1 and WolfSSL don't. An account created for one form stops matching when the server moves to the other library. See [`X509_LENIENT_COMPARE`](../../../server-management/variables-and-modes/old_mode.md#x509_lenient_compare).
+
+In an SQL string literal, double the backslash: `REQUIRE SUBJECT '/CN=a\\/b\\+c'`.
+
+Copy the DN exactly as the server renders it rather than retyping it. You can print it in the server's format with:
+
+```bash
+openssl x509 -noout -subject -nameopt compat -in alice-cert.pem
+```
+
+When a certificate doesn't match, the server writes both strings to the error log, for example `X509 subject mismatch: should be '/CN=alice' but is '/CN=Alice'`.
+
+{% hint style="warning" %}
+`REQUIRE SUBJECT` matches the subject only — not the issuer. An account therefore accepts any certificate with a matching subject signed by **any** CA the server trusts. If `--ssl-ca` trusts more than one CA, add a `REQUIRE ISSUER` clause to pin the issuer as well.
+
+On OpenSSL builds, leaving `--ssl-ca` unset makes the server trust the operating system CA store, which widens this considerably. Set [`--ssl-ca`](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md) explicitly to the CA that issues your client certificates.
+{% endhint %}
 
 ## Resource Limit Options
 
 It is possible to set per-account limits for certain server resources. The following table shows the values that can be set per account:
 
-| Limit Type                  | Decription                                                                                                                                                                                                                      |
+| Limit Type                  | Description                                                                                                                                                                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MAX\_QUERIES\_PER\_HOUR     | Number of statements that the account can issue per hour (including updates)                                                                                                                                                    |
 | MAX\_UPDATES\_PER\_HOUR     | Number of updates (not queries) that the account can issue per hour                                                                                                                                                             |
@@ -272,25 +319,27 @@ Per account resource limits are stored in the [user](../../system-tables/the-mys
 
 Account names have both a user name component and a host name component, and are specified as `'user_name'@'host_name'`.
 
-The user name and host name may be unquoted, quoted as strings using double quotes (`"`) or\
-single quotes (`'`), or quoted as identifiers using backticks (\`\`\`). You must use quotes\
-when using special characters (such as a hyphen) or wildcard characters. If you quote, you\
+The user name and host name may be unquoted, quoted as strings using double quotes (`"`) or
+single quotes (`'`), or quoted as identifiers using backticks (\`\`\`). You must use quotes
+when using special characters (such as a hyphen) or wildcard characters. If you quote, you
 must quote the user name and host name separately (for example `'user_name'@'host_name'`).
 
 ### Host Name Component
 
 If the host name is not provided, it is assumed to be `'%'`.
 
-Host names may contain the wildcard characters `%` and `_`. They are matched as if by\
-the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to use a wildcard character literally (for example, to\
-match a domain name with an underscore), prefix the character with a backslash. See `LIKE`\
+Host names may contain the wildcard characters `%` and `_`. They are matched as if by
+the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to use a wildcard character literally (for example, to
+match a domain name with an underscore), prefix the character with a backslash. See `LIKE`
 for more information on escaping wildcard characters.
 
-Host name matches are case-insensitive. Host names can match either domain names or IP\
+The matching algorithm ranks host patterns by specificity, the number of hosts a pattern can match, ensuring deterministic and accurate privilege resolution.
+
+Host name matches are case-insensitive. Host names can match either domain names or IP
 addresses. Use `'localhost'` as the host name to allow only local client connections. On Linux, the loopback interface (127.0.0.1) will not match 'localhost' as it is not considered a local connection: this means that only connections via UNIX-domain sockets will match 'localhost'.
 
-You can use a netmask to match a range of IP addresses using `'base_ip/netmask'` as the\
-host name. A user with an IP address _ip\_addr_ will be allowed to connect if the following\
+You can use a netmask to match a range of IP addresses using `'base_ip/netmask'` as the
+host name. A user with an IP address _ip\_addr_ will be allowed to connect if the following
 condition is true:
 
 ```bash
@@ -309,7 +358,7 @@ Using `255.255.255.255` is equivalent to not using a netmask at all. Netmasks ca
 
 Note that the credentials added when creating a user with the `'%'` wildcard host will not grant access in all cases. For example, some systems come with an anonymous localhost user, and when connecting from localhost this will take precedence.
 
-Before [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the host name component could be up to 60 characters in length. Starting from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), it can be up to 255 characters.
+Before [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the host name component could be up to 60 characters in length. Starting from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), it can be up to 255 characters.
 
 ### User Name Component
 
@@ -317,14 +366,12 @@ User names must match exactly, including case. A user name that is empty is know
 
 For valid identifiers to use as user names, see [Identifier Names](../../sql-structure/sql-language-structure/identifier-names.md).
 
-It is possible for more than one account to match when a user connects. MariaDB selects\
+It is possible for more than one account to match when a user connects. MariaDB selects
 the first matching account after sorting according to the following criteria:
 
-* Accounts with an exact host name are sorted before accounts using a wildcard in the\
+* Accounts with an exact host name are sorted before accounts using a wildcard in the
   host name. Host names using a netmask are considered to be exact for sorting.
-* Accounts with a wildcard in the host name are sorted according to the position of\
-  the first wildcard character. Those with a wildcard character later in the host name\
-  sort before those with a wildcard character earlier in the host name.
+* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts.
 * Accounts with a non-empty user name sort before accounts with an empty user name.
 * Accounts with an empty user name are sorted last. As mentioned previously, these are known as anonymous accounts. These are described more in the next section.
 
@@ -341,22 +388,35 @@ The following table shows a list of example account as sorted by these criteria:
 +---------+-------------+
 ```
 
-Once connected, you only have the privileges granted to the account that matched,\
-not all accounts that could have matched. For example, consider the following\
-commands:
+The account that matched determines your identity and your global privileges. Privileges below the global level are looked up separately, and at each level only the most specific matching grant applies — grants belonging to less specific accounts are not added to it. For the full rule, see [Account Name Matching for Privilege Checks](grant.md#account-name-matching-for-privilege-checks) on the `GRANT` page.
+
+For example, consider the following commands:
 
 ```sql
 CREATE USER 'joffrey'@'192.168.0.3';
 CREATE USER 'joffrey'@'%';
 GRANT SELECT ON test.t1 TO 'joffrey'@'192.168.0.3';
-GRANT SELECT ON test.t2 TO 'joffrey'@'%';
+GRANT INSERT ON test.t1 TO 'joffrey'@'%';
 ```
 
-If you connect as joffrey from `192.168.0.3`, you will have the `SELECT`\
-privilege on the table `test.t1`, but not on the table `test.t2`. If you connect as joffrey from any other IP address, you will have the `SELECT` privilege on the table `test.t2`, but not\
-on the table `test.t1`.
+If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privilege on the table `test.t1`, but not `INSERT`. If you connect as joffrey from any other IP address, you will have the `INSERT` privilege on the table `test.t1`, but not `SELECT`.
+
+If the matching account has no grant at all at a given level, a grant belonging to a less specific account can still apply. Without the `test.t1` grant to `'joffrey'@'192.168.0.3'`, the grant to `'joffrey'@'%'` would be the only match, and a connection from `192.168.0.3` would have the `INSERT` privilege on `test.t1`.
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
+
+Patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
+
+```sql
++---------+-------------+
+| User    | Host        |
++---------+-------------+
+| alice   | db.foo.bar  |  <- exact, matched first
+| alice   | %.foo.bar   |  <- more specific wildcard
+| alice   | %.bar       |  <- less specific wildcard
+| alice   | %           |  <- least specific, matched last
++---------+-------------+
+```
 
 ### Anonymous Accounts
 
@@ -418,17 +478,7 @@ CREATE USER 'marijn'@'localhost' ACCOUNT LOCK;
 
 See [Account Locking](../../../security/user-account-management/account-locking.md) for more details.
 
-{% tabs %}
-{% tab title="Current" %}
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
-{% endtab %}
-
-{% tab title="<10.4.7, <10.5.8" %}
-Prior to [MariaDB 10.4.7](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes) and [MariaDB 10.5.8](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1058-release-notes), the _lock\_option_ must be placed before the _password\_option_.
-{% endtab %}
-{% endtabs %}
-
-From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1058-release-notes), the _lock\_option_ and _password\_option_ clauses can occur in either order.
 
 ## See Also
 
@@ -440,7 +490,7 @@ From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 * [SET PASSWORD](set-password.md)
 * [SHOW CREATE USER](../administrative-sql-statements/show/show-create-user.md)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Identifier Names](../../sql-structure/sql-language-structure/identifier-names.md)
 * [mysql.user table](../../system-tables/the-mysql-database-tables/mysql-user-table.md)
 * [mysql.global\_priv\_table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md)

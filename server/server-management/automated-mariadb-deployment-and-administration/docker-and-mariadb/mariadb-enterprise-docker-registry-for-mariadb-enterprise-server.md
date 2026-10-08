@@ -1,10 +1,16 @@
+---
+description: >-
+  How to authenticate with and pull images from the private MariaDB Enterprise
+  Docker Registry.
+---
+
 # MariaDB Enterprise Docker Registry for MariaDB Enterprise Server
 
-MariaDB Corporation provides the MariaDB Enterprise Docker Registry. The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server.
+MariaDB Corporation provides the MariaDB Enterprise Docker Registry. The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. These images are generally available (GA) and supported for production use.
 
 This page contains reference material for the MariaDB Enterprise Docker Registry.
 
-The reference material on this page applies to MariaDB Enterprise Server 10.5 and later.
+The reference material on this page applies to MariaDB Enterprise Server 10.6 and later.
 
 ## Details
 
@@ -24,11 +30,11 @@ Other details are listed in the sections below.
 
 ### Versions
 
-The MariaDB Enterprise Docker Registry provides Docker images for **MariaDB Enterprise Server 10.5 and later**.
+The MariaDB Enterprise Docker Registry provides Docker images for **MariaDB Enterprise Server 10.6 and later**.
 
 ### Storage Engines
 
-The Docker images for MariaDB Enterprise Server include all storage engines that are installed with MariaDB Enterprise Server by default. The following storage engines are currently included:
+The Docker images for MariaDB Enterprise Server include all storage engines that are installed with MariaDB Enterprise Server by default. The following storage engines are included:
 
 * [Aria](../../../server-usage/storage-engines/aria/)
 * [CSV](../../../server-usage/storage-engines/csv/)
@@ -80,11 +86,11 @@ The MariaDB Enterprise Docker Registry contains a single repository, which provi
 
 The `enterprise-server` repository in the MariaDB Enterprise Docker Registry contains images for different MariaDB Enterprise Server releases using specific tags:
 
-| Type of release?        | Tags                                                                                                                 | Description                                                                                                                                                                                                                                                 |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Latest release series   | <ul><li><code>latest</code></li></ul>                                                                                | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series, which is currently MariaDB Enterprise Server 11.4.                                                                                                        |
-| Specific release series | <ul><li><code>10.5</code></li><li><code>10.6</code></li><li><code>11.4</code></li></ul>                              | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                 |
-| Specific minor release  | <ul><li><code>10.6.19-15.1</code></li></ul><ul><li><code>10.6.20-16.1</code></li><li><code>11.4.4-2</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [Release Notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server). |
+| Type of release?        | Tags                                                                                                  | Description                                                                                                                                                                                                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Latest release series   | <ul><li><code>latest</code></li></ul>                                                                 | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series.                                                                                                                                              |
+| Specific release series | <ul><li><code>11.8</code></li><li><code>11.4</code></li><li><code>10.6</code></li></ul>               | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                                                       |
+| Specific minor release  | <ul><li><code>11.8.3-1</code></li><li><code>11.4.8-5</code></li><li><code>10.6.23-19</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases). |
 
 ## Examples
 
@@ -159,7 +165,7 @@ SHOW GLOBAL VARIABLES
 ```
 *************************** 1. row ***************************
 Variable_name: version
-        Value: 11.4.5-3-MariaDB-enterprise-log
+        Value: 11.8.3-1-MariaDB-enterprise-log
 ```
 
 To exit the container, use `exit`:
@@ -180,10 +186,10 @@ To create a Docker container using Docker bridge networking, execute [`docker ru
 
 ```bash
 docker run --detach \
-   --name mariadb-es-11.4 \
+   --name mariadb-es-11.8 \
    --env MARIADB_ROOT_PASSWORD='Password123!' \
    --publish '3307:3306/tcp' \
-   docker.mariadb.com/enterprise-server:11.4 \
+   docker.mariadb.com/enterprise-server:11.8 \
    --log-bin=mariadb-bin \
    <other mariadbd command-line options>
 ```
@@ -201,12 +207,12 @@ To confirm the Docker container is running, execute [`docker ps`](https://docs.d
 ```bash
 docker ps \
    --all \
-   --filter ancestor='docker.mariadb.com/enterprise-server:11.4'
+   --filter ancestor='docker.mariadb.com/enterprise-server:11.8'
 ```
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED          STATUS                      PORTS      NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:11.4   "/es-entrypoint.sh -…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-11.4
+3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "/es-entrypoint.sh -…"   12 seconds ago   Up 11 seconds               3306/tcp   mariadb-es-11.8
 ```
 
 ### Create a Container with Host Networking
@@ -218,9 +224,9 @@ To create a Docker container using host networking, execute [`docker run`](https
 ```bash
 docker run --detach \
    --network host \
-   --name mariadb-es-11.4 \
+   --name mariadb-es-11.8 \
    --env MARIADB_ROOT_PASSWORD='Password123!' \
-   docker.mariadb.com/enterprise-server:11.4 \
+   docker.mariadb.com/enterprise-server:11.8 \
    --port=3307 \
    --log-bin=mariadb-bin \
    <other mariadbd command-line options>
@@ -231,7 +237,7 @@ docker run --detach \
 ```
 
 * Configure the container using [environment variables](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#environment-variables) by setting the `--env` command-line option.
-* Configure the port for MariaDB Enterprise Server by setting the [--port](../../../server-usage/connecting/mariadb-connecting-guide-1.md#port) command-line option.
+* Configure the port for MariaDB Enterprise Server by setting the [--port](../../../mariadb-quickstart-guides/mariadb-connecting-guide.md#port) command-line option.
 * Configure MariaDB Enterprise Server by setting [mariadbd command-line options](../../starting-and-stopping-mariadb/mariadbd-options.md).
 
 To confirm the Docker container is running, execute [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/):
@@ -239,7 +245,7 @@ To confirm the Docker container is running, execute [`docker ps`](https://docs.d
 ```bash
 docker ps \
    --all \
-   --filter ancestor='docker.mariadb.com/enterprise-server:11.4'
+   --filter ancestor='docker.mariadb.com/enterprise-server:11.8'
 ```
 
 ### Environment Variables
@@ -254,23 +260,25 @@ A Docker container can be configured to perform the following tasks using enviro
 
 The following table contains details about the environment variables that are supported:
 
-| Environment Variable         | Description                                                                                                                                                                                                                                                                                                                                                                                           | Default    | Allowed Values                                                                              |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `MARIADB_DATABASE`           | When the `MARIADB_DATABASE` environment variable is set to a valid database name, create the specified database if it does not already exist.                                                                                                                                                                                                                                                         | No default | Any valid database name                                                                     |
-| `MARIADB_INITDB_SKIP_TZINFO` | By default, the entrypoint script automatically loads the timezone data needed for the `CONVERT_TZ()` function. If it is not needed, any non-empty value disables timezone loading.                                                                                                                                                                                                                   | No default | <ul><li><code>0</code></li><li><code>1</code></li></ul>                                     |
-| `MARIADB_PASSWORD`           | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid password                                                                          |
-| `MARIADB_ROOT_HOST`          | When the `MARIADB_ROOT_HOST` environment variable is set to a valid hostname, the `root` user account will be restricted to logins from that hostname.                                                                                                                                                                                                                                                | `%`        | Any valid hostname                                                                          |
-| `MARIADB_ROOT_PASSWORD`      | When the `MARIADB_ROOT_PASSWORD` environment variable is set to `RANDOM`, a random password is generated for the `root` user account. When the `MARIADB_ROOT_PASSWORD` environment variable is set to `EMPTY`, the `root` user account uses an empty password. When the `MARIADB_ROOT_PASSWORD` environment variable is set to a valid password, the `root` user account uses the specified password. | No default | <ul><li><code>RANDOM</code></li><li><code>EMPTY</code></li><li>Any valid password</li></ul> |
-| `MARIADB_USER`               | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid user name                                                                         |
+| Environment Variable                 | Description                                                                                                                                                                                                                                                                                                                                                                                           | Default    | Allowed Values                                                                              |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| `MARIADB_DATABASE`                   | When the `MARIADB_DATABASE` environment variable is set to a valid database name, create the specified database if it does not already exist.                                                                                                                                                                                                                                                         | No default | Any valid database name                                                                     |
+| `MARIADB_INITDB_SKIP_TZINFO`         | By default, the entrypoint script automatically loads the timezone data needed for the `CONVERT_TZ()` function. If it is not needed, any non-empty value disables timezone loading.                                                                                                                                                                                                                   | No default | <ul><li><code>0</code></li><li><code>1</code></li></ul>                                     |
+| `MARIADB_PASSWORD`                   | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid password                                                                          |
+| `MARIADB_ROOT_HOST`                  | When the `MARIADB_ROOT_HOST` environment variable is set to a valid hostname, the `root` user account will be restricted to logins from that hostname.                                                                                                                                                                                                                                                | `%`        | Any valid hostname                                                                          |
+| `MARIADB_ROOT_PASSWORD`              | When the `MARIADB_ROOT_PASSWORD` environment variable is set to `RANDOM`, a random password is generated for the `root` user account. When the `MARIADB_ROOT_PASSWORD` environment variable is set to `EMPTY`, the `root` user account uses an empty password. When the `MARIADB_ROOT_PASSWORD` environment variable is set to a valid password, the `root` user account uses the specified password. | No default | <ul><li><code>RANDOM</code></li><li><code>EMPTY</code></li><li>Any valid password</li></ul> |
+| `MARIADB_USER`                       | When the `MARIADB_USER` and `MARIADB_PASSWORD` environment variables are both set, create a user account with the specified user name and password.                                                                                                                                                                                                                                                   | No default | Any valid user name                                                                         |
+| `MARIADB_UNIX_SOCKET_AUTHENTICATION` | When set to 1, enables Unix socket-based authentication for the root user, allowing passwordless access when connecting locally as the mysql system user. This option is mutually exclusive with all MARIADB_ROOT_PASSWORD* variables.                                                                                                                                                                | Empty      | 1,0                                                                                         |
+| `SKIP_INIT_WSREP_OFF`                | By default, the temporary server used for initialization is started with Galera Cluster replication explicitly turned off (--wsrep_on=OFF). If this variable is set, that flag is omitted, allowing the temporary server to start with wsrep enabled.                                                                                                                                                 | No default | Any non-empty value                                                                         |
 
 To create a Docker container using environment variables, execute [`docker run`](https://docs.docker.com/engine/reference/commandline/run/), environment variables and specify each environment variable using the `--env` option:
 
 ```bash
 docker run --detach \
    --network host \
-   --name mariadb-es-11.4 \
+   --name mariadb-es-11.8 \
    --env MARIADB_ROOT_PASSWORD='Password123!' \
-   docker.mariadb.com/enterprise-server:11.4
+   docker.mariadb.com/enterprise-server:11.8
 ```
 
 ```
@@ -288,7 +296,7 @@ A Docker contained can be inspected to find out internal details about the conta
 To inspect all internal details about a Docker container, execute [`docker inspect`](https://docs.docker.com/engine/reference/commandline/inspect/):
 
 ```bash
-docker inspect mariadb-es-11.4
+docker inspect mariadb-es-11.8
 ```
 
 ```json
@@ -325,7 +333,7 @@ To inspect the container's IP address:
 ```bash
 docker inspect \
    --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \
-   mariadb-es-11.4
+   mariadb-es-11.8
 ```
 
 ```
@@ -337,7 +345,7 @@ To inspect the container's TCP port bindings:
 ```bash
 docker inspect \
    --format='{{range $p, $conf := .NetworkSettings.Ports}}Container port: {{$p}} -> Host port: {{(index $conf 0).HostPort}} {{end}}' \
-   mariadb-es-11.4
+   mariadb-es-11.8
 ```
 
 ```
@@ -378,7 +386,7 @@ To obtain a shell in the Docker container, execute the shell on the container us
 
 ```bash
 docker exec --interactive --tty \
-   mariadb-es-11.4 \
+   mariadb-es-11.8 \
    bash
 ```
 
@@ -387,15 +395,15 @@ docker exec --interactive --tty \
 To pull a Docker image with the [appropriate tag](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#tags), execute [`docker pull`](https://docs.docker.com/engine/reference/commandline/pull/):
 
 ```bash
-docker pull docker.mariadb.com/enterprise-server:11.4
+docker pull docker.mariadb.com/enterprise-server:11.8
 ```
 
 ```
-11.4: Pulling from enterprise-server
+11.8: Pulling from enterprise-server
 5d87d5506868: Pull complete
 Digest: sha256:68795ca747901e3402e30dab71d6d8bc72bce727db3b9e4888979468be77d250
-Status: Downloaded newer image for docker.mariadb.com/enterprise-server:11.4
-docker.mariadb.com/enterprise-server:11.4
+Status: Downloaded newer image for docker.mariadb.com/enterprise-server:11.8
+docker.mariadb.com/enterprise-server:11.8
 ```
 
 To confirm the Docker image has been pulled, execute [`docker images`](https://docs.docker.com/engine/reference/commandline/images/):
@@ -407,7 +415,7 @@ docker images \
 
 ```
 REPOSITORY                             TAG       IMAGE ID       CREATED        SIZE
-docker.mariadb.com/enterprise-server   11.4      dd17291aa340   3 months ago   451MB
+docker.mariadb.com/enterprise-server   11.8      dd17291aa340   3 months ago   451MB
 ```
 
 ### Remove Container
@@ -415,11 +423,11 @@ docker.mariadb.com/enterprise-server   11.4      dd17291aa340   3 months ago   4
 To remove a Docker container, execute [`docker rm`](https://docs.docker.com/engine/reference/commandline/rm/):
 
 ```bash
-docker rm mariadb-es-11.4
+docker rm mariadb-es-11.8
 ```
 
 ```
-mariadb-es-11.4
+mariadb-es-11.8
 ```
 
 To confirm the container is removed, execute [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/):
@@ -427,7 +435,7 @@ To confirm the container is removed, execute [`docker ps`](https://docs.docker.c
 ```bash
 docker ps \
    --all \
-   --filter ancestor='docker.mariadb.com/enterprise-server:11.4'
+   --filter ancestor='docker.mariadb.com/enterprise-server:11.8'
 ```
 
 ```
@@ -439,11 +447,11 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 To stop a Docker container, execute [`docker stop`](https://docs.docker.com/engine/reference/commandline/stop/):
 
 ```bash
-docker stop mariadb-es-11.4
+docker stop mariadb-es-11.8
 ```
 
 ```
-mariadb-es-11.4
+mariadb-es-11.8
 ```
 
 To confirm the container is stopped, execute [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/):
@@ -451,12 +459,12 @@ To confirm the container is stopped, execute [`docker ps`](https://docs.docker.c
 ```bash
 docker ps \
    --all \
-   --filter ancestor='docker.mariadb.com/enterprise-server:11.4'
+   --filter ancestor='docker.mariadb.com/enterprise-server:11.8'
 ```
 
 ```
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED         STATUS                            PORTS       NAMES
-3082ab69e565   docker.mariadb.com/enterprise-server:11.4   "/es-entrypoint.sh -…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-11.4
+3082ab69e565   docker.mariadb.com/enterprise-server:11.8   "/es-entrypoint.sh -…"   2 minutes ago   Exited (143) About a minute ago               mariadb-es-11.8
 ```
 
 ### View Container Logs
@@ -464,5 +472,7 @@ CONTAINER ID   IMAGE                                         COMMAND            
 To view the logs in the Docker container, execute [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/):
 
 ```bash
-docker logs mariadb-es-11.4
+docker logs mariadb-es-11.8
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

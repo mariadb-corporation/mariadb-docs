@@ -1,8 +1,14 @@
+---
+description: >-
+  Tests if two geometries are spatially related according to a given DE-9IM
+  intersection matrix pattern.
+---
+
 # ST\_RELATE
 
 ## Syntax
 
-```sql
+```bnf
 ST_Relate(g1, g2, i)
 ```
 

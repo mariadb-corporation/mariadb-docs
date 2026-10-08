@@ -1,13 +1,13 @@
 # MariaDB 5.2.10 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.10) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5210-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://archive.mariadb.org/mariadb-5.2.10/) |[Release Notes](../../old-releases/5.2/5.2.10.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 5 Dec 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5210-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.10.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3067](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3067)\
@@ -59,8 +59,8 @@ modified in that revision.
   Thu 2011-12-01 22:37:45 +0100
   * Fix intermittently failing variables-notembedded test case.\
     After sending packet that is too large, clienrt can get either an error packet with\
-    ER\_NET\_PACKET\_TOO\_LARGE, or a socket error. Both cases are valid, since the\
-    server does not ensure reply was fully read by client, before shutting down and closing\
+    ER\_NET\_PACKET\_TOO\_LARGE, or a socket error. Both cases are valid, since the
+    server does not ensure reply was fully read by client, before shutting down and closing
     the socket.
 * [Revision #3058](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3058)\
   Thu 2011-12-01 20:21:11 +0200
@@ -87,7 +87,7 @@ modified in that revision.
   * [Revision #2643.127.57](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/2643.127.57)\
     Wed 2011-11-30 13:53:25 +0100
     * Cherrypick into XtraDB: bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR
-    * We merged the test case for this into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md), but the fix was not yet part of XtraDB.
+    * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix was not yet part of XtraDB.
 * [Revision #2643.127.56](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/2643.127.56)\
   Wed 2011-11-30 00:34:05 +0200
   * Fixed compiler warnings
@@ -109,9 +109,9 @@ modified in that revision.
   Tue 2011-11-29 08:50:54 +0100
   * Fix testcases:
     1. main.merge fails with errno 13 in copy\_file().
-    2. The reason for the error is that copy\_file tries to create a file with the same name as recently deleted one,\
+    2. The reason for the error is that copy\_file tries to create a file with the same name as recently deleted one,
        and there is still an open handle for the deleted file.\
-       To fix, use my\_delete\_allow\_opened() for MTR's delete\_file. On Windows, this renames file to unique name\
+       To fix, use my\_delete\_allow\_opened() for MTR's delete\_file. On Windows, this renames file to unique name
        prior to deletion, and prevents EACCES errors for files opened with FILE\_SHARE\_DELETE.
     3. innodb\_bug59641
     4. generates warnings, after server was killed and restarted in the test case.
@@ -131,7 +131,7 @@ modified in that revision.
     * Added test case for [Bug #875797](https://bugs.launchpad.net/bugs/875797) Using 'innodb\_sys\_indexes' causes core dump
   * [Revision #3042.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3042.1.1) \[merge]\
     Thu 2011-11-24 18:48:58 +0200
-    * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+    * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
     * [Revision #2643.127.52](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/2643.127.52)\
       Thu 2011-11-24 16:04:19 +0200
       * Fixes for build failuers found by buildbot
@@ -146,7 +146,7 @@ modified in that revision.
       * Merge of XtraDB for 5.1.59
       * [Revision #2643.133.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/2643.133.1) \[merge]\
         Mon 2011-11-21 14:21:13 +0100
-        * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+        * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
         * [Revision #0.6.47](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/0.6.47)\
           Mon 2011-11-21 13:20:15 +0100
           * Updated with changes from Percona Server 5.1.56-13, from
@@ -209,7 +209,7 @@ modified in that revision.
 * [Revision #3044](https://bazaar.launchpad.net/~maria-captains/maria/5.2-release/revision/3044)\
   Tue 2011-11-01 12:36:43 +0400
   * [Bug #884184](https://bugs.launchpad.net/bugs/884184): Wrong result with RIGHT JOIN + derived\_merge
-    *   Make eliminate\_tables\_for\_list() take into account that it is not possible\
+    *   Make eliminate\_tables\_for\_list() take into account that it is not possible
         to eliminate a table if it is used in the upper-side ON expressions.\
         Example:
 
@@ -319,6 +319,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

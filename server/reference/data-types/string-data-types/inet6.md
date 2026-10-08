@@ -1,12 +1,14 @@
-# INET6
+---
+description: >-
+  IPv6 address data type. Stores IPv6 addresses as 16-byte binary strings, also
+  supporting IPv4 addresses via mapping.
+---
 
-{% hint style="info" %}
-`INET6` is available from MariaDB 10.5.
-{% endhint %}
+# INET6
 
 ## Syntax
 
-```sql
+```bnf
 INET6
 ```
 
@@ -53,7 +55,7 @@ Attempting to compare `INET6` to an expression of any other data type returns an
 
 ### Mixing INET6 Values for Result
 
-An `INET6` expression can be mixed for result (i.e. [UNION](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md), [CASE..THEN](https://mariadb.com/kb/en/case), [COALESCE](../../sql-structure/operators/comparison-operators/coalesce.md) etc) with:
+An `INET6` expression can be mixed for result (i.e. [UNION](../../sql-statements/data-manipulation/selecting-data/set-operations/union.md), [CASE..THEN](../../sql-functions/control-flow-functions/case-operator.md), [COALESCE](../../sql-structure/operators/comparison-operators/coalesce.md) etc) with:
 
 * another `INET6` expression. The resulting data type is `INET6`.
 * a character string in text (short or long) address representation. The result data type is `INET6`. The character string counterpart is automatically converted to `INET6`. If the string format is not understood, it's converted with a warning to either `NULL` or to '::', depending on the `NULL`-ability of the result.
@@ -66,19 +68,11 @@ Mixing `INET6` with other data types for [LEAST](../../sql-structure/operators/c
 ### Functions and Operators
 
 * [HEX()](../../sql-functions/string-functions/hex.md) with an INET6 argument returns a hexadecimal representation of the underlying 16-byte binary string
-* Arithmetic operators (+,-,\*,/,MOD,DIV) are not supported for INET6. This may change in the future.
+* Arithmetic operators (+,-,\*,/,MOD,DIV) are not supported for INET6.
 * The [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) function now understands INET6 values as an argument
 * The prototypes of the [IS\_IPV4\_COMPAT](../../sql-functions/secondary-functions/miscellaneous-functions/is_ipv4_compat.md) and I [S\_IPV4\_MAPPED](../../sql-functions/secondary-functions/miscellaneous-functions/is_ipv4_mapped.md) functions have changed from `a BINARY(16)` to `a INET6`,
 
-{% tabs %}
-{% tab title="Current" %}
 When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is applied. As a consequence, both functions understand arguments in both text representation and binary(16) representation.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-When the argument for the aforementioned two functions is not `INET6`, automatic implicit `CAST` to `INET6` is **not** applied.
-{% endtab %}
-{% endtabs %}
 
 ### Prepared Statement Parameters
 
@@ -86,17 +80,9 @@ INET6 understands both [text](text.md) and [binary(16)](binary.md) address repre
 
 ### Migration between BINARY(16) and INET6
 
-{% tabs %}
-{% tab title="Current" %}
 You may have used [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
 
 However, you can [ALTER](../../sql-statements/data-definition/alter/alter-table/) `BINARY(16)` columns storing IPv6 addresses to `INET6`. After such an alter, there is no a need to use `INET6_ATON()` and `INET6_NTOA()`. Addresses can be inserted and retrieved directly.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-You may use [BINARY(16)](binary.md) as a storage for IPv6 internet addresses, in combination with [INET6\_ATON](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_aton.md) and [INET6\_NTOA](../../sql-functions/secondary-functions/miscellaneous-functions/inet6_ntoa.md) to respectively insert and retrieve data.
-{% endtab %}
-{% endtabs %}
 
 It is also possible to convert `INET6` columns to `BINARY(16)` and continue using the data in combination with `INET6_NTOA()` and `INET6_ATON()`.
 
@@ -430,8 +416,6 @@ EXECUTE IMMEDIATE 'SELECT * FROM t1 WHERE a=?' USING X'FFFF000000000000000000000
 
 ### Migration between BINARY(16) and INET6 Examples
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 CREATE OR REPLACE TABLE t1 (a BINARY(16));
 
@@ -460,25 +444,6 @@ SELECT * FROM t1;
 | ffff::fffe |
 +------------+
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-There's no conversion you can use:
-
-```sql
-CREATE OR REPLACE TABLE t1 (a BINARY(16));
-
-INSERT INTO t1 VALUES (INET6_ATON('ffff::ffff'));
-
-SELECT INET6_NTOA(a) FROM t1;
-+---------------+
-| INET6_NTOA(a) |
-+---------------+
-| ffff::ffff    |
-+---------------+
-```
-{% endtab %}
-{% endtabs %}
 
 Migration from `INET6` to `BINARY(16)`:
 
@@ -505,6 +470,10 @@ SELECT INET6_NTOA(a) FROM t1;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is permitted, allowing `INET4` values to be inserted into `INET6` columns.
 
 ```sql
@@ -516,6 +485,10 @@ Query OK, 3 rows affected (0.027 sec)
 {% endtab %}
 
 {% tab title="< 11.3" %}
+{% hint style="info" %}
+Before MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is **not** permitted. You get an error if you try:
 
 ```

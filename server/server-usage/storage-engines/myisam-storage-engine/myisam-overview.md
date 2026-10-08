@@ -1,3 +1,9 @@
+---
+description: >-
+  A detailed overview of the MyISAM storage engine, including its file
+  structure, features, and limitations compared to newer engines like Aria.
+---
+
 # MyISAM Overview
 
 The MyISAM storage engine was the default storage engine from MySQL 3.23 until it was replaced as default by [InnoDB](../innodb/) in MariaDB and MySQL 5.5. Historically, MyISAM is a replacement for the older ISAM engine, removed in MySQL 4.1.

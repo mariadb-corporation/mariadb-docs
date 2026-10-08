@@ -1,14 +1,20 @@
+---
+description: >-
+  Returns the length of a linear geometry. Calculates the total length of a
+  LineString or MultiLineString in its associated spatial reference units.
+---
+
 # ST\_LENGTH
 
 ## Syntax
 
-```sql
+```bnf
 ST_LENGTH(ls)
 ```
 
 ## Description
 
-Returns as a double-precision number the length of the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md) value _`ls`_ in its associated spatial reference.
+Returns as a double-precision number the length of the [LineString](../geometry-constructors/linestring.md) value _`ls`_ in its associated spatial reference.
 
 ## Examples
 

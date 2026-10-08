@@ -1,34 +1,70 @@
+---
+description: >-
+  MariaDB Connector/Python API reference covers the module, connection
+  class, cursor class, async/await support, connection pooling, and
+  constants used in Python database applications.
+---
+
 # API Reference
 
-# Contents:
+{% columns %}
+{% column %}
+{% content-ref url="module.md" %}
+[module.md](module.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [The MariaDB Connector/Python module](module.md)
-  * [Constructors](module.md#constructors)
-  * [Attributes](module.md#attributes)
-  * [Exceptions](module.md#exceptions)
-* [The connection class](connection.md)
-  * [`Connection`](connection.md#mariadb.connections.Connection)
-  * [Connection constructors](connection.md#connection-constructors)
-  * [Connection methods](connection.md#connection-methods)
-  * [Connection attributes](connection.md#connection-attributes)
-* [The cursor class](cursor.md)
-  * [`Cursor`](cursor.md#mariadb.cursors.Cursor)
-  * [Cursor methods](cursor.md#cursor-methods)
-  * [Cursor attributes](cursor.md#cursor-attributes)
-* [The ConnectionPool class](pool.md)
-  * [`ConnectionPool`](pool.md#mariadb.ConnectionPool)
-  * [ConnectionPool methods](pool.md#connectionpool-methods)
-  * [ConnectionPool attributes](pool.md#connectionpool-attributes)
-* [Constants](constants.md)
-  * [CAPABILITY](constants.md#module-mariadb.constants.CAPABILITY)
-  * [CLIENT](constants.md#module-mariadb.constants.CLIENT)
-  * [CURSOR](constants.md#module-mariadb.constants.CURSOR)
-  * [ERR (Error)](constants.md#err-error)
-  * [FIELD_FLAG](constants.md#module-mariadb.constants.FIELD_FLAG)
-  * [FIELD_TYPE](constants.md#module-mariadb.constants.FIELD_TYPE)
-  * [INDICATORS](constants.md#indicators)
-  * [INFO](constants.md#info)
-  * [TPC_STATE](constants.md#tpc-state)
-  * [STATUS](constants.md#status)
+{% column %}
+The MariaDB Connector/Python module provides `connect`, `asyncConnect`, `create_pool`, and `create_async_pool` constructors, DB API 2.0 type objects, and the exception hierarchy.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="connection.md" %}
+[connection.md](connection.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/Python Connection class reference covers parameters, methods for commit and rollback, and read-only attributes for server version and TLS state.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cursor.md" %}
+[cursor.md](cursor.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/Python Cursor class documents parameters, execute and fetch methods, and attributes such as `rowcount`, `description`, and `sp_outparams` for stored procedures.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="pool.md" %}
+[pool.md](pool.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/Python ConnectionPool manages a fixed-size pool with methods to add, retrieve, and close connections, plus attributes reporting pool size and connection state.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="constants.md" %}
+[constants.md](constants.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/Python constants module defines groups: CAPABILITY, CLIENT, CURSOR, FIELD_TYPE, FIELD_FLAG, INDICATOR, STATUS, and EXT_FIELD_TYPE.
+{% endcolumn %}
+{% endcolumns %}
 
 {% @marketo/form formId="4316" %}

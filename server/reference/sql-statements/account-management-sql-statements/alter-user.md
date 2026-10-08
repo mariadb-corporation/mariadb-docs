@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete ALTER USER guide for MariaDB. Complete syntax for modifying
+  authentication, passwords, and account security settings with comprehensive
+  examples and.
+---
+
 # ALTER USER
 
 ## Syntax
@@ -22,19 +29,19 @@ authentication_rule:
   | authentication_plugin {USING|AS} 'authentication_string'
   | authentication_plugin {USING|AS} PASSWORD('password')
 
-tls_option
+tls_option:
   SSL 
   | X509
   | CIPHER 'cipher'
   | ISSUER 'issuer'
   | SUBJECT 'subject'
 
-resource_option
-  MAX_QUERIES_PER_HOUR COUNT
-  | MAX_UPDATES_PER_HOUR COUNT
-  | MAX_CONNECTIONS_PER_HOUR COUNT
-  | MAX_USER_CONNECTIONS COUNT
-  | MAX_STATEMENT_TIME TIME
+resource_option:
+  MAX_QUERIES_PER_HOUR count
+  | MAX_UPDATES_PER_HOUR count
+  | MAX_CONNECTIONS_PER_HOUR count
+  | MAX_USER_CONNECTIONS count
+  | MAX_STATEMENT_TIME time
 
 password_option:
   PASSWORD EXPIRE
@@ -45,8 +52,23 @@ password_option:
 lock_option:
     ACCOUNT LOCK
   | ACCOUNT UNLOCK
-}
 ```
+
+![Railroad diagram of ALTER USER — equivalent to the BNF above](../../../.gitbook/assets/alter-user-railroad.svg)
+
+![Railroad diagram of user_specification](../../../.gitbook/assets/alter-user-specification-railroad.svg)
+
+![Railroad diagram of authentication_option](../../../.gitbook/assets/alter-user-authentication-option-railroad.svg)
+
+![Railroad diagram of authentication_rule](../../../.gitbook/assets/alter-user-authentication-rule-railroad.svg)
+
+![Railroad diagram of tls_option](../../../.gitbook/assets/alter-user-tls-option-railroad.svg)
+
+![Railroad diagram of resource_option](../../../.gitbook/assets/alter-user-resource-option-railroad.svg)
+
+![Railroad diagram of password_option](../../../.gitbook/assets/alter-user-password-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../.gitbook/assets/alter-user-lock-option-railroad.svg)
 
 ## Description
 
@@ -72,9 +94,9 @@ ALTER USER CURRENT_USER() IDENTIFIED BY 'mariadb';
 
 ## Authentication Options
 
-From MariaDB 10.4, it is possible to use more than one authentication plugin for each user account. For example, this can be useful to slowly migrate users to the more secure ed25519 authentication plugin over time, while allowing the old mysql\_native\_password authentication plugin as an alternative for the transitional period. See [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more.
+It is possible to use more than one authentication plugin for each user account. For example, this can be useful to slowly migrate users to the more secure ed25519 authentication plugin over time, while allowing the old mysql\_native\_password authentication plugin as an alternative for the transitional period. See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more.
 
-When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method. (However this was not the case before [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10413-release-notes), see [MDEV-21928](https://jira.mariadb.org/browse/MDEV-21928))
+When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method.
 
 For example, a user is created with the ability to authenticate via both a password and unix\_socket:
 
@@ -119,9 +141,9 @@ For example, if our password is `mariadb`, then we can set the account's passwor
 ALTER USER foo2@test IDENTIFIED BY 'mariadb';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
-to match any password. The user must connect without providing a password if no\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
+to match any password. The user must connect without providing a password if no
 password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).
@@ -151,8 +173,8 @@ ALTER USER foo2@test
   IDENTIFIED BY PASSWORD '*54958E764CE10E50764C2EECBB71D01F08549980';
 ```
 
-If you do not specify a password with the `IDENTIFIED BY` clause, the user\
-will be able to connect without a password. A blank password is not a wildcard\
+If you do not specify a password with the `IDENTIFIED BY` clause, the user
+will be able to connect without a password. A blank password is not a wildcard
 to match any password. The user must connect without providing a password if no password is set.
 
 The only [authentication plugins](../../plugins/authentication-plugins/) that this clause supports are [mysql\_native\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) and [mysql\_old\_password](../../plugins/authentication-plugins/authentication-plugin-mysql_old_password.md).
@@ -175,19 +197,11 @@ ALTER USER foo2@test IDENTIFIED VIA pam USING 'mariadb';
 
 The exact meaning of the additional argument would depend on the specific authentication plugin.
 
-{% tabs %}
-{% tab title="Current" %}
 The `USING` or `AS` keyword can also be used to provide a plain-text password to a plugin if it's provided as an argument to the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function. This is only valid for [authentication plugins](../../plugins/authentication-plugins/) that have implemented a hook for the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function. For example, the [ed25519](../../plugins/authentication-plugins/authentication-plugin-ed25519.md) authentication plugin supports this:
 
 ```sql
 ALTER USER safe@'%' IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
-{% endtab %}
-
-{% tab title="< 10.4" %}
-The `USING` or `AS` keyword **cannot** be used to provide a plain-text password to a plugin if it's provided as an argument to the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function.
-{% endtab %}
-{% endtabs %}
 
 ## TLS Options
 
@@ -195,7 +209,7 @@ By default, MariaDB transmits data between the server and clients without encryp
 
 To mitigate this concern, MariaDB allows you to encrypt data in transit between the server and clients using the Transport Layer Security (TLS) protocol. TLS was formerly known as Secure Socket Layer (SSL), but strictly speaking the SSL protocol is a predecessor to TLS and, that version of the protocol is now considered insecure. The documentation still uses the term SSL often and for compatibility reasons TLS-related server system and status variables still use the prefix ssl\_, but internally, MariaDB only supports its secure successors.
 
-See [Secure Connections Overview](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
+See [Secure Connections Overview](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
 
 You can set certain TLS-related restrictions for specific user accounts. For instance, you might use this with user accounts that require access to sensitive data while sending it across networks that you do not control. These restrictions can be enabled for a user account with the [CREATE USER](create-user.md), [ALTER USER](alter-user.md), or [GRANT](grant.md) statements. The following options are available:
 
@@ -221,7 +235,7 @@ ALTER USER 'alice'@'%'
 
 If any of these options are set for a specific user account, then any client who tries to connect with that user account will have to be configured to connect with TLS.
 
-See [Securing Connections for Client and Server](../../../security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+See [Securing Connections for Client and Server](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
 
 ## Resource Limit Options
 
@@ -247,7 +261,7 @@ ALTER USER 'someone'@'localhost' WITH
 
 The resources are tracked per account, which means `'user'@'server'`; not per user name or per connection.
 
-The count can be reset for all users using [FLUSH USER\_RESOURCES](../administrative-sql-statements/flush-commands/flush.md), [FLUSH PRIVILEGES](../administrative-sql-statements/flush-commands/flush.md) or [mysqladmin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md).
+The count can be reset for all users using [FLUSH USER\_RESOURCES](../administrative-sql-statements/flush-commands/flush.md), [FLUSH PRIVILEGES](../administrative-sql-statements/flush-commands/flush.md) or [mysqladmin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md).
 
 Per account resource limits are stored in the [user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table, in the [mysql](../../system-tables/the-mysql-database-tables/) database. Columns used for resources limits are named `max_questions`, `max_updates`, `max_connections` (for `MAX_CONNECTIONS_PER_HOUR`), and `max_user_connections` (for `MAX_USER_CONNECTIONS`).
 
@@ -273,17 +287,9 @@ ALTER USER 'marijn'@'localhost' ACCOUNT LOCK;
 
 See [Account Locking](../../../security/user-account-management/account-locking.md) for more details.
 
-{% tabs %}
-{% tab title="Current" %}
 The _lock\_option_ and _password\_option_ clauses can occur in either order.
-{% endtab %}
 
-{% tab title="< 10.5.8, < 10.4.7" %}
-The _lock\_option_ must be placed before the _password\_option_.
-{% endtab %}
-{% endtabs %}
-
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [GRANT](grant.md)
 * [CREATE USER](create-user.md)
 * [DROP USER](drop-user.md)

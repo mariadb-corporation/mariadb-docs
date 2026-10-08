@@ -1,14 +1,14 @@
 # MariaDB 10.4.7 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-34-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.7/)[Release Notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes.md)[Changelog](mariadb-1047-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.7/)[Release Notes](../../old-releases/10.4/10.4.7.md)[Changelog](mariadb-1047-changelog.md)[Overview of 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 
 **Release date:** 31 Jul 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.7.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.3.17](../changelogs-mariadb-10-3-series/mariadb-10317-changelog.md)
@@ -51,7 +51,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-19876](https://jira.mariadb.org/browse/MDEV-19876) pam v2: auth\_pam\_tool\_dir and auth\_pam\_tool permissions are wrong in RPMs
 * [Revision #c9f0f88838](https://github.com/MariaDB/server/commit/c9f0f88838)\
   2019-07-08 12:32:17 +0200
-  * [MDEV-19822](https://jira.mariadb.org/browse/MDEV-19822) [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) install fails on Ubuntu 18.04 if Prometheus mysqld\_exporter is running
+  * [MDEV-19822](https://jira.mariadb.org/browse/MDEV-19822) [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md) install fails on Ubuntu 18.04 if Prometheus mysqld\_exporter is running
 * [Revision #bccd9d0e3a](https://github.com/MariaDB/server/commit/bccd9d0e3a)\
   2019-07-24 13:20:36 +0200
   * [MDEV-20108](https://jira.mariadb.org/browse/MDEV-20108): \[ERROR] mysqld got signal 11 in st\_select\_lex::add\_table\_to\_list
@@ -152,7 +152,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-19879](https://jira.mariadb.org/browse/MDEV-19879) server can send empty error message to client with pam\_use\_cleartext\_plugin
 * [Revision #3914a792d8](https://github.com/MariaDB/server/commit/3914a792d8)\
   2019-06-30 17:18:26 +0200
-  * [MDEV-19880](https://jira.mariadb.org/browse/MDEV-19880) pam v1: pam password authentication doesn't work at all in [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/)
+  * [MDEV-19880](https://jira.mariadb.org/browse/MDEV-19880) pam v1: pam password authentication doesn't work at all in [MariaDB 10.4](../../old-releases/10.4/what-is-mariadb-104.md)
 * [Revision #dd93028dae](https://github.com/MariaDB/server/commit/dd93028dae)\
   2019-06-30 20:41:26 +0200
   * [MDEV-19878](https://jira.mariadb.org/browse/MDEV-19878) pam v2: pam password authentication doesn't work at all
@@ -189,7 +189,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-17402](https://jira.mariadb.org/browse/MDEV-17402) slave\_transaction\_retry\_errors="12701" won't be enabled (#1349)
 * [Revision #76200870ea](https://github.com/MariaDB/server/commit/76200870ea)\
   2019-06-29 03:42:35 +0900
-  * [MDEV-17204](https://jira.mariadb.org/browse/MDEV-17204) [Mariadb 10.3.9](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) Spider DB SQL Alias no execute (#1348)
+  * [MDEV-17204](https://jira.mariadb.org/browse/MDEV-17204) [Mariadb 10.3.9](../../old-releases/10.3/10.3.9.md) Spider DB SQL Alias no execute (#1348)
 * [Revision #d4bdf1c0b6](https://github.com/MariaDB/server/commit/d4bdf1c0b6)\
   2019-06-29 03:35:48 +0900
   * [MDEV-16508](https://jira.mariadb.org/browse/MDEV-16508) spider: sql\_mode not maintained between spider node and data nodes (#1347)
@@ -259,6 +259,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

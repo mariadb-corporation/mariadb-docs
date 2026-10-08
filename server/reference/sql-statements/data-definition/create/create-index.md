@@ -1,10 +1,16 @@
+---
+description: >-
+  Complete reference for CREATE INDEX in MariaDB. Complete syntax guide with all
+  options, clauses, and practical examples with comprehensive examples and best.
+---
+
 # CREATE INDEX
 
 ## Syntax
 
-```sql
-CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL] INDEX 
-  [IF NOT EXISTS] index_name
+```bnf
+CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL|VECTOR] INDEX
+    [IF NOT EXISTS] index_name
     [index_type]
     ON tbl_name (index_col_name,...)
     [WAIT n | NOWAIT]
@@ -18,12 +24,14 @@ index_type:
     USING {BTREE | HASH | RTREE}
 
 index_option:
-    [ KEY_BLOCK_SIZE [=] value
+    KEY_BLOCK_SIZE [=] value
   | index_type
   | WITH PARSER parser_name
   | COMMENT 'string'
-  | CLUSTERING={YES| NO} ]
-  [ IGNORED | NOT IGNORED ]
+  | CLUSTERING = {YES | NO}
+  | IGNORED | NOT IGNORED
+  | DISTANCE = {EUCLIDEAN | COSINE}
+  | M = number
 
 algorithm_option:
     ALGORITHM [=] {DEFAULT|INPLACE|COPY|NOCOPY|INSTANT}
@@ -32,11 +40,23 @@ lock_option:
     LOCK [=] {DEFAULT|NONE|SHARED|EXCLUSIVE}
 ```
 
+![Railroad diagram of CREATE INDEX — equivalent to the BNF above](../../../../.gitbook/assets/create-index-railroad.svg)
+
+![Railroad diagram of index_col_name](../../../../.gitbook/assets/create-index-col-name-railroad.svg)
+
+![Railroad diagram of index_type](../../../../.gitbook/assets/create-index-type-railroad.svg)
+
+![Railroad diagram of index_option](../../../../.gitbook/assets/create-index-option-railroad.svg)
+
+![Railroad diagram of algorithm_option](../../../../.gitbook/assets/create-index-algorithm-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../../.gitbook/assets/create-index-lock-option-railroad.svg)
+
 ## Description
 
 The `CREATE INDEX` statement is used to add indexes to a table. Indexes can be created at the same as the table, with the [CREATE TABLE](create-table.md) statement. In some cases, such as for InnoDB primary keys, doing so during creation is preferable, as adding a primary key will involve rebuilding the table.
 
-The statement is mapped to an `ALTER TABLE` statement to create [indexes](../../../../server-usage/tables/mariadb-indexes-guide-1.md). See [ALTER TABLE](../alter/alter-table/). `CREATE INDEX` cannot be used to create a [PRIMARY KEY](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key); use `ALTER TABLE` instead.
+The statement is mapped to an `ALTER TABLE` statement to create [indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md). See [ALTER TABLE](../alter/alter-table/). `CREATE INDEX` cannot be used to create a [PRIMARY KEY](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key); use `ALTER TABLE` instead.
 
 If another connection is using the table, a [metadata lock](../../transactions/metadata-locking.md) is active, and this statement will wait until the lock is released. This is also true for non-transactional tables.
 
@@ -46,7 +66,7 @@ For valid identifiers to use as index names, see [Identifier Names](../../../sql
 
 For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md).
 
-Note that `KEY_BLOCK_SIZE` is currently ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
+Note that `KEY_BLOCK_SIZE` is ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
 
 ## Privileges
 
@@ -93,23 +113,15 @@ Stage: 1 of 2 'copy to tmp table'    46% of stage
 
 The progress report is also shown in the output of the [SHOW PROCESSLIST](../../administrative-sql-statements/show/show-processlist.md) statement and in the contents of the [information\_schema.PROCESSLIST](../../../system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) table.
 
-See [Progress Reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for more information.
+See [Progress Reporting](../../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for more information.
 
 ## WITHOUT OVERLAPS
 
-{% tabs %}
-{% tab title="Current" %}
 The `WITHOUT OVERLAPS` clause allows you to constrain a primary or unique index such that [application-time periods](../../../sql-structure/temporal-tables/application-time-periods.md) cannot overlap. It can be used like this:
 
 ```sql
 CREATE UNIQUE INDEX u ON rooms (room_number, p WITHOUT OVERLAPS);
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-`WITHOUT OVERLAPS` is not available.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

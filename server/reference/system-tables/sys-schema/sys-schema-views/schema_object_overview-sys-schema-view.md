@@ -1,3 +1,9 @@
+---
+description: >-
+  The schema_object_overview view provides a count of different database objects
+  (such as tables, views, and routines) within each schema on the server.
+---
+
 # schema\_object\_overview Sys Schema View
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud with HeidiSQL, configuring the host, port, TLS
+  settings, and credentials in HeidiSQL's session manager for Windows users.
+---
+
 # HeidiSQL
 
 ## Steps
@@ -15,6 +21,10 @@
 Ensure your HeidiSQL client is up to date.
 {% endhint %}
 
+For more information on HeidiSQL, see [this page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/graphical-and-enhanced-clients/heidisql).
+
 {% hint style="warning" %}
-Using updated drivers on new MariaDB versions is essential as out of date drivers will return "Authentication failed" errors. It may be nessecary to manually install new drivers on Windows.
+Using updated drivers on new MariaDB versions is essential as out of date drivers will return "Authentication failed" errors. It may be necessary to manually install new drivers on Windows.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

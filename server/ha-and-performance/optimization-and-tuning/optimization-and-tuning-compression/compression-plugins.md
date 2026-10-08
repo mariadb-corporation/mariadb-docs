@@ -1,14 +1,19 @@
+---
+description: >-
+  Compression provider plugins that supply compression algorithms to MariaDB.
+---
+
 # Compression Plugins
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
-Compressions plugins were added in a [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes) preview release.
+Compressions plugins were added in a [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0) preview release.
 
 The various MariaDB storage engines, such as [InnoDB](../../../server-usage/storage-engines/innodb/), [RocksDB](../../../server-usage/storage-engines/myrocks/), [Mroonga](../../../server-usage/storage-engines/mroonga/), can use different compression libraries.
 
-Before [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes), each separate library would have to be compiled in order to be available for use, resulting in numerous runtime/rpm/deb dependencies, most of which would never be used by users.
+Before [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0), each separate library would have to be compiled in order to be available for use, resulting in numerous runtime/rpm/deb dependencies, most of which would never be used by users.
 
-From [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes), five additional MariaDB compression libraries (besides the default zlib) are available as plugins (note that these affect InnoDB and Mroonga only; RocksDB still uses the compression algorithms from its own library):
+From [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0), five additional MariaDB compression libraries (besides the default zlib) are available as plugins (note that these affect InnoDB and Mroonga only; RocksDB still uses the compression algorithms from its own library):
 
 * bzip2
 * lzma
@@ -38,7 +43,7 @@ SET GLOBAL innodb_compression_algorithm = lz4;
 
 ## Upgrading
 
-When upgrading from a release without compression plugins, if a non-zlib compression algorithm was used, those tables will be unreadable until the appropriate compression library is installed. [mariadb-upgrade](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) should be run. The `--force` option (to run [mariadb-check](../../../clients-and-utilities/legacy-clients-and-utilities/mysqlcheck.md)) or `mariadb-check` itself will indicate any problems with compression, for example:
+When upgrading from a release without compression plugins, if a non-zlib compression algorithm was used, those tables will be unreadable until the appropriate compression library is installed. [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) should be run. The `--force` option (to run [mariadb-check](../../../clients-and-utilities/table-tools/mariadb-check.md)) or `mariadb-check` itself will indicate any problems with compression, for example:
 
 ```
 Warning  : MariaDB tried to use the LZMA compression, but its provider plugin is not loaded

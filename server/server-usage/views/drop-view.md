@@ -1,8 +1,14 @@
+---
+description: >-
+  Explains how to use the DROP VIEW statement to remove one or more views from
+  the database, including required privileges.
+---
+
 # DROP VIEW
 
 ## Syntax
 
-```sql
+```bnf
 DROP VIEW [IF EXISTS]
     view_name [, view_name] ...
     [RESTRICT | CASCADE]
@@ -10,14 +16,9 @@ DROP VIEW [IF EXISTS]
 
 ## Description
 
-`DROP VIEW` removes one or more [views](./). You must have the DROP privilege for\
-each view. If any of the views named in the argument list do not exist, MariaDB\
-returns an error indicating by name which non-existing views it was unable to\
-drop, but it also drops all of the views in the list that do exist.
+`DROP VIEW` removes one or more [views](./). You must have the DROP privilege for each view. If any of the views named in the argument list do not exist, MariaDB returns an error indicating by name which non-existing views it was unable to drop, but it also drops all of the views in the list that do exist.
 
-The `IF EXISTS` clause prevents an error from occurring for views that don't\
-exist. When this clause is given, a `NOTE` is generated for each non-existent\
-view. See [SHOW WARNINGS](../../reference/sql-statements/administrative-sql-statements/show/show-warnings.md).
+The `IF EXISTS` clause prevents an error from occurring for views that don't exist. When this clause is given, a `NOTE` is generated for each non-existent view. See [SHOW WARNINGS](../../reference/sql-statements/administrative-sql-statements/show/show-warnings.md).
 
 `RESTRICT` and `CASCADE`, if given, are parsed and ignored.
 
@@ -38,9 +39,7 @@ Note that it is not necessary to use `DROP VIEW` to replace an existing view, be
 
 ### Atomic DDL
 
-**MariaDB starting with** [**10.6.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes)
-
-[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes) supports [Atomic DDL](../../reference/sql-statements/data-definition/atomic-ddl.md) and `DROP VIEW` for a singular view is atomic. Dropping multiple views is crash-safe.
+[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1) supports [Atomic DDL](../../reference/sql-statements/data-definition/atomic-ddl.md) and `DROP VIEW` for a singular view is atomic. Dropping multiple views is crash-safe.
 
 ## Examples
 

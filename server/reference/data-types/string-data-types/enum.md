@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete ENUM type reference: ENUM('v1','v2') syntax, CHARACTER SET/COLLATE
+  options, NULL/empty string defaults, and numeric index sorting guidelines.
+---
+
 # ENUM
 
 ## Syntax
 
-```sql
+```bnf
 ENUM('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]
 ```
 
@@ -16,7 +22,7 @@ Trailing spaces are automatically stripped from `ENUM` values on table creation.
 
 ### NULL and empty values
 
-An `ENUM` can also contain `NULL` and empty values. If the `ENUM` column is declared to permit `NULL` values, `NULL` becomes a valid value, as well as the default value (see below). If [strict SQL Mode](../../../server-management/variables-and-modes/sql-mode.md) is not enabled, and an invalid value is inserted into an `ENUM`, a special empty string, with an index value of zero (see Numeric index, below), is inserted, with a warning. This may be confusing, because the empty string is also a possible value, and the only difference if that is this case its index is not 0. Inserting will fail with an error if strict mode is active.
+An `ENUM` can also contain `NULL` and empty values. If the `ENUM` column is declared to permit `NULL` values, `NULL` becomes a valid value, as well as the default value (see below). If [strict SQL Mode](../../../server-management/variables-and-modes/sql_mode.md) is not enabled, and an invalid value is inserted into an `ENUM`, a special empty string, with an index value of zero (see Numeric index, below), is inserted, with a warning. This may be confusing, because the empty string is also a possible value, and the only difference if that is this case its index is not 0. Inserting will fail with an error if strict mode is active.
 
 If a `DEFAULT` clause is missing, the default value will be:
 

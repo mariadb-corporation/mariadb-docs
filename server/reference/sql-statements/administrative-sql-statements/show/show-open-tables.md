@@ -1,8 +1,14 @@
+---
+description: >-
+  List currently open tables. View the database, table name, and lock status for
+  tables in the table cache.
+---
+
 # SHOW OPEN TABLES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW OPEN TABLES [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
@@ -26,15 +32,7 @@ The following information is returned:
 | In\_use      | Number of table instances being used.                                               |
 | Name\_locked | 1 if the table is name-locked, e.g. if it is being dropped or renamed, otherwise 0. |
 
-{% tabs %}
-{% tab title="Current" %}
 `LOCK TABLE... WRITE` acquires a strong MDL lock, and concurrent connections will wait on this MDL lock, so any subsequent `LOCK TABLE... WRITE` will not increment `In_use`.
-{% endtab %}
-
-{% tab title="< 5.5" %}
-Before [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), each use of, for example, [LOCK TABLE ... WRITE](../../transactions/lock-tables.md) would increment `In_use` for that table. With the implementation of the metadata locking improvements in MariaDB 5.5, `LOCK TABLE... WRITE` acquires a strong MDL lock, and concurrent connections will wait on this MDL lock, so any subsequent `LOCK TABLE... WRITE` will not increment `In_use`.
-{% endtab %}
-{% endtabs %}
 
 ## Example
 

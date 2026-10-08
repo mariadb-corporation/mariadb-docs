@@ -1,8 +1,10 @@
-# Performance Schema events\_transactions\_summary\_global\_by\_event\_name Table
+---
+description: >-
+  This table provides a global summary of statement events aggregated by event
+  name, showing total execution counts and wait times for the server.
+---
 
-{% hint style="info" %}
-The `events_transactions_summary_global_by_event_name` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema events\_transactions\_summary\_global\_by\_event\_name Table
 
 The `events_transactions_summary_global_by_event_name` table contains information on transaction events aggregated by event name.
 

@@ -1,8 +1,10 @@
-# Performance Schema status\_by\_thread Table
+---
+description: >-
+  The status_by_thread table lists session status variables for each active
+  thread, effectively providing a "SHOW SESSION STATUS" for every connection.
+---
 
-{% hint style="info" %}
-The `session_status` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema status\_by\_thread Table
 
 The `status_by_thread` table contains status variable information about active foreground threads. The table does not collect statistics for `Com_xxx` variables.
 

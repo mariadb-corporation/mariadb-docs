@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the current UTC time. This function returns the current Coordinated
+  Universal Time in 'HH:MM:SS' or HHMMSS format.
+---
+
 # UTC\_TIME
 
 ## Syntax
 
-```sql
+```bnf
 UTC_TIME
 UTC_TIME([precision])
 ```

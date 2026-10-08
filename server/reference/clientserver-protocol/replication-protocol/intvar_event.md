@@ -1,3 +1,10 @@
+---
+description: >-
+  This event records integer values for auto-increment columns or the
+  LAST_INSERT_ID function, ensuring that these values are replicated
+  deterministically.
+---
+
 # INTVAR\_EVENT
 
 An `INTVAR_EVENT` is written every time a statement uses an auto increment column or the `LAST_INSERT_ID()` function.
@@ -13,9 +20,8 @@ An `INTVAR_EVENT` is written every time a statement uses an auto increment colum
 
 ## Type
 
-|      |                              |
-| ---- | ---------------------------- |
 | 0x00 | Invalid value.               |
+| ---- | ---------------------------- |
 | 0x01 | LAST\_INSERT\_ID.            |
 | 0x02 | Insert id (auto\_increment). |
 

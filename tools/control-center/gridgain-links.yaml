@@ -1,0 +1,1661 @@
+# GridGain outbound links in the Control Center docs — status record
+#
+# WHAT THIS IS
+#   The complete, verified inventory of every link to gridgain.com in the Control
+#   Center corpus, product pages and release notes alike, with what was done to
+#   each. Regenerated 2026-09-14 from the pre-screening blobs (d982096e9) rather
+#   than from the screening run, so it reflects the files as they actually are.
+#
+# STATUS VALUES
+#   screened       Was a Markdown link, now flattened to plain text. 128 of these.
+#   restored       Deliberately put back; see the entry note. 1.
+#   live           Still a working Markdown link, never screened. 22 - all in release notes.
+#   live_bare_url  Never Markdown markup, but GitBook autolinks bare URLs, so it
+#                  renders as a live link anyway. 1. Screening these means rewriting
+#                  the sentence, not deleting markup.
+#
+# HOW TO USE IT (later session, once decision D3 lands)
+#   1. Work only on `screened` and `restored` entries to re-link, and decide
+#      separately what to do with `live` and `live_bare_url`.
+#   2. Locate each link by searching its `after` string -- the line exactly as it
+#      reads in the file today. Every `after` in this file was verified to occur
+#      verbatim at generation time. Do NOT use line numbers; they are not recorded
+#      because they drift.
+#   3. When `label_occurrences_in_after` is greater than 1, the same label appears
+#      more than once on that line; `which_occurrence_of_label` says which one this
+#      entry is, counting from 1 left to right.
+#   4. Delete this file once every entry is resolved.
+#
+# CAUTION
+#   46 of the screened entries have labels that mean nothing without their link --
+#   "this article" (11x), "this", "this section", "documentation", "type", "zone",
+#   "state". Those sentences currently point the reader at something unreachable.
+#   Fix them first.
+#
+#
+# REMOVED, NOT SCREENED (do not restore on replay)
+#   https://portal.gridgain.com -- release-notes/control-center/2021.05.00.md. The host is dead
+#   (the managed service it pointed at was decommissioned, CC-12762) and CI's link check failed on
+#   it, so the hyperlink was removed while the words "managed service" were kept. It is not in the
+#   records below because a dead link must never be restored.
+#   http://support.gridgain.com/ -- tools/control-center/faq.md. The FAQ gave a support channel
+#   that contradicted support.md; it now points at support.md instead, so there is no gridgain URL
+#   left on that line to restore.
+#
+#   Separately, 36 https://gridgain.freshdesk.com/support/login links across the release notes
+#   returned 404 and were repointed at https://mariadb.com/contact/ on instruction. They were never
+#   gridgain.com links, so they were never in this file's scope.
+#
+# SCOPE
+#   Product pages under tools/control-center/ were screened. Release notes under
+#   release-notes/control-center/ and release-notes/ignite-agent/ were NOT -- they
+#   are historical records and rewriting published release-note text is a separate
+#   decision. Their 22 links are listed here as `live` so D3 can act on the whole
+#   corpus. URLs inside fenced code blocks and inline code spans are excluded
+#   throughout: they are samples, and GitBook does not autolink them.
+#   mailto: addresses at gridgain.com are NOT covered by this file. They were handled
+#   separately on 2026-09-15 (decision D5): the "We Value Your Feedback" block announcing
+#   docs@gridgain.com was deleted from all 53 release notes, along with the support@gridgain.com
+#   variant on the 12 newest. Upstream control-center-docs still has it, so **do not restore it
+#   on replay** -- see findings 120-125 in control-center-migration-plan.md. The
+#   sales@gridgain.com on admin-guide/license.md and support.cloud@gridgain.com on support.md
+#   are untouched and still open.
+#
+{
+  "generated": "2026-09-14",
+  "regenerated_from": "d982096e9",
+  "blocked_on": "D3",
+  "counts": {
+    "screened": 127,
+    "restored": 1,
+    "live": 21,
+    "live_bare_url": 1
+  },
+  "total": 150,
+  "files": 60,
+  "records": [
+    {
+      "file": "README.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Complimentary Developer Training - Control Center Essentials",
+          "url": "https://www.gridgain.com/products/services/training/how-monitor-and-manage-apache-ignite-gridgain-control-center",
+          "status": "screened",
+          "after": "Complimentary Developer Training - Control Center Essentials",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Versioning page",
+          "url": "https://www.gridgain.com/versioning-and-support-lifecycle",
+          "status": "screened",
+          "after": "Released Control Center versions are supported for at least 2 years after release date. Detailed information about versioning and lifecycle of GridGain Control Center is available on the Versioning page.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "admin-guide/active-passive.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Data Center Replication",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "The two persistent clusters are synchronized by Data Center Replication (DR) in active-passive mode. The persistent cluster in the active data center acts as the master, while the persistent cluster in the passive data center acts as the replica.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "admin-guide/automated-deployment.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "OpenAPI specification",
+          "url": "https://www.gridgain.com/sdk/controlcenter/latest/openapi/openapi.html",
+          "status": "screened",
+          "after": "For detailed API documentation, refer to the OpenAPI specification.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "admin-guide/external-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "rolling upgrades",
+          "url": "http://gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "screened",
+          "after": "If the GridGain 8 cluster version differs from the version expected by Control Center, enable rolling upgrades mode to support mixed-version nodes.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "activated",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/baseline-topology#baseline-topology-in-persistent-clusters",
+          "status": "screened",
+          "after": "After setup, ensure that the cluster is activated.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "admin-guide/open-id.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "configuration",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#control-center-openid-authentication",
+          "status": "screened",
+          "after": "To do so, you need to configure the `permissionsJson` scope, which defines the role name and its corresponding [permissions](../gg8/auth/authorization-permissions.md) for the user, and the `claimName` attribute in the GridGain 8 cluster configuration file.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "admin-guide/rest-api.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "documentation",
+          "url": "https://www.gridgain.com/sdk/controlcenter/latest/openapi/openapi.html",
+          "status": "screened",
+          "after": "For the complete API specification, see the OpenAPI documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "cluster-management.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Cluster Management Group",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-management-group",
+          "status": "screened",
+          "after": "| Nodes type | Shows the number of nodes included in the Cluster Management Group (CMG) and the number of nodes included in the Metastorage Group (MS). |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Metastorage Group",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-metastorage-group",
+          "status": "screened",
+          "after": "| Nodes type | Shows the number of nodes included in the Cluster Management Group (CMG) and the number of nodes included in the Metastorage Group (MS). |",
+          "which_occurrence_of_label": 2,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "authentication",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/security/authentication",
+          "status": "screened",
+          "after": "| Secure | Indicates whether the cluster is secured by authentication. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "authentication",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/security/authentication",
+          "status": "screened",
+          "after": "| Secure | Indicates whether the cluster is secured by authentication. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "authentication",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/security/authentication",
+          "status": "screened",
+          "after": "If your cluster is protected by authentication, you will be asked to enter the username and password.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "new license",
+          "url": "https://www.gridgain.com/docs/latest/installation-guide/licenses",
+          "status": "screened",
+          "after": "Your cluster may need a new license when:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "without cluster or node downtime",
+          "url": "https://www.gridgain.com/docs/latest/installation-guide/licenses#update-without-downtime",
+          "status": "screened",
+          "after": "The update is performed without cluster or node downtime.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "getting-started/adding-license.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Sales Team",
+          "url": "https://www.gridgain.com/contact",
+          "status": "screened",
+          "after": "When you start working with Control Center, our Sales Team will provide you with a copy of the latest release of Control Center. To start working with it:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "getting-started/connect/connect-gridgain-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "this section",
+          "url": "https://gridgain.com/docs/latest/developers-guide/setup#enabling-modules",
+          "status": "screened",
+          "after": "- If you start nodes using Maven, see this section for the information on how to enable modules.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Enabling Modules",
+          "url": "https://gridgain.com/docs/latest/installation-guide/installing-using-docker#enabling-modules",
+          "status": "screened",
+          "after": "- If you use a GridGain Docker image, see Enabling Modules.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Tracing",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/monitoring-metrics/tracing",
+          "status": "screened",
+          "after": "2. To configure tracing programmatically, see the Tracing page for more detail.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "getting-started/connect/connect-gridgain9-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "GridGain 9 documentation",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip#starting-the-node",
+          "status": "screened",
+          "after": "1. Follow the GridGain 9 documentation to start the cluster.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "cluster configuration",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/config/cluster-config#security-configuration",
+          "status": "screened",
+          "after": "2. Enter **Username** and **Password** that correspond to the credentials of one of the users included in the cluster configuration.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "GridGain 9 documentation",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip",
+          "status": "screened",
+          "after": "1. Install the Cluster as it described in GridGain 9 documentation. Make sure that GridGain 9 utilizes the same network Control Center does, and that the name for the Cluster is defined:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "getting-started/connect/connect-ignite-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Contact us",
+          "url": "https://www.gridgain.com/contact",
+          "status": "screened",
+          "after": "1. Contact us to obtain the `gridgain-control-center-on-premise-[version]` archive.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Download page",
+          "url": "https://www.gridgain.com/tryfree#controlcenteragent",
+          "status": "screened",
+          "after": "Note that the Control Center Agent artifact version depends on the Apache Ignite version. Please refer to the Download page that maps Apache Ignite and Control Center Agent versions.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/auth/authorization-permissions.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "secured GridGain clusters",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/security/authorization-permissions",
+          "status": "screened",
+          "after": "You need an authorization to access the secured GridGain clusters via Control Center.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/caches/binary-types.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "control.sh --meta commands",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/control-script",
+          "status": "screened",
+          "after": "This functionality is also available via the control.sh --meta commands.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/caches/caches.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Data Partitioning",
+          "url": "https://gridgain.com/docs/latest/developers-guide/data-modeling/data-partitioning",
+          "status": "screened",
+          "after": "| Mode | See Data Partitioning. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Atomicity Modes",
+          "url": "https://gridgain.com/docs/latest/developers-guide/configuring-caches/atomicity-modes#atomicity-modes",
+          "status": "screened",
+          "after": "| Atomicity | See Atomicity Modes. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "data replication (DR)",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "| Replication | Whether the cache participates in data replication (DR) (ON/OFF). |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Configure Caches",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/data-center-replication/configuring-replication#3-configure-caches",
+          "status": "screened",
+          "after": "| Show cache configuration | Opens the read-only Cache Configuration dialog. See Configure Caches for more details. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Data Rebalancing",
+          "url": "https://gridgain.com/docs/latest/developers-guide/data-rebalancing",
+          "status": "screened",
+          "after": "| Run rebalance | Starts rebalance process. See Data Rebalancing for more details. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "DR",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "| Remove all | Deletes all entries from the cache via `removeAll()`. If DR is enabled, deletions will be propagated to the remote cluster. See this page to choose the correct method for your environment. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/key-value-api/basic-cache-operations#clearing-caches",
+          "status": "screened",
+          "after": "| Remove all | Deletes all entries from the cache via `removeAll()`. If DR is enabled, deletions will be propagated to the remote cluster. See this page to choose the correct method for your environment. |",
+          "which_occurrence_of_label": 2,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "DR",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "| Clear | Clears cache entries locally via `clear()`. If DR is enabled, deletions will not be propagated. See this page to choose the correct method for your environment. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/key-value-api/basic-cache-operations#clearing-caches",
+          "status": "screened",
+          "after": "| Clear | Clears cache entries locally via `clear()`. If DR is enabled, deletions will not be propagated. See this page to choose the correct method for your environment. |",
+          "which_occurrence_of_label": 2,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "DR process",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "| Pause replication | Pauses the DR process. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "DR process",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "| Resume replication | Resumes the previously paused DR process. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/caches/partition-distribution.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "persistence",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/persistence/native-persistence",
+          "status": "screened",
+          "after": "- If persistence is enabled and the data still exists on disk, restart the failed nodes to restore the partitions.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/compute/compute-grid.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Distributed Computing",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing",
+          "status": "screened",
+          "after": "Distributed computing configuration is described in detail in the Distributed Computing section of GridGain documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Priority Ordering",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/job-scheduling#priority-ordering",
+          "status": "screened",
+          "after": "To manage job and task priorities, you need to configure `PriorityQueueCollisionSpi` in your code. Detailed instructions can be found in the Priority Ordering section of GridGain documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "control script",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/control-script#cluster-properties",
+          "status": "screened",
+          "after": "Sometimes, GridGain has to run internal tasks while handling distributed computing. You can exclude these tasks by configuring your GridGain cluster properties by using the control script. The following properties manage what tasks will be collected by the agent:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/dashboard/configuring-widgets.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Rolling Upgrades",
+          "url": "https://gridgain.com/docs/latest/installation-guide/rolling-upgrades",
+          "status": "screened",
+          "after": "| Version | The version of GridGain/Apache Ignite that was used to launch the node. If you are using the Rolling Upgrades feature that is available in GridGain Enterprise Edition, one cluster might have nodes with different versions. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "rebalancing process",
+          "url": "https://gridgain.com/docs/latest/developers-guide/data-rebalancing",
+          "status": "screened",
+          "after": "The Rebalance widget displays the progress of the rebalancing process. When rebalancing is in progress, the widget displays the percentage of data that has been rebalanced.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Rolling Upgrades",
+          "url": "https://gridgain.com/docs/latest/installation-guide/rolling-upgrades",
+          "status": "screened",
+          "after": "You can use the rebalance widget to monitor Rolling Upgrades. To display the versions of the nodes, click the widget configuration icon `⋮` and select **Show versions**.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/dashboard/connect.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/latest/installation-guide/deployment-modes#thick-vs-thin-clients",
+          "status": "screened",
+          "after": "For more information on thin clients, please see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/net-specific/net-configuration-options",
+          "status": "screened",
+          "after": "For more information on .NET Thin Client, please see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "GridGain Python Thin Client",
+          "url": "https://www.gridgain.com/tryfree#thinClients",
+          "status": "screened",
+          "after": "- Go to the website and download the GridGain Python Thin Client archive.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/thin-clients/python/1.4.0/python-thin-client",
+          "status": "screened",
+          "after": "For more information on Python Thin Client, please see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "extended article",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/cpp-thin-client",
+          "status": "screened",
+          "after": "For additional information on using C++ thin client, read the extended article in GridGain documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/thin-clients/nodejs-thin-client",
+          "status": "screened",
+          "after": "For more information on Node.js Thin Client, please see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/SQL/JDBC/jdbc-driver",
+          "status": "screened",
+          "after": "For more information on JDBC driver, please see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "GridGain documentation",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/odbc-driver#building-odbc-driver",
+          "status": "screened",
+          "after": "GridGain comes with an ODBC driver. If you use Windows, you can install it immediately. On Linux you will need to build it first. You can find installation and build instructions in GridGain documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "GridGain Documentation",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/developers-guide/SQL/ODBC/querying-modifying-data",
+          "status": "screened",
+          "after": "You can find more information on working with ODBC driver in GridGain Documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/dashboard/my-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "rolling upgrade mode",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "screened",
+          "after": "When GridGain 8 cluster is in a rolling upgrade mode, a banner indicating this state will appear on the top of **My Cluster** screen.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "baseline autoadjustment",
+          "url": "https://gridgain.com/docs/latest/developers-guide/baseline-topology#baseline-topology-autoadjustment",
+          "status": "screened",
+          "after": "| Status | Whether the node is online. A node that goes down remains registered in the baseline topology until you manually remove it or until it's removed automatically through baseline autoadjustment. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "baseline autoadjustment feature",
+          "url": "https://gridgain.com/docs/latest/developers-guide/baseline-topology#baseline-topology-autoadjustment",
+          "status": "screened",
+          "after": "The baseline autoadjustment feature changes the baseline automatically when the cluster topology has been stable for a specified period.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Cluster Properties",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script#cluster-properties",
+          "status": "screened",
+          "after": "For the full reference of available cluster properties, see the Cluster Properties section in the GridGain 8 documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "define the new connection",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/thin-clients/getting-started-with-thin-clients",
+          "status": "screened",
+          "after": "2. Proceed to define the new connection.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/dashboard/predefined/dr-receiver.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Data Center Replication (DR)",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "The **DR receiver** tab (dashboard) displays statistics that pertain to the receiver nodes participating in Data Center Replication (DR).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/dashboard/predefined/dr-sender.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Data Center Replication (DR)",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "screened",
+          "after": "The **DR sender** tab (dashboard) displays statistics that pertain to the sender nodes participating in Data Center Replication (DR).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/data-schema-import/data-schema-import.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "CREATE TABLE",
+          "url": "https://www.gridgain.com/docs/latest/sql-reference/ddl",
+          "status": "screened",
+          "after": "Expand any table row to configure GridGain-specific storage parameters for that table. These parameters map to the options of the GridGain 8 CREATE TABLE command.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "data type",
+          "url": "https://www.gridgain.com/docs/latest/sql-reference/data-types",
+          "status": "screened",
+          "after": "| Type | The target GridGain 8 SQL data type for the column. Control Center maps source types to GridGain types automatically using default rules. Types that cannot be mapped automatically are highlighted in red and must be set manually before proceeding. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/deployment/code-deployment-gg8.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "distributed computing",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing",
+          "status": "screened",
+          "after": "You may want to deploy compute tasks to your GridGain nodes. For example, you often need a large number of dependencies to complete distributed computing tasks.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Authorization and Permissions",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/security/authorization-permissions",
+          "status": "screened",
+          "after": "For code deployment to work on attached clusters, provide `ADMIN_OPS` permissions to the user who deploys the code. For details, see Authorization and Permissions.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/queries/querying.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "underlying cache",
+          "url": "https://gridgain.com/docs/latest/developers-guide/data-modeling/data-modeling#key-value-cache-vs-sql-table",
+          "status": "screened",
+          "after": "When you use the CREATE TABLE command to create a table, GridGain creates an underlying cache. Therefore, when you create a table, a new cache appears in the tree.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "SQL Reference",
+          "url": "https://gridgain.com/docs/latest/sql-reference/sql-reference-overview",
+          "status": "screened",
+          "after": "Control Center allows you to execute both DML and DDL statements supported by GridGain/Apache Ignite. See the SQL Reference guide for details.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Understanding Schemas",
+          "url": "https://gridgain.com/docs/latest/developers-guide/SQL/schemas",
+          "status": "screened",
+          "after": "You can set the schema for SQL statements in the **Default schema** field. The drop-down field contains a list of existing schemas. Control Center uses the schema that you selected in the **Default schema** field to resolve any unqualified reference that is included within any SQL statement that is ",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this section",
+          "url": "https://gridgain.com/docs/latest/developers-guide/SQL/distributed-joins#non-colocated-joins",
+          "status": "screened",
+          "after": "**Allow non-collocated joins**. Set this flag if you want to execute a join query that joins tables on a non-affinity key. If you don't set the flag, the results of the query might be incorrect. Refer to this section for details.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this section",
+          "url": "https://gridgain.com/docs/latest/perf-troubleshooting-guide/sql-tuning#enforcing-join-order",
+          "status": "screened",
+          "after": "**Enforce join order**. This option enforces GridGain to use the order of joins as the order is specified in the query, rather than to rely on the optimizer. The optimizer cannot always determine the best order. Refer to this section for details.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Lazy Result Loading",
+          "url": "https://gridgain.com/docs/latest/perf-troubleshooting-guide/sql-tuning#lazy-loading",
+          "status": "screened",
+          "after": "**Lazy result set**. You set this flag to lazily load the results of the query. Use of this flag can help to prevent OutOfMemory exceptions that may occur when the result set is too large. Refer to the Lazy Result Loading section for details.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "system views",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/monitoring-metrics/system-views",
+          "status": "screened",
+          "after": "The **System views** branch of the **Search** tree lists the cluster's system views that expose internal information about the cluster, such as nodes, caches, and node metrics.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "scan queries",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/key-value-api/using-scan-queries",
+          "status": "screened",
+          "after": "Control Center allows you to execute scan queries - simple search queries used to retrieve data from a cache in a distributed manner. When executed without parameters, a scan query returns all entries from the cache.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "SqlFieldsQuery",
+          "url": "https://gridgain.com/docs/latest/developers-guide/SQL/sql-api#querying",
+          "status": "screened",
+          "after": "| Type | - `SCAN`, a scan query<br>- `SQL_FIELDS`, an SQL query that is executed via JDBC/ODBC or via the SqlFieldsQuery API |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/snapshots/operation-history.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "screened",
+          "after": "For information about snapshots in GridGain, see Snapshots and Recovery.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/snapshots/snapshot-schedules.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "screened",
+          "after": "For information about snapshots in GridGain, see Snapshots and Recovery.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/snapshots/snapshots.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "screened",
+          "after": "In addition to the snapshots created in Control Center, the list of snapshots contains the snapshots that were created by using programming APIs or the snapshot management tool. See Snapshots and Recovery or our video guide.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Enabling Snapshots",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/full-incremental-snapshots#enabling-snapshots",
+          "status": "screened",
+          "after": "Before you can create snapshots, snapshot functionality must be enabled. See Enabling Snapshots.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "node configuration",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/full-incremental-snapshots#enabling-snapshots",
+          "status": "screened",
+          "after": "A snapshot is created in each node's snapshot folder. Each node saves its part of the data. The snapshot folder is specified in the node configuration.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/terminal/cluster-terminal.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "control script",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script",
+          "status": "screened",
+          "after": "The **Cluster terminal** is a panel that lets you run control script commands against the currently selected cluster.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Control Script",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script",
+          "status": "screened",
+          "after": "For the list of commands and their arguments, see the Control Script page in the GridGain 8 documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Control Script",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/control-script",
+          "status": "screened",
+          "after": "Subcommands, such as `--cache list` or `--baseline auto_adjust enable`, can also be completed with `Tab`. For the syntax and the arguments of each command and subcommand, see the Control Script page, or run `--help` in the terminal.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg8/tracing/tracing.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "enable tracing",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/monitoring-metrics/tracing",
+          "status": "screened",
+          "after": "The **Tracing** screen displays information about traces recorded during cluster operation. You need to enable tracing. The recorded information can include informational messages, error messages, duration of specific operations, stack traces, etc. You can use this information to troubleshoot cluste",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/auth/authorization-permissions.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "secured GridGain clusters",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication#authentication-and-authorization",
+          "status": "screened",
+          "after": "You need an authorization to access the secured GridGain clusters via GridGain Control Center.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Distribution Zone",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/sql-reference/distribution-zones",
+          "status": "screened",
+          "after": "To be able to create,alter and drop Distribution Zone the following permissions are required:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/cloud-connector/connect-cloud-connector.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "download",
+          "url": "https://www.gridgain.com/media/control-center/gridgain-cloud-connector-2025.4.zip",
+          "status": "restored",
+          "after": "To start using cloud connector, [download](https://www.gridgain.com/media/control-center/gridgain-cloud-connector-2025.4.zip) it from the website and unpack the archive.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "RESTORED as a deliberate exception: the instruction is unfollowable without this URL, and GitBook autolinks bare URLs so plain text was never an option. Do not re-flatten."
+        }
+      ]
+    },
+    {
+      "file": "gg9/dashboard/configuring-widgets-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Compute system view",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/metrics/system-views#compute_tasks",
+          "status": "screened",
+          "after": "The Compute system view lets you change the priority of a task or cancel it.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Transactions",
+          "url": "https://www.gridgain.com/docs/gridgain9/9.1.9/administrators-guide/metrics/system-views#transactions",
+          "status": "screened",
+          "after": "Control Center supports terminating transactions on the cluster through the Transactions *system view* widget.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/dashboard/connect.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/java#java-client",
+          "status": "screened",
+          "after": "For more information on Java client, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/cpp",
+          "status": "screened",
+          "after": "For more information on C++ client, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/dotnet#net-client",
+          "status": "screened",
+          "after": "For more information on .NET client, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/linq#net-linq-queries",
+          "status": "screened",
+          "after": "For more information on .NET LINQ client, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/python-client",
+          "status": "screened",
+          "after": "For more information on Python client, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "this article",
+          "url": "https://gridgain.com/docs/gridgain9/latest/developers-guide/clients/python",
+          "status": "screened",
+          "after": "For more information on Python DB API, see this article.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/dashboard/dashboard-overview-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "GridGain CLI",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/ignite-cli-tool",
+          "status": "screened",
+          "after": "In some environments, the way Control Center auto-configures the exporter may not work. To rectify that, use the GridGain CLI to modify the cluster configuration as follows:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/dashboard/my-cluster.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Cluster Management Group",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-management-group",
+          "status": "screened",
+          "after": "| CMG | Whether the node is included in Cluster Management Group. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Metastorage Group",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-metastorage-group",
+          "status": "screened",
+          "after": "| MS | Whether the node is included in the Metastorage Group. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "explanation",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/lifecycle#cluster-initialization",
+          "status": "screened",
+          "after": "| Status | `Running` or `Validating` - see explanation. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "define",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/clients/overview#client-connection",
+          "status": "screened",
+          "after": "2. Proceed to define the new connection.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "initialize",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/installation/installing-using-zip#initializing-the-cluster",
+          "status": "screened",
+          "after": "To initialize the attached GridGain 9 cluster:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/data-schema-import/data-schema-import.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "distribution zone",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/distribution-zones#default-zone",
+          "status": "screened",
+          "after": "| Primary zone | The main distribution zone for the table. Defines how data partitions are distributed across cluster nodes. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "zone",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/distribution-zones#using-secondary-zones",
+          "status": "screened",
+          "after": "| Secondary zone | An optional backup zone for high availability. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 2
+        },
+        {
+          "label": "type",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/engines/storage-engines",
+          "status": "screened",
+          "after": "| Storage profile | Defines the storage type and performance characteristics (for example, in-memory or persistent). |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/dcr/dcr.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "CLI",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/data-center-replication/configuring-replication",
+          "status": "screened",
+          "after": "Control Center supports data replication between clusters. You can configure it using the CLI or directly via the Data Center Replication screen in Control Center.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "SSL",
+          "url": "https://gridgain.com/docs/gridgain9/latest/administrators-guide/security/ssl-tls",
+          "status": "screened",
+          "after": "If the source cluster is a Control Center cluster, you must enable SSL connection. You can either provide a custom SSL keystore and truststore or leave these fields blank to use the default SSL keystore and truststore. Enable user authorization and provide the credentials you set when creating the c",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 3
+        },
+        {
+          "label": "authorization",
+          "url": "https://gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication#user-authorization",
+          "status": "screened",
+          "after": "If the source cluster is a Control Center cluster, you must enable SSL connection. You can either provide a custom SSL keystore and truststore or leave these fields blank to use the default SSL keystore and truststore. Enable user authorization and provide the credentials you set when creating the c",
+          "which_occurrence_of_label": 2,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "replication",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/data-center-replication/configuring-replication#one-time-replication",
+          "status": "screened",
+          "after": "You can stop replication for all tables or select individual tables to pause. Optionally, you can specify a flush point to perform replication up to a certain timestamp. The flush point guarantees that all data up to that timestamp is fully replicated, regardless of whether it is in the past or futu",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 2
+        }
+      ]
+    },
+    {
+      "file": "gg9/deployment/code-deployment-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "distributed computing",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/compute/compute",
+          "status": "screened",
+          "after": "You may want to deploy compute tasks to your GridGain nodes using Control Center. For example, you often need many dependencies to complete distributed computing tasks.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "CLI",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/code-deployment/code-deployment#deploy-new-unit",
+          "status": "screened",
+          "after": "You cannot **Clone** or **Clone and Deploy** units that were deployed via the CLI. To manage a CLI-deployed unit through Control Center, create a draft version from this unit, add artifacts, and deploy the new version.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 2
+        }
+      ]
+    },
+    {
+      "file": "gg9/events/events.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "GridGain 9",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/events/events-list",
+          "status": "screened",
+          "after": "Control Center supports event management for GridGain 9 and [Apache Ignite 3](https://ignite.apache.org/docs/ignite3/latest/developers-guide/events/events-list#map-reduce-task-events) clusters. You can view, inspect, and manage events through the **Events** screen.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "security",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/security/authentication",
+          "status": "screened",
+          "after": "If your cluster does not have security enabled, all events will be shown under the `unknown` user.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "event types",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/events/events-list",
+          "status": "screened",
+          "after": "When you enable event monitoring in Control Center, CC automatically configures the cluster: it creates an event channel subscribed to the relevant event types and a webhook sink that delivers events to CC's own endpoint. No manual cluster-side setup is required.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Working with Events",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/events/overview",
+          "status": "screened",
+          "after": "To set up additional event channels or sinks outside of CC — for example, to write events to a log or forward them to a separate endpoint — see Working with Events in the GridGain 9 documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "event attributes",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/events/events-list",
+          "status": "screened",
+          "after": "When applying filters, you can narrow down events not only by type, user, node name, or time period, but also by event attributes. This allows for more precise control when analyzing cluster activity.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/queries/querying-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "DDL",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/sql-reference/ddl",
+          "status": "screened",
+          "after": "| Transaction ID | Transaction ID. Not applicable for DDL queries. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/snapshots/operation-history-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "screened",
+          "after": "For information about snapshots in GridGain 9, see Snapshots and Recovery.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/snapshots/snapshots-gg9.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "incremental snapshots",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery#creating-incremental-snapshots",
+          "status": "screened",
+          "after": "| Parent ID | For incremental snapshots, the ID of the \"parent\" full snapshot. |",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "full snapshot",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery#creating-full-snapshots",
+          "status": "screened",
+          "after": "| Parent ID | For incremental snapshots, the ID of the \"parent\" full snapshot. |",
+          "which_occurrence_of_label": 2,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "screened",
+          "after": "In addition to the snapshots created in Control Center, the list contains those snapshots that were created using programming APIs or the snapshot management tool. See Snapshots and Recovery for details.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "cluster configuration",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/config/cluster-config#snapshots-configuration",
+          "status": "screened",
+          "after": "A snapshot is created in each node's snapshot folder, which is specified in the cluster configuration.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "gg9/tables/tables.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "partitions",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/storage/data-partitions",
+          "status": "screened",
+          "after": "This screen enables you to see the distribution of partitions between the current cluster's nodes for a selected table or distribution zone.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "state of the partition",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states",
+          "status": "screened",
+          "after": "| State | The state of the partition on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "state of the partition",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states",
+          "status": "screened",
+          "after": "| State | The state of the partition on the node. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "state",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#local-partition-states",
+          "status": "screened",
+          "after": "| Local state | The local state of a partition. Possible states are:<br>- `UNAVAILABLE` - this state might be used when the partition is not yet started or is already stopping.<br>- `HEALTHY` - alive partition with a healthy state machine.<br>- `INITIALIZING` - partition is starting right now.<br>- ",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 8
+        },
+        {
+          "label": "state",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery#global-partition-states",
+          "status": "screened",
+          "after": "| Global state | The global state of a partition. If no information for a partition is available, it changes its status to `Unknown`. Possible global states are:<br>- `AVAILABLE` - all replicas are healthy.<br>- `DEGRADED` - there are healthy replicas, and they form a majority.<br>- `READ_ONLY` - th",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 4
+        },
+        {
+          "label": "documentation",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/disaster-recovery",
+          "status": "screened",
+          "after": "For detailed instructions on disaster recovery and repair procedures, refer to the disaster recovery documentation.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        },
+        {
+          "label": "CLI",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/ignite-cli-tool#disaster-recovery-commands",
+          "status": "screened",
+          "after": "You also can perform recovery operations via Gridgain CLI commands.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "installation/install-binary.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "Sales",
+          "url": "https://www.gridgain.com/contact",
+          "status": "screened",
+          "after": "1. Obtain the Control Center binaries and license from our Sales.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "installation/kubernetes.md",
+      "area": "product",
+      "links": [
+        {
+          "label": null,
+          "url": "https://www.gridgain.com/docs/latest/installation-guide/installing-using-docker#enabling-modules",
+          "status": "live_bare_url",
+          "after": "If you deploy your GridGain cluster in Docker, remember to include the `control-center-agent` optional library to allow it to connect to Control Center. To do this, set the environment variable \"OPTION_LIBS=control-center-agent\". For more information, see the https://www.gridgain.com/docs/latest/ins",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 0,
+          "note": "Bare URL, not a Markdown link. GitBook autolinks these, so it renders as a live link despite screening. Screening it means rewriting the sentence, not just removing markup."
+        }
+      ]
+    },
+    {
+      "file": "installation/update.md",
+      "area": "product",
+      "links": [
+        {
+          "label": "support",
+          "url": "http://support.gridgain.com/",
+          "status": "screened",
+          "after": "- Contact us for support.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2021.05.00.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "blog",
+          "url": "https://www.gridgain.com/resources/blog/gridgain-enhances-control-center-and-offers-new-saas-deployment-options",
+          "status": "live",
+          "after": "GridGain Control Center is available as a managed service. This updated version includes all of the traditional Control Center features and also adds expanded storage so that you can track cluster performance data over longer timeframes for better trend analysis. Sign up for a free 30 day trial to c",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 2,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2021.10.00.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "GridGain Nebula",
+          "url": "https://www.gridgain.com/docs/nebula/about/overview",
+          "status": "live",
+          "after": "With [GridGain Nebula](https://www.gridgain.com/docs/nebula/about/overview) you can quickly deploy GridGain clusters in AWS cloud, and have GridGain support team manage them. All Nebula environments are configured for up to 99% availability.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2022.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "Distributed Computing",
+          "url": "https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing",
+          "status": "live",
+          "after": "Support for [Distributed Computing](https://www.gridgain.com/docs/latest/developers-guide/distributed-computing/distributed-computing) was extended with the new Compute screen. With it, you can:",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2023.4.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "control.sh --meta commands",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/control-script",
+          "status": "live",
+          "after": "This release of Control Center enables binary type management via the UI. GridGain prohibits changing a column type (e.g. `INT` to `VARCHAR` or even `LONG`) in both SQL tables and caches, due to the Binary Object format limitations. To work around this limitation, you can now remove and restore (as ",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2024.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "Snapshots and Recovery",
+          "url": "https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery",
+          "status": "live",
+          "after": "This feature is available to users of GridGain Ultimate edition 8.9.3 or later. For more information about snapshots in GridGain, see [Snapshots and Recovery](https://gridgain.com/docs/latest/administrators-guide/snapshots/snapshots-and-recovery).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2024.3.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "GridGain 9",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/index",
+          "status": "live",
+          "after": "The main \"news\" in this release is the ability to work with [GridGain 9](https://www.gridgain.com/docs/gridgain9/latest/index) clusters via the Control Center UI.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2024.4.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "GridGain 9",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/index",
+          "status": "live",
+          "after": "The main \"news\" in this release is the ability to use more Control Center capabilities when working with [GridGain 9](https://www.gridgain.com/docs/gridgain9/latest/index) clusters.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "OpenID Authenticator",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#control-center-openid-authentication",
+          "status": "live",
+          "after": "- If [OpenID Authenticator](https://www.gridgain.com/docs/latest/administrators-guide/security/authentication#control-center-openid-authentication) is configured on a GridGain 8.9.18 or later cluster, you can use the same credentials for logging in to Control Center and working with the cluster.",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.2.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "computing jobs",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/developers-guide/compute/compute",
+          "status": "live",
+          "after": "With this release, [code deployment](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg9/deployment/code-deployment-gg9) is now supported for GridGain 9 clusters, further improving you [computing jobs](https://www.gridgain.com/docs/gridgain9/latest/developers-guide/compute/compute) on ",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "Data Center Replication",
+          "url": "https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction",
+          "status": "live",
+          "after": "Starting with this release, you can specify the data center ID when you start [Data Center Replication](https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction) for your GridGain 8 cluster from the [Caches](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/control",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.4.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "upgrade instruction",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "rolling upgrade",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.5.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "9.1.17",
+          "url": "https://www.gridgain.com/docs/gridgain9/latest/release-notes/9.1.17/release-notes_9.1.17#control-center-incompatibility",
+          "status": "live",
+          "after": "Due to the removal of table-based recovery REST endpoints in GridGain [9.1.17](https://www.gridgain.com/docs/gridgain9/latest/release-notes/9.1.17/release-notes_9.1.17#control-center-incompatibility), Control Center versions 2025.5 and earlier are not compatible with GridGain 9.1.17+ clusters. This ",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 4,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "upgrade instructions",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instructions](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "rolling upgrade",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instructions](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.5.2.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "upgrade instructions",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instructions](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "rolling upgrade",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instructions](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2025.5.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "upgrade instruction",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "rolling upgrade",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    },
+    {
+      "file": "release-notes/control-center/2026.1.md",
+      "area": "release-notes",
+      "links": [
+        {
+          "label": "upgrade instruction",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        },
+        {
+          "label": "rolling upgrade",
+          "url": "https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades",
+          "status": "live",
+          "after": "2. If an external cluster upgrade is required, follow [upgrade instruction](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/upgrades) or enable [rolling upgrade](https://www.gridgain.com/docs/gridgain8/latest/installation-guide/rolling-upgrades).",
+          "which_occurrence_of_label": 1,
+          "label_occurrences_in_after": 1,
+          "note": "Release notes were never screened - see SCOPE."
+        }
+      ]
+    }
+  ]
+}

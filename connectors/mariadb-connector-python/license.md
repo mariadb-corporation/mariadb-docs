@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python is licensed under the GNU LGPL v2.1; the
+  accompanying documentation is covered by the Creative Commons Attribution
+  3.0 license.
+---
+
 # License
 
 ## MariaDB Connector/Python

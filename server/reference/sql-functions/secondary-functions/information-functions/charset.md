@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the character set of a string. This function identifies the character
+  set encoding used by the argument.
+---
+
 # CHARSET
 
 ## Syntax
 
-```sql
+```bnf
 CHARSET(str)
 ```
 

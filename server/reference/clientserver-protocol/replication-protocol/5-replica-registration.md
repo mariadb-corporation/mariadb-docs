@@ -1,3 +1,9 @@
+---
+description: >-
+  Details the initialization phase where a replica connects to the primary,
+  authenticates, sends capabilities, and registers for updates.
+---
+
 # 5-Replica Registration
 
 ## Overview
@@ -6,7 +12,7 @@ The replica server, when properly configured with `CHANGE MASTER TO ...` , can s
 
 After authentication, some [COM\_QUERY](../2-text-protocol/com_query.md) packets are exchanged before sending [COM\_REGISTER\_SLAVE](com_register_slave.md) and [COM\_BINLOG\_DUMP](com_binlog_dump.md).
 
-The following `COM_QUERY` packets come from MariaDB 10.X replicas using [GTID](../../../ha-and-performance/standard-replication/gtid.md):
+The following `COM_QUERY` packets come from MariaDB 10.X replicas using [GTID](../../../ha-and-performance/standard-replication/gtid/README.md):
 
 * `SELECT UNIX_TIMESTAMP()`;
 * `SHOW VARIABLES LIKE 'SERVER_ID'`;
@@ -53,7 +59,7 @@ T 127.0.0.1:23240 -> 127.0.0.1:42158 [AP]
   42 4c 45 53 0d 56 61 72    69 61 62 6c 65 5f 6e 61    BLES.Variable_na
   6d 65 0d 56 41 52 49 41    42 4c 45 5f 4e 41 4d 45    me.VARIABLE_NAME
   0c 08 00 40 00 00 00 fd    01 00 00 00 00 5d 00 00    ...@.........]..
-  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.informatio
+  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.information
   6e 5f 73 63 68 65 6d 61    11 53 45 53 53 49 4f 4e    n_schema.SESSION
   5f 56 41 52 49 41 42 4c    45 53 11 53 45 53 53 49    _VARIABLES.SESSI
   4f 4e 5f 56 41 52 49 41    42 4c 45 53 05 56 61 6c    ON_VARIABLES.Val
@@ -83,7 +89,7 @@ In the example, we see that these two `COM_QUERY` commands are sent just after `
 
 ## Complete Example with GTID Registration
 
-&#x20;The example shows output up to `COM_BINLOG_DUMP` request, No Semi-Sync:
+The example shows output up to `COM_BINLOG_DUMP` request, No Semi-Sync:
 
 ```
 T 127.0.0.1:23240 -> 127.0.0.1:42367 [AP]
@@ -135,7 +141,7 @@ T 127.0.0.1:23240 -> 127.0.0.1:42367 [AP]
   42 4c 45 53 0d 56 61 72    69 61 62 6c 65 5f 6e 61    BLES.Variable_na
   6d 65 0d 56 41 52 49 41    42 4c 45 5f 4e 41 4d 45    me.VARIABLE_NAME
   0c 08 00 40 00 00 00 fd    01 00 00 00 00 5d 00 00    ...@.........]..
-  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.informatio
+  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.information
   6e 5f 73 63 68 65 6d 61    11 53 45 53 53 49 4f 4e    n_schema.SESSION
   5f 56 41 52 49 41 42 4c    45 53 11 53 45 53 53 49    _VARIABLES.SESSI
   4f 4e 5f 56 41 52 49 41    42 4c 45 53 05 56 61 6c    ON_VARIABLES.Val

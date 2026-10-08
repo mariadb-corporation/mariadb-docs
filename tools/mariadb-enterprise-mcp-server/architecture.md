@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise MCP Server uses a multi-layered architecture: an MCP
+  Server gateway, an optional RAG API microservice, and a shared MariaDB
+  database as the single source of truth.
+---
+
 # Architecture
 
 The MariaDB MCP (Model Context Protocol) Server is a modular, multi-layered system designed to provide secure, scalable, and extensible AI-powered tools and services. Its architecture is centered around a primary gateway (**MCP Server**), an optional specialized microservice for Retrieval-Augmented Generation (**RAG API**), and a **Shared MariaDB Database** that serves as the single source of truth for all components.
@@ -9,6 +16,7 @@ This design prioritizes security through multi-layered token validation and prom
 The following diagram illustrates the flow of a request from a client application through the various components of the MCP ecosystem.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A["Client Applications<br>(MCP Clients, REST APIs, AI Assistants)"]
 
@@ -56,6 +64,7 @@ graph TD
     B1 -- "Validates User" --> D1
     C2 -- "Reads/Writes Data" --> D2
     C2 -- "Reads/Writes Data" --> D3
+    linkStyle default color:#111111
 ```
 
 ## Component Breakdown
@@ -126,3 +135,7 @@ The database is the foundation of the entire architecture, providing a single, c
 8. **Response Relay**: The response is sent back to the MCP Server, which in turn relays it to the client application.
 
 This architecture ensures a clear separation of concerns, enhances security with multiple checkpoints, and provides a highly extensible platform for building advanced AI tools.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

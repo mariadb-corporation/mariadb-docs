@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn the core concepts of character sets and collations in MariaDB, including
+  how they define string storage and sorting rules.
+---
+
 # Character Set and Collation Overview
 
 ## What are Character Sets and Collations?
@@ -16,11 +22,19 @@ As an example, by default, the character `y` comes between `x` and `z`, while in
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 The default character set is `utf8mb4` and the default collation is `utf8mb4_uca1400_ai_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}

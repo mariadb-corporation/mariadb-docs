@@ -1,3 +1,9 @@
+---
+description: >-
+  This table stores specific parameters and metadata for Spider tables, defining
+  how they map to remote backend tables.
+---
+
 # mysql.spider\_tables Table
 
 The `mysql.spider_tables` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

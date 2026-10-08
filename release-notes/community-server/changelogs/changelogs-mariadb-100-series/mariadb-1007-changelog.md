@@ -1,15 +1,15 @@
 # MariaDB 10.0.7 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.7) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1007-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.7) |[Release Notes](../../old-releases/10.0/10.0.7.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 27 Dec 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1007-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.7.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3961](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3961)\
@@ -326,7 +326,7 @@ modified in that revision.
   * remove #ifdef ENABLE\_BEFORE\_END\_OF\_MERGE\_QQ
 * [Revision #3934](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3934)\
   Mon 2013-12-09 12:38:30 +0100
-  * cleanups: \* comments from [WL#5602](https://askmonty.org/worklog/?tid=5602) in sql\_acl.cc \* rename global memroots in sql\_acl.cc \* remove the second empty lex string constant
+  * cleanups: \* comments from WL#5602 in sql\_acl.cc \* rename global memroots in sql\_acl.cc \* remove the second empty lex string constant
 * [Revision #3933](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3933)\
   Mon 2013-12-09 12:38:20 +0100
   * bugfix: incorrect buffer sizes for net\_store\_length()
@@ -335,10 +335,10 @@ modified in that revision.
   * reuse new safe\_net\_field\_length\_ll function where appropriate
 * [Revision #3931](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3931)\
   Mon 2013-12-09 12:38:02 +0100
-  * Do the partial merge of [WL#5602](https://askmonty.org/worklog/?tid=5602) correctly: Remove unused code (that should not have been merged) Add protocol extension (that should have been merged) Fix bugs (see pack.c)
+  * Do the partial merge of WL#5602 correctly: Remove unused code (that should not have been merged) Add protocol extension (that should have been merged) Fix bugs (see pack.c)
 * [Revision #3930](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3930)\
   Mon 2013-12-09 12:37:45 +0100
-  * [MDEV-5115](https://jira.mariadb.org/browse/MDEV-5115) RBR from MySQL 5.6 to [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) does not work
+  * [MDEV-5115](https://jira.mariadb.org/browse/MDEV-5115) RBR from MySQL 5.6 to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) does not work
 * [Revision #3929](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3929)\
   Sun 2013-12-01 12:16:24 +0100
   * [MDEV-5367](https://jira.mariadb.org/browse/MDEV-5367) Server crashes in acl\_authenticate on concurrent thread connection, FLUSH PRIVILEGES
@@ -454,7 +454,7 @@ modified in that revision.
   * Fixing malformed data in mysql-test/std\_data/Index.xml
 * [Revision #3910](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3910)\
   Mon 2013-11-25 18:49:40 +0400
-  * [MDEV-5277](https://jira.mariadb.org/browse/MDEV-5277) - Ensure that all MySQL 5.6 options are supported by the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) server
+  * [MDEV-5277](https://jira.mariadb.org/browse/MDEV-5277) - Ensure that all MySQL 5.6 options are supported by the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) server
 * [Revision #3909](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3909)\
   Wed 2013-11-20 14:28:07 +0200
   * [MDEV-5010](https://jira.mariadb.org/browse/MDEV-5010): InnoDB errors appearing in logs with upgrade from 10.0.0 to 10.0.4.
@@ -463,10 +463,10 @@ modified in that revision.
   * Increment the version number
 * [Revision #3907](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3907)\
   Thu 2013-11-14 18:00:00 +0400
-  * [MDEV-5220](https://jira.mariadb.org/browse/MDEV-5220) - \[PATCH] [MariaDB 10.0.4](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1004-release-notes.md) doesn't compile without perfschema
+  * [MDEV-5220](https://jira.mariadb.org/browse/MDEV-5220) - \[PATCH] [MariaDB 10.0.4](../../old-releases/10.0/10.0.4.md) doesn't compile without perfschema
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

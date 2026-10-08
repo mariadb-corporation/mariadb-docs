@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 10.0.2 was released on 24 Apr 2013.
 * Please note: Newer releases exist within the MariaDB Server 10.0 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.2)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Alpha maturity. Only Stable (GA) releases should be used in production.
-* This release contains [security content](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes)
+* This release contains [security content](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.2)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 10.0 release series.
 * The MariaDB Server 10.0 release series will be supported until March 2019.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 ## Release History
 
@@ -35,6 +35,6 @@ noIndex: true
 * [Contact Us](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/about/contact-us)
 * [Learn about the MariaDB Community](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

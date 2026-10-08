@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide outlining essential recommendations for stable MariaDB deployments,
+  covering backup strategies, change management, security controls, and
+  pre-production testing.
+---
+
 # Best Practices
 
 These best practices warrant consideration, but are not expected to apply to every business or in every situation. Recommendations here are not mandatory.
@@ -81,7 +88,7 @@ Details assessed during Pre-Production validation can include:
 
 MariaDB Product Notifications allow you to keep aware of new releases, including security fixes. Customers can manage MariaDB Product Notifications through the [MariaDB Customer Portal](https://customers.mariadb.com/?_ga=2.24188474.1431602578.1740983101-1710706710.1737441288).
 
-Additionally, MariaDB Enterprise Server follows an enterprise lifecycle, that provides a [predictable release schedule](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/enterprise-server-release-schedule).
+Additionally, MariaDB Enterprise Server follows an enterprise lifecycle, that provides a [predictable release schedule](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-release-schedule).
 
 ## Obtaining Support
 
@@ -91,6 +98,6 @@ New customers can [contact MariaDB Corporation](https://mariadb.com/contact) for
 
 Existing MariaDB Subscription customers can access technical support via the [MariaDB Customer Portal](https://customers.mariadb.com/?_ga=2.262787980.1431602578.1740983101-1710706710.1737441288) as detailed in [MariaDB Subscription Services Policy](https://mariadb.com/subscription-services-policies).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

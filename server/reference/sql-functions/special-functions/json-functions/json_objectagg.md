@@ -1,12 +1,14 @@
-# JSON\_OBJECTAGG
+---
+description: >-
+  Aggregate key-value pairs into a JSON object. This function aggregates two
+  columns or expressions into a single JSON object.
+---
 
-{% hint style="info" %}
-`JSON_OBJECTAGG` is available from MariaDB 10.5.
-{% endhint %}
+# JSON\_OBJECTAGG
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECTAGG(key, value)
 ```
 
@@ -18,7 +20,7 @@ The maximum returned length in bytes is determined by the [group\_concat\_max\_l
 
 Returns `NULL` in the case of an error, or if the result contains no rows.
 
-`JSON_OBJECTAGG` cannot currently be used as a [window function](../window-functions/).
+`JSON_OBJECTAGG` cannot be used as a [window function](../window-functions/).
 
 ## Examples
 

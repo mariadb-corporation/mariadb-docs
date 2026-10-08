@@ -1,12 +1,16 @@
+---
+description: >-
+  The VECTOR data type, for storing fixed-length numeric arrays used in vector
+  search.
+---
+
 # VECTOR
 
-{% hint style="info" %}
-`VECTOR` is available from MariaDB 11.7.1.
-{% endhint %}
+{% include "../../../.gitbook/includes/vectors-are-available-from-....md" %}
 
 ## Syntax
 
-```sql
+```bnf
 VECTOR(N)
 ```
 

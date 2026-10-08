@@ -1,16 +1,16 @@
 # MariaDB 10.5.0 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.5.0/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-1050-release-notes.md)[Changelog](mariadb-1050-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download](https://downloads.mariadb.org/mariadb/10.5.0/)[Release Notes](../../old-releases/10.5/10.5.0.md)[Changelog](mariadb-1050-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 3 Dec 2019
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases in production!**
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-1050-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.0.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #7c7f9bef28](https://github.com/MariaDB/server/commit/7c7f9bef28)\
@@ -890,7 +890,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20006](https://jira.mariadb.org/browse/MDEV-20006) Move geometry specific code in Field\_blob::get\_key\_image() to Field\_geom
 * [Revision #aca5532113](https://github.com/MariaDB/server/commit/aca5532113)\
   2019-07-10 05:14:02 +0400
-  * A cleanup `[MDEV-19994](https://jira.mariadb.org/browse/MDEV-19994) Add class Function_collection` (buildbot warnings)
+  * A cleanup [MDEV-19994](https://jira.mariadb.org/browse/MDEV-19994) (Add class `Function_collection`) (buildbot warnings)
 * [Revision #feb2695ed3](https://github.com/MariaDB/server/commit/feb2695ed3)\
   2019-07-09 19:47:57 +0400
   * [MDEV-20004](https://jira.mariadb.org/browse/MDEV-20004) Move Field\_geom from field.cc to sql\_type\_geom.cc
@@ -1152,7 +1152,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-19345](https://jira.mariadb.org/browse/MDEV-19345) Cleanup inconsistency in setting HA\_(BLOB|VAR\_LENGTH|BIT)\_PART flags
 * [Revision #bf5a144e16](https://github.com/MariaDB/server/commit/bf5a144e16)\
   2019-05-31 16:44:17 +0400
-  * [MDEV-19639](https://jira.mariadb.org/browse/MDEV-19639) + [MDEV-19640](https://jira.mariadb.org/browse/MDEV-19640) fix + preparatory changes for [WL#4179](https://askmonty.org/worklog/?tid=4179)
+  * [MDEV-19639](https://jira.mariadb.org/browse/MDEV-19639) + [MDEV-19640](https://jira.mariadb.org/browse/MDEV-19640) fix + preparatory changes for [WL#4179](https://dev.mysql.com/worklog/task/?id=4179)
 * Merge [Revision #f859789e7d](https://github.com/MariaDB/server/commit/f859789e7d) 2019-06-03 13:24:41 +0200 - Merge branch '10.4' into 10.5
 * [Revision #c51f615bf5](https://github.com/MariaDB/server/commit/c51f615bf5)\
   2019-06-01 13:36:52 +0300
@@ -1364,6 +1364,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

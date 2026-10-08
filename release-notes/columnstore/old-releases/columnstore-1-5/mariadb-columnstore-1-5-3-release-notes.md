@@ -2,15 +2,15 @@
 
 ## Overview
 
-MariaDB Enterprise ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the Enterprise ColumnStore 1.5 series, and marks the first major release since integration with MariaDB Enterprise Server.
+MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the ColumnStore 1.5 series, and marks the first major release since integration with MariaDB Enterprise Server.
 
 This release is focused on architectural change, product quality, and improved alignment to MariaDB Enterprise Server.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.5.4-2.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.4-2.
 
 This release is of Gamma maturity, and should not be used with production workloads.
 
-MariaDB Enterprise ColumnStore 1.5.3 was released on 2020-07-16.
+MariaDB ColumnStore 1.5.3 was released on 2020-07-16.
 
 * [Documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines)
 
@@ -23,10 +23,10 @@ MariaDB Enterprise ColumnStore 1.5.3 was released on 2020-07-16.
   * It is packaged similar to other MariaDB Enterprise Server plugins.
   * See Installation for more details.
 * Simplified administration:
-  * mcsadmin has been removed. Instead, Enterprise ColumnStore 1.5 uses systemd for administration of single-node and multi-node deployments, and it also adds a new REST API for administration of multi-node deployments.
+  * mcsadmin has been removed. Instead, ColumnStore 1.5 uses systemd for administration of single-node and multi-node deployments, and it also adds a new REST API for administration of multi-node deployments.
   * The new systemd service called mariadb-columnstore is used to manage ColumnStore's processes.
   * The new REST API is used to manage multi-node ColumnStore deployments.
-  * The new REST API provides an interface for MariaDB MaxScale 2.5 to orchestrate the multi-node Enterprise ColumnStore deployment.
+  * The new REST API provides an interface for MariaDB MaxScale 2.5 to orchestrate the multi-node ColumnStore deployment.
   * See OAM Replacement for more details.
 * This release was the source for fixes previously backported to ColumnStore 1.4.4.
 * This release includes correction of regressions present in ColumnStore 1.4.4 vs pre-integration.
@@ -38,7 +38,7 @@ MariaDB Enterprise ColumnStore 1.5.3 was released on 2020-07-16.
 
 ### Can result in a hang or crash
 
-* mariadbd will abort if Columnstore.xml is missing. ([MCOL-3853](https://jira.mariadb.org/browse/MCOL-3853))
+* mariadbd will abort if ColumnStore.xml is missing. ([MCOL-3853](https://jira.mariadb.org/browse/MCOL-3853))
 * Intermittent crash of cpimport in some complicated workflows. ([MCOL-3865](https://jira.mariadb.org/browse/MCOL-3865))
 * Exceeding thread limits will cause queries against S3-compatible object storage to hang. ([MCOL-3858](https://jira.mariadb.org/browse/MCOL-3858))
 * Error was not properly returned when a COMMIT or ROLLBACK failed, triggering an assertion. ([MCOL-4124](https://jira.mariadb.org/browse/MCOL-4124))
@@ -84,7 +84,7 @@ None.
 
 ## Platforms
 
-In alignment to the MariaDB Corporation Engineering Policy, MariaDB Enterprise ColumnStore 1.5.3 is provided for:
+In alignment to the MariaDB Corporation Engineering Policy, MariaDB ColumnStore 1.5.3 is provided for:
 
 * Red Hat Enterprise Linux 8
 * Red Hat Enterprise Linux 7
@@ -100,16 +100,16 @@ In alignment to the MariaDB Corporation Engineering Policy, MariaDB Enterprise C
 
 ## Installation Instructions
 
-* ​[ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* ​[ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)​
-* ​[HTAP Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)​
-* ​[Single-Node Enterprise ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)​
-* ​[Single-Node Enterprise ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
+* ​[ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
+* ​[ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)​
+* ​[HTAP Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)​
+* ​[Single-Node ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)​
+* ​[Single-Node ColumnStore ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)[5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)​[10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/columnstore-release-notes/README.md)
+* [Major Release Upgrades for MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

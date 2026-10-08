@@ -1,7 +1,13 @@
+---
+description: >-
+  How to use the mariadb-binlog client (formerly mysqlbinlog) to read and
+  process binary log files.
+---
+
 # Using mariadb-binlog
 
 {% hint style="info" %}
-Previously, the client was called `mysqlbinlog`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.&#x20;
+Previously, the client was called `mysqlbinlog`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows. 
 {% endhint %}
 
 ## Overview
@@ -72,6 +78,6 @@ mariadb -u root -p -e "source /tmp/mariadb-bin.sql"
 * [mariadb-binlog](./)
 * [mariadb-binlog Options](mariadb-binlog-options.md)
 
-{% include "../../../.gitbook/includes/license-gplv2-fill-help-tables.md" %}
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

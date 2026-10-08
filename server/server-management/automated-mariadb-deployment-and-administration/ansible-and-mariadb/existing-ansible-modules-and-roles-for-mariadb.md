@@ -1,3 +1,10 @@
+---
+description: >-
+  Lists and describes the standard Ansible modules available for managing
+  MariaDB, such as mysql_db, mysql_user, and mysql_variables, highlighting
+  their idempotent nature.
+---
+
 # Existing Ansible Modules and Roles for MariaDB
 
 This page contains links to Ansible modules and roles that can be used to automate MariaDB deployment and configuration. The list is not meant to be exhaustive. Use it as a starting point, but then please do your own research.
@@ -6,7 +13,7 @@ This page contains links to Ansible modules and roles that can be used to automa
 
 At the time of writing, there are no MariaDB-specific modules in Ansible Galaxy. MySQL modules can be used. Trying to use MySQL-specific features may result in errors or unexpected behavior. However, the same applies when trying to use a feature not supported by the MySQL version in use.
 
-Currently, the [MySQL collection](https://galaxy.ansible.com/community/mysql?extIdCarryOver=true\&sc_cid=701f2000001OH7YAAW) in Ansible Galaxy contains at least the following modules:
+The [MySQL collection](https://galaxy.ansible.com/community/mysql?extIdCarryOver=true\&sc_cid=701f2000001OH7YAAW) in Ansible Galaxy contains at least the following modules:
 
 * [mysql\_db](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html): manages MySQL databases.
 * [mysql\_info](https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_info_module.html): gathers information about a MySQL server.

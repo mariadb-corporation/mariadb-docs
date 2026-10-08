@@ -1,3 +1,10 @@
+---
+description: >-
+  Release history for the MariaDB Jupyter Kernel, covering SQL
+  autocompletion, code introspection, multi-notebook server management, and
+  other fixes from v0.1.0 onward.
+---
+
 # Changes in MariaDB Jupyter Kernel
 
 ## \[v0.2.0] 02 November 2021
@@ -5,7 +12,7 @@
 ### Features and improvements
 
 * SQL code autocompletion ( [GSoC](https://summerofcode.withgoogle.com/archive/2021/projects/6374646231859200/) project 2021 by Xing-Zhi Jiang)
-* Code Instrospection ( [GSoC](https://summerofcode.withgoogle.com/archive/2021/projects/6374646231859200/) project 2021 by Xing-Zhi Jiang)
+* Code Introspection ( [GSoC](https://summerofcode.withgoogle.com/archive/2021/projects/6374646231859200/) project 2021 by Xing-Zhi Jiang)
 * Add `debug` option in ClientConfig
 * The MyBinder configurations are switched to Dockerfile to achieve more flexibility
 * The kernel is now able to start its own MariaDB Server instance, run `mariadb-install-db` to create a datadir and pass the right options to client and server so that first-time users only need to have the `mariadb-server` package installed (Contribution by Jonas Karlsson).
@@ -35,5 +42,6 @@
 
 First release!
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

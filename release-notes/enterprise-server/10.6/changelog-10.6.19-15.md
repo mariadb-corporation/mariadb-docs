@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.19-15 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-enterprise-server/README.md) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.19-15.md).
+MariaDB Enterprise Server 10.6.19-15 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](../) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.19-15.md).
 
 MariaDB Enterprise Server 10.6.19-15 was released on 2024-09-09.
 
@@ -179,7 +179,7 @@ MariaDB Enterprise Server 10.6.19-15 was released on 2024-09-09.
 * ([MDEV-34355](https://jira.mariadb.org/browse/MDEV-34355)) rpl.rpl\_semi\_sync\_no\_missed\_ack\_after\_add\_slave "server\_3 should have sent..."
 * ([MDEV-34237](https://jira.mariadb.org/browse/MDEV-34237)) On Startup: UBSAN: runtime error: call to function `MDL_lock::lf_hash_initializer lf_hash_insert` through pointer to incorrect function type `'void (*)(st_lf_hash *, void *, const void *)'#`
 * ([MDEV-34365](https://jira.mariadb.org/browse/MDEV-34365)) UBSAN runtime error: call to `function io_callback(tpool::aiocb*)`
-* ([MDEV-34360](https://jira.mariadb.org/browse/MDEV-34360)) Columnstore should not be build on 32 bit systems
+* ([MDEV-34360](https://jira.mariadb.org/browse/MDEV-34360)) ColumnStore should not be build on 32 bit systems
 * ([MDEV-33078](https://jira.mariadb.org/browse/MDEV-33078)) SysInfo.pm reports incorrect CPU count on macOS
 * ([MDEV-33919](https://jira.mariadb.org/browse/MDEV-33919)) Remonve an-trap from man pages
 * ([MDEV-33602](https://jira.mariadb.org/browse/MDEV-33602)) rpl.rpl\_gtid\_stop\_start At line 187: sync\_with\_master failed: 'select master\_pos\_wait('master-bin.000005', 1186, 300, '')' returned NULL indicating slave SQL thread
@@ -199,6 +199,6 @@ MariaDB Enterprise Server 10.6.19-15 was released on 2024-09-09.
 * ([MDEV-34670](https://jira.mariadb.org/browse/MDEV-34670)) IMPORT TABLESPACE unnecessarily traverses tablespaces list
 * ([MDEV-33875](https://jira.mariadb.org/browse/MDEV-33875)) ORDER BY DESC causes ROWID Filter optimization performance degradation
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

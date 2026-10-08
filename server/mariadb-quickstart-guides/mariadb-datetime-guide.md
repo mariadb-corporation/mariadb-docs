@@ -1,5 +1,7 @@
 ---
-description: Date and Time Handling Guide
+description: >-
+  Understand how to work with date and time values in MariaDB, including data
+  types like DATETIME and TIMESTAMP, and useful temporal functions.
 ---
 
 # Doing Time Guide
@@ -20,7 +22,7 @@ While dates and times can be stored as character strings, using specific tempora
 
 MariaDB provides several functions to get the current date and time.
 
-**Current Date:**\
+**Current Date:**\
 Use `CURRENT_DATE` (no parentheses) or `CURDATE()` (with parentheses).
 
 ```sql
@@ -44,7 +46,7 @@ WHERE rec_id = LAST_INSERT_ID();
 +--------+-----------+------------+--------------+
 ```
 
-**Current Time:**\
+**Current Time:**\
 Use `CURRENT_TIME` or `CURTIME()`.
 
 ```sql
@@ -65,7 +67,7 @@ WHERE rec_id = '2462';
 +------------+--------------+--------------+
 ```
 
-**Current Date and Time (Timestamp):**\
+**Current Date and Time (Timestamp):**\
 Use `CURRENT_TIMESTAMP`, `NOW()`, or `SYSDATE()`. These functions return the current date and time in `YYYY-MM-DD HH:MM:SS` format, suitable for `DATETIME` or `TIMESTAMP` columns.
 
 ### Extracting Date and Time Parts
@@ -159,9 +161,9 @@ WHERE rec_id = '2462';
 +------+--------+--------+
 ```
 
-**Using `EXTRACT()` for `DATETIME` or `TIMESTAMP` types:**\
-The `EXTRACT(unit FROM datetime_column)` function extracts a specified `unit` from a date/time value.\
-Common units: `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`.\
+**Using `EXTRACT()` for `DATETIME` or `TIMESTAMP` types:**\
+The `EXTRACT(unit FROM datetime_column)` function extracts a specified `unit` from a date/time value.\
+Common units: `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`.\
 Combined units: `YEAR_MONTH`, `DAY_HOUR`, `HOUR_MINUTE`, etc.
 
 ```sql
@@ -223,8 +225,8 @@ LIMIT 1;
 +-------------------+------------------------------+
 ```
 
-**Using `DATE_FORMAT(datetime_column, format_string)`:**\
-This function provides extensive formatting options.\
+**Using `DATE_FORMAT(datetime_column, format_string)`:**\
+This function provides extensive formatting options.\
 Syntax: `DATE_FORMAT(date_value, 'format_options_and_literals')`.
 
 ```sql
@@ -246,8 +248,8 @@ Common format specifiers:
 * `%Y`: Year, 4 digits
 * `%y`: Year, 2 digits
 * `%c`: Month, numeric (1-12)
-* `%r`: Time in 12-hour format (hh:mm:ss AM/PM)
-* `%T`: Time in 24-hour format (hh:mm:ss)
+* `%r`: Time in 12-hour format (`hh:mm:ss AM/PM`)
+* `%T`: Time in 24-hour format (`hh:mm:ss`)
 * `%H`: Hour (00-23)
 * `%h` or `%I`: Hour (01-12)
 * `%i`: Minutes (00-59)
@@ -273,7 +275,7 @@ LIMIT 1;
 
 For a complete list of options, see the official [DATE\_FORMAT() documentation](../reference/sql-functions/date-time-functions/date_format.md).
 
-**Using `TIME_FORMAT(time_column, format_string)`:**\
+**Using `TIME_FORMAT(time_column, format_string)`:**\
 Similar to `DATE_FORMAT()`, but uses only time-related format options.
 
 ```sql
@@ -302,6 +304,12 @@ Here, `%l` is hour (1-12) and `%p` adds AM/PM.
 * **Leverage Built-in Functions:** MariaDB offers a rich set of functions for date/time manipulation. Use them within your SQL queries to avoid complex logic in your application code.
 * **Test Queries:** When dealing with complex date/time logic or formatting, test your SQL statements directly in a MariaDB client (like the `mariadb` command-line tool) to verify results before embedding them in applications.
 * **Be Aware of Time Zones:** `TIMESTAMP` values are stored in UTC and converted to/from the session's time zone, while `DATETIME` values are stored "as is" without time zone conversion. Understand how your server and session time zones are configured if working with data across different regions. (Time zone handling is a more advanced topic not fully covered here).
+
+### See Also
+
+* [Date & Time Functions](../reference/sql-functions/date-time-functions/) — the full reference for every function used above
+* [DATE\_FORMAT()](../reference/sql-functions/date-time-functions/date_format.md) and [TIME\_FORMAT()](../reference/sql-functions/date-time-functions/time_format.md)
+* [EXTRACT()](../reference/sql-functions/date-time-functions/extract.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

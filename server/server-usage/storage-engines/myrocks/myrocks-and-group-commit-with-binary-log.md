@@ -1,4 +1,10 @@
-# MyRocks and Group Commit with Binary log
+---
+description: >-
+  Understand how MyRocks implements group commit to coordinate with the binary
+  log, ensuring data consistency and crash safety for replicated transactions.
+---
+
+# MyRocks Group Commit with Binary log
 
 MyRocks supports group commit with the [binary log](../../../server-management/server-monitoring-logs/binary-log/) ([MDEV-11934](https://jira.mariadb.org/browse/MDEV-11934)).
 
@@ -24,7 +30,7 @@ So, the value of [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksd
 
 MariaDB doesn't have that call, each rocksdb\_prepare() call takes care of being persistent on its own.
 
-Because of that, [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksdb_wal_group_syncs) is zero for MariaDB. (Currently, it is only incremented when the binlog is rotated).
+Because of that, [rocksdb\_wal\_group\_syncs](myrocks-status-variables.md#rocksdb_wal_group_syncs) is zero for MariaDB. (It is only incremented when the binlog is rotated.)
 
 ## Examples
 

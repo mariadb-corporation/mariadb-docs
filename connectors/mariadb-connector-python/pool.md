@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python ConnectionPool manages a fixed-size pool with
+  methods to add, retrieve, and close connections, plus attributes reporting
+  pool size and connection state.
+---
+
 # The ConnectionPool class
 
 ### *class* ConnectionPool(\*args, \*\*kwargs)

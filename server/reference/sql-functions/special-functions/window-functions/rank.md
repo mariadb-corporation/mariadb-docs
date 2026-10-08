@@ -1,11 +1,17 @@
+---
+description: >-
+  Calculate rank with gaps. This function assigns a rank to each row, with tied
+  values receiving the same rank and subsequent ranks skipped.
+---
+
 # RANK
 
 ## Syntax
 
-```sql
+```bnf
 RANK() OVER (
   [ PARTITION BY partition_expression ]
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

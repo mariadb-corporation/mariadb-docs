@@ -1,3 +1,7 @@
+---
+description: Synonym for MEDIUMINT. This type uses 3 bytes of storage.
+---
+
 # INT3
 
 `INT3` is a synonym for [MEDIUMINT](mediumint.md).

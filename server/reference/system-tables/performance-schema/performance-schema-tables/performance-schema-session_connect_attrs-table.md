@@ -1,3 +1,9 @@
+---
+description: >-
+  The session_connect_attrs table lists connection attributes for the current
+  session, offering details about the client library and environment.
+---
+
 # Performance Schema session\_connect\_attrs Table
 
 ## Description

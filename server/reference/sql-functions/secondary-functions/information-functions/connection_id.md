@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the connection ID. This function retrieves the unique thread identifier
+  for the current client connection.
+---
+
 # CONNECTION\_ID
 
 ## Syntax
 
-```sql
+```bnf
 CONNECTION_ID()
 ```
 

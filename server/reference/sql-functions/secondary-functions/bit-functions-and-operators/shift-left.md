@@ -1,8 +1,14 @@
+---
+description: >-
+  Shift bits to the left. This operator shifts the binary representation of a
+  number to the left by a specified number of positions, filling with zeros.
+---
+
 # <<
 
 ## Syntax
 
-```sql
+```bnf
 value1 << value2
 ```
 

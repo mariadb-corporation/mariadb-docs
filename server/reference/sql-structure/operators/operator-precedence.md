@@ -14,7 +14,7 @@ The following list shows the SQL operator precedence. **Operators that appear fi
 * [INTERVAL](comparison-operators/interval.md)
 * [BINARY](../../data-types/string-data-types/binary.md), [COLLATE](../../data-types/string-data-types/character-sets/setting-character-sets-and-collations.md#literals)
 * [!](logical-operators/not.md)
-* [-](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/minus.md) (unary minus), [bitwise not](../../sql-functions/secondary-functions/bit-functions-and-operators/bitwise-not.md) (unary bit inversion)
+* [-](../../sql-statements/data-manipulation/selecting-data/set-operations/minus.md) (unary minus), [bitwise not](../../sql-functions/secondary-functions/bit-functions-and-operators/bitwise-not.md) (unary bit inversion)
 * `||` (string concatenation)
 * [^](../../sql-functions/aggregate-functions/bit_xor.md) (bitwise XOR)
 * [\*](arithmetic-operators/multiplication-operator.md), [/](arithmetic-operators/division-operator.md), [DIV](../../sql-functions/numeric-functions/div.md), [%](arithmetic-operators/modulo-operator.md), [MOD](../../sql-functions/numeric-functions/mod.md) (multiplication, division, modulo)
@@ -35,9 +35,9 @@ The following list shows the SQL operator precedence. **Operators that appear fi
 Functions precedence is always higher than operators precedence.
 {% endhint %}
 
-If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is set, `NOT` has the same precedence as `!`.
+If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is set, `NOT` has the same precedence as `!`.
 
-The `||` operator's precedence, as well as its meaning, depends on the `PIPES_AS_CONCAT` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) flag: if it is on, `||` can be used to concatenate strings (like the [CONCAT()](../../sql-functions/string-functions/concat.md) function) and has a higher precedence.
+The `||` operator's precedence, as well as its meaning, depends on the `PIPES_AS_CONCAT` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag: if it is on, `||` can be used to concatenate strings (like the [CONCAT()](../../sql-functions/string-functions/concat.md) function) and has a higher precedence.
 
 The `=` operator's precedence depends on the context - it is higher when `=` is used as a comparison operator.
 

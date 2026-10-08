@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete guide to inserting data in MariaDB. Complete INSERT syntax for single
+  rows, bulk operations, and ON DUPLICATE KEY handling for production use.
+---
+
 # INSERT ON DUPLICATE KEY UPDATE
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
   [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
   {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
@@ -10,6 +16,10 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
     col=expr
       [, col=expr] ... ]
 ```
+
+![Railroad diagram of INSERT ... ON DUPLICATE KEY UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/insert-on-duplicate-key-update-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-on-duplicate-key-update-value-list-railroad.svg)
 
 Or:
 
@@ -35,17 +45,17 @@ INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
 
 ## Description
 
-INSERT ... ON DUPLICATE KEY UPDATE is a MariaDB/MySQL extension to the [INSERT](insert.md) statement that, if it finds a duplicate unique or [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), will instead perform an [UPDATE](../changing-deleting-data/update.md).
+`INSERT ... ON DUPLICATE KEY UPDATE` (often called "upsert") is a MariaDB/MySQL extension to the [INSERT](insert.md) statement that, if it finds a duplicate unique or [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), will instead perform an [UPDATE](../changing-deleting-data/update.md).
 
 The row/s affected value is reported as 1 if a row is inserted, and 2 if a row is updated, unless the API's `CLIENT_FOUND_ROWS` flag is set.
 
 If more than one unique index is matched, only the first is updated. It is not recommended to use this statement on tables with more than one unique index.
 
-If the table has an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key) and the statement inserts or updates a row, the [LAST\_INSERT\_ID()](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) function returns its AUTO\_INCREMENT value.
+If the table has an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key) and the statement inserts a new row, the [LAST\_INSERT\_ID()](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) function returns the AUTO\_INCREMENT value of that newly inserted row. It is not affected when the statement updates an existing row instead.
 
 The [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value.md) function can only be used in a `ON DUPLICATE KEY UPDATE` clause and has no meaning in any other context. It returns the column values from the `INSERT` portion of the statement. This function is particularly useful for multi-rows inserts.
 
-The [IGNORE](ignore.md) and [DELAYED](insert-delayed.md) options are ignored when you use `ON DUPLICATE KEY UPDATE`.
+The [DELAYED](insert-delayed.md) option is ignored when you use `ON DUPLICATE KEY UPDATE`.
 
 See [Partition Pruning and Selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md) for details on the PARTITION clause.
 
@@ -186,7 +196,7 @@ SELECT Auto_increment FROM INFORMATION_SCHEMA.TABLES
 +----------------+
 ```
 
-Refering to column values from the INSERT portion of the statement:
+Referring to column values from the INSERT portion of the statement:
 
 ```sql
 INSERT INTO table (a,b,c) VALUES (1,2,3),(4,5,6)

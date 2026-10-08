@@ -1,8 +1,15 @@
+---
+description: >-
+  Complete START TRANSACTION reference: BEGIN/COMMIT/ROLLBACK syntax, WITH
+  CONSISTENT SNAPSHOT option, READ ONLY/WRITE modes, AND [NO] CHAIN/RELEASE
+  modifiers.
+---
+
 # START TRANSACTION
 
 ## Syntax
 
-```sql
+```bnf
 START TRANSACTION [transaction_property [, transaction_property] ...] | BEGIN [WORK]
 COMMIT [WORK] [AND [NO] CHAIN] [[NO] RELEASE]
 ROLLBACK [WORK] [AND [NO] CHAIN] [[NO] RELEASE]
@@ -13,6 +20,18 @@ transaction_property:
   | READ WRITE
   | READ ONLY
 ```
+
+The BNF above documents four related statements together; each gets its own diagram below.
+
+![Railroad diagram of START TRANSACTION / BEGIN](../../../.gitbook/assets/start-transaction-railroad.svg)
+
+![Railroad diagram of COMMIT](../../../.gitbook/assets/commit-railroad.svg)
+
+![Railroad diagram of ROLLBACK](../../../.gitbook/assets/rollback-railroad.svg)
+
+![Railroad diagram of SET autocommit](../../../.gitbook/assets/set-autocommit-railroad.svg)
+
+![Railroad diagram of transaction_property](../../../.gitbook/assets/start-transaction-property-railroad.svg)
 
 ## Description
 
@@ -28,11 +47,19 @@ The `AND CHAIN` clause causes a new transaction to begin as soon as the current 
 
 {% tabs %}
 {% tab title="Current" %}
-The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [READ\_ONLY ADMIN](../account-management-sql-commands/grant.md#read_only-admin) privilege doesn't allow writes and DDL statements on temporary tables are not allowed either.
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
+The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [READ\_ONLY ADMIN](../account-management-sql-statements/grant.md#read_only-admin) privilege doesn't allow writes and DDL statements on temporary tables are not allowed either.
 {% endtab %}
 
 {% tab title="< 10.11" %}
-The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [SUPER](../account-management-sql-commands/grant.md#super) privilege doesn't allow writes and DDL statements on temporary tables are not allowed either.
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
+The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [SUPER](../account-management-sql-statements/grant.md#super) privilege doesn't allow writes and DDL statements on temporary tables are not allowed either.
 {% endtab %}
 {% endtabs %}
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Explanation of floating-point precision issues. This page details why FLOAT
+  and DOUBLE types are approximate and how rounding errors occur.
+---
+
 # Floating-point Accuracy
 
 Due to their nature, not all floating-point numbers can be stored with exact precision. Hardware architecture, the CPU or even the compiler version and optimization level may affect the precision.

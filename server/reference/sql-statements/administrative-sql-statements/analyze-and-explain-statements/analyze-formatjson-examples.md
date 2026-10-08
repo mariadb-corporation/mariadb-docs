@@ -1,11 +1,15 @@
+---
+description: >-
+  Review practical examples of ANALYZE FORMAT=JSON output. Learn to identify
+  performance bottlenecks by comparing estimated costs against actual execution
+  metrics.
+---
 
 # ANALYZE FORMAT=JSON Examples
 
 ## Example #1
 
-
 Customers who have ordered more than 1M goods.
-
 
 ```sql
 ANALYZE FORMAT=JSON
@@ -16,7 +20,6 @@ WHERE
 ```
 
 The query takes 40 seconds over cold cache.
-
 
 ```json
 EXPLAIN: {
@@ -69,8 +72,6 @@ EXPLAIN: {
 
 `ANALYZE` shows that 39.208 seconds were spent in the subquery, which was executed 150K times (for every row of outer table).
 
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
-
 
 {% @marketo/form formId="4316" %}

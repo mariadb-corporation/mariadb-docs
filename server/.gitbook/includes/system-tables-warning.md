@@ -2,6 +2,4 @@
 title: system-tables-warning
 ---
 
-{% hint style="danger" %}
-**System tables should not normally be edited directly. Use the related SQL statements instead.**
-{% endhint %}
+1. PARTITION BY SYSTEM\_TIME is not supported for transaction-precise system-versioned tables. Attempting

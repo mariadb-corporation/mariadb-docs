@@ -1,8 +1,14 @@
+---
+description: >-
+  Generate a short 64-bit UUID. This function returns a unique, monotonically
+  increasing integer suitable for use as a compact identifier.
+---
+
 # UUID\_SHORT
 
 ## Syntax
 
-```sql
+```bnf
 UUID_SHORT()
 ```
 
@@ -54,7 +60,7 @@ SELECT * FROM t1;
 
 * [UUID()](uuid.md) ; Return full (128 bit) Universally Unique Identifier
 * [AUTO\_INCREMENT](../../../data-types/auto_increment.md)
-* [Sequences](../../../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+* [Sequences](../../../sql-structure/sequences/) - an alternative to auto\_increment
 * [SYS\_GUID](sys_guid.md) - UUID without the `-` character for Oracle compatibility
 * [UUID data type](../../../data-types/string-data-types/uuid-data-type.md)
 

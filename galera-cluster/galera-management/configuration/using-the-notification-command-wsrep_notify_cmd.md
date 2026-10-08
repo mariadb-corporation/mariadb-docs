@@ -1,3 +1,10 @@
+---
+description: >-
+  Galera Cluster can trigger a custom script on membership or state changes
+  through wsrep_notify_cmd, passing status, view ID, member list, and Primary
+  Component flag as arguments.
+---
+
 # Using the Notification Command (wsrep\_notify\_cmd)
 
 MariaDB Galera Cluster provides a powerful automation feature through the `wsrep_notify_cmd` [system variable](../../reference/galera-cluster-system-variables.md#wsrep_notify_cmd). When this variable is configured, the MariaDB server will automatically execute a specified command or script in response to changes in the cluster's membership or the local node's state.
@@ -6,7 +13,7 @@ This is extremely useful for integrating the cluster with external systems:
 
 | System                                                                                                                                                | Description                                                                                        |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [Load Balancers](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) | Automatically add or remove nodes from the load balancer's pool as they join or leave the cluster. |
+| [Load Balancers](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) | Automatically add or remove nodes from the load balancer's pool as they join or leave the cluster. |
 | [Monitoring and Alerting](../../high-availability/monitoring-mariadb-galera-cluster.md)                                                               | Send custom alerts to a monitoring system when a node's status changes.                            |
 | Service Discovery                                                                                                                                     | Update a service discovery tool with the current list of active cluster members.                   |
 

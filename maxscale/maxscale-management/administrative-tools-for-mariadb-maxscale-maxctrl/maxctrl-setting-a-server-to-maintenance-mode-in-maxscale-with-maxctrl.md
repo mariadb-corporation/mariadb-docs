@@ -1,3 +1,10 @@
+---
+description: >-
+  Perform server maintenance safely. Learn how to use MaxCtrl to gracefully
+  drain connections or force a server into maintenance mode, effectively
+  removing it from the load balancing pool.
+---
+
 # Setting a Server to Maintenance Mode in MaxScale with MaxCtrl
 
 ## Overview
@@ -44,6 +51,6 @@ $ maxctrl --secure
 
 2. Replace `server1` with the specific server name. When `--force` is used, MaxScale immediately closes all connections, even if the server is a primary server with open transactions.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

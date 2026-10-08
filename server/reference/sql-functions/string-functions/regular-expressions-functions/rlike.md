@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for REGEXP. This operator performs a regular expression match against
+  a string argument.
+---
+
 # RLIKE
 
 ## Syntax
 
-```sql
+```bnf
 expr REGEXP pat, expr RLIKE pat
 ```
 

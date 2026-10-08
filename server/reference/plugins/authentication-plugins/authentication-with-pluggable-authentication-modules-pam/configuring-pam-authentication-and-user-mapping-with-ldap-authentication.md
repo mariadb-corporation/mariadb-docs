@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn to configure the PAM plugin to authenticate users via LDAP and map LDAP
+  groups to MariaDB accounts using the pam_user_map module.
+---
+
 # Configuring PAM Authentication and User Mapping with LDAP Authentication
 
 In this article, we will walk through the configuration of PAM authentication using the [pam](authentication-plugin-pam.md) authentication plugin and user and group mapping with the [pam\_user\_map](user-and-group-mapping-with-pam.md) PAM module. The primary authentication will be handled by the [pam\_ldap](https://linux.die.net/man/5/pam_ldap) PAM module, which performs LDAP authentication. We will also set up an OpenLDAP server.
@@ -46,7 +52,7 @@ I used `3306` because that is the port that is usually used by `mysqld`, so I kn
 
 ### Starting the OpenLDAP Server
 
-Next, let's start the OpenLDAP Server and configure it to start on reboot. On [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd.md) systems, that would go like this:
+Next, let's start the OpenLDAP Server and configure it to start on reboot. On [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd/README.md) systems, that would go like this:
 
 ```bash
 sudo systemctl start slapd
@@ -353,37 +359,7 @@ Be sure to replace `-–ldapserver` and `-–ldapbasedn` with values that are re
 
 ### Installing the pam\_user\_map PAM Module
 
-{% tabs %}
-{% tab title="Current" %}
 The `pam_user_map` PAM module is included in the base install. No installation is needed.
-{% endtab %}
-
-{% tab title="< 10.5.2 / 10.4.13 / 10.3.23 / 10.2.32.7" %}
-Next, let's [install the pam\_user\_map PAM module](user-and-group-mapping-with-pam.md#installing-the-pam_user_map-pam-module).
-
-Before the module can be compiled from source, we may need to install some dependencies.
-
-On RHEL, CentOS, and other similar Linux distributions that use [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/), we need to install `gcc` and `pam-devel`:
-
-```bash
-sudo yum install gcc pam-devel
-```
-
-On Debian, Ubuntu, and other similar Linux distributions that use [DEB packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md), we need to install `gcc` and `libpam0g-dev`:
-
-```bash
-sudo apt-get install gcc libpam0g-dev
-```
-
-And then we can build and install the library with the following:
-
-```bash
-wget https://raw.githubusercontent.com/MariaDB/server/10.4/plugin/auth_pam/mapper/pam_user_map.c 
-gcc pam_user_map.c -shared -lpam -fPIC -o pam_user_map.so 
-sudo install --mode=0755 pam_user_map.so /lib64/security/
-```
-{% endtab %}
-{% endtabs %}
 
 ### Configuring the pam\_user\_map PAM Module
 
@@ -608,8 +584,6 @@ We can verify that our `alice` Unix user was properly mapped to the `dba` MariaD
 ## Integrating with MariaDB MaxScale
 
 If you are connecting to MariaDB Server through MariaDB MaxScale, it is also recommended to configure the proxy to authenticate users via [MaxScale PAM Authenticator](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-authenticators/maxscale-pam-authenticator).
-
-
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

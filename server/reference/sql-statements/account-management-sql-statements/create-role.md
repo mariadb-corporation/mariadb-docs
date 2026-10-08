@@ -1,3 +1,9 @@
+---
+description: >-
+  Create new roles to simplify privilege management. Learn how to define a role
+  that can be assigned to multiple users or other roles.
+---
+
 # CREATE ROLE
 
 ## Syntax
@@ -7,6 +13,8 @@ CREATE [OR REPLACE] ROLE [IF NOT EXISTS] role
   [WITH ADMIN 
     {CURRENT_USER | CURRENT_ROLE | user | role}]
 ```
+
+![Railroad diagram of CREATE ROLE — equivalent to the BNF above](../../../.gitbook/assets/create-role-railroad.svg)
 
 ## Description
 
@@ -27,6 +35,28 @@ For valid identifiers to use as role names, see [Identifier Names](../../sql-str
 #### WITH ADMIN
 
 The optional `WITH ADMIN` clause determines whether the current user, the current role or another user or role has use of the newly created role. If the clause is omitted, `WITH ADMIN CURRENT_USER` is treated as the default, which means that the current user will be able to [GRANT](grant.md#roles) this role to users.
+### Example: Using WITH ADMIN
+
+The WITH ADMIN option allows a specific user or role to manage (grant or revoke) the newly created role. For example:
+
+```sql
+CREATE ROLE developer WITH ADMIN lorinda@localhost;
+```
+
+Here, the `developer` role is created, and the user `lorinda@localhost` is given permission to grant or revoke this role to other users.
+
+If another user without administrative privileges attempts to grant the role, the operation fails:
+
+```sql
+GRANT developer TO ian@localhost;
+-- ERROR: Access denied
+```
+
+However, when executed by `lorinda@localhost`, the operation succeeds:
+
+```sql
+GRANT developer TO ian@localhost;
+```
 
 #### OR REPLACE
 

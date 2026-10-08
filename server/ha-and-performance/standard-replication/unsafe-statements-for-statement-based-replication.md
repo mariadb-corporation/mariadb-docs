@@ -1,8 +1,8 @@
 ---
 description: >-
-  Identify unsafe statements for statement-based replication in MariaDB Server.
-  This section details SQL commands that can cause inconsistencies, guiding you
-  toward safer replication practices.
+  Identify SQL statements that are non-deterministic and unsafe for
+  statement-based replication. Learn why these queries cause divergence and how
+  to switch to row-based logging.
 ---
 
 # Unsafe Statements for Statement-Based Replication
@@ -86,7 +86,7 @@ The following statements are not deterministic, but are considered safe for bina
 
 ## Isolation Levels
 
-Even when using safe statements, not all [transaction isolation levels](../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) are safe with statement-based or mixed binary logging. While the REPEATABLE READ and SERIALIZABLE isolation levels can be used with both statement- and row-based replication, the READ COMMITTED and READ UNCOMMITTED isolation levels only support row-based replication, as with them isolation between transactions is not guaranteed at all, and different transaction orders on a replica, or when doing point-in-time recovery, would lead to different results than on the original master.
+Even when using safe statements, not all [transaction isolation levels](../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) are safe with statement-based or mixed binary logging. While the `REPEATABLE READ` and `SERIALIZABLE` isolation levels can be used with both statement- and row-based replication, the `READ COMMITTED` and `READ UNCOMMITTED` isolation levels only support row-based replication, as with them isolation between transactions is not guaranteed at all, and different transaction orders on a replica, or when doing point-in-time recovery, would lead to different results than on the original master.
 
 This restriction does not apply if only non-transactional storage engines are used.
 

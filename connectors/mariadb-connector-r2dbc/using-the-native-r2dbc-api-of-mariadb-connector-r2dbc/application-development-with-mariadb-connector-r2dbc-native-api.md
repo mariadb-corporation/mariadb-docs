@@ -1,3 +1,10 @@
+---
+description: >-
+  Application development with MariaDB Connector/R2DBC native API covers
+  building Java projects with Maven or JAR, adding the connector to the
+  classpath, and running compiled applications.
+---
+
 # Application Development with MariaDB Connector/R2DBC (Native API)
 
 Methods for building projects with MariaDB Connector/R2DBC vary depending on the installation method you use.
@@ -24,7 +31,7 @@ Building with JAR
 2. Add your application and the JAR for MariaDB Connector/R2DBC to the Java CLASSPATH:
 
 ```bash
-$ export CLASSPATH="/path/to/application:/path/to/r2dbc-mariadb-1.2.0.jar"
+$ export CLASSPATH="/path/to/application:/path/to/r2dbc-mariadb-1.4.2.jar"
 ```
 
 1. Compile your application:
@@ -39,6 +46,6 @@ $ javac App.java
 $ java App
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

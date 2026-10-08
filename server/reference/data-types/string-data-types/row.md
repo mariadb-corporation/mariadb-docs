@@ -1,8 +1,14 @@
+---
+description: >-
+  ROW is a data type used in stored programs to store a complete row of data
+  from a cursor or table.
+---
+
 # ROW
 
 ## Syntax
 
-```sql
+```bnf
 ROW (<field name> <data type> [{, <field name> <data type>}... ])
 ```
 
@@ -64,15 +70,9 @@ FETCH cur INTO rec;
 
 where `cur` is a `CURSOR` and `rec` is a `ROW` type stored procedure variable.
 
-Note, currently an attempt to use `FETCH` for a `ROW` type variable returns this error:
-
-```sql
-ERROR 1328 (HY000): Incorrect number of FETCH variables
-```
-
 `FETCH` from a cursor `cur` into a `ROW` variable `rec` works as follows:
 
-* The number of fields in `cur` must match the number of fields in `rec`. Otherwise, an error is reported.
+* The number of fields in `cur` must match the number of fields in `rec`. Otherwise, `ERROR 1328 (HY000): Incorrect number of FETCH variables` is reported.
 * Assignment is done from left to right. The first cursor field is assigned to the first variable field, the second cursor field is assigned to the second variable field, etc.
 * Field names in `rec` are not important and can differ from field names in `cur`.
 
@@ -86,7 +86,7 @@ See [FETCH Examples](row.md#fetch-examples) (below) for examples of using this w
 * Using multiple `ROW` variables in the `SELECT..INTO` list will report an error.
 * Using `ROW` variables with a different column count than in the `SELECT..INTO` list will report an error.
 
-See [SELECT...INTO Examples](row.md#selectinto-examples) (below) for examples of using this with `sql_mode=ORACLE` and `sql_mode=DEFAULT`.
+See [SELECT...INTO Examples](row.md#select...into-examples) (below) for examples of using this with `sql_mode=ORACLE` and `sql_mode=DEFAULT`.
 
 ## Features not implemented
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Decode a base-64 encoded string. This function takes a base-64 string and
+  returns the decoded binary result.
+---
+
 # FROM\_BASE64
 
 ## Syntax
 
-```sql
+```bnf
 FROM_BASE64(str)
 ```
 

@@ -1,14 +1,14 @@
 # MariaDB 10.5.25 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.25](https://downloads.mariadb.org/mariadb/10.5.25/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-25-release-notes.md)[Changelog](mariadb-10-5-25-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.25](https://downloads.mariadb.org/mariadb/10.5.25/)[Release Notes](../../old-releases/10.5/10.5.25.md)[Changelog](mariadb-10-5-25-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 16 May 2024
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-25-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.25.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.4.34](../changelogs-mariadb-10-4-series/mariadb-10-4-34-changelog.md)
@@ -751,6 +751,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -1,8 +1,14 @@
+---
+description: >-
+  Create a JSON object. This function evaluates a list of key-value pairs and
+  returns a JSON object containing those pairs.
+---
+
 # JSON\_OBJECT
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECT([key, value[, key, value] ...])
 ```
 
@@ -25,7 +31,7 @@ SELECT JSON_OBJECT("id", 1, "name", "Monty");
 
 ## See also
 
-* [JSON\_MAKE\_OBJECT](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md#json_make_object), the CONNECT storage engine function
+* [JSON\_MAKE\_OBJECT](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/connect-json-udfs.md#json_make_object), the CONNECT storage engine function
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

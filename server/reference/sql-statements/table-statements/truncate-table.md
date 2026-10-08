@@ -1,11 +1,20 @@
+---
+description: >-
+  Complete TRUNCATE TABLE reference: TRUNCATE [TABLE] tbl_name [WAIT n|NOWAIT]
+  syntax, InnoDB FOREIGN KEY constraints, implicit commit, and AUTO_INCREMENT
+  reset.
+---
+
 # TRUNCATE TABLE
 
 ## Syntax
 
-```sql
+```bnf
 TRUNCATE [TABLE] tbl_name
   [WAIT n | NOWAIT]
 ```
+
+![Railroad diagram of TRUNCATE TABLE — equivalent to the BNF above](../../../.gitbook/assets/truncate-table-railroad.svg)
 
 ## Description
 
@@ -34,15 +43,21 @@ For other storage engines, `TRUNCATE TABLE` differs from`DELETE` in the followin
 * Truncation operations cannot be performed if the session holds an active table lock.
 * Truncation operations do not return a meaningful value for the number of deleted rows. The usual result is "0 rows affected," which should be interpreted as "no information."
 * As long as the table format file `tbl_name.frm` is valid, the table can be re-created as an empty table with `TRUNCATE TABLE`, even if the data or index files have become corrupted.
-* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting\
+* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting
   from the beginning. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.
 * When used with partitioned tables, `TRUNCATE TABLE` preserves the partitioning; that is, the data and index files are dropped and re-created, while the partition definitions (.par) file is unaffected.
 * Since truncation of a table does not make any use of `DELETE`, the `TRUNCATE` statement does not invoke `ON DELETE` triggers.
 * `TRUNCATE TABLE` will only reset the values in the [Performance Schema summary tables](../../system-tables/performance-schema/performance-schema-tables/list-of-performance-schema-tables.md) to zero or null, and will not remove the rows.
 
-For the purposes of binary logging and [replication](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), `TRUNCATE TABLE` is treated as [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) (DDL rather than DML).
+For the purposes of binary logging and [replication](../../../ha-and-performance/standard-replication/), `TRUNCATE TABLE` is treated as [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) (DDL rather than DML).
 
-`TRUNCATE TABLE` does not work on [views](../../../server-usage/views/). Currently, `TRUNCATE TABLE` drops all historical records from a [system-versioned table](../../sql-structure/temporal-tables/system-versioned-tables.md).
+`TRUNCATE TABLE` does not work on [views](../../../server-usage/views/). It also cannot be used on a [system-versioned table](../../sql-structure/temporal-tables/system-versioned-tables.md), returning the error:
+
+```sql
+ERROR 4137 (HY000): System-versioned tables do not support TRUNCATE TABLE
+```
+
+To remove historical records from a system-versioned table, use [DELETE HISTORY](../data-manipulation/changing-deleting-data/delete.md#delete-history) instead.
 
 #### WAIT/NOWAIT
 
@@ -64,14 +79,13 @@ These have no effect on the operation.
 
 With [InnoDB](../../../server-usage/storage-engines/innodb/), `TRUNCATE TABLE` is slower if [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) is set (the default). This is because `TRUNCATE TABLE` unlinks the underlying tablespace file, which can be an expensive operation. See [MDEV-8069](https://jira.mariadb.org/browse/MDEV-8069) for more details.
 
-The performance issues with [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) can be exacerbated in cases where the [InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) is very large and [innodb\_adaptive\_hash\_index=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is set. In that case, using [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) instead of `TRUNCATE TABLE` may perform better. Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index)  can also help.
+The performance issues with [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) can be exacerbated in cases where the [InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) is very large and [innodb\_adaptive\_hash\_index=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is set. In that case, using [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) instead of `TRUNCATE TABLE` may perform better. Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) can also help.
 
 Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) can also improve `TRUNCATE TABLE` performance in general. See [MDEV-16796](https://jira.mariadb.org/browse/MDEV-16796) for more details.
 
 ## See Also
 
 * [TRUNCATE function](../../sql-functions/numeric-functions/truncate.md)
-* [innodb\_safe\_truncate](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_safe_truncate) system variable
 * [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

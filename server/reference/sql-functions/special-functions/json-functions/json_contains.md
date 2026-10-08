@@ -1,8 +1,14 @@
+---
+description: >-
+  Check for JSON containment. This function returns 1 if a candidate JSON
+  document is contained within a target JSON document, or 0 otherwise.
+---
+
 # JSON\_CONTAINS
 
 ## Syntax
 
-```sql
+```bnf
 JSON_CONTAINS(json_doc, val[, path])
 ```
 

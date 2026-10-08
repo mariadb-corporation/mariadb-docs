@@ -1,3 +1,9 @@
+---
+description: >-
+  This function checks if a given Performance Schema instrument is enabled by
+  default, returning YES or NO.
+---
+
 # ps\_is\_instrument\_default\_enabled
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

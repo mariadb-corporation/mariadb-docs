@@ -1,8 +1,13 @@
+---
+description: >-
+  DROP SEQUENCE removes one or more sequence objects.
+---
+
 # DROP SEQUENCE
 
 ## Syntax
 
-```sql
+```bnf
 DROP [TEMPORARY] SEQUENCE [IF EXISTS] [/*COMMENT TO SAVE*/]
     sequence_name [, sequence_name] ...
 ```

@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of sequence objects, which generate a sequence of numeric values
+  as defined by CREATE SEQUENCE.
+---
+
 # Sequence Overview
 
 This page is about sequence objects. For details about the storage engine, see [Sequence Storage Engine](../../../server-usage/storage-engines/sequence-storage-engine.md).
@@ -44,7 +50,7 @@ or
 NEXTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql_mode.md))
 
 ```
 sequence_name.nextval
@@ -62,7 +68,7 @@ or
 LASTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql_mode.md))
 
 ```
 sequence_name.currval
@@ -181,7 +187,7 @@ Since sequence objects act as regular tables in many contexts, they will be affe
 
 One of the goals with the Sequence implementation is that all old tools, such as [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (previously mysqldump), should work unchanged, while still keeping the normal usage of sequence standard compatibly.
 
-To make this possible, `sequence` is currently implemented as a table with a few exclusive properties.
+To make this possible, `sequence` is implemented as a table with a few exclusive properties.
 
 The special properties for sequence tables are:
 
@@ -204,7 +210,7 @@ The special properties for sequence tables are:
 
 ## Implementation
 
-Internally, sequence tables are created as a normal table without rollback (the [InnoDB](../../../server-usage/storage-engines/innodb/), [Aria](../../../server-usage/storage-engines/aria/) and [MySAM](../../../server-usage/storage-engines/myisam-storage-engine/) engines support this), wrapped by a sequence engine object. This allowed us to create sequences with\
+Internally, sequence tables are created as a normal table without rollback (the [InnoDB](../../../server-usage/storage-engines/innodb/), [Aria](../../../server-usage/storage-engines/aria/) and [MySAM](../../../server-usage/storage-engines/myisam-storage-engine/) engines support this), wrapped by a sequence engine object. This allowed us to create sequences with
 almost no performance impact for normal tables. (The cost is one 'if' per insert if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is enabled).
 
 ## Underlying Table Structure
@@ -261,7 +267,7 @@ The `cycle_count` column is incremented every time the sequence wraps around.
 * [AUTO INCREMENT](../../data-types/auto_increment.md)
 * [Sequence Storage Engine](../../../server-usage/storage-engines/sequence-storage-engine.md)
 * [Information Schema SEQUENCES Table](../../system-tables/information-schema/information-schema-tables/information-schema-sequences-table.md)
-* [Error 4084: Sequence has run out](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-structure/sequences/broken-reference/README.md)
+* [Error 4084: Sequence has run out](../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

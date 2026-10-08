@@ -1,8 +1,14 @@
+---
+description: >-
+  Define a connection to a remote server. This command registers server details
+  for use with the FEDERATED or SPIDER storage engines.
+---
+
 # CREATE SERVER
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] SERVER [IF NOT EXISTS] server_name
     FOREIGN DATA WRAPPER wrapper_name
     OPTIONS (option [, option] ...)
@@ -16,7 +22,7 @@ option: <= MariaDB 11.6
   | OWNER character-literal
   | PORT numeric-literal }
 
-option: >= MariaDB 11.7
+option: >= MariaDB Enterprise Server 11.4 / Community Server 11.7
   { HOST character-literal
   | DATABASE character-literal
   | USER character-literal
@@ -30,51 +36,45 @@ option: >= MariaDB 11.7
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
-This statement creates the definition of a server for use with the [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FEDERATED](../../../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md), or [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) storage engine. The `CREATE SERVER` statement creates a new row in the [servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table within the mysql database. This statement requires the [FEDERATED ADMIN](../../account-management-sql-statements/grant.md#federated-admin) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-This statement creates the definition of a server for use with the [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FEDERATED](../../../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md), or [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) storage engine. The `CREATE SERVER` statement creates a new row in the [servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table within the mysql database. This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege.
-{% endtab %}
-{% endtabs %}
+This statement creates the definition of a server for use with the [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md), or [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) storage engine. The `CREATE SERVER` statement creates a new row in the [servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table within the mysql database. This statement requires the [FEDERATED ADMIN](../../account-management-sql-statements/grant.md#federated-admin) privilege.
 
 The server\_name should be a unique reference to the server. Server definitions are global within the scope of the server, it is not possible to qualify the server definition to a specific database. server\_name has a maximum length of 64 characters (names longer than 64 characters are silently truncated), and is case-insensitive. You may specify the name as a quoted string.
 
 The wrapper\_name may be quoted with single quotes. Supported values are:
 
 * `mysql`
-* `mariadb` (from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103))
+* `mariadb`&#x20;
 
-For each option you must specify either a character literal or numeric literal. Character literals are UTF-8, support a maximum length of 64 characters and default to a blank (empty) string. String literals are silently truncated to 64 characters. Numeric literals must be a number between 0 and 9999, default value is 0.
+For each option you must specify either a character literal or numeric literal. Character literals are UTF-8, support a maximum length of 64 characters and default to a blank (empty) string. String literals are silently truncated to 64 characters. Numeric literals must be a number between `0` and `9999`, default value is `0`.
 
-**Note**: The `OWNER` option is currently not applied, and has no effect on the ownership or operation of the server connection that is created.
+**Note**: The `OWNER` option is not applied, and has no effect on the ownership or operation of the server connection that is created.
 
-The CREATE SERVER statement creates an entry in the [mysql.servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table that can later be used with the CREATE TABLE statement when creating a [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) or [FEDERATED](../../../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md) table. The options that you specify will be used to populate the columns in the mysql.servers table. The table columns are Server\_name, Host, Db, Username, Password, Port and Socket.
+The `CREATE SERVER` statement creates an entry in the [mysql.servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table that can later be used with the `CREATE TABLE` statement when creating a [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) or [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md) table. The options that you specify will be used to populate the columns in the mysql.servers table. The table columns are `Server_name`, `Host`, `Db`, `Username`, `Password`, `Port`, and `Socket`.
+
+Note: When used with the Spider storage engine, connection information provided via `CREATE SERVER` may be overridden by table-level or engine-defined parameters. For information on connection configuration and precedence rules, see the [Spider Storage Engine Core Concepts](../../../../server-usage/storage-engines/spider/spider-storage-engine-core-concepts.md) page.
 
 [DROP SERVER](../drop/drop-server.md) removes a previously created server definition.
 
-`CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.&#x20;
+`CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.
 
-{% tabs %}
-{% tab title="Current" %}
 [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) replicates the `CREATE SERVER`, [ALTER SERVER](../alter/alter-server.md) and [DROP SERVER](../drop/drop-server.md) statements.
-{% endtab %}
-
-{% tab title="< 10.1.13" %}
-[Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) does not replicate the `CREATE SERVER`, [ALTER SERVER](../alter/alter-server.md) and [DROP SERVER](../drop/drop-server.md) statements.
-{% endtab %}
-{% endtabs %}
 
 For valid identifiers to use as server names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
 {% tabs %}
 {% tab title="Current" %}
-The [SHOW CREATE SERVER](../../administrative-sql-statements/show/show-create-server.md) statement can be used to show the CREATE SERVER statement that created a given server definition.
+{% hint style="info" %}
+From Community Server (CS) 11.7 / Enterprise Server (ES) 11.4:
+{% endhint %}
+
+The [SHOW CREATE SERVER](../../administrative-sql-statements/show/show-create-server.md) statement can be used to show the `CREATE SERVER` statement that created a given server definition.
 {% endtab %}
 
-{% tab title="< 11.7" %}
+{% tab title="< CS 11.7 / ES 11.4" %}
+{% hint style="info" %}
+Before Community Server (CS) 11.7 / Enterprise Server (ES) 11.4:
+{% endhint %}
+
 The [SHOW CREATE SERVER](../../administrative-sql-statements/show/show-create-server.md) statement cannot be used to show the `CREATE SERVER` statement that created a given server definition.
 {% endtab %}
 {% endtabs %}
@@ -90,7 +90,7 @@ CREATE SERVER server_name ...;
 
 #### IF NOT EXISTS
 
-If the IF NOT EXISTS clause is used, MariaDB will return a warning instead of an error if the server already exists. Cannot be used together with OR REPLACE.
+If the `IF NOT EXISTS` clause is used, MariaDB will return a warning instead of an error if the server already exists. Cannot be used together with `OR REPLACE`.
 
 ## Examples
 
@@ -100,7 +100,7 @@ FOREIGN DATA WRAPPER mariadb
 OPTIONS (USER 'Remote', HOST '192.168.1.106', DATABASE 'test');
 ```
 
-OR REPLACE and IF NOT EXISTS:
+`OR REPLACE` and `IF NOT EXISTS`:
 
 ```sql
 CREATE SERVER s 

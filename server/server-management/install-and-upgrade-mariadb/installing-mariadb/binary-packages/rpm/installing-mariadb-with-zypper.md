@@ -1,13 +1,18 @@
+---
+description: >-
+  Detailed steps for installing MariaDB on SLES and OpenSUSE using the zypper
+  package manager, including repository configuration and package installation.
+---
+
 # Installing MariaDB with zypper
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](./) from MariaDB's\
-repository using [zypper](https://en.wikipedia.org/wiki/ZYpp).
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](./) from MariaDB's repository using [zypper](https://en.wikipedia.org/wiki/ZYpp).
 
 This page walks you through the simple installation steps using `zypper`.
 
 ## Adding the MariaDB ZYpp repository
 
-We currently have ZYpp repositories for the following Linux distributions:
+MariaDB provides ZYpp repositories for the following Linux distributions:
 
 * SUSE Linux Enterprise Server (SLES) 12
 * SUSE Linux Enterprise Server (SLES) 15
@@ -16,9 +21,9 @@ We currently have ZYpp repositories for the following Linux distributions:
 
 ### Using the MariaDB Package Repository Setup Script
 
-If you want to install MariaDB with `zypper`, then you can configure `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md).
+If you want to install MariaDB with `zypper`, then you can configure `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md).
 
-MariaDB Corporation provides a MariaDB Package Repository for several Linux distributions that use `zypper` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/). The MariaDB Package Repository setup script automatically configures your system to install packages from the MariaDB Package Repository.
+MariaDB Corporation provides a MariaDB Package Repository for several Linux distributions that use `zypper` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/README.md). The MariaDB Package Repository setup script automatically configures your system to install packages from the MariaDB Package Repository.
 
 To use the script, execute the following command:
 
@@ -26,17 +31,17 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
+Note that this script also configures a repository for [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) and a repository for MariaDB Tools, which only contains [Percona XtraBackup](../../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
 
-See [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) for more information.
+See [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) for more information.
 
 ### Using the MariaDB Repository Configuration Tool
 
 If you want to install MariaDB with `zypper`, then you can configure `zypper` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `zypper` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
+The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `zypper` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/README.md). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
 
-For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
+For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
 
 ```bash
 sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/10.6/sles/15/x86_64 mariadb
@@ -45,17 +50,32 @@ sudo zypper --gpg-auto-import-keys refresh
 
 ### Pinning the MariaDB Repository to a Specific Minor Release
 
-If you wish to pin the `zypper` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then\
-you can create a `zypper` repository with the URL hard-coded to that specific minor release.
+If you wish to pin the `zypper` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then you can create a `zypper` repository with the URL hard-coded to that specific minor release.
 
-So if you can't find the repository of a specific minor release at `yum.mariadb.org`, then it would be a good idea to check the archive.
+{% tabs %}
+{% tab title="MariaDB Corporation repo setup scripts" %}
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../../../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
 
-For example, if you wanted to pin your repository to [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
+See [Pinning the Repository to a Specific Minor Release](../../../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) page for details.
+
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+{% endtab %}
+
+{% tab title="MariaDB Foundation repo config tool" %}
+If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number to use on the `baseurl` line.
+
+By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`.
+
+The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+
+For example, to pin your repository to MariaDB 11.8.6 on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
 
 ```bash
 sudo zypper removerepo mariadb
-sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/10.6.21/sles/15/x86_64 mariadb
+sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/11.8.6/sles/15/x86_64 mariadb
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Updating the MariaDB ZYpp repository to a New Major Release
 
@@ -63,7 +83,7 @@ MariaDB's `zypper` repository can be updated to a new major release. How this is
 
 ### Updating the Major Release with the MariaDB Package Repository Setup Script
 
-If you configured `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
+If you configured `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
 
 ### Updating the Major Release with the MariaDB Repository Configuration Tool
 
@@ -75,25 +95,20 @@ First, you can remove the repository for the old version by executing the follow
 sudo zypper removerepo mariadb
 ```
 
-After that, you can add the repository for the new version. For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
+After that, you can add the repository for the new version. For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
 
 ```bash
 sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/10.6/sles/15/x86_64 mariadb
 sudo zypper --gpg-auto-import-keys refresh
 ```
 
-After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106).
+After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106).
 
 ## Importing the MariaDB GPG Public Key
 
 Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `zypper` and `rpm` utilities to verify the integrity of the packages that they install.
 
-The id of our GPG public key is `0xcbcb082a1bb943db`. The short form of the id\
-is `0x1BB943DB`. The full key fingerprint is:
-
-```
-1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
-```
+See the [GPG](../gpg.md) page for information on the various keys used by MariaDB.
 
 The [rpm](https://linux.die.net/man/8/rpm) utility can be used to import this key. For example:
 
@@ -112,7 +127,7 @@ After the `zypper` repository is configured, you can install MariaDB by executin
 To Install the most common packages, execute the following command:
 
 ```bash
-sudo zypper install MariaDB-server galera-4 MariaDB-client MariaDB-shared MariaDB-backup MariaDB-common
+sudo zypper install MariaDB-server MariaDB-server-galera galera-4 MariaDB-client MariaDB-shared MariaDB-backup MariaDB-common
 ```
 
 ### Installing MariaDB Server with ZYpp
@@ -125,19 +140,19 @@ sudo zypper install MariaDB-server
 
 ### Installing MariaDB Galera Cluster with ZYpp
 
-The process to install MariaDB Galera Cluster with the MariaDB `zypper` repository is practically the same as installing standard MariaDB Server.
-
-Galera Cluster support has been included in the standard MariaDB Server packages, so you will need to install the `MariaDB-server` package, as you normally would.
+{% hint style="info" %}
+Note for MariaDB 12.3 and later: Galera Cluster support is no longer included in the base `MariaDB-server` package. To enable cluster functionality, you must explicitly install the `MariaDB-server-galera` package. This package contains cluster-specific scripts, systemd bootstrap capability, and the `wsrep_info` plugin.
+{% endhint %}
 
 You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4 wsrep provider library.
 
 To install MariaDB Galera Cluster, you could execute the following command:
 
 ```bash
-sudo zypper install MariaDB-server MariaDB-client galera-4
+sudo zypper install MariaDB-server MariaDB-server-galera MariaDB-client galera-4
 ```
 
-If you haven't yet imported the MariaDB GPG public key, then `zypper` will prompt you to\
+If you haven't yet imported the MariaDB GPG public key, then `zypper` will prompt you to
 import it after it downloads the packages, but before it prompts you to install them.
 
 See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.
@@ -154,7 +169,7 @@ sudo zypper install MariaDB-client MariaDB-shared
 
 ### Installing mariadb-backup with ZYpp
 
-To install [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/), execute the following command:
+To install [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/README.md), execute the following command:
 
 ```bash
 sudo zypper install MariaDB-backup
@@ -172,7 +187,7 @@ sudo zypper install MariaDB-cracklib-password-check
 
 ### Installing Debug Info Packages with ZYpp
 
-The MariaDB `zypper` repository also contains [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) packages. These package may be needed when [debugging a problem](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd).
+The MariaDB `zypper` repository also contains [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) packages. These package may be needed when [debugging a problem](../../../../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md#obtaining-debugging-symbols-for-your-mariadbd-executable).
 
 #### Installing Debug Info for the Most Common Packages with ZYpp
 
@@ -202,7 +217,7 @@ sudo zypper install MariaDB-client-debuginfo MariaDB-shared-debuginfo
 
 #### Installing Debug Info for mariadb-backup with ZYpp
 
-To install [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) for [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/), execute the following command:
+To install [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) for [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/README.md), execute the following command:
 
 ```bash
 sudo zypper install MariaDB-backup-debuginfo
@@ -228,20 +243,27 @@ zypper search --details MariaDB-server
 
 In the output you will see the available versions.
 
-To install an older version of a package instead of the latest version we just\
-need to specify the package name, a dash, and then the version number. And we\
-only need to specify enough of the version number for it to be unique from the\
-other available versions.
+To install an older version of a package instead of the latest version we just need to specify the package name, a dash, and then the version number. And we only need to specify enough of the version number for it to be unique from the other available versions.
 
 However, when installing an older version of a package, if `zypper` has to install dependencies, then it will automatically choose to install the latest versions of those packages. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
 
-The packages that the MariaDB-server package depend on are: MariaDB-client,\
-MariaDB-shared, and MariaDB-common. Therefore, to install [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes) from this `zypper`\
-repository, we would do the following:
+The core packages required for a server installation include `MariaDB-server`, `MariaDB-client`, `MariaDB-shared`, `MariaDB-backup`, and `MariaDB-common`. For MariaDB 12.3 and later, you must also explicitly include the `MariaDB-server-galera` package if cluster functionality is required.&#x20;
 
+Therefore, to install [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21) from this `zypper` repository, we would do the following:
+
+{% code overflow="wrap" %}
 ```bash
 sudo zypper install MariaDB-server-10.6.21 MariaDB-client-10.6.21 MariaDB-shared-10.6.21 MariaDB-backup-10.6.21 MariaDB-common-10.6.21
 ```
+{% endcode %}
+
+To install [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) (including Galera support):"
+
+{% code overflow="wrap" %}
+```bash
+sudo zypper install MariaDB-server-12.3.2 MariaDB-server-galera-12.3.2 MariaDB-client-12.3.2 MariaDB-shared-12.3.2 MariaDB-backup-12.3.2 MariaDB-common-12.3.2
+```
+{% endcode %}
 
 The rest of the install and setup process is as normal.
 

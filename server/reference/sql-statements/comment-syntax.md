@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete SQL comment syntax: single-line # and -- (space required), multi-line
+  /* */ blocks, MySQL /*!##### */ and MariaDB /*M!##### */ executable comments.
+---
+
 # Comment Syntax
 
 There are three supported comment styles in MariaDB:
@@ -31,7 +37,7 @@ Nested comments are possible in some situations, but they are not supported or r
 
 As an aid to portability between different databases, MariaDB supports executable comments. These special comments allow you to embed SQL code which will not execute when run on other databases, but will execute when run on MariaDB.
 
-MariaDB supports both MySQL's executable comment format, and a slightly modified version specific to MariaDB. This way, if you have SQL code that works on MySQL and MariaDB, but not other databases, you can wrap it in a MySQL executable comment, and if you have code that specifically takes advantage of features only available in MariaDB you can use the MariaDB specific format to\
+MariaDB supports both MySQL's executable comment format, and a slightly modified version specific to MariaDB. This way, if you have SQL code that works on MySQL and MariaDB, but not other databases, you can wrap it in a MySQL executable comment, and if you have code that specifically takes advantage of features only available in MariaDB you can use the MariaDB specific format to
 hide the code from MySQL.
 
 ### Executable Comment Syntax
@@ -56,7 +62,7 @@ For example, if you want to embed some code that should only execute on MySQL or
 /*!50100 MySQL and MariaDB 5.1.0 (and above) code goes here. */
 ```
 
-MariaDB-only executable comment syntax (starting from [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/mariadb-531-release-notes)):
+MariaDB-only executable comment syntax:
 
 ```sql
 /*M! MariaDB-specific code */

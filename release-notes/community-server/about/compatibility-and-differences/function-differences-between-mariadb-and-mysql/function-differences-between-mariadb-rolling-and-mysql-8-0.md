@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB Rolling and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 12.2](../../../release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements.md) Rolling Release, and MySQL 8.0. It is based on functions available in the MySQL 8.0.39 and the [MariaDB 12.2](../../../release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
+The following is a list of all function differences between [MariaDB 12.2](../../../old-releases/12.2/mariadb-12.2-changes-and-improvements.md) Rolling Release, and MySQL 8.0. It is based on functions available in the MySQL 8.0.39 and the [MariaDB 12.2](../../../old-releases/12.2/mariadb-12.2-changes-and-improvements.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
 
 ## Present in MariaDB Only
 
@@ -208,7 +208,9 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](../incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql.md)
 * [Function Differences Between MariaDB 11.8 and MySQL 8.0](function-differences-between-mariadb-11.8-and-mysql-8.0.md)
 * [System Variable Differences Between MariaDB Rolling and MySQL 8.0](../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
-* [MariaDB versus MySQL - Compatibility](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/function-differences-between-mariadb-and-mysql/broken-reference/README.md)
+* [MariaDB versus MySQL - Compatibility](../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

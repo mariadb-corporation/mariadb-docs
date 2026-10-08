@@ -1,12 +1,20 @@
+---
+description: >-
+  Assign query results to variables. This statement retrieves column values from
+  a single row and stores them in local variables or user-defined variables.
+---
+
 # SELECT INTO
 
 ## Syntax
 
-```sql
+```bnf
 SELECT col_name [, col_name] ...
     INTO var_name [, var_name] ...
     table_expr
 ```
+
+![Railroad diagram of SELECT INTO — equivalent to the BNF above](../../../.gitbook/assets/select-into-railroad.svg)
 
 ## Description
 

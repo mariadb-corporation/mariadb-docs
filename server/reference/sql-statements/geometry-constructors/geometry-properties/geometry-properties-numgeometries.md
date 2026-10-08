@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_NUMGEOMETRIES. Returns the number of geometries contained in a
+  GeometryCollection.
+---
+
 # NumGeometries
 
 A synonym for [ST\_NumGeometries](st_numgeometries.md).

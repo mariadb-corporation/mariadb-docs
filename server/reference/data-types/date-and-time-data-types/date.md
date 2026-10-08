@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete DATE type reference: YYYY-MM-DD format, YYMMDD input literals, date
+  range 1000-01-01 to 9999-12-31, and zero-date SQL_MODE handling.
+---
+
 # DATE
 
 ## Syntax
 
-```sql
+```bnf
 DATE
 ```
 
@@ -10,11 +16,11 @@ DATE
 
 A date. The supported range is '`1000-01-01`' to '`9999-12-31`'. MariaDB displays `DATE` values in '`YYYY-MM-DD`' format, but can be assigned dates in looser formats, including strings or numbers, as long as they make sense. These include a short year, `YY-MM-DD`, no delimiters, `YYMMDD`, or any other acceptable delimiter, for example `YYYY/MM/DD`. For details, see [date and time literals](../../sql-structure/sql-language-structure/date-and-time-literals.md).
 
-'`0000-00-00`' is a permitted special value (zero-date), unless the [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_date) [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is used. Also, individual components of a date can be set to 0 (for example: '`2015-00-12`'), unless the [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_in_date) [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is used. In many cases, the result of en expression involving a zero-date, or a date with zero-parts, is `NULL`. If the [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql-mode.md#allow_invalid_dates) `SQL_MODE` is enabled, if the day part is in the range between 1 and 31, the date does not produce any error, even for months that have less than 31 days.
+'`0000-00-00`' is a permitted special value (zero-date), unless the [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_date) [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is used. Also, individual components of a date can be set to 0 (for example: '`2015-00-12`'), unless the [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_in_date) [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is used. In many cases, the result of en expression involving a zero-date, or a date with zero-parts, is `NULL`. If the [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql_mode.md#allow_invalid_dates) `SQL_MODE` is enabled, if the day part is in the range between 1 and 31, the date does not produce any error, even for months that have less than 31 days.
 
 ### Oracle Mode
 
-In [Oracle mode](../../../server-usage/stored-routines/stored-procedures/create-procedure.md#oracle-mode), `DATE` with a time portion is a synonym for [DATETIME](datetime.md). See also [mariadb\_schema](../../system-tables/mariadb_schema.md).
+In [Oracle mode](../../../server-usage/stored-routines/stored-procedures/create-procedure.md#oracle-mode), `DATE` with a time portion is a synonym for [DATETIME](datetime.md). See also [mariadb\_schema](../../sql-structure/sql-language-structure/schema-qualifiers.md).
 
 ## Examples
 
@@ -158,9 +164,9 @@ The following example enhances the `SQL_MODE` to ensure that `ALLOW_INVALID_DATE
 -- Disable STRICT_TRANS_TABLES and enable ALLOW_INVALID_DATES
 SET sql_mode=(SELECT REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', ''));
 SET sql_mode=(SELECT CONCAT(@@sql_mode, ',ALLOW_INVALID_DATES'));
-<</code>>
+```
 
-<<sql>>
+```sql
 INSERT INTO date_range_example VALUES
   ('day is invalid for all months', '2019-12-32'),
   ('day is just large for February', '2019-02-31');
@@ -187,7 +193,7 @@ SELECT * FROM date_range_example;
 
 ## See Also
 
-* [mariadb\_schema](../../system-tables/mariadb_schema.md) data type qualifier
+* [mariadb\_schema data type qualifier](../../sql-structure/sql-language-structure/schema-qualifiers.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

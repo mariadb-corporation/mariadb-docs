@@ -1,8 +1,8 @@
 ---
 description: >-
-  Secure MariaDB MaxScale deployments. This section covers essential security
-  practices, including user authentication, SSL/TLS configuration, and access
-  control, to protect your database proxy.
+  Overview of security features in MariaDB MaxScale, including hardening guides,
+  authentication configuration, and encryption settings for protecting database
+  traffic and administrative access.
 icon: shield-halved
 ---
 

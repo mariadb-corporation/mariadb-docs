@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate arc cosine. This function returns the angle in radians whose cosine
+  is the given number.
+---
+
 # ACOS
 
 ## Syntax
 
-```sql
+```bnf
 ACOS(X)
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for ST_WITHIN. Checks if the first geometry is completely enclosed by
+  the second geometry.
+---
+
 # WITHIN
 
 ## Syntax
 
-```sql
+```bnf
 Within(g1,g2)
 ```
 

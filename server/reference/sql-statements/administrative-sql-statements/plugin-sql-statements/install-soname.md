@@ -1,8 +1,15 @@
+---
+description: >-
+  Load all plugins contained within a shared library file. This statement
+  automatically discovers and installs every valid plugin found in the specified
+  library.
+---
+
 # INSTALL SONAME
 
 ## Syntax
 
-```sql
+```bnf
 INSTALL SONAME 'plugin_library'
 ```
 
@@ -29,11 +36,11 @@ If the value of [plugin\_dir](../../../../ha-and-performance/optimization-and-tu
 
 To use `INSTALL SONAME`, you must have the [INSERT privilege](../../account-management-sql-statements/grant.md) for the `mysql.plugin` table.
 
-At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL SONAME` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started withthe `--skip-grant-tables` option.
+At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL SONAME` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started with the `--skip-grant-tables` option.
 
 When the server shuts down, it executes the de-initialization functionfor each plugin that is loaded so that the plugin has a chance toperform any final cleanup.
 
-If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load).
+If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load).
 
 If you need to install only one plugin from a library, use the [INSTALL PLUGIN](install-plugin.md) statement.
 
@@ -61,7 +68,7 @@ INSTALL SONAME 'ha_sequence';
 * [UNINSTALL SONAME](uninstall-soname.md)
 * [SHOW PLUGINS](../show/show-plugins.md)
 * [INFORMATION\_SCHEMA.PLUGINS Table](../../../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md)
-* [mysql\_plugin](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_plugin.md)
+* [mysql\_plugin](../../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

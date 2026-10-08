@@ -1,14 +1,20 @@
+---
+description: >-
+  Generate a UUID without hyphens. This Oracle-compatible function returns a
+  globally unique identifier as a 32-character hexadecimal string.
+---
+
 # SYS\_GUID
 
 {% hint style="info" %}
-`SYS_GUID` is available from MariaDB [10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes).
+`SYS_GUID` is available from MariaDB [10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1).
 {% endhint %}
 
 The `SYS_GUID` function was introduced to enhance Oracle compatibility. Similar functionality can be achieved with the [UUID](uuid.md) function.
 
 ## Syntax
 
-```sql
+```bnf
 SYS_GUID()
 ```
 

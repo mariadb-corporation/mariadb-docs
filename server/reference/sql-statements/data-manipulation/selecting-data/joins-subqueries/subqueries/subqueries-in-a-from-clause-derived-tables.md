@@ -1,3 +1,9 @@
+---
+description: >-
+  Use a subquery as a temporary table. Derived tables allow you to select from
+  the result set of another query within the FROM clause.
+---
+
 # Subqueries in a FROM Clause (Derived Tables)
 
 Although [subqueries](./) are more commonly placed in a WHERE clause, they can also form part of the FROM clause. Such subqueries are commonly called derived tables.
@@ -6,28 +12,28 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 
 ## ORACLE mode
 
-**MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
+**MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
-{% tabs %}
-{% tab title="Current" %}
-[Anonymous subqueries in a FROM clause](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/broken-reference/README.md) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
-{% endtab %}
-
-{% tab title="< 10.6" %}
-[Anonymous subqueries in a FROM clause](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/broken-reference/README.md) (no `AS` clause) are **not** permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
-{% endtab %}
-{% endtabs %}
+[Anonymous subqueries in a FROM clause](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 
 ## Correlation Column List
 
-**MariaDB starting with** [**11.7.0**](https://mariadb.com/kb/en/mariadb-1170-release-notes/)
+**MariaDB starting with** [**11.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/11.7.0)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 It is possible to assign column names in the derived table name syntax element.
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 It is **not** possible to assign column names in the derived table name syntax element.
 {% endtab %}
 {% endtabs %}
@@ -64,7 +70,7 @@ SELECT AVG(sq_sum) FROM (SELECT SUM(score) AS sq_sum FROM student GROUP BY name)
 +-------------+
 ```
 
-The following is permitted:
+The following is permitted only in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), where a derived table may omit its alias:
 
 ```sql
 SELECT * FROM (SELECT 1 FROM DUAL), (SELECT 2 FROM DUAL);
@@ -75,7 +81,7 @@ In this example, the second column of the derived table `dt` is used both within
 ```sql
 CREATE OR REPLACE TABLE t1(c1 INT, c2 INT, c3 INT);
 
-SELECT a1, a2 FROM (SELECT c1, c2, c3 FROM t1 WHERE c2 > 0) AS dt (a1, a2, a3);
+SELECT a1, a2 FROM (SELECT c1, c2, c3 FROM t1 WHERE c2 > 0) AS dt (a1, a2, a3) WHERE a2 > 10;
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

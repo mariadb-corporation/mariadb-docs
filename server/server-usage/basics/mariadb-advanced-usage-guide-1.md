@@ -1,10 +1,16 @@
+---
+description: >-
+  This guide covers the fundamentals of creating database structures, inserting
+  data, and retrieving information using the default MariaDB client.
+---
+
 # Basic Queries
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}
 
 #### Connecting to MariaDB
 
-MariaDB is a database system, a database server. To interface with the MariaDB server, you can use a client program, or you can write a program or script with one of the popular programming languages (e.g., PHP) using an API (Application Programming Interface) to interface with the MariaDB server. For the purposes of this article, we will focus on using the default client that comes with MariaDB called `mariadb`. With this client, you can either enter queries from the command-line, or you can switch to a terminal, that is to say, monitor mode. To start, we'll use the latter.
+MariaDB is a database system, a database server. To interface with the MariaDB server, you can use a client program, or you can write a program or script with one of the popular programming languages (e.g., PHP) using an API (Application Programming Interface) to interface with the MariaDB server. For the purposes of this article, we will focus on using the default client that comes with MariaDB called `mariadb`. With this client, you can either enter queries from the command-line, or you can switch to a terminal, that is to say, monitor mode. To start, we'll use the latter. 
 
 From the Linux command-line, you would enter the following to log in as the root user and to enter monitor mode:
 
@@ -70,7 +76,7 @@ name_first VARCHAR(50),
 country VARCHAR(50) );
 ```
 
-We'll join this table to the books table as needed. For instance, we would use it when we want a list of books along with their corresponding authors' names. For a real bookstore's database, both of these tables would probably have more columns. There would also be several more tables. For the examples that follow, these two tables as they are are enough.
+We'll join this table to the books table as needed. For instance, we would use it when we want a list of books along with their corresponding authors' names. For a real bookstore's database, both of these tables would probably have more columns. There would also be several more tables. For the examples that follow, these two tables as they are enough.
 
 #### Minor Items
 
@@ -127,7 +133,7 @@ FROM books
 LIMIT 5;
 ```
 
-This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause like so:
+This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause like so:
 
 ```sql
 SELECT title, name_last 
@@ -135,7 +141,7 @@ FROM books
 JOIN authors USING (author_id);
 ```
 
-Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
+Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
 
 To retrieve the titles of only books written by Kafka based on his name (not the author\_id), we would use the `WHERE` clause with the [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement. This would be entered like the following:
 

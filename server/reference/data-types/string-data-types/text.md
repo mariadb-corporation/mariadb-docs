@@ -1,18 +1,28 @@
+---
+description: >-
+  Complete TEXT type reference: TEXT(M) syntax, 65,535 byte maximum, 2-byte
+  length prefix, DEFAULT value support, and indexing constraints rules.
+---
+
 # TEXT
 
 ## Syntax
 
-```sql
+```bnf
 TEXT[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
 ```
 
 ## Description
 
-A `TEXT` column with a maximum length of `65,535` (`216 - 1`) characters. The effective maximum length is less if the value contains multi-byte characters. Each `TEXT` value is stored using a two-byte length prefix that indicates the number of bytes in the value. If you need a bigger storage, consider using [MEDIUMTEXT](mediumtext.md) instead.
+{% hint style="info" %}
+If you are handling large text data that exceeds the `max_allowed_packet` limit, you can stream the data in chunks using specialized API functions like `mysql_stmt_send_long_data()` or `setCharacterStream()`. See [Handling Large Data via APIs](blob-and-text-data-types.md#handling-large-data-via-apis) for more details.
+{% endhint %}
+
+A `TEXT` column with a maximum length of 65,535 (2¹⁶ - 1) characters. The effective maximum length is less if the value contains multi-byte characters. Each `TEXT` value is stored using a two-byte length prefix that indicates the number of bytes in the value. If you need a bigger storage, consider using [MEDIUMTEXT](mediumtext.md) instead.
 
 An optional length `M` can be given for this type. If this is done, MariaDB creates the column as the smallest `TEXT` type large enough to hold values`M` characters long.
 
-`BLOB` and `TEXT` columns can be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default) value.
+`BLOB` and `TEXT` columns can be assigned a [DEFAULT](../../sql-statements/data-definition/create/create-table.md#default-column-option) value.
 
 ## Examples
 

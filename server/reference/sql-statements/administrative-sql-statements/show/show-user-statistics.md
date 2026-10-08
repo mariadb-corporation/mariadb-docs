@@ -1,24 +1,22 @@
+---
+description: >-
+  View statistics on user activity. This statement displays metrics like CPU
+  time and rows read for each user account.
+---
+
 # SHOW USER\_STATISTICS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW USER_STATISTICS
 ```
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
-The `SHOW USER_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. It was effectively replaced by the generic [SHOW information\_schema\_table](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/administrative-sql-statements/show/broken-reference/README.md) statement. The [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table holds statistics about user activity. You can use this table to find out such things as which user is causing the most load and which users are being abusive. You can also use this table to measure how close to capacity the server may be.
-{% endtab %}
+The `SHOW USER_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. It was effectively replaced by the generic [SHOW information\_schema\_table](../../../system-tables/information-schema/information-schema-tables/README.md) statement. The [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table holds statistics about user activity. You can use this table to find out such things as which user is causing the most load and which users are being abusive. You can also use this table to measure how close to capacity the server may be.
 
-{% tab title="< 10.1.1" %}
-The `SHOW USER_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. The [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table holds statistics about user activity. You can use this table to find out such things as which user is causing the most load and which users are being abusive. You can also use this table to measure how close to capacity the server may be.
-{% endtab %}
-{% endtabs %}
-
-The [userstat](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table for more information.
+The [userstat](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.USER\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) table for more information.
 
 ## Example
 

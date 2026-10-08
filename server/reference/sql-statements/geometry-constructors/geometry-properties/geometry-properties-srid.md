@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_SRID. Returns the Spatial Reference Identifier (SRID) integer
+  associated with the geometry.
+---
+
 # SRID
 
 A synonym for [ST\_SRID](st_srid.md).

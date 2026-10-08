@@ -1,3 +1,9 @@
+---
+description: >-
+  The performance_timers table lists available event timers (cycle, nanosecond,
+  microsecond, millisecond) and their overhead characteristics.
+---
+
 # Performance Schema performance\_timers Table
 
 ## Description

@@ -1,8 +1,14 @@
+---
+description: >-
+  View extensive status information for the InnoDB engine. This statement
+  displays details on deadlocks, buffer pool usage, and I/O activity.
+---
+
 # SHOW ENGINE INNODB STATUS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ENGINE INNODB STATUS
 ```
 

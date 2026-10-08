@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn MariaDB MaxScale with practical tutorials. These guides provide
-  step-by-step instructions for various MaxScale features, helping you implement
-  advanced database proxy solutions.
+  Explore hands-on guides for MariaDB MaxScale. These tutorials cover essential
+  configurations including automatic failover, read-write splitting, security
+  setup, and database sharding.
 icon: graduation-cap
 ---
 

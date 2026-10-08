@@ -1,8 +1,8 @@
-# Using CONNECT - Exporting Data From MariaDB
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# Using CONNECT - Exporting Data From MariaDB
 
 Exporting data from MariaDB is obviously possible with CONNECT in particular for all formats not supported by the [SELECT INTO OUTFILE](../../../../reference/sql-statements/data-manipulation/selecting-data/select-into-outfile.md) statement. Let us consider the query:
 

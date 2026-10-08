@@ -1,3 +1,8 @@
+---
+description: >-
+  perror displays the description for a system or storage engine error code.
+---
+
 # perror
 
 _perror_ is a utility that displays descriptions for system or storage engine error codes.

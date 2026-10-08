@@ -1,4 +1,10 @@
-# TIMESTAMP
+---
+description: >-
+  Convert to datetime or add time. With one argument, it returns a datetime;
+  with two, it adds a time expression to a date or datetime.
+---
+
+# TIMESTAMP Function
 
 {% hint style="info" %}
 For the timestamp data type, see [TIMESTAMP](../../data-types/date-and-time-data-types/timestamp.md).
@@ -6,7 +12,7 @@ For the timestamp data type, see [TIMESTAMP](../../data-types/date-and-time-data
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMP(expr), TIMESTAMP(expr1,expr2)
 ```
 

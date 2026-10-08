@@ -1,8 +1,14 @@
+---
+description: >-
+  Search for a value in a JSON document. This function returns the path to the
+  given string within a JSON document.
+---
+
 # JSON\_SEARCH
 
 ## Syntax
 
-```sql
+```bnf
 JSON_SEARCH(json_doc, return_arg, search_str[, escape_char[, path] ...])
 ```
 

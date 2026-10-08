@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 11.0 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 11.0](../../../../old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.34 and the [MariaDB 11.0.2](../../../../old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 11.0 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-0-and-mysql-8.md)
+The following is a list of all function differences between [MariaDB 11.0](../../../../old-releases/11.0/what-is-mariadb-110.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.34 and the [MariaDB 11.0.2](../../../../old-releases/11.0/11.0.2.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 11.0 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-0-and-mysql-8.md)
 
 ## Present in MariaDB Only
 
@@ -198,7 +198,9 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [Incompatibilities and Feature Differences Between MariaDB 11.0 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-0-and-mysql-8.md)
 * [Function Differences Between MariaDB 10.11 and MySQL 8.0](../function-differences-between-mariadb-10-11-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB 11.0 and MySQL 8.0](../../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-11-0-and-mysql-8-0.md)
-* [MariaDB versus MySQL - Compatibility](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/broken-reference/README.md)
+* [MariaDB versus MySQL - Compatibility](../../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

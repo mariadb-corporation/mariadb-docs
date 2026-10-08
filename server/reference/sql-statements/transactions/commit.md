@@ -1,3 +1,9 @@
+---
+description: >-
+  Commit the current transaction. This statement permanently saves all changes
+  made during the current transaction to the database.
+---
+
 # COMMIT
 
 The `COMMIT` statement ends a transaction, saving any changes to the data so that they become visible to subsequent transactions. Also, [unlocks metadata](metadata-locking.md) changed by current transaction. If [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is set to 1, an implicit commit is performed after each statement. Otherwise, all transactions which don't end with an explicit `COMMIT` are implicitly rollbacked and the changes are lost. The [ROLLBACK](rollback.md) statement can be used to do this explicitly.

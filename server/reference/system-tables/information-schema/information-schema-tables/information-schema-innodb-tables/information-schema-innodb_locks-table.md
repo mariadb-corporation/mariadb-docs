@@ -1,3 +1,10 @@
+---
+description: >-
+  The INNODB_LOCKS table provides information about locks that a transaction has
+  requested but not yet obtained, or locks that are blocking another
+  transaction.
+---
+
 # Information Schema INNODB\_LOCKS Table
 
 The [Information Schema](../../) `INNODB_LOCKS` table stores information about locks that InnoDB transactions have requested but not yet acquired, or that are blocking another transaction.

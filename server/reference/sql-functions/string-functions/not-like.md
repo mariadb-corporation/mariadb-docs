@@ -1,8 +1,14 @@
+---
+description: >-
+  Negated pattern matching. This operator tests whether a string does NOT match
+  a specified SQL pattern.
+---
+
 # NOT LIKE
 
 ## Syntax
 
-```sql
+```bnf
 expr NOT LIKE pat [ESCAPE 'escape_char']
 ```
 

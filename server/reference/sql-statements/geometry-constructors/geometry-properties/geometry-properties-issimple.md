@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_ISSIMPLE. Checks if a geometry is simple, meaning it has no
+  anomalous geometric points like self-intersections.
+---
+
 # IsSimple
 
 A synonym for [ST\_IsSImple](st_issimple.md).

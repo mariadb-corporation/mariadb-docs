@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete CONVERT() reference: CONVERT(expr,type) and CONVERT(expr USING
+  charset) syntax, SIGNED/UNSIGNED/BINARY/CHAR types, and CAST() differences.
+---
+
 # CONVERT
 
 ## Syntax
 
-```sql
+```bnf
 CONVERT(expr,type), CONVERT(expr USING transcoding_name)
 ```
 

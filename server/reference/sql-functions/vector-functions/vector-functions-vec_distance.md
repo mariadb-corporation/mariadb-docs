@@ -1,3 +1,10 @@
+---
+description: >-
+  Calculate distance between vectors. This function computes the distance
+  between two vectors using either Euclidean or Cosine metric, depending on the
+  index.
+---
+
 # VEC\_DISTANCE
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -6,7 +13,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 VEC_DISTANCE(v, s)
 ```
 
@@ -14,7 +21,7 @@ VEC_DISTANCE(v, s)
 
 `VEC_DISTANCE` is a generic function that behaves either as [VEC\_DISTANCE\_EUCLIDEAN](vec_distance_euclidean.md), calculating the Euclidean (L2) distance between two points. Or [VEC\_DISTANCE\_COSINE](vec_distance_cosine.md), calculating the Cosine distance between two vectors, depending on the underlying index type.
 
-If the underlying index cannot be determined, an [error 4206](broken-reference) is returned:
+If the underlying index cannot be determined, an [error 4206](../../error-codes/mariadb-error-codes-4200-to-4299/e4206.md) is returned:
 
 ```sql
 ERROR 4206 (HY000): Cannot determine distance type for VEC_DISTANCE, index is not found
@@ -36,7 +43,7 @@ INSERT INTO v VALUES
      (10,x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
 
 SELECT id FROM v 
-  ORDER BY VEC_DISTANCE(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
+  ORDER BY VEC_DISTANCE(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e') LIMIT 10;
 +----+
 | id |
 +----+
@@ -53,6 +60,10 @@ SELECT id FROM v
 +----+
 ```
 
+{% hint style="info" %}
+The vector index is only used for nearest-neighbor search when the query combines `ORDER BY VEC_DISTANCE(...)` with a `LIMIT`. Without `LIMIT`, the distance is computed for every row (a full table scan). See [Vector Overview](../../sql-structure/vectors/vector-overview.md).
+{% endhint %}
+
 ## See Also
 
 * [VEC\_DISTANCE\_COSINE](vec_distance_cosine.md)
@@ -63,3 +74,4 @@ SELECT id FROM v
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+

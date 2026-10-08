@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate arc tangent. This function returns the angle in radians whose
+  tangent is the given number.
+---
+
 # ATAN
 
 ## Syntax
 
-```sql
+```bnf
 ATAN(X)
 ```
 

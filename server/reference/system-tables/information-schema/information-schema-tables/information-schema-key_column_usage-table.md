@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema KEY_COLUMN_USAGE table details which columns in a table
+  are constrained by keys, such as primary or foreign keys.
+---
+
 # Information Schema KEY\_COLUMN\_USAGE Table
 
 The [Information Schema](../) `KEY_COLUMN_USAGE` table shows which key columns have constraints.

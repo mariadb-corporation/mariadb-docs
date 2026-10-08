@@ -1,4 +1,10 @@
-# Bloom Filters
+---
+description: >-
+  Learn how to configure and use Bloom filters in MyRocks to speed up point
+  lookups by probabilistically determining if a key exists in a data file.
+---
+
+# MyRocks Bloom Filters
 
 Bloom filters are used to reduce read amplification. Bloom filters can be set on a per-column family basis (see [myrocks-column-families](myrocks-column-families.md)).
 

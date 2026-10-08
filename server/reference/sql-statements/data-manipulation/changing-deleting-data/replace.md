@@ -1,18 +1,24 @@
-# REPLACE
+---
+description: >-
+  Insert or replace rows based on unique keys. This statement acts like INSERT,
+  but if a duplicate key exists, it deletes the old row and inserts the new one.
+---
 
-{% hint style="info" %}
-The RETURNING clause was introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes).
-{% endhint %}
+# REPLACE
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE [LOW_PRIORITY | DELAYED]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
 [RETURNING select_expr 
       [, select_expr ...]]
 ```
+
+![Railroad diagram of REPLACE — equivalent to the BNF above](../../../../.gitbook/assets/replace-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/replace-value-list-railroad.svg)
 
 Or:
 
@@ -68,7 +74,7 @@ To use `REPLACE`, you must have both the`INSERT` and `DELETE` [privileges](../..
 
 There are some issues you should be aware of, before using `REPLACE`:
 
-* If there is an [AUTO\_INCREMENT](../../../../data-types/auto_increment.md) field, a new value will be generated.
+* If there is an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) field, a new value will be generated.
 * If there are foreign keys, `ON DELETE` action will be activated by `REPLACE`.
 * [Triggers](../../../../server-usage/triggers-events/triggers/) on `DELETE` and `INSERT` will be activated by `REPLACE`.
 

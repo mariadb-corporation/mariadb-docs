@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the COMPRESSED row format, which compresses data and index pages
+  using algorithms like zlib to minimize storage footprint at the cost of CPU.
+---
+
 # InnoDB COMPRESSED Row Format
 
 An alternative (and usually superior) way to compress InnoDB tables is by using [InnoDB Page Compression](../innodb-page-compression.md). See [Comparison with the COMPRESSED Row Format](../innodb-page-compression.md#comparison-with-the-compressed-row-format).
@@ -46,8 +52,6 @@ An InnoDB table that uses the `COMPRESSED` row format can be created by setting 
 The value of the [innodb\_page\_size](../innodb-system-variables.md#innodb_page_size) system variable can be set to `32k` and `64k`. This is especially useful because the larger page size permits more columns using the [VARBINARY](../../../../reference/data-types/string-data-types/varbinary.md), [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md), [BLOB](../../../../reference/data-types/string-data-types/blob.md) and [TEXT](../../../../reference/data-types/string-data-types/text.md) data types. Regardless, even when the value of the [innodb\_page\_size](../innodb-system-variables.md#innodb_page_size) system variable is set to some value higher than `16k`, `16` is still the maximum value for the [KEY\_BLOCK\_SIZE](../../../../reference/sql-statements/data-definition/create/create-table.md#key_block_size) table option for InnoDB tables using the `COMPRESSED` row format.
 
 The `COMPRESSED` row format cannot be set as the default row format with the [innodb\_default\_row\_format](../innodb-system-variables.md#innodb_default_row_format) system variable.
-
-The `COMPRESSED` row format is only supported by the `Barracuda` [file format](../innodb-file-format.md). In earlier versions, the `COMPRESSED` row format is only supported if the [InnoDB file format](../innodb-file-format.md) is `Barracuda`. Therefore, the [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format) system variable must be set to `Barracuda` to use these row formats in those versions.
 
 In earlier versions, the `COMPRESSED` row format is also only supported if the table is in a [file per-table](../innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespace. Therefore, the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) system variable must be set to `ON` to use this row format in those versions.
 
@@ -243,11 +247,11 @@ The following `INFORMATION_SCHEMA` tables can be used to monitor the performance
 
 ## Index Prefixes with the `COMPRESSED` Row Format
 
-The `COMPRESSED` row format supports index prefixes up to 3072 bytes. In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and before, the [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) system variable is used to configure the maximum index prefix length. In these versions, if [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) is set to `ON`, then the maximum prefix length is 3072 bytes, and if it is set to `OFF`, then the maximum prefix length is 767 bytes.
+The `COMPRESSED` row format supports index prefixes up to 3072 bytes.
 
 ## Overflow Pages with the `COMPRESSED` Row Format
 
-All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-compressed-row-format.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
+All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-row-formats-overview.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
 
 In the `COMPRESSED` row format variable-length columns, such as columns using the [VARBINARY](../../../../reference/data-types/string-data-types/varbinary.md), [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md), [BLOB](../../../../reference/data-types/string-data-types/blob.md) and [TEXT](../../../../reference/data-types/string-data-types/text.md) data types, can be completely stored in overflow pages.
 
@@ -265,11 +269,11 @@ This behavior differs from the behavior of the `COMPACT` row format, which alway
 
 ## Read-Only
 
-**MariaDB starting with** [**10.6**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)
+**MariaDB starting with** [**10.6**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 
-From [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes) until [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1065-release-notes), tables that are of the `COMPRESSED` row format are read-only by default. This was intended to be the first step towards removing write support and deprecating the feature.\
-This plan has been scrapped, and from [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1066-release-notes), `COMPRESSED` tables are no longer read-only by default.\
-From [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes) to [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1065-release-notes), set the [innodb\_read\_only\_compressed](../innodb-system-variables.md#innodb_read_only_compressed) variable to `OFF` to make the tables writable.
+From [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0) until [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.5), tables that are of the `COMPRESSED` row format are read-only by default. This was intended to be the first step towards removing write support and deprecating the feature.\
+This plan has been scrapped, and from [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), `COMPRESSED` tables are no longer read-only by default.\
+From [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0) to [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.5), set the [innodb\_read\_only\_compressed](../innodb-system-variables.md#innodb_read_only_compressed) variable to `OFF` to make the tables writable.
 
 ## See Also
 

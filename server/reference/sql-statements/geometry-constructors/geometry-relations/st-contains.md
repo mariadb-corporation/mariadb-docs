@@ -1,8 +1,14 @@
+---
+description: >-
+  Checks if geometry A contains geometry B. Returns 1 if B is completely inside
+  A, 0 otherwise.
+---
+
 # ST\_CONTAINS
 
 ## Syntax
 
-```sql
+```bnf
 ST_CONTAINS(g1,g2)
 ```
 

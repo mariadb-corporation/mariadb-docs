@@ -1,0 +1,43 @@
+---
+description: >-
+  MariaDBTranslator converts LangChain internal query language operations
+  and comparisons into valid MariaDB filter dictionaries for use with
+  structured vector store queries.
+---
+
+# Translator
+
+> **Version:** langchain-mariadb v0.0.21
+
+## MariaDBTranslator
+
+Translate `MariaDB` internal query language elements to valid filters.
+
+### Methods
+
+#### `visit_operation`
+
+```python
+visit_operation(operation: Operation) -> Dict
+```
+
+#### `visit_comparison`
+
+```python
+visit_comparison(comparison: Comparison) -> Dict
+```
+
+#### `visit_structured_query`
+
+```python
+visit_structured_query(structured_query: StructuredQuery) -> Tuple[str, dict]
+```
+
+### Attributes
+
+- **allowed_operators**: Subset of allowed logical operators.
+- **allowed_comparators**: Subset of allowed logical comparators.
+
+---
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

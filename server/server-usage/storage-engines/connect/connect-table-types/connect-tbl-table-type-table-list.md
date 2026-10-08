@@ -1,8 +1,8 @@
-# CONNECT TBL Table Type: Table List
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT TBL Table Type: Table List
 
 This type allows defining a table as a list of tables of any engine and type. This is more flexible than multiple tables that must be all of the same file type. This type does, but is more powerful than, what is done with the [MERGE](../../merge.md) engine.
 
@@ -57,25 +57,19 @@ Can reply:
 | WERTHER  | 1    | DIRECTOR      | 14500.00 |
 | WHEELFOR | 1    | SALESMAN      | 10030.00 |
 
-The first 9 rows, coming from the French table, have a null for the _sex_\
-value. They would have 0 if the sex column had been created NOT NULL.
+The first 9 rows, coming from the French table, have a null for the _sex_ value. They would have 0 if the sex column had been created NOT NULL.
 
-### Sub-tables of not CONNECT engines
+### Subtables of Non-CONNECT Engines
 
-Sub-tables are accessed as [PROXY](connect-proxy-table-type.md)\
-tables. For not CONNECT sub-tables that are accessed via the MySQL API, it is\
-possible like with `PROXY` to change the MYSQL default options. Of course,\
-this will apply to all not CONNECT tables of the list.
+Sub-tables are accessed as [PROXY](connect-proxy-table-type.md) tables. For not CONNECT sub-tables that are accessed via the MySQL API, it is possible like with `PROXY` to change the MYSQL default options. Of course, this will apply to all not CONNECT tables of the list.
 
-### Using the TABID special column
+### Using the TABID Special Column
 
-The TABID special column can be used to see from which table the rows come from\
-and to restrict the access to only some of the sub-tables.
+The TABID special column can be used to see from which table the rows come from and to restrict the access to only some of the sub-tables.
 
-Let us see the following example where t1 and t2 are MyISAM tables similar to\
-the ones given in the `MERGE` description:
+Let us see the following example where t1 and t2 are MyISAM tables similar to the ones given in the `MERGE` description:
 
-```
+```sql
 CREATE TABLE xt1 (
   a INT(11) NOT NULL,
   message CHAR(20))
@@ -97,7 +91,7 @@ ENGINE=CONNECT table_type=TBL table_list='xt1,xt2';
 SELECT * FROM total;
 ```
 
-The result returned by the SELECT statement is:
+The result returned by the `SELECT` statement is:
 
 | tabname | a | message |
 | ------- | - | ------- |
@@ -110,19 +104,15 @@ The result returned by the SELECT statement is:
 
 Now if you send the query:
 
-```
+```sql
 SELECT * FROM total WHERE tabname = 'xt2';
 ```
 
-CONNECT will analyze the where clause and only read the _xt1_ table. This can\
-save time if you want to retrieve only a few sub-tables from a TBL table\
-containing many sub-tables.
+CONNECT will analyze the where clause and only read the _xt1_ table. This can save time if you want to retrieve only a few sub-tables from a TBL table containing many sub-tables.
 
 ### Parallel Execution
 
-Parallel Execution is currently unavailable until some bugs are fixed.
-
-When the sub-tables are located on different servers, it is possible to execute the remote queries simultaneously instead of sequentially. To enable this, set the thread option to yes.
+Parallel execution is not supported. It was designed for sub-tables located on different servers, running the remote queries simultaneously instead of sequentially, and was enabled with the `THREAD` option. In release builds, a TBL table that sets `THREAD=YES` returns the error `Option THREAD is no more supported`.
 
 Additional options available for this table type:
 

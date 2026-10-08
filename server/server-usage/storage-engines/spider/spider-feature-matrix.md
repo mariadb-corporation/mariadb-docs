@@ -1,8 +1,15 @@
+---
+description: >-
+  A matrix listing the features supported by Spider, including sharding,
+  partitioning, XA transactions, and support for various SQL statements and
+  functions.
+---
+
 # Spider Feature Matrix
 
 Not complete yet - still being updated
 
-F(_) Federation only , P(_)partioning only .\
+F(_) Federation only, P(_)partitioning only.\
 Spider column is for SpiderForMySQL found on the Spider web sIte.
 
 | Feature                                                                                              | Spider | 10.0  |
@@ -17,7 +24,7 @@ Spider column is for SpiderForMySQL found on the Spider web sIte.
 | GTID tracking per table on XA error                                                                  | No     | Yes   |
 | Transparent partitioning                                                                             | No     | No    |
 | Covered by generic SQL test case                                                                     | Yes    | Yes   |
-| Heterogenous Backends                                                                                |        |       |
+| Heterogeneous Backends                                                                                |        |       |
 | MariaDB and MySQL database backend                                                                   | Yes    | Yes   |
 | Oracle database backend, if build from source against the client library 'ORACLE\_HOME'              | Yes    | Yes   |
 | Local table attachment                                                                               | Yes    | Yes   |

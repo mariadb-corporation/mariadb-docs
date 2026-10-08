@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_stmt_execute_direct prepares and executes a statement in a single call
+  using a pre-allocated MYSQL_STMT handle, available in Connector/C 3.0 and
+  later.
+---
+
 # mariadb\_stmt\_execute\_direct
 
 ## Syntax
@@ -5,6 +12,8 @@
 ```c
 int mariadb_stmt_execute_direct(MYSQL_STMT * stmt, const char *query, size_t length);
 ```
+
+## Parameters
 
 * `stmt` - A statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 * `query` SQL statement
@@ -16,7 +25,7 @@ Prepares and executes a statement which was previously allocated by [mysql\_stmt
 
 Returns zero on success, non-zero on failure.
 
-This function was added in Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) or later versions.
+This function was added in Connector/C 3.0 and requires MariaDB Server.
 
 {% hint style="info" %}
 * Since the number of parameter of the statement is unknown before execution it is mandatory to set the number of parameters via the [mysql\_stmt\_attr\_set()](mysql_stmt_attr_set.md) function.
@@ -70,5 +79,7 @@ error:
   return 1;
 }
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

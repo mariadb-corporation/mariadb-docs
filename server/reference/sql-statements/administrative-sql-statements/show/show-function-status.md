@@ -1,8 +1,14 @@
+---
+description: >-
+  List stored functions and their characteristics. View metadata like the
+  database, name, type, and creator of stored functions.
+---
+
 # SHOW FUNCTION STATUS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW FUNCTION STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

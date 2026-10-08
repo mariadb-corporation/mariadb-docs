@@ -1,3 +1,10 @@
+---
+description: >-
+  The create_synonym_db stored procedure creates a new database that contains
+  views mirroring all tables from a source database, useful for creating
+  aliases.
+---
+
 # create\_synonym\_db
 
 ## Syntax

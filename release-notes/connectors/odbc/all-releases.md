@@ -1,22 +1,31 @@
-# Connector/ODBC All Releases
+---
+description: A list of all MariaDB Connector/ODBC releases
+---
+
+# All Releases
 
 ## 3.2
 
-| Release               | Release Date | Release Status         |
-| --------------------- | ------------ | ---------------------- |
-| [3.2.7](3.2/3.2.7.md) | 2025-10-10   | Stable (GA)            |
-| [3.2.6](3.2/3.2.6.md) | 2025-05-30   | Stable (GA)            |
-| [3.2.5](3.2/3.2.5.md) | 2025-02-24   | Stable (GA)            |
-| [3.2.4](3.2/3.2.4.md) | 2024-11-14   | Stable (GA)            |
-| [3.2.3](3.2/3.2.3.md) | 2024-08-26   | Stable (GA)            |
-| [3.2.2](3.2/3.2.2.md) | 2024-06-18   | Stable (GA)            |
-| [3.2.1](3.2/3.2.1.md) | 2023-12-01   | Release Candidate (RC) |
-| [3.2.0](3.2/3.2.0.md) | 2023-04-21   | Alpha                  |
+| Release                 | Release Date | Release Status         |
+| ----------------------- | ------------ | ---------------------- |
+| [3.2.10](3.2/3.2.10.md) | 2026-10-05   | Stable (GA)            |
+| [3.2.9](3.2/3.2.9.md)   | 2026-07-07   | Stable (GA)            |
+| [3.2.8](3.2/3.2.8.md)   | 2025-12-19   | Stable (GA)            |
+| [3.2.7](3.2/3.2.7.md)   | 2025-10-10   | Stable (GA)            |
+| [3.2.6](3.2/3.2.6.md)   | 2025-05-30   | Stable (GA)            |
+| [3.2.5](3.2/3.2.5.md)   | 2025-02-24   | Stable (GA)            |
+| [3.2.4](3.2/3.2.4.md)   | 2024-11-14   | Stable (GA)            |
+| [3.2.3](3.2/3.2.3.md)   | 2024-08-26   | Stable (GA)            |
+| [3.2.2](3.2/3.2.2.md)   | 2024-06-18   | Stable (GA)            |
+| [3.2.1](3.2/3.2.1.md)   | 2023-12-01   | Release Candidate (RC) |
+| [3.2.0](3.2/3.2.0.md)   | 2023-04-21   | Alpha                  |
 
 ## 3.1
 
 | Release                 | Release Date | Release Status         |
 | ----------------------- | ------------ | ---------------------- |
+| [3.1.24](3.1/3.1.24.md) | 2026-10-05   | Stable (GA)            |
+| [3.1.23](3.1/3.1.23.md) | 2026-07-07   | Stable (GA)            |
 | [3.1.22](3.1/3.1.22.md) | 2025-05-30   | Stable (GA)            |
 | [3.1.21](3.1/3.1.21.md) | 2025-02-24   | Stable (GA)            |
 | [3.1.20](3.1/3.1.20.md) | 2023-12-04   | Stable (GA)            |
@@ -84,6 +93,6 @@
 | --------------------- | ------------ | -------------- |
 | [0.9.1](1.0/0.9.1.md) | 2014-04-02   | Beta           |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Schema Compare finds the differences between MariaDB database
+  schemas and generates synchronization scripts to update them.
+---
+
 # dbForge Schema Compare
+
+{% hint style="info" %}
+dbForge Schema Compare is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [dbForge Schema Compare](https://www.devart.com/dbforge/mysql/schemacompare/) is a solution that allows for the comparison of the MariaDB database structure. With this tool, you can find the differences in MariaDB database schemas.
 
@@ -106,8 +116,6 @@ Download a free 30-day trial of dbForge MariaDB and MySQL Schema Compare [here](
 | dbForge Schema Compare 10.0 | MariaDB 11.4, Added support for temporal tables in MariaDB.                                                                                                            |
 | dbForge Schema Compare 5.2  | MariaDB 11.3.                                                                                                                                                          |
 | dbForge Schema Compare 5.1  | MariaDB 10.9, MariaDB 10.10.                                                                                                                                           |
-| dbForge Schema Compare 5.0  | MariaDB 10.5.                                                                                                                                                          |
-| dbForge Schema Compare 4.4  | MariaDB 10.4.                                                                                                                                                          |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

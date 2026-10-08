@@ -12,7 +12,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
 ```
@@ -25,7 +24,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
     storageClassName: gp3
@@ -39,7 +37,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
     storageClassName: gp3
@@ -71,14 +68,13 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 2Gi
     resizeInUseVolumes: true
     waitForVolumeResize: true
 ```
 
-Depending on your storage provider, this operation might take a while, and you can decide to wait for this operation before the `MariaDB` becomes ready by setting `waitForVolumeResize = true`. Operations such as [Galera cluster recovery](galera-cluster.md#galera-cluster-recovery) and [primary switchover](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) will not be performed if the `MariaDB` resource is not ready.
+Depending on your storage provider, this operation might take a while, and you can decide to wait for this operation before the `MariaDB` becomes ready by setting `waitForVolumeResize = true`. Operations such as [Galera cluster recovery](./topologies/galera.md#galera-cluster-recovery) and [primary switchover](./topologies/replication.md#primary-switchover) will not be performed if the `MariaDB` resource is not ready.
 
 ## Ephemeral storage
 
@@ -90,13 +86,12 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     ephemeral: true
 ```
 
 This may be useful for multiple use cases, like provisioning ephemeral `MariaDBs` for the integration tests of your CI.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  This page details MariaDB Enterprise Backup, an enhanced version of
+  mariadb-backup with enterprise-specific optimizations and support.
+---
+
 # MariaDB Enterprise Backup
 
 ## Overview
@@ -6,18 +12,9 @@ Regular and reliable backups are essential to successful recovery of mission cri
 
 MariaDB Enterprise Backup is compatible with MariaDB Enterprise Server.
 
-* [Storage Engines and Backup Types](mariadb-enterprise-backup.md#storage-engines-and-backup-types)
-* [Non-blocking Backups](mariadb-enterprise-backup.md#non-blocking-backups)
-* [Understanding Recovery](mariadb-enterprise-backup.md#understanding-recovery)
-* [Creating the Backup User](mariadb-enterprise-backup.md#creating-the-backup-user)
-* [Full Backup and Restore](mariadb-enterprise-backup.md#full-backup-and-restore)
-* [Incremental Backup and Restore](mariadb-enterprise-backup.md#incremental-backup-and-restore)
-* [Partial Backup and Restore](mariadb-enterprise-backup.md#partial-backup-and-restore)
-* [Point-in-Time Recoveries](mariadb-enterprise-backup.md#point-in-time-recoveries)
-
 ## Storage Engines and Backup Types
 
-MariaDB Backup creates a file-level backup of data from the MariaDB Community Server data directory. This backup includes [temporal data](../../../reference/sql-structure/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](../../storage-engines/innodb/), [MyRocks](../../storage-engines/myrocks/), [Aria](../../storage-engines/aria/)).
+MariaDB Backup creates a file-level backup of data from the MariaDB Enterprise Server data directory. This backup includes [temporal data](../../../reference/sql-structure/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](../../storage-engines/innodb/), [MyRocks](../../storage-engines/myrocks/), [Aria](../../storage-engines/aria/)).
 
 MariaDB Enterprise Server implements:
 
@@ -27,7 +24,7 @@ MariaDB Enterprise Server implements:
 
 Backup support is specific to storage engines. All supported storage engines enable full backup. The InnoDB storage engine additionally supports incremental backup.
 
-**Note:** MariaDB Enterprise Backup does not support backups of MariaDB ColumnStore. Backup of MariaDB ColumnStore can be performed using [MariaDB ColumnStore Tools](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110-onwards). Backup of data ingested to MariaDB ColumnStore can also occur pre-ingestion, such as in the case of HTAP where backup could occur of transactional data in MariaDB Enterprise Server, and restore of data to MariaDB ColumnStore would then occur through reprocessing..
+**Note:** MariaDB Enterprise Backup does not support backups of MariaDB ColumnStore. Backup of MariaDB ColumnStore can be performed using [MariaDB ColumnStore Tools](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110). Backup of data ingested to MariaDB ColumnStore can also occur pre-ingestion, such as in the case of HTAP where backup could occur of transactional data in MariaDB Enterprise Server, and restore of data to MariaDB ColumnStore would then occur through reprocessing..
 
 ## Nonblocking Backups
 
@@ -36,8 +33,7 @@ A feature of MariaDB Enterprise Backup and MariaDB Enterprise Server, non-blocki
 Non-blocking backup functionality differs from historical backup functionality in the following ways:
 
 * MariaDB Enterprise Backup in MariaDB Enterprise Server includes enterprise-only optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
-* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
-* Older MariaDB Community Server releases used FLUSH TABLES WITH READ LOCK, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+* MariaDB Backup will block writes, log tables, and statistics.
 
 ## Understanding Recovery
 
@@ -79,8 +75,6 @@ MariaDB Backup establishes this connection based on the user credentials specifi
 
 It is recommended that a dedicated user be created and authorized to perform backups.
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
 
 ```sql
@@ -95,25 +89,6 @@ TO 'mariadb-backup'@'localhost';
 In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
 
 While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-MariaDB Backup requires this user to have the `RELOAD, PROCESS, LOCK TABLES,` and `REPLICATION CLIENT` privileges.
-
-```sql
-CREATE USER 'mariadb-backup'@'localhost'
-IDENTIFIED BY 'mbu_passwd';
-
-GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT
-ON *.*
-TO 'mariadb-backup'@'localhost';
-```
-
-In the above example, MariaDB Backup would run on the local system that runs MariaDB Enterprise Server. Where backups may be run against a remote server, the user authentication and authorization should be adjusted.
-
-While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Enterprise Server is not running.
-{% endtab %}
-{% endtabs %}
 
 ## Full Backup and Restore
 
@@ -190,7 +165,7 @@ While full backups are resource-intensive at time of backup, the resource burden
 
 ### Performing Incremental Backups
 
-When you perform an incremental backup, MariaDB Backup compares a previous full or incremental backup to what it finds on MariaDB Community Server. It then creates a new backup containing the incremental changes.
+When you perform an incremental backup, MariaDB Backup compares a previous full or incremental backup to what it finds on MariaDB Enterprise Server. It then creates a new backup containing the incremental changes.
 
 Incremental backup is supported for InnoDB tables. Tables using other storage engines receive full backups even during incremental backup operations.
 
@@ -204,7 +179,42 @@ mariadb-backup --backup \
       --password=mbu_passwd
 ```
 
-In this example, MariaDB Backup reads the `/data/backups/full directory`, and MariaDB Enterprise Server then creates an incremental backup in the `/data/backups/inc1` directory.
+In this example, MariaDB Backup reads the `/data/backups/full` directory, and MariaDB Enterprise Server then creates an incremental backup in the `/data/backups/inc1` directory.
+
+To take further incremental backups, use the target directory of the *previous* incremental backup as the `--incremental-basedir` for the next one, not the original full backup. Each backup, full or incremental, records the position it ended at in a `mariadb_backup_checkpoints` file inside its own target directory, so pointing `--incremental-basedir` at the most recent backup copies only the pages that have changed since that backup.
+
+For example, to base a second incremental backup (`inc2`) on the first (`inc1`):
+
+```bash
+mariadb-backup --backup \
+      --incremental-basedir=/data/backups/inc1 \
+      --target-dir=/data/backups/inc2 \
+      --user=mariadb-backup \
+      --password=mbu_passwd
+```
+
+This forms a chain, `full` → `inc1` → `inc2` → …, where each incremental backup is based on the one before it. When you later restore, the incremental backups must be prepared (applied to the full backup) in the same order.
+
+### Incremental Backups With Streamed Output
+
+When you stream a backup (for example, to pipe it through an external compression or encryption tool), the `mariadb_backup_checkpoints` file that records where the next incremental backup should continue from becomes part of the streamed output, so it is not directly available on disk to use as the next `--incremental-basedir`.
+
+Use the `--extra-lsndir` option to write an extra copy of that file to a local directory, then pass that directory to the next incremental backup's `--incremental-basedir`:
+
+```bash
+# full backup
+mariadb-backup --backup --stream=mbstream \
+      --extra-lsndir=/data/backups/base_lsn \
+      --user=mariadb-backup \
+      --password=mbu_passwd | gzip > base.gz
+
+# first incremental backup
+mariadb-backup --backup --stream=mbstream \
+      --incremental-basedir=/data/backups/base_lsn \
+      --extra-lsndir=/data/backups/inc1_lsn \
+      --user=mariadb-backup \
+      --password=mbu_passwd | gzip > inc1.gz
+```
 
 ### Preparing an Incremental Backup
 
@@ -226,9 +236,19 @@ mariadb-backup --prepare \
 
 Once the incremental backup has been applied to the full backup, the full backup directory contains the changes from the incremental backup (that is, the inc1/ directory). Feel free to remove inc1/ to save disk space.
 
+If you took a chain of incremental backups, apply the remaining ones to the same full backup directory, one at a time and in the order they were taken. For example, to apply the second incremental backup (`inc2`) after `inc1`:
+
+```bash
+mariadb-backup --prepare \
+      --target-dir=/data/backups/full \
+      --incremental-dir=/data/backups/inc2
+```
+
+The incremental backups must be applied in order. MariaDB Backup checks that each incremental backup's starting position matches the current state of the full backup, and refuses to apply one that is out of sequence.
+
 ### Restoring from Incremental Backups
 
-Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Community Server, [Empty](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/backing-up-and-restoring-databases/backup-and-restore-with-mariadb-enterprise-server/mariadb-backup-enterprise-docs/README.md#restore-requires-empty-data-directory) its data directory, and restore from the original full backup directory using the --copy-back option:
+Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Enterprise Server, Empty its data directory, and restore from the original full backup directory using the --copy-back option:
 
 ```bash
 mariadb-backup --copy-back --target-dir=/data/backups/full
@@ -302,13 +322,13 @@ mariadb-backup --prepare --export \
 
 ### Performing a Partial Restore
 
-Unlike full and incremental backups, you cannot restore partial backups directly using MariaDB Backup. Further, as a partial backup does not contain a complete data directory, you cannot restore MariaDB Community Server to a startable state solely with a partial backup.
+Unlike full and incremental backups, you cannot restore partial backups directly using MariaDB Backup. Further, as a partial backup does not contain a complete data directory, you cannot restore MariaDB Enterprise Server to a startable state solely with a partial backup.
 
-To restore from a partial backup, you need to prepare a table on the MariaDB Community Server, then manually copy the files into the data directory.
+To restore from a partial backup, you need to prepare a table on the MariaDB Enterprise Server, then manually copy the files into the data directory.
 
 The details of the restore procedure depend on the characteristics of the table:
 
-* [Partial Restore Non-partitioned Tables](mariadb-enterprise-backup.md#partial-restore-non-partitioned-tables)
+* [Partial Restore Non-partitioned Tables](mariadb-enterprise-backup.md#partial-restore-nonpartitioned-tables)
 * [Partial Restore Partitioned Tables](mariadb-enterprise-backup.md#partial-restore-partitioned-tables)
 * [Partial Restore of Tables with Full-Text Indexes](mariadb-enterprise-backup.md#partial-restore-of-tables-with-full-text-indexes)
 
@@ -316,9 +336,9 @@ As partial restores are performed while the server is running, not stopped, care
 
 **Note:** You can also use data from a full backup in a partial restore operation if you have prepared the data using the `--export` option as described above.
 
-### Partial Restore Non-partitioned Tables
+### Partial Restore Nonpartitioned Tables
 
-To restore a non-partitioned table from a backup, first create a new table on MariaDB Community Server to receive the restored data. It should match the specifications of the table you're restoring.
+To restore a non-partitioned table from a backup, first create a new table on MariaDB Enterprise Server to receive the restored data. It should match the specifications of the table you're restoring.
 
 Be extra careful if the backup data is from a server with a different version than the restore server, as some differences (such as a differing `ROW_FORMAT`) can cause an unexpected result.
 
@@ -343,7 +363,7 @@ ALTER TABLE test.address_book DISCARD TABLESPACE;
 # cp /data/backups/part_inc1/test/address_book.* /var/lib/mysql/test
 ```
 
-4. Use a wildcard to include both the .ibd and .cfg files. Then, change the owner to the system user running MariaDB Community Server:
+4. Use a wildcard to include both the .ibd and .cfg files. Then, change the owner to the system user running MariaDB Enterprise Server:
 
 ```bash
 # chown mysql:mysql /var/lib/mysql/test/address_book.*
@@ -355,7 +375,7 @@ ALTER TABLE test.address_book DISCARD TABLESPACE;
 ALTER TABLE test.address_book IMPORT TABLESPACE;
 ```
 
-MariaDB Community Server looks in the data directory for the tablespace you copied in, then imports it for use. If the table is encrypted, it also looks for the encryption key with the relevant key ID that the table data specifies.
+MariaDB Enterprise Server looks in the data directory for the tablespace you copied in, then imports it for use. If the table is encrypted, it also looks for the encryption key with the relevant key ID that the table data specifies.
 
 6. Repeat this step for every table you wish to restore.
 
@@ -363,7 +383,7 @@ MariaDB Community Server looks in the data directory for the tablespace you copi
 
 Restoring a partitioned table from a backup requires a few extra steps compared to restoring a non-partitioned table.
 
-To restore a partitioned table from a backup, first create a new table on MariaDB Community Server to receive the restored data. It should match the specifications of the table you're restoring, including the partition specification.
+To restore a partitioned table from a backup, first create a new table on MariaDB Enterprise Server to receive the restored data. It should match the specifications of the table you're restoring, including the partition specification.
 
 Be extra careful if the backup data is from a server with a different version than the restore server, as some differences (such as a differing ROW\_FORMAT) can cause an unexpected result.
 
@@ -401,7 +421,7 @@ ALTER TABLE test.students_work DISCARD TABLESPACE;
 # cp /data/backups/part_inc1/test/students.cfg /var/lib/mysql/test/students_work.cfg
 ```
 
-5. Change the owner to that of the user running MariaDB Community Server:
+5. Change the owner to that of the user running MariaDB Enterprise Server:
 
 ```bash
 # chown mysql:mysql /var/lib/mysql/test/students_work.*
@@ -469,7 +489,7 @@ $ sudo cp /data/backups/part/db1/t1.* /var/lib/mysql/db1
 $ sudo rm /var/lib/mysql/db1/t1.cfg
 ```
 
-6. Change the owner of the newly copied files to the system user running MariaDB Community Server:
+6. Change the owner of the newly copied files to the system user running MariaDB Enterprise Server:
 
 ```bash
 $ sudo chown mysql:mysql /var/lib/mysql/db1/t1.*
@@ -518,62 +538,8 @@ Create Table: CREATE TABLE `t1` (
 
 ## Point-in-Time Recoveries
 
-Recovering from a backup restores the data directory at a specific point-in-time, but it does not restore the binary log. In a point-in-time recovery, you begin by restoring the data directory from a full or incremental backup, then use the mysqlbinlog utility to recover the binary log data to a specific point in time.
+Point-in-time recovery (PITR) is [documented here](../mariadb-backup/point-in-time-recovery-pitr-mariadb-backup.md).
 
-1. First, prepare the backup as you normally would for a [full](../mariadb-backup/full-backup-and-restore-with-mariadb-backup.md) or [incremental](../mariadb-backup/incremental-backup-and-restore-with-mariadb-backup.md) backup:
-
-```bash
-mariadb-backup --prepare --target-dir=/data/backups/full
-```
-
-2. When MariaDB Backup runs on a MariaDB Community Server where binary logs is enabled, it stores binary log information in the `xtrabackup_binlog_info` file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321.
-
-```bash
-cat /data/backups/full/xtraback_binlog_info
-
-mariadb-node4.00001     321
-```
-
-3. Update the configuration file to use a new data directory.
-
-```bash
-[mysqld]
-datadir=/var/lib/mysql_new
-```
-
-4. Using MariaDB Backup, restore from the backup to the new data directory:
-
-```bash
-mariadb-backup --copy-back --target-dir=/data/backups/full
-```
-
-5. Then change the owner to the MariaDB Community Server system user:
-
-```bash
-chown -R mysql:mysql /var/lib/mysql_new
-```
-
-6. Start MariaDB Community Server:
-
-```bash
-sudo systemctl start mariadb
-```
-
-7. Using the binary log file in the old data directory, the start position in the `xtrabackup_binlog_info` file, the date and time you want to restore to, and the `mysqlbinlog` utility to create an SQL file with the binary log changes:
-
-```bash
-mysqlbinlog --start-position=321 \
-      --stop-datetime="2019-06-28 12:00:00" \
-      /var/lib/mysql/mariadb-node4.00001 \
-      > mariadb-binlog.sql
-```
-
-8. Lastly, run the binary log SQL to restore the databases:
-
-```bash
-mysql -u root -p < mariadb-binlog.sql
-```
-
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

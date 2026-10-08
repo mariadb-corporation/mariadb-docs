@@ -1,9 +1,22 @@
+---
+description: >-
+  MariaDB Connector/Python FAQ addresses common installation issues,
+  migration from 1.1 to 2.0, the binary vs text protocol distinction, async
+  setup, and transaction commit requirements.
+---
+
 <a id="faq"></a>
 
 # MariaDB Connector/Python FAQ
 
 This is a list of frequently asked questions about MariaDB Connector/Python. Feel free to suggest new
 entries!
+
+## API Reference
+
+- **[Connection API](connection.md)** - Connection parameters, methods, and attributes
+- **[Cursor API](cursor.md)** - Cursor parameters, methods, and attributes  
+- **[Connection Pooling API](pooling.md)** - Pool configuration and usage
 
 <a id="installation-faq"></a>
 
@@ -53,9 +66,49 @@ sudo zypper in python3-devel
 Note: The python3 development packages of your distribution might not cover all minor versions
 of python3. If you are using python3.10 you may need to install python3.10-dev.
 
+### Which installation option should I choose for version 2.0?
+
+{% hint style="info" %}
+As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release. The 2.0 commands below use the `--pre` flag because pip otherwise installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
+**Version 2.0** offers three installation options:
+
+1. **Pure Python (default)** - `pip install --pre mariadb`
+   - Works everywhere, no compiler required
+   - Good performance for most use cases
+   - Recommended for development and testing
+
+2. **Pre-compiled binary wheels** - `pip install --pre mariadb[binary]`
+   - Best for production
+   - **MariaDB Connector/C is bundled** - no separate installation needed
+   - Maximum performance without compilation
+   - No compiler required
+
+3. **C extension from source** - `pip install --pre mariadb[c]`
+   - **Requires MariaDB Connector/C 3.3.1+ to be pre-installed** on your system
+   - Maximum performance
+   - Requires C compiler for building
+   - For custom builds or platforms without binary wheels
+
+**For connection pooling**, add `[pool]` to any option:
+```console
+pip install --pre mariadb[binary,pool]
+```
+
+### Do I need MariaDB Connector/C for version 2.0?
+
+**No, not anymore!** This is a major change in version 2.0:
+
+- **Pure Python** (default): No MariaDB Connector/C required
+- **Binary wheels** (`mariadb[binary]`): No separate installation needed - MariaDB Connector/C is bundled inside the wheel
+- **C extension from source** (`mariadb[c]`): Yes, requires MariaDB Connector/C 3.3.1+ to be pre-installed on your system
+
+For most users, `pip install --pre mariadb[binary,pool]` provides the best experience with no external dependencies (the `--pre` flag is required while 2.0 is a Release Candidate).
+
 ### ModuleNotFoundError: No module named ‘packaging’
 
-With deprecation of distutils (see [PEP-632](https://peps.python.org/pep-632)) version functions of distutils module were
+With deprecation of distutils (see [PEP-632](https://peps.python.org/pep-0632/)) version functions of distutils module were
 replaced in MariaDB Connector/Python 1.1.5 by packaging version functions.
 
 Before you can install MariaDB Connector/Python you have to install the packaging module:
@@ -164,16 +217,97 @@ python3 -m pip install .
    export MYSQL_UNIX_PORT=/path_to/mysql.sock
    ```
 
+### How do I migrate from version 1.1 to 2.0?
+
+See the comprehensive [Migration Guide](migration-from-1.1-to-2.0.md) for detailed instructions. Key changes:
+
+1. **Installation**: `pip install --pre mariadb[binary,pool]` for best experience (the `--pre` flag is required while 2.0 is a Release Candidate)
+2. **Remove deprecated parameters**: `reconnect`, `auto_reconnect`, `cursor_type`, `prepared`
+3. **Update cursor creation**: Use `binary=True` instead of `prepared=True`
+4. **Update pooling**: Install `mariadb[pool]` and use `create_pool()` instead of `ConnectionPool()`
+5. **Consider URI connections**: `mariadb.connect("mariadb://user:pass@host/db")`
+
+### What happened to auto_reconnect?
+
+Automatic reconnection was removed in version 2.0 because it:
+- Silently hid connection failures
+- Lost session state and uncommitted transactions
+- Broke transaction isolation guarantees
+
+**Migration**: Use connection pools (recommended) or call `conn.reconnect()` manually when needed.
+
+### How do I use async/await with version 2.0?
+
+Version 2.0 introduces native async support:
+
+```python
+import asyncio
+import mariadb
+
+async def main():
+    conn = await mariadb.asyncConnect("mariadb://user:pass@host/db")
+    cursor = conn.cursor()
+    await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
+    row = await cursor.fetchone()
+    await cursor.close()
+    await conn.close()
+
+asyncio.run(main())
+```
+
+For connection pools:
+```python
+pool = await mariadb.create_async_pool(
+    "mariadb://user:pass@host/db",
+    min_size=5,
+    max_size=20
+)
+```
+
+See [Async/Await Support](async-usage.md) for detailed documentation.
+
+### What's the difference between prepared and binary?
+
+Both `prepared` and `binary` already existed as separate cursor options in version 1.1. In version 2.0, `prepared` is deprecated in favor of `binary`; passing `prepared` still works but emits a `DeprecationWarning`:
+
+**Version 1.1 (either option):**
+```python
+cursor = conn.cursor(binary=True)
+```
+
+**Version 2.0 (use `binary`):**
+```python
+cursor = conn.cursor(binary=True)
+```
+
+Both use the MariaDB binary protocol (prepared statements).
+
+### Should I use text or binary protocol?
+
+**Text protocol (default):**
+- Predictable behavior
+- Good for ad-hoc queries
+- No preparation overhead
+
+**Binary protocol (`binary=True`):**
+- Better performance for repeated queries
+- Automatic prepared statement caching
+- Recommended for hot paths
+
+Enable at connection level for applications that mostly use parameterized queries:
+```python
+conn = mariadb.connect("mariadb://host/db?binary=true")
+```
+
 ### Q: Which authentication methods are supported by MariaDB Connector/Python?
 
-MariaDB Connector/Python uses MariaDB Connector/C for client-server communication. That means all authentication plugins shipped
-together with MariaDB Connector/C can be used for user authentication.
+MariaDB Connector/Python uses MariaDB Connector/C for client-server communication (C extension only). The pure Python implementation supports standard authentication methods. All authentication plugins shipped together with MariaDB Connector/C can be used for user authentication in the C extension.
 
 ## General
 
 ### Q: How do I execute multiple statements with cursor.execute()?
 
-Since MariaDB Connector/Python uses binary protocol for client-server communication, this feature is not supported yet.
+Executing multiple statements in a single `cursor.execute()` call is not supported.
 
 ### Q: Does MariaDB Connector/Python work with Python 2.x?
 
@@ -182,10 +316,9 @@ with older Python 3.x versions, it doesn’t work with Python version 2.x.
 
 ### Q: How can I see a transformed statement? Is there a mogrify() method available?
 
-No, MariaDB Connector/Python Python uses binary protocol for client/server communication. Before a statement will be executed
-it will be parsed and parameter markers which are different than question marks will be replaced by question
-marks. Afterwards the statement will be sent together with data to the server. The transformed statement can
-be obtained by cursor.statement attribute.
+No, there is no `mogrify()` method. Before a statement is executed, parameter markers other than question
+marks are rewritten to question marks; the statement and its data are then sent separately to the server,
+so the parameter values are not substituted into the SQL string on the client side.
 
 Example:
 
@@ -205,7 +338,7 @@ Please note, that there is no need to escape ‘%s’ by ‘%%s’ for the time 
 
 ### Q: Does MariaDB Connector/Python support paramstyle “pyformat”?
 
-The default paramstyle (see [PEP-249](https://peps.python.org/pep-249)) is **qmark** (question mark) for parameter markers. For compatibility
+The default paramstyle (see [PEP-249](https://peps.python.org/pep-0249/)) is **qmark** (question mark) for parameter markers. For compatibility
 with other drivers MariaDB Connector/Python also supports (and automatically recognizes) the **format** and **pyformat** parameter
 styles.
 

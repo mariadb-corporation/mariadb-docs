@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 10.0.22 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.22)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md)[Changelog](mariadb-galera-cluster-10022-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.22)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md)[Changelog](mariadb-galera-cluster-10022-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 19 Nov 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10-0-22-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #f4421c8](https://github.com/MariaDB/server/commit/f4421c8)\
   2015-11-16 12:39:56 -0500
@@ -35,10 +34,10 @@ modified in that revision.
   * [MDEV-8543](https://jira.mariadb.org/browse/MDEV-8543) mysql.server script not correctly handle --pid-file.
 * [Revision #d88aaaa](https://github.com/MariaDB/server/commit/d88aaaa)\
   2015-10-28 08:34:08 +0100
-  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
+  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../10.0/10.0.20.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
 * [Revision #b0e3f48](https://github.com/MariaDB/server/commit/b0e3f48)\
   2015-10-22 16:08:45 +0200
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #ac67f9a](https://github.com/MariaDB/server/commit/ac67f9a)\
   2015-10-28 12:53:23 +0400
   * Removed mistakenly committed test file.
@@ -332,7 +331,7 @@ modified in that revision.
   * Fix assert error for where clause with UDF's was fixed in HA\_CONNECT::CondFilter moving res= pval->val\_str(\&tmp) but this was wrong. Now res is only used for strings. modified: storage/connect/ha\_connect.cc
 * [Revision #fd1b2e4](https://github.com/MariaDB/server/commit/fd1b2e4)\
   2015-09-15 17:07:41 -0400
-  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes.md) + GaleraCluster
+  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../10.1/10.1.7.md) + GaleraCluster
 * [Revision #653aadc](https://github.com/MariaDB/server/commit/653aadc)\
   2015-09-15 16:27:04 -0400
   * [MDEV-8804](https://jira.mariadb.org/browse/MDEV-8804): bootstrap command missing in debian init script
@@ -639,6 +638,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

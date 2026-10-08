@@ -1,3 +1,10 @@
+---
+description: >-
+  Define external catalogs for data integration. This statement configures
+  connections to remote storage systems, allowing query access to external data
+  sources.
+---
+
 # CREATE CATALOG
 
 {% include "../../../.gitbook/includes/catalogs.md" %}
@@ -36,7 +43,7 @@ CREATE DATABASE test;
 
 The catalog name is limited to 64 characters. All characters must be in the basic ASCII set:\
 (A-Z, a-z, -, \_)\
-This limitations is to be able to run catalogs with engines like InnoDB which has limited\
+This limitations is to be able to run catalogs with engines like InnoDB which has limited
 space in their internal data dictionary.
 
 ## Pre-Creating Catalog Directories

@@ -1,3 +1,10 @@
+---
+description: >-
+  Full physical backup examples for MariaDB Cloud via the SkySQL Backup API,
+  with one-time and scheduled execution patterns for file-level MariaDB Server
+  data backups.
+---
+
 # Physical Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}
@@ -39,6 +46,8 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 * SERVICE\_ID : MariaDB Cloud service identifier, format `dbtxxxxxx`
 
 {% hint style="info" %}
-Backup status can be fetched using 'https://api.skysql.com/skybackup/v1/backups'. \
+Backup status can be fetched using `https://api.skysql.com/skybackup/v1/backups`. \
 See the 'Backup Status' section for an example.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_provider_options holds the semicolon-separated list of Galera wsrep
+  provider settings; this reference catalogs every supported option, its
+  default, and whether it is dynamic.
+---
+
 # wsrep\_provider\_options
 
 The following options can be set as part of the Galera [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options) variable. Dynamic options can be changed while the server is running.
@@ -40,7 +47,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.auto_evict`
 
-* Description: Number of entries the node permits for a given delayed node before triggering the Auto Eviction protocol. An entry is added to a delayed list for each delayed response from a node. If set to `0`, the default, the Auto Eviction protocol is disabled for this node. See [Auto Eviction](https://galeracluster.com/library/documentation/auto-eviction.html) for more.
+* Description: Number of entries the node permits for a given delayed node before triggering the Auto Eviction protocol. An entry is added to a delayed list for each delayed response from a node. If set to `0`, the default, the Auto Eviction protocol is disabled for this node. See [Configuring Auto Eviction](../../galera-management/configuration/configuring-auto-eviction.md) for more.
 * Dynamic: No
 * Default: `0`
 
@@ -48,7 +55,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 * Description: Used by the developers only, and not manually serviceable.
 * Dynamic: No
-* Default: The [evs.keepalive\_period](wsrep_provider_options.md#evskeepalive_period).
+* Default: The [evs.keepalive\_period](wsrep_provider_options.md#evs.keepalive_period).
 
 #### `evs.debug_log_mask`
 
@@ -58,19 +65,19 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.delay_margin`
 
-* Description: Time that response times can be delayed before this node adds an entry to the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict). Must be set to a higher value than the round-trip delay time between nodes.
+* Description: Time that response times can be delayed before this node adds an entry to the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict). Must be set to a higher value than the round-trip delay time between nodes.
 * Dynamic: No
 * Default: `PT1S`
 
 #### `evs.delayed_keep_period`
 
-* Description: Time that this node requires a previously delayed node to remain responsive before being removed from the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict).
+* Description: Time that this node requires a previously delayed node to remain responsive before being removed from the delayed list. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict).
 * Dynamic: No
 * Default: `PT30S`
 
 #### `evs.evict`
 
-* Description: When set to the gcomm UUID of a node, that node is evicted from the cluster. When set to an empty string, the eviction list is cleared on the node where it is set. See [evs.auto\_evict](wsrep_provider_options.md#evsauto_evict).
+* Description: When set to the gcomm UUID of a node, that node is evicted from the cluster. When set to an empty string, the eviction list is cleared on the node where it is set. See [evs.auto\_evict](wsrep_provider_options.md#evs.auto_evict).
 * Dynamic: No
 * Default: Empty string
 
@@ -122,7 +129,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.send_window`
 
-* Description: Maximum number of packets that can be replicated at a time, Must be more than [evs.user\_send\_window](wsrep_provider_options.md#evsuser_send_window), which applies to data packets only (double is recommended). In WAN environments can be set much higher than the default, for example `512`.
+* Description: Maximum number of packets that can be replicated at a time, Must be more than [evs.user\_send\_window](wsrep_provider_options.md#evs.user_send_window), which applies to data packets only (double is recommended). In WAN environments can be set much higher than the default, for example `512`.
 * Dynamic: Yes
 * Default: `4`
 
@@ -134,7 +141,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.suspect_timeout`
 
-* Description: A node will be suspected to be dead after this period of inactivity. If all nodes agree, the node is dropped from the cluster before [evs.inactive\_timeout](wsrep_provider_options.md#evsinactive_timeout) is reached.
+* Description: A node will be suspected to be dead after this period of inactivity. If all nodes agree, the node is dropped from the cluster before [evs.inactive\_timeout](wsrep_provider_options.md#evs.inactive_timeout) is reached.
 * Dynamic: No
 * Default: `PT5S`
 
@@ -146,7 +153,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `evs.user_send_window`
 
-* Description: Maximum number of data packets that can be replicated at a time. Must be smaller than [evs.send\_window](wsrep_provider_options.md#evssend_window) (half is recommended). In WAN environments can be set much higher than the default, for example `512`.
+* Description: Maximum number of data packets that can be replicated at a time. Must be smaller than [evs.send\_window](wsrep_provider_options.md#evs.send_window) (half is recommended). In WAN environments can be set much higher than the default, for example `512`.
 * Dynamic: Yes
 * Default: `2`
 
@@ -174,6 +181,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `0`
 
+#### `gcache.keep_plaintext_size`
+
+* Description: A soft cap on how much decrypted (plaintext) GCache data is kept in RAM at once. It only has an effect when GCache encryption is enabled; with encryption disabled it is inert.
+* Dynamic: Yes
+* Default: The value of [gcache.page\_size](wsrep_provider_options.md#gcache.page_size).
+
 #### `gcache.mem_size`
 
 * Description: Maximum size of size of the malloc() store for setups that have spare RAM.
@@ -199,7 +212,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Description: Whether or not gcache recovery takes place when the node starts up. If it is possible to recover gcache, the node can then provide IST to other joining nodes, which assists when the whole cluster is restarted.
 * Dynamic: No
 * Default: `no`
-* Introduced: [MariaDB 10.1.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10120-release-notes), [MariaDB Galera 10.0.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10029-release-notes), [MariaDB Galera 5.5.54](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes/mariadb-galera-cluster-5554-release-notes)
+* Introduced: [MariaDB 10.1.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.20), [MariaDB Galera 10.0.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10029-release-notes), [MariaDB Galera 5.5.54](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes/mariadb-galera-cluster-5554-release-notes)
 
 #### `gcache.size`
 
@@ -242,6 +255,12 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: Empty string
 
+#### `gcs.check_appl_proto`
+
+* Description: Controls the application protocol version check that is performed when a node joins the Primary Component. Setting it to `0` disables the check: a shortfall in the node's application protocol version is silently tolerated and the node joins anyway.
+* Dynamic: Yes
+* Default: `1`
+
 #### `gcs.fc_debug`
 
 * Description: If set to a value greater than zero (the default), debug statistics about SST flow control will be posted each timegcs.fc\_master\_slave after the specified number of writesets.
@@ -250,19 +269,19 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.fc_factor`
 
-* Description:Fraction below [gcs.fc\_limit](wsrep_provider_options.md#gcsfc_limit) which if the recv queue drops below, replication resumes.
+* Description:Fraction below [gcs.fc\_limit](wsrep_provider_options.md#gcs.fc_limit) which if the recv queue drops below, replication resumes.
 * Dynamic: Yes
 * Default: `1.0`
 
 #### `gcs.fc_limit`
 
-* Description: If the recv queue exceeds this many writesets, replication is paused. Can increase greatly in master-slave setups. Replication will resume again according to the [gcs.fc\_factor](wsrep_provider_options.md#gcsfc_factor) setting.
+* Description: If the recv queue exceeds this many writesets, replication is paused. Can increase greatly in master-slave setups. Replication will resume again according to the [gcs.fc\_factor](wsrep_provider_options.md#gcs.fc_factor) setting.
 * Dynamic: Yes
 * Default: `16`
 
 #### `gcs.fc_master_slave`
 
-* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1072-release-notes), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1066-release-notes), [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10514-release-notes), [MariaDB 10.4.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10422-release-notes)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcsfc_single_primary)
+* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcs.fc_single_primary)
 * Dynamic: No
 * Default: `no`
 
@@ -295,9 +314,15 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.recv_q_soft_limit`
 
-* Description: Fraction of [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcsrecv_q_hard_limit) after which replication rate is throttled. The rate of throttling increases linearly from zero (the regular, varying rate of replication) at and below `csrecv_q_soft_limit` to one (full throttling) at [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcsrecv_q_hard_limit)
+* Description: Fraction of [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcs.recv_q_hard_limit) after which replication rate is throttled. The rate of throttling increases linearly from zero (the regular, varying rate of replication) at and below `csrecv_q_soft_limit` to one (full throttling) at [gcs.recv\_q\_hard\_limit](wsrep_provider_options.md#gcs.recv_q_hard_limit)
 * Dynamic: No
 * Default: `0.25`
+
+#### `gcs.stateless`
+
+* Description: Marks the node as stateless — an arbitrator-like member that participates in group communication but has no database. The [Galera Arbitrator (`garbd`)](../../galera-management/configuration/galera-arbitrator-daemon-garbd.md) runs with this configuration.
+* Dynamic: No
+* Default: `false`
 
 #### `gcs.sync_donor`
 
@@ -305,9 +330,33 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: `no`
 
+#### `gcs.vote_policy`
+
+* Description: The rule used in Galera's inconsistency voting protocol. When a node fails to apply a writeset, it initiates a vote on that seqno, and every member casts a vote: `0` for success, or a 64-bit hash of the error message. This option decides which outcome wins the vote:
+  * `0`: Simple majority wins. The outcome with the most votes is chosen.
+  * `N` greater than `0`: Success threshold. If at least `N` nodes voted success, success wins, even if those nodes are in the minority of the voting nodes.
+  * `1`: The "zero wins" case of the threshold rule. A single successful node makes success the winner, and every node that failed to apply the writeset is inconsistent and leaves the cluster.
+* The voting policy must be decided before the cluster starts and cannot be changed at runtime.
+* Dynamic: No
+* Default: `0`
+
+#### `gmcast.isolate`
+
+* Description: Isolates the node from the rest of the cluster, mainly for testing failover and monitoring. `gmcast.isolate=1` makes the node drop its connections and leave the Primary Component; `gmcast.isolate=0` lets it reconnect and rejoin. (A value of `2` shuts the group-communication backend down entirely.) For example: `SET GLOBAL wsrep_provider_options = 'gmcast.isolate=1';`
+* Dynamic: Yes
+* Default: `0`
+
 #### `gmcast.listen_addr`
 
 * Description: Address Galera listens for connections from other nodes. Can be used to override the default port to listen, which is obtained from the connection address.
+  * Specifying a hostname isn't supported. Use an IP number instead.
+    * Note that [wsrep\_cluster\_address](../galera-cluster-system-variables.md#wsrep_cluster_address) supports TCP, SSL, and hostnames.
+  * You can specify the setting using either TCP or SSL, like this:
+    * `gmcast.listen_addr=tcp://192.168.8.111:4567`&#x20;
+    * `gmcast.listen_addr=ssl://192.168.8.111:4567`&#x20;
+  * If your system supports IPv6, you can also specify it like this:
+    * `gmcast.listen_addr=tcp://[::]:@mysqld.1.#4567`&#x20;
+    * Here, @mysqld.1 is an environment variable, and 4567 is the Galera port.
 * Dynamic: No
 * Default: `tcp://0.0.0.0:4567`
 
@@ -317,11 +366,26 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Dynamic: No
 * Default: None
 
+#### `gmcast.mcast_port`
+
+* Description: The UDP port used by GMCast's optional IP multicast transport. It is only consulted when multicast is enabled by setting [gmcast.mcast\_addr](wsrep_provider_options.md#gmcast.mcast_addr). Multicast is disabled by default, since that option is empty. When it is not set, the multicast group uses the GMCast listen port. Set it only when the multicast group has to use a port other than `4567`.
+* Dynamic: No
+* Default: None. The GMCast listen port, `4567` by default, is used.
+
 #### `gmcast.mcast_ttl`
 
 * Description: Multicast packet TTL (time to live) value.
 * Dynamic: No
 * Default: `1`
+
+#### `gmcast.peer_addr`
+
+* Description: Makes GMCast add or forget a peer address immediately. The value must be prefixed with either `add:` or `del:`:
+  * `add:` injects an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=add:tcp://10.0.0.5:4567';`
+  * `del:` forgets an address: `SET GLOBAL wsrep_provider_options = 'gmcast.peer_addr=del:tcp://10.0.0.5:4567';`
+  * A value carrying neither prefix throws `EINVAL: invalid addr spec`.
+* Dynamic: Yes
+* Default: None
 
 #### `gmcast.peer_timeout`
 
@@ -359,13 +423,23 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Description:
 * Dynamic: No
 * Default: Empty string
-  * Introduced: [MariaDB 10.1.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10117-release-notes), [MariaDB Galera 10.0.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10027-release-notes), [MariaDB Galera 5.5.51](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes/mariadb-galera-cluster-5551-release-notes)
+  * Introduced: [MariaDB 10.1.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.17), [MariaDB Galera 10.0.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10027-release-notes), [MariaDB Galera 5.5.51](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes/mariadb-galera-cluster-5551-release-notes)
 
 #### `pc.announce_timeout`
 
 * Description: Period of time for which cluster joining announcements are sent every 1/2 second.
 * Dynamic: No
 * Default: `PT3S`
+
+#### `pc.bootstrap`
+
+* Description: Makes the node bootstrap a new Primary Component from the component it currently sees. This is how a cluster that has lost its Primary Component is brought back into service. For example: `SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';`
+  * The option is a trigger rather than a stored setting. It only takes effect while the node is in a non-primary state; on a node that is already part of a Primary Component the provider writes `ignoring 'pc.bootstrap' in state <state>` to the error log and nothing changes.
+  * Because the value is only a trigger, it is not interpreted: `YES`, `true` and `1` all bootstrap the node — and so do `0` and `false`.
+  * Setting it does not change the value the node reports for [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options), and it can be set again on each subsequent loss of quorum.
+  * See [Resetting the Quorum (Cluster Bootstrap)](../../high-availability/resetting-the-quorum-cluster-bootstrap.md) for the full procedure, including how to choose the node to bootstrap from.
+* Dynamic: Yes
+* Default: None
 
 #### `pc.checksum`
 
@@ -393,7 +467,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.npvo`
 
-* Description: If set to `true` (`false` is default), when there are primary component conficts, the most recent component will override the older.
+* Description: If set to `true` (`false` is default), when there are primary component conflicts, the most recent component will override the older.
 * Dynamic: No
 * Default: `false`
 
@@ -411,25 +485,25 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.wait_prim`
 
-* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](wsrep_provider_options.md#pcbootstrap.).
+* Description: When set to `true`, the default, the node will wait for a primary component for the period of time specified by [pc.wait\_prim\_timeout](wsrep_provider_options.md#pc.wait_prim_timeout). Used to bring up non-primary components and make them primary using [pc.bootstrap](wsrep_provider_options.md#pc.bootstrap).
 * Dynamic: No
 * Default: `true`
 
 #### `pc.wait_prim_timeout`
 
-* Description: Ttime to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pcwait_prim).
+* Description: Time to wait for a primary component. See [pc.wait\_prim](wsrep_provider_options.md#pc.wait_prim).
 * Dynamic: No
 * Default: `PT30S`
 
 #### `pc.weight`
 
-* Description: Node weight, used for quorum calculation. See the Codership article [Weighted Quorum](https://galeracluster.com/library/documentation/weighted-quorum.html#weighted-quorum).
+* Description: Node weight, used for quorum calculation. See [Quorum Control With Weighted Votes](../../galera-architecture/quorum-control-with-weighted-votes.md).
 * Dynamic: Yes
 * Default: `1`
 
 #### `protonet.backend`
 
-* Description: Deprecated option. Transport backend to use. Only ASIO is supported currently.
+* Description: Deprecated option. Transport backend to use. Only ASIO is supported.
 * Dynamic: No
 * Default: `asio`
 
@@ -488,22 +562,20 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Description: Allow both encrypted and unencrypted connections between nodes. Typically this should be set to `false` (the default), when set to `true` encrypted connections will still be preferred, but will fall back to unencrypted connections when encryption is not possible, e.g. not enabled on all nodes yet. Needs to be `true` on all nodes when wanting to enable or disable encryption via a rolling restart. As this can't be changed at runtime a rolling restart to enable or disable encryption may need three restarts per node in total: one to enable `socket.dynamic` on each node, one to change the actual encryption settings on each node, and a final round to change `socket.dynamic` back to `false`.
 * Dynamic: No
 * Default: `false`
-* Introduced: [MariaDB 10.4.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10419-release-notes), [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10510-release-notes), [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
+* Introduced: [MariaDB 10.4.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.19), [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10), [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `socket.recv_buf_size`
 
 * Description: Size in bytes of the receive buffer used on the network sockets between nodes, passed on to the kernel via the SO\_RCVBUF socket option.
 * Dynamic: No
-* Default:
-  * > \= [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10323-release-notes), [MariaDB 10.2.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10232-release-notes), [MariaDB 10.1.45](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10145-release-notes): Auto
-  * < [MariaDB 10.3.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10322-release-notes): [MariaDB 10.2.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10231-release-notes), [MariaDB 10.1.44](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10144-release-notes): `212992`
+* Default: Auto
 
 #### `socket.send_buf_size`
 
 * Description: Size in bytes of the send buffer used on the network sockets between nodes, passed on to the kernel via the SO\_SNDBUF socket option.
 * Dynamic: No
 * Default:: Auto
-* Introduced: [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10323-release-notes), [MariaDB 10.2.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10232-release-notes), [MariaDB 10.1.45](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10145-release-notes)
+* Introduced: [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.23), [MariaDB 10.2.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.32), [MariaDB 10.1.45](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.45)
 
 #### `socket.ssl`
 
@@ -518,14 +590,14 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `socket.ssl_cert`
 
-* Description: Path to TLS certificate. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
+* Description: Path to TLS certificate, or, starting with Galera wsrep provider 26.4.8, a certificate chain file (leaf certificate first, followed by any intermediate CA certificates). Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
 * Dynamic: No
 
 #### `socket.ssl_cipher`
 
-* Description: TLS cipher to use. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option. Since [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes) defaults to the value of the [ssl\_cipher](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_cipher) system variable.
+* Description: TLS cipher to use. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option. Defaults to the value of the [ssl\_cipher](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_cipher) system variable.
 * Dynamic: No
-* Default: system default, before [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes) defaults to `AES128-SHA`.
+* Default: system default
 
 #### `socket.ssl_compression`
 
@@ -542,9 +614,18 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 * Description: Path to password file to use in TLS connections. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option.
 * Dynamic: No
 
+#### `socket.ssl_reload`
+
+* Description: Makes the provider re-initialize its TLS context, so that a certificate can be replaced without restarting the server. For example: `SET GLOBAL wsrep_provider_options='socket.ssl_reload=1';`
+  * Like [pc.bootstrap](wsrep_provider_options.md#pc.bootstrap), this is a trigger rather than a stored setting, and the value is not interpreted.
+  * The certificate and key paths cannot be changed at runtime, so the replacement files must be in place at the paths the TLS options already point to. If TLS is not in use on the node, setting this option does nothing.
+  * See [Reloading TLS Certificates Without Downtime](../../galera-security/reloading-tls-certificates-without-downtime.md) for the full procedure.
+* Dynamic: Yes
+* Default: None
+
 ## See Also
 
-* [Galera parameters documentation from Codership](https://galeracluster.com/library/documentation/galera-parameters.html)
+* [Galera Cluster System Variables](../galera-cluster-system-variables.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

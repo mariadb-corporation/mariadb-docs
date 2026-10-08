@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_thread_init initializes thread-local variables for multi-threaded
+  Connector/C clients; called automatically by mysql_init if not invoked
+  explicitly. Deprecated in Connector/C 3.0.
+---
+
 # mysql\_thread\_init
 
 ## Syntax
@@ -8,17 +15,25 @@ my_bool mysql_thread_init(void );
 
 ## Description
 
-Thread initialization for multi-threaded clients. Multi-threaded clients should call `mysql_thread_init()` at the beginning of the thread initialization to initialize thread specific client library variables. If <sub>`mysql_thread_init()`</sub> was not called explicitly, it will be called automatically by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
+Thread initialization for multi-threaded clients. `mysql_thread_init()` is now an empty no-op; it is not called automatically by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
 
-Returns zero if successful or 1 if an error occurred.
+## Return Value
+
+Always returns 0 (no-op).
 
 {% hint style="info" %}
 Before a client thread ends the [mysql\_thread\_end()](mysql_thread_end.md) function must be called to release memory - otherwise the client library will report an error.
 {% endhint %}
 
-## See also
+{% hint style="warning" %}
+This function has been deprecated since MariaDB Connector/C 3.0.0.
+{% endhint %}
+
+## See Also
 
 * [mysql\_thread\_end()](mysql_thread_end.md)
 * [mysql\_thread\_safe()](mysql_thread_safe.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract the second. This function returns the second portion of a time or
+  datetime value as a number from 0 to 59.
+---
+
 # SECOND
 
 ## Syntax
 
-```sql
+```bnf
 SECOND(time)
 ```
 

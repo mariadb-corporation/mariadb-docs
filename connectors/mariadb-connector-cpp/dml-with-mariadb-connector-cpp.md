@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C++ supports DML operations including INSERT, UPDATE,
+  DELETE, and SELECT, using prepared statements and result sets to
+  manipulate data in MariaDB databases.
+---
+
 # DML with MariaDB Connector/C++
 
 C++ developers can use MariaDB Connector/C++ to perform basic DML (Data Manipulation Language) operations with MariaDB database products.
@@ -204,6 +211,6 @@ Example output:
 - Johnny Smith <johnny.smith@example.com>
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

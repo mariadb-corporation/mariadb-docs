@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Node.js connector guide for MariaDB. Complete reference for
+  installation, connection pooling, query execution, and error handling for
+  production use.
+---
+
 # Getting Started With the Node.js Connector
 
 The MariaDB Node.js Connector is available through the Node.js repositories. You can install it using npm:
@@ -74,7 +81,12 @@ asyncFunction().then(() => {
 });
 ```
 
-The MariaDB Connector can use different APIs on the back-end: [Promise](connector-nodejs-promise-api.md) and [Callback](connector-nodejs-callback-api.md). The default API is Promise. The callback API is provided for compatibility with the mysql and mysql2 APIs.
+The MariaDB Connector has a [Promise](connector-nodejs-promise-api.md) *(Default)* and [callback](connector-nodejs-callback-api.md)[^1] API.
 
+[Typescript specific docs are also available](typescript-usage.md).
+
+[^1]: The callback API is provided for compatibility with the mysql and mysql2 APIs.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

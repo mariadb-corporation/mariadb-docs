@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of the metrics collected by Enterprise Manager, including MariaDB
+  Server counters, MaxScale performance data, and node-level system resource
+  utilization.
+---
+
 # Metrics
 
 ## MariaDB Server Metrics
@@ -36,3 +43,7 @@ Key metrics collected by default include:
 * **Network Traffic**: Data sent and received, packets, and network interface errors.
 
 For a complete and detailed list of all metrics gathered by the default collectors, please refer to the official [Prometheus Node Exporter documentation](https://prometheus.io/docs/guides/node-exporter/).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1,5 +1,23 @@
 ---
 description: Quickstart Guide for Connector/C
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # MariaDB Connector/C Guide
@@ -21,12 +39,12 @@ You can download MariaDB Connector/C packages directly:
 
 #### Install with a Package Manager (Recommended for Linux)
 
-If you're using Linux, the simplest way to install MariaDB Connector/C is via your system's package manager. Your system needs to be configured to install from a MariaDB repository (version 10.2 or later).
+If you're using Linux, the simplest way to install MariaDB Connector/C is via your system's package manager. Your system needs to be configured to install from a MariaDB repository.
 
 You can set up your repository using:
 
-* MariaDB Corporation's [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
-* MariaDB Foundation's [MariaDB Repository Configuration Tool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-mariadb-source-configuration-options).
+* MariaDB Corporation's [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
+* MariaDB Foundation's MariaDB Repository Configuration Tool.
 
 **Install with `yum`/`dnf` (RHEL, CentOS, Fedora)**
 
@@ -118,5 +136,7 @@ Be aware of these potential limitations:
 GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
 
 For licensing questions, see the [Licensing FAQ](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  A list of real-world companies and projects using Spider for high-volume data
+  handling, gaming, and analytics, illustrating its scalability.
+---
+
 # Spider Case Studies
 
 A list of users or clients that are using Spider and agree to be referenced:

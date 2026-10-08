@@ -1,3 +1,10 @@
+---
+description: >-
+  Compile MariaDB Connector/ODBC from the GitHub source repository on Linux or
+  Windows, with step-by-step dependency installation for cmake, UnixODBC, and
+  optional OpenSSL TLS support.
+---
+
 # Building MariaDB Connector/ODBC from Source
 
 ## Installing MariaDB Connector/ODBC Build Dependencies
@@ -15,7 +22,7 @@ On Unix-like platforms, you also need to have the following tools installed:
 * `make`
 * [UnixODBC](https://www.unixodbc.org/) - libraries and development headers
 
-If you want your build to support [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) on Unix-like platforms, then you also need to have the following tools installed:
+If you want your build to support [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) on Unix-like platforms, then you also need to have the following tools installed:
 
 * [OpenSSL](https://www.openssl.org/) - libraries and development headers
 
@@ -66,7 +73,7 @@ This example will put your source tree into the 3.0.8 version state.
 You can build MariaDB Connector/ODBC by executing the [cmake](https://cmake.org/cmake/help/latest/manual/cmake.1.html) command like the following:
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCONC_WITH_MSI=OFF -DCMAKE_INSTALL_PREFIX=/usr/local .
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_INSTALL_PREFIX=/usr/local .
 cmake --build . --config RelWithDebInfo
 ```
 
@@ -91,7 +98,9 @@ Building MariaDB Connector/ODBC from a source package is a bit different than bu
 Also, it should be possible to build from source package using the MariaDB Connector/C headers and library installed on your system. You need to ensure that the appropriate MariaDB Connector/C version is installed. Most probably you will need to point your compiler and/or linker to the location of the MariaDB Connector/C headers and/or library. e.g.
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_C_FLAGS_RELWITHDEBINFO="-I/usr/local/incude/mariadb -L/usr/local/lib" .
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_C_FLAGS_RELWITHDEBINFO="-I/usr/local/include/mariadb -L/usr/local/lib" .
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

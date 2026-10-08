@@ -1,3 +1,7 @@
+---
+description: A list of all MariaDB Connector/C releases
+---
+
 # Connector/C All Releases
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}
@@ -6,6 +10,10 @@
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.4.11](3.4/3.4.11.md) | 2026-09-29   | Stable (GA)    |
+| [3.4.10](3.4/3.4.10.md) | 2026-08-24   | Stable (GA)    |
+| [3.4.9](3.4/3.4.9.md) | 2026-06-10   | Stable (GA)    |
+| [3.4.8](3.4/3.4.8.md) | 2025-11-21   | Stable (GA)    |
 | [3.4.7](3.4/3.4.7.md) | 2025-08-21   | Stable (GA)    |
 | [3.4.5](3.4/3.4.5.md) | 2025-04-09   | Stable (GA)    |
 | [3.4.4](3.4/3.4.4.md) | 2025-02-11   | Stable (GA)    |
@@ -17,6 +25,10 @@
 
 | Release                 | Release Date | Release Status |
 | ----------------------- | ------------ | -------------- |
+| [3.3.21](3.3/3.3.21.md) | 2026-09-29   | Stable (GA)    |
+| [3.3.20](3.3/3.3.20.md) | 2026-08-13   | Stable (GA)    |
+| [3.3.19](3.3/3.3.19.md) | 2026-06-10   | Stable (GA)    |
+| [3.3.18](3.3/3.3.18.md) | 2025-11-21   | Stable (GA)    |
 | [3.3.17](3.3/3.3.17.md) | 2025-08-21   | Stable (GA)    |
 | [3.3.15](3.3/3.3.15.md) | 2025-04-09   | Stable (GA)    |
 | [3.3.14](3.3/3.3.14.md) | 2025-02-11   | Stable (GA)    |
@@ -135,6 +147,6 @@
 | ----------------- | ------------ | -------------- |
 | [1.0.0](1.0.0.md) | 2012-11-29   | Stable (GA)    |
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

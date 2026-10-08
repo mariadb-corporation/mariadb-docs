@@ -1,31 +1,47 @@
+---
+description: >-
+  Complete VARCHAR reference: VARCHAR(M) syntax, length limits (0-65532 per
+  row), CHARACTER SET/COLLATE options, indexing rules, and trailing spaces.
+---
+
 # VARCHAR
 
 ## Syntax
 
-```sql
+```bnf
 [NATIONAL] VARCHAR(M) [CHARACTER SET charset_name] [COLLATE collation_name]
 ```
 
 ## Description
 
-A variable-length string. M represents the maximum column length in characters. The range of M is 0 to 65,532. The effective maximum length of a `VARCHAR` is subject to the maximum row size and the character set used. For example, utf8 characters can require up to three bytes per character, so a `VARCHAR` column that uses the utf8 character set can be declared to be a maximum of 21,844 characters.
+A variable-length string. M represents the maximum column length in characters. The range of M is 0 to 65,532. The effective maximum length of a `VARCHAR` is subject to the maximum row size and the character set used. For example, utf-8 characters can require up to three bytes per character, so a `VARCHAR` column that uses the utf-8 character set can be declared to be a maximum of 21,844 characters.
 
-#### Note:
-
-For the [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) engine, M represents the maximum column length in bytes.
+`VARCHAR` is shorthand for `CHARACTER VARYING`. `NATIONAL VARCHAR` is the standard SQL way to define that a `VARCHAR` column should use some predefined character set. MariaDB uses utf-8 as its
+predefined character set, as does MySQL. `NVARCHAR` is shorthand for `NATIONAL VARCHAR`.
 
 MariaDB stores `VARCHAR` values as a one-byte or two-byte length prefix plus data. The length prefix indicates the number of bytes in the value. A `VARCHAR` column uses one length byte if values require no more than 255 bytes, two length bytes if values may require more than 255 bytes.
 
-MariaDB follows the standard SQL specification, and does not remove trailing spaces from `VARCHAR` values.
+MariaDB follows the standard SQL specification and does not remove trailing spaces from `VARCHAR` values.
 
-`VARCHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
+If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
 
-VARCHAR is shorthand for `CHARACTER VARYING`. `NATIONAL VARCHAR` is the standard SQL way to define that a `VARCHAR` column should use some predefined character set. MariaDB uses utf8 as this\
-predefined character set, as does MySQL. `NVARCHAR` is shorthand for `NATIONAL VARCHAR`.
+For the [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) engine, M represents the maximum column length in bytes.
 
 For MariaDB, a number of [NO PAD collations](character-sets/supported-character-sets-and-collations.md#no-pad-collations) are available.
 
-If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
+`VARCHAR(0)` columns can contain two values: an empty string or `NULL`. A zero-length column can be indexed only if it is nullable; indexing a `NOT NULL` zero-length column fails with `ERROR 1167 (42000): The storage engine InnoDB can't index column`, naming the engine in use. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
+
+### Use Cases for Zero Length
+
+A `CHAR(0)` or `VARCHAR(0)` column occupies minimal space and is restricted to two possible values: an empty string (`''`) or `NULL`. You can use these columns for the following purposes:
+
+* **Legacy Compatibility**: Include these columns to maintain compatibility with older applications that require a specific table schema, even if the data is no longer collected.
+* **Two-State Flags**: A `CHAR(0) NULL` column can function as a boolean indicator. It uses only one bit of storage to distinguish between a "set" state (the empty string) and an "unset" state (`NULL`).
+* **Row Marking**: You can use a `CHAR(0)` column to mark a specific row in a table. For example, if you require only one "active" row, set that row to an empty string while keeping all other rows `NULL`.
+
+For the last two purposes, a [BOOLEAN](../numeric-data-types/boolean.md) column — a synonym for `TINYINT(1)` — names the intent more clearly. The trade-off is storage: `TINYINT(1)` holds a one-byte value, where a `CHAR(0) NULL` column carries its state in the row's `NULL` bit alone.
+
+The following error occurs if you attempt to insert any character data into a 0-length column: `ERROR 1406 (22001): Data too long for column`.
 
 ### SYNONYMS
 
@@ -111,7 +127,7 @@ SELECT description, LENGTH(example) AS length
 
 ### Data too Long
 
-When `SQL_MODE` is strict (the default) a value is considered "too long" when its length exceeds the size of the data type, and an error is generated.
+When `SQL_MODE` is strict (the default), a value is considered "too long" when its length exceeds the size of the data type, and an error is generated.
 
 Example of data too long behavior for `VARCHAR`:
 
@@ -126,14 +142,27 @@ INSERT INTO varchar_example VALUES
 ERROR 1406 (22001): Data too long for column 'example' at row 1
 ```
 
+## Storage on Disk
+
+`VARCHAR` is a standard variable-length data type. `VARCHAR` values are stored **in-table (in-row)**, where the actual string data is part of the table record. &#x20;
+
+Each value is stored as a one-byte or two-byte length prefix followed by the data. The length prefix specifies the number of bytes contained in the value.
+
+This differs from `TEXT` and `BLOB` data types, which are typically stored **off-row**, with only a pointer stored in the table record.
+
+> **Note:** References to multiple buffers for `VARCHAR` specify internal memory usage for table operations. This does not indicate that `VARCHAR` values are stored in memory rather than on disk.
+
+The exact storage behavior may vary depending on the storage engine. For the specific byte-calculation formulas and limits, see [Data Type Storage Requirements](../data-type-storage-requirements.md).
+
 ## Truncation
 
-* Depending on whether or not [strict sql mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is set, you will either get a warning or an error if you try to insert a string that is too long into a `VARCHAR` column. If the extra characters are spaces, the spaces that can't fit will be removed and you will always get a warning, regardless of the [sql mode](../../../server-management/variables-and-modes/sql-mode.md) setting.
+* Depending on whether or not [strict sql mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is set, you will either get a warning or an error if you try to insert a string that is too long into a `VARCHAR` column. If the extra characters are spaces, the spaces that can't fit will be removed, and you will always get a warning, regardless of the [sql mode](../../../server-management/variables-and-modes/sql_mode.md) setting.
 
 ## Difference Between VARCHAR and TEXT
 
-* `VARCHAR` columns can be fully indexed. [TEXT](text.md) columns can only be indexed over a specified length.
-* Using [TEXT](text.md) or [BLOB](blob.md) in a [SELECT](../../sql-statements/data-manipulation/selecting-data/select.md) query that uses temporary tables for storing intermediate results will force the temporary table to be disk based (using the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) instead of the [memory storage engine](../../../server-usage/storage-engines/memory-storage-engine.md), which is a bit slower. This is not that bad as the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) caches the rows in memory. To get the benefit of this, one should ensure that the [aria\_pagecache\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size) variable is big enough to hold most of the row and index data for temporary tables.
+* **Indexing differences**: `VARCHAR` columns can be fully indexed. [TEXT](text.md) columns can only be indexed over a specified length.
+* **Temporary table behavior**: Using [TEXT](text.md) or [BLOB](blob.md) in a [SELECT](../../sql-statements/data-manipulation/selecting-data/select.md) query that uses temporary tables for storing intermediate results will force the temporary table to be disk-based (using the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) instead of the [memory storage engine](../../../server-usage/storage-engines/memory-storage-engine.md), which is a bit slower. This is not that bad, as the [Aria storage engine](../../../server-usage/storage-engines/aria/aria-storage-engine.md) caches the rows in memory. To get the benefit of this, one should ensure that the [aria\_pagecache\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size) variable is big enough to hold most of the row and index data for temporary tables.
+* **Storage characteristics**: Although both can overflow, `TEXT` is primarily designed for off-page storage, beginning with a pointer in the main row. In contrast, `VARCHAR` is optimized to remain in-page and only overflows when row size limits necessitate it.
 
 ## Oracle Mode
 
@@ -141,8 +170,8 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 
 ### For Storage Engine Developers
 
-* Internally, the full length of the `VARCHAR` column is allocated inside each `TABLE` objects record\[] structure. As there are three such buffers, each open table will allocate 3 times max-length-to-store-varchar bytes of memory.
-* [TEXT](text.md) and [BLOB](blob.md) columns are stored with a pointer (4 or 8 bytes) + a 1-4 bytes length. The [TEXT](text.md) data is only stored once. This means that internally `TEXT` uses less memory for each open table but instead has the additional overhead that each `TEXT` object needs to be allocated and freed for each row access (with some caching in between).
+* Internally, the full length of the `VARCHAR` column is allocated inside each `TABLE` objects record\[] structure. As there are three such buffers, each open table will allocate 3 times the max-length-to-store-varchar bytes of memory.
+* [TEXT](text.md) and [BLOB](blob.md) columns are stored with a pointer (4 or 8 bytes) + a 1-4 byte length. The [TEXT](text.md) data is only stored once. This means that internally `TEXT` uses less memory for each open table but instead has the additional overhead that each `TEXT` object needs to be allocated and freed for each row access (with some caching in between).
 
 ## See Also
 
@@ -151,7 +180,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 * [CHAR](char.md)
 * [Character Sets and Collations](character-sets/)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)
-* [Oracle mode from MariaDB 10.3](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/data-types/string-data-types/broken-reference/README.md)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#synonyms-for-basic-sql-types)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -1,8 +1,12 @@
+---
+description: Synonym for UPPER(). Converts a string to uppercase characters.
+---
+
 # UCASE
 
 ## Syntax
 
-```sql
+```bnf
 UCASE(str)
 ```
 

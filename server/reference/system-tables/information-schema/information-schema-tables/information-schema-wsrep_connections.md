@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_CONNECTIONS table shows active connections to the
+  Galera Cluster, primarily used for debugging cluster membership.
+---
+
 # Information Schema WSREP\_CONNECTIONS
 
 {% hint style="info" %}
@@ -20,3 +26,5 @@ MariaDB [(none)]> SELECT * FROM information_schema.wsrep_connections;
 +-----------------+-------------------+-----------------+-----------------+------------------------+---------------------------------------------------+------------------------------------------------------+---------------------+
 2 rows in set (0.004 sec)
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

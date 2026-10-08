@@ -1,8 +1,14 @@
+---
+description: >-
+  Encode a string to base-64. This function converts a string argument to its
+  base-64 encoded form.
+---
+
 # TO\_BASE64
 
 ## Syntax
 
-```sql
+```bnf
 TO_BASE64(str)
 ```
 

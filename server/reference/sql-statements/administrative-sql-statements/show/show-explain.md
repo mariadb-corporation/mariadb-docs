@@ -1,8 +1,14 @@
+---
+description: >-
+  Get the execution plan for a running query. This statement displays EXPLAIN
+  output for a statement currently executing in another thread.
+---
+
 # SHOW EXPLAIN
 
 ## Syntax
 
-```sql
+```bnf
 SHOW EXPLAIN [FORMAT=JSON] FOR <connection_id>;
 EXPLAIN [FORMAT=JSON] FOR CONNECTION <connection_id>;
 ```
@@ -41,16 +47,24 @@ SHOW WARNINGS;
 
 {% tabs %}
 {% tab title="Current" %}
-### EXPLAIN FOR CONNECTION
+{% hint style="info" %}
+From MariaDB 10.9:
+{% endhint %}
+
+**EXPLAIN FOR CONNECTION**
 
 The `EXPLAIN FOR CONNECTION` syntax was added for MySQL compatibility.
 
-### FORMAT=JSON
+**FORMAT=JSON**
 
 `SHOW EXPLAIN [FORMAT=JSON] FOR <connection_id>` extends `SHOW EXPLAIN` to return more detailed JSON output.
 {% endtab %}
 
 {% tab title="< 10.9" %}
+{% hint style="info" %}
+Before MariaDB 10.9:
+{% endhint %}
+
 `EXPLAIN FOR CONNECTION` and `FORMAT=JSON` are not available.
 {% endtab %}
 {% endtabs %}

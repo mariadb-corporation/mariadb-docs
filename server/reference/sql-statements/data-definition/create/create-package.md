@@ -1,13 +1,25 @@
+---
+description: >-
+  Define the interface for a stored package. This Oracle-compatible statement
+  declares the public variables and subroutines of a package.
+---
+
 # CREATE PACKAGE
-
-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE` statement can be used in any mode.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 {% endtab %}
 {% endtabs %}
@@ -36,6 +48,7 @@ package_characteristic:
 package_specification_element:
     FUNCTION_SYM package_specification_function ;
   | PROCEDURE_SYM package_specification_procedure ;
+  | type_declaration ;
 
 
 package_specification_function:
@@ -121,19 +134,47 @@ A package whose specification was created by the `CREATE PACKAGE` statement, sho
 
 ## Function parameter quantifiers IN | OUT | INOUT | IN OUT
 
-**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
+**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported anywhere.
 {% endtab %}
 
-{% tab title="< 10.8.0" %}
+{% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported only in procedures.
 {% endtab %}
 {% endtabs %}
 
 `OUT`, `INOUT` and its equivalent `IN OUT`, are only valid if called from `SET` and not `SELECT`. These quantifiers are especially useful for creating functions and procedures with more than one return value. This allows functions and procedures to be more complex and nested.
+
+## Package-Wide Type Declarations
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
+{% endhint %}
+
+A package specification can declare data types with `TYPE`, alongside its public routines. Such a type is public: routines outside the package can declare variables of it, using the qualified name `package_name.type_name` or `schema_name.package_name.type_name`.
+
+```sql
+SET sql_mode=ORACLE;
+DELIMITER $$
+CREATE OR REPLACE PACKAGE pkg AS
+  TYPE varchar_array IS TABLE OF VARCHAR(2000) INDEX BY INTEGER;
+END;
+$$
+DELIMITER ;
+```
+
+Using the type requires the `EXECUTE` privilege on the `PACKAGE`. No privileges on the `PACKAGE BODY` are required. For the contexts where a package type is accepted, name resolution, and the restrictions that apply, see [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md).
 
 ## Examples
 
@@ -153,6 +194,7 @@ DELIMITER ;
 ## See Also
 
 * [CREATE PACKAGE BODY](create-package-body.md)
+* [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md)
 * [SHOW CREATE PACKAGE](../../administrative-sql-statements/show/show-create-package.md)
 * [DROP PACKAGE](../drop/drop-package.md)
 * [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)

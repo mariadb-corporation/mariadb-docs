@@ -1,8 +1,14 @@
+---
+description: >-
+  List available storage engines. View the support status (default, active, or
+  disabled) and description for each engine.
+---
+
 # SHOW ENGINES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [STORAGE] ENGINES
 ```
 

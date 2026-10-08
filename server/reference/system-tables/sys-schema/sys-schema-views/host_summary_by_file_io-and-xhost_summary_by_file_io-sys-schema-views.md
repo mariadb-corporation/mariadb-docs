@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize file I/O events grouped by client host, detailing total
+  I/O counts and latency to identify hosts generating heavy disk traffic.
+---
+
 # host\_summary\_by\_file\_io and x$host\_summary\_by\_file\_io Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

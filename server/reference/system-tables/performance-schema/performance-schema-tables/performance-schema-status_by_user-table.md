@@ -1,8 +1,10 @@
-# Performance Schema status\_by\_user Table
+---
+description: >-
+  The status_by_user table aggregates session status variables by user name,
+  summarizing activity across all connections for a specific user identity.
+---
 
-{% hint style="info" %}
-The `status_by_account` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema status\_by\_user Table
 
 The `status_by_account` table contains status variable information by user. The table does not collect statistics for `Com_xxx` variables.
 

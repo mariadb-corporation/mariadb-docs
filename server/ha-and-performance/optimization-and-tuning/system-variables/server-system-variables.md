@@ -1,6 +1,13 @@
+---
+description: >-
+  Reference for MariaDB Server system variables — how to view and set them,
+  their scope and dynamism, and their effect on connections, caching, logging,
+  and performance.
+---
+
 # Server System Variables
 
-### About the Server System Variables
+## Overview
 
 MariaDB has many system variables that can be changed to suit your needs.
 
@@ -11,7 +18,7 @@ Many of the general system variables are described on this page, but others are 
 * [Aria System Variables](../../../server-usage/storage-engines/aria/aria-system-variables.md)
 * [CONNECT System Variables](../../../server-usage/storage-engines/connect/connect-system-variables.md)
 * [Galera System Variables](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables)
-* [Global Transaction ID System Variables](../../standard-replication/gtid.md#system-variables-for-global-transaction-id)
+* [Global Transaction ID System Variables](../../standard-replication/gtid/gtid-system-variables.md)
 * [HandlerSocket Plugin System Variables](../../../reference/sql-structure/nosql/handlersocket/handlersocket-configuration-options.md)
 * [InnoDB System Variables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md)
 * [Mroonga System Variables](../../../server-usage/storage-engines/mroonga/mroonga-system-variables.md)
@@ -23,9 +30,8 @@ Many of the general system variables are described on this page, but others are 
 * [Server\_Audit System Variables](../../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md)
 * [Spider System Variables](../../../server-usage/storage-engines/spider/spider-system-variables.md)
 * [SQL\_ERROR\_LOG Plugin System Variables](sql-error-log-system-variables-and-options.md)
-* [SSL System Variables](../../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [SSL System Variables](../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [Threadpool System Variables](../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
-* [TokuDB System Variables](../../../server-usage/storage-engines/tokudb/tokudb-system-variables.md)
 * [Vector System Variables](../../../reference/sql-structure/vectors/vector-system-variables.md)
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
@@ -50,7 +56,7 @@ mariadbd --verbose --help
 
 * View the Information Schema [GLOBAL\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), [SESSION\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), and [SYSTEM\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md) tables.
 
-### Setting Server System Variables
+## Setting Server System Variables
 
 There are several ways to set server system variables:
 
@@ -76,32 +82,32 @@ By convention, server variables have usually been specified with an underscore i
 
 Variables that take a numeric size can either be specified in full, or with a suffix for easier readability. Valid suffixes are:
 
-| Suffix | Description | Value                                                                                                                                                                    |
-| ------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| K      | kilobytes   | 1024                                                                                                                                                                     |
-| M      | megabytes   | 10242                                                                                                                                                                    |
-| G      | gigabytes   | 10243                                                                                                                                                                    |
-| T      | terabytes   | 10244 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)) |
-| P      | petabytes   | 10245 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)) |
-| E      | exabytes    | 10246 (from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)) |
+| Suffix | Description | Value                                                                                                                   |
+| ------ | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
+| K      | kilobytes   | 1024                                                                                                                    |
+| M      | megabytes   | 1024<sup>2</sup>                                                                                                        |
+| G      | gigabytes   | 1024<sup>3</sup>                                                                                                        |
+| T      | terabytes   | 1024<sup>4</sup> |
+| P      | petabytes   | 1024<sup>5</sup> |
+| E      | exabytes    | 1024<sup>6</sup> |
 
 The suffix can be upper or lower-case.
 
-### List of Server System Variables
+## List of Server System Variables
 
 #### `allow_suspicious_udfs`
 
-* Description: Allows use of [user-defined functions](../../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-allow-suspicious-udfs).
+* Description: Allows use of [user-defined functions](../../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#allow-suspicious-udfs).
 * Command line: `--allow-suspicious-udfs`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `alter_algorithm`
 
-* Description: The implied `ALGORITHM` for [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) if no `ALGORITHM` clause is specified. The deprecated variable [old\_alter\_table](server-system-variables.md#old_alter_table) is an alias for this. The feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115). See [ALGORITHM=DEFAULT](../../../reference/sql-statements/data-definition/alter/alter-table/#algorithmdefault).
+* Description: The implied `ALGORITHM` for [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) if no `ALGORITHM` clause is specified. The deprecated variable [old\_alter\_table](server-system-variables.md#old_alter_table) is an alias for this. The feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115). See [ALGORITHM=DEFAULT](../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm-default).
   * `COPY` corresponds to the pre-MySQL 5.1 approach of creating an intermediate table, copying data one row at a time, and renaming and dropping tables.
   * `INPLACE` requests that the operation be refused if it cannot be done natively inside a the storage engine.
   * `DEFAULT` (the default) chooses `INPLACE` if available, and falls back to `COPY`.
@@ -113,8 +119,8 @@ The suffix can be upper or lower-case.
 * Data Type: `enumerated`
 * Default Value: `DEFAULT`
 * Valid Values: `DEFAULT`, `COPY`, `INPLACE`, `NOCOPY`, `INSTANT`
-* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes)
-* Deprecated: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7)
+* Deprecated: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 #### `analyze_max_length`
 
@@ -125,7 +131,7 @@ The suffix can be upper or lower-case.
 * Data Type: `INT UNSIGNED`
 * Default Value: `4294967295 (4G)`
 * Range: `32` to `4294967295`
-* Introduced: [MariaDB 10.6.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10.6.23-release-notes), [MariaDB 10.11.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.14-release-notes), [MariaDB 11.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11.4.8-release-notes), [MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11.8.3-release-notes), [MariaDB 12.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0.2-release-notes), [MariaDB 12.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/mariadb-12.1.1-release-notes), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8)
+* Introduced: [MariaDB 10.6.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.23), [MariaDB 10.11.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.14), [MariaDB 11.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.8), [MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.3), [MariaDB 12.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/12.0.2), [MariaDB 12.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/12.1.1), [MariaDB Enterprise Server 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new), [MariaDB Enterprise Server 11.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/whats-new), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new)
 
 #### `analyze_sample_percentage`
 
@@ -136,11 +142,11 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value: `100.000000`
 * Range: `0` to `100`
-* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes)
+* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)
 
 #### `autocommit`
 
-* Description: If set to 1, the default, all queries are committed immediately. The [LOCK IN SHARE MODE](../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md) and [FOR UPDATE](../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md) clauses therefore have no effect. If set to 0, they are only committed upon a [COMMIT](../../../reference/sql-statements/transactions/commit.md) statement, or rolled back with a [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md) statement. If autocommit is set to 0, and then changed to 1, all open transactions are immediately committed.
+* Description: If set to 1, the default, all queries are committed immediately. The [LOCK IN SHARE MODE](../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md) and [FOR UPDATE](../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md) clauses therefore have no effect. If set to 0, they are only committed upon a [COMMIT](../../../reference/sql-statements/transactions/commit.md) statement or rolled back with a [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md) statement. If autocommit is set to 0, and then changed to 1, all open transactions are immediately committed.
 * Command line: `--autocommit[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -176,30 +182,29 @@ The suffix can be upper or lower-case.
 
 #### `big_tables`
 
-* Description: If this system variable is set to 1, then temporary tables will be saved to disk intead of memory.
+* Description: If this system variable is set to 1, then temporary tables will be saved to disk instead of memory.
   * This system variable's original intention was to allow result sets that were too big for memory-based temporary tables and to avoid the resulting 'table full' errors.
   * This system variable is no longer needed, because the server can automatically convert large memory-based temporary tables into disk-based temporary tables when they exceed the value of the [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) system variable.
   * To prevent memory-based temporary tables from being used at all, set the [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) system variable to `0`.
-  * In [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and earlier, [sql\_big\_tables](server-system-variables.md#sql_big_tables) is a synonym.
-  * From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), this system variable is deprecated.
+  * This system variable is deprecated.
 * Command line: `--big-tables`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `0`
-* Deprecated: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
-* Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120)
+* Deprecated: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
 
 #### `bind_address`
 
-* Description: By default, the MariaDB server listens for TCP/IP connections on all addresses. You can specify an alternative when the server starts using this option; either a host name, an IPv4 or an IPv6 address, "::" or "_" (all addresses). In some systems, such as Debian and Ubuntu, the bind\_address is set to 127.0.0.1, which binds the server to listen on localhost only. `bind_address` has always been available as a_ [_mariadbd option_](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md)_; from_ [_MariaDB 10.3.3_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) _its also available as a system variable. Before_ [_MariaDB 10.6.0_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes) _"::" implied listening additionally on IPv4 addresses like "_". From 10.6.0 onwards it refers to IPv6 stictly. Starting with [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), a comma-separated list of addresses to bind to can be given. See also [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md).
+* Description: By default, the MariaDB server listens for TCP/IP connections on all addresses. You can specify an alternative when the server starts using this option; either a host name, an IPv4 or an IPv6 address, "::" or "_" (all addresses). In some systems, such as Debian and Ubuntu, the bind\_address is set to 127.0.0.1, which binds the server to listen on localhost only. `bind_address` is available as a [mariadbd option](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) and as a system variable. The address "::" refers to IPv6 strictly. Starting with [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), a comma-separated list of addresses to bind to can be given. See also [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md).
 * Command line: `--bind-address=addr`
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
 * Default Value: (Empty string)
 * Valid Values: Host name, IPv4, IPv6, ::, \*
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) (as a system variable)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3) (as a system variable)
 
 #### `block_encryption_mode`
 
@@ -210,7 +215,7 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value: `aes-128-ecb`
 * Valid values: `aes-128-ecb`, `aes-192-ecb`, `aes-256-ecb`, `aes-128-cbc`, `aes-192-cbc`, `aes-256-cbc`, `aes-128-ctr`, `aes-192-ctr`, `aes-256-ctr`
-* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes)
+* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
 
 #### `bulk_insert_buffer_size`
 
@@ -225,13 +230,13 @@ The suffix can be upper or lower-case.
 
 #### `character_set_client`
 
-* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set, or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: Determines the [character set](../../../reference/data-types/string-data-types/character-sets/) for queries arriving from the client. It can be set per session by the client, although the server can be configured to ignore client requests with the `--skip-character-set-client-handshake` option. If the client does not request a character set or requests a character set that the server does not support, the global value will be used. utf16, utf16le, utf32 and ucs2 cannot be used as client character sets. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value:&#x20;
-  * \>= [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/what-is-mariadb-116): `utf8mb4`
-  * <= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115): `latin1`&#x20;
+* Default Value:
+  * \>= [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116): `utf8mb4`
+  * <= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115): `latin1`
 
 #### `character_set_collations`
 
@@ -251,32 +256,31 @@ The suffix can be upper or lower-case.
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value:
-  * `utf8mb3=utf8mb3_uca1400_ai_ci, ucs2=ucs2_uca1400_ai_ci, utf8mb4=utf8mb4_uca1400_ai_ci, utf16=utf16_uca1400_ai_ci, utf32=utf32_uca1400_ai_ci` (>= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115))
-  * Empty (<= [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114))
-* Introduced: [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112)
+  * `utf8mb3=utf8mb3_uca1400_ai_ci, ucs2=ucs2_uca1400_ai_ci, utf8mb4=utf8mb4_uca1400_ai_ci, utf16=utf16_uca1400_ai_ci, utf32=utf32_uca1400_ai_ci` (>= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115))
+  * Empty (<= [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114))
+* Introduced: [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112)
 
 #### `character_set_connection`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for number to string conversion, as well as for literals that don't have a character set introducer. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value:&#x20;
-  * \>=[ MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/what-is-mariadb-116): `utf8mb4`
-  * \>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106): `utf8mb3`
-  * <= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105): `utf8`
+* Default Value:
+  * \>=[ MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116): `utf8mb4`
+  * \>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106): `utf8mb3`
 
 #### `character_set_database`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the default database, and set by the server whenever the default database is changed. If there's no default database, character\_set\_database contains the same value as [character\_set\_server](server-system-variables.md#character_set_server). This variable is dynamic, but should not be set manually, only by the server.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the default database and set by the server whenever the default database is changed. If there's no default database, character\_set\_database contains the same value as [character\_set\_server](server-system-variables.md#character_set_server). This variable is dynamic, but should not be set manually, only by the server.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `utf8mb4` (>= [MariaDB 11.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-0-release-notes)), `latin1` (<= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115))
+* Default Value: `utf8mb4` (>= [MariaDB 11.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.0)), `latin1` (<= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115))
 
 #### `character_set_filesystem`
 
-* Description: The [character set](../../../reference/data-types/string-data-types/character-sets/) for the filesystem. Used for converting file names specified as a string literal from [character\_set\_client](server-system-variables.md#character_set_client) to character\_set\_filesystem before opening the file. By default set to `binary`, so no conversion takes place. This could be useful for statements such as [LOAD\_FILE()](../../../reference/sql-functions/string-functions/load_file.md) or [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) on system where multi-byte file names are use.
+* Description: The [character set](../../../reference/data-types/string-data-types/character-sets/) for the filesystem. Used for converting file names specified as a string literal from [character\_set\_client](server-system-variables.md#character_set_client) to character\_set\_filesystem before opening the file. By default, set to `binary`, so no conversion takes place. This could be useful for statements such as [LOAD\_FILE()](../../../reference/sql-functions/string-functions/load_file.md) or [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) on system where multi-byte file names are use.
 * Command line: `--character-set-filesystem=name`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -285,11 +289,11 @@ The suffix can be upper or lower-case.
 
 #### `character_set_results`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used for results and error messages returned to the client. From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `utf8mb3` (>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)), `utf8` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
+* Default Value: `utf8mb3`
 
 #### `character_set_server`
 
@@ -298,15 +302,15 @@ The suffix can be upper or lower-case.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `utf8mb4` (>= [MariaDB 11.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-0-release-notes)), `latin1` (<= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115))
+* Default Value: `utf8mb4` (>= [MariaDB 11.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.0)), `latin1` (<= [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115))
 
 #### `character_set_system`
 
-* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) is by default an alias for `utf8mb3` rather than the other way around. It can be set to imply `utf8mb4` by changing the value of the [old\_mode](server-system-variables.md#old_mode) system variable.
+* Description: [Character set](../../../reference/data-types/string-data-types/character-sets/) used by the server to store identifiers, always set to utf8, or its synonym utf8mb3 starting with [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the `utf8` [character set](../../../reference/data-types/string-data-types/character-sets/) (and related collations) was by default an alias for `utf8mb3` rather than the other way around. From MariaDB 13.1, `utf8` is by default an alias for `utf8mb4`; the previous `utf8mb3` default can be restored with the deprecated `UTF8_IS_UTF8MB3` flag of the [old\_mode](server-system-variables.md#old_mode) system variable.
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
-* Default Value: `utf8mb3` (>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)), `utf8` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
+* Default Value: `utf8mb3`
 
 #### `character_sets_dir`
 
@@ -359,7 +363,7 @@ The suffix can be upper or lower-case.
 
 #### `concurrent_insert`
 
-* Description: If set to `AUTO` or `1`, the default, MariaDB allows [concurrent INSERTs](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) and SELECTs for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables with no free blocks in the data (deleted rows in the middle). If set to `NEVER` or `0`, concurrent inserts are disabled. If set to `ALWAYS` or `2`, concurrent inserts are permitted for all MyISAM tables, even those with holes, in which case new rows are added at the end of a table if the table is being used by another thread. If the [--skip-new](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-skip-new) option is used when starting the server, concurrent\_insert is set to `NEVER`. Changing the variable only affects new opened tables. Use [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) If you want it to also affect cached tables. See [Concurrent Inserts](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) for more.
+* Description: If set to `AUTO` or `1`, the default, MariaDB allows [concurrent INSERTs](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) and SELECTs for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables with no free blocks in the data (deleted rows in the middle). If set to `NEVER` or `0`, concurrent inserts are disabled. If set to `ALWAYS` or `2`, concurrent inserts are permitted for all MyISAM tables, even those with holes, in which case new rows are added at the end of a table if the table is being used by another thread. If the [--skip-new](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#skip-new) option is used when starting the server, concurrent\_insert is set to `NEVER`. Changing the variable only affects new opened tables. Use [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) If you want it to also affect cached tables. See [Concurrent Inserts](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) for more.
 * Command line: `--concurrent-insert[=value]`
 * Scope: Global
 * Dynamic: Yes
@@ -380,16 +384,15 @@ The suffix can be upper or lower-case.
 #### `core_file`
 
 * Description: Write a core-file on crashes. The file name and location are system dependent. On Linux it is usually called `core.${PID}`, and it is usually written to the data directory. However, this can be changed.
-  * See [Enabling Core Dumps](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/enabling-core-dumps) for more information.
-  * Previously this system variable existed only as an [option](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), but it was also made into a read-only system variable starting with [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10217-release-notes) and [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10135-release-notes).
-  * On Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes), this option is set by default.
-  * Note that the option accepts no arguments; specifying `--core-file` sets the value to `ON`. It cannot be disabled in the case of Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes).
+  * See [Enabling Core Dumps](../../../reference/product-development/debugging-mariadb/enabling-core-dumps.md) for more information.
+  * On Windows, this option is set by default.
+  * Note that the option accepts no arguments; specifying `--core-file` sets the value to `ON`. On Windows, it cannot be disabled.
 * Command line: `--core-file`
 * Scope: Global
 * Dynamic: No
 * Type: boolean
 * Default Value:
-  * Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes): `ON`
+  * Windows: `ON`
   * All other systems: `OFF`
 
 #### `datadir`
@@ -403,12 +406,12 @@ The suffix can be upper or lower-case.
 #### `date_format`
 
 * Description: Unused.
-* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `datetime_format`
 
 * Description: Unused.
-* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `debug/debug_dbug`
 
@@ -418,7 +421,7 @@ The suffix can be upper or lower-case.
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value:
-  * > \= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105): `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
+  * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
 #### `debug_no_thread_alarm`
@@ -429,7 +432,7 @@ The suffix can be upper or lower-case.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Removed: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+* Removed: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 #### `debug_sync`
 
@@ -441,7 +444,7 @@ The suffix can be upper or lower-case.
 
 #### `default_password_lifetime`
 
-* Description: This defines the global [password expiration policy](../../../security/user-account-management/user-password-expiry.md). 0 means automatic password expiration is disabled. If the value is a positive integer N, the passwords must be changed every N days. This behavior can be overridden using the password expiration options in [ALTER USER](../../../reference/sql-statements/account-management-sql-statements/alter-user.md).
+* Description: This defines the global [password expiration policy](../../../security/user-account-management/user-password-expiry.md). 0 means automatic password expiration is disabled. If the value is a positive integer N, the passwords must be changed every N day. This behavior can be overridden using the password expiration options in [ALTER USER](../../../reference/sql-statements/account-management-sql-statements/alter-user.md).
 * Command line: `--default-password-lifetime=#`
 * Scope: Global
 * Dynamic: Yes
@@ -464,24 +467,16 @@ The suffix can be upper or lower-case.
 
 #### `default_storage_engine`
 
-* Description: The default [storage engine](../../../server-usage/storage-engines/). The default storage engine must be enabled at server startup or the server won't start.
+* Description: The default [storage engine](../../../server-usage/storage-engines/). The default storage engine must be enabled at server startup, or the server won't start.
 * Command line: `--default-storage-engine=name`
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: enumeration
 * Default Value: `InnoDB`
 
-#### `default_table_type`
-
-* Description: A synonym for [default\_storage\_engine](server-system-variables.md#default_storage_engine). Removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5).
-* Command line: `--default-table-type=name`
-* Scope: Global, Session
-* Dynamic: Yes
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-
 #### `default_tmp_storage_engine`
 
-* Description: Default storage engine that will be used for tables created with [CREATE TEMPORARY TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) where no engine is specified. For internal temporary tables see [aria\_used\_for\_temp\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables)). The storage engine used must be active or the server will not start. See [default\_storage\_engine](server-system-variables.md#default_storage_engine) for the default for non-temporary tables. Defaults to NULL, in which case the value from [default\_storage\_engine](server-system-variables.md#default_storage_engine) is used. [ROCKSDB](../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created. Before [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), attempting to do so would silently fail, and a MyISAM table would instead be created. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), an error is returned.
+* Description: Default storage engine that will be used for tables created with [CREATE TEMPORARY TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) where no engine is specified. For internal temporary tables see [aria\_used\_for\_temp\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables)). The storage engine used must be active or the server will not start. See [default\_storage\_engine](server-system-variables.md#default_storage_engine) for the default for non-temporary tables. Defaults to NULL, in which case the value from [default\_storage\_engine](server-system-variables.md#default_storage_engine) is used. [ROCKSDB](../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created. Before [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), attempting to do so would silently fail, and a MyISAM table would instead be created. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), an error is returned.
 * Command line: `--default-tmp-storage-engine=name`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -548,40 +543,7 @@ The suffix can be upper or lower-case.
 
 #### `div_precision_increment`
 
-* Description: The precision of the result of the decimal division will be the larger than the precision of the dividend by that number. By default it's `4`, so `SELECT 2/15` would return 0.1333 and `SELECT 2.0/15` would return 0.13333. After setting div\_precision\_increment to `6`, for example, the same operation would return 0.133333 and 0.1333333 respectively.
-
-From [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes) and [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes), `div_precision_increment` is taken into account in intermediate calculations. Previous versions did not, and the results were dependent on the optimizer, and therefore unpredictable.
-
-In [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes) only, the fix truncated decimal values after every division, resulting in lower precision in some cases for those versions only.
-
-From [MariaDB 10.1.48](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10326-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes) and [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), a different fix was implemented. Instead of truncating decimal values after every division, they are instead truncated for comparison purposes only.
-
-For example
-
-Versions other than [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes):
-
-```
-SELECT (55/23244*1000);
-+-----------------+
-| (55/23244*1000) |
-+-----------------+
-| 2.3662          |
-+-----------------+
-```
-
-[MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes) only:
-
-```
-SELECT (55/23244*1000);
-+-----------------+
-| (55/23244*1000) |
-+-----------------+
-| 2.4000          |
-+-----------------+
-```
-
-This is because the intermediate result, `SELECT 55/23244` takes into account `div_precision_increment` and results were truncated after every division in those versions only.
-
+* Description: The precision of the result of the decimal division will be the larger than the precision of the dividend by that number. By default it's `4`, so `SELECT 2/15` would return 0.1333 and `SELECT 2.0/15` would return 0.13333. After setting div\_precision\_increment to `6`, for example, the same operation would return 0.133333 and 0.1333333 respectively. `div_precision_increment` is taken into account in intermediate calculations. Instead of truncating decimal values after every division, they are instead truncated for comparison purposes only.
 * Command line: `--div-precision-increment=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -591,7 +553,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `encrypt_tmp_disk_tables`
 
-* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/securing-mariadb/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
+* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/README.md) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
 * Command line: `--encrypt-tmp-disk-tables[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
@@ -600,44 +562,21 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `encrypt_tmp_files`
 
-* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/README.md).
 * Command line: `--encrypt-tmp-files[={0|1}]`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `encryption_algorithm`
-
-* Description: Which encryption algorithm to use for table encryption. `aes_cbc` is the recommended one. See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
-* Command line: `--encryption-algorithm=value`
-* Scope: Global
-* Dynamic: No
-* Data Type: `enum`
-* Default Value: `none`
-* Valid Values: `none`, `aes_ecb`, `aes_cbc`, `aes_ctr`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-3-release-notes)
-* Removed: [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-4-release-notes)
-
 #### `enforce_storage_engine`
 
-* Description: Force the use of a particular storage engine for new tables. Used to avoid unwanted creation of tables using another engine. For example, setting to [InnoDB](../../../server-usage/storage-engines/innodb/) will prevent any [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables from being created. If another engine is specified in a [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement, the outcome depends on whether the `NO_ENGINE_SUBSTITUTION` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) has been set or not. If set, the query will fail, while if not set, a warning will be returned and the table created according to the engine specified by this variable. The variable has a session scope, but is only modifiable by a user with the SUPER privilege.
+* Description: Force the use of a particular storage engine for new tables. Used to avoid unwanted creation of tables using another engine. For example, setting to [InnoDB](../../../server-usage/storage-engines/innodb/) will prevent any [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables from being created. If another engine is specified in a [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement, the outcome depends on whether the `NO_ENGINE_SUBSTITUTION` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) has been set or not. If set, the query will fail, while if not set, a warning will be returned and the table created according to the engine specified by this variable. The variable has a session scope but is only modifiable by a user with the SUPER privilege.
 * Command line: None
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `none`
-
-#### `engine_condition_pushdown`
-
-* Description: Deprecated in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and removed and replaced by the [optimizer\_switch](server-system-variables.md#optimizer_switch) `engine_condition_pushdown={on|off}` flag in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0).. Specifies whether the engine condition pushdown optimization is enabled. Since [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes), engine condition pushdown is enabled for all engines that support it.
-* Command line: `--engine-condition-pushdown`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
 
 #### `eq_range_index_dive_limit`
 
@@ -678,20 +617,20 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `explicit_defaults_for_timestamp`
 
-* Description: This option causes [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) to create all [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md) columns as [NULL](../../../reference/data-types/null-values.md) with the DEFAULT NULL attribute, Without this option, TIMESTAMP columns are NOT NULL and have implicit DEFAULT clauses.
+* Description: This option causes [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) to create all [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md) columns as [NULL](../../../reference/data-types/null-values.md) with the DEFAULT NULL attribute, without this option, TIMESTAMP columns are NOT NULL and have implicit DEFAULT clauses.
 * Command line: `--explicit-defaults-for-timestamp=[={0|1}]`
 * Scope:
-  * Global, Session (>= [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1084-release-notes), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1075-release-notes), [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1069-release-notes), [MariaDB 10.5.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10517-release-notes))
-  * Global (<= [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes), [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1068-release-notes), [MariaDB 10.5.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10516-release-notes))
+  * Global, Session (>= [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5), [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.9))
+  * Global (<= [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3), [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8))
 * Dynamic:
-  * Yes (>= [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1084-release-notes), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1075-release-notes), [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1069-release-notes), [MariaDB 10.5.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10517-release-notes))
-  * No (<= [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes), [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1068-release-notes), [MariaDB 10.5.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10516-release-notes))
+  * Yes (>= [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5), [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.9))
+  * No (<= [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3), [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8))
 * Data Type: `boolean`
-* Default Value:`ON` (>= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)), `OFF` (<= [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109))
+* Default Value:`ON` (>= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)), `OFF` (<= [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109))
 
 #### `external_user`
 
-* Description: External user name set by the plugin used to authenticate the client. `NULL` if native MariaDB authentication is used. For example, from [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/what-is-mariadb-116), the [Unix socket authentication plugin](../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) permits an authentication string, so that the OS and MariaDB user will be different. `external_user` then contains the external OS user. See [Authentication Plugin - Unix Socket: Creating Users](../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md#creating-users)
+* Description: External user name set by the plugin used to authenticate the client. `NULL` if native MariaDB authentication is used. For example, from [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116), the [Unix socket authentication plugin](../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) permits an authentication string, so that the OS and MariaDB user will be different. `external_user` then contains the external OS user. See [Authentication Plugin - Unix Socket: Creating Users](../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md#creating-users)
 * Scope: Session
 * Dynamic: No
 * Data Type: `string`
@@ -717,7 +656,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `foreign_key_checks`
 
-* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0.
+* Description: If set to 1 (the default) [foreign key constraints](../optimization-and-indexes/foreign-keys.md) (including ON UPDATE and ON DELETE behavior) [InnoDB](../../../server-usage/storage-engines/innodb/) tables are checked, while if set to 0, they are not checked. `0` is not recommended for normal use, though it can be useful in situations where you know the data is consistent, but want to reload data in a different order from that specified by parent/child relationships. Setting this variable to 1 does not retrospectively check for inconsistencies introduced while set to 0. Setting it to 0 suspends the checks on data only; it does not permit schema changes that would leave a constraint invalid, so a column used in a foreign key still cannot be dropped, renamed, or changed in type, character set, or collation. See [Changing the Character Set or Collation of a Foreign Key Column](../optimization-and-indexes/foreign-keys.md#changing-the-character-set-or-collation-of-a-foreign-key-column).
 * Command line: None
 * Scope: Global, Session
 * Dynamic: Yes
@@ -755,7 +694,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `ft_query_expansion_limit`
 
-* Description: For [full-text searches](../optimization-and-indexes/full-text-indexes/), denotes the numer of top matches when using WITH QUERY EXPANSION.
+* Description: For [full-text searches](../optimization-and-indexes/full-text-indexes/), denotes the number of top matches when using `WITH QUERY EXPANSION`.
 * Command line: `--ft-query-expansion-limit=#`
 * Scope: Global
 * Dynamic: No
@@ -783,7 +722,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `general_log_file`
 
-* Description: Name of the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) file. If this is not specified, the name is taken from the [log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) setting or from your system hostname with `.log` as a suffix. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `general_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) file. If this is not specified, the name is taken from the [log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) setting or from your system hostname with `.log` as a suffix. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `general_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--general-log-file=file_name`
 * Scope: Global
 * Dynamic: Yes
@@ -799,7 +738,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Data Type: `numeric`
 * Default Value:
   * `1048576` (1M)
-* Range: `4` to `4294967295`
+* Range: `4` to `1073741824`
 
 .
 
@@ -815,13 +754,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Scope: Global
 * Dynamic: No
 
-#### `have_csv`
-
-* Description: If the server supports [CSV tables](../../../server-usage/storage-engines/csv/), will be set to `YES`, otherwise will be set to `NO`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), use the [Information Schema PLUGINS](../../../reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md) table or [SHOW ENGINES](../../../reference/sql-statements/administrative-sql-statements/show/show-engines.md) instead.
-* Scope: Global
-* Dynamic: No
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
 #### `have_dynamic_loading`
 
 * Description: If the server supports dynamic loading of [plugins](../../../reference/plugins/), will be set to `YES`, otherwise will be set to `NO`.
@@ -833,20 +765,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Description: If the server supports spatial data types, will be set to `YES`, otherwise will be set to `NO`.
 * Scope: Global
 * Dynamic: No
-
-#### `have_ndbcluster`
-
-* Description: If the server supports NDBCluster.
-* Scope: Global
-* Dynamic: No
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
-#### `have_partitioning`
-
-* Description: If the server supports partitioning, will be set to `YES`, unless the `--skip-partition` option is used, in which case will be set to `DISABLED`. Will be set to `NO` otherwise. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) - [SHOW PLUGINS](../../../reference/sql-statements/administrative-sql-statements/show/show-plugins.md) should be used instead.
-* Scope: Global
-* Dynamic: No
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
 
 #### `have_profiling`
 
@@ -871,14 +789,14 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Description: This system variable can be used to determine whether the server supports symbolic links (note that it has no meaning on Windows).
   * If symbolic links are supported, then the value will be `YES`.
   * If symbolic links are not supported, then the value will be `NO`.
-  * If symbolic links are disabled with the [--symbolic-links](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-symbolic-links) option and the `skip` [option prefix](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#option-prefixes) (i.e. --skip-symbolic-links), then the value will be `DISABLED`.
-  * Symbolic link support is required for the [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) and [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) table options.
+  * If symbolic links are disabled with the [--symbolic-links](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#symbolic-links) option and the `skip` [option prefix](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#option-prefixes) (i.e. --skip-symbolic-links), then the value will be `DISABLED`.
+  * Symbolic link support is required for the [INDEX DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) and [DATA DIRECTORY](../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) table options.
 * Scope: Global
 * Dynamic: No
 
 #### `histogram_size`
 
-* Description: Number of bytes used for a [histogram](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md), or, from [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107) when [histogram\_type](server-system-variables.md#histogram_type) is set to `JSON_HB`, number of buckets. If set to 0, no histograms are created by [ANALYZE](../../../reference/sql-statements/table-statements/analyze-table.md).
+* Description: Number of bytes used for a [histogram](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md), or, from [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107) when [histogram\_type](server-system-variables.md#histogram_type) is set to `JSON_HB`, number of buckets. If set to 0, no histograms are created by [ANALYZE](../../../reference/sql-statements/table-statements/analyze-table.md).
 * Command line: `--histogram-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -891,17 +809,17 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Description: Specifies the type of [histograms](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md) created by [ANALYZE](../../../reference/sql-statements/table-statements/analyze-table.md)..
   * `SINGLE_PREC_HB` - single precision height-balanced.
   * `DOUBLE_PREC_HB` - double precision height-balanced.
-  * `JSON_HB` - JSON height-balanced histograms (from [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108))
+  * `JSON_HB` - JSON height-balanced histograms (from [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108))
 * Command line: `--histogram-type=value`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value:
-  * `JSON_HB` (>= [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110))
-  * `DOUBLE_PREC_HB` (<= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes))
+  * `JSON_HB` (>= [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110))
+  * `DOUBLE_PREC_HB` (<= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011))
 * Valid Values:
-  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106))
-  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB`, `JSON_HB` (>= [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108))
+  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106))
+  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB`, `JSON_HB` (>= [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108))
 
 #### `host_cache_size`
 
@@ -944,7 +862,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `idle_write_transaction_timeout`
 
-* Description: Time in seconds that the server waits for idle read-write transactions before killing the connection. If set to `0`, the default, connections are never killed. See also [idle\_transaction\_timeout](server-system-variables.md#idle_transaction_timeout), [idle\_readonly\_transaction\_timeout](server-system-variables.md#idle_readonly_transaction_timeout) and [Transaction Timeouts](../../../reference/sql-statements/transactions/transaction-timeouts.md). Called `idle_readwrite_transaction_timeout` until [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes).
+* Description: Time in seconds that the server waits for idle read-write transactions before killing the connection. If set to `0`, the default, connections are never killed. See also [idle\_transaction\_timeout](server-system-variables.md#idle_transaction_timeout), [idle\_readonly\_transaction\_timeout](server-system-variables.md#idle_readonly_transaction_timeout) and [Transaction Timeouts](../../../reference/sql-statements/transactions/transaction-timeouts.md).
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -953,7 +871,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `ignore_db_dirs`
 
-* Description: Tells the server that this directory can never be a database. That means two things - firstly it is ignored by the [SHOW DATABASES](../../../reference/sql-statements/administrative-sql-statements/show/show-databases.md) command and [INFORMATION\_SCHEMA](../../../reference/system-tables/information-schema/) tables. And secondly, USE, CREATE DATABASE and SELECT statements will return an error if the database from the ignored list specified. Use this option several times if you need to ignore more than one directory. To make the list empty set the void value to the option as --ignore-db-dir=. If the option or configuration is specified multiple times, viewing this value will list the ignore directories separated by commas.
+* Description: Tells the server that this directory can never be a database. That means two things - firstly it is ignored by the [SHOW DATABASES](../../../reference/sql-statements/administrative-sql-statements/show/show-databases.md) command and [INFORMATION\_SCHEMA](../../../reference/system-tables/information-schema/) tables. And secondly, USE, CREATE DATABASE and SELECT statements will return an error if the database from the ignored list specified. Use this option for several times if you need to ignore more than one directory. To make the list empty set the void value to the option as --ignore-db-dir=. If the option or configuration is specified multiple times, viewing this value will list the ignore directories separated by commas.
 * Command line: `--ignore-db-dirs=dir`.
 * Scope: Global
 * Dynamic: No
@@ -980,7 +898,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `init_connect`
 
-* Description: String containing one or more SQL statements, separated by semicolons, that will be executed by the server for each client connecting. If there's a syntax error in the one of the statements, the client will fail to connect. For this reason, the statements are not executed for users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, who can then still connect and correct the error. See also [init\_file](server-system-variables.md#init_file).
+* Description: String containing one or more SQL statements, separated by semicolons, that will be executed by the server for each client connecting. If there's a syntax error in the one of the statements, the client will fail to connect. For this reason, the statements are not executed for users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, who can then still connect and correct the error. See also [init\_file](server-system-variables.md#init_file).
 * Command line: `--init-connect=name`
 * Scope: Global
 * Dynamic: Yes
@@ -1025,7 +943,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `join_buffer_space_limit`
 
-* Description: Maximum size in bytes of the query buffer, By default 102&#x34;_&#x31;2&#x38;_&#x31;0.
+* Description: Maximum size in bytes of the query buffer, By default 1024\_128\_10.
 * Command line: `--join-buffer-space-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1053,33 +971,45 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `keep_files_on_create`
 
-* Description: If a [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) table is created with no DATA DIRECTORY option, the .MYD file is stored in the database directory. When set to `0`, the default, if MariaDB finds another .MYD file in the database directory it will overwrite it. Setting this variable to `1` means that MariaDB will return an error instead, just as it usually does in the same situation outside of the database directory. The same applies for .MYI files and no INDEX DIRECTORY option. Deprecated in [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes).
+* Description: If a [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) table is created with no DATA DIRECTORY option, the .MYD file is stored in the database directory. When set to `0`, the default, if MariaDB finds another .MYD file in the database directory it will overwrite it. Setting this variable to `1` means that MariaDB will return an error instead, just as it usually does in the same situation outside of the database directory. The same applies for .MYI files and no INDEX DIRECTORY option. This variable was deprecated in [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0), but that deprecation was reverted in MariaDB 13.0 and the variable is no longer deprecated.
 * Command line: `--keep-files-on-create=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Deprecated: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
 
 #### `large_files_support`
 
-* Description: ON if the server if was compiled with large file support or not, else OFF
+* Description: `ON` if the server if was compiled with large file support, else `OFF` .
 * Scope: Global
 * Dynamic: No
 
 #### `large_page_size`
 
-* Description: Indicates the size of memory page if large page support (Linux only) is enabled. The page size is determined from the Hugepagesize setting in `/proc/meminfo`. See [large\_pages](server-system-variables.md#large_pages). Deprecated and unused in [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes) since multiple page size support was added.
+* Description: Indicates the size of memory page if large page support (Linux only) is enabled. The page size is determined from the Hugepagesize setting in `/proc/meminfo`. See [large\_pages](server-system-variables.md#large_pages). Deprecated and unused (since multiple page size support was added).
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: Autosized (see description)
-* Deprecated: [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes)
-* Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120)
+* Default Value: `0` (zero)
+* Deprecated: [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.3)
+* Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
 
 #### `large_pages`
 
-* Description: Indicates whether large page support (prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), Linux only, by now supported Windows and BSD distros, also called huge pages) is used. This is set with `--large-pages` or disabled with `--skip-large-pages`. Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)). To use large pages, the Linux `sysctl` variable `kernel.shmmax` must be large than the llocation. Also the `sysctl` variable `vm.nr_hugepages` multipled by [large-page](server-system-variables.md#large_page_size)) must be larger than the usage. The ulimit for locked memory must be sufficient to cover the amount used (`ulimit -l` and equalivent in /etc/security/limits.conf / or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages will fall back to conventional memory allocation and a warning will appear in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`).
+* Description: Whether or not large page support is used.
+  * This is set with `--large-pages` or disabled with `--skip-large-pages`.
+  * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
+  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. The implementation supports multiple page sizes (see `Hugepagesize` in `/proc/meminfo` for the default) using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
+    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
+    * To find possible huge page size values, issue this command:\
+      `ls -la /sys/devices/system/node/node0/hugepages/`
+    * To determine how many huge pages are free, issue this command:\
+      `more /sys/devices/system/node/node*/hugepages/hugepages-*kB/free_hugepages`
+  * **Windows**: The implementation uses the Windows `GetLargePageMinimum()` syscall to determine the supported page sizes.
+    * This works only if the user that runs `mariadbd` has the `SeLockMemoryPrivilege` privilege.
+  * **Solaris, FreeBSD, NetBSD**: The implementation uses the `getpagesizes()` syscall to determine the supported page sizes.
+    * On Solaris, find possible huge page sizes by calling [getpagessizes syscall](https://docs.oracle.com/cd/E23824_01/html/821-1465/getpagesizes-3c.html).
+  * **macOS, OpenBSD**: The implementation uses the `getpagesize()` syscall to determine the system's current page size.
 * Command line: `--large-pages`, `--skip-large-pages`
 * Scope: Global
 * Dynamic: No
@@ -1088,7 +1018,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `last_insert_id`
 
-* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doen't update the value returned by the underlying function.
+* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doesn't update the value returned by the underlying function.
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -1109,7 +1039,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 #### `lc_messages_dir`
 
 * Description: This system variable can be specified either as the path to the directory storing the server's [error message files](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file) or as the path to the directory storing the specific language's [error message file](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file). See [Server Locales](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) for a list of available locales and their related languages.
-  * The server initially tries to interpret the value of this system variable as a path to the directory storing the server's [error message files](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file). Therefore, it constructs the path to the language's [error message file](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file) by concatenating the value of this system variable with the language name of the [locale](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) specified by the [lc\_messages](server-system-variables.md#lc_messages) system variable .
+  * The server initially tries to interpret the value of this system variable as a path to the directory storing the server's [error message files](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file). Therefore, it constructs the path to the language's [error message file](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file) by concatenating the value of this system variable with the language name of the [locale](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) specified by the [lc\_messages](server-system-variables.md#lc_messages) system variable.
   * If the server does not find the [error message file](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file) for the language, then it tries to interpret the value of this system variable as a direct path to the directory storing the specific language's [error message file](../../../server-management/server-monitoring-logs/error-log.md#error-messages-file).
   * See [Setting the Language for Error Messages](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/setting-the-language-for-error-messages.md) for more information.
 * Command line: `--lc-messages-dir=path`
@@ -1119,20 +1049,12 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `lc_time_names`
 
-* Description: The locale that determines the language used for the date and time functions [DAYNAME()](../../../reference/sql-functions/date-time-functions/dayname.md), [MONTHNAME()](../../../reference/sql-functions/date-time-functions/monthname.md) and [DATE\_FORMAT()](https://mariadb.com/kb/en/date-format). Locale names are language and region subtags, for example 'en\_ZA' (English - South Africa) or 'es\_US: Spanish - United States'. The default is always 'en-US' regardless of the system's locale setting. See [server locale](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) for a full list of supported locales.
+* Description: The locale that determines the language used for the date and time functions [DAYNAME()](../../../reference/sql-functions/date-time-functions/dayname.md), [MONTHNAME()](../../../reference/sql-functions/date-time-functions/monthname.md) and [DATE\_FORMAT()](../../../reference/sql-functions/date-time-functions/date_format.md). Locale names are language and region subtags, for example 'en\_ZA' (English - South Africa) or 'es\_US: Spanish - United States'. The default is always 'en-US' regardless of the system's locale setting. See [server locale](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/server-locale.md) for a full list of supported locales.
 * Command line: `--lc-time-names=name`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `en_US`
-
-#### `legacy_xa_rollback_at_disconnect`
-
-* Description: If a user session disconnects after putting a transaction into the `XA PREPARE` state, roll back the transaction. Can be used for backwards compatibility to enable this pre-10.5 behavior for applications that expect it. Note that this violates the XA Specification and should not be used for new code.
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Introduced: [MariaDB 10.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-27-release-notes), [MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-20-release-notes), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-10-release-notes), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes), [MariaDB 11.7.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes)
 
 #### `license`
 
@@ -1171,16 +1093,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `log`
-
-* Description: Deprecated and removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), use [general\_log](server-system-variables.md#general_log) instead.
-* Command line: `-l [filename]` or `--log[=filename]`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
 #### `log_disabled_statements`
 
 * Description: If set, the specified type of statements (slave and/or stored procedure statements) will not be logged to the [general log](../../../server-management/server-monitoring-logs/general-query-log.md). Multiple values are comma-separated, without spaces.
@@ -1193,7 +1105,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `log_error`
 
-* Description: Specifies the name of the [error log](../../../server-management/server-monitoring-logs/error-log.md). If [--console](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-console) is specified later in the configuration (Windows only) or this option isn't specified, errors will be logged to stderr. If no name is provided, errors will still be logged to `hostname.err` in the `datadir` directory by default. If a configuration file sets `--log-error`, one can reset it with `--skip-log-error` (useful to override a system wide configuration file). MariaDB always writes its error log, but the destination is configurable. See [error log](../../../server-management/server-monitoring-logs/error-log.md) for details. Note that if [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `log_error` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Specifies the name of the [error log](../../../server-management/server-monitoring-logs/error-log.md). If [--console](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#console) is specified later in the configuration (Windows only) or this option isn't specified, errors will be logged to stderr. If no name is provided, errors will still be logged to `hostname.err` in the `datadir` directory by default. If a configuration file sets `--log-error`, one can reset it with `--skip-log-error` (useful to override a system wide configuration file). MariaDB always writes its error log, but the destination is configurable. See [error log](../../../server-management/server-monitoring-logs/error-log.md) for details. Note that if [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `log_error` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--log-error[=name]`, `--skip-log-error`
 * Scope: Global
 * Dynamic: No
@@ -1202,7 +1114,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `log_output`
 
-* Description: How the output for the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) and the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is stored. By default written to file (`FILE`), it can also be stored in the [general\_log](../../../reference/system-tables/the-mysql-database-tables/mysqlgeneral_log-table.md) and [slow\_log](../../../reference/system-tables/the-mysql-database-tables/mysql-slow_log-table.md) tables in the mysql database (`TABLE`), or not stored at all (`NONE`). More than one option can be chosen at the same time, with `NONE` taking precedence if present. Logs will not be written if logging is not enabled. See [Writing logs into tables](../../../server-management/server-monitoring-logs/writing-logs-into-tables.md), and the [slow\_query\_log](server-system-variables.md#slow_query_log) and [general\_log](server-system-variables.md#general_log) server system variables.
+* Description: How the output for the [general query log](../../../server-management/server-monitoring-logs/general-query-log.md) and the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is stored. By default, written to file (`FILE`), it can also be stored in the [general\_log](../../../reference/system-tables/the-mysql-database-tables/mysqlgeneral_log-table.md) and [slow\_log](../../../reference/system-tables/the-mysql-database-tables/mysql-slow_log-table.md) tables in the mysql database (`TABLE`) or not stored at all (`NONE`). More than one option can be chosen at the same time, with `NONE` taking precedence if present. Logs will not be written if logging is not enabled. See [Writing logs into tables](../../../server-management/server-monitoring-logs/writing-logs-into-tables.md), and the [slow\_query\_log](server-system-variables.md#slow_query_log) and [general\_log](server-system-variables.md#general_log) server system variables.
 * Command line: `--log-output=name`
 * Scope: Global
 * Dynamic: Yes
@@ -1212,7 +1124,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `log_queries_not_using_indexes`
 
-* Description: Queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows, will be logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) (regardless of time taken). The slow query log needs to be enabled for this to have an effect. Mapped to `log_slow_filter='not_using_index'` from [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes).
+* Description: Queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows, will be logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) (regardless of time taken). The slow query log needs to be enabled for this to have an effect. Mapped to `log_slow_filter='not_using_index'`.
 * Command line: `--log-queries-not-using-indexes`
 * Scope: Global
 * Dynamic: Yes
@@ -1228,7 +1140,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Data Type: `boolean`
 * Default Value:
   * `ON`
-* Deprecated: [MariaDB 11.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-1-release-notes)
+* Deprecated: [MariaDB 11.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.1)
 
 #### `log_slow_disabled_statements`
 
@@ -1242,14 +1154,14 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `log_slow_filter`
 
-* Description: Comma-delimited string (without spaces) containing one or more settings for filtering what is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). If a query matches one of the types listed in the filter, and takes longer than [long\_query\_time](server-system-variables.md#long_query_time), it will be logged(except for 'not\_using\_index' which is always logged if enabled, regardless of the time). Sets [log-slow-admin-statements](server-system-variables.md#log_slow_admin_statements) to ON. See also [log\_slow\_disabled\_statements](server-system-variables.md#log_slow_disabled_statements).
+* Description: Comma-delimited string (without spaces) containing one or more settings for filtering what is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). If a query matches one of the types listed in the filter, and takes longer than [long\_query\_time](server-system-variables.md#long_query_time), it will be logged (except for 'not\_using\_index' which is always logged if enabled, regardless of the time). Sets [log-slow-admin-statements](server-system-variables.md#log_slow_admin_statements) to ON. See also [log\_slow\_disabled\_statements](server-system-variables.md#log_slow_disabled_statements).
   * `admin` log [administrative](../../../server-management/server-monitoring-logs/slow-query-log/slow-query-log-overview.md#logging-slow-administrative-statements) queries (create, optimize, drop etc...)
   * `filesort` logs queries that use a filesort.
   * `filesort_on_disk` logs queries that perform a filesort on disk.
   * `filesort_priority_queue`
   * `full_join` logs queries that perform a join without indexes.
   * `full_scan` logs queries that perform full table scans.
-  * `not_using_index` logs queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows. Disregards [long\_query\_time](server-system-variables.md#long_query_time), unlike other options. [log\_queries\_not\_using\_indexes](server-system-variables.md#log_queries_not_using_indexes) maps to this option. From [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes).
+  * `not_using_index` logs queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows. Disregards [long\_query\_time](server-system-variables.md#long_query_time), unlike other options. [log\_queries\_not\_using\_indexes](server-system-variables.md#log_queries_not_using_indexes) maps to this option.
   * `query_cache` log queries that are resolved by the query cache.
   * `query_cache_miss` logs queries that are not found in the [query cache](../buffers-caches-and-threads/query-cache.md).
   * `tmp_table` logs queries that create an implicit temporary table.
@@ -1263,6 +1175,17 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Valid Values:
   * `admin`, `filesort`, `filesort_on_disk`, `filesort_priority_queue`, `full_join`, `full_scan`, `not_using_index`, `query_cache`, `query_cache_miss`, `tmp_table`, `tmp_table_on_disk`
 
+#### `log_slow_max_query_length`
+
+* Description: Queries whose text is longer than this many bytes are not written to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). The entire statement is skipped — it is not truncated — which keeps statements carrying very large `TEXT` or `BLOB` literals out of the log. The default, `4294967295` (the maximum value), effectively means no limit.
+* Command line: `--log-slow-max-query-length=#`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `4294967295`
+* Range: `1` to `4294967295`
+* Introduced: MariaDB 13.1.1
+
 #### `log_slow_max_warnings`
 
 * Description: Max numbers of warnings printed to slow query log per statement
@@ -1272,64 +1195,54 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Data Type: `numeric`
 * Default Value: `10`
 * Range: `0` to `1000`
-* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10-10-7-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-3-release-notes)
+* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.7), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.3)
 
 #### `log_slow_min_examined_row_limit`
 
-* Description: Don't write queries to [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) that examine fewer rows than the set value. If set to `0`, the default, no row limit is used. `min_examined_row_limit` is an alias. From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117), queries slower than [log\_slow\_always\_query\_time](../../../server-management/server-monitoring-logs/slow-query-log/log_slow_always_query_time-system-variable.md) will always be logged.
+* Description: Don't write queries to [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) that examine fewer rows than the set value. If set to `0`, the default, no row limit is used. `min_examined_row_limit` is an alias. From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117), queries slower than [log\_slow\_always\_query\_time](../../../server-management/server-monitoring-logs/slow-query-log/log_slow_always_query_time-system-variable.md) will always be logged.
 * Command line: `--log-slow-min-examined-row-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0-4294967295`
-* Introduced: [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011)
-
-#### `log_slow_queries`
-
-* Description: Deprecated and removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), use [slow\_query\_log](server-system-variables.md#slow_query_log) instead.
-* Command line: `--log-slow-queries[=name]`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+* Introduced: [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011)
 
 #### `log_slow_query`
 
-* Description: If set to 0, the default unless the --slow-query-log option is used, the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is disabled, while if set to 1 (both global and session variables), the slow query log is enabled. Named [slow\_query\_log](server-system-variables.md#slow_query_log) before [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), which is now an alias.
+* Description: If set to 0, the default unless the --slow-query-log option is used, the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is disabled, while if set to 1 (both global and session variables), the slow query log is enabled. Named [slow\_query\_log](server-system-variables.md#slow_query_log) before [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), which is now an alias.
 * Command line: `--slow-query-log`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `0`
-* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes)
+* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0)
 * See also: See [log\_output](server-system-variables.md#log_output) to see how log files are written. If that variable is set to `NONE`, no logs will be written even if log\_slow\_query is set to `1`.
 
 #### `log_slow_query_file`
 
-* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), was named [slow\_query\_log\_file](server-system-variables.md#slow_query_log_file). This was named `log_slow_query_file_name` in the [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes) preview release. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `log_slow_query_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), was named [slow\_query\_log\_file](server-system-variables.md#slow_query_log_file). This was named `log_slow_query_file_name` in the [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0) preview release. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `log_slow_query_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--log-slow-query-file=file_name`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `file name`
 * Default Value: `host_name-slow.log`
-* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes)
+* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0)
 
 #### `log_slow_query_time`
 
-* Description: If a query takes longer than this many seconds to execute (microseconds can be specified too), the [Slow\_queries](server-status-variables.md#slow_queries) status variable is incremented and, if enabled, the query is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), was named [long\_query\_time](server-system-variables.md#long_query_time). Affected by [log\_slow\_rate\_limit](server-system-variables.md#log_slow_rate_limit) and [log\_slow\_min\_examined\_row\_limit](server-system-variables.md#log_slow_min_examined_row_limit).
+* Description: If a query takes longer than this many seconds to execute (microseconds can be specified too), the [Slow\_queries](server-status-variables.md#slow_queries) status variable is incremented and, if enabled, the query is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), was named [long\_query\_time](server-system-variables.md#long_query_time). Affected by [log\_slow\_rate\_limit](server-system-variables.md#log_slow_rate_limit) and [log\_slow\_min\_examined\_row\_limit](server-system-variables.md#log_slow_min_examined_row_limit).
 * Command line: `--log-slow-query-time=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `10.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes)
+* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0)
 
 #### `log_slow_rate_limit`
 
-* Description: The [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) will log every this many queries. The default is `1`, or every query, while setting it to `20` would log every 20 queries, or five percent. Aims to reduce I/O usage and excessively large slow query logs. See also [Slow Query Log Extended Statistics](../query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics.md). From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117), queries slower than [log\_slow\_always\_query\_time](../../../server-management/server-monitoring-logs/slow-query-log/log_slow_always_query_time-system-variable.md) will always be logged.
+* Description: The [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) will log every this many queries. The default is `1`, or every query, while setting it to `20` would log every 20 queries, or five percent. Aims to reduce I/O usage and excessively large slow query logs. See also [Slow Query Log Extended Statistics](../query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics.md). From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117), queries slower than [log\_slow\_always\_query\_time](../../../server-management/server-monitoring-logs/slow-query-log/log_slow_always_query_time-system-variable.md) will always be logged.
 * Command line: `log-slow-rate-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1341,11 +1254,11 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 * Description: Controls information to be added to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). Options are added in a comma-delimited string. See also [Slow Query Log Extended Statistics](../query-optimizations/statistics-for-optimizing-queries/slow-query-log-extended-statistics.md). log\_slow\_verbosity is not supported when log\_output='TABLE'.
   * `query_plan` logs query execution plan information
-  * `innodb` Alias to `engine` (from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes) and [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes)), previously ignored.
+  * `innodb` Alias to `engine` (from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15) and [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5)), previously ignored.
   * `explain` prints EXPLAIN output in the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). See [EXPLAIN in the Slow Query Log](../../../server-management/server-monitoring-logs/slow-query-log/explain-in-the-slow-query-log.md).
-  * `engine` Logs engine statistics (from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes) and [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes)).
-  * `warnings` Print all errors, warnings and notes for the statement to the slow query log. (from [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes)).
-  * `all` Enables all above options (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes))
+  * `engine` Logs engine statistics (from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15) and [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5)).
+  * `warnings` Print all errors, warnings and notes for the statement to the slow query log. (from [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)).
+  * `all` Enables all above options (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16))
   * `full` Enables all above options.
 * Command line: `log-slow-verbosity=value1[,value2...]`
 * Scope: Global, Session
@@ -1353,13 +1266,13 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Data Type: `enumeration`
 * Default Value: (Empty)
 * Valid Values:
-  * > \= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes): (Empty), `query_plan`, `innodb`, `explain`, `engine`, `warnings`, `all`, `full`
-  * > \= [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes), [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes): (Empty), `query_plan`, `innodb`, `explain`, `engine`, `full`
-  * <= [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-14-release-notes), [MariaDB 10.11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-4-release-notes): (Empty), `query_plan`, `innodb`, `explain`
+  * > \= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6): (Empty), `query_plan`, `innodb`, `explain`, `engine`, `warnings`, `all`, `full`
+  * > \= [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15), [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5): (Empty), `query_plan`, `innodb`, `explain`, `engine`, `full`
+  * <= [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.14), [MariaDB 10.11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.4): (Empty), `query_plan`, `innodb`, `explain`
 
 #### `log_tc_size`
 
-* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../../server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md#-log-tc) server option and the [--tc-heuristic-recover](server-system-variables.md#-tc-heuristic-recover) option.
+* Description: Defines the size in bytes of the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. This size is defined in multiples of 4096. See [Transaction Coordinator Log](../../../server-management/server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [--log-tc](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option and the [--tc-heuristic-recover](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) option.
 * Command line: `log-tc-size=#`
 * Scope: Global
 * Dynamic: No
@@ -1370,13 +1283,16 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 #### `log_warnings`
 
 * Description: Determines which additional warnings are logged. Setting to `0` disables additional warning logging. Note that this does not prevent all warnings, there is a core set of warnings that will always be written to the error log. The additional warnings are as follows:
+  * log\_warnings = 0
+    * No notes from the event scheduler, only warnings and errors (from MariaDB 10.11.16, 11.4.10, 11.8.6, 12.2.2)
   * log\_warnings >= 1
+    * Only startup and shutdown event scheduler notes (from MariaDB 10.11.16, 11.4.10, 11.8.6, 12.2.2)
     * [Event scheduler](../../../server-usage/triggers-events/event-scheduler/) information.
     * System signals.
     * Wrong usage of `--user`.
-    * Failed setrlimit() and mlockall().
+    * Failed `setrlimit()` and `mlockall()`.
     * Changed limits.
-    * Wrong values of lower\_case\_table\_names and stack\_size.
+    * Wrong values of `lower_case_table_names` and `stack_size`.
     * Wrong values for command line options.
     * Start log position and some master information when starting slaves.
     * Slave reconnects.
@@ -1416,7 +1332,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `long_query_time`
 
-* Description: If a query takes longer than this many seconds to execute (microseconds can be specified too), the [Slow\_queries](server-status-variables.md#slow_queries) status variable is incremented and, if enabled, the query is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), this is an alias for [log\_slow\_query\_time](server-system-variables.md#log_slow_query_time).
+* Description: If a query takes longer than this many seconds to execute (microseconds can be specified too), the [Slow\_queries](server-status-variables.md#slow_queries) status variable is incremented and, if enabled, the query is logged to the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/). From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), this is an alias for [log\_slow\_query\_time](server-system-variables.md#log_slow_query_time).
 * Command line: `--long-query-time=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1427,7 +1343,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 #### `low_priority_updates`
 
 * Description: If set to 1 (0 is the default), for [storage engines](../../../server-usage/storage-engines/) that use only table-level locking ([Aria](../../../server-usage/storage-engines/aria/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) and [MERGE](../../../server-usage/storage-engines/merge.md)), all INSERTs, UPDATEs, DELETEs and LOCK TABLE WRITEs will wait until there are no more SELECTs or LOCK TABLE READs pending on the relevant tables. Set this to 1 if reads are prioritized over writes.
-  * In [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and earlier, [sql\_low\_priority\_updates](server-system-variables.md#sql_low_priority_updates) is a synonym.
 * Command line: `--low-priority-updates`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1444,7 +1359,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `lower_case_table_names`
 
-* Description: If set to `0` (the default on Unix-based systems), table names and aliases and database names are compared in a case-sensitive manner. If set to `1` (the default on Windows), names are stored in lowercase and not compared in a case-sensitive manner. If set to `2` (the default on Mac OS X), names are stored as declared, but compared in lowercase.\
+* Description: If set to `0` (the default on Unix-based systems), table names and aliases and database names are compared in a case-sensitive manner. If set to `1` (the default on Windows), names are stored in lowercase and not compared in a case-sensitive manner. If set to `2` (the default on Mac OS X), names are stored as declared but compared in lowercase.\
   This system variable's value cannot be changed after the datadir has been initialized. lower\_case\_table\_names is set when a MariaDB instance starts, and it remains constant afterwards.
 * Command line: `--lower-case-table-names[=#]`
 * Scope: Global
@@ -1477,7 +1392,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `max_connections`
 
-* Description: The maximum number of simultaneous client connections. See also [Handling Too Many Connections](handling-too-many-connections.md). Note that this value affects the number of file descriptors required on the operating system. Minimum was changed from `1` to `10` to avoid possible unexpected results for the user ([MDEV-18252](https://jira.mariadb.org/browse/MDEV-18252)). Note that MariaDB always has one reserved connection for a `SUPER` (or `CONNECTION ADMIN` user). Additionally it can listen on a separate port, so will be available even when the max\_connections limit is reached.
+* Description: The maximum number of simultaneous client connections. See also [Handling Too Many Connections](handling-too-many-connections.md). Note that this value affects the number of file descriptors required on the operating system. Minimum was changed from `1` to `10` to avoid possible unexpected results for the user ([MDEV-18252](https://jira.mariadb.org/browse/MDEV-18252)). Note that MariaDB always has one reserved connection for a `SUPER` (or `CONNECTION ADMIN` user). Additionally, it can listen on a separate port, so will be available even when the max\_connections limit is reached.
 * Command line: `--max-connections=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1487,14 +1402,14 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 {% hint style="info" %}
 **Systemd thread limit (MDEV-30236)**\
-When running MariaDB under systemd, be aware that systemd's default `TasksMax` (≈ 4,915 tasks per service) may prevent reaching high `max_connections` values—even if configured higher. Starting with MariaDB 10.4.33, the systemd unit includes:
+When running MariaDB under systemd, be aware that systemd's default `TasksMax` (≈ 4,915 tasks per service) may prevent reaching high `max_connections` values—even if configured higher. Starting with MariaDB 10.6.17, the systemd unit includes:
 
 ```ini
 [Service]
-TasksMax=infinity
+TasksMax=99%
 ```
 
-This setting removes the artificial cap, allowing `max_connections` to scale per your configuration (subject to OS memory and thread limits).
+This raises the cap from systemd's default of 15% of the system's task limit to 99%, which lets `max_connections` scale with your configuration (subject to OS memory and thread limits) while leaving headroom for other processes, such as a remote SSH login.
 {% endhint %}
 
 #### `max_delayed_threads`
@@ -1543,7 +1458,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 
 #### `max_join_size`
 
-* Description: Statements will not be performed if they are likely to need to examine more than this number of rows, row combinations or do more disk seeks. Can prevent poorly-formatted queries from taking server resources. Changing this value to anything other the default will reset [sql\_big\_selects](server-system-variables.md#sql_big_selects) to 0. If sql\_big\_selects is set again, max\_join\_size will be ignored. This limit is also ignored if the query result is sitting in the [query cache](../buffers-caches-and-threads/query-cache.md). Previously named [sql\_max\_join\_size](server-system-variables.md#sql_max_join_size), which is still a synonym.
+* Description: Statements will not be performed if they are likely to need to examine more than this number of rows, row combinations or do more disk seeks. Can prevent poorly-formatted queries from taking server resources. Changing this value to anything other the default will reset [sql\_big\_selects](server-system-variables.md#sql_big_selects) to 0. If sql\_big\_selects is set again, max\_join\_size will be ignored. This limit is also ignored if the query result is sitting in the [query cache](../buffers-caches-and-threads/query-cache.md).
 * Command line: `--max-join-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1561,18 +1476,6 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Default Value: `1024`
 * Range: `4` to `8388608`
 
-#### `max_long_data_size`
-
-* Description: Maximum size for parameter values sent with mysql\_stmt\_send\_long\_data(). If not set, will default to the value of [max\_allowed\_packet](server-system-variables.md#max_allowed_packet). Deprecated in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and removed in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes); use [max\_allowed\_packet](server-system-variables.md#max_allowed_packet) instead.
-* Command line: `--max-long-data-size=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `16777216` (16M)
-* Range: `1024` to `4294967295`
-* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-* Removed: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
-
 #### `max_open_cursors`
 
 * Description: The maximum number of open [cursors](../../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/) allowed per session.
@@ -1582,11 +1485,11 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `numeric`
 * Default Value: `50`
 * Range: `0` to 65536
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
 
 #### `max_password_errors`
 
-* Description: The maximum permitted number of failed connection attempts due to an invalid password before a user is blocked from further connections. [FLUSH\_PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) will permit the user to connect again. This limit is not applicable for users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, with a hostname of localhost, 127.0.0.1 or ::1. See also the [Information Schema USERS table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-users-table.md).
+* Description: The maximum permitted number of failed connection attempts due to an invalid password before a user is blocked from further connections. [FLUSH\_PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) will permit the user to connect again. This limit is not applicable for users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, with a hostname of localhost, 127.0.0.1 or ::1. See also the [Information Schema USERS table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-users-table.md).
 * Command line: `--max-password-errors=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1611,7 +1514,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `1000` (>= [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)), `4294967295` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
+* Default Value: `1000`
 * Range: `0` to `4294967295`
 
 #### `max_rowid_filter_size`
@@ -1646,15 +1549,13 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 
 #### `max_sort_length`
 
-* Description: Maximum size in bytes used for sorting data values - anything exceeding this is ignored. The server uses only the first `max_sort_length` bytes of each value and ignores the rest. Increasing this may require [sort\_buffer\_size](server-system-variables.md#sort_buffer_size) to be increased (especially if ER\_OUT\_OF\_SORTMEMORY errors start appearing). From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117), a warning is generated when max\_sort\_length is exceeded.
+* Description: Maximum size in bytes used for sorting data values - anything exceeding this is ignored. The server uses only the first `max_sort_length` bytes of each value and ignores the rest. Increasing this may require [sort\_buffer\_size](server-system-variables.md#sort_buffer_size) to be increased (especially if ER\_OUT\_OF\_SORTMEMORY errors start appearing). From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117), a warning is generated when max\_sort\_length is exceeded.
 * Command line: `--max-sort-length=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1024`
-* Range:
-  * `4` to `8388608` (<= [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10413-release-notes), [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes))
-  * `8` to `8388608` (>= [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes))
+* Range: `64` to `8388608`
 
 #### `max_sp_recursion_depth`
 
@@ -1668,7 +1569,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 
 #### `max_statement_time`
 
-* Description: Maximum time in seconds that a query can execute before being aborted. This includes all queries, not just [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements, but excludes statements in stored procedures. If set to 0, no limit is applied. See [Aborting statements that take longer than a certain time to execute](../query-optimizations/aborting-statements.md) for details and limitations. Useful when combined with [SET STATEMENT](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-statement.md) for limiting the execution times of individual queries. Replicas are not affected by this variable, however, from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010), there's [slave\_max\_statement\_time](../../standard-replication/replication-and-binary-log-system-variables.md#slave_max_statement_time) that sets the limit to abort queries on a replica.
+* Description: Maximum time in seconds that a query can execute before being aborted. This includes all queries, not just [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements, but excludes statements in stored procedures. If set to 0, no limit is applied. See [Aborting statements that take longer than a certain time to execute](../query-optimizations/aborting-statements.md) for details and limitations. Useful when combined with [SET STATEMENT](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-statement.md) for limiting the execution times of individual queries. Replicas are not affected by this variable, however, from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), there's [slave\_max\_statement\_time](../../standard-replication/replication-and-binary-log-system-variables.md#slave_max_statement_time) that sets the limit to abort queries on a replica.
 * Command line: `--max-statement-time[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1679,12 +1580,12 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 #### `max_tmp_tables`
 
 * Description: Unused.
-* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `max_user_connections`
 
 * Description:\
-  Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#max_user_connections) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
+  Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
 * Dynamic: Yes, (except when globally set to `0` or `-1`)
@@ -1704,7 +1605,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 
 #### `metadata_locks_cache_size`
 
-* Description: Unused since 10.1.4
+* Description: Unused.
 * Command line: `--metadata-locks-cache-size=#`
 * Scope: Global
 * Dynamic: No
@@ -1714,7 +1615,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 
 #### `metadata_locks_hash_instances`
 
-* Description: Unused since 10.1.4
+* Description: Unused.
 * Command line: `--metadata-locks-hash-instances=#`
 * Scope: Global
 * Dynamic: No
@@ -1731,11 +1632,11 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `numeric`
 * Default Value: `8`
 * Range: `1` to `256`
-* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1)
+* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 
 #### `min_examined_row_limit`
 
-* Description: Don't write queries to [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) that examine fewer rows than the set value. If set to `0`, the default, no row limit is used. From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), this is an alias for [log\_slow\_min\_examined\_row\_limit](server-system-variables.md#log_slow_min_examined_row_limit).
+* Description: Don't write queries to [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) that examine fewer rows than the set value. If set to `0`, the default, no row limit is used. From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), this is an alias for [log\_slow\_min\_examined\_row\_limit](server-system-variables.md#log_slow_min_examined_row_limit).
 * Command line: `--min-examined-row-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1753,16 +1654,9 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Default Value: `262144`
 * Range `8192` to `2147483647`
 
-#### `multi_range_count`
-
-* Description: Ignored. Use [mrr\_buffer\_size](server-system-variables.md#mrr_buffer_size) instead.
-* Command line: `--multi-range-count=#`
-* Default Value: `256`
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
-
 #### `mysql56_temporal_format`
 
-* Description: If set (the default), MariaDB uses the MySQL 5.6 low level formats for [TIME](../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md) instead of the [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) version. The version MySQL introduced in 5.6 requires more storage, but potentially allows negative dates and has some advantages in replication. There should be no reason to revert to the old [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) microsecond format. See also [MDEV-10723](https://jira.mariadb.org/browse/MDEV-10723).
+* Description: If set (the default), MariaDB uses the MySQL 5.6 low level formats for [TIME](../../../reference/data-types/date-and-time-data-types/time.md), [DATETIME](../../../reference/data-types/date-and-time-data-types/datetime.md) and [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md) instead of the older MariaDB format. The version MySQL introduced in 5.6 requires more storage, but potentially allows negative dates and has some advantages in replication. There should be no reason to revert to the old microsecond format. See also [MDEV-10723](https://jira.mariadb.org/browse/MDEV-10723).
 * Command line: `--mysql56-temporal-format`
 * Scope: Global
 * Dynamic: Yes
@@ -1818,6 +1712,16 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Default Value: `60`
 * Range: `1` upwards
 
+#### `new_mode`
+
+* Description: Used to enable new behavior in otherwise stable versions. See [NEW Mode](../../../server-management/variables-and-modes/new_mode.md). Non-default NEW\_MODE options are by design deprecated and will eventually be removed.
+* Command line: `--new-mode`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `string`
+* Default Value: `(empty string)`
+* Valid Values: See [NEW Mode](../../../server-management/variables-and-modes/new_mode.md) for the full list.
+
 #### `note_verbosity`
 
 * Description: Verbosity level for note-warnings given to the user. Options are added in a comma-delimited string, except for `all`, which sets all options. Be aware that if the old [sql\_notes](server-system-variables.md#sql_notes) variable is 0, one will not get any notes. Setting `note_verbosity` to "" is the recommended way to disable notes.
@@ -1831,39 +1735,40 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `enumeration`
 * Default Value: `basic,explain`
 * Valid Values: `basic,explain,unusable_keys` or `all`.
-* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes)
+* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)
 
 #### `old`
 
-* Description: Disabled by default, enabling it reverts index hints to those used before MySQL 5.1.17. Enabling may lead to replication errors. Deprecated and replaced by [old\_mode](server-system-variables.md#old_mode) from [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109).
+* Description: Disabled by default, enabling it reverts index hints to those used before MySQL 5.1.17. Enabling may lead to replication errors. Deprecated and replaced by [old\_mode](server-system-variables.md#old_mode) from [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109).
 * Command line: `--old`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Deprecated: [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109)
+* Deprecated: [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109)
+* Removed: MariaDB 13.0. Use [old\_mode](server-system-variables.md#old_mode) instead.
 
 #### `old_alter_table`
 
-* Description: From [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), an alias for [alter\_algorithm](server-system-variables.md#alter_algorithm). Prior to that, if set to `1` (`0` is default), MariaDB reverts to the non-optimized, pre-MySQL 5.1, method of processing [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) statements. A temporary table is created, the data is copied over, and then the temporary table is renamed to the original.
+* Description: An alias for [alter\_algorithm](server-system-variables.md#alter_algorithm). If set to `1` (`0` is default), MariaDB reverts to the non-optimized, pre-MySQL 5.1, method of processing [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) statements. A temporary table is created, the data is copied over, and then the temporary table is renamed to the original.
 * Command line: `--old-alter-table`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `enumerated` (>=[MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes))
+* Data Type: `enumerated`
 * Default Value: See [alter\_algorithm](server-system-variables.md#alter_algorithm)
 * Valid Values: See [alter\_algorithm](server-system-variables.md#alter_algorithm) for the full list.
-* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes) (superceded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
-* Removed: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes)
+* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7) (superseded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
+* Removed: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
 
 #### `old_mode`
 
-* Description: Used for getting MariaDB to emulate behavior from an old version of MySQL or MariaDB. See [OLD Mode](../../../server-management/variables-and-modes/old-mode.md). Fully replaces the [old](server-system-variables.md#old) variable from [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109). Non-default OLD\_MODE options are by design deprecated and will eventually be removed.
+* Description: Used for getting MariaDB to emulate behavior from an old version of MySQL or MariaDB. See [OLD Mode](../../../server-management/variables-and-modes/old_mode.md). Fully replaces the [old](server-system-variables.md#old) variable from [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109). Non-default OLD\_MODE options are by design deprecated and will eventually be removed.
 * Command line: `--old-mode`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
-* Default Value: `UTF8_IS_UTF8MB3` (>= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)) `(empty string)` (<= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
-* Valid Values: See [OLD Mode](../../../server-management/variables-and-modes/old-mode.md) for the full list.
+* Default Value: `(empty string)` (>= MariaDB 13.1), `UTF8_IS_UTF8MB3` ([MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to MariaDB 13.0)
+* Valid Values: See [OLD Mode](../../../server-management/variables-and-modes/old_mode.md) for the full list.
 
 #### `old_passwords`
 
@@ -1882,7 +1787,7 @@ MAX([max\_connections](server-system-variables.md#max_connections)\*5, [max\_con
 MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). MariaDB cannot set this to exceed the hard limit imposed by the operating system. Therefore, you may also need to change the hard limit. There are a few ways to do so.
 
 * If you are using [mariadbd\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) to start `mariadbd`, then see the instructions at [mariadbd\_safe: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-open-files-limit).
-* If you are using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd.md) to start `mariadbd`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/systemd.md#configuring-the-open-files-limit).
+* If you are using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/) to start `mariadbd`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
 * Otherwise, you can change the hard limit for the `mysql` user account by modifying [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf). See [Configuring Linux for MariaDB: Configuring the Open Files Limit](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/configuring-linux-for-mariadb.md#configuring-the-open-files-limit) for more details.
 * Command line: `--open-files-limit=count`
 * Scope: Global
@@ -1900,18 +1805,18 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `numeric`
 * Default Value: `8`
 * Range: `0` to `62`
-* Introduced: [MariaDB 10.10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10101-release-notes)
+* Introduced: [MariaDB 10.10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.1)
 
-**optimizer\_join\_limit\_pref\_ratio**
+#### `optimizer_join_limit_pref_ratio`
 
-* Description:Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
+* Description: Controls the [optimizer\_join\_limit\_pref\_ratio optimization](../query-optimizations/optimizer_join_limit_pref_ratio-optimization.md).
 * Command line: `--optimizer-join-limit-pref-ratio[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `0` (Disable)
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-20-release-notes), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-10-release-notes), [MariaDB 11.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-6-release-notes), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes), [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes)
+* Introduced: [MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.20), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.10), [MariaDB 11.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.6), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.4), [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2)
 
 #### `optimizer_max_sel_arg_weight`
 
@@ -1922,7 +1827,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `numeric`
 * Default Value: `32000`
 * Range: `0` to `18446744073709551615`
-* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1059-release-notes)
+* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9)
 
 #### `optimizer_max_sel_args`
 
@@ -1933,19 +1838,19 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `numeric`
 * Default Value: `16000`
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10-10-7-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-3-release-notes)
+* Introduced: [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.7), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.3)
 
 #### `optimizer_prune_level`
 
 * Description:Controls the heuristic(s) applied during query optimization to prune less-promising partial plans from the optimizer search space.
   * `0`: heuristics are disabled and an exhaustive search is performed
   * `1`: the optimizer will use heuristics to prune less-promising partial plans from the optimizer search space
-  * `2`: tables using EQ\_REF will be joined together as 'one entity' and the different combinations of these tables will not be considered (from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010))
+  * `2`: tables using EQ\_REF will be joined together as 'one entity' and the different combinations of these tables will not be considered (from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010))
 * Command line: `--optimizer-prune-level[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `2` (>= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)), `1` (<= [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109))
+* Default Value: `2` (>= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)), `1` (<= [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109))
 
 #### `optimizer_search_depth`
 
@@ -1959,7 +1864,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_selectivity_sampling_limit`
 
-* Description: Controls number of record samples to check condition selectivity. Only used if `[optimizer_use_condition_selectivity](server-system-variables.md#optimizer_use_condition_selectivity) > 4.`
+* Description: Controls number of record samples to check condition selectivity. Only used if [`optimizer_use_condition_selectivity`](server-system-variables.md#optimizer_use_condition_selectivity) > 4.
 * Command line: `optimizer-selectivity-sampling-limit[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1978,16 +1883,16 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `condition_pushdown_for_derived={on|off}`
   * `condition_pushdown_for_subquery={on|off}`
   * `condition_pushdown_from_having={on|off}`
-  * `cset_narrowing={on|off}` - see [Charset Narrowing Optimization](../query-optimizations/charset-narrowing-optimization.md) (>= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-3-release-notes) and [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-2-release-notes))
+  * `cset_narrowing={on|off}` - see [Charset Narrowing Optimization](../query-optimizations/charset-narrowing-optimization.md) (>= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.3) and [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.2))
   * `default` - set all optimizations to their default values.
   * `derived_merge={on|off}` - see [Derived table merge optimization](../query-optimizations/optimizations-for-derived-tables/derived-table-merge-optimization.md)
   * `derived_with_keys={on|off}` - see [Derived table with key optimization](../query-optimizations/optimizations-for-derived-tables/derived-table-with-key-optimization.md)
-  * `duplicateweedout={on|off}`. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
-  * `engine_condition_pushdown={on|off}`. Deprecated in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) as engine condition pushdown is now automatically enabled for all engines that support it.
-  * `exists_to_in={on|off}` - see [EXISTS-to-IN optimization](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys)
-  * `extended_keys={on|off}` - see [Extended Keys](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys)
+  * `duplicateweedout={on|off}`. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
+  * `engine_condition_pushdown={on|off}`. Deprecated, as engine condition pushdown is automatically enabled for all engines that support it. Removed in MariaDB 11.3.
+  * `exists_to_in={on|off}` - see [EXISTS-to-IN optimization](../query-optimizations/subquery-optimizations/exists-to-in-optimization.md)
+  * `extended_keys={on|off}` - see [Extended Keys](../query-optimizer/extended-keys.md)
   * `firstmatch={on|off}` - see [First Match Strategy](../query-optimizations/optimization-strategies/firstmatch-strategy.md)
-  * `hash_join_cardinality={on|off}` - see [hash\_join\_cardinality-optimizer\_switch-flag](../query-optimizations/hash_join_cardinality-optimizer_switch-flag.md) (>= [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes), [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-3-release-notes), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-13-release-notes))
+  * `hash_join_cardinality={on|off}` - see [hash\_join\_cardinality-optimizer\_switch-flag](../query-optimizations/hash_join_cardinality-optimizer_switch-flag.md) (>= [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.2), [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.3), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.13))
   * `index_condition_pushdown={on|off}` - see [Index Condition Pushdown](../query-optimizations/index-condition-pushdown.md)
   * `index_merge={on|off}`
   * `index_merge_intersection={on|off}`
@@ -1995,24 +1900,25 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `index_merge_sort_union={on|off}`
   * `index_merge_union={on|off}`
   * `in_to_exists={on|off}` - see [IN-TO-EXISTS transformation](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#the-in-to-exists-transformation)
-  * `join_cache_bka={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
-  * `join_cache_hashed={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
-  * `join_cache_incremental={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `join_cache_bka={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
+  * `join_cache_hashed={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
+  * `join_cache_incremental={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `loosescan={on|off}` - see [LooseScan strategy](../query-optimizations/optimization-strategies/loosescan-strategy.md)
   * `materialization={on|off}` - [Semi-join](../query-optimizations/optimization-strategies/semi-join-materialization-strategy.md) and [non semi-join](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#materialization-for-non-correlated-in-subqueries) materialization.
   * `mrr={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
   * `mrr_cost_based={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
   * `mrr_sort_keys={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
-  * `not_null_range_scan={on|off}` - see [not\_null\_range\_scan optimization](../query-optimizations/not_null_range_scan-optimization.md) ( >= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes))
-  * `optimize_join_buffer_size={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `not_null_range_scan={on|off}` - see [not\_null\_range\_scan optimization](../query-optimizations/not_null_range_scan-optimization.md)
+  * `optimize_join_buffer_size={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `orderby_uses_equalities={on|off}` - if not set, the optimizer ignores equality propagation. See [MDEV-8989](https://jira.mariadb.org/browse/MDEV-8989).
-  * `outer_join_with_cache={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `outer_join_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `partial_match_rowid_merge={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
+  * `reorder_outer_joins` - see [reorder\_outer\_joins](../query-optimizations/reorder_outer_joins.md) ([MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements))
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
-  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes))
+  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0))
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
-  * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `split_materialized={on|off}`
   * `subquery_cache={on|off}` - see [subquery cache](../query-optimizations/subquery-optimizations/subquery-cache.md).
   * `table_elimination={on|off}` - see [Table Elimination User Interface](../query-optimizations/table-elimination/table-elimination-user-interface.md)
@@ -2021,15 +1927,15 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 * Description: Controls storing of optimizer context of all tables that are referenced in a query.
 * Command line: `--optimizer-record-context{=0|1}`
-* Scope: Global, Session
+* Scope: Session
 * Dynamic: Yes
 * Data Type: boolean
 * Default Value: `OFF`
-* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1)
+* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 
 #### `optimizer_trace`
 
-* Description: Controls [tracing of the optimizer](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace): optimizer\_trace=option=val\[,option=val...], where option is one of {enabled} and val is one of {on, off, default}
+* Description: Controls [tracing of the optimizer](../query-optimizer/optimizer-trace/): optimizer\_trace=option=val\[,option=val...], where option is one of {enabled} and val is one of {on, off, default}
 * Command line: `--optimizer-trace=value`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2039,7 +1945,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_trace_max_mem_size`
 
-* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace/optimizer-trace-resources).
+* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](../query-optimizer/optimizer-trace/).
 * Command line: `--optimizer-trace-max-mem-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2049,9 +1955,9 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_use_condition_selectivity`
 
-* Description: Controls which statistics can be used by the optimizer when looking for\
+* Description: Controls which statistics can be used by the optimizer when looking for
   the best query execution plan. In most cases, the default value, `4` will be suitable. However, if you are hitting some of the rare cases where this does not work well (see [MDEV-23707](https://jira.mariadb.org/browse/MDEV-23707)), you can usually work around this by setting this variable to `1`.
-  * `1` Use selectivity of predicates as in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5).
+  * `1` Use selectivity of index backed range conditions to calculate the cardinality of a partial join if the last joined table is accessed by full table scan or an index scan.
   * `2` Use selectivity of all range predicates supported by indexes.
   * `3` Use selectivity of all range predicates estimated without [histogram](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md).
   * `4` Use selectivity of all range predicates estimated with [histogram](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md).
@@ -2065,7 +1971,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `pid_file`
 
-* Description: Full path of the process ID file. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `pid_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Full path of the process ID file. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `pid_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--pid-file=file_name`
 * Scope: Global
 * Dynamic: No
@@ -2092,7 +1998,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `port`
 
-* Description: Port to listen for TCP/IP connections. If set to `0`, will default to, in order of preference, my.cnf, the MYSQL\_TCP\_PORT [environment variable](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables.md), /etc/services, built-in default (3306).
+* Description: Port to listen for TCP/IP connections. If set to `0`, will default to, in order of preference, my.cnf, the `MYSQL_TCP_PORT` [environment variable](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables.md), /etc/services, built-in default (3306).
 * Command line: `--port=#`, `-P`
 * Scope: Global
 * Dynamic: No
@@ -2130,7 +2036,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `progress_report_time`
 
-* Description: Time in seconds between sending [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
+* Description: Time in seconds between sending [progress reports](../../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
 * Command line: `--progress-report-time=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2185,12 +2091,12 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Command line: `--query-alloc-block-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `BIGINT UNSIGNED`                            &#x20;
-* Default Value:&#x20;
-  * \>= [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-5-release-notes), [MariaDB 10.11.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-11-release-notes), [MariaDB 10.6.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-22-release-notes): `32768`
-  * <= [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-10-release-notes), [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes): `16384`
+* Data Type: `BIGINT UNSIGNED`
+* Default Value:
+  * \>= [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.5), [MariaDB 10.11.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.11), [MariaDB 10.6.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.22): `32768`
+  * <= [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.4), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.10), [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21): `16384`
 * Range: `1024` to `4294967295`
-* Block size: `1024` &#x20;
+* Block size: `1024`
 
 #### `query_cache_limit`
 
@@ -2215,9 +2121,9 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `query_cache_size`
 
-* Description: Size in bytes available to the [query cache](../buffers-caches-and-threads/query-cache.md). About 40KB is needed for query cache structures, so setting a size lower than this will result in a warning. `0`, the default before [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), effectively disables the query cache.
+* Description: Size in bytes available to the [query cache](../buffers-caches-and-threads/query-cache.md). About 40KB is needed for query cache structures, so setting a size lower than this will result in a warning. Setting it to `0` effectively disables the query cache.
 
-**Warning:** Starting from [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), [query\_cache\_type](server-system-variables.md#query_cache_type) is automatically set to ON if the server is started with the query\_cache\_size set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
+**Warning:** [query\_cache\_type](server-system-variables.md#query_cache_type) is automatically set to ON if the server is started with the query\_cache\_size set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
 
 * Command line: `--query-cache-size=#`
 * Scope: Global
@@ -2237,16 +2143,16 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `query_cache_type`
 
-* Description: If set to `0`, the [query cache](../buffers-caches-and-threads/query-cache.md) is disabled (although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated). If set to `1` all SELECT queries will be cached unless SQL\_NO\_CACHE is specified. If set to `2` (or `DEMAND`), only queries with the SQL CACHE clause will be cached. Note that if the server is started with the query cache disabled, it cannot be enabled at runtime.
+* Description: Determines how the [query cache](../buffers-caches-and-threads/query-cache.md) is used. `OFF` disables it, although a buffer of [query\_cache\_size](server-system-variables.md#query_cache_size) bytes is still allocated. `ON` caches every cacheable `SELECT` unless it specifies `SQL_NO_CACHE`. `DEMAND` caches only a `SELECT` that specifies `SQL_CACHE`. The equivalent numbers `0`, `1` and `2` can be given in place of the names. It is the session value that determines how a connection uses the cache: a session can always set its own value to `OFF`, but cannot enable the cache for itself while the global value is `OFF`. The query cache can be enabled at runtime even when the server was started with `query_cache_type=OFF`, as long as [query\_cache\_size](server-system-variables.md#query_cache_size) is not `0`. See [Query Cache Types](../buffers-caches-and-threads/query-cache.md#query-cache-types) for details.
 
-**Warning:** Starting from [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), query\_cache\_type is automatically set to ON if the server is started with the [query\_cache\_size](server-system-variables.md#query_cache_size) set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
+**Warning:** query\_cache\_type is automatically set to ON if the server is started with the [query\_cache\_size](server-system-variables.md#query_cache_size) set to a non-zero (and non-default) value. This will happen even if [query\_cache\_type](server-system-variables.md#query_cache_type) is explicitly set to OFF in the configuration.
 
 * Command line: `--query-cache-type=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value: `OFF`
-* Valid Values: `0` or `OFF`, `1` or `ON`, `2` or `DEMAND`
+* Valid Values: `OFF` or `0`, `ON` or `1`, `DEMAND` or `2`
 
 #### `query_cache_wlock_invalidate`
 
@@ -2264,9 +2170,9 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:&#x20;
-  * \>= [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-5-release-notes), [MariaDB 10.11.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-11-release-notes), [MariaDB 10.6.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-22-release-notes): `32768`
-  * <= [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-10-release-notes), [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes): `24576` &#x20;
+* Default Value:
+  * \>= [MariaDB 11.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.5), [MariaDB 10.11.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.11), [MariaDB 10.6.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.22): `32768`
+  * <= [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.4), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.10), [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21): `24576`
 * Range: `1024` to `4294967295`
 
 #### `rand_seed1`
@@ -2308,6 +2214,10 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 * Description: Do not allow changes to non-temporary tables. Options are: `OFF` — changes allowed; `ON` — Disallow changes for users without the `READ ONLY ADMIN` privilege; `NO_LOCK` — Additionally disallows `LOCK TABLES` and `SELECT ... IN SHARE MODE`; `NO_LOCK_NO_ADMIN` — Disallows also for users with `READ_ONLY ADMIN` privilege. Replication (slave) threads are not affected by this option.
 * Command line: `--read-only`
 * Scope: Global
@@ -2318,7 +2228,11 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 {% endtab %}
 
 {% tab title="< 12.0" %}
-* Description: When set to `1` (`0` is default), no updates are permitted except from users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege, or replica servers updating from a primary. The `read_only` variable is useful for replica servers to ensure no updates are accidentally made outside of what are performed on the primary. Inserting rows to log tables, updates to temporary tables and [OPTIMIZE TABLE](../optimizing-tables/optimize-table.md) or [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) statements are excluded from this limitation. If `read_only` is set to `1`, then the [SET PASSWORD](../../../reference/sql-statements/account-management-sql-statements/set-password.md) statement is limited only to users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)) or [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes)). Attempting to set this variable to `1` will fail if the current session has table locks or transactions pending, while if other sessions hold table locks, the statement will wait until these locks are released before completing. While the attempt to set `read_only` is waiting, other requests for table locks or transactions will also wait until `read_only` has been set. See [Read-Only Replicas](../../standard-replication/read-only-replicas.md) for more. From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [READ\_ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege will allow users granted that privilege to perform writes, even if the `read_only` variable is set. In earlier versions, and until [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) can perform writes while this variable is set.
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
+* Description: When set to `1` (`0` is default), no updates are permitted except from users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege, or replica servers updating from a primary. The `read_only` variable is useful for replica servers to ensure no updates are accidentally made outside of what are performed on the primary. Inserting rows to log tables, updates to temporary tables and [OPTIMIZE TABLE](../optimizing-tables/optimize-table.md) or [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) statements are excluded from this limitation. If `read_only` is set to `1`, then the [SET PASSWORD](../../../reference/sql-statements/account-management-sql-statements/set-password.md) statement is limited only to users with the [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege. Attempting to set this variable to `1` will fail if the current session has table locks or transactions pending, while if other sessions hold table locks, the statement will wait until these locks are released before completing. While the attempt to set `read_only` is waiting, other requests for table locks or transactions will also wait until `read_only` has been set. See [Read-Only Replicas](../../standard-replication/read-only-replicas.md) for more. The [READ\_ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege allows users granted that privilege to perform writes, even if the `read_only` variable is set. Until [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege can also perform writes while this variable is set.
 * Command line: `--read-only`
 * Scope: Global
 * Dynamic: Yes
@@ -2339,23 +2253,23 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `redirect_url`
 
-* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
+* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example, `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
 * Command line: `--redirect_url=val`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: Empty
-* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `require_secure_transport`
 
-* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls) take precedence.
+* Description: When this option is enabled, connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that [per-account requirements](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md#requiring-tls-for-specific-user-accounts) take precedence.
 * Command line: `--require-secure-transport[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes)
+* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `rowid_merge_buff_size`
 
@@ -2367,28 +2281,15 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Default Value: `8388608`
 * Range: `0` to `2147483647`
 
-#### `rpl_recovery_rank`
-
-* Description: Unused.
-* Removed: [MariaDB 10.1.2](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/system-variables/broken-reference/README.md)
-
-#### `safe_show_database`
-
-* Description: This variable was removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), and has been replaced by the more flexible [SHOW DATABASES](../../../reference/sql-statements/administrative-sql-statements/show/show-databases.md) privilege.
-* Command line: `--safe-show-database` (until MySQL 4.1.1)
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-
 #### `secure_auth`
 
-* Description: Connections will be blocked if they use the [mysql\_old\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_old_password.md) authentication plugin. The server will also fail to start if the privilege tables are in the old, pre-MySQL 4.1 format. `secure_auth=0` was deprecated in [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-17-release-notes), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-5-release-notes), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-3-release-notes).
+* Description: Connections will be blocked if they use the [mysql\_old\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_old_password.md) authentication plugin. The server will also fail to start if the privilege tables are in the old, pre-MySQL 4.1 format. `secure_auth=0` was deprecated in [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.7), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.4), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3).
 * Command line: `--secure-auth`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
+* Removed: MariaDB 13.0. The `secure_auth` system variable and the `--secure-auth` server option were removed. The protection they provided (blocking connections that use the [mysql\_old\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_old_password.md) authentication plugin, and refusing to start when the privilege tables are in the old, pre-MySQL 4.1 format) is now always enforced and can no longer be disabled.
 
 #### `secure_file_priv`
 
@@ -2420,7 +2321,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: No
 * Data Type: `varchar`
 * Default Value: None
-* Introduced: [MariaDB 10.5.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-26-release-notes), [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-1-release-notes)
+* Introduced: [MariaDB 10.5.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.26), [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.1)
 
 #### `session_track_schema`
 
@@ -2448,8 +2349,8 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value:
-  * > \= [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113): `autocommit,character_set_client,character_set_connection,character_set_results,redirect_url,time_zone`
-  * <= [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112): `autocommit, character_set_client, character_set_connection, character_set_results, time_zone`
+  * > \= [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113): `autocommit,character_set_client,character_set_connection,character_set_results,redirect_url,time_zone`
+  * <= [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112): `autocommit, character_set_client, character_set_connection, character_set_results, time_zone`
 
 #### `session_track_transaction_info`
 
@@ -2477,7 +2378,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `shutdown_wait_for_slaves`
 
-* Description: When `ON, SHUTDOWN` command runs with implicit `WAIT FOR ALL SLAVES` option. That is, when running `SHUTDOWN`, before killing the binary log dump threads, the server will first kill all client threads and send all binary log events to all connected replicas.
+* Description: Available in MariaDB Enterprise Server only. When `ON`, the `SHUTDOWN` command runs with an implicit `WAIT FOR ALL SLAVES` option. That is, when running `SHUTDOWN`, before killing the binary log dump threads, the server will first kill all client threads and send all binary log events to all connected replicas.
 * Scope: Global
 * Dynamic: No
 * Data Type: `Boolean`
@@ -2497,13 +2398,13 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `skip_grant_tables`
 
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md), [mariadb-admin reload](../../../clients-and-utilities/legacy-clients-and-utilities/mysqladmin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables. Before [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as an [option only](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). Use [mariadb-admin flush-privileges](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables.
 * Command line: `--skip-grant-tables`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `skip_name_resolve`
 
@@ -2543,7 +2444,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `slow_query_log`
 
-* Description: If set to 0, the default unless the --slow-query-log option is used, the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is disabled, while if set to 1 (both global and session variables), the slow query log is enabled. From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), an alias for [log\_slow\_query](server-system-variables.md#log_slow_query).
+* Description: If set to 0, the default unless the --slow-query-log option is used, the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) is disabled, while if set to 1 (both global and session variables), the slow query log is enabled. From [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), an alias for [log\_slow\_query](server-system-variables.md#log_slow_query).
 * Command line: `--slow-query-log`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2554,7 +2455,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `slow_query_log_file`
 
-* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. From [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), an alias for [log\_slow\_query\_file](server-system-variables.md#log_slow_query_file). If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-log-basename) is also set, `slow_query_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Name of the [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) file. From [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), an alias for [log\_slow\_query\_file](server-system-variables.md#log_slow_query_file). If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `slow_query_log_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 * Command line: `--slow-query-log-file=file_name`
 * Scope: Global
 * Dynamic: Yes
@@ -2572,7 +2473,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `sort_buffer_size`
 
-* Description: Each session performing a sort allocates a buffer with this amount of memory. Not specific to any storage engine. If the status variable [sort\_merge\_passes](server-status-variables.md#sort_merge_passes) is too high, you may need to look at improving your query indexes, or increasing this. Consider reducing where there are many small sorts, such as OLTP, and increasing where needed by session. 16k is a suggested minimum.
+* Description: Each session performing a sort allocates a buffer with this amount of memory. Not specific to any storage engine. If the status variable [sort\_merge\_passes](server-status-variables.md#sort_merge_passes) is too high, you may need to look at improving your query indexes or increasing this. Consider reducing where there are many small sorts, such as OLTP, and increasing where needed by session. 16k is a suggested minimum.
 * Command line: `--sort-buffer-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2595,17 +2496,6 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `boolean`
 * Default Value: `1`
 
-#### `sql_big_tables`
-
-* Description: Old variable, which if set to 1, allows large result sets by saving all temporary sets to disk, avoiding 'table full' errors. No longer needed, as the server now handles this automatically.
-  * This is a synonym for [big\_tables](server-system-variables.md#big_tables).
-* Command line: `--sql-big-tables`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `0`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
 #### `sql_buffer_result`
 
 * Description: If set to 1 (0 is default), results from SELECT statements are always placed into temporary tables. This can help the server when it takes a long time to send the results to the client by allowing the table locks to be freed early.
@@ -2622,7 +2512,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes)
+* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `sql_log_off`
 
@@ -2632,42 +2522,20 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `boolean`
 * Default Value: `0`
 
-#### `sql_log_update`
-
-* Description: Removed. Use [sql\_log\_bin](server-system-variables.md#sql_log_bin) instead.
-* Removed: MariaDB/MySQL 5.5
-
-#### `sql_low_priority_updates`
-
-* Description: If set to 1 (0 is the default), for [storage engines](../../../server-usage/storage-engines/) that use only table-level locking ([Aria](../../../server-usage/storage-engines/aria/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) and [MERGE](../../../server-usage/storage-engines/merge.md)), all INSERTs, UPDATEs, DELETEs and LOCK TABLE WRITEs will wait until there are no more SELECTs or LOCK TABLE READs pending on the relevant tables. Set this to 1 if reads are prioritized over writes.
-  * This is a synonym for [low\_priority\_updates](server-system-variables.md#low_priority_updates).
-* Command line: `--sql-low-priority-updates`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `0`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
-#### `sql_max_join_size`
-
-* Description: Synonym for [max\_join\_size](server-system-variables.md#max_join_size), the preferred name.
-* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
 #### `sql_mode`
 
-* Description: Sets the [SQL Mode](../../../server-management/variables-and-modes/sql-mode.md). Multiple modes can be set, separated by a comma.
+* Description: Sets the [SQL Mode](../../../server-management/variables-and-modes/sql_mode.md). Multiple modes can be set, separated by a comma.
 * Command line: `--sql-mode=value[,value[,value...]]`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value:
   * `STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION`
-* Valid Values: See [SQL Mode](../../../server-management/variables-and-modes/sql-mode.md) for the full list.
+* Valid Values: See [SQL Mode](../../../server-management/variables-and-modes/sql_mode.md) for the full list.
 
 #### `sql_notes`
 
-* Description: If set to 1, the default, [warning\_count](server-system-variables.md#warning_count) is incremented each time a Note warning is encountered. If set to 0, Note warnings are not recorded. [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) has outputs to set this variable to 0 so that no unnecessary increments occur when data is reloaded. See also [note\_verbosity](server-system-variables.md#note_verbosity), which defines which notes should be given. The recommended way, as of [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), to disable notes is to set `note_verbosity` to "".
+* Description: If set to 1, the default, [warning\_count](server-system-variables.md#warning_count) is incremented each time a Note warning is encountered. If set to 0, Note warnings are not recorded. [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) has outputs to set this variable to 0 so that no unnecessary increments occur when data is reloaded. See also [note\_verbosity](server-system-variables.md#note_verbosity), which defines which notes should be given. The recommended way, as of [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), to disable notes is to set `note_verbosity` to "".
 * Command line: None
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2684,7 +2552,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `sql_safe_updates`
 
-* Description: If set to 1, UPDATEs and DELETEs must be executed by using an index (simply mentioning an indexed column in a WHERE clause is not enough, optimizer must actually use it) or they must mention an indexed column and specify a LIMIT clause. Otherwise a statement will be aborted. Prevents the common mistake of accidentally deleting or updating every row in a table. Until [MariaDB 10.3.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10311-release-notes), could not be set as a command-line option or in my.cnf.
+* Description: If set to 1, UPDATEs and DELETEs must be executed by using an index (simply mentioning an indexed column in a WHERE clause is not enough, optimizer must actually use it) or they must mention an indexed column and specify a LIMIT clause. Otherwise a statement will be aborted. Prevents the common mistake of accidentally deleting or updating every row in a table.
 * Command line: `--sql-safe-updates[={0|1}]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2711,12 +2579,12 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `storage_engine`
 
 * Description: See [default\_storage\_engine](server-system-variables.md#default_storage_engine).
-* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-* Remove: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120)
+* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
 
 #### `standard_compliant_cte`
 
-* Description: Allow only standard-compliant [common table expressions](../../../reference/sql-statements/data-manipulation/selecting-data/common-table-expressions/). Prior to [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes), this variable was named `standards_compliant_cte`.
+* Description: Allow only standard-compliant [common table expressions](../../../reference/sql-statements/data-manipulation/selecting-data/common-table-expressions/).
 * Command line: `--standard-compliant-cte={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2760,24 +2628,13 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `table_definition_cache`
 
-* Description: Number of table definitions that can be cached. Table definitions are taken from the .frm files, and if there are a large number of tables increasing the cache size can speed up table opening. Unlike the [table\_open\_cache](server-system-variables.md#table_open_cache), as the table\_definition\_cache doesn't use file descriptors, and is much smaller.
+* Description: Number of table definitions that can be cached. Table definitions are taken from the .frm files, and if there are a large number of tables increasing the cache size can speed up table opening. Unlike the [table\_open\_cache](server-system-variables.md#table_open_cache), as the table\_definition\_cache doesn't use file descriptors and is much smaller.
 * Command line: `--table-definition-cache=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `400`
 * Range: `400` to `2097152`
-
-#### `table_lock_wait_timeout`
-
-* Description: Unused, and removed.
-* Command line: `--table-lock-wait-timeout=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `50`
-* Range: `1` to `1073741824`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 #### `table_open_cache`
 
@@ -2799,7 +2656,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `8` (>= [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes))
+* Default Value: `8`
 * Range: `1` to `64`
 
 #### `table_type`
@@ -2847,25 +2704,13 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `thread_cache_size`
 
-* Description: Number of threads server caches for re-use. If this limit hasn't been reached, when a client disconnects, its threads are put into the cache, and re-used where possible. In [MariaDB 10.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102)[MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and newer the threads are freed after 5 minutes of idle time. Normally this setting has little effect, as the other aspects of the thread implementation are more important, but increasing it can help servers with high volumes of connections per second so that most can use a cached, rather than a new, thread. The cache miss rate can be calculated as the [server status variables](server-status-variables.md) threads\_created/connections. If the [thread pool](../buffers-caches-and-threads/thread-pool/) is active, `thread_cache_size` is ignored. If `thread_cache_size` is set to greater than the value of [max\_connections](server-system-variables.md#max_connections), `thread_cache_size` will be set to the [max\_connections](server-system-variables.md#max_connections) value.
+* Description: Number of threads server caches for reuse. If this limit hasn't been reached, when a client disconnects, its threads are put into the cache and reused where possible. The threads are freed after 5 minutes of idle time. Normally this setting has little effect, as the other aspects of the thread implementation are more important, but increasing it can help servers with high volumes of connections per second so that most can use a cached, rather than a new, thread. The cache miss rate can be calculated as the [server status variables](server-status-variables.md) threads\_created/connections. If the [thread pool](../buffers-caches-and-threads/thread-pool/) is active, `thread_cache_size` is ignored. If `thread_cache_size` is set to greater than the value of [max\_connections](server-system-variables.md#max_connections), `thread_cache_size` will be set to the [max\_connections](server-system-variables.md#max_connections) value.
 * Command line: `--thread-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `256` (adjusted if thread pool is active)
 * Range: `0` to `16384`
-
-#### `thread_concurrency`
-
-* Description: Allows applications to give the system a hint about the desired number of threads. Specific to Solaris only, invokes thr\_setconcurrency(). Deprecated and has no effect from [MariaDB 5.5](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/system-variables/broken-reference/README.md).
-* Command line: `--thread-concurrency=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `10`
-* Range: `1` to `512`
-* Deprecated: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
 
 #### `thread_stack`
 
@@ -2881,7 +2726,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `time_format`
 
 * Description: Unused.
-* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `time_zone`
 
@@ -2891,17 +2736,6 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `SYSTEM`
-
-#### `timed_mutexes`
-
-* Description: Determines whether [InnoDB](../../../server-usage/storage-engines/innodb/) mutexes are timed. `OFF`, the default, disables mutex timing, while `ON` enables it. See also [SHOW ENGINE](../../../reference/sql-statements/administrative-sql-statements/show/show-engine.md) for more on mutex statistics. Deprecated and has no effect.
-* Command line: `--timed-mutexes`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 5.5.39](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5539-release-notes)
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
 
 #### `timestamp`
 
@@ -2927,19 +2761,17 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `tmp_table_size`
 
-* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). From [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1027-release-notes), [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
+* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
 * Command line: `--tmp-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `16777216` (16MB)
-* Range:
-  * `1024` to `4294967295` (< [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
-  * `0` to `4294967295` (>= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes))
+* Range: `0` to `4294967295`
 
 #### `tmpdir`
 
-* Description: Directory for storing temporary tables and files. Can specify a list (separated by semicolons in Windows, and colons in Unix) that will then be used in round-robin fashion. This can be used for load balancing across several disks. Note that if the server is a [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/system-variables/broken-reference/README.md) replica, and [slave\_load\_tmpdir](../../standard-replication/replication-and-binary-log-system-variables.md#slave_load_tmpdir), which overrides `tmpdir` for replicas, is not set, you should not set `tmpdir` to a directory that is cleared when the machine restarts, or else replication may fail.
+* Description: Directory for storing temporary tables and files. Can specify a list (separated by semicolons in Windows, and colons in Unix) that will then be used in round-robin fashion. This can be used for load balancing across several disks. Note that if the server is a [replication](../../standard-replication/replication-overview.md) replica, and [slave\_load\_tmpdir](../../standard-replication/replication-and-binary-log-system-variables.md#slave_load_tmpdir), which overrides `tmpdir` for replicas, is not set, you should not set `tmpdir` to a directory that is cleared when the machine restarts, or else replication may fail.
 * Command line: `--tmpdir=path` or `-t path`
 * Scope: Global
 * Dynamic: No
@@ -2948,7 +2780,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `$TMPDIR` (environment variable) if set
   * otherwise `$TEMP` if set and on Windows
   * otherwise `$TMP` if set and on Windows
-  * otherwise `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during buid time)
+  * otherwise, `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during build time)
 
 #### `transaction_alloc_block_size`
 
@@ -2963,14 +2795,14 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `transaction_isolation`
 
-* Description: The transaction isolation level. See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). Introduced in [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes) to replace the [tx\_isolation](server-system-variables.md#tx_isolation) system variable and align the option and the system variable name.
+* Description: The transaction isolation level. See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). Introduced in [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.1) to replace the [tx\_isolation](server-system-variables.md#tx_isolation) system variable and align the option and the system variable name.
 * Command line: `--transaction-isolation=name`
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: enumeration
 * Default Value: `REPEATABLE-READ`
 * Valid Values: `READ-UNCOMMITTED`, `READ-COMMITTED`, `REPEATABLE-READ`, `SERIALIZABLE`
-* Introduced: [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes)
+* Introduced: [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.1)
 
 #### `transaction_prealloc_size`
 
@@ -2991,28 +2823,28 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Type: boolean
 * Default Value: `OFF`
-* Introduced: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111)
+* Introduced: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111)
 
 #### `tx_isolation`
 
-* Description: The transaction isolation level. Setting this session variable via `set @@tx_isolation=` will take effect for only the subsequent transaction in the current session, much like [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). To set for a session, use `SET SESSION tx_isolation` or `SET @@session.tx_isolation`. See [MDEV-31751](https://jira.mariadb.org/browse/MDEV-31751). See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_isolation](server-system-variables.md#transaction_isolation).
-* Command line: `--transaction-isolation=name`
+* Description: The transaction isolation level. Setting this session variable via `set @@tx_isolation=` will take effect for only the subsequent transaction in the current session, much like [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). To set for a session, use `SET SESSION tx_isolation` or `SET @@session.tx_isolation`. See [MDEV-31751](https://jira.mariadb.org/browse/MDEV-31751). See also [SET TRANSACTION ISOLATION LEVEL](../../../reference/sql-statements/transactions/set-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_isolation](server-system-variables.md#transaction_isolation).
+* Command line: None. The startup option is `--transaction-isolation=name`, which sets [transaction\_isolation](server-system-variables.md#transaction_isolation).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: enumeration
 * Default Value: `REPEATABLE-READ`
 * Valid Values: `READ-UNCOMMITTED`, `READ-COMMITTED`, `REPEATABLE-READ`, `SERIALIZABLE`
-* Deprecated: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111)
+* Deprecated: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111)
 
 #### `tx_read_only`
 
-* Description: Default transaction access mode. If set to `OFF`, the default, access is read/write. If set to `ON`, access is read-only. The `SET TRANSACTION` statement can also change the value of this variable. See [SET TRANSACTION](../../../reference/sql-statements/transactions/set-transaction.md) and [START TRANSACTION](../../../reference/sql-statements/transactions/start-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_read\_only](server-system-variables.md#transaction_read_only).
-* Command line: `--transaction-read-only=#`
+* Description: Default transaction access mode. If set to `OFF`, the default, access is read/write. If set to `ON`, access is read-only. The `SET TRANSACTION` statement can also change the value of this variable. See [SET TRANSACTION](../../../reference/sql-statements/transactions/set-transaction.md) and [START TRANSACTION](../../../reference/sql-statements/transactions/start-transaction.md). In [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), this system variable is deprecated and replaced by [transaction\_read\_only](server-system-variables.md#transaction_read_only).
+* Command line: None. The startup option is `--transaction-read-only=#`, which sets [transaction\_read\_only](server-system-variables.md#transaction_read_only).
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: boolean
 * Default Value: `OFF`
-* Deprecated: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111)
+* Deprecated: [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111)
 
 #### `unique_checks`
 
@@ -3045,13 +2877,32 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `enum`
 * Default Value: `preferably_for_queries`
 
+#### `validate_config`
+
+*   Description: Validates the server configuration (from configuration files and command line). Exits with exit code `0` on success, or non-zero on failure, without actually starting the server. Example:
+
+    ```bash
+    mariadbd --defaults-file=/etc/my.cnf --validate-config
+    ```
+
+    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p><code>--help</code> or <code>--version</code> take precedence. If used with this option, the configuration check is <strong>not</strong> performed.</p></div>
+* Exit codes:
+  * `0`: valid configuration
+  * `2`: unknown option
+  * `7`: unknown variable
+* Command line: `--validate-config`
+* Scope: Global
+* Dynamic: No
+* Data Type: numeric
+* Introduced: MariaDB 13.0
+
 #### `version`
 
-* Description: Server version number. It may also include a suffix with configuration or build information. `-debug` indicates debugging support was enabled on the server, and `-log` indicates at least one of the binary log, general log or [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) are enabled, for example `10.0.1-MariaDB-mariadb1precise-log`. Can be set at startup in order to fake the server version.
+* Description: Server version number. It may also include a suffix with configuration or build information. `-debug` indicates debugging support was enabled on the server, and `-log` indicates at least one of the binary log, general log or [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) are enabled, for example `10.6.18-MariaDB-log`. Can be set at startup in order to fake the server version.
 * Command line: `-V`, `--version[=name]`
 * Scope: Global
 * Dynamic: No
-* Type: string
+* Data Type: string
 
 #### `version_comment`
 

@@ -1,0 +1,78 @@
+# doc-lint acknowledgment allowlist — the in-band way to say "yes, on purpose"
+# to the doc-lint guards that have legitimate exceptions.
+#
+# Parsed ONLY by .claude/hooks/allowlist.py, which accepts a strict subset of
+# YAML and rejects everything else with a line number; that script's header has
+# the format, the rules and the reasoning. Decided on DOCS-6586.
+#
+#   orphan  a page file with no entry in its space's SUMMARY.md. GitBook
+#           publishes only what SUMMARY.md lists, so the page never renders --
+#           which is correct for a `hidden: true` page or an unreleased draft,
+#           and a bug everywhere else (DOCS-6566).
+#   shrink  a page that lost more than 40% of its lines, net, against the PR
+#           base. Correct when a landing page's children were retired, and the
+#           signature of a silently gutted page everywhere else (DOCS-6442).
+#
+#   no-standalone
+#           a connector release whose notes have no platform/post-download/
+#           page. Correct when that version shipped only INSIDE a Server
+#           release with no standalone package published -- there is no
+#           download for a reader to land on, so there is no page to write --
+#           and a missing page everywhere else (DOCS-6408, DOCS-6734).
+#
+# Every entry needs a `reason`, and the ticket it traces to where there is one:
+#
+#   orphan:
+#     - path: release-notes/enterprise-server/12.3/whats-new.md
+#       reason: "unreleased, hidden until beta ships — DOCS-6391"
+#
+#   shrink:
+#     - path: tools/debian/README.md
+#       reason: "3 of 5 child pages retired — DOCS-5976"
+#
+#   no-standalone:
+#     - path: release-notes/connectors/c/3.4/3.4.10.md
+#       reason: "shipped only inside Server; 3.4.11 is the standalone — DOCS-6732"
+#
+# Two things this file will NOT take. `all`, because in a checked-in file that
+# is a permanent repo-wide disable rather than an acknowledgment (the local
+# DOC_LINT_ALLOW_* environment variables still accept it for a one-off run).
+# And a stale entry: the orphan guard FAILS on an entry whose page is now
+# listed in SUMMARY.md or no longer exists, the shrink guard fails on an entry
+# whose page no longer exists, and the no-standalone guard fails on an entry
+# whose page is gone or whose release has since gained a Post Download page. So
+# the register prunes itself at the point someone forgets instead of piling up
+# quietly.
+#
+# Adding an entry is a review decision. Keep the sections alphabetical by
+# path — a convention for the reader, not a rule the parser enforces; what it
+# does enforce is that no path is listed twice in a section.
+
+orphan:
+  - path: gridgain8/gridgain8-usage/machine-learning/python/overview.md
+    reason: "hidden — Python ML page was :page-published: false in the GG8 source; kept but hidden per the migration decision"
+  - path: gridgain8/gridgain8-usage/machine-learning/python/using-python-ml.md
+    reason: "hidden — Python ML page was :page-published: false in the GG8 source; kept but hidden per the migration decision"
+
+shrink:
+  - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
+    reason: "three pre-10.5 version tabs removed, current text kept — DOCS-6750"
+  - path: server/reference/system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md
+    reason: "pre-10.5 example tab removed, current example kept — DOCS-6750"
+  - path: server/server-usage/storage-engines/innodb/innodb-monitors.md
+    reason: "pre-10.0.14 CREATE TABLE methods and the nonexistent Table/Tablespace Monitors removed — DOCS-6755"
+  - path: server/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/atomic-write-support.md
+    reason: "5.5-10.1 sections and a flowchart of pre-10.6 behavior replaced by a short list of what 10.6+ does — DOCS-6755"
+  - path: server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/README.md
+    reason: "cards for the six deleted pre-10.6 upgrade guides removed; the remaining cards are kept — DOCS-6755"
+
+# Both entries are the August 2026 Connector/C round (DOCS-6732). Each version
+# was built only as part of a Server release, so mariadb.com offers no download
+# for it and the next patch release is the standalone one that carries its
+# fixes. The prose on each page says the same thing for readers; this says it
+# for the gate.
+no-standalone:
+  - path: release-notes/connectors/c/3.3/3.3.20.md
+    reason: "shipped only inside Server 10.6; 3.3.21 is the standalone — DOCS-6732"
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Community Server; 3.4.11 is the standalone — DOCS-6732"

@@ -1,16 +1,14 @@
+---
+description: >-
+  Aggregate values into a JSON array. This function aggregates a result set
+  column into a single JSON array.
+---
+
 # JSON\_ARRAYAGG
-
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
-
-JSON\_ARRAYAGG was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes).
-
-{% hint style="info" %}
-`JSON_ARRAYAGG` is available from MariaDB 10.5.
-{% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAYAGG(column_or_expression)
 ```
 
@@ -22,7 +20,7 @@ The maximum returned length in bytes is determined by the [group\_concat\_max\_l
 
 Returns `NULL` in the case of an error, or if the result contains no rows.
 
-`JSON_ARRAYAGG` cannot currently be used as a [window function](../window-functions/).
+`JSON_ARRAYAGG` cannot be used as a [window function](../window-functions/).
 
 The full syntax is as follows:
 

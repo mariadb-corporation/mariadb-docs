@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.columns_priv table records column-level privileges granted to users,
+  detailing specific access rights for individual columns.
+---
+
 # mysql.columns\_priv Table
 
 The `mysql.columns_priv` table contains information about column-level privileges. The table can be queried and although it is possible to directly update it, it is best to use [GRANT](../../sql-statements/account-management-sql-statements/grant.md) for setting privileges.

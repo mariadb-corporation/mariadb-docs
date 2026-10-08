@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide provides a conceptual overview of database indexes, explaining
+  their purpose, different types, and when to use them for optimization.
+---
+
 # Essentials of an Index Guide
 
 _An index on `Last_Name` organizes the records by surname, enhancing search efficiency without altering the original table order. Indices can be created for any column, such as ID or first name, to enable quick lookups based on different criteria._

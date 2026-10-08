@@ -1,3 +1,10 @@
+---
+description: >-
+  Practical guidance for migrating an existing MariaDB workload to Galera
+  Cluster, with notes for schema designers, developers, and DBAs on InnoDB,
+  AUTO_INCREMENT, and DDL handling.
+---
+
 # Tips on Converting to Galera
 
 These topics will be discussed in more detail below.
@@ -55,7 +62,7 @@ In Galera:
 * 1 latency hit for the COMMIT.
 * 0 (usually) for Critical Read (details below)
 
-Bottom line: Depending on where your Clients are, and whether you clump statements into BEGIN...COMMIT transacitons, Galera may be faster or slower than traditional replication in a WAN topology.
+Bottom line: Depending on where your Clients are, and whether you clump statements into BEGIN...COMMIT transactions, Galera may be faster or slower than traditional replication in a WAN topology.
 
 ## AUTO\_INCREMENT
 
@@ -101,6 +108,10 @@ In any case, doing what is "right" for the business logic overrides other consid
 
 Galera's tx\_isolation is between Serializable and Repeatable Read. tx\_isolation variable is ignored.
 
+{% hint style="warning" %}
+Galera's effective isolation level is a distributed variant of Snapshot Isolation. In [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.6/mariadb-11-6-2-changelog) and later, the `innodb_snapshot_isolation` system variable is enabled by default to support this model. While this provides a consistent point-in-time view for reads, it does not prevent all Lost Updates (P4) or Stale Reads in a distributed environment without additional configuration. For applications requiring the highest degree of safety, users should treat the default behavior as similar to Read Committed with session-level causality, and use `wsrep_sync_wait` to ensure real-time consistency where necessary.
+{% endhint %}
+
 Set wsrep\_log\_conflicts to get errors put in the regular MySQL mysqld.err.
 
 XA transactions cannot be supported. (Galera is already doing a form of XA in order to do its thing.)
@@ -135,7 +146,7 @@ GRANTs and related operations act on the MyISAM tables in the database `mysql`. 
 
 Many DDL changes on Galera can be achieved without downtime, even if they take a long time.
 
-[RSU vs TOI](https://galeracluster.com/documentation-webpages/documentation/schema-upgrades.html):
+[RSU vs TOI](../general-operations/performing-schema-upgrades-in-galera-cluster.md):
 
 * Rolling Schema Upgrade (RSU): manually execute the DDL on each node in the cluster. The node will desync while executing the DDL.
 * Total Order Isolation (TOI): Galera automatically replicates the DDL to each node in the cluster, and it synchronizes each node so that the statement is executed at same time (in the replication sequence) on all nodes.
@@ -181,8 +192,8 @@ You can 'simulate' Master + Slaves by having clients write only to one node.
 * [innodb\_autoinc\_lock\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) - 2
 * [innodb\_doublewrite](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_doublewrite) - ON: When an IST occurs, want there to be no torn pages? (With FusionIO or other drives that guarantee atomicity, OFF is better.)
 * [innodb\_flush\_log\_at\_trx\_commit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) - 2 or 0. IST or SST will recover from loss if you have 1.
-* [query\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#query_cache_size) - 0
-* [query\_cache\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#query_cache_type) - 0: The Query cache cannot be used in a Galera context.
+* [query\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#query_cache_size) - 0
+* [query\_cache\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#query_cache_type) - 0: The Query cache cannot be used in a Galera context.
 * [wsrep\_auto\_increment\_control](../../reference/galera-cluster-system-variables.md#wsrep_auto_increment_control) - Normally want ON
 * [wsrep\_on](../../reference/galera-cluster-system-variables.md#wsrep_on) - ON
 * [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options) - Various settings may need tuning if you are using a WAN.
@@ -190,8 +201,6 @@ You can 'simulate' Master + Slaves by having clients write only to one node.
 * [wsrep\_sync\_wait](../../reference/galera-cluster-system-variables.md#wsrep_sync_wait) (previously wsrep\_causal\_reads) - used transiently to dealing with "critical reads".
 
 ## Miscellany
-
-Until recently, FOREIGN KEYs were buggy.
 
 LOAD DATA is auto chunked. That is, it is passed to other nodes piecemeal, not all at once.
 
@@ -240,7 +249,7 @@ Posted 2013; VARIABLES: 2015; Refreshed Feb. 2016
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [galera](https://mysql.rjweb.org/doc.php/galera)

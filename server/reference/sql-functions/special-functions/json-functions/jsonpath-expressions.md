@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand JSONPath syntax. This guide explains how to use JSONPath to select
+  and extract specific elements, objects, or arrays from JSON documents.
+---
+
 # JSONPath Expressions
 
 A number of [JSON functions](./) accept JSON Path expressions. MariaDB defines this path as follows:
@@ -8,7 +14,7 @@ A number of [JSON functions](./) accept JSON Path expressions. MariaDB defines t
 path : ['lax'] '$' [step]*
 ```
 
-The path starts with an optional _path mode_. At the moment, MariaDB supports only the "lax" mode, which is also the mode that is used when it is not explicitly specified.
+The path starts with an optional _path mode_. MariaDB supports only the "lax" mode, which is also the mode that is used when it is not explicitly specified.
 
 The `$` symbol represents the context item. The search always starts from the context item; because of that, the path always starts with `$`.
 
@@ -39,6 +45,10 @@ If the current item is an object (instead of an array), nothing will be selected
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.9:
+{% endhint %}
+
 JSON path supports negative indexes in an array, 'last' keyword and range notation ('to' keyword) for accessing array elements. Negative indexes start from -1.
 
 * `[-N]` selects n th element from end.
@@ -96,6 +106,10 @@ SELECT JSON_EXTRACT(@json, '$[0 to 3][2]');
 {% endtab %}
 
 {% tab title="< 10.9" %}
+{% hint style="info" %}
+Before MariaDB 10.9:
+{% endhint %}
+
 JSON path does **not** support negative indexes in an array.
 {% endtab %}
 {% endtabs %}

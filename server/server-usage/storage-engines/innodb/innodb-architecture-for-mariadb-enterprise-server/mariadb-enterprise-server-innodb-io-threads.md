@@ -1,8 +1,14 @@
+---
+description: >-
+  Learn about the specialized I/O threads in MariaDB Enterprise Server's InnoDB
+  engine that handle asynchronous read and write operations efficiently.
+---
+
 # MariaDB Enterprise Server InnoDB I/O Threads
 
 ## Overview
 
-Starting with MariaDB Enterprise Server 10.5 and MariaDB Community Server 10.5, the InnoDB I/O Threads were replaced by the asynchronous I/O functionality in the [InnoDB Background Thread Pool](mariadb-enterprise-server-innodb-background-thread-pool.md).
+The InnoDB I/O Threads are replaced by the asynchronous I/O functionality in the [InnoDB Background Thread Pool](mariadb-enterprise-server-innodb-background-thread-pool.md).
 
 ## Feature Summary
 
@@ -16,14 +22,14 @@ Starting with MariaDB Enterprise Server 10.5 and MariaDB Community Server 10.5, 
 
 ## Basic Configuration
 
-```
+```ini
 [mariadb]
 ...
 innodb_read_io_threads=8
 innodb_write_io_threads=8
 ```
 
-```
+```sql
 SET GLOBAL innodb_read_io_threads=8;
 SET GLOBAL innodb_write_io_threads=8;
 
@@ -40,6 +46,6 @@ SHOW GLOBAL VARIABLES
 +-------------------------+-------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

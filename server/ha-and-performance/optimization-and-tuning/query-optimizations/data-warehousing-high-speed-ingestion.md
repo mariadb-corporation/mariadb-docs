@@ -1,3 +1,9 @@
+---
+description: >-
+  Techniques for high-speed data ingestion when INSERT performance is the
+  bottleneck.
+---
+
 # Data Warehousing High Speed Ingestion
 
 ## The problem
@@ -45,7 +51,7 @@ Here's how you can use `Staging` as an efficient way achieve the swap from name 
 Staging has two fields (for this normalization example):
 
 ```sql
-host_name VARCHAR(99) NOT NULL,     -- Comes from the insertion proces
+host_name VARCHAR(99) NOT NULL,     -- Comes from the insertion process
     host_id  MEDIUMINT UNSIGNED  NULL,  -- NULL to start with; see code below
 ```
 
@@ -213,7 +219,7 @@ iblog\_file\_size should be larger than the change in the STATUS "Innodb\_os\_lo
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [staging\_table](https://mysql.rjweb.org/doc.php/staging_table)

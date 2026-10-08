@@ -1,4 +1,10 @@
-# Enterprise Server
+---
+description: >-
+  A guide to installing MariaDB Enterprise Server on various operating systems
+  using package managers (YUM, APT, ZYpp) or binary tarballs.
+---
+
+# Installing Enterprise Server
 
 ## Overview
 
@@ -48,7 +54,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
    --mariadb-server-version="11.4"
 ```
 
-3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 4. Install MariaDB Enterprise Server and package dependencies:
 
 ```bash
@@ -84,7 +90,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
 $ sudo apt update
 ```
 
-3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 4. Install MariaDB Enterprise Server and package dependencies:
 
 ```bash
@@ -118,7 +124,7 @@ $ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
    --mariadb-server-version="11.4"
 ```
 
-3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+3. _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 4. Install MariaDB Enterprise Server and package dependencies:
 
 ```bash
@@ -175,7 +181,7 @@ Determine which system variables and options you need to configure.
 
 Useful system variables and options for MariaDB Enterprise Server include:
 
-<table><thead><tr><th width="237.7037353515625">System Variable/Option</th><th>Description</th></tr></thead><tbody><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">datadir</a></td><td>Sets the path to the data directory. MariaDB Enterprise Server writes data files to this directory, including tablespaces, logs, and schemas. Change it to use a non-standard location or to start the Server on a different data directory for testing.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md">bind_address</a></td><td>Sets the local TCP/IP address on which MariaDB Enterprise Server listens for incoming connections. When testing on a local system, bind the address to the local host at 127.0.0.1 to prevent network access.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">port</a></td><td>Sets the port MariaDB Enterprise Server listens on. Use this system variable to use a non-standard port or when running multiple Servers on the same host for testing.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">max_connections</a></td><td>Sets the maximum number of simultaneous connections MariaDB Enterprise Server allows.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling">thread_handling</a></td><td>Sets how MariaDB Enterprise Server handles threads for client connections.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">log_error</a></td><td>Sets the file name for the error log.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size">innodb_buffer_pool_size</a></td><td>Sets the amount of memory InnoDB reserves for the Buffer Pool.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size">innodb_log_file_size</a></td><td>Sets the size for each Redo Log file and <a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_files_in_group">innodb_log_files_in_group</a> sets the number of Redo Log files used by InnoDB.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity">innodb_io_capacity</a></td><td>Sets the maximum number of I/O operations per second that InnoDB can use.</td></tr></tbody></table>
+<table><thead><tr><th width="237.7037353515625">System Variable/Option</th><th>Description</th></tr></thead><tbody><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">datadir</a></td><td>Sets the path to the data directory. MariaDB Enterprise Server writes data files to this directory, including tablespaces, logs, and schemas. Change it to use a non-standard location or to start the Server on a different data directory for testing.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md">bind_address</a></td><td>Sets the local TCP/IP address on which MariaDB Enterprise Server listens for incoming connections. When testing on a local system, bind the address to the local host at 127.0.0.1 to prevent network access.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">port</a></td><td>Sets the port MariaDB Enterprise Server listens on. Use this system variable to use a non-standard port or when running multiple Servers on the same host for testing.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">max_connections</a></td><td>Sets the maximum number of simultaneous connections MariaDB Enterprise Server allows.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling">thread_handling</a></td><td>Sets how MariaDB Enterprise Server handles threads for client connections.</td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">log_error</a></td><td>Sets the file name for the error log.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size">innodb_buffer_pool_size</a></td><td>Sets the amount of memory InnoDB reserves for the Buffer Pool.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size">innodb_log_file_size</a></td><td>Sets the size of the InnoDB Redo Log file.</td></tr><tr><td><a href="../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity">innodb_io_capacity</a></td><td>Sets the maximum number of I/O operations per second that InnoDB can use.</td></tr></tbody></table>
 
 2. Choose a configuration file in which to configure your system variables and options.
 
@@ -224,6 +230,6 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]>
 ```
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Performance Schema accounts table stores statistics on current and total
+  connections for each client account connecting to the server.
+---
+
 # Performance Schema accounts Table
 
 ## Description

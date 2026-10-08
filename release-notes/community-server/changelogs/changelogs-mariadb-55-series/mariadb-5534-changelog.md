@@ -1,15 +1,15 @@
 # MariaDB 5.5.34 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.34) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.34) |[Release Notes](../../old-releases/5.5/5.5.34.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 21 Nov 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.34.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3976](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3976)\
@@ -442,10 +442,10 @@ modified in that revision.
       Fri 2013-08-23 10:56:05 +0530
     * [Revision #3077.190.40](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.190.40) \[merge]\
       Fri 2013-08-23 09:07:09 +0530
-      * [WL#7076](https://askmonty.org/worklog/?tid=7076): Backporting wl6715 to support both formats in 5.5, 5.6, 5.7.
+      * WL#7076: Backporting wl6715 to support both formats in 5.5, 5.6, 5.7.
       * [Revision #3077.192.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.192.1)\
         Tue 2013-07-02 11:58:39 +0530
-        * [WL#7076](https://askmonty.org/worklog/?tid=7076): Backporting wl6715 to support both formats in 5.5, 5.6, 5.7
+        * WL#7076: Backporting wl6715 to support both formats in 5.5, 5.6, 5.7
     * [Revision #3077.190.39](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3077.190.39)\
       Thu 2013-08-22 16:51:30 +0200
       * Corrected Date in the changelog
@@ -944,6 +944,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

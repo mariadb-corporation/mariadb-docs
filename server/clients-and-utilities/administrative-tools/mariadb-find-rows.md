@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-find-rows reads files of SQL statements and extracts those that
+  match a regular expression or that contain USE or SET statements.
+---
+
 # mariadb-find-rows
 
 `mariadb-find-rows` reads files containing SQL statements and extracts statements that match a given regular expression or that contain [USE db\_name](../../reference/sql-statements/administrative-sql-statements/use-database.md) or [SET](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statements.

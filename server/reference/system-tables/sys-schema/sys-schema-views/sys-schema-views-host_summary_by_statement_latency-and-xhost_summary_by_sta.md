@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize statement statistics grouped by host, sorted by total
+  latency, helping to identify hosts running the most time-consuming queries.
+---
+
 # host\_summary\_by\_statement\_latency and x$host\_summary\_by\_statement\_latency Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

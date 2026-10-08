@@ -1,3 +1,10 @@
+---
+description: >-
+  Detailed information on the COMPACT row format, which reduces storage space by
+  roughly 20% compared to REDUNDANT, handling NULLs and variable-length columns
+  efficiently.
+---
+
 # InnoDB COMPACT Row Format
 
 **Note**`COMPACT` was the default row format in prior versions of MariaDB. MariaDB has since transitioned to `DYNAMIC` as the default row format.
@@ -13,8 +20,6 @@ The `COMPACT` row format is similar to the `REDUNDANT` row format, but it stores
 The easiest way to create an InnoDB table that uses the `COMPACT` row format is by setting the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option to `COMPACT` in a [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement.
 
 It is recommended to set the [innodb\_strict\_mode](../innodb-system-variables.md#innodb_strict_mode) system variable to `ON` when using this row format.
-
-The `COMPACT` row format is supported by both the `Antelope` and the `Barracuda` [file formats](../innodb-file-format.md), so tables with this row format can be created regardless of the value of the [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format) system variable.
 
 For example:
 
@@ -33,7 +38,7 @@ The `COMPACT` row format supports index prefixes up to 767 bytes.
 
 ## Overflow Pages with the `COMPACT` Row Format
 
-All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-compact-row-format.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
+All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-row-formats-overview.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
 
 In the `COMPACT` row format variable-length columns, such as columns using the [VARBINARY](../../../../reference/data-types/string-data-types/varbinary.md), [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md), [BLOB](../../../../reference/data-types/string-data-types/blob.md) and [TEXT](../../../../reference/data-types/string-data-types/text.md) data types, can be partially stored in overflow pages.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SQL_FUNCTIONS table lists all available SQL functions,
+  including built-in functions and user-defined functions.
+---
+
 # Information Schema SQL\_FUNCTIONS Table
 
 {% hint style="info" %}

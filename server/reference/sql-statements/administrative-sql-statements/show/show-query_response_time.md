@@ -1,8 +1,14 @@
+---
+description: >-
+  View the distribution of query execution times. This statement groups queries
+  into time-based buckets to analyze performance.
+---
+
 # SHOW QUERY\_RESPONSE\_TIME
 
 ## Syntax
 
-```sql
+```bnf
 SHOW QUERY_RESPONSE_TIME
 ```
 

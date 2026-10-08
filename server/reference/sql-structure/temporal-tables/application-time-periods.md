@@ -1,3 +1,9 @@
+---
+description: >-
+  Application-time period tables define a time period between two temporal
+  columns, for application-level data versioning.
+---
+
 # Application-Time Periods
 
 Extending [system-versioned tables](system-versioned-tables.md), MariaDB supports application-time period tables. Time periods are defined by a range between two temporal columns. The columns must be of the same [temporal data type](../../data-types/date-and-time-data-types/), i.e. [DATE](../../data-types/date-and-time-data-types/date.md), [TIMESTAMP](../../data-types/date-and-time-data-types/timestamp.md) or [DATETIME](../../data-types/date-and-time-data-types/datetime.md) ([TIME](../../data-types/date-and-time-data-types/time.md) and [YEAR](../../data-types/date-and-time-data-types/year-data-type.md) are not supported), and of the same width.
@@ -181,11 +187,7 @@ The `UPDATE FOR PORTION` statement has the following limitations:
 
 ### WITHOUT OVERLAPS
 
-{% hint style="info" %}
-This clause is available from MariaDB 10.5.3.
-{% endhint %}
-
-&#x20;`WITHOUT OVERLAPS` allows to create an index specifying that application time periods should not overlap. An index constrained by `WITHOUT OVERLAPS` is required to be either a primary key or a unique index.
+`WITHOUT OVERLAPS` allows to create an index specifying that application time periods should not overlap. An index constrained by `WITHOUT OVERLAPS` is required to be either a primary key or a unique index.
 
 Take the following example, an application time period table for a booking system:
 
@@ -254,11 +256,6 @@ SHOW CREATE TABLE t2\G
 *************************** 1. row ***************************
        Table: t2
 Create Table: CREATE TABLE `t2` (
-* //a// is *unchanged*, as the range falls entirely out of the specified portion to be updated.
-* For //b//, with years ranging from 1999 to 2018, two extra rows are *inserted*, with ranges 1999-01 to 2000-01 and 2018-01 to 2018-12. The original row's period has been *shrunk* to years 2000 and 2018, and the _name_ field has got "_original" appended.
-* //c//, with values ranging from 1999 to 2017, where only the upper value falls within the portion to be updated, has been *shrunk* to 1999 to 2001.
-* //d//, with values ranging from 2017 to 2019, where only the lower value falls within the portion to be updated, has been *shrunk* to 2018 to 2019. 
-* Original rows affected by the update have "_original" appended to the ##name## field.
   `id` int(11) DEFAULT NULL,
   `d1` datetime NOT NULL,
   `d2` datetime NOT NULL,

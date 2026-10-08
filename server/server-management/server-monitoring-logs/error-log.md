@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete Error Log guide for MariaDB. Complete reference documentation for
+  implementation, configuration, and usage with comprehensive examples and best.
+---
+
 # Error Log
 
 The error log contains a record of critical errors that occurred during the server's operation, table corruption, start and stop information.
@@ -57,17 +63,17 @@ If the [log\_error](../../ha-and-performance/optimization-and-tuning/system-vari
 
 ### Writing the Error Log to Syslog on Unix
 
-On Unix, the error log can also be redirected to the [syslog](https://linux.die.net/man/8/rsyslogd). How this is done depends on how you [start](https://mariadb.com/kb/en/) MariaDB.
+On Unix, the error log can also be redirected to the [syslog](https://linux.die.net/man/8/rsyslogd). How this is done depends on how you [start](../starting-and-stopping-mariadb/) MariaDB.
 
 #### Syslog with mariadbd-safe
 
-If you [start](https://mariadb.com/kb/en/) MariaDB with [mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md), the error log can be redirected to the syslog. See [mariadbd-safe: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
+If you [start](../starting-and-stopping-mariadb/) MariaDB with [mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md), the error log can be redirected to the syslog. See [mariadbd-safe: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
 
 #### Syslog with Systemd
 
-If you [start](https://mariadb.com/kb/en/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
+If you [start](../starting-and-stopping-mariadb/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd/README.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
 
-[systemd](../starting-and-stopping-mariadb/systemd.md) also has its own logging system called the `journal`, and some errors may get logged there instead. See [Systemd:Systemd Journal](../starting-and-stopping-mariadb/systemd.md#systemd-journal) for more information.
+[systemd](../starting-and-stopping-mariadb/systemd/README.md) also has its own logging system called the `journal`, and some errors may get logged there instead. See [Systemd:Systemd Journal](../starting-and-stopping-mariadb/systemd/starting.md#systemd-journal) for more information.
 
 ### Writing the Error Log to Console on Windows
 
@@ -77,7 +83,7 @@ On Windows, if the [console](../starting-and-stopping-mariadb/mariadbd-options.m
 
 On Windows, error log messages are also written to the Windows Event Viewer. You can find MariaDB's error log messages by browsing **Windows Logs**, then selecting **Application** or **Application Log**, depending on the Windows version.
 
-You can find MariaDB's error log messages by searching for the **Source** `MariaDB` (prior to [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/server-monitoring-logs/broken-reference/README.md), this was `MySQL`).
+You can find MariaDB's error log messages by searching for the **Source** `MariaDB`.
 
 ## Finding the Error Log
 
@@ -87,7 +93,7 @@ To find where the error log is stored, one can find the options used for the err
 mariadbd --print-defaults
 ```
 
-or (from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011))
+or (from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11))
 
 ```bash
 my_print_defaults --mariadbd | grep log-error
@@ -99,7 +105,7 @@ or
 my_print_defaults --mysqld | grep log-error
 ```
 
-If the above don't help, check also if your system is set to [write to syslog](../starting-and-stopping-mariadb/systemd.md#configuring-mariadb-to-write-the-error-log-to-syslog), in which case you need to use [journalctl](../starting-and-stopping-mariadb/systemd.md#systemd-journal) to access it.
+If the above don't help, check also if your system is set to [write to syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog), in which case you need to use [journalctl](../starting-and-stopping-mariadb/systemd/starting.md#systemd-journal) to access it.
 
 ## Configuring the Error Log Verbosity
 
@@ -139,11 +145,12 @@ However, if [InnoDB strict mode](../../server-usage/storage-engines/innodb/innod
 
 ### Verbosity Level 1
 
-Default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes). If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `1`, many types of warnings are logged. Some useful warnings are:
+If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `1`, many types of warnings are logged. Some useful warnings are:
 
 * Replication-related messages:
 
 ```
+[Warning] A server restart has recreated the memory table `db`.`tbl`; a TRUNCATE query is written to the binary log at GTID 0-1-2. As this server is a read-only slave, this event may diverge replication in domain 0.
 [Note] Error reading relay log event: slave SQL thread was killed
 [Note] Slave SQL thread exiting, replication stopped in log 
   'dbserver-2-bin.000033'   at position 181420; 
@@ -179,7 +186,7 @@ Frequent warnings about [unsafe statements for statement-based replication](../.
 
 ### Verbosity Level 2
 
-Default from [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes). If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `2`, a couple other different kinds of warnings are printed. For example:
+Default. If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is `2`, a couple other different kinds of warnings are printed. For example:
 
 * Messages related to access denied errors:
 
@@ -220,7 +227,7 @@ Default from [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/com
 [Note] Reading Master_info: '/mariadb/data/master.info'  
   Relay_info:'/mariadb/data/relay-log.info'
 [Note] Initialized Master_info from '/mariadb/data/master.info'
-[Note] Reading of all Master_info entries succeded
+[Note] Reading of all Master_info entries succeeded
 [Note] Deleted Master_info file '/mariadb/data/master.info'.
 [Note] Deleted Master_info file '/mariadb/data/relay-log.info'.
 ```
@@ -325,7 +332,7 @@ If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-varia
 
 ### MySQL's log\_error\_verbosity
 
-MariaDB does not support the [log\_error\_verbosity](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_error_verbosity) system variable added in MySQL 5.7.
+MariaDB does not support MySQL's [log\_error\_verbosity](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_error_verbosity) system variable.
 
 ## Format
 
@@ -341,13 +348,7 @@ Then, each item (note, warning or error) consists of a single line, containing t
 2016-06-15 16:53:33 139651251140544 [Note] InnoDB: The InnoDB memory heap is disabled
 ```
 
-Until [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-4-release-notes), the format only consisted of the date (yymmdd) and time, followed by the type of error (Note, Warning or Error) and the error message, for example:
-
-```
-160615 16:53:08 [Note] InnoDB: The InnoDB memory heap is disabled
-```
-
-The first item will always contain the source revision, a unique server id (from [MariaDB 10.5.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-26-release-notes), [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-1-release-notes)) and the process\_id, for example:
+The first item will always contain the source revision, a unique server id (from [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.1)) and the process\_id, for example:
 
 ```
 2024-09-19 22:58:50 0 [Note] Starting MariaDB 11.7.0-preview-MariaDB source revision 
@@ -361,6 +362,27 @@ or
 2024-05-18 16:05:33 0 [Note] Starting MariaDB 10.11.8-MariaDB source revision 
   3a069644682e336e445039e48baae9693f9a08ee as process 50774
 ```
+
+### Formal Specification
+
+The standard file-based error log follows this strict anatomy:
+
+**Template:** `YYYY-MM-DD HH:MM:SS ThreadID [Level] Message`
+
+| Field | Component | Data Type          | Description                                                           |
+| ----- | --------- | ------------------ | --------------------------------------------------------------------- |
+| **1** | Timestamp | `DateTime`         | Formatted as `YYYY-MM-DD HH:MM:SS`.                                   |
+| **2** | Thread ID | `Unsigned Integer` | The internal connection ID. System messages use `0`.                  |
+| **3** | Level     | `String`           | Enclosed in brackets. Valid values: `[Note]`, `[Warning]`, `[Error]`. |
+| **4** | Message   | `String`           | The actual descriptive text of the event.                             |
+
+**Deviations and Anomalies**
+
+Parsers should account for the following scenarios where the log structure may deviate:
+
+* **Galera SST Logs:** When a Galera Cluster node performs a State Snapshot Transfer (SST), messages from external scripts (like `rsync` or `mariabackup`) are piped directly into the error log. These lines often lack the `ThreadID` and `[Level]` prefix.
+* **Crash Stack Traces:** Following a server crash, MariaDB writes a multi-line stack trace. This consists of a header line followed by multiple lines of hex offsets and function names (e.g., `handle_fatal_signal (sig=11)`). These do not follow the standard single-line format.
+* **Syslog Format:** If logging to syslog, the standard MariaDB prefix is replaced or preceded by the system's own header: `Month Day HH:MM:SS Hostname Ident[PID]: [Level] Message`
 
 ## Rotating the Error Log on Unix and Linux
 
@@ -391,7 +413,7 @@ lc_messages_dir=/usr/share/mysql/
 lc_messages=en_US
 ```
 
-See [Setting the Language for Error Messages](../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/setting-the-language-for-error-messages.md) for more\
+See [Setting the Language for Error Messages](../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/setting-the-language-for-error-messages.md) for more
 information.
 
 ## See Also

@@ -1,8 +1,12 @@
+---
+description: >-
+  The CSV Storage Engine stores data in comma-separated values format text
+  files, making it easy to exchange data with other applications.
+---
+
 # CSV Overview
 
 The CSV Storage Engine can read and append to files stored in CSV (comma-separated-values) format.
-
-However, since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), a better storage engine is able to read and write such files: [CONNECT](../connect/).
 
 ## The CSV storage engine and logging to tables
 
@@ -32,7 +36,7 @@ The `.CSM` file stores metadata about the table such as the state and the number
 * CSV tables cannot be partitioned.
 * Columns in CSV tables must be declared as NOT NULL.
 * No [transactions](../../../reference/sql-statements/transactions/).
-* The original CSV-format does not enable IETF-compatible parsing of embedded quote and comma characters. From [MariaDB 10.1.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-8-release-notes), it is possible to do so by setting the [IETF\_QUOTES](../../../reference/sql-statements/data-definition/create/create-table.md#ietf_quotes) option when creating a table.
+* The original CSV-format does not enable IETF-compatible parsing of embedded quote and comma characters. It is possible to do so by setting the [IETF\_QUOTES](../../../reference/sql-statements/data-definition/create/create-table.md#ietf_quotes) option when creating a table.
 
 ## Examples
 

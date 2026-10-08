@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert an IPv4 address to an integer. This function takes a dotted-quad IP
+  string (e.g., '1.2.3.4') and returns its numeric representation.
+---
+
 # INET\_ATON
 
 ## Syntax
 
-```sql
+```bnf
 INET_ATON(expr)
 ```
 

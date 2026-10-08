@@ -1,8 +1,12 @@
+---
+description: Synonym for CHAR_LENGTH(). Returns the number of characters in the string.
+---
+
 # CHARACTER\_LENGTH
 
 ## Syntax
 
-```sql
+```bnf
 CHARACTER_LENGTH(str)
 ```
 

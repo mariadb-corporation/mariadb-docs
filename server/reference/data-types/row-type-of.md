@@ -1,3 +1,9 @@
+---
+description: >-
+  Declare row-based variables. This PL/SQL compatibility feature allows
+  declaring variables that match the structure of a table row or cursor.
+---
+
 # ROW TYPE OF
 
 ## Overview
@@ -39,6 +45,6 @@ CALL rowtypeof_proc();
 +------------+----------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

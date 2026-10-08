@@ -1,8 +1,14 @@
+---
+description: >-
+  Deploy the HTAP topology, pairing MariaDB row storage with ColumnStore
+  columnar storage for mixed transactional and analytical workloads.
+---
+
 # HTAP
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th valign="top">Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td valign="top"><img src="../../../.gitbook/assets/es-columnstore-htap-topology-s3-no-title.png" alt=""></td><td valign="top"><p><strong>Single-stack hybrid transactional/analytical workloads</strong></p><ul><li>ColumnStore for analytics with scalable S3-compatible object storage</li><li>InnoDB for transactions</li><li>Cross-engine JOINs</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul></td></tr></tbody></table>
+<table><thead><tr><th valign="top">Software Version</th><th valign="top">Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td valign="top"></td><td valign="top"><p><strong>Single-stack hybrid transactional/analytical workloads</strong></p><ul><li>ColumnStore for analytics with scalable S3-compatible object storage</li><li>InnoDB for transactions</li><li>Cross-engine JOINs</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul></td></tr></tbody></table>
 
 This procedure describes the deployment of the **HTAP topology** with MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
 
@@ -41,8 +47,6 @@ The following components are deployed during this procedure:
 
 ## Topology
 
-<figure><img src="../../../.gitbook/assets/es-columnstore-htap-topology-s3-no-title.png" alt=""><figcaption></figcaption></figure>
-
 The MariaDB Enterprise ColumnStore HTAP topology is designed for hybrid transactional-analytical processing (HTAP) workloads.
 
 The topology consists of:
@@ -77,7 +81,7 @@ These requirements are for the HTAP topology when deployed with MariaDB Enterpri
 
 ### Operating System
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/enterprise-server-lifecycle), the HTAP topology with MariaDB Enterprise Server 11.4 and MariaDB Enterprise ColumnStore is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the HTAP topology with MariaDB Enterprise Server 11.4 and MariaDB Enterprise ColumnStore is provided for:
 
 * Debian 11 (x86\_64, ARM64)
 * Debian 12 (x86\_64, ARM64)
@@ -173,7 +177,7 @@ This implementation has not been tested with parallel replication.
 
 ### Row-Based Replication
 
-This implementation requires the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable to be set to `STATEMENT`. Row-based replication is not currently supported.
+This implementation requires the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable to be set to `STATEMENT`. Row-based replication is not supported.
 
 ## Quick Reference
 
@@ -204,7 +208,7 @@ Log filenames and locations may be overridden in the server configuration. The d
 | Log                                                                                         | System Variable/Option                                                                                                                                    | Default Filename      |
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | [MariaDB Error Log](../../../server-management/server-monitoring-logs/error-log.md)         | [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)             | `<hostname>.err`      |
-| [MariaDB Enterprise Audit Log](../../../reference/plugins/mariadb-enterprise-audit.md)      | [server\_audit\_file\_path](../../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_path)  | `server_audit.log`    |
+| [MariaDB Enterprise Audit Log](../../../reference/plugins/mariadb-enterprise-audit/README.md)      | [server\_audit\_file\_path](../../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_path)  | `server_audit.log`    |
 | [Slow Query Log](../../../server-management/server-monitoring-logs/slow-query-log/)         | [slow\_query\_log\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables) | `<hostname>-slow.log` |
 | [General Query Log](../../../server-management/server-monitoring-logs/general-query-log.md) | [general\_log\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)     | `<hostname>.log`      |
 | [Binary Log](../../../server-management/server-monitoring-logs/binary-log/)                 | [log\_bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin)                                       | `<hostname>-bin`      |
@@ -221,4 +225,4 @@ Navigation in the procedure "Deploy HTAP Topology".
 
 Next: Step 1: Prepare ColumnStore Node.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

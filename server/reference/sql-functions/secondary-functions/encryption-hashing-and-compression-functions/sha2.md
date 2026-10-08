@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate SHA-2 checksum. This function computes the SHA-2 family of hash
+  functions (SHA-224, SHA-256, SHA-384, and SHA-512).
+---
+
 # SHA2
 
 ## Syntax
 
-```sql
+```bnf
 SHA2(str,hash_len)
 ```
 
@@ -15,7 +21,7 @@ The return value is a nonbinary string in the connection [character set and coll
 `NULL` is returned if the hash length is not valid, or the string `str` is `NULL`.
 
 {% hint style="warning" %}
-`SHA2` only works if MariaDB is configured with [TLS support](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+`SHA2` only works if MariaDB is configured with [TLS support](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 {% endhint %}
 
 ## Examples

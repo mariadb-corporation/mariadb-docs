@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes file I/O events aggregated by event name, detailing
+  read/write counts and bytes transferred for each file type.
+---
+
 # Performance Schema file\_summary\_by\_event\_name Table
 
 The [Performance Schema](../) `file_summary_by_event_name` table contains file events summarized by event name. It contains the following columns:

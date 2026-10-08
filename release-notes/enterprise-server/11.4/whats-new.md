@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Enterprise
+  Server 11.4
+---
+
 # What's New in MariaDB Enterprise Server 11.4
 
 {% include "../../.gitbook/includes/latest-es-11.4.md" %}
@@ -49,8 +55,8 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       | [{"key": "key1", "value": "val1"}, {"key": "key2", "value": "val2"}]        |
       +-----------------------------------------------------------------------------+
       ```
-* The function `JSON_KEY_VALUE()` can be used as an argument to `JSON_TABLE()`, which allows adding the key to a result set.\\
-*   Example:\\
+* The function `JSON_KEY_VALUE()` can be used as an argument to `JSON_TABLE()`, which allows adding the key to a result set.
+*   Example:
 
     ```sql
     SELECT jt.* FROM JSON_TABLE(
@@ -70,15 +76,13 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
     +------+------+------+
     ```
 * New function `JSON_ARRAY_INTERSECT(<array1>, <array2>)`, used to find the intersection between two JSON arrays.
-  *   Example:\\
+  *   Example:
 
       ```sql
       SET @array1= '[1,2,3]';
       SET @array2= '[1,2,4]';
       SELECT json_array_intersect(@array1, @array2) AS result;
       ```
-
-      \\
 
       ```
       +--------+
@@ -88,15 +92,11 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       +--------+
       ```
 
-      \\
-
       ```sql
       SET @json1= '[[1,2,3],[4,5,6],[1,1,1]]';
       SET @json2= '[[1,2,3],[4,5,6],[1,3,2]]';
       SELECT json_array_intersect(@json1, @json2) AS result;
       ```
-
-      \\
 
       ```
       +------------------------+
@@ -106,14 +106,12 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       +------------------------+
       ```
 * The new JSON function `JSON_OBJECT_TO_ARRAY(<json_doc>)` is used to convert all JSON objects found in a JSON document to JSON arrays where each item in the outer array represents a single key-value pair from the object.
-*   Example:\\
+*   Example:
 
     ```sql
     SET @json1= '{ "a" : [1,2,3] , "b": {"key1": "val1", "key2": {"key3": "val3"}} }';
     SELECT JSON_OBJECT_TO_ARRAY(@json1) AS result;
     ```
-
-    \\
 
     ```
     +-----------------------------------------------------------------------+
@@ -122,70 +120,65 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
     | [["a", [1, 2, 3]], ["b", {"key1": "val1", "key2": {"key3": "val3"}}]] |
     +-----------------------------------------------------------------------+
     ```
-* Resulting arrays can be compared using `JSON_ARRAY_INTERSECT()`:
+*   Resulting arrays can be compared using `JSON_ARRAY_INTERSECT()`:
 
-```sql
-SET @json1='{"a":[1,2,3],"b":{"key1":"val1","key2":{"key3":"val3"}}}';
-SET @json2='{"a":[1,2,3]}';
-SELECT JSON_OBJECT_TO_ARRAY(@json1) INTO @array1;
-SELECT JSON_OBJECT_TO_ARRAY(@json2) INTO @array2;
-SELECT JSON_ARRAY_INTERSECT(@array1,@array2) as result;
-```
+    ```sql
+    SET @json1='{"a":[1,2,3],"b":{"key1":"val1","key2":{"key3":"val3"}}}';
+    SET @json2='{"a":[1,2,3]}';
+    SELECT JSON_OBJECT_TO_ARRAY(@json1) INTO @array1;
+    SELECT JSON_OBJECT_TO_ARRAY(@json2) INTO @array2;
+    SELECT JSON_ARRAY_INTERSECT(@array1,@array2) as result;
+    ```
 
-```
-+--------------------+
-| result             |
-+--------------------+
-| [["a", [1, 2, 3]]] |
-+--------------------+
-```
-
+    ```
+    +--------------------+
+    | result             |
+    +--------------------+
+    | [["a", [1, 2, 3]]] |
+    +--------------------+
+    ```
 * The new JSON function `JSON_OBJECT_FILTER_KEYS(<json_doc>,<array_keys>)` returns key/value pairs from a JSON string for keys defined in \<array\_keys>.
-* Example:
+  *   Example:
 
-```sql
-SET @json1= '{ "a": 1, "b": 2, "c": 3}';
-SELECT JSON_OBJECT_FILTER_KEYS (@json1, ' ["b", "c"] ') AS result;
-```
+      ```sql
+      SET @json1= '{ "a": 1, "b": 2, "c": 3}';
+      SELECT JSON_OBJECT_FILTER_KEYS (@json1, ' ["b", "c"] ') AS result;
+      ```
 
-```
-+------------------+
-| result           |
-+------------------+
-| {"b": 2, "c": 3} |
-+------------------+
-```
-
+      ```
+      +------------------+
+      | result           |
+      +------------------+
+      | {"b": 2, "c": 3} |
+      +------------------+
+      ```
 * By using `JSON_ARRAY_INTERSECT()` and `JSON_KEY()` as arguments for `JSON_OBJECT_FILTER_KEYS()`, a comparison of two JSON strings is possible where only the same keys are compared, not the key/value pairs.\\
-* Example (only show key/value pairs of json1 where the key exists in json2):
+  *   Example (only show key/value pairs of json1 where the key exists in json2):
 
-```sql
-SET @json1= '{ "a": 1, "b": 2, "c": 3}';
-SET @json2= '{"b" : 10, "c": 20, "d": 30}';
-SELECT JSON_OBJECT_FILTER_KEYS (@json1, json_array_intersect(json_keys(@json1), json_keys(@json2))) AS result;
-```
+      ```sql
+      SET @json1= '{ "a": 1, "b": 2, "c": 3}';
+      SET @json2= '{"b" : 10, "c": 20, "d": 30}';
+      SELECT JSON_OBJECT_FILTER_KEYS (@json1, json_array_intersect(json_keys(@json1), json_keys(@json2))) AS result;
+      ```
 
-```
-+------------------+
-| result           |
-+------------------+
-| {"b": 2, "c": 3} |
-+------------------+
-```
+      ```
+      +------------------+
+      | result           |
+      +------------------+
+      | {"b": 2, "c": 3} |
+      +------------------+
+      ```
+*   To define the position in a JSON array from the end to the beginning, negative indexes or last can be used as the last element of an array for an JSON array of a JSON path, where the JSON path is used as a parameter in a JSON function.
 
-* To define the position in a JSON array from the end to the beginning, negative indexes or last can be used as the last element of an array for an JSON array of a JSON path, where the JSON path is used as a parameter in a JSON function.
+    ```sql
+    SELECT JSON_REMOVE(@json, '$.A[-10]');
+    SELECT JSON_REMOVE(@json, '$.A[last]');
+    ```
+*   Range notation for JSON path using the keyword to define a range of elements.
 
-```sql
-SELECT JSON_REMOVE(@json, '$.A[-10]');
-
-SELECT JSON_REMOVE(@json, '$.A[last]');
-```
-
-* Range notation for JSON path using the keyword to define a range of elements.
-
-```sql
-SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
-```
+    ```sql
+    SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
+    ```
 
 ### SQL Functions
 
@@ -193,159 +186,152 @@ SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
   * Example: A string "v10" would be sorted after a string "v9"
 * New function `SFORMAT()` for custom formats of strings. The function uses a string including formatting options and a set of given values to generate a custom formatted string.
 * New function `RANDOM_BYTES()` which returns a binary string of a length between 1 and 1024 bytes. This nondeterministic value is generated by the random number generator of the SSL library, so it generates an arbitrary length string of cryptographic random bytes that are suitable for cryptographic use.
-* The encryption functions `AES_ENCRYPT() / AES_DES_ENCTYPT()` now support adding the two new parameters initialization vector (iv) and block encryption mode (mode).
-* Syntax for older release series:
+* The encryption functions `AES_ENCRYPT()` and `AES_DECRYPT()` now support adding the two new parameters initialization vector (iv) and block encryption mode (mode).
+*   Syntax for older release series:
 
-```sql
-AES_ENCRYPT(str,key_str)
-```
+    ```sql
+    AES_ENCRYPT(str,key_str)
+    ```
+*   New syntax:
 
-* New syntax:
+    ```sql
+    AES_ENCRYPT(str, key, [, iv [, mode]])
+    ```
+* If no mode is provided it will be used from the new system variable `block_encryption_mode`
+  *   Example (using the mode from system variable block\_encryption\_mode):
 
-```sql
-AES_ENCRYPT(str, key, [, iv [, mode]])
-```
+      ```sql
+      SELECT @@block_encryption_mode;
+      ```
 
-* If no mode is provided it will be used from the new system variable `block_encryption_mode`.\\
-* Example (using the mode from system variable block\_encryption\_mode):
+      ```
+      +-------------------------+
+      | @@block_encryption_mode |
+      +-------------------------+
+      | aes-128-ecb             |
+      +-------------------------+
+      ```
 
-```sql
-SELECT @@block_encryption_mode;
-```
+      ```sql
+      SELECT HEX(AES_ENCRYPT('MariaDB','mykey','vector')) AS result;
+      ```
 
-```
-+-------------------------+
-| @@block_encryption_mode |
-+-------------------------+
-| aes-128-ecb             |
-+-------------------------+
-```
+      ```
+      +----------------------------------+
+      | result                           |
+      +----------------------------------+
+      | CD0352A4B2FB18A592C04FF8CDA6C2F2 |
+      +----------------------------------+
+      ```
 
-```sql
-SELECT HEX(AES_ENCRYPT('MariaDB','mykey','vector')) AS result;
-```
+      ```sql
+      SELECT AES_DECRYPT(x'CD0352A4B2FB18A592C04FF8CDA6C2F2','mykey','vector') AS result;
+      ```
 
-```
-+----------------------------------+
-| result                           |
-+----------------------------------+
-| CD0352A4B2FB18A592C04FF8CDA6C2F2 |
-+----------------------------------+
-```
+      ```
+      +---------+
+      | result  |
+      +---------+
+      | MariaDB |
+      +---------+
+      ```
+  *   Example (mode provided as argument):<br>
 
-```sql
-SELECT AES_DECRYPT(x'CD0352A4B2FB18A592C04FF8CDA6C2F2','mykey','vector') AS result;
-```
+      ```sql
+      SELECT HEX(AES_ENCRYPT('MariaDB','mykey','thisismy256vector','aes-256-cbc')) AS result;
+      ```
 
-```
-+---------+
-| result  |
-+---------+
-| MariaDB |
-+---------+
-```
+      ```
+      +----------------------------------+
+      | result                           |
+      +----------------------------------+
+      | CD6C47183B89A813557BFD639A893CE3 |
+      +----------------------------------+
+      ```
 
-* Example (mode provided as argument):
+      ```sql
+      SELECT AES_DECRYPT(x'CD6C47183B89A813557BFD639A893CE3','mykey','thisismy256vector','aes-256-cbc') AS result;
+      ```
 
-```sql
-SELECT HEX(AES_ENCRYPT('MariaDB','mykey','thisismy256vector','aes-256-cbc')) AS result;
-```
+      ```
+      +---------+
+      | result  |
+      +---------+
+      | MariaDB |
+      +---------+
+      ```
+*   The new options `%Z` and `%z` can be used for the format string of the `DATE_FORMAT` function for adding time zone information to the date string
 
-```
-+----------------------------------+
-| result                           |
-+----------------------------------+
-| CD6C47183B89A813557BFD639A893CE3 |
-+----------------------------------+
-```
-
-```sql
-SELECT AES_DECRYPT(x'CD6C47183B89A813557BFD639A893CE3','mykey','thisismy256vector','aes-256-cbc') AS result;
-```
-
-```
-+---------+
-| result  |
-+---------+
-| MariaDB |
-+---------+
-```
-
-* The new options `%Z` and `%z` can be used for the format string of the function
-
-```sql
-DATE_FORMAT(DATE, format)
-```
-
-for adding time zone information to the date string.
-
+    ```sql
+    DATE_FORMAT(DATE, format)
+    ```
 * `%Z` Time zone abbreviation
 * `%z` Numeric time zone +hhmm or -hhmm presenting the hour and minute offset from UTC
-* Example:
+  *   Example:
 
-```sql
-SELECT DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z');
-```
+      ```sql
+      SELECT DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z');
+      ```
 
-```
-+--------------------------------------------------+
-| DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z') |
-+--------------------------------------------------+
-| Tuesday 21 November 2023 13:28:34 EST -0500      |
-+--------------------------------------------------+
-```
+      ```
+      +--------------------------------------------------+
+      | DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z') |
+      +--------------------------------------------------+
+      | Tuesday 21 November 2023 13:28:34 EST -0500      |
+      +--------------------------------------------------+
+      ```
+*   The SQL function `KDF()` is a key derivation function, useful for generating encryption keys from a user provided password or a passphrase. It can be used to generate encryption keys for encryption functions such as `AES_ENCRYPT`.
 
-* The SQL function `KDF()` is a key derivation function, useful for generating encryption keys from a user provided password or a passphrase. It can be used to generate encryption keys for encryption functions such as `AES_ENCRYPT`.
-
-```sql
-KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
-```
-
+    ```
+    KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
+    ```
 * `kdf_name` is "hkdf" or "pbkdf2\_hmac"
 * `width` (in bits) can be any number divisible by 8
 * `info` is a non-secret parameter of the hkdf method, it allows to generate different encryption keys for different purposes from the same secret password
-* `iterations` is a positive numeric parameter of the pbkdf2\_hmac method, larger values make the password more difficult to brute-force.\
-  Example:
+* `iterations` is a positive numeric parameter of the pbkdf2\_hmac method, larger values make the password more difficult to brute-force.
+  *   Example:<br>
 
-```sql
-SELECT hex(kdf('foo', 'bar', 'info', 'hkdf'));
-```
+      ```sql
+      SELECT hex(kdf('foo', 'bar', 'info', 'hkdf'));
+      ```
 
-```
-+----------------------------------------+
-| hex(kdf('foo', 'bar', 'info', 'hkdf')) |
-+----------------------------------------+
-| 710583081D40A55F0B573A76E02D8975       |
-+----------------------------------------+
-insert into tbl values (aes_encrypt(@secret_data, kdf("Passw0rd", "NaCl", "info", 'hkdf'), "iv"));
-```
+      ```
+      +----------------------------------------+
+      | hex(kdf('foo', 'bar', 'info', 'hkdf')) |
+      +----------------------------------------+
+      | 710583081D40A55F0B573A76E02D8975       |
+      +----------------------------------------+
+      ```
 
+      ```sql
+      insert into tbl values (aes_encrypt(@secret_data, kdf("Passw0rd", "NaCl", "info", 'hkdf'), "iv"));
+      ```
 * The function `CONV()` , which converts a number between numeric base systems, now supports conversions up to base 62. This allows conversions to encodings to capital letters A-Z, lower case letters a-z, and numbers 0-9. The old limit was 36, not including lower case letters.
-  * Example:
+  *   Example:
 
-```sql
-SELECT CONV(61,10,36);
-```
+      ```sql
+      SELECT CONV(61,10,36);
+      ```
 
-```
-+----------------+
-| CONV(61,10,36) |
-+----------------+
-| 1P             |
-+----------------+
-```
+      ```
+      +----------------+
+      | CONV(61,10,36) |
+      +----------------+
+      | 1P             |
+      +----------------+
+      ```
 
-```sql
-SELECT CONV(61,10,62);
-```
+      ```sql
+      SELECT CONV(61,10,62);
+      ```
 
-```
-+----------------+
-| CONV(61,10,62) |
-+----------------+
-| z              |
-+----------------+
-```
+      ```
+      +----------------+
+      | CONV(61,10,62) |
+      +----------------+
+      | z              |
+      +----------------+
+      ```
 
 ### Data Types
 
@@ -369,17 +355,45 @@ SELECT CONV(61,10,62);
 
 MariaDB Enterprise Server now supports descending indexes. Composite indexes can be used with differently ordered columns to get a significant performance boost in the corresponding `ORDER BY` use cases.
 
-### **Backported Features**:
+## **Backported Features**
 
-* New, Detailed Replication Lag Representation.
-* New Information Schema Table For Password Related Data.
-* GTID binlog events now include the thread ID.
-* Automatic SST user account management for Galera.
-* PARSEC authentication plugin.
-* Extending timestamp range to 2106.
-* Limit the size of created disk temporary files and tables.
-* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive.
-* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added (MENT-2233).
+* New, Detailed Replication Lag Representation
+* New Information Schema Table For Password Related Data
+* GTID binlog events now include the thread ID
+* Automatic SST user account management for Galera
+* PARSEC authentication plugin
+* Extended TIMESTAMP Maximum Value
+  * For 64 bit systems the maximum value for the TIMESTAMP data type has been extended from ‘`2038-01-19 03:14:07 UTC`’ to ‘`2106-02-07 06:28:15 UTC`’ without changing the storage format.
+  * System versioned tables use the maximum value of TIMESTAMP for their `row_end` field to indicate a currently valid value. These values should be changed changed to the new maximum value:
+    * `ALTER TABLE` can be used for this conversion
+    * A new option `--update-history` for mariadb-dump allows converting `row_end` values to the new maximum while running a dump
+* Option To Limit Disk Space Used For Temporary Files And Tables
+  * When internal in-memory temporary tables are reaching a memory limit, they need to be stored on disk in directories defined via the tmpdir system variable.
+  * Two new system variables have been added to define the maximum storage to be used for such temporary tables and other internally created temporary files:
+    * `max_tmp_session_space_usage` – to limit the disc storage used per session
+    * `max_tmp_total_space_usage` – to limit the total disc storage used by the MariaDB Server instance
+  * Any query which does result in exceeding the limit of temporary storage will return with an error.
+  * Two new status variables can be used to monitor the currently used storage:
+    * `tmp_space_used`
+    * `max_tmp_space_used`
+  * See also [Limiting Size of Created Disk Temporary Files and Tables Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview). The space used per session is also shown in the view `process_list` in the information schema.
+* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive
+
+### [MariaDB Enterprise Server 11.4.5-3](11.4.5-3.md)
+
+{% include "../../.gitbook/includes/backported-features-11.4.5-3.md" %}
+
+### [MariaDB Enterprise Server 11.4.8-5](11.4.8-5.md)
+
+{% include "../../.gitbook/includes/backports-11.4.8-5.md" %}
+
+### [MariaDB Enterprise Server 11.4.9-6](11.4.9-6.md)
+
+{% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
+
+### [MariaDB Enterprise Server 11.4.10-7](11.4.10-7.md)
+
+{% include "../../.gitbook/includes/backports-11.8.6-3-and-11.4.10-7.md" %}
 
 ## Operational Enhancements
 
@@ -393,7 +407,7 @@ MariaDB Enterprise Server now supports descending indexes. Composite indexes can
   * In MariaDB Enterprise Server 11.4 a default `ALTER` operation will be an OSC operation if possible. If the operation cannot be performed as an OSC then another algorithm will be used. If the option `LOCK=NONE` is explicitly specified in the `ALTER` statement, then the operation will fail if it cannot be done as an OSC.
 {% endhint %}
 
-* `CONVERT PARTITION` and `CONVERT TABLE` used with `ALTER TABLE` can be used to convert a partition into a table or vise versa
+* `CONVERT PARTITION` and `CONVERT TABLE` used with `ALTER TABLE` can be used to convert a partition into a table or vice versa
 * Exchange a Partition or Convert a Table Without Validation
   * The process of exchanging a partition with a table or converting a table to a partition can be a very slow operation, especially for larger tables because for each new data row, the partitioning definitions need to be verified to validate that the new row should indeed be in this partition.
   * This process can now be sped up by disabling this validation. This new feature should be used with care, as it can lead to inconsistencies if the partitioning rules are not met.
@@ -827,7 +841,7 @@ SHOW CREATE PROCEDURE myProc \G
             sql_mode: STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
     Create Procedure: CREATE DEFINER=`root`@`localhost` PROCEDURE `myProc`()
 BEGIN
-    SELECT "My Definiton of a Stored Procedure";
+    SELECT "My Definition of a Stored Procedure";
 END
 character_set_client: utf8mb3
 collation_connection: utf8mb3_general_ci
@@ -949,6 +963,8 @@ ALTER TABLE t2 IMPORT TABLESPACE;
   * New system variables like `innodb_log_file_buffering`, `innodb_data_file_buffering`, `innodb_log_file_write_through`, and `innodb_data_file_write_through` have been added to allow better control for log files and data files. They can be set dynamically while the Server is running.
 * Changes to the InnoDB redo log format to reduce write amplification, which can result in better performance.
 * The system variables innodb\_write\_io\_threads and innodb\_read\_io\_threads are now dynamic, and their values can be changed without restarting the server
+* **Behavioral change (redo log resizing):** As part of the InnoDB redo log redesign ([MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199), originating in MariaDB Community Server 10.8 and inherited by MariaDB Enterprise Server 11.4 as the first ES release with this behavior), the server must always be started with its existing redo log files. Deleting the `ib_logfile` files before startup to resize the redo log is no longer supported and causes startup failure. To resize the redo log, start the server normally and use `SET GLOBAL innodb_log_file_size=…`, then update the configuration file so the change persists across restarts. See [Configure the InnoDB Redo Log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log).
+* **Behavioral change (emergency recovery):** A MariaDB 11.x server can now start with data files from MariaDB 10.x when [innodb\_force\_recovery](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_force_recovery) is set to `6`. This is a last-resort emergency-recovery path for extracting a logical dump from a corrupted or incompatible database, **not** a substitute for the normal upgrade procedure. See [Configure the InnoDB Redo Log: Emergency Recovery Across Major Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log#emergency-recovery-across-major-versions) ([MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), available in MariaDB 11.4.11 and later).
 
 ### Spider
 
@@ -964,11 +980,14 @@ ALTER TABLE t2 IMPORT TABLESPACE;
 * `SHOW EXPLAIN` for `<conn_id>`, which returns an `EXPLAIN` for a query running in another connection, has been extended to return the more detailed JSON output by using the syntax `SHOW EXPLAIN [FORMAT=JSON] FOR <conn_id>`.
   * Syntax EXPLAIN `[ FORMAT=JSON] FOR CONNECTION <conn_id>` is also supported.
 * New status monitoring features for MariaDB Enterprise Cluster:
-  * New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
-    * "waiting to execute in isolation"
-    * "waiting for TOI DDL"
-    * "waiting for flow control"
-    * "waiting for certification"
+  *   New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
+
+      * "waiting to execute in isolation"
+      * "waiting for TOI DDL"
+      * "waiting for flow control"
+      * "waiting for certification"
+
+      For detailed information about these states, see [Galera Cluster Thread States](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states).
   * MariaDB Enterprise Cluster has added a new feature to save wsrep node status changes in a dedicated machine readable JSON file. This allows an easier way for reading and interpreting the status file by an external monitoring tool. A filename needs to be specified via the option `wsrep_status_file` to enable the feature.
     * This JSON file also includes details about a node eviction status to the JSON file to report that a Galera node needs to be restarted to join the cluster.
   * MariaDB Enterprise Cluster now includes progress reporting of MariaDB Enterprise Backup based SST when `wsrep-debug=1` is set and the tool `pv` is installed. The SST progress report is then written into the server log:
@@ -1016,41 +1035,61 @@ MAX_MEMORY_USED: 392544
 
 * The SQL Error Log Plugin can be used to log errors sent to clients for later analysis. When option `sql_error_log_with_db_and_thread_info=ON` is set, the log file is now also showing thread id, and the current default schema for the error.
 
+## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 11.4
+
+For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.4 Release |
+| ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023) | 4.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184) | 4.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331) | 6.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747) | 6.2                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [11.4.13-10](11.4.13-10.md)    |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169) | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                   | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                    | [11.4.9-6](11.4.9-6.md)        |
+| [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52970](https://www.cve.org/CVERecord?id=CVE-2023-52970) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52971](https://www.cve.org/CVERecord?id=CVE-2023-52971) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2025-21490](https://www.cve.org/CVERecord?id=CVE-2025-21490) | 4.9                    | [11.4.5-3](11.4.5-3.md)        |
+
 ## Available Versions
 
-* [MariaDB Enterprise Server 11.4.5-3](11.4.5-3.md)
-* [MariaDB Enterprise Server 11.4.4-2](11.4.4-2.md)
-* [MariaDB Enterprise Server 11.4.3-1](11.4.3-1.md)
-* [MariaDB Enterprise Server 11.4.0-1](11.4.0-1.md)
+{% include "../../.gitbook/includes/all-releases-es-11.4.md" %}
 
-## Installation Instructions
+See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
-* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server)
+## Installation Instructions <a href="#installation-instructions" id="installation-instructions"></a>
+
+* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
 * [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
 * [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
-* [Enterprise Cluster Topology with MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
-* [Primary/Replica Topology with MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/primary-replica)
-* [ColumnStore Object Storage Topology with MariaDB Enterprise Server and MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server and MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
-* [HTAP Topology with MariaDB Enterprise Server and MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
-* [Single-Node Enterprise ColumnStore with MariaDB Enterprise Server and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
-* [Single-Node Enterprise ColumnStore with MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-local-storage)
-* [Enterprise Spider Sharded Topology with MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/spider-sharded)
-* [Enterprise Spider Federated Topology with MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/spider-federated)
 
 ## Upgrade Instructions
 
-* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
-* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
+* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
+* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
 
-## What's new in older release series?
-
-* [What's New in MariaDB Enterprise Server 10.6?](../10.6/whats-new.md)
-* [What's New in MariaDB Enterprise Server 10.5?](../old-releases/10-5/whats-new-in-mariadb-enterprise-server-10-5.md)
-* [What's New in MariaDB Enterprise Server 10.4?](../old-releases/10-4/whats-new-in-mariadb-enterprise-server-10-4.md)
-* [What's New in MariaDB Enterprise Server 10.3?](../old-releases/10-3/whats-new-in-mariadb-enterprise-server-10-3.md)
-* [What's New in MariaDB Enterprise Server 10.2?](../old-releases/10-2/whats-new-in-mariadb-enterprise-server-10-2.md)
-
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

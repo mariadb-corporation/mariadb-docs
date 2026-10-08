@@ -1,2 +1,0 @@
-# MBR (Minimum Bounding Rectangle)
-

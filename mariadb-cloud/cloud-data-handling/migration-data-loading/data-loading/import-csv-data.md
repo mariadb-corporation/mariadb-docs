@@ -1,3 +1,10 @@
+---
+description: >-
+  Import CSV and TSV files into MariaDB Cloud with the LOAD DATA LOCAL INFILE
+  statement, executable from any MariaDB client or connector with local-infile
+  support enabled.
+---
+
 # Import CSV Data
 
 MariaDB Cloud customers can import data into a MariaDB Cloud service using the `LOAD DATA LOCAL INFILE` SQL statement:
@@ -15,7 +22,7 @@ Support for local infiles must be enabled on the client side and on the MariaDB 
 
 ### **Enable Local Infiles on the Client or Connector**
 
-To execute the [`LOAD DATA LOCAL INFILE`](https://mariadb.com/kb/en/load-data-infile/) statement, most clients and connectors require a specific option to be enabled.
+To execute the [`LOAD DATA LOCAL INFILE`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement, most clients and connectors require a specific option to be enabled.
 
 If you are using `mariadb` client, the [`--local-infile` option](https://mariadb.com/docs/skysql-previous-release/data-operations/data-import/load-data-local-infile/) must be specified.
 
@@ -23,15 +30,15 @@ If you are using `mariadb` client, the [`--local-infile` option](https://mariadb
 
 Support for local infiles must be enabled on the MariaDB Cloud service.
 
-For MariaDB Cloud services that use MariaDB Server, the [local\_infile system variable](https://mariadb.com/kb/en/server-system-variables/#local_infile) must be enabled:
+For MariaDB Cloud services that use MariaDB Server, the [local\_infile system variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) must be enabled:
 
 * For Replicated Transactions and Single Node Transactions services, the `local_infile` system variable is `OFF` by default
 
-[Configuration Manager](../../../../config/) can be used to modify the value of the `local_infile` system variable.
+[Configuration Manager](../../../cloud-management/config/) can be used to modify the value of the `local_infile` system variable.
 
 ## **Import Data**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2. Connect with the `mariadb` client and specify the [-local-infile option](https://mariadb.com/docs/skysql-previous-release/data-operations/data-import/load-data-local-infile/), which is needed by the next step:
 
 ```bash
@@ -44,7 +51,7 @@ mariadb --host FULLY_QUALIFIED_DOMAIN_NAME --port TCP_PORT \
 
 After the command is executed, you will be prompted for a password. Enter the default password for your default user, the password you set for the default user, or the password for the database user you created.
 
-For each table that you want to import, execute the [LOAD DATA LOCAL INFILE](https://mariadb.com/kb/en/load-data-infile/) statement to import the data from the TSV or CSV file into your MariaDB Cloud database service.
+For each table that you want to import, execute the LOAD DATA LOCAL INFILE statement to import the data from the TSV or CSV file into your MariaDB Cloud database service.
 
 For a TSV file:
 
@@ -101,3 +108,5 @@ conn = mariadb.connect(
    port=TCP_PORT,
    local_infile=true)
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

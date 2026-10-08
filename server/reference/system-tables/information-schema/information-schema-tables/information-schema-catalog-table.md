@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema CATALOG table stores information about catalogs on the
+  server, including default character sets and collations.
+---
+
 # Information Schema CATALOG Table
 
 {% hint style="info" %}

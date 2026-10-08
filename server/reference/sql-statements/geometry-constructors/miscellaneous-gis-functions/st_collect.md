@@ -1,12 +1,19 @@
+---
+description: >-
+  Aggregate multiple geometries into a collection. This function creates a
+  MultiPoint, MultiLineString, MultiPolygon, or GeometryCollection from a set of
+  geometry arguments.
+---
+
 # ST\_Collect
 
 {% hint style="info" %}
-ST\_Collect is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+ST\_Collect is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 ST_Collect(g)
 ```
 

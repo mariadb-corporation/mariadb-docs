@@ -1,8 +1,14 @@
+---
+description: >-
+  Constructs a MultiPoint value from a list of WKB Point arguments. It creates a
+  geometry collection consisting of multiple individual points.
+---
+
 # MULTIPOINT
 
 ## Syntax
 
-```sql
+```bnf
 MultiPoint(pt1,pt2,...)
 ```
 

@@ -1,8 +1,10 @@
-# Performance Schema memory\_summary\_by\_user\_by\_event\_name Table
+---
+description: >-
+  This table summarizes memory usage events aggregated by user name and event
+  name, useful for identifying users with high memory footprints.
+---
 
-{% hint style="info" %}
-The `memory_summary_by_user_by_event_name` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema memory\_summary\_by\_user\_by\_event\_name Table
 
 There are five memory summary tables in the Performance Schema that share a number of fields in common. These include:
 

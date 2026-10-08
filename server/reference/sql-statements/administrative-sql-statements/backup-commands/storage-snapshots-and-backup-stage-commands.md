@@ -1,9 +1,13 @@
+---
+description: >-
+  Combine database commands with storage-level snapshots. Learn the correct
+  sequence of BACKUP STAGE commands to freeze writes safely while taking a disk
+  snapshot.
+---
 
 # Storage Snapshots and BACKUP STAGE Statements
 
-
 The [BACKUP STAGE](backup-stage.md) statements are a set of statements to make it possible to make an efficient external backup tool. These commands could even be used by tools that perform backups by taking a snapshot of a file system, SAN, or some other kind of storage device.
-
 
 ## Generic Backup Process with Storage Snapshots
 

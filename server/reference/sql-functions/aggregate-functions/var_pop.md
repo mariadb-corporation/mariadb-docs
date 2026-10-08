@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate population variance. This function computes the statistical variance
+  for a set of values assumed to be the entire population.
+---
+
 # VAR\_POP
 
 ## Syntax
 
-```sql
+```bnf
 VAR_POP(expr)
 ```
 

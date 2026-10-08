@@ -1,8 +1,10 @@
-# Performance Schema session\_status Table
+---
+description: >-
+  The session_status table displays status variable values for the current
+  session, providing data equivalent to the SHOW SESSION STATUS statement.
+---
 
-{% hint style="info" %}
-The `session_status` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema session\_status Table
 
 The `session_status` table contains a list of status variables for the current session. The table only stores status variable statistics for threads which are instrumented, and does not collect statistics for `Com_xxx` variables.
 

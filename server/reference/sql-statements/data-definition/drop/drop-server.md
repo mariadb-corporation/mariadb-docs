@@ -1,18 +1,24 @@
+---
+description: >-
+  Remove a server definition. This command deletes the connection details for a
+  remote server used by the FEDERATED or SPIDER storage engines.
+---
+
 # DROP SERVER
 
 ## Syntax
 
-```sql
+```bnf
 DROP SERVER [ IF EXISTS ] server_name
 ```
 
 ## Description
 
-Drops the server definition for the server named _server\_name_. The corresponding row within the [mysql.servers table](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) will be deleted. This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [FEDERATED ADMIN](../../account-management-sql-statements/grant.md#federated-admin) privilege.
+Drops the server definition for the server named _server\_name_. The corresponding row within the [mysql.servers table](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) will be deleted. This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege or the [FEDERATED ADMIN](../../account-management-sql-statements/grant.md#federated-admin) privilege.
 
-Dropping a server for a table does not affect any [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/), [FEDERATED](../../../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md), [Connect](../../../../server-usage/storage-engines/connect/) or [Spider](../../../../server-usage/storage-engines/spider/) tables that used this connection information when they were created.
+Dropping a server for a table does not affect any [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/), [FEDERATED](../../../../server-usage/storage-engines/federated-storage-engine.md), [Connect](../../../../server-usage/storage-engines/connect/) or [Spider](../../../../server-usage/storage-engines/spider/) tables that used this connection information when they were created.
 
-DROP SERVER is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used. From [MariaDB 10.1.13](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/drop/broken-reference/README.md), [Galera](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md) replicates the [CREATE SERVER](../create/create-server.md), [ALTER SERVER](../alter/alter-server.md) and DROP SERVER statements.
+DROP SERVER is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used. [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) replicates the [CREATE SERVER](../create/create-server.md), [ALTER SERVER](../alter/alter-server.md) and DROP SERVER statements.
 
 #### IF EXISTS
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_TRX table provides information about active
+  transactions in MyRocks, including transaction IDs and states.
+---
+
 # Information Schema ROCKSDB\_TRX Table
 
 The [Information Schema](../../) `ROCKSDB_TRX` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

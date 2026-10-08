@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_FT_CONFIG table displays metadata about the
+  configuration of an InnoDB FULLTEXT index, such as the internal cache size.
+---
+
 # Information Schema INNODB\_FT\_CONFIG Table
 
 The [Information Schema](../../) `INNODB_FT_CONFIG` table contains InnoDB [fulltext index](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) metadata.

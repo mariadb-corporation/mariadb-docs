@@ -1,8 +1,14 @@
+---
+description: >-
+  Replace regex matches in a string. This function substitutes occurrences of a
+  pattern with a specified replacement string.
+---
+
 # REGEXP\_REPLACE
 
 ## Syntax
 
-```sql
+```bnf
 REGEXP_REPLACE(subject, pattern, replace)
 ```
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Fixed-length character string type. CHARACTER columns store strings of a
+  specified length (0 to 255), padding with spaces if necessary.
+---
+
 # CHARACTER
 
 ## Overview
@@ -24,6 +30,6 @@ Create Table: CREATE TABLE `character_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

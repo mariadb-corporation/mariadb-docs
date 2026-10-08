@@ -1,3 +1,10 @@
+---
+description: >-
+  Insert multiple rows in a single prepared statement call using column-wise
+  binding. This example demonstrates indicator variables and
+  STMT_ATTR_ARRAY_SIZE with MariaDB Connector/C.
+---
+
 # Bulk Insert (Column-wise Binding)
 
 The following example uses indicator variables and column-wise binding to insert an array of data.
@@ -98,5 +105,6 @@ MariaDB [example_db]> SELECT id,forename,surname FROM bulk_example1;
 +----+----------+----------+
 ```
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

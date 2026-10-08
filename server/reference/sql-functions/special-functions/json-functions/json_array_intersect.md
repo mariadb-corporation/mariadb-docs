@@ -1,3 +1,9 @@
+---
+description: >-
+  Available from version 11.2, this function compares two JSON arrays and
+  returns a new array containing only the items present in both.
+---
+
 # JSON\_ARRAY\_INTERSECT
 
 {% hint style="info" %}
@@ -6,7 +12,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAY_INTERSECT(arr1, arr2)
 ```
 

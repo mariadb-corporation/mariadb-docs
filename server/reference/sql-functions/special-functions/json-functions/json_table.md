@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert JSON data to a relational table. This table function extracts data
+  from a JSON document and returns it as a relational table with columns.
+---
+
 # JSON\_TABLE
 
 {% hint style="info" %}
@@ -8,11 +14,13 @@
 
 ## Syntax
 
-```sql
+```bnf
 JSON_TABLE(json_doc, 
           context_path COLUMNS (column_list)
 ) [AS] alias
 ```
+
+![Railroad diagram of JSON_TABLE — equivalent to the BNF above](../../../../.gitbook/assets/json-table-railroad.svg)
 
 ```sql
 column_list:
@@ -23,6 +31,7 @@ column_list:
 column:
     name FOR ORDINALITY
     |  name type PATH path_str [on_empty] [on_error]
+    |  name type FORMAT JSON PATH path_str [on_empty] [on_error]
     |  name type EXISTS PATH path_str
     |  NESTED PATH path_str COLUMNS (column_list)
 ```
@@ -81,6 +90,45 @@ SELECT * FROM json_table(@json, '$[*]'
 ```
 
 The `on_empty` and `on_error` clauses specify the actions to be performed when the value was not found or there was an error condition. See the `ON EMPTY` and `ON ERROR` clauses section for details.
+
+#### FORMAT JSON Columns
+
+{% hint style="info" %}
+`FORMAT JSON` columns are available from MariaDB 13.1.1.
+{% endhint %}
+
+```sql
+name type FORMAT JSON PATH path_str [on_empty] [on_error]
+```
+
+Like a path column, but returns the JSON value located by `path_str` as-is, serialized to text — including arrays and objects, not only scalar values. This is useful for pulling a nested array or object into a single column without expanding it into multiple rows with `NESTED PATH`.
+
+The column must be declared with a string type, such as [VARCHAR](../../../data-types/string-data-types/varchar.md) or [TEXT](../../../data-types/string-data-types/text.md). Using `FORMAT JSON` with a non-string type raises an error.
+
+```sql
+SET @json='
+[
+  {"name":"Jeans",   "sizes": [32, 34, 36]},
+  {"name":"T-Shirt", "sizes":["Medium", "Large"]},
+  {"name":"Cellphone"}
+]';
+
+SELECT * FROM JSON_TABLE(@json, '$[*]'
+  COLUMNS(
+    name  VARCHAR(10)  PATH '$.name',
+    sizes VARCHAR(100) FORMAT JSON PATH '$.sizes'
+  )
+) AS jt;
++-----------+---------------------+
+| name      | sizes               |
++-----------+---------------------+
+| Jeans     | [32, 34, 36]        |
+| T-Shirt   | ["Medium", "Large"] |
+| Cellphone | NULL                |
++-----------+---------------------+
+```
+
+Without `FORMAT JSON`, a path column returns only scalar values; locating an array or object instead triggers the `ON ERROR` behavior (`NULL` by default). A column declared with the [JSON](../../../data-types/string-data-types/json.md) type applies `FORMAT JSON` implicitly — see [Extracting a Subdocument into a Column](#extracting-a-subdocument-into-a-column).
 
 #### ORDINALITY Columns
 
@@ -248,6 +296,10 @@ In the current code, evaluation of `JSON_TABLE` is deterministic, that is, for a
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.9:
+{% endhint %}
+
 ```sql
 SELECT * FROM JSON_TABLE('{"foo": [1,2,3,4]}','$' columns( jscol json path '$.foo') ) AS T;
 +-----------+
@@ -259,6 +311,10 @@ SELECT * FROM JSON_TABLE('{"foo": [1,2,3,4]}','$' columns( jscol json path '$.fo
 {% endtab %}
 
 {% tab title="< 10.6.9" %}
+{% hint style="info" %}
+Before MariaDB 10.6.9:
+{% endhint %}
+
 `JSON_TABLE` does not allow to extract a JSON "subdocument" into a JSON column.
 
 ```sql

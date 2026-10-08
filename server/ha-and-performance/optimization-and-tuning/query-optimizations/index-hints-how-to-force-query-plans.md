@@ -1,3 +1,9 @@
+---
+description: >-
+  Using index hints to influence the query plan when the optimizer's choice is
+  not ideal.
+---
+
 # Index Hints: How to Force Query Plans
 
 The optimizer is largely cost-based and will try to choose the optimal plan for any query. However in some cases it does not have enough information to choose a perfect plan and in these cases you may have to provide hints to force the optimizer to use another plan.
@@ -8,7 +14,7 @@ For the following queries, we will use the world database for the examples.
 
 ## Setting up the World Example Database
 
-Download it from [world.sql.gz](https://mariadb.com/kb/en/ftp://ftp.askmonty.org/public/world.sql.gz)
+Download it from world.sql.gz
 
 Install it with:
 
@@ -27,7 +33,7 @@ gunzip world.sql.gz
 
 ## Forcing Join Order
 
-You can force the join order by using [STRAIGHT\_JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) either in the [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) part.
+You can force the join order by using [STRAIGHT\_JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) either in the [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) part.
 
 The simplest way to force the join order is to put the tables in the correct order in the `FROM` clause and use `SELECT STRAIGHT_JOIN` like so:
 
@@ -118,7 +124,7 @@ Also see [Ignored Indexes](../optimization-and-indexes/ignored-indexes.md) for a
 
 ### FORCE INDEX: Forcing an Index
 
-[Forcing an index](force-index.md) to be used is mostly useful when the optimizer decides to do a table scan even if you know that using an index would be better. (The optimizer could decide to do a table scan even if there is\
+[Forcing an index](force-index.md) to be used is mostly useful when the optimizer decides to do a table scan even if you know that using an index would be better. (The optimizer could decide to do a table scan even if there is
 an available index when it believes that most or all rows will match and it can avoid the overhead of using the index).
 
 ```sql
@@ -143,7 +149,7 @@ When using index hints (USE, FORCE or [IGNORE INDEX](ignore-index.md)), the inde
 
 The optimizer will try to use indexes to resolve [ORDER BY](../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md) and [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md).
 
-You can use [USE INDEX](use-index.md), [IGNORE INDEX](ignore-index.md) and [FORCE INDEX](force-index.md) as in the `WHERE` clause above\
+You can use [USE INDEX](use-index.md), [IGNORE INDEX](ignore-index.md) and [FORCE INDEX](force-index.md) as in the `WHERE` clause above
 to ensure that some specific index used:
 
 ```sql
@@ -180,11 +186,11 @@ The optimizer uses several strategies to optimize [GROUP BY](../../../reference/
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 * Use a temporary table for [ORDER BY](../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md):
-  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/aria/README.md) or [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
+  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](../../../server-usage/storage-engines/aria/README.md) or [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 
-A temporary table will always be used if the fields which will be sorted are not from the first table in the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) order.
+A temporary table will always be used if the fields which will be sorted are not from the first table in the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) order.
 
 * Use a temporary table for [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md):
   * Create a temporary table to hold the [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) result with an index that matches the [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) fields.
@@ -246,7 +252,7 @@ Without `SQL_BUFFER_RESULT`, the above query would not use a temporary table for
 
 ## Optimizer Switch
 
-In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) we added an [optimizer switch](../system-variables/server-system-variables.md#optimizer_switch) which allows you to specify which algorithms will be considered when optimizing a query.
+There is an [optimizer switch](../system-variables/server-system-variables.md#optimizer_switch) which allows you to specify which algorithms will be considered when optimizing a query.
 
 See the [optimizer](./) section for more information about the different algorithms which are used.
 

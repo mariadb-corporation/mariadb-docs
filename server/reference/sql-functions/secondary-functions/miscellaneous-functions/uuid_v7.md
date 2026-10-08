@@ -1,14 +1,20 @@
+---
+description: >-
+  Generate a time-ordered UUID (v7). This function returns a version 7 UUID,
+  which is sortable by creation time.
+---
+
 # UUID\_v7
 
 {% hint style="info" %}
-`UUID_v7` is available from MariaDB [11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117).
+`UUID_v7` is available from MariaDB [11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117).
 {% endhint %}
 
 It is possible to generate UUIDv4 and UUIDv7, in addition to UUIDv1.
 
 ## Syntax
 
-```sql
+```bnf
 UUID_v7()
 ```
 
@@ -41,7 +47,7 @@ UUID_v7(): 01921e85-f198-7490-9b89-7dd0d468543b
 * [UUID data type](../../../data-types/string-data-types/uuid-data-type.md)
 * [MDEV-11339](https://jira.mariadb.org/browse/MDEV-11339) (Support UUID v4 generation)
 * [MDEV-32637](https://jira.mariadb.org/browse/MDEV-32637) (Implement native UUID7 function)
-* [uuid7.com](https://uuid7.com/)
+* [uuid7.com](https://web.archive.org/web/20250708210006/https://uuid7.com/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

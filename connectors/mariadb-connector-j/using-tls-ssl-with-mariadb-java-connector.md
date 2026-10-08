@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure TLS and SSL for MariaDB Connector/J using sslMode, serverSslCert,
+  and keyStore options, supporting trust, verify-ca, verify-full, and
+  zero-configuration encryption modes.
+---
+
 # Using TLS/SSL with MariaDB Connector/J
 
 ## Overview
@@ -13,13 +20,13 @@ The term SSL (Secure Sockets Layer) is often used interchangeably with TLS, alth
 
 ### Server configuration
 
-To ensure that SSL is correctly configured on the server, the query "SELECT @@have\_ssl;" must return YES. If not, please refer to the [server documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+To ensure that SSL is correctly configured on the server, the query "SELECT @@have\_ssl;" must return YES. If not, please refer to the [server documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
 
 Connecting to a server that doesn't support TLS with the TLS option set, an exception "Trying to connect with SSL, but SSL not enabled in the server" will be thrown.
 
 ### TLS Protocol Version Selection
 
-The MariaDB Java driver by default uses Java's default supported protocols. If the servers are MariaDB on Unix or version >= 10.2, consider adding the TLSv1.2 protocol. This can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
+The MariaDB Java driver by default uses Java's default supported protocols. If the servers are MariaDB, consider adding the TLSv1.2 protocol. This can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
 
 In addition to the protocol, the driver relies on the Java default cipher list. The Java default enabled ciphers are [listed here](https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SupportedCipherSuites). JAVA allows cipher suites to be removed/excluded from use in the security policy using the Java system property "jdk.tls.disabledAlgorithms." The specific list of ciphers to be used can be set using the "enabledSslCipherSuites" driver option (example: "enabledSSLCipherSuites=TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CBC\_SHA256,...")
 
@@ -220,5 +227,7 @@ This can occur due to:
     FROM mysql.user u
     WHERE u.User = '';
     ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

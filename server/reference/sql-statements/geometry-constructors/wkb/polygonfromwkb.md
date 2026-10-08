@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_PolyFromWKB. Constructs a Polygon value from its WKB
+  representation and an optional SRID.
+---
+
 # PolygonFromWKB
 
 A synonym for [ST\_PolyFromWKB](st_polyfromwkb.md).

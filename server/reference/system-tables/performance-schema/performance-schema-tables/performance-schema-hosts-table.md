@@ -1,3 +1,9 @@
+---
+description: >-
+  The hosts table contains aggregated connection statistics for each client
+  host, including counts for current and total historical connections.
+---
+
 # Performance Schema hosts Table
 
 ## Description

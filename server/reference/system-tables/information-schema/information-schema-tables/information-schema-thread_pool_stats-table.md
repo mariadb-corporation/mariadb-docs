@@ -1,8 +1,10 @@
-# Information Schema THREAD\_POOL\_STATS Table
+---
+description: >-
+  The Information Schema THREAD_POOL_STATS table provides performance statistics
+  for the thread pool, such as thread creation and efficiency.
+---
 
-{% hint style="info" %}
-This table is available from MariaDB 10.5.
-{% endhint %}
+# Information Schema THREAD\_POOL\_STATS Table
 
 The table provides performance counter information for the [thread pool](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md), and contains the following columns:
 

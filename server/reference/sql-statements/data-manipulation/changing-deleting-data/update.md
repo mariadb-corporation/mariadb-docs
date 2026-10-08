@@ -1,10 +1,21 @@
+---
+description: >-
+  Complete UPDATE statement guide for MariaDB. Complete syntax reference with
+  WHERE conditions, JOIN operations, CTEs, and multi-table updates for
+  production use.
+---
+
 # UPDATE
 
 ## Syntax
 
+{% hint style="info" %}
+For the CTE[^1] syntax, available from MariaDB 12.3, see [here](update.md#cte-syntax).
+{% endhint %}
+
 Single-table syntax:
 
-```sql
+```bnf
 UPDATE [LOW_PRIORITY] [IGNORE] table_reference 
   [PARTITION (partition_list)]
   [FOR PORTION OF period FROM expr1 TO expr2]
@@ -12,7 +23,25 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_reference
   [WHERE where_condition]
   [ORDER BY ...]
   [LIMIT row_count]
+  [RETURNING select_expr 
+    [, select_expr ...]]
 ```
+
+![Railroad diagram of single-table UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/update-railroad.svg)
+
+![Railroad diagram of set_value](../../../../.gitbook/assets/update-set-value-railroad.svg)
+
+The abbreviated `[ORDER BY ...]` shown above is the standard `ORDER BY` clause; see [ORDER BY](../selecting-data/order-by.md) for its full form.
+
+{% hint style="info" %}
+The `RETURNING` clause is available from MariaDB 13.0.
+
+`RETURNING` works only for single tables.
+
+It uses the [`OLD_VALUE()`](../../../sql-functions/secondary-functions/miscellaneous-functions/old-value.md) function to return a value _val_ as the old value (before the `UPDATE`), and optionally `val` as the new value (after the `UPDATE`).
+
+See [this example](update.md#single-table-with-returning-clause) for how it is used.
+{% endhint %}
 
 Multiple-table syntax:
 
@@ -20,22 +49,35 @@ Multiple-table syntax:
 UPDATE [LOW_PRIORITY] [IGNORE] table_references
     SET col1={expr1|DEFAULT} [, col2={expr2|DEFAULT}] ...
     [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
 ```
+
+### CTE Syntax
+
+{% hint style="info" %}
+This syntax is available from MariaDB 12.3.
+{% endhint %}
+
+```sql
+WITH [RECURSIVE] table_reference [(columns_list)] AS  (
+  SELECT ...
+)
+UPDATE non_cte_table expression
+```
+
+* `non_cte_table` is a table not defined by a CTE (common table expression).
+* `expression` is the rest of the `UPDATE` statement body (the `SET` clause, and optionally `WHERE`, `ORDER BY`, `LIMIT`, and `RETURNING`).
+* Supporting CTEs with `UPDATE` is an extension of the SQL standard, similar to how MySQL does it.
+* With `UPDATE`, CTEs are read-only, like other derived tables – you cannot update columns from tables in the CTE expression.
+* For use cases, see the [CTE examples](update.md#single-table).
 
 ## Description
 
-For the single-table syntax, the `UPDATE` statement updates columns of existing rows in the named table with new values. The`SET` clause indicates which columns to modify and the values they should be given. Each value can be given as an expression, or the keyword`DEFAULT` to set a column explicitly to its default value. The`WHERE` clause, if given, specifies the conditions that identify which rows to update. With no `WHERE` clause, all rows are updated. If the [ORDER BY](../selecting-data/order-by.md) clause is specified, the rows are\
+For the single-table syntax, the `UPDATE` statement updates columns of existing rows in the named table with new values. The`SET` clause indicates which columns to modify and the values they should be given. Each value can be given as an expression, or the keyword`DEFAULT` to set a column explicitly to its default value. The`WHERE` clause, if given, specifies the conditions that identify which rows to update. With no `WHERE` clause, all rows are updated. If the [ORDER BY](../selecting-data/order-by.md) clause is specified, the rows are
 updated in the order that is specified. The [LIMIT](../selecting-data/limit.md) clause places a limit on the number of rows that can be updated.
 
-{% tabs %}
-{% tab title="Current" %}
-Both clauses can be used with multiple-table updates.&#x20;
-{% endtab %}
-
-{% tab title="< 10.3" %}
-Both clauses can be used with multiple-table updates. For the multiple-table syntax, `UPDATE` updates rows in each table named in `table_references` that satisfy the conditions. In this case, [ORDER BY](../selecting-data/order-by.md) and [LIMIT](../selecting-data/limit.md) could not be used.
-{% endtab %}
-{% endtabs %}
+Both clauses can be used with multiple-table updates. For the multiple-table syntax, `UPDATE` updates rows in each table named in `table_references` that satisfy the conditions.
 
 An `UPDATE` can also reference tables which are located in different databases; see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for the syntax.
 
@@ -43,15 +85,14 @@ An `UPDATE` can also reference tables which are located in different databases; 
 
 `table_references` and `where_condition` are as specified as described in [SELECT](../selecting-data/select.md).
 
-For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) is set, UPDATE statements evaluate all assignments simultaneously.
+For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) is set, `UPDATE` statements evaluate all assignments simultaneously.
 
 You need the `UPDATE` privilege only for columns referenced in an `UPDATE` that are actually updated. You need only the [SELECT](../selecting-data/select.md) privilege for any columns that are read but not modified. See [GRANT](../../account-management-sql-statements/grant.md).
 
 The `UPDATE` statement supports the following modifiers:
 
 * If you use the `LOW_PRIORITY` keyword, execution of the `UPDATE` is delayed until no other clients are reading from the table. This affects only storage engines that use only table-level locking (MyISAM, MEMORY, MERGE). See [HIGH\_PRIORITY and LOW\_PRIORITY clauses](high_priority-and-low_priority.md) for details.
-* If you use the `IGNORE` keyword, the update statement does not abort even if errors occur during the update. Rows for which duplicate-key conflicts occur are not updated. Rows for which columns are\
-  updated to values that would cause data conversion errors are updated to the closest valid values instead.
+* If you use the `IGNORE` keyword, the update statement does not abort even if errors occur during the update. Rows for which duplicate-key conflicts occur are not updated. Rows for which columns are updated to values that would cause data conversion errors are updated to the closest valid values instead.
 
 ### PARTITION
 
@@ -81,18 +122,55 @@ SELECT * FROM t1;
 +------+------+
 ```
 
-## Example
+## Examples
 
-Single-table syntax:
+### Single-Table
 
 ```sql
 UPDATE table_name SET column1 = value1, column2 = value2 WHERE id=100;
 ```
 
-Multiple-table syntax:
+### Single-Table With RETURNING Clause
+
+{% hint style="info" %}
+The RETURNING clause is available from MariaDB 13.0.
+{% endhint %}
+
+```sql
+UPDATE t SET a=a+1 RETURNING OLD_VALUE(a) AS old, a as new;
++------+------+
+| old  | new  |
++------+------+
+|    1 |    2 |
++------+------+
+```
+
+### Multi-Table
 
 ```sql
 UPDATE tab1, tab2 SET tab1.column1 = value1, tab1.column2 = value2 WHERE tab1.id = tab2.id;
+```
+
+### CTE Single-Table
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5), 
+     cte2 AS (SELECT * FROM t2 WHERE b < 5) 
+     UPDATE t3 SET t3.a = (SELECT a FROM cte1 WHERE b IN (SELECT b FROM cte2));
+```
+
+### CTE Multi-Table
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
+     cte2 AS (SELECT * FROM t2 WHERE b < 5)
+     UPDATE t3, cte1 SET t3.a = cte1.a WHERE cte1.b IN (SELECT b FROM cte2);
+```
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
+     cte2 AS (SELECT * FROM t2 WHERE b < 5)
+     UPDATE t3, cte1, cte2 SET t3.a = cte1.a WHERE cte1.b = cte2.b;
 ```
 
 ## See Also
@@ -106,3 +184,5 @@ UPDATE tab1, tab2 SET tab1.column1 = value1, tab1.column2 = value2 WHERE tab1.id
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+
+[^1]: CTE (Common Table Expression): A temporary, named result set that exists only for the duration of a single `SELECT`, `INSERT`, `UPDATE`, or `DELETE` statement, used to make complex queries more readable.

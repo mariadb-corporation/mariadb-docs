@@ -1,8 +1,19 @@
+---
+description: >-
+  Build the galera wsrep provider .deb package on Ubuntu and Debian, covering
+  prerequisites, the build.sh script workflow, and the steps required to run
+  the galera test suite afterward.
+---
+
 # Building the Galera wsrep Package on Ubuntu and Debian
 
 The instructions on this page were used to create the _galera_ package on the Ubuntu and Debian Linux distributions. This package contains the wsrep provider for [MariaDB Galera Cluster](../../../).
 
-The version of the wsrep provider is **25.3.5**. We also provide **25.2.9** for those that need or want it. Prior to that, the wsrep version was 23.2.7.
+For the list of Galera wsrep provider versions and the MariaDB release each one first shipped in, see:
+
+{% content-ref url="../../../reference/galera-wsrep-provider-versions.md" %}
+[galera-wsrep-provider-versions.md](../../../reference/galera-wsrep-provider-versions.md)
+{% endcontent-ref %}
 
 1. Install prerequisites:
 
@@ -12,7 +23,7 @@ sudo apt-get upgrade
 sudo apt-get -y install check debhelper libasio-dev libboost-dev libboost-program-options-dev libssl-dev scons
 ```
 
-1. Clone [galera.git](https://github.com/mariadb/galera) from [github.com/mariadb](https://github.com/mariadb) and checkout mariadb-3.x banch:
+2. Clone [galera.git](https://github.com/mariadb/galera) from [github.com/mariadb](https://github.com/mariadb) and checkout mariadb-3.x branch:
 
 ```
 git init repo
@@ -20,7 +31,7 @@ cd repo
 git clone -b mariadb-3.x https://github.com/MariaDB/galera.git
 ```
 
-1. Build the packages by executing `build.sh` under scripts/ directory with `-p` switch:
+3. Build the packages by executing `build.sh` under scripts/ directory with `-p` switch:
 
 ```
 cd galera

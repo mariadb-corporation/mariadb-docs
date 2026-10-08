@@ -1,3 +1,10 @@
+---
+description: >-
+  The batch API in MariaDB Connector/Node.js sends multiple parameterized
+  queries in one network trip, with server-version-aware optimizations and
+  max_allowed_packet handling.
+---
+
 # Connector/Node.js Batching API
 
 Batch processing groups multiple queries into one unit and passes it in a single network trip to a database.
@@ -34,21 +41,20 @@ connection.query("INSERT INTO BASKET(customerId) values (?)", [1], (err, res) =>
 ### Performance comparison
 
 Some benchmark to do some 100 inserts with one parameter of 100 characters:
-(benchmark source - see [standard insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/benchmarks/benchs/insert_pipelining.js) and [batch insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/benchmarks/benchs/insert_batch.js) )
+(benchmark source - see [standard insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/master/benchmarks/benchs/insert_pipelining.js) and [batch insert](https://github.com/mariadb-corporation/mariadb-connector-nodejs/blob/master/benchmarks/benchs/insert_batch.js) )
 
 ![pipelining](../.gitbook/assets/batch-bench.png)
 
 ### Configuration
 
-There is one thing to pay attention to: MySQL / MariaDB servers have a global option [max_allowed_packet](https://mariadb.com/kb/en/library/server-system-variables/#max_allowed_packet) that limit the maximum packet exchange size.
+There is one thing to pay attention to: MySQL / MariaDB servers have a global option [max_allowed_packet](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet) that limit the maximum packet exchange size.
 If the connector sends more data than these limits, the socket will be immediately dropped.
 
-default server values :
-- since MariaDB 10.2.4 : 16M
-- since MariaDB 10.1.7 : 4M
-- before MariaDB 10.1.7 : 1M
+The default server value is 16M.
 
 You can check server value using query `select @@max_allowed_packet`.
 
 Connection option "maxAllowedPacket" permits to connector behaving accordingly: if maxAllowedPacket is set to 1048576 (=1M),
  the packet sent to the server will be split in packet less than 1M to avoid any issue.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 IS NOT boolean_value
 ```
 

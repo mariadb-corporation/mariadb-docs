@@ -1,6 +1,11 @@
-# Semisynchronous Replication Plugin Status Variables
+---
+description: >-
+  Status variables for semisynchronous replication.
+---
 
-This page documents status variables related to the [Semisynchronous Replication Plugin](../../standard-replication/semisynchronous-replication.md) (which has been merged into the main server from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)). See [Server Status Variables](server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).
+# Semisynchronous Replication Status Variables
+
+This page documents status variables related to [Semisynchronous Replication](../../standard-replication/semisynchronous-replication.md), which is built into the server. See [Server Status Variables](server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
@@ -46,7 +51,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Rpl_semi_sync_master_status`
 
-* Description: Whether or not semisynchronous replication is currently operating on the master. The value will be `ON` if both the plugin has been enabled and a commit acknowledgment has occurred. It will be `OFF` if either the plugin has not been enabled, or the master is replicating asynchronously due to a commit acknowledgment timeout.
+* Description: Whether or not semisynchronous replication is currently operating on the master. The value will be `ON` if semisynchronous replication has been enabled and a commit acknowledgment has occurred. It will be `OFF` if either it has not been enabled, or the master is replicating asynchronously due to a commit acknowledgment timeout.
 * Data Type: `boolean`
 
 #### `Rpl_semi_sync_master_timefunc_failures`

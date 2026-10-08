@@ -1,29 +1,25 @@
+---
+description: >-
+  List available system privileges. View the context and description for each
+  privilege supported by the server.
+---
+
 # SHOW PRIVILEGES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PRIVILEGES
 ```
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
 `SHOW PRIVILEGES` shows the list of [system privileges](../../account-management-sql-statements/grant.md) that the MariaDB server supports. The exact list of privileges depends on the version of your server.
-{% endtab %}
-
-{% tab title="< 10.5.2 / 10.4.13 / 10.3.23" %}
-`SHOW PRIVILEGES` shows the list of [system privileges](../../account-management-sql-statements/grant.md) that the MariaDB server supports. The exact list of privileges depends on the version of your server.
-
-Note that before [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10323-release-notes), [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10413-release-notes) and [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes) , the [Delete history](../../account-management-sql-statements/grant.md#table-privileges) privilege displays as `Delete versioning rows` ([MDEV-20382](https://jira.mariadb.org/browse/MDEV-20382)).
-{% endtab %}
-{% endtabs %}
 
 ## Example
 
 {% hint style="info" %}
-The output is for MariaDB version from 10.5.9. In previous versions, it might look differently.
+The output below is an example. The exact list of privileges depends on the server version.
 {% endhint %}
 
 ```sql

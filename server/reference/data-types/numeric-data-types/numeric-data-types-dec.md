@@ -1,6 +1,12 @@
+---
+description: >-
+  Synonym for DECIMAL. This keyword creates a fixed-point column with exact
+  precision, suitable for financial calculations.
+---
+
 # DEC
 
-See [DECIMAL](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/data-types/data-types-numeric-data-types/data-types-decimal/README.md).
+See [DECIMAL](decimal.md).
 
 ## EXAMPLES
 
@@ -22,6 +28,6 @@ Create Table: CREATE TABLE `dec_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

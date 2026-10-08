@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C reads connection settings from option files such as
+  my.cnf, supporting default and custom file locations, option groups, and a
+  full set of client options.
+---
+
 # Configuring MariaDB Connector/C with Option Files
 
 Just like MariaDB Server and libmysqlclient, MariaDB Connector/C can also read configuration options from client [option groups](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in [option files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).
@@ -12,13 +19,17 @@ MariaDB Connector/C allows application developers to read options from the defau
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_FILE, NULL);
 ```
 
+{% hint style="info" %}
+`MYSQL_READ_DEFAULT_FILE` is exclusive: if the application calls it more than once, the second call replaces the value set by the first. To read both a custom option file and the default option files, pass the custom file path in a single call; reading default files is controlled separately via `MYSQL_READ_DEFAULT_GROUP`.
+{% endhint %}
+
 #### Default Option File Locations on Linux, Unix, Mac
 
 On Linux, Unix, or Mac OS X, the default option file is called `my.cnf`. MariaDB Connector/C looks for the MariaDB option file in the locations and orders listed below.
 
-The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/compiling-mariadb-from-source/generic-build-instructions#using-cmake) option was defined when MariaDB Connector/C was built. This option is usually defined as `/etc` when building [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm), but it is usually not defined when building [DEB packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) or [binary tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
+The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#common-cmake-configuration-flags) option was defined when MariaDB Connector/C was built. This option is usually defined as `/etc` when building [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm), but it is usually not defined when building [DEB packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) or [binary tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs).
 
-* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/generic-build-instructions#using-cmake) option was not defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
+* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#common-cmake-configuration-flags) option was not defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
 
 | Location             |
 | -------------------- |
@@ -27,15 +38,19 @@ The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](https://
 | `$MYSQL_HOME/my.cnf` |
 | `~/.my.cnf`          |
 
-
-
-* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/generic-build-instructions#using-cmake) option was defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
+* When the `DEFAULT_SYSCONFDIR` [cmake](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide#common-cmake-configuration-flags) option was defined, MariaDB Connector/C looks for the MariaDB option file in the following locations in the following order:
 
 | Location                    |
 | --------------------------- |
 | `DEFAULT_SYSCONFDIR/my.cnf` |
 | `$MYSQL_HOME/my.cnf`        |
 | `~/.my.cnf`                 |
+
+{% hint style="info" %}
+**Environment variable precedence:** If the `$MARIADB_HOME` environment variable is set, MariaDB Connector/C reads `$MARIADB_HOME/my.cnf` and ignores `$MYSQL_HOME` entirely. Only if `$MARIADB_HOME` is not set will the connector fall back to `$MYSQL_HOME/my.cnf`. If neither variable is set, this location is skipped.
+
+**`$HOME` and the `~/.my.cnf` path:** If `$HOME` is unset in the shell environment, the connector will not locate `~/.my.cnf` and will silently skip it without returning an error.
+{% endhint %}
 
 #### Default Option File Locations on Windows
 
@@ -54,17 +69,19 @@ On Windows, the default option file can be called either `my.ini` or `my.cnf`. M
 | `%MYSQL_HOME%\my.ini`             |
 | `%MYSQL_HOME%\my.cnf`             |
 
-
-
-* The `System Windows Directory` is the directory returned by the [GetSystemWindowsDirectory](https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya) function. The value is usually `C:\Windows`. To find its specific value on your system, open [cmd.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) and execute:
+* The `System Windows Directory` is the directory returned by the [GetSystemWindowsDirectory](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya) function. The value is usually `C:\Windows`. To find its specific value on your system, open [cmd.exe](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) and execute:
 
 ```bash
 echo %WINDIR%
 ```
 
-* The `Windows Directory` is the directory returned by the [GetWindowsDirectory](https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya) function. The value may be a private `Windows Directory` for the application, or it may be the same as the `System Windows Directory` returned by the [GetSystemWindowsDirectory](https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya) function.
+* The `Windows Directory` is the directory returned by the [GetWindowsDirectory](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya) function. The value may be a private `Windows Directory` for the application, or it may be the same as the `System Windows Directory` returned by the [GetSystemWindowsDirectory](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya) function.
 * `EXEDIR` is the parent directory of the executable program that MariaDB Connector/C is linked with.
 * `MYSQL_HOME` is the [environment variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables) containing the path to the directory holding the server-specific `my.cnf` file.
+
+{% hint style="info" %}
+**Environment variable precedence:** If the `%MARIADB_HOME%` environment variable is set, MariaDB Connector/C reads `%MARIADB_HOME%\my.ini` (or `%MARIADB_HOME%\my.cnf`) and ignores `%MYSQL_HOME%` entirely. Only if `%MARIADB_HOME%` is not set will the connector fall back to `%MYSQL_HOME%`.
+{% endhint %}
 
 #### Default Option File Hierarchy
 
@@ -85,18 +102,15 @@ Many MariaDB clients can be configured to read options from custom options files
 | [--defaults-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) =path       | Only read options from the given option file.                      |
 | [--defaults-extra-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) =path | Read this extra option file after all other option files are read. |
 
-The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options)[defaults-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option is roughly equivalent to setting the [MYSQL\_READ\_DEFAULT\_FILE](api-functions/mysql_optionsv.md#options) option with a non-NULL argument.
+The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options)[defaults-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option is roughly equivalent to setting the [MYSQL\_READ\_DEFAULT\_FILE](api-functions/mysql_optionsv.md#options) option with a non-NULL argument.
 
-The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options)[defaults-extra-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option does not yet have an equivalent option in MariaDB Connector/C. See [CONC-399](https://jira.mariadb.org/browse/CONC-399) for more information.
+The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options)[defaults-extra-file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option does not yet have an equivalent option in MariaDB Connector/C. See [CONC-399](https://jira.mariadb.org/browse/CONC-399) for more information.
 
 ### Option File Syntax
 
 The syntax of the MariaDB option files are:
 
 * Lines starting with
-
-## are comments.
-
 * Empty lines are ignored.
 * Option groups use the syntax `[group-name]`. See the [Option Groups](configuring-mariadb-connectorc-with-option-files.md#option-groups) section below for more information on available option groups.
 * The same option group can appear multiple times.
@@ -116,7 +130,7 @@ MariaDB Connector/C reads client options from the following [option groups](http
 | `[client-server]`  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
 | `[client-mariadb]` | Options read by all MariaDB client programs.                                                                                                                             |
 
-MariaDB Connector/C allows application developers to read options from these option groups by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments.&#x20;
+MariaDB Connector/C allows application developers to read options from these option groups by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments.
 
 For example:
 
@@ -126,13 +140,23 @@ mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, NULL);
 
 #### Custom Option Groups
 
-MariaDB Connector/C allows application developers to read options from a custom option group by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments.&#x20;
+MariaDB Connector/C allows application developers to read options from a custom option group by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments.
 
 For example:
 
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"my_section");
 ```
+
+{% hint style="info" %}
+`MYSQL_READ_DEFAULT_GROUP` is an exclusive option: calling it more than once replaces the previously specified custom group name. Only one non‑default group can be defined in this way. Options are applied in the order their `[group]` sections appear in the option file, with a later section's values overriding earlier ones — the custom group does not have inherent precedence over the built‑in default groups (`[client]`, `[client-server]`, `[client-mariadb]`); its effect depends on where its section appears relative to theirs. Passing an empty string causes only the default groups to be read, with no custom group applied:
+
+```
+mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"");
+```
+
+**MySQL compatibility note:** MySQL Connector/C recognizes only `[client]` as a default group. To ensure option files work with both connectors, place shared settings in `[client]` and MariaDB‑specific settings in `[client-mariadb]`. A MySQL connector ignores `[client-mariadb]`, while a MariaDB connector reads `[client]` first and then applies overrides from `[client-mariadb]`.
+{% endhint %}
 
 The custom option group will be read in addition to the default option groups listed above.
 
@@ -142,7 +166,7 @@ Many MariaDB clients can be configured to read options from option groups with a
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | [--defaults-group-suffix](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) =suffix | In addition to the default option groups, also read option groups with the given suffix. |
 
-The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options)[defaults-group-suffix](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option does not yet have an equivalent option in MariaDB Connector/C. See [CONC-404](https://jira.mariadb.org/browse/CONC-404) for more information.
+The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options)[defaults-group-suffix](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line option does not yet have an equivalent option in MariaDB Connector/C. See [CONC-404](https://jira.mariadb.org/browse/CONC-404) for more information.
 
 ### Including Option Files
 
@@ -168,7 +192,7 @@ Unlike with MariaDB server, this directive does not configure MariaDB Connector/
 
 ### Checking Program Options
 
-For many MariaDB clients, you can check which options a given program is going to use by using the [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options)[print-defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line argument:
+For many MariaDB clients, you can check which options a given program is going to use by using the [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options)[print-defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) command-line argument:
 
 | Option                                                                                                                              | Description                                                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -182,7 +206,7 @@ mysqldump would have been started with the following arguments:
 --ssl_cert=/etc/my.cnf.d/certificates/client-cert.pem --ssl_key=/etc/my.cnf.d/certificates/client-key.pem --ssl_ca=/etc/my.cnf.d/certificates/ca.pem --ssl-verify-server-cert --max_allowed_packet=1GB
 ```
 
-If it is installed on your system, then you can also check which options a given program is going to use by using the [my\_print\_defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/my_print_defaults) utility and providing the names of the option groups that the program reads.&#x20;
+If it is installed on your system, then you can also check which options a given program is going to use by using the [my\_print\_defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/my_print_defaults) utility and providing the names of the option groups that the program reads.
 
 For example:
 
@@ -192,8 +216,12 @@ my_print_defaults my_section client client-server client-mariadb
 --ssl_key=/etc/my.cnf.d/certificates/client-key.pem
 --ssl_ca=/etc/my.cnf.d/certificates/ca.pem
 --ssl-verify-server-cert
---max_allowed_packet=1GB
+--max_allowed_packet=1073741824
 ```
+
+{% hint style="info" %}
+Numeric suffixes such as `K`, `M`, or `G` are not supported in option file values. The connector reads only the numeric portion and silently discards any trailing non‑numeric characters. Always specify byte counts as plain integer values in option files.
+{% endhint %}
 
 See [Configuring MariaDB with Option Files: Checking Program Options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#checking-program-options) for more information.
 
@@ -207,7 +235,7 @@ MariaDB Connector/C does not support this. The passwords in MySQL's `.mylogin.cn
 
 MariaDB Connector/C options can be set in client [option groups](configuring-mariadb-connectorc-with-option-files.md#option-groups).
 
-Unlike with the server, dashes (`-`) and underscores (`_`) in options are **not** interchangeable for MariaDB Connector/C. Options must be specified exactly as they are defined. See [CONC-395](https://jira.mariadb.org/browse/CONC-395) for more information.
+Underscores (`_`) in option names are treated the same as dashes (`-`) for MariaDB Connector/C. See [CONC-395](https://jira.mariadb.org/browse/CONC-395) for more information.
 
 Unlike with the server, the `loose` prefix has **no** meaning for MariaDB Connector/C. Unknown options will simply be ignored.
 
@@ -312,6 +340,10 @@ These options can also be set inside your application with the [mysql\_optionsv]
 * Data Type: `string`
 * Default Value:
 
+{% hint style="info" %}
+Unlike most options, `init-command` is a **multi-element** option. Each occurrence in an option file appends the statement to an internal list rather than replacing the previous value. If `init-command` is specified in both `/etc/my.cnf` and `~/.my.cnf`, all statements will execute on each connect and reconnect, in an unspecified order. Remember to use this option with caution, especially when multiple option files are in use, as statements defined in system‑wide files may not be visible when editing user‑level files.
+{% endhint %}
+
 **`local-infile`**
 
 * Description: Enable or disable the use of [LOAD DATA LOCAL INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile).
@@ -330,14 +362,14 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 * Description: Indicates that the client is able to handle multiple result sets from stored procedures or multi statements. This option will be automatically set if `multi-statements` is set.
 * mysql\_optionsv: `MARIADB_OPT_MULTI_RESULTS`
-* Data Type: `none`
+* Data Type: `boolean`
 * Default Value:
 
 **`multi-statements`, `multi-queries`**
 
 * Description: Allows the client to send multiple statements in one command. Statements will be divided by a semicolon.
 * mysql\_optionsv: `MARIADB_OPT_MULTI_STATEMENTS`
-* Data Type: `string`
+* Data Type: `boolean`
 * Default Value:
 
 **`net-buffer-length`**
@@ -442,40 +474,40 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-ca`**
 
-* Description: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
-  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
+* Description: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
+  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
 * mysql\_optionsv: `MYSQL_OPT_SSL_CA`
 * Data Type: `string`
 * Default Value:
 
 **`ssl-capath`**
 
-* Description: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
-  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
-  * This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* Description: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
+  * See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
+  * This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * mysql\_optionsv: `MYSQL_OPT_SSL_CAPATH`
 * Data Type: `string`
 * Default Value:
 
 **`ssl-cert`**
 
-* Description: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
+* Description: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
 * mysql\_optionsv: `MYSQL_OPT_SSL_CERT`
 * Data Type: `string`
 * Default Value:
 
 **`ssl-cipher`**
 
-* Description: List of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+* Description: List of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
 * mysql\_optionsv: `MYSQL_OPT_SSL_CIPHER`
 * Data Type: `string`
 * Default Value:
 
 **`ssl-crl`**
 
-* Description: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
-  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
-  * This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* Description: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
+  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
+  * This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * mysql\_optionsv: `MYSQL_OPT_SSL_CRL`
 * Data Type: `string`
 * Default Value:
@@ -483,9 +515,9 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-crlpath`**
 
-* Description: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
-  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
-  * This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* Description: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://docs.openssl.org/1.1.1/man1/rehash/) command.
+  * See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information.
+  * This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * mysql\_optionsv: `MYSQL_OPT_SSL_CRLPATH`
 * Data Type: `string`
 * Default Value:
@@ -493,7 +525,7 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-enforce`**
 
-* Description: Whether to force [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+* Description: Whether to force [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
 * mysql\_optionsv: `MYSQL_OPT_SSL_ENFORCE`
 * Data Type: `boolean`
 * Default Value:
@@ -501,31 +533,31 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-fp`**
 
-* Description: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake.
-* mysql\_optionsv: `MARIADB_OPT_SSL_FP`
+* Description: Description: Specify the fingerprint hash of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. handshake. In Connector/C versions prior to 3.4.0, only SHA1 hashes are accepted. From version 3.4.0 onward, `SHA256`, `SHA384`, and `SHA512` hashes are also supported.
+* `mysql_optionsv`: `MARIADB_OPT_SSL_FP`
 * Data Type: `string`
 * Default Value:
 * Introduced: MariaDB Connector/C 3.0.0
 
 **`ssl-fp-list`, `ssl-fplist`**
 
-* Description: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake.
-* mysql\_optionsv: `MARIADB_OPT_SSL_FP_LIST`
+* Description: Description: Specify a file which contains one or more fingerprint hashes of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. In Connector/C versions prior to 3.4.0, only SHA1 hashes are accepted. From version 3.4.0 onward, `SHA256`, `SHA384`, and `SHA512` hashes are also supported.
+* `mysql_optionsv`: `MARIADB_OPT_SSL_FP_LIST`
 * Data Type: `string`
 * Default Value:
 * Introduced: MariaDB Connector/C 3.0.0
 
 **`ssl-key`**
 
-* Description: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. If the key is protected with a passphrase, the passphrase needs to be specified with `ssl-passphrase` option.
+* Description: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. If the key is protected with a passphrase, the passphrase needs to be specified with `ssl-passphrase` option.
 * mysql\_optionsv: `MYSQL_OPT_SSL_KEY`
 * Data Type: `string`
 * Default Value:
 
 **`ssl-passphrase`**
 
-* Description: Specify a passphrase for a passphrase-protected private key, as configured by the [ssl-key](configuring-mariadb-connectorc-with-option-files.md#ssl-key) option.
-  * This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+* Description: Specify a passphrase for a passphrase-protected private key, as configured by the `ssl-key` option.
+  * This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 * mysql\_optionsv: `MARIADB_OPT_TLS_PASSPHRASE`
 * Data Type: `string`
 * Default Value:
@@ -533,7 +565,7 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-verify-server-cert`**
 
-* Description: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
+* Description: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
 * mysql\_optionsv: `MYSQL_OPT_SSL_VERIFY_SERVER_CERT`
 * Data Type: `boolean`
 * Default Value:
@@ -541,7 +573,7 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`tls_version`**
 
-* Description: Defines which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) protocol versions are allowed. This should be a comma-separated list of TLS protocol versions to allow. Valid TLS protocol versions are `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, and `TLSv1.3`. Both the client and server should support the allowed TLS protocol versions. See [Secure Connections Overview: TLS Protocol Version Support](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#tls-protocol-version-support) for information on which TLS libraries support which TLS protocol versions. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which TLS libraries are used on which platforms.
+* Description: Defines which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) protocol versions are allowed. This should be a comma-separated list of TLS protocol versions to allow. Valid TLS protocol versions are `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, and `TLSv1.3`. Both the client and server should support the allowed TLS protocol versions. See [Secure Connections Overview: TLS Protocol Version Support](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#tls-protocol-version-support) for information on which TLS libraries support which TLS protocol versions. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which TLS libraries are used on which platforms.
 * mysql\_optionsv: `MARIADB_OPT_TLS_VERSION`
 * Data Type: `string`
 * Default Value:
@@ -557,5 +589,7 @@ These options can also be set inside your application with the [mysql\_optionsv]
 ### See Also
 
 * [Configuring MariaDB with Option Files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

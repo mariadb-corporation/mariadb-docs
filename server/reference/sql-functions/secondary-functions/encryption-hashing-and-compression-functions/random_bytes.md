@@ -1,14 +1,20 @@
+---
+description: >-
+  Generate random bytes. This function returns a binary string of random bytes
+  of a specified length, suitable for cryptographic use.
+---
+
 # RANDOM\_BYTES
 
 {% hint style="info" %}
-`RANDOM_BYTES` is available from MariaDB [10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10100-release-notes).
+`RANDOM_BYTES` is available from MariaDB [10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.0).
 {% endhint %}
 
 The `RANDOM_BYTES` function generates a binary string of random bytes.
 
 ## Syntax
 
-```sql
+```bnf
 RANDOM_BYTES(length)
 ```
 

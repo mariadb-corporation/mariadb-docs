@@ -1,3 +1,9 @@
+---
+description: >-
+  Why choosing numeric over string columns, where possible, improves storage
+  size and comparison speed.
+---
+
 
 # Numeric vs String Fields
 

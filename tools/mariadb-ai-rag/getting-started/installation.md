@@ -1,3 +1,12 @@
+---
+description: >-
+  Install MariaDB AI RAG on Debian/Ubuntu, RHEL, or Windows by downloading the
+  platform package from the MariaDB downloads portal and running the installer
+  or package manager.
+hidden: true
+noIndex: true
+---
+
 # Installation
 
 ## System Requirements
@@ -11,34 +20,46 @@
 
 ## Installation Procedure
 
-### Linux (Debian/Ubuntu)
+{% tabs %}
+{% tab title="Debian/Ubuntu" %}
+**Debian/Ubuntu Installation**
 
-1. Download the installation package from:
-   * [https://dlm.mariadb.com/browse/ai\_rag\_enterprise/1.0.0/](https://dlm.mariadb.com/browse/ai_rag_enterprise/1.0.0/)
+1. Download the Debian / Ubuntu `.deb` installation package from:
+   * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)
 2.  Install the package:
 
     ```bash
-    sudo dpkg -i rag-in-a-box_1.0_amd64.deb	
+    sudo dpkg -i ai-rag-*.deb	
     ```
 3.  Install dependencies:
 
     ```bash
     sudo apt-get install -f
     ```
+{% endtab %}
 
-### Linux (RHEL/CentOS)
+{% tab title="RHEL" %}
+**RHEL (and equivalents) Installation**
 
-1. Download the installation package from:
-   * [https://dlm.mariadb.com/browse/ai\_rag\_enterprise/1.0.0/](https://dlm.mariadb.com/browse/ai_rag_enterprise/1.0.0/)
+1. Download the RHEL `.rpm` installation package from:
+   * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)
 2.  Install the package:
 
     ```bash
-    sudo rpm -i rag-in-a-box-1.0-1.x86_64.rpm
+    sudo rpm -i ai-rag-*.rpm
     ```
+{% endtab %}
 
-### Windows
+{% tab title="Windows" %}
+**Windows Installation**
 
-1. Download the installation package from:
-   * [https://dlm.mariadb.com/browse/ai\_rag\_enterprise/1.0.0/](https://dlm.mariadb.com/browse/ai_rag_enterprise/1.0.0/)
+1. Download the Windows `.msi` installation package from:
+   * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)
 2. Run the `.msi` installer.
 3. Follow the installation wizard instructions.
+{% endtab %}
+{% endtabs %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

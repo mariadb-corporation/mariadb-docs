@@ -1,4 +1,11 @@
-# Application Development with MariaDB/Connector/R2DBC (Spring Data)
+---
+description: >-
+  Spring Data R2DBC applications with MariaDB Connector/R2DBC require Maven,
+  Entity classes for object mapping, and the spring-boot-starter-data-r2dbc
+  dependency.
+---
+
+# Application Development with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview
 
@@ -81,7 +88,7 @@ public class Contact {
 * For the test.contact table, the entity class is called Contact.
 * The entity class must declare an identifier (i.e., primary key) field by annotating the field declaration or its getter method declaration with @Id.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

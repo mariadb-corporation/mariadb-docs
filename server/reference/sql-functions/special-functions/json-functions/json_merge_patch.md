@@ -1,8 +1,15 @@
+---
+description: >-
+  Learn about JSON_MERGE_PATCH in MariaDB. This RFC 7396-compliant function
+  merges JSON documents by overwriting duplicate keys, serving as a modern
+  replacement for the deprecated JSON_MERGE.
+---
+
 # JSON\_MERGE\_PATCH
 
 ## Syntax
 
-```sql
+```bnf
 JSON_MERGE_PATCH(json_doc, json_doc[, json_doc] ...)
 ```
 

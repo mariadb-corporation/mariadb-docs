@@ -1,3 +1,9 @@
+---
+description: >-
+  mariadb-tzinfo-to-sql loads time zone data from a system zoneinfo database
+  into the time zone tables in the mysql database.
+---
+
 # mariadb-tzinfo-to-sql
 
 `mariadb-tzinfo-to-sql` is a tool used to load [time zones](../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) on systems that have a zoneinfo database to load the time zone tables ([time\_zone](../../reference/system-tables/the-mysql-database-tables/mysql-time_zone-table.md), [time\_zone\_leap\_second](../../reference/system-tables/the-mysql-database-tables/mysql-time_zone_leap_second-table.md), [time\_zone\_name](../../reference/system-tables/the-mysql-database-tables/mysql-time_zone_name-table.md), [time\_zone\_transition](../../reference/system-tables/the-mysql-database-tables/mysql-time_zone_transition-table.md) and [time\_zone\_transition\_type](../../reference/system-tables/the-mysql-database-tables/mysql-time_zone_transition_type-table.md)) into the mysql database.

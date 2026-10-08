@@ -1,12 +1,19 @@
+---
+description: >-
+  Complete AUTO_INCREMENT data type guide for MariaDB. Complete reference for
+  syntax, valid values, storage requirements, and range limits for production
+  use.
+---
+
 # AUTO\_INCREMENT
 
 ## Description
 
-The `AUTO_INCREMENT` attribute can be used to generate a unique identity for new rows. When you insert a new record into the table (or upon adding an [AUTO\_INCREMENT](auto_increment.md) attribute with the [ALTER TABLE](../sql-statements/data-definition/alter/alter-table/) statement), and the `AUTO_INCREMENT` field is [NULL](null-values.md) or DEFAULT (in the case of an INSERT), automatically be incremented. This also applies to `0`, unless the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql-mode.md#no_auto_value_on_zero) is enabled.
+The `AUTO_INCREMENT` attribute can be used to generate a unique identity for new rows. When you insert a new record into the table (or upon adding an [AUTO\_INCREMENT](auto_increment.md) attribute with the [ALTER TABLE](../sql-statements/data-definition/alter/alter-table/) statement), and the `AUTO_INCREMENT` field is [NULL](null-values.md) or DEFAULT (in the case of an INSERT), automatically be incremented. This also applies to `0`, unless the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql_mode.md#no_auto_value_on_zero) is enabled.
 
 `AUTO_INCREMENT` columns start from 1 by default. The automatically generated value can never be lower than `0`.
 
-Each table can have only one `AUTO_INCREMENT` column. It must defined as a key (not necessarily the `PRIMARY KEY` or `UNIQUE` key). In some storage engines (including the default [InnoDB](../../server-usage/storage-engines/innodb/)), if the key consists of multiple columns, the `AUTO_INCREMENT` column must be the first column. Storage engines that permit the column to be placed elsewhere are [Aria](../../server-usage/storage-engines/aria/), [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/), [MERGE](../../server-usage/storage-engines/merge.md), [Spider](../../server-usage/storage-engines/spider/), [TokuDB](../../server-usage/storage-engines/tokudb/), [BLACKHOLE](../../server-usage/storage-engines/blackhole.md), [FederatedX](../../server-usage/storage-engines/federatedx-storage-engine/) and [Federated](../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md).
+Each table can have only one `AUTO_INCREMENT` column. It must defined as a key (not necessarily the `PRIMARY KEY` or `UNIQUE` key). In some storage engines (including the default [InnoDB](../../server-usage/storage-engines/innodb/)), if the key consists of multiple columns, the `AUTO_INCREMENT` column must be the first column. Storage engines that permit the column to be placed elsewhere are [Aria](../../server-usage/storage-engines/aria/), [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/), [MERGE](../../server-usage/storage-engines/merge.md), [Spider](../../server-usage/storage-engines/spider/), [BLACKHOLE](../../server-usage/storage-engines/blackhole.md), [FederatedX](../../server-usage/storage-engines/federatedx-storage-engine/) and [Federated](../../server-usage/storage-engines/federated-storage-engine.md).
 
 ```sql
 CREATE TABLE animals (
@@ -145,7 +152,7 @@ The [ARCHIVE](../../server-usage/storage-engines/archive.md) storage engine does
 
 ## Missing Values
 
-An `AUTO_INCREMENT` column normally has missing values. This happens because if a row is deleted, or an `AUTO_INCREMENT` value is explicitly updated, old values are never re-used. The `REPLACE` statement also deletes a row, and its value is wasted. With InnoDB, values can be reserved by a transaction; but if the transaction fails (for example, because of a `ROLLBACK`) the reserved value will be lost.
+An `AUTO_INCREMENT` column normally has missing values. This happens because if a row is deleted, or an `AUTO_INCREMENT` value is explicitly updated, old values are never reused. The `REPLACE` statement also deletes a row, and its value is wasted. With InnoDB, values can be reserved by a transaction; but if the transaction fails (for example, because of a `ROLLBACK`) the reserved value will be lost.
 
 Thus `AUTO_INCREMENT` values can be used to sort results in a chronological order, but not to create a numeric sequence.
 
@@ -303,7 +310,7 @@ Also ensure that, if you want to use the above trick, you always double the valu
 
 ## CHECK Constraints, DEFAULT Values and Virtual Columns
 
-`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
+`AUTO_INCREMENT` columns are not permitted in [CHECK constraints](../sql-statements/data-definition/constraint.md), [DEFAULT value expressions](../sql-statements/data-definition/create/create-table.md#default-column-option) and [virtual columns](../sql-statements/data-definition/create/generated-columns.md).
 
 ## Generating Auto\_Increment Values When Adding the Attribute
 
@@ -336,7 +343,7 @@ SELECT * FROM t1;
 +---+
 ```
 
-If the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql-mode.md#no_auto_value_on_zero) is set, zero values will not be automatically incremented:
+If the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql_mode.md#no_auto_value_on_zero) is set, zero values will not be automatically incremented:
 
 ```sql
 SET SQL_MODE='no_auto_value_on_zero';
@@ -355,11 +362,11 @@ SELECT * FROM t1;
 ## See Also
 
 * [Getting Started with Indexes](../../mariadb-quickstart-guides/mariadb-indexes-guide.md)
-* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment
 * [AUTO\_INCREMENT FAQ](auto_increment-faq.md)
 * [LAST\_INSERT\_ID()](../sql-functions/secondary-functions/information-functions/last_insert_id.md)
 * [AUTO\_INCREMENT handling in InnoDB](../../server-usage/storage-engines/innodb/auto_increment-handling-in-innodb.md)
-* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#blackhole-and-auto_increment)
+* [BLACKHOLE and AUTO\_INCREMENT](../../server-usage/storage-engines/blackhole.md#using-with-auto_increment)
 * [UUID\_SHORT()](../sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) - Generate unique ids
 * [Generating Identifiers – from AUTO\_INCREMENT to Sequence (percona.com)](https://www.percona.com/community-blog/2018/10/12/generating-identifiers-auto_increment-sequence/)
 

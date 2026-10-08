@@ -1,3 +1,9 @@
+---
+description: >-
+  This function checks if a specific Performance Schema instrument is timed by
+  default, returning YES or NO based on the server's default configuration.
+---
+
 # ps\_is\_instrument\_default\_timed
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

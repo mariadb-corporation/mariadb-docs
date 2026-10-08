@@ -1,8 +1,14 @@
+---
+description: >-
+  Retrieve a dynamic column value. This function extracts a specific column's
+  value from a dynamic column blob, casting it to a specified type.
+---
+
 # COLUMN\_GET
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_GET(dyncol_blob, column_nr as type)
 COLUMN_GET(dyncol_blob, column_name as type)
 ```

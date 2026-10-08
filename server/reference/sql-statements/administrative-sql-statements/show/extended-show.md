@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the extensions to the SHOW statement. Learn how to use WHERE and
+  LIKE clauses to perform complex filtering on metadata results.
+---
+
 # Extended SHOW
 
 The following [SHOW](./) statements can be extended using a `WHERE` clause and a `LIKE` clause to refine the results:
@@ -7,7 +13,7 @@ The following [SHOW](./) statements can be extended using a `WHERE` clause and a
 * [SHOW COLUMNS](show-columns.md)
 * [SHOW DATABASES](show-databases.md)
 * [SHOW FUNCTION STATUS](show-function-status.md)
-* [SHOW INDEX](show-index.md)\`\`
+* [SHOW INDEX](show-index.md)
 * [SHOW OPEN TABLES](show-open-tables.md)
 * [SHOW PACKAGE STATUS](show-package-status.md)
 * [SHOW PACKAGE BODY STATUS](show-package-body-status.md)
@@ -19,7 +25,7 @@ The following [SHOW](./) statements can be extended using a `WHERE` clause and a
 * [SHOW TRIGGERS](show-triggers.md)
 * [SHOW VARIABLES](show-variables.md)
 
-As with a regular [SELECT](../../data-manipulation/selecting-data/select.md), the `WHERE` clause can be used for the specific columns returned, and the [LIKE](../../built-in-functions/string-functions/like.md) clause with the regular wildcards.
+As with a regular [SELECT](../../data-manipulation/selecting-data/select.md), the `WHERE` clause can be used for the specific columns returned, and the [LIKE](../../../sql-functions/string-functions/like.md) clause with the regular wildcards.
 
 ## Examples
 

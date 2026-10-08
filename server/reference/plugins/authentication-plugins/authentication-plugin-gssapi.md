@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete GSSAPI authentication setup: Kerberos/SSPI single sign-on, INSTALL
+  SONAME 'auth_gssapi', gssapi_keytab_path/principal_name, CREATE USER syntax.
+---
+
 # Authentication Plugin - GSSAPI
 
 The `gssapi` authentication plugin allows the user to authenticate with services that use the [Generic Security Services Application Program Interface (GSSAPI)](https://en.wikipedia.org/wiki/Generic_Security_Services_Application_Program_Interface). Windows has a slightly different but very similar API called [Security Support Provider Interface (SSPI)](https://docs.microsoft.com/en-us/windows/desktop/secauthn/sspi). The GSSAPI is a standardized API described in [RFC2743](https://tools.ietf.org/html/rfc2743.html) and [RFC2744](https://tools.ietf.org/html/rfc2744.html). The client and server negotiate using a standardized protocol described in [RFC7546](https://tools.ietf.org/html/rfc7546.html).
@@ -8,13 +14,13 @@ On Unix systems, the most dominant GSSAPI service is [Kerberos](https://en.wikip
 
 The `gssapi` authentication plugin is most often used for authenticating with [Microsoft Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
 
-This article gives instructions on configuring the `gssapi` authentication plugin\
+This article gives instructions on configuring the `gssapi` authentication plugin
 for MariaDB for passwordless login.
 
 ## Installing the Plugin's Package
 
 {% hint style="info" %}
-Since [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), on Windows, the plugin is included in the server. There is no need for separate installation.
+Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the GSSAPI server plugin was distributed on Windows as a dynamic plugin (`auth_gssapi.dll`). Since MariaDB 10.11, the plugin is statically compiled into the server and enabled by default. As a result, `auth_gssapi.dll` is no longer produced or required.
 {% endhint %}
 
 The `gssapi` authentication plugin's shared library is included in MariaDB packages as the `auth_gssapi.so` or `auth_gssapi.dll` shared library on systems where it can be built.
@@ -27,13 +33,13 @@ The `gssapi` authentication plugin is included in [binary tarballs](../../../ser
 
 The `gssapi` authentication plugin can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories.
 
-You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md).
+You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md).
 
 You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
 **Installing with yum/dnf**
 
-On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) from MariaDB's repository using [yum](../../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`:
+On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) from MariaDB's repository using [yum](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`:
 
 ```bash
 sudo yum install MariaDB-gssapi-server
@@ -49,7 +55,7 @@ sudo apt-get install mariadb-plugin-gssapi-server
 
 **Installing with zypper**
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) from MariaDB's repository using [zypper](../../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md):
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) from MariaDB's repository using [zypper](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md):
 
 ```bash
 sudo zypper install MariaDB-gssapi-server
@@ -58,13 +64,13 @@ sudo zypper install MariaDB-gssapi-server
 ### Installing on Windows
 
 {% hint style="info" %}
-Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), the `gssapi` authentication plugin is included in [MSI](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows.
+Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the `gssapi` authentication plugin is included in [MSI](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows.
 {% endhint %}
 
 ## Installing the Plugin
 
 {% hint style="info" %}
-Since [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), on Windows, the plugin is included in the server. There is no need for separate installation.
+Since [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), on Windows, the GSSAPI server plugin is statically compiled into the server and enabled by default. No separate installation is required.
 {% endhint %}
 
 On Windows, and on other operating systems, although the plugin's shared library is distributed with MariaDB by default, the plugin is not actually installed by MariaDB by default. There are two methods that can be used to install the plugin with MariaDB.
@@ -75,7 +81,7 @@ The first method can be used to install the plugin without restarting the server
 INSTALL SONAME 'auth_gssapi';
 ```
 
-The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```ini
 [mariadb]
@@ -190,7 +196,7 @@ To create a user account via [CREATE USER](../../sql-statements/account-manageme
 CREATE USER username@hostname IDENTIFIED VIA gssapi;
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA gssapi;
@@ -294,7 +300,7 @@ When connecting from Unix client to Windows server with ADO.NET, in an Active Di
 
 * Description: Defines the path to the server's keytab file.
   * This system variable is only meaningful on Unix.
-  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
+  * See [Creating a Keytab File on Unix](authentication-plugin-gssapi.md#creating-a-keytab-file-on-unix) and [Configuring the Path to the Keytab File on Unix](authentication-plugin-gssapi.md#configuring-the-path-to-the-keytab-file-on-unix) for more information.
 * Command line: `--gssapi-keytab-path`
 * Scope: Global
 * Dynamic: No
@@ -331,7 +337,7 @@ When connecting from Unix client to Windows server with ADO.NET, in an Active Di
 
 * Description: Controls how the server should treat the plugin when the server starts up.
   * Valid values are:
-    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
+    * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
     * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
     * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
     * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.

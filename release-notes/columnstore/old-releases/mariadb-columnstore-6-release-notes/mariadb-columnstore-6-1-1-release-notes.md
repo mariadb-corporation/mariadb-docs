@@ -2,11 +2,11 @@
 
 ## Overview
 
-MariaDB Enterprise ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the Enterprise ColumnStore 6 series.
+MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the ColumnStore 6 series.
 
-MariaDB Enterprise ColumnStore 6.1.1 was released on 2021-08-26. This release is of General Availability (GA) maturity.
+MariaDB ColumnStore 6.1.1 was released on 2021-08-26. This release is of General Availability (GA) maturity.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.6.4-1.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.6.4-1.
 
 ## Notable Changes
 
@@ -17,7 +17,7 @@ This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterpri
 * Increased DECIMAL precision ([MCOL-641](https://jira.mariadb.org/browse/MCOL-641))
   * The maximum precision of DECIMAL (fixed-point numeric data type) is 38.
   * Prior to this release, the maximum precision of DECIMAL was 18.
-  * The columnstore\_decimal\_overflow\_check system variable allows Enterprise ColumnStore to check for decimal overflows when working with DECIMAL values of precision >= 18. For additional information, see "Enable Decimal Overflow Checks".
+  * The columnstore\_decimal\_overflow\_check system variable allows ColumnStore to check for decimal overflows when working with DECIMAL values of precision >= 18. For additional information, see "Enable Decimal Overflow Checks".
 * Increased DECIMAL precision used by the AVG() and SUM() aggregate functions when aggregating integer data types ([MCOL-4603](https://jira.mariadb.org/browse/MCOL-4603))
   * The AVG() and SUM() aggregate functions have a maximum precision of 38 digits. This enables AVG() and SUM() to work with larger integer values with less risk of overflow.
   * Prior to this release, the AVG() and SUM() aggregate functions had a maximum precision of 18 digits.
@@ -84,12 +84,12 @@ ERROR 1815 (HY000): Internal error: IDB-1003: Circular joins are not supported.
 **For additional information, see "Optimizer Statistics".**
 
 * Reduced resource usage for connection configuration ([MCOL-4679](https://jira.mariadb.org/browse/MCOL-4679))
-  * A format change to the Columnstore.xml configuration file has reduced resource overhead. Connection definitions (PMSn sections) have been simplified.
+  * A format change to the ColumnStore.xml configuration file has reduced resource overhead. Connection definitions (PMSn sections) have been simplified.
   * No manual action is required to change over to the new format. This configuration is handled by CMAPI.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 6.1.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.1.1 is provided for:
 
 * CentOS 7
 * CentOS 8
@@ -102,6 +102,6 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 * Ubuntu 18.04
 * Ubuntu 20.04
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

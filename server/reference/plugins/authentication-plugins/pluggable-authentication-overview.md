@@ -1,3 +1,10 @@
+---
+description: >-
+  Pluggable authentication allows MariaDB to use various authentication methods,
+  enabling external validation, different hashing algorithms, and role-based
+  access control.
+---
+
 # Pluggable Authentication Overview
 
 When a user attempts to log in, the authentication plugin controls how MariaDB Server determines whether the connection is from a legitimate user.
@@ -19,7 +26,7 @@ The authentication process is a conversation between the server and a client. Ma
 
 ### Supported Server Authentication Plugins
 
-MariaDB provides seven server-side authentication plugins:
+MariaDB provides nine server-side authentication plugins:
 
 * [mysql\_native\_password](authentication-plugin-mysql_native_password.md)
 * [mysql\_old\_password](authentication-plugin-mysql_old_password.md)
@@ -28,6 +35,8 @@ MariaDB provides seven server-side authentication plugins:
 * [pam](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md) (Unix only)
 * [unix\_socket](authentication-plugin-unix-socket.md) (Unix only)
 * [named\_pipe](authentication-plugin-named-pipe.md) (Windows only)
+* [PARSEC](authentication-plugin-parsec.md) (from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8)
+* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1)
 
 ### Supported Client Authentication Plugins
 
@@ -40,7 +49,7 @@ MariaDB provides eight client-side authentication plugins:
 * [dialog](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#client-authentication-plugins)
 * [mysql\_clear\_password](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#client-authentication-plugins)
 * [sha256\_password](authentication-plugin-sha-256.md#client-authentication-plugins)
-* [caching\_sha256\_password](authentication-plugin-sha-256.md#client-authentication-plugins)
+* [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md)
 
 ## Options Related to Authentication Plugins
 
@@ -193,9 +202,9 @@ If the client uses either the `libmysqlclient` or [MariaDB Connector/C](https://
 
 ### Default Server Authentication Plugin
 
-The [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin is currently the default authentication plugin in all versions of MariaDB if the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable is set to `0`, which is the default.
+The [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin is the default authentication plugin in all versions of MariaDB if the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable is set to `0`, which is the default.
 
-On a system with the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable set to `0`, this means that if you create a user account with either the [GRANT](../../sql-statements/account-management-sql-statements/grant.md) or [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md)`statements, and if you do not specify an authentication plugin with the`IDENTIFIED VIA`clause, then MariaDB will use the [mysql_native_password](authentication-plugin-mysql_native_password.md) authentication plugin for the user account.`
+On a system with the [old\_passwords](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) system variable set to `0`, this means that if you create a user account with either the [GRANT](../../sql-statements/account-management-sql-statements/grant.md) or [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statements, and if you do not specify an authentication plugin with the `IDENTIFIED VIA` clause, then MariaDB will use the [`mysql_native_password`](authentication-plugin-mysql_native_password.md) authentication plugin for the user account.
 
 Creating a user account like this, it uses the [mysql\_native\_password](authentication-plugin-mysql_native_password.md) authentication plugin:
 
@@ -214,7 +223,7 @@ The [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authenti
 {% hint style="danger" %}
 The [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin is not considered secure. It is recommended to avoid using this authentication plugin. To help prevent undesired use of the [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin, the server supports the [secure\_auth](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_auth) system variable that configures the server to refuse connections trying to use the [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin.
 
-Most [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md) support `secure_auth`.
+Most [clients and utilities](../../../clients-and-utilities/README.md) support `secure_auth`.
 {% endhint %}
 
 | Server Option                                                                                                                            | Description                                                                                                                                                                                                                                                                                                              |
@@ -244,7 +253,7 @@ Most [clients and utilities](../../../clients-and-utilities/) support the `--def
 | --------------------- | ------------------------------------------------- |
 | `--default-auth=name` | Default authentication client-side plugin to use. |
 
-Developers using [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) can implement similar functionality in  applications, by setting the `MYSQL_DEFAULT_AUTH` option with the [mysql\_optionsv](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv) function:
+Developers using [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) can implement similar functionality in applications, by setting the `MYSQL_DEFAULT_AUTH` option with the [mysql\_optionsv](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv) function:
 
 ```c
 mysql_optionsv(mysql, MYSQL_DEFAULT_AUTH, "name");
@@ -348,61 +357,24 @@ C:\> mysql --user=monty  --protocol=PIPE
 ERROR 1698 (28000): Access denied for user 'monty'@'localhost'
 ```
 
-## Authentication Plugin API
+#### `PARSEC`
 
-The authentication plugin API is extensively documented in the [source code](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) in the following files:
+The [PARSEC](authentication-plugin-parsec.md) (Password Authentication using Response Signed with Elliptic Curve) authentication plugin uses salted passwords, key derivation, an extensible password storage format, and both server- and client-side scrambles. It signs the authentication response with stock unmodified `ed25519` (as provided by OpenSSL, WolfSSL, or GnuTLS). PARSEC is intended to become the default authentication plugin in a future release.
 
-* `mysql/plugin_auth.h` (server part)
-* `mysql/client_plugin.h` (client part)
-* `mysql/plugin_auth_common.h` (common parts)
+This plugin is available from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8.
 
-The MariaDB [source code](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) also contains some authentication plugins that are intended explicitly to be examples for developers. They are located in `plugin/auth_examples`.
+#### `caching_sha2_password`
 
-The definitions of two example authentication plugins called `two_questions` and `three_attempts` can be seen in `plugin/auth_examples/dialog_examples.c`. These authentication plugins demonstrate how to communicate with the user using the [dialog](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#dialog) client authentication plugin.
+The [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) authentication plugin provides MySQL-compatible authentication and allows users to be moved from MySQL to MariaDB without changing their passwords. It is intended primarily as a migration aid; for new accounts the more secure [PARSEC](authentication-plugin-parsec.md) authentication plugin is recommended.
 
-The `two_questions` authentication plugin asks the user for a password and a confirmation ("Are you sure?").
-
-The `three_attempts` authentication plugin gives the user three attempts to enter a correct password.
-
-The password for both of these plugins should be specified in the plain text in the `USING` clause:
-
-```sql
-CREATE USER insecure IDENTIFIED VIA two_questions USING 'notverysecret';
-```
-
-### Dialog Client Authentication Plugin - Client Library Extension
-
-The [dialog](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#dialog) client authentication plugin, strictly speaking, is not part of the client-server or authentication plugin API. But it can be loaded into any client application that uses the `libmysqlclient` or [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) libraries. This authentication plugin provides a way for the application to customize the UI of the dialog function.
-
-In order to use the [dialog](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#dialog) client authentication plugin to communicate with the user in a customized way, the application will need to implement a function with the following signature:
-
-```c
-extern "C" char *mysql_authentication_dialog_ask(
-  MYSQL *mysql, int type, const char *prompt, char *buf, int buf_len)
-```
-
-The function takes the following arguments:
-
-* The connection handle.
-* A question "type", which has one of the following values:
-  * `1` - Normal question
-  * `2` - Password (no echo)
-* A prompt.
-* A buffer.
-* The length of the buffer.
-
-The function returns a pointer to a string of characters, as entered by the user. It may be stored in `buf` or allocated with `malloc()`.
-
-By using this function, a GUI application can open a dialog window, and a network application can send the question over the network, as required. If no `mysql_authentication_dialog_ask` function is provided by the application, the [dialog](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md#dialog) client authentication plugin falls back to [fputs()](https://linux.die.net/man/3/fputs) and [fgets()](https://linux.die.net/man/3/fgets).
-
-Providing this callback is particularly important on Windows, because Windows GUI applications have no associated console and the default dialog function will not be able to reach the user. An example of Windows GUI client that does it correctly is [HeidiSQL](../../../clients-and-utilities/graphical-and-enhanced-clients/heidisql.md).
+This plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1, and is not installed by default — see [Authentication Plugin - caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) for installation instructions.
 
 ## See Also
 
 * [GRANT](../../sql-statements/account-management-sql-statements/grant.md)
 * [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md)
 * [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md)
-* [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
+* [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Who are you? The history of MySQL and MariaDB authentication protocols from 1997 to 2017](https://mariadb.org/history-of-mysql-mariadb-authentication-protocols/)
 * [MySQL 5.6 Reference Manual: Pluggable Authentication](https://dev.mysql.com/doc/refman/5.6/en/pluggable-authentication.html)
 * [MySQL 5.6 Reference Manual: Writing Authentication Plugins](https://dev.mysql.com/doc/refman/5.6/en/writing-authentication-plugins.html)

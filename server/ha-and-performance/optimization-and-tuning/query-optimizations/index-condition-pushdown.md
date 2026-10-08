@@ -1,6 +1,12 @@
+---
+description: >-
+  Index Condition Pushdown, which pushes WHERE conditions into the index scan
+  to reduce row reads.
+---
+
 # Index Condition Pushdown
 
-Index Condition Pushdown is an optimization that is applied for access methods that access table data through indexes: `range`, `ref`, `eq_ref`, `ref_or_null`, and [Batched Key Access](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms#batch-key-access-join).
+Index Condition Pushdown is an optimization that is applied for access methods that access table data through indexes: `range`, `ref`, `eq_ref`, `ref_or_null`, and [Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join).
 
 The idea is to check part of the WHERE condition that refers to index fields (we call it _Pushed Index Condition_) as soon as we've accessed the index. If the _Pushed Index Condition_ is not satisfied, we won't need to read the whole table record.
 
@@ -94,12 +100,12 @@ That way, the value `Handler_icp_attempts - Handler_icp_match` shows the number 
 
 ## Limitations
 
-* Currently, virtual column indexes can't be used for index condition pushdown. Instead, a generated column can be made declared STORED. Then, index condition pushdown will be possible.
+* Virtual column indexes can't be used for index condition pushdown. Instead, a generated column can be made declared STORED. Then, index condition pushdown will be possible.
 * Index Condition Pushdown can't be used with backward-ordered index scan. When the optimizer needs to execute an `ORDER BY ... DESC` query which can be handled by using a backward-ordered index scan, it will disable Index Condition Pushdown.
 
 ## Partitioned Tables
 
-Index condition pushdown support for [partitioned tables](../../../server-usage/partitioning-tables/) was added in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115).
+Index condition pushdown support for [partitioned tables](../../../server-usage/partitioning-tables/) was added in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

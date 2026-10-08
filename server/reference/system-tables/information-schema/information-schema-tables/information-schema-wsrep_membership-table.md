@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_MEMBERSHIP table lists the current members of the
+  Galera Cluster, including their node UUIDs, names, and IP addresses.
+---
+
 # Information Schema WSREP\_MEMBERSHIP Table
 
 The `WSREP_STATUS` table makes [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) node cluster membership information available through the [Information Schema](../). The same information can be returned using the [SHOW WSREP\_MEMBERSHIP](../../../sql-statements/administrative-sql-statements/show/show-wsrep_membership.md) statement. Only users with the [SUPER](../../../sql-statements/account-management-sql-statements/grant.md#super) can access information from this table.

@@ -1,8 +1,14 @@
+---
+description: >-
+  Display errors from the last executed statement. View error codes, messages,
+  and types for recent failures.
+---
+
 # SHOW ERRORS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ERRORS [LIMIT [offset,] row_count]
 SHOW ERRORS [LIMIT row_count OFFSET offset]
 SHOW COUNT(*) ERRORS

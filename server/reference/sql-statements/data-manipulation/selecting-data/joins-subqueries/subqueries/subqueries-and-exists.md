@@ -1,8 +1,14 @@
+---
+description: >-
+  Test for the existence of rows. The EXISTS operator returns TRUE if the
+  subquery returns at least one row, often used for correlated subqueries.
+---
+
 # Subqueries and EXISTS
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ... WHERE EXISTS <Table subquery>
 ```
 

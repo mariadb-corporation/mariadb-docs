@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete LAMP stack Docker Compose: define docker-compose.yml services
+  (web/mariadb), set volumes/env vars (${MARIADB_VERSION}), docker-compose
+  up/down.
+---
+
 # Setting Up a LAMP Stack with Docker Compose
 
 Docker Compose is a tool that allows one to declare which Docker containers should run, and which relationships should exist between them. It follows the **infrastructure as code** approach, just like most automation software and Docker itself.
@@ -67,13 +74,13 @@ Note that Docker Compose variables are just placeholders for values. Compose doe
 
 In the above example you can see several variables, like `${MARIADB_VERSION}`. Before executing the file, Docker Compose will replace this syntax with the `MARIADB_VERSION` variable.
 
-Variables allow making Docker Compose files more re-usable: in this case, we can use any MariaDB image version without modifying the Docker Compose file.
+Variables allow making Docker Compose files more reusable: in this case, we can use any MariaDB image version without modifying the Docker Compose file.
 
 The most common way to pass variables is to write them into a file. This has the benefit of allowing us to version the variable file along with the Docker Compose file. It uses the same syntax you would use in BASH:
 
 ```bash
 PHP_VERSION=8.0
-MARIADB_VERSION=10.5
+MARIADB_VERSION=10.6
 ...
 ```
 

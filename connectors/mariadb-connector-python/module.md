@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Connector/Python module provides connect, asyncConnect,
+  create_pool, and create_async_pool constructors, DB API 2.0 type objects,
+  and the exception hierarchy.
+---
+
 # The MariaDB Connector/Python module
 
 <a id="module"></a>
@@ -12,57 +19,74 @@ MySQL databases, using an API which is compliant with the Python DB API 2.0
 
 ### Connection
 
-### connect(connectionclass=mariadb.connections.Connection, \*\*kwargs)
+### connect(\*args, connectionclass=None, \*\*kwargs)
 
 Creates a MariaDB Connection object.
 
-By default, the standard connectionclass mariadb.connections.Connection
-will be created.
+The first positional argument, when given, is a connection URI string (see
+*Since version 2.0* below). By default, the standard Connection class is used.
 
-Parameter connectionclass specifies a subclass of
-mariadb.Connection object. If not specified, default will be used.
+Parameter connectionclass specifies a subclass of the standard Connection
+class. If not specified, the default is used.
 This optional parameter was added in version 1.1.0.
 
-Connection parameters are provided as a set of keyword arguments:
+*Since version 2.0:* Connection can be established using a URI string or keyword arguments. Keyword arguments override URI values when both are provided.
 
-- **\`host\`** - The host name or IP address of the database server. If MariaDB Connector/Python was built with MariaDB Connector/C 3.3, it is also possible to provide a comma separated list of hosts for simple fail over in case of one or more hosts are not available.
-- **\`user\`, \`username\`** - The username used to authenticate with the database server
-- **\`password\`, \`passwd\`** - The password of the given user
-- **\`database\`, \`db\`** - Database (schema) name to use when connecting with the database server
-- **\`unix_socket\`** - The location of the unix socket file to use instead of using an IP port to connect. If socket authentication is enabled, this can also be used in place of a password.
-- **\`port\`** - Port number of the database server. If not specified, the default value of 3306 will be used.
-- **\`connect_timeout\`** - Connect timeout in seconds
-- **\`read_timeout\`** - Read timeout in seconds
-- **\`write_timeout\`** - Write timeout in seconds
-- **\`local_infile\`** - Enables or disables the use of LOAD DATA LOCAL INFILE statements.
-- **\`compress\`** (default: False) - Uses the compressed protocol for client server communication. If the server doesn’t support compressed protocol, the default protocol will be used.
-- **\`init_command\`** - Command(s) which will be executed when connecting and reconnecting to the database server
-- **\`default_file\`** - Read options from the specified option file. If the file is an empty string, default configuration file(s) will be used
-- **\`default_group\`** - Read options from the specified group
-- **\`plugin_dir\`** - Directory which contains MariaDB client plugins.
-- **\`reconnect\`** - Enables or disables automatic reconnect. Available since version 1.1.4
-- **\`ssl_key\`** - Defines a path to a private key file to use for TLS. This option requires that you use the absolute path, not a relative path. The specified key must be in PEM format
-- **\`ssl_cert\`** - Defines a path to the X509 certificate file to use for TLS. This option requires that you use the absolute path, not a relative path. The X609 certificate must be in PEM format.
-- **\`ssl_ca\`** - Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for TLS. This option requires that you use the absolute path, not a relative path.
-- **\`ssl_capath\`** - Defines a path to a directory that contains one or more PEM files that contains one X509 certificate for a trusted Certificate Authority (CA)
-- **\`ssl_cipher\`** - Defines a list of permitted cipher suites to use for TLS
-- **\`ssl_crlpath\`** - Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for TLS. This option requires that you use the absolute path, not a relative path.
-- **\`ssl_verify_cert\`** - Enables server certificate verification.
-- **\`ssl\`** - The connection must use TLS security, or it will fail.
-- **\`tls_version\`** - A comma-separated list (without whitespaces) of TLS versions. Valid versions are TLSv1.0, TLSv1.1,TLSv1.2 and TLSv1.3. Added in version 1.1.7.
-- **\`autocommit\`** (default: False) - Specifies the autocommit settings. True will enable autocommit, False will disable it (default).
-- **\`converter\`** - Specifies a conversion dictionary, where keys are FIELD_TYPE values and values are conversion functions
-
-#### NOTE
-For a description of configuration file handling and settings please read the chapter [Configuration files](https://github.com/mariadb-corporation/mariadb-connector-c/wiki/config_files#configuration-options) of the MariaDB Connector/C documentation.
-
-Example:
+**URI Connection (recommended):**
 
 ```python
 import mariadb
 
+# Simple URI
+conn = mariadb.connect("mariadb://user:password@localhost:3306/mydb")
+
+# URI with query parameters
+conn = mariadb.connect("mariadb://user:password@localhost/mydb?autocommit=true&binary=true")
+
+# Keyword arguments override URI values
+conn = mariadb.connect("mariadb://user:password@localhost/mydb", database="otherdb")
+```
+
+**Keyword Arguments:**
+
+Connection parameters can also be provided as keyword arguments. The most common ones are:
+
+- **`host`** - Host name or IP address of the database server. Can be a comma-separated list of hosts for simple failover. Default: `'localhost'`
+- **`port`** - Port number of the database server. Default: `3306`
+- **`user`**, **`username`** - Username for authentication
+- **`password`**, **`passwd`** - Password for authentication
+- **`database`**, **`db`** - Default database (schema) to select when connecting
+- **`unix_socket`** - Path to a Unix socket file for local connections (used in place of TCP)
+- **`autocommit`** - Enable autocommit mode. Default: `False`
+- **`converter`** - Conversion dictionary mapping `FIELD_TYPE` values to conversion functions
+
+For the full list of accepted parameters — including SSL/TLS options, timeouts, prepared-statement caching, configuration file loading, the result format options (`dictionary`, `named_tuple`, `native_object`), and the parameters that only apply to the C extension — see [The connection class](connection.md).
+
+#### Changed Parameters in Version 2.0
+
+- **`reconnect`** (connection parameter) - Removed. Automatic reconnection is no longer supported; use connection pools or call `conn.reconnect()` manually.
+- **`cursor_type`** (cursor option) - Removed in the pure-Python implementation; use `buffered=False` instead. The C extension still accepts it.
+- **`prepared`** (cursor option) - Deprecated in favor of `binary=True`. It still works but emits a `DeprecationWarning`.
+
+For migration guidance, see the [Migration Guide](migration-from-1.1-to-2.0.md).
+
+**Examples:**
+
+```python
+import mariadb
+
+# URI connection (recommended)
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test") as connection:
+    print(connection.character_set)
+
+# Keyword arguments (still supported)
 with mariadb.connect(user="example_user", host="localhost", database="test", password="GHbe_Su3B8") as connection:
     print(connection.character_set)
+
+# Binary protocol enabled at connection level
+with mariadb.connect("mariadb://localhost/test?binary=true") as connection:
+    cursor = connection.cursor()  # Uses binary protocol by default
+    cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
 ```
 
 Output:
@@ -71,24 +95,122 @@ Output:
 utf8mb4
 ```
 
+### Async Connection
+
+### asyncConnect(\*args, connectionclass=None, \*\*kwargs)
+
+*Since version 2.0*
+
+Creates an asynchronous MariaDB Connection object for use with async/await.
+As with `connect()`, the first positional argument, when given, is a
+connection URI string.
+
+**Usage:**
+
+```python
+import asyncio
+import mariadb
+
+async def main():
+    # URI connection
+    conn = await mariadb.asyncConnect("mariadb://user:password@localhost/mydb")
+    
+    # Or with keyword arguments
+    conn = await mariadb.asyncConnect(
+        host="localhost",
+        user="user",
+        password="password",
+        database="mydb"
+    )
+    
+    cursor = await conn.cursor()
+    await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
+    row = await cursor.fetchone()
+    
+    await cursor.close()
+    await conn.close()
+
+asyncio.run(main())
+```
+
+For detailed async usage, see [Async/Await Support](async-usage.md).
+
 ### Connection Pool
 
-### ConnectionPool(\*\*kwargs)
+### create_pool(\*\*kwargs)
 
-Class defining a pool of database connections
+*Since version 2.0*
 
-MariaDB Connector/Python supports simple connection pooling.
-A connection pool holds a number of open connections and handles thread safety when providing connections to threads.
+Creates a synchronous connection pool.
 
-The size of a connection pool is configurable at creation time, but cannot be changed afterward. The maximum size of a connection pool is limited to 64 connections.
+**Note:** Connection pooling requires the `mariadb[pool]` package to be installed (the `--pre` flag is required while 2.0 is a Release Candidate):
+
+```console
+pip install --pre mariadb[pool]
+```
+
+**Usage:**
+
+```python
+import mariadb
+
+pool = mariadb.create_pool(
+    host="localhost",
+    user="user",
+    password="password",
+    database="mydb",
+    min_size=5,
+    max_size=20
+)
+
+with pool.acquire() as conn:
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT 1")
+```
 
 Keyword Arguments:
 
-- **\`pool_name\`** (`str`) - Name of connection pool
-- **\`pool_size\`** (`int`) - Size of pool. The Maximum allowed number is 64. Default to 5
-- **\`pool_reset_connection\`** (`bool`) - Will reset the connection before returning it to the pool. Default to True.
-- **\`pool_validation_interval\`** (`int`) - Specifies the validation interval in milliseconds after which the status of a connection requested from the pool is checked. A value of 0 means that the status will always be checked. Default to 500 (Added in version 1.1.6)
-- **\*\*kwargs** - Optional additional connection arguments, as described in mariadb.connect() method.
+- **\`min_size\`** (`int`) - Minimum number of connections in pool. Default: same as `max_size`
+- **\`max_size\`** (`int`) - Maximum number of connections in pool. Default: 10
+- **\`ping_threshold\`** (`float`) - Ping connections idle for more than this many seconds. Default: 0.25
+- **\*\*kwargs** - Connection arguments as described in mariadb.connect() method
+
+For detailed pooling documentation, see [Connection Pooling](pooling.md).
+
+### create_async_pool(\*\*kwargs)
+
+*Since version 2.0*
+
+Creates an asynchronous connection pool for use with async/await.
+
+**Note:** Requires `mariadb[pool]` package.
+
+**Usage:**
+
+```python
+import asyncio
+import mariadb
+
+async def main():
+    pool = await mariadb.create_async_pool(
+        host="localhost",
+        user="user",
+        password="password",
+        database="mydb",
+        min_size=10,
+        max_size=50
+    )
+    
+    async with await pool.acquire() as conn:
+        async with conn.cursor() as cursor:
+            await cursor.execute("SELECT 1")
+    
+    await pool.close()
+
+asyncio.run(main())
+```
+
+For detailed async pooling, see [Async/Await Support](async-usage.md).
 
 ### Type constructors
 
@@ -138,8 +260,10 @@ String constant stating the supported DB API level. The value for mariadb is
 
 ### threadsafety
 
-Integer constant stating the level of thread safety. For mariadb the value is 1,
-which means threads can share the module but not the connection.
+Integer constant stating the level of thread safety. In version 2.0 the value
+is `3`, meaning threads may share the module, connections, and cursors. In
+version 1.1 the value is `1`, meaning threads may share the module but not
+connections.
 
 ### paramstyle
 
@@ -155,15 +279,20 @@ String constant stating the version of the used MariaDB Connector/C library.
 
 *Since version 1.1.0*
 
-Returns the version of MariaDB Connector/C library in use as an integer.
-The number has the following format:
-MAJOR_VERSION \* 10000 + MINOR_VERSION \* 1000 + PATCH_VERSION
+Returns a version as an integer. In version 2.0 this is the version of MariaDB
+Connector/Python itself, in the format:
+MAJOR_VERSION \* 10000 + MINOR_VERSION \* 100 + PATCH_VERSION.
+In version 1.1 it is the version of the MariaDB Connector/C library in use, in
+the format:
+MAJOR_VERSION \* 10000 + MINOR_VERSION \* 1000 + PATCH_VERSION.
 
 ### client_version_info
 
 *Since version 1.1.0*
-Returns the version of MariaDB Connector/C library as a tuple in the
-following format:
+Returns a version as a tuple. In version 2.0 this is the version of MariaDB
+Connector/Python itself and may include a release-stage suffix
+(for example `(2, 0, 0, 'rc2')`). In version 1.1 it is the version of the
+MariaDB Connector/C library, in the format:
 (MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION)
 
 ## Exceptions

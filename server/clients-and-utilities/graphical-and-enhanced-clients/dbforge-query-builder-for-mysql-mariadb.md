@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Query Builder is a visual tool for creating MariaDB queries by
+  drawing them on a diagram.
+---
+
 # dbForge Query Builder
+
+{% hint style="info" %}
+dbForge Query Builder is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [dbForge Query Builder](https://www.devart.com/dbforge/mysql/querybuilder/) is a visual tool that helps create any sort of MariaDB queries. Queries can be drawn on a diagram.
 
@@ -60,7 +70,7 @@ Get the detailed query information.
 
 ## Data Editor
 
-Advanced data filters.&#x20;
+Advanced data filters. 
 
 Browse and edit large objects in Data Viewer and Editor windows.
 
@@ -96,7 +106,6 @@ Download a free 30-day trial of dbForge Query Builder for MariaDB [here](https:/
 | dbForge Query Builder 10.0 | MariaDB 11.4, Implemented support for the `JSON_TABLE()` table function in MariaDB.                                                                                    |
 | dbForge Query Builder 5.2  | MariaDB 11.3.                                                                                                                                                          |
 | dbForge Query Builder 5.1  | MariaDB 10.9, MariaDB 10.10.                                                                                                                                           |
-| dbForge Query Builder 4.5  | MariaDB 10.5.                                                                                                                                                          |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

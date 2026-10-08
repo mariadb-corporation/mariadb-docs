@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to define columns that are hidden from wildcard SELECT queries
+  but remain accessible when explicitly referenced, facilitating schema changes
+  without breaking existing applications.
+---
+
 # Invisible Columns
 
 Invisible columns (sometimes also called hidden columns) are hidden in certain contexts.

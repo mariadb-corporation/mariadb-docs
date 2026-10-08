@@ -1,13 +1,13 @@
 # MariaDB 5.2.12 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.12) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5212-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://archive.mariadb.org/mariadb-5.2.12/) |[Release Notes](../../old-releases/5.2/5.2.12.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 6 Apr 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5212-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.12.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3134](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3134) \[merge]\
@@ -43,6 +43,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

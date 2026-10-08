@@ -1,3 +1,9 @@
+---
+description: >-
+  The Query Response Time plugin collects and displays the distribution of query
+  execution times, helping to identify performance bottlenecks.
+---
+
 # Query Response Time Plugin
 
 The `query_response_time` plugin creates the [QUERY\_RESPONSE\_TIME](../../system-tables/information-schema/information-schema-tables/information-schema-query_response_time-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. The plugin also adds the [SHOW QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/show/show-query_response_time.md) and [FLUSH QUERY\_RESPONSE\_TIME](query-response-time-plugin.md#flushing-plugin-data) statements.
@@ -10,6 +16,10 @@ This feature is based on Percona's [Response Time Distribution](https://www.perc
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 This shared library actually consists of a number of different plugins:
 
 * `QUERY_RESPONSE_TIME` - An INFORMATION\_SCHEMA plugin that exposes statistics.
@@ -25,6 +35,10 @@ In addition, these additional plugins are available:
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 This shared library actually consists of a number of different plugins:
 
 * `QUERY_RESPONSE_TIME` - An INFORMATION\_SCHEMA plugin that exposes statistics.
@@ -213,10 +227,18 @@ SET GLOBAL query_response_time_flush=1;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 It is possible to specify flushing read and/or write statements with the `FLUSH QUERY_RESPONSE_TIME_READ`, `FLUSH QUERY_RESPONSE_TIME_WRITE` and `FLUSH QUERY_RESPONSE_TIME_READ_WRITE` statements.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 It is **not** possible to specify flushing read and/or write statements with the `FLUSH QUERY_RESPONSE_TIME_READ`, `FLUSH QUERY_RESPONSE_TIME_WRITE` and `FLUSH QUERY_RESPONSE_TIME_READ_WRITE` statements.
 {% endtab %}
 {% endtabs %}
@@ -245,7 +267,7 @@ It is **not** possible to specify flushing read and/or write statements with the
 ### `query_response_time_exec_time_debug`
 
 * Description: Pretend queries take this many microseconds. When 0 (the default) use the actual execution time.
-  * This system variable is only available when the plugin is a [debug build](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging).
+  * This system variable is only available when the plugin is a [debug build](../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md).
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -261,7 +283,7 @@ It is **not** possible to specify flushing read and/or write statements with the
 * Data Type: `enum`
 * Default Value: `GLOBAL`
 * Valid Values: `GLOBAL`, `ON`, `OFF`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 ### `query_response_time_stats`
 

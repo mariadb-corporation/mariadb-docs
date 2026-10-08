@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete COUNT() function reference: COUNT(*) and COUNT(expr) syntax,
+  COUNT(DISTINCT) usage, GROUP BY aggregation, and OVER(PARTITION BY) window
+  syntax.
+---
+
 # COUNT
 
 ## Syntax

@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the rightmost characters. This function returns the specified number of
+  characters from the end (right) of a string.
+---
+
 # RIGHT
 
 ## Syntax
 
-```sql
+```bnf
 RIGHT(str,len)
 ```
 

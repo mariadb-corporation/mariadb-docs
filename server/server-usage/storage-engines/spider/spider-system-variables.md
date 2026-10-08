@@ -1,3 +1,10 @@
+---
+description: >-
+  Comprehensive list of system variables to configure Spider globally or per
+  session, affecting connection timeouts, buffering, and query pushdown
+  strategies.
+---
+
 # Spider System Variables
 
 The following variables are available when the [Spider](./) storage engine has been installed.
@@ -6,10 +13,12 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
-**MariaDB starting with** [**10.5.22**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-22-release-notes)
+{% hint style="warning" %}
+As of MariaDB 13.0, the following Spider table parameters can no longer be set through a table's `COMMENT` or `CONNECTION` string (in either their short or full form): `buffer_size` (`bfz`), `bka_table_name_type` (`btt`), `crd_mode` (`cmd`), `crd_type` (`ctp`), `crd_weight` (`cwg`), `init_sql_alloc_size` (`isa`), `internal_limit` (`ilm`), `internal_offset` (`ios`), `sts_mode` (`smd`), `semi_table_lock` (`stl`), and `semi_table_lock_connection` (`stc`). They were deprecated in earlier releases and have no corresponding table option; set the matching system variable below (for example, `spider_crd_mode`) instead.
+{% endhint %}
 
-Starting from [MariaDB 10.5.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-22-release-notes), [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes), [MariaDB 10.9.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-10-9-8-release-notes), [MariaDB 10.10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10-10-6-release-notes), [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes), [MariaDB 11.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-3-release-notes), all spider system variables with the value -1 for deferring to table parameter values follow the correct overriding mechanism: table parameter (if set) overrides system variables (if not -1) overrides actual variable default. As a side effect, all such system variables in all versions have the same default value as the table param default value.\
-Before this change, a non-minus-one system variable value would override the table parameter value. That is, if both the system variable value and the table parameter value were set to be non-minus-one, the system variable value would prevail. For [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107)+ where the system variable default values were the same as table param default instead of -1, this means that if the system variable were not set, but a table param is set to a non-default value, the default would override the non-default value.
+Starting from [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15), [MariaDB 10.9.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.8), [MariaDB 10.10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.6), [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5), [MariaDB 11.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.3), all spider system variables with the value -1 for deferring to table parameter values follow the correct overriding mechanism: table parameter (if set) overrides system variables (if not -1) overrides actual variable default. As a side effect, all such system variables in all versions have the same default value as the table param default value.\
+Before this change, a non-minus-one system variable value would override the table parameter value. That is, if both the system variable value and the table parameter value were set to be non-minus-one, the system variable value would prevail. For [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107)+ where the system variable default values were the same as table param default instead of -1, this means that if the system variable were not set, but a table param is set to a non-default value, the default would override the non-default value.
 
 #### `spider_auto_increment_mode`
 
@@ -18,7 +27,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `0` Normal Mode. Uses a counter that Spider gets from the remote backend server with an exclusive lock for the auto-increment value. This mode is slow. Use Quick Mode (`2`), if you use Spider tables with the table partitioning feature and the auto-increment column is the first column of the index.
   * `1` Quick Mode. Uses an internal Spider counter for the auto-increment value. This mode is fast, but it is possible for duplicates to occur when updating the same table from multiple Spider proxies.
   * `2` Set Zero Mode. The auto-increment value is given by the remote backend. Sets the column to `0`, even if you set the value to the auto-increment column in your statement. If you use the table with the table partitioning feature, it sets to zero after choosing an inserted partition.
-  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set [spider\_reset\_auto\_increment](spider-system-variables.md#spider_reset_auto_increment) to `2` or `3` if you want to use an auto-increment column on the remote server.
+  * `3` When the auto-increment column is set to `NULL`, the value is given by the remote backend server. If you set the auto-increment column to `0`,the value is given by the local server. Set `spider_auto_increment_mode` to `2` or `3` if you want to use an auto-increment column on the remote server.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -123,7 +132,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `16000`
 * Default Table Value: `16000`
 * Range: `-1` to `2147483647`
-* Introduced: [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes)
+* Introduced: [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4)
 
 #### `spider_bulk_size`
 
@@ -168,7 +177,7 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_casual_read`
 
-* Description: Casual Reads enables all isolation levels, (such as repeatable reads) to work with transactions on multiple backends. With auto-commit queries, you can relax read consistency and run on multiple connections to the backends. This enables parallel queries across partitions, even if multiple shards are stored on the same physical server. Deprecated in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) due to the complexity of the code for little benefit.
+* Description: Casual Reads enables all isolation levels, (such as repeatable reads) to work with transactions on multiple backends. With auto-commit queries, you can relax read consistency and run on multiple connections to the backends. This enables parallel queries across partitions, even if multiple shards are stored on the same physical server. Deprecated in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) due to the complexity of the code for little benefit.
   * `-1` Use [table parameter](spider-table-parameters.md).
   * `0` Use casual read.
   * `1` Choose connection channel automatically.
@@ -180,7 +189,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Table Value: `0`
 * Range: `-1` to `63`
 * DSN Parameter Name: `##`
-* Deprecated: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Deprecated: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 #### `spider_conn_recycle_mode`
 
@@ -213,7 +222,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `10`
 * Range: `0` to `1000`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `spider_connect_error_interval`
 
@@ -240,7 +249,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Session Value: `2` (>= [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118)), `1000` (<= [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117))
+* Default Session Value: `2` (>= [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118)), `1000` (<= [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117))
 * Range: `0` to `2147483647`
 
 #### `spider_connect_retry_interval`
@@ -306,8 +315,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `1`
 * Default Table Value: `1`
 * Range: `-1` to `3`
-* DSN Parameter Name: `cmd`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `cmd` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_crd_sync`
 
@@ -337,8 +346,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `2`
 * Default Table Value: `2`
 * Range: `-1` to `2`
-* DSN Parameter Name: `ctp`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `ctp` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_crd_weight`
 
@@ -351,8 +360,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `2`
 * Default Table Value: `2`
 * Range: `-1` to `2147483647`
-* DSN Parameter Name: `cwg`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `cwg` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_delete_all_rows_type`
 
@@ -400,7 +409,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/mariadb-10-10-7-release-notes)
+* Introduced: [MariaDB 10.10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.7)
 
 #### `spider_dry_access`
 
@@ -483,7 +492,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `spider_index_hint_pushdown`
 
@@ -494,7 +503,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Session Value: `OFF`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `spider_init_sql_alloc_size`
 
@@ -506,9 +515,9 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1024`
 * Default Table Value: `1024`
-* DSN Parameter Name: `isa`
+* DSN Parameter Name: `isa` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Range: `-1` to `2147483647`
-* Deprecated: [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1075-release-notes), [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1084-release-notes), [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
+* Deprecated: [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5), [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4), [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.2)
 
 #### `spider_internal_limit`
 
@@ -521,8 +530,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `9223372036854775807`
 * Default Table Value: `9223372036854775807`
 * Range: `-1` to `9223372036854775807`
-* DSN Parameter Name: `ilm`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `ilm` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_internal_offset`
 
@@ -535,8 +544,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `0`
 * Default Table Value: `0`
 * Range: `-1` to `9223372036854775807`
-* DSN Parameter Name: `ios`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `ios` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_internal_optimize`
 
@@ -586,7 +595,7 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_internal_xa`
 
-* Description: Whether to implement XA at the server- or storage engine-level. When using the server-level, set different values for the [server\_id](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#server_id) system variable on all server instances to generate different `xid` values.
+* Description: Whether to implement XA at the server- or storage engine-level. When using the server-level, set different values for the [server\_id](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) system variable on all server instances to generate different `xid` values.
   * `OFF` Uses the storage engine protocol.
   * `ON` Uses the server protocol.
 * Scope: Global, Session
@@ -627,8 +636,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1`
 * Range: `-1` to `1`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_load_sts_at_startup`
 
@@ -641,8 +650,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `boolean`
 * Default Session Value: `1`
 * Range: `-1` to `1`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_local_lock_table`
 
@@ -672,7 +681,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `1` Log error
   * `2` Log warning summary
   * `3` Log warning
-  * `4` Log info (Added in [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes))
+  * `4` Log info
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -713,7 +722,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `0`
 * Range: `0` to `99999`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `spider_max_order`
 
@@ -808,7 +817,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `10485760`
 * Range: `-1` to `9223372036854775807`
-* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes), [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes)
+* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13)
 
 #### `spider_quick_page_size`
 
@@ -818,7 +827,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Session Value: `1024` (>=[MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107)), `-1` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106))
+* Default Session Value: `1024` (>=[MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107)), `-1` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106))
 * Default Table Value: `100`
 * Range: `-1` to `9223372036854775807`
 * DSN Parameter Name: `qps`
@@ -832,7 +841,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Session Value: `0` (>=[MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107)), `-1` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106))
+* Default Session Value: `0` (>=[MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107)), `-1` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106))
 * Default Table Value: `0`
 * Range: `-1` to `1`
 * DSN Parameter Name: `rom`
@@ -908,7 +917,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `-1`
 * Range: `-1` to `2147483647`
-* Introduced: [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1045-release-notes)
+* Introduced: [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5)
 
 #### `spider_reset_sql_alloc`
 
@@ -1012,7 +1021,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Session Value: `0` (>=[MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108)), `1` (<= [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107))
+* Default Session Value: `0` (>=[MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108)), `1` (<= [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107))
 * Range: `0` to `1`
 * DSN Parameter Name: `stl#`
 
@@ -1082,7 +1091,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `0`
 * Range: `-1` to `3`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `spider_slave_trx_isolation`
 
@@ -1098,7 +1107,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `-1`
 * Range: `-1` to `3`
-* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes), [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes)
+* Introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13)
 
 #### `spider_split_read`
 
@@ -1125,8 +1134,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1`
 * Range: `-1` to `1`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_store_last_sts`
 
@@ -1140,8 +1149,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1`
 * Range: `-1` to `1`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_strict_group_by`
 
@@ -1155,7 +1164,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1`
 * Range: `-1` to `1`
-* Introduced: [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes)
+* Introduced: [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4)
 
 #### `spider_sts_bg_mode`
 
@@ -1199,8 +1208,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `1`
 * Default Table Value: `1`
 * Range: `-1` to `2`
-* DSN Parameter Name: `smd`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* DSN Parameter Name: `smd` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_sts_sync`
 
@@ -1234,7 +1243,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `spider_sync_autocommit`
 
@@ -1248,25 +1257,14 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_sync_sql_mode`
 
-* Description: Whether to sync [sql\_mode](../../../server-management/variables-and-modes/sql-mode.md).
+* Description: Whether to sync [sql\_mode](../../../server-management/variables-and-modes/sql_mode.md).
   * `OFF` No sync
   * `ON` Sync
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes)
-
-#### `spider_sync_time_zone`
-
-* Description: Whether to push the local time zone down to remote backend servers.
-  * `OFF` Doesn't synchronize time zones.
-  * `ON` Synchronize time zones.
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Session Value: `OFF`
-* Removed: [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes)
+* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7)
 
 #### `spider_sync_trx_isolation`
 
@@ -1286,10 +1284,10 @@ Before this change, a non-minus-one system variable value would override the tab
 * Dynamic: No
 * Data Type: `numeric`
 * Default Value:
-  * `1` (>= [MariaDB 10.4.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-33-release-notes), [MariaDB 10.5.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-24-release-notes), [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-17-release-notes), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-5-release-notes), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-3-release-notes))
-  * `10` (<= [MariaDB 10.4.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-32-release-notes), [MariaDB 10.5.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-23-release-notes), [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-3-release-notes), [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-2-release-notes))
+  * `1` (>= [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.7), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.4), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3))
+  * `10` (<= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.3), [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.2))
 * Range: `1` to `4294967295`
-* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
 #### `spider_table_init_error_interval`
 
@@ -1307,10 +1305,10 @@ Before this change, a non-minus-one system variable value would override the tab
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-  * `1` (>= [MariaDB 10.4.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-33-release-notes), [MariaDB 10.5.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-24-release-notes), [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-17-release-notes), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-5-release-notes), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-3-release-notes))
-  * `10` (<= [MariaDB 10.4.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-32-release-notes), [MariaDB 10.5.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-23-release-notes), [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-6-release-notes), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-3-release-notes), [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-2-release-notes))
+  * `1` (>= [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.7), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.4), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3))
+  * `10` (<= [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), [MariaDB 10.11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.6), [MariaDB 11.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.4), [MariaDB 11.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.3), [MariaDB 11.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.2))
 * Range: `1` to `4294967295`
-* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
 #### `spider_udf_ct_bulk_insert_interval`
 
@@ -1323,8 +1321,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Value: `10`
 * Default Table Value: `10`
 * Range: `-1` to `2147483647`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_ct_bulk_insert_rows`
 
@@ -1337,8 +1335,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Value: `100`
 * Default Table Value: `100`
 * Range: `-1` to `9223372036854775807`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_ds_bulk_insert_rows`
 
@@ -1351,8 +1349,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Value: `3000`
 * Default Table Value: `3000`
 * Range: `-1` to `9223372036854775807`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_ds_table_loop_mode`
 
@@ -1366,8 +1364,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `-1` to `2`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_ds_use_real_table`
 
@@ -1380,8 +1378,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `-1` to `1`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_table_lock_mutex_count`
 
@@ -1391,7 +1389,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `20`
 * Range: `1` to `4294967295`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_udf_table_mon_mutex_count`
 
@@ -1401,7 +1399,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `20`
 * Range: `1` to `4294967295`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_use_all_conns_snapshot`
 
@@ -1423,7 +1421,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `1`
 * Range: `0` to `1`
-* Introduced: [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes), [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes)
+* Introduced: [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.13), [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)
 
 #### `spider_use_consistent_snapshot`
 
@@ -1472,13 +1470,13 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Table Value: `0`
 * Range: `-1` to `3`
 * DSN Parameter Name: `uhd`
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `spider_use_pushdown_udf`
 
 * Description:\
-  When using a UDF function in a condition and the [engine\_condition\_pushdown](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#engine_condition_pushdown) system variable is set to `1`, whether to execute the UDF function locally or push it down.
+  When using a UDF function in a condition, whether to execute the UDF function locally or push it down to the remote server.
   * `-1` Falls back to the default value, if the [table parameter](spider-table-parameters.md) is not set.
   * `0` Doesn't transmit the UDF
   * `1` Transmits the UDF.
@@ -1497,7 +1495,7 @@ Before this change, a non-minus-one system variable value would override the tab
   * `0` : No encapsulation.
   * `1` : Encapsulates, only when the [spider\_use\_all\_conns\_snapshot](spider-system-variables.md#spider_use_all_conns_snapshot) system variable i set to `1`.
   * `2` :\
-    Synchronizes the snapshot using a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement and \[flush|FLUSH TABLES]] at the XA transaction level. This is only effective when the [spider\_use\_all\_cons\_snapshot](spider-system-variables.md#spider_use_all_cons_snapshot) system variable is set to `1`.
+    Synchronizes the snapshot using a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement and \[flush|FLUSH TABLES]] at the XA transaction level. This is only effective when the [spider\_use\_all\_cons\_snapshot](spider-system-variables.md#spider_use_all_conns_snapshot) system variable is set to `1`.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -1520,11 +1518,11 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_version`
 
-* Description: The current Spider version. Removed in [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes) when the Spider version number was matched with the server version.
+* Description: The current Spider version. Removed in [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.2) when the Spider version number was matched with the server version.
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
-* Removed: [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes)
+* Removed: [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.2)
 
 #### `spider_wait_timeout`
 
@@ -1534,7 +1532,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `604800`
 * Range: `-1` to `2147483647`
-* Introduced: [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1045-release-notes)
+* Introduced: [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5)
 
 #### `spider_xa_register_mode`
 
@@ -1547,8 +1545,8 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Value: `1`
 * Range: `0` to `1`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
-* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1074-release-notes), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

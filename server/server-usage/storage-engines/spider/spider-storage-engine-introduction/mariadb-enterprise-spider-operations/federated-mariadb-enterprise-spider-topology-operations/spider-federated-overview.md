@@ -1,3 +1,10 @@
+---
+description: >-
+  An overview of the federated topology for Spider, where a single Spider node
+  aggregates data from multiple remote data nodes, acting as a unified access
+  point.
+---
+
 # Spider Federated Overview
 
 ## Overview
@@ -35,5 +42,7 @@ In a Federated MariaDB Enterprise Spider topology, the connection options for a 
 ALTER TABLE spider_hq_sales.invoices
    COMMENT = 'server "new_hq_server", table "invoices"'
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about authentication in MariaDB MaxScale. This section covers
-  configuring user authentication for clients connecting through MaxScale and
-  securing access to your database instances.
+  Explore the supported authentication methods in MariaDB MaxScale. Learn how
+  authenticators validate clients and backend servers using plugins like Native,
+  PAM, GSSAPI, etc.
 ---
 
 # MaxScale Authentication
@@ -12,7 +12,7 @@ description: >-
 In MariaDB MaxScale, authenticators perform the following tasks:
 
 * Authenticating clients that connect to MaxScale
-* Authenticating connections to back-end MariaDB Enterprise Server and MariaDB Xpand nodes
+* Authenticating connections to back-end MariaDB Enterprise Server nodes
 * Deciding how authentication should be performed
 
 ## Authenticators Supported by MaxScale
@@ -22,3 +22,5 @@ In MariaDB MaxScale, authenticators perform the following tasks:
 * [PAM Authenticator](../../reference/maxscale-authenticators/maxscale-pam-authenticator.md)
 * [PARSEC Authenticator](../../reference/maxscale-authenticators/maxscale-parsec-authenticator.md)
 * [ed25519 Authenticator](../../reference/maxscale-authenticators/maxscale-ed25519-authenticator.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

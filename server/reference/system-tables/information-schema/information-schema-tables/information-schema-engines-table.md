@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ENGINES table displays status information about the
+  server's storage engines, including support level and transaction
+  capabilities.
+---
+
 # Information Schema ENGINES Table
 
 The [Information Schema](../) `ENGINES` table displays status information about the server's [storage engines](../../../../server-usage/storage-engines/).
@@ -94,13 +101,6 @@ TRANSACTIONS: NO
           XA: NO
   SAVEPOINTS: NO
 10 rows in set (0.00 sec)
-```
-
-Check if a given storage engine is available:
-
-```sql
-SELECT SUPPORT FROM information_schema.ENGINES WHERE ENGINE LIKE 'tokudb';
-Empty SET
 ```
 
 Check which storage engine supports XA transactions:

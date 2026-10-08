@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate square root. This function returns the non-negative square root of a
+  number.
+---
+
 # SQRT
 
 ## Syntax
 
-```sql
+```bnf
 SQRT(X)
 ```
 

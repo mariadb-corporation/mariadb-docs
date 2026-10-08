@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about the Mroonga storage engine, which provides fast CJK-ready
+  full-text searching using column-based storage and supports Groonga's
+  features.
+---
+
 # Mroonga Overview
 
 Once Mroonga has been installed (see [About Mroonga](about-mroonga.md)), its basic usage is similar to that of a [regular fulltext index](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/).
@@ -26,7 +33,7 @@ Mroonga can also order by weighting. For example, first add another record:
 INSERT INTO ft_mroonga(copy) VALUES ('She met a wicked, wicked witch');
 ```
 
-Records can be returned by weighting, for example, the newly added record has two occurences of the word 'wicked' and a higher weighting:
+Records can be returned by weighting, for example, the newly added record has two occurrences of the word 'wicked' and a higher weighting:
 
 ```sql
 SELECT *, MATCH(copy) AGAINST('wicked') AS score FROM ft_mroonga 
@@ -70,7 +77,7 @@ The following parser settings are available:
 | TokenBigramSplitSymbolAlpha                 | Same as TokenBigram except that continuous alphabetical characters are not treated as a token, but tokenised in bigram. |
 | TokenDelimit                                | Tokenises by splitting on white spaces.                                                                                 |
 | TokenDelimitNull                            | Tokenises by splitting on null characters (\0).                                                                         |
-| TokenMecab                                  | Tokenise using MeCab. Required Groonga to be buillt with MeCab support.                                                 |
+| TokenMecab                                  | Tokenise using MeCab. Required Groonga to be built with MeCab support.                                                 |
 | TokenTrigram                                | Tokenises in trigrams but continuous alphabetical characters, numbers or symbols are treated as a token.                |
 | TokenUnigram                                | Tokenises in unigrams but continuous alphabetical characters, numbers or symbols are treated as a token.                |
 

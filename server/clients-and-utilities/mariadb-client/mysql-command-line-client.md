@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql command-line client is the former name of the mariadb SQL shell,
+  still available as a symlink or alternate binary for compatibility.
+---
+
 # mysql Command-Line Client
 
 {% hint style="info" %}

@@ -1,25 +1,21 @@
 ---
-description: Generated columns can be virtual or persistent (stored).
+description: >-
+  Complete generated columns reference: VIRTUAL vs PERSISTENT/STORED syntax,
+  CREATE/ALTER TABLE, index/foreign key constraints, sql_mode consistency.
 ---
 
 # Generated Columns
 
 ## Syntax
 
-```sql
-<type>  [GENERATED ALWAYS]  AS   ( <expression> )
-[VIRTUAL | PERSISTENT | STORED]  [UNIQUE] [UNIQUE KEY] [COMMENT <text>]
+```bnf
+<type> [GENERATED ALWAYS] AS (<expression>)
+[VIRTUAL | PERSISTENT | STORED] [UNIQUE [KEY]] [COMMENT <text>]
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is also compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
-{% endtab %}
+![Railroad diagram of a generated-column definition — equivalent to the BNF above](../../../../.gitbook/assets/generated-columns-railroad.svg)
 
-{% tab title="< 10.2" %}
-MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is **not** compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
-{% endtab %}
-{% endtabs %}
+MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is also compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
 
 ## Description
 
@@ -39,7 +35,7 @@ Generated columns are also sometimes called computed columns or virtual columns.
 * Generated columns can only be used with storage engines which support them. If you try to use a storage engine that does not support them, then you will see an error similar to the following:
 
 ```sql
-ERROR 1910 (HY000): TokuDB storage engine does not support computed columns
+ERROR 1910 (HY000): <storage engine> storage engine does not support generated columns
 ```
 
 * [InnoDB](../../../../server-usage/storage-engines/innodb/), [Aria](../../../../server-usage/storage-engines/aria/), [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) and [CONNECT](../../../../server-usage/storage-engines/connect/using-connect/using-connect-virtual-and-special-columns.md) support generated columns.
@@ -52,19 +48,7 @@ All data types are supported when defining generated columns.
 
 Using the [ZEROFILL](create-table.md#zerofill-column-option) column option is supported when defining generated columns.
 
-{% tabs %}
-{% tab title="Tab 1" %}
 Using the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) column option is not supported when defining generated columns.
-{% endtab %}
-
-{% tab title="< 10.2.25" %}
-Using the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) column option is supported when defining generated columns.
-
-{% hint style="warning" %}
-It does not work correctly, though. See [MDEV-11117](https://jira.mariadb.org/browse/MDEV-11117).
-{% endhint %}
-{% endtab %}
-{% endtabs %}
 
 ### Index Support
 
@@ -89,12 +73,20 @@ Defining indexes on both `VIRTUAL` and `PERSISTENT` generated columns is support
 If an index is defined on a generated column, then the optimizer considers using it in the same way as indexes based on "real" columns.
 
 {% tabs %}
-{% tab title="Tab 1" %}
-The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and ref(const) accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
+The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 
 {% tab title="< 11.8" %}
-The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and ref(const) accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
+The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 {% endtabs %}
 
@@ -110,7 +102,7 @@ The [SELECT](../../data-manipulation/selecting-data/select.md) statement support
 
 Generated columns can be referenced in the [INSERT](../../data-manipulation/inserting-loading-data/insert.md), [UPDATE](../../data-manipulation/changing-deleting-data/update.md), and [DELETE](../../data-manipulation/changing-deleting-data/delete.md) statements.
 
-* However, `VIRTUAL` or `PERSISTENT` generated columns cannot be explicitly set to any other values than `NULL` or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md). If a generated column is explicitly set to any other value, then the outcome depends on whether [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md). If it is not enabled, then a warning will be raised and the default generated value will be used instead. If it is enabled, then an error will be raised instead.
+* However, `VIRTUAL` or `PERSISTENT` generated columns cannot be explicitly set to any other values than `NULL` or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md). If a generated column is explicitly set to any other value, then the outcome depends on whether [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md). If it is not enabled, then a warning will be raised and the default generated value will be used instead. If it is enabled, then an error will be raised instead.
 
 The [CREATE TABLE](create-table.md) statement has limited support for generated columns.
 
@@ -197,35 +189,17 @@ CREATE TABLE t1 (a int as (1));
 
 ### Making Stored Values Consistent
 
-When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql-mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) setting disagree.
+When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) setting disagree.
 
-There are currently two affected classes of inconsistencies: character padding and unsigned subtraction:
+There are two affected classes of inconsistencies: character padding and unsigned subtraction:
 
-* For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
-* If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.
+* For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
+* If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.
 
-{% tabs %}
-{% tab title="Current" %}
-A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql-mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
-{% endtab %}
+A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
 
-{% tab title="< 10.5" %}
-For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
 A potentially inconsistent generated column outputs a warning when created or first used (without restricting the creation).
-{% endtab %}
 
-{% tab title="< 10.4.8 / 10.3.18 / 10.2.27" %}
-A potentially inconsistent generated column does not output a warning when created or first used.
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
 Here is an example of two tables that are warned about:
 
 ```sql
@@ -275,28 +249,6 @@ CREATE TABLE good_sub (
   KEY(vnum)
 );
 ```
-{% endtab %}
-
-{% tab title="< 10.6" %}
-Here is an example of two tables whose creation is rejected:
-
-```sql
-CREATE TABLE bad_pad (
-  txt CHAR(5),
-  -- CHAR -> VARCHAR or CHAR -> TEXT can't be persistent or indexed:
-  vtxt VARCHAR(5) AS (txt) PERSISTENT
-);
-
-CREATE TABLE bad_sub (
-  num1 BIGINT UNSIGNED,
-  num2 BIGINT UNSIGNED,
-  -- The resulting value can vary for some large values
-  vnum BIGINT AS (num1 - num2) VIRTUAL,
-  KEY(vnum)
-);
-```
-{% endtab %}
-{% endtabs %}
 
 ### MySQL Compatibility Support
 
@@ -309,7 +261,7 @@ Generated columns are subject to various constraints in other DBMSs that are not
 
 ### Implementation Differences Compared to Microsoft SQL Server
 
-MariaDB's generated columns implementation does not enforce the following\
+MariaDB's generated columns implementation does not enforce the following
 restrictions that are present in [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) implementation:
 
 * MariaDB allows [server variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/) in generated column expressions, including those that change dynamically, such as [warning\_count](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#warning_count).
@@ -317,7 +269,7 @@ restrictions that are present in [Microsoft SQL Server's computed columns](https
 * MariaDB allows the [CAST()](../../../sql-functions/string-functions/cast.md) function to be used with non-unicode [character sets](../../../data-types/string-data-types/character-sets/), even though character sets are configurable and differ between binaries/versions.
 * MariaDB allows [FLOAT](../../../data-types/numeric-data-types/float.md) expressions to be used in generated columns. Microsoft SQL Server considers these expressions to be "imprecise" due to potential cross-platform differences in floating-point implementations and precision.
 * Microsoft SQL Server requires the [ARITHABORT](https://docs.microsoft.com/en-us/sql/t-sql/statements/set-arithabort-transact-sql?view=sql-server-2017) mode to be set, so that division by zero returns an error, and not a NULL.
-* Microsoft SQL Server requires `QUOTED_IDENTIFIER` to be set in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md). In MariaDB, if data is inserted without `ANSI_QUOTES` set in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), then it will be processed and stored differently in a generated column that contains quoted identifiers.
+* Microsoft SQL Server requires `QUOTED_IDENTIFIER` to be set in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md). In MariaDB, if data is inserted without `ANSI_QUOTES` set in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), then it will be processed and stored differently in a generated column that contains quoted identifiers.
 
 Microsoft SQL Server enforces the above restrictions by doing one of the following things:
 
@@ -325,13 +277,13 @@ Microsoft SQL Server enforces the above restrictions by doing one of the followi
 * Refusing to allow updates to a table containing them.
 * Refusing to use an index over such a column if it can not be guaranteed that the expression is fully deterministic.
 
-In MariaDB, as long as the [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), language, and other settings that were in effect during the CREATE TABLE remain unchanged, the generated column expression will always be evaluated the same. If any of these things change, then please be aware that the generated column expression might not be evaluated the same way as it previously was.
+In MariaDB, as long as the [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), language, and other settings that were in effect during the CREATE TABLE remain unchanged, the generated column expression will always be evaluated the same. If any of these things change, then please be aware that the generated column expression might not be evaluated the same way as it previously was.
 
-If you try to update a virtual column, you will get an error if the default [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), or a warning otherwise.
+If you try to update a virtual column, you will get an error if the default [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), or a warning otherwise.
 
 ## Development History
 
-Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty did the work on [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) to lift some of the limitations.
+Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty later did the work to lift some of the limitations.
 
 ## Examples
 
@@ -424,6 +376,7 @@ You can also use virtual columns to implement a "poor man's partial index". See 
 
 ## See Also
 
+* [Generated Columns](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#generated-columns) in `mariadb-dump`, for how generated columns appear in dump output.
 * [Putting Virtual Columns to good use](https://mariadb.com/blog/putting-virtual-columns-good-use) on the mariadb.com blog.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

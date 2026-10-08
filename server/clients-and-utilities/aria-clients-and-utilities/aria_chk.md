@@ -1,8 +1,14 @@
+---
+description: >-
+  Check, repair, optimize, and report information about Aria tables with the
+  aria_chk command-line tool.
+---
+
 # aria\_chk
 
 `aria_chk` is used to check, repair, optimize, sort and get information about [Aria](../../server-usage/storage-engines/aria/aria-storage-engine.md) tables.
 
-With the MariaDB server, you can use [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md),[REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) and [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) to do\
+With the MariaDB server, you can use [CHECK TABLE](../../reference/sql-statements/table-statements/check-table.md),[REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) and [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) to do
 similar things.
 
 {% hint style="danger" %}
@@ -15,7 +21,7 @@ Note: `aria_chk` should not be used when MariaDB is running. MariaDB Server assu
 aria_chk [OPTIONS] aria_tables[.MAI]
 ```
 
-Aria table information is stored in 2 files: the `.MAI` file contains base\
+Aria table information is stored in 2 files: the `.MAI` file contains base
 table information and the index and the `.MAD` file contains the data.`aria_chk` takes one or more `.MAI` files as arguments.
 
 The following groups are read from the my.cnf files:
@@ -27,7 +33,7 @@ The following groups are read from the my.cnf files:
 
 ### **Global Options**
 
-The following options to handle option files may be given as the first\
+The following options to handle option files may be given as the first
 argument:
 
 | Option                  | Description                                      |
@@ -61,7 +67,7 @@ argument:
 | Option                   | Description                                                                                                                                                                                                                                                                                                                                                   |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | -c, --check              | Check table for errors.                                                                                                                                                                                                                                                                                                                                       |
-| -e, --extend-check       | Check the table _very_ throughly. Only use this in extreme cases, as `aria_chk` should normally be able to find out if the table is okay, even without this switch.                                                                                                                                                                                           |
+| -e, --extend-check       | Check the table _very_ thoroughly. Only use this in extreme cases, as `aria_chk` should normally be able to find out if the table is okay, even without this switch.                                                                                                                                                                                           |
 | -F, --fast               | Check only tables that haven't been closed properly.                                                                                                                                                                                                                                                                                                          |
 | -C, --check-only-changed | Check only tables that have changed since last check.                                                                                                                                                                                                                                                                                                         |
 | -f, --force              | Restart with `-r` if there are any errors in the table. States is updated as with `--update-state`.                                                                                                                                                                                                                                                      |
@@ -70,7 +76,7 @@ argument:
 | -U, --update-state       | Mark tables as crashed if any errors were found and clean if check didn't find any errors but table was marked as 'not clean' before. This allows one to get rid of warnings like 'table not properly closed'. If table was updated, update also the timestamp for when the check was made. This option is on by default! Use --skip-update-state to disable. |
 | -T, --read-only          | Don't mark table as checked.                                                                                                                                                                                                                                                                                                                                  |
 
-### **Recover (Repair) Options**&#x20;
+### **Recover (Repair) Options** 
 
 When using `--recover` or `--safe-recover'` , these options are available:
 

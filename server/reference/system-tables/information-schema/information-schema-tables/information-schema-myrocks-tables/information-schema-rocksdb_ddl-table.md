@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ROCKSDB_DDL table contains information about Data
+  Definition Language (DDL) operations in MyRocks, including table and index
+  names.
+---
+
 # Information Schema ROCKSDB\_DDL Table
 
 The [Information Schema](../../) `ROCKSDB_DDL` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

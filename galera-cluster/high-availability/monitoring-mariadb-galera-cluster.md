@@ -1,3 +1,9 @@
+---
+description: >-
+  Definitive Galera Cluster monitoring: SHOW GLOBAL STATUS wsrep_% variables,
+  Primary quorum checks, wsrep_local_state_comment, and flow control metrics.
+---
+
 # Monitoring MariaDB Galera Cluster
 
 From a [database client](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client), you can check the status of [write-set replication](../galera-architecture/introduction-to-galera-architecture.md#the-wsrep-api) throughout the cluster using standard queries. Status variables that relate to write-set replication have the prefix `wsrep_`, meaning that you can display them all using the following query:
@@ -31,7 +37,29 @@ You can monitor the status of individual nodes to ensure they are in working ord
 
 ## Understanding Galera Node States
 
-<div align="left"><figure><img src="../.gitbook/assets/galerafsm.png" alt=""><figcaption></figcaption></figure></div>
+```mermaid
+stateDiagram-v2
+    accTitle: Galera Cluster node state machine
+    accDescr {
+        A Galera node progresses through six states. From OPEN it joins the Primary
+        Component (1), becomes a JOINER while it requests a state transfer (2), then
+        JOINED once the transfer completes and it applies queued transactions (3). It
+        reaches SYNCED when fully caught up and operational (4). A SYNCED node may
+        become a DONOR to serve a State Snapshot Transfer to another node (5),
+        returning to JOINED afterward (6) before it syncs again.
+    }
+    [*] --> OPEN
+    OPEN --> PRIMARY: 1
+    PRIMARY --> JOINER: 2
+    JOINER --> JOINED: 3
+    JOINED --> SYNCED: 4
+    SYNCED --> DONOR: 5
+    DONOR --> JOINED: 6
+    classDef synced fill:#fff3a5,stroke:#333,stroke-width:2px,color:#111;
+    class SYNCED synced
+```
+
+_Galera node state transitions. `SYNCED` (highlighted) is the healthy, fully operational state._
 
 The value of `wsrep_local_state_comment` tells you exactly what a node is doing. The most common states include:
 
@@ -45,7 +73,7 @@ The value of `wsrep_local_state_comment` tells you exactly what a node is doing.
 
 ## Checking Replication Health
 
-These [status variables](../reference/galera-cluster-status-variables.md) can help identify performance issues and bottlenecks.&#x20;
+These [status variables](../reference/galera-cluster-status-variables.md) can help identify performance issues and bottlenecks.
 
 {% hint style="warning" %}
 Many status variables are differential and reset after each `FLUSH STATUS` command.
@@ -58,19 +86,59 @@ Many status variables are differential and reset after each `FLUSH STATUS` comma
 | `wsrep_local_send_queue_avg` | Average size of the queue of write-sets waiting to be sent to other nodes. Values much greater than `0.0` can indicate network throughput issues.                                                                                                                 |
 | `wsrep_cert_deps_distance`   | Represents the node’s potential for parallel transaction application, helping to optimally tune the `wsrep_slave_threads` [parameter](../reference/galera-cluster-system-variables.md#wsrep_slave_threads).                                                       |
 
+## Testing Your Monitoring by Simulating a Failure
+
+When validating alerts and health checks, it is often useful to force a node into a failed or disconnected state on purpose. The following methods each break a single node without touching its data, and are fully reversible.
+
+{% hint style="warning" %}
+Do these only in a test cluster. Each method removes the node from the Primary Component, so writes to that node stop until it rejoins.
+{% endhint %}
+
+**Isolate a node from the cluster (recommended for testing)**
+
+```sql
+SET GLOBAL wsrep_provider_options = 'gmcast.isolate=1';
+```
+
+The node leaves the Primary Component: `wsrep_connected` and `wsrep_ready` go `OFF` and `wsrep_cluster_status` becomes `non-Primary`. Reconnect it with:
+
+```sql
+SET GLOBAL wsrep_provider_options = 'gmcast.isolate=0';
+```
+
+**Point a node at an invalid cluster address**
+
+```sql
+SET GLOBAL wsrep_cluster_address = 'gcomm://192.0.2.1';
+```
+
+`192.0.2.1` is a reserved, unroutable documentation address (RFC 5737), so the node cannot reach a cluster. It reports `wsrep_cluster_status=Disconnected`, `wsrep_ready=OFF`, and `wsrep_cluster_size=0`. Restore it by setting `wsrep_cluster_address` back to the real cluster address.
+
+**Block the Galera port**
+
+Block TCP port `4567` (the [Galera replication port](../galera-management/configuration/galera-cluster-address.md)) with a host firewall such as `iptables` or `nftables`. Take care not to lock yourself out of the node — leave SSH and the SQL port reachable.
+
+{% hint style="info" %}
+**Run monitoring connections with `wsrep_sync_wait=0`.** With the default causality checks active (`wsrep_sync_wait` set non-zero, e.g. `1`), a `SELECT` issued on a node that has lost its connection to the Primary Component blocks and can fail with `ERROR 1205 (HY000): Lock wait timeout exceeded`. Set [`wsrep_sync_wait=0`](../reference/galera-cluster-system-variables.md#wsrep_sync_wait) (or [`wsrep_dirty_reads=1`](../reference/galera-cluster-system-variables.md#wsrep_dirty_reads)) on health-check sessions so their queries return promptly instead of hanging.
+{% endhint %}
+
 ## Recovering a Cluster After a Full Outage
 
 If the entire cluster shuts down or [loses Quorum](resetting-the-quorum-cluster-bootstrap.md#procedure-for-selecting-the-right-node), you must manually re-establish a Primary Component by bootstrapping from the most advanced node.
 
-#### Step 1: Identify the Most Advanced Node
+{% stepper %}
+{% step %}
+#### Identify the Most Advanced Node
 
 The "most advanced" node is the one that contains the most recent data. You must bootstrap the cluster from this node to avoid any data loss.
 
 1. Log in to each of your database servers.
 2. Examine the [`grastate.dat` file](resetting-the-quorum-cluster-bootstrap.md#find-the-most-advanced-node) located in the MariaDB data directory (e.g., `/var/lib/mysql/`).
 3. Look for the `seqno:` value in this file. The node with the highest `seqno` is the most advanced node. If a node was shut down gracefully, its `seqno` may be `-1`; these nodes should not be used to bootstrap if a node with a positive `seqno` is available.
+{% endstep %}
 
-#### Step 2: Bootstrap the New Primary Component
+{% step %}
+**Bootstrap the New Primary Component**
 
 Once you have identified the most advanced node, start the MariaDB service only on that node using a special bootstrap procedure using the command:
 
@@ -83,8 +151,10 @@ You can start `mariadbd` with the [--wsrep-new-cluster](https://app.gitbook.com/
 {% endhint %}
 
 This node will come online and form a new Primary Component by itself, with a cluster size of 1.
+{% endstep %}
 
-#### Step 3: Start the Other Nodes
+{% step %}
+**Start the Other Nodes**
 
 After the first node is successfully running as a new Primary Component, start the MariaDB service normally on all of the other nodes.
 
@@ -93,5 +163,7 @@ systemctl start mariadb
 ```
 
 They will detect the existing Primary Component, connect to it, and automatically initiate a [State Transfer (IST or SST)](rapid-node-recovery-with-ist-and-the-gcache.md) to synchronize their data and rejoin the cluster.
+{% endstep %}
+{% endstepper %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

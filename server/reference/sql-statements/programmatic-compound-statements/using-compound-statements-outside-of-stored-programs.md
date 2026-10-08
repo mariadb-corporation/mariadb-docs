@@ -1,3 +1,9 @@
+---
+description: >-
+  Use compound statements such as IF and BEGIN...END outside of stored
+  programs, with the delimiter set appropriately.
+---
+
 # Using Compound Statements Outside of Stored Programs
 
 Compound statements can also be used outside of [stored programs](../../../server-usage/stored-routines/).

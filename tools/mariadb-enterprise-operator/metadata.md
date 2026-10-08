@@ -1,6 +1,12 @@
+---
+description: >-
+  Details how to customize Kubernetes metadata, such as labels and annotations,
+  for the resources generated and managed by the Operator.
+---
+
 # Metadata
 
-This documentation shows how to configure metadata in the MariaDB Enterprise Operator CRs.
+This documentation shows how to configure metadata in the MariaDB Enterprise Kubernetes Operator CRs.
 
 ## Children object metadata
 
@@ -12,11 +18,13 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   inheritMetadata:
     labels:
       database.myorg.io: mariadb
     annotations:
       database.myorg.io: mariadb
+  # [...]
 ```
 
 This means that all the reconciled objects will inherit these labels and annotations. For instance, see the `Services` and `Pods`:
@@ -53,6 +61,7 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   inheritMetadata:
     labels:
       sidecar.istio.io/inject: "true"
@@ -61,6 +70,7 @@ spec:
   podMetadata:
     labels:
       sidecar.istio.io/inject: "false"
+  # [...]
 ```
 
 It is important to note that the `podMetadata` field supersedes the `inheritMetadata` field, therefore the labels and annotations provided in the former will override the ones in the latter.
@@ -75,6 +85,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   service:
     type: LoadBalancer
     metadata:
@@ -92,11 +103,12 @@ spec:
     metadata:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.161
+  # [...]
 ```
 
 In the case of `MaxScale`, you can also do this via the `kubernetesService` field.
 
-Refer to the [High Availability documentation](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) to know more about the `Service` fields and `MaxScale`.
+Refer to the [High Availability documentation](topologies/high-availability.md) to know more about the `Service` fields and `MaxScale`.
 
 ## `PVC` metadata
 
@@ -108,6 +120,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   storage:
     size: 1Gi
     volumeClaimTemplate:
@@ -121,6 +134,7 @@ spec:
       resources:
         requests:
           storage: 1Gi
+  # [...]
 ```
 
 ## Use cases
@@ -137,11 +151,13 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   service:
     type: LoadBalancer
     metadata:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.150
+  # [...]
 ```
 
 #### Istio
@@ -154,13 +170,15 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   podMetadata:
     labels:
       sidecar.istio.io/inject: "false"
+  # [...]
 ```
 
 For instance, you probably don't want to inject the Istio sidecar to `Backup` `Pods`, as it will prevent the `Jobs` from finishing and therefore your backup process will hang.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

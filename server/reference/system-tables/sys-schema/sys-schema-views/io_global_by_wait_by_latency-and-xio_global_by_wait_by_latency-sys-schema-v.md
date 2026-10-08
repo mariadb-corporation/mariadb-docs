@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize global I/O consumers by event name, sorted by total
+  latency, helping to pinpoint slow I/O event types.
+---
+
 # io\_global\_by\_wait\_by\_latency and x$io\_global\_by\_wait\_by\_latency Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

@@ -1,9 +1,15 @@
+---
+description: >-
+  Configure routing services. This resource manages the core services that
+  define how MaxScale routes and balances traffic between clients and backend
+  servers.
+---
+
 # MaxScale Service Resource
 
 ## Overview
 
-A service resource represents a service inside MaxScale. A service is a
-collection of network listeners, filters, a router and a set of backend servers.
+A service resource represents a service inside MaxScale. A service is a collection of network listeners, filters, a router and a set of backend servers.
 
 ## Resource Operations
 
@@ -1004,8 +1010,7 @@ Get all services.
 GET /v1/services/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _servers_, _services_ or _filters_,
-depending on which relationship is being retrieved.
+The _:type_ in the URI must be either _servers_, _services_ or _filters_, depending on which relationship is being retrieved.
 
 #### Response
 
@@ -1036,47 +1041,26 @@ depending on which relationship is being retrieved.
 POST /v1/services
 ```
 
-Create a new service by defining the resource. The posted object must define at
-least the following fields.
+Create a new service by defining the resource. The posted object must define at least the following fields.
 
 * `data.id`
   * Name of the service
-
 * `data.type`
   * Type of the object, must be `services`
-
 * `data.attributes.router`
   * The router module to use
-
 * `data.attributes.parameters.user`
-  * The [`user`](../../maxscale-management/deployment/maxscale-configuration-guide.md#user) to use
-
+  * The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
 * `data.attributes.parameters.password`
-  * The [`password`](../../maxscale-management/deployment/maxscale-configuration-guide.md#password) to use
+  * The [`password`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
 
-The `data.attributes.parameters` object is used to define router and service
-parameters. All configuration parameters that can be defined in the
-configuration file can also be added to the parameters object. The exceptions to
-this are the `type`, `router`, `servers` and `filters` parameters which must not
-be defined.
+The `data.attributes.parameters` object is used to define router and service parameters. All configuration parameters that can be defined in the configuration file can also be added to the parameters object. The exceptions to this are the `type`, `router`, `servers` and `filters` parameters which must not be defined.
 
-As with other REST API resources, the `data.relationships` field defines the
-relationships of the service to other resources. Services can have two types of
-relationships: `servers` and `filters` relationships.
+As with other REST API resources, the `data.relationships` field defines the relationships of the service to other resources. Services can have two types of relationships: `servers` and `filters` relationships.
 
-If the request body defines a valid `relationships` object, the service is
-linked to those resources. For servers, this is equivalent to adding the list of
-server names into the
-[`servers`](../../maxscale-management/deployment/maxscale-configuration-guide.md#servers) parameter. For
-filters, this is equivalent to adding the filters in the
-`data.relationships.filters.data` array to the
-[`filters`](../../maxscale-management/deployment/maxscale-configuration-guide.md#filters) parameter in the
-order they appear. For other services, this is equivalent to adding the list of
-server names into the
-[`targets`](../../maxscale-management/deployment/maxscale-configuration-guide.md#targets) parameter.
+If the request body defines a valid `relationships` object, the service is linked to those resources. For servers, this is equivalent to adding the list of server names into the [`servers`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#servers) parameter. For filters, this is equivalent to adding the filters in the `data.relationships.filters.data` array to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#filters) parameter in the order they appear. For other services, this is equivalent to adding the list of server names into the [`targets`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#targets) parameter.
 
-The following example defines a new service with both a server and a filter
-relationship.
+The following example defines a new service with both a server and a filter relationship.
 
 ```javascript
 {
@@ -1124,23 +1108,13 @@ Service is created:
 DELETE /v1/services/:name
 ```
 
-A service can only be destroyed if the service uses no servers or filters and
-all the listeners pointing to the service have been destroyed. This means that
-the `data.relationships` must be an empty object and `data.attributes.listeners`
-must be an empty array in order for the service to qualify for destruction.
+A service can only be destroyed if the service uses no servers or filters and all the listeners pointing to the service have been destroyed. This means that the `data.relationships` must be an empty object and `data.attributes.listeners` must be an empty array in order for the service to qualify for destruction.
 
-If there are open client connections that use the service when it is destroyed,
-they are allowed to gracefully close before the service is destroyed. This means
-that the destruction of a service can be acknowledged via the REST API before
-the destruction process has fully completed.
+If there are open client connections that use the service when it is destroyed, they are allowed to gracefully close before the service is destroyed. This means that the destruction of a service can be acknowledged via the REST API before the destruction process has fully completed.
 
-To find out whether a service is still in use after it has been destroyed, the
-[`sessions`](maxscale-session-resource.md) resource should be used. If a session for
-the service is still open, it has not yet been destroyed.
+To find out whether a service is still in use after it has been destroyed, the [`sessions`](maxscale-session-resource.md) resource should be used. If a session for the service is still open, it has not yet been destroyed.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally
-delete the service by first unlinking it from all servers and filters that it
-uses.
+This endpoint also supports the `force=yes` parameter that will unconditionally delete the service by first unlinking it from all servers and filters that it uses.
 
 #### Response
 
@@ -1154,17 +1128,11 @@ Service is destroyed:
 PATCH /v1/services/:name
 ```
 
-The request body must be a JSON object which represents a set of new definitions
-for the service.
+The request body must be a JSON object which represents a set of new definitions for the service.
 
-All standard service parameters can be modified. Refer to the
-[service](../../maxscale-management/deployment/maxscale-configuration-guide.md#service) documentation on
-the details of these parameters.
+All standard service parameters can be modified. Refer to the [service](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#service) documentation on the details of these parameters.
 
-In addition to the standard service parameters, router parameters can be updated
-at runtime if the router module supports it. Refer to the individual router
-documentation for more details on whether the router supports it and which
-parameters can be updated at runtime.
+In addition to the standard service parameters, router parameters can be updated at runtime if the router module supports it. Refer to the individual router documentation for more details on whether the router supports it and which parameters can be updated at runtime.
 
 The following example modifies a service by changing the `user` parameter to `admin`.
 
@@ -1192,23 +1160,13 @@ Service is modified:
 PATCH /v1/services/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _servers_, _services_ or _filters_,
-depending on which relationship is being modified.
+The _:type_ in the URI must be either _servers_, _services_ or _filters_, depending on which relationship is being modified.
 
-The request body must be a JSON object that defines only the _data_ field. The
-value of the _data_ field must be an array of relationship objects that define
-the _id_ and _type_ fields of the relationship. This object will replace the
-existing relationships of this type for the service.
+The request body must be a JSON object that defines only the _data_ field. The value of the _data_ field must be an array of relationship objects that define the _id_ and _type_ fields of the relationship. This object will replace the existing relationships of this type for the service.
 
-*Note:* The order of the values in the `filters` relationship will define the
- order the filters are set up in. The order in which the filters appear in the
- array will be the order in which the filters are applied to each query. Refer
- to the [`filters`](../../maxscale-management/deployment/maxscale-configuration-guide.md#filters) parameter
- for more details.
+_Note:_ The order of the values in the `filters` relationship will define the order the filters are set up in. The order in which the filters appear in the array will be the order in which the filters are applied to each query. Refer to the [`filters`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#filters) parameter for more details.
 
-The following is an example request and request body that defines a single
-server relationship for a service that is equivalent to a `servers=my-server`
-parameter.
+The following is an example request and request body that defines a single server relationship for a service that is equivalent to a `servers=my-server` parameter.
 
 ```
 PATCH /v1/services/my-rw-service/relationships/servers
@@ -1220,8 +1178,7 @@ PATCH /v1/services/my-rw-service/relationships/servers
 }
 ```
 
-All relationships for a service can be deleted by sending an empty array as the
-_data_ field value. The following example removes all servers from a service.
+All relationships for a service can be deleted by sending an empty array as the _data_ field value. The following example removes all servers from a service.
 
 ```
 PATCH /v1/services/my-rw-service/relationships/servers
@@ -1253,9 +1210,8 @@ Stops a started service.
 
 This endpoint supports the following parameters:
 
-- `force=yes`
-
-  - Close all existing connections that were created through this listener.
+* `force=yes`
+  * Close all existing connections that were created through this listener.
 
 #### Response
 
@@ -1292,12 +1248,12 @@ Users are reloaded:
 `Status: 204 No Content`
 
 ### Get service listeners
+
 ```
 GET /v1/services/:name/listeners
 ```
 
-This endpoint is deprecated, use the
-[this](maxscale-listener-resource.md#get-all-listeners) listeners endpoint instead.
+This endpoint is deprecated, use the [this](maxscale-listener-resource.md#get-all-listeners) listeners endpoint instead.
 
 ### Get a single service listener
 
@@ -1305,8 +1261,7 @@ This endpoint is deprecated, use the
 GET /v1/services/:name/listeners/:listener
 ```
 
-This endpoint is deprecated, use the [this](maxscale-listener-resource.md#get-a-listener)
-listeners endpoint instead.
+This endpoint is deprecated, use the [this](maxscale-listener-resource.md#get-a-listener) listeners endpoint instead.
 
 ### Create a new listener
 
@@ -1314,8 +1269,7 @@ listeners endpoint instead.
 POST /v1/services/:name/listeners
 ```
 
-This endpoint is deprecated, use the
-[this](maxscale-listener-resource.md#create-a-new-listener) listeners endpoint instead.
+This endpoint is deprecated, use the [this](maxscale-listener-resource.md#create-a-new-listener) listeners endpoint instead.
 
 ### Destroy a listener
 
@@ -1323,8 +1277,7 @@ This endpoint is deprecated, use the
 DELETE /v1/services/:service/listeners/:name
 ```
 
-This endpoint is deprecated, use the
-[this](maxscale-listener-resource.md#destroy-a-listener) listeners endpoint instead.
+This endpoint is deprecated, use the [this](maxscale-listener-resource.md#destroy-a-listener) listeners endpoint instead.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

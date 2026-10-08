@@ -1,3 +1,10 @@
+---
+description: >-
+  Set the transaction isolation level to REPEATABLE READ. This default InnoDB
+  level ensures consistent results for repeated reads within the same
+  transaction.
+---
+
 # REPEATABLE READ
 
 `REPEATABLE READ` is one of the transaction isolation levels. All consistent reads within the same transaction read the snapshot established by the first read.

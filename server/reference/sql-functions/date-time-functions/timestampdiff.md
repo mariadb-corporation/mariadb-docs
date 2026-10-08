@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate the difference between timestamps. This function returns the
+  difference between two datetime expressions in the specified unit.
+---
+
 # TIMESTAMPDIFF
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2)
 ```
 

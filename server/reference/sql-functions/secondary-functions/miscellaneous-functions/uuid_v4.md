@@ -1,14 +1,20 @@
+---
+description: >-
+  Generate a random UUID (v4). This function returns a version 4 UUID, which is
+  generated using random numbers.
+---
+
 # UUID\_v4
 
 {% hint style="info" %}
-`UUID_v4` is available from MariaDB [11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117).
+`UUID_v4` is available from MariaDB [11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117).
 {% endhint %}
 
 It is possible to generate UUIDv4 and UUIDv7, in addition to UUIDv1.
 
 ## Syntax
 
-```sql
+```bnf
 UUID_v4()
 ```
 

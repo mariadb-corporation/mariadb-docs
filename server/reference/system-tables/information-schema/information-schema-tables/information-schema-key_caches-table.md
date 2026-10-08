@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema KEY_CACHES table displays statistics about the
+  segmented key cache, including block usage and read/write requests.
+---
+
 # Information Schema KEY\_CACHES Table
 
 The [Information Schema](../) `KEY_CACHES` table shows statistics about the [segmented key cache](../../../../ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md).

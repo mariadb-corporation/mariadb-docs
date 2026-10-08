@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_session_track_get_first retrieves the first session state change
+  notification from the server, covering schema changes, system variables, and
+  state flags. Added in Connector/C 3.0.
+---
+
 # mysql\_session\_track\_get\_first
 
 ## Syntax
@@ -5,6 +12,8 @@
 ```c
 int mysql_session_track_get_first(MYSQL * mysql,enum enum_session_state_type type, const char **data, size_t *length );
 ```
+
+## Parameters
 
 * `mysql` - mysql handle, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
 * `type` - type of information. Valid values are
@@ -17,7 +26,7 @@ int mysql_session_track_get_first(MYSQL * mysql,enum enum_session_state_type typ
 
 ## Description
 
-_`mysql_session_track_get_first()`_ retrieves the first session status change information received from the server.
+`mysql_session_track_get_first()` retrieves the first session status change information received from the server.
 
 Depending on the specified type the read only data pointer will contain the following information:
 
@@ -27,14 +36,18 @@ Depending on the specified type the read only data pointer will contain the foll
 
 Further data needs to be obtained by calling [mysql\_session\_track\_get\_next()](mysql_session_track_get_next.md).
 
-_`mysql_session_track_get_first()`_ was added in Connector/C 3.0 and MariaDB Server 10.2.
-
 ## Returns
 
 Zero for success, nonzero if an error occurred.
 
+## History
+
+`mysql_session_track_get_first()` was added in Connector/C 3.0.
+
 ## See also
 
 [mysql\_session\_track\_get\_next()](mysql_session_track_get_next.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

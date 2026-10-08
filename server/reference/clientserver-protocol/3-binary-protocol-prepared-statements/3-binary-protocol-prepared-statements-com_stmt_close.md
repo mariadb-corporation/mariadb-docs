@@ -1,3 +1,9 @@
+---
+description: >-
+  This command deallocates a prepared statement on the server, freeing up
+  associated resources.
+---
+
 # COM\_STMT\_CLOSE
 
 Closes a previously prepared statement.
@@ -18,7 +24,11 @@ Client to server.
 
 ## Example
 
+{% code overflow="wrap" %}
+```
 05 00 00 00 19 04 00 00 00
+```
+{% endcode %}
 
 ## Response
 

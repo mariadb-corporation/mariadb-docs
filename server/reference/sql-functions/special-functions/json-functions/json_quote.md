@@ -1,8 +1,14 @@
+---
+description: >-
+  Quote a string as a JSON value. This function wraps a string with double
+  quotes and escapes special characters to create a valid JSON string literal.
+---
+
 # JSON\_QUOTE
 
 ## Syntax
 
-```sql
+```bnf
 JSON_QUOTE(json_value)
 ```
 

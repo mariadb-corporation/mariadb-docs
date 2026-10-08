@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert an IPv6 address to binary. This function takes an IPv6 (or IPv4)
+  address string and returns it as a VARBINARY(16) string.
+---
+
 # INET6\_ATON
 
 ## Syntax
 
-```sql
+```bnf
 INET6_ATON(expr)
 ```
 
@@ -10,23 +16,13 @@ INET6_ATON(expr)
 
 Given an IPv6 or IPv4 network address as a string, returns a binary string that represents the numeric value of the address.
 
-No trailing zone ID's or traling network masks are permitted. For IPv4 addresses, or IPv6 addresses with IPv4 address parts, no classful addresses or trailing port numbers are permitted and octal numbers are not supported.
+No trailing zone ID's or trailing network masks are permitted. For IPv4 addresses, or IPv6 addresses with IPv4 address parts, no classful addresses or trailing port numbers are permitted and octal numbers are not supported.
 
 The returned binary string will be [VARBINARY(16)](../../../data-types/string-data-types/varbinary.md) or [VARBINARY(4)](../../../data-types/string-data-types/varbinary.md) for IPv6 and IPv4 addresses respectively.
 
 Returns `NULL` if the argument is not understood.
 
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
-
-{% tabs %}
-{% tab title="Current" %}
 `INET6_ATON` can take [INET6](../../../data-types/string-data-types/inet6.md) as an argument.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-&#x20;`INET6_ATON` **cannot** take [INET6](../../../data-types/string-data-types/inet6.md) as an argument.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

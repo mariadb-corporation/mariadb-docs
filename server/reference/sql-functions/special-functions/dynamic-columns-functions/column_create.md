@@ -1,8 +1,14 @@
+---
+description: >-
+  Create a dynamic column blob. This function generates a binary string
+  containing specified column names and values for storage in a BLOB.
+---
+
 # COLUMN\_CREATE
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_CREATE(column_nr, value [as type], [column_nr, value [as type]]...)
 COLUMN_CREATE(column_name, value [as type], [column_name, value [as type]]...)
 ```

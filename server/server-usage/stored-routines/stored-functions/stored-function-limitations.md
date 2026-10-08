@@ -1,3 +1,9 @@
+---
+description: >-
+  This page details the restrictions on stored functions, such as the inability
+  to return result sets or use transaction control statements.
+---
+
 # Stored Function Limitations
 
 The following restrictions apply to [stored functions](./).
@@ -5,12 +11,12 @@ The following restrictions apply to [stored functions](./).
 * All of the restrictions listed in [Stored Routine Limitations](../stored-routine-limitations.md).
 * Any statements that return a result set are not permitted. For example, a regular [SELECTs](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) is not permitted, but a [SELECT INTO](../../../reference/sql-statements/programmatic-compound-statements/selectinto.md) is. A cursor and [FETCH](../../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/fetch.md) statement is permitted.
 * [FLUSH](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) statements are not permitted.
-* Statements that perform explicit or implicit commits or rollbacks are not permitted
+* Statements that perform explicit or implicit commits or rollbacks are not permitted.
 * Cannot be used recursively.
 * Cannot make changes to a table that is already in use (reading or writing) by the statement invoking the stored function.
 * Cannot refer to a temporary table multiple times under different aliases, even in different statements.
 * ROLLBACK TO SAVEPOINT and RELEASE SAVEPOINT statement which are in a stored function cannot refer to a savepoint which has been defined out of the current function.
-* Prepared statements ([PREPARE](../../../reference/sql-statements/prepared-statements/prepare-statement.md), [EXECUTE](../../../reference/sql-statements/prepared-statements/execute-statement.md), [DEALLOCATE PREPARE](../../../reference/sql-statements/prepared-statements/deallocate-drop-prepare.md)) cannot be used, and therefore nor can statements be constructed as strings and then executed.
+* Prepared statements ([PREPARE](../../../reference/sql-statements/prepared-statements/prepare-statement.md), [EXECUTE](../../../reference/sql-statements/prepared-statements/execute-statement.md), [DEALLOCATE PREPARE](../../../reference/sql-statements/prepared-statements/deallocate-drop-prepare.md), [EXECUTE IMMEDIATE](../../../reference/sql-statements/prepared-statements/execute-immediate.md)) cannot be used, and therefore nor can statements be constructed as strings and then executed. From MariaDB 13.2.1 they can be used, but only when the function is called on the right-hand side of an assignment to a stored routine variable. See [Dynamic SQL in Stored Functions](../../../reference/sql-statements/prepared-statements/prepare-statement.md#dynamic-sql-in-stored-functions).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

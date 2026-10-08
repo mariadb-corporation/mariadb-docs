@@ -1,3 +1,9 @@
+---
+description: >-
+  These events record row-level changes (WRITE, UPDATE, DELETE) for replication,
+  with versions supporting different column counts and compression.
+---
+
 # ROWS\_EVENT\_V1/V2, ROWS\_COMPRESSED\_EVENT\_V1
 
 A `ROWS_EVENT_V1` is written for row-based replication if data is inserted, deleted or updated.
@@ -23,8 +29,8 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * `WRITE_ROWS_EVENT_V1`: Event Type is 23 (0x17).
 * `UPDATE_ROWS_EVENT_V1`: Event Type is 24 (0x18).
 * `DELETE_ROWS_EVENT_V1`: Event Type is 25 (0x19).
-* `WRITE_ROWS_EVENT`: Event Type is 30 (0xFD).
-* `UPDATE_ROWS_EVENT`: Event Type is 31 (0xFE).
+* `WRITE_ROWS_EVENT`: Event Type is 30 (0x1E).
+* `UPDATE_ROWS_EVENT`: Event Type is 31 (0x1F).
 * `DELETE_ROWS_EVENT`: Event Type is 32 (0x20).
 * `WRITE_ROWS_COMPRESSED_EVENT_V1`: Event Type is 166 (0xA6).
 * `UPDATE_ROWS_COMPRESSED_EVENT_V1`: Event Type is 167 (0xA7).
@@ -36,9 +42,9 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * [uint<2>](../protocol-data-types.md#fixed-length-integers) Flags.
 * If `rows_event` is version 2:
   * [uint<2>](../protocol-data-types.md#fixed-length-integers) Extra data length.
-  * [string](../protocol-data-types.md#fixed-length-strings) Extra data.
-* [uint](../protocol-data-types.md#fixed-length-integers) Number of columns.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
+  * [string\<len>](../protocol-data-types.md#fixed-length-strings) Extra data.
+* [uint\<lenenc>](../protocol-data-types.md#length-encoded-integers) Number of columns.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1`):
   * [byte](../protocol-data-types.md#fixed-length-bytes) Columns used (Update). n = (number\_of\_columns + 7)/8.
 * If `*_COMPRESSED_EVENT_V1` :
@@ -46,13 +52,14 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
     * algorithm: (header & 0x07) >> 4 (always 0=zlib).
     * header\_size: header & 0x07.
   * byte\<header\_size>uncompressed length, stored in MyISAM format.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Null Bitmap (n = (number\_of\_columns + 7)/8).
-* [string](../protocol-data-types.md#fixed-length-strings) Column data. The length needs to be calculated by checking the column types from referring `TABLE_MAP_EVENT`.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Null Bitmap (n = (number\_of\_columns + 7)/8).
+* [string\<len>](../protocol-data-types.md#fixed-length-strings) Column data. The length needs to be calculated by checking the column types from referring `TABLE_MAP_EVENT`.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1` ):
-  * [byte](../protocol-data-types.md#fixed-length-bytes) Null Bitmap\_Update. n = (number\_of\_columns + 7)/8.
-  * [string](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used colums bitmap and column types from referring `TABLE_MAP_EVENT`.
+  * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Null Bitmap\_Update. n = (number\_of\_columns + 7)/8.
+  * [string\<len>](../protocol-data-types.md#fixed-length-strings)
+  * [g](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used columns bitmap and column types from referring `TABLE_MAP_EVENT`.
 
-### Table id
+### Table ID
 
 Table id refers to a table defined by [TABLE\_MAP\_EVENT](table_map_event.md). The special value `0xFFFFFF` should have "end of statement flag" (`0x0001`) set and indicates that table maps can be freed.
 

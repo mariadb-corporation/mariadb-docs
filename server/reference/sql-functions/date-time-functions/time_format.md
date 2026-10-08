@@ -1,8 +1,14 @@
+---
+description: >-
+  Format a time. This function formats a time value according to a format
+  string, similar to DATE_FORMAT but for time values.
+---
+
 # TIME\_FORMAT
 
 ## Syntax
 
-```sql
+```bnf
 TIME_FORMAT(time,format)
 ```
 

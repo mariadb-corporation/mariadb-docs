@@ -1,3 +1,7 @@
+---
+description: Synonym for ST_STARTPOINT. Returns the first point of a LineString geometry.
+---
+
 # STARTPOINT
 
 A synonym for [ST\_STARTPOINT](st_startpoint.md).

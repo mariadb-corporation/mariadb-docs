@@ -1,3 +1,9 @@
+---
+description: >-
+  The undo log stores the "before" image of data modified by active
+  transactions, supporting rollbacks and consistent read views.
+---
+
 # InnoDB Undo Log
 
 ## Overview
@@ -8,9 +14,9 @@ When a [transaction](../../../reference/sql-statements/transactions/) writes dat
 
 Before a row is modified, a diff is copied into the undo log. Each normal row contains a pointer to the most recent version of the same row in the undo log. Each row in the undo log contains a pointer to previous version, if any. So, each modified row has a history chain.
 
-Rows are never physically deleted until a transaction ends. If they were deleted, the restore in ROLLBACK would be impossible. Thus, rows are simply marked for deletion.
+Rows are never physically deleted until a transaction ends. If they were deleted, the restore in `ROLLBACK` would be impossible. Thus, rows are simply marked for deletion.
 
-Each transaction uses a _view_ of the records. The [transaction isolation level](../../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) determines how this view is created. For example, READ UNCOMMITTED usually uses the current version of rows, even if they are not committed (_dirty reads_). Other isolation levels require that the most recent committed version of rows is searched in the undo log. READ COMMITTED uses a different view for each table, while REPEATABLE READ and SERIALIZABLE use the same view for all tables.
+Each transaction uses a _view_ of the records. The [transaction isolation level](../../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) determines how this view is created. For example, `READ UNCOMMITTED` usually uses the current version of rows, even if they are not committed (_dirty reads_). Other isolation levels require that the most recent committed version of rows is searched in the undo log. `READ` `COMMITTED` uses a different view for each table, while `REPEATABLE READ` and `SERIALIZABLE` use the same view for all tables.
 
 There is also a global history list of the data. When a transaction is committed, its history is added to this history list. The order of the list is the chronological order of the commits.
 
@@ -48,16 +54,15 @@ System variables affecting undo logs include:
 * [innodb\_max\_undo\_log\_size](innodb-system-variables.md#innodb_max_undo_log_size)
 * [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory)
 * [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate)
-* [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs)
 * [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces)
 * [innodb\_purge\_batch\_size](innodb-system-variables.md#innodb_purge_batch_size)
 * [innodb\_purge\_rseg\_truncate\_frequency](innodb-system-variables.md#innodb_purge_rseg_truncate_frequency)
 
 The undo log is not a log file that can be viewed on disk in the usual sense, such as the [error log](../../../server-management/server-monitoring-logs/error-log.md) or [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/), but rather an area of storage.
 
-Before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110), the undo log is usually part of the physical system tablespace, but from [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), the [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory) and [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces) system variables can be used to split into different tablespaces and store in a different location (perhaps on a different storage device). From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces) default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
+Before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), the undo log is usually part of the physical system tablespace, but the [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory) and [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces) system variables can be used to split into different tablespaces and store in a different location (perhaps on a different storage device). From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces) default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
 
-Each insert or update portion of the undo log is known as a rollback segment. The [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs) system variable allowed to reduce the number of rollback segments from the usual 128, to limit the number of concurrently active write transactions. [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs) was deprecated and ignored in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) and removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), as it always makes sense to use the maximum number of rollback segments.
+Each insert or update portion of the undo log is known as a rollback segment. InnoDB always uses the maximum number of rollback segments, 128.
 
 The related [innodb\_available\_undo\_logs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_available_undo_logs) status variable stores the total number of available InnoDB undo logs.
 

@@ -1,3 +1,7 @@
+---
+description: Synonym for TINYINT. This type uses 1 byte of storage.
+---
+
 # INT1
 
 `INT1` is a synonym for [TINYINT](tinyint.md).

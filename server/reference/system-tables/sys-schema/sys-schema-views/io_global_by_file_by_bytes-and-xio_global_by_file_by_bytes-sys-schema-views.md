@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize global file I/O statistics grouped by file path, sorted
+  by total bytes read and written.
+---
+
 # io\_global\_by\_file\_by\_bytes and x$io\_global\_by\_file\_by\_bytes Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

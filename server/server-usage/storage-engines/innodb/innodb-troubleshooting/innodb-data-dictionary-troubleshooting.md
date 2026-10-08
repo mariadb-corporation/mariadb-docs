@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to resolve inconsistencies between the InnoDB internal data
+  dictionary and the file system, such as orphan .frm or .ibd files.
+---
+
 # InnoDB Data Dictionary Troubleshooting
 
 ## Can't Open File

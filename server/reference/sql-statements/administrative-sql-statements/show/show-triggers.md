@@ -1,23 +1,21 @@
+---
+description: >-
+  List triggers defined on tables. View metadata such as the trigger event,
+  timing, and the table it is associated with.
+---
+
 # SHOW TRIGGERS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW TRIGGERS [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
 `SHOW TRIGGERS` lists the triggers currently defined for tables in a database (the default database unless a `FROM` clause is given). This statement requires the [TRIGGER](show-privileges.md) privilege.
-{% endtab %}
-
-{% tab title="< 5.1.22" %}
-`SHOW TRIGGERS` lists the triggers currently defined for tables in a database (the default database unless a `FROM` clause is given). This statement requires the `SUPER` privilege.
-{% endtab %}
-{% endtabs %}
 
 The `LIKE` clause, if present on its own, indicates which table names to match and causes the statement to display triggers for those tables. The `WHERE` and `LIKE` clauses can be given to select rows using more general conditions, as discussed in [Extended SHOW](extended-show.md).
 
@@ -91,23 +89,11 @@ collation_connection: utf8_general_ci
   Database Collation: latin1_swedish_ci
 ```
 
-{% tabs %}
-{% tab title="Current" %}
-`character_set_client` is the session value of the [character\_set\_client](../../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#character_set_client) system variable when the trigger was created.
+`character_set_client` is the session value of the [character\_set\_client](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_client) system variable when the trigger was created.
 
-`collation_connection` is the session value of the [collation\_connection](../../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) system variable when the trigger was created.
+`collation_connection` is the session value of the [collation\_connection](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) system variable when the trigger was created.
 
 `Database Collation` is the collation of the database with which the trigger is associated.
-{% endtab %}
-
-{% tab title="< 5.1.21" %}
-`character_set_client`, `collation_connection`, and`Database Collation` are not available.
-{% endtab %}
-{% endtabs %}
-
-{% hint style="info" %}
-Old triggers created before MySQL 5.7 and MariaDB 10.2.3 have NULL in the `Created` column.
-{% endhint %}
 
 ## See also
 

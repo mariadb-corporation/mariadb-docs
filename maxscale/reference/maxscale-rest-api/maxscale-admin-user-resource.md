@@ -1,9 +1,14 @@
+---
+description: >-
+  Manage administrative access to MaxScale. Learn to create, update, and delete
+  admin users and manage their credentials for the REST API and MaxCtrl.
+---
+
 # MaxScale Admin User Resource
 
 ## Overview
 
-Admin users represent administrative users that are able to query and change
-MaxScale's configuration.
+Admin users represent administrative users that are able to query and change MaxScale's configuration.
 
 ## Resource Operations
 
@@ -14,8 +19,7 @@ GET /v1/users/:name
 GET /v1/users/inet/:name
 ```
 
-Get a single network user. The _:name_ in the URI must be a valid network
-user name.
+Get a single network user. The _:name_ in the URI must be a valid network user name.
 
 #### Response
 
@@ -141,27 +145,16 @@ POST /v1/users
 POST /v1/users/inet
 ```
 
-Create a new network user. The request body must define at least the
-following fields.
+Create a new network user. The request body must define at least the following fields.
 
 * `data.id`
-
   * The username.
-
 * `data.attributes.password`
-
   * The password for this user.
-
 * `data.attributes.role` or `data.attributes.account`
+  * The role that this user account uses. The set of available roles can be retrieved with `GET /v1/roles`. The old fixed set of roles that older versions of MaxScale used are also read from the `account` field, if used. If both the `role` and the `account` field are present, the value of the `role` field is used.
 
-  * The role that this user account uses. The set of available roles can be
-    retrieved with `GET /v1/roles`. The old fixed set of roles that older
-    versions of MaxScale used are also read from the `account` field, if
-    used. If both the `role` and the `account` field are present, the value of
-    the `role` field is used.
-
-Here is an example request body defining the network user _my-user_ with the
-password _my-password_ that is allowed to execute only read-only operations.
+Here is an example request body defining the network user _my-user_ with the password _my-password_ that is allowed to execute only read-only operations.
 
 ```javascript
 {
@@ -206,13 +199,9 @@ PATCH /v1/users/inet/:name
 Update network user. The following fields can be modified:
 
 * `data.attributes.password`
-
   * Changes the password for this user.
-
 * `data.attributes.role` or `data.attributes.account`
-
-  * Changes the role for this user. If both fields are defined, the value of
-    `role` is used.
+  * Changes the role for this user. If both fields are defined, the value of `role` is used.
 
 Modifying a user requires administrative privileges.
 

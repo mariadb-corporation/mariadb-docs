@@ -1,122 +1,18 @@
 # MariaDB 5.5.61 Changelog
 
-The most recent release in the [MariaDB 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.61)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5561-release-notes.md)[Changelog](mariadb-5561-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.61)[Release Notes](../../old-releases/5.5/5.5.61.md)[Changelog](mariadb-5561-changelog.md)\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 31 Jul 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5561-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.61.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details
 of the revision and view diffs of the code modified in that revision.
 
-*
-  * \[
-  * R
-  * e
-  * v
-  * i
-  * s
-  * i
-  * o
-  * n
-  *
-  * ####
-  * a
-  * 4
-  * 9
-  * e
-  * c
-  * 9
-  * 8
-  * 0
-  * 4
-  * 2
-  * ]
-  * (
-  * h
-  * t
-  * t
-  * p
-  * s
-  * :
-  * /
-  * /
-  * g
-  * i
-  * t
-  * h
-  * u
-  * b
-  * .
-  * c
-  * o
-  * m
-  * /
-  * M
-  * a
-  * r
-  * i
-  * a
-  * D
-  * B
-  * /
-  * s
-  * e
-  * r
-  * v
-  * e
-  * r
-  * /
-  * c
-  * o
-  * m
-  * m
-  * i
-  * t
-  * /
-  * a
-  * 4
-  * 9
-  * e
-  * c
-  * 9
-  * 8
-  * 0
-  * 4
-  * 2
-  * )
-  *
-  * 2
-  * 0
-  * 1
-  * 8
-  *
-    *
-  * 0
-  * 2
-  *
-    *
-  * 1
-  * 4
-  *
-  * 0
-  * 9
-  * :
-  * 3
-  * 5
-  * :
-  * 1
-  * 8
-  *
-  *
-    *
-  * 0
-  * 5
-  * 3
-  * 0
-  *
+* [Revision #a49ec98042](https://github.com/MariaDB/server/commit/a49ec98042)\
+  2018-02-14 09:35:18 +0530
 * Merge [Revision #fceda2dab6](https://github.com/MariaDB/server/commit/fceda2dab6) 2018-07-29 13:10:29 +0200 - Merge remote-tracking branch 'mysql/5.5' into 5.5
 * [Revision #bd0b368119](https://github.com/MariaDB/server/commit/bd0b368119)\
   2018-07-27 11:34:34 +0530
@@ -271,6 +167,6 @@ of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

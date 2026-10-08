@@ -1,3 +1,10 @@
+---
+description: >-
+  Maps SQL Server backup concepts like differential and transaction log backups
+  to MariaDB equivalents such as mariadb-backup (hot backups) and binary logs
+  for incremental recovery.
+---
+
 # MariaDB Backups Overview for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}
@@ -13,7 +20,7 @@ MariaDB has the following types of backups:
 
 A _dump_, also called a _logical backup_, consists of the SQL statements needed to recreate MariaDB databases and their data into another server. A dump is the slowest form of backup to restore, because it implies executing all the SQL statements needed to recreate data. However it is also the most flexible, because restoring will work on any MariaDB version, because the SQL syntax is usually compatible. It is even possible to restore a dump into an older version, though the incompatible syntax (new features) will be ignored. Under certain conditions, MariaDB dumps may also be restored on other DBMSs, including SQL Server.
 
-The compatibility between different versions and technologies is achieved by using [executable comments](../../../../reference/sql-statements/comment-syntax.md), but we should be aware of how they work. If we use a feature introduced in version 11.1, for example, it will be included in the dump inside an executable comment. If we restore that backup on a server with [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), the 11.1 feature will be ignored. This is the only way to restore backups in older MariaDB versions.
+The compatibility between different versions and technologies is achieved by using [executable comments](../../../../reference/sql-statements/comment-syntax.md), but we should be aware of how they work. If we use a feature introduced in version 11.1, for example, it will be included in the dump inside an executable comment. If we restore that backup on a server with [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the 11.1 feature will be ignored. This is the only way to restore backups in older MariaDB versions.
 
 ### `mariadb-dump`
 
@@ -90,11 +97,11 @@ It is entirely possible to restore a single table from a physical backup, or to 
 
 With the [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) storage engine it was very easy to move tables between different servers, as long as the MySQL or MariaDB version was the same.
 
-[InnoDB](../../../../server-usage/storage-engines/innodb/) is nowadays the default storage engine, and it is more complex, as it supports transactions for example. It still supports restoring a table from a physical file, this feature is called _transportable tablespaces_. There is a particular procedure to follow, and some limitations. This is basically the MariaDB equivalent of detaching and re-attaching tables in SQL Server.
+[InnoDB](../../../../server-usage/storage-engines/innodb/) is the default storage engine, and it is more complex, as it supports transactions for example. It still supports restoring a table from a physical file, this feature is called _transportable tablespaces_. There is a particular procedure to follow, and some limitations. This is basically the MariaDB equivalent of detaching and re-attaching tables in SQL Server.
 
 For more information, see [InnoDB File-Per-Table Tablespaces](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md).
 
-By default. all table files are located in the _data directory_, which is defined by the system variable [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). There may be exceptions, because a table's files can be located elsewhere using the [DATA DIRECTORY and INDEX DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directoryindex-directory) options in `CREATE TABLE`.
+By default. all table files are located in the _data directory_, which is defined by the system variable [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). There may be exceptions, because a table's files can be located elsewhere using the [DATA DIRECTORY and INDEX DIRECTORY](../../../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) options in `CREATE TABLE`.
 
 Regardless of the storage engine used, each table's structure is generally stored in a file with the `.frm` extension.
 

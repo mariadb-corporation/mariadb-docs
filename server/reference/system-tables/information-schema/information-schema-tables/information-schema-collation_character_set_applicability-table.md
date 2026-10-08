@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema COLLATION_CHARACTER_SET_APPLICABILITY table maps which
+  character sets are associated with which collations.
+---
+
 # Information Schema COLLATION\_CHARACTER\_SET\_APPLICABILITY Table
 
 The [Information Schema](../) `COLLATION_CHARACTER_SET_APPLICABILITY` table shows which [character sets](../../../data-types/string-data-types/character-sets/) are associated with which collations.

@@ -1,3 +1,7 @@
+---
+description: NCHAR VARCHARACTER is a synonym for VARCHAR using the utf8 character set.
+---
+
 # NCHAR VARCHARACTER
 
 ## Overview
@@ -24,6 +28,6 @@ Create Table: CREATE TABLE `nchar_varcharacter_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

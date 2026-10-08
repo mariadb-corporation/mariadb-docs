@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate the average value. This function computes the arithmetic mean of a
+  numeric expression, ignoring NULL values.
+---
+
 # AVG
 
 ## Syntax
 
-```sql
+```bnf
 AVG([DISTINCT] expr)
 ```
 
@@ -36,7 +42,7 @@ SELECT AVG(DISTINCT(sales_value)) FROM sales;
 +----------------------------+
 ```
 
-Commonly, AVG() is used with a [GROUP BY](../../sql-statements/data-manipulation/selecting-data/select.md#group-by) clause:
+Commonly, AVG() is used with a [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause:
 
 ```sql
 CREATE TABLE student (name CHAR(10), test CHAR(10), score TINYINT); 

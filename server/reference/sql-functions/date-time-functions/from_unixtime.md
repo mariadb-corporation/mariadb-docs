@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert a Unix timestamp to a datetime. This function formats a Unix timestamp
+  as a date string or number in the current time zone.
+---
+
 # FROM\_UNIXTIME
 
 ## Syntax
 
-```sql
+```bnf
 FROM_UNIXTIME(unix_timestamp)
 FROM_UNIXTIME(unix_timestamp,format)
 ```
@@ -19,16 +25,28 @@ DATE_FORMAT(FROM_UNIXTIME(unix_timestamp), format)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 Timestamps in MariaDB have a maximum value of 4294967295, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in NULL being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+From MariaDB 11.5 to before MariaDB 11.7:
+{% endhint %}
+
 The one-argument form of `FROM_UNIXTIME()` returns a`DATETIME`. This means that it can return values outside of valid `TIMESTAMP` range, in particular `1970-01-01 00:00:00`. And it can return the same result for different values of unix\_timestamp (around DST changes).
 
 Timestamps in MariaDB have a maximum value of 4294967295, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in NULL being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The one-argument form of `FROM_UNIXTIME()` returns a`DATETIME`. This means that it can return values outside of valid `TIMESTAMP` range, in particular `1970-01-01 00:00:00`. And it can return the same result for different values of unix\_timestamp (around DST changes).
 
 The maximum value is 2147483647, equivalent to `2038-01-19 05:14:07`.
@@ -71,7 +89,7 @@ The following options can be used by `FROM_UNIXTIME()`, as well as [DATE\_FORMAT
 | %Y     | Year with 4 digits.                                                                                                                                                               |
 | %y     | Year with 2 digits.                                                                                                                                                               |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                          |
-| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctation characters.                                                                                                            |
+| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                            |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                 |
 | %%     | A literal % character.                                                                                                                                                            |
 

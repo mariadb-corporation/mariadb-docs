@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step IBM Cloud deployment of MariaDB Galera Cluster on IBM Kubernetes
+  Service, with provisioning, IBM Block Storage plug-in setup, and Helm-based
+  MariaDB Galera installation.
+---
+
 # Installing MariaDB Galera on IBM Cloud
 
 Get MariaDB Galera on IBM Cloud
@@ -9,7 +16,7 @@ At the end of the tutorial, you will have a cluster with MariaDB up and running.
 2. We will deploy the IBM Cloud Block Storage plug-in; if you already have it, skip to step **3**
 3. MariaDB Galera deployment
 
-## Step 1 provision Kubernetes Cluster
+## Step 1: Provision Kubernetes Cluster
 
 * Click the Catalog button on the top
 * Select Service from the catalog
@@ -70,7 +77,7 @@ At the end of the tutorial, you will have a cluster with MariaDB up and running.
 
 ![cluster-done](../../.gitbook/assets/13.PNG)
 
-## Step 2 deploy IBM Cloud Block Storage plug-in
+## Step 2: Deploy IBM Cloud Block Storage Plug-in
 
 The Block Storage plug-in is a persistent, high-performance iSCSI storage that you can add to your apps by using Kubernetes Persistent Volumes (PVs).
 
@@ -90,7 +97,7 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 
 ![block-storage-create](../../.gitbook/assets/16.PNG)
 
-## Step 3 deploy MariaDB Galera
+## Step 3: Deploy MariaDB Galera
 
 We will deploy MariaDB on our cluster
 
@@ -112,7 +119,7 @@ We will deploy MariaDB on our cluster
 
 ![details-name](../../.gitbook/assets/20.PNG)
 
-* Select which resource group you want to use, it's for access controll and billing purposes. For more information please visit [resource groups](https://cloud.ibm.com/docs/account?topic=account-account_setup#bp_resourcegroups)
+* Select which resource group you want to use, it's for access control and billing purposes. For more information please visit [resource groups](https://cloud.ibm.com/docs/account?topic=account-account_setup#bp_resourcegroups)
 
 ![details-resource](../../.gitbook/assets/21.PNG)
 
@@ -140,7 +147,7 @@ We will deploy MariaDB on our cluster
 
 ![done](../../.gitbook/assets/27.PNG)
 
-## Verify MariaDB Galera installation
+## Verify MariaDB Galera Installation
 
 * Go to [Resources](https://cloud.ibm.com/resources) in your browser
 * Click on Clusters

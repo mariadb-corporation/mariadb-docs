@@ -1,14 +1,26 @@
+---
+description: >-
+  Implement conditional logic in SQL queries. This operator evaluates conditions
+  and returns a specific value when the first true condition is met.
+---
+
 # CASE OPERATOR
 
 ## Syntax
 
-```sql
+```bnf
 CASE value WHEN [compare_value] THEN result [WHEN [compare_value] THEN
 result ...] [ELSE result] END
 
 CASE WHEN [condition] THEN result [WHEN [condition] THEN result ...]
 [ELSE result] END
 ```
+
+The BNF documents the two CASE-operator forms (simple and searched); each gets its own diagram.
+
+![Railroad diagram of the simple CASE form](../../../.gitbook/assets/case-operator-simple-railroad.svg)
+
+![Railroad diagram of the searched CASE form](../../../.gitbook/assets/case-operator-searched-railroad.svg)
 
 ## Description
 

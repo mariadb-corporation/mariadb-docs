@@ -1,3 +1,9 @@
+---
+description: >-
+  This event marks the beginning of encrypted data in the binary log, defining
+  the encryption scheme and key version for subsequent events.
+---
+
 # START\_ENCRYPTION\_EVENT
 
 The `START_ENCRYPTION` event is written to every [binary log](../../../server-management/server-monitoring-logs/binary-log/) file if [encrypt\_binlog](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is set to `ON`.

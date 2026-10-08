@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete MariaDB backup and recovery guide. Complete resource for backup
+  methods, mariabackup usage, scheduling, and restoration for production use.
+---
+
 # Backup and Restore Overview
 
 This article briefly discusses the main ways to backup MariaDB. For detailed descriptions and syntax, see the individual pages. More detail is in the process of being added.
@@ -20,7 +26,56 @@ The main differences are as follows:
 
 ### `mariadb-backup`
 
-The [mariadb-backup](mariadb-backup/) program is a fork of [Percona XtraBackup](../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) with added support for [compression](../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/) and [data-at-rest encryption](../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+The mariadb-backup program is a physical online backup tool and a fork of Percona XtraBackup with added support for compression and data-at-rest encryption.
+
+#### **Storage Engines and Backup Types**
+
+MariaDB Backup creates a file-level backup of data from the MariaDB Server data directory. This backup includes temporal data, and the encrypted and unencrypted tablespaces of supported storage engines (e.g., InnoDB, MyRocks, Aria).
+
+MariaDB Server implements:
+
+* Full backups, which contain all data in the database.
+* Incremental backups, which contain modifications since the last backup.
+* Partial backups, which contain a subset of the tables in the database.
+
+Backup support is specific to storage engines. All supported storage engines enable full backup. The InnoDB storage engine additionally supports incremental backup.
+
+#### **Non-Blocking Backups**
+
+A feature of MariaDB Backup and MariaDB Server, non-blocking backups minimize workload impact during backups. When MariaDB Backup connects to MariaDB Server, staging operations are initiated to protect data during read.
+
+Non-blocking backup functionality differs from historical backup functionality in the following ways:
+
+* MariaDB Backup includes optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
+* MariaDB Backup will block writes, log tables, and statistics.
+
+#### **Understanding Recovery**
+
+Full backups produced using MariaDB Server are not initially point-in-time consistent, and an attempt to restore from a raw full backup will cause InnoDB to crash to protect the data. Incremental backups contain only the changes since the last backup and cannot be used standalone to perform a restore.
+
+To restore from a backup, you first need to prepare the backup for point-in-time consistency using the `--prepare` command:
+
+* Running `--prepare` on a _full backup_ synchronizes the tablespaces, ensuring they are point-in-time consistent.
+* Running `--prepare` on an _incremental backup_ synchronizes the tablespaces and applies the updated data into the previous full backup.
+* Running `--prepare` on data used for a _partial restore_ requires the `--export` option to create the necessary `.cfg` files.
+
+#### **Restore Requires Empty Data Directory**
+
+For MariaDB Backup to safely restore data from full and incremental backups, the data directory must be empty. When MariaDB Backup restores from a backup using `--copy-back` or `--move-back`, it copies or moves the backup files into the MariaDB Server data directory.
+
+#### **Creating the Backup User**
+
+When MariaDB Backup performs a backup operation, it connects to the running MariaDB Server to manage locks and backup staging that prevent the Server from writing to a file while being read. It is recommended that a dedicated user be created and authorized to perform backups:
+
+```sql
+CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mbu_passwd';
+GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR
+      ON * TO 'mariabackup'@'localhost';
+```
+
+{% hint style="info" %}
+While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Server is not running.
+{% endhint %}
 
 ### `mariadb-dump`
 
@@ -69,9 +124,9 @@ mariadb-hotcopy db_name_1 ... db_name_n /path/to/new_directory
 
 ### Percona XtraBackup
 
-Percona XtraBackup is **not supported** in MariaDB. [mariadb-backup](mariadb-backup/) is the recommended backup method to use instead of Percona XtraBackup. See [Percona XtraBackup Overview: Compatibility with MariaDB](../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md#compatibility-with-mariadb) for more information.
+Percona XtraBackup is **not supported** in MariaDB. [mariadb-backup](mariadb-backup/) is the recommended backup method to use instead of Percona XtraBackup. See [Percona XtraBackup Overview: Compatibility with MariaDB](mariadb-backup/README.md) for more information.
 
-[Percona XtraBackup](../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) is a tool for performing fast, hot backups. It was designed specifically for [XtraDB/InnoDB](../storage-engines/innodb/) databases, but can be used with any storage engine (although not with [encryption](../../security/securing-mariadb/encryption/data-at-rest-encryption/) and [compression](../storage-engines/innodb/innodb-page-compression.md)). It is not included with MariaDB.
+[Percona XtraBackup](mariadb-backup/README.md) is a tool for performing fast, hot backups. It was designed specifically for [XtraDB/InnoDB](../storage-engines/innodb/) databases, but can be used with any storage engine (although not with [encryption](../../security/encryption/data-at-rest-encryption/) and [compression](../storage-engines/innodb/innodb-page-compression.md)). It is not included with MariaDB.
 
 ### Filesystem Snapshots
 
@@ -85,15 +140,13 @@ Some filesystems, like Veritas, support snapshots. During the snapshot, the tabl
 
 ### LVM
 
-Widely-used physical backup method, using a Perl script as a wrapper. See [http://www.lenzg.net/mylvmbackup/](http://www.lenzg.net/mylvmbackup/) for more information.
+Widely-used physical backup method, using a Perl script as a wrapper.
 
-### Percona TokuBackup
-
-For details, see:
-
-* [TokuDB Hot Backup – Part 1](https://www.percona.com/blog/2013/09/12/tokudb-hot-backup-part-1/)
-* [TokuDB Hot Backup – Part 2](https://www.percona.com/blog/2013/09/19/tokudb-hot-backup-part-2/)
-* [TokuDB Hot Backup Now a MySQL Plugin](https://www.percona.com/blog/2015/02/05/tokudb-hot-backup-now-mysql-plugin/)
+{% hint style="warning" %}
+**LVM snapshots are not a standalone DBMS backup solution.**\
+LVM operates at the block level, meaning it is "database-blind." It captures a crash-consistent state, identical to a sudden power failure, ignoring data cached in RAM. Without flushing buffers and locking tables, snapshots risk torn pages and permanent corruption.\
+Furthermore, the Copy-on-Write (CoW) mechanism significantly degrades production performance. Snapshots also exist on the same physical disks; they are not true backups and offer no protection against hardware failure. Always use application-aware tools (like [mariadb-backup](mariadb-backup/)) to ensure data integrity.
+{% endhint %}
 
 ### dbForge Studio for MySQL
 
@@ -105,7 +158,7 @@ These operations are wizard-aided allowing users to set up all tasks in a visual
 
 ## See Also
 
-* [Streaming MariaDB backups in the cloud](https://mariadb.com/blog/streaming-mariadb-backups-cloud) (mariadb.com blog)
+* [Streaming MariaDB backups in the cloud](https://mariadb.com/blog/streaming-mariadb-backups-cloud) • blog post • 2015 • 5 minutes read
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

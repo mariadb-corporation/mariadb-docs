@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Enterprise MCP Server acts as a hardened interface between AI
+  agents and MariaDB, centralizing access control, simplifying AI
+  development, and enabling RAG workflows.
+---
+
 # Overview
 
 {% hint style="success" %}
@@ -32,3 +39,7 @@ Key objectives include:
 * **Streamline Complex AI Workflows**: Provide a unified endpoint for orchestrating multi-step RAG (Retrieval-Augmented Generation) pipelines, from data ingestion to final response generation.
 * **Improve Manageability**: Offer a robust, configurable, and observable server that can be reliably deployed and managed by platform engineering and DBA teams.
 * **Accelerate AI Application Development**: Provide a standardized protocol that simplifies how developers connect AI agents to MariaDB data.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

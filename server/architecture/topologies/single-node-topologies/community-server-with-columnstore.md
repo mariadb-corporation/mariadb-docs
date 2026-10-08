@@ -221,7 +221,7 @@ MariaDB ColumnStore ships as a storage engine plugin for MariaDB Community Serve
        --mariadb-server-version="mariadb-10.6"
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install the EPEL repository:
 
     ```bash
@@ -279,7 +279,7 @@ MariaDB ColumnStore ships as a storage engine plugin for MariaDB Community Serve
     $ sudo apt update
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install some additional dependencies for ColumnStore.
 
     On Debian 10 and Ubuntu 20.04, install the following:
@@ -354,9 +354,13 @@ And on Debian and Ubuntu, custom configuration files from the following director
 
     Mandatory system variables and options for single-node MariaDB ColumnStore include:
 
-<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td>columnstore_use_import_for_batchinsert</td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md">LOAD DATA INFILE</a> and <a href="../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-select.md">INSERT...SELECT</a> statements.</td></tr></tbody></table>
+<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#list-of-server-system-variables">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select#batch-insert-mode">loose-columnstore_use_import_for_batchinsert</a></td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md">LOAD DATA INFILE</a> and <a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select.md">INSERT...SELECT</a> statements.</td></tr></tbody></table>
 
-2. Choose a configuration file in which to configure your system variables and options.
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
+
+1. Choose a configuration file in which to configure your system variables and options.
 
 We recommend **not** making custom changes to one of the bundled configuration files. Instead, create a custom configuration file in one of the included directories. Configuration files in included directories are read in alphabetical order. If you want your custom configuration file to override the bundled configuration files, it is a good idea to prefix the custom configuration file's name with a string that will be sorted last, such as `z-`.
 
@@ -455,14 +459,14 @@ For single-node ColumnStore deployments, only a single user account needs to be 
 
 ### Create the Cross Engine Join User
 
-The credentials for cross engine joins were previously configured in the [Cross Engine Joins](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/managing-columnstore-database-environment/configuring-columnstore-cross-engine-joins) section. The user account must also be created and granted the necessary privileges to access data.
+The credentials for cross engine joins were previously configured in the [Cross Engine Joins](community-server-with-columnstore.md#configure-cross-engine-joins) section. The user account must also be created and granted the necessary privileges to access data.
 
 1.  Connect to the server using [MariaDB Client](../../../clients-and-utilities/server-client-software/client-libraries/connect-and-query.md#mariadb-client) using the `root@localhost` user account:
 
     ```bash
     $ sudo mariadb
     ```
-2.  Create the user account with the [CREATE USER](broken-reference/) statement:
+2.  Create the user account with the [CREATE USER](../../../reference/sql-statements/account-management-sql-statements/create-user.md) statement:
 
     ```sql
     CREATE USER 'cross_engine'@'127.0.0.1'
@@ -665,6 +669,6 @@ When you have MariaDB ColumnStore up and running, you should test it to ensure t
     MariaDB [(none)]>
     ```
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

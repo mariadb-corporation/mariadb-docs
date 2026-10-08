@@ -5,7 +5,7 @@ description: >-
   deployments on Linux systems.
 ---
 
-# SELinux
+# MariaDB on SELinux
 
 [Security-Enhanced Linux (SELinux)](https://selinuxproject.org/page/Main_Page) is a Linux kernel module that provides a framework for configuring [mandatory access control (MAC)](https://en.wikipedia.org/wiki/Mandatory_access_control) system for many resources on the system. It is enabled by default on some Linux distributions, including RHEL, CentOS, Fedora, and other similar Linux distribution. SELinux prevents programs from accessing files, directories or ports unless it is configured to access those resources.
 
@@ -25,17 +25,17 @@ When you are troubleshooting issues that you think SELinux might be causing, it 
 sudo semanage permissive -a mysqld_t
 ```
 
-If that solved the problem, then it means that the current SELinux policy is the culprit. You need to adjust the SELinux policy or labels for MariaDB.
+If that solved the problem, it means that the current SELinux policy is the culprit. You need to adjust the SELinux policy or labels for MariaDB.
 
 ## Configuring a MariaDB Server SELinux Policy
 
 MariaDB Server should work with your default distribution policy (which is usually part of the `selinux-policy` or `selinux-policy-targeted` system package). If you use `mysqld_safe`, you will need an additional policy file, `mariadb.pp`, which is installed together with the MariaDB Server. It will be loaded automatically if you have `/usr/sbin/semodule` installed, but you can load it manually anytime with
 
 ```bash
-/usr/sbin/semodule -i /usr/share/mysql/policy/selinux/mariadb.pp
+/usr/sbin/semodule -i /usr/share/mariadb/policy/selinux/mariadb.pp
 ```
 
-Note that this policy file extends, but not replaces the system policy.
+Note that this policy file extends, rather than replaces the system policy.
 
 ## Setting File Contexts
 
@@ -126,7 +126,7 @@ A newly created socket with get the right context.
 
 ### Allowing Access to the Tmpfs File Context
 
-If you wanted to mount your [tmpdir](../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir) on a `tmpfs` file system or wanted to use a `tmpfs` file system on `/run/shm`, then you might need to allow `mysqld_t` to have access to a couple tmpfs-related file contexts. For example:
+If you wanted to mount your [tmpdir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir) on a `tmpfs` file system or wanted to use a `tmpfs` file system on `/run/shm`, then you might need to allow `mysqld_t` to have access to a couple tmpfs-related file contexts. For example:
 
 ```bash
 cd /usr/share/mysql/policy/selinux/
@@ -217,7 +217,7 @@ sudo semodule -DB
 sudo semanage permissive -a mysqld_t
 ```
 
-* [Start MariaDB](https://mariadb.com/kb/en/).
+* [Start MariaDB](../../server-management/starting-and-stopping-mariadb/).
 * Do whatever was causing SELinux errors.
 * Use the generated audit log to create a policy:
 

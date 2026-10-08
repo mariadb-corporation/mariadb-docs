@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate base-2 logarithm. This function returns the logarithm of a number to
+  the base 2.
+---
+
 # LOG2
 
 ## Syntax
 
-```sql
+```bnf
 LOG2(X)
 ```
 

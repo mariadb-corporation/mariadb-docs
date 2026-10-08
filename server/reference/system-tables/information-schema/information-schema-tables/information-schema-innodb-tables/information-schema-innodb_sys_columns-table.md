@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_COLUMNS table contains metadata about InnoDB table columns,
+  derived directly from the internal InnoDB data dictionary.
+---
+
 # Information Schema INNODB\_SYS\_COLUMNS Table
 
 The [Information Schema](../../) `INNODB_SYS_COLUMNS` table contains information about InnoDB fields.

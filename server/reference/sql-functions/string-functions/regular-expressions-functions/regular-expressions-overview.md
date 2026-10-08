@@ -1,3 +1,9 @@
+---
+description: >-
+  Get an overview of regex usage. This page introduces the pattern matching
+  capabilities and common metacharacters used in MariaDB regular expressions.
+---
+
 # Regular Expressions Overview
 
 Regular Expressions allow MariaDB to perform complex pattern matching on a string. In many cases, the simple pattern matching provided by [LIKE](../like.md) is sufficient. `LIKE` performs two kinds of matches:
@@ -550,16 +556,16 @@ SELECT 'Maria' REGEXP 'Ma[ir]{2}';
 
 ### Escaping
 
-With the large number of special characters, care needs to be taken to properly escape characters. Two backslash characters, \`\` (one for the MariaDB parser, one for the regex library), are required to properly escape a character. For example:
+With the large number of special characters, care needs to be taken to properly escape characters. Two backslash characters, `\\` (one for the MariaDB parser, one for the regex library), are required to properly escape a character. For example:
 
 To match the literal `(Ma`:
 
 ```sql
 SELECT '(Maria)' REGEXP '(Ma';
-ERROR 1139 (42000): Got error 'parentheses not balanced' from regexp
+ERROR 1139 (42000): Regex error 'missing closing parenthesis at offset 3'
 
 SELECT '(Maria)' REGEXP '\(Ma';
-ERROR 1139 (42000): Got error 'parentheses not balanced' from regexp
+ERROR 1139 (42000): Regex error 'missing closing parenthesis at offset 3'
 
 SELECT '(Maria)' REGEXP '\\(Ma';
 +--------------------------+
@@ -593,12 +599,12 @@ SELECT 'Maria' REGEXP 'r\\+';
 |                     0 |
 +-----------------------+
 
-SELECT 'Maria' REGEXP 'r+';
-+---------------------+
-| 'Maria' REGEXP 'r+' |
-+---------------------+
-|                   1 |
-+---------------------+
+SELECT 'Mar+ia' REGEXP 'r\\+';
++------------------------+
+| 'Mar+ia' REGEXP 'r\\+' |
++------------------------+
+|                      1 |
++------------------------+
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

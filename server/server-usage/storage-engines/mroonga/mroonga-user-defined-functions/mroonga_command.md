@@ -1,3 +1,9 @@
+---
+description: >-
+  Execute raw Groonga commands directly from MariaDB using this UDF, allowing
+  for advanced administration and inspection of the Groonga database.
+---
+
 # mroonga\_command
 
 ## Syntax
@@ -8,11 +14,13 @@ mroonga_command (command)
 
 ## Description
 
-`mroonga_command` is a [user-defined function](../../../../server-usage/user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It passes a command to Groonga for execution. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
+`mroonga_command` is a [user-defined function](../../../user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It passes a command to Groonga for execution. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
 
 * `command` - string, required parameter specifying the command to pass that are executed by Groonga. See [the Groonga reference](https://groonga.org/docs/reference/command.html) for a list of commands.
 
 Returns the result of the Groonga command.
+
+**Note** As a administrative function that sends commands directly into Groonga, it completely bypassed MariaDB privilege control. Do not create this UDF on a multi-user system that relies on privilege separation of accounts.
 
 ## Example
 

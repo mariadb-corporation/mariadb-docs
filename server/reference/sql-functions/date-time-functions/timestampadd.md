@@ -1,8 +1,14 @@
+---
+description: >-
+  Add an interval to a timestamp. This function adds a specified integer number
+  of units (like MONTH or SECOND) to a datetime expression.
+---
+
 # TIMESTAMPADD
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMPADD(unit,interval,datetime_expr)
 ```
 

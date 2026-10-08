@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure the Performance Schema using these system variables to control
+  buffer sizes, set instrumentation limits, and enable specific consumers at
+  startup.
+---
+
 # Performance Schema System Variables
 
 The following variables are used with MariaDB's [Performance Schema](./). See [Performance Schema Options](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) for Performance Schema options that are not system variables. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them.
@@ -132,7 +139,7 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `90` (>= MariaDB 10.5.1), `80` (<= MariaDB 10.5.0)
+* Default Value: `90`
 * Range: `0` to `256`
 
 #### `performance_schema_max_cond_instances`
@@ -162,7 +169,7 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value:`80` (>= MariaDB 10.5.2), `50` (<= MariaDB 10.5.1)
+* Default Value:`80`
 * Range: `0` to `256`
 
 #### `performance_schema_max_file_handles`
@@ -225,7 +232,7 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `210` (>= MariaDB 10.5.2), `200` (<= MariaDB 10.5.1)
+* Default Value: `210`
 * Range: `0` to `256`
 
 #### `performance_schema_max_mutex_instances`
@@ -267,7 +274,7 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `50` (>= MariaDB 10.5.2), `40` (<= MariaDB 10.5.1)
+* Default Value: `50`
 * Range: `0` to `256`
 
 #### `performance_schema_max_rwlock_instances`
@@ -405,23 +412,23 @@ See also the [Full list of MariaDB options, system and status variables](../../f
 
 #### `performance_schema_setup_actors_size`
 
-* Description: The maximum number of rows to store in the performance schema [setup\_actors](performance-schema-tables/performance-schema-setup_actors-table.md) table. `-1` (from MariaDB 10.5.2) denotes automated sizing.
+* Description: The maximum number of rows to store in the performance schema [setup\_actors](performance-schema-tables/performance-schema-setup_actors-table.md) table. `-1` denotes automated sizing.
 * Command line: `--performance-schema-setup-actors-size=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `-1` (>= MariaDB 10.5.2), `100` (<= MariaDB 10.5.1)
-* Range: `-1` to `1024` (>= MariaDB 10.5.2), `0` to `1024` (<= MariaDB 10.5.1)
+* Default Value: `-1`
+* Range: `-1` to `1024`
 
 #### `performance_schema_setup_objects_size`
 
-* Description: The maximum number of rows that can be stored in the performance schema [setup\_objects](performance-schema-tables/performance-schema-setup_objects-table.md) table. `-1` (from MariaDB 10.5.2) denotes automated sizing.
+* Description: The maximum number of rows that can be stored in the performance schema [setup\_objects](performance-schema-tables/performance-schema-setup_objects-table.md) table. `-1` denotes automated sizing.
 * Command line: `--performance-schema-setup-objects-size=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `-1` (>= MariaDB 10.5.2), `100` (<= MariaDB 10.5.1)
-* Range: `-1` to `1048576` (>= MariaDB 10.5.2), `0` to `1048576` (<= MariaDB 10.5.1)
+* Default Value: `-1`
+* Range: `-1` to `1048576`
 
 #### `performance_schema_users_size`
 

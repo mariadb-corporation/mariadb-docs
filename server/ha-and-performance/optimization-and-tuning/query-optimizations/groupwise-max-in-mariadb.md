@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for finding the largest, or top, row within each group.
+---
+
 # Groupwise Max in MariaDB
 
 ## The problem
@@ -10,8 +15,7 @@ The article presents two "good" solutions. They differ in ways that make neither
 
 Also, a few "bad" solutions will be presented, together with why they were rejected.
 
-MySQL manual\
-gives 3 solutions; only the "Uncorrelated" one is "good", the other two are "bad".
+MySQL manual gives 3 solutions; only the "Uncorrelated" one is "good", the other two are "bad".
 
 ## Sample data
 
@@ -59,7 +63,7 @@ Here's the desired output (13 rows):
 
 ## Duplicate max
 
-One thing to consider is whether you want -- or do not want -- to see multiple rows for tied winners. For the dataset being used here, that would imply that the two largest cities in a province had identical populations. For this case, a duplicate would be unlikely. But there are many groupwise-max use cases where duplictes are likely.
+One thing to consider is whether you want -- or do not want -- to see multiple rows for tied winners. For the dataset being used here, that would imply that the two largest cities in a province had identical populations. For this case, a duplicate would be unlikely. But there are many groupwise-max use cases where duplicates are likely.
 
 The two best algorithms differ in whether they show duplicates.
 
@@ -327,33 +331,28 @@ Both "Top-n" formulations probably take about the same amount of time.
 
 ## Windowing functions
 
-Hot off the press from Percona Live... [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) has "windowing functions", which make "groupwise max" much more straightforward.
+MariaDB supports "windowing functions", which make "groupwise max" much more straightforward.
 
-The code:
-
-TBD
+The code: TBD
 
 ## Postlog
 
-Developed an first posted, Feb, 2015; Add MyISAM approach: July, 2015; Openark's method added: Apr, 2016; Windowing: Apr 2016
+Developed a first posted, Feb, 2015; Add MyISAM approach: July, 2015; Openark's method added: Apr, 2016; Windowing: Apr 2016
 
 I did not include the technique(s) using GROUP\_CONCAT. They are useful in some situations with small datasets. They can be found in the references below.
 
 ## See also
 
-* This has some of these algorithms, plus some others: [Peter Brawley's blog](https://www.artfulsoftware.com/infotree/queries.php?\&bw=1179#101)
 * [Jan Kneschke's blog from 2007](https://jan.kneschke.de/projects/mysql/groupwise-max)
 * [StackOverflow discussion of 'Uncorrelated'](https://stackoverflow.com/questions/14770671/mysql-order-by-before-group-by)
-* Other references: [Inner ORDER BY thrown away](https://mariadb.com/kb/en/mariadb/group-by-trick-has-been-optimized-away/)
-* Adding a large LIMIT to a subquery may make things work. [Why ORDER BY in subquery is ignored](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/broken-reference/README.md)
+* Adding a large LIMIT to a subquery may make things work. [Why ORDER BY in subquery is ignored](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 * [StackOverflow thread](https://stackoverflow.com/questions/36485072/select-with-order-and-group-by-in-maria-dbmysql)
 * [row\_number(), rank(), dense\_rank()](https://kennethxu.blogspot.com/2016/04/analytical-function-in-mysql-rownumber.html)
-* \[http://rpbouman.blogspot.de/2008/07/calculating-nth-percentile-in-mysql.html][Perentile blog](https://rpbouman.blogspot.de/2008/07/calculating-nth-percentile-in-mysql.html]\[Perentile_blog)
+* [Calculating the Nth percentile in MySQL](https://rpbouman.blogspot.com/2008/07/calculating-nth-percentile-in-mysql.html)
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
-optimizations, and debugging tips.
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos, optimizations, and debugging tips.
 
 Original source: [groupwise\_max](https://mysql.rjweb.org/doc.php/groupwise_max)
 

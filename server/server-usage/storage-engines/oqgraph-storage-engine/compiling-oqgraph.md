@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the dependencies and build steps required to compile the OQGRAPH
+  storage engine from source.
+---
+
 # Compiling OQGRAPH
 
 To compile OQGraph v2 you need to have the boost library with the versions not earlier than 1.40 and not later than 1.55 and gcc version not earlier than 4.5.

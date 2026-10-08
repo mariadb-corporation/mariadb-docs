@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore JSON_KEY_VALUE in MariaDB. Available from version 11.2, this function
+  extracts key/value pairs from a JSON object, enabling easier data
+  transformation and usage with JSON_TABLE.
+---
+
 # JSON\_KEY\_VALUE
 
 {% hint style="info" %}
@@ -6,7 +13,7 @@ JSON\_KEY\_VALUE is available from MariaDB 11.2.
 
 ## Syntax
 
-```sql
+```bnf
 JSON_KEY_VALUE(obj, json_path)
 ```
 

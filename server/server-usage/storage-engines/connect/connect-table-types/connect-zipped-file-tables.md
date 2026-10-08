@@ -1,8 +1,8 @@
-# CONNECT Zipped File Tables
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT Zipped File Tables
 
 Connect can work on table files that are compressed in one or several zip files.
 
@@ -86,7 +86,7 @@ This first implementation has some restrictions:
 
 1. Zipped tables are read-only. [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are not supported. However, [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) is supported in a specific way when making tables.
 2. The inside files are decompressed into memory. Memory problems may arise with huge files.
-3. Only file types that can be handled from memory are eligible for this. This includes [DOS](connect-dos-and-fix-table-types.md), [FIX](connect-dos-and-fix-table-types.md), [BIN](connect-bin-table-type.md), [CSV](connect-csv-and-fmt-table-types.md), [FMT](connect-csv-and-fmt-table-types.md), [DBF](connect-dbf-table-type.md), [JSON](connect-json-table-type.md), and [XML](connect-xml-table-type.md) table types, as well as types based on these such as [XCOL](connect-xcol-table-type.md), [OCCUR](connect-occur-table-type.md) and [PIVOT](connect-pivot-table-type.md).
+3. Only file types that can be handled from memory are eligible for this. This includes [DOS](connect-dos-and-fix-table-types.md), [FIX](connect-dos-and-fix-table-types.md), [BIN](connect-bin-table-type.md), [CSV](connect-csv-and-fmt-table-types.md), [FMT](connect-csv-and-fmt-table-types.md), [DBF](connect-dbf-table-type.md), [JSON](connect-json-table-type/README.md), and [XML](connect-xml-table-type.md) table types, as well as types based on these such as [XCOL](connect-xcol-table-type.md), [OCCUR](connect-occur-table-type.md) and [PIVOT](connect-pivot-table-type.md).
 
 Optimization by indexing or block indexing is possible for table types supporting it. However, it applies to the uncompressed table. This means that the whole table is always uncompressed.
 
@@ -133,7 +133,7 @@ CREATE TABLE XSERVZIP (
 NUMERO VARCHAR(4) NOT NULL,
 LIEU VARCHAR(15) NOT NULL,
 CHEF VARCHAR(5) NOT NULL,
-FONCTION VARCHAR(12) NOT NULL,
+FUNCTION VARCHAR(12) NOT NULL,
 NOM VARCHAR(21) NOT NULL)
 ENGINE=CONNECT table_type=XML file_name='E:/Xml/perso.zip' zipped=1
 option_list='entry=services,load=E:/Xml/serv2.xml';

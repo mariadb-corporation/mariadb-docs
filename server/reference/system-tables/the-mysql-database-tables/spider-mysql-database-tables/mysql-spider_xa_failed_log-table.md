@@ -1,3 +1,9 @@
+---
+description: >-
+  This table logs details of failed XA transactions in the Spider storage
+  engine, providing a record for troubleshooting distributed transaction errors.
+---
+
 # mysql.spider\_xa\_failed\_log Table
 
 The `mysql.spider_xa_failed_log` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

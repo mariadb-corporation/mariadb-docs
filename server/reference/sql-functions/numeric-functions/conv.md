@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert numbers between bases. This function transforms a number from one
+  numeric base system to another.
+---
+
 # CONV
 
 ## Syntax
 
-```sql
+```bnf
 CONV(N,from_base,to_base)
 ```
 
@@ -14,10 +20,18 @@ Returns `NULL` if any argument is `NULL`, or if the second or third argument are
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The argument _`N`_ is interpreted as an integer, but may be specified as an integer or a string. The minimum base is 2 and the maximum base is 62. If _`to_base`_ is a negative number, _`N`_ is regarded as a signed number. Otherwise, _`N`_ is treated as unsigned. `CONV()` works with 64-bit precision.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The argument _`N`_ is interpreted as an integer, but may be specified as an integer or a string. The minimum base is 2 and the maximum base is 36. If _`to_base`_ is a negative number, _`N`_ is regarded as a signed number. Otherwise, _`N`_ is treated as unsigned. `CONV()` works with 64-bit precision.
 {% endtab %}
 {% endtabs %}

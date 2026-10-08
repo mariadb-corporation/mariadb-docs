@@ -1,8 +1,14 @@
+---
+description: >-
+  Count the set bits. This function returns the number of bits that are set to 1
+  in the binary representation of a number.
+---
+
 # BIT\_COUNT
 
 ## Syntax
 
-```sql
+```bnf
 BIT_COUNT(N)
 ```
 

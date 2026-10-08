@@ -2,7 +2,7 @@
 
 ## What is a logical backup?
 
-A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
+A logical backup is a backup that contains the logical structure of the database, such as tables, indexes, and data, rather than the physical storage format. It is created using [mariadb-dump](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump), which generates SQL statements that can be used to recreate the database schema and populate it with data.
 
 Logical backups serve not just as a source of restoration, but also enable data mobility between `MariaDB` instances. These backups are called "logical" because they are independent from the `MariaDB` topology, as they only contain DDLs and `INSERT` statements to populate data.
 
@@ -10,7 +10,7 @@ Although logical backups are a great fit for data mobility and migrations, they 
 
 ## Storage types
 
-Currently, the following storage types are supported:
+The following storage types are supported:
 
 * S3 compatible storage: Store backups in a S3 compatible storage, such as [AWS S3](https://aws.amazon.com/s3/) or [Minio](https://github.com/minio/minio).
 * PVCs: Use the available [StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/) in your Kubernetes cluster to provision a PVC dedicated to store the backup files.
@@ -109,11 +109,13 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   schedule:
     cron: "*/1 * * * *"
     suspend: false
+  # [...]
 ```
 
 This resource gets reconciled into a `CronJob` that periodically takes the backups.
@@ -130,9 +132,11 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   maxRetention: 720h # 30 days
+  # [...]
 ```
 
 #### Compression
@@ -145,17 +149,73 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   compression: gzip
+  # [...]
 ```
 
-Currently the following compression algorithms are supported:
+The following compression algorithms are supported:
 - `bzip2`: Good compression ratio, but slower compression/decompression speed compared to gzip.
 - `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
 - `none`: No compression.
 
 `compression` is defaulted to `none` by the operator.
+
+#### Server-Side Encryption with Customer-Provided Keys (SSE-C)
+
+You can enable server-side encryption using your own encryption key (SSE-C) by providing a reference to a `Secret` containing a 32-byte (256-bit) key encoded in base64:
+
+```yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: ssec-key
+stringData:
+  # 32-byte key encoded in base64 (use: openssl rand -base64 32)
+  customer-key: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+```
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: Backup
+metadata:
+  name: backup
+spec:
+  mariaDbRef:
+    name: mariadb
+  storage:
+    s3:
+      bucket: backups
+      prefix: mariadb
+      endpoint: minio.minio.svc.cluster.local:9000
+      region: us-east-1
+      accessKeyIdSecretKeyRef:
+        name: minio
+        key: access-key-id
+      secretAccessKeySecretKeyRef:
+        name: minio
+        key: secret-access-key
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: minio-ca
+          key: tls.crt
+      ssec:
+        customerKeySecretKeyRef:
+          name: ssec-key
+          key: customer-key
+```
+
+{% hint style="warning" %}
+When using SSE-C, you are responsible for managing and securely storing the encryption key. If you lose the key, you will not be able to decrypt your backups. Ensure you have proper key management procedures in place.
+{% endhint %}
+
+{% hint style="info" %}
+When restoring from SSE-C encrypted backups, the same key must be provided in the `Restore` CR or `bootstrapFrom` configuration.
+{% endhint %}
 
 ## `Restore` CR
 
@@ -220,7 +280,7 @@ spec:
   targetRecoveryTime: 2023-12-19T09:00:00Z
 ```
 
-The operator will look for the closest backup available and utilize it to restore your `MariaDB` instance.
+The operator will look for the closest backup available and utilize it to restore your `MariaDB` instance. Only backups strictly before or at `targetRecoveryTime` will be matched.
 
 By default, `spec.targetRecoveryTime` will be set to the current time, which means that the latest available backup will be used.
 
@@ -283,12 +343,14 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   databases:
     - db1
     - db2
     - db3
+  # [...]
 ```
 
 When it comes to restore, all the databases available in the backup will be restored, but you may also choose a single database to be restored via the  `database` field available in the `Restore` resource:
@@ -308,7 +370,7 @@ spec:
 
 There are a couple of points to consider here:
 - The referred database (`db1` in the example) must previously exist for the `Restore` to succeed.
-- The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`](https://mariadb.com/kb/en/mariadb-command-line-client/#-o-one-database) option, restoration of multiple specific databases is not supported.
+- The `mariadb` CLI invoked by the operator under the hood only supports selecting a single database to restore via the [`--one-database`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#o-one-database) option, restoration of multiple specific databases is not supported.
 
 ## Extra options
 
@@ -320,23 +382,28 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   args:
     - --verbose
+  # [...]
 ```
+
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: Restore
 metadata:
   name: restore
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   backupRef:
     name: backup
   args:
     - --verbose
+  # [...]
 ```
 
 Refer to the `mariadb-dump` and `mariadb` CLI options in the [reference](#reference) section.
@@ -357,9 +424,10 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   storage:
     s3:
-      ...
+      # [...]
   stagingStorage:
     persistentVolumeClaim:
       resources:
@@ -367,6 +435,7 @@ spec:
           storage: 10Gi
       accessModes:
         - ReadWriteOnce
+  # [...]
 ```
 
 ```yaml
@@ -375,8 +444,9 @@ kind: Restore
 metadata:
   name: restore
 spec:
+  # [...]
   s3:
-    ...
+    # [...]
   stagingStorage:
     persistentVolumeClaim:
       resources:
@@ -384,9 +454,10 @@ spec:
           storage: 10Gi
       accessModes:
         - ReadWriteOnce
+  # [...]
 ``` 
 
-In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](./api_reference.md) for more configuration options.
+In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api-reference.md) for more configuration options.
 
 Similarly, you may also use a custom staging area when [bootstrapping from backup](#bootstrap-new-mariadb-instances):
 
@@ -396,9 +467,10 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   bootstrapFrom:
     s3:
-      ...
+      # [...]
     stagingStorage:
       persistentVolumeClaim:
         resources:
@@ -406,6 +478,7 @@ spec:
             storage: 10Gi
         accessModes:
           - ReadWriteOnce
+  # [...]
 ```
 
 ## Important considerations and limitations
@@ -467,19 +540,21 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   ignoreGlobalPriv: false
+  # [...]
 ```
 
 Also, to avoid situations where `mysql.global_priv` is unreplicated, all the entries in that table must be managed via DDLs. This is the recommended approach suggested in the [Galera docs](https://galeracluster.com/library/kb/user-changes.html). There are a couple of ways that we can guarantee this:
 - Use the `rootPasswordSecretKeyRef`, `username` and `passwordSecretKeyRef` fields of the `MariaDB` CR to create the root and initial user respectively. This fields will be translated into DDLs by the image entrypoint.
-- Rely on the [`User`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/user.yaml) and [`Grant`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/grant.yaml) CRs to create additional users and grants. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+- Rely on the [`User`](../sql-resources.md#user-cr) and [`Grant`](../sql-resources.md#grant-cr) CRs to create additional users and grants. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 #### `LOCK TABLES` 
 
 Galera is not compatible with the `LOCK TABLES` statement:
-* [LOCK TABLES Limitations](https://mariadb.com/kb/en/lock-tables/#limitations)
+* [LOCK TABLES Limitations](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/lock-tables#limitations)
 
 For this reason, the operator automatically adds the `--skip-add-locks` option to the `Backup` to overcome this limitation.
 
@@ -540,7 +615,7 @@ spec:
           key: tls.crt
     targetRecoveryTime: 2024-08-26T12:24:34Z
 ```
-5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 ### Migrating to a `MariaDB` with different topology
 
@@ -562,9 +637,11 @@ kind: Backup
 metadata:
   name: backup-standalone
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb-standalone
   ignoreGlobalPriv: true
+  # [...]
 ```
 
 Once the previous `Backup` is completed, we will be able bootstrap a new Galera instance from it:
@@ -586,9 +663,9 @@ spec:
 ```
 
 ## Reference
-* [API reference](api_reference.md)
-* [`mariadb-dump` options](https://mariadb.com/kb/en/mariadb-dump/#options)
-* [`mariadb` options](https://mariadb.com/kb/en/mariadb-command-line-client/#options)
+* [API reference](../api-reference.md)
+* [`mariadb-dump` options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options)
+* [`mariadb` options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#options)
 
 ## Troubleshooting
 
@@ -598,6 +675,6 @@ Please make sure you understand the [Galera backup limitations](#galera-backup-l
 
 After doing so, ensure that your backup does not contain a `DROP TABLE mysql.global_priv;` statement, as it will make your liveness and readiness probes to fail after the backup restoration.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

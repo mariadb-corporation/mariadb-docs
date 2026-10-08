@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes common use cases for Spider, such as horizontal sharding for
+  scalability, consolidating data from multiple sources, and migrating data
+  between servers.
+---
+
 # Spider Use Cases
 
 ## Introduction
@@ -12,7 +19,7 @@ Have 3 or more servers available and Install MariaDB on each of these servers:
 * backend1 which will act as a backed server storing data
 * backend2 which will act as a second backend server storing data
 
-Follow the instructions [here](spider-storage-engine-overview.md#installing) to enable the Spider storage engine on the spider server:
+Follow the instructions [here](spider-installation.md) to enable the Spider storage engine on the spider server:
 
 ```sql
 INSTALL SONAME 'ha_spider';
@@ -62,7 +69,7 @@ KEY (accountName)
 
 ### Create server entries on spider server
 
-While the connection information can also be specified inline in the comment or (from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes)) as table options, it is cleaner to define a server object representing each remote backend server connection:
+While the connection information can also be specified inline in the comment or (from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)) as table options, it is cleaner to define a server object representing each remote backend server connection:
 
 ```sql
 CREATE SERVER backend1 FOREIGN DATA WRAPPER MYSQL OPTIONS 
@@ -105,7 +112,7 @@ KEY (accountName)
 
 ## Use case 2: sharding by hash
 
-See also [hash-partitioning-type](../../../server-management/partitioning-tables/partitioning-types/hash-partitioning-type.md).
+See also [hash-partitioning-type](../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md).
 
 In this case a spider table is created to distribute data across backend1 and backend2 by hashing the id column. Since the id column is an incrementing numeric value the hashing will ensure even distribution across the 2 nodes.
 
@@ -130,7 +137,7 @@ KEY (accountName)
 
 ## Use case 3: sharding by range
 
-See also [range-partitioning-type](../../../server-management/partitioning-tables/partitioning-types/range-partitioning-type.md).
+See also [range-partitioning-type](../../../server-usage/partitioning-tables/partitioning-types/range-partitioning-type.md).
 
 In this case a spider table is created to distribute data across backend1 and backend2 based on the first letter of the accountName field. All accountNames that start with the letter L and prior are stored in backend1 and all other values stored in backend2. Note that the accountName column must be added to the primary key which is a requirement of MariaDB partitioning:
 
@@ -155,7 +162,7 @@ KEY(accountName)
 
 ## Use case 4: sharding by list
 
-See also [list-partitioning-type](../../../server-management/partitioning-tables/partitioning-types/list-partitioning-type.md).
+See also [list-partitioning-type](../../../server-usage/partitioning-tables/partitioning-types/list-partitioning-type.md).
 
 In this case a spider table is created to distribute data across backend1 and backend2 based on specific values in the owner field. Bill, Bob, and Chris are stored in backend1 and Maria and Olivier stored in backend2. Note that the owner column must be added to the primary key which is a requirement of MariaDB partitioning:
 
@@ -178,13 +185,13 @@ KEY(accountName)
 ) ;
 ```
 
-With [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) the following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
+The following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
 
 ```sql
 PARTITION partition_name DEFAULT
 ```
 
-For a complete list of partition types, see [partitioning-types](../../../server-management/partitioning-tables/partitioning-types/).
+For a complete list of partition types, see [partitioning-types](../../../server-usage/partitioning-tables/partitioning-types/).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Display a list of major contributors to the MariaDB and MySQL projects. View
+  names, locations, and specific contributions of developers.
+---
+
 # SHOW AUTHORS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW AUTHORS
 ```
 

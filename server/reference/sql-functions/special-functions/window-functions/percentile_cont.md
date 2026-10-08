@@ -1,6 +1,18 @@
+---
+description: >-
+  Calculate a continuous percentile. This inverse distribution function returns
+  an interpolated value that corresponds to the specified percentile.
+---
+
 # PERCENTILE\_CONT
 
 ## Syntax
+
+```bnf
+PERCENTILE_CONT(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER (
+  [ PARTITION BY partition_expression ]
+)
+```
 
 ## Description
 

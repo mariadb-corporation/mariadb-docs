@@ -1,3 +1,9 @@
+---
+description: >-
+  Addresses compatibility issues between MariaDB and older PHP5 client
+  libraries, specifically regarding header and library version mismatches.
+---
+
 # Installation Issues with PHP5
 
 PHP5 may give an error if used with the old connect method:

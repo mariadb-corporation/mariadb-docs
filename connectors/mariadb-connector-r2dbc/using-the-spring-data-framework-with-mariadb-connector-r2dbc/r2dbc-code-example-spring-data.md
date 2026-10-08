@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Java code example using MariaDB Connector/R2DBC with Spring Data
+  R2DBC to query a MariaDB table via DatabaseClient and reactive
+  StepVerifier result assertions.
+---
+
 # R2DBC Code Example (Spring Data)
 
 ## Overview
@@ -84,7 +91,7 @@ public class App {
 }
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

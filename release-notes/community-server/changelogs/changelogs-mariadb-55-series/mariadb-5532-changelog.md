@@ -1,15 +1,15 @@
 # MariaDB 5.5.32 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.32) | [Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) | **Changelog** | \[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.32) | [Release Notes](../../old-releases/5.5/5.5.32.md) | **Changelog** | \[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 18 Jul 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.32.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3838](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3838)\
@@ -476,7 +476,7 @@ modified in that revision.
   * [MDEV-4536](https://jira.mariadb.org/browse/MDEV-4536), [MDEV-4042](https://jira.mariadb.org/browse/MDEV-4042) - Make JOIN::cleanup(true) also work correctly when the query is KILLed after join optimization was started but before a query plan was produced
 * [Revision #3828](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3828)\
   Thu 2013-07-11 19:27:39 +0400
-  * [MDEV-4042](https://jira.mariadb.org/browse/MDEV-4042): Assertion `table->key_read == 0' fails in close_thread_table on EXPLAIN [MDEV-4536](https://jira.mariadb.org/browse/MDEV-4536): ...sql/sql_base.cc:1598:` bool close\_thread\_table(THD\*, TABLE\*\*)\`: Assertion - Make JOIN::cleanup(full=true) always free join optimization tabs.
+  * [MDEV-4042](https://jira.mariadb.org/browse/MDEV-4042) (Assertion `table->key_read == 0` fails in `close_thread_table` on `EXPLAIN`) and [MDEV-4536](https://jira.mariadb.org/browse/MDEV-4536) (`sql/sql_base.cc:1598: bool close_thread_table(THD*, TABLE**)`: Assertion) - Make JOIN::cleanup(full=true) always free join optimization tabs.
 * [Revision #3827](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3827)\
   Thu 2013-07-11 15:12:50 +0400
   * [MDEV-4556](https://jira.mariadb.org/browse/MDEV-4556) Server crashes in SEL\_ARG::rb\_insert with index\_merge+index\_merge\_sort\_union, FORCE INDEX - merge\_same\_index\_scans() may put the same SEL\_ARG tree in multiple result plans. make it call incr\_refs() on the SEL\_ARG trees that it does key\_or() on, because key\_or(sel\_arg\_tree\_1, sel\_arg\_tree\_2) call may invalidate SEL\_ARG trees pointed by sel\_arg\_tree\_1 and sel\_arg\_tree\_2.
@@ -667,6 +667,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

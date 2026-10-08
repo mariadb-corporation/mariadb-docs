@@ -1,3 +1,9 @@
+---
+description: >-
+  This function takes a file path and returns the schema name it belongs to,
+  assuming the file is located within the schema's directory.
+---
+
 # extract\_schema\_from\_file\_name
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

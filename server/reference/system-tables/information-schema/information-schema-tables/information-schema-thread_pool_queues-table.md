@@ -1,8 +1,10 @@
-# Information Schema THREAD\_POOL\_QUEUES Table
+---
+description: >-
+  The Information Schema THREAD_POOL_QUEUES table shows the status of the queues
+  within the thread pool, detailing pending connections.
+---
 
-{% hint style="info" %}
-This table is available from MariaDB 10.5.
-{% endhint %}
+# Information Schema THREAD\_POOL\_QUEUES Table
 
 The table provides information about [thread pool](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md) queues, and contains the following columns:
 

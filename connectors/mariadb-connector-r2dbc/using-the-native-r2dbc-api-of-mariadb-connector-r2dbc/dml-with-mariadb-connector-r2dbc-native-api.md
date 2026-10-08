@@ -1,3 +1,10 @@
+---
+description: >-
+  DML with the MariaDB Connector/R2DBC native API executes INSERT, UPDATE,
+  DELETE, and SELECT reactively using io.r2dbc.spi.Statement, Result, Row,
+  and RowMetadata classes.
+---
+
 # DML with MariaDB Connector/R2DBC (Native API)
 
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes R2DBC more scalable than Java's standard JDBC API.
@@ -94,7 +101,7 @@ public class App {
 }
 ```
 
-The bind (int index, Object value) method binds non-null values to indexed parameters. The index is an integer that starts at 0, and it should not be null. If the index is invalid, the method throws an `IllegalArgumentException`, which is handled in the catch block.
+The bind (int index, Object value) method binds non-null values to indexed parameters. The index is an integer that starts at 0. If the value is null, the method throws an `IllegalArgumentException`; if the index is out of range, it throws an `IndexOutOfBoundsException`.
 
 Alternatively, the bind (String name, Object value) method could be used to bind a non-null value to a named parameter.
 
@@ -223,6 +230,6 @@ public class App {
 John Smith <js@example.com>
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

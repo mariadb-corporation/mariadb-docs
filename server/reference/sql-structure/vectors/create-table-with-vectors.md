@@ -1,3 +1,9 @@
+---
+description: >-
+  Create tables optimized for vector storage. Learn to define columns with the
+  VECTOR data type and configure vector indexes for similarity search.
+---
+
 # CREATE TABLE with Vectors
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -47,6 +53,11 @@ CREATE TABLE embeddings (
         VECTOR INDEX (embedding) M=8 DISTANCE=cosine
 );
 ```
+
+{% hint style="info" %}
+Declare `DISTANCE` explicitly. The default is `euclidean`, and a query using a different distance function than the one the index was built for cannot use the index, it falls back to a full table scan. Match the distance function to the metric your embedding model recommends.
+{% endhint %}
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

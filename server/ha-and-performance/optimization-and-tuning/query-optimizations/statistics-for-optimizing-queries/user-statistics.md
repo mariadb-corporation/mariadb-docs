@@ -135,36 +135,6 @@ FLUSH INDEX_STATISTICS
 FLUSH TABLE_STATISTICS
 ```
 
-## Versions
-
-### USER\_STATISTICS
-
-| Version | Status | Introduced                                                                                                                                                    |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0     | Stable | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10118-release-notes) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) |
-
-### CLIENT\_STATISTICS
-
-| Version | Status | Introduced                                                                                                                                                    |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0     | Stable | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10113-release-notes) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) |
-
-### INDEX\_STATISTICS
-
-| Version | Status | Introduced                                                                                                                                                    |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0     | Stable | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10113-release-notes) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) |
-
-### TABLE\_STATISTICS
-
-| Version | Status | Introduced                                                                                                                                                    |
-| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0     | Stable | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10118-release-notes) |
-| 2.0     | Gamma  | [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) |
-
 ## System Variables
 
 ### `userstat`
@@ -181,7 +151,7 @@ FLUSH TABLE_STATISTICS
 User Statistics introduced a number of new status variables:
 
 * [access\_denied\_errors](../../system-variables/server-status-variables.md#access_denied_errors)
-* [binlog\_bytes\_written](../../system-variables/server-status-variables.md#binlog_bytes_written)
+* [binlog\_bytes\_written](../../../standard-replication/replication-and-binary-log-status-variables.md#binlog_bytes_written)
 * [busy\_time](../../system-variables/server-status-variables.md#busy_time) (requires [userstat](user-statistics.md#userstat) to be set to be recorded)
 * [cpu\_time](../../system-variables/server-status-variables.md#cpu_time) (requires [userstat](user-statistics.md#userstat) to be set to be recorded)
 * [empty\_queries](../../system-variables/server-status-variables.md#empty_queries)

@@ -1,12 +1,33 @@
 ---
 description: >-
-  Explore documentation for MariaDB Connectors. Learn about official client
-  libraries for various programming languages (e.g., C, Java, Python, ODBC) to
-  enable seamless application connectivity.
+  Complete MariaDB Connectors guide. Complete reference for client libraries in
+  Python, Java, Node.js, C, C++, ODBC, and R languages for production use.
 icon: nfc-symbol
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # MariaDB Connectors
+
+{% hint style="info" %}
+📄 Read offline: [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) (~660 pages, 6 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
 
 {% content-ref url="connectors-quickstart-guides/" %}
 [connectors-quickstart-guides](connectors-quickstart-guides/)
@@ -47,3 +68,5 @@ icon: nfc-symbol
 {% content-ref url="other/" %}
 [other](other/)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

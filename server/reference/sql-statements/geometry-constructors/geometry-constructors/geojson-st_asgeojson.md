@@ -1,8 +1,14 @@
+---
+description: >-
+  Generates a GeoJSON object from a given geometry. This function converts
+  internal geometry data into the standard JSON-based format for web mapping.
+---
+
 # ST\_AsGeoJSON
 
 ## Syntax
 
-```sql
+```bnf
 ST_AsGeoJSON(g[, max_decimals[, options]])
 ```
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Galera Load Balancer (glbd) is a deprecated multi-threaded TCP connection
+  balancer for MariaDB Galera Cluster, retained for historical reference; new
+  deployments should use MariaDB MaxScale.
+---
+
 # Galera Load Balancer (glbd)
 
 {% hint style="danger" %}
@@ -87,7 +94,7 @@ GLB supports five policies:
 
 | Policy                          | Description                                                                                                |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Least Connecte&#x64;_(default)_ | Routes new connections to the server with the fewest active connections (adjusted for weight).             |
+| Least Connected _(default)_     | Routes new connections to the server with the fewest active connections (adjusted for weight).             |
 | Round Robin                     | Sequentially cycles through available servers.                                                             |
 | Single                          | Routes all connections to the highest-weight server until it fails or a higher-weight server is available. |
 | Random                          | Distributes connections randomly among servers.                                                            |

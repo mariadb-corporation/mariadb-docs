@@ -1,8 +1,14 @@
+---
+description: >-
+  Replace values in a JSON document. This function replaces existing values in a
+  JSON document and returns the result.
+---
+
 # JSON\_REPLACE
 
 ## Syntax
 
-```sql
+```bnf
 JSON_REPLACE(json_doc, path, val[, path, val] ...)
 ```
 

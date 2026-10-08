@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema QUERY_CACHE_INFO table shows all queries currently
+  stored in the query cache, aiding in cache performance analysis.
+---
+
 # Information Schema QUERY\_CACHE\_INFO Table
 
 ## Description
@@ -10,32 +16,32 @@ The `QUERY_CACHE_INFO` table is created by the [QUERY\_CACHE\_INFO](../../../plu
 
 It contains the following columns:
 
-| Column                     | Description                                    |
-| -------------------------- | ---------------------------------------------- |
-| STATEMENT\_SCHEMA          | Database used when query was included          |
-| STATEMENT\_TEXT            | Query text                                     |
-| RESULT\_BLOCKS\_COUNT      | Number of result blocks                        |
-| RESULT\_BLOCKS\_SIZE       | Size in bytes of result blocks                 |
-| RESULT\_BLOCKS\_SIZE\_USED | Size in bytes of used blocks                   |
-| LIMIT                      |                                                |
-| MAX\_SORT\_LENGTH          |                                                |
-| GROUP\_CONCAT\_MAX\_LENGTH |                                                |
-| CHARACTER\_SET\_CLIENT     |                                                |
-| CHARACTER\_SET\_RESULT     |                                                |
-| COLLATION                  |                                                |
-| TIMEZONE                   |                                                |
-| DEFAULT\_WEEK\_FORMAT      |                                                |
-| DIV\_PRECISION\_INCREMENT  |                                                |
-| SQL\_MODE                  |                                                |
-| LC\_TIME\_NAMES            |                                                |
-| CLIENT\_LONG\_FLAG         |                                                |
-| CLIENT\_PROTOCOL\_41       |                                                |
-| PROTOCOL\_TYPE             |                                                |
-| MORE\_RESULTS\_EXISTS      |                                                |
-| IN\_TRANS                  |                                                |
-| AUTOCOMMIT                 |                                                |
-| PACKET\_NUMBER             |                                                |
-| HITS                       | Incremented each time the query cache is hit.  |
+| Column                     | Description                                   |
+| -------------------------- | --------------------------------------------- |
+| STATEMENT\_SCHEMA          | Database used when query was included         |
+| STATEMENT\_TEXT            | Query text                                    |
+| RESULT\_BLOCKS\_COUNT      | Number of result blocks                       |
+| RESULT\_BLOCKS\_SIZE       | Size in bytes of result blocks                |
+| RESULT\_BLOCKS\_SIZE\_USED | Size in bytes of used blocks                  |
+| LIMIT                      |                                               |
+| MAX\_SORT\_LENGTH          |                                               |
+| GROUP\_CONCAT\_MAX\_LENGTH |                                               |
+| CHARACTER\_SET\_CLIENT     |                                               |
+| CHARACTER\_SET\_RESULT     |                                               |
+| COLLATION                  |                                               |
+| TIMEZONE                   |                                               |
+| DEFAULT\_WEEK\_FORMAT      |                                               |
+| DIV\_PRECISION\_INCREMENT  |                                               |
+| SQL\_MODE                  |                                               |
+| LC\_TIME\_NAMES            |                                               |
+| CLIENT\_LONG\_FLAG         |                                               |
+| CLIENT\_PROTOCOL\_41       |                                               |
+| PROTOCOL\_TYPE             |                                               |
+| MORE\_RESULTS\_EXISTS      |                                               |
+| IN\_TRANS                  |                                               |
+| AUTOCOMMIT                 |                                               |
+| PACKET\_NUMBER             |                                               |
+| HITS                       | Incremented each time the query cache is hit. |
 
 For example:
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the length of a JSON document. This function returns the length of a
+  JSON document or, if a path is given, the length of the value within the path.
+---
+
 # JSON\_LENGTH
 
 ## Syntax
 
-```sql
+```bnf
 JSON_LENGTH(json_doc[, path])
 ```
 

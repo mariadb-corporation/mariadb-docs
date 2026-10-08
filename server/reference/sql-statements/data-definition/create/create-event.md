@@ -1,8 +1,14 @@
+---
+description: >-
+  Schedule a new event for automatic execution. This statement defines a
+  scheduled task that runs SQL commands at specific times or intervals.
+---
+
 # CREATE EVENT
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE]
     [DEFINER = { user | CURRENT_USER | role | CURRENT_ROLE }]
     EVENT 
@@ -12,7 +18,7 @@ CREATE [OR REPLACE]
     [ON COMPLETION [NOT] PRESERVE]
     [ENABLE | DISABLE | DISABLE ON SLAVE]
     [COMMENT 'comment']
-    DO sql_statement;
+    DO sql_statement
 
 schedule:
     AT timestamp [+ INTERVAL interval] ...
@@ -26,9 +32,15 @@ interval:
               DAY_SECOND | HOUR_MINUTE | HOUR_SECOND | MINUTE_SECOND}
 ```
 
+![Railroad diagram of CREATE EVENT — equivalent to the BNF above](../../../../.gitbook/assets/create-event-railroad.svg)
+
+![Railroad diagram of schedule](../../../../.gitbook/assets/create-event-schedule-railroad.svg)
+
+![Railroad diagram of interval](../../../../.gitbook/assets/create-event-interval-railroad.svg)
+
 ## Description
 
-This statement creates and schedules a new [event](../../../../server-usage/triggers-events/event-scheduler/events.md). It requires the [EVENT](../../account-management-sql-commands/grant.md#database-privileges) privilege for the schema in which the event is to be created.
+This statement creates and schedules a new [event](../../../../server-usage/triggers-events/event-scheduler/events.md). It requires the [EVENT](../../account-management-sql-statements/grant.md#database-privileges) privilege for the schema in which the event is to be created.
 
 The minimum requirements for a valid CREATE EVENT statement are as follows:
 
@@ -57,15 +69,7 @@ For valid identifiers to use as event names, see [Identifier Names](../../../sql
 
 #### OR REPLACE
 
-{% tabs %}
-{% tab title="Current" %}
 The `OR REPLACE` clause works like this: If the event already exists, instead of an error being returned, the existing event will be dropped and replaced by the newly defined event.
-{% endtab %}
-
-{% tab title="< 10.1.4" %}
-The `OR REPLACE` clause is not available.
-{% endtab %}
-{% endtabs %}
 
 #### IF NOT EXISTS
 

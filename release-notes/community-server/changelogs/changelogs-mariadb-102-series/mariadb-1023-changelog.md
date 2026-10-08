@@ -1,12 +1,12 @@
 # MariaDB 10.2.3 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.3)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md)[Changelog](mariadb-1023-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.3)[Release Notes](../../old-releases/10.2/10.2.3.md)[Changelog](mariadb-1023-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 24 Dec 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.3.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -36,7 +36,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11570](https://jira.mariadb.org/browse/MDEV-11570) JSON\_MERGE returns incorrect result.
 * [Revision #83dbb2d](https://github.com/MariaDB/server/commit/83dbb2d)\
   2016-12-20 12:07:33 +0200
-  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://askmonty.org/worklog/?tid=7682)
+  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://dev.mysql.com/worklog/task/?id=7682)
 * [Revision #1152b07](https://github.com/MariaDB/server/commit/1152b07)\
   2016-12-20 00:42:13 -0800
   * Corrected a test from func\_date\_add.test
@@ -379,7 +379,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11453](https://jira.mariadb.org/browse/MDEV-11453) JSON\_CONTAINS returns incorrect values.
 * [Revision #c868acd](https://github.com/MariaDB/server/commit/c868acd)\
   2016-12-05 21:04:30 +0200
-  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://askmonty.org/worklog/?tid=7682)
+  * [MDEV-11487](https://jira.mariadb.org/browse/MDEV-11487) Revert InnoDB internal temporary tables from [WL#7682](https://dev.mysql.com/worklog/task/?id=7682)
 * [Revision #b0266b6](https://github.com/MariaDB/server/commit/b0266b6)\
   2016-12-09 12:03:24 +0200
   * Use mtr\_memo\_contains\_flagged() instead of mtr\_memo\_contains().
@@ -534,7 +534,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11168](https://jira.mariadb.org/browse/MDEV-11168): InnoDB: Failing assertion: !other\_lock || wsrep\_thd\_is\_BF(lock->trx->mysql\_thd, FALSE) || wsrep\_thd\_is\_BF(other\_lock->trx->mysql\_thd, FALSE)
 * [Revision #2c9bb42](https://github.com/MariaDB/server/commit/2c9bb42)\
   2016-12-01 08:28:59 +0200
-  * [MDEV-11432](https://jira.mariadb.org/browse/MDEV-11432) Change the informational redo log format tag to "[MariaDB 10.2.3](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md)"
+  * [MDEV-11432](https://jira.mariadb.org/browse/MDEV-11432) Change the informational redo log format tag to "[MariaDB 10.2.3](../../old-releases/10.2/10.2.3.md)"
 * [Revision #dc9f919](https://github.com/MariaDB/server/commit/dc9f919)\
   2016-12-01 06:42:59 +0200
   * [MDEV-11005](https://jira.mariadb.org/browse/MDEV-11005): Incorrect error message when using ONLINE alter table with GIS
@@ -1216,6 +1216,6 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

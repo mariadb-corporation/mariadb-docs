@@ -19,13 +19,13 @@ The key differentiator between a Fusion-io and a legacy SSD/HDD is the following
 3. In some cases, Fusion-io devices allow for atomic writes, which allows the server to safely disable the [doublewrite buffer](../../../../../server-usage/storage-engines/innodb/innodb-doublewrite-buffer.md).
 4. Use ioDrive as a write-through read cache. This is possible on server level with Fusion-io directCache software or in VMware environments using ioTurbine software or the ioCache bundle product. Reads happen from ioDrive and all writes go directly to your SAN or disk.
 5. Highly Available shared storage with ION. Have two different hosts, Fusion-io cards in them and share/replicate data with Fusion-io's ION software.
-6. The luxurious Platinum setup: [MariaDB Galera Cluster](https://kb.askmonty.org/en/what-is-mariadb-galera-cluster/) running on Fusion-io SLC cards on several hosts.
+6. The luxurious Platinum setup: [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide) running on Fusion-io SLC cards on several hosts.
 
 ## Atomic Writes
 
-Starting with [MariaDB 5.5.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5531-release-notes), MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
+MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
 
-MariaDB Server does not currently support atomic writes on Fusion-io devices with any other file systems.
+MariaDB Server does not support atomic writes on Fusion-io devices with any other file systems.
 
 See [atomic write support](../atomic-write-support.md) for more information about MariaDB Server's atomic write support.
 
@@ -39,7 +39,7 @@ Fusion-io memory can be formatted with different sector size of either 512 or 40
 
 Note: XtraDB has the experimental feature of an increased InnoDB log block size of 4K. If this is enabled, then both redo log I/O and page I/O in InnoDB will match a sector size of 4K.
 
-As of file systems: currently XFS is expected to yield the best performance with MariaDB. However depending on the exact kernel version and version of XFS code in use, one might be affected by [a bug that severely limits XFS performance in concurrent environments](https://www.mysqlperformanceblog.com/2012/03/15/ext4-vs-xfs-on-ssd/comment-page-1/#comment-903938). This has [been fixed in kernel versions above 3.5](https://github.com/torvalds/linux/commit/507630b29f13a3d8689895618b12015308402e22) or [RHEL6 kernels kernel-2.6.32-358 or later](https://rhn.redhat.com/errata/RHSA-2013-0496.html) (because of [bug 807503 being fixed)](https://bugzilla.redhat.com/show_bug.cgi?id=807503).
+As for file systems, XFS is expected to yield the best performance with MariaDB. However depending on the exact kernel version and version of XFS code in use, one might be affected by [a bug that severely limits XFS performance in concurrent environments](https://www.mysqlperformanceblog.com/2012/03/15/ext4-vs-xfs-on-ssd/comment-page-1/#comment-903938). This has [been fixed in kernel versions above 3.5](https://github.com/torvalds/linux/commit/507630b29f13a3d8689895618b12015308402e22) or [RHEL6 kernels kernel-2.6.32-358 or later](https://rhn.redhat.com/errata/RHSA-2013-0496.html) (because of [bug 807503 being fixed)](https://bugzilla.redhat.com/show_bug.cgi?id=807503).
 
 For the pitbull machine where I have run such tests, ext4 was faster than xfs for 32 or more threads:
 
@@ -77,7 +77,7 @@ There are several card models. ioDrive is older generation, ioDrive2 is newer. S
 
 ## See Also
 
-* [FusionIO atomic-series devices](https://www.fusionio.com/products/atomic-series)
+* [FusionIO atomic-series devices](https://web.archive.org/web/20140616192746/https://www.fusionio.com/products/atomic-series)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

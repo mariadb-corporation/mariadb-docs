@@ -1,3 +1,9 @@
+---
+description: >-
+  List of file types included in a backup. Understand which data files, logs,
+  and configuration files are preserved during the backup process.
+---
+
 # Files Backed Up By mariadb-backup
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
@@ -15,17 +21,9 @@ mariadb-backup backs up the following InnoDB data files:
 
 ### MyRocks Data Files
 
-{% tabs %}
-{% tab title="Current" %}
 `mariadb-backup` will back up tables that use the [MyRocks](../../storage-engines/myrocks/) storage engine. This data is located in the directory defined by the [rocksdb\_datadir](../../storage-engines/myrocks/myrocks-system-variables.md#rocksdb_datadir) system variable. `mariadb-backup` backs this data up by performing a checkpoint using the [rocksdb\_create\_checkpoint](../../storage-engines/myrocks/myrocks-system-variables.md#rocksdb_create_checkpoint) system variable.
-{% endtab %}
 
-{% tab title="< 10.3.8 to 10.2.16" %}
-`mariadb-backup` will back up tables that use the MyRocks storage engine.
-{% endtab %}
-{% endtabs %}
-
-### &#xD;Other Data Files
+### Other Data Files
 
 `mariadb-backup` also backs up files with the following extensions:
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Returns the number of geometries in a GeometryCollection. Returns NULL if the
+  argument is not a GeometryCollection.
+---
+
 # ST\_NUMGEOMETRIES
 
 ## Syntax
 
-```sql
+```bnf
 ST_NumGeometries(gc)
 NumGeometries(gc)
 ```

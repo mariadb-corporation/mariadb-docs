@@ -1,3 +1,9 @@
+---
+description: >-
+  Official Unix socket authentication: OS user login via SO_PEERCRED/uid
+  matching, CREATE USER IDENTIFIED VIA unix_socket, and unix_socket force modes.
+---
+
 # Authentication Plugin - Unix Socket
 
 The `unix_socket` authentication plugin is installed by default, and it is used by the `'root'@'localhost'` user account by default. See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more information.
@@ -99,7 +105,7 @@ To create a user account via [CREATE USER](../../sql-statements/account-manageme
 CREATE USER username@hostname IDENTIFIED VIA unix_socket;
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA unix_socket;
@@ -107,6 +113,10 @@ GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA unix_socket;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 The authentication string (if present) is compared with the socket's user name. Authentication proceeds if there's a match. In this case, the [external\_user](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#external_user) system variable contains the OS user.
 
 Consider an OS user named 'bob' that has been created like this:
@@ -144,6 +154,10 @@ SELECT USER(),@@external_user;
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 The plugin only checks whether the OS socket user id matches the MariaDB user name. It ignores the authentication string.
 {% endtab %}
 {% endtabs %}

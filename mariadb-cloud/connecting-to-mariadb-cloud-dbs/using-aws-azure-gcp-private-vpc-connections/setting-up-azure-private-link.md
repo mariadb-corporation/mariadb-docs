@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up Azure Private Link to connect to MariaDB Cloud over a private VNet
+  endpoint, eliminating public-internet exposure between Azure workloads and
+  the Cloud service.
+---
+
 # Azure Private Link
 
 Azure Private Link is an Azure service that enables secure and private connectivity between Virtual Networks (VNet) and third-party services. By using Private Link with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.
@@ -11,7 +18,7 @@ For detailed information about Azure Private Link, see ["Azure Private Link" (Az
 * A list of Azure Subscription IDs that will be allowed to connect to the MariaDB Cloud service must be provided when enabling Azure Private Link. This list can be updated at any time.
 * The MariaDB Cloud IP Allowlist is not used with Azure Private Link connections. Access to the MariaDB Cloud service will be controlled by Security Groups in the connecting VNet. For detailed information, see ["Manage network policies for private endpoints"](https://learn.microsoft.com/en-us/azure/private-link/disable-private-endpoint-network-policy?tabs=network-policy-portal) (Azure documentation).
 * Connections to MariaDB Cloud services by features such as MariaDB Cloud backups, and monitoring do not depend on Azure Private Link.
-* The IP address of the MariaDB Cloud service will be a private IP address in the range of the VNet that the Private Link endpoint is created in. Because of this, SSL certificates will not match the IP address of the service. To avoid this issue, you can either disable SSL on the MariaDB Cloud service, or setup Private DNS within your Azure VNet. See ["Enabling DNS for Azure Private Link"](setting-up-azure-private-link.md#enabling-dns-for-azure-private-link) for more information.
+* The IP address of the MariaDB Cloud service will be a private IP address in the range of the VNet that the Private Link endpoint is created in. Because of this, SSL certificates will not match the IP address of the service. To avoid this issue, you can either disable SSL on the MariaDB Cloud service, or setup Private DNS within your Azure VNet. See ["Enabling Private DNS for Azure Private Link"](setting-up-azure-private-link.md#enabling-private-dns-for-azure-private-link) for more information.
 * Query Editor is not supported when Azure Private Link is enabled.
 
 ### **Enable Azure Private Link on Service Launch**
@@ -193,7 +200,7 @@ After creation, Azure will begin provisioning the new Endpoint. Once the provisi
 After creating your Private Link endpoint, you will need to find the IP address associated with that endpoint. This IP address can be found in the properties of the network interface that was created for the endpoint.
 
 * The hostname when connecting to your MariaDB Cloud service should always be the Private IP address of the Private Endpoint.
-* The SSL certificate provided by MariaDB Cloud will not match the IP address of the service. To avoid this issue, you can either disable SSL on the MariaDB Cloud service, or setup Private DNS within your Azure VNet. See ["Enabling DNS for Azure Private Link"](setting-up-azure-private-link.md#enabling-dns-for-azure-private-link) for more information.
+* The SSL certificate provided by MariaDB Cloud will not match the IP address of the service. To avoid this issue, you can either disable SSL on the MariaDB Cloud service, or setup Private DNS within your Azure VNet. See ["Enabling Private DNS for Azure Private Link"](setting-up-azure-private-link.md#enabling-private-dns-for-azure-private-link) for more information.
 
 ### Enabling Private DNS for Azure Private Link
 
@@ -229,7 +236,7 @@ Disabling Private Link on an existing service will cause all existing connection
 4. In the context menu, select "Manage Private Link".
 5. In the popup window, click "I want to disconnect my Private Link".
 6. In the popup window, select "Disconnect".
-7. Since the service's allowlist was cleared when Azure Private Link was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling Private Link.
+7. Since the service's allowlist was cleared when Azure Private Link was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling Private Link.
 
 </details>
 
@@ -252,3 +259,5 @@ To disable Azure Private Link on an existing service, you will need to update th
 This payload should then be sent to the API `PATCH` https://api.skysql.com/provisioning/v1/services/{SERVICE\_ID}/endpoints where `{SERVICE_ID}` is the ID of the service you are updating. For more information on using the MariaDB Cloud DBaaS API, see ["MariaDB Cloud DBaaS API"](https://apidocs.skysql.com/#/Services/patch_provisioning_v1_services__service_id__endpoints).
 
 </details>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

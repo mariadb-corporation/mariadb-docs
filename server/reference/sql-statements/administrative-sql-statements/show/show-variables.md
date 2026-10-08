@@ -1,11 +1,19 @@
+---
+description: >-
+  Complete SHOW VARIABLES reference: GLOBAL/SESSION scope syntax, LIKE 'pattern'
+  matching, WHERE expression filters, and INFORMATION_SCHEMA table queries.
+---
+
 # SHOW VARIABLES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [GLOBAL | SESSION] VARIABLES
     [LIKE 'pattern' | WHERE expr]
 ```
+
+![Railroad diagram of SHOW VARIABLES — equivalent to the BNF above](../../../../.gitbook/assets/show-variables-railroad.svg)
 
 ## Description
 

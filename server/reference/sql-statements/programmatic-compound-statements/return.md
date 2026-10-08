@@ -1,8 +1,14 @@
+---
+description: >-
+  Exit a stored function and return a value. This statement terminates function
+  execution and sends the specified result back to the caller.
+---
+
 # RETURN
 
 ## Syntax
 
-```sql
+```bnf
 RETURN expr
 ```
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Numeric literal syntax for integers and decimals, including signs and
+  exponents.
+---
+
 
 # Numeric Literals
 
@@ -10,7 +16,7 @@ If the integer part is zero, it can be omitted, but the literal must begin with 
 The notation with exponent can be used. The exponent is preceded by an `E` or `e` character. The exponent can be preceded by a sign and must be an integer. A number `N` with an exponent part `X`, is calculated as `N * POW(10, X)`.
 
 
-In some cases, adding zeroes at the end of a decimal number can increment the precision of the expression where the number is used. For example, [PI()](../sql-statements/built-in-functions/numeric-functions/pi.md) by default returns a number with 6 decimal digits. But the `PI()+0.0000000000` expression (with 10 zeroes) returns a number with 10 decimal digits.
+In some cases, adding zeroes at the end of a decimal number can increment the precision of the expression where the number is used. For example, [PI()](../../sql-functions/numeric-functions/pi.md) by default returns a number with 6 decimal digits. But the `PI()+0.0000000000` expression (with 10 zeroes) returns a number with 10 decimal digits.
 
 
 [Hexadecimal literals](hexadecimal-literals.md) are interpreted as numbers when used in numeric contexts.

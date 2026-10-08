@@ -1,8 +1,10 @@
-# Performance Schema events\_transactions\_summary\_by\_user\_by\_event\_name Table
+---
+description: >-
+  This table summarizes stage events aggregated by user name and event name,
+  helping to identify users with resource-intensive stages.
+---
 
-{% hint style="info" %}
-The `events_transactions_summary_by_user_by_event_name` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema events\_transactions\_summary\_by\_user\_by\_event\_name Table
 
 The `events_transactions_summary_by_user_by_event_name` table contains information on transaction events aggregated by user and event name.
 

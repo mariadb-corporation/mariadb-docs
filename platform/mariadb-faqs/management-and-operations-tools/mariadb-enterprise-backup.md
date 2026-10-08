@@ -9,4 +9,6 @@
 * Q: Is MariaDB Enterprise Backup a free tool?\
   A: No, MariaDB Enterprise Backup is a commercial feature and tool. It is available as part of a MariaDB Enterprise subscription from MariaDB plc.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_COMPACTION_STATS table contains statistics
+  about compaction operations performed by the RocksDB engine.
+---
+
 # Information Schema ROCKSDB\_COMPACTION\_STATS Table
 
 The [Information Schema](../../) `ROCKSDB_COMPACTION_STATS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

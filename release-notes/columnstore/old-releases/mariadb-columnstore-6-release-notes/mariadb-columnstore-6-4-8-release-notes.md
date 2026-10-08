@@ -2,9 +2,9 @@
 
 ## Overview
 
-[MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 6.4.8 is a maintenance release of [MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server and MariaDB Community Server 10.6, 10.11, and 11.0. This is a release in the ColumnStore 6 series.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 6.4.8 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server and MariaDB Community Server 10.6, 10.11, and 11.0. This is a release in the ColumnStore 6 series.
 
-MariaDB Enterprise ColumnStore 6.4.8 was released on 2024-02-07. This release is of General Availability (GA) maturity.
+MariaDB ColumnStore 6.4.8 was released on 2024-02-07. This release is of General Availability (GA) maturity.
 
 This release of MariaDB ColumnStore is included with MariaDB Community Server 10.11.7 and MariaDB Community Server 10.6.17
 
@@ -17,7 +17,7 @@ This release of MariaDB ColumnStore is included with MariaDB Community Server 10
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.4.8 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.4.8 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)
@@ -27,6 +27,6 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 * Ubuntu 18.04 (x86\_64)
 * Ubuntu 20.04 (x86\_64)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

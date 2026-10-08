@@ -4,7 +4,7 @@ This article does not apply to the thread pool implementation on Windows. On Win
 
 On Unix, the thread pool implementation uses objects called thread groups to divide up client connections into many independent sets of threads. The [thread\_pool\_size](thread-pool-system-status-variables.md#thread_pool_size) system variable defines the number of thread groups on a system. Generally speaking, the goal of the thread group implementation is to have one running thread on each CPU on the system at a time. Therefore, the default value of the [thread\_pool\_size](thread-pool-system-status-variables.md#thread_pool_size) system variable is auto-sized to the number of CPUs on the system.
 
-When setting the [thread\_pool\_size](thread-pool-system-status-variables.md#thread_pool_size) system variable's value at system startup, the max value is `100000`. However, it is not a good idea to set it that high. When setting its value dynamically, the max value is either `128` or the value that was set at system startup--whichever value is higher. It can be changed dynamically with [SET GLOBAL](../../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/set-commands/set.md#global-session). For example:
+When setting the [thread\_pool\_size](thread-pool-system-status-variables.md#thread_pool_size) system variable's value at system startup, the max value is `100000`. However, it is not a good idea to set it that high. When setting its value dynamically, the max value is either `128` or the value that was set at system startup--whichever value is higher. It can be changed dynamically with [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session). For example:
 
 ```sql
 SET GLOBAL thread_pool_size=32;
@@ -12,7 +12,7 @@ SET GLOBAL thread_pool_size=32;
 
 It can also be set in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-```
+```ini
 [mariadb]
 ..
 thread_handling=pool-of-threads
@@ -32,7 +32,7 @@ One reason that CPU underutilization may occur in rare cases is that the thread 
 When a new client connection is created, its thread group is determined using the following calculation:
 
 ```
-thread_group_id = connection_id %  thread_pool_size
+thread_group_id = connection_id % thread_pool_size
 ```
 
 The `connection_id` value in the above calculation is the same monotonically increasing number that you can use to identify connections in [SHOW PROCESSLIST](../../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) output or the [information\_schema.PROCESSLIST](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) table.
@@ -75,7 +75,7 @@ A thread group's **listener thread** creates a new **worker thread** if all of t
   * The entire thread pool has fewer than [thread\_pool\_max\_threads](thread-pool-system-status-variables.md#thread_pool_max_threads).
   * There are fewer than two threads in the thread group. This is to guarantee that each thread group can have at least two threads, even if [thread\_pool\_max\_threads](thread-pool-system-status-variables.md#thread_pool_max_threads) has already been reached or exceeded.
 
-### Thread Creation by Worker Threads during Waits
+### Thread Creation by Worker Threads During Waits
 
 A thread group's **worker thread** can create a new **worker thread** when the thread has to wait on something, and the thread group has more client connection requests queued, but no pre-existing **worker threads** are available to work on them. This can help to ensure that the thread group always has enough threads to keep one **worker thread** active at a time. For most workloads, this tends to be the primary mechanism that creates new **worker threads**.
 
@@ -125,17 +125,22 @@ The thread pool's **timer thread** creates a new **worker thread** for a thread 
 
 In some of the scenarios listed above, a thread is only created within a thread group if no new threads have been created for the thread group within the _throttling interval_. The throttling interval depends on the number of threads that are already in the thread group.
 
-In [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) and later, thread creation is not throttled until a thread group has more than 1 + [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md#thread_pool_oversubscribe) threads:
+Thread creation is not throttled until a thread group has more than 1 + [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md#thread_pool_oversubscribe) threads:
 
 | Number of Threads in Thread Group                                                                       | Throttling Interval (milliseconds) |
 | ------------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | 0-(1 + [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md#thread_pool_oversubscribe)) | 0                                  |
-| 4-7                                                                                                     | 50 \* THROTTLING\_FACTOR           |
-| 8-15                                                                                                    | 100 \* THROTTLING\_FACTOR          |
-| 16-65536                                                                                                | 20 \* THROTTLING\_FACTOR           |
+| 4-7                                                                                                     | 50 \* `THROTTLING_FACTOR`          |
+| 8-15                                                                                                    | 100 \* `THROTTLING_FACTOR`         |
+| 16-65536                                                                                                | 20 \* `THROTTLING_FACTOR`          |
 
-`THROTTLING_FACTOR = ([thread_pool_stall_limit](thread-pool-system-status-variables.md#thread_pool_stall_limit) / MAX (500,[thread_pool_stall_limit](thread-pool-system-status-variables.md#thread_pool_stall_limit)))`\
-<>
+The throttling factor is calculated like this (see [thread\_pool\_stall\_limit](thread-pool-system-status-variables.md#thread_pool_stall_limit) for more information):
+
+{% code overflow="wrap" %}
+```
+THROTTLING_FACTOR = thread_pool_stall_limit / MAX (500,thread_pool_stall_limit)
+```
+{% endcode %}
 
 ## Thread Group Stalls
 
@@ -149,7 +154,7 @@ SET GLOBAL thread_pool_stall_limit=300;
 
 It can also be set in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-```
+```ini
 [mariadb]
 ..
 thread_handling=pool-of-threads

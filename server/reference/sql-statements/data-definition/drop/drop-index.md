@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove an existing index from a table. This command deletes the index
+  structure, potentially impacting query performance but freeing storage.
+---
+
 # DROP INDEX
 
 ## Syntax
 
-```sql
+```bnf
 DROP INDEX [IF EXISTS] index_name ON tbl_name 
     [WAIT n |NOWAIT]
 ```
@@ -21,7 +27,7 @@ To remove the primary key, `PRIMARY` must be specified as index\_name. Note that
 
 ## Privileges
 
-Executing the `DROP INDEX` statement requires the [INDEX](../../account-management-sql-commands/grant.md#table-privileges) privilege for the table or the database.
+Executing the `DROP INDEX` statement requires the [INDEX](../../account-management-sql-statements/grant.md#table-privileges) privilege for the table or the database.
 
 ## Online DDL
 
@@ -39,7 +45,7 @@ Sets the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-no
 
 ## Progress Reporting
 
-MariaDB provides progress reporting for `DROP INDEX` statement for clients\
+MariaDB provides progress reporting for `DROP INDEX` statement for clients
 that support the new progress reporting protocol. For example, if you were using the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client, then the progress report might look like this::
 
 ## See Also

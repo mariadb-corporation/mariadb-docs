@@ -1,4 +1,8 @@
 ---
+description: >-
+  RMariaDB is a DBI-compliant R package that provides a MariaDB database
+  interface for R, supporting connection, querying, and data manipulation
+  through standard DBI methods.
 icon: link
 ---
 
@@ -20,7 +24,7 @@ And loaded in the R environment executing:
 library(RMariaDB)
 ```
 
-Basic notions on R Programming can be found in article:[R Statistical Programming Using MariaDB as the Background Database](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/use-cases/r-statistical-programming-using-mariadb-as-the-background-database)
+Basic notions on R Programming can be found in article:[R Statistical Programming Using MariaDB as the Background Database](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/use-cases/r-statistical-programming-using-mariadb-as-the-background-database)
 
 ## RMariaDB Package Function Examples
 
@@ -54,5 +58,7 @@ dbClearResult(res)
 # Disconnect from the database
 dbDisconnect(con)
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

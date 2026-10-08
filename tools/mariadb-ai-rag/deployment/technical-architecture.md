@@ -1,17 +1,13 @@
+---
+description: >-
+  Detailed technical reference for MariaDB AI RAG covering Docker container
+  topology, ingestion and query flows, MariaDB schema, security
+  architecture, and resource performance metrics.
+hidden: true
+noIndex: true
+---
+
 # Technical Architecture
-
-## Table of Contents
-
-1. [System Architecture](technical-architecture.md#system-architecture)
-2. [Component Details](technical-architecture.md#component-details)
-3. [Data Flow](technical-architecture.md#data-flow)
-4. [Security Architecture](technical-architecture.md#security-architecture)
-5. [Configuration Management](technical-architecture.md#configuration-management)
-6. [API Specifications](technical-architecture.md#api-specifications)
-7. [Database Schema](technical-architecture.md#database-schema)
-8. [Performance Characteristics](technical-architecture.md#performance-characteristics)
-
-***
 
 ## System Architecture
 
@@ -88,8 +84,8 @@ External Services (Internet):
 ┌─────────────────────────────────────────────────┐
 │  Google Generative AI API                       │
 │  - Endpoint: generativelanguage.googleapis.com  │
-│  - Embedding: text-embedding-004                │
-│  - LLM: gemini-2.0-flash                        │
+│  - Embedding: gemini-embedding-001                │
+│  - LLM: gemini-2.5-flash-lite                        │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -173,9 +169,9 @@ GEMINI_API_KEY=your_gemini_api_key
 SECRET_KEY=your_generated_secret_key
 JWT_SECRET_KEY=<secret>
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.0-flash
+LLM_MODEL=gemini-2.5-flash-lite
 DOCUMENTS_TABLE=documents_DEMO_gemini
 VDB_TABLE=vdb_tbl_DEMO_gemini
 CHUNK_SIZE=512
@@ -345,7 +341,7 @@ User Upload
 │  4. Embedding Generation              │
 │  - Batch size: 32 chunks              │
 │  - Call Gemini API                    │
-│  - Model: text-embedding-004          │
+│  - Model: gemini-embedding-001          │
 │  - Dimensions: 768                    │
 └───────────────┬───────────────────────┘
                 │
@@ -410,7 +406,7 @@ User Query
 │    "Context: {chunks}"                │
 │    "Question: {query}"                │
 │  - Call Gemini LLM                    │
-│  - Model: gemini-2.0-flash            │
+│  - Model: gemini-2.5-flash-lite            │
 └───────────────┬───────────────────────┘
                 │
                 ▼
@@ -640,7 +636,7 @@ Content-Type: application/json
   ],
   "metadata": {
     "processing_time": 1.23,
-    "model": "gemini-2.0-flash"
+    "model": "gemini-2.5-flash-lite"
   }
 }
 ```
@@ -740,3 +736,7 @@ mysql-db:
 ***
 
 **End of Technical Architecture Document**
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

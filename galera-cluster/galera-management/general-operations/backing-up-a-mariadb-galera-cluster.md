@@ -1,3 +1,10 @@
+---
+description: >-
+  Consistent backup procedure for MariaDB Galera Cluster: desync a chosen node
+  with wsrep_desync=ON, run mariadb-backup, then resync the node via
+  Incremental State Transfer.
+---
+
 # Backing Up a MariaDB Galera Cluster
 
 The recommended strategy for creating a full, consistent backup of a MariaDB Galera Cluster is to perform the backup on a single [node](../../high-availability/monitoring-mariadb-galera-cluster.md#checking-individual-node-status). Because all nodes in a [healthy cluster](../../high-availability/understanding-quorum-monitoring-and-recovery.md) contain the same data, a complete backup from one node represents a snapshot of the entire cluster at a specific point in time.
@@ -22,7 +29,7 @@ Choose a node from your cluster to serve as the backup source. It's a good pract
 
 To guarantee consistency, you should temporarily pause the node's ability to apply new replicated transactions. This is done by setting the `wsrep_desync` [variable](../../reference/galera-cluster-system-variables.md#wsrep_desync) to `ON`.
 
-1. Take the selected node out of your [load balancer's](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) rotation so it no longer receives application traffic.
+1. Take the selected node out of your [load balancer's](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) rotation so it no longer receives application traffic.
 2.  Connect to the node with a `mariadb` client and execute:
 
     ```sql
@@ -33,7 +40,7 @@ To guarantee consistency, you should temporarily pause the node's ability to app
 
 #### 3. Perform the Backup
 
-With the node's replication paused, run the `mariadb-backup` [command](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#list-of-mariadb-backup-options) to create a full backup.
+With the node's replication paused, run the `mariadb-backup` [command](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) to create a full backup.
 
 ```bash
 mariadb-backup --backup --target-dir=/path/to/backup/ --user=backup_user --password=...

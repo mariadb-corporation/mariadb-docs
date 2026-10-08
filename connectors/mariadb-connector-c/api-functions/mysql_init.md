@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_init allocates and initializes a MYSQL structure for use with
+  mysql_real_connect, and also initializes the thread subsystem if not already
+  done.
+---
+
 # mysql\_init
 
 ## Syntax
@@ -6,13 +13,19 @@
 MYSQL * mysql_init(MYSQL * mysql);
 ```
 
-`mysql` - a pointer to MYSQL or NULL. In case of passing a NULL pointer mysql\_init() will allocate memory and return a pointer to a MYSQL structure.
+## Parameter
+
+* `mysql` - a pointer to `MYSQL` or `NULL`. In case of passing a `NULL` pointer mysql\_init() will allocate memory and return a pointer to a MYSQL structure.
 
 ## Description
 
 Prepares and initializes a MYSQL structure to be used with [mysql\_real\_connect()](mysql_real_connect.md).
 
-If mysql\_thread\_init() was not called before, mysql\_init() will also initialize the thread subsystem for the current thread.
+`mysql_init()` also ensures the client library is initialized, via a one-time internal initialization; it does not depend on `mysql_thread_init()`, which is a no-op retained for compatibility.
+
+## Return Value
+
+The `mysql_init()` function returns an address of a `MYSQL` structure, or NULL in case of memory allocation error.
 
 {% hint style="info" %}
 Members of the MYSQL structure are not intended for application use.
@@ -22,12 +35,13 @@ Any subsequent calls to any mysql function (except mysql\_options()) will fail u
 Memory allocated by mysql\_init() must be freed with [mysql\_close()](mysql_close.md).
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_real\_connect()](mysql_real_connect.md)
 * [mysql\_options()](mysql_options.md)
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_close()](mysql_close.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

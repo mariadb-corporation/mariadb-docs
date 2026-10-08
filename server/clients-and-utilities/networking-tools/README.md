@@ -7,3 +7,16 @@ description: >-
 
 # Networking Tools
 
+{% columns %}
+{% column %}
+{% content-ref url="resolveip.md" %}
+[resolveip.md](resolveip.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Resolve host names to IP addresses and the reverse with the resolveip utility, useful when configuring host-based privileges.
+{% endcolumn %}
+{% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

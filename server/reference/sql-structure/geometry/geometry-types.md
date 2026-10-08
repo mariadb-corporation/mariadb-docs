@@ -1,8 +1,14 @@
+---
+description: >-
+  Create spatial columns for geometry types in MariaDB, supported on MyISAM,
+  InnoDB, and ARCHIVE tables.
+---
+
 # Geometry Types
 
 ## Description
 
-MariaDB provides a standard way of creating spatial columns for geometry types, for example, with [CREATE TABLE](../../sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../sql-statements/data-definition/alter/alter-table/). Spatial columns are supported for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [InnoDB](../../../server-usage/storage-engines/innodb/) and [ARCHIVE](../../../server-usage/storage-engines/archive.md)\
+MariaDB provides a standard way of creating spatial columns for geometry types, for example, with [CREATE TABLE](../../sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../sql-statements/data-definition/alter/alter-table/). Spatial columns are supported for [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [InnoDB](../../../server-usage/storage-engines/innodb/) and [ARCHIVE](../../../server-usage/storage-engines/archive.md)
 tables. See also [SPATIAL INDEX](spatial-index.md).
 
 The basic geometry type is `GEOMETRY`, but the type can be more specific. The following types are supported:
@@ -63,10 +69,10 @@ INSERT INTO gis_point VALUES
     (PointFromText('POINT(20 10)')),
     (PointFromText('POINT(20 20)')),
     (PointFromWKB(AsWKB(PointFromText('POINT(10 20)'))));
-<</sql>>
+```
 
-=== [[linestring|LINESTRING]]
-<<code lang=sql inline=false wrap=true>>
+### [LINESTRING](../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)
+```sql
 CREATE TABLE gis_line  (g LINESTRING);
 SHOW FIELDS FROM gis_line;
 INSERT INTO gis_line VALUES

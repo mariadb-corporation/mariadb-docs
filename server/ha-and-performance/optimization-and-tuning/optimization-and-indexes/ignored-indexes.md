@@ -1,8 +1,14 @@
+---
+description: >-
+  Ignored indexes allow indexes to be visible and maintained without being used
+  by the optimizer. This feature is comparable to MySQL 8’s "invisible indexes."
+---
+
 # Ignored Indexes
 
-**MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
-
-Ignored indexes were added in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106).
+{% hint style="info" %}
+This feature is available from MariaDB 10.6.
+{% endhint %}
 
 Ignored indexes are indexes that are visible and maintained, but which are not used by the optimizer. MySQL 8 has a similar feature which they call "invisible indexes".
 
@@ -10,7 +16,7 @@ Ignored indexes are indexes that are visible and maintained, but which are not u
 
 By default, an index is not ignored. One can mark existing index as ignored (or not ignored) with an [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) statement:
 
-```sql
+```bnf
 ALTER TABLE table_name ALTER {KEY|INDEX} [IF EXISTS] key_name [NOT] IGNORED;
 ```
 

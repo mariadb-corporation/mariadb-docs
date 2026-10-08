@@ -1,8 +1,14 @@
+---
+description: >-
+  Load-test MariaDB with mariadb-slap by emulating many concurrent clients
+  running a set of queries repeatedly (formerly mysqlslap).
+---
+
 # mariadb-slap
 
 `mariadb-slap` is a tool for load-testing MariaDB. It allows you to emulate multiple concurrent connections, and run a set of queries multiple times.
 
-Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/what-is-mariadb-105), the client was called `mysqlslap`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+The client was formerly called `mysqlslap`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
 
 It returns a benchmark including the following information:
 
@@ -107,13 +113,13 @@ The following options relate to how MariaDB command line tools handles option fi
 
 `mariadb-slap` reads options from the following option groups from option files:
 
-| Group             | Description                                                                                                                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysqlslap]      | Options read by mariadb-slap, which includes both MariaDB Server and MySQL Server.                                                                                                                                                       |
-| \[mariadb-slap]   | Options read by mariadb-slap. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/mariadb-1046-release-notes). |
-| \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                                                                            |
-| \[client-server]  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients.                                                                 |
-| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                                                                                             |
+| Group             | Description                                                                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| \[mysqlslap]      | Options read by mariadb-slap, which includes both MariaDB Server and MySQL Server.                                                                                       |
+| \[mariadb-slap]   | Options read by mariadb-slap. |
+| \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                            |
+| \[client-server]  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
+| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                             |
 
 #### Examples
 
@@ -154,5 +160,7 @@ Benchmark
 ```
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

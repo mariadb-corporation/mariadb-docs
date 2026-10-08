@@ -1,12 +1,16 @@
+---
+description: >-
+  Replace rows and retrieve the results immediately. This extension returns the
+  values of the replaced or inserted rows in the same operation.
+---
+
 # REPLACE...RETURNING
 
-{% hint style="info" %}
-`REPLACE ... RETURNING` was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), and returns a result set of the replaced rows.
-{% endhint %}
+`REPLACE ... RETURNING` returns a result set of the replaced rows.
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE [LOW_PRIORITY | DELAYED]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...

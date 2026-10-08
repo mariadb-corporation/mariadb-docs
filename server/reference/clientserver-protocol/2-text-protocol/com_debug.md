@@ -1,3 +1,9 @@
+---
+description: >-
+  This command forces the server to dump debug information to the standard
+  output or log, requiring the SUPER privilege.
+---
+
 # COM\_DEBUG
 
 The `COM_DEBUG` command forces the server to dump debug information to stdout. It requires the [SUPER](../../sql-statements/account-management-sql-statements/grant.md#super) privilege.

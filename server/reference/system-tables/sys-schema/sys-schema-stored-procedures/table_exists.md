@@ -1,3 +1,9 @@
+---
+description: >-
+  The table_exists procedure checks for the existence of a specific table, view,
+  or temporary table within a given database.
+---
+
 # table\_exists
 
 ## Syntax

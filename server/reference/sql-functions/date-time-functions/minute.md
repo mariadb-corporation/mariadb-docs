@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract the minute. This function returns the minute portion of a time or
+  datetime value as a number from 0 to 59.
+---
+
 # MINUTE
 
 ## Syntax
 
-```sql
+```bnf
 MINUTE(time)
 ```
 

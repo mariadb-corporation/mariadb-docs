@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_SST_PROPS table displays properties of SST
+  files, such as data size and compression ratios, for MyRocks tables.
+---
+
 # Information Schema ROCKSDB\_SST\_PROPS Table
 
 The [Information Schema](../../) `ROCKSDB_SST_PROPS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

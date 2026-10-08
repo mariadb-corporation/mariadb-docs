@@ -3,11 +3,39 @@ description: >-
   Learn to install and upgrade MariaDB Server. This section provides detailed
   instructions and best practices for setting up new instances and seamlessly
   upgrading existing ones to newer versions.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Deployment
 
 Deployment includes installing, configuring, upgrading, downgrading, migration from other DBMS[^1]s, and automated deployment options. Here's an overview of what you can find in this section.
+
+{% columns %}
+{% column %}
+[mariadb-package-repository-setup-and-usage](mariadb-package-repository-setup-and-usage.md "mention")
+{% endcolumn %}
+
+{% column %}
+* MariaDB Repository Setup Scripts
+* MariaDB Foundation Repository Configuration Tool
+* Set up RedHat, Ubuntu, Debian, and Suse repositories
+{% endcolumn %}
+{% endcolumns %}
 
 {% columns %}
 {% column %}
@@ -87,3 +115,5 @@ Deployment includes installing, configuring, upgrading, downgrading, migration f
 {% endcolumns %}
 
 [^1]: Database Management System. Popular DBMSs include MariaDB, MySQL, Oracle, PostgreSQL, and MongoDB.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

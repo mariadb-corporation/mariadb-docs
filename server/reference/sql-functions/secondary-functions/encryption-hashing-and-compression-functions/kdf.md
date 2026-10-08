@@ -1,12 +1,18 @@
+---
+description: >-
+  Derive a key. This function derives a key from a password using a Key
+  Derivation Function (KDF), enhancing security for password storage.
+---
+
 # KDF
 
 {% hint style="info" %}
-`KDF()` is a key derivation function available from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes).
+`KDF()` is a key derivation function available from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0).
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
 ```
 

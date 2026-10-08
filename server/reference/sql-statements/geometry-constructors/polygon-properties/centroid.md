@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_CENTROID. Returns the mathematical centroid of the Polygon or
+  MultiPolygon as a Point geometry.
+---
+
 # CENTROID
 
 A synonym for [ST\_CENTROID](st_centroid.md).

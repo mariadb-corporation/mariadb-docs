@@ -1,3 +1,10 @@
+---
+description: >-
+  Incremental backup examples for MariaDB Cloud via the SkySQL Backup API;
+  incremental backups require an existing full backup and capture only changes
+  since the last backup.
+---
+
 # Incremental Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}
@@ -46,5 +53,7 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules' \
 * SERVICE\_ID : MariaDB Cloud service identifier, format dbtxxxxxx
 
 {% hint style="info" %}
-Backup status can be fetched using 'https://api.skysql.com/skybackup/v1/backups'. See the 'Backup Status' section for an example.
+Backup status can be fetched using `https://api.skysql.com/skybackup/v1/backups`. See the 'Backup Status' section for an example.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

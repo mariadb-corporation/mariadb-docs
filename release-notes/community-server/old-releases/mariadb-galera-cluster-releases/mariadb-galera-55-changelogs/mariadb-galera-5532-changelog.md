@@ -1,16 +1,15 @@
 # MariaDB Galera 5.5.32 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md) |**Changelog** |[Overview of Galera](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.32) |[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md) |**Changelog** |[Overview of Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 30 Aug 2013
 
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-5532-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #3417](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3417)\
   Tue 2013-08-27 23:40:49 +0300
@@ -29,7 +28,7 @@ modified in that revision.
   * References [MDEV-4404](https://jira.mariadb.org/browse/MDEV-4404) - Added log message to catch information of log event corruption
 * [Revision #3412](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3412) \[merge]\
   Wed 2013-08-21 16:34:31 +0300
-  * Merge with [mariadb 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-55-release-notes): `bzr merge lp:maria/5.5 --rtag:mariadb-5.5.32`
+  * Merge with [mariadb 5.5](../mariadb-galera-55-release-notes/): `bzr merge lp:maria/5.5 --rtag:mariadb-5.5.32`
   * [Revision #3334.1.504](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.504)\
     Wed 2013-07-17 17:03:59 +0300
     * Revert of marko.makela@oracle.com-20130430103950-j353faze84zzk9xf for xtradb (fix of [bug.php?id=69623](https://bugs.mysql.com/bug.php?id=69623))
@@ -1266,7 +1265,7 @@ Tue 2013-03-05 12:19:07 +0100
   * References [Bug #1012138](https://bugs.launchpad.net/bugs/1012138) - merged fix from lp:codership-mysql
 * [Revision #3395](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3395) \[merge]\
   Sun 2013-05-26 11:26:58 +0300
-  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.31](../../release-notes-mariadb-5-5-series/mariadb-5531-release-notes.md) bzr merge lp:maria/5.5 -rtag:mariadb-5.5.31
+  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.31](../../5.5/5.5.31.md) bzr merge lp:maria/5.5 -rtag:mariadb-5.5.31
   * [Revision #3334.1.444](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.444)\
     Tue 2013-05-21 18:56:35 +0200
     * fix for compiled-in FederatedX
@@ -2030,7 +2029,7 @@ Tue 2013-03-05 12:19:07 +0100
     * Merge 5.3 -> 5.5
     * [Revision #2502.567.91](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.567.91)\
       Mon 2013-04-01 18:03:14 +0400
-      * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../release-notes-mariadb-5-3-series/mariadb-5312-release-notes.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
+      * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../5.3/5.3.12.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
     * [Revision #2502.567.90](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.567.90)\
       Fri 2013-03-29 19:27:06 +0400
       * [MDEV-4335](https://jira.mariadb.org/browse/MDEV-4335): Unexpected results when selecting on information\_schema - When converting a subquery to a semi-join, propagate OPTION\_SCHEMA\_TABLE.
@@ -2054,7 +2053,7 @@ Tue 2013-03-05 12:19:07 +0100
     * Merge
     * [Revision #3334.34.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.34.1)\
       Wed 2013-03-27 19:17:32 -0700
-      * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for [WL#3220](https://askmonty.org/worklog/?tid=3220). If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
+      * Fixed bug [MDEV-4311](https://jira.mariadb.org/browse/MDEV-4311) (bug #68749). This bug was introduced by the patch for [WL#3220](https://dev.mysql.com/worklog/task/?id=3220). If the memory allocated for the tree to store unique elements to be counted is not big enough to include all of them then an external file is used to store the elements. The unique elements are guaranteed not to be nulls. So, when reading them from the file we don't have to care about the null flags of the read values. However, we should remove the flag at the very beginning of the process. If we don't do it and if the last value written into the record buffer for the field whose distinct values needs to be counted happens to be null, then all values read from the file are considered to be nulls and are not counted in. The fix does not remove a possible null flag for the read values. Rather it just counts the values in the same way it was done before WL #3220.
   * [Revision #3334.1.375](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.375) \[merge]\
     Wed 2013-03-27 10:03:28 +0100
     * 5.3 merge
@@ -2171,7 +2170,7 @@ Tue 2013-03-05 12:19:07 +0100
   * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with lp:codership-mysql/5.5-23 revisions 3858..3867
 * [Revision #3393](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3393) \[merge]\
   Fri 2013-05-24 15:29:01 +0300
-  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.30](../../release-notes-mariadb-5-5-series/mariadb-5530-release-notes.md)
+  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.30](../../5.5/5.5.30.md)
   * [Revision #3334.1.356](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.356)\
     Mon 2013-03-11 13:50:17 +0400
     * The i386 specific code improving character set conversion on the ASCII range was not enabled on x86\_64 machines. Enabling it. Gives up to 18 times conversion performance improvement.
@@ -2787,7 +2786,7 @@ Tue 2013-03-05 12:19:07 +0100
         * mtr.pl - improve the logic that decides when ndbcluster should be enabled and the extra test suites for MySQL Cluster should be added. Should be consistent and logical now ;)
     * [Revision #3077.175.20](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.20)\
       Mon 2012-11-12 14:24:43 +0200
-      * This is a backport of "[WL#5674](https://askmonty.org/worklog/?tid=5674) InnoDB: report all deadlocks (Bug#1784)" from MySQL 5.6 into MySQL 5.5
+      * This is a backport of "WL#5674 InnoDB: report all deadlocks (Bug#1784)" from MySQL 5.6 into MySQL 5.5
     * [Revision #3077.175.19](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.19) \[merge]\
       Mon 2012-11-12 22:33:40 +0900
       * Bug #14676111 WRONG PAGE\_LEVEL WRITTEN FOR UPPER THAN FATHER PAGE AT BTR\_LIFT\_PAGE\_UP()
@@ -2819,7 +2818,7 @@ Tue 2013-03-05 12:19:07 +0100
         * BUG#11762933: MYSQLDUMP WILL SILENTLY SKIP THE `EVENT` TABLE DATA IF DUMPS MYSQL DATABA Problem: If mysqldump is run without `--events` (or with `--skip-events`) it will not dump the mysql.event table's data. This behaviour is inconsistent with that of `--routines` option, which does not affect the dumping of mysql.proc table. According to the Manual, `--events` (`--skip-events`) defines, if the Event Scheduler events for the dumped databases should be included in the mysqldump output and this has nothing to do with the mysql.event table itself. Solution: A warning has been added when mysqldump is used without `--events` (or with `--skip-events`) and a separate patch with the behavioral change will be prepared for 5.6/trunk.
     * [Revision #3077.175.13](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.13)\
       Fri 2012-11-09 14:54:35 +0530
-      * BUG#14458232 - CRASH IN THD\_IS\_TRANSACTION\_ACTIVE DURING THREAD POOLING STRESS TEST PROBLEM: Connection stress tests which consists of concurrent kill connections interleaved with mysql ping queries cause the mysqld server which uses thread pool scheduler to crash. FIX: Killing a connection involves shutdown and close of client socket and this can cause EPOLLHUP(or EPOLLERR) events to be to be queued and handled after disarming and cleanup of the connection object (THD) is being done.We disarm the connection by modifying the epoll mask to zero which ensure no events come and release the ownership of waiting thread that collect events and then do the cleanup of THD. object.As per the linux kernel epoll source code ( [eventpoll.c#L1771](https://lxr.linux.no/linux+*/fs/eventpoll.c#L1771)), EPOLLHUP (or EPOLLERR) can't be masked even if we set EPOLL mask to zero. So we disarm the connection and thus prevent execution of any query processing handler/queueing to client ctx. queue by removing the client fd from the epoll set via EPOLL\_CTL\_DEL. Also there is a race condition which involve the following threads: 1) Thread X executing KILL CONNECTION Y and is in THD::awake and using mysys\_var (holding LOCK\_thd\_data). 2) Thread Y in tp\_process\_event executing and is being killed. 3) Thread Z receives KILL flag internally and possible call the tp\_thd\_cleanup function which set thread session variable and changing mysys\_var. The fix for the above race is to set thread session variable under LOCK\_thd\_data. We also do not call THD::awake if we found the thread in the thread list that is to be killed but it's KILL\_CONNECTION flag set thus avoiding any possible concurrent cleanup. This patch is approved by Mikael Ronstrom via email review.
+      * BUG#14458232 - CRASH IN THD\_IS\_TRANSACTION\_ACTIVE DURING THREAD POOLING STRESS TEST PROBLEM: Connection stress tests which consists of concurrent kill connections interleaved with mysql ping queries cause the mysqld server which uses thread pool scheduler to crash. FIX: Killing a connection involves shutdown and close of client socket and this can cause EPOLLHUP(or EPOLLERR) events to be to be queued and handled after disarming and cleanup of the connection object (THD) is being done.We disarm the connection by modifying the epoll mask to zero which ensure no events come and release the ownership of waiting thread that collect events and then do the cleanup of THD. object.As per the linux kernel epoll source code ( [eventpoll.c#L1771](https://elixir.bootlin.com/linux/v3.6/source/fs/eventpoll.c#L1771)), EPOLLHUP (or EPOLLERR) can't be masked even if we set EPOLL mask to zero. So we disarm the connection and thus prevent execution of any query processing handler/queueing to client ctx. queue by removing the client fd from the epoll set via EPOLL\_CTL\_DEL. Also there is a race condition which involve the following threads: 1) Thread X executing KILL CONNECTION Y and is in THD::awake and using mysys\_var (holding LOCK\_thd\_data). 2) Thread Y in tp\_process\_event executing and is being killed. 3) Thread Z receives KILL flag internally and possible call the tp\_thd\_cleanup function which set thread session variable and changing mysys\_var. The fix for the above race is to set thread session variable under LOCK\_thd\_data. We also do not call THD::awake if we found the thread in the thread list that is to be killed but it's KILL\_CONNECTION flag set thus avoiding any possible concurrent cleanup. This patch is approved by Mikael Ronstrom via email review.
     * [Revision #3077.175.12](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3077.175.12) \[merge]\
       Thu 2012-11-08 19:23:54 +0100
       * Merge the ULN RPM fix into main.
@@ -2914,6 +2913,6 @@ Tue 2013-03-05 12:19:07 +0100
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

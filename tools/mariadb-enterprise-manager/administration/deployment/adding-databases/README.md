@@ -1,18 +1,24 @@
+---
+description: >-
+  Guide to registering database topologies in the UI and using the integrated
+  helper tool to generate setup commands for installing monitoring agents.
+---
+
 # Adding Databases
 
 {% hint style="warning" %}
-To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories)
+To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#repositories)
 {% endhint %}
 
-This guide outlines the two primary methods for registering and monitoring your database topologies in MariaDB Enterprise Manager: adding a standalone server directly or adding a full cluster via its MaxScale instance.
+This guide outlines the two primary methods for registering and monitoring your database topologies in MariaDB Enterprise Manager: adding a standalone server directly or adding a full topology via its MaxScale instance.
 
-## Option 1: Adding a Server or Cluster (Without MaxScale)
+## Option 1: Adding a Standalone Server or Topology (Without MaxScale)
 
 Use this method for a single MariaDB Server or to manually define a Primary/Replica or Galera cluster.
 
 {% stepper %}
 {% step %}
-### Prepare your server(s)
+**Prepare your server(s)**
 
 First, perform these actions **on each MariaDB Server** you plan to add.
 
@@ -48,68 +54,63 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-### Register in the UI
+**Register in the UI**
 
 1. Go to your MariaDB Enterprise Manager web interface (for example `https://<Enterprise_Manager_IP>:8090`).
-2. Log in (default credentials: `admin` / `mariadb`).
+2. Log in with user who has `edit` permission.
 3. Begin the Add Database process:
    * If this is your first time and no databases are present, you'll be on the "Add Database" screen automatically.
    * If you already have other databases, click the **+ Add Database** button.
-4.  Ensure the **Database without MaxScale** option is selected.\
-
+4.  Ensure the **Database without MaxScale** option is selected.
 
     <figure><img src="../../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 5. Fill in the connection details for your first server using the Enterprise Manager User (`'monitor'@'<Enterprise_Manager_IP>'`).
 {% endstep %}
 
 {% step %}
-### Standalone server or a cluster
+**Standalone server or a Topology**
 
 To add a Standalone Server: Click **Add** and proceed to the next step (4).
 
-To create a Cluster:
+To create a Topology:
 
-1.  Click the Plus icon (+) to add another server node.\
-
+1.  Click the Plus icon (+) to add another server.
 
     <figure><img src="../../../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
-2. Fill in the connection details for the second server in your cluster and click **Confirm**. Repeat for all nodes in your cluster.
-3.  Once all nodes are added, select the Topology Type (e.g., Primary/Replica — default — or Galera Cluster) and click **Confirm**.\
+2. Fill in the connection details for the second server in your topology and click **Confirm**. Repeat for all nodes in your topology.
+3.  Once all nodes are added, select the Topology Type (e.g., Primary/Replica — default — or Galera Cluster) and click **Confirm**.
 
-
-    <figure><img src="../../../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-To convert an existing standalone server into a cluster: click the three-dot menu (⋮) next to the server, choose **Edit**, and click the Plus icon (+). Then follow the same steps to add nodes.
+To convert an existing standalone server into a topology of multiple servers: click the three-dot menu (⋮) next to the server, choose **Edit**, and click the Plus icon (+). Then follow the same steps to add nodes.
 
-![](<../../../../.gitbook/assets/image (38).png>)
+<img src="../../../../.gitbook/assets/image (38).png" alt="" data-size="original">
 {% endhint %}
 {% endstep %}
 
 {% step %}
-### Link the Agent(s) 🔗
+**Link the Agent(s) 🔗**
 
 For each server added, link its agent:
 
-1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Install Agent**.\
-
+1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Install Agent**.
 
     <figure><img src="../../../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
-2.  Enter the credentials for the Local Agent User (`'monitor'@'localhost'`) to generate a setup command.\
-
+2.  Enter the credentials for the Local Agent User (`'monitor'@'localhost'`) to generate a setup command.
 
     <figure><img src="../../../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 3. Copy the command and run it on that server's terminal to link the agent.
 {% endstep %}
 {% endstepper %}
 
-## Option 2: Adding a Cluster (With MaxScale)
+## Option 2: Adding a Topololgy (With MaxScale)
 
 Use this method to add a complete primary/replica or Galera cluster that is managed by one or more MaxScale instances.
 
 {% stepper %}
 {% step %}
-### Prepare all servers in the topology
+**Prepare all servers in the topology**
 
 Perform these actions on every server in the topology: the MaxScale instance(s) and each backend MariaDB Server attached.
 
@@ -136,7 +137,7 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-### Register the MaxScale instance in the UI 🖥️
+**Register the MaxScale instance in the UI 🖥️**
 
 1. Begin the Add Database process:
    * If this is your first time and no databases are present, you'll be on the "Add Database" screen to begin with.
@@ -147,22 +148,24 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-### Link all a 🔗
+**Link all a 🔗**
 
 You must link the agent on every server in the topology to Enterprise Manager. The UI will show the MaxScale instance and discovered backend servers marked as "Not Registered."
 
 For each server in the list (start with the MaxScale instance, then each MariaDB server):
 
-1.  Click the three-dot menu (⋮) and select **Install Agent**.\
-
+1.  Click the three-dot menu (⋮) and select **Install Agent**.
 
     <figure><img src="../../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
-2.  The UI will generate a unique setup command for that specific server with the username and password you provide. Copy the command.\
-
+2.  The UI will generate a unique setup command for that specific server with the username and password you provide. Copy the command.
 
     <figure><img src="../../../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 3. On that specific server, paste and run the command in the terminal.
 
-Repeat this process for every server in the topology. Once all agents are linked, the dashboard will begin showing the health and performance of the entire cluster.
+Repeat this process for every server in the topology. Once all agents are linked, the dashboard will begin showing the health of the entire topology.
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

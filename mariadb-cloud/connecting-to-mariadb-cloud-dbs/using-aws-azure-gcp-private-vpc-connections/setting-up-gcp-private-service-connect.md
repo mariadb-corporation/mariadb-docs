@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up GCP Private Service Connect to reach MariaDB Cloud via a private
+  endpoint, eliminating public-internet exposure between GCP workloads and the
+  Cloud database service.
+---
+
 # GCP Private Service Connect
 
 Google Private Service Connect (PSC) is a Google Cloud service that enables secure and private connectivity between Virtual Private Clouds (VPCs) and third-party services. By using PSC with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.
@@ -214,7 +221,7 @@ Disabling PSC on an existing service will cause all existing connections to be d
 4. In the context menu, select "Manage your Private Service Connect".
 5. In the popup window, click "I want to disconnect my Private Service Connect".
 6. In the popup window, select "Disconnect".
-7. Since the service's allowlist was cleared when Goolge PSC was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling PSC.
+7. Since the service's allowlist was cleared when Goolge PSC was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling PSC.
 
 </details>
 
@@ -237,3 +244,5 @@ To disable Google PSC on an existing service, you will need to update the servic
 This payload should then be sent to the API `PATCH` https://api.skysql.com/provisioning/v1/services/{SERVICE\_ID}/endpoints where `{SERVICE_ID}` is the ID of the service you are updating. For more information on using the MariaDB Cloud DBaaS API, see ["MariaDB Cloud DBaaS API"](https://apidocs.skysql.com/#/Services/patch_provisioning_v1_services__service_id__endpoints).
 
 </details>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

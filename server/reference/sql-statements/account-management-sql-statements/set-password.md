@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete reference for SET PASSWORD in MariaDB. Complete syntax guide with all
+  options, clauses, and practical examples with comprehensive examples and best.
+---
+
 # SET PASSWORD
 
 ## Syntax
@@ -10,6 +16,8 @@ SET PASSWORD [FOR user] =
       | 'encrypted password'
     }
 ```
+
+![Railroad diagram of SET PASSWORD — equivalent to the BNF above](../../../.gitbook/assets/set-password-railroad.svg)
 
 ## Description
 
@@ -44,7 +52,7 @@ SET PASSWORD IS ignored FOR users authenticating via unix_socket plugin
 ```
 
 {% hint style="info" %}
-See [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for an overview of authentication changes in MariaDB.
+See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for an overview of authentication changes in MariaDB.
 {% endhint %}
 
 ## Passwordless User Accounts

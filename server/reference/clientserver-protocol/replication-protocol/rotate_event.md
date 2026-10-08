@@ -1,3 +1,9 @@
+---
+description: >-
+  The ROTATE_EVENT indicates a log rotation, specifying the name of the next
+  binary log file and the position where writing will continue.
+---
+
 # ROTATE\_EVENT
 
 When a [binary log](../../../server-management/server-monitoring-logs/binary-log/) file exceeds the configured size limit, a `ROTATE_EVENT` is written at the end of the file, pointing to the next file in the sequence.
@@ -8,12 +14,12 @@ The `ROTATE_EVENT` is sent to the connected replica servers.
 
 ## Header
 
-* The Event Type is  `ROTATE_EVENT` (`0x4`).
+* The Event Type is `ROTATE_EVENT` (`0x4`).
 
 ## Fields
 
 * [uint<8>](../protocol-data-types.md#fixed-length-bytes) The position of the first event in the next log file. It always contains the number `4` (meaning the next event starts at position 4 in the next binary log).
-* [string](../protocol-data-types.md#fixed-length-bytes) The next binary log name. The filename is not null-terminated.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The next binary log name. The filename is not null-terminated.
 
 ## Example of Transmission With CRC32 (The Last 4 Bytes)
 

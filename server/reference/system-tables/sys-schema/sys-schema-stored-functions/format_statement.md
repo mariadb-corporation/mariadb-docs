@@ -1,3 +1,9 @@
+---
+description: >-
+  This function formats and truncates an SQL statement string to a specified
+  length, making it suitable for display in summary views.
+---
+
 # format\_statement
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

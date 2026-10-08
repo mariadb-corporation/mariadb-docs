@@ -1,10 +1,17 @@
+---
+description: >-
+  MariaDB Backup is the open-source file-level backup tool for MariaDB Cloud,
+  capturing data from the MariaDB Server data directory across InnoDB,
+  MyRocks, and Aria storage engines.
+---
+
 # MariaDB Backup
 
-Regular and reliable backups are essential to successful recovery of mission critical applications. [MariaDB Server](https://mariadb.org/en/#mariadb-server) backup and restore operations are performed using [MariaDB Backup](https://mariadb.com/docs/server/ref/mdb/cli/mariadb-backup/), an [open source backup tool](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/).
+Regular and reliable backups are essential to successful recovery of mission critical applications. [MariaDB Server](https://mariadb.org/en/#mariadb-server) backup and restore operations are performed using MariaDB Backup, an [open source backup tool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview).
 
 ## **Storage Engines and Backup Types**
 
-MariaDB Backup creates a file-level backup of data from the MariaDB Server data directory. This backup includes [temporal data](https://mariadb.com/docs/server/sql/features/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](https://mariadb.com/docs/server/storage-engines/innodb/), [MyRocks](https://mariadb.com/docs/server/storage-engines/myrocks/), [Aria](https://mariadb.com/docs/server/storage-engines/aria/)).
+MariaDB Backup creates a file-level backup of data from the MariaDB Server data directory. This backup includes [temporal data](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb), [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks), [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)).
 
 MariaDB Server implements:
 
@@ -18,11 +25,10 @@ Backup support is specific to storage engines. All supported storage engines ena
 
 A feature of MariaDB Backup and MariaDB Server, non-blocking backups minimize workload impact during backups. When MariaDB Backup connects to MariaDB Server, staging operations are initiated to protect data during read.
 
-Non-blocking backup functionality differs from historical backup functionality in the following ways:
+Non-blocking backups work in the following ways:
 
 * MariaDB Backup includes optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
-* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
-* Older MariaDB Community Server releases used `FLUSH TABLES WITH READ LOCK`, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+* MariaDB Backup blocks commits, and writes to log tables and statistics tables, only during the final stage of the backup. DDL statements and new writes to non-transactional tables are blocked earlier.
 
 ## **Understanding Recovery**
 
@@ -121,7 +127,7 @@ Subsequent to the above example, the backup is now available in the designated `
 
 ### **Preparing a Full Backup for Recovery**
 
-A raw full backup is not [point-in-time consistent](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Preparing_Backups_for_Recovery) and must be prepared before it can be used for a restore. The backup can be prepared any time after the backup is created and before the backup is restored. However, MariaDB recommends preparing a backup immediately after taking the backup to ensure that the backup is consistent.
+A raw full backup is not [point-in-time consistent](mariadb-backup.md#point-in-time-recovery) and must be prepared before it can be used for a restore. The backup can be prepared any time after the backup is created and before the backup is restored. However, MariaDB recommends preparing a backup immediately after taking the backup to ensure that the backup is consistent.
 
 The backup should be prepared with the same version of MariaDB Backup that was used to create the backup.
 
@@ -129,16 +135,16 @@ To prepare the backup, execute `mariabackup` or `mariadb-backup` with the `--pre
 
 `$ sudo mariabackup --prepare \ --use-memory=34359738368 \ --target-dir=/data/backups/full`
 
-For best performance, the `--use-memory` option should be set to the server's `[innodb_buffer_pool_size](https://mariadb.com/docs/server/ref/mdb/system-variables/innodb_buffer_pool_size/)` value.
+For best performance, the `--use-memory option` should be set to the server's [innodb\_buffer\_pool\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_buffer_pool_size) value.
 
 ### **Restoring from Full Backups**
 
-Once a full backup has been [prepared](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Preparing_a_Full_Backup_for_Recovery) to be point-in-time consistent, MariaDB Backup is used to copy backup data to the MariaDB Server data directory.
+Once a full backup has been [prepared](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) to be point-in-time consistent, MariaDB Backup is used to copy backup data to the MariaDB Server data directory.
 
 To restore from a full backup:
 
 1. Stop the MariaDB Server.
-2. [Empty](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Restore_Requires_Empty_Data_Directory) the data directory.
+2. [Empty](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup#restoring-the-backup) the data directory.
 3.  Restore from the "full" directory using the `--copy-back` option:
 
     `$ sudo mariabackup --copy-back --target-dir=/data/backups/full`
@@ -187,7 +193,7 @@ Once the incremental backup has been applied to the full backup, the full backup
 
 ### **Restoring from Incremental Backups**
 
-Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Server, [empty](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Restore_Requires_Empty_Data_Directory) its data directory, and restore from the original full backup directory using the `--copy-back` option:
+Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Server, [empty](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/incremental-backup-and-restore-with-mariadb-backup#restoring-the-backup) its data directory, and restore from the original full backup directory using the `--copy-back` option:
 
 `$ sudo mariabackup --copy-back --target-dir=/data/backups/full`
 
@@ -528,3 +534,5 @@ $ mysql -u root -p < mariadb-binlog.sql
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

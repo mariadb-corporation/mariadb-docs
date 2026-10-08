@@ -1,3 +1,9 @@
+---
+description: >-
+  This function appends a value to a comma-separated list of values, which is
+  useful for modifying system variables that take list values.
+---
+
 # list\_add
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}
@@ -12,7 +18,7 @@ sys.list_add(list,value)
 
 `list_add` is a [stored function](../../../../server-usage/stored-routines/stored-functions/) available with the [Sys Schema](../).
 
-It takes a _list_ to be modified and a _value_ to be added to the list, returning the resulting value. This can be used, for example, to add a value to a system variable taking a comma-delimited list of options, such as [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md).
+It takes a _list_ to be modified and a _value_ to be added to the list, returning the resulting value. This can be used, for example, to add a value to a system variable taking a comma-delimited list of options, such as [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md).
 
 The related function [list\_drop](list_drop.md) can be used to drop a value from a list.
 

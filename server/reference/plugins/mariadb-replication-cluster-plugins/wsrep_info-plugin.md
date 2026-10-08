@@ -1,3 +1,10 @@
+---
+description: >-
+  The WSREP_INFO plugin adds the WSREP_MEMBERSHIP and WSREP_STATUS tables to the
+  Information Schema, providing detailed insights into Galera Cluster membership
+  and status.
+---
+
 # WSREP\_INFO Plugin
 
 The `WSREP_INFO` plugin library contains the following plugins:

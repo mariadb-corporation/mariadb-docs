@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to building a custom MariaDB container image to include specific
+  configuration files, scripts, or pre-loaded data.
+---
+
 # Creating a Custom Container Image
 
 OCI containers, frequently and incorrectly called Docker containers, are created from OCI images. An image contains software that can be launched, including the underlying system. A container is an instance of that software.
@@ -14,7 +20,25 @@ All the following Dockerfile directives are compiled into a new Docker image, id
 
 The following diagram shows the relationship between Dockerfiles, images and containers:
 
-![dockerfiles-images-containers](../../../.gitbook/assets/dockerfiles-images-containers.png)
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart LR
+    accTitle: Dockerfile to image to containers build flow
+    accDescr { A Dockerfile is compiled into a single image using a build step. That one image is then used to run multiple containers, shown here as three separate container instances fanning out from the same image. Each container is an independent running instance of the same underlying image. }
+    Dockerfile[Dockerfile] -->|build| Image[image]
+    Image -->|run| Container1[container]
+    Image -->|run| Container2[container]
+    Image -->|run| Container3[container]
+
+    style Dockerfile fill:#cfe2f3,stroke:#333,stroke-width:1px,color:#111;
+    style Image fill:#fce5cd,stroke:#333,stroke-width:1px,color:#111;
+    style Container1 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container2 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    style Container3 fill:#d9ead3,stroke:#333,stroke-width:1px,color:#111;
+    linkStyle default color:#111111
+```
+
+_A Dockerfile is built into an image, which can then be run to create multiple containers._
 
 ## Dockerfile Syntax
 
@@ -51,7 +75,7 @@ We also define a healthcheck. This is a command that is run to check if the cont
 
 Finally, we start the container command: [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). This command is run when a container based on this image starts. When the process stops or crashes, the container will immediately stop.
 
-Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
+Note that, in a container, we normally run mariadbd directly or in an entrypoint script `exec mariadbd`, rather than running [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) or running MariaDB as a service. Containers restart can be handled by the container service. See [automatic restart](installing-and-using-mariadb-via-docker.md#automatic-restart).
 
 See the documentation links below to learn the syntax allowed in a Dockerfile.
 
@@ -71,7 +95,7 @@ ARG MARIADB_CONFIG_FILE
 ENTRYPOINT mariadbd --defaults-file=$MARIADB_CONFIG_FILE
 ```
 
-Here `ARG` is used after the `FROM` directive, thus the variable cannot be used in `FROM`. It is also possible to declare a variable before `FROM`, so we can use a variable to select the base image to use or its tag, but in this case the variable cannot be used after the `FROM` directive, unless `ARG` is re-declared after the `FROM`. Here is an example:
+Here `ARG` is used after the `FROM` directive, thus the variable cannot be used in `FROM`. It is also possible to declare a variable before `FROM`, so we can use a variable to select the base image to use or its tag, but in this case the variable cannot be used after the `FROM` directive, unless `ARG` is redeclared after the `FROM`. Here is an example:
 
 ```docker
 ARG UBUNTU_VERSION
@@ -118,7 +142,7 @@ It doesn't matter if the maintainer is an individual or an organization. For ima
 
 Official images maintained by the Docker Library maintainers have the implicit name of `library` filled in by the container fetching tool. For example, the official MariaDB image is called `mariadb` which is an alias for `docker.io/library/mariadb`.
 
-All images have a tag, which identifies the version or the variant of an image. For example, all MariaDB versions available on Docker are used as image tags. [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) is called `mariadb:10.11`.
+All images have a tag, which identifies the version or the variant of an image. For example, all MariaDB versions available on Docker are used as image tags. [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) is called `mariadb:10.11`.
 
 By conversion, tags form a hierarchy. So for example, there is a `10.1.1` tag whose meaning will not change over time. `10.5` will always identify the latest stable version in the 10.5 branch. For some time it was `10.5.1`, then it became `10.5.2`, and so on.
 

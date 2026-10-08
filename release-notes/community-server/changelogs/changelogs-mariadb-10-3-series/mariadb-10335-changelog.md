@@ -1,14 +1,14 @@
 # MariaDB 10.3.35 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download 10.3.35](https://mariadb.org/download/?tab=mariadb\&release=10.3.35\&product=mariadb)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10335-release-notes.md)[Changelog](mariadb-10335-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download 10.3.35](https://mariadb.org/download/?tab=mariadb\&release=10.3.35\&product=mariadb)[Release Notes](../../old-releases/10.3/10.3.35.md)[Changelog](mariadb-10335-changelog.md)[Overview of 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 
 **Release date:** 20 May 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10335-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.35.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.2.44](../changelogs-mariadb-102-series/mariadb-10244-changelog.md)
@@ -314,7 +314,8 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #5b237e5965](https://github.com/MariaDB/server/commit/5b237e5965) 2022-02-17 10:53:58 +0200 - Merge 10.2 into 10.3
 * [Revision #0a92ef458b](https://github.com/MariaDB/server/commit/0a92ef458b)\
   2022-02-16 14:47:26 +0200
-  * [MDEV-17223](https://jira.mariadb.org/browse/MDEV-17223) Assertion `thd->killed != 0' failed in ha_maria::enable_indexes [MDEV-22500](https://jira.mariadb.org/browse/MDEV-22500) Assertion` thd->killed != 0' failed in ha\_maria::enable\_indexes
+  * [MDEV-17223](https://jira.mariadb.org/browse/MDEV-17223) Assertion `thd->killed != 0` failed in `ha_maria::enable_indexes`
+  * [MDEV-22500](https://jira.mariadb.org/browse/MDEV-22500) Assertion `thd->killed != 0` failed in `ha_maria::enable_indexes`
 * [Revision #6c3f1f661c](https://github.com/MariaDB/server/commit/6c3f1f661c)\
   2022-02-10 16:04:44 +0700
   * [MDEV-27691](https://jira.mariadb.org/browse/MDEV-27691): make working view-protocol
@@ -326,6 +327,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

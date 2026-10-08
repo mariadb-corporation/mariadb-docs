@@ -1,12 +1,12 @@
 # MariaDB 10.2.11 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.11)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes.md)[Changelog](mariadb-10211-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.11)[Release Notes](../../old-releases/10.2/10.2.11.md)[Changelog](mariadb-10211-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 28 Nov 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.11.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -60,7 +60,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Adjust the tests for MariaDB, and optimize them
 * [Revision #f8bc799a89](https://github.com/MariaDB/server/commit/f8bc799a89)\
   2017-11-23 07:47:19 +0200
-  * Import [WL#6658](https://askmonty.org/worklog/?tid=6658) update\_time tests from MySQL 5.7
+  * Import [WL#6658](https://dev.mysql.com/worklog/task/?id=6658) update\_time tests from MySQL 5.7
 * Merge [Revision #0055e1a57f](https://github.com/MariaDB/server/commit/0055e1a57f) 2017-11-22 17:38:30 +0100 - Merge branch 'connect/10.2' into 10.2
 * [Revision #b6563d773a](https://github.com/MariaDB/server/commit/b6563d773a)\
   2017-11-03 11:29:02 +0100\
@@ -91,7 +91,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * don't `git submodule update` from rocksdb/CMakeLists.txt (#492)
 * [Revision #8c422bf48d](https://github.com/MariaDB/server/commit/8c422bf48d)\
   2017-11-14 07:22:25 +0800
-  * [MDEV-14256](https://jira.mariadb.org/browse/MDEV-14256) [MariaDB 10.2.10](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes.md) can't SST with xtrabackup-v2
+  * [MDEV-14256](https://jira.mariadb.org/browse/MDEV-14256) [MariaDB 10.2.10](../../old-releases/10.2/10.2.10.md) can't SST with xtrabackup-v2
 * [Revision #a963cb95db](https://github.com/MariaDB/server/commit/a963cb95db)\
   2017-11-10 18:55:57 +0100
   * [MDEV-14268](https://jira.mariadb.org/browse/MDEV-14268) Executable C source code files?
@@ -135,10 +135,10 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 * Merge [Revision #18cdc254b7](https://github.com/MariaDB/server/commit/18cdc254b7) 2017-11-20 16:06:17 +0200 - [MDEV-13626](https://jira.mariadb.org/browse/MDEV-13626) Merge InnoDB test cases from MySQL 5.7 (part 3)
 * [Revision #f233c9778e](https://github.com/MariaDB/server/commit/f233c9778e)\
   2017-11-20 13:24:43 +0200
-  * Adjust the MySQL 5.7 tests for [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * Adjust the MySQL 5.7 tests for [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #55a94ef1cf](https://github.com/MariaDB/server/commit/55a94ef1cf)\
   2017-11-20 12:22:28 +0200
-  * Import [WL#7277](https://askmonty.org/worklog/?tid=7277) bulk insert creation tests from MySQL 5.7
+  * Import [WL#7277](https://dev.mysql.com/worklog/task/?id=7277) bulk insert creation tests from MySQL 5.7
 * [Revision #ce64a65f27](https://github.com/MariaDB/server/commit/ce64a65f27)\
   2017-11-20 09:49:21 +0200
   * [MDEV-14310](https://jira.mariadb.org/browse/MDEV-14310) Possible corruption by table-rebuilding or index-creating ALTER TABLE…ALGORITHM=INPLACE
@@ -248,7 +248,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fix a warning.
 * [Revision #19733efa7b](https://github.com/MariaDB/server/commit/19733efa7b)\
   2017-11-02 16:18:41 +0200
-  * [MDEV-14244](https://jira.mariadb.org/browse/MDEV-14244) [MariaDB 10.2.10](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes.md) fails to run on Debian Stretch with ext3 and O\_DIRECT
+  * [MDEV-14244](https://jira.mariadb.org/browse/MDEV-14244) [MariaDB 10.2.10](../../old-releases/10.2/10.2.10.md) fails to run on Debian Stretch with ext3 and O\_DIRECT
 * [Revision #0f4e005541](https://github.com/MariaDB/server/commit/0f4e005541)\
   2017-11-02 15:40:27 +0200
   * Fixed compiler warning and warning from valgrind
@@ -283,6 +283,6 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -1,3 +1,8 @@
+---
+description: >-
+  Boolean literals: TRUE and FALSE as synonyms for 1 and 0.
+---
+
 # Boolean Literals
 
 In MariaDB, `FALSE` is a synonym of `0` and `TRUE` is a synonym of `1`. These constants are case insensitive, so `TRUE`, `True`, and `true` are equivalent.

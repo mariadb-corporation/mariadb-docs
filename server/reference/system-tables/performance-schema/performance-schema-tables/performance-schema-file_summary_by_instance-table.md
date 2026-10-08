@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes file I/O events aggregated by file instance, providing
+  granular I/O statistics for individual files.
+---
+
 # Performance Schema file\_summary\_by\_instance Table
 
 The [Performance Schema](../) `file_summary_by_instance` table contains file events summarized by instance. It contains the following columns:

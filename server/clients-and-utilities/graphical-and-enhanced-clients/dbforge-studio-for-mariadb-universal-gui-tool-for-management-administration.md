@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Studio for MariaDB is a universal IDE with GUI tools for developing,
+  managing, and administering MariaDB and MySQL databases.
+---
+
 # dbForge Studio
+
+{% hint style="info" %}
+dbForge Studio is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [dbForge Studio for MariaDB](https://www.devart.com/dbforge/mysql/studio/mariadb-gui-client.html) is a universal IDE with GUI tools that has all the necessary built-in capabilities to work with MariaDB and MySQL databases for their development, management, and administration. It allows for creating, managing, and editing the data without the need to store them locally.
 
@@ -134,8 +144,7 @@ Download a free 30-day trial of dbForge Studio for MariaDB and MySQL [here](http
 | dbForge Studio for MySQL 10.0 | Support for MariaDB 11.4, added Source Control, support for temporal tables in MariaDB.                                                                                |
 | dbForge Studio for MySQL 9.2  | Support for MariaDB 11.3, enhanced code completion for application-period temporal tables, support for sequence tables in MariaDB databases                            |
 | dbForge Studio for MySQL 9.1  | Connectivity support for MariaDB 10.9 and 10.10.                                                                                                                       |
-| dbForge Studio for MySQL 9.0  | Connectivity support for MariaDB 10.5 and 10.6.                                                                                                                        |
-| dbForge Studio for MySQL 8.1  | Support for MariaDB 10.4.                                                                                                                                              |
+| dbForge Studio for MySQL 9.0  | Connectivity support for MariaDB 10.6.                                                                                                                        |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

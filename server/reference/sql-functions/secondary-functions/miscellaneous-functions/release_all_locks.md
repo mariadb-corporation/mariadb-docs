@@ -1,12 +1,14 @@
-# RELEASE\_ALL\_LOCKS
+---
+description: >-
+  Release all named locks held by the session. This function frees all
+  user-level locks acquired with GET_LOCK() in the current connection.
+---
 
-{% hint style="info" %}
-`RELEASE_ALL_LOCKS` is available from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes).
-{% endhint %}
+# RELEASE\_ALL\_LOCKS
 
 ## Syntax
 
-```sql
+```bnf
 RELEASE_ALL_LOCKS()
 ```
 

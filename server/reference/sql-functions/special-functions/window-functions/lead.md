@@ -1,11 +1,17 @@
+---
+description: >-
+  Access data from a following row. This function returns the value of an
+  expression from a row at a specified physical offset after the current row.
+---
+
 # LEAD
 
 ## Syntax
 
-```sql
+```bnf
 LEAD (expr[, offset]) OVER ( 
   [ PARTITION BY partition_expression ] 
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

@@ -1,10 +1,14 @@
+---
+description: >-
+  Inject custom comments into SQL statements. This filter allows administrators
+  to tag queries with metadata for tracking, auditing, or debugging purposes.
+---
+
 # MaxScale Comment Filter
 
 ## Overview
 
-With the _comment_ filter it is possible to define comments that are
-injected before the actual statements. These comments appear as sql
-comments when they are received by the server.
+With the _comment_ filter it is possible to define comments that are injected before the actual statements. These comments appear as sql comments when they are received by the server.
 
 ```
 [MyComment]
@@ -31,10 +35,7 @@ The Comment filter requires one mandatory parameter to be defined.
 * Mandatory: Yes
 * Dynamic: Yes
 
-A parameter that contains the comment injected before the statements.
-There is also defined variable $IP that can be used to comment the
-IP address of the client in the injected comment.
-Variables must be written in all caps.
+A parameter that contains the comment injected before the statements. There is also defined variable $IP that can be used to comment the IP address of the client in the injected comment. Variables must be written in all caps.
 
 ## Examples
 

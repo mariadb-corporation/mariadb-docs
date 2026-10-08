@@ -1,8 +1,10 @@
-# Performance Schema events\_transactions\_current Table
+---
+description: >-
+  The events_transactions_current table displays the current transaction event
+  for each thread, including state, isolation level, and GTID.
+---
 
-{% hint style="info" %}
-The `events_transactions_current` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema events\_transactions\_current Table
 
 The `events_transactions_current` table contains current transaction events for each thread.
 
@@ -18,7 +20,7 @@ The table contains the following columns:
 | EVENT\_NAME                         | varchar(128)                                      | The name of the instrument from which the event was collected. This is a NAME value from the setup\_instruments table.                                                                    |
 | STATE                               | enum('ACTIVE', 'COMMITTED', 'ROLLED BACK')        | The current transaction state. The value is ACTIVE (after START TRANSACTION or BEGIN), COMMITTED (after COMMIT), or ROLLED BACK (after ROLLBACK).                                         |
 | TRX\_ID                             | bigint(20) unsigned                               | Unused.                                                                                                                                                                                   |
-| GTID                                | varchar(64)                                       | Transaction [GTID](../../../../ha-and-performance/standard-replication/gtid.md), using the format DOMAIN-SERVER\_ID-SEQUENCE\_NO.                                                         |
+| GTID                                | varchar(64)                                       | Transaction [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md), using the format DOMAIN-SERVER\_ID-SEQUENCE\_NO.                                                         |
 | XID\_FORMAT\_ID                     | int(11)                                           | XA transaction format ID for GTRID and BQUAL values.                                                                                                                                      |
 | XID\_GTRID                          | varchar(130)                                      | XA global transaction ID.                                                                                                                                                                 |
 | XID\_BQUAL                          | varchar(130)                                      | XA transaction branch qualifier.                                                                                                                                                          |

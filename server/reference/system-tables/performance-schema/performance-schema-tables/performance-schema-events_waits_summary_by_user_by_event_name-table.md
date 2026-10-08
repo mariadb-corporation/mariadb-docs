@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes wait events aggregated by user name and event name,
+  helping to identify users triggering significant wait events.
+---
+
 # Performance Schema events\_waits\_summary\_by\_user\_by\_event\_name Table
 
 The [Performance Schema](../) `events_waits_summary_by_user_by_event_name` table contains wait events summarized by user and event name. It contains the following columns:

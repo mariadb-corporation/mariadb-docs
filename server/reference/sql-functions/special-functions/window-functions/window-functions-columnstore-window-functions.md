@@ -1,3 +1,10 @@
+---
+description: >-
+  Review window function support in ColumnStore. This page details the specific
+  window functions and limitations applicable when using the ColumnStore storage
+  engine.
+---
+
 # ColumnStore Window Functions
 
 ## Introduction
@@ -17,7 +24,7 @@ Window functions are applied after joins, group by, and having clauses are calcu
 
 A window function is applied in the select clause using the following syntax:
 
-```sql
+```bnf
 function_name ([expression [, expression ... ]]) OVER ( window_definition )
 ```
 

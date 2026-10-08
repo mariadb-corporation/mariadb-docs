@@ -1,3 +1,10 @@
+---
+description: >-
+  Coordinated Universal Time (UTC) is the primary time standard by which the
+  world regulates clocks and time, and is the internal storage format for
+  MariaDB timestamp values.
+---
+
 # Coordinated Universal Time
 
 UTC stands for Coordinated Universal Time. It is the world standard for regulating time.

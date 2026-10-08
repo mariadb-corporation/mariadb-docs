@@ -1,8 +1,14 @@
+---
+description: >-
+  Check for a JSON path. This function returns 1 if a specified path exists
+  within a JSON document, or 0 if it does not.
+---
+
 # JSON\_CONTAINS\_PATH
 
 ## Syntax
 
-```sql
+```bnf
 JSON_CONTAINS_PATH(json_doc, return_arg, path[, path] ...)
 ```
 

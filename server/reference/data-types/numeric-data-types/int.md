@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete INT type reference: INT(M) syntax, signed (-2147483648 to 2147483647)
+  vs unsigned (0 to 4294967295) ranges, and ZEROFILL padding guidelines.
+---
+
 # INT
 
 ## Syntax
 
-```sql
+```bnf
 INT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 INTEGER[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
@@ -21,7 +27,7 @@ For details on the attributes, see [Numeric Data Type Overview](numeric-data-typ
 
 ## Examples
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 CREATE TABLE ints (a INT,b INT UNSIGNED,c INT ZEROFILL);

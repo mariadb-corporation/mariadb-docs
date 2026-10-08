@@ -1,8 +1,14 @@
+---
+description: >-
+  Perform bitwise exclusive OR. This operator returns 1 only if the
+  corresponding bits of the operands are different.
+---
+
 # ^
 
 ## Syntax
 
-```sql
+```bnf
 ^
 ```
 

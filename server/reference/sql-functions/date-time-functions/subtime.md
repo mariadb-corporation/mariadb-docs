@@ -1,14 +1,20 @@
+---
+description: >-
+  Subtract a time value. This function subtracts one time or datetime expression
+  from another and returns the result.
+---
+
 # SUBTIME
 
 ## Syntax
 
-```sql
+```bnf
 SUBTIME(expr1,expr2)
 ```
 
 ## Description
 
-SUBTIME() returns `expr1` - `expr2` expressed as a value in the same format as `expr1`. `expr1` is a time or datetime expression, and expr2 is a time expression.
+`SUBTIME()` returns `expr1` - `expr2` expressed as a value in the same format as `expr1`. `expr1` is a time or datetime expression, and expr2 is a time expression.
 
 ## Examples
 

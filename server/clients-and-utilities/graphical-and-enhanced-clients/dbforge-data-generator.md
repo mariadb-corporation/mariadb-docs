@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Data Generator for MariaDB and MySQL creates large volumes of
+  realistic test data using predefined generators with customizable options.
+---
+
 # dbForge Data Generator
+
+{% hint style="info" %}
+dbForge Data Generator is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [dbForge Data Generator for MariaDB and MySQL](https://www.devart.com/dbforge/mysql/data-generator/) is a powerful solution that helps create massive volumes of meaningful and realistic data. This tool performs various predefined data generators with customizable options.
 
@@ -60,7 +70,7 @@ Create a command line execution file for running database documentation tasks
 
 ### 11. Broad compatibility options
 
-MariaDB server versions 5.5-11.4
+MariaDB server versions 10.6-11.4
 
 Various cloud services: Amazon RDS, Amazon Aurora, Google Cloud, Oracle MySQL Cloud, Alibaba Cloud
 
@@ -70,16 +80,12 @@ Download a free 30-day trial of dbForge Data Generator [here](https://www.devart
 
 [Documentation](https://docs.devart.com/data-generator-for-mysql/)
 
-| Version                     | Introduced                                                                                                                                                                                                                                                                                                                                      |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dbForge Data Generator 10.1 | Support for the rds-ca-rsa2048-g1 SSL/TLS certificate for connecting to MariaDB servers on AWS and enhanced cloud compatibility features, new automation capabilities                                                                                                                                                                           |
-| dbForge Data Generator 10.0 | Support for [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), Added support for temporal tables in MariaDB                                                                                                                                                               |
-| dbForge Data Generator 2.6  | Support for [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113)                                                                                                                                                                        |
-| dbForge Data Generator 2.5  | Support for [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109), Support for [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)               |
-| dbForge Data Generator 2.4  | Connectivity support for [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) is added                                                                                                                                                                          |
-| dbForge Data Generator 2.2  | Support for [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)                                                                                                                                                                                  |
-| dbForge Data Generator 2.1  | Support for [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)                                                                                                                                                                                  |
-| dbForge Data Generator 2.0  | Support for [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), Support for [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) |
+| Version                     | Introduced                                                                                                                                                                                                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| dbForge Data Generator 10.1 | Support for the rds-ca-rsa2048-g1 SSL/TLS certificate for connecting to MariaDB servers on AWS and enhanced cloud compatibility features, new automation capabilities                                                                                                                 |
+| dbForge Data Generator 10.0 | Support for [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), Added support for temporal tables in MariaDB                                                                                                                    |
+| dbForge Data Generator 2.6  | Support for [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113)                                                                                                                                                     |
+| dbForge Data Generator 2.5  | Support for [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), Support for [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)               |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

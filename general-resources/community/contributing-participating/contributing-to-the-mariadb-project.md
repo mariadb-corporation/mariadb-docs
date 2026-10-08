@@ -17,26 +17,26 @@ The success of MariaDB depends on the participation of the community. MariaDB wo
 
 ## Getting Started
 
-There are several ways to contribute besides [Contributing Code](contributing-code.md), and not all of them require\
+There are several ways to contribute besides [Contributing Code](contributing-code.md), and not all of them require
 strong C/C++ skills. Areas for non-developers include:
 
 * [Reporting Bugs](../community/bug-tracking/reporting-bugs.md)
   * To report a bug you'll need to sign up for an account by clicking on the Create an account link below the login fields
-* [Suggesting Features](../../development-articles/general-info/tools/jira.md)
-* Helping other people answering problems or even fixing their bugs on [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc/README.md) in the #maria channel on [Libera.Chat](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc/README.md) or on MariaDB's Zulip instance at [mariadb.zulipchat.com](https://mariadb.zulipchat.com).
+* [Suggesting Features](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira)
+* Helping other people answering problems or even fixing their bugs on IRC in the #maria channel on Libera.Chat or on MariaDB's Zulip instance at [mariadb.zulipchat.com](https://mariadb.zulipchat.com).
 * Testing and Benchmarking
   * Bug tests can be uploaded to the 'private' directory of our [FTP](mariadb-public-ftp-server.md) server.
 * Creating documentation for MariaDB.
 * Advocating MariaDB in your area.
 * Participate in [open source events](https://mariadb.org/events/) and talk about MariaDB.
-* Running a [BuildBot](../../development-articles/general-info/tools/buildbot/) on a platform which is not currently [builders](https://buildbot.mariadb.org/#/builders).
+* Running a [Buildbot](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/buildbot) on a platform that is not among the [builders](https://buildbot.mariadb.org/#/builders).
 * [Donate](https://mariadb.org/donate/) time or money to the MariaDB project.
 * Ask your company to [sponsor a feature](sponsoring-the-mariadb-project.md).
 * [MariaDB Foundation page on getting involved](https://mariadb.org/get-involved/)
 
 ### MariaDB Email Lists
 
-A great way to get started in MariaDB is to participate in e-mail discussions\
+A great way to get started in MariaDB is to participate in e-mail discussions
 via our mailing lists (whichever list best matches your interests):
 
 * [developers](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/)
@@ -45,7 +45,7 @@ via our mailing lists (whichever list best matches your interests):
 
 Sensitive security issues can be sent directly to the persons responsible for MariaDB security: security \[AT] mariadb (dot) org.
 
-You can find additional email address, email archives and ways to connect with MariaDB people [here](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md).
+You can find additional email address, email archives and ways to connect with MariaDB people here.
 
 All MariaDB contributors are expected to follow the [Ubuntu Code Of Conduct](https://www.ubuntu.com/community/conduct).
 

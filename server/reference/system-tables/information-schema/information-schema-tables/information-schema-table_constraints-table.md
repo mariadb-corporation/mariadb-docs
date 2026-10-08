@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema TABLE_CONSTRAINTS table describes constraints on
+  tables, such as PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints.
+---
+
 # Information Schema TABLE\_CONSTRAINTS Table
 
 The [Information Schema](../) `TABLE_CONSTRAINTS` table contains information about tables that have [constraints](../../../sql-statements/data-definition/constraint.md).

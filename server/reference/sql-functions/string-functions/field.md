@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the index of a string in a list. This function returns the position of
+  the first argument within the subsequent list of arguments.
+---
+
 # FIELD
 
 ## Syntax
 
-```sql
+```bnf
 FIELD(pattern, str1[,str2,...])
 ```
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  The PAM authentication plugin delegates password validation to the operating
+  system's PAM framework, enabling integration with LDAP, Kerberos, and other
+  services.
+---
+
 # Authentication Plugin - PAM
 
 ## Overview
@@ -139,13 +146,13 @@ The `pam` authentication plugin uses a [setuid](https://linux.die.net/man/2/setu
 
 ## Creating Users
 
-To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause:
+To create a user in MariaDB which uses the `pam` authentication plugin, execute [CREATE USER](../../../sql-statements/account-management-sql-statements/create-user.md) while specifying the name of the plugin in the [IDENTIFIED VIA](../../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause:
 
 ```sql
 CREATE USER username@hostname IDENTIFIED VIA pam;
 ```
 
-If [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user this way with [GRANT](../../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user this way with [GRANT](../../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA pam;
@@ -174,7 +181,7 @@ When connecting with a [client or utility](../../../../clients-and-utilities/) t
 mariadb --plugin-dir=/usr/local/mysql/lib64/mysql/plugin --user=alice
 ```
 
-Both the `dialog` and the `mysql_clear_password` client authentication plugins transmit the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is very important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+Both the `dialog` and the `mysql_clear_password` client authentication plugins transmit the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is very important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
 ### `dialog`
 
@@ -190,7 +197,7 @@ For some libraries or applications, this problem can be fixed by copying `dialog
 
 If your client does not support the `dialog` client authentication plugin, then you may need to use the [mysql\_clear\_password](authentication-plugin-pam.md#mysql_clear_password) client authentication plugin instead.
 
-The `dialog` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+The `dialog` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
 ### `mysql_clear_password`
 
@@ -208,9 +215,9 @@ It is important to note that the `mysql_clear_password` plugin has very limited 
 * The `mysql_clear_password` client authentication plugin also only supports PAM services that ask the user a single question.
 * If the PAM service requires challenge-responses, multiple questions, or other similar complicated authentication schemes, then the PAM service is not compatible with `mysql_clear_password` client authentication plugin. In that case, the [dialog](authentication-plugin-pam.md#dialog) client authentication plugin will have to be used instead.
 
-The `mysql_clear_password` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+The `mysql_clear_password` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
-#### Compatiblity with MySQL Clients and Client Libraries
+#### Compatibility with MySQL Clients and Client Libraries
 
 The `mysql_clear_password` client authentication plugin is similar to MySQL's [mysql\_clear\_password](https://dev.mysql.com/doc/refman/5.7/en/cleartext-pluggable-authentication.html) client authentication plugin.
 
@@ -258,6 +265,8 @@ For MySQL compatibility, [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT
 
 ## Logging
 
+MariaDB PAM authentication can be collected from a variety of sources in the authentication framework, including the underlying PAM modules, the PAM authentication plugin, and custom scripts like pam\_exec. The destination of these logs is decided by the layer that generated message and the configuration of your system.
+
 ### PAM Module Logging
 
 Errors and messages from PAM modules are usually logged using the [syslog](https://linux.die.net/man/8/rsyslogd) daemon with the `authpriv` facility. To determine the specific log file where the `authpriv` facility is logged, you can check [rsyslog.conf](https://linux.die.net/man/5/rsyslog.conf).
@@ -275,7 +284,7 @@ Jan  9 05:35:41 ip-172-30-0-198 mysqld: pam_unix(mariadb:auth): authentication f
 
 ### PAM Authentication Plugin's Debug Logging
 
-MariaDB's `pam` authentication plugin can also log additional verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md). This is only done if the plugin is a [debug build](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging) and if [pam\_debug](authentication-plugin-pam.md#pam_debug) is set.
+MariaDB's `pam` authentication plugin can also log additional verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md). This is only done if the plugin is a [debug build](../../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md) and if [pam\_debug](authentication-plugin-pam.md#pam_debug) is set.
 
 The output looks like this:
 
@@ -293,7 +302,7 @@ PAM: status = 0 user = ��\>
 
 The [pam\_exec](https://linux.die.net/man/8/pam_exec) PAM module can be used to implement some custom logging. This can be very useful when debugging certain kinds of issues.
 
-Consider creating a script that writes the log output:
+For example, first, create a script that writes the log output:
 
 ```bash
 tee /tmp/pam_log_script.sh <<EOF
@@ -303,7 +312,7 @@ EOF
 chmod 0775 /tmp/pam_log_script.sh
 ```
 
-Change the [PAM service configuration](authentication-plugin-pam.md#configuring-the-pam-service) to execute the script using the [pam\_exec](https://linux.die.net/man/8/pam_exec) PAM module:
+And, then, change the [PAM service configuration](authentication-plugin-pam.md#configuring-the-pam-service) to execute the script using the [pam\_exec](https://linux.die.net/man/8/pam_exec) PAM module. For example:
 
 ```
 auth optional pam_exec.so log=/tmp/pam_output.txt /tmp/pam_log_script.sh
@@ -331,7 +340,11 @@ Even when using the `pam` authentication plugin, the authenticating PAM user acc
 
 ## PAM Modules
 
-There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB.
+There are many PAM modules. The ones described below are the ones that have been seen most often by MariaDB. Several of them — including [pam\_sss](authentication-plugin-pam.md#pam_sss), [pam\_winbind](authentication-plugin-pam.md#pam_winbind), [pam\_lsass](authentication-plugin-pam.md#pam_lsass), [pam\_centrifydc](authentication-plugin-pam.md#pam_centrifydc), and [pam\_krb5](authentication-plugin-pam.md#pam_krb5) — can authenticate against Microsoft Active Directory.
+
+{% hint style="info" %}
+MariaDB supports the `pam` authentication plugin itself, not the individual PAM modules described below. These modules are third-party software, and the links to their documentation are provided for convenience only. MariaDB doesn't test, validate, or maintain them and can't list specific modules as officially supported. Consult each module's own documentation, and validate the configuration in your environment before relying on it in production.
+{% endhint %}
 
 ### pam\_unix
 
@@ -359,7 +372,7 @@ This can be configured for [Active Directory](https://en.wikipedia.org/wiki/Acti
 
 ### pam\_lsass
 
-The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by [PowerBroker Identity Services – Open Edition](https://github.com/BeyondTrust/pbis-open/wiki).
+The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by PowerBroker Identity Services – Open Edition.
 
 ### pam\_winbind
 
@@ -456,7 +469,7 @@ allow this access for now by executing:
 
 Sometimes issues like this can be fixed by updating the system's SELinux policies. You may be able to update the policies using [audit2allow](https://linux.die.net/man/1/audit2allow). See [SELinux: Generating SELinux Policies with audit2allow](../../../../security/securing-mariadb/selinux.md#generating-selinux-policies-with-audit2allow) for more information.
 
-If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Changing SELinux's Mode](../../../../security/securing-mariadb/selinux.md#changing-selinuxs-mode) for information on how to do this.
+If you can't get the `pam` authentication plugin to work with SELinux at all, then it can help to disable SELinux entirely. See [SELinux: Temporarily Putting mysqld Into Permissive Mode](../../../../security/securing-mariadb/selinux.md#temporarily-putting-mysqld-into-permissive-mode) for information on how to do this.
 
 ### Memory Overcommit
 
@@ -470,10 +483,18 @@ This can happen on operating system setups that are configured to prevent memory
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.4 / 10.6.8:
+{% endhint %}
+
 Current MariaDB version use `posix_spawn()` instead of the classic `fork();exec()` to prevent memory overcommit issues. However, operating systems with older glibc versions (< 2.26) still use `fork();exec()` to implement `posix_spawn()` internally. Therefore, they are still affected; this is for example still the case on RedHat Enterprise Linux 7.
 {% endtab %}
 
-{% tab title="< 10.7.4 / 10.6.8 / 10.5.16" %}
+{% tab title="< 10.7.4 / 10.6.8" %}
+{% hint style="info" %}
+Before MariaDB 10.7.4 / 10.6.8:
+{% endhint %}
+
 Older MariaDB versions still use `fork();exec()` , which means they are affected by the memory overcommit issue.
 {% endtab %}
 {% endtabs %}
@@ -495,7 +516,7 @@ See also [MDEV-26212](https://jira.mariadb.org/browse/MDEV-26212) and [MDEV-3073
 ### `pam_debug`
 
 * Description: Enables verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md) for all authentication handled by the plugin.
-  * This system variable is only available when the plugin is a [debug build](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging).
+  * This system variable is only available when the plugin is a [debug build](../../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md).
 * Command line: `--pam-debug`
 * Scope: Global
 * Dynamic: No

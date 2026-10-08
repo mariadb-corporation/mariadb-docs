@@ -1,24 +1,38 @@
+---
+description: >-
+  Complete NOW() function reference: NOW([precision]) and CURRENT_TIMESTAMP
+  synonyms, TIMESTAMP vs DATETIME types, timezone/DST handling, and fractional
+  seconds.
+---
+
 # NOW
 
 ## Syntax
 
-```sql
+```bnf
 NOW([precision])
 CURRENT_TIMESTAMP
 CURRENT_TIMESTAMP([precision])
-LOCALTIME, LOCALTIME([precision])
+LOCALTIME
+LOCALTIME([precision])
 LOCALTIMESTAMP
 LOCALTIMESTAMP([precision])
 ```
+
+![Railroad diagram of NOW and synonyms — equivalent to the BNF above](../../../.gitbook/assets/now-railroad.svg)
 
 ## Description
 
 Returns the current date and time as a value in `YYYY-MM-DD HH:MM:SS` or `YYYYMMDDHHMMSS.uuuuuu` format, depending on whether the function is used in a string or numeric context. The value is expressed in the current [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md).
 
-**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 These functions return SQL standard compliant types:
 
 * `NOW()` and `CURRENT_TIMESTAMP()` return a `TIMESTAMP` value (analogous to the standard type `TIMESTAMP WITH LOCAL TIME ZONE`) which corresponds to the current point in time and is unambiguous around DST changes.
@@ -26,11 +40,15 @@ These functions return SQL standard compliant types:
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 These functions do **not** return SQL standard compliant types:
 
-* `NOW()`&#x20;
-* `CURRENT_TIMESTAMP()`&#x20;
-* `LOCALTIMESTAMP`&#x20;
+* `NOW()`
+* `CURRENT_TIMESTAMP()`
+* `LOCALTIMESTAMP`
 {% endtab %}
 {% endtabs %}
 

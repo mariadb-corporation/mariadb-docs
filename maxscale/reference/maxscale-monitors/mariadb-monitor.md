@@ -502,7 +502,7 @@ Allowed values:
    *Running* servers.
 
 This setting is separate from the global MaxScale setting
-[passive](../../maxscale-management/deployment/maxscale-configuration-guide.md#passive).
+[passive](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
 
 {% tabs %}
 {% tab title="Current" %}
@@ -1423,7 +1423,7 @@ enforce_simple_topology=true
 
 #### `heal_primary_truncated_binlog`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -1629,7 +1629,7 @@ even if the duration is longer than a second.
 
 #### `switchover_wait_for_trx`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -3004,7 +3004,7 @@ external_replication_monitor=MyExternalClusterMonitor
 
 #### `external_replication_primary_role`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `replica`, `running`

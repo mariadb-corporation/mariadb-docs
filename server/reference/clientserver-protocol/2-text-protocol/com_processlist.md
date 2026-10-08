@@ -1,3 +1,9 @@
+---
+description: >-
+  This command retrieves a list of active threads and their current status,
+  similar to the SHOW PROCESSLIST statement.
+---
+
 # COM\_PROCESSLIST
 
 {% hint style="info" %}

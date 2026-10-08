@@ -1,8 +1,14 @@
+---
+description: >-
+  Parses a GeoJSON string and returns a geometry. This function converts a
+  standard GeoJSON representation into a MariaDB geometry value.
+---
+
 # ST\_GeomFromGeoJSON
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomFromGeoJSON(g[, option])
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Returns the N-th geometry in a GeometryCollection. Geometries are numbered
+  beginning with 1.
+---
+
 # ST\_GEOMETRYN
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeometryN(gc,N)
 GeometryN(gc,N)
 ```

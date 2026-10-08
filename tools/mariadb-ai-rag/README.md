@@ -1,49 +1,13 @@
 ---
-hidden: true
+description: >-
+  MariaDB AI RAG is an enterprise-ready solution covering the full RAG
+  pipeline: document parsing, chunking, embedding, hybrid search, and AI
+  response generation in one package.
 ---
 
 # MariaDB AI RAG
 
-MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solution that integrates with MariaDB to provide AI-powered document processing, semantic search, and natural language generation capabilities.
-
-## Documentation Contents
-
-### Getting Started
-
-* [Overview and Architecture](getting-started/overview.md)
-* [Installation Guide](getting-started/installation.md)
-* [Configuration](getting-started/configuration.md)
-* [Service Management](getting-started/service-management.md)
-
-### API Reference
-
-* [API Reference](api-reference/)
-* [Database Integration](api-reference/database-integration.md)
-* [Access Control](api-reference/access-control.md)
-* [Orchestration](api-reference/orchestration.md)
-
-### Deployment
-
-* [Deployment Overview](deployment/overview.md)
-* [Ubuntu Deployment Guide](deployment/ubuntu-deployment.md)
-* [Docker Deployment Guide](deployment/docker-deployment.md)
-* [Technical Architecture](deployment/technical-architecture.md)
-* [Deployment Checklist](deployment/deployment-checklist.md)
-
-### Performance and Troubleshooting
-
-* [Performance Tuning](performance-and-troubleshooting/performance-tuning.md)
-* [Troubleshooting](performance-and-troubleshooting/troubleshooting.md)
-
-### Reference
-
-* [Environment Variables](reference/environment-variables.md)
-* [Supported File Formats](reference/supported-formats.md)
-* [Integration](reference/integration.md)
-
-## About MariaDB AI RAG
-
-MariaDB AI RAG enables organizations to leverage their document repositories and databases for AI-powered search and generation. By combining the reliability of MariaDB with modern AI capabilities, AI RAG provides accurate, context-aware responses based on your organization's proprietary data.
+MariaDB AI RAG is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
 
 ### Key Features
 
@@ -56,3 +20,7 @@ MariaDB AI RAG enables organizations to leverage their document repositories and
 * Comprehensive REST API
 
 For detailed information on each component, please refer to the specific documentation sections.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

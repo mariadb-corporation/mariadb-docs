@@ -1,8 +1,14 @@
+---
+description: >-
+  Compare two strings. This function returns 0 if strings are equal, -1 if the
+  first is smaller, and 1 if the first is larger.
+---
+
 # STRCMP
 
 ## Syntax
 
-```sql
+```bnf
 STRCMP(expr1,expr2)
 ```
 

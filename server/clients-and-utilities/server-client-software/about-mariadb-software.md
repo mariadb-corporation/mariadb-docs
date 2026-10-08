@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of MariaDB, the open-source relational database — its
+  background, licensing, and widespread adoption.
+---
+
 # About MariaDB Software
 
 MariaDB is an open-source, multi-threaded, relational database management system, released under the [GNU Public License](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq) (GPL). MariaDB's lead developer is Michael "Monty" Widenius, who is one of the founders of MySQL AB.

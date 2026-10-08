@@ -1,0 +1,90 @@
+# sysbench v0.5 - 3x Five Minute Runs on work with 5.2-wl86
+
+3x Five Minute Runs on work with 5.2-wl86 key cache partitions on and off
+
+MariDB 5.2-wl86 sysbench benchmark comparison
+with key\_cache\_partitions off and 7 in %
+
+Each test was run three times for 5 minutes.
+
+```
+Number of threads
+                     1       4       8       16      32      64      128
+ sysbench test
+  delete            -18.36  -20.66  -11.32    5.42   -2.91  -14.62   -3.47
+  insert             -2.38  -30.11   -1.64   -0.98   -1.19    0.12   -2.37
+  oltp_complex_ro     0.16    2.61    4.03    2.99    3.10    5.73   20.95
+  oltp_complex_rw   Dup key errors (due to sysbench)
+  oltp_simple        -1.24    1.86   11.14   10.69   16.11   17.16   14.31
+  select             -0.22    2.00   11.42   10.31   15.58   17.10   14.31
+  update_index       -9.34   15.75   -0.36  -10.33    1.94    2.44   41.44
+  update_non_index    0.73    1.04   11.12   17.32    5.30   -0.24   -9.55
+
+ (MariaDB 5.2-wl86 key_cache_partitions off q/s /
+  MariaDB 5.2-wl86 key_cache_partitions=7 q/s * 100)
+
+key_buffer_size = 32M
+```
+
+Benchmark was run on
+work: Linux openSUSE 11.1 (x86\_64), daul socket quad-core Intel 3.0GHz. with 6MB L2 cache, 8 GB RAM, data\_dir on single disk.
+
+MariaDB and MySQL were compiled with
+
+```
+BUILD/compile-amd64-max
+```
+
+MariaDB revision was:
+
+```
+lp:~maria-captains/maria/maria-5.2-wl86
+
+revno: 2742
+committer: Igor Babaev <igor@askmonty.org>
+branch nick: maria-5.2-keycache
+timestamp: Tue 2010-02-16 08:41:11 -0800
+message:
+  WL#86: Partitioned key cache for MyISAM.
+  This is the base patch for the task.
+```
+
+sysbench was run with the following parameters:
+
+```
+--oltp-table-size=20000000 \  # 20 mio rows
+--max-time=300 \
+--max-requests=0 \
+--mysql-table-engine=MyISAM \
+--mysql-user=root \
+--mysql-engine-trx=no \
+--myisam-max-rows=50000000"
+```
+
+and this variable part of parameters
+
+```
+--num-threads=$THREADS --test=${TEST_DIR}/${SYSBENCH_TEST}
+```
+
+Configuration used for MariDB:
+
+```
+--no-defaults \
+--datadir=$DATA_DIR \
+--language=./sql/share/english \
+--key_buffer_size=32M \
+--max_connections=256 \
+--query_cache_size=0 \
+--query_cache_type=0 \
+--skip-grant-tables \
+--socket=$MY_SOCKET \
+--table_open_cache=512 \
+--thread_cache=512 \
+--tmpdir=$TEMP_DIR"
+#  --key_cache_partitions=7 \
+```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  This page outlines the key enhancements in FederatedX over the original
+  Federated engine, including support for transactions and a refactored
+  codebase. This storage engine has been deprecated.
+---
+
 # Differences Between FederatedX and Federated
 
 {% hint style="warning" %}

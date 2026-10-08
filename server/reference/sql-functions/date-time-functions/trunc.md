@@ -1,10 +1,18 @@
+---
+description: >-
+  Truncate a date. In Oracle mode, this function truncates a date value to a
+  specified unit of measure.
+---
+
 # TRUNC
 
-Introduced in [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements).
+{% hint style="info" %}
+Introduced in [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements).
+{% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 TRUNC(date[,fmt])
 ```
 

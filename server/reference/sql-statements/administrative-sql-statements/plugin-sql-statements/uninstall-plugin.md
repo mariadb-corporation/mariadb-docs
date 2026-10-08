@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove a specific plugin from the server. This statement unloads the plugin
+  code and deletes its entry from the mysql.plugin table to prevent reloading.
+---
+
 # UNINSTALL PLUGIN
 
 ## Syntax
 
-```sql
+```bnf
 UNINSTALL PLUGIN [IF EXISTS] plugin_name
 ```
 
@@ -42,7 +48,7 @@ SHOW WARNINGS;
 ## See Also
 
 * [Plugin Overview](../../../plugins/plugin-overview.md)
-* [mysql\_plugin](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_plugin.md)
+* [mysql\_plugin](../../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)
 * [INSTALL PLUGIN](install-plugin.md)
 * [List of Plugins](../../../plugins/information-on-plugins/list-of-plugins.md)
 

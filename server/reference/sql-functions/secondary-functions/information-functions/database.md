@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the default database name. This function outputs the name of the
+  currently selected database for the session.
+---
+
 # DATABASE
 
 ## Syntax
 
-```sql
+```bnf
 DATABASE()
 SCHEMA()
 ```

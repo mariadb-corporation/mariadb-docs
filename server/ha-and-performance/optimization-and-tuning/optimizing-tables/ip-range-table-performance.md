@@ -1,3 +1,9 @@
+---
+description: >-
+  Efficiently storing and querying large sets of non-overlapping ranges, such
+  as IP address ranges.
+---
+
 # IP Range Table Performance
 
 ## The situation
@@ -41,14 +47,14 @@ This is crucial to the design and its performance:
   These were alternative designs; they seemed to be no better, and possibly worse:
 * That one address could have been the 'end' address.
 * The routine parameters for a 'block' could have be start of this block and start of next block.
-* The IPv4 parameters could have been dotted quads; I chose to keep the reference implemetation simpler instead.
+* The IPv4 parameters could have been dotted quads; I chose to keep the reference implementation simpler instead.
 * The IPv6 parameters are 32-digit hex because it was the simpler that BINARY(16) or IPv5 for a reference implementation.
 
 The interesting work is in the Ips, not the second table, so I focus on it. The inconvenience of JOINing to the second table is small compared to the performance gains.
 
 ## Details
 
-Two, not one, tables will be used. The first table (`Ips` in the reference implementations) is carefully designed to be optimal for all the basic operations needed. The second table contains other infomation about the 'owner' of each 'item'. In the reference implementations `owner` is an id used to JOIN the two tables. This discussion centers around `Ips` and how to efficiently map IP(s) to/from owner(s). The second table has "PRIMARY KEY(owner)".
+Two, not one, tables will be used. The first table (`Ips` in the reference implementations) is carefully designed to be optimal for all the basic operations needed. The second table contains other information about the 'owner' of each 'item'. In the reference implementations `owner` is an id used to JOIN the two tables. This discussion centers around `Ips` and how to efficiently map IP(s) to/from owner(s). The second table has "PRIMARY KEY(owner)".
 
 In addition to the two-table schema, there are a set of Stored Routines to encapsulate the necessary code.
 
@@ -111,7 +117,7 @@ Notes on the [reference implementation for IPv6](https://mysql.rjweb.org/doc.php
 * You may need to decide on a canonical representation of IPv4 in IPv6.\
   See the comments in the code for more details.
 
-The INET6\* functions were first available in MySQL 5.6.3 and [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1003-release-notes)
+The INET6\* functions were first available in MySQL 5.6.3.
 
 Adapting to a different non-IP 'address range' data
 
@@ -140,7 +146,7 @@ Original writing -- Oct, 2012; Notes on INET6 functions -- May, 2015.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [ipranges](https://mysql.rjweb.org/doc.php/ipranges)

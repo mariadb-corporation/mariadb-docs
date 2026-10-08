@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the current MariaDB user. This function returns the user name and host
+  name provided by the client upon connection.
+---
+
 # USER
 
 ## Syntax
 
-```sql
+```bnf
 USER()
 ```
 
@@ -16,10 +22,18 @@ The value of `USER()` may differ from the value of [CURRENT\_USER()](current_use
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 `SYSTEM_USER()` is a synonym for `USER()`.
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 `SYSTEM_USER()` and [SESSION\_USER](session_user.md) are synonyms for `USER()`.
 {% endtab %}
 {% endtabs %}

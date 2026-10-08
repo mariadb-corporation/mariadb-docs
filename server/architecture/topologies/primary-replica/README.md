@@ -1,8 +1,14 @@
-# Primary/Replica
+---
+description: >-
+  This page explains how to set up a standard Primary/Replica replication
+  topology for MariaDB Enterprise Server.
+---
+
+# Installing Primary/Replica
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th>Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td><img src="../../../.gitbook/assets/es-primary-replica-topology-no-title.png" alt=""></td><td><p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul></td></tr></tbody></table>
+<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th>Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td></td><td><p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MaxScale 2.5+</li></ul></td></tr></tbody></table>
 
 This procedure describes the deployment of the **Primary/Replica topology** with MariaDB Enterprise Server and MariaDB MaxScale.
 
@@ -10,7 +16,7 @@ Primary/Replica topology provides read scalability and fault tolerance through a
 
 This procedure has 7 steps, which are executed in sequence.
 
-MariaDB products can be deployed in many different topologies to suit specific use cases. The Primary/Replica topology can be deployed on its own, or integrated with MariaDB Enterprise Cluster.
+MariaDB products can be deployed in many different topologies to suit specific use cases. The Primary/Replica topology can be deployed on its own or integrated with MariaDB Enterprise Cluster.
 
 This procedure represents basic product capability with 3 Enterprise Server nodes and 1 MaxScale node.
 
@@ -28,22 +34,20 @@ The following components are deployed during this procedure:
 
 | Component                                                                                  | Function                                                                                                   |
 | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| MariaDB Enterprise Server                                                                  | Modern SQL RDBMS with high availability, pluggable storage engines, hot online backups, and audit logging. |
+| [MariaDB Enterprise Server](../single-node-topologies/enterprise-server.md)                | Modern SQL RDBMS with high availability, pluggable storage engines, hot online backups, and audit logging. |
 | [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) | Database proxy that extends the availability, scalability, and security of MariaDB Enterprise Servers      |
 
 ### MariaDB Enterprise Server Components
 
-| Component                                               | Description                                                                                          |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| [InnoDB](../../../server-usage/storage-engines/innodb/) | <ul><li>General purpose storage engine</li></ul><ul><li>ACID-compliant</li><li>Performance</li></ul> |
+| Component                                               | Description                                                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [InnoDB](../../../server-usage/storage-engines/innodb/) | <ul><li>General purpose storage engine</li><li>ACID-compliant</li><li>Performance</li></ul> |
 
 ### MariaDB MaxScale Components
 
 <table><thead><tr><th width="234.1480712890625">Component</th><th>Description</th></tr></thead><tbody><tr><td>Listener</td><td>Listens for client connections to MaxScale, then passes them to the router service associated with the listener</td></tr><tr><td>MariaDB Monitor</td><td>Tracks changes in the state of MariaDB Enterprise Servers.</td></tr><tr><td>Read Connection Router</td><td>Routes connections from the listener to any available Enterprise Server node</td></tr><tr><td>Read/Write Split Router</td><td>Routes read operations from the listener to any available Enterprise Server node, and routes write operations from the listener to a specific server operating as the primary server</td></tr><tr><td>Server Module</td><td>Connection configuration in MaxScale to an Enterprise Server node</td></tr></tbody></table>
 
 ## Topology
-
-<figure><img src="../../../.gitbook/assets/es-primary-replica-topology-no-title.png" alt=""><figcaption></figcaption></figure>
 
 Primary/Replica topology provides read scalability and fault tolerance through asynchronous or semi-synchronous single-primary replication of MariaDB Enterprise Server 11.4
 
@@ -59,12 +63,12 @@ The MaxScale nodes:
 * Route queries to Enterprise Server nodes using Read/Write Split (`readwritesplit`) and Read Connection (`readconnroute`) routers.
 * Promote replica servers in the event that the primary server fails.
 
-The Enterprise Server node operating as the primary server:
+The Enterprise Server node is operating as the primary server:
 
 * Receives write queries from MaxScale, logging them to the Binary Log
 * Provides Binary Logs to replica servers for replication
 
-The Enterprise Server nodes operating as replica servers:
+The Enterprise Server nodes are operating as replica servers:
 
 * Receive read queries from MaxScale
 * Replicate writes asynchronously or semi-synchronously from the primary server
@@ -78,7 +82,7 @@ These requirements are for the Primary/Replica topology when deployed with Maria
 
 ### Operating System
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/enterprise-server-lifecycle), the Primary/Replica topology with MariaDB Enterprise Server 11.4 and MariaDB MaxScale 25.01 is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the Primary/Replica topology with MariaDB Enterprise Server 11.4 and MariaDB MaxScale 25.01 is provided for:
 
 * AlmaLinux 8 (x86\_64, ARM64)
 * AlmaLinux 9 (x86\_64, ARM64)
@@ -129,21 +133,21 @@ For additional information, see "[Starting and Stopping MariaDB](../../../server
 
 MariaDB Enterprise Server produces log data that can be helpful in problem diagnosis.
 
-Log filenames and locations may be overridden in the server configuration. The default location of logs is the data directory. The data directory is specified by the https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/\~/changes/381/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#datadir system variable.
+Log filenames and locations may be overridden in the server configuration. The default location of logs is the data directory. The data directory is specified by the [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) system variable.
 
 | Log                                                                                         | System Variable/Option                                                                                                                                    | Default Filename      |
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | [MariaDB Error Log](../../../server-management/server-monitoring-logs/error-log.md)         | [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)             | `<hostname>.err`      |
-| [MariaDB Enterprise Audit Log](../../../reference/plugins/mariadb-enterprise-audit.md)      | [server\_audit\_file\_path](../../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_path)  | `server_audit.log`    |
+| [MariaDB Enterprise Audit Log](../../../reference/plugins/mariadb-enterprise-audit/README.md)      | [server\_audit\_file\_path](../../../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_path)  | `server_audit.log`    |
 | [Slow Query Log](../../../server-management/server-monitoring-logs/slow-query-log/)         | [slow\_query\_log\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables) | `<hostname>-slow.log` |
 | [General Query Log](../../../server-management/server-monitoring-logs/general-query-log.md) | [general\_log\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)     | `<hostname>.log`      |
 | [Binary Log](../../../server-management/server-monitoring-logs/binary-log/)                 | [log\_bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin)                                       | `<hostname>-bin`      |
 
 ### MaxScale Configuration Management
 
-MaxScale can be configured using several methods. These methods make use of MaxScale's [REST API](broken-reference).
+MaxScale can be configured using several methods. These methods make use of MaxScale's [REST API](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api).
 
-<table><thead><tr><th width="197.4073486328125">Method</th><th>Benefits</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/administrative-tools-for-mariadb-maxscale/administrative-tools-for-mariadb-maxscale-maxctrl/">MaxCtrl</a></td><td>Command-line utility to perform administrative tasks through the REST API. See MaxCtrl Commands.</td></tr><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/administrative-tools-for-mariadb-maxscale/maxgui/">MaxGUI</a></td><td>MaxGUI is a graphical utility that can perform administrative tasks through the REST API.</td></tr><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/administrative-tools-for-mariadb-maxscale/administrative-tools-for-mariadb-maxscale-rest-api/">REST API</a></td><td>The REST API can be used directly. For example, the <code>curl</code> utility could be used to make REST API calls from the command-line. Many programming languages also have libraries to interact with REST APIs.</td></tr></tbody></table>
+<table><thead><tr><th width="197.4073486328125">Method</th><th>Benefits</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl">MaxCtrl</a></td><td>Command-line utility to perform administrative tasks through the REST API. See MaxCtrl Commands.</td></tr><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/maxscale-maxgui-guide">MaxGUI</a></td><td>MaxGUI is a graphical utility that can perform administrative tasks through the REST API.</td></tr><tr><td><a href="https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api">REST API</a></td><td>The REST API can be used directly. For example, the <code>curl</code> utility could be used to make REST API calls from the command-line. Many programming languages also have libraries to interact with REST APIs.</td></tr></tbody></table>
 
 The procedure on these pages configures MaxScale using MaxCtrl.
 
@@ -161,4 +165,4 @@ Navigation in the procedure ["Deploy Primary/Replica Topology"](./):
 
 * Next: [Step 1: Install MariaDB Enterprise Server](step-1-install-mariadb-enterprise-server.md)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>\\
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

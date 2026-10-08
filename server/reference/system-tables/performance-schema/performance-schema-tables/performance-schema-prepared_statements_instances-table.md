@@ -1,8 +1,10 @@
-# Performance Schema prepared\_statements\_instances Table
+---
+description: >-
+  The rwlock_instances table lists all active read-write lock instances, showing
+  the write-lock owner and the number of waiting readers or writers.
+---
 
-{% hint style="info" %}
-The `prepared_statements_instances` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema prepared\_statements\_instances Table
 
 The `prepared_statements_instances` table contains aggregated statistics of prepared statements.
 

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MySQL/OTP is a native Erlang/OTP client for MariaDB and MySQL databases,
+  implementing the MySQL protocol in Erlang with support for transactions,
+  SSL, and parameterized queries.
 icon: link
 ---
 
@@ -130,6 +134,8 @@ io:format("Connection closed.~n").
 #### Further Resources:
 
 * [MySQL/OTP GitHub Repository](https://github.com/mysql-otp/mysql-otp)
-* [Erlang/OTP Documentation](https://www.google.com/search?q=http://erlang.org/doc/man/mysql.html\&authuser=1) (if available on the official Erlang docs)
+* [Erlang/OTP Documentation](https://www.erlang.org/docs.html)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

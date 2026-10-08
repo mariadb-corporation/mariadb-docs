@@ -1,4 +1,11 @@
-# Overview
+---
+description: >-
+  The MariaDB Audit Plugin records server activity, including connections,
+  queries, and table access, to help meet organizational auditing and compliance
+  regulations.
+---
+
+# Audit Plugin Overview
 
 MariaDB and MySQL are used in a broad range of environments, but if you needed to record user access to be in compliance with auditing regulations for your organization, you would previously have had to use other database solutions. To meet this need, though, MariaDB has developed the MariaDB Audit Plugin. Although the MariaDB Audit Plugin has some unique features available only for MariaDB, it can be used also with MySQL.
 
@@ -16,12 +23,14 @@ Review these pages for detailed documentation:
 
 ## Tutorials
 
-* [Activating MariaDB Audit Log](https://tunnelix.com/activating-mariadb-audit-log/)\
+* [Activating MariaDB Audit Log](https://tunnelix.com/activating-mariadb-audit-log/)
   by Jaykishan Mutkawoa, May 30, 2016
 * [Installing MariaDB Audit Plugin on Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.MySQL.Options.AuditPlugin.html)\
   Amazon RDS supports using the MariaDB Audit Plugin on MySQL and MariaDB database instances.
 
 ## Blog Posts
 
-* [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)\
+* MySQL Auditing with MariaDB Auditing Plugin (formerly on Planet MySQL, no longer available)
   by Peter Zaitsev, February 15, 2016
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

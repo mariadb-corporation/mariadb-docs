@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length character string type. VARCHAR2 columns store strings of
+  variable length up to a specified maximum (up to 65,535).
+---
+
 # VARCHAR2
 
 ## Overview
@@ -26,6 +32,6 @@ Create Table: CREATE TABLE "varchar2_example" (
 )
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

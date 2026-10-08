@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to manage database objects like users, databases, and privileges
+  natively through Kubernetes Custom Resources (CRDs).
+---
+
 # SQL Resources
 
 MariaDB Operator Enterprise enables you to manage SQL resources declaratively through CRs. By SQL resources, we refer to users, grants, and databases that are typically created using SQL statements.
@@ -38,7 +44,9 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   name: user-custom
+  # [...]
 ```
 
 ## `Grant` CR
@@ -96,7 +104,9 @@ kind: Database
 metadata:
   name: database
 spec:
+  # [...]
   name: database-custom
+  # [...]
 ```
 
 ## Initial `User`, `Grant` and `Database`
@@ -109,11 +119,13 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   username: bob
   passwordSecretKeyRef:
     name: bob-password
     key: password
   database: wordpress
+  # [...]
 ```
 
 Behind the scenes, the operator will be creating an `User` resource with `ALL PRIVILEGES` in the initial `Database`.
@@ -197,8 +209,10 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   requeueInterval: 30s
   retryInterval: 5s
+  # [...]
 ```
 
 If the SQL statement executed by the operator is successful, it will schedule the next reconciliation cycle using the `requeueInterval`. If the statement encounters an error, the operator will use the `retryInterval` instead.
@@ -213,11 +227,13 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   cleanupPolicy: Delete
+  # [...]
 ```
 
 You can opt-out from this cleanup process using `cleanupPolicy=Skip`. Note that this resources will remain in the database.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

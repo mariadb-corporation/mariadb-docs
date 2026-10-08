@@ -1,3 +1,9 @@
+---
+description: >-
+  The EXPLAIN Analyzer was an online tool for analyzing and sharing EXPLAIN
+  output. It is no longer active.
+---
+
 # EXPLAIN Analyzer
 
 {% hint style="warning" %}
@@ -44,5 +50,7 @@ The following clients have support for the EXPLAIN Analyzer built in:
 [HeidiSQL](https://www.heidisql.com/) has a button when viewing a query that sends the query to the explain analyzer.
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

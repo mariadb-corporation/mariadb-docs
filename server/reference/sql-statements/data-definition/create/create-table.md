@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete guide to creating tables in MariaDB. Complete CREATE TABLE syntax for
+  data types, constraints, indexes, and storage engines for production use.
+---
+
 # CREATE TABLE
 
 ## Syntax
@@ -5,7 +11,7 @@
 <pre class="language-sql"><code class="lang-sql">CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
-    [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
+    [(<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-2">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
     select_statement
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
@@ -18,7 +24,7 @@ CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
 
 Use the `CREATE TABLE` statement to create a table with the given name.
 
-In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as `` `db_name`.`tbl_name` ``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-select), because it allows to create a table into a database, which contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
+In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as `` `db_name`.`tbl_name` ``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-...-select), because it allows creating a table in a database that contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
 
 If a table with the same name exists, error 1050 results. Use [IF NOT EXISTS](create-table.md#create-table-if-not-exists) to suppress this error and issue a note instead. Use [SHOW WARNINGS](../../administrative-sql-statements/show/show-warnings.md) to see notes.
 
@@ -27,10 +33,10 @@ The `CREATE TABLE` statement automatically commits the current transaction, exce
 For valid identifiers to use as table names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
 {% hint style="info" %}
-If the `default_storage_engine` is set to `ColumnStore` , it needs setting on all UMs. Otherwise when the tables using the default engine are replicated across UMs, they will use the wrong engine. You should therefore not use this option as a session variable with ColumnStore.
+If the `default_storage_engine` is set to `ColumnStore`, it needs to be set on all UMs. Otherwise, when the tables using the default engine are replicated across UMs, they will use the wrong engine. You should therefore not use this option as a session variable with ColumnStore.
 {% endhint %}
 
-[Microsecond precision](../../../sql-functions/date-time-functions/microseconds-in-mariadb.md) can be between 0-6. If no precision is specified it is assumed to be 0, for backward compatibility reasons.
+[Microsecond precision](../../../sql-functions/date-time-functions/microseconds-in-mariadb.md) can be between 0-6. If no precision is specified, it is assumed to be 0, for backward compatibility reasons.
 
 ## Privileges
 
@@ -55,14 +61,14 @@ CREATE TABLE TABLE_NAME (a INT);
 
 with the following exceptions:
 
-* If `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md) it will continue to be locked after the statement.
+* If `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md), it will continue to be locked after the statement.
 * Temporary tables are only dropped if the `TEMPORARY` keyword was used. (With [DROP TABLE](../drop/drop-table.md), temporary tables are preferred to be dropped before normal tables).
 
 ### Things to be Aware of With CREATE OR REPLACE
 
-* The table is dropped first (if it existed), after that the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES` it will be unlocked.
+* The table is dropped first (if it existed), and after that, the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES`, it will be unlocked.
 * One can't use `OR REPLACE` together with `IF EXISTS`.
-* [Replicas](../../../../ha-and-performance/standard-replication/) will by default use `CREATE OR REPLACE` when replicating `CREATE` statements that don''t use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
+* [Replicas](../../../../ha-and-performance/standard-replication/) will, by default, use `CREATE OR REPLACE` when replicating `CREATE` statements that don't use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
 
 ## CREATE TABLE IF NOT EXISTS
 
@@ -70,14 +76,22 @@ If the `IF NOT EXISTS` clause is used, then the table will only be created if a 
 
 ## CREATE TEMPORARY TABLE
 
-Use the `TEMPORARY` keyword to create a temporary table that is only available to the current session. Temporary tables are dropped when the session ends. Temporary table names are specific to the session. They will not conflict with other temporary tables from other sessions even if they share the same name. They will shadow names of non-temporary tables or views, if they are identical. A temporary table can have the same name as a non-temporary table which is located in the same database. In that case, their name will reference the temporary table when used in SQL statements. You must have the [CREATE TEMPORARY TABLES](../../account-management-sql-statements/grant.md#database-privileges) privilege on the database to create temporary tables. If no storage engine is specified, the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) setting will determine the engine.
+Use the `TEMPORARY` keyword to create a temporary table that is only available to the current session. Temporary tables are dropped when the session ends. Temporary table names are specific to the session. They will not conflict with other temporary tables from other sessions, even if they share the same name. They will shadow names of non-temporary tables or views, if they are identical. A temporary table can have the same name as a non-temporary table, which is located in the same database. In that case, their name will reference the temporary table when used in SQL statements. You must have the [CREATE TEMPORARY TABLES](../../account-management-sql-statements/grant.md#database-privileges) privilege on the database to create temporary tables. If no storage engine is specified, the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) setting will determine the engine.
 
 {% tabs %}
 {% tab title="Current" %}
-[ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable, or using `CREATE TEMPORARY TABLE LIKE`. If you try, an error is returned. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
+[ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable or using `CREATE TEMPORARY TABLE LIKE`. If you try, an error is returned. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
 {% endtab %}
 
 {% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 [ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable, or using `CREATE TEMPORARY TABLE LIKE`. They can be specified, but fail silently, and a `MyISAM` table is created instead. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
 {% endtab %}
 {% endtabs %}
@@ -86,23 +100,28 @@ Use the `TEMPORARY` keyword to create a temporary table that is only available t
 
 {% tabs %}
 {% tab title="Current" %}
-From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), by default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
+By default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
 
 The new deterministic rules for logging of temporary tables are:
 
-* The STATEMENT binlog format is used. If it is binlogged, 1 is stored in TABLE\_SHARE->table\_creation\_was\_logged. The user can change this behavior by setting [create\_temporary\_table\_binlog\_formats](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#create_tmp_table_binlog_formats) to MIXED,STATEMENT in which case the create is logged in statement format also in MIXED mode (as before).
-* Changes to temporary tables are only binlogged if and only if the CREATE was logged. The logging happens under STATEMENT or MIXED. If binlog\_format=ROW, temporary table changes are not binlogged. A temporary table that is changed under ROW is marked as 'not up to date in binlog' and no future row changes are logged. Any usage of this temporary table will force row logging of other tables in any future statements using the temporary table to be row logged.
-* DROP TEMPORARY is binlogged only if the CREATE was binlogged.
+* The `STATEMENT` binlog format is used. The user can change this behavior by setting [create\_tmp\_table\_binlog\_formats](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#create_tmp_table_binlog_formats) to `MIXED`, `STATEMENT` in which case the create is logged in statement format also in `MIXED` mode (as before).
+* Changes to temporary tables are only binlogged if and only if the CREATE was logged. The logging happens under `STATEMENT` or `MIXED`. If binlog\_format=ROW, temporary table changes are not binlogged. A temporary table that is changed under ROW is marked as 'not up to date in binlog' and no future row changes are logged. Any usage of this temporary table will force row logging of other tables in any future statements using the temporary table to be row logged.
+* `DROP TEMPORARY` is binlogged only if the `CREATE` was binlogged.
 {% endtab %}
 
 {% tab title="< 12.0" %}
-In some contexts, temporary tables on the primary and replica can become inconsistent.\
-One example is if a temporary table is updated with the value of a non deterministic function\
-like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
 
-\
-In some other contexts, while using MIXED mode, all changes will be logged in ROW mode while the user has any active temporary tables, even if the temporary tables are not used\
-in the query. This depends on in which format some previous independent commands were logged.
+In some contexts, temporary tables on the primary and replica can become inconsistent.\
+One example is if a temporary table is updated with the value of a non deterministic function like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
+
+In some other contexts, while using `MIXED` mode, all changes will be logged in `ROW` mode while the user has any active temporary tables, even if the temporary tables are not used in the query. This depends on in which format some previous independent commands were logged.
 
 There are many other pitfalls with logging temporary table to the replica.
 {% endtab %}
@@ -125,7 +144,7 @@ ERROR 1347 (HY000): 'test.v' is not of type 'BASE TABLE'
 
 The same version of the table storage format as found in the original table is used for the new table.
 
-`CREATE TABLE ... LIKE` performs the same checks as `CREATE TABLE`. So a statement may fail if a change in the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) renders it invalid. For example:
+`CREATE TABLE ... LIKE` performs the same checks as `CREATE TABLE`. So a statement may fail if a change in the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) renders it invalid. For example:
 
 ```sql
 CREATE OR REPLACE TABLE x (d DATE DEFAULT '0000-00-00');
@@ -147,15 +166,15 @@ CREATE TABLE test (a INT NOT NULL, b CHAR(10)) ENGINE=MyISAM
     SELECT 5 AS b, c, d FROM another_table;
 ```
 
-Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to forcee the new table to use certain types.
+Remember that the query just returns data. If you want to use the same indexes or the same column attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data is returned by the `SELECT` that requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to force the new table to use certain types.
 
-Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc).
+Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc.).
 
 If an error occurs during the query, the table will not be created at all.
 
-If the new table has a primary key or `UNIQUE` indexes, you can use the [IGNORE](../../data-manipulation/inserting-loading-data/ignore.md) or `REPLACE` keywords to handle duplicate key errors during the query. `IGNORE` means that the newer values must not be inserted an identical value exists in the index. `REPLACE` means that older values must be overwritten.
+If the new table has a primary key or `UNIQUE` indexes, you can use the [IGNORE](../../data-manipulation/inserting-loading-data/ignore.md) or `REPLACE` keywords to handle duplicate key errors during the query. `IGNORE` means that the newer values must not be inserted if an identical value exists in the index. `REPLACE` means that older values must be overwritten.
 
-If the columns in the new table are more than the rows returned by the query, the columns populated by the query will be placed after other columns. Note that if the strict `SQL_MODE` is on, and the columns that are not names in the query do not have a `DEFAULT` value, an error will raise and no rows will be copied.
+If the columns in the new table are more than the rows returned by the query, the columns populated by the query will be placed after the other columns. Note that if the strict `SQL_MODE` is on, and the columns that are not named in the query do not have a `DEFAULT` value, an error will be raised and no rows will be copied.
 
 [Concurrent inserts](../../data-manipulation/inserting-loading-data/concurrent-inserts.md) are not used during the execution of a `CREATE ... SELECT`.
 
@@ -165,7 +184,7 @@ If the table already exists, an error similar to the following will be returned:
 ERROR 1050 (42S01): Table 't' already exists
 ```
 
-If the `IF NOT EXISTS` clause is used and the table exists, a note will be produced instead of an error.
+If the `IF NOT EXISTS` clause is used, and the table exists, a note will be produced instead of an error.
 
 To insert rows from a query into an existing table, [INSERT ... SELECT](../../data-manipulation/inserting-loading-data/insert-select.md) can be used.
 
@@ -195,27 +214,15 @@ constraint_definition:
 **Note:**
 {% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
 
 ```sql
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 
-MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#references).
-{% endtab %}
+MariaDB will attempt to apply the constraint. See [Foreign Keys examples](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md#examples).
 
-{% tab title="< 10.5" %}
-MariaDB accepts the shortcut format with a `REFERENCES` clause only in `ALTER TABLE` and `CREATE TABLE` statements, but that syntax does nothing. For example:
-
-```sql
-CREATE TABLE b(for_key INT REFERENCES a(not_key));
-```
-{% endtab %}
-{% endtabs %}
-
-Each definition either creates a column in the table or specifies and index or constraint on one or more columns. See [Indexes](create-table.md#indexes) below for details on creating indexes.
+Each definition either creates a column in the table or specifies an index or constraint on one or more columns. See [Indexes](create-table.md#index-definitions) below for details on creating indexes.
 
 Create a column by specifying a column name and a data type, optionally followed by column options. See [Data Types](../../../data-types/) for a full list of data types allowed in MariaDB.
 
@@ -234,7 +241,7 @@ The default value will be used if you [INSERT](../../data-manipulation/inserting
 
 [CURRENT\_TIMESTAMP](../../../sql-functions/date-time-functions/now.md) may also be used as the default value for a [DATETIME](../../../data-types/date-and-time-data-types/datetime.md)
 
-You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
+You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
 
 ```sql
 CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
@@ -249,12 +256,12 @@ You can also use DEFAULT ([NEXT VALUE FOR sequence](../../../sql-structure/seque
 
 ### AUTO\_INCREMENT Column Option
 
-Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is\
+Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is
 set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`. Use [LAST\_INSERT\_ID](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) to get the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value most recently used by an [INSERT](../../data-manipulation/inserting-loading-data/insert.md) statement.
 
 ### ZEROFILL Column Option
 
-If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/joins-subqueries/union.md), [INTERSECT](../../data-manipulation/selecting-data/joins-subqueries/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/joins-subqueries/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
+If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/set-operations/union.md), [INTERSECT](../../data-manipulation/selecting-data/set-operations/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/set-operations/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
 
 ### PRIMARY KEY Column Option
 
@@ -382,7 +389,10 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO} ]
+  {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
+  {{{|}}} COMPLETE_FIELDS [=] number
+  {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
+  {{{|}}} FOR_EQUAL_HASH_POINT_TO_LAST_RECORD [=] {DEFAULT | YES | NO} ]
   [ IGNORED | NOT IGNORED ]
 
 reference_definition:
@@ -407,7 +417,7 @@ For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/
 
 Plain indexes are regular indexes that are not unique, and are not acting as a primary key or a foreign key. They are also not the "specialized" `FULLTEXT` or `SPATIAL` indexes.
 
-See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes) for more information.
+See [Getting Started with Indexes: Plain Indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#plain-indexes-regular-indexes) for more information.
 
 #### PRIMARY KEY
 
@@ -421,17 +431,9 @@ The `UNIQUE` keyword means that the index will not accept duplicated values, exc
 
 For `UNIQUE` indexes, you can specify a name for the constraint, using the `CONSTRAINT` keyword. That name will be used in error messages.
 
-{% tabs %}
-{% tab title="Current" %}
 {% hint style="info" %}
 Unique, if index type is not specified, is normally a BTREE index that can also be used by the optimizer to find rows. If the key is longer than the max key length for the used storage engine, a HASH key will be created. This enables MariaDB to enforce uniqueness for any type or number of columns.
 {% endhint %}
-{% endtab %}
-
-{% tab title="< 10.5" %}
-\-
-{% endtab %}
-{% endtabs %}
 
 See [Getting Started with Indexes: Unique Index](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#unique-index) for more information.
 
@@ -447,7 +449,7 @@ First, you have to specify the name of the target (parent) table and a column or
 * `NO ACTION`: Synonym for `RESTRICT`.
 * `CASCADE`: The delete/update operation is performed in both tables.
 * `SET NULL`: The update or delete goes ahead in the parent table, and the corresponding foreign key fields in the child table are set to `NULL`. (They must not be defined as `NOT NULL` for this to succeed).
-* `SET DEFAULT`: This option is currently implemented only for the PBXT storage engine, which is disabled by default and no longer maintained. It sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted.
+* `SET DEFAULT`: In the SQL standard, this option sets the child table's foreign key fields to their `DEFAULT` values when the referenced parent table key entries are updated or deleted. No MariaDB storage engine implements it: InnoDB accepts the clause but ignores it, and the constraint behaves like `RESTRICT`. See [MDEV-10393](https://jira.mariadb.org/browse/MDEV-10393).
 
 If either clause is omitted, the default behavior for the omitted clause is `RESTRICT`.
 
@@ -475,6 +477,40 @@ With the [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engi
 
 For information about the `KEY_BLOCK_SIZE` index option, see the [KEY\_BLOCK\_SIZE](create-table.md#key_block_size) table option below.
 
+#### ADAPTIVE\_HASH\_INDEX Index Option
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+The `ADAPTIVE_HASH_INDEX` index option takes the same `DEFAULT`, `YES`, and `NO` values as the [ADAPTIVE\_HASH\_INDEX](create-table.md#adaptive_hash_index) table option, but applies to a single index. When set to `YES` or `NO`, it overrides the table-level setting for that index. This option applies only to [InnoDB](../../../../server-usage/storage-engines/innodb/).
+
+#### Advanced Adaptive Hash Index Tuning Options
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+Three additional [InnoDB](../../../../server-usage/storage-engines/innodb/) index options give fine-grained control over how the adaptive hash index is built for an index:
+
+| Option | Values | Effect |
+| --- | --- | --- |
+| `COMPLETE_FIELDS` | `0` to the number of columns the index is defined on (maximum `64`) | Number of complete index columns to include in the hash. |
+| `BYTES_FROM_INCOMPLETE_FIELD` | `0` to `16383` | Number of leading bytes to take from the next column, beyond those covered by `COMPLETE_FIELDS`. Only meaningful for `memcmp()`-comparable index fields such as `VARBINARY` or integer types. For example, a 3-byte prefix on an `INT` returns one hash value for 0‥255, another for 256‥511, and so on. |
+| `FOR_EQUAL_HASH_POINT_TO_LAST_RECORD` | `DEFAULT`, `YES`, `NO` | For a set of records that share the same hash value, controls which record the hash entry points to: `NO` points to the first record, `YES` points to the last. |
+
+The default for all three is unset (automatic), in which case InnoDB chooses the values from its internal heuristic.
+
+{% hint style="warning" %}
+These are power-user options and are not needed for typical workloads. They override InnoDB's internal heuristic, which is computed and *then* replaced by the values you supply. Because the three options work together, set **all three** to known-good values whenever you set even one of them — setting only one or two leaves the others to interact with the overridden heuristic and can produce unintended results.
+
+InnoDB does not expose the values its heuristic would otherwise compute, so suitable settings must be derived from prior knowledge of the data and confirmed through performance testing.
+{% endhint %}
+
+The main reason to fix these values is to avoid *adaptive-hash-index churn*: when an index's lookup pattern is not constant, the internal heuristic keeps changing its parameters, repeatedly destroying and rebuilding the hash index. Pinning the parameters keeps a single hash index in place — less optimal for some queries, but stable and beneficial for the rest, instead of being continually rebuilt.
+
+These options apply only to [InnoDB](../../../../server-usage/storage-engines/innodb/), and only on servers built with adaptive hash index support.
+
 #### Index Types
 
 Each storage engine supports some or all index types. See [Storage Engine Index Types](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/storage-engine-index-types.md) for details on permitted index types for each storage engine.
@@ -487,11 +523,19 @@ Different index types are optimized for different kind of operations:
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Individual columns in the index can be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). Not only ascending, but also descending, indexes can be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 
 {% tab title="< 11.4 / 10.8" %}
-Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
+Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 {% endtabs %}
 
@@ -503,15 +547,7 @@ The `WITH PARSER` index option only applies to [FULLTEXT](../../../../ha-and-per
 
 #### VISIBLE Index Option
 
-{% tabs %}
-{% tab title="Current" %}
 Indexes can be declared visible. This is the default and it shows up in [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-Indexes cannot be declared visible.
-{% endtab %}
-{% endtabs %}
 
 #### COMMENT Index Option
 
@@ -519,21 +555,9 @@ A comment of up to 1024 characters is permitted with the `COMMENT` index option.
 
 The `COMMENT` index option allows you to specify a comment with user-readable text describing what the index is for. This information is not used by the server itself.
 
-#### CLUSTERING Index Option
-
-The `CLUSTERING` index option is only valid for tables using the [TokuDB](../../../../server-usage/storage-engines/tokudb/) storage engine.
-
 #### IGNORED / NOT IGNORED
 
-{% tabs %}
-{% tab title="Current" %}
 Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
-{% endtab %}
-
-{% tab title="< 10.6.0" %}
-Indexes can be specified to be ignored by the optimizer. See [Ignored Indexes](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/ignored-indexes.md).
-{% endtab %}
-{% endtabs %}
 
 ## Periods
 
@@ -576,18 +600,19 @@ For each individual table you create (or alter), you can set some table options.
 
 The equal sign is optional.
 
-Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
+Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
 
-If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
+If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
 
 ```bnf
 table_option:    
     [STORAGE] ENGINE [=] engine_name
+  | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
-  | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
+  | [DEFAULT] CHARACTER SET [=] charset_name
   | CHECKSUM [=] {0 | 1}
-  | [DEFAULT] COLLATE [=] <a data-footnote-ref href="#user-content-fn-7">collation_name</a>
+  | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'string'
   | CONNECTION [=] 'connect_string'
   | DATA DIRECTORY [=] 'absolute path to directory'
@@ -618,7 +643,21 @@ table_option:
 
 ### \[STORAGE] ENGINE
 
-`[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql-mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+`[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+
+### ADAPTIVE\_HASH\_INDEX
+
+{% hint style="info" %}
+The `ADAPTIVE_HASH_INDEX` table and index options were added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+`ADAPTIVE_HASH_INDEX` controls whether the InnoDB adaptive hash index (AHI) is used for an individual [InnoDB](../../../../server-usage/storage-engines/innodb/) table. It takes one of three values:
+
+* `DEFAULT` — no per-table preference: the table follows the global [innodb\_adaptive\_hash\_index](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) setting. This is the default, and removes the option from the stored table definition.
+* `YES` — request the adaptive hash index for this table. AHI is built for the table only when it is also enabled at the server level (`innodb_adaptive_hash_index` set to `ON` or `IF_SPECIFIED`).
+* `NO` — never use the adaptive hash index for this table, even when it is enabled at the server level.
+
+The option only affects [InnoDB](../../../../server-usage/storage-engines/innodb/) tables, and only on servers built with adaptive hash index support. The same option can be set per index (see [ADAPTIVE\_HASH\_INDEX Index Option](#adaptive_hash_index-index-option)); an index-level `YES` or `NO` overrides the table-level setting for that index.
 
 ### AUTO\_INCREMENT
 
@@ -652,7 +691,7 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### DATA DIRECTORY/INDEX DIRECTORY
 
-`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is enabled (useful for replicas). Also note that symbolic links cannot be used for InnoDB tables.
+`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled (useful for replicas). Also note that symbolic links cannot be used for InnoDB tables.
 
 `DATA DIRECTORY` works by creating symlinks from where the table would normally have been (inside the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir)) to where the option specifies. For security reasons, to avoid bypassing the privilege system, the server does not permit symlinks inside the datadir. Therefore, `DATA DIRECTORY` cannot be used to specify a location inside the datadir. An attempt to do so will result in an error `1210 (HY000) Incorrect arguments to DATA DIRECTORY`.
 
@@ -662,19 +701,19 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### ENCRYPTED
 
-The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTED` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### ENCRYPTION\_KEY\_ID
 
-The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTION_KEY_ID` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### IETF\_QUOTES
 
@@ -682,7 +721,7 @@ For the [CSV](../../../../server-usage/storage-engines/csv/) storage engine, the
 
 ### INSERT\_METHOD
 
-`INSERT_METHOD` is only used with [MERGE](../../../../server-usage/storage-engines/merge.md) tables. This option determines in which underlying table the new rows should be inserted. If you set it to 'NO' (which is the default) no new rows can be added to the table (but you will still be able to perform `INSERT`s directly against the underlying tables). `FIRST` means that the rows are inserted into the first table, and `LAST` means that thet are inserted into the last table.
+`INSERT_METHOD` is only used with [MERGE](../../../../server-usage/storage-engines/merge.md) tables. This option determines in which underlying table the new rows should be inserted. If you set it to 'NO' (which is the default) no new rows can be added to the table (but you will still be able to perform `INSERT`s directly against the underlying tables). `FIRST` means that the rows are inserted into the first table, and `LAST` means that they are inserted into the last table.
 
 ### KEY\_BLOCK\_SIZE
 
@@ -778,11 +817,11 @@ If set to `1`, statistics will be recalculated when more than 10% of the data ha
 
 ### STATS\_SAMPLE\_PAGES
 
-`STATS_SAMPLE_PAGES` indicates how many pages are used to sample index statistics. If 0 or DEFAULT, the default value, the [innodb\_stats\_sample\_pages](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_sample_pages) value is used. See [InnoDB Persistent Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md).
+`STATS_SAMPLE_PAGES` indicates how many pages are used to sample index statistics. If 0 or DEFAULT, the default value, the [innodb\_stats\_persistent\_sample\_pages](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_persistent_sample_pages) value is used. See [InnoDB Persistent Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md).
 
 ### TRANSACTIONAL
 
-`TRANSACTIONAL` is only applicable for Aria tables. In future Aria tables created with this option will be fully transactional, but currently this provides a form of crash protection. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
+`TRANSACTIONAL` is only applicable for Aria tables. It provides a form of crash protection, but does not make Aria tables fully transactional. See [Aria Storage Engine](../../../../server-usage/storage-engines/aria/aria-storage-engine.md) for more details.
 
 ### UNION
 
@@ -800,8 +839,10 @@ partition_options:
         { [LINEAR] HASH(expr)
         | [LINEAR] KEY(column_list)
         | RANGE(expr)
+        | RANGE COLUMNS(column_list) [INTERVAL time_quantity time_unit [AUTO]]
         | LIST(expr)
-        | SYSTEM_TIME [INTERVAL time_quantity <a data-footnote-ref href="#user-content-fn-8">time_unit</a>] [LIMIT num] }
+        | LIST COLUMNS(column_list)
+        | SYSTEM_TIME [INTERVAL time_quantity time_unit] [LIMIT num] }
     [PARTITIONS num]
     [SUBPARTITION BY
         { [LINEAR] HASH(expr)
@@ -839,23 +880,24 @@ subpartition_definition:
 
 If the `PARTITION BY` clause is used, the table will be [partitioned](../../../../server-usage/partitioning-tables/). A partition method must be explicitly indicated for partitions and subpartitions. Partition methods are:
 
-* \[LINEAR] [HASH](../../../../../server-management/partitioning-tables/partitioning-types/hash-partitioning-type.md) creates a hash key which will be used to read and write rows. The partition function can be any valid SQL expression which returns an `INTEGER` number. Thus, it is possible to use the [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) method on an integer column, or on functions which accept integer columns as an argument. However, `VALUES LESS THAN` and `VALUES IN` clauses can not be used with [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md). An example:
+* `[LINEAR]` [`HASH`](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) creates a hash key which will be used to read and write rows. The partition function can be any valid SQL expression which returns an `INTEGER` number. Thus, it is possible to use the `HASH` method on an integer column, or on functions which accept integer columns as an argument. However, `VALUES LESS THAN` and `VALUES IN` clauses can not be used with `HASH`. An example:
 
 ```sql
 CREATE TABLE t1 (a INT, b CHAR(5), c DATETIME)
     PARTITION BY HASH ( YEAR(c) );
 ```
 
-\[LINEAR] [HASH](../../../../../server-management/partitioning-tables/partitioning-types/hash-partitioning-type.md) can be used for subpartitions, too.
+`[LINEAR]` [`HASH`](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) can be used for subpartitions, too.
 
-* \[LINEAR] [KEY](../../../../../server-management/partitioning-tables/partitioning-types/key-partitioning-type.md) is similar to [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md), but the index has an even distribution of data. Also, the expression can only be a column or a list of columns. `VALUES LESS THAN` and `VALUES IN` clauses can not be used with [KEY](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md).
+* `[LINEAR]` [`KEY`](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md) is similar to `HASH`, but the index has an even distribution of data. Also, the expression can only be a column or a list of columns. `VALUES LESS THAN` and `VALUES IN` clauses can not be used with `KEY`.
 * [RANGE](../../../../server-usage/partitioning-tables/partitioning-types/range-partitioning-type.md) partitions the rows using on a range of values, using the `VALUES LESS THAN` operator. `VALUES IN` is not allowed with `RANGE`. The partition function can be any valid SQL expression which returns a single value.
 * [LIST](../../../../server-usage/partitioning-tables/partitioning-types/list-partitioning-type.md) assigns partitions based on a table's column with a restricted set of possible values. It is similar to `RANGE`, but `VALUES IN` must be used for at least 1 columns, and `VALUES LESS THAN` is disallowed.
+* [RANGE COLUMNS and LIST COLUMNS](../../../../server-usage/partitioning-tables/partitioning-types/range-columns-and-list-columns-partitioning-types.md) are variants of `RANGE` and `LIST` that take a list of bare columns instead of a partitioning expression. `RANGE COLUMNS` also accepts an `INTERVAL` clause, which makes MariaDB add partitions automatically as data is written. See [RANGE COLUMNS INTERVAL Partitioning Type](../../../../server-usage/partitioning-tables/partitioning-types/range-columns-interval-partitioning.md).
 * `SYSTEM_TIME` partitioning is used for [System-versioned tables](../../../sql-structure/temporal-tables/system-versioned-tables.md) to store historical data separately from current data.
 
 Only [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) and [KEY](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md) can be used for subpartitions, and they can be `[LINEAR]`.
 
-It is possible to define up to 8092 partitions and subpartitions.
+It is possible to define up to 8192 partitions and subpartitions.
 
 The number of defined partitions can be optionally specified as `PARTITION count`. This can be done to avoid specifying all partitions individually. But you can also declare each individual partition and, additionally, specify a `PARTITIONS count` clause; in the case, the number of `PARTITION`s must equal count.
 
@@ -863,6 +905,10 @@ Also see [Partitioning Types Overview](../../../../server-usage/partitioning-tab
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 The `PARTITION` keyword is optional as part of the partition definition. Instead of this:
 
 ```sql
@@ -890,7 +936,11 @@ CREATE OR REPLACE TABLE t1 (x INT)
 ```
 {% endtab %}
 
-{% tab title="< 10.7.1" %}
+{% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 The `PARTITION` keyword is not optional as part of the partition definition. You must use this syntax:
 
 ```sql
@@ -912,15 +962,7 @@ CREATE OR REPLACE TABLE t1 (x INT)
 
 ## Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic, except for `CREATE OR REPLACE`, which are only crash-safe.
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-\-
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 
@@ -958,9 +1000,9 @@ CREATE TABLE t1(
 * [Character Sets and Collations](../../../data-types/string-data-types/character-sets/supported-character-sets-and-collations.md)
 * [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md)
 * [CREATE TABLE with Vectors](../../../sql-structure/vectors/create-table-with-vectors.md)
-* Storage engines can add their own [attributes for columns, indexes and tables](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
+* Storage engines can add their own [attributes for columns, indexes and tables](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
 * Variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)
-* [InnoDB Limitations](https://mariadb.com/kb/en/InnoDB_Limitations)
+* [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

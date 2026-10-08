@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete GROUP_CONCAT reference for MariaDB. Complete function guide with
+  syntax, parameters, return values, and usage examples for production use.
+---
+
 # GROUP\_CONCAT
 
 ## Syntax
 
-```sql
+```bnf
 GROUP_CONCAT(expr)
 ```
 
@@ -34,7 +40,7 @@ GROUP_CONCAT([DISTINCT] expr [,expr ...]
 
 ### LIMIT
 
-The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.&#x20;
+The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.
 
 ## Examples
 

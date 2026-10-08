@@ -1,3 +1,9 @@
+---
+description: >-
+  Undo changes in the current transaction. This statement reverts the database
+  to its state before the transaction started or to a specific savepoint.
+---
+
 # ROLLBACK
 
 The `ROLLBACK` statement rolls back (ends) a transaction, destroying any changes to SQL-data so that they never become visible to subsequent transactions. The required syntax for the `ROLLBACK` statement is as follows.
@@ -42,6 +48,9 @@ ROLLBACK;
 ```
 
 The result will be that both the `INSERT` and the `DROP` will go through as separate transactions so the `ROLLBACK` will have no effect.
+
+## See Also
+* [Flashback, rollback transactions in binary log](../../../server-management/server-monitoring-logs/binary-log/flashback.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

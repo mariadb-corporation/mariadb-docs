@@ -1,20 +1,36 @@
+---
+description: >-
+  Complete guide to listing tables in MariaDB. Complete SHOW TABLES syntax
+  reference with LIKE patterns, WHERE conditions, and filtering options.
+---
+
 # SHOW TABLES
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [FULL] TABLES [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
+
+![Railroad diagram of SHOW TABLES — equivalent to the BNF above](../../../../.gitbook/assets/show-tables-railroad.svg)
 
 ## Description
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 `SHOW TABLES` lists the tables, [sequences](../../../sql-structure/sequences/) and [views](../../../../server-usage/views/) in a given database.
 {% endtab %}
 
-{% tab title="< 11.2.0" %}
+{% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 `SHOW TABLES` lists the tables (only non-`TEMPORARY` tables are shown), [sequences](../../../sql-structure/sequences/) and [views](../../../../server-usage/views/) in a given database.
 {% endtab %}
 {% endtabs %}
@@ -78,7 +94,7 @@ SHOW FULL TABLES;
 +----------------+------------+
 ```
 
-Showing temporary tables: <= [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111)
+Showing temporary tables: <= [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111)
 
 ```sql
 CREATE TABLE t (t INT(11));
@@ -93,7 +109,7 @@ SHOW TABLES;
 +----------------+
 ```
 
-From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes):
+From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0):
 
 ```sql
 CREATE TABLE t (t INT(11));

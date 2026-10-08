@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to the FederatedX storage engine, a fork of MySQL's Federated
+  engine, allowing access to remote tables as if they were local. This storage
+  engine has been deprecated.
+---
+
 # About FederatedX
 
 {% hint style="warning" %}
@@ -6,11 +13,11 @@ This storage engine has been deprecated.
 
 The FederatedX storage engine is a fork of MySQL's [Federated storage engine](https://dev.mysql.com/doc/refman/5.5/en/federated-storage-engine.html), which is no longer being developed by Oracle. The original purpose of FederatedX was to keep this storage engine's development progressing-- to both add new features as well as fix old bugs.
 
-Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), the [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
+The [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
 
 ## What is the FederatedX storage engine?
 
-The FederatedX Storage Engine is a storage engine that works with both MariaDB and MySQL. Where other storage engines are built as interfaces to lower-level file-based data stores, FederatedX uses libmysql to talk to the data source, the data source being a remote RDBMS. Currently, since FederatedX only uses libmysql, it can only talk to another MariaDB or MySQL RDBMS. The plan is of course to be able to use other RDBMS systems as a data source. There is an existing project Federated ODBC which was able to use PostgreSQL as a remote data source, and it is this type of functionality which are brought to FederatedX in subsequent versions.
+The FederatedX Storage Engine is a storage engine that works with both MariaDB and MySQL. Where other storage engines are built as interfaces to lower-level file-based data stores, FederatedX uses libmysql to talk to the data source, the data source being a remote RDBMS. Because FederatedX only uses libmysql, it can only talk to another MariaDB or MySQL RDBMS. To use other RDBMS systems as a data source, see the [CONNECT](../connect/README.md) storage engine.
 
 ## History
 
@@ -23,7 +30,7 @@ When MySQL 5.1 became the production release of MySQL, Federated had more featur
 * Various bugs that needed to be fixed from MySQL 5.0
 * Plugin capability
 
-In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes) FederatedX got support for assisted [table discovery](../storage-engines-storage-engine-development/table-discovery.md).
+FederatedX supports assisted [table discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md).
 
 ## Installing the Plugin
 
@@ -35,7 +42,7 @@ The first method can be used to install the plugin without restarting the server
 INSTALL SONAME 'ha_federatedx';
 ```
 
-The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```ini
 [mariadb]
@@ -51,7 +58,7 @@ You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../.
 UNINSTALL SONAME 'ha_federatedx';
 ```
 
-If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then those options should be removed to prevent the plugin from being loaded the next time the server is restarted.
+If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then those options should be removed to prevent the plugin from being loaded the next time the server is restarted.
 
 ## How FederatedX works
 
@@ -60,17 +67,17 @@ Every storage engine has to implement derived standard handler class API methods
 ### Internal workings of FederatedX
 
 Normal database files are local and as such: You create a table called\
-'users', a file such as 'users.MYD' is created. A handler reads, inserts,\
-deletes, updates data in this file. The data is stored in particular format,\
-so to read, that data has to be parsed into fields, to write, fields have to\
+'users', a file such as 'users.MYD' is created. A handler reads, inserts,
+deletes, updates data in this file. The data is stored in particular format,
+so to read, that data has to be parsed into fields, to write, fields have to
 be stored in this format to write to this data file.
 
-With the FederatedX storage engine, there are no local files\
-for each table's data (such as .MYD). A foreign database will store\
-the data that would normally be in this file. This will necessitate\
-the use of MySQL client API to read, delete, update, insert this\
+With the FederatedX storage engine, there are no local files
+for each table's data (such as .MYD). A foreign database will store
+the data that would normally be in this file. This will necessitate
+the use of MySQL client API to read, delete, update, insert this
 data. The data will have to be retrieve via an SQL call\
-"`SELECT * FROM users`". Then, to read this data, it will have to be retrieved via `mysql_fetch_row` one row at a time, then converted from the\
+"`SELECT * FROM users`". Then, to read this data, it will have to be retrieved via `mysql_fetch_row` one row at a time, then converted from the
 column in this select into the format that the handler expects.
 
 The basic functionality of how FederatedX works is:
@@ -120,7 +127,7 @@ CREATE SERVER 'server_one' FOREIGN DATA WRAPPER 'mysql' OPTIONS
   OWNER 'root');
 ```
 
-**MariaDB starting with** [**10.11.12**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes)
+**MariaDB starting with** [**10.11.12**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12)
 
 You can also use 'mariadb' as a wrapper.
 
@@ -136,9 +143,9 @@ ENGINE="FEDERATED" DEFAULT CHARSET=latin1
 CONNECTION='server_one';
 ```
 
-(Note that in MariaDB, the original Federated storage engine is replaced with\
-the new FederatedX storage engine. And for backward compatibility, the old\
-name "FEDERATED" is used in create table. So in MariaDB, the engine type\
+(Note that in MariaDB, the original Federated storage engine is replaced with
+the new FederatedX storage engine. And for backward compatibility, the old
+name "FEDERATED" is used in create table. So in MariaDB, the engine type
 should be given as "FEDERATED" without an extra "X", not "FEDERATEDX").
 
 The equivalent of above, if done specifying all the connection parameters
@@ -155,8 +162,8 @@ ALTER SERVER 'server_one' OPTIONS(DATABASE 'db2');
 
 All subsequent calls to any FederatedX table using the 'server\_one' will now be against tables in `db2`! Guess what? You no longer have to perform an alter table in order to point one or more FederatedX tables to a new server!
 
-This `connection="connection string"` is necessary\
-for the handler to be able to connect to the foreign server, either\
+This `connection="connection string"` is necessary
+for the handler to be able to connect to the foreign server, either
 by URL, or by server name.
 
 ### Method calls
@@ -253,16 +260,16 @@ CREATE TABLE federated_test_table ENGINE=FEDERATED
   CONNECTION='mysql://root@127.0.0.1:9306/federated/test_table';
 ```
 
-Notice the "ENGINE" and "CONNECTION" fields? This is where you\
-respectively set the engine type, "FEDERATED" and foreign\
-host information, this being the database your 'client' database\
-will connect to and use as the "data file". Obviously, the foreign\
-database is running on port 9306, so you want to start up your other\
-database so that it is indeed on port 9306, and your FederatedX\
-database on a port other than that. In my setup, I use port 5554\
+Notice the "ENGINE" and "CONNECTION" fields? This is where you
+respectively set the engine type, "FEDERATED" and foreign
+host information, this being the database your 'client' database
+will connect to and use as the "data file". Obviously, the foreign
+database is running on port 9306, so you want to start up your other
+database so that it is indeed on port 9306, and your FederatedX
+database on a port other than that. In my setup, I use port 5554
 for FederatedX, and port 5555 for the foreign database.
 
-Alternatively (or if you're using MariaDB before version 10.0.2) you specify the federated table structure explicitly:
+Alternatively, you can specify the federated table structure explicitly:
 
 ```sql
 CREATE TABLE federated_test_table (
@@ -322,7 +329,7 @@ Next, I open several windows for each:
 
 I would create a table on the client to the foreign server on port 5555, and then to the FederatedX server on port 5554. At this point, I would run whatever queries I wanted to on the FederatedX server, just always remembering that whatever changes I wanted to make on the table, or if I created new tables, that I would have to do that on the foreign server.
 
-Another thing to look for is 'show variables' to show you that you have\
+Another thing to look for is 'show variables' to show you that you have
 support for FederatedX handler support:
 
 ```sql
@@ -383,7 +390,7 @@ FederatedX from a user point of view is the same for the most part. What is diff
 
 ## Where can I get FederatedX
 
-FederatedX is part of [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) and later. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
+FederatedX is part of MariaDB. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
 
 ### What are the plans for FederatedX?
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete BOOLEAN type reference: TINYINT(1) synonym, TRUE/FALSE aliases,
+  CREATE TABLE/SHOW CREATE TABLE output, and IF()/IS operator evaluation.
+---
+
 # BOOLEAN
 
 ## Syntax
 
-```sql
+```bnf
 BOOL, BOOLEAN
 ```
 

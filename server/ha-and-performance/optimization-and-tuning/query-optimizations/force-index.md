@@ -1,3 +1,9 @@
+---
+description: >-
+  Using FORCE INDEX to make the optimizer use an index instead of a table
+  scan.
+---
+
 # FORCE INDEX
 
 ## Description

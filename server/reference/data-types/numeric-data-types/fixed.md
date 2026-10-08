@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DECIMAL. This keyword is used to define columns that require exact
+  numeric precision, such as currency.
+---
+
 # FIXED
 
 ## Overview
@@ -22,6 +28,6 @@ Create Table: CREATE TABLE `fixed_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

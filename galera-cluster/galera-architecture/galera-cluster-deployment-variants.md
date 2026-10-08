@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Galera Cluster supports multiple topologies: standard LAN clusters
+  for high availability, WAN multi-site clusters for disaster recovery, and
+  two-node setups with an arbitrator.
+---
+
 # Galera Cluster Deployment Variants
 
 MariaDB Galera Cluster is flexible and can be deployed in several different topologies to meet various business needs, from [high availability](../high-availability/understanding-quorum-monitoring-and-recovery.md) within a single data center to geographically distributed disaster recovery. The primary deployment patterns are designed for Local Area Networks (LAN) and Wide Area Networks (WAN).

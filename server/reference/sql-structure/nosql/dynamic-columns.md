@@ -1,3 +1,9 @@
+---
+description: >-
+  Dynamic columns let each row store a different set of columns inside a blob,
+  for schema-flexible (NoSQL-style) data.
+---
+
 # Dynamic Columns
 
 ## Overview
@@ -87,7 +93,7 @@ This is a complete reference of dynamic columns in MariaDB.
 
 {% hint style="success" %}
 **Column can be referred to by name (column\_name in the following code blocks). This is the preferred method.**\
-If you need support for old (< 10.0) MariaDB versions, you have to refer to columns by number. In that case, replace _column\_name_ with _column\_nr_. This method is not recommended.
+You can also refer to columns by number. In that case, replace _column\_name_ with _column\_nr_. This method is not recommended.
 {% endhint %}
 
 ### Dynamic Columns Functions
@@ -104,7 +110,7 @@ Returns a dynamic columns blob that stores the specified columns with values. Th
 * storing in a table,
 * further modification with other dynamic columns functions.
 
-The `as type` part allows one to specify the value type. In most cases, this is redundant because MariaDB will be able to deduce the type of the value. Explicit type specification may be needed when the type of the value is not apparent. For example, a literal `'2012-12-01'` has a `CHAR` type by default, one will need to specify `'2012-12-01' AS DATE` to have it stored as a date. See the [Datatypes](dynamic-columns.md#Datatypes) section for further details. Note also [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
+The `as type` part allows one to specify the value type. In most cases, this is redundant because MariaDB will be able to deduce the type of the value. Explicit type specification may be needed when the type of the value is not apparent. For example, a literal `'2012-12-01'` has a `CHAR` type by default, one will need to specify `'2012-12-01' AS DATE` to have it stored as a date. See the [Datatypes](dynamic-columns.md#datatypes) section for further details. Note also [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
 
 Typical usage:
 
@@ -135,7 +141,7 @@ UPDATE t1 SET dyncol_blob=COLUMN_ADD(dyncol_blob, "column_name", "value")
   WHERE id=1;
 ```
 
-Note: `COLUMN_ADD()` is a regular function (just like [CONCAT()](../sql-statements/built-in-functions/string-functions/concat.md)), hence, in order to update the value in the table you have to use the `UPDATE ... SET dynamic_col=COLUMN_ADD(dynamic_col, ....)` pattern.
+Note: `COLUMN_ADD()` is a regular function (just like [CONCAT()](../../sql-functions/string-functions/concat.md)), hence, in order to update the value in the table you have to use the `UPDATE ... SET dynamic_col=COLUMN_ADD(dynamic_col, ....)` pattern.
 
 #### COLUMN\_GET
 
@@ -149,7 +155,7 @@ Retrieves the value of a dynamic column by its name. If no column with the given
 
 This may seem counter-intuitive: Why would you need to specify which datatype they're retrieving? Can't the dynamic columns system figure the datatype from the data being stored?
 
-The answer is: SQL is a statically-typed language. The SQL interpreter needs to know the datatypes of all expressions before the query is run (for example, when one is using prepared statements and runs`"select COLUMN_GET(...)"`, the prepared statement API requires the server to inform the client about the datatype of the column being read before the query is executed and the server can see what datatype the column actually has).
+The answer is: SQL is a statically typed language. The SQL interpreter needs to know the datatypes of all expressions before the query is run (for example, when one is using prepared statements and runs`"select COLUMN_GET(...)"`, the prepared statement API requires the server to inform the client about the datatype of the column being read before the query is executed and the server can see what datatype the column actually has).
 
 See the [Datatypes](dynamic-columns.md#datatypes) section for more information about datatypes.
 
@@ -261,7 +267,7 @@ SELECT column_json( column_get(
 
 In SQL, one needs to define the type of each column in a table. Dynamic columns do not provide any way to declare a type in advance ("whenever there is a column 'weight', it should be integer" is not possible). However, each particular dynamic column value is stored together with its datatype.
 
-The set of possible datatypes is mostly the same as that used by the [CAST](../../sql-functions/string-functions/cast.md) and [CONVERT](../../sql-functions/string-functions/convert.md) functions. However, note that there are currently some differences - see [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
+The set of possible datatypes is mostly the same as that used by the [CAST](../../sql-functions/string-functions/cast.md) and [CONVERT](../../sql-functions/string-functions/convert.md) functions. However, note that there are some differences - see [MDEV-597](https://jira.mariadb.org/browse/MDEV-597).
 
 | Type                | Dynamic column internal type | Description                                                                                                                 |
 | ------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -271,14 +277,14 @@ The set of possible datatypes is mostly the same as that used by the [CAST](../.
 | DATETIME\[(D)]      | DYN\_COL\_DATETIME           | (date and time (with [microseconds](../../sql-functions/date-time-functions/microseconds-in-mariadb.md)) - 9 bytes)         |
 | DECIMAL\[(M\[,D])]  | DYN\_COL\_DECIMAL            | (variable length binary decimal representation with MariaDB limitation)                                                     |
 | DOUBLE\[(M,D)]      | DYN\_COL\_DOUBLE             | (64 bit double-precision floating point)                                                                                    |
-| INTEGER             | DYN\_COL\_INT                | (variable length, up to 64 bit signed integer)                                                                              |
-| SIGNED \[INTEGER]   | DYN\_COL\_INT                | (variable length, up to 64 bit signed integer)                                                                              |
+| INTEGER             | DYN\_COL\_INT                | (variable length, up to 64-bit signed integer)                                                                              |
+| SIGNED \[INTEGER]   | DYN\_COL\_INT                | (variable length, up to 64-bit signed integer)                                                                              |
 | TIME\[(D)]          | DYN\_COL\_TIME               | (time (with [microseconds](../../sql-functions/date-time-functions/microseconds-in-mariadb.md), may be negative) - 6 bytes) |
 | UNSIGNED \[INTEGER] | DYN\_COL\_UINT               | (variable length, up to 64bit unsigned integer)                                                                             |
 
 #### A Note About Lengths
 
-If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`\
+If you're running queries without specifying a maximum length (i.e. using #as CHAR#, not `as CHAR(n)`), MariaDB reports the maximum length of the result set column to be`53,6870,911` (bytes or characters?). This may cause excessive memory usage in some client libraries, because they try to pre-allocate a buffer of maximum result set width. If you suspect you're hitting this problem, use `CHAR(n)`
 whenever you're using `COLUMN_GET` in the select list.
 
 ```sql
@@ -287,7 +293,7 @@ SELECT COLUMN_GET(blob, 'colname' as CHAR) ...
 
 ### Client-side API
 
-It is also possible to create or parse dynamic columns blobs on the client side. `libmysql` client library now includes an API for writing/reading dynamic column blobs. See [dynamic-columns-api](broken-reference) for details.
+It is also possible to create or parse dynamic columns blobs on the client side. `libmysql` client library now includes an API for writing/reading dynamic column blobs. See [dynamic-columns-api](dynamic-column-api.md) for details.
 
 ### Limitations
 
@@ -298,7 +304,7 @@ It is also possible to create or parse dynamic columns blobs on the client side.
 
 ## See Also
 
-* [Dynamic Columns](broken-reference)
+* [Dynamic Column API](dynamic-column-api.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

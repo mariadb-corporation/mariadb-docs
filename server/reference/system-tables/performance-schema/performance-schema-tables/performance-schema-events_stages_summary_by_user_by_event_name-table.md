@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes stage events aggregated by user name and event name,
+  helping to identify users with resource-intensive stages.
+---
+
 # Performance Schema events\_stages\_summary\_by\_user\_by\_event\_name Table
 
 The table lists stage events, summarized by user and event name.

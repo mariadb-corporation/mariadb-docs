@@ -1,8 +1,14 @@
+---
+description: >-
+  View the SQL used to create a sequence. This statement displays the CREATE
+  SEQUENCE statement with current parameter values.
+---
+
 # SHOW CREATE SEQUENCE
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE SEQUENCE sequence_name;
 ```
 

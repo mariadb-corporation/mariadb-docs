@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.spider_xa_member table lists the member nodes participating in a
+  distributed XA transaction managed by the Spider engine.
+---
+
 # mysql.spider\_xa\_member Table
 
 The `mysql.spider_xa_member` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

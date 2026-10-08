@@ -1,3 +1,10 @@
+---
+description: >-
+  The MCP Server issues JWT tokens on login, then validates each request by
+  verifying the signature, checking token expiration, and confirming the
+  user against the shared MariaDB database.
+---
+
 # Token Management
 
 Token management is a critical part of the system's security, handled primarily by the RAG API.
@@ -9,21 +16,25 @@ The process involves two main steps:
 ### **Step 1: User Registration**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A[User] -->|Sends Email & Password| B(POST /register)
     B --> C[Hash Password with bcrypt]
     C --> D[Store User in Database]
+    linkStyle default color:#111111
 ```
 
 ### **Step 2: User Login & Token Generation**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A[User] -->|Sends Credentials| B(POST /token)
     B --> C[Verify Credentials in DB]
     C --> D[Determine User Roles]
     D --> E[Generate JWT Token]
     E --> F[Return Token to User]
+    linkStyle default color:#111111
 ```
 
 ## **Token Usage**
@@ -59,3 +70,7 @@ sequenceDiagram
 * **Database Validation**: Ensures the user associated with the token still exists and is active.
 * **Issuer/Audience Validation**: Prevents a token from one system from being used on another.
 * **Not-Before Check**: Prevents a token from being used before it is valid
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

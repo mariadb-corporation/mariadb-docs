@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.18-14 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-enterprise-server/README.md) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.18-14.md).
+MariaDB Enterprise Server 10.6.18-14 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](../) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.18-14.md).
 
 MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 
@@ -63,7 +63,7 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-24507](https://jira.mariadb.org/browse/MDEV-24507)) Server Crash using UDF in WHERE clause of VIEW
 * ([MDEV-32935](https://jira.mariadb.org/browse/MDEV-32935)) Parameter 'CMAKE\_SYSTEM\_PROCESSOR=$(DEB\_HOST\_ARCH)' is not needed anymore to crosscompile Debian packages
 * ([MDEV-33301](https://jira.mariadb.org/browse/MDEV-33301)) memlock with systemd still not working even with [MDEV-9095](https://jira.mariadb.org/browse/MDEV-9095) fix
-* ([MDEV-33636](https://jira.mariadb.org/browse/MDEV-33636)) CentOS 7 [MariaDB 10.5](../../community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105.md) build jobs failing "Invalid capability: cap "%caps(cap\_ipc\_lock=pe"
+* ([MDEV-33636](https://jira.mariadb.org/browse/MDEV-33636)) CentOS 7 [MariaDB 10.5](../../community-server/old-releases/10.5/what-is-mariadb-105.md) build jobs failing "Invalid capability: cap "%caps(cap\_ipc\_lock=pe"
 * ([MDEV-33631](https://jira.mariadb.org/browse/MDEV-33631)) Ubuntu/Debian MYSQL\_SERVER\_SUFFIX is version+suffix on MariaDB packaged versions
 * (MENT-1910) galera\_sr.GCF-585 fails
 * (MENT-1947) Audit plugin crash in load\_filters()
@@ -95,7 +95,7 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-25089](https://jira.mariadb.org/browse/MDEV-25089)) Assertion `error.len > 0` failed in wsrep\_status\_t galera::ReplicatorSMM::handle\_apply\_error(galera::TrxHandleSlave&, const wsrep\_buf\_t&, const string&)
 * ([MDEV-25731](https://jira.mariadb.org/browse/MDEV-25731)) Assertion `mode_ == m_local` failed in void wsrep::client\_state::streaming\_params(wsrep::streaming\_context::fragment\_unit, size\_t)
 * ([MDEV-33928](https://jira.mariadb.org/browse/MDEV-33928)) Assertion failure on wsrep\_thd\_is\_aborting
-* (MENT-2042) Assertion `bf_aborted()` failed in void wsrep::transaction::xa\_replay\_common(wsrep::unique\_lock [wsrep::mutex](wsrep::mutex)&)
+* (MENT-2042) Assertion `bf_aborted()` failed in void wsrep::transaction::xa\_replay\_common(wsrep::unique\_lock wsrep::mutex&)
 * ([MDEV-33769](https://jira.mariadb.org/browse/MDEV-33769)) Memory leak found in the test main.rownum run with --ps-protocol against a server built with the option -DWITH\_PROTECT\_STATEMENT\_MEMROOT
 * ([MDEV-33546](https://jira.mariadb.org/browse/MDEV-33546)) Rpl\_semi\_sync\_slave\_status is ON When Replication Is Not Configured
 * ([MDEV-33011](https://jira.mariadb.org/browse/MDEV-33011)) mariadb-backup --backup: FATAL ERROR: ... Can't open datafile cool\_down/t3
@@ -113,7 +113,7 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-33819](https://jira.mariadb.org/browse/MDEV-33819)) The purge of committed history is mis-parsing some log
 * ([MDEV-33802](https://jira.mariadb.org/browse/MDEV-33802)) Weird read view after ROLLBACK of other transactions.
 * ([MDEV-32489](https://jira.mariadb.org/browse/MDEV-32489)) Change buffer index fails to delete the records
-* ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777)) Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../../community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../community-server/mariadb-10-6-series/what-is-mariadb-106.md) remote
+* ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777)) Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../../community-server/old-releases/10.5/what-is-mariadb-105.md) local and [MariaDB 10.6](../../community-server/10.6/what-is-mariadb-106.md) remote
 * ([MDEV-32454](https://jira.mariadb.org/browse/MDEV-32454)) JSON test has problem in view protocol
 * (MENT-1555) Spider: Set proper remote isolation based on information obtained by SQLGetInfo
 * ([MDEV-33979](https://jira.mariadb.org/browse/MDEV-33979)) Disallow bulk insert operation during partition update statement
@@ -238,7 +238,7 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-21778](https://jira.mariadb.org/browse/MDEV-21778)) Disable system commands in mysql/mariadb client
 * ([MDEV-33620](https://jira.mariadb.org/browse/MDEV-33620)) Improve times and states in show processlist for replication
 * ([MDEV-26923](https://jira.mariadb.org/browse/MDEV-26923)) MariaDB will abort server startup if it finds an invalid parameter, but won't check for other invalid params
-* ([MDEV-33726](https://jira.mariadb.org/browse/MDEV-33726)) Moving from [MariaDB 10.5](../../community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105.md) to 10.6 mysql\_upgrade is not updating some system tables
+* ([MDEV-33726](https://jira.mariadb.org/browse/MDEV-33726)) Moving from [MariaDB 10.5](../../community-server/old-releases/10.5/what-is-mariadb-105.md) to 10.6 mysql\_upgrade is not updating some system tables
 * ([MDEV-32445](https://jira.mariadb.org/browse/MDEV-32445)) InnoDB may corrupt its log before upgrading it on startup
 * ([MDEV-33668](https://jira.mariadb.org/browse/MDEV-33668)) Adapt parallel slave's round-robin scheduling to XA events
 * ([MDEV-33454](https://jira.mariadb.org/browse/MDEV-33454)) release row locks for non-modified rows at XA PREPARE
@@ -248,6 +248,6 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-33551](https://jira.mariadb.org/browse/MDEV-33551)) Semi-sync Wait Point AFTER\_COMMIT Slow on Workloads with Heavy Concurrency
 * ([MDEV-30660](https://jira.mariadb.org/browse/MDEV-30660)) Aggregation functions fail to leverage uniqueness property
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

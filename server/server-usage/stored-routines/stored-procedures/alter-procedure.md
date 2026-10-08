@@ -1,8 +1,15 @@
+---
+description: >-
+  The ALTER PROCEDURE statement modifies the characteristics of an existing
+  stored procedure, such as its security context or comment, without changing
+  its logic.
+---
+
 # ALTER PROCEDURE
 
 ## Syntax
 
-```sql
+```bnf
 ALTER PROCEDURE proc_name [characteristic ...]
 
 characteristic:
@@ -13,11 +20,7 @@ characteristic:
 
 ## Description
 
-This statement can be used to change the characteristics of a [stored\
-procedure](./). More than one change may be specified in an `ALTER PROCEDURE`\
-statement. However, you cannot change the parameters or body of a\
-stored procedure using this statement. To make such changes, you must\
-drop and re-create the procedure using either [CREATE OR REPLACE PROCEDURE](create-procedure.md) (since [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-3-release-notes)) or [DROP PROCEDURE](drop-procedure.md) and [CREATE PROCEDURE](create-procedure.md) ([MariaDB 10.1.2](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/mariadb-installation-version-10121-via-rpms-on-centos-7.md) and before).
+This statement can be used to change the characteristics of a [stored procedure](./). More than one change may be specified in an `ALTER PROCEDURE` statement. However, you cannot change the parameters or body of a stored procedure using this statement. To make such changes, you must drop and re-create the procedure using [CREATE OR REPLACE PROCEDURE](create-procedure.md).
 
 You must have the `ALTER ROUTINE` privilege for the procedure. By default, that privilege is granted automatically to the procedure creator. See [Stored Routine Privileges](../stored-functions/stored-routine-privileges.md).
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete guide to MariaDB in Docker. Complete resource for container
+  deployment, volume management, networking, and environment setup for
+  production use.
+---
+
 # Installing and Using MariaDB via Docker
 
 Sometimes we want to install a specific version of MariaDB, [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/), or [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) on a certain system, but no packages are available. Or maybe, we simply want to isolate MariaDB from the rest of the system, to be sure that we won't cause any damage.
@@ -41,7 +48,7 @@ The easiest way to use MariaDB on Docker is choosing a MariaDB image and creatin
 
 ### Downloading an Image
 
-You can download a MariaDB image for Docker from the [Offical Docker MariaDB](https://hub.docker.com/_/mariadb/), or choose another image that better suits your needs. You can search Docker Hub (the official set of repositories) for an image with this command:
+You can download a MariaDB image for Docker from the [Official Docker MariaDB](https://hub.docker.com/_/mariadb/), or choose another image that better suits your needs. You can search Docker Hub (the official set of repositories) for an image with this command:
 
 ```bash
 docker search mariadb
@@ -55,7 +62,7 @@ For example, if you want to install the default MariaDB image, you can type:
 docker pull mariadb:10.6
 ```
 
-This will install the 10.6 version.&#x20;
+This will install the 10.6 version.
 
 You will see a list of necessary layers. For each layer, Docker will say if it is already present, or its download progress.
 
@@ -226,7 +233,7 @@ apt-get install vim
 
 In some images, no repository is configured by default, so we may need to add them.
 
-Note that if we run [mariadb-admin shutdown](https://github.com/mariadb-corporation/docs-server/blob/test/server/clients-and-utilities/mariadb-admin.md#mariadb-admin-commands) or the [SHUTDOWN](../../../reference/sql-statements/administrative-sql-statements/shutdown.md) command to stop the container, the container will be deactivated, and we will automatically exit to our system.
+Note that if we run [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md#commands) or the [SHUTDOWN](../../../reference/sql-statements/administrative-sql-statements/shutdown.md) command to stop the container, the container will be deactivated, and we will automatically exit to our system.
 
 ### Connecting to MariaDB from Outside the Container
 

@@ -1,35 +1,47 @@
+---
+description: >-
+  Get the CREATE PROCEDURE statement. This statement returns the SQL syntax used
+  to define a specific stored procedure.
+---
+
 # SHOW CREATE PROCEDURE
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE PROCEDURE proc_name
 ```
 
 ## Description
 
-This statement is a MariaDB extension. It returns the exact string that can be used to re-create the named [stored procedure](../../../../server-usage/stored-routines/stored-procedures/), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) that was used when the trigger has been created and the character set used by the connection.. A similar statement, [SHOW CREATE FUNCTION](show-create-function.md), displays information about [stored functions](../../../../server-usage/stored-routines/stored-functions/).
+This statement is a MariaDB extension. It returns the exact string that can be used to re-create the named [stored procedure](../../../../server-usage/stored-routines/stored-procedures/), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger has been created and the character set used by the connection.. A similar statement, [SHOW CREATE FUNCTION](show-create-function.md), displays information about [stored functions](../../../../server-usage/stored-routines/stored-functions/).
 
 Both statements require that:
 
 * you are the owner of the routine;
-* you have the [SHOW CREATE ROUTINE](../../account-management-sql-statements/grant.md#database-privileges) privilege (from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)); or
+* you have the [SHOW CREATE ROUTINE](../../account-management-sql-statements/grant.md#database-privileges) privilege (from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)); or
 * you have the [SELECT](../../account-management-sql-statements/grant.md) privilege on the [mysql.proc](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) table.
 
 When none of the above statements are true, the statements display `NULL` for the `Create Procedure` or `Create Function` field.
 
 {% hint style="danger" %}
 Users with `SELECT` privileges on [mysql.proc](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) or `USAGE` privileges on `*.*` can view the text of routines, even when they do not have privileges for the function or procedure itself.
-
-
 {% endhint %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE PROCEDURE` quotes identifiers, according to the value of the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable.
 {% endtab %}
 
-{% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% tab title="< 10.6.5" %}
+{% hint style="info" %}
+Before MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE PROCEDURE` quotes identifiers, according to the value of the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable. The output of this statement is unreliably affected by the [sql\_quote\_show\_create](https://kb-archive.mariadb.net/kb/en/server-system-variables/#sql_quote_show_create) system variable.
 {% endtab %}
 {% endtabs %}

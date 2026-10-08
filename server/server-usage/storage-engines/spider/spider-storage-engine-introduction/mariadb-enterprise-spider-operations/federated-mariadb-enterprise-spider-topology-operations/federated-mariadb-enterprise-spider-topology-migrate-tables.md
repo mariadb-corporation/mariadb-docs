@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide on how to migrate tables from a standard MariaDB deployment to a
+  Federated Spider topology, distributing data across multiple backend nodes.
+---
+
 # Federated MariaDB Enterprise Spider Topology Migrate Tables
 
 ## Overview
@@ -74,6 +80,6 @@ SELECT * FROM hq_sales.invoices;
 +-----------+------------+-------------+----------------------------+---------------+----------------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

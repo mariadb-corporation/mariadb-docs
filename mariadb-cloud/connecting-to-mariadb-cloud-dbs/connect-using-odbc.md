@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud via ODBC using the MariaDB Connector/ODBC driver,
+  with DSN configuration, TLS setup, and credential handling for
+  ODBC-compatible applications.
+---
+
 # Connect Using ODBC
 
 ## Overview
@@ -125,7 +132,7 @@ The method for configuring the data source varies between operating systems.
     PASSWORD = db_user_password
     ```
 
-    * Substitute the values of the `SERVER`, `SOCKET`, `DATABASE`, `PORT`, `USER`, and `PASSWORD` parameters with the relevant value for your environment.
+    * Substitute the values of the `SERVER`, `SOCKET`, `DATABASE`, `PORT`, `USER`, and `PASSWORD` parameters with the relevant values for your environment.
 4.  Test the data source using the `iodbctest`command:
 
     ```bash
@@ -159,8 +166,8 @@ Windows 10 was used to prepare these instructions. When using other versions of 
 <div align="left"><img src="https://github.com/skysqlinc/skysql-docs/assets/164920395/a31181a5-efc9-47c1-83ea-2a3fe8da73dd" alt="wodbc2"></div>
 
 7. Continue configuring the data source using the wizard:
-   * The wizard provides a series of windows for configuring various aspects of the connection. Enable settings you want to use.
-   * Click the "Next" button to move onto the next window in the wizard.
+   * The wizard provides a series of windows for configuring various aspects of the connection. Enable the settings you want to use.
+   * Click the "Next" button to move on to the next window in the wizard.
    * In the "TLS Settings" window, make sure that "Verify Certificate" is checked. You can also add your certificate information here.
 
 <div align="left"><img src="https://github.com/skysqlinc/skysql-docs/assets/164920395/29e40cdd-95e1-4313-8b33-d031858bad1e" alt="wodbc1"></div>
@@ -188,7 +195,7 @@ The following syntax is required:
 
 * IPv6 addresses must be enclosed within square brackets `"[]"`
 * hostname and port must be separated by a colon `":"`
-* `hostname:port` pairs must be be separated by a comma `","`
+* `hostname:port` pairs must be separated by a comma `","`
 * If only one `hostname:port` is specified, the host string must end with a comma
 * If no port is specified, the default port will be used
 
@@ -250,3 +257,5 @@ The `OPTIONS` bitmask contains the following bits:
 | 21         | 2097152   | Same as the FORWARDONLY connection parameter                                           |
 | 22         | 4194304   | Same as the AUTO\_RECONNECT connection parameter                                       |
 | 26         | 67108864  | Enables multi-statement queries                                                        |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

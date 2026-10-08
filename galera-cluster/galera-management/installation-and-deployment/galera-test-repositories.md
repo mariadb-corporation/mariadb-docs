@@ -1,6 +1,13 @@
+---
+description: >-
+  Pre-release test repositories for the Galera wsrep provider on supported
+  YUM, APT, and Zypper distributions, intended only for QA and not recommended
+  for production environments.
+---
+
 # Galera Test Repositories
 
-To facilitate development and QA, we have created some test repositories for\
+To facilitate development and QA, we have created some test repositories for
 the Galera wsrep provider.
 
 {% hint style="warning" %}
@@ -9,7 +16,7 @@ These are **test** repositories. There will be periods when they do not work at 
 
 ## Galera Test Repositories for YUM
 
-Replace `${dist}` in the code below for\
+Replace `${dist}` in the code below for
 the YUM-based distribution you are testing. Valid distributions are:
 
 * `centos5-amd64`
@@ -38,14 +45,15 @@ the YUM-based distribution you are testing. Valid distributions are:
 * `sles12-amd64`
 * `sles12-ppc64le`
 
-```
-# Place this code block in a file at /etc/yum.repos.d/galera.repo
+{% code title="Place this code block in a file at /etc/yum.repos.d/galera.repo" %}
+```markup
 [galera-test]
 name = galera-test
 baseurl = http://yum.mariadb.org/galera/repo/rpm/${dist}
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 ```
+{% endcode %}
 
 ## Galera Test Repositories for APT
 
@@ -60,7 +68,7 @@ you are testing. Valid ones are:
 * `trusty`
 * `xenial`
 
-```
+```bash
 # run the following command:
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db 0xF1656F24C74CD1D8
 

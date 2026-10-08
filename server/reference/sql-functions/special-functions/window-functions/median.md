@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate the median value. This window function returns the middle value
+  (50th percentile) of an ordered set of values within the window.
+---
+
 # MEDIAN
 
 ## Syntax
 
-```sql
+```bnf
 MEDIAN(median expression) OVER (
   [ PARTITION BY partition_expression ] 
 )

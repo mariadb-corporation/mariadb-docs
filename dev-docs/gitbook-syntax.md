@@ -1,0 +1,248 @@
+# GitBook syntax reference
+
+Pages are Markdown plus GitBook block extensions. These blocks are the most common
+machine-authoring mistakes — use them as shown, not plain-Markdown lookalikes.
+
+Canonical source: the docs team's internal **GitBook Editing** page in Confluence (DOCS space) —
+it wins when it disagrees with this digest; update this file to match. Prose/grammar style lives
+in `dev-docs/style-guide.md`.
+
+For block types and configuration options **not covered here** — stepper, columns, updates,
+cards, embeds, files, buttons, icons, expandable (`<details>`), GitBook variables / expressions,
+`.gitbook.yaml` configuration, full `SUMMARY.md` format spec, OpenAPI — see the vendored
+`.claude/skills/gitbook-canonical/SKILL.md` (refreshed periodically from upstream).
+
+## Frontmatter
+
+About half of existing pages open with YAML frontmatter; the rest have none. **New pages should
+always include `description:`** (used for SEO + listings) even though many older pages lack it.
+`icon:` is **rarely used** (≈0.2% of pages) — optional, omit if unsure.
+
+```yaml
+---
+description: >-
+  A concise, one- to two-sentence summary of the page, in American English.
+---
+```
+
+Multi-line descriptions use YAML folded style (`>-`) as above. `icon:` (e.g. `icon: paperclip`)
+may be added as a second key but is not expected.
+
+## Headings
+
+- The page **title is the `#` H1**; body sections start at `##`. Don't skip levels. (GitBook's
+  app renumbers in its block dialog — Markdown `##` shows there as "H1" — but the **Markdown
+  source** uses `#` title, `##` sections; author to the Markdown.)
+- **Link targets:** headings down to `####` (Markdown) can be linked to; **`#####`+ cannot** be
+  GitBook link targets (they work in GitHub preview but GitBook ignores them).
+- **Casing is Title Case** — see `dev-docs/style-guide.md` › *Headings* (capitalize words ≥4
+  letters; literals stay unformatted). This is a prose-style rule, enforced by `style-apply`.
+
+## Hints (callouts)
+
+```
+{% hint style="info" %}
+Body text. Supports Markdown.
+{% endhint %}
+```
+
+Valid styles — use exactly these:
+
+| Style | Use for (per the GitBook Editing guide) |
+|-------|------------------------------------------|
+| `info` | General information, tips and tricks (default, grey). Also the prime candidate for **reusable content**. |
+| `warning` | Raise awareness for a particular piece of functionality (orange). |
+| `danger` | Alert readers to destructive actions or critical information (red). |
+| `success` | Highlight benefits of a feature or method (green). |
+
+> Do **not** use `tip` or `warn` — a handful exist in the repo by mistake. Use `info` and
+> `warning` respectively.
+
+## Tabs
+
+```
+{% tabs %}
+{% tab title="Ubuntu" %}
+Instructions for Ubuntu.
+{% endtab %}
+
+{% tab title="RHEL" %}
+Instructions for RHEL.
+{% endtab %}
+{% endtabs %}
+```
+
+For tabs that differentiate **versions** (`Current` / `< 11.4`), follow the title and
+info-hint convention in `dev-docs/style-guide.md` › *Version tabs*.
+
+## Code blocks with a title or line numbers
+
+For a titled or line-numbered block, wrap a fenced code block in `{% code %}`:
+
+````
+{% code title="my.cnf" overflow="wrap" lineNumbers="true" %}
+```ini
+[mysqld]
+max_connections = 200
+```
+{% endcode %}
+````
+
+A plain fenced code block (no title needed) is just standard Markdown:
+
+````
+```sql
+SELECT * FROM t;
+```
+````
+
+## Page references (content-ref)
+
+A rich link card to another page:
+
+```
+{% content-ref url="reference/sql-statements/data-definition/create/create-table.md" %}
+[create-table.md](reference/sql-statements/data-definition/create/create-table.md)
+{% endcontent-ref %}
+```
+
+The link body and `url=` may point at a **file** (`.md`) or at a **directory** for a section
+reference (e.g. `[Connecting](1-connecting/)`) — match the form of the target.
+
+For a reference to a page in **another space**, use a link alias (see `link-aliases.md`).
+
+## Images
+
+Standard Markdown, with assets stored alongside content:
+
+```
+![Alt text describing the image](path/to/image.png)
+```
+
+## Diagrams (Mermaid)
+
+GitBook renders ` ```mermaid ` fences natively, client-side, in both the light and the dark
+theme. Prefer an inline Mermaid diagram to a PNG, and follow these house rules so the diagram
+is accessible and legible in both themes:
+
+- **Screen-reader text.** Directly after the diagram-type line, add `accTitle:` (a short title)
+  and `accDescr { … }` (what the diagram shows, in words). Mermaid puts them in the SVG's
+  `<title>` and `<desc>`.
+- **A visible caption.** Add an italic line right below the fence.
+- **Node colors that work in both themes.** Give styled nodes an explicit text color, such as
+  `classDef box fill:#eef2ff,stroke:#33415c,color:#111`. The dark theme otherwise draws node
+  text in `#ccc`, which is unreadable on a light fill.
+- **Edge labels need a contrast fix.** In the dark theme, a flowchart edge label (`A -->|Yes| B`,
+  `A -- No --> B`) is `#ccc` text on a `#585858` pill, which is 4.43:1, below the WCAG AA
+  minimum of 4.5:1. `classDef` can't reach edge labels, and the site has no custom CSS, so
+  every flowchart with edge labels carries this fix: the directive as the block's first line
+  and `linkStyle default` as its last. The fix gives 16.89:1 in both themes.
+
+````
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    accTitle: Retry decision
+    accDescr { A failed request is retried if it is idempotent, and reported otherwise. }
+    A[Request failed] --> B{Idempotent?}
+    B -->|Yes| C[Retry]
+    B -->|No| D[Report the error]
+    linkStyle default color:#111111
+```
+
+_A failed request is retried only when it is safe to repeat._
+````
+
+Both lines are needed. The directive alone, including a version that also sets
+`tertiaryTextColor`, changes only the pill, and leaves `#ccc` text on it (1.44:1). The CI gate
+`mermaidcheck-pr.yml` fails any flowchart that has edge labels and lacks the fix, and
+`python3 .claude/hooks/mermaidcheck.py --fix <file>` adds it. Flowcharts without edge labels,
+and other diagram types, don't need it.
+
+## Reusable content (includes)
+
+Shared content is pulled into a page with the `{% include %}` directive rather than
+copy-pasted. Includes are heavily used here (~half of all pages). There are **two forms**:
+
+### 1. Reusable-content include (most common)
+
+References a GitBook **reusable content** block by its app URL:
+
+```
+{% include "https://app.gitbook.com/s/<spaceId>/~/reusable/<reusableId>/" %}
+```
+
+- The reusable block is authored/managed in the **GitBook web app** — it has no source file in
+  this repo.
+- **You can reference an existing one, but you cannot create a new one from Git** (there's no
+  `~/reusable/<id>` to invent). To reuse a known shared block (e.g. a standard note that already
+  appears on sibling pages), copy its exact `{% include %}` directive from one of those pages.
+- **Never fabricate a `~/reusable/<id>` URL.** If no existing reusable fits, use a file include
+  (below) or plain content instead.
+- **Editing a reusable propagates to every page that includes it** — it's owned/edited only in
+  its **parent space**. The block is backed by a file under that space's `.gitbook/includes/`, so
+  to change its *formatting* (e.g. wrap it in a `{% hint %}`) edit that file in Git — e.g.
+  `release-notes/.gitbook/includes/latest-10-6.md`. Don't edit a reusable's text casually; the
+  change lands everywhere it's referenced.
+
+### 2. File include
+
+References a snippet file via a **relative path** to the snippet:
+
+```
+{% include "../../../.gitbook/includes/<snippet>.md" %}
+```
+
+- **Snippets are per-space:** they live in `<space>/.gitbook/includes/<snippet>.md`. There is no
+  repo-root container — `.gitbook/includes/` and `mariadb-platform/.gitbook/includes/` were
+  deleted in DOCS-6372, because the GitBook API showed no space wired to either, so nothing in
+  them could ever render.
+- **The relative depth = the number of directories between the page and its space root.** A page
+  at `server/a/b/c/page.md` is 3 directories below `server/`, so the prefix is `../../../`
+  (→ `server/.gitbook/includes/<snippet>.md`). The most common real depth is `../../../`; they
+  range from `../` to `../../../../../../`.
+- **A file include must not leave its own space.** Each space has its own GitBook Git-sync root,
+  so `../../<other-space>/.gitbook/includes/x.md` fails in GitBook even though the path resolves
+  on disk. To share a snippet between spaces, use form 1 (by ID) — that is exactly what it is
+  for.
+- **You can create these from Git:** add the snippet file under `<space>/.gitbook/includes/`,
+  then reference it. **Always verify the resolved path exists** (e.g. `ls`) before writing the
+  directive — a wrong `../` count silently renders an **empty** include, and lychee never sees it
+  because `{% include %}` is template syntax, not a Markdown link. `.claude/hooks/doc-lint.sh`
+  fails on a missing target and on one that crosses a space boundary; `docs-check` and
+  `/precommit` both run it.
+
+Don't duplicate include content into pages by hand — reference the include. To add or repair an
+`{% include %}` directive, use the **`gitbook-format`** skill.
+
+## Lists with nested blocks
+
+To put a code block, hint, or other block **inside a list item**, indent the whole block by 2
+spaces (the GitBook app can't do this — it's a Git/editor-only edit):
+
+````markdown
+* Validate the configuration. Example:
+  {% code %}
+  ```bash
+  mariadbd --defaults-file=/etc/my.cnf --validate-config
+  ```
+  {% endcode %}
+````
+
+## Tables
+
+Markdown tables. Notes from the GitBook Editing guide:
+
+- **No whitespace padding** — Markdown tables don't need aligned columns; don't pad cells (it can
+  bloat a page's size dramatically).
+- **Bulk table edits** (splitting a table, deleting many rows) are easier in GitHub/an editor
+  than the GitBook app.
+- Setting a column **width** or **sticky header** in the app converts the table to raw HTML,
+  which is then hard to edit — avoid unless necessary.
+
+## Links
+
+- **Within the same space:** relative Markdown link to the `.md` file
+  — `[CREATE TABLE](reference/.../create-table.md)`.
+- **To another space:** a link alias — `[MaxScale]({maxscale}/readme)`. See `link-aliases.md`.
+- Never paste raw `https://app.gitbook.com/...` URLs.

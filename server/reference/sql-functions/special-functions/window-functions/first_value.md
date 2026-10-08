@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the value from the first row in the window frame. This function
+  retrieves the value of an expression from the first row of the defined window.
+---
+
 # FIRST\_VALUE
 
 ## Syntax
 
-```sql
+```bnf
 FIRST_VALUE(expr) OVER (
   [ PARTITION BY partition_expression ]
   [ ORDER BY order_list ]

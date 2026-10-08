@@ -1,3 +1,9 @@
+---
+description: >-
+  Define the default role for a user. Learn how to configure which role is
+  automatically active when a user connects to the server.
+---
+
 # SET DEFAULT ROLE
 
 ## Syntax

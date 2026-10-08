@@ -1,23 +1,28 @@
+---
+description: >-
+  The Information Schema COLLATIONS table contains a list of supported
+  collations, indicating their associated character sets and compilation status.
+---
+
 # Information Schema COLLATIONS Table
 
 The [Information Schema](../) `COLLATIONS` table contains a list of supported [collations](../../../data-types/string-data-types/character-sets/).
 
 It contains the following columns:
 
-| Column               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| COLLATION\_NAME      | Name of the collation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| CHARACTER\_SET\_NAME | Associated character set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ID                   | Collation id.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| IS\_DEFAULT          | Whether the collation is the character set's default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| IS\_COMPILED         | Whether the collation is compiled into the server.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| SORTLEN              | Sort length, used for determining the memory used to sort strings in this collation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| COMMENT              | <p>For utf8mb4_0900 collations, contains the corresponding alias collation.</p><p>From <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-5-release-notes">MariaDB 11.4.5</a>, <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-2-release-notes">MariaDB 11.7.2</a>, <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-1-release-notes">MariaDB 11.8.1</a>.</p> |
+| Column               | Description                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| COLLATION\_NAME      | Name of the collation.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| CHARACTER\_SET\_NAME | Associated character set.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ID                   | Collation id.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| IS\_DEFAULT          | Whether the collation is the character set's default.                                                                                                                                                                                                                                                                                                                                                                                 |
+| IS\_COMPILED         | Whether the collation is compiled into the server.                                                                                                                                                                                                                                                                                                                                                                                    |
+| SORTLEN              | Sort length, used for determining the memory used to sort strings in this collation.                                                                                                                                                                                                                                                                                                                                                  |
+| PAD\_ATTRIBUTE       | <p>Determines whether or not trailing spaces are regarded as normal characters. See <a href="information-schema-collations-table.md#no-pad-collations">below</a>.<br>Available from MariaDB 12.1.</p>                                                                                                                                                                                                                                 |
+| COMMENT              | <p>For utf8mb4_0900 collations, contains the corresponding alias collation.</p><p>From <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.5">MariaDB 11.4.5</a>, <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/11.7.2">MariaDB 11.7.2</a>, <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.1">MariaDB 11.8.1</a>.</p> |
 
 The [SHOW COLLATION](../../../sql-statements/administrative-sql-statements/show/show-collation.md) statement returns the same results and both can be reduced in a similar way.
 
-{% tabs %}
-{% tab title="Current" %}
 The following two statements return the same results:
 
 ```sql
@@ -28,25 +33,33 @@ SHOW COLLATION WHERE Charset LIKE 'utf8mb3';
 SELECT * FROM information_schema.COLLATIONS 
 WHERE CHARACTER_SET_NAME LIKE 'utf8mb3';
 ```
-{% endtab %}
 
-{% tab title="< 10.5" %}
-The following two statements return the same results:
-
-```sql
-SHOW COLLATION WHERE Charset LIKE 'utf8';
-```
-
-```sql
-SELECT * FROM information_schema.COLLATIONS 
-WHERE CHARACTER_SET_NAME LIKE 'utf8';
-```
-{% endtab %}
-{% endtabs %}
-
-## NO PAD collations
+## NO PAD Collations
 
 `NO PAD` collations regard trailing spaces as normal characters. You can get a list of all `NO PAD` collations as follows:
+
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
+```sql
+SELECT collation_name FROM information_schema.COLLATIONS
+WHERE pad_attribute = "NO PAD";  
++------------------------------+
+| collation_name               |
++------------------------------+
+| big5_chinese_nopad_ci        |
+| big5_nopad_bin               |
+...
+```
+{% endtab %}
+
+{% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
 
 ```sql
 SELECT collation_name FROM information_schema.COLLATIONS
@@ -57,6 +70,32 @@ WHERE collation_name LIKE "%nopad%";
 | big5_chinese_nopad_ci        |
 | big5_nopad_bin               |
 ...
+```
+{% endtab %}
+{% endtabs %}
+
+In comparisons, `NO PAD` collations evaluate to `0` (`FALSE`). Example:
+
+```sql
+SELECT 'a ' = 'a'; 
++------------+ 
+| 'a ' = 'a' | 
++------------+
+|          0 | 
++------------+
+```
+
+## PAD SPACE Collations
+
+`PAD SPACE` collations pad strings to equal lengths in comparisons, so that the comparison evaluates to `1` (`TRUE`). Example:
+
+```sql
+SELECT 'a ' = 'a'; 
++------------+ 
+| 'a ' = 'a' | 
++------------+
+|          1 | 
++------------+
 ```
 
 ## Example

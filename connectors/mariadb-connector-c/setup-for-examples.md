@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up the test database and user account required by MariaDB Connector/C
+  code examples, including schema creation SQL and privilege grants for
+  db_user.
+---
+
 # Setup for Examples
 
 Examples in this MariaDB Connector/C documentation depend on a database `test` and table `contacts`.
@@ -40,6 +47,6 @@ By default, MariaDB Enterprise Server installs the [simple\_password\_check](htt
 * [simple\_password\_check\_minimal\_length](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/simple-password-check-plugin#simple_password_check_minimal_length)
 * [simple\_password\_check\_other\_characters](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/simple-password-check-plugin#simple_password_check_other_characters) system variables.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

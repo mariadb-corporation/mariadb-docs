@@ -1,10 +1,17 @@
+---
+description: >-
+  Solutions for common installation issues on RHEL and CentOS, such as conflicts
+  with existing MySQL installations and handling configuration file backups
+  (.rpmsave).
+---
+
 # Troubleshooting MariaDB Installs on RHEL / CentOS
 
 The following article is about different issues people have encountered when installing MariaDB on RHEL / CentOS.
 
 It is highly recommended to [install with yum](yum.md) where possible.
 
-In RHEL/ CentOS it is also possible to install a [RPM](https://downloads.askmonty.org/mariadb/) or a [tar ball](../installing-mariadb-binary-tarballs.md). The RPM is the preferred version, except if you want to install many versions of MariaDB or install MariaDB in a non standard location.
+In RHEL/ CentOS it is also possible to install a [RPM](https://mariadb.org/download/) or a [tar ball](../installing-mariadb-binary-tarballs.md). The RPM is the preferred version, except if you want to install many versions of MariaDB or install MariaDB in a non standard location.
 
 ### Replacing MySQL
 

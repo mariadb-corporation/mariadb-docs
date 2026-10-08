@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Enterprise
+  Server 10.6
+---
+
 # What's New in MariaDB Enterprise Server 10.6?
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
@@ -14,10 +20,10 @@ By default, the DDL log is at `ddl-recovery.log` in the [datadir](https://app.gi
 
 As of this release, the following storage engines fully support atomic DDL:
 
-* [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/aria)
-* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/innodb)
-* [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/myisam-storage-engine)
-* [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/myrocks)
+* [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)
+* [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb)
+* [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine)
+* [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks)
 
 ## SKIP LOCKED
 
@@ -59,7 +65,7 @@ Prior to this release, the [JSON\_VALUE()](https://app.gitbook.com/s/SsmexDFPv2x
 With `JSON_TABLE()`:
 
 * JSON data can `JOIN` with existing tables.
-* A table can be created from JSON data using [CREATE TABLE .. AS SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) against a `JSON_TABLE()`.
+* A table can be created from JSON data using [CREATE TABLE .. AS SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) against a `JSON_TABLE()`.
 * [NESTED PATH](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_table) enables extraction of nested data from JSON arrays and objects.
 
 ## Sys Schema
@@ -111,7 +117,7 @@ Expanded compatibility with Oracle through new functions:
 * Added function [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid)
 * Added function [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char)
 
-Expanded compatibility with Oracle through [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) enhancements:
+Expanded compatibility with Oracle through [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) enhancements:
 
 * With `sql_mode=ORACLE` added `MINUS` as an alias to `EXCEPT`
 * With `sql_mode=ORACLE` improved `SYSDATE` to allow use without parenthesis.
@@ -128,68 +134,151 @@ Enhanced compatibility with Sybase SQL Anywhere through \[sql\_mode=EXTENDED\_AL
 
 ## Backported Features
 
-[MariaDB Enterprise Server 10.6.9-5](10.6.9-5.md)
+### [MariaDB Enterprise Server 10.6.8-4](10.6.8-4.md)
 
-* The UUID data type has been backported for more efficient storage of UUID values.
+{% include "../../.gitbook/includes/backports-10.6.8-4.md" %}
 
-[MariaDB Enterprise Server 10.6.11-6](10.6.11-6.md)
+### [MariaDB Enterprise Server 10.6.9-5](10.6.9-5.md)
 
-* The new [slave\_max\_statement\_time system variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) is available to set the maximum execution time for queries on replica nodes.
-* To simplify maintenance, the [ALTER TABLE statement](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) supports new clauses to convert tables to partitions, and partitions to tables
+{% include "../../.gitbook/includes/backports-10.6.9-5.md" %}
 
-[MariaDB Enterprise Server 10.6.12-7](10.6.12-7.md)
+### [MariaDB Enterprise Server 10.6.11-6](10.6.11-6.md)
 
-* In previous releases, the number of undo logs was configurable before InnoDB was initialized. With this release, the number of undo logs can also be configured after install
+{% include "../../.gitbook/includes/backports-10.6.11-6.md" %}
 
-[MariaDB Enterprise Server 10.6.15-10](10.6.15-10.md)
+### [MariaDB Enterprise Server 10.6.12-7](10.6.12-7.md)
 
-* [JSON\_OVERLAPS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps) has been backported
-* [JSON\_SCHEMA\_VALID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid) has been backported
+{% include "../../.gitbook/includes/backports-10.6.12-7.md" %}
 
-[MariaDB Enterprise Server 10.6.16-11](10.6.16-11.md)
+### [MariaDB Enterprise Server 10.6.15-10](10.6.15-10.md)
 
-* A new view `sys.privileges_by_table_by_level` in the sys schema, to show privileges granted to a table on a global, schema, or table level
-* Option s3\_debug can now be changed without the need to restart the server
-* New Time Zone Options `%Z` and `%z` for DATE\_FORMAT
-* Server Audit Log with Milliseconds Precision Timestamps
+{% include "../../.gitbook/includes/backports-10.6.15-10.md" %}
+
+### [MariaDB Enterprise Server 10.6.16-11](10.6.16-11.md)
+
+{% include "../../.gitbook/includes/backports-10.6.16-11.md" %}
+
+### [MariaDB Enterprise Server 10.6.19-15](10.6.19-15.md)
+
+{% include "../../.gitbook/includes/backports-10.6.19-15.md" %}
+
+### [MariaDB Enterprise Server 10.6.20-16](10.6.20-16.md)
+
+{% include "../../.gitbook/includes/backports-10.6.20-16.md" %}
+
+### [MariaDB Enterprise Server 10.6.24-20](10.6.24-20.md)
+
+{% include "../../.gitbook/includes/backports-10.6.24-20.md" %}
+
+## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 10.6
+
+For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score                                 | Enterprise Server 10.6 Release |
+| ----------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+| [CVE-2026-47023](https://www.cve.org/CVERecord?id=CVE-2026-47023) | 4.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60184](https://www.cve.org/CVERecord?id=CVE-2026-60184) | 4.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60331](https://www.cve.org/CVERecord?id=CVE-2026-60331) | 6.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-60747](https://www.cve.org/CVERecord?id=CVE-2026-60747) | 6.2                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-32710](https://www.cve.org/CVERecord?id=CVE-2026-32710) | 8.5                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                                            | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                                             | [10.6.24-20](10.6.24-20.md)    |
+| [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5                                             | [10.6.22-18](10.6.22-18.md)    |
+| [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9                                             | [10.6.22-18](10.6.22-18.md)    |
+| [CVE-2023-52970](https://www.cve.org/CVERecord?id=CVE-2023-52970) | 4.9                                             | [10.6.22-18](10.6.22-18.md)    |
+| [CVE-2025-21490](https://www.cve.org/CVERecord?id=CVE-2025-21490) | 4.9                                             | [10.6.21-17](10.6.21-17.md)    |
+| [CVE-2024-21096](https://www.cve.org/CVERecord?id=CVE-2024-21096) | 4.9                                             | [10.6.18-14](10.6.18-14.md)    |
+| [CVE-2023-22084](https://www.cve.org/CVERecord?id=CVE-2023-22084) | 4.9                                             | [10.6.16-11](10.6.16-11.md)    |
+| [CVE-2022-47015](https://www.cve.org/CVERecord?id=CVE-2022-47015) | N/A (Medium) [<sup>#1</sup>](whats-new.md#id-1) | [10.6.12-8](10.6.12-8.md)      |
+| [CVE-2023-5157](https://www.cve.org/CVERecord?id=CVE-2023-5157)   | 7.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2018-25032](https://www.cve.org/CVERecord?id=CVE-2018-25032) | 7.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-32091](https://www.cve.org/CVERecord?id=CVE-2022-32091) | 6.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-32089](https://www.cve.org/CVERecord?id=CVE-2022-32089) | 6.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-32084](https://www.cve.org/CVERecord?id=CVE-2022-32084) | 6.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-32082](https://www.cve.org/CVERecord?id=CVE-2022-32082) | 6.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-32081](https://www.cve.org/CVERecord?id=CVE-2022-32081) | 6.5                                             | [10.6.9-5](10.6.9-5.md)        |
+| [CVE-2022-27458](https://www.cve.org/CVERecord?id=CVE-2022-27458) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27457](https://www.cve.org/CVERecord?id=CVE-2022-27457) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27456](https://www.cve.org/CVERecord?id=CVE-2022-27456) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27455](https://www.cve.org/CVERecord?id=CVE-2022-27455) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27452](https://www.cve.org/CVERecord?id=CVE-2022-27452) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27451](https://www.cve.org/CVERecord?id=CVE-2022-27451) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27449](https://www.cve.org/CVERecord?id=CVE-2022-27449) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27448](https://www.cve.org/CVERecord?id=CVE-2022-27448) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27447](https://www.cve.org/CVERecord?id=CVE-2022-27447) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27446](https://www.cve.org/CVERecord?id=CVE-2022-27446) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27445](https://www.cve.org/CVERecord?id=CVE-2022-27445) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27444](https://www.cve.org/CVERecord?id=CVE-2022-27444) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27387](https://www.cve.org/CVERecord?id=CVE-2022-27387) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27386](https://www.cve.org/CVERecord?id=CVE-2022-27386) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27384](https://www.cve.org/CVERecord?id=CVE-2022-27384) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27383](https://www.cve.org/CVERecord?id=CVE-2022-27383) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27382](https://www.cve.org/CVERecord?id=CVE-2022-27382) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27381](https://www.cve.org/CVERecord?id=CVE-2022-27381) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27380](https://www.cve.org/CVERecord?id=CVE-2022-27380) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27379](https://www.cve.org/CVERecord?id=CVE-2022-27379) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27378](https://www.cve.org/CVERecord?id=CVE-2022-27378) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27377](https://www.cve.org/CVERecord?id=CVE-2022-27377) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-27376](https://www.cve.org/CVERecord?id=CVE-2022-27376) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-21451](https://www.cve.org/CVERecord?id=CVE-2022-21451) | 7.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-32088](https://www.cve.org/CVERecord?id=CVE-2022-32088) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-32087](https://www.cve.org/CVERecord?id=CVE-2022-32087) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-32086](https://www.cve.org/CVERecord?id=CVE-2022-32086) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-32085](https://www.cve.org/CVERecord?id=CVE-2022-32085) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2022-32083](https://www.cve.org/CVERecord?id=CVE-2022-32083) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2021-46669](https://www.cve.org/CVERecord?id=CVE-2021-46669) | 6.5                                             | [10.6.8-4](10.6.8-4.md)        |
+| [CVE-2021-46668](https://www.cve.org/CVERecord?id=CVE-2021-46668) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2021-46665](https://www.cve.org/CVERecord?id=CVE-2021-46665) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2021-46664](https://www.cve.org/CVERecord?id=CVE-2021-46664) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2021-46663](https://www.cve.org/CVERecord?id=CVE-2021-46663) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2021-46661](https://www.cve.org/CVERecord?id=CVE-2021-46661) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2021-46659](https://www.cve.org/CVERecord?id=CVE-2021-46659) | 5.5                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2022-21595](https://www.cve.org/CVERecord?id=CVE-2022-21595) | 4.4                                             | [10.6.7-3](10.6.7-3.md)        |
+| [CVE-2022-27385](https://www.cve.org/CVERecord?id=CVE-2022-27385) | 7.5                                             | [10.6.5-2](10.6.5-2.md)        |
+| [CVE-2021-46667](https://www.cve.org/CVERecord?id=CVE-2021-46667) | 7.5                                             | [10.6.5-2](10.6.5-2.md)        |
+| [CVE-2022-31624](https://www.cve.org/CVERecord?id=CVE-2022-31624) | 6.5                                             | [10.6.5-2](10.6.5-2.md)        |
+| [CVE-2021-46662](https://www.cve.org/CVERecord?id=CVE-2021-46662) | 5.5                                             | [10.6.5-2](10.6.5-2.md)        |
+| [CVE-2021-46658](https://www.cve.org/CVERecord?id=CVE-2021-46658) | 5.5                                             | [10.6.4-1](10.6.4-1.md)        |
+
+#### #1:
+
+MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/) for details.
 
 ## Available Versions
 
-* [MariaDB Enterprise Server 10.6.20-16](10.6.20-16.md)
-* [MariaDB Enterprise Server 10.6.19-15](10.6.19-15.md)
-* [MariaDB Enterprise Server 10.6.18-14](10.6.18-14.md)
-* [MariaDB Enterprise Server 10.6.17-13](10.6.17-13.md)
-* [MariaDB Enterprise Server 10.6.17-12](10.6.17-12.md)
-* [MariaDB Enterprise Server 10.6.16-11](10.6.16-11.md)
-* [MariaDB Enterprise Server 10.6.15-10](10.6.15-10.md)
-* [MariaDB Enterprise Server 10.6.14-9](10.6.14-9.md)
-* [MariaDB Enterprise Server 10.6.12-8](10.6.12-8.md)
-* [MariaDB Enterprise Server 10.6.12-7](10.6.12-7.md)
-* [MariaDB Enterprise Server 10.6.11-6](10.6.11-6.md)
-* [MariaDB Enterprise Server 10.6.9-5](10.6.9-5.md)
-* [MariaDB Enterprise Server 10.6.8-4](10.6.8-4.md)
-* [MariaDB Enterprise Server 10.6.7-3](10.6.7-3.md)
-* [MariaDB Enterprise Server 10.6.5-2](10.6.5-2.md)
-* [MariaDB Enterprise Server 10.6.4-1](10.6.4-1.md)
+{% include "../../.gitbook/includes/all-releases-es-10.6.md" %}
 
-## Installation Instructions
+See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
-* [MariaDB Enterprise Server ](../11.4/whats-new.md)[10](broken-reference/)[.6](../11.4/whats-new.md)
-* [Enterprise Cluster Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[10](broken-reference/)[.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
-* [Primary/Replica Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/primary-replica)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/primary-replica)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
-* [ColumnStore Object Storage Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[ and MariaDB Enterprise ColumnStore 23.02](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[ and MariaDB Enterprise ColumnStore 23.02](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
-* [HTAP Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[ and MariaDB Enterprise ColumnStore 23.02](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
-* [Single-Node Enterprise ColumnStore 23.02 with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
-* [Single-Node Enterprise ColumnStore 23.02 with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)[10](broken-reference/)[.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
-* [Enterprise Spider Sharded Topology with MariaDB Enterprise Server ](broken-reference/)[10](broken-reference/)[.](broken-reference/)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
-* [Enterprise Spider Federated Topology with MariaDB Enterprise Server 10.](broken-reference/)[6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
+## Installation Instructions <a href="#installation-instructions" id="installation-instructions"></a>
 
-## Upgrade Instructions
+* [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
+* [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
+* [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
 
-* [Upgrade to MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-from-mariadb-10-5-to-mariadb-10-6)
-* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions)
+## Upgrade Instructions <a href="#upgrade-instructions" id="upgrade-instructions"></a>
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+* [Upgrade to MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-10.6/upgrade-to-mariadb-enterprise-server-10.6)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

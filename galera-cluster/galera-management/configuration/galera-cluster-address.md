@@ -1,8 +1,15 @@
+---
+description: >-
+  Galera Cluster address format for wsrep_cluster_address: gcomm or dummy
+  schema, a comma-separated member list or multicast address, optional port,
+  and inline provider options.
+---
+
 # Galera Cluster Address
 
 URLs in [Galera](https://mariadb.com/docs/galera-cluster) take a particular format:
 
-```
+```uri
 <schema>://<cluster_address>[?option1=value1[&option2=value2]]
 ```
 

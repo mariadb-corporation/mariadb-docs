@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the calendar week. This function returns the week number of the date
+  (1-53), equivalent to WEEK(date, 3).
+---
+
 # WEEKOFYEAR
 
 ## Syntax
 
-```sql
+```bnf
 WEEKOFYEAR(date)
 ```
 

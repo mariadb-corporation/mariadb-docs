@@ -1,3 +1,12 @@
+---
+description: >-
+  Starting the MariaDB AI RAG service and viewing its logs, covering the
+  executable start command and log file paths for API and ingestion output
+  in the logs directory.
+hidden: true
+noIndex: true
+---
+
 # Service Management
 
 MariaDB AI RAG runs as a web service using Uvicorn/FastAPI. You can manage the service using standard system commands.
@@ -20,3 +29,7 @@ cat logs/api.log
 # View ingestion logs
 cat logs/ingestion.log
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

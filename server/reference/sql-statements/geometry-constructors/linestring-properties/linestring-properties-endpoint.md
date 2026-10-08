@@ -1,3 +1,7 @@
+---
+description: Synonym for ST_ENDPOINT. Returns the last point of a LineString geometry.
+---
+
 # ENDPOINT
 
 A synonym for [ST\_ENDPOINT](st_endpoint.md).

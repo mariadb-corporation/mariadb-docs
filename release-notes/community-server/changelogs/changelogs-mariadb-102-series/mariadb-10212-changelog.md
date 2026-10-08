@@ -1,15 +1,15 @@
 # MariaDB 10.2.12 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.12)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10212-release-notes.md)[Changelog](mariadb-10212-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.12)[Release Notes](../../old-releases/10.2/10.2.12.md)[Changelog](mariadb-10212-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 4 Jan 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10212-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.12.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * Merge [Revision #d361401bc2](https://github.com/MariaDB/server/commit/d361401bc2) 2018-01-03 11:46:31 +0200 - Merge 10.1 into 10.2, with some [MDEV-14799](https://jira.mariadb.org/browse/MDEV-14799) fixups
@@ -270,7 +270,7 @@ in that revision.
   * [MDEV-12837](https://jira.mariadb.org/browse/MDEV-12837): WSREP: BF lock wait long
 * [Revision #3eaca005ff](https://github.com/MariaDB/server/commit/3eaca005ff)\
   2017-12-05 17:05:05 +0200
-  * Ensure that mysqladmin also works with [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) + more
+  * Ensure that mysqladmin also works with [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) + more
 * Merge [Revision #51c73a431f](https://github.com/MariaDB/server/commit/51c73a431f) 2017-12-07 08:17:50 +0200 - Merge 10.1 into 10.2
 * [Revision #77fb7ccba4](https://github.com/MariaDB/server/commit/77fb7ccba4)\
   2017-12-04 16:26:14 +0200
@@ -335,6 +335,6 @@ in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

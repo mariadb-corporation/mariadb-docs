@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize current memory usage grouped by client host, enabling
+  administrators to track memory consumption per connected host.
+---
+
 # memory\_by\_host\_by\_current\_bytes and x$memory\_by\_host\_by\_current\_bytes Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

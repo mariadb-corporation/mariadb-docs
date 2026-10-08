@@ -1,3 +1,10 @@
+---
+description: >-
+  Provides an overview of using Spider for sharding in MariaDB Enterprise
+  Server, allowing data distribution across multiple nodes for horizontal
+  scalability.
+---
+
 # Spider Sharded Overview
 
 ## Overview
@@ -37,5 +44,7 @@ ALTER TABLE spider_sharded_sales.invoices
       PARTITION hq_partition VALUES IN (1) COMMENT = 'server "new_hq_server", table "invoices"'
    );
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

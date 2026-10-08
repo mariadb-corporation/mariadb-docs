@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.2 and MySQL 5.6
 
-The following is a list of all function differences between [MariaDB 10.2](../../../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) and MySQL 5.6. It is based on functions available in the stable version [MariaDB 10.2.25](../../../../old-releases/release-notes-mariadb-10-2-series/mariadb-10225-release-notes.md).
+The following is a list of all function differences between [MariaDB 10.2](../../../../old-releases/10.2/what-is-mariadb-102.md) and MySQL 5.6. It is based on functions available in the stable version [MariaDB 10.2.25](../../../../old-releases/10.2/10.2.25.md).
 
 ## Present in MariaDB Only
 
@@ -85,7 +85,9 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 
 * [Function Differences Between MariaDB 10.2 and MySQL 5.7](function-differences-between-mariadb-102-and-mysql-57.md)
 * [System Variable Differences Between MariaDB 10.2 and MySQL 5.6](../../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-2-and-mysql-5-6.md)
-* [MariaDB versus MySQL - Compatibility](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/broken-reference/README.md)
+* [MariaDB versus MySQL - Compatibility](../../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

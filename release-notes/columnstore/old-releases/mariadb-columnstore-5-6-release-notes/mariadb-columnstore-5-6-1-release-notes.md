@@ -2,18 +2,18 @@
 
 ## Overview
 
-[MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a columnar storage engine included with [MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md). This is the fifth release in the Enterprise ColumnStore 5 series.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a columnar storage engine included with [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore). This is the fifth release in the ColumnStore 5 series.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.5.10-7.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.10-7.
 
 This release is of General Availability (GA) maturity.
 
-MariaDB Enterprise ColumnStore 5.6.1 was released on 2021-06-14.
+MariaDB ColumnStore 5.6.1 was released on 2021-06-14.
 
 ## Notable Changes
 
 * LOOR() now returns a fully-formatted DATETIME in alignment to CEIL() behavior. ([MCOL-4263](https://jira.mariadb.org/browse/MCOL-4263))
-* MariaDB Enterprise ColumnStore now supports disk-based aggregation. Prior to this release, all aggregation could occur only in memory. With disk-based aggregation, larger aggregated result sets can be handled than would fit in memory. ([MCOL-563](https://jira.mariadb.org/browse/MCOL-563))\
+* MariaDB ColumnStore now supports disk-based aggregation. Prior to this release, all aggregation could occur only in memory. With disk-based aggregation, larger aggregated result sets can be handled than would fit in memory. ([MCOL-563](https://jira.mariadb.org/browse/MCOL-563))\
   To enable disk-based aggregation, edit `Columnstore.xml`and within the RowAggregation section configure:
   * `AllowDiskBasedAggregation=Y` to enable the feature. The default is N
   * `TempDir`to the directory path for storing temporary files. The default is /tmp/columnstore\_tmp\_files/aggregates
@@ -91,7 +91,7 @@ curl -X DELETE https://127.0.0.1:8640/cmapi/0.4.0/cluster/node --header 'Content
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 5.5.2 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.5.2 is provided for:
 
 * CentOS 7
 * CentOS 8
@@ -106,16 +106,16 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 
 ## Installation Instructions
 
-* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
-* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
-* [Single-Node Enterprise ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
-* [Single-Node Enterprise ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
+* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
+* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
+* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
+* [Single-Node ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
+* [Single-Node ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
 
 ## Upgrade Instructions
 
-* Major Release Upgrades for MariaDB Enterprise ColumnStore.
+* Major Release Upgrades for MariaDB ColumnStore.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

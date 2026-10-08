@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_INDEX_FILE_MAP table maps MyRocks indexes to
+  their corresponding SST files, useful for understanding data storage.
+---
+
 # Information Schema ROCKSDB\_INDEX\_FILE\_MAP Table
 
 The [Information Schema](../../) `ROCKSDB_INDEX_FILE_MAP` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

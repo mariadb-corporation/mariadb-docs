@@ -1,3 +1,9 @@
+---
+description: >-
+  Common installation problems on Windows, such as issues with User Account
+  Control (UAC) or unsupported Windows versions, and their solutions.
+---
+
 # Installation issues on Windows
 
 ## Unsupported Versions of Windows

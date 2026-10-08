@@ -1,3 +1,10 @@
+---
+description: >-
+  MCP Server authentication uses JWT tokens with bcrypt hashing, role-based
+  access control, and four deployment modes including standalone, 1Password,
+  Local Vault, and HCP Vault.
+---
+
 # Authentication
 
 A cornerstone of the Enterprise edition is its ability to integrate with centralized secret managers, eliminating the need for static credentials stored in local or `.env` files. The server dynamically fetches database credentials and API keys at startup, ensuring a secure and compliant operational posture.
@@ -39,6 +46,7 @@ graph TD
 ### 3. Authenticated Request
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
     A[Client]
     B[MCP Server]
@@ -52,6 +60,7 @@ graph TD
     C -- "Result" --> B
     B -- "4. Response" --> A
 
+    linkStyle default color:#111111
 ```
 
 ## Deployment Modes
@@ -214,3 +223,7 @@ mcp-server.exe
 **When to Use**: Production, enterprise deployments
 
 ***
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

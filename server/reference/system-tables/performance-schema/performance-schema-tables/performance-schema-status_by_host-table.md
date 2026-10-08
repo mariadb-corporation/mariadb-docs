@@ -1,8 +1,10 @@
-# Performance Schema status\_by\_host Table
+---
+description: >-
+  The status_by_host table aggregates session status variables by client host,
+  useful for tracking activity levels from specific application servers.
+---
 
-{% hint style="info" %}
-The `status_by_host` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema status\_by\_host Table
 
 The `status_by_host` table contains status variable information by host. The table does not collect statistics for `Com_xxx` variables.
 

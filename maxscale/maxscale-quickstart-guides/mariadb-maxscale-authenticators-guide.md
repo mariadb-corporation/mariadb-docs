@@ -1,5 +1,8 @@
 ---
-description: Quickstart guide for MariaDB MaxScale authentication modules
+description: >-
+  Configure secure access to your database. This guide explains how to set up
+  authenticators in MaxScale to manage client credentials and validate
+  connections to backend servers.
 ---
 
 # MariaDB MaxScale Authenticators Guide
@@ -39,8 +42,6 @@ The authenticator parameter specifies which authentication plugin to use for a p
 
 **Example `maxscale.cnf` snippet (simplified):**
 
-Ini, TOML
-
 ```ini
 [my_service]
 type=service
@@ -70,8 +71,6 @@ Additional settings can be passed to the authenticator plugin using authenticato
 
 **Example with options:**
 
-Ini, TOML
-
 ```ini
 [my_listener]
 # ... other settings ...
@@ -84,4 +83,6 @@ By configuring these authentication modules, you can control how clients connect
 #### Further Resources:
 
 * [MariaDB MaxScale Authentication Modules Documentation](../maxscale-security/authentication-modules.md)
-* [MariaDB MaxScale Documentation](../maxscale-use-cases/maxscale-overview.md)
+* [MariaDB MaxScale Documentation](../)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

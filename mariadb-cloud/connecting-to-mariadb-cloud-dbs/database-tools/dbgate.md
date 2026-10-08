@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud with DBgate, configuring the connection details,
+  TLS, and credentials in the DBgate web-based database client.
+---
+
 # DBGate
 
 ## Steps
@@ -16,3 +22,5 @@ In most cases, simply select **Use SSL**—there's no need to configure extra SS
 {% hint style="warning" %}
 Make sure DBGate is updated to the latest version for best compatibility.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

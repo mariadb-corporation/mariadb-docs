@@ -1,3 +1,9 @@
+---
+description: >-
+  A reference for system variables that configure MyISAM behavior, such as key
+  cache sizes, recovery modes, and concurrent insert settings.
+---
+
 # MyISAM System Variables
 
 This page documents system variables related to the [MyISAM](./) storage engine. For options, see [MyISAM Options](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md).
@@ -85,11 +91,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `6`
 * Range: `2` to `7`
 
-#### `myisam_max_extra_sort_file_size`
-
-* Description: Removed in MySQL 5.0.6, was used as a way to force long character keys in large tables to use the key cache method.
-* Removed: MySQL 5.0.6
-
 #### `myisam_max_sort_file_size`
 
 * Description: Maximum size in bytes of the temporary file used while recreating a MyISAM index. If the this size is exceeded, the slower process of using the key cache is done instead.
@@ -104,7 +105,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 * Description: Maximum memory in bytes that can be used for memory mapping compressed MyISAM files. Too high a value may result in swapping if there are many compressed MyISAM tables.
 * Command line: `--myisam-mmap-size=#`
-* Scope: Global, Session
+* Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value - 32 bit: `4294967295`
@@ -125,10 +126,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global
 * Dynamic: No
 * Data Type: `enumeration`
-* Default Value:
-  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes))
-  * `DEFAULT` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes))
-  * `OFF`
+* Default Value: `BACKUP,QUICK`
 * Valid Values: `OFF`, `DEFAULT`, `BACKUP`, `BACKUP_ALL`, `FORCE` or `QUICK`
 
 #### `myisam_repair_threads`
@@ -148,11 +146,11 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Command line: `--myisam-sort-buffer-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `BIGINT UNSIGNED`                &#x20;
+* Data Type: `BIGINT UNSIGNED`
 * Default Value: `134216704`
-* Range:&#x20;
-  * `(`>= [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes), [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes))`: 4096` to `1152921504606846975`
-  * `(<`= [MariaDB 10.11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-4-release-notes), [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-14-release-notes))`: 4096` to `18446744073709551615`
+* Range:
+  * `(`>= [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5), [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15))`: 4096` to `1152921504606846975`
+  * `(<`= [MariaDB 10.11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.4), [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.14))`: 4096` to `18446744073709551615`
 
 #### `myisam_stats_method`
 

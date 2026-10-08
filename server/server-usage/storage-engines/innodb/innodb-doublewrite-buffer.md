@@ -1,3 +1,10 @@
+---
+description: >-
+  The doublewrite buffer is a storage area where InnoDB writes pages before
+  writing them to the data file, preventing data corruption from partial page
+  writes.
+---
+
 # InnoDB Doublewrite Buffer
 
 The [InnoDB](./) doublewrite buffer was implemented to recover from half-written pages. This can happen when there's a power failure while InnoDB is writing a page to disk. On reading that page, InnoDB can discover the corruption from the mismatch of the page checksum. However, in order to recover, an intact copy of the page would be needed.

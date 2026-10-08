@@ -1,3 +1,9 @@
+---
+description: >-
+  This event provides a mapping between a table ID and its table definition,
+  preceding row events to interpret the row data correctly.
+---
+
 # TABLE\_MAP\_EVENT
 
 Used for row-based binary logging beginning (binlog\_format=`ROW` or `MIXED`).
@@ -18,16 +24,16 @@ This event precedes each row operation event and maps a table definition to a nu
 ### Variable Data Part
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) Database name length.
-* [string](../protocol-data-types.md#null-terminated-strings) The database name (null-terminated).
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) The database name (null-terminated).
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) Table name length.
-* [string](../protocol-data-types.md#null-terminated-strings) The table name (null-terminated).
-* [int](../protocol-data-types.md#length-encoded-integers) The number of columns in the table.
-* [byte](../protocol-data-types.md#fixed-length-bytes) An array of 'n' column types, one byte per column.
-* [int](../protocol-data-types.md#length-encoded-integers) The length of the metadata block.
-* [byte](../protocol-data-types.md#fixed-length-bytes) The metadata block;
-* [byte](../protocol-data-types.md#fixed-length-bytes) Bit-field indicating whether each column can be `NULL`, one bit per column.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) The table name (null-terminated).
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) The number of columns in the table.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) An array of 'n' column types, one byte per column.
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) The length of the metadata block.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) The metadata block;
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Bit-field indicating whether each column can be `NULL`, one bit per column.
 * If (more\_data\_available):
-  * [byte](../protocol-data-types.md#variable-length-bytes) Optional metadata block.
+  * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Optional metadata block.
 
 #### Metadata Block
 
@@ -52,8 +58,8 @@ Optional metadata are available if the global server variable `BINLOG_ROW_METADA
 The metadata block consists of one or more of the following blocks:
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) Optional metadata type.
-* [int](../protocol-data-types.md#length-encoded-integers) Length.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Data.
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) Length.
+* [byte\<len>](../protocol-data-types.md#fixed-length-bytes) Data.
 
 **Optional metadata types:**
 
@@ -65,7 +71,7 @@ The metadata block consists of one or more of the following blocks:
 | COLUMN\_NAME                     | 4     | FULL | List of Column names, the first byte specifies the length of the column name.                                                                                                                                      |
 | SET\_STR\_VALUE                  | 5     | FULL | List of set values: First byte is the number of different values, followed by length/value pairs.                                                                                                                  |
 | ENUM\_STR\_VALUE                 | 6     | FULL | Same as SET\_STR\_VALUE. Since ENUM values might have up to 0xFFFF members, the number of values is a length encoded integer.                                                                                      |
-| GEOMETRY\_TYPE                   | 7     | FULL | A sequence of bytes repesenting the type of `GEOMETRY` columns: 0 = `GEOMETRY`, 1 = `POINT`, 2 = `LINESTRING`, 3 = `POLYGON`, 4=`MULTIPOINT`, 5 = `MULTILINESTRING`, 6 = `MULTIPOLYGON`, 7 = `GEOMETRYCOLLECTION`. |
+| GEOMETRY\_TYPE                   | 7     | FULL | A sequence of bytes representing the type of `GEOMETRY` columns: 0 = `GEOMETRY`, 1 = `POINT`, 2 = `LINESTRING`, 3 = `POLYGON`, 4=`MULTIPOINT`, 5 = `MULTILINESTRING`, 6 = `MULTIPOLYGON`, 7 = `GEOMETRYCOLLECTION`. |
 | SIMPLE\_PRIMARY\_KEY             | 8     | FULL | A sequence of length encoded column indexes.                                                                                                                                                                       |
 | PRIMARY\_KEY\_WITH\_PREFIX       | 9     | FULL | A sequence of length encoded column indexes and prefix lengths.                                                                                                                                                    |
 | ENUM\_AND\_SET\_DEFAULT\_CHARSET | 10    | FULL | The default character set number used for `ENUM` and `SET` columns.                                                                                                                                                |

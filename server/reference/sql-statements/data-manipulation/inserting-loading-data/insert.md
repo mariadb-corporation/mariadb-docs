@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete guide to inserting data in MariaDB. Complete INSERT syntax for single
+  rows, bulk operations, and ON DUPLICATE KEY handling for production use.
+---
+
 # INSERT
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
@@ -11,6 +17,10 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
      [, col=expr] ... ] [RETURNING select_expr 
       [, select_expr ...]]
 ```
+
+![Railroad diagram of INSERT ... VALUES — equivalent to the BNF above](../../../../.gitbook/assets/insert-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-value-list-railroad.svg)
 
 Or:
 
@@ -36,22 +46,14 @@ INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
       [, select_expr ...]]
 ```
 
-The `INSERT` statement is used to insert new rows into an existing table. The `INSERT ... VALUES`\
+The `INSERT` statement is used to insert new rows into an existing table. The `INSERT ... VALUES`
 and `INSERT ... SET` forms of the statement insert rows based on explicitly specified values. The `INSERT ... SELECT` form inserts rows selected from another table or tables. `INSERT ... SELECT` is discussed further in the [INSERT ... SELECT](insert-select.md) article.
 
 The table name can be specified in the form `db_name`.`tbl_name` or, if a default database is selected, in the form `tbl_name` (see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md)). This allows to use [INSERT ... SELECT](insert-select.md) to copy rows between different databases.
 
 The PARTITION clause can be used in both the INSERT and the SELECT part. See [Partition Pruning and Selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md) for details.
 
-{% tabs %}
-{% tab title="Current" %}
 The `RETURNING` clause can be used.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-The `RETURNING` clause is not available.
-{% endtab %}
-{% endtabs %}
 
 The columns list is optional. It specifies which values are explicitly inserted, and in which order. If this clause is not specified, all values must be explicitly specified, in the same order they are listed in the table definition.
 
@@ -59,7 +61,7 @@ The list of value follow the `VALUES` or `VALUE` keyword (which are interchangea
 
 For one-row statements, the `SET` clause may be more simple, because you don't need to remember the columns order. All values are specified in the form `col` = `expr`.
 
-Values can also be specified in the form of a SQL expression or subquery. However, the subquery cannot access the same table that is named in the `INTO` clause.
+Values can also be specified in the form of a SQL expression or subquery. A subquery in the `VALUES` list may read the same table named in the `INTO` clause — its result is computed before the insert. A subquery in a `RETURNING` clause, however, cannot read the table being inserted into.
 
 If you use the `LOW_PRIORITY` keyword, execution of the `INSERT` is delayed until no other clients are reading from the table. If you use the `HIGH_PRIORITY` keyword, the statement has the same priority as `SELECT`s. This affects only storage engines that use only table-level locking (MyISAM, MEMORY, MERGE). However, if one of these keywords is specified, [concurrent inserts](concurrent-inserts.md) cannot be used. See [HIGH\_PRIORITY and LOW\_PRIORITY clauses](../changing-deleting-data/high_priority-and-low_priority.md) for details.
 

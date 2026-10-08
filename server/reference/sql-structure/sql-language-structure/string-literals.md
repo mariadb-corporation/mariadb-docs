@@ -1,3 +1,7 @@
+---
+description: String literal syntax, quoting, and escape sequences.
+---
+
 # String Literals
 
 Strings are sequences of characters and enclosed with quotes.
@@ -17,7 +21,7 @@ _utf8 'Foundation' COLLATE utf8_unicode_ci;
 
 Strings can either be enclosed in single quotes or in double quotes (the same character must be used to both open and close the string).
 
-The ANSI SQL-standard does not permit double quotes for enclosing strings, and although MariaDB does by default, if the MariaDB server has enabled the [ANSI\_QUOTES\_SQL](../../../server-management/variables-and-modes/sql-mode.md#ansi_quotes) [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md), double quotes will be treated as being used for [identifiers](identifier-names.md) instead of strings.
+The ANSI SQL-standard does not permit double quotes for enclosing strings, and although MariaDB does by default, if the MariaDB server has enabled the [ANSI\_QUOTES\_SQL](../../../server-management/variables-and-modes/sql_mode.md#ansi_quotes) [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md), double quotes will be treated as being used for [identifiers](identifier-names.md) instead of strings.
 
 Strings that are next to each other are automatically concatenated. The following are equivalent:
 
@@ -29,7 +33,7 @@ Strings that are next to each other are automatically concatenated. The followin
 'The MariaDB Foundation'
 ```
 
-The `\` (backslash character) is used to escape characters (unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) hasn't been set to [NO\_BACKSLASH\_ESCAPES](../../../server-management/variables-and-modes/sql-mode.md#no_backslash_escapes)):
+The `\` (backslash character) is used to escape characters (unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) hasn't been set to [NO\_BACKSLASH\_ESCAPES](../../../server-management/variables-and-modes/sql_mode.md#no_backslash_escapes)):
 
 ```
 'MariaDB's new features'
@@ -70,16 +74,16 @@ There are other escape sequences:
 | Escape sequence | Character                                           |
 | --------------- | --------------------------------------------------- |
 | \0              | ASCII NUL (0x00).                                   |
-| '               | Single quote (“'”).                                 |
-| "               | Double quote (“"”).                                 |
+| '               | Single quote.                                       |
+| "               | Double quote.                                       |
 | \b              | Backspace.                                          |
-|                 | Newline, or linefeed,.                              |
-|                 | Carriage return.                                    |
-|                 | Tab.                                                |
+| \n              | New line / linefeed.                                |
+| \r              | Carriage return.                                    |
+| \t              | Tab.                                                |
 | \Z              | ASCII 26 (Control+Z). See note following the table. |
-| \\              | Backslash (“\”).                                    |
-| %               | “%” character. See note following the table.        |
-| \_              | A “\_” character. See note following the table.     |
+| \\              | Backslash.                                          |
+| %               | Percentage character. See note following the table. |
+| \_              | Underscore character. See note following the table. |
 
 Escaping the `%` and `_` characters can be necessary when using the [LIKE](../../sql-functions/string-functions/like.md) operator, which treats them as special characters.
 

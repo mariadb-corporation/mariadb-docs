@@ -1,10 +1,17 @@
+---
+description: >-
+  Managed Migration is the fully managed REST API path for moving an existing
+  database into MariaDB Cloud, with prerequisites covering topology, instance
+  size, and storage requirements.
+---
+
 # MariaDB Cloud Managed Migration
 
 ## Prerequisites
 
-1. An active MariaDB Cloud account. Identify requirements for your MariaDB Cloud implementation prior to [deployment](../../../cloud-usage/portal-features/launch-page.md), including:
+1. An active MariaDB Cloud account. Identify requirements for your MariaDB Cloud implementation prior to [deployment](../../../cloud-usage/launch-page.md), including:
    * Topology: Mariadb Server Single node or with Replica(s)
-   * [Instance size](<../../../Reference Guide/Instance Size Choices.md>)
+   * Instance size
    * Storage requirements
    * Desired server version
 2. An existing source database with the IP added to your MariaDB Cloud allowlist.
@@ -21,3 +28,5 @@
 * [Backup with mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 * [MariaDB Backup Documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
 * [Advanced Backup Techniques](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

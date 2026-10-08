@@ -1,6 +1,12 @@
+---
+description: >-
+  A reference list of command-line options available for the mariadbd server
+  binary, covering configuration, replication, and service installation.
+---
+
 # mariadbd Options
 
-This page lists all of the options for `mariadbd` (called mysqld before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)), ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+This page lists all of the options for `mariadbd`, ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
 In many cases, the entry here is a summary, and links to the full description.
 
@@ -8,7 +14,9 @@ By convention, [server variables](../../ha-and-performance/optimization-and-tuni
 
 See [Configuring MariaDB with Option Files](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) for which files and groups mariadbd reads for it's default options.
 
-Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), the client used to be called `mysqld`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% hint style="info" %}
+Previously, the client used to be called `mysqld`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% endhint %}
 
 ## Option Prefixes
 
@@ -70,7 +78,7 @@ Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community
 
 ## Compatibility Options
 
-The following options have been added to MariaDB to make it more compliant with\
+The following options have been added to MariaDB to make it more compliant with
 other MariaDB and MySQL versions. Options that are also system variables are listed after:
 
 #### `-a, --ansi`
@@ -87,19 +95,19 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 
 #### `--safe-mode`
 
-* Description: Disable some potential unsafe optimizations. For 5.2, [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is disabled, [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options) is set to DEFAULT (automatically recover crashed MyISAM files) and the [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is disabled. For [Aria](../../server-usage/storage-engines/aria/) tables, disable bulk insert optimization to enable one to use [aria\_read\_log](../../clients-and-utilities/aria-clients-and-utilities/aria_read_log.md) to recover tables even if tables are deleted (good for testing recovery).
+* Description: Disable some potential unsafe optimizations. [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is disabled, [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options) is set to DEFAULT (automatically recover crashed MyISAM files) and the [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is disabled. For [Aria](../../server-usage/storage-engines/aria/) tables, disable bulk insert optimization to enable one to use [aria\_read\_log](../../clients-and-utilities/aria-clients-and-utilities/aria_read_log.md) to recover tables even if tables are deleted (good for testing recovery).
 
 #### `--skip-new`
 
-* Description: Disables [--new](mariadbd-options.md#-new).
+* Description: Disables [--new](mariadbd-options.md#new).
 
 ### Compatibility Options and System Variables
 
+* [--new-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#new_mode)
 * [--old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old)
 * [--old-alter-table](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table)
 * [--old-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode)
 * [--old-passwords](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords)
-* [--show-old-temporals](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#show_old_temporals)
 
 ## Locale Options
 
@@ -109,11 +117,6 @@ Options that are also system variables are listed after:
 
 * Command line: `--character-set-client-handshake`
 * Description: Don't ignore client side character set value sent during handshake. `--skip-character-set-client-handshake` will ignore the client value and use the default server value.
-
-#### `--default-character-set`
-
-* Command line: `--default-character-set=name`
-* Description: Still available as an option for setting the default character set for clients and their connections, it was deprecated and removed in [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) as a server option. Use [character-set-server](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_server) instead.
 
 #### `--language`
 
@@ -181,11 +184,11 @@ Options that are also system variables are listed after:
 
 The following options and system variables are related to using MariaDB on Windows:
 
-* [--named-pipe](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-transaction-performance-monitoring-filter#named_pipe)
+* [--named-pipe](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-old-versions/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-transaction-performance-monitoring-filter#named_pipe)
 
 ## Replication and Binary Logging Options
 
-The following options are related to [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
+The following options are related to [replication](../../ha-and-performance/standard-replication/) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
 
 #### `--abort-slave-event-count`
 
@@ -197,7 +200,7 @@ The following options are related to [replication](../../server-usage/storage-en
 * Command line: `--binlog-do-db=name`
 * Description: This option allows you to configure a [replication master](../../ha-and-performance/standard-replication/replication-overview.md) to write statements and transactions affecting databases that match a specified name into its [binary log](../server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
   * This option will not work with cross-database updates with [statement-based logging](../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](../../ha-and-performance/standard-replication/replication-filters.md#statement-based-logging) section for more information.
-  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_do_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes).
+  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_do_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
   * When setting it on the command-line or in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](../../ha-and-performance/standard-replication/replication-filters.md) for more information.
 
@@ -206,14 +209,14 @@ The following options are related to [replication](../../server-usage/storage-en
 * Command line: `--binlog-ignore-db=name`
 * Description: This option allows you to configure a [replication master](../../ha-and-performance/standard-replication/replication-overview.md) to not write statements and transactions affecting databases that match a specified name into its [binary log](../server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
   * This option will not work with cross-database updates with [statement-based logging](../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](../../ha-and-performance/standard-replication/replication-filters.md#statement-based-logging) section for more information.
-  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_ignore_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes).
+  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_ignore_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
   * When setting it on the command-line or in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](../../ha-and-performance/standard-replication/replication-filters.md) for more information.
 
 #### `--binlog-row-event-max-size`
 
 * Command line: `--binlog-row-event-max-size=#`
-* Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes).
+* Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
 * Default value `8192`
 
 #### `--disconnect-slave-event-count`
@@ -226,16 +229,10 @@ The following options are related to [replication](../../server-usage/storage-en
 * Command line: `--flashback`
 * Description: Setup the server to use flashback. This enables the [binary log](../server-monitoring-logs/binary-log/) and sets `binlog_format=ROW`.
 
-#### `--init-rpl-role`
-
-* Command line: `--init-rpl-role=name`
-* Description: Set the replication role. From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), changes the condition for [semi-sync recovery](../../ha-and-performance/standard-replication/semisynchronous-replication.md) to truncate the [binlog](../server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This allows for both [rpl\_semi\_sync\_master\_enabled](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_enabled) and [rpl\_semi\_sync\_slave\_enabled](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_slave_enabled) to be set for a primary that is restarted, and no transactions will be lost, so long as `--init-rpl-role` is not set to SLAVE. In earlier versions, for servers configured with both [rpl\_semi\_sync\_master\_enabled=1](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_enabled) and [rpl\_semi\_sync\_slave\_enabled=1](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_slave_enabled), if a primary is just re-started (i.e. retaining its role as primary), it can truncate its binlog to drop transactions which its replica(s) have already received and executed. If this happens, when the replica reconnects, its [gtid\_slave\_pos](../../ha-and-performance/standard-replication/gtid.md) can be ahead of the recovered primary’s [gtid\_binlog\_pos](../../ha-and-performance/standard-replication/gtid.md), resulting in an error state where the replica’s state is ahead of the primary’s. See [-init-rpl-role](mariadbd-options.md#-init-rpl-role).
-* Valid values: Empty, `MASTER` or `SLAVE`
-
 #### `--log-basename`
 
 * Command line: `--log-basename=name`
-* Description: Basename for all log files and the .pid file. This sets all log file names at once (in 'datadir') and is normally the only option you need for specifying log files. This is especially recommended to be set if you are using [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) as it ensures that your log file names are not dependent on your host name. Sets names for the [binary log](../server-monitoring-logs/binary-log/), [relay log](../server-monitoring-logs/binary-log/relay-log.md), [general query log](../server-monitoring-logs/general-query-log.md), [slow query log](../server-monitoring-logs/slow-query-log/) and [error log](../server-monitoring-logs/error-log.md). Note that if you explicity set log file names with any of these other options; [log-bin-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [general-log-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [log\_slow\_query\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_file) ([slow\_query\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file)), [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error), and [pid-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#pid_file), these should be placed after `--log-basename` in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
+* Description: Basename for all log files and the .pid file. This sets all log file names at once (in 'datadir') and is normally the only option you need for specifying log files. This is especially recommended to be set if you are using [replication](../../ha-and-performance/standard-replication/) as it ensures that your log file names are not dependent on your host name. Sets names for the [binary log](../server-monitoring-logs/binary-log/), [relay log](../server-monitoring-logs/binary-log/relay-log.md), [general query log](../server-monitoring-logs/general-query-log.md), [slow query log](../server-monitoring-logs/slow-query-log/) and [error log](../server-monitoring-logs/error-log.md). Note that if you explicitly set log file names with any of these other options; [log-bin-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [relay-log-index](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md), [general-log-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [log\_slow\_query\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_file) ([slow\_query\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file)), [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error), and [pid-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#pid_file), these should be placed after `--log-basename` in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
 
 #### `--log-bin-trust-routine-creators`
 
@@ -250,7 +247,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--master-info-file`
 
 * Command line: `--master-info-file=name`
-* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-io-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
+* Description: Name and location of the file on the replica where the `MASTER_LOG_FILE` and `MASTER_LOG_POS` options (i.e. the [binary log](../server-monitoring-logs/binary-log/) position on the primary) and most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written. The [replica's I/O thread](../../ha-and-performance/standard-replication/replication-threads.md#replica-i-o-thread) keeps this [binary log](../server-monitoring-logs/binary-log/) position updated as it downloads events.
   * See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 
 #### `--master-password`
@@ -267,39 +264,39 @@ The following options are related to [replication](../../server-usage/storage-en
 
 * Command line: `--master-retry-count=#`
 * Description: Number of times a replica will attempt to connect to a primary before giving up. The retry interval is determined by the MASTER\_CONNECT\_RETRY option for the CHANGE MASTER statement. A value of 0 means the replica will not stop attempting to reconnect. Reconnects are triggered when a replica has timed out. See [slave\_net\_timeout](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md).
-* Default Value: `86400` through 10.5, `100000` as of 10.6
+* Default Value: `100000`
 * Range - 32 bit: `0 to 4294967295`
 * Range - 64 bit: `0 to 18446744073709551615`
 
 #### `--master-ssl`
 
 * Command line: `--master-ssl`
-* Description: Enable the replica to [connect to the master using TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+* Description: Enable the replica to [connect to the master using TLS](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 #### `--master-ssl-ca`
 
 * Command line: `--master-ssl-ca[=name]`
-* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA file. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-capath`
 
 * Command line: `--master-ssl-capath[=name]`
-* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS CA path. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cert`
 
 * Command line: `--master-ssl-cert[=name]`
-* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS certificate file name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-cipher`
 
 * Command line: `--master-ssl-cipher[=name]`
-* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS cipher. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-ssl-key`
 
 * Command line: `--master-ssl-key[=name]`
-* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#-master-ssl).
+* Description: Master TLS keyfile name. Only applies if you have enabled [master-ssl](mariadbd-options.md#master-ssl).
 
 #### `--master-user`
 
@@ -314,7 +311,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--replicate-same-server-id`
 
 * Command line: `--replicate-same-server-id`
-* Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+* Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 
 #### `--sporadic-binlog-dump-fail`
 
@@ -324,11 +321,11 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--sysdate-is-now`
 
 * Command line: `--sysdate-is-now`
-* Description: Non-default option to alias [SYSDATE()](../../reference/sql-functions/date-time-functions/sysdate.md) to [NOW()](../../reference/sql-functions/date-time-functions/now.md) to make it safe for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md). Since 5.0, SYSDATE() has returned a \`dynamic' value different for different invocations, even within the same statement.
+* Description: Non-default option to alias [SYSDATE()](../../reference/sql-functions/date-time-functions/sysdate.md) to [NOW()](../../reference/sql-functions/date-time-functions/now.md) to make it safe for [replication](../../ha-and-performance/standard-replication/). Since 5.0, SYSDATE() has returned a \`dynamic' value different for different invocations, even within the same statement.
 
 ### Replication and Binary Logging Options and System Variables
 
-The options and system variables related to [Replication](../../ha-and-performance/standard-replication/) and [Binary Logging](../server-monitoring-logs/binary-log/) are described on  [Replication and Binary Logging System Variables](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md).
+The options and system variables related to [Replication](../../ha-and-performance/standard-replication/) and [Binary Logging](../server-monitoring-logs/binary-log/) are described on [Replication and Binary Logging System Variables](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md).
 
 ### Semisynchronous Replication Options and System Variables
 
@@ -338,17 +335,10 @@ The options and system variables related to [Semisynchronous Replication](../../
 
 Options that are also system variables are listed after:
 
-#### `--record-buffer`
-
-* Command line: `--record-buffer=#`
-* Description: Old alias for [read\_buffer\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_buffer_size).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-
 #### `--table-cache`
 
-* Command line: `--table-open-cache=#`
-* Description: Removed; use [--table-open-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) instead.
-* Removed: [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/mariadb-531-release-notes)
+* Command line: `--table-cache=#`
+* Description: Deprecated alias for [--table-open-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache). Use `--table-open-cache` instead.
 
 ### Optimizer Options and System Variables
 
@@ -394,16 +384,10 @@ Options that are also system variables are listed after:
 
 ## Storage Engine Options
 
-#### `--skip-bdb`
-
-* Command line: `----skip-bdb`
-* Description: Deprecated option; Exists only for compatibility with very old my.cnf files.
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
-
 #### `--external-locking`
 
 * Command line: `--external-locking`
-* Description: Use system (external) locking (disabled by default). With this option enabled you can run [myisamchk](../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) to test (not repair) tables while the server is running. Disable with [--skip-external-locking](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_external_locking). From [MariaDB 10.2.40](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10240-release-notes), [MariaDB 10.3.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10331-release-notes), [MariaDB 10.4.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10421-release-notes), [MariaDB 10.5.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10512-release-notes), [MariaDB 10.6.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1064-release-notes) and all later version, this effects InnoDB and can be used to prevent multiple instances running on the same data.
+* Description: Use system (external) locking (disabled by default). With this option enabled you can run [myisamchk](../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md) to test (not repair) tables while the server is running. Disable with [--skip-external-locking](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_external_locking). This affects InnoDB and can be used to prevent multiple instances running on the same data.
 
 ### MyISAM Storage Engine Options
 
@@ -446,7 +430,7 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 #### `--innodb`
 
 * Command line: `--innodb=value`, `--skip-innodb`
-* Description: This variable controls whether or not to load the InnoDB storage engine. Possible values are `ON`, `OFF`, `FORCE` or `FORCE_PLUS_PERMANENT` (from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)). If set to `OFF` (the same as --skip-innodb), since InnoDB is the default storage engine, the server will not start unless another storage engine has been chosen with [--default-storage-engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine). `FORCE` means that the storage engine must be successfully loaded, or else the server won't start. `FORCE_PLUS_PERMANENT` enables the plugin, but if plugin cannot initialize, the server will not start. In addition, the plugin cannot be uninstalled while the server is running.
+* Description: This variable controls whether or not to load the InnoDB storage engine. Possible values are `ON`, `OFF`, `FORCE` or `FORCE_PLUS_PERMANENT`. If set to `OFF` (the same as --skip-innodb), since InnoDB is the default storage engine, the server will not start unless another storage engine has been chosen with [--default-storage-engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine). `FORCE` means that the storage engine must be successfully loaded, or else the server won't start. `FORCE_PLUS_PERMANENT` enables the plugin, but if plugin cannot initialize, the server will not start. In addition, the plugin cannot be uninstalled while the server is running.
 
 #### `--innodb-cmp`
 
@@ -472,20 +456,6 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Description:
 * Default: `ON`
 
-#### `--innodb-file-io-threads`
-
-* Command line: `--innodb-file-io-threads`
-* Description:
-* Default: `4`
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1030-release-notes)
-
-#### `--innodb-index-stats`
-
-* Command line: `--innodb-index-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes)
-
 #### `--innodb-lock-waits`
 
 * Command line: `--innodb-lock-waits`
@@ -497,13 +467,6 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Command line: `--innodb-locks`
 * Description:
 * Default: `ON`
-
-#### `--innodb-rseg`
-
-* Command line: `--innodb-rseg`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes)
 
 #### `--innodb-status-file`
 
@@ -517,25 +480,11 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 * Description:
 * Default: `ON`
 
-#### `--innodb-sys-stats`
-
-* Command line: `--innodb-sys-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes)
-
 #### `--innodb-sys-tables`
 
 * Command line: `--innodb-sys-tables`
 * Description:
 * Default: `ON`
-
-#### `--innodb-table-stats`
-
-* Command line: `--innodb-table-stats`
-* Description:
-* Default: `ON`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes)
 
 #### `--innodb-trx`
 
@@ -548,29 +497,13 @@ The options related to the [InnoDB](../../server-usage/storage-engines/innodb/in
 Some options and system variables related to the [InnoDB](../../server-usage/storage-engines/innodb/innodb-storage-engine-introduction.md) storage engine can be found [here](../../server-usage/storage-engines/innodb/innodb-storage-engine-introduction.md). Direct links to many of them can be found below.
 
 * [ignore-builtin-innodb](../../server-usage/storage-engines/innodb/innodb-system-variables.md#ignore_builtin_innodb)
-* [innodb-adaptive-checkpoint](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_checkpoint)
 * [innodb-adaptive-flushing](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_flushing)
 * [innodb-adaptive-flushing-lwm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_flushing_lwm)
-* [innodb-adaptive-flushing-method](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_flushing_method)
 * [innodb-adaptive-hash-index](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index)
-* [innodb-adaptive-hash-index-partitions](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index_partitions)
 * [innodb-adaptive-hash-index-parts](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index_parts)
-* [innodb-adaptive-max-sleep-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_max_sleep_delay)
-* [innodb-additional-mem-pool-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_additional_mem_pool_size)
 * [innodb-alter-copy-bulk](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_alter_copy_bulk)
-* [innodb-api-bk-commit-interval](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_api_bk_commit_interval)
-* [innodb-api-disable-rowlock](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_api_disable_rowlock)
-* [innodb-api-enable-binlog](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_api_enable_binlog)
-* [innodb-api-enable-mdl](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_api_trx_level)
-* [innodb-api-trx-level](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_api_trx_level)
-* [innodb-auto-lru-dump](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_auto_lru_dump)
 * [innodb-autoextend-increment](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_autoextend_increment)
 * [innodb-autoinc-lock-mode](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_autoinc_lock_mode)
-* [innodb-background-scrub-data-check-interval](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_background_scrub_data_check_interval)
-* [innodb-background-scrub-data-compressed](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_background_scrub_data_compressed)
-* [innodb-background-scrub-data-interval](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_background_scrub_data_interval)
-* [innodb-background-scrub-data-uncompressed](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_background_scrub_data_uncompressed)
-* [innodb-blocking-buffer-pool-restore](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_blocking_buffer_pool_restore)
 * [innodb-buf-dump-status-frequency](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buf_dump_status_frequency)
 * [innodb-buffer-pool-chunk-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_chunk_size)
 * [innodb-buffer-pool-dump-at-shutdown](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_dump_at_shutdown)
@@ -578,33 +511,22 @@ Some options and system variables related to the [InnoDB](../../server-usage/sto
 * [innodb-buffer-pool-dump-pct](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_dump_pct)
 * [innodb-buffer-pool-evict](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_evict)
 * [innodb-buffer-pool-filename](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_filename)
-* [innodb-buffer-pool-instances](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_instances)
 * [innodb-buffer-pool-load-abort](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_abort)
 * [innodb-buffer-pool-load-at-startup](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_at_startup)
 * [innodb-buffer-pool-load-now](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_now)
 * [innodb-buffer-pool-load-pages-abort](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_load_pages_abort)
-* [innodb-buffer-pool-populate](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_populate)
-* [innodb-buffer-pool-restore-at-startup](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_restore_at_startup)
-* [innodb-buffer-pool-shm-checksum](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_shm_checksum)
-* [innodb-buffer-pool-shm-key](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_shm_key)
 * [innodb-buffer-pool-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size)
 * [innodb-buffer-pool-size-auto-min](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size_auto_min)
 * [innodb-buffer-pool-size-max](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size_max)
 * [innodb-change-buffer-max-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffer_max_size)
 * [innodb-change-buffering](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffering)
 * [innodb-change-buffering-debug](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_change_buffering_debug)
-* [innodb-checkpoint-age-target](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_checkpoint_age_target)
-* [innodb-checksum-algorithm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_checksums)
 * [innodb-checksums](../../clients-and-utilities/administrative-tools/innochecksum.md)
-* [innodb-cleaner-lsn-age-factor](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_cleaner_lsn_age_factor)
 * [innodb-cmp-per-index-enabled](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_cmp_per_index_enabled)
-* [innodb-commit-concurrency](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_commit_concurrency)
 * [innodb-compression-algorithm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_compression_algorithm)
 * [innodb-compression-failure-threshold-pct](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_compression_failure_threshold_pct)
 * [innodb-compression-level](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_compression_level)
 * [innodb-compression-pad-pct-max](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_compression_pad_pct_max)
-* [innodb-concurrency-tickets](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_concurrency_tickets)
-* [innodb-corrupt-table-action](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_corrupt_table_action)
 * [innodb-data-file-buffering](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_data_file_buffering)
 * [innodb-data-file-path](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_data_file_path)
 * [innodb-data-file-write-through](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_data_file_write_through)
@@ -612,7 +534,6 @@ Some options and system variables related to the [InnoDB](../../server-usage/sto
 * [innodb-deadlock-detect](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_deadlock_detect)
 * [innodb-deadlock-report](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_deadlock_report)
 * [innodb-default-encryption-key-id](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_default_encryption_key_id)
-* [innodb-default-page-encryption-key](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_default_page_encryption_key)
 * [innodb-default-row-format](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_default_row_format)
 * [innodb-defragment](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_defragment)
 * [innodb-defragment-fill-factor](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_defragment_fill_factor)
@@ -620,39 +541,26 @@ Some options and system variables related to the [InnoDB](../../server-usage/sto
 * [innodb-defragment-frequency](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_defragment_frequency)
 * [innodb-defragment-n-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_defragment_n_pages)
 * [innodb-defragment-stats-accuracy](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_defragment_stats_accuracy)
-* [innodb-dict-size-limit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_dict_size_limit)
 * [innodb\_disable\_sort\_file\_cache](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_disable_sort_file_cache)
 * [innodb-doublewrite](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite)
-* [innodb-doublewrite-file](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite_file)
-* [innodb-empty-free-list-algorithm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_empty_free_list_algorithm)
-* [innodb-enable-unsafe-group-commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_enable_unsafe_group_commit)
 * [innodb-encrypt-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log)
 * [innodb-encrypt-tables](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables)
 * [innodb-encrypt-temporary-tables](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_temporary_tables)
 * [innodb-encryption-rotate-key-age](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotate_key_age)
 * [innodb-encryption-rotation\_iops](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotation_iops)
 * [innodb-encryption-threads](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads)
-* [innodb-extra-rsegments](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_extra_rsegments)
-* [innodb-extra-undoslots](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_extra_undoslots)
-* [innodb-fake-changes](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fake_changes)
-* [innodb-fast-checksum](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_checksum)
 * [innodb-fast-shutdown](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown)
 * [innodb-fatal-semaphore-wait-threshold](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fatal_semaphore_wait_threshold)
-* [innodb-file-format](../../server-usage/storage-engines/innodb/innodb-file-format.md)
-* [innodb-file-format-check](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_format_check)
-* [innodb-file-format-max](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_format_max)
 * [innodb-file-per-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table)
 * [innodb-fill-factor](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fill_factor)
 * [innodb-flush-log-at-trx-commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit)
 * [innodb-flush-method](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_method)
-* [innodb-flush-neighbor-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_neighbor_pages)
 * [innodb-flush-neighbors](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_neighbors)
 * [innodb-flush-sync](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_sync)
 * [innodb-flushing-avg-loops](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flushing_avg_loops)
 * [innodb-force-load-corrupted](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_load_corrupted)
 * [innodb-force-primary-key](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_primary_key)
 * [innodb-force-recovery](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_recovery)
-* [innodb-foreground-preflush](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_foreground_preflush)
 * [innodb-ft-aux-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_aux_table)
 * [innodb-ft-cache-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_cache_size)
 * [innodb-ft-enable-diag-print](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_enable_diag_print)
@@ -665,130 +573,74 @@ Some options and system variables related to the [InnoDB](../../server-usage/sto
 * [innodb-ft-sort-pll-degree](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_sort_pll_degree)
 * [innodb-ft-total-cache-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_total_cache_size)
 * [innodb-ft-user-stopword-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_user_stopword_table)
-* [innodb-ibuf-accel-rate](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ibuf_accel_rate)
-* [innodb-ibuf-active-contract](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ibuf_active_contract)
-* [innodb-ibuf-max-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ibuf_max_size)
-* [innodb-idle-flush-pct](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_idle_flush_pct)
 * [innodb-immediate-scrub-data-uncompressed](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_immediate_scrub_data_uncompressed)
-* [innodb-import-table-from-xtrabackup](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_import_table_from_xtrabackup)
 * [innodb-instant-alter-column-allowed](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_instant_alter_column_allowed)
-* [innodb-instrument-semaphores](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_instrument_semaphores)
 * [innodb-io-capacity](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity)
 * [innodb-io-capacity-max](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity_max)
-* [innodb-large-prefix](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_large_prefix)
-* [innodb-lazy-drop-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lazy_drop_table)
-* [innodb-lock-schedule-algorithm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lock_schedule_algorithm)
-* [innodb-locking-fake-changes](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_locking_fake_changes)
-* [innodb-locks-unsafe-for-binlog](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_locks_unsafe_for_binlog)
-* [innodb-log-arch-dir](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_arch_dir)
-* [innodb-log-arch-expire-sec](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_arch_expire_sec)
 * [innodb-log-archive](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_archive)
-* [innodb-log-block-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_block_size)
 * [innodb-log-buffer-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_buffer_size)
 * [innodb-log-checkpoint-now](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_checkpoint_now)
-* [innodb-log-checksum-algorithm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_checksum_algorithm)
-* [innodb-log-checksums](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_checksums)
 * [innodb-log-compressed-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md)
 * [innodb-log-file-buffering](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_buffering)
 * [innodb-log-file-mmap](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_mmap)
 * [innodb-log-file-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)
-* [innodb-log-file-write-through](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_files_in_group)
-* [innodb-log-files-in-group](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_files_in_group)
 * [innodb-log-group-home-dir](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_group_home_dir)
-* [innodb-log-optimize-ddl](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_optimize_ddl)
 * [innodb-log-spin-wait-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_spin_wait_delay)
 * [innodb-log-write-ahead-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_write_ahead_size)
 * [innodb-lru-flush-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lru_flush_size)
 * [innodb-lru-scan-depth](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lru_scan_depth)
-* [innodb-max-bitmap-file-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_bitmap_file_size)
-* [innodb-max-changed-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_changed_pages)
 * [innodb-max-dirty-pages-pct](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_dirty_pages_pct)
 * [innodb-max-dirty-pages-pct-lwm](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_dirty_pages_pct_lwm)
 * [innodb-max-purge-lag](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_purge_lag)
 * [innodb-max-purge-lag-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_purge_lag_delay)
 * [innodb-max-purge-lag-wait](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_purge_lag_wait)
 * [innodb-max-undo-log-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_max_undo_log_size)
-* [innodb-merge-sort-block-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_merge_sort_block_size)
-* [innodb-mirrored-log-groups](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_mirrored_log_groups)
 * [innodb-monitor-disable](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_monitor_disable)
 * [innodb-monitor-enable](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_monitor_enable)
 * [innodb-monitor-reset](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_monitor_reset)
 * [innodb-monitor-reset-all](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_monitor_reset_all)
-* [innodb-mtflush-threads](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_mtflush_threads)
 * [innodb-numa-interleave](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_numa_interleave)
 * [innodb-old-blocks-pct](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_old_blocks_pct)
 * [innodb-old-blocks-time](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_old_blocks_time)
 * [innodb-online-alter-log-max-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_online_alter_log_max_size)
 * [innodb-open-files](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_open_files)
 * [innodb-optimize-fulltext-only](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_optimize_fulltext_only)
-* [innodb-page-cleaners](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_cleaners)
 * [innodb-page-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)
-* [innodb-pass-corrupt-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_pass_corrupt_table)
 * [innodb-prefix-index-cluster-optimization](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_prefix_index_cluster_optimization)
 * [innodb-print-all-deadlocks](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_print_all_deadlocks)
 * [innodb-purge-batch-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_purge_batch_size)
 * [innodb-purge-rseg-truncate-frequency](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_purge_rseg_truncate_frequency)
 * [innodb-purge-threads](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_purge_threads)
 * [innodb-random-read-ahead](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_random_read_ahead)
-* [innodb-read-ahead](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_read_ahead)
 * [innodb-read-ahead-threshold](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_read_ahead_threshold)
 * [innodb-read-io-threads](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_read_io_threads)
 * [innodb-read-only](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_read_only)
-* [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log)
-* [innodb-replication-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_replication_delay)
 * [innodb-rollback-on-timeout](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_rollback_on_timeout)
-* [innodb-rollback-segments](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_rollback_segments)
-* [innodb-safe-truncate](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_safe_truncate)
-* [innodb-sched-priority-cleaner](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sched_priority_cleaner)
-* [innodb-scrub-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_scrub_log)
-* [innodb-scrub-log-interval](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_scrub_log_interval)
-* [innodb-scrub-log-speed](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_scrub_log_speed)
-* [innodb-show-locks-held](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_show_locks_held)
-* [innodb-show-verbose-locks](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_show_verbose_locks)
 * [innodb-snapshot-isolation](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation)
 * [innodb-sort-buffer-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size)
 * [innodb-spin-wait-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_spin_wait_delay)
 * [innodb-stats-auto-recalc](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_auto_recalc)
-* [innodb-stats-auto-update](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_auto_update)
 * [innodb-stats-include-delete-marked](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_include_delete_marked)
 * [innodb-stats-method](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_method)
 * [innodb-stats-modified-counter](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_modified_counter)
 * [innodb-stats-on-metadata](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_on_metadata)
 * [innodb-stats-persistent](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_persistent)
 * [innodb-stats-persistent-sample-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_persistent_sample_pages)
-* [innodb-stats-sample-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_sample_pages)
 * [innodb-stats-transient-sample-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_transient_sample_pages)
 * [innodb-stats-traditional](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_traditional)
-* [innodb-stats-update-need-lock](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_stats_update_need_lock)
 * [innodb-status-output](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_status_output)
 * [innodb-status-output-locks](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_status_output_locks)
 * [innodb-strict-mode](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_strict_mode)
-* [innodb-support-xa](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_support_xa)
-* [innodb-sync-array-size](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sync_array_size)
 * [innodb-sync-spin-loops](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sync_spin_loops)
 * [innodb-table-locks](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_table_locks)
 * [innodb-temp-data-file-path](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_temp_data_file_path)
-* [innodb-thread-concurrency](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_thread_concurrency)
-* [innodb-thread-concurrency-timer-based](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_thread_concurrency_timer_based)
-* [innodb-thread-sleep-delay](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_thread_sleep_delay)
 * [innodb-tmpdir](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_tmpdir)
-* [innodb-track-changed-pages](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_track_changed_pages)
-* [innodb-track-redo-log-now](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_track_redo_log_now)
 * [innodb-truncate-temporary-tablespace-now](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_truncate_temporary_tablespace_now)
 * [innodb-undo-directory](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_directory)
 * [innodb-undo-log-truncate](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_log_truncate)
-* [innodb-undo-logs](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_logs)
 * [innodb-undo-tablespaces](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_tablespaces)
 * [innodb-use-atomic-writes](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_atomic_writes)
-* [innodb-use-fallocate](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_fallocate)
-* [innodb-use-global-flush-log-at-trx-commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_global_flush_log_at_trx_commit)
-* [innodb-use-mtflush](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_mtflush)
 * [innodb-use-native\_aio](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_native_aio)
-* [innodb-use-purge-thread](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_purge_thread)
-* [innodb-use-stacktrace](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_stacktrace)
-* [innodb-use-sys-malloc](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_sys_malloc)
-* [innodb-use-sys-stats-table](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_sys_stats_table)
-* [innodb-use-trim](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_use_trim)
 * [innodb-write-io-threads](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_write_io_threads)
 * skip-innodb
 * [skip-innodb-checksums](../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#skip-innodb-log-checksums)
@@ -819,7 +671,6 @@ Some options and system variables related to the [Aria](../../server-usage/stora
 * [aria-pagecache-division-limit](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_division_limit)
 * [aria-pagecache-file-hash-size](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_file_hash_size)
 * [aria-pagecache-segments](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_segments)
-* [aria-recover](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_recover)
 * [aria-recover-options](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_recover_options)
 * [aria-repair-threads](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_repair_threads)
 * [aria-sort-buffer-size](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_sort_buffer_size)
@@ -873,10 +724,6 @@ The options and system variables related to the [Spider](../../server-usage/stor
 ### Mroonga Storage Engine Options
 
 The options and system variables related to the [Mroonga](../../server-usage/storage-engines/mroonga/) storage engine can be found [here](../../server-usage/storage-engines/mroonga/mroonga-system-variables.md).
-
-### TokuDB Storage Engine Options
-
-The options and system variables related to the [TokuDB](../../server-usage/storage-engines/tokudb/) storage engine can be found [here](../../server-usage/storage-engines/tokudb/tokudb-system-variables.md).
 
 ### Vector Options
 
@@ -1006,7 +853,7 @@ The options related to [Galera Cluster](../../architecture/topologies/galera-clu
 
 ### Galera Cluster Options and System Variables
 
-Some options and system variables related to [Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md) can be found [here](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables). Direct links to many of them can be found below.
+Some options and system variables related to [Galera Cluster](../../architecture/topologies/galera-cluster/README.md) can be found [here](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables). Direct links to many of them can be found below.
 
 * [wsrep-allowlist](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_allowlist)
 * [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count)
@@ -1093,11 +940,6 @@ Some options and system variables related to [Galera Cluster](https://github.com
 
 * Description: Don't print Notes to the [error log](../server-monitoring-logs/error-log.md) during startup.
 
-#### `--sync-sys`
-
-* Description: Enable/disable system sync calls. Syncs should only be turned off (`--disable-sync-sys`) when running tests or debugging! Replaced by [debug-no-sync](mariadbd-options.md#-debug-no-sync) from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-
 #### `--thread-alarm`
 
 * Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging!
@@ -1105,7 +947,7 @@ Some options and system variables related to [Galera Cluster](https://github.com
 ### Debugging Options and System Variables
 
 * [core-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file)
-* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug)
+* [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
 * [debug-no-thread-alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm)
 
 ## Other Options
@@ -1115,7 +957,7 @@ Options that are also system variables are listed after:
 #### `--allow-suspicious-udfs`
 
 * Command line: `--allow-suspicious-udfs`
-* Description: Allows use of [user-defined functions](../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs) as well.
+* Description: Allows use of [user-defined functions](../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs) as well.
 
 #### `--bootstrap`
 
@@ -1130,7 +972,8 @@ Options that are also system variables are listed after:
 #### `--des-key-file`
 
 * Command line: `--des-key-file=name`
-* Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and des\_encrypt from given file.
+* Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and [des\_decrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_decrypt.md) from the given file.
+* Removed: MariaDB 13.0, together with the `DES_ENCRYPT()`/`DES_DECRYPT()` functions and the `FLUSH DES_KEY_FILE` statement.
 
 #### `--exit-info`
 
@@ -1142,19 +985,19 @@ Options that are also system variables are listed after:
 * Command line: `--getopt-prefix-matching={0|1}`
 * Description: Makes it possible to disable historical "unambiguous prefix" matching in the command-line option parsing.
 * Default: TRUE
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-3-release-notes)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `--help`
 
 * Command line: `--help`
-* Description: Displays help with many commandline options described, and exits. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), includes deprecation information.
+* Description: Displays help with many commandline options described, and exits. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), includes deprecation information.
 
 #### `--log-ddl-recovery`
 
 * Command line: `--log-ddl-recovery=name`
 * Description: Path to file used for recovery of DDL statements after a crash.
 * Default Value: `ddl-recover.log`
-* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes)
+* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1)
 
 #### `--log-short-format`
 
@@ -1174,13 +1017,15 @@ Options that are also system variables are listed after:
 #### `--log-tc`
 
 * Command line: `--log-tc=name`
-* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#-tc-heuristic-recover) option.
+* Description: Defines the path to the memory-mapped file-based transaction coordinator log, which is only used if the [binary log](../server-monitoring-logs/binary-log/) is disabled. If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available. See [Transaction Coordinator Log](../server-monitoring-logs/transaction-coordinator-log/) for more information. Also see the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable and the [--tc-heuristic-recover](mariadbd-options.md#tc-heuristic-recover) option.
 * Default Value: `tc.log`
 
 #### `--master-connect-retry`
 
 * Command line: `--master-connect-retry=#`
-* Description: Deprecated in 5.1.17 and removed in 5.5. The number of seconds the replica thread will sleep before retrying to connect to the master, in case the master goes down or the connection is lost.
+* Description: The default value for the [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) option `MASTER_CONNECT_RETRY`: the interval, in seconds, between attempts to connect to the primary.
+* Default Value: `60`
+* Introduced: MariaDB 12.3.1
 
 #### `--memlock`
 
@@ -1192,12 +1037,6 @@ Options that are also system variables are listed after:
 * Command line: `--ndb-use-copying-alter-table`
 * Description: Force ndbcluster to always copy tables at alter table (should only be used if on-line alter table fails).
 
-#### `--one-thread`
-
-* Command line: `--one-thread`
-* Description: (Deprecated): Only use one thread (for debugging under Linux). Use [thread-handling=no-threads](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md) instead.
-* Removed: [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1004-release-notes)
-
 #### `--plugin-load`
 
 * Command line: `--plugin-load=name`
@@ -1205,7 +1044,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#-plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying the [--plugin-load](mariadbd-options.md#plugin-load) option multiple times, or when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--plugin-load-add`
@@ -1215,7 +1054,7 @@ Options that are also system variables are listed after:
   * Plugins can be specified in the format `name=library`, where `name` is the plugin name and `library` is the plugin library. This format installs a single plugin from the given plugin library.
   * Plugins can also be specified in the format `library`, where `library` is the plugin library. This format installs all plugins from the given plugin library.
   * Multiple plugins can be specified by separating them with semicolons.
-* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#-plugin-load) option and the [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#-plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#-plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
+* Special care must be taken when specifying both the [--plugin-load](mariadbd-options.md#plugin-load) option and the [--plugin-load-add](mariadbd-options.md#plugin-load-add) option together. The [--plugin-load](mariadbd-options.md#plugin-load) option resets the plugin load list, and this can cause unexpected problems if you are not aware. The [--plugin-load-add](mariadbd-options.md#plugin-load-add) option does not reset the plugin load list, so it is much safer to use. See [Plugin Overview: Specifying Multiple Plugin Load Options](../../reference/plugins/plugin-overview.md#specifying-multiple-plugin-load-options) for more information.
 * See [Plugin Overview: Installing a Plugin with Plugin Load Options](../../reference/plugins/plugin-overview.md#installing-a-plugin-with-plugin-load-options) for more information.
 
 #### `--port-open-timeout`
@@ -1236,12 +1075,12 @@ Options that are also system variables are listed after:
 #### `--show-slave-auth-info`
 
 * Command line: `--show-slave-auth-info`
-* Description: Show user and password in [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) (SHOW SLAVE HOSTS) on this primary. Also added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#show_slave_auth_info) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+* Description: Show user and password in [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) (SHOW SLAVE HOSTS) on this primary. Also added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#show_slave_auth_info) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 
 #### `--skip-grant-tables`
 
 * Command line: `--skip-grant-tables`
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables, which is useful in case of a lost root password. Use [mariadb-admin flush-privileges](../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables) as well.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables, which is useful in case of a lost root password. Use [mariadb-admin flush-privileges](../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables) as well.
 
 Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler/) also depends on the grant tables for its functionality, it is automatically disabled when running with `--skip-grant-tables`.
 
@@ -1253,40 +1092,22 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--skip-partition`
 
 * Command line: `--skip-partition`, `--disable-partition`
-* Description: Disables user-defined [partitioning](../../server-usage/partitioning-tables/). Previously partitioned tables cannot be accessed or modifed. Tables can still be seen with [SHOW TABLES](../../reference/sql-statements/administrative-sql-statements/show/show-tables.md) or by viewing the [INFORMATION\_SCHEMA.TABLES table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md). Tables can be dropped with [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), but this only removes .frm files, not the associated .par files, which will need to be removed manually.
+* Description: Disables user-defined [partitioning](../../server-usage/partitioning-tables/). Previously partitioned tables cannot be accessed or modified. Tables can still be seen with [SHOW TABLES](../../reference/sql-statements/administrative-sql-statements/show/show-tables.md) or by viewing the [INFORMATION\_SCHEMA.TABLES table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md). Tables can be dropped with [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), but this only removes .frm files, not the associated .par files, which will need to be removed manually.
 
 #### `--skip-slave-start`
 
 * Command line: `--skip-slave-start`
-* Description: If set, replica is not autostarted. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), server will display in the log if this option is set.
+* Description: If set, replica is not autostarted. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120), server will display in the log if this option is set.
 
 #### `--skip-ssl`
 
 * Command line: `--skip-ssl`
-* Description: Disable [TLS connections](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
-
-#### `--skip-symlink`
-
-* Command line: `--skip-symlink`
-* Description: Don't allow symlinking of tables. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5). Use [symbolic-links](mariadbd-options.md#-symbolic-links) with the `skip` [option prefix](mariadbd-options.md#option-prefixes) instead.
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
-
-#### `--skip-thread-priority`
-
-* Command line: `--skip-thread-priority`
-* Description: Don't give threads different priorities. Deprecated and removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0).
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
-#### `--sql-bin-update-same`
-
-* Command line: `--sql-bin-update-same=#`
-* Description: The update log was deprecated in version 5.0 and replaced by the [binary log](../server-monitoring-logs/binary-log/), so this option did nothing since then. Deprecated and removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Description: Disable [TLS connections](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 #### `--ssl`
 
 * Command line: `--ssl`
-* Description: Enable [TLS for connection](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) (automatically enabled with other flags). Disable with '`--skip-ssl`'.
+* Description: Enable [TLS for connection](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) (automatically enabled with other flags). Disable with '`--skip-ssl`'.
 
 #### `--stack-trace`
 
@@ -1301,13 +1122,13 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--tc-heuristic-recover`
 
 * Command line: `--tc-heuristic-recover=name`
-* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#-log-tc) server option and the [log\_tc\_size](../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
+* Description: If [manual heuristic recovery](../server-monitoring-logs/transaction-coordinator-log/heuristic-recovery-with-the-transaction-coordinator-log.md) is needed, this option defines the decision to use in the heuristic recovery process. Manual heuristic recovery may be needed if the [transaction coordination log](../server-monitoring-logs/transaction-coordinator-log/) is missing or if it doesn't contain all prepared transactions. This option can be set to `OFF`, `COMMIT`, or `ROLLBACK`. The default is `OFF`. See also the [--log-tc](mariadbd-options.md#log-tc) server option and the [log\_tc\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_tc_size) system variable.
 
 #### `--temp-pool`
 
 * Command line: `--temp-pool`
 * Description: Using this option will cause most temporary files created to use a small set of names, rather than a unique name for each new file. This behavior works around a bug in old Linux kernels where the kernel appeared to "leak" memory. In a Docker environment it might look like an unbounded working-set memory growth.\
-  Defaults to `1` until [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes), use `--skip-temp-pool` to disable. Defaults to `0` from [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), as benchmarking shows it causes a heavy mutex contention.
+  Defaults to `0`, as benchmarking shows that `1` causes heavy mutex contention.
 
 #### `--test-expect-abort`
 
@@ -1331,7 +1152,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 
 ## Other Options and System Variables
 
-* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow-suspicious-udfs)
+* [allow-suspicious-udfs](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs)
 * [automatic-sp-privileges](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#automatic_sp_privileges)
 * [back-log](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#back_log)
 * [basedir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#basedir)
@@ -1352,19 +1173,16 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [default-password-lifetime](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_password_lifetime)
 * [default-regex-flags](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_regex_flags)
 * [default-storage-engine](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine)
-* [default-table-type](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_table_type)
 * [delay-key-write](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#delay_key_write)
 * [disconnect-on-expired-password](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#disconnect_on_expired_password)
 * [div-precision-increment](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#div_precision_increment)
 * [enable-named-pipe](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#named_pipe)
-* [encrypt-binlog](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_binlog)
+* [encrypt-binlog](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog)
 * [encrypt-tmp-disk-tables](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
 * [encrypt-tmp-files](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_files)
-* [encryption-algorithm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encryption_algorithm)
-* [engine-condition-pushdown](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#engine_condition_pushdown)
 * [eq-range-index-dive-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#eq_range_index_dive_limit)
 * [event-scheduler](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#event_scheduler)
-* [expire-logs-days](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#expire_logs_days)
+* [expire-logs-days](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days)
 * [explicit-defaults-for-timestamp](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp)
 * [extra-max-connections](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [extra-port](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1392,7 +1210,6 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [large-pages](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages)
 * [local-infile](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#local_infile)
 * [lock-wait-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lock_wait_timeout)
-* [log](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log)
 * [log-disabled-statements](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_disabled_statements)
 * [log-error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error)
 * [log-output](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_output)
@@ -1402,7 +1219,6 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [log-slow-disabled-statements](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_disabled_statements)
 * [log-slow-filter](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_filter)
 * [log-slow-min-examined-row-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_min_examined_row_limit)
-* [log-slow-queries](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_queries)
 * [log-slow-query](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query)
 * [log-slow-query-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_file)
 * [log-slow-query-time](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_time)
@@ -1418,10 +1234,9 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [max-connections](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connections)
 * [max-connect-errors](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connect_errors)
 * [max-delayed-threads](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_delayed_threads)
-* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length")
+* [max-digest-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_digest_length)
 * [max-error-count](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_error_count)
 * [max-length-for-sort-data](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_length_for_sort_data)
-* [max-long-data-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_long_data_size)
 * [max\_open\_cursors](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_open_cursors)
 * [max-password-errors](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_password_errors)
 * [max-prepared-stmt-count](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_prepared_stmt_count)
@@ -1440,7 +1255,6 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [metadata-locks-instances](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#metadata_locks_instances)
 * [min-examined-row-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#min_examined_row_limit)
 * [mrr-buffer-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mrr_buffer_size)
-* [multi-range-count](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#multi_range_count)
 * [--mysql56-temporal-format](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#mysql56_temporal_format)
 * [net-buffer-length](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#net_buffer_length)
 * [net-read-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#net_read_timeout)
@@ -1463,7 +1277,6 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [read-only](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only)
 * [redirect-url](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#redirect_url)
 * [require-secure-transport](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#require_secure_transport)
-* [safe-show-database](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#safe_show_database)
 * [secure-auth](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_auth)
 * [secure-file-priv](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_file_priv)
 * [secure-timestamp](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp)
@@ -1485,30 +1298,27 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [sort-buffer-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)
 * [sql-if-exists](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_if_exists)
 * [sql-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_mode)
-* [ssl-ca](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-capath](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-cert](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-cipher](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-crl](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-crlpath](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-key](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-passphrase](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
-* [standards\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standards_compliant_cte)
+* [ssl-ca](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-capath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-cert](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-cipher](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-crl](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-crlpath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-key](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-passphrase](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
+* [standard\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standard_compliant_cte)
 * [stored-program-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#stored_program_cache)
 * [strict\_password\_validation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#strict_password_validation)
 * [sync-frm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sync_frm)
 * [system-versioning-alter-history](../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history)
 * [system-versioning-asof](../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_asof)
-* [system-versioning-innodb-algorithm-simple](../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_innodb_algorithm_simple)
 * [system-versioning-insert-history](../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_insert_history)
-* [table-lock-wait-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_lock_wait_timeout)
 * [tcp-keepalive-interval](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval)
 * [tcp-keepalive-probes](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_probes)
 * [tcp-keepalive-time](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_time)
 * [tcp-nodelay](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_nodelay)
 * [thread-cache-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size)
-* [thread-concurrency](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_concurrency)
-* [thread-handling](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_handling)
+* [thread-handling](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling)
 * [thread-pool-dedicated-listener](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-exact-stats](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-idle-timeout](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
@@ -1520,16 +1330,15 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [thread-pool-size](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-pool-stall-limit](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 * [thread-stack](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_stack)
-* [timed-mutexes](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#timed_mutexes)
 * [time-format](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#time_format)
-* [tls-version](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [tls-version](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [tmpdir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir)
 * [transaction-isolation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation)
 * [transaction-alloc-block-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_alloc_block_size)
 * [transaction-prealloc-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_prealloc_size)
 * [transaction-read-only](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only)
 * [updatable-views-with-limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#updatable_views_with_limit)
-* [userstat](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat)
+* [userstat](../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat)
 * [version](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#version)
 * [wait-timeout](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#wait_timeout)
 
@@ -1563,15 +1372,15 @@ The options related to the [unix\_socket](../../reference/plugins/authentication
 
 ### Encryption Plugin - `aws_key_management`
 
-The system variables related to the [aws\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#system-variables).
+The system variables related to the [aws\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#system-variables).
 
-The options elated to the [aws\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#options).
+The options elated to the [aws\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#options).
 
 ### Encryption Plugin - `file_key_management`
 
-The system variables related to the [file\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables).
+The system variables related to the [file\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables).
 
-The options related to the [file\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#options).
+The options related to the [file\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#options).
 
 ## Password Validation Plugins - Options and System Variables
 
@@ -1649,19 +1458,11 @@ The options related to the [WSREP\_MEMBERSHIP](../../reference/system-tables/inf
 
 The options related to the [WSREP\_STATUS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-wsrep_status-table.md) information schema plugin can be found [here](../../reference/plugins/mariadb-replication-cluster-plugins/wsrep_info-plugin.md#options).
 
-## Replication Plugins - Options and System Variables
+## Replication - Options and System Variables
 
-### Replication Plugin - `rpl_semi_sync_master`
+### Semisynchronous Replication
 
-The system variables related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_master](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_master) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
-
-### Replication Plugin - `rpl_semi_sync_slave`
-
-The system variables related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
-
-The options related to the [rpl\_semi\_sync\_slave](../../ha-and-performance/standard-replication/semisynchronous-replication.md#rpl-semi-sync_slave) replication plugin can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#options).
+The system variables and options related to [semisynchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md), which is built into the server, can be found [here](../../ha-and-performance/standard-replication/semisynchronous-replication.md#system-variables).
 
 ## Default Values
 

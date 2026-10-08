@@ -1,3 +1,9 @@
+---
+description: >-
+  These views provide a granular breakdown of InnoDB buffer pool usage by
+  individual tables, sorted by buffer allocation size.
+---
+
 # innodb\_buffer\_stats\_by\_table and x$innodb\_buffer\_stats\_by\_table Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

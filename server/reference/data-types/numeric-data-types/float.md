@@ -1,8 +1,14 @@
+---
+description: >-
+  Single precision floating-point number. A FLOAT column uses 4 bytes and stores
+  approximate values with less precision than DOUBLE.
+---
+
 # FLOAT
 
 ## Syntax
 
-```sql
+```bnf
 FLOAT[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

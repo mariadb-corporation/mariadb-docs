@@ -1,12 +1,18 @@
+---
+description: >-
+  Check if one MBR is covered by another. Returns 1 if the MBR of the first
+  geometry is entirely contained within the MBR of the second geometry.
+---
+
 # MBRCoveredBy
 
 {% hint style="info" %}
-MBRCoveredBy is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+MBRCoveredBy is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 MBRCoveredBy(g1, g2)
 ```
 

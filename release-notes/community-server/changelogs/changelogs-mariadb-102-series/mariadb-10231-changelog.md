@@ -1,15 +1,15 @@
 # MariaDB 10.2.31 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.31/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10231-release-notes.md)[Changelog](mariadb-10231-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.31/)[Release Notes](../../old-releases/10.2/10.2.31.md)[Changelog](mariadb-10231-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 28 Jan 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10231-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.31.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * Includes all fixes from [MariaDB 10.1.44](../changelogs-mariadb-101-series/mariadb-10144-changelog.md)
@@ -40,7 +40,7 @@ in that revision.
   * new C/C and --ssl-verify-server-cert tests
 * [Revision #8eec2d61fc](https://github.com/MariaDB/server/commit/8eec2d61fc)\
   2020-01-21 15:17:43 +0100
-  * [MDEV-21249](https://jira.mariadb.org/browse/MDEV-21249) [MariaDB 10.3.10](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes.md) When referring to bigint to generate timestamp data in the virtual generated column, the value of the generated column does not change when the time zone changes
+  * [MDEV-21249](https://jira.mariadb.org/browse/MDEV-21249) [MariaDB 10.3.10](../../old-releases/10.3/10.3.10.md) When referring to bigint to generate timestamp data in the virtual generated column, the value of the generated column does not change when the time zone changes
 * [Revision #4e7f3fb833](https://github.com/MariaDB/server/commit/4e7f3fb833)\
   2020-01-20 22:56:01 +0300
   * [MDEV-14183](https://jira.mariadb.org/browse/MDEV-14183): aria\_pack segfaults in compress\_maria\_file
@@ -118,7 +118,7 @@ in that revision.
   * [MDEV-21509](https://jira.mariadb.org/browse/MDEV-21509) Possible hang during purge of history, or rollback
 * [Revision #9cae7bdcc0](https://github.com/MariaDB/server/commit/9cae7bdcc0)\
   2020-01-16 12:05:26 +0200
-  * [MDEV-13626](https://jira.mariadb.org/browse/MDEV-13626): Add the [WL#6326](https://askmonty.org/worklog/?tid=6326) tests
+  * [MDEV-13626](https://jira.mariadb.org/browse/MDEV-13626): Add the [WL#6326](https://dev.mysql.com/worklog/task/?id=6326) tests
 * [Revision #c4195305b2](https://github.com/MariaDB/server/commit/c4195305b2)\
   2020-01-16 13:18:44 +0200
   * [MDEV-17062](https://jira.mariadb.org/browse/MDEV-17062) : Test failure on galera.MW-336
@@ -289,6 +289,6 @@ in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

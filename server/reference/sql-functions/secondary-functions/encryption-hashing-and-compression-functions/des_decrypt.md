@@ -1,12 +1,18 @@
+---
+description: >-
+  Decrypt data using DES. This function decrypts a string that was encrypted
+  using the Data Encryption Standard (DES) algorithm.
+---
+
 # DES\_DECRYPT
 
 {% hint style="warning" %}
-`DES_DECRYPT` is deprecated and will be removed in a future release.
+`DES_DECRYPT` was **removed in MariaDB 13.0**, together with the `--des-key-file` option and the `FLUSH DES_KEY_FILE` statement. It was deprecated in earlier releases. Use [AES_DECRYPT()](aes_decrypt.md) instead. The description below applies to MariaDB releases before 13.0.
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 DES_DECRYPT(crypt_str[,key_str])
 ```
 
@@ -14,7 +20,7 @@ DES_DECRYPT(crypt_str[,key_str])
 
 Decrypts a string encrypted with [DES\_ENCRYPT()](des_encrypt.md). If an error occurs, this function returns `NULL`.
 
-This function works only if MariaDB has been configured with [TLS support](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+This function works only if MariaDB has been configured with [TLS support](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 If no `key_str` argument is given, `DES_DECRYPT()` examines the first byte of the encrypted string to determine the DES key number that was used to encrypt the original string, and then reads the key from the DES key file to decrypt the message. For this to work, the user must have the SUPER privilege. The key file can be specified with the`--des-key-file` server option.
 

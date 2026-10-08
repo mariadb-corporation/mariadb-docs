@@ -1,3 +1,9 @@
+---
+description: >-
+  Specific considerations and steps for running MariaDB Docker containers on
+  Amazon EC2 instances.
+---
+
 # Docker and AWS EC2
 
 This process shows how to deploy MariaDB in a Docker container running on an EC2 instance. First we'll create the EC2 VM, then we'll deploy Docker to it. After that, we'll pull the MariaDB Docker image which we'll use to create a running container with a MariaDB instance. Finally, we'll load a sample database into the MariaDB instance.
@@ -7,7 +13,7 @@ This process shows how to deploy MariaDB in a Docker container running on an EC2
 1. Install [MariaDB client](../../../clients-and-utilities/mariadb-client/) on your local machine, either bundled with Maria DB server or standalone.
 2. Login to AWS, navigate to [EC2 service home](https://console.aws.amazon.com/ec2/home)
 3. Choose Region for EC2 in the upper right corner of the console
-4. Launch (1) Instance, giving instance a name (e.g. mrdb-ubuntu-docker-use1) and create or re-use a key pair
+4. Launch (1) Instance, giving instance a name (e.g. mrdb-ubuntu-docker-use1) and create or reuse a key pair
 5. Choose Ubuntu 22.04 or similar free tier instance
 6. Choose hardware, t2.micro or similar free tier instance
 7. Create Key Pair with name (e.g. mrdb-docker-aws-pk.pem if using openSSH at the command line, or mrdb- docker-aws-pk..ppk for use with programs like PuTTY.)

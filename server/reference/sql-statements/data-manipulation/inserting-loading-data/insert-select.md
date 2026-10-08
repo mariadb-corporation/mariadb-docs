@@ -1,13 +1,21 @@
+---
+description: >-
+  Copy data between tables. This statement inserts the result set of a SELECT
+  query directly into a target table, enabling efficient bulk data transfer.
+---
+
 # INSERT SELECT
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
     [INTO] tbl_name [(col_name,...)]
     SELECT ...
     [ ON DUPLICATE KEY UPDATE col_name=expr, ... ]
 ```
+
+![Railroad diagram of INSERT ... SELECT — equivalent to the BNF above](../../../../.gitbook/assets/insert-select-railroad.svg)
 
 ## Description
 

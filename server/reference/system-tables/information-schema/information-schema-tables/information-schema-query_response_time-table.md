@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema QUERY_RESPONSE_TIME table displays the distribution of
+  query execution times, helping to identify performance bottlenecks.
+---
+
 # Information Schema QUERY\_RESPONSE\_TIME Table
 
 ## Description

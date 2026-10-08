@@ -17,7 +17,10 @@
 
 ## Additional Information
 
-**Version-specific information:** We refer to software versions (like "MariaDB 10.6") only for products (like MariaDB Server or MaxScale) or features (like replication or authentication) that follow the **`N-1` rule**, where `N` is the last version still under maintenance. (At the time of writing, that's MariaDB 10.6 for the Server.) In other words, we'd mention MariaDB 10.5, but not versions older than that.\
+**Version-specific information:** We don't mention MariaDB Server versions before 10.6. Two exceptions: release notes (and *What's New* pages), which record the past, and the `Introduced:` field on reference pages of system and status variables, which keeps its version however old it is.
+
 This is the principle, from which we will deviate if there's a valid reason to do so.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

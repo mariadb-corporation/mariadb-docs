@@ -1,8 +1,12 @@
+---
+description: Synonym for INT. This keyword declares a standard 4-byte integer column.
+---
+
 # INTEGER
 
 ## Syntax
 
-```sql
+```bnf
 INTEGER[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

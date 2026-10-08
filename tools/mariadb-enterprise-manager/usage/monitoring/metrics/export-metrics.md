@@ -1,20 +1,27 @@
+---
+description: >-
+  Explains two methods for exporting metrics: scraping the built-in Prometheus
+  federation endpoint or configuring the agent to push data directly to
+  OTLP-compatible external systems.
+---
+
 # Export metrics
 
 MariaDB Enterprise Manager provides two primary methods for exporting metrics, allowing you to integrate with external observability platforms for aggregation or long-term retention.
 
 {% stepper %}
 {% step %}
-### Scraping the built-in Prometheus endpoint (Server-to-Server)
+**Scraping the built-in Prometheus endpoint (Server-to-Server)**
 
 The Prometheus server integrated within MariaDB Enterprise Manager exposes its metrics via a standard federation endpoint. You can configure your own external Prometheus server (or any Prometheus-compatible system) to "scrape" these metrics.
 
-#### Identify the Federation Endpoint
+**Identify the Federation Endpoint**
 
 The endpoint is located on your MariaDB Enterprise Manager server at the `/prometheus/federate` path. The full URL will be:
 
 `https://<Enterprise_Manager_IP>:8090/prometheus/federate`
 
-#### Configure Your External Prometheus
+**Configure Your External Prometheus**
 
 In your external Prometheus server's configuration file (`prometheus.yml`), add a new scrape job to target the Enterprise Manager endpoint.
 
@@ -45,13 +52,13 @@ After adding this configuration and restarting your external Prometheus, it will
 {% endstep %}
 
 {% step %}
-### Pushing metrics with the OpenTelemetry agent (Agent-to-External)
+**Pushing metrics with the OpenTelemetry agent (Agent-to-External)**
 
 The `mema-agent` can be configured to push metrics directly to a third-party monitoring system that supports the OpenTelemetry Protocol (OTLP). This method sends data straight from the agent to your external endpoint, bypassing the built-in Prometheus server.
 
 To configure this, run the `mema-agent setup` command on your MariaDB Server or MaxScale host with the appropriate flags.
 
-#### Command examples
+**Command examples**
 
 * For a MariaDB Server host:
 
@@ -77,7 +84,7 @@ sudo mema-agent setup --cluster-name=MyCluster \
 ```
 {% endcode %}
 
-#### Flag descriptions
+**Flag descriptions**
 
 | Flag                  | Description                                                                      |
 | --------------------- | -------------------------------------------------------------------------------- |
@@ -97,3 +104,7 @@ For a full list of all available flags and their descriptions, run `mema-agent h
 {% endhint %}
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

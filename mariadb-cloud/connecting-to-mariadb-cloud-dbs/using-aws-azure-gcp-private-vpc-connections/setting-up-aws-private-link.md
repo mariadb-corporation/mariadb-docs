@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up AWS PrivateLink to connect to MariaDB Cloud over a private VPC
+  endpoint, eliminating public-internet exposure between AWS workloads and the
+  Cloud database service.
+---
+
 # AWS Private Link
 
 AWS PrivateLink is an AWS service that enables secure and private connectivity between Virtual Private Clouds (VPCs) and third-party services. By using PrivateLink with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.
@@ -152,12 +159,12 @@ To connect to a MariaDB Cloud service using AWS PrivateLink, you must create an 
 4. Click the "Create Endpoint" button.
 5. In the "Name tag" field, enter a name for the new endpoint. This name can be anything you like.
 6. Set the Service category to "Other endpoint services".
-7. The value for the "Service name" field must be set to the value of the Endpoint Service ID provided to you by MariaDB Cloud. See [Pre-requisites](setting-up-aws-private-link.md#pre-requisites) for more information on how to find this ID.
+7. The value for the "Service name" field must be set to the value of the Endpoint Service ID provided to you by MariaDB Cloud. See [Pre-requisites](setting-up-aws-private-link.md#prerequisites) for more information on how to find this ID.
 8. Click "Verify service". AWS should find the service and auto-populate the rest of the form.
 9. In the VPC search field, find the VPC that you want to use for the interconnect between the clients and the MariaDB Cloud service.
 10. In the Subnets section, it is suggested that you select all the Availability Zones in the list, entering the proper subnet ID for each one. If you are unsure, view the details of your running instances to see the Subnet ID that they have configured.
 11. Select IPv4 for "IP address type".
-12. For the "Security Groups" section, assign the security groups that will allow your client instance to connect to your VPC endpoint. See [Pre-requisites](setting-up-aws-private-link.md#pre-requisites) for more information on setting up security groups.
+12. For the "Security Groups" section, assign the security groups that will allow your client instance to connect to your VPC endpoint. See [Pre-requisites](setting-up-aws-private-link.md#prerequisites) for more information on setting up security groups.
 13. Press the "Create endpoint" button. Endpoint creation may take several minutes. When complete, status will change from "Pending" to "Available".
 
 After creation, the Endpoint will be in `Pending` status while AWS provisions the new endpoint. Once the endpoint is `Available`, you can connect to your MariaDB Cloud service using the new endpoint. The newly created endpoint now authorizes the internal IPs or security groups that you specified in the Source values to access the MariaDB Cloud service's connection port. When testing a client connection, ensure that the client host is authorized by the security group's Source settings and that you're using the "`readwrite`" port plus the appropriate username and password (either the default values or the value for any user you have created).
@@ -209,7 +216,7 @@ Disabling PrivateLink on an existing service will cause all existing connections
 * In the context menu, select "Manage PrivateLink".
 * In the popup window, click "I want to disconnect my Private Link".
 * In the popup window, select "Disconnect".
-* Since the service's allowlist was cleared when AWS PrivateLink was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling PrivateLink.
+* Since the service's allowlist was cleared when AWS PrivateLink was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling PrivateLink.
 
 ## Disable AWS PrivateLink via the MariaDB Cloud DBaaS API
 
@@ -224,3 +231,5 @@ To disable AWS PrivateLink on an existing service, you will need to update the s
 ```
 
 This payload should then be sent to the API `PATCH` https://api.skysql.com/provisioning/v1/services/{SERVICE\_ID}/endpoints where `{SERVICE_ID}` is the ID of the service you are updating. For more information on using the MariaDB Cloud DBaaS API, see ["MariaDB Cloud DBaaS API"](https://apidocs.skysql.com/#/Services/patch_provisioning_v1_services__service_id__endpoints).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

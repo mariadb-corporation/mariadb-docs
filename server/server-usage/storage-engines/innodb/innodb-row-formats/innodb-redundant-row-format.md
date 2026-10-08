@@ -1,3 +1,9 @@
+---
+description: >-
+  Information on the legacy REDUNDANT row format, primarily maintained for
+  backward compatibility with older MySQL versions.
+---
+
 # InnoDB REDUNDANT Row Format
 
 The `REDUNDANT` row format is the original non-compacted row format.
@@ -13,8 +19,6 @@ The `REDUNDANT` row format was the only available row format before MySQL 5.0.3.
 The easiest way to create an InnoDB table that uses the `REDUNDANT` row format is by setting the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option to `REDUNDANT` in a [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement.
 
 It is recommended to set the [innodb\_strict\_mode](../innodb-system-variables.md#innodb_strict_mode) system variable to `ON` when using this format.
-
-The `REDUNDANT` row format is supported by both the `Antelope` and the `Barracuda` [file formats](../innodb-file-format.md), so tables with this row format can be created regardless of the value of the [innodb\_file\_format](../innodb-system-variables.md#innodb_file_format) system variable.
 
 For example:
 

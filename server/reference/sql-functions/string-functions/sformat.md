@@ -1,8 +1,20 @@
+---
+description: >-
+  Format strings with arbitrary patterns. This function allows complex string
+  formatting using a pattern string and arguments.
+---
+
 # SFORMAT
 
 {% hint style="info" %}
 `SFORMAT` is available from MariaDB 10.7.
 {% endhint %}
+
+## Syntax
+
+```bnf
+SFORMAT(format, value[, value ...])
+```
 
 ## Description
 

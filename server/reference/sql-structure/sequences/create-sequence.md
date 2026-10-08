@@ -1,19 +1,52 @@
+---
+description: >-
+  Create a sequence generator. This statement initializes a sequence object that
+  produces a series of unique numeric values on demand.
+---
+
 # CREATE SEQUENCE
 
 ## Syntax
 
-```sql
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
+```bnf
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
-[AS { TINYINT | SMALLINT | |MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
+[AS { TINYINT | SMALLINT | MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
 [ INCREMENT [ BY | = ] number ]
 [ MINVALUE [=] number | NO MINVALUE | NOMINVALUE ]
 [ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
 [ START [ WITH | = ] number ] 
 [ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
-[table_options](../sql-statements/data-definition/create/create-table.md#table-options)
+[table_options]
 ```
 
-The options for `CREATE SEQUENCE` can be given in any order, optionally followed by `table_options`.
+![Railroad diagram of CREATE SEQUENCE — equivalent to the BNF above](../../../.gitbook/assets/create-sequence-railroad.svg)
+
+{% endtab %}
+
+{% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
+```sql
+CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
+[ INCREMENT [ BY | = ] number ]
+[ MINVALUE [=] number | NO MINVALUE | NOMINVALUE ]
+[ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
+[ START [ WITH | = ] number ] 
+[ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
+[table_options]
+```
+{% endtab %}
+{% endtabs %}
+
+The options for `CREATE SEQUENCE` can be given in any order, optionally followed by [table\_options](../../sql-statements/data-definition/create/create-table.md#table-options).
 
 _`table_options`_ can be any of the normal table options in [CREATE TABLE](../../sql-statements/data-definition/create/create-table.md) — the most used ones are `ENGINE=...` and `COMMENT=`.
 
@@ -33,10 +66,18 @@ _`table_options`_ can be any of the normal table options in [CREATE TABLE](../..
 
 {% tabs %}
 {% tab title="Current" %}
-`INT` type, that is, one of [TINYINT](../../data-types/numeric-data-types/tinyint.md), [SMALLINT](../../data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../data-types/numeric-data-types/mediumint.md), [INT](../../data-types/numeric-data-types/int.md), [INTEGER](../../data-types/numeric-data-types/integer.md), [BIGINT](../../data-types/numeric-data-types/bigint.md). Can be signed or unsigned. Maximum value is based on the data type. The use of `BIGINT UNSIGNED` with this option extends the possible maximum value from `9223372036854775806` to `18446744073709551614`. Default  is `BIGINT`.
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
+`INT` type, that is, one of [TINYINT](../../data-types/numeric-data-types/tinyint.md), [SMALLINT](../../data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../data-types/numeric-data-types/mediumint.md), [INT](../../data-types/numeric-data-types/int.md), [INTEGER](../../data-types/numeric-data-types/integer.md), [BIGINT](../../data-types/numeric-data-types/bigint.md). Can be signed or unsigned. Maximum value is based on the data type. The use of `BIGINT UNSIGNED` with this option extends the possible maximum value from `9223372036854775806` to `18446744073709551614`. Default is `BIGINT`.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The `AS` option is not available.
 {% endtab %}
 {% endtabs %}
@@ -47,11 +88,11 @@ Increment to use for values. May be negative. Setting an increment of `0` causes
 
 #### MINVALUE
 
-Minimum value for the sequence. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), the parser permits much smaller numbers, such as `-9999999999999999999999999999`, but converts to the minimum permitted for the `INT` type, with a note. Default `1` if `INCREMENT` > `0` , and `-9223372036854775807` (or based on int type) if `INCREMENT` < `0`.
+Minimum value for the sequence. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), the parser permits much smaller numbers, such as `-9999999999999999999999999999`, but converts to the minimum permitted for the `INT` type, with a note. Default `1` if `INCREMENT` > `0` , and `-9223372036854775807` (or based on int type) if `INCREMENT` < `0`.
 
 #### MAXVALUE
 
-Maximum value for sequence. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), the parser permits much larger numbers, such as `9999999999999999999999999999` used in Oracle examples, but converts to the maximum permitted for the `INT` type, with a note. Default `9223372036854775806` (or based on int type) if `INCREMENT` > `0` , and `-1` if `INCREMENT` < `0`.
+Maximum value for sequence. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), the parser permits much larger numbers, such as `9999999999999999999999999999` used in Oracle examples, but converts to the maximum permitted for the `INT` type, with a note. Default `9223372036854775806` (or based on int type) if `INCREMENT` > `0` , and `-1` if `INCREMENT` < `0`.
 
 #### START
 
@@ -59,7 +100,7 @@ First value the sequence will generate. Default `MINVALUE` if `INCREMENT` > `0`,
 
 #### CACHE / NOCACHE
 
-Number of values that should be cached. `0` if no `CACHE`. The underlying table will be updated first time a new sequence number is generated and each time the cache runs out. Default `1000`. [FLUSH TABLES](../../sql-statements/administrative-sql-statements/flush-commands/flush.md), shutting down the server, etc. will discard the cached values, and the next sequence number generated will be according to what's stored in the Sequence object. In effect, this will discard the cached values.&#x20;
+Number of values that should be cached. `0` if no `CACHE`. The underlying table will be updated first time a new sequence number is generated and each time the cache runs out. Default `1000`. [FLUSH TABLES](../../sql-statements/administrative-sql-statements/flush-commands/flush.md), shutting down the server, etc. will discard the cached values, and the next sequence number generated will be according to what's stored in the Sequence object. In effect, this will discard the cached values.
 
 {% hint style="warning" %}
 Note that setting the cache to `1` from `1000` can make inserts to tables using sequences for default values 2x slower and increase the binary log sizes up to 7x.
@@ -76,8 +117,8 @@ To be able to create a legal sequence, the following must hold:
 * `MAXVALUE` >= start
 * `MAXVALUE` > `MINVALUE`
 * `START` >= `MINVALUE`
-* `MAXVALUE` <= `9223372036854775806` (`LONGLONG_MAX`-1). From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), the parser accepts values beyond this, and converts based on the int type.
-* `MINVALUE` >= `-9223372036854775807` (`LONGLONG_MIN`+1). From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), the parser accepts values beyond this, and converts based on the int type.
+* `MAXVALUE` <= `9223372036854775806` (`LONGLONG_MAX`-1). From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), the parser accepts values beyond this, and converts based on the int type.
+* `MINVALUE` >= `-9223372036854775807` (`LONGLONG_MIN`+1). From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), the parser accepts values beyond this, and converts based on the int type.
 
 {% hint style="warning" %}
 Note that sequences can't generate the maximum/minimum 64 bit number because of the constraint of`MINVALUE` and `MAXVALUE`.
@@ -85,15 +126,7 @@ Note that sequences can't generate the maximum/minimum 64 bit number because of 
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB supports [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-MariaDB does **not** support [Atomic DDL](../../sql-statements/data-definition/atomic-ddl.md) and `CREATE SEQUENCE` is atomic.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 
@@ -107,7 +140,7 @@ The following statement fails, as the increment conflicts with the defaults:
 
 ```sql
 CREATE SEQUENCE s3 START WITH -100 INCREMENT BY 10;
-ERROR 4082 (HY000): Sequence 'test.s3' values are conflicting
+ERROR 4085 (HY000): Sequence 'test.s3' has out of range value for options
 ```
 
 The sequence can be created by specifying workable minimum and maximum values:
@@ -116,7 +149,7 @@ The sequence can be created by specifying workable minimum and maximum values:
 CREATE SEQUENCE s3 START WITH -100 INCREMENT BY 10 MINVALUE=-100 MAXVALUE=1000;
 ```
 
-From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115):
+From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115):
 
 ```sql
 CREATE SEQUENCE s3 AS BIGINT UNSIGNED START WITH 10;

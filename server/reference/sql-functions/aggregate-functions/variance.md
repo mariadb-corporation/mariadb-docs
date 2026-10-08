@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate population variance. This function is a synonym for VAR_POP() and
+  returns the variance of a set of values.
+---
+
 # VARIANCE
 
 ## Syntax
 
-```sql
+```bnf
 VARIANCE(expr)
 ```
 

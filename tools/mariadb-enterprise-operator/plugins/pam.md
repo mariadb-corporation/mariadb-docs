@@ -2,13 +2,13 @@
 
 The MariaDB `pam` plugin facilitates user authentication by interfacing with the Pluggable Authentication Modules (PAM) framework, enabling diverse and centralized authentication schemes.
 
-Currently the enterprise operator utilizes this plugin to provide support for:
+The enterprise operator uses this plugin to provide support for:
 
 - **LDAP based authentication**
 
 ## LDAP
 
-This guide outlines the process of configuring MariaDB to authenticate users against an LDAP or Active Directory service. The integration is achieved by using MariaDB's Pluggable Authentication Module (PAM) plugin, which delegates authentication requests to the underlying Linux PAM framework.
+This guide outlines the process of configuring MariaDB to authenticate users against an LDAP service. The integration is achieved by using MariaDB's Pluggable Authentication Module (PAM) plugin, which delegates authentication requests to the underlying Linux PAM framework.
 
 ### How Does It Work?
 
@@ -41,18 +41,20 @@ The `/etc/nslcd.conf` is the configuration file for LDAP nameservice daemon.
 ```ini
 # /etc/nslcd.conf: Configuration file for nslcd(8)
 # The user/group nslcd will run as. Note that these should not be LDAP users.
-uid mysql # required to be `mysql`
-gid mysql # required to be `mysql`
+# required to be `mysql`
+uid mysql
+# required to be `mysql`
+gid mysql
 
 # The location of the LDAP server.
-uri ldap://openldap-service.default.svc.cluster.local:389
+uri ldap://ldap.example.url:389
 
 # The search base that will be used for all queries.
-base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+base dc=ldap,dc=example,dc=url
 
 # The distinguished name with which to bind to the directory server for lookups.
 # This is a service account used by the daemon.
-binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+binddn cn=admin,dc=ldap,dc=example,dc=url
 bindpw PASSWORD_REPLACE-ME
 ```
 
@@ -62,13 +64,13 @@ To do so, you need to add the following to your `nslcd.conf` file:
 
 ```diff
 # Change the protocol to `ldaps`
-+uri ldaps://openldap-service.default.svc.cluster.local:636
--uri ldap://openldap-service.default.svc.cluster.local:389
++uri ldaps://ldap.example.url:636
+-uri ldap://ldap.example.url:389
 
 # ...
 
 +tls_reqcert demand # Look at: https://linux.die.net/man/5/ldap.conf then search for TLS_REQCERT
-+tls_cacertfile /etc/openldap/certs/tls.crt # You will need to mount this certificate (from a secret) later
++tls_cacertfile /path/to/certs/tls.crt # You will need to mount this certificate (from a secret) later
 ```
 
 #### nsswitch.conf
@@ -86,11 +88,11 @@ shadow:     files ldap
 The `pam` plugin is not enabled by default (even though it is installed). To enable it, you should add the following lines to your `MariaDB` Custom Resource:
 
 ```yaml
-  # ....
+  # [...]
   myCnf: |
     [mariadb]
     plugin_load_add = auth_pam # Load auth plugin
-  # ....
+  # [...]
 ```
 
 See below for a complete example.
@@ -119,14 +121,14 @@ stringData:
     gid mysql # required to be `mysql`
 
     # The location of the LDAP server.
-    uri ldap://openldap-service.default.svc.cluster.local:389
+    uri ldap://ldap.example.url:389
 
     # The search base that will be used for all queries.
-    base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+    base dc=ldap,dc=example,dc=url
 
     # The distinguished name with which to bind to the directory server for lookups.
     # This is a service account used by the daemon.
-    binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+    binddn cn=admin,dc=ldap,dc=example,dc=url
     bindpw PASSWORD_REPLACE-ME
 ---
 apiVersion: v1
@@ -357,7 +359,7 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
           mountPath: /etc/nsswitch.conf
           subPath: nsswitch.conf
 +        - name: ldap-tls
-+          mountPath: /etc/openldap/certs/
++          mountPath: /path/to/certs/
       # nslcd-run is missing because volumeMounts from main container are shared with sidecar
 
   volumeMounts:
@@ -367,6 +369,30 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
     - name: nslcd-run
       mountPath: /var/run/nslcd
 ```
+
+#### With MaxScale
+
+To put MaxScale in front of your PAM-enabled MariaDB cluster, configure MaxScale so that it skips checking if passwords of incoming clients are correct, but rather assumes they are. The failure still occurs, but at the time when MaxScale tries to authenticate to the backend servers.
+
+**maxscale-ldap.yaml:**
+```diff
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-repl
+spec:
+  services:
+    - name: rw-router
+      router: readwritesplit
+      listener:
+        port: 3306
++        params: # Configure the following options for all services that should be PAM-enabled.
++          authenticator: pamauth
++          authenticator_options: "skip_authentication=true"
+```
+`kubectl apply -f maxscale-ldap.yaml`
+
+Ref: [skip_authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-security/authentication-modules#skip_authentication)
 
 ### Known Issues
 
@@ -384,6 +410,6 @@ At this point, the problem should be fixed.
 
 For more information, check [this comment](https://github.com/kubernetes-sigs/kind/issues/4001#issuecomment-3279083954).
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

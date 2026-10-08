@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert a string to uppercase. This function returns the string with all
+  characters converted to uppercase.
+---
+
 # UPPER
 
 ## Syntax
 
-```sql
+```bnf
 UPPER(str)
 UCASE(str)
 ```
@@ -10,7 +16,7 @@ UCASE(str)
 ## Description
 
 Returns the string `str` with all characters changed to uppercase according to the current character set mapping. The default is latin1 (cp1252 West European).
-
+The result may depend on the collation and character set used.
 `UCASE` is a synonym.
 
 ```sql

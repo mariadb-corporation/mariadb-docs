@@ -1,10 +1,16 @@
+---
+description: >-
+  A result set consists of a sequence of packets including column counts, column
+  definitions, and row data, terminated by an EOF or OK packet.
+---
+
 # Result Set Packets
 
 MariaDB Server sends the following packets as part of a result set.
 
 A result set consists of different packets:
 
-* [Result set metadata](result-set-packets.md#ResultSet-metadata).
+* Result set metadata:
   * 1 [column count packet](result-set-packets.md#column-count-packet).
 * If not (`MARIADB_CLIENT_CACHE_METADATA` capability set) `OR` (send metadata == 1):
   * For each column (for instance, `column_count` times):
@@ -19,15 +25,15 @@ A result set consists of different packets:
   * Else [EOF\_Packet](eof_packet.md).
 
 {% hint style="warning" %}
-It would be unsafe to assume that any packet with a 0xFE header is an [OK packet (OK\_Packet)](ok_packet.md) or an [EOF packet (EOF\_Packet)](eof_packet.md), because [result-set row packets (ResultsetRow)](resultset-row.md) can also begin with 0xFE when using the text protocol with a field length greater than 0xFFFFFF.\
-To safely confirm that a packet with a 0xFE header is an [OK packet (OK\_Packet)](ok_packet.md) or an [EOF packet (EOF\_Packet)](eof_packet.md), you must also check that the packet length is less than 0xFFFFFF.
+It is unsafe to assume that any packet with a `0xFE` header is an [OK packet (OK\_Packet)](ok_packet.md) or an [EOF packet (EOF\_Packet)](eof_packet.md), because [result set row packets (ResultsetRow)](resultset-row.md) can also begin with `0xFE` when using the text protocol with a field length greater than `0xFFFFFF`.\
+To safely confirm that a packet with a `0xFE` header is an [OK packet (OK\_Packet)](ok_packet.md) or an [EOF packet (EOF\_Packet)](eof_packet.md), you must also check that the packet length is less than `0xFFFFFF`.
 {% endhint %}
 
 ## Column Count Packet
 
 The column count packet describes the number of columns in the result set. It uses the following format:
 
-* [int](../protocol-data-types.md#length-encoded-integers) column count.
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) column count.
 * If (`MARIADB_CLIENT_CACHE_METADATA` capability set):
   * int<1> metadata follows (0 / 1).
 
@@ -39,15 +45,15 @@ If the metadata byte is set to `1`, the normal metadata follows the column defin
 
 A column definition packet describes a column in the result set. It uses the following format:
 
-* [string](../protocol-data-types.md#length-encoded-strings) catalog (always 'def').
-* [string](../protocol-data-types.md#length-encoded-strings) schema.
-* [string](../protocol-data-types.md#length-encoded-strings) table alias.
-* [string](../protocol-data-types.md#length-encoded-strings) table.
-* [string](../protocol-data-types.md#length-encoded-strings) column alias.
-* [string](../protocol-data-types.md#length-encoded-strings) column.
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) catalog (always 'def').
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) schema.
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) table alias.
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) table.
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) column alias.
+* [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) column.
 * If extended type supported (see `MARIADB_CLIENT_EXTENDED_METADATA` ):
-  * [string](../protocol-data-types.md#length-encoded-strings) [extended metadata](result-set-packets.md#extended-metadata).
-* [int](../protocol-data-types.md#length-encoded-integers) length of fixed fields (=0xC).
+  * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) [extended metadata](result-set-packets.md#extended-metadata).
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) length of fixed fields (=0xC).
 * [int<2>](../protocol-data-types.md#fixed-length-integers) character set number.
 * [int<4>](../protocol-data-types.md#fixed-length-integers) max. column size.
 * [int<1>](../protocol-data-types.md#fixed-length-integers) [Field types](result-set-packets.md#field-types).
@@ -55,7 +61,7 @@ A column definition packet describes a column in the result set. It uses the fol
 * [int<1>](../protocol-data-types.md#fixed-length-integers) decimals.
 * [int<2>](../protocol-data-types.md#fixed-length-integers) - unused -
 
-## Field types
+## Field Types
 
 The column type field in the column definition packet describes the base type of the column. It also indicates how the values are encoded for `COM_STMT_EXECUTE` parameters and binary result set rows.
 
@@ -67,7 +73,7 @@ The column type field in the column definition packet describes the base type of
 | 3     | MYSQL\_TYPE\_LONG         | [INTEGER Binary encoding](resultset-row.md#integer-binary-encoding)                                                               |
 | 4     | MYSQL\_TYPE\_FLOAT        | [FLOAT Binary encoding](resultset-row.md#float-binary-encoding)                                                                   |
 | 5     | MYSQL\_TYPE\_DOUBLE       | [DOUBLE Binary encoding](resultset-row.md#double-binary-encoding)                                                                 |
-| 6     | MYSQL\_TYPE\_NULL         | Not used, nullness is indicated by the NULL-bitmap in the result                                                                  |
+| 6     | MYSQL\_TYPE\_NULL         | Not used, being NULL is indicated by the NULL-bitmap in the result                                                                |
 | 7     | MYSQL\_TYPE\_TIMESTAMP    | [TIMESTAMP Binary encoding](resultset-row.md#timestamp-binary-encoding)                                                           |
 | 8     | MYSQL\_TYPE\_LONGLONG     | [BIGINT Binary encoding](resultset-row.md#bigint-binary-encoding)                                                                 |
 | 9     | MYSQL\_TYPE\_INT24        | [INTEGER Binary encoding](resultset-row.md#integer-binary-encoding)                                                               |
@@ -129,9 +135,10 @@ This extended column type information can be used to find out more specific deta
 
 * For a [POINT](../../sql-statements/geometry-constructors/geometry-constructors/point.md) column, the column type field is `MYSQL_TYPE_GEOMETRY`, but the extended type indicates 'point'.
 * For a [JSON](../../data-types/string-data-types/json.md) column, the column type field is `MYSQL_TYPE_STRING`, but the extended type indicates 'json'.
+* For an [XML](../../data-types/string-data-types/xmltype.md) (`XMLTYPE`) column, the column type field is `MYSQL_TYPE_LONG_BLOB`, but the extended type indicates 'xml'. This was added in [MariaDB 12.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.2).
 * While string has data:
   * [int<1>](../protocol-data-types.md#fixed-length-integers) data type: 0x00:type, 0x01: format.
-  * [string](../protocol-data-types.md#length-encoded-strings) value.
+  * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) value.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

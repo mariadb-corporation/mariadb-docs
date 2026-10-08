@@ -1,28 +1,29 @@
-# MariaDB AI RAG - Docker Deployment Guide
-
-## 📋 Quick Navigation
-- [System Overview](#system-overview)
-- [Prerequisites](#prerequisites)
-- [Deployment - Standalone Mode](#deployment---standalone-mode)
-- [Deployment - Vault Mode](#deployment---vault-mode)
-- [Post-Deployment](#post-deployment)
-- [Usage Guide](#usage-guide)
-- [Troubleshooting](#troubleshooting)
-
 ---
+description: >-
+  Deploy MariaDB AI RAG on Windows using Docker Desktop in standalone or
+  Vault mode, with steps for image build, service startup, authentication
+  token generation, and ingestion verification.
+hidden: true
+noIndex: true
+---
+
+# Docker Deployment Guide
 
 ## System Overview
 
 ### What is MariaDB AI RAG?
+
 **MariaDB AI RAG (RAG-in-a-Box)** is a containerized RAG system providing:
-- Document ingestion & processing (PDF, TXT, DOCX, MD, etc.)
-- Vector embeddings using Google Gemini
-- Semantic search & AI-powered queries
-- RESTful RAG API (Port 8000)
-- MCP Server for AI agents (Port 8002)
-- MariaDB 11 with vector support (Port 3306)
+
+* Document ingestion & processing (PDF, TXT, DOCX, MD, etc.)
+* Vector embeddings using Google Gemini
+* Semantic search & AI-powered queries
+* RESTful RAG API (Port 8000)
+* MCP Server for AI agents (Port 8002)
+* MariaDB 11 with vector support (Port 3306)
 
 ### Architecture
+
 ```
 Windows Host
   └─ Docker Desktop
@@ -34,45 +35,51 @@ Windows Host
 ```
 
 ### Technology Stack
-- **Container**: Docker Desktop + Docker Compose
-- **OS**: Ubuntu 24.04 LTS
-- **Database**: MariaDB 11 with vector support
-- **Embedding**: Google Gemini text-embedding-004 (768-dim)
-- **LLM**: Google Gemini gemini-2.0-flash
-- **Framework**: FastAPI + Uvicorn
 
----
+* **Container**: Docker Desktop + Docker Compose
+* **OS**: Ubuntu 24.04 LTS
+* **Database**: MariaDB 11 with vector support
+* **Embedding**: Google Gemini gemini-embedding-001 (768-dim)
+* **LLM**: Google Gemini gemini-2.5-flash-lite
+* **Framework**: FastAPI + Uvicorn
+
+***
 
 ## Prerequisites
 
 ### Hardware Requirements
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| CPU | 4 cores | 8+ cores |
-| RAM | 8 GB | 16+ GB |
-| Storage | 20 GB free | 50+ GB free |
+
+| Component | Minimum    | Recommended |
+| --------- | ---------- | ----------- |
+| CPU       | 4 cores    | 8+ cores    |
+| RAM       | 8 GB       | 16+ GB      |
+| Storage   | 20 GB free | 50+ GB free |
 
 ### Software Requirements
+
 1. **Windows 10/11 Pro/Enterprise** (64-bit)
 2. **Docker Desktop** 4.x+ with WSL 2 backend
 3. **PowerShell** 5.1+ (built-in)
 
 ### API Keys
+
 1. **Google Gemini API Key** (Required)
-   - Get from: https://makersuite.google.com/app/apikey
-   - Free tier available
+   * Get from: https://makersuite.google.com/app/apikey
+   * Free tier available
 
 ### Port Requirements
-- 8000 (RAG API)
-- 8002 (MCP Server)
-- 3306 (MariaDB)
-- 8200 (Vault - if using Vault mode)
 
----
+* 8000 (RAG API)
+* 8002 (MCP Server)
+* 3306 (MariaDB)
+* 8200 (Vault - if using Vault mode)
+
+***
 
 ## Pre-Deployment Checklist
 
 ### 1. Verify Docker Installation
+
 ```powershell
 docker --version
 docker-compose --version
@@ -82,6 +89,7 @@ docker run hello-world
 ```
 
 ### 2. Check Available Ports
+
 ```powershell
 # Verify ports are free
 netstat -ano | findstr :8000
@@ -92,6 +100,7 @@ netstat -ano | findstr :3306
 ```
 
 ### 3. Navigate to Project Directory
+
 ```powershell
 # Navigate to your MariaDB AI RAG deployment directory
 cd "<path-to-your-mariadb-ai-rag-directory>"
@@ -108,6 +117,7 @@ Get-ChildItem | Select-Object Name
 ```
 
 ### 4. Configure API Key
+
 ```powershell
 # Edit configuration file
 notepad config.env.secure.local
@@ -118,24 +128,29 @@ notepad config.env.secure.local
 # Save and close
 ```
 
----
+***
 
 ## Deployment - Standalone Mode
 
 **Standalone Mode** = Simplest setup with secrets in config file
 
 ### Step 1: Build Docker Image
+
 ```powershell
 # Ensure you're in the MariaDB AI RAG directory
 docker build -t ai-nexus-image .
 ```
+
 **Time**: 2-5 minutes (first time)
 
 ### Step 2: Start Services
+
 ```powershell
 docker-compose up -d
 ```
+
 **Expected Output**:
+
 ```
 [+] Running 3/3
  ✔ Network ai-nexus-network    Created
@@ -144,22 +159,29 @@ docker-compose up -d
 ```
 
 ### Step 3: Monitor Startup
+
 ```powershell
 docker logs ai-nexus -f
 ```
+
 **Wait for**:
+
 ```
 ✓ RAG API is ready! (took ~30 seconds)
 Starting MCP server...
 Adaptive MCP Server ready on 0.0.0.0:8002
 ```
+
 Press `Ctrl+C` to exit logs (containers keep running)
 
 ### Step 4: Verify Services
+
 ```powershell
 docker-compose ps
 ```
+
 **Expected**:
+
 ```
 NAME       STATUS                    PORTS
 ai-nexus   Up X minutes              0.0.0.0:8000->8000/tcp, 0.0.0.0:8002->8002/tcp
@@ -167,6 +189,7 @@ mysql-db   Up X minutes (healthy)    0.0.0.0:3306->3306/tcp
 ```
 
 ### Step 5: Test Accessibility
+
 ```powershell
 # Test RAG API
 Invoke-RestMethod -Uri "http://localhost:8000/health"
@@ -176,27 +199,33 @@ Start-Process "http://localhost:8000/docs"
 ```
 
 ### ✅ Deployment Complete!
-**Access Points**:
-- RAG API: http://localhost:8000/docs
-- MCP Server: http://localhost:8002/mcp
 
----
+**Access Points**:
+
+* RAG API: http://localhost:8000/docs
+* MCP Server: http://localhost:8002/mcp
+
+***
 
 ## Deployment - Vault Mode
 
 **Vault Mode** = Production-like secret management with HashiCorp Vault
 
 ### Step 1: Build Docker Image
+
 ```powershell
 # Ensure you're in the MariaDB AI RAG directory
 docker build -t ai-nexus-image .
 ```
 
 ### Step 2: Run Automated Vault Setup
+
 ```powershell
 .\Localvault\setup_vault_local.ps1
 ```
+
 **Expected**:
+
 ```
 [SUCCESS] Vault Setup Complete!
 
@@ -207,16 +236,19 @@ Vault Details:
 ```
 
 ### Step 3: Update Gemini API Key in Vault
+
 ```powershell
 docker exec -e VAULT_TOKEN=rag-root-token rag-vault vault kv patch secret/rag-in-a-box GEMINI_API_KEY="YOUR_ACTUAL_API_KEY"
 ```
 
 ### Step 4: Start MariaDB AI RAG with Vault Config
+
 ```powershell
 docker-compose --env-file config.env.vault.local up -d
 ```
 
 ### Step 5: Monitor & Verify
+
 ```powershell
 # Watch logs
 docker logs ai-nexus -f
@@ -226,7 +258,9 @@ docker-compose ps
 ```
 
 ### ✅ Deployment Complete!
+
 **Vault Management**:
+
 ```powershell
 # View secrets
 docker exec -e VAULT_TOKEN=rag-root-token rag-vault vault kv get secret/rag-in-a-box
@@ -238,11 +272,12 @@ docker exec -e VAULT_TOKEN=rag-root-token rag-vault vault kv patch secret/rag-in
 docker restart ai-nexus
 ```
 
----
+***
 
 ## Post-Deployment
 
 ### 1. Generate Authentication Token
+
 ```powershell
 # Open Swagger UI
 Start-Process "http://localhost:8000/docs"
@@ -260,6 +295,7 @@ Start-Process "http://localhost:8000/docs"
 ```
 
 ### 2. Authorize in Swagger UI
+
 ```
 1. Click "Authorize" button (🔒 icon)
 2. Enter: Bearer YOUR_TOKEN_HERE
@@ -267,6 +303,7 @@ Start-Process "http://localhost:8000/docs"
 ```
 
 ### 3. Test Document Ingestion
+
 ```
 1. Navigate to POST /ingest endpoint
 2. Click "Try it out"
@@ -276,6 +313,7 @@ Start-Process "http://localhost:8000/docs"
 ```
 
 ### 4. Test RAG Query
+
 ```
 1. Navigate to POST /generate endpoint
 2. Enter a question about your document
@@ -283,13 +321,14 @@ Start-Process "http://localhost:8000/docs"
 4. Verify: AI-generated response with sources
 ```
 
----
+***
 
 ## Usage Guide
 
 ### Document Ingestion
 
 #### Via Swagger UI
+
 1. Open http://localhost:8000/docs
 2. Authorize with Bearer token
 3. Use `POST /documents/ingest` endpoint
@@ -297,6 +336,7 @@ Start-Process "http://localhost:8000/docs"
 5. Wait for processing
 
 #### Via PowerShell
+
 ```powershell
 $token = "YOUR_TOKEN_HERE"
 $headers = @{
@@ -317,12 +357,14 @@ Invoke-RestMethod -Uri "http://localhost:8000/documents/ingest" `
 ### RAG Query
 
 #### Via Swagger UI
+
 1. Open http://localhost:8000/docs
 2. Use `POST /orchestrate/generation` endpoint
 3. Enter your question
 4. Get AI-generated answer
 
 #### Via PowerShell
+
 ```powershell
 $token = "YOUR_TOKEN_HERE"
 $headers = @{
@@ -343,7 +385,9 @@ Invoke-RestMethod -Uri "http://localhost:8000/orchestrate/generation" `
 ### MCP Server Integration
 
 #### For Windsurf/Claude Desktop
+
 Add to MCP configuration:
+
 ```json
 {
   "mcpServers": {
@@ -358,16 +402,18 @@ Add to MCP configuration:
 ```
 
 #### Available MCP Tools
-- **Database Tools**: `execute_sql`, `list_tables`, `get_table_schema`
-- **Vector Tools**: `create_vector_store`, `search_vector_store`
-- **RAG Tools**: `ingest_documents`, `generate_response`
-- **Health Tools**: `health_check`, `get_server_status`
 
----
+* **Database Tools**: `execute_sql`, `list_tables`, `get_table_schema`
+* **Vector Tools**: `create_vector_store`, `search_vector_store`
+* **RAG Tools**: `ingest_documents`, `generate_response`
+* **Health Tools**: `health_check`, `get_server_status`
+
+***
 
 ## Troubleshooting
 
 ### Services Won't Start
+
 ```powershell
 # Check logs
 docker logs ai-nexus --tail 100
@@ -380,6 +426,7 @@ docker-compose up -d
 ```
 
 ### Database Connection Errors
+
 ```powershell
 # Check MariaDB status
 docker logs mysql-db --tail 20
@@ -393,6 +440,7 @@ docker-compose ps
 ```
 
 ### Port Already in Use
+
 ```powershell
 # Find process using port
 netstat -ano | findstr :8000
@@ -404,6 +452,7 @@ Stop-Process -Id <PID> -Force
 ```
 
 ### Authentication Fails
+
 ```powershell
 # Verify secret keys are identical
 docker exec ai-nexus env | Select-String "SECRET"
@@ -419,6 +468,7 @@ docker-compose up -d
 ```
 
 ### API Key Invalid
+
 ```powershell
 # Test Gemini API key
 $apiKey = "YOUR_API_KEY"
@@ -431,6 +481,7 @@ Invoke-RestMethod -Uri $uri
 ```
 
 ### Health Check Timeout
+
 ```powershell
 # Increase timeout in start-services.sh
 # Edit: MAX_WAIT=300  # 5 minutes
@@ -441,16 +492,18 @@ docker-compose down
 docker-compose up -d
 ```
 
----
+***
 
 ## Management Commands
 
 ### View Status
+
 ```powershell
 docker-compose ps
 ```
 
 ### View Logs
+
 ```powershell
 # All services
 docker-compose logs -f
@@ -464,6 +517,7 @@ docker logs ai-nexus --tail 100
 ```
 
 ### Stop Services
+
 ```powershell
 # Stop MariaDB AI RAG
 docker-compose down
@@ -473,6 +527,7 @@ docker-compose -f "Localvault/docker-compose.vault.yml" down
 ```
 
 ### Start Services
+
 ```powershell
 # Standalone mode
 docker-compose up -d
@@ -482,6 +537,7 @@ docker-compose --env-file config.env.vault.local up -d
 ```
 
 ### Restart Services
+
 ```powershell
 # Restart all
 docker-compose restart
@@ -491,25 +547,29 @@ docker restart ai-nexus
 ```
 
 ### Clean Everything (⚠️ Deletes Data)
+
 ```powershell
 docker-compose down -v
 ```
 
 ### Access Container Shell
+
 ```powershell
 docker exec -it ai-nexus /bin/bash
 ```
 
 ### View Resource Usage
+
 ```powershell
 docker stats ai-nexus mysql-db
 ```
 
----
+***
 
 ## Quick Reference
 
 ### Standalone Mode
+
 ```powershell
 # Build
 docker build -t ai-nexus-image .
@@ -522,6 +582,7 @@ docker-compose down
 ```
 
 ### Vault Mode
+
 ```powershell
 # Setup Vault (one-time)
 .\Localvault\setup_vault_local.ps1
@@ -535,6 +596,7 @@ docker-compose -f "Localvault/docker-compose.vault.yml" down
 ```
 
 ### Switching Modes
+
 ```powershell
 # Stop current mode
 docker-compose down
@@ -545,26 +607,30 @@ docker-compose --env-file config.env.vault.local up -d  # Vault
 ```
 
 ### Access Points
-- **RAG API**: http://localhost:8000/docs
-- **MCP Server**: http://localhost:8002/mcp
-- **Database**: localhost:3306
 
----
+* **RAG API**: http://localhost:8000/docs
+* **MCP Server**: http://localhost:8002/mcp
+* **Database**: localhost:3306
+
+***
 
 ## Support
 
 ### Check Logs
+
 ```powershell
 docker logs ai-nexus --tail 100
 ```
 
 ### Verify Configuration
+
 ```powershell
 docker exec ai-nexus env | Select-String "GEMINI"
 docker exec ai-nexus env | Select-String "DB_"
 ```
 
 ### Test Connectivity
+
 ```powershell
 # RAG API
 Invoke-RestMethod -Uri "http://localhost:8000/health"
@@ -576,6 +642,10 @@ Invoke-RestMethod -Uri "http://localhost:8002/health"
 docker exec ai-nexus curl -s http://mysql-db:3306
 ```
 
----
+***
 
 **🎉 Deployment Complete! Your MariaDB AI RAG is ready to use.**
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

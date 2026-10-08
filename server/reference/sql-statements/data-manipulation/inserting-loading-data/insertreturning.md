@@ -1,14 +1,17 @@
+---
+description: >-
+  Insert rows and immediately retrieve the results. This extension returns the
+  inserted values, including auto-increments and defaults, in the same round
+  trip.
+---
+
 # INSERT...RETURNING
 
-
-
-{% hint style="info" %}
-INSERT ... RETURNING was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), and returns a result set of the [inserted](insert.md) rows.
-{% endhint %}
+`INSERT ... RETURNING` returns a result set of the [inserted](insert.md) rows.
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
@@ -17,6 +20,10 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
      [, col=expr] ... ] [RETURNING select_expr 
       [, select_expr ...]]
 ```
+
+![Railroad diagram of INSERT (with RETURNING and ON DUPLICATE KEY UPDATE branches) — equivalent to the BNF above](../../../../.gitbook/assets/insert-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-value-list-railroad.svg)
 
 Or:
 

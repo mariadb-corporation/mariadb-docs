@@ -1,3 +1,9 @@
+---
+description: >-
+  The DYNAMIC row format, default in modern MariaDB versions, optimizes storage
+  for large BLOB/TEXT columns by storing them on separate overflow pages.
+---
+
 # InnoDB DYNAMIC Row Format
 
 `DYNAMIC` is the default InnoDB row format.
@@ -243,11 +249,11 @@ WHERE NAME='hq_sales/invoices';
 
 ## Index Prefixes with the DYNAMIC Row Format
 
-The `DYNAMIC` row format supports index prefixes up to 3072 bytes. In earlier versions of MariaDB, the [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) system variable is used to configure the maximum index prefix length. In these versions, if [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) is set to `ON`, then the maximum prefix length is 3072 bytes, and if it is set to `OFF`, then the maximum prefix length is 767 bytes.
+The `DYNAMIC` row format supports index prefixes up to 3072 bytes.
 
 ## Overflow Pages with the DYNAMIC Row Format
 
-All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-dynamic-row-format.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
+All InnoDB row formats can store certain kinds of data in overflow pages. This allows for the maximum row size of an InnoDB table to be larger than the maximum amount of data that can be stored in the row's main data page. See [Maximum Row Size](innodb-row-formats-overview.md#maximum-row-size) for more information about the other factors that can contribute to the maximum row size for InnoDB tables.
 
 In the `DYNAMIC` row format variable-length columns, such as columns using the [VARBINARY](../../../../reference/data-types/string-data-types/varbinary.md), [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md), [BLOB](../../../../reference/data-types/string-data-types/blob.md) and [TEXT](../../../../reference/data-types/string-data-types/text.md) data types, can be completely stored in overflow pages.
 

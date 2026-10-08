@@ -1,3 +1,9 @@
+---
+description: >-
+  Process and display the contents of a MyISAM log file with the myisamlog
+  utility.
+---
+
 # myisamlog
 
 `myisamlog` processes and returns the contents of a [MyISAM log file](../../server-management/server-monitoring-logs/myisam-log.md).
@@ -9,10 +15,10 @@ shell> myisamlog [options] [log_file [tbl_name] ...]
 shell> isamlog [options] [log_file [tbl_name] ...]
 ```
 
-The default operation is update (`-u`). If a recovery is done (`-r`), all\
+The default operation is update (`-u`). If a recovery is done (`-r`), all
 writes and possibly updates and deletes are done and errors are only counted.\
-The default log file name is `myisam.log` for `myisamlog` and `isam.log`\
-for `isamlog` if no `log_file` argument is given. If tables are named on\
+The default log file name is `myisam.log` for `myisamlog` and `isam.log`
+for `isamlog` if no `log_file` argument is given. If tables are named on
 the command line, only those tables are updated.
 
 `myisamlog` supports the following options:

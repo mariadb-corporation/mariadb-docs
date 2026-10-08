@@ -1,6 +1,12 @@
+---
+description: >-
+  Overview of security best practices within Enterprise Manager, including
+  securing the UI, managing audit logs, and enforcing strict access controls.
+---
+
 # Security in Enterprise Manager
 
-MariaDB Enterprise Manager provides security at multiple levels, including transport-layer encryption for all components, secure authentication, and a detailed audit log.&#x20;
+MariaDB Enterprise Manager provides security at multiple levels, including transport-layer encryption for all components, secure authentication, and a detailed audit log.
 
 {% hint style="info" %}
 This guide covers the primary security configurations. For Users, Roles and Permissions, see [User Management](user-management/).
@@ -12,32 +18,13 @@ The Enterprise Manager installation generates a self-signed TLS certificate and 
 
 {% stepper %}
 {% step %}
-### Place custom certificates
+**Place custom certificates**
 
-Copy your custom certificate and private key files into the `enterprise-manager/certs/` directory on the host machine.
+Copy your custom certificate and private key into `enterprise-manager/certs/`, using the names `cert.pem` and `key.pem`
 {% endstep %}
 
 {% step %}
-### Update the configuration
-
-Open the `enterprise-manager/.env` file and modify the `MEMA_TLS_CERTPATH` and `MEMA_TLS_KEYPATH` variables to point to your new files.
-
-Example: if your files are `my-host.crt` and `my-host.key`, your configuration should be:
-
-{% code title=".env (example)" %}
-```
-MEMA_TLS_CERTPATH=/certs/my-host.crt
-MEMA_TLS_KEYPATH=/certs/my-host.key
-```
-{% endcode %}
-
-{% hint style="info" %}
-The path you provide must begin with `/certs/`. This is because the host's `certs/` directory is mounted inside the Docker containers at the `/certs` path.
-{% endhint %}
-{% endstep %}
-
-{% step %}
-### Restart Enterprise Manager
+**Restart Enterprise Manager**
 
 To apply the changes, restart the services:
 
@@ -53,7 +40,7 @@ The audit log records all REST API requests made to MariaDB Enterprise Manager, 
 
 {% stepper %}
 {% step %}
-### Step: Navigate to the directory
+**Step: Navigate to the directory**
 
 Open a terminal and change into your MariaDB Enterprise Manager installation directory.
 
@@ -63,7 +50,7 @@ cd enterprise-manager/
 {% endstep %}
 
 {% step %}
-### Step: Edit the .env file
+**Step: Edit the .env file**
 
 Open the environment file using a text editor.
 
@@ -73,7 +60,7 @@ nano .env
 {% endstep %}
 
 {% step %}
-### Step: Update the audit log variable
+**Step: Update the audit log variable**
 
 Inside the editor, locate the line for the audit API setting.
 
@@ -91,13 +78,13 @@ MEMA_AUDIT_API=true
 {% endstep %}
 
 {% step %}
-### Step: Save and exit
+**Step: Save and exit**
 
 Save the changes and exit the editor.
 {% endstep %}
 
 {% step %}
-### Step: Restart Enterprise Manager
+**Step: Restart Enterprise Manager**
 
 The change requires a restart to take effect.
 
@@ -138,3 +125,7 @@ In the "Add Database" page:
 {% hint style="warning" %}
 All certificate and key files referenced for server validation or client authentication must be placed in the `enterprise-manager/certs/` directory on the host and referenced with a path beginning with `/certs/`.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

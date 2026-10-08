@@ -1,10 +1,17 @@
+---
+description: >-
+  Outbound replication from a MariaDB Cloud Replicated Transactions service to
+  a MariaDB or MySQL server running anywhere — data centers, AWS RDS, or
+  self-managed cloud DBs.
+---
+
 # Replicating Data From MariaDB Cloud to External Database
 
 MariaDB Cloud customers can configure outbound replication from a Replicated Transactions service to a compatible MariaDB Server running elsewhere - could be your data center, self-managed MariaDB DB on the cloud or even other managed services like AWS RDS.
 
 MariaDB Cloud uses stored procedures to configure replication to other MariaDB or MySQL database servers.
 
-For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](<../../Reference Guide/Stored Procedures.md>).
+For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../reference/stored-procedures.md).
 
 ## Requirements <a href="#requirements" id="requirements"></a>
 
@@ -38,7 +45,7 @@ SHOW GRANTS FOR 'external_replication'@'%';
 
 ### Add External Replica to Allowlist <a href="#add-external-replica-to-allowlist" id="add-external-replica-to-allowlist"></a>
 
-**On the MariaDB Cloud Customer Portal**, add the IP address of the external replica server to the MariaDB Cloud service's [allowlist](replicating-data-from-mariadb-cloud-to-external-database.md#add-external-replica-to-allowlist) - Click ‘Manage’→ ‘Manage Allowlist’ to add the IP address to the allowed list.
+**On the MariaDB Cloud Customer Portal**, add the IP address of the external replica server to the MariaDB Cloud service's [allowlist](../../security/configuring-firewall.md) - Click ‘Manage’→ ‘Manage Allowlist’ to add the IP address to the allowed list.
 
 {% hint style="info" %}
 If your ‘external replica server’ is also running on MariaDB Cloud (say, for DR), you can find the outbound IP address from the ‘Details’ tab (Select on the Service name on the dashboard, then click ‘Details’).
@@ -164,3 +171,5 @@ SHOW REPLICA STATUS \G
 Slave_Non_Transactional_Groups: 0
     Slave_Transactional_Groups: 0
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

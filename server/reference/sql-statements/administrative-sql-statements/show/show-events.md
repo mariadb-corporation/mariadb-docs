@@ -1,8 +1,14 @@
+---
+description: >-
+  List scheduled events. View metadata such as the event name, schedule, status,
+  and timing for events in a database.
+---
+
 # SHOW EVENTS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW EVENTS [{FROM | IN} schema_name]
     [LIKE 'pattern' | WHERE expr]
 ```

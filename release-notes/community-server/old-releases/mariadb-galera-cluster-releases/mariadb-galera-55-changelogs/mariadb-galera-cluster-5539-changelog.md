@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 5.5.39 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.39)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5539-release-notes.md)[Changelog](mariadb-galera-cluster-5539-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.39)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5539-release-notes.md)[Changelog](mariadb-galera-cluster-5539-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 21 Aug 2014
 
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5539-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #3525](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3525)\
   Fri 2014-08-15 18:41:36 -0400
@@ -41,7 +40,7 @@ modified in that revision.
   * bzr merge -r3997..4010 codership-mysql/5.5
 * [Revision #3516](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3516) \[merge]\
   Wed 2014-08-06 14:06:11 -0400
-  * Local merge of [MariaDB 5.5.39](../../release-notes-mariadb-5-5-series/mariadb-5539-release-notes.md)
+  * Local merge of [MariaDB 5.5.39](../../5.5/5.5.39.md)
 * [Revision #3515](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3515)\
   Tue 2014-08-05 18:55:05 -0400
   * [MDEV-6495](https://jira.mariadb.org/browse/MDEV-6495): innodb\_flush\_log\_at\_trx\_commit=0 as suggestion for galera vs =2
@@ -75,6 +74,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

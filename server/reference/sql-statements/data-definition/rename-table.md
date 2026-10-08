@@ -1,13 +1,21 @@
+---
+description: >-
+  Change the name of one or more tables atomically. This command moves tables
+  within or between databases while preserving their data and structure.
+---
+
 # RENAME TABLE
 
 ## Syntax
 
-```sql
+```bnf
 RENAME TABLE[S] [IF EXISTS] tbl_name 
   [WAIT n | NOWAIT]
   TO new_tbl_name
     [, tbl_name2 TO new_tbl_name2] ...
 ```
+
+![Railroad diagram of RENAME TABLE — equivalent to the BNF above](../../../.gitbook/assets/rename-table-railroad.svg)
 
 ## Description
 
@@ -37,7 +45,7 @@ RENAME TABLE db1.t TO db2.t;
 #### Limitations of Moving Tables to Another Database
 
 {% hint style="warning" %}
-Note that moving a table to another database is not possible if it has [triggers](../../../server-usage/triggers-events/triggers/).&#x20;
+Note that moving a table to another database is not possible if it has [triggers](../../../server-usage/triggers-events/triggers/).
 {% endhint %}
 
 Trying to do so produces the following error:
@@ -78,26 +86,16 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../transactions/wait-and-nowait
 
 ### Privileges
 
-Executing the `RENAME TABLE` statement requires the [DROP](../account-management-sql-statements/grant.md#table-privileges), [CREATE](../account-management-sql-statements/grant.md#table-privileges) and [INSERT](../account-management-sql-statements/grant.md#table-privileges) privileges for the table or the database.
+Executing the `RENAME TABLE` statement requires the [ALTER](../account-management-sql-statements/grant.md#table-privileges) and [DROP](../account-management-sql-statements/grant.md#table-privileges) privileges on the original table, and the [CREATE](../account-management-sql-statements/grant.md#table-privileges) and [INSERT](../account-management-sql-statements/grant.md#table-privileges) privileges on the new table.
 
 ### Atomic RENAME TABLE
 
-{% tabs %}
-{% tab title="Current" %}
 `RENAME TABLE` is atomic for most storage engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-23842](https://jira.mariadb.org/browse/MDEV-23842)).
 
-This means that if there is a crash (server down or power outage) during `RENAME TABLE`, all tables  revert to their original names and any changes to trigger files are reverted.\
+This means that if there is a crash (server down or power outage) during `RENAME TABLE`, all tables revert to their original names and any changes to trigger files are reverted.\
 \
 See [Atomic DDL](atomic-ddl.md) for more information.
-{% endtab %}
 
-{% tab title="< 10.6.1" %}
-`RENAME TABLE` is **not** atomic.
-
-There is a small chance that, during a server crash happening in the middle of `RENAME TABLE`, some tables could have been renamed (in the worst case partly) while others would not be renamed.
-{% endtab %}
-{% endtabs %}
-
-{% include "../../../.gitbook/includes/license-gplv2-fill-help-tables.md" %}
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

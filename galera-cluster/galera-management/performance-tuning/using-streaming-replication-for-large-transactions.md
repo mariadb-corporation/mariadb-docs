@@ -1,3 +1,10 @@
+---
+description: >-
+  Streaming Replication splits long transactions into certified fragments in
+  MariaDB Galera Cluster, reducing replication lag, easing Flow Control
+  pressure, and avoiding aborts.
+---
+
 # Using Streaming Replication for Large Transactions
 
 Streaming Replication optimizes replication of large or long-running transactions in MariaDB Galera Cluster. Typically, a node executes a transaction fully and replicates the complete [write-set](../../galera-architecture/introduction-to-galera-architecture.md#the-wsrep-api) to other nodes at [COMMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/commit) time. Although efficient for most workloads, this approach can be challenging for very large or lengthy transactions.
@@ -5,7 +12,7 @@ Streaming Replication optimizes replication of large or long-running transaction
 With Streaming Replication, the initiating node divides the transaction into smaller fragments. These fragments are certified and replicated to other nodes while the transaction is ongoing. Once a fragment is certified and applied to the replicas, it becomes immune to abortion by conflicting transactions, thus improving the chances of the entire transaction succeeding. This method also supports processing of transaction write-sets over two Gigabytes.
 
 {% hint style="info" %}
-Streaming Replication is available in Galera Cluster 4.0 and later versions. Both [MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10-4) and newer, and [MariaDB Community Server 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server) and newer, on supported platforms, include Galera 4.
+Streaming Replication is available in Galera Cluster 4.0 and later versions. MariaDB Enterprise Server and MariaDB Community Server include Galera 4 on supported platforms.
 {% endhint %}
 
 ## When to Use Streaming Replication

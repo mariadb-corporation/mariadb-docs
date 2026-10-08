@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert seconds to time. This function returns a TIME value corresponding to
+  the number of seconds elapsed from the start of the day.
+---
+
 # SEC\_TO\_TIME
 
 ## Syntax
 
-```sql
+```bnf
 SEC_TO_TIME(seconds)
 ```
 

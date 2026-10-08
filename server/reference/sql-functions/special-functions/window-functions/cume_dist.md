@@ -1,11 +1,18 @@
+---
+description: >-
+  Calculate cumulative distribution. This function returns the relative rank of
+  the current row within its partition, calculated as the percentage of rows
+  preceding or peer to it.
+---
+
 # CUME\_DIST
 
 ## Syntax
 
-```sql
+```bnf
 CUME_DIST() OVER ( 
   [ PARTITION BY partition_expression ] 
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

@@ -1,5 +1,7 @@
 ---
-description: Modifying Dates and Times Guide
+description: >-
+  This guide explores MariaDB functions for performing calculations and
+  modifications on date and time values, like DATE_ADD and DATE_SUB.
 ---
 
 # Changing Times in MariaDB
@@ -137,5 +139,6 @@ DATE_SUB(NOW(), INTERVAL 5 DAY)
 
 Note: With `DATE_SUB`, `expr` is positive for subtraction. A negative `expr` would result in addition.
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

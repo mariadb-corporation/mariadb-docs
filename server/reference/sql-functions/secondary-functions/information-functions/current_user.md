@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the authenticated user name. This function displays the user name and
+  host name combination used by the server to authenticate the current client.
+---
+
 # CURRENT\_USER
 
 ## Syntax
 
-```sql
+```bnf
 CURRENT_USER, CURRENT_USER()
 ```
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_OBJECT_FILTER_KEYS in MariaDB. Available from version 11.2, this
+  function returns a new JSON object containing only the key-value pairs where
+  the keys match those provided in a specified
+---
+
 # JSON\_OBJECT\_FILTER\_KEYS
 
 {% hint style="info" %}
@@ -6,7 +13,7 @@ JSON\_OBJECT\_FILTER\_KEYS is available from MariaDB 11.2.
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECT_FILTER_KEYS(obj, array_keys)
 ```
 

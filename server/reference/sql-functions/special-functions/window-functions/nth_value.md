@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the value from the N-th row. This function retrieves the value of an
+  expression from the N-th row within the window frame.
+---
+
 # NTH\_VALUE
 
 ## Syntax
 
-```sql
+```bnf
 NTH_VALUE (expr[, num_row]) OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

@@ -1,8 +1,14 @@
+---
+description: >-
+  Connect to MariaDB Cloud from MongoDB clients via MariaDB's X Protocol
+  compatibility layer, mapping MongoDB-style operations onto MariaDB Server.
+---
+
 # Connect From MongoDB Clients
 
 The NoSQL protocol module allows a MariaDB server or cluster to execute transactions for applications using MongoDB client libraries, transparently converting MongoDB API calls into the equivalent SQL. The MariaDB responses are then converted into the format expected by the MongoDB® client library and application.
 
-For detailed information on supported commands, see "[NoSQL Protocol Module](https://mariadb.com/kb/en/mariadb-maxscale-2208-nosql-protocol-module/)" in MariaDB MaxScale documentation.
+For detailed information on supported commands, see "[NoSQL Protocol Module](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-protocols/maxscale-nosql-protocol-module)" in MariaDB MaxScale documentation.
 
 {% hint style="info" %}
 The feature is supported by MaxScale, the advanced proxy for MariaDB. MaxScale starts when using the MariaDB Cloud Replicated topology and will not function with a standalone MariaDB server.
@@ -10,7 +16,7 @@ The feature is supported by MaxScale, the advanced proxy for MariaDB. MaxScale s
 
 ## Enable Support for NoSQL
 
-1. When [launching](../cloud-usage/portal-features/launch-page.md) Mariadb Server With Replica(s), after defining the service name, expand the "Additional options" section.
+1. When [launching](../cloud-usage/launch-page.md) Mariadb Server With Replica(s), after defining the service name, expand the "Additional options" section.
 2. Check the "Enable support for NoSQL" checkbox.
 
 ## Available Clients
@@ -25,6 +31,8 @@ From the Dashboard, the details needed to connect to your MariaDB Cloud service 
 
 The "NoSQL port" is the TCP port used to connect to the NoSQL interface.
 
-The [firewall](<../Security/Configuring Firewall.md>) must be configured to allowlist the client's IP address or netblock before connections can occur.
+The [firewall](../security/configuring-firewall.md) must be configured to allowlist the client's IP address or netblock before connections can occur.
 
 See the "Connecting using Mongosh" section of the Connect page for an example `mongosh` command-line, authentication instructions, and instructions to change the default password.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

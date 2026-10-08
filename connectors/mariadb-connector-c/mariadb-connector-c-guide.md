@@ -1,5 +1,8 @@
 ---
-description: Quickstart Guide for Connector/C
+description: >-
+  Complete Connector/C reference: Windows MSI install, Linux packages
+  (yum/apt/zypper), MariaDB-shared/devel libraries, and option file
+  configuration.
 ---
 
 # MariaDB Connector/C Overview
@@ -10,9 +13,44 @@ description: Quickstart Guide for Connector/C
 
 MariaDB Connector/C is used to connect applications developed in C/C++ to MariaDB and MySQL databases.The client library is LGPL licensed.
 
+## Supported Versions
+
+### Server Compatibility
+
+MariaDB Connector/C is compatible with all MariaDB and MySQL server versions.
+
+### Supported Release Series
+
+The following MariaDB Connector/C release series are supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 3.4            | February 2025    |
+| 3.3            | July 2022        |
+
+For End of Standard Support and End of Life dates, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+### Checking Your Installed Version
+
+Most users install MariaDB Connector/C from the packages distributed with MariaDB Server, which use the server's versioning scheme rather than the connector's. To find the installed Connector/C version, use the `mariadb_config` utility with the `--cc_version` option:
+
+```bash
+mariadb_config --cc_version
+```
+
+```
+3.4.10
+```
+
+{% hint style="warning" %}
+The `mariadb_config --version` option returns the **MariaDB Server package** version, not the Connector/C version. Use `--cc_version` for the Connector/C version.
+{% endhint %}
+
+An application can also retrieve the client library version at runtime by calling [`mysql_get_client_info()`](api-functions/mysql_get_client_info.md) (string) or [`mysql_get_client_version()`](api-functions/mysql_get_client_version.md) (numeric).
+
 ## Integration with MariaDB Server
 
-MariaDB Connector/C is distributed with MariaDB Server packages. Eventually, it will completely replace the functionality that has traditionally been performed by `libmysqlclient` in those packages. Currently, MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
+MariaDB Connector/C is distributed with MariaDB Server packages. MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
 
 ## Installing MariaDB Connector/C
 
@@ -33,15 +71,15 @@ MariaDB Connector/C is distributed in [binary tarballs](https://app.gitbook.com/
 
 #### Installing with a Package Manager
 
-Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories. The repository needs to be configured for [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) or later.
+Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories.
 
-You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
+You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 
-You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
+You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?tab=repo-config).
 
 **Installing with yum/dnf**
 
-On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's\
+On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's
 repository using [yum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum) or [dnf](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`. For example:
 
 ```bash
@@ -56,7 +94,7 @@ sudo yum install MariaDB-devel
 
 **Installing with apt-get**
 
-On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant [DEB package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) from MariaDB's\
+On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant [DEB package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files) from MariaDB's
 repository using [apt-get](https://wiki.debian.org/apt-get). For example:
 
 ```bash
@@ -71,7 +109,7 @@ sudo apt-get install libmariadb-dev
 
 **Installing with zypper**
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's repository using [zypper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).&#x20;
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's repository using [zypper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
 
 For example:
 
@@ -98,7 +136,7 @@ The function reference is available at:
 * [MariaDB Client Library for C API Functions](api-functions/)
 * [MariaDB Client Library for C API Prepared Statement Functions](api-prepared-statement-functions/)
 
-It is also downloadable in html format from [mariadb-client-doc.zip](https://mariadb.org/files/mariadb-client-doc.zip)
+It is also downloadable in html format from mariadb-client-doc.zip
 
 ## Configuring MariaDB Connector/C with Option Files
 
@@ -124,5 +162,7 @@ The source code is available at the [mariadb-connector-c repository](https://git
 GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
 
 For licensing questions, see the [Licensing FAQ](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

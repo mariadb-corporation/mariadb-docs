@@ -1,0 +1,126 @@
+---
+description: >-
+  MariaDB Cloud Portal notifications track Portal-initiated actions: an
+  initial notification when an action starts, plus follow-up notifications as
+  the system carries it out.
+---
+
+# Notifications
+
+Actions performed through the Portal will generate a notification.&#x20;
+
+One notification is generated when an action is initiated.
+
+Additional notifications are generated to convey the status as the action is carried out by the system.
+
+## Access to Notifications
+
+To access current notifications:
+
+1. Log in to the [Portal](https://app.skysql.com/dashboard).
+2. Click the bell icon in the upper-right corner of the interface.
+
+A menu of recent notifications will be displayed.
+
+The bell icon will include a red dot indicator when a new notification is present. This indicator can be cleared by clicking the "Clear all" link.
+
+<figure><img src="../.gitbook/assets/notifications-new.png" alt=""><figcaption></figcaption></figure>
+
+_Notifications_
+
+To view historical notifications, click the "View more" link at the bottom of the menu. When viewing historical notifications, notifications can be filtered by category and time frame.
+
+<figure><img src="../.gitbook/assets/notifications-his.png" alt=""><figcaption></figcaption></figure>
+
+_Notifications - current and historical_
+
+## Maintenance Notifications
+
+To ensure transparency around system updates, MariaDB Cloud sends automated notifications for all scheduled maintenance activities. See [Maintenance Management](maintenance-management.md) for how to view and act on maintenance.
+
+* **Notification schedule**: You receive automated reminders at three intervals — **1 week**, **1 day**, and **1 hour** before the scheduled maintenance window.
+* **Delivery channels**: Notifications are delivered as in-product alerts and through your configured notification channels (for example, email).
+* **Content**: Each notification includes a description of the activity, its classification (Infrastructure or Database Security), its priority level, and the expected system impact, including any potential downtime.
+* **In-app visibility**: Service cards display a maintenance banner for available or scheduled activities, with a direct link to the **Maintenance** tab. The Notifications page also tracks the full lifecycle states of maintenance tasks.
+
+## Notification Categories
+
+* Service Alerts, which are based on `Alerts`
+* Billing
+* Service, which are based on [Portal](https://app.skysql.com/dashboard) actions
+* Organization
+
+## User Preferences
+
+You can configure the notifications delivered to your email address from User Preferences.
+
+To access User Preferences:
+
+1. Log in to the [Portal](https://app.skysql.com/dashboard).
+2. Click your profile name in the upper-right corner of the interface.
+3. Select `Account Settings`.
+4. Click to expand the `Notification preferences` section.
+
+From User Preferences, you can specify your notification preferences:
+
+* Whether to send notifications to you by email
+* Which Notification Categories you want to be sent
+
+<figure><img src="../.gitbook/assets/notifications-pref.png" alt=""><figcaption></figcaption></figure>
+
+_User Preferences_
+
+## Notification Channels
+
+In addition to being displayed in the Portal, notifications can also be delivered by email.
+
+Notification Channels define who receives what type of notifications.
+
+To access Notification Channel settings:
+
+1. Log in to the [Portal](https://app.skysql.com/dashboard).
+2. Click the "Settings" link in the main menu (left navigation in the Portal).
+3. Click the "Notification Channel" button.
+
+<figure><img src="../.gitbook/assets/notifications-chan.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels_
+
+#### **Add a Notification Channel**
+
+To add a Notification Channel, from the Notification Channel settings interface:
+
+1. Click the "Add" button in the upper-right corner.
+2. Enter a channel name.
+3. Enter the email address that will receive notifications.
+4. Choose the notification categories that should be sent to that address from the dropdown.
+
+<figure><img src="../.gitbook/assets/notifications-add.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels - Adding a Channel_
+
+#### **Remove a Notification Channel**
+
+To remove a Notification Channel from the Notification Channel settings interface:
+
+1. Check the checkbox to the left of the notification channel to be removed.
+2. Click the "Delete" button (which appears when a notification channel is selected by a checkbox).
+3. Confirm removal of the notification channel by clicking the "Yes, delete" button.
+
+<figure><img src="../.gitbook/assets/notifications-del.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels - Removing a Channel_
+
+#### **Edit a Notification Channel**
+
+To modify a Notification Channel, from the Notification Channel settings interface:
+
+1. Click the name of the channel to modify.
+2. Make the desired changes to the channel name, email address, recipient list, and notification categories.
+3. Click the "Save" button.
+
+<figure><img src="../.gitbook/assets/notifications-edit.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels - Editing a Channel_
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

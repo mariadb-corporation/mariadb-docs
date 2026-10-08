@@ -1,8 +1,14 @@
+---
+description: >-
+  Checks if two geometries are disjoint. Returns 1 if the geometries share no
+  points, 0 otherwise.
+---
+
 # ST\_DISJOINT
 
 ## Syntax
 
-```sql
+```bnf
 ST_DISJOINT(g1,g2)
 ```
 

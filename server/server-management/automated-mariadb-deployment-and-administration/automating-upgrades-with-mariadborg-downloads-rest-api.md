@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide on using the MariaDB Downloads REST API to programmatically retrieve
+  information about software versions, facilitating automated upgrade scripts.
+---
+
 # Automating Upgrades with MariaDB.Org Downloads REST API
 
 The MariaDB Foundation maintains a Downloads REST API. See the [Downloads API documentation](https://mariadb.org/downloads-rest-api/) to find out all the tasks that you can accomplish with this API. Generally speaking, we can say that it provides information about MariaDB products and available versions. This allows to easily automate upgrades for MariaDB and related products.

@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert a date to seconds. This function returns the number of seconds from
+  year 0 to the given date or datetime.
+---
+
 # TO\_SECONDS
 
 ## Syntax
 
-```sql
+```bnf
 TO_SECONDS(expr)
 ```
 

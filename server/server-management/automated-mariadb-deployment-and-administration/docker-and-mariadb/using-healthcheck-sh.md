@@ -1,4 +1,10 @@
-# using-healthcheck-sh
+---
+description: >-
+  Complete healthcheck.sh Docker reference: --connect, --innodb_initialized,
+  --replication_* checks, .my-healthcheck.cnf config, and environment variables.
+---
+
+# Using Healthcheck
 
 ## Using Healthcheck.sh
 
@@ -54,7 +60,7 @@ The various health check flags used for monitoring the status and readiness of a
 | `--innodb_initialized`        | True when InnoDB has completed initializing, including any rollback or crash recovery.                                                                                                                                                                                                                                                                                                                                         | The connecting user must have `USAGE` privileges.                                |
 | `--innodb_buffer_pool_loaded` | Indicates that the previously saved buffer pool dump has been completely loaded, meaning the server has a hot cache ready for use.                                                                                                                                                                                                                                                                                             | The connecting user must have `USAGE` privileges.                                |
 | `--galera_online`             | Indicates that the Galera node is online (based on the `wsrep_local_state` variable). This includes states like "joining" and "donor" where it cannot serve SQL queries.                                                                                                                                                                                                                                                       | The connecting user must have `USAGE` privileges.                                |
-| `--replication`               | Tests a replica based on the `--replication_*` parameters. All subtests must pass: \<ul>\<li>io: The IO thread is running.\</li>\<li>sql: The SQL thread is running.\</li>\<li>seconds\_behind\_master: The replica is less than a specified number of seconds behind the primary.\</li>\<li>sql\_remaining\_delay: The delayed replica is less than a specified number of seconds behind the primary's execution.\</li>\</ul> | `REPLICATION_CLIENT` (before MariaDB 10.5) or `REPLICA MONITOR` (MariaDB 10.5+). |
+| `--replication`               | Tests a replica based on the `--replication_*` parameters. All subtests must pass: \<ul>\<li>io: The IO thread is running.\</li>\<li>sql: The SQL thread is running.\</li>\<li>seconds\_behind\_master: The replica is less than a specified number of seconds behind the primary.\</li>\<li>sql\_remaining\_delay: The delayed replica is less than a specified number of seconds behind the primary's execution.\</li>\</ul> | `REPLICA MONITOR`. |
 | `--mariadbupgrade`            | Indicates that MariaDB is upgraded to the current version.                                                                                                                                                                                                                                                                                                                                                                     |                                                                                  |
 
 ## Parameters

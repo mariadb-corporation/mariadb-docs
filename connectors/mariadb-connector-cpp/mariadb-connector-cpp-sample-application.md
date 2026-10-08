@@ -1,3 +1,10 @@
+---
+description: >-
+  Tasks.cpp is a complete MariaDB Connector/C++ sample demonstrating CRUD
+  operations, with setup instructions, compilation steps, and command-line
+  usage for a task management database.
+---
+
 # MariaDB Connector/C++ Sample Application
 
 Tasks.cpp is a complete sample application that demonstrates `CRUD` (`Create, Read, Update, Delete`) operations using the MariaDB Connector/C++.
@@ -11,7 +18,7 @@ Create the example database and table:
 ```sql
 CREATE DATABASE IF NOT EXISTS todo;
 
-CREATE TABLE todo. tasks (
+CREATE TABLE todo.tasks (
    id INT AUTO_INCREMENT PRIMARY KEY,
    description VARCHAR(200),
    completed BOOLEAN DEFAULT FALSE);
@@ -38,8 +45,8 @@ sql::SQLString url("jdbc:mariadb://example.skysql.net:5509/todo");
 sql::Properties properties({
       {"user", "db_user"},
       {"password", "db_user_password"},
-      {"autocommit", false},
-      {"useTls", true},
+      {"autocommit", "false"},
+      {"useTls", "true"},
       {"tlsCert", "classpath:static/skysql_chain.pem"}
    });
 ```
@@ -100,6 +107,6 @@ Delete a task record:
 $ ./tasks deleteTask 1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

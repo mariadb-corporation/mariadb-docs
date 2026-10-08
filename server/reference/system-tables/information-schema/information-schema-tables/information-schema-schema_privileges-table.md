@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SCHEMA_PRIVILEGES table contains information about
+  database-level privileges granted to accounts.
+---
+
 # Information Schema SCHEMA\_PRIVILEGES Table
 
 The [Information Schema](../) `SCHEMA_PRIVILEGES` table contains information about [database privileges](../../../sql-statements/account-management-sql-statements/grant.md#database-privileges).

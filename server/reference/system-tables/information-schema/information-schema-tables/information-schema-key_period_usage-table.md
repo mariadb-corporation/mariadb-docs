@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema KEY_PERIOD_USAGE table describes how keys reference
+  application-time periods, detailing constraints involving those periods.
+---
+
 # Information Schema KEY\_PERIOD\_USAGE Table
 
 {% hint style="info" %}

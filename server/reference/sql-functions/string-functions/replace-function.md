@@ -1,14 +1,20 @@
+---
+description: >-
+  Complete REPLACE Function reference for MariaDB. Complete function guide with
+  syntax, parameters, return values, and usage examples for production use.
+---
+
 # REPLACE Function
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE(str,from_str,to_str)
 ```
 
 ## Description
 
-Returns the string `str` with all occurrences of the string `from_str` replaced by the string `to_str`. `REPLACE()` performs a case-sensitive match when searching for `from_str`.
+Returns the string `str` with all occurrences of the string `from_str` replaced by the string `to_str`. `REPLACE()` performs a case-sensitive match when searching for `from_str`. If any argument is `NULL`, the function returns `NULL`.
 
 ## Examples
 

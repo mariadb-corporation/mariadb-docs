@@ -1,3 +1,10 @@
+---
+description: >-
+  Partition a large table across multiple MariaDB Enterprise Server Data Nodes
+  using virtual Spider Tables and standard partitioning syntax for horizontal
+  scalability.
+---
+
 # Sharded MariaDB Enterprise Spider Topology
 
 ## Sharded MariaDB Enterprise Spider Topology
@@ -11,7 +18,7 @@ In the Sharded MariaDB Enterprise Spider topology, a Spider Node contains one or
 MariaDB Enterprise Spider:
 
 * Supports a MariaDB foreign data wrapper. The MariaDB foreign data wrapper can be used to replace the older Federated and FederatedX storage engines.
-* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The ODBC foreign data wrapper was backported to MariaDB Enterprise Server in a previous version. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+* Supports an ODBC foreign data wrapper. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider Sharded topology:
 
@@ -21,7 +28,34 @@ The Spider Sharded topology:
 
 ## Sharded MariaDB Enterprise Spider Topology
 
-<figure><img src="../../../.gitbook/assets/spider-sharded.png" alt=""><figcaption></figcaption></figure>
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart LR
+    accTitle: Sharded Spider topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding a partitioned virtual Sharded Spider Table. Using the
+        MariaDB foreign data wrapper, the Spider Node reads from and writes to a Data Table on
+        each of several Data Nodes, one per partition (shard); every Data Node is a MariaDB
+        Enterprise Server running a non-Spider storage engine.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    S1[("Data Node<br/>shard 1")]
+    S2[("Data Node<br/>shard 2")]
+    S3[("Data Node<br/>shard 3")]
+    Client --> Spider
+    Spider <-->|"rw · Spider sharding"| S1
+    Spider <-->|"rw · Spider sharding"| S2
+    Spider <-->|"rw · Spider sharding"| S3
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider,S1,S2,S3 node
+    class Client client
+    linkStyle default color:#111111
+```
+
+_Sharded Spider: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
 
 In the Spider Sharded topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When a Spider Table is queried in this topology, the Enterprise Spider storage engine uses a MariaDB foreign data wrapper to read from and write to Data Tables on Data Nodes. The data for the Spider Table is partitioned among the Data Nodes using the regular partitioning syntax.
 
@@ -85,7 +119,7 @@ plugin_load_add = "ha_spider"
 INSTALL SONAME "ha_spider";
 ```
 
-### View Foreign Data Wrappers (ES 10.5+)
+### View Foreign Data Wrappers
 
 ```sql
 SELECT * FROM information_schema.SPIDER_WRAPPER_PROTOCOLS;
@@ -146,7 +180,7 @@ PARTITION BY LIST(branch_id) (
 
 ### Deployment
 
-* [Deploy MariaDB Enterprise Spider](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/mariadb-enterprise-server-differences/deployment#spider-topologies)
+* [Deploy MariaDB Enterprise Spider](../topologies-overview.md#spider-topologies)
 
 ### Schema Design
 
@@ -162,6 +196,6 @@ PARTITION BY LIST(branch_id) (
 
 * [Enterprise Spider Storage Engine](../../../server-usage/storage-engines/spider/)
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

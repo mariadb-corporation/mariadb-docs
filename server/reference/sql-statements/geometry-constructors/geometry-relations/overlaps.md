@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for ST_OVERLAPS. Checks if two geometries overlap, sharing some but
+  not all points, and having the same dimension.
+---
+
 # OVERLAPS
 
 ## Syntax
 
-```sql
+```bnf
 OVERLAPS(g1,g2)
 ```
 

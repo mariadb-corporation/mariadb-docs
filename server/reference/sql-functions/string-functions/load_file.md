@@ -1,8 +1,14 @@
+---
+description: >-
+  Read a file from the server. This function reads the content of a file located
+  on the server host and returns it as a string.
+---
+
 # LOAD\_FILE
 
 ## Syntax
 
-```sql
+```bnf
 LOAD_FILE(file_name)
 ```
 

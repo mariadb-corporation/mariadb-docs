@@ -1,3 +1,9 @@
+---
+description: >-
+  Create SPATIAL (R-tree) indexes on geometry columns in MyISAM, Aria, and
+  InnoDB tables.
+---
+
 # SPATIAL INDEX
 
 ## Description
@@ -18,7 +24,7 @@ ALTER TABLE geom ADD SPATIAL INDEX(g);
 CREATE SPATIAL INDEX sp_index ON geom (g);
 ```
 
-`SPATIAL INDEX` creates an `R-tree` index. For storage engines that support non-spatial indexing of spatial columns, the engine creates a `B-tree` index. A `B-tree` index on spatial values is useful for\
+`SPATIAL INDEX` creates an `R-tree` index. For storage engines that support non-spatial indexing of spatial columns, the engine creates a `B-tree` index. A `B-tree` index on spatial values is useful for
 exact-value lookups, but not for range scans.
 
 For more information on indexing spatial columns, see [CREATE INDEX](../../sql-statements/data-definition/create/create-index.md).

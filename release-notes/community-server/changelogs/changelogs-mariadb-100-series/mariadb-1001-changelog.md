@@ -1,12 +1,12 @@
 # MariaDB 10.0.1 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.1) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1001-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.1) |[Release Notes](../../old-releases/10.0/10.0.1.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 06 Feb 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1001-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.1.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -63,7 +63,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     Wed 2013-01-30 15:11:36 +0100
     * [MDEV-3984](https://jira.mariadb.org/browse/MDEV-3984): Double free of Master\_info \* when CHANGE MASTER fails.
     * When CHANGE MASTER fails, it may or may not have already added the\
-      Master\_info to the index. Implement logic that properly handles removal and\
+      Master\_info to the index. Implement logic that properly handles removal and
       freeing in both cases.
   * [Revision #3427.1.62](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.62)\
     Tue 2013-01-29 19:14:43 +0100
@@ -114,8 +114,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
     Wed 2013-01-23 16:16:14 +0100
     * [MDEV-4011](https://jira.mariadb.org/browse/MDEV-4011) Added per thread memory counting and usage Base code and idea from a patch from by plinux at Taobao.
     * The idea is that we mark all memory that are thread specific with\
-      MY\_THREAD\_SPECIFIC. Memory counting is done per thread in the\
-      my\_malloc\_size\_cb\_func callback function from my\_malloc(). There are plenty of\
+      MY\_THREAD\_SPECIFIC. Memory counting is done per thread in the
+      my\_malloc\_size\_cb\_func callback function from my\_malloc(). There are plenty of
       new asserts to ensure that for a debug server the counting is correct.
     * Information\_schema.processlist gets two new columns: MEMORY\_USED and\
       EXAMINED\_ROWS.
@@ -556,7 +556,6 @@ Fri 2012-08-17 21:13:20 +0400
 * Initial commit for Cassandra storage engine.
 ```
 
-```
 
 * [Revision #3492](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3492)\
   Fri 2013-01-11 16:33:51 +0100
@@ -688,7 +687,7 @@ Fri 2012-08-17 21:13:20 +0400
           * Added missing declaration of statistics\_lock. Replaced bzero with memset. Added missing `--source include/have_debug_sync.inc` into stat\_tables.test.
         * [Revision #3334.1.19](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.19)\
           Thu 2012-07-26 17:50:08 -0700
-          * Performed re-factoring and re-structuring of the code for [MWL#248](https://askmonty.org/worklog/?tid=248):
+          * Performed re-factoring and re-structuring of the code for MWL#248:
             * Moved the definitions of the classes to store data from persistent statistical tables into statistics.h, leaving in other internal data structures only references to the corresponding objects.
             * Defined class Column\_statistics\_collected derived from the class Column\_statistics. This is a helper class to collect statistics on columns.
             * Moved references to read statistics to TABLE SHARE, leaving the reference to the collected statistics in TABLE.
@@ -759,7 +758,7 @@ Fri 2012-08-17 21:13:20 +0400
           * Merge 5.5 -> 5.5-mwl248.
         * [Revision #3334.1.2](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.2)\
           Wed 2012-04-11 17:14:06 -0700
-          * The pilot implementation of [MWL#250](https://askmonty.org/worklog/?tid=250): Use the statistics from persistent statistical tables instead of the statistics provided by engine.
+          * The pilot implementation of MWL#250: Use the statistics from persistent statistical tables instead of the statistics provided by engine.
         * [Revision #3334.1.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3334.1.1) \[merge]\
           Mon 2012-03-19 01:35:32 -0700
           * Merge maria-5.3-mwl248 -> 5.5 = maria-5.5-mwl248.
@@ -771,7 +770,7 @@ Fri 2012-08-17 21:13:20 +0400
             * Merged 5.3 changes into the mwl #248 tree.
           * [Revision #2502.574.6](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.6)\
             Mon 2012-01-09 21:14:34 -0800
-            * [MWL#248](https://askmonty.org/worklog/?tid=248): added the option skip-stat-tables.
+            * MWL#248: added the option skip-stat-tables.
           * [Revision #2502.574.5](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.5)\
             Sat 2012-01-07 00:34:30 -0800
             * Made statistics.test platform independent.
@@ -786,7 +785,7 @@ Fri 2012-08-17 21:13:20 +0400
             * In statistics.test: Saved at the very beginning and restored at the very end the value of optimizer\_use\_stat\_tables.
           * [Revision #2502.574.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.574.1)\
             Wed 2012-01-04 17:51:53 -0800
-            * The main patch for the [MWL#248](https://askmonty.org/worklog/?tid=248) back-ported from lp:igorb-seattle/mysql-server/mysql-azalea-wl4777.
+            * The main patch for the MWL#248 back-ported from lp:igorb-seattle/mysql-server/mysql-azalea-wl4777.
 * [Revision #3490](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3490) \[merge]\
   Tue 2012-12-18 22:13:14 +0100
   * Merge a couple more fixes from 10.0-base to 10.0
@@ -802,7 +801,7 @@ Fri 2012-08-17 21:13:20 +0400
   * After-merge fixes for merge 10.0-base -> 10.0.
 * [Revision #3488](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3488) \[merge]\
   Tue 2012-12-18 15:01:58 +0100
-  * Merge [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base to [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+  * Merge [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
   * [Revision #3427.1.26](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.26)\
     Mon 2012-12-17 21:00:36 +0100
     * fix have\_debug\_sync.inc remove unused require files
@@ -841,7 +840,7 @@ Fri 2012-08-17 21:13:20 +0400
       * [Revision #3427.7.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.7.1)\
         Wed 2012-10-17 15:43:56 +0300
         * [MDEV-452](https://jira.mariadb.org/browse/MDEV-452) Add full support for auto-initialized/updated timestamp and datetime
-        * Generalized support for auto-updated and/or auto-initialized timestamp and datetime columns. This patch is a reimplementation of MySQL's "[WL#5874](https://askmonty.org/worklog/?tid=5874): CURRENT\_TIMESTAMP as DEFAULT for DATETIME columns". In order to ease future merges, this implementation reused few function and variable names from MySQL's patch, however the implementation is quite different.
+        * Generalized support for auto-updated and/or auto-initialized timestamp and datetime columns. This patch is a reimplementation of MySQL's "WL#5874: CURRENT\_TIMESTAMP as DEFAULT for DATETIME columns". In order to ease future merges, this implementation reused few function and variable names from MySQL's patch, however the implementation is quite different.
         * TODO: The only unresolved problem in this patch is the semantics of LOAD DATA for TIMESTAMP and DATETIME columns in the cases when there are missing or NULL columns. I couldn't fully comprehend the logic behind MySQL's behavior and its relationship with their own documentation, so I left the results to be more consistent with all other LOAD cases.
         * The problematic test cases can be seen by running the test file function\_defaults, and observing the test case differences. Those were left on purpose for discussion.
 * [Revision #3487](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3487)\
@@ -854,11 +853,11 @@ Fri 2012-08-17 21:13:20 +0400
 
 ```
 
-revno: 3768.1.1\
-committer: Christopher Powers [chris.powers@oracle.com](mailto:chris.powers@oracle.com)\
-timestamp: Wed 2012-05-02 22:16:40 -0500\
-message:\
-Bug#11766342 INITIAL DB CREATION FAILS ON WINDOWS WITH AN ASSERT IN SQL\_ERROR.CC\
+revno: 3768.1.1
+committer: Christopher Powers <chris.powers@oracle.com>
+timestamp: Wed 2012-05-02 22:16:40 -0500
+message:
+Bug#11766342 INITIAL DB CREATION FAILS ON WINDOWS WITH AN ASSERT IN SQL_ERROR.CC
 Improved bootstrap error handling:
 
 * Detect and report file i/o errors
@@ -868,7 +867,7 @@ Improved bootstrap error handling:
 
 * [Revision #3485](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3485)\
   Sat 2012-12-15 21:55:04 +0100
-  * [MDEV-3834](https://jira.mariadb.org/browse/MDEV-3834) Crossgrade from MySQL 5.6.7 to [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) fails due to non-existing mysql.host table Treat the host table as optional, don't abort when it's missing
+  * [MDEV-3834](https://jira.mariadb.org/browse/MDEV-3834) Crossgrade from MySQL 5.6.7 to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) fails due to non-existing mysql.host table Treat the host table as optional, don't abort when it's missing
 * [Revision #3484](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3484)\
   Sat 2012-12-15 21:54:18 +0100
   * [MDEV-3837](https://jira.mariadb.org/browse/MDEV-3837) Assertion \`table->read\_set == \&table->def\_read\_set' failed on updating a performance\_schema table This was failing not only for P\_S, but for any engine that had HA\_PRIMARY\_KEY\_REQUIRED\_FOR\_DELETE flag set (in the tree - only P\_S and federated). Because of this flag, read\_set and write\_set were (possibly) changed on update. But later the code modified these bitmaps and restored them to the default state, losing HA\_PRIMARY\_KEY\_REQUIRED\_FOR\_DELETE related changes.
@@ -878,29 +877,29 @@ Improved bootstrap error handling:
 
 ```
 
-revno: 3383\
-revision-id: georgi.kodinov@oracle.com-20110818083108-qa3h3ufqu4zne80a\
-committer: Georgi Kodinov [Georgi.Kodinov@Oracle.com](mailto:Georgi.Kodinov@Oracle.com)\
-timestamp: Thu 2011-08-18 11:31:08 +0300\
-message:\
-.\
-Bug #11766001: 59026: ALLOW MULTIPLE --PLUGIN-LOAD OPTIONS\
-.\
-Implemented support for a new command line option :\
-\--plugin-load-add=\
-This option takes the same type of arguments that --plugin-load does\
-and complements --plugin-load (that continues to operate as before) by\
-appending its argument to the list specified by --plugin-load.\
-So --plugin-load can be considered a composite option consisting of\
-resetting the plugin load list and then calling --plugin-load-add to process\
-the argument.\
-Note that the order in which you specify --plugin-load and --plugin-load-add\
-is important : "--plugin-load=x --plugin-load-add=y" will be equivalent to\
-"--plugin-load=x,y" whereas "--plugin-load-add=y --plugin-load=x" will be\
-equivalent to "plugin-load=x".\
-.\
-Incompatible change : the --help --verbose command will no longer print the\
-\--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load\
+revno: 3383
+revision-id: georgi.kodinov@oracle.com-20110818083108-qa3h3ufqu4zne80a
+committer: Georgi Kodinov <Georgi.Kodinov@Oracle.com>
+timestamp: Thu 2011-08-18 11:31:08 +0300
+message:
+.
+Bug #11766001: 59026: ALLOW MULTIPLE --PLUGIN-LOAD OPTIONS
+.
+Implemented support for a new command line option :
+--plugin-load-add=
+This option takes the same type of arguments that --plugin-load does
+and complements --plugin-load (that continues to operate as before) by
+appending its argument to the list specified by --plugin-load.
+So --plugin-load can be considered a composite option consisting of
+resetting the plugin load list and then calling --plugin-load-add to process
+the argument.
+Note that the order in which you specify --plugin-load and --plugin-load-add
+is important : "--plugin-load=x --plugin-load-add=y" will be equivalent to
+"--plugin-load=x,y" whereas "--plugin-load-add=y --plugin-load=x" will be
+equivalent to "plugin-load=x".
+.
+Incompatible change : the --help --verbose command will no longer print the
+--plugin-load variable's values (as it doesn't have one). Otherwise both --plugin-load
 and --plugin-load-add are mentioned in it.
 
 ```
@@ -913,7 +912,7 @@ and --plugin-load-add are mentioned in it.
   * [MDEV-3862](https://jira.mariadb.org/browse/MDEV-3862) Lift limitation for merging VIEWS with Subqueries in SELECT list.
 * [Revision #3480](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3480) \[merge]\
   Tue 2012-11-20 14:22:51 +0100
-  * Merge [MariaDB 10.0](../../mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base -> 10.0
+  * Merge [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base -> 10.0
   * [Revision #3427.1.18](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.18)\
     Tue 2012-11-20 14:20:26 +0100
     * [MDEV-3861](https://jira.mariadb.org/browse/MDEV-3861): Assertion in TC\_LOG\_MMAP.
@@ -924,10 +923,9 @@ and --plugin-load-add are mentioned in it.
   Thu 2012-11-15 12:54:50 +0200
   * [MDEV-3858](https://jira.mariadb.org/browse/MDEV-3858) Change JOIN\_TAB::records\_read from ha\_rows to double
   * Currently JOIN\_TAB::records\_read is of type ha\_rows. This is an integer type, which prevents proper selectivity and rows estimates.
-```
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

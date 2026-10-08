@@ -1,10 +1,18 @@
+---
+description: >-
+  Retrieve runtime statistics for a currently executing query. This statement
+  provides insights into query plan execution without waiting for completion.
+---
+
 # SHOW ANALYZE
 
-`SHOW ANALYZE` was added in [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109).
+{% hint style="info" %}
+`SHOW ANALYZE` was added in MariaDB 10.9.
+{% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ANALYZE [FORMAT=JSON] FOR <connection_id>;
 ```
 
@@ -113,7 +121,7 @@ The final chunk of the output doesn't have anything interesting but here it is:
 
 ### Example 2: Timing Information
 
-Regular SELECT queries collect row count information, so `SHOW ANALYZE` can display it. However, detailed timing information is not collected, as collecting it may have CPU overhead. But if the target query is collecting timing information, `SHOW ANALYZE` will display it. How does one get the target query to collect timing information? Currently there is one way: if the target is running `ANALYZE`, it IS collecting timing information.\
+Regular SELECT queries collect row count information, so `SHOW ANALYZE` can display it. However, detailed timing information is not collected, as collecting it may have CPU overhead. But if the target query is collecting timing information, `SHOW ANALYZE` will display it. How does one get the target query to collect timing information? There is one way: if the target is running `ANALYZE`, it IS collecting timing information.\
 Re-running the previous example:
 
 ```sql

@@ -1,3 +1,9 @@
+---
+description: >-
+  These views rank threads by I/O latency, making it easier to identify specific
+  threads that are consuming the most disk resources.
+---
+
 # io\_by\_thread\_by\_latency and x$io\_by\_thread\_by\_latency Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

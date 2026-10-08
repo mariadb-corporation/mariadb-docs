@@ -1,3 +1,10 @@
+---
+description: >-
+  Create the schema and user account prerequisites for MariaDB Connector/C++
+  documentation examples, including the test database, contacts table, and
+  appropriate GRANT statements.
+---
+
 # Setup for Connector/C++ Examples
 
 Examples in the MariaDB Connector/C++ documentation depend on a database `test` and `table` contacts.
@@ -10,7 +17,7 @@ Examples in the MariaDB Connector/C++ documentation depend on a database `test` 
 CREATE DATABASE IF NOT EXISTS test;
 ```
 
-1. Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statements:
+1. Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statements:
 
 ```sql
 CREATE TABLE test.contacts (
@@ -48,6 +55,6 @@ By default, MariaDB Enterprise Server installs the `simple_password_check` plugi
 * [simple\_password\_check\_minimal\_length](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/simple-password-check-plugin)
 * [simple\_password\_check\_other\_characters](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/simple-password-check-plugin) system variables.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

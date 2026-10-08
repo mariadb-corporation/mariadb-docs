@@ -1,3 +1,9 @@
+---
+description: >-
+  This event is used for LOAD DATA INFILE operations, managing the execution
+  phase similar to a QUERY_EVENT but with extra static fields for file handling.
+---
+
 # EXECUTE\_LOAD\_QUERY\_EVENT
 
 This event is written to the binary log file for [LOAD DATA INFILE](../../sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) events. The event format is similar to a [QUERY\_EVENT](query_event.md), except that it has extra static fields.
@@ -22,12 +28,10 @@ This event is written to the binary log file for [LOAD DATA INFILE](../../sql-st
 
 ### Variable Data Part
 
-* [byte](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
   The number of bytes 'n' is the length of the status variable block (read in fixed data part)
-* [string](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
-* [string](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
-
-## Example
+* [string\<NUL>](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
 
 
 

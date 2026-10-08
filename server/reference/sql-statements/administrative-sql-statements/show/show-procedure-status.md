@@ -1,8 +1,14 @@
+---
+description: >-
+  List stored procedures and their characteristics. View metadata like the
+  database, name, type, and creator of stored procedures.
+---
+
 # SHOW PROCEDURE STATUS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PROCEDURE STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

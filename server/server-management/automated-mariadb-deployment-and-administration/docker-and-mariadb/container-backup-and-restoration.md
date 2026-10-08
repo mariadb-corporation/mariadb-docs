@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete container backup guide: docker volume create, mariadb-dump
+  --all-databases, mariadb-backup --backup/--prepare/--copy-back operations.
+---
+
 # Container Backup and Restoration
 
 MariaDB databases in containers need backup and restore like their non-container equivalents.
 
-## Logicial Backups
+## Logical Backups
 
 In this section, we will assume that the MariaDB container has been created as follows:
 
@@ -49,7 +55,7 @@ mariadb-backup can create a backup as follows:
 
 To perform a backup using [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/), a second container is started that shares the original container's data directory. An additional volume for the backup needs to be included in the second backup instance. Authentication against the MariaDB database instance is required to successfully complete the backup. In the example below, a `mysql@localhost` user is used with the MariaDB server's Unix socket shared with the backup container.
 
-Note: Privileges listed here are for 10.5+. For an exact list, see [mariadb-backup: Authentication and Privileges](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md#authentication-and-privileges).
+Note: For an exact list of privileges, see [mariadb-backup: Authentication and Privileges](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md#authentication-and-privileges).
 
 ```bash
 $ docker volume create mariadb_data

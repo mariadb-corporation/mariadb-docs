@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete DATEDIFF() reference: DATEDIFF(expr1,expr2) syntax, date vs datetime
+  expression handling, time component ignore, and positive/negative results.
+---
+
 # DATEDIFF
 
 ## Syntax
 
-```sql
+```bnf
 DATEDIFF(expr1,expr2)
 ```
 

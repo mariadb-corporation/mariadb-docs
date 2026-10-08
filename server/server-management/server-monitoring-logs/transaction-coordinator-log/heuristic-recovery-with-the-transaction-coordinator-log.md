@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes the process of heuristic recovery using the TC log to resolve
+  "in-doubt" transactions that may occur after a server crash during a 2-phase
+  commit.
+---
+
 # Heuristic Recovery with the Transaction Coordinator Log
 
 The transaction coordinator log (tc\_log) is used to coordinate transactions that affect multiple [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) [storage engines](../../../server-usage/storage-engines/). One of the main purposes of this log is in crash recovery.
@@ -23,6 +30,8 @@ If MariaDB needs to perform automatic crash recovery and if the [binary log](../
 [Note] Starting crash recovery...
 [Note] Crash recovery finished.
 ```
+
+When the [InnoDB-based Binary Log](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md) (`--binary-storage-engine=innodb`) is enabled, the binary log is managed transactionally within InnoDB tablespaces. As a result, no separate log exists between InnoDB table data and the binary log. Hence, two-phase commit (2PC) and independent binary log crash recovery are no longer required.
 
 ### Automatic Crash Recovery with the Memory-Mapped File-Based Transaction Coordinator Log
 
@@ -59,7 +68,7 @@ After the recovery process is complete, MariaDB will create a new empty [binary 
 
 ### Manual Heuristic Recovery with the Memory-Mapped File-Based Transaction Coordinator Log
 
-If [--tc-heuristic-recover](../../starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) is set to some value other than `OFF` and if the [binary log](../binary-log/) is **not** enabled, then MariaDB will ignore information about transactions in the memory-mapped file defined by the [--log-tc](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option during the recovery process. Prepared transactions that are encountered during the recovery process will either be rolled back or committed, depending on the value of --tc-heuristic-recover.
+If [--tc-heuristic-recover](../../starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) is set to some value other than `OFF` and if the [binary log](../binary-log/) is **not** enabled, then MariaDB will ignore information about transactions in the memory-mapped file defined by the [--log-tc](../../starting-and-stopping-mariadb/mariadbd-options.md) option during the recovery process. Prepared transactions that are encountered during the recovery process will either be rolled back or committed, depending on the value of --tc-heuristic-recover.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

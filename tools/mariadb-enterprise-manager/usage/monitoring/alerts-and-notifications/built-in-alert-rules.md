@@ -1,4 +1,11 @@
-# Built in alert rules
+---
+description: >-
+  Details the pre-configured rules for monitoring MariaDB Server, Galera
+  Cluster, and system health, including sustained-duration triggers to prevent
+  alert fatigue.
+---
+
+# Built-in Alert Rules
 
 MariaDB Enterprise Manager includes a comprehensive set of pre-configured alert rules to provide production-ready monitoring for your entire database stack out-of-the-box. These alerts are built on the integrated Grafana Alerting engine and are designed to detect common issues across your MariaDB Servers, Galera Clusters, MaxScale instances, and the underlying operating systems.
 
@@ -44,3 +51,7 @@ A key feature of these rules is the use of a **"sustained for"** duration. This 
 | **NodeNetworkReceiveErrs**         | Network interface has a high receive-error rate (sustained for 1h). Triggers when receive errors exceed **1%** of total received packets over a 2-minute rate window.                                                                   |
 | **NodeFileDescriptorLimit**        | Kernel is predicted to exhaust file descriptors soon (sustained for 15m). Triggers when allocated file descriptors exceed **70%** of the kernel limit.                                                                                  |
 | **NodeFileDescriptorLimit**        | Kernel is close to exhausting file descriptors (sustained for 15m). Triggers when allocated file descriptors exceed **90%** of the kernel limit.                                                                                        |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

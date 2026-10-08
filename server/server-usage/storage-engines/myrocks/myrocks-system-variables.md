@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive reference for MyRocks system variables, allowing fine-tuning
+  of performance, memory usage, compaction, and other internal behaviors.
+---
+
 # MyRocks System Variables
 
 This page documents system variables related to the [MyRocks](./) storage engine. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them.
@@ -59,27 +65,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `rocksdb_background_sync`
-
-* Description: Turns on background syncs for RocksDB
-* Command line: `--rocksdb-background-sync={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
-
-#### `rocksdb_base_background_compactions`
-
-* Description: DBOptions::base\_background\_compactions for RocksDB
-* Command line: `--rocksdb-base-background-compactions=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `-1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
-
 #### `rocksdb_blind_delete_primary_key`
 
 * Description: Deleting rows by primary key lookup, without reading rows (Blind Deletes). Blind delete is disabled if the table has secondary key.
@@ -99,10 +84,10 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `536870912`
 * Range: `1024` to `9223372036854775807`
 
-To see the statistics of block cache usage, check `SHOW ENGINE ROCKSDB STATUS` output\
+To see the statistics of block cache usage, check `SHOW ENGINE ROCKSDB STATUS` output
 (search for lines starting with `rocksdb.block.cache`).
 
-One can check the size of data of the block cache in `DB_BLOCK_CACHE_USAGE`\
+One can check the size of data of the block cache in `DB_BLOCK_CACHE_USAGE`
 column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 
 #### `rocksdb_block_restart_interval`
@@ -314,16 +299,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Default Value: `0`
 * Range: `0` to `2000000`
 
-#### `rocksdb_concurrent_prepare`
-
-* Description: DBOptions::concurrent\_prepare for RocksDB.
-* Command line: `--rocksdb-coconcurrent-prepare={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `1`
-* Removed: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes)
-
 #### `rocksdb_create_checkpoint`
 
 * Description: Checkpoint directory.
@@ -446,7 +421,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `-3600` to `3600`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_default_cf_options`
 
@@ -475,7 +450,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `string`
 * Default Value: (Empty string)
-* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10226-release-notes)
+* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26)
 
 #### `rocksdb_delete_obsolete_files_period_micros`
 
@@ -513,7 +488,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10226-release-notes)
+* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26)
 
 #### `rocksdb_enable_thread_tracking`
 
@@ -532,7 +507,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_enable_ttl_read_filtering`
 
@@ -542,7 +517,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_enable_write_thread_adaptive_yield`
 
@@ -570,7 +545,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18)
 
 #### `rocksdb_flush_log_at_trx_commit`
 
@@ -584,16 +559,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `1`
 * Range: `0` to `2`
-
-#### `rocksdb_flush_memtable_on_analyze`
-
-* Description: Forces memtable flush on ANALZYE table to get accurate cardinality.
-* Command line: `--rocksdb-flush-memtable-on-analyze={0|1}`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Removed: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes)
 
 #### `rocksdb_force_compute_memtable_stats`
 
@@ -622,7 +587,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_force_flush_memtable_now`
 
@@ -661,6 +626,17 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `boolean`
 * Default Value: `ON`
 
+#### `rocksdb_ignore_datadic_errors`
+
+* Description: If set to `1`, MyRocks logs data dictionary errors and tries to continue instead of failing. This covers a data dictionary that fails to initialize at startup, and a table whose `.frm` file has a different number of indexes than the MyRocks data dictionary records. Use it only to start the server and repair tables, never for regular operation. When it's set, the server logs a caution at startup.
+* Command line: `--rocksdb-ignore-datadic-errors=#`
+* Scope: Global
+* Dynamic: No
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `1`
+* Introduced: [MariaDB 10.6.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.23](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.23), [MariaDB 10.3.33](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.33), [MariaDB 10.2.42](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.42)
+
 #### `rocksdb_ignore_unknown_options`
 
 * Description: Enable ignoring unknown options passed to RocksDB.
@@ -669,7 +645,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes)
+* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.15)
 
 #### `rocksdb_index_type`
 
@@ -700,7 +676,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Valid Values: `0` to `4294967295`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_is_fd_close_on_exec`
 
@@ -757,7 +733,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `string`
 * Default Value: (Empty)
-* Introduced: [MariaDB 10.9.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-1091-release-notes)
+* Introduced: [MariaDB 10.9.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.1)
 
 #### `rocksdb_log_file_time_to_roll`
 
@@ -788,7 +764,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `128`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18)
 
 #### `rocksdb_manual_wal_flush`
 
@@ -808,28 +784,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `rocksdb_max_background_compactions`
-
-* Description: DBOptions::max\_background\_compactions for RocksDB.
-* Command line: `--rocksdb-max-background-compactions=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
-
-#### `rocksdb_max_background_flushes`
-
-* Description: DBOptions::max\_background\_flushes for RocksDB.
-* Command line: `--rocksdb-max-background-flushes=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
-
 #### `rocksdb_max_background_jobs`
 
 * Description: DBOptions::max\_background\_jobs for RocksDB.
@@ -839,7 +793,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `2`
 * Range: `-1` to `64`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_max_latest_deadlocks`
 
@@ -880,7 +834,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `10`
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18)
 
 #### `rocksdb_max_open_files`
 
@@ -900,9 +854,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1048576`
-* Range:
-  * `1` to `1073741824` (>= [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes))
-  * `1` to `1048576` (<= [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10217-release-notes))
+* Range: `1` to `1073741824`
 
 #### `rocksdb_max_subcompactions`
 
@@ -1056,16 +1008,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Default Value: `0`
 * Range: `0` to `9223372036854775807`
 
-#### `rocksdb_read_free_rpl_tables`
-
-* Description: List of tables that will use read-free replication on the slave (i.e. not lookup a row during replication).
-* Command line: `--rocksdb-read-free-rpl-tables=value`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value: (Empty)
-* Removed: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10226-release-notes)
-
 #### `rocksdb_records_in_range`
 
 * Description: Used to override the result of records\_in\_range(). Set to a positive number to override.
@@ -1084,7 +1026,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1038-release-notes), [MariaDB 10.2.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10216-release-notes)
+* Introduced: [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8), [MariaDB 10.2.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.16)
 
 #### `rocksdb_reset_stats`
 
@@ -1094,7 +1036,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_rollback_on_timeout`
 
@@ -1104,7 +1046,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10226-release-notes)
+* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26)
 
 #### `rocksdb_seconds_between_stat_computes`
 
@@ -1191,7 +1133,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `4`
-* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10226-release-notes)
+* Introduced: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26)
 
 #### `rocksdb_stats_recalc_rate`
 
@@ -1202,7 +1144,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes) [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10) [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18)
 
 #### `rocksdb_store_row_debug_checksums`
 
@@ -1233,7 +1175,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 
 #### `rocksdb_supported_compression_types`
 
-* Description: Compression algorithms supported by RocksDB. Note that RocksDB does not make use of [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107) [compression-plugins](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
+* Description: Compression algorithms supported by RocksDB. Note that RocksDB does not make use of [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107) [compression-plugins](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
 * Command line: `--rocksdb-supported-compression-types=value`
 * Scope: Global
 * Dynamic: No
@@ -1286,7 +1228,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes)
+* Introduced: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.15)
 
 #### `rocksdb_unsafe_for_binlog`
 
@@ -1305,7 +1247,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `varchar`
 * Default Value: (Empty)
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_use_adaptive_mutex`
 
@@ -1333,7 +1275,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
+* Introduced: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_use_direct_reads`
 
@@ -1343,16 +1285,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-
-#### `rocksdb_use_direct_writes`
-
-* Description: DBOptions::use\_direct\_writes for RocksDB.
-* Command line: `--rocksdb-use-direct-reads={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes)
 
 #### `rocksdb_use_fsync`
 
@@ -1481,7 +1413,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `enum`
 * Default Value: `write_committed`
 * Valid Values: `write_committed`, `write_prepared`, `write_unprepared`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

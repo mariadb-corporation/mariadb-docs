@@ -1,8 +1,14 @@
+---
+description: >-
+  Count unique values. This function returns the number of distinct, non-NULL
+  values found in the specified column or expression.
+---
+
 # COUNT DISTINCT
 
 ## Syntax
 
-```sql
+```bnf
 COUNT(DISTINCT expr,[expr...])
 ```
 

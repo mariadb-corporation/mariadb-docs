@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide to using the logrotate utility on Linux to manage MariaDB log files,
+  ensuring they don't consume excessive disk space by rotating, compressing, and
+  archiving them.
+---
+
 # Rotating Logs on Unix and Linux
 
 Unix and Linux distributions offer the [logrotate](https://linux.die.net/man/8/logrotate) utility, which makes it very easy to rotate log files. This page will describe how to configure log rotation for the [error log](error-log.md), [general query log](general-query-log.md), and the [slow query log](slow-query-log/).
@@ -8,8 +15,8 @@ The first step is to configure the locations and file names of logs. To make the
 
 We will need to configure the following:
 
-* The [error log](error-log.md) location and file name is configured with the [log\_error](../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable.
-* The [general query log](general-query-log.md) location and file name is configured with the [general\_log\_file](../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file) system variable.
+* The [error log](error-log.md) location and file name is configured with the [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variable.
+* The [general query log](general-query-log.md) location and file name is configured with the [general\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#general_log_file) system variable.
 * The [slow query log](slow-query-log/) location and file name is configured with the [slow\_query\_log\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file) system variable.
 
 If you want to enable the [general query log](general-query-log.md) and [slow query log](slow-query-log/) immediately, then you will also have to configure the following:
@@ -62,8 +69,6 @@ The `root@localhost` user account can be altered to use [unix\_socket](../../ref
 ```sql
 ALTER USER 'root'@'localhost' IDENTIFIED VIA unix_socket;
 ```
-
-<>
 
 ## Configuring Logrotate
 

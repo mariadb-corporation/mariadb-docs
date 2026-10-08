@@ -1,15 +1,29 @@
+---
+description: >-
+  Encrypt data using AES. This function encrypts a string using the Advanced
+  Encryption Standard (AES) algorithm and returns a binary string.
+---
+
 # AES\_ENCRYPT
 
 ## Syntax
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
-AES_ENCRYPT(str, key, [, iv [, mode]])
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
+```bnf
+AES_ENCRYPT(str, key [, iv [, mode]])
 ```
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 ```sql
 AES_ENCRYPT(str,key_str)
 ```
@@ -18,7 +32,7 @@ AES_ENCRYPT(str,key_str)
 
 ## Description
 
-`AES_ENCRYPT()` and [AES\_DECRYPT()](aes_decrypt.md) allow encryption and decryption of data using the official AES (Advanced Encryption Standard) algorithm, previously known as "Rijndael." Encoding with a 128-bit key length is used (from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes), this is the default, and can be changed). 128 bits is much faster and is secure enough for most purposes.
+`AES_ENCRYPT()` and [AES\_DECRYPT()](aes_decrypt.md) allow encryption and decryption of data using the official AES (Advanced Encryption Standard) algorithm, previously known as "Rijndael." Encoding with a 128-bit key length is used (from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), this is the default, and can be changed). 128 bits is much faster and is secure enough for most purposes.
 
 `AES_ENCRYPT()` encrypts a string _`str`_ using the key _`key_str`_, and returns a binary string.
 
@@ -34,15 +48,21 @@ Because AES is a block-level algorithm, padding is used to encode uneven length 
 
 If `AES_DECRYPT()` detects invalid data or incorrect padding, it returns `NULL`. However, it is possible for `AES_DECRYPT()` to return a non-`NULL` value (possibly garbage) if the input data or the key is invalid.
 
-**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112)
-
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 The function supports an initialization vector, and control of the block encryption mode. The default mode is specified by the [block\_encryption\_mode](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#block_encryption_mode) system variable, which can be changed when calling the function with a mode. _mode_ is aes-{128,192,256}-{ecb,cbc,ctr} for example: "AES-128-cbc".\
 `AES_ENCRYPT(str, key)` can no longer be used in persistent virtual columns (and the like).
 {% endtab %}
 
-{% tab title="Tab 2" %}
+{% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 The function does **not** support an initialization vector.
 {% endtab %}
 {% endtabs %}
@@ -51,6 +71,10 @@ The function does **not** support an initialization vector.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 ```sql
 SELECT HEX(AES_ENCRYPT('foo', 'bar', '0123456789abcdef', 'aes-256-cbc')) AS x;
 +----------------------------------+
@@ -62,6 +86,10 @@ SELECT HEX(AES_ENCRYPT('foo', 'bar', '0123456789abcdef', 'aes-256-cbc')) AS x;
 {% endtab %}
 
 {% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 ```sql
 INSERT INTO t VALUES (AES_ENCRYPT('text',SHA2('password',512)));
 ```

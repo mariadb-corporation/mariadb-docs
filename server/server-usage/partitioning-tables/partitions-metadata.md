@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand how to retrieve metadata about partitions using the
+  INFORMATION_SCHEMA.PARTITIONS table to monitor row counts and storage usage.
+---
+
 # Partitions Metadata
 
 The [PARTITIONS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-partitions-table.md) table in the [INFORMATION\_SCHEMA](../../reference/system-tables/information-schema/) database contains information about partitions.

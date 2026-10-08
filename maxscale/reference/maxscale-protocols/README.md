@@ -1,8 +1,8 @@
 ---
 description: >-
-  Protocol modules in MariaDB MaxScale interpret client-server communication.
-  This section covers the available protocols, including the MariaDB, NoSQL, and
-  Change Data Capture (CDC) modules.
+  Explore the protocol modules available in MariaDB MaxScale. This reference
+  covers configuration for the standard MariaDB protocol, the NoSQL listener,
+  and legacy CDC integration.
 ---
 
 # MaxScale Protocols

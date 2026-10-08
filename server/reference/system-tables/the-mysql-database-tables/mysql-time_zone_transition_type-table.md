@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.time_zone_transition_type table describes the properties of time
+  zone transitions, such as the offset and abbreviation.
+---
+
 # mysql.time\_zone\_transition\_type Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

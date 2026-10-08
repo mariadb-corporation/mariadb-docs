@@ -1,6 +1,18 @@
+---
+description: >-
+  Calculate a discrete percentile. This inverse distribution function returns an
+  actual value from the dataset that corresponds to the specified percentile.
+---
+
 # PERCENTILE\_DISC
 
 ## Syntax
+
+```bnf
+PERCENTILE_DISC(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER (
+  [ PARTITION BY partition_expression ]
+)
+```
 
 ## Description
 

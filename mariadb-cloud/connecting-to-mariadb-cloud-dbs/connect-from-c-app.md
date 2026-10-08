@@ -1,4 +1,11 @@
-# Connect from ‘C’ App
+---
+description: >-
+  Connect to MariaDB Cloud from a C application using the MariaDB Connector/C
+  library, including connection-string format, TLS configuration, and
+  authentication.
+---
+
+# Connect From C App
 
 MariaDB Connector/C enables C and C++ applications to establish client connections to MariaDB Cloud over TLS. MariaDB Connector/C is a native connector that is written in C.
 
@@ -6,7 +13,7 @@ MariaDB Connector/C enables C and C++ applications to establish client connectio
 
 MariaDB Connector/C enables C and C++ applications to establish client connections to MariaDB Cloud and MariaDB database products over TLS.
 
-Additional information on MariaDB Connector/C is available in the [MariaDB Knowledge Base](https://mariadb.com/kb/en/mariadb-connector-c/).
+Additional information on MariaDB Connector/C is available in the [MariaDB Connector/C Documentation](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c).
 
 ## Connection Info
 
@@ -14,14 +21,14 @@ The connection is configured via the information that is initially acquired from
 
 | Function               | Option/Argument | Where to find it                                                                                                      |
 | ---------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| mysql\_real\_connect() | host argument   | The fully Qualified Domain Name from the "Connect" window in MariaDB Cloud portal                                            |
+| mysql\_real\_connect() | host argument   | The fully Qualified Domain Name from the "Connect" window in the MariaDB Cloud portal                                 |
 | mysql\_real\_connect() | user argument   | The desired username, which might be the default username in the Service Credentials view                             |
 | mysql\_real\_connect() | passwd argument | The user's password, which might be the default password in the Service Credentials view if it was not yet customized |
-| mysql\_real\_connect() | port argument   | The Read-Write Port or Read-Only Port from the "Connect" window in MariaDB Cloud portal                                      |
+| mysql\_real\_connect() | port argument   | The Read-Write Port or Read-Only Port from the "Connect" window in the MariaDB Cloud portal                           |
 
 ## Code Example
 
-The following code demonstrates how to use MariaDB Connector/C to connect to SkySQL. This example uses the [example database and user account](https://mariadb.com/docs/server/connect/programming-languages/c/example-setup/):
+The following code demonstrates how to use MariaDB Connector/C to connect to SkySQL. This example uses the [example database and user account](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/setup-for-examples):
 
 ```c
 #include <stdio.h>
@@ -66,3 +73,5 @@ int main (int argc, char* argv[])
    return 0;
 }
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

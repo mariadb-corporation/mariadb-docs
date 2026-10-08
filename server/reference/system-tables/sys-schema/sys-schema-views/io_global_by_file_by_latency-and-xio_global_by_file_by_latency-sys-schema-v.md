@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize global file I/O statistics grouped by file path, sorted
+  by total latency to highlight slow I/O targets.
+---
+
 # io\_global\_by\_file\_by\_latency and x$io\_global\_by\_file\_by\_latency Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

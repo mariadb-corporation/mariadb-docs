@@ -1,8 +1,14 @@
+---
+description: >-
+  Distribute rows into buckets. This function divides the rows in an ordered
+  partition into a specified number of approximately equal groups.
+---
+
 # NTILE
 
 ## Syntax
 
-```sql
+```bnf
 NTILE (expr) OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

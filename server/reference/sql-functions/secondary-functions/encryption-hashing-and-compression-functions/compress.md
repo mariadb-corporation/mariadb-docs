@@ -1,14 +1,20 @@
+---
+description: >-
+  Compress a string. This function compresses a string argument and returns the
+  result as a binary string, useful for saving storage space.
+---
+
 # COMPRESS
 
 ## Syntax
 
-```sql
+```bnf
 COMPRESS(string_to_compress)
 ```
 
 ## Description
 
-Compresses a string and returns the result as a binary string. This function requires MariaDB to have been compiled with a compression library such as zlib. Otherwise, the return value is always `NULL`. The\
+Compresses a string and returns the result as a binary string. This function requires MariaDB to have been compiled with a compression library such as zlib. Otherwise, the return value is always `NULL`. The
 compressed string can be uncompressed with [UNCOMPRESS()](uncompress.md).
 
 The [have\_compress](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#have_compress) server system variable indicates whether a compression library is present.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Java code example using the MariaDB Connector/R2DBC native API to
+  query a MariaDB table with MariadbConnectionFactory and reactive Flux
+  result handling.
+---
+
 # R2DBC Code Example (Native API)
 
 ### Overview
@@ -96,7 +103,7 @@ public class App {
 * Jon Smith <jon.smith@example.com>
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

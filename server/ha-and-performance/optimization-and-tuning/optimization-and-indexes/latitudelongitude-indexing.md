@@ -1,3 +1,9 @@
+---
+description: >-
+  Techniques for indexing latitude/longitude data to speed up nearest-location
+  queries.
+---
+
 # Latitude/Longitude Indexing
 
 ## The problem
@@ -63,7 +69,7 @@ SMALLINT scaled -- Convert latitude into a SMALLINT SIGNED by doing (degrees / 9
 
 [FLOAT](../../../reference/data-types/numeric-data-types/float.md) has 24 significant bits; [DOUBLE](../../../reference/data-types/numeric-data-types/double.md) has 53. (They don't work with PARTITIONing but are included for completeness. Often people use DOUBLE without realizing how much an overkill it is, and how much space it takes.)
 
-Sure, you could do DE&#x47;_&#x31;000 and other "in between" cases, but there is no advantage. DE&#x47;_&#x31;000 takes as much space as DEG\*10000, but has less resolution.
+Sure, you could do DEG_1000 and other "in between" cases, but there is no advantage. DEG_1000 takes as much space as DEG\*10000, but has less resolution.
 
 So, go down the list to see how much resolution you need, then pick an encoding you are comfortable with. However, since we are about to use latitude as a "partition key", it must be limited to one of the INTs. For the sample code, I will use Deg\*10000 ([MEDIUMINT](../../../reference/data-types/numeric-data-types/mediumint.md)).
 
@@ -291,7 +297,7 @@ BEGIN
 
     -- Loop through, expanding search
     --   Search a 'square', repeat with bigger square until find enough rows
-    --   If the inital probe found _limit rows, then probably the first
+    --   If the initial probe found _limit rows, then probably the first
     --   iteration here will find the desired data.
     -- Hardcoded table name:
     -- This is the "first SELECT":
@@ -395,13 +401,13 @@ BEGIN
 END;
 //
 DELIMITER ;
-<<code>>
+```
 
-== Sample
+## Sample
 
 Find the 5 cities with non-zero population (out of 3 million) nearest to (+35.15, -90.15). Start with a 10-mile bounding box and give up at 100 miles.
 
-<<code>>
+```sql
 CALL FindNearestLL(35.15, -90.05, 10, 100, 5, 'population > 0');
 +---------+--------+---------+---------+--------------+--------------+-------+------------+--------------+---------------------+------------------------+
 | id      | lat    | lon     | country | ascii_city   | city         | state | population | @gcd_ct := 0 | dist                | @gcd_ct := @gcd_ct + 1 |
@@ -444,9 +450,9 @@ SHOW session status LIKE 'Handler%';
 
 There is a "Haversine" algorithm that is twice as fast as the GCDist function here. But it has a fatal flaw of sometimes returning NULL for the distance between a point and itself. (This is because of computing a number slightly bigger than 1.0, then trying to take the ACOS of it.)
 
-## See also
+## See Also
 
-* [Cities used for testing](https://www.maxmind.com/en/worldcities)
+* [Cities used for testing](https://web.archive.org/web/20150117143356/https://www.maxmind.com/en/worldcities) — MaxMind's free World Cities database, no longer distributed
 * [A forum thread](https://forums.mysql.com/read.php?20,619712,619712)
 * [StackOverflow discussion](https://stackoverflow.com/questions/29058863/mysql-query-takes-long-time/)
 * [Sample](https://dba.stackexchange.com/questions/134028/select-the-minimum-of-a-calculated-distance-value-without-sorting)
@@ -454,7 +460,7 @@ There is a "Haversine" algorithm that is twice as fast as the GCDist function he
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [latlng](https://mysql.rjweb.org/doc.php/latlng)

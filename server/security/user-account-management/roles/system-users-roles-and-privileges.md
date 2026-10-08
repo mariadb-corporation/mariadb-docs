@@ -1,10 +1,16 @@
-# System\`s Users, Roles, and Privileges
+---
+description: >-
+  Details default system users like mariadb.sys and the PUBLIC role, including
+  their creation, purpose, and special management behaviors.
+---
 
-{% hint style="info" %}
-**Important:** The `PUBLIC` role is created implicitly by `GRANT` statements and its creation is not logged, distinguishing it from standard system principals.
+# System Users, Roles, Privileges
+
+{% hint style="warning" %}
+The `PUBLIC` role is created implicitly by `GRANT` statements and its creation is not logged, distinguishing it from standard system principals.
 {% endhint %}
 
-MariaDB automatically creates several users and roles for administrative and internal server functions.&#x20;
+MariaDB automatically creates several users and roles for administrative and internal server functions.
 
 ## System Users
 
@@ -17,12 +23,12 @@ These user accounts are created by the `mariadb-install-db` script during the in
 | **Purpose**    | Serves as the primary administrative account for initial server setup and management.                                                                                                                                                           |
 | **Management** | It is highly recommended to secure this account immediately after installation. _Standard security practices include setting a strong password, renaming the account, or removing it entirely in favor of other named administrative accounts._ |
 
-### `mariadb-sys@localhost`
+### `mariadb.sys@localhost`
 
-| **Creation**   | Created automatically by `mariadb-install-db`.                                                                         |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **Purpose**    | A mandatory system user required for internal server operations, such as executing scheduled events.                   |
-| **Management** | <p>This user account is essential for server functionality and is protected; </p><p><em>it cannot be dropped.</em></p> |
+| **Creation**   | Created automatically by `mariadb-install-db`.                                                                        |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Purpose**    | A mandatory system user required for internal server operations, such as executing scheduled events.                  |
+| **Management** | <p>This user account is essential for server functionality and is protected;</p><p><em>it cannot be dropped.</em></p> |
 
 ## System Roles
 
@@ -58,3 +64,5 @@ SHOW GRANTS FOR PUBLIC;
 -- Revoke a privilege from all users
 REVOKE SELECT ON my_app.reports FROM PUBLIC;
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

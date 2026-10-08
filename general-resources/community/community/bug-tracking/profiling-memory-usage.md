@@ -16,11 +16,11 @@ MariaDB Community Server 10.6.17, MariaDB Enterprise Server 10.6.16-11 and all o
 
 ### System malloc is not good if there are a lot of allocations of different size.
 
-If [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) and [information\_schema.processlist](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) do not show an increase in memory, but the process still increases in size, then a likely problem is the system memory allocation library (malloc). Replacing malloc with [tcmalloc or jemalloc](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/using-mariadb-with-tcmalloc-or-jemalloc) should fix the issue in this case.
+If [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) and [information\_schema.processlist](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table) do not show an increase in memory, but the process still increases in size, then a likely problem is the system memory allocation library (malloc). Replacing malloc with [tcmalloc or jemalloc](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/using-mariadb-with-tcmalloc-or-jemalloc) should fix the issue in this case.
 
 ## Profiling with the MariaDB server
 
-Recent MariaDB versions have a global variable [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) that shows how much memory the MariaDB server has allocated. By monitoring this variable one can find out if\
+Recent MariaDB versions have a global variable [Memory\_used](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#memory_used) that shows how much memory the MariaDB server has allocated. By monitoring this variable one can find out if
 if the MariaDB allocated memory grows.
 
 One can also check memory usage per user with the [information\_schema.processlist](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table):
@@ -29,7 +29,7 @@ One can also check memory usage per user with the [information\_schema.processli
 SELECT id, MEMORY_USED, MAX_MEMORY_USED FROM information_schema.processlist;
 ```
 
-This shows the current memory used per connection and the maximum memory they have\
+This shows the current memory used per connection and the maximum memory they have
 used since the user connected.
 
 The [Performance Schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/performance-schema) can also be used to find out who is allocated memory and for what.
@@ -191,7 +191,7 @@ pprof --pdf /usr/sbin/mariadbd $(ls /var/lib/mysql/pprof/*.heap|sort -V|tail -n 
 
 ## See also
 
-* [Using MariaDB with tcmalloc or jemalloc](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/using-mariadb-with-tcmalloc-or-jemalloc)
+* [Using MariaDB with tcmalloc or jemalloc](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/using-mariadb-with-tcmalloc-or-jemalloc)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

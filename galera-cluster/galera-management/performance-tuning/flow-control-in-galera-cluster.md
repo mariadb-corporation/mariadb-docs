@@ -1,3 +1,10 @@
+---
+description: >-
+  Flow Control in MariaDB Galera Cluster pauses replication when a slow node's
+  receive queue grows past gcs.fc_limit, preventing memory overflow and keeping
+  all nodes synchronized.
+---
+
 # Flow Control in Galera Cluster
 
 Flow Control is a key feature in MariaDB Galera Cluster that ensures nodes remain synchronized. In [synchronous replication](../../galera-architecture/introduction-to-galera-architecture.md#core-architectural-components), no node should lag significantly in processing transactions.&#x20;

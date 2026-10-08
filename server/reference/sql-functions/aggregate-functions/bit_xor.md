@@ -1,8 +1,14 @@
+---
+description: >-
+  Perform a bitwise XOR operation. This function returns the result of
+  performing a bitwise XOR on all values in a given expression.
+---
+
 # BIT\_XOR
 
 ## Syntax
 
-```sql
+```bnf
 BIT_XOR(expr) [over_clause]
 ```
 

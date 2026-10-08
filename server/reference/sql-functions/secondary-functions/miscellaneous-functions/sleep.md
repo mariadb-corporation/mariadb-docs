@@ -1,8 +1,14 @@
+---
+description: >-
+  Pause query execution. This function pauses the script for a specified number
+  of seconds, returning 0 if successful or 1 if interrupted.
+---
+
 # SLEEP
 
 ## Syntax
 
-```sql
+```bnf
 SLEEP(duration)
 ```
 

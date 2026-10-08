@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for ST_TOUCHES. Checks if two geometries touch at their boundaries
+  without their interiors intersecting.
+---
+
 # TOUCHES
 
 ## Syntax
 
-```sql
+```bnf
 Touches(g1,g2)
 ```
 

@@ -1,12 +1,14 @@
 ---
-description: MariaDB Primer
+description: >-
+  A beginner-friendly primer on using the mariadb command-line client to log in,
+  create databases, and execute basic SQL commands.
 ---
 
 # A MariaDB Primer Guide
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}
 
-This primer offers a quick jump-start for beginners using an existing MariaDB database via the `mariadb` command-line client. Learn how to log in, understand basic database concepts, and perform essential SQL operations like creating tables, inserting data, and retrieving or modifying records.
+This primer offers a quick jump-start for beginners using an existing MariaDB database via the [`mariadb`](../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command-line client. Learn how to log in, understand basic database concepts, and perform essential SQL operations like creating tables, inserting data, and retrieving or modifying records.
 
 ### Logging into MariaDB
 
@@ -17,16 +19,16 @@ mariadb -u user_name -p -h ip_address db_name
 ```
 
 * Replace `user_name` with your MariaDB username.
-* Replace `ip_address` with the hostname or IP address of your MariaDB server. If you are accessing MariaDB from the same server you're logged into (i.e., locally), you can usually omit the `-h ip_address` part.
-* Replace `db_name` with the name of the database you wish to access (e.g., `test`). Some setups may have a `test` database by default; others might not, or it might have been removed (e.g., by `mariadb-secure-installation`). If unsure, or if you want to connect without selecting a specific database initially, you can omit `db_name`.
+* Replace `ip_address` with the hostname or IP address of your MariaDB server. If you are accessing MariaDB from the same server you're logged into (locally = `localhost`), you can usually omit the `-h ip_address` part.
+* Replace `db_name` with the name of the database you wish to access (for instance, `test`). Some setups may have a `test` database by default; others might not, or it might have been removed (for instance, by [`mariadb-secure-installation`](../clients-and-utilities/deployment-tools/mariadb-secure-installation.md)). If unsure, or if you want to connect without selecting a specific database initially, you can omit `db_name`.
 
-You will be prompted to enter your password. If your login is successful, you will see a prompt similar to this:
+You are prompted to enter your password. If your login is successful, you see a prompt similar to this:
 
 ```bash
 MariaDB [test]>
 ```
 
-The "MariaDB" indicates you are connected to a MariaDB server. The name within the brackets (e.g., `test`) is your current default database. If no database was specified or successfully connected to, it might show `[(none)]`.
+"MariaDB" indicates you are connected to a MariaDB server. The name within the brackets (for instance, `test`) is your current default database. If no database was specified or successfully connected to, it shows `[(none)]`.
 
 ### Understanding Database Basics and Setup
 
@@ -38,6 +40,7 @@ Example Setup:
 
 If the test database is empty or doesn't exist, you can run the following SQL statements to create and populate tables for the examples in this primer. Copy and paste these into the mariadb client prompt.
 
+{% code expandable="true" %}
 ```sql
 CREATE DATABASE IF NOT EXISTS test;
 USE test;
@@ -68,6 +71,7 @@ INSERT INTO books (Title, SeriesID, AuthorID) VALUES
   ('Wizardborn', 2, 2),
   ('The Hobbbit', 0, 1); -- Note: "Hobbbit" is intentionally misspelled for a later example
 ```
+{% endcode %}
 
 * **Semicolons (`;`):** The `mariadb` client allows complex SQL statements over multiple lines. It sends the statement to the server for execution only after you type a semicolon (`;`) and press \[Enter].
 
@@ -119,7 +123,7 @@ The `Field` column lists the column names, which you'll need to retrieve specifi
 
 ### Retrieving Data (SELECT)
 
-To retrieve data from a table, use the `SELECT` statement.
+To retrieve data from a table, use the [`SELECT`](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement.
 
 ```sql
 SELECT * FROM books;
@@ -144,7 +148,7 @@ SELECT * FROM books;
 
 ### Adding Data (INSERT)
 
-To add new rows to a table, use the `INSERT` statement.
+To add new rows to a table, use the [`INSERT`](../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statement.
 
 ```sql
 INSERT INTO books (Title, SeriesID, AuthorID)
@@ -162,7 +166,7 @@ You can run `SELECT * FROM books;` again to see the newly added row.
 
 ### Modifying Data (UPDATE)
 
-To change existing data in a table, use the `UPDATE` statement. Let's correct the spelling of "The Hobbbit".
+To change existing data in a table, use the [`UPDATE`](../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statement. Let's correct the spelling of "The Hobbbit".
 
 ```sql
 UPDATE books
@@ -185,5 +189,7 @@ Using MariaDB involves understanding SQL syntax. It doesn't allow for typing mis
 ### See Also
 
 * [MariaDB Basics](basics-guide.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

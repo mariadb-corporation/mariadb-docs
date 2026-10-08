@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide for deploying MariaDB containers on Google Cloud Platform (GCP) compute
+  resources.
+---
+
 # Docker and Google Cloud
 
 This process shows how to deploy MariaDB in a Docker container running on an GCE instance. First we'll create the GCE VM, then we'll deploy Docker to it. After that, we'll pull the MariaDB Docker image which we'll use to create a running container with a MariaDB instance. Finally, we'll load a sample database into the MariaDB instance.
@@ -14,7 +20,7 @@ This process shows how to deploy MariaDB in a Docker container running on an GCE
 
 6. Boot Disk > Change
 
-Switch the operating system to a modern Ubuntu release x86/64 CPU architecture, or similar     free tier offering.
+Switch the operating system to a modern Ubuntu release x86/64 CPU architecture, or similar free tier offering.
 
 <figure><img src="../../../.gitbook/assets/gcp-ubuntu.png" alt=""><figcaption></figcaption></figure>
 

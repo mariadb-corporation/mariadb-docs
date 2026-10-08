@@ -1,13 +1,20 @@
+---
+description: >-
+  Install the mariadb-dump CLI utility on Linux or Windows for backing up
+  MariaDB Cloud databases; egress charges may apply for customer-initiated
+  backups.
+---
+
 # Install mariadb-dump
 
 MariaDB Cloud customers can manually create a backup of a MariaDB Cloud service using the `mariadb-dump` utility:
 
 * The `mariadb-dump` utility provides a command-line interface (CLI)
 * The `mariadb-dump` utility is available for Linux and Windows
-* The `mariadb-dump` utility supports [many command-line options](https://mariadb.com/kb/en/mariadb-dump/)
+* The `mariadb-dump` utility supports [many command-line options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 * Egress charges may apply for customer-initiated backups
 
-For details about restoring a backup created with the `mariadb-dump` utility, see "[Restore a Manual Backup](https://mariadb.com/kb/en/mariadb-dump/#restoring)".
+For details about restoring a backup created with the `mariadb-dump` utility, see "[Restore a Manual Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#restoring-dumps)".
 
 ## Installation
 
@@ -89,11 +96,11 @@ Installation of MariaDB Dump varies by operating system.
 
 The procedure to create a backup depends on the operating system.
 
-If you plan to restore the backup to a MariaDB Cloud service, the `mysql` database should be excluded from the backup by specifying [`--ignore-database=mysql`](https://mariadb.com/kb/en/mariadb-dump/#options), because MariaDB Cloud user accounts do not have sufficient privileges to restore that database.
+If you plan to restore the backup to a MariaDB Cloud service, the `mysql` database should be excluded from the backup by specifying [`--ignore-database=mysql`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#ignore-database-database), because MariaDB Cloud user accounts do not have sufficient privileges to restore that database.
 
 #### **Linux**
 
-1. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+1. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 2. Use your connection parameters in the following command line:
 
 ```bash
@@ -124,7 +131,7 @@ After the command is executed, you will be prompted for a password. Enter the de
     ```bash
     SET "PATH=C:\Program Files\MariaDB 10.6\bin;%PATH%"
     ```
-2. Determine the [connection parameters](../../../../Connecting%20to%20Sky%20DBs/) for your MariaDB Cloud service.
+2. Determine the [connection parameters](../../../connecting-to-mariadb-cloud-dbs/connection-overview.md#connecting-using-the-mariadb-client) for your MariaDB Cloud service.
 3. Use your connection parameters in the following command line:
 
 ```bash
@@ -155,3 +162,5 @@ For MariaDB Dump 10.3 and older, the binary filename was `mysqldump`. The instru
 ## Temporal Tables
 
 For system-versioned tables and transaction-precise tables, MariaDB Dump only backs up current row versions. It does not back up historical row versions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

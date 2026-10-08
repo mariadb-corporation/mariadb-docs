@@ -1,8 +1,15 @@
+---
+description: >-
+  Enable or disable binary logging for the current session. This statement
+  allows administrators to perform operations without replicating them to
+  replicas.
+---
+
 # SET SQL\_LOG\_BIN
 
 ## Syntax
 
-```sql
+```bnf
 SET [SESSION] sql_log_bin = {0|1}
 ```
 
@@ -12,15 +19,7 @@ Sets the [sql\_log\_bin](../../../../ha-and-performance/standard-replication/rep
 
 Note that setting `sql_log_bin=1` has no effect if [log\_bin](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) variable, which enables global binary logging, is not set.
 
-{% tabs %}
-{% tab title="Current" %}
-You cannot set `sql_log_bin` as a global variable.&#x20;
-{% endtab %}
-
-{% tab title="< 5.6 / 5.5" %}
-You can set `sql_log_bin` as a global variable. This is considered dangerous, though, as it can damage replication.
-{% endtab %}
-{% endtabs %}
+You cannot set `sql_log_bin` as a global variable.
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

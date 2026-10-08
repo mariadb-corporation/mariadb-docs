@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract a JSON object or array. This function extracts data from a JSON
+  document at a given path, returning a JSON object or array.
+---
+
 # JSON\_QUERY
 
 ## Syntax
 
-```sql
+```bnf
 JSON_QUERY(json_doc, path)
 ```
 

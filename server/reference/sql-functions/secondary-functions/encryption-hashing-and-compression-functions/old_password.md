@@ -1,8 +1,14 @@
+---
+description: >-
+  Generate pre-4.1 password hash. This function creates a password hash
+  compatible with the hashing method used in MySQL versions prior to 4.1.
+---
+
 # OLD\_PASSWORD
 
 ## Syntax
 
-```sql
+```bnf
 OLD_PASSWORD(str)
 ```
 

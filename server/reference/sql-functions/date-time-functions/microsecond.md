@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract microseconds. This function returns the microsecond part of a time or
+  datetime expression as a number from 0 to 999999.
+---
+
 # MICROSECOND
 
 ## Syntax
 
-```sql
+```bnf
 MICROSECOND(expr)
 ```
 

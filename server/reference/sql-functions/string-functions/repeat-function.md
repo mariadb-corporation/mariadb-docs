@@ -1,8 +1,14 @@
+---
+description: >-
+  Repeat a string. This function returns a string consisting of the input string
+  repeated a specified number of times.
+---
+
 # REPEAT Function
 
 ## Syntax
 
-```sql
+```bnf
 REPEAT(str,count)
 ```
 

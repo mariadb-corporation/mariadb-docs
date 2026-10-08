@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.3 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) and MySQL 8.0. It is based on functions available in the stable versions MySQL 8.0.11 and [MariaDB 10.3.20](../../../../old-releases/release-notes-mariadb-10-3-series/mariadb-10320-release-notes.md).
+The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/10.3/what-is-mariadb-103.md) and MySQL 8.0. It is based on functions available in the stable versions MySQL 8.0.11 and [MariaDB 10.3.20](../../../../old-releases/10.3/10.3.20.md).
 
 ## Present in MariaDB Only
 
@@ -174,7 +174,9 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 
 * [Function Differences Between MariaDB 10.3 and MySQL 5.7](function-differences-between-mariadb-103-and-mysql-57.md)
 * [System Variable Differences Between MariaDB 10.3 and MySQL 8.0](../../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-10-3-and-mysql-8-0.md)
-* [MariaDB versus MySQL - Compatibility](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/broken-reference/README.md)
+* [MariaDB versus MySQL - Compatibility](../../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

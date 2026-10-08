@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert a string to lowercase. This function returns the string with all
+  characters converted to lowercase.
+---
+
 # LOWER
 
 ## Syntax
 
-```sql
+```bnf
 LOWER(str)
 LCASE(str)
 ```

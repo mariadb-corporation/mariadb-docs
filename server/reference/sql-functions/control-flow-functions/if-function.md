@@ -1,8 +1,15 @@
+---
+description: >-
+  Complete IF() function reference: IF(expr1,expr2,expr3) conditional syntax,
+  TRUE/NULL evaluation rules, return type context (numeric/string), and
+  examples.
+---
+
 # IF Function
 
 ## Syntax
 
-```sql
+```bnf
 IF(expr1,expr2,expr3)
 ```
 

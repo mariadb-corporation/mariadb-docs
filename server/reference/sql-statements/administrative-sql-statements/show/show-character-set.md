@@ -1,8 +1,14 @@
+---
+description: >-
+  List available character sets. View the default collation, maximum length, and
+  description for each supported character set.
+---
+
 # SHOW CHARACTER SET
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CHARACTER SET
     [LIKE 'pattern' | WHERE expr]
 ```

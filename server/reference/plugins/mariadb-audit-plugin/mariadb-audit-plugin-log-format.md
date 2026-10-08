@@ -1,36 +1,69 @@
+---
+description: >-
+  Understand the structure of audit log entries. This guide breaks down the
+  fields in the log records, including timestamps, server IDs, user details, and
+  the specific operations performed.
+---
+
 # Audit Plugin Log Format
 
-The audit plugin logs user access to MariaDB and its objects. The audit trail (i.e., audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format. The general format for the logging to the plugin's own file is defined like the following:
+The audit plugin logs user access to MariaDB and its objects. The audit trail (that is, the audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format.&#x20;
 
-```ini
-[timestamp],[serverhost],[username],[host],[connectionid],
-[queryid],[operation],[database],[object],[retcode]
-```
+## Formal Specification
 
-If the [server\_audit\_output\_type](mariadb-audit-plugin-options-and-system-variables.md) variable is set to `syslog` instead of the default, `file`, the audit log file format will be as follows:
+When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-separated (CSV) format. For tool developers, it is essential to map the `connectionid` to the server's global connection identifier to enable cross-log analysis.
 
-```ini
-[timestamp][syslog_host][syslog_ident]:[syslog_info][serverhost],[username],[host],
-[connectionid],[queryid],[operation],[database],[object],[retcode]
-```
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
 
-| Item logged   | Description                                                                                                                                                                                                                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| timestamp     | Time at which the event occurred. If syslog is used, the format is defined by syslogd.                                                                                                                                                                                                                          |
-| syslog\_host  | Host from which the syslog entry was received.                                                                                                                                                                                                                                                                  |
-| syslog\_ident | For identifying a system log entry, including the MariaDB server.                                                                                                                                                                                                                                               |
-| syslog\_info  | For providing information for identifying a system log entry.                                                                                                                                                                                                                                                   |
-| serverhost    | The MariaDB server host name.                                                                                                                                                                                                                                                                                   |
-| username      | Connected user.                                                                                                                                                                                                                                                                                                 |
-| host          | Host from which the user connected.                                                                                                                                                                                                                                                                             |
-| connectionid  | Connection ID number for the related operation.                                                                                                                                                                                                                                                                 |
-| queryid       | Query ID number, which can be used for finding the relational table events and related queries. For TABLE events, multiple lines will be added.                                                                                                                                                                 |
-| operation     | Recorded action type: CONNECT, QUERY, READ, WRITE, CREATE, ALTER, RENAME, DROP.                                                                                                                                                                                                                                 |
-| database      | Active database (as set by [USE](../../sql-statements/administrative-sql-statements/use-database.md)).                                                                                                                                                                                                          |
-| object        | Executed query for QUERY events, or the table name in the case of TABLE events. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), CONNECTION events also contain the tls\_version and tls\_version\_length. |
-| retcode       | Return code of the logged operation.                                                                                                                                                                                                                                                                            |
+Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
+{% endtab %}
 
-Various events will result in different audit records. Some events will not return a value for some fields (e.g., when the active database is not set when connecting to the server).
+{% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
+Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
+{% endtab %}
+{% endtabs %}
+
+| Field | Component      | Data Type      | Standardized Name / Description                                                                                                              |
+| ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format). |
+| 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                          |
+| 3     | `username`     | `String`       | The MariaDB user account that triggered the event.                                                                                           |
+| 4     | `host`:`port`  | `String`       | The client host the user connected from, followed by a colon and the client's TCP port. From MariaDB 12.0.1. When the client did not connect over TCP/IP, such as over a Unix socket or a named pipe, the colon and the port are both omitted and the field holds the host alone. Before MariaDB 12.0.1, the field is always the host alone. |
+| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                           |
+| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                    |
+| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`). The change-user connection event is logged as `CHANGEUSER`, without an underscore.  |
+| 8     | `database`     | `String`       | The database the event applies to.                                                                                                           |
+| 9     | `object`       | `String`       | The table or object involved in the operation, or the statement text on `QUERY` events. Connection events use this field for other values: from MariaDB 12.0.1, the negotiated TLS version, and on `PROXY_CONNECT` records, the proxy user. |
+| 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                                                                               |
+
+{% hint style="warning" %}
+**Changed in MariaDB 12.0.1**
+
+Two changes to the log format require updates to tools that parse the audit log:
+
+* The `host` field now contains a colon and the client's TCP port, unless the client did not connect over TCP/IP.
+* On connection events, the `object` field now carries the negotiated TLS version. The record still has ten fields and still ends with `retcode`.
+{% endhint %}
+
+{% hint style="info" %}
+**On MariaDB Enterprise Server**
+
+From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit/README.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
+{% endhint %}
+
+### Audit Log Format with Syslog
+
+If `server_audit_output_type` is set to `SYSLOG`, the standard CSV line is prefixed with syslog metadata: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> [Standard CSV Fields]`
+
+Various events result in different audit records. Some events do not return a value for some fields (for instance, when the active database is not set when connecting to the server).
 
 Below is a generic example of the output for connect events, with placeholders representing data. These are events in which a user connected, disconnected, or tried unsuccessfully to connect to the server.
 
@@ -39,6 +72,20 @@ Below is a generic example of the output for connect events, with placeholders r
 [timestamp],[serverhost],[username],[host],[connectionid],0,DISCONNECT,,,0 
 [timestamp],[serverhost],[username],[host],[connectionid],0,FAILED_CONNECT,,,[retcode]
 ```
+
+Starting with MariaDB 12.0.1, connection events record the client port alongside the host and report the negotiated TLS version in the `object` field:
+
+```ini
+20260731 09:14:22,mdb1,root,192.168.1.24:54312,7,0,CONNECT,mysql,TLSv1.3,0
+20260731 09:14:59,mdb1,root,192.168.1.24:54312,7,0,DISCONNECT,mysql,TLSv1.3,0
+20260731 09:15:03,mdb1,app,localhost,8,0,CONNECT,,,0
+```
+
+The third record is an unencrypted Unix socket connection: the host carries no port suffix, and the TLS version is empty.
+
+{% hint style="info" %}
+The TLS version is written on `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, and `CHANGEUSER` records, and is empty when the connection is not encrypted. `PROXY_CONNECT` records use the `object` field for the proxy user instead.
+{% endhint %}
 
 Here is the one audit record generated for each query event:
 
@@ -59,6 +106,26 @@ Below are generic examples of records that are entered in the audit log for each
 ```
 
 Passwords are hidden in the log for certain types of queries. They are replaced with asterisks for `GRANT`, `CREATE USER`, `CREATE MASTER`, `CREATE SERVER`, and `ALTER SERVER` statements. Passwords, however, are not replaced for the `PASSWORD()` and `OLD_PASSWORD()` functions when they are used inside other SQL statements (i.e., `SET PASSWORD`).
+
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11.16:
+{% endhint %}
+
+For [Galera Cluster replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica) applier operations, audit log plugin logs events with a generic name of `<wsrep_applier>` .
+
+This addresses an issue where the user was logged on the primary node, but stripped from other cluster nodes. See [MDEV-35511](https://jira.mariadb.org/browse/MDEV-35511) for details.
+{% endtab %}
+
+{% tab title="< 10.11.16" %}
+{% hint style="info" %}
+Before MariaDB 10.11.16:
+{% endhint %}
+
+For Galera Cluster replication applier operations, audit log plugin logs events without indicating what user initiates them.
+{% endtab %}
+{% endtabs %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

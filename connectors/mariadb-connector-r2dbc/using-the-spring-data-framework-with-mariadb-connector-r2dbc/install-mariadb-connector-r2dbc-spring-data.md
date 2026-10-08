@@ -1,3 +1,10 @@
+---
+description: >-
+  Install MariaDB Connector/R2DBC with Spring Data via Maven using
+  spring-boot-starter-data-r2dbc; Spring Boot 3.0 and later manage the
+  r2dbc-mariadb connector version automatically.
+---
+
 # Install MariaDB Connector/R2DBC (Spring Data)
 
 ### Overview
@@ -33,7 +40,7 @@ It should also be possible to install Spring Data R2DBC and MariaDB Connector/R2
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.2</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -45,7 +52,7 @@ $ mvn package
 
 During the build process, Maven downloads and installs MariaDB Connector/R2DBC and other dependencies from the relevant repositories.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

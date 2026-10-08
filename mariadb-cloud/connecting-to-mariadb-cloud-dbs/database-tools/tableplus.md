@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud with TablePlus, configuring the connection details,
+  TLS, and credentials in TablePlus's connection editor on macOS, Windows, or
+  Linux.
+---
+
 # TablePlus
 
 ## Steps
@@ -8,3 +15,4 @@
 4. If SSL is configured, set the **SSL Mode** to **ENFORCE**.
 5. Click **Connect** to test the connection.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

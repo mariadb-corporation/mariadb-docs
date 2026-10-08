@@ -1,6 +1,13 @@
+---
+description: >-
+  Complete InnoDB Buffer Pool guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage with comprehensive
+  examples and.
+---
+
 # InnoDB Buffer Pool
 
-The InnoDB storage engine in MariaDB Enterprise Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.
+The InnoDB storage engine in MariaDB Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.
 
 To optimize server restarts, the Buffer Pool's contents can be preserved across shutdowns. At shutdown, the page numbers of all pages residing in the Buffer Pool are recorded. Upon the next startup, InnoDB reads this dump of page numbers and reloads the corresponding data pages from their respective data files, effectively avoiding a "cold" cache scenario.
 
@@ -16,17 +23,51 @@ When information is accessed that appears in the _old_ list, it is moved to the 
 
 ## innodb\_buffer\_pool\_size
 
-The most important [server system variable](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) is [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size). This size should contain most of the active data set of your server so that SQL request can work directly with information in the buffer pool cache. Starting at several gigabytes of memory is a good starting point if you have that RAM available. Once warmed up to its normal load there should be very few [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) compared to [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests). Look how these values change over a minute. If the change in [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) is less than 1% of the change in [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests) then you have a good amount of usage. If you are getting the status variable [innodb\_buffer\_pool\_wait\_free](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_wait_free) increasing then you don't have enough buffer pool (or your flushing isn't occurring frequently enough).
+The most important [server system variable](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) is [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size). This size should contain most of the active data set of your server so that SQL request can work directly with information in the buffer pool cache. Starting at several gigabytes of memory is a good starting point if you have that RAM available. Once warmed up to its normal load there should be very few [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) compared to [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests). Look how these values change over a minute. If the change in [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) is less than 1% of the change in [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests) then you have a good amount of usage. If you are getting the status variable [innodb\_buffer\_pool\_wait\_free](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_wait_free) increasing then you don't have enough buffer pool (or your flushing isn't occurring frequently enough).
 
-The larger the size, the longer it will take to initialize. On a modern 64-bit server with a 10GB memory pool, this can take five seconds or more. Increasing [innodb\_buffer\_pool\_chunk\_size](innodb-system-variables.md#innodb_buffer_pool_chunk_size) by several factors will reduce this significantly. [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) could start up with a 96GB buffer pool in less than 1 second.
+The larger the size, the longer it takes to initialize.&#x20;
 
-Make sure that the size is not too large, causing swapping. The benefit of a larger buffer pool size is more than undone if your operating system is regularly swapping.
+{% hint style="info" %}
+Make sure that the size is not too large, because this can cause swapping, which more than undoes the benefits of a large buffer pool.
+{% endhint %}
+
+{% hint style="info" %}
+Crash recovery buffers redo log records in blocks taken from the buffer pool, so the buffer pool size also bounds how much redo InnoDB can apply in a single pass. If the redo left to apply after a crash is large relative to the buffer pool, recovery still completes, but falls back to a slower multi-pass mode. See [Sizing the Redo Log](innodb-redo-log.md#sizing-the-redo-log).
+{% endhint %}
+
+{% hint style="warning" %}
+**Using ColumnStore?**
+
+The standard recommendation to use a large portion of your RAM for the InnoDB buffer pool does not apply if you are also running [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) on the same server. ColumnStore reserves 75% of system RAM by default. Over-allocating the InnoDB buffer pool in a combined environment will likely trigger the Linux OOM killer.
+
+Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
+{% endhint %}
 
 The buffer pool can be set dynamically. See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md).
 
-## innodb\_buffer\_pool\_instances
+## Buffer Pool Changes
 
-The functionality described below was disabled in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), and removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), as the original reasons for splitting the buffer pool have mostly gone away.
+{% hint style="warning" %}
+From MariaDB 10.11.12 / 11.4.6 / 11.8.2, there are significant changes to the InnoDB buffer pool behavior.
+{% endhint %}
+
+MariaDB Server deprecates and ignores [`innodb_buffer_pool_chunk_size`](innodb-system-variables.md#innodb_buffer_pool_chunk_size). The buffer pool size is now changed in arbitrary 1-megabyte increments, up to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), which is read-only and can only be set at startup.
+
+From MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaults to 8 TiB on 64-bit systems other than IBM AIX, so `SET GLOBAL innodb_buffer_pool_size` can grow the buffer pool without anything being configured at startup. The 8 TiB is a reservation of virtual address space, not of memory. On 32-bit systems and on IBM AIX the default is `0`, which is replaced at startup by the initial [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) rounded up to the allocation unit — on those systems the buffer pool cannot be grown beyond its initial size unless `innodb_buffer_pool_size_max` is set explicitly.
+
+{% hint style="warning" %}
+Before MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaulted to the initial `innodb_buffer_pool_size` on every system, so increasing the buffer pool at runtime required setting `innodb_buffer_pool_size_max` at startup ([MDEV-38671](https://jira.mariadb.org/browse/MDEV-38671)).
+{% endhint %}
+
+The [`innodb_buffer_pool_size_auto_min`](innodb-system-variables.md#innodb_buffer_pool_size_auto_min) variable specifies the minimum size the buffer pool can be shrunk to by a memory pressure event. When a memory pressure event occurs, MariaDB server attempts to shrink `innodb_buffer_pool_size` halfway between its current value and the `innodb_buffer_pool_size_auto_min` value. If `innodb_buffer_pool_size_auto_min` is not specified or `0`, it is adjusted at startup to `innodb_buffer_pool_size_max` — in other words, memory pressure events are disregarded by default. The variable is only available on Linux.
+
+The minimum `innodb_buffer_pool_size` is 320 pages (256\*5/4). With the default value of `innodb_page_size=16k`, this corresponds to 5 MiB. However, since `innodb_buffer_pool_size` includes the memory allocated for the block descriptors, the minimum is effectively `innodb_buffer_pool_size=6m`.
+
+{% hint style="success" %}
+When the buffer pool is shrunk, InnoDB tries to inform the operating system that the underlying memory for part of the virtual address range is no longer needed and may be zeroed out. On many POSIX-like systems this is done by `madvise(MADV_DONTNEED)` where available (Linux, FreeBSD, NetBSD, OpenBSD, Dragonfly BSD, IBM AIX, Apple macOS). On Microsoft Windows, `VirtualFree(MEM_DECOMMIT)` is invoked. On many systems, there is also `MADV_FREE`, which would be a deferred variant of `MADV_DONTNEED`, not freeing the virtual memory mapping immediately. We prefer immediate freeing so that the resident set size of the process reflects the current `innodb_buffer_pool_size` value. Shrinking the buffer pool is a rarely executed intensive operation, and the immediate configuration of the MMU mappings should not incur significant additional penalty.
+{% endhint %}
+
+The [`Innodb_buffer_pool_resize_status`](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_resize_status) variable is removed. Issuing `SET GLOBAL innodb_buffer_pool_size` blocks until the buffer pool has been resized or the operation was aborted by a `KILL` or `SHUTDOWN` command, a client disconnect, or an interrupt.
 
 ## innodb\_old\_blocks\_pct and innodb\_old\_blocks\_time
 

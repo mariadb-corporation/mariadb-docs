@@ -1,18 +1,8 @@
 ---
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
+description: >-
+  MariaDB Cloud data offloading via mariadb-dump to a local machine or via the
+  SkySQL Backup service to S3/GCS, with optional outbound replication for
+  ongoing sync.
 ---
 
 # Data Offloading
@@ -126,7 +116,7 @@ INSERT INTO `your_table` VALUES (1,'Example Name','2023-01-01 00:00:00'),(2,'Ano
 UNLOCK TABLES;
 ```
 
-Finally, here is the reference to the utility where you will find all the [many command-line options](https://mariadb.com/kb/en/mariadb-dump/)
+Finally, here is the reference to the utility where you will find all the [many command-line options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 
 {% hint style="warning" %}
 Egress charges may apply when data is exported.
@@ -240,4 +230,6 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/status' \
 
 ## **4. Replicating Changes From MariaDB Cloud to a Compatible External Database**
 
-See [Replicating data From MariaDB Cloud to External Database](../../Data%20offloading/Replicating%20data%20from%20MariaDB%20Cloud%20to%20external%20database.md) for details.
+See [Replicating data From MariaDB Cloud to External Database](replicating-data-from-mariadb-cloud-to-external-database.md) for details.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete reference for CREATE DATABASE in MariaDB. Complete syntax guide with
+  all options, clauses, and practical examples with comprehensive examples and.
+---
+
 # CREATE DATABASE
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
     [create_specification] ...
 
@@ -11,6 +17,10 @@ create_specification:
   | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'comment'
 ```
+
+![Railroad diagram of CREATE DATABASE — equivalent to the BNF above](../../../../.gitbook/assets/create-database-railroad.svg)
+
+![Railroad diagram of create_specification](../../../../.gitbook/assets/create-database-specification-railroad.svg)
 
 ## Description
 
@@ -33,15 +43,7 @@ When the `IF NOT EXISTS` clause is used, MariaDB will return a warning instead o
 
 #### COMMENT
 
-{% tabs %}
-{% tab title="Current" %}
 The maximum length of a comment is 1024 bytes. If the comment length exceeds this length, an error/warning code 4144 is thrown. The database comment is also added to the `db.opt` file, as well as to the [information\_schema.schemata table](../../../system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md).
-{% endtab %}
-
-{% tab title="< 10.5.0" %}
-Comments added for databases do not exist.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

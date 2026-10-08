@@ -1,3 +1,9 @@
+---
+description: >-
+  The privileges_by_table_by_level view lists granted privileges broken down by
+  table and the level (Global, Schema, or Table) at which they were granted.
+---
+
 # privileges\_by\_table\_by\_level Sys Schema View
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

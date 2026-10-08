@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate logarithm. This function returns the natural logarithm of a number,
+  or the logarithm to a specified base if two arguments are provided.
+---
+
 # LOG
 
 ## Syntax
 
-```sql
+```bnf
 LOG(X), LOG(B,X)
 ```
 

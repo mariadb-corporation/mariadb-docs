@@ -1,3 +1,9 @@
+---
+description: >-
+  A heartbeat event sent over the network by the master when there are no binlog
+  events, ensuring the replica knows the connection is still active.
+---
+
 # HEARTBEAT\_LOG\_EVENT
 
 This event does not appear in the [binary log](../../../server-management/server-monitoring-logs/binary-log/). It's only sent over the network by a master to a replica server to let it know that the master is still alive, and is only sent when the master has no binlog events to send to replica servers.
@@ -14,7 +20,7 @@ This event is never written to the binary log file.
 
 ## Fields
 
-* [string](../protocol-data-types.md#fixed-length-bytes) The current master binary log name.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The current master binary log name.
 
 ## Example of Transmission (Without CRC32)
 
@@ -42,7 +48,7 @@ T 127.0.0.1:8808 -> 127.0.0.1:57157 [AP]
 * Next\_pos \[4] = ed 01 00 00 => 00 00 01 ed => 493.
 * Flags \[2] == 20 00 => 00 20 = > 32.
 
-### **Content, String**
+### **Content, String\<EOF>**
 
 * log-bin.1000139.
 

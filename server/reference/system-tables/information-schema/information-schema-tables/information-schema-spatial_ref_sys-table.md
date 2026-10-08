@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SPATIAL_REF_SYS table stores information about
+  available Spatial Reference Systems (SRS) for geometry data.
+---
+
 # Information Schema SPATIAL\_REF\_SYS Table
 
 ## Description

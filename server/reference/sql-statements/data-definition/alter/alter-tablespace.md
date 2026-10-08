@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the status of tablespace management. This statement, originally for
+  NDB, is not supported in MariaDB for InnoDB tablespaces.
+---
+
 # ALTER TABLESPACE
 
 {% hint style="info" %}

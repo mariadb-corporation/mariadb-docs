@@ -24,7 +24,7 @@ By default, MariaDB Enterprise Cluster requires data-in-transit encryption to se
 
 MariaDB Enterprise Cluster encrypts the data using the Transport Layer Security (TLS) protocol, which is a newer version of the Secure Socket Layer (SSL) protocol.
 
-In MariaDB Enterprise Cluster 10.5 and earlier, TLS was supported, but not required. For backward compatibility, MariaDB Enterprise Cluster supports the Provider WSREP TLS Mode, which is equivalent to Enterprise Cluster's TLS implementation in ES 10.5 and earlier. For additional information, see "WSREP TLS Modes".
+In ES releases before 10.6, Enterprise Cluster supported TLS but did not require it. For backward compatibility, MariaDB Enterprise Cluster supports the Provider WSREP TLS Mode, which is equivalent to that TLS implementation. For additional information, see "WSREP TLS Modes".
 
 TLS configuration requires 3 files.
 
@@ -187,6 +187,6 @@ This page was step 2 of 6.
 
 Next: Step 3: Test MariaDB Enterprise Server
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

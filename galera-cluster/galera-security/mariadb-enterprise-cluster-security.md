@@ -1,3 +1,10 @@
+---
+description: >-
+  Security extensions in MariaDB Enterprise Cluster powered by Galera: WSREP
+  and SST TLS modes, cluster-name verification, X.509 certificate expiration
+  warnings, and online TLS rollout.
+---
+
 # MariaDB Enterprise Cluster Security
 
 {% hint style="info" %}
@@ -23,11 +30,7 @@ MariaDB Enterprise Cluster, powered by Galera, adds the [wsrep\_ssl\_mode](../re
 
 The following `WSREP` TLS Modes are supported:
 
-| **WSREP TLS Mode**                                                                             | **Values**                                 | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Provider](mariadb-enterprise-cluster-security.md#wsrep-tls-modes-provider)                    | <ul><li><code>PROVIDER</code></li></ul>    | <ul><li>TLS is optional for Enterprise Cluster replication traffic.</li><li>Each node obtains its TLS configuration from the <a href="../reference/wsrep-variable-details/wsrep_provider_options.md">wsrep_provider_options</a> system variable. When the provider is not configured to use TLS on a node, the node will connect to the cluster without TLS.</li><li>The Provider WSREP TLS Mode is backward compatible with ES 10.5 and earlier. When performing a rolling upgrade from ES 10.5 and earlier, the Provider WSREP TLS Mode can be configured on the upgraded nodes.</li></ul> |
-| [Server](mariadb-enterprise-cluster-security.md#wsrep-tls-modes-server-and-server-x.509)       | <ul><li><code>SERVER</code></li></ul>      | <ul><li>TLS is mandatory for Enterprise Cluster replication traffic, but X.509 certificate verification is not performed.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect to the cluster.</li><li>The Server WSREP TLS Mode is the default in ES 10.6.</li></ul>                                                                                                                                                               |
-| [Server X.509](mariadb-enterprise-cluster-security.md#wsrep-tls-modes-server-and-server-x.509) | <ul><li><code>SERVER_X509</code></li></ul> | <ul><li>TLS and X.509 certificate verification are mandatory for Enterprise Cluster replication traffic.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect to the cluster.</li></ul>                                                                                                                                                                                                                                             |
+<table><thead><tr><th width="124.5555419921875">WSREP TLS Mode</th><th width="162.851806640625">Values</th><th>Description</th></tr></thead><tbody><tr><td><a href="mariadb-enterprise-cluster-security.md#wsrep-tls-modes-provider">Provider</a></td><td><ul><li><code>PROVIDER</code></li></ul></td><td><ul><li>TLS is optional for Enterprise Cluster replication traffic.</li><li>Each node obtains its TLS configuration from the <a href="../reference/wsrep-variable-details/wsrep_provider_options.md">wsrep_provider_options</a> system variable. When the provider is not configured to use TLS on a node, the node will connect to the cluster without TLS.</li><li>The Provider WSREP TLS Mode is backward compatible with ES releases before 10.6. When performing a rolling upgrade from such a release, the Provider WSREP TLS Mode can be configured on the upgraded nodes.</li></ul></td></tr><tr><td><a href="mariadb-enterprise-cluster-security.md#wsrep-tls-modes-server-and-server-x.509">Server</a></td><td><ul><li><code>SERVER</code></li></ul></td><td><ul><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration.</li><li>Starting with MariaDB Enterprise Server 10.6.8-4, TLS is not mandatory when setting the Server WSREP TLS Mode. If MariaDB Enterprise Server is not configured to use TLS on a node, or TLS is not activated, the TLS service in the Galera library will not activate, and connections will not fail, but will be unencrypted.</li><li>Prior to version 10.6.8-4, TLS is mandatory when setting the Server WSREP TLS Mode, X.509 certificate verification is not performed, and if MariaDB Enterprise Server is not configured to use TLS the node will fail to connect to the cluster.</li><li>The Server WSREP TLS Mode is the default in ES 10.6.</li></ul></td></tr><tr><td><a href="mariadb-enterprise-cluster-security.md#wsrep-tls-modes-server-and-server-x.509">Server X.509</a></td><td><ul><li><code>SERVER_X509</code></li></ul></td><td><ul><li>TLS and X.509 certificate verification are mandatory for Enterprise Cluster replication traffic.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect to the cluster.</li></ul></td></tr></tbody></table>
 
 ### WSREP TLS Modes: Provider
 
@@ -39,7 +42,7 @@ TLS is optional in the Provider `WSREP TLS` Mode. When the provider is not confi
 
 Each node obtains its TLS configuration from the [wsrep\_provider\_options](../reference/wsrep-variable-details/wsrep_provider_options.md) system variable. The following options are used:
 
-|                                                                            |                                                                   |
+| WSREP Provider Option                                                      | Description                                                       |
 | -------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | [socket.ssl](../reference/wsrep-variable-details/socket.ssl.md)            | Set this option to `true` to enable TLS.                          |
 | [socket.ssl\_ca](../reference/wsrep-variable-details/socket.ssl_ca.md)     | Set this option to the path of the CA chain file.                 |
@@ -48,12 +51,14 @@ Each node obtains its TLS configuration from the [wsrep\_provider\_options](../r
 
 For example:
 
+{% code overflow="wrap" %}
 ```ini
 [mariadb]
 ...
 wsrep_ssl_mode = PROVIDER
 wsrep_provider_options = "socket.ssl=true;socket.ssl_cert=/certs/server-cert.pem;socket.ssl_ca=/certs/ca-cert.pem;socket.ssl_key=/certs/server-key.pem"
 ```
+{% endcode %}
 
 ### WSREP TLS Modes: Server and Server X.509
 
@@ -63,11 +68,15 @@ The Server `WSREP TLS` Mode can be configured by setting the [wsrep\_ssl\_mode](
 
 The Server X.509 `WSREP TLS` Mode can be configured by setting the [wsrep\_ssl\_mode](../reference/wsrep-variable-details/wsrep_ssl_mode.md) system variable to `SERVER_X509`. In the Server X.509 `WSREP TLS` Mode, TLS and X.509 certification verification are mandatory.
 
-TLS is mandatory in both the Server and Server X.509 `WSREP TLS` Modes. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect to the cluster.
+In MariaDB Enterprise Server 10.6.8-4 and higher, TLS is not mandatory in the Server WSREP TLS Mode. When MariaDB Enterprise Server is not configured to use TLS on a node or TLS is not working, then the Galera library will not activate the TLS service, and connections between nodes will be unencrypted. Prior to version 10.6.8-4 TLS is mandatory when setting the Server WSREP TLS Mode, but X.509 certificate verification is not performed.
 
-Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. The following system variables are used:
+{% hint style="warning" %}
+**The default `SERVER` mode does not authenticate peers.** It does not verify the peer's X.509 certificate, so a node will accept any peer that completes the TLS handshake — encryption without peer authentication. For production, and for compliance regimes such as PCI DSS, SOC 2, or ISO 27001 that require peer authentication, use `SERVER_X509`, which makes X.509 certificate verification mandatory.
+{% endhint %}
 
-| **System Variable**                                              | **Description**                                                                                                                                                                                                                                                                  |
+For both 'Server' and "Server X.509' WSREP TLS Modes, each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. The following system variables are used:
+
+| System Variables                                                 | Description                                                                                                                                                                                                                                                                      |
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [ssl\_ca](../reference/wsrep-variable-details/ssl_ca.md)         | Set this system variables to the path of the CA chain file.                                                                                                                                                                                                                      |
 | [ssl\_capath](../reference/wsrep-variable-details/ssl_capath.md) | Optionally set this system variables to the path of the CA chain directory. The directory must have been processed by `openssl rehash`. When your CA chain is stored in a single file, use the [ssl\_ca](../reference/wsrep-variable-details/ssl_ca.md) system variable instead. |
@@ -90,22 +99,24 @@ ssl_key = /certs/server-key.pem
 
 MariaDB Enterprise Cluster, powered by Galera, adds the `ssl-mode` option, which configures the SST TLS Mode for State Snapshot Transfers (SSTs). The `ssl-mode` option is supported by the following SST methods, which can be configured using the [wsrep\_sst\_method](../reference/wsrep-variable-details/wsrep_sst_method.md) system variable:
 
-| **SST Method**            | [wsrep\_sst\_method](../reference/wsrep-variable-details/wsrep_sst_method.md) |
-| ------------------------- | ----------------------------------------------------------------------------- |
-| MariaDB Enterprise Backup | `mariabackup`                                                                 |
-| Rsync                     | `rsync`                                                                       |
+| SST Method                | wsrep\_sst\_method |
+| ------------------------- | ------------------ |
+| MariaDB Enterprise Backup | `mariabackup`      |
+| Rsync                     | `rsync`            |
 
 The following SST TLS Modes are supported:
 
-| **SST TLS Mode**                                                                                | **Values**                                                                    | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Backward Compatible](mariadb-enterprise-cluster-security.md#sst-tls-modes-backward-compatible) | <ul><li><code>DISABLED</code></li><li>Not set</li></ul>                       | <ul><li>TLS is optional for SST traffic.</li><li>Each node obtains its TLS configuration from the <code>tca</code>, <code>tcert</code>, and <code>tkey</code> options. When the SST is not configured to use TLS on a node, the node will connect during the SST without TLS.</li><li>The Backward Compatible SST TLS Mode is backward compatible with ES 10.5 and earlier, so it is suitable for rolling upgrades.</li><li>The Backward Compatible SST TLS Mode is the default in ES 10.6.</li></ul> |
-| [Server](mariadb-enterprise-cluster-security.md#sst-tls-modes-server-and-server-x.509)          | <ul><li><code>REQUIRED</code></li></ul>                                       | <ul><li>TLS is mandatory for SST traffic, but X.509 certificate verification is not performed.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect during an SST.</li></ul>                                                                                                                                                                 |
-| [Server X.509](mariadb-enterprise-cluster-security.md#sst-tls-modes-server-and-server-x.509)    | <ul><li><code>VERIFY_CA</code></li><li><code>VERIFY_IDENTITY</code></li></ul> | <ul><li>TLS and X.509 certification verification are mandatory for SST traffic.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect during an SST.</li><li>Prior to the state transfer, the Donor node will verify the Joiner node's X.509 certificate, and the Joiner node will verify the Donor node's X.509 certificate.</li></ul>       |
+<table><thead><tr><th width="173.1480712890625">SST/TLS Mode</th><th width="163.7408447265625">Values</th><th>Description</th></tr></thead><tbody><tr><td><a href="mariadb-enterprise-cluster-security.md#sst-tls-modes-backward-compatible">Backward Compatible</a></td><td><ul><li><code>DISABLED</code></li><li>Not set</li></ul></td><td><ul><li>TLS is optional for SST traffic.</li><li>Each node obtains its TLS configuration from the <code>tca</code>, <code>tcert</code>, and <code>tkey</code> options. When the SST is not configured to use TLS on a node, the node will connect during the SST without TLS.</li><li>The Backward Compatible SST TLS Mode is backward compatible with ES releases before 10.6, so it is suitable for rolling upgrades.</li><li>The Backward Compatible SST TLS Mode is the default in ES 10.6.</li></ul></td></tr><tr><td><a href="mariadb-enterprise-cluster-security.md#sst-tls-modes-server-and-server-x.509">Server</a></td><td><ul><li><code>REQUIRED</code></li></ul></td><td><ul><li>TLS is mandatory for SST traffic, but X.509 certificate verification is not performed.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect during an SST.</li></ul></td></tr><tr><td><a href="mariadb-enterprise-cluster-security.md#sst-tls-modes-server-and-server-x.509">Server X.509</a></td><td><ul><li><code>VERIFY_CA</code></li><li><code>VERIFY_IDENTITY</code></li></ul></td><td><ul><li>TLS and X.509 certification verification are mandatory for SST traffic.</li><li>Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. When MariaDB Enterprise Server is not configured to use TLS on a node, the node will fail to connect during an SST.</li><li>Prior to the state transfer, the Donor node will verify the Joiner node's X.509 certificate, and the Joiner node will verify the Donor node's X.509 certificate.</li></ul></td></tr></tbody></table>
+
+{% hint style="warning" %}
+**On MariaDB Enterprise Server 12.3.3-0 Beta, Rsync SST requires installing `stunnel` first.** The Rsync method encrypts transfers with `stunnel`, but the 12.3.3-0 Beta packages install it neither as a requirement nor as a recommendation, on RPM or DEB. Until you install it yourself, an Rsync SST cannot satisfy any of the TLS modes above. Enterprise Server 11.8 and earlier shipped it as a recommended package. See [Introduction to State Snapshot Transfers (SSTs): rsync](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#rsync-rsync_wan).
+
+The MariaDB Enterprise Backup (`mariabackup`) method does not use `stunnel` and is unaffected.
+{% endhint %}
 
 ### SST TLS Modes: Backward Compatible
 
-In MariaDB Enterprise Server 10.6, MariaDB Enterprise Cluster adds the Backward Compatible SST TLS Mode for SSTs that use MariaDB Enterprise Backup or Rsync. The Backward Compatible SST TLS Mode is primarily intended for backward compatibility with ES 10.5 and earlier, and it is most useful for users who need to perform a rolling upgrade to ES 10.6.
+In MariaDB Enterprise Server 10.6, MariaDB Enterprise Cluster adds the Backward Compatible SST TLS Mode for SSTs that use MariaDB Enterprise Backup or Rsync. The Backward Compatible SST TLS Mode is primarily intended for backward compatibility with ES releases before 10.6, and it is most useful for users who need to perform a rolling upgrade to ES 10.6.
 
 The Backward Compatible SST TLS Mode is the default, but it can also be configured by setting the `ssl_mode` option to `DISABLED` in a configuration file in the `[sst]` group.
 
@@ -113,11 +124,11 @@ TLS is optional in the Backward Compatible SST TLS Mode. When the SST is not con
 
 Each node obtains its TLS configuration from a configuration file in the `[sst]` group. The following options are used:
 
-| **Option** | **Description**                                                   |
-| ---------- | ----------------------------------------------------------------- |
-| `tca`      | Set this option to the path of the CA chain file.                 |
-| `tcert`    | Set this option to the path of the node's X.509 certificate file. |
-| `tkey`     | Set this option to the path of the node's private key file.       |
+| Option  | Description                                                       |
+| ------- | ----------------------------------------------------------------- |
+| `tca`   | Set this option to the path of the CA chain file.                 |
+| `tcert` | Set this option to the path of the node's X.509 certificate file. |
+| `tkey`  | Set this option to the path of the node's private key file.       |
 
 For example:
 
@@ -147,7 +158,7 @@ TLS is mandatory in both the Server and Server X.509 `SST TLS` Modes. When Maria
 
 Each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. The following system variables are used:
 
-| **System Variable**                                          | **Description**                                                            |
+| System Variable                                              | Description                                                                |
 | ------------------------------------------------------------ | -------------------------------------------------------------------------- |
 | [ssl\_ca](../reference/wsrep-variable-details/ssl_ca.md)     | Set this system variables to the path of the CA chain file.                |
 | [ssl\_cert](../reference/wsrep-variable-details/ssl_cert.md) | Set this system variable to the path of the node's X.509 certificate file. |
@@ -171,9 +182,30 @@ ssl_mode = VERIFY_CA
 
 When the [backward-compatible TLS parameters in the \[sst\] group](mariadb-enterprise-cluster-security.md#sst-tls-modes-backward-compatible) are configured, the Server and Server X.509 SST TLS Modes use those parameters instead of the MariaDB Enterprise Server system variables. In that case, the following message will be written to the [MariaDB error log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log):
 
+{% code overflow="wrap" %}
 ```
 new ssl configuration options (ssl-ca, ssl-cert and ssl-key) are ignored by SST due to presence of the tca, tcert and/or tkey in the [sst] section
 ```
+{% endcode %}
+
+{% hint style="info" %}
+**`VERIFY_CA` and `VERIFY_IDENTITY` behave differently only for the Rsync SST method.**
+
+For the **Rsync** method (`wsrep_sst_method = rsync`), the two values differ: `VERIFY_CA` verifies the peer's certificate chain against the CA (stunnel `verifyChain`), while `VERIFY_IDENTITY` additionally requires the peer certificate's Common Name or `subjectAltName` to match the connection's hostname or IP address (stunnel `verifyPeer`, with `checkHost`/`checkIP`).
+
+For the **MariaDB Enterprise Backup** method (`wsrep_sst_method = mariabackup`), `VERIFY_CA` and `VERIFY_IDENTITY` are handled **identically**. The SST script only tests whether `ssl-mode` starts with `VERIFY` to decide whether to enable X.509 certificate verification; it does not distinguish the two values. Setting `VERIFY_IDENTITY` with `mariabackup` therefore does not add the host-identity binding that it does with Rsync.
+
+Because host-identity binding applies only under Rsync, clusters whose node addresses change — cloud auto-scaling, NAT, or container restarts — or that lack reliable internal DNS would, under Rsync `VERIFY_IDENTITY`, need certificates reissued on every address change. Where that is impractical, use `VERIFY_CA`.
+{% endhint %}
+
+The following table summarizes how each SST method handles the `VERIFY_*` values:
+
+| SST Method                                | `VERIFY_CA`                    | `VERIFY_IDENTITY`                                                                       |
+| ----------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| MariaDB Enterprise Backup (`mariabackup`) | Certificate chain verification | Same as `VERIFY_CA` — no separate host-identity check                                   |
+| Rsync (`rsync`)                           | Certificate chain verification | Chain **plus** hostname/IP identity check (stunnel `verifyPeer`, `checkHost`/`checkIP`) |
+
+The `mysqldump` SST method ignores the `[sst]` `ssl-mode` option entirely. It connects with the ordinary MariaDB client, so its TLS behavior — including whether the server certificate is verified — is governed by the client's own configuration (`ssl-verify-server-cert` or the client `ssl-mode`), not by the `VERIFY_*` values above.
 
 ## Cluster Name Verification
 
@@ -205,9 +237,8 @@ MariaDB Enterprise Cluster, powered by Galera, adds new capabilities that allow 
 
 Enabling TLS without downtime relies on two new options implemented for the [wsrep\_provider\_options](../reference/wsrep-variable-details/wsrep_provider_options.md) system variable:
 
-| **Option**          | **Dynamic** | **Default** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ------------------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `socket.dynamic`    | No          | `false`     | <ul><li>When set to <code>true</code>, the node will allow TLS and non-TLS communications at the same time.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `socket.ssl_reload` | Yes         | N/A         | <ul><li>When set to <code>true</code> with the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session">SET GLOBAL</a> statement, Enterprise Cluster dynamically re-initializes its TLS context.</li><li>This is most useful if you need to replace a certificate that is about to expire without restarting the server.</li><li>The paths to the certificate and key files cannot be changed dynamically, so the updated certificates and keys must be placed at the same paths defined by the relevant TLS variables.</li></ul> |
+<table><thead><tr><th width="171.79644775390625">Option</th><th width="110.2978515625">Dynamic</th><th width="102.8104248046875">Default</th><th>Description</th></tr></thead><tbody><tr><td><code>socket.dynamic</code></td><td>No</td><td><code>false</code></td><td><ul><li>When set to <code>true</code>, the node will allow TLS and non-TLS communications at the same time.</li></ul></td></tr><tr><td><code>socket.ssl_reload</code></td><td>Yes</td><td>N/A</td><td><ul><li>When set to <code>true</code> with the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set#global-session">SET GLOBAL</a> statement, Enterprise Cluster dynamically re-initializes its TLS context.</li><li>This is most useful if you need to replace a certificate that is about to expire without restarting the server.</li><li>The paths to the certificate and key files cannot be changed dynamically, so the updated certificates and keys must be placed at the same paths defined by the relevant TLS variables.</li></ul></td></tr></tbody></table>
 
-\
+<br>
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

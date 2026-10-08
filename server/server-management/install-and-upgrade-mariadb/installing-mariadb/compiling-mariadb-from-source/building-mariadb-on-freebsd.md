@@ -1,6 +1,16 @@
+---
+description: >-
+  Instructions for building MariaDB on FreeBSD using Ports or Poudriere,
+  including configuring build options.
+---
+
 # Building MariaDB on FreeBSD
 
 It is relatively straightforward to build MariaDB from source on FreeBSD. When working with an individual host, you can use Ports to compile particular or multiple versions of MariaDB. When working with multiple hosts, you can use `Poudriere` to build MariaDB once, then serve it as a package to multiple FreeBSD hosts.
+
+{% hint style="warning" %}
+The version numbers and the `portsnap` commands on this page are dated. `portsnap` was deprecated in FreeBSD 13 and removed in FreeBSD 14, where the Ports tree is retrieved with `git` instead. Consult the [FreeBSD Handbook](https://docs.freebsd.org/en/books/handbook/ports/) for the current procedure on your release, and treat the MariaDB version numbers below as illustrative — substitute a [maintained release](https://mariadb.org/about/#maintenance-policy).
+{% endhint %}
 
 ## Using Ports
 
@@ -58,7 +68,7 @@ Once you finish building the ports, install MariaDB on your system and clean the
 # make install clean
 ```
 
-This installs FreeBSD on your server. You can now enable, configure and start the service as you normally would after installing MariaDB from a package.
+This installs MariaDB on your server. You can now enable, configure and start the service as you normally would after installing MariaDB from a package.
 
 ## Using `Poudriere`
 
@@ -76,7 +86,7 @@ Once you've configured your host to use `Jails` and `Poudriere`, initialize a ja
 This creates two `jails`, `package-builder` and `local-ports`, which you can then use to build MariaDB. Create a text file to define the packages you want to build. Poudriere will build these packages as well as their dependencies. MariaDB is located at `databases/mariadb103-server`. Adjust the path to match the version you want to install.
 
 ```bash
-$ vi maraidb-package-builder.txt
+$ vi mariadb-package-builder.txt
 ```
 
 ```
@@ -97,9 +107,9 @@ Lastly, use the `bulk` command to compile the packages.
 
 ### Using Poudriere Repositories
 
-In order to use Poudriere, you need to set up and configure a web server, such as `Nginx` or `Apache` to serve the directory that `Poudriere` built. For instance, in the case of the above example, you would map to the `package-builder` `jail`: `/usr/local/poudriere/data/packages/package-builder/`.&#x20;
+In order to use Poudriere, you need to set up and configure a web server, such as `Nginx` or `Apache` to serve the directory that `Poudriere` built. For instance, in the case of the above example, you would map to the `package-builder` `jail`: `/usr/local/poudriere/data/packages/package-builder/`.
 
-You may find it useful to map this directory to a sub-domain, for instance `httpspkg.example.com` or something similar.
+You may find it useful to map this directory to a sub-domain, for instance `https://pkg.example.com` or something similar.
 
 Lastly, you need to configure the FreeBSD hosts to use the `Poudriere` repository you just created. On each host, disable the FreeBSD official repositories and enable your `Poudriere` repository as an alternative.
 

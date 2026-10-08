@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 10.0.10 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.10) |[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10010-release-notes.md) |**Changelog** |[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.10) |[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10010-release-notes.md) |**Changelog** |[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 22 Apr 2014
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10010-release-notes.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #3819](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3819)\
   Thu 2014-04-17 14:10:22 -0400
@@ -41,7 +40,7 @@ modified in that revision.
     * Fixes for some test failures.
   * [Revision #3808.2.5](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.5) \[merge]\
     Tue 2014-04-08 10:36:34 -0400
-    * Merging [MariaDB 10.0.10](../../release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md)
+    * Merging [MariaDB 10.0.10](../../10.0/10.0.10.md)
   * [Revision #3808.2.4](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.4) \[merge]\
     Fri 2014-03-28 08:26:08 -0400
     * Merged revision 3471, 3472 & 3473 from maria-5.5-galera.
@@ -87,7 +86,7 @@ modified in that revision.
       * Merging InnoDB changes to xtradb (r3783..3808).
   * [Revision #3808.2.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.1) \[merge]\
     Wed 2014-03-26 14:32:51 -0400
-    * Merging [MariaDB 10.0.9](../../release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md)
+    * Merging [MariaDB 10.0.9](../../10.0/10.0.9.md)
 * [Revision #3811](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3811)\
   Wed 2014-04-02 22:35:12 -0400\
   \*
@@ -116,6 +115,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

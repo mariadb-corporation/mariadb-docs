@@ -2,15 +2,15 @@
 
 ## Overview
 
-[MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the [Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 5 series, which succeeds Enterprise ColumnStore 1.5.3.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a columnar storage engine included with MariaDB Enterprise Server. This is the first release in the [ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 5 series, which succeeds ColumnStore 1.5.3.
 
 This release is focused on architectural change, product quality, and improved alignment to MariaDB Enterprise Server.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.5.6-4.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.6-4.
 
 This release is of General Availability (GA) maturity.
 
-[MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview#mariadb-enterprise-columnstore) 5.4.1 was released on 2020-10-20.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview#mariadb-columnstore) 5.4.1 was released on 2020-10-20.
 
 * Documentation
 
@@ -18,9 +18,9 @@ This release is of General Availability (GA) maturity.
 
 ### Multi-Node Changes
 
-* Multi-node Enterprise ColumnStore 5.4.1 requires MaxScale 2.5.
-* Multi-node Enterprise ColumnStore 5.4.1 requires shared storage, such as GlusterFS, EFS, and NFS. It also optionally supports S3-compatible storage for data, but it still requires shared storage for metadata.
-* The CMAPI (Cluster Management API) has been updated. Multi-node Enterprise ColumnStore 5.4.1 uses CMAPI 1.1, which still uses version 0.4.0 of the REST API. ([MCOL-3909](https://jira.mariadb.org/browse/MCOL-3909))
+* Multi-node ColumnStore 5.4.1 requires MaxScale 2.5.
+* Multi-node ColumnStore 5.4.1 requires shared storage, such as GlusterFS, EFS, and NFS. It also optionally supports S3-compatible storage for data, but it still requires shared storage for metadata.
+* The CMAPI (Cluster Management API) has been updated. Multi-node ColumnStore 5.4.1 uses CMAPI 1.1, which still uses version 0.4.0 of the REST API. ([MCOL-3909](https://jira.mariadb.org/browse/MCOL-3909))
 
 ### Security Changes
 
@@ -52,7 +52,7 @@ This release is of General Availability (GA) maturity.
 * CMAPI Server not gracefully handling first nodes with unresolved names in /etc/hostname ([MCOL-4223](https://jira.mariadb.org/browse/MCOL-4223))
 * Case sensitivity in LOCATE(), INSTR(), and FIND\_IN\_SET() functions. ([MCOL-4100](https://jira.mariadb.org/browse/MCOL-4100))
 * INSERT() function not inserting. ([MCOL-4099](https://jira.mariadb.org/browse/MCOL-4099))
-* SQL syntax error when uninstalling Columnstore plugin package. ([MCOL-4087](https://jira.mariadb.org/browse/MCOL-4087))
+* SQL syntax error when uninstalling ColumnStore plugin package. ([MCOL-4087](https://jira.mariadb.org/browse/MCOL-4087))
 * Replication of InnoDB into ColumnStore ends in SEGV in plugin. ([MCOL-4181](https://jira.mariadb.org/browse/MCOL-4181))
 * Unclear error message when postConfigure fails to access online S3 storage. ([MCOL-3494](https://jira.mariadb.org/browse/MCOL-3494))
 * Integrate with the cluster management code. ([MCOL-4055](https://jira.mariadb.org/browse/MCOL-4055))
@@ -71,16 +71,16 @@ This release is of General Availability (GA) maturity.
 
 ## Interface Changes
 
-* [columnstore\_cache\_flush\_threshold](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) system variable added
-* [columnstore\_cache\_inserts](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) system variable added
-* [columnstore\_select\_handler\_in\_stored\_procedures](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) system variable added
-* [mariadbd --columnstore-cache-flush-threshold](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) command-line option added
-* [mariadbd --columnstore-cache-inserts](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) command-line option added
-* [mariadbd --columnstore-select-handler-in-stored-procedures](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) command-line option added
+* [columnstore\_cache\_flush\_threshold](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [columnstore\_cache\_inserts](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [columnstore\_select\_handler\_in\_stored\_procedures](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) system variable added
+* [mariadbd --columnstore-cache-flush-threshold](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
+* [mariadbd --columnstore-cache-inserts](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
+* [mariadbd --columnstore-select-handler-in-stored-procedures](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system-variables) command-line option added
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 5.4.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.4.1 is provided for:
 
 * CentOS 8
 * CentOS 7
@@ -96,16 +96,16 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 
 ## Installation Instructions
 
-* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
-* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
-* [Single-Node Enterprise ColumnStore 23.10 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
-* [Single-Node Enterprise ColumnStore 23.10 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
+* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
+* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
+* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
+* [Single-Node ColumnStore 23.10 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
+* [Single-Node ColumnStore 23.10 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/columnstore-release-notes/README.md)
+* [Major Release Upgrades for MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_GeomFromText. Constructs a geometry value of any type from its
+  WKT representation and an optional SRID.
+---
+
 # GeometryFromText
 
 A synonym for [ST\_GeomFromText](st_geomfromtext.md).

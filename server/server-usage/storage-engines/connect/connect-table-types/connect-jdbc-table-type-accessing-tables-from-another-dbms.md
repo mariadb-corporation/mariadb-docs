@@ -1,10 +1,10 @@
+---
+description: The CONNECT storage engine.
+---
+
 # CONNECT JDBC Table Type: Accessing Tables from Another DBMS
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
-The JDBC table type should be distributed with all recent versions of MariaDB. However, if the automatic compilation of it is possible after the java JDK was installed, the complete distribution of it is not fully implemented in older versions. The distributed JdbcInterface.jar file contains the JdbcInterface wrapper only. New versions distribute a JavaWrappers.jar that contains all currently existing wrappers.
+The JDBC table type should be distributed with all recent versions of MariaDB. However, if the automatic compilation of it is possible after the java JDK was installed, the complete distribution of it is not fully implemented in older versions. The distributed JdbcInterface.jar file contains the JdbcInterface wrapper only. New versions distribute a JavaWrappers.jar that contains all the wrappers.
 
 This will require that:
 
@@ -96,7 +96,7 @@ Once this library is loaded, CONNECT can create the required Java Virtual Machin
 
 ### Java Class Path
 
-This is the list of paths Java searches when loading classes. With CONNECT, the classes to load are the java wrapper classes used to communicate with the drivers , and the used JDBC driver classes that are grouped inside jar files. If the ApacheInterface wrapper must be used, the class path must also include all three jars used by the Apache package.
+This is the list of paths Java searches when loading classes. With CONNECT, the classes to load are the java wrapper classes used to communicate with the drivers, and the used JDBC driver classes that are grouped inside jar files. If the ApacheInterface wrapper must be used, the class path must also include all three jars used by the Apache package.
 
 Caution: This class path is passed as a parameter to the Java Virtual Machine (JVM) when creating it and cannot be modified as it is a read only property. In addition, because MariaDB is a multi-threading application, this JVM cannot be destroyed and are used throughout the entire life of the MariaDB server. Therefore, be sure it is correctly set before you use the JDBC table type for the first time. Otherwise, there are practically no alternative than to shut down the server and restart it.
 
@@ -262,7 +262,7 @@ The bad news is that if it works all right for some previous versions of the MyS
 
 ### Connection to a Data Source
 
-This is the java preferred way to establish a connection because a data source can keep a pool of connections that can be re-used when necessary. This makes establishing connections much faster once it was done for the first time.
+This is the java preferred way to establish a connection because a data source can keep a pool of connections that can be reused when necessary. This makes establishing connections much faster once it was done for the first time.
 
 CONNECT provide additional wrappers whose files are located in the CONNECT source directory. The wrapper to use can be specified in the global variable connect\_java\_wrapper, which defaults to “JdbcInterface”.
 
@@ -285,7 +285,7 @@ The Apache one uses data sources implemented by the Apache-commons-dbcp2 package
 
 Note: the versions numbers can be different on your installation.
 
-The other ones use data sources provided by the matching JDBC driver. There are currently four wrappers to be used with mysql-6.0.2, mariadb, oracle and postgresql.
+The other ones use data sources provided by the matching JDBC driver. There are four wrappers to be used with mysql-6.0.2, mariadb, oracle and postgresql.
 
 Unlike the class path, the used wrapper can be changed even after the JVM machine was created.
 
@@ -427,7 +427,7 @@ SELECT * FROM juuid WHERE id like '%42f3%';
 Returning:
 
 1296: Got error 174 'ExecuteQuery: org.postgresql.util.PSQLException:\
-ERROR: operator does not exist: uuid \~ unknown\
+ERROR: operator does not exist: uuid \~ unknown
 hint: no operator corresponds to the data name and to the argument types.
 
 because CONNECT cond\_push feature added the WHERE clause to the query sent to PostgreSQL:

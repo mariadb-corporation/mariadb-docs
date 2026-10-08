@@ -1,8 +1,14 @@
+---
+description: >-
+  Update dynamic columns. This function adds or updates values within a dynamic
+  column blob, returning the new blob content.
+---
+
 # COLUMN\_ADD
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_ADD(dyncol_blob, column_nr, value [as type], [column_nr, value [as type]]...)
 COLUMN_ADD(dyncol_blob, column_name, value [as type], [column_name, value [as type]]...)
 ```
@@ -14,7 +20,7 @@ Adds or updates [dynamic columns](../../../sql-structure/nosql/dynamic-columns.m
 * `dyncol_blob` must be either a valid dynamic columns blob (for example, `COLUMN_CREATE` returns such blob), or an empty string.
 * `column_name` specifies the name of the column to be added. If `dyncol_blob` already has a column with this name, it will be overwritten.
 * `value` specifies the new value for the column. Passing a NULL value will cause the column to be deleted.
-* `as type` is optional. See [#datatypes](column_add.md#datatypes) section for a discussion about types.
+* `as type` is optional. See [Datatypes](../../../sql-structure/nosql/dynamic-columns.md#datatypes) section for a discussion about types.
 
 The return value is a dynamic column blob after the modifications.
 

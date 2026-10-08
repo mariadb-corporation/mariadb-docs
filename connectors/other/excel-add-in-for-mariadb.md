@@ -1,4 +1,8 @@
 ---
+description: >-
+  Excel Add-in for MariaDB, provided by Devart, enables direct connections
+  between Microsoft Excel and MariaDB to load, refresh, and save database
+  data from a spreadsheet.
 icon: link
 ---
 
@@ -11,7 +15,8 @@ Devart Excel Add-in for MySQL allows you:
 * instantly refresh data in an Excel workbook from the database
 * edit these data and save it back to MySQL
 
-[mysql.html](https://www.devart.com/excel-addins/mysql.html)
+[Excel Add-in for MySQL](https://www.devart.com/excel-addins/mysql/)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

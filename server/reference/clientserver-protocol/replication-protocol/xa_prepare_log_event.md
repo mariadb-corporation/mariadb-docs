@@ -1,3 +1,9 @@
+---
+description: >-
+  This event records the preparation phase of an XA transaction, storing the XID
+  to support two-phase commit and recovery.
+---
+
 # XA\_PREPARE\_LOG\_EVENT
 
 An `XA_PREPARE_LOG_EVENT` records the prepare phase of a distributed transaction using the XA log. It is used to ensure atomicity and consistency of transactions.
@@ -15,7 +21,7 @@ An `XA_PREPARE_LOG_EVENT` records the prepare phase of a distributed transaction
 
 Payload:
 
-* [byte](../protocol-data-types.md#fixed-length-bytes) xid, where n is sum of gtrid and bqual lengths.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) xid, where n is sum of gtrid and bqual lengths.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

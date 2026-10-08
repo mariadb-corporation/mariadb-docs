@@ -1,4 +1,14 @@
+---
+description: >-
+  Connect LibreOffice Base to MariaDB over MariaDB Connector/ODBC to create
+  and manage databases from an open-source RDBMS frontend.
+---
+
 # LibreOffice Base
+
+{% hint style="info" %}
+LibreOffice Base is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [LibreOffice Base](https://www.libreoffice.org/discover/base/) is an open source RDBMS (relational database management system) frontend tool to create and manage various databases.
 
@@ -11,7 +21,7 @@ This includes
 * downloading [the latest MariaDB Connector/ODBC](https://mariadb.com/downloads/#connectors),
 * copying the shared library libmaodbc.so to /usr/lib/\[multi-arch],
 * installing the unixodbc, unixodbc-dev, openssh-client, odbcinst packages, and
-* creating a template file for the [ODBC driver](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/creating-a-data-source-with-mariadb-connectorodbc#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).&#x20;
+* creating a template file for the [ODBC driver](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/creating-a-data-source-with-mariadb-connectorodbc#configuring-mariadb-connector-odbc-as-a-unixodbc-driver-on-linux). 
 * Install the ODBC driver from the template file by running:
 
 ```bash

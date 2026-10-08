@@ -1,3 +1,10 @@
+---
+description: >-
+  Common questions about the MCP Server address installation, MariaDB
+  connection setup, AI client integration, how LLM agents invoke tools, and
+  the purpose of JSON protocol examples.
+---
+
 # Frequently Asked Questions
 
 <details>
@@ -80,3 +87,7 @@ The process works like this:
 The JSON snippets shown in the documentation are examples of the "behind-the-scenes" communication between a client, the LLM, and the MCP Server. They are not meant to be copied and pasted into a CLI but serve to illustrate how the protocol functions.
 
 </details>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

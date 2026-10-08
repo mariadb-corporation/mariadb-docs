@@ -1,8 +1,8 @@
-# CONNECT Table Types - OEM: Implemented in an External LIB
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT Table Types - OEM: Implemented in an External LIB
 
 Although CONNECT provides a rich set of table types, specific applications may need to access data organized in a way that is not handled by its existing foreign data wrappers (FDW). To handle these cases, CONNECT features an interface that enables developers to implement in C++ the required table wrapper and use it as if it were part of the standard CONNECT table type list. CONNECT can use these additional handlers providing the corresponding external module (dll or shared lib) be available.
 
@@ -29,7 +29,7 @@ The OEM table REST described in [Adding the REST Feature as a Library Called by 
 
 Of course, the mongo (dll or so) exporting the GetREST and colREST functions must be available in the plugin directory for all this to work.
 
-### Some Currently Available OEM Table Modules and Subtypes
+### Some Available OEM Table Modules and Subtypes
 
 | Module   | Subtype | Description                                                           |
 | -------- | ------- | --------------------------------------------------------------------- |

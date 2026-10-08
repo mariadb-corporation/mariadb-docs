@@ -1,8 +1,14 @@
+---
+description: >-
+  Learn how to use CHECK TABLE and REPAIR TABLE to identify and fix corruptions
+  in CSV tables, discarding rows from the first error onwards.
+---
+
 # Checking and Repairing CSV Tables
 
 [CSV tables](./) support the [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) and [REPAIR TABLE](../../../reference/sql-statements/table-statements/repair-table.md) statements.
 
-CHECK TABLE will mark the table as corrupt if it finds a problem, while REPAIR TABLE will restore rows until the first corrupted row, discarding the rest.
+`CHECK TABLE` marks the table as corrupt if it finds a problem, while `REPAIR TABLE` restores rows until the first corrupted row, discarding the rest.
 
 ## Examples
 

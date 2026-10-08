@@ -1,8 +1,14 @@
+---
+description: >-
+  Create a time from hour, minute, and second. This function constructs a TIME
+  value from three numeric arguments.
+---
+
 # MAKETIME
 
 ## Syntax
 
-```sql
+```bnf
 MAKETIME(hour,minute,second)
 ```
 

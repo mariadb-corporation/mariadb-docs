@@ -1,46 +1,53 @@
+---
+description: >-
+  A reference for table-level parameters in Spider, which can be set via the
+  COMMENT or CONNECTION string to control connection settings, monitoring, and
+  query behavior.
+---
+
 # Spider Table Parameters
 
 When a table uses the [Spider](./) storage engine, the following Spider table parameters can be set in the `COMMENT` clause of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement. Many Spider table parameters have corresponding system variables, so they can be set for all Spider tables on the node. For additional information, see the [Spider System Variables](spider-system-variables.md) page.
 
-From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113), many table parameters can be set using dedicated Spider table options, see the Table Option Name fields below. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), using the `COMMENT` clause is deprecated, as well as table parameters that do not have corresponding table options.
+From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), many table parameters can be set using dedicated Spider table options, see the Table Option Name fields below. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), using the `COMMENT` clause is deprecated, as well as table parameters that do not have corresponding table options.
 
 #### `access_balances`
 
 * Description: Connection load balancing integer weight.
 * Default Table Value: `0`
 * DSN Parameter Name: `abl`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `active_link_count`
 
 * Description: Number of active remote servers, for use in load balancing read connections
 * Default Table Value: `all backends`
 * DSN Parameter Name: `alc`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `auto_increment_mode`
 
 * Description: The table level value of [spider\_auto\_increment\_mode](spider-system-variables.md#spider_auto_increment_mode)
 * Table Option Name: `AUTO_INCREMENT_MODE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `bgs_mode`
 
 * Description: The table level value of [spider\_bgs\_mode](spider-system-variables.md#spider_bgs_mode).
 * Table Option Name: `BGS_MODE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `bulk_size`
 
 * Description: The table level value of [spider\_bulk\_size](spider-system-variables.md#spider_bulk_size).
 * Table Option Name: `BULK_SIZE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `bulk_update_size`
 
 * Description: The table level value of [spider\_bulk\_update\_size](spider-system-variables.md#spider_bulk_update_size).
 * Table Option Name: `BULK_UPDATE_SIZE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `casual_read`
 
@@ -48,13 +55,13 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value:
 * DSN Parameter Name:
 * Introduced: Spider 3.2
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `connect_timeout`
 
 * Description: The table level value of [spider\_connect\_timeout](spider-system-variables.md#spider_connect_timeout).
 * Table Option Name: `CONNECT_TIMEOUT`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `database`
 
@@ -62,7 +69,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `local table database`
 * DSN Parameter Name: `database`
 * Table Option Name: `REMOTE_DATABASE`
-* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
+* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 #### `default_file`
 
@@ -70,7 +77,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `dff`
 * Table Option Name: `DEFAULT_FILE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `default_group`
 
@@ -78,28 +85,28 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `dfg`
 * Table Option Name: `DEFAULT_GROUP`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `delete_all_rows_type`
 
 * Description: The table level value of [spider\_delete\_all\_rows\_type](spider-system-variables.md#spider_delete_all_rows_type).
 * Introduced: Spider 3.2
 * Table Option Name: `DELETE_ALL_ROWS_TYPE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `force_bulk_delete`
 
 * Description:
-* Introduced: [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes)
+* Introduced: [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5)
 * Table Option Name: `FORCE_BULK_DELETE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `force_bulk_update`
 
 * Description:
-* Introduced: [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes)
+* Introduced: [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5)
 * Table Option Name: `FORCE_BULK_UPDATE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `host`
 
@@ -107,7 +114,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `localhost`
 * DSN Parameter Name: `host`
 * Table Option Name: `REMOTE_HOST`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `idx000`
 
@@ -117,7 +124,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `ig` ignore index
 * Default Table Value: `none`
 * Table Option Name: `IDX`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `link_status`
 
@@ -128,14 +135,14 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `3` Changes status to no more in group communication.
 * Default Table Value: `0`
 * DSN Parameter Name: `lst`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_bg_interval`
 
 * Description: Interval of background monitoring in microseconds.
 * Default Table Value: `10000000`
 * DSN Parameter Name: `mbi`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_bg_kind`
 
@@ -143,10 +150,10 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `0` Disables background monitoring.
   * `1` Monitors connection state.
   * `2` Monitors state of table without `WHERE` clause.
-  * `3` Monitors state of table with `WHERE` clause (currently unsupported).
+  * `3` Monitors state of table with `WHERE` clause (unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mbk`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_kind`
 
@@ -154,10 +161,10 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `0` Disables monitoring
   * `1` Monitors connection state.
   * `2` Monitors state of table without `WHERE` clause.
-  * `3` Monitors state of table with `WHERE` clause (currently unsupported).
+  * `3` Monitors state of table with `WHERE` clause (unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mkd`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_limit`
 
@@ -165,32 +172,32 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `1`
 * Range: `0` upwards
 * DSN Parameter Name: `mlt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_server_id`
 
 * Description: Preferred monitoring `@@server_id` for each backend failure. You can use this to geo-localize backend servers and set the first Spider monitoring node to contact for failover. In the event that this monitor fails, other monitoring nodes are contacted. For multiple copy backends, you can set a lazy configuration with a single MSI instead of one per backend.
 * Default Table Value: `server_id`
 * DSN Parameter Name: `msi`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `multi_split_read`
 
 * Description: The table level value of [spider\_multi\_split\_read](spider-system-variables.md#spider_multi_split_read).
 * Table Option Name: `MULTI_SPLIT_READ`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `net_read_timeout`
 
 * Description: The table level value of [spider\_net\_read\_timeout](spider-system-variables.md#spider_net_read_timeout).
 * Table Option Name: `NET_READ_TIMEOUT`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `net_write_timeout`
 
 * Description: The table level value of [spider\_net\_write\_timeout](spider-system-variables.md#spider_net_write_timeout).
 * Table Option Name: `NET_WRITE_TIMEOUT`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `password`
 
@@ -198,7 +205,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `password`
 * Table Option Name: `REMOTE_PASSWORD`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `port`
 
@@ -206,7 +213,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `3306`
 * DSN Parameter Name: `port`
 * Table Option Name: `REMOTE_PORT`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `priority`
 
@@ -214,7 +221,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `1000000`
 * DSN Parameter Name: `prt`
 * Table Option Name: `PRIORITY`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `query_cache`
 
@@ -225,7 +232,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `0`
 * DSN Parameter Name: `qch`
 * Table Option Name: `QUERY_CACHE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `query_cache_sync`
 
@@ -236,21 +243,21 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `3` Passes both the [SQL\_CACHE](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md#sql_no_cache-and-sql_cache) option and the [SQL\_NO\_CACHE](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) option, if specified in the query to the spider table.
 * Default Table Value: `3`
 * Table Option Name: `QUERY_CACHE_SYNC`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `read_rate`
 
 * Description: Rate used to calculate the amount of time Spider requires when executing index scans.
 * Default Table Value: `0.0002`
 * DSN Parameter Name: `rrt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `scan_rate`
 
 * Description: Rate used to calculate the amount of time Spider requires when scanning tables.
 * Default Table Value: `0.0001`
 * DSN Parameter Name: `srt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `server`
 
@@ -258,13 +265,13 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `srv`
 * Table Option Name: `REMOTE_SERVER`
-* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
+* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 #### `skip_parallel_search`
 
 * Description: The table level value of [spider\_skip\_parallel\_search](spider-system-variables.md#spider_skip_parallel_search).
 * Table Option Name: `SKIP_PARALLEL_SEARCH`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `socket`
 
@@ -272,7 +279,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `socket`
 * Table Option Name: `REMOTE_SOCKET`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_ca`
 
@@ -280,7 +287,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `sca`
 * Table Option Name: `SSL_CA`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_capath`
 
@@ -288,7 +295,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `scp`
 * Table Option Name: `SSL_CAPATH`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_cert`
 
@@ -296,15 +303,15 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `scr`
 * Table Option Name: `SSL_CERT`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_cipher`
 
-* Description: List of allowed ciphers to use with [TLS encryption](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+* Description: List of allowed ciphers to use with [TLS encryption](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 * Default Table Value: `none`
 * DSN Parameter Name: `sch`
 * Table Option Name: `SSL_CIPHER`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_key`
 
@@ -312,7 +319,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `none`
 * DSN Parameter Name: `sky`
 * Table Option Name: `SSL_KEY`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `ssl_verify_server_cert`
 
@@ -322,7 +329,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `0`
 * DSN Parameter Name: `svc`
 * Table Option Name: `SSL_VSC`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `table`
 
@@ -330,33 +337,53 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `Same table name`
 * DSN Parameter Name: `tbl`
 * Table Option Name: `REMOTE_TABLE`
-* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
+* Table Option Introduced: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 #### `table_count_mode`
 
 * Description: for setting table flags HA\_STATS\_RECORDS\_IS\_EXACT and HA\_HAS\_RECORDS.
 * Default Table Value: `0`
 * Table Option Name: `TABLE_COUNT_MODE`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `username`
 
 * Description: user name for the data node.
 * Default Table Value: `Same user name`
 * Table Option Name: `REMOTE_USERNAME`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `use_pushdown_udf`
 
 * Description: The table level value of [spider\_use\_pushdown\_udf](spider-system-variables.md#spider_use_pushdown_udf).
 * Table Option Name: `USE_PUSHDOWN_UDF`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `wrapper`
 
 * Description: wrapper for the data node.
 * Table Option Name: `WRAPPER`
-* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
+
+### Spider Table: Connection Parameters
+
+The Spider table's connection to a remote server is managed via the following engine-defined settings. The `CREATE TABLE` statement specifies these parameters, which take precedence over `COMMENT=` and `CONNECTION=`. See [Specifying Connection Information for Spider Tables](spider-storage-engine-core-concepts.md#specifying-connection-information-for-spider-tables) for a detailed explanation of all connection methods and precedence rules.
+
+**Engine-defined Connection Options**
+
+| Option            | Description                                                                                                          | Available since |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `REMOTE_SERVER`   | Name of the server object generated with `CREATE SERVER` that will be used for the remote connection.                | 10.8.1          |
+| `REMOTE_DATABASE` | Database name on the remote server. The value defined in the referenced server object is used if it is not provided. | 10.8.1          |
+| `REMOTE_TABLE`    | Name of the table on the remote server. The local table name is used if it is not provided.                          | 10.8.1          |
+
+{% hint style="info" %}
+Starting with version 11.3.1, `COMMENT=` and `CONNECTION=` are silently ignored whenever any engine-defined option is present.
+{% endhint %}
+
+{% hint style="info" %}
+To suppress the warning, `set spider_suppress_comment_ignored_warning = 1`. Since 11.4.1, the connection methods `COMMENT=` and `CONNECTION=` have been deprecated. Instead, make use of engine-defined options.
+{% endhint %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,8 +1,15 @@
+---
+description: >-
+  Execute a block while a condition is true. This loop construct checks a
+  condition before each iteration and repeats the block as long as the condition
+  holds.
+---
+
 # WHILE
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] WHILE search_condition DO
     statement_list
 END WHILE [end_label]

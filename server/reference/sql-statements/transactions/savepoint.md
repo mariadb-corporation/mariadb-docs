@@ -1,8 +1,14 @@
+---
+description: >-
+  Create a named marker within a transaction. Savepoints allow you to roll back
+  part of a transaction without canceling the entire operation.
+---
+
 # SAVEPOINT
 
 ## Syntax
 
-```sql
+```bnf
 SAVEPOINT identifier
 ROLLBACK [WORK] TO [SAVEPOINT] identifier
 RELEASE SAVEPOINT identifier
@@ -10,7 +16,7 @@ RELEASE SAVEPOINT identifier
 
 ## Description
 
-InnoDB supports the SQL statements `SAVEPOINT`,`ROLLBACK TO SAVEPOINT`, `RELEASE SAVEPOINT`\
+InnoDB supports the SQL statements `SAVEPOINT`,`ROLLBACK TO SAVEPOINT`, `RELEASE SAVEPOINT`
 and the optional `WORK` keyword for`ROLLBACK`.
 
 Each savepoint must have a legal [MariaDB identifier](../../sql-structure/sql-language-structure/identifier-names.md). A savepoint is a named sub-transaction.

@@ -1,8 +1,8 @@
-# CONNECT - Files Retrieved Using Rest Queries
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT - Files Retrieved Using REST Queries
 
 Starting with [CONNECT version 1.07.0001](../), JSON, XML and possibly CSV data files can be retrieved as results from REST queries when creating or querying such tables. This is done internally by CONNECT using the CURL program generally available on all systems (if not just install it).
 
@@ -12,11 +12,11 @@ Note: If both are available, cpprestsdk is used preferably because it is faster.
 
 Note: If you want to use this feature with an older distributed version of MariaDB not featuring REST, it is possible to add it as an OEM module as explained in [Adding the REST Feature as a Library Called by an OEM Table](../connect-making-the-getrest-library.md).
 
-### Creating Tables using REST
+### Creating Tables Using REST
 
 To do so, specify the HTTP of the web client and eventually the URI of the request in the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) statement. For example, for a query returning JSON data:
 
-```
+```sql
 CREATE TABLE webusers (
   id BIGINT(2) NOT NULL,
   name CHAR(24) NOT NULL,
@@ -32,7 +32,7 @@ TABLE_TYPE=JSON FILE_NAME='users.json' HTTP='http://jsonplaceholder.typicode.com
 
 As with standard JSON tables, discovery is possible, meaning that you can leave CONNECT to define the columns by analyzing the JSON file. Here you could just do:
 
-```
+```sql
 CREATE TABLE webusers
 ENGINE=CONNECT DEFAULT CHARSET=utf8
 TABLE_TYPE=JSON FILE_NAME='users.json'
@@ -41,7 +41,7 @@ HTTP='http://jsonplaceholder.typicode.com' URI='/users';
 
 For example, executing:
 
-```
+```sql
 SELECT name, address FROM webusers2 LIMIT 1;
 ```
 
@@ -53,7 +53,7 @@ returns:
 
 Here we see that for some complex elements such as _address_, which is a Json object containing values and objects, CONNECT by default has just listed their texts separated by blanks. But it is possible to ask it to analyze in more depth the json result by adding the DEPTH option. For instance:
 
-```
+```sql
 CREATE OR REPLACE TABLE webusers
 ENGINE=CONNECT DEFAULT CHARSET=utf8
 TABLE_TYPE=JSON FILE_NAME='users.json'
@@ -63,7 +63,7 @@ OPTION_LIST='Depth=2';
 
 Then the table are created as:
 
-```
+```sql
 CREATE TABLE `webusers3` (
   `id` BIGINT(2) NOT NULL,
   `name` CHAR(24) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `webusers3` (
 
 Allowing one to get all the values of the Json result, for example:
 
-```
+```sql
 SELECT name, address_city city, company_name company FROM webusers3;
 ```
 
@@ -104,13 +104,13 @@ That results in:
 | Glenna Reichert                | Bartholomebury     | Yost and Sons     |
 | Clementina DuBuque             | Lebsackbury        | Hoeger LLC        |
 
-Of course, the complete create table (obtained by SHOW CREATE TABLE) can later be edited to make your table return exactly what you want to get. See the [JSON table type](connect-json-table-type.md) for details about what and how to specify these.
+Of course, the complete create table (obtained by SHOW CREATE TABLE) can later be edited to make your table return exactly what you want to get. See the [JSON table type](connect-json-table-type/README.md) for details about what and how to specify these.
 
 Note that such tables are read only. In addition, the data are retrieved from the web each time you query the table with a [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement. This is fine if the result varies each time, such as when you query a weather forecasting site. But if you want to use the retrieved file many times without reloading it, just create another table on the same file without specifying the HTTP option.
 
 Note: For JSON tables, specifying the file name is optional and defaults to tabname.type. However, you should specify it if you want to use the file later for other tables.
 
-See the [JSON table type](connect-json-table-type.md) for changes that will occur in the new CONNECT versions (distributed in early 2021).
+See the [JSON table type](connect-json-table-type/README.md) for changes that will occur in the new CONNECT versions (distributed in early 2021).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

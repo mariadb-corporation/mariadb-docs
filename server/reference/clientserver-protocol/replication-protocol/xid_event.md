@@ -1,3 +1,9 @@
+---
+description: >-
+  The XID_EVENT signifies the commit of a transaction, containing the
+  transaction ID (XID) to ensure atomicity across replication.
+---
+
 # XID\_EVENT
 
 An XID event is generated for a `COMMIT` of a transaction that modifies one or more tables of an XA-capable storage engine.

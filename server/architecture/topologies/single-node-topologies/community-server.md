@@ -6,7 +6,7 @@ description: Deploy MariaDB Community Server
 
 ## Overview
 
-These instructions detail the deployment of **MariaDB Community Server 10.5** in a **Single Standalone Server** configuration on a range of supported Operating Systems.
+These instructions detail the deployment of **MariaDB Community Server** in a **Single Standalone Server** configuration on a range of supported Operating Systems.
 
 These instructions detail how to deploy a single-node row database, which is suited for a transactional or OLTP workload that does not require high availability (HA). This deployment type is generally for non-production use cases, such as for development and testing.
 
@@ -28,7 +28,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the YUM package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure YUM package repositories:
 
@@ -54,7 +54,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
        --mariadb-server-version="mariadb-11.4"
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash
@@ -70,7 +70,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the APT package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure APT package repositories:
 
@@ -100,7 +100,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
     $ sudo apt update
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash
@@ -116,7 +116,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the ZYpp package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure ZYpp package repositories:
 
@@ -142,7 +142,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
        --mariadb-server-version="mariadb-11.4"
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash
@@ -207,7 +207,7 @@ And on Debian and Ubuntu, custom configuration files from the following director
     | [thread\_handling](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling) | Sets how MariaDB Community Server handles threads for client connections.                                                                                                                                                                               |
     | [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)                         | Sets the file name for the error log.                                                                                                                                                                                                                   |
     | [innodb\_buffer\_pool\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size)                                         | Sets the amount of memory InnoDB reserves for the Buffer Pool.                                                                                                                                                                                          |
-    | [innodb\_log\_file\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)                                               | Sets the size for each Redo Log file and [innodb\_log\_files\_in\_group](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_files_in_group) sets the number of Redo Log files used by InnoDB.                           |
+    | [innodb\_log\_file\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)                                               | Sets the size of the InnoDB Redo Log file.                           |
     | [innodb\_io\_capacity](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity)                                                    | Sets the maximum number of I/O operations per second that InnoDB can use.                                                                                                                                                                               |
 2.  Choose a configuration file in which to configure your system variables and options.
 
@@ -254,6 +254,6 @@ When MariaDB Community Server is up and running on your system, you should test 
     MariaDB [(none)]>
     ```
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

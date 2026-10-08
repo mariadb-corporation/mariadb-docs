@@ -1,8 +1,10 @@
-# Performance Schema user\_variables\_by\_thread Table
+---
+description: >-
+  This table exposes user-defined variables set within active threads, allowing
+  inspection of custom variables across all sessions.
+---
 
-{% hint style="info" %}
-The `user_variables_by_thread` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema user\_variables\_by\_thread Table
 
 The `user_variables_by_thread` table contains information about [user-defined variables](../../../sql-structure/sql-language-structure/user-defined-variables.md) and the threads that defined them.
 

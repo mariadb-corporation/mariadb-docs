@@ -1,3 +1,9 @@
+---
+description: >-
+  This table provides a global summary of statement events aggregated by event
+  name, showing total execution counts and wait times for the server.
+---
+
 # Performance Schema events\_statements\_summary\_global\_by\_event\_name Table
 
 The [Performance Schema](../) `events_statements_summary_global_by_event_name` table contains statement events summarized by event name. It contains the following columns:

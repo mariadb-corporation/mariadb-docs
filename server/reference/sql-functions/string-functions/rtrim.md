@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove trailing spaces. This function returns the string with any trailing
+  whitespace characters removed.
+---
+
 # RTRIM
 
 ## Syntax
 
-```sql
+```bnf
 RTRIM(str)
 ```
 

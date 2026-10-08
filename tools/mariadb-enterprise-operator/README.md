@@ -1,10 +1,10 @@
 ---
 description: >-
-  MariaDB Enterprise Operator automates provisioning, scaling, backups, and high
+  MariaDB Enterprise Kubernetes Operator automates provisioning, scaling, backups, and high
   availability, making cloud-native database operations efficient and reliable.
 ---
 
-# MariaDB Enterprise Operator
+# MariaDB Enterprise Kubernetes Operator
 
 
 

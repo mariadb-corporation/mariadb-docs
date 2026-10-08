@@ -1,3 +1,9 @@
+---
+description: >-
+  Answers to common questions regarding the official MariaDB image, covering
+  versioning, tagging, and default configurations.
+---
+
 # Docker Official Image Frequently Asked Questions
 
 Frequently asked questions about the Docker Official Image

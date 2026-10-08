@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove a trigger from a table. This command deletes the trigger definition,
+  preventing it from firing on future INSERT, UPDATE, or DELETE events.
+---
+
 # DROP TRIGGER
 
 ## Syntax
 
-```sql
+```bnf
 DROP TRIGGER [IF EXISTS] [schema_name.]trigger_name
 ```
 
@@ -16,15 +22,7 @@ Use `IF EXISTS` to prevent an error from occurring for a trigger that does not e
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
 `DROP TRIGGER` is [atomic](../atomic-ddl.md).
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-`DROP TRIGGER` is **not** [atomic](../atomic-ddl.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

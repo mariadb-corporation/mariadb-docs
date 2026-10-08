@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to use Hiera, Puppet's hierarchical key/value lookup tool, to
+  separate MariaDB configuration data from code and manage environment-specific
+  settings.
+---
+
 # Puppet hiera Configuration System
 
 hiera is part of [Puppet](./). It is a hierarchical configuration system that allows us to:

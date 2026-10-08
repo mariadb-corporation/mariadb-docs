@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns YES or NO indicating whether a specific consumer is
+  currently enabled in the Performance Schema.
+---
+
 # ps\_is\_consumer\_enabled
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG database integration endpoints ingest data directly from
+  MariaDB tables or SQL SELECT queries, converting rows into searchable
+  documents with column-mapped metadata.
+---
+
 # Database Integration
 
 ## Database Integration Endpoints
@@ -11,6 +18,7 @@ POST /documents/ingest-from-table
 **Purpose**: Ingests data directly from a MariaDB table or view, treating it as a CSV data source. This allows for seamless integration with existing database content.
 
 **Request body**:
+
 ```json
 {
   "table_name": "customer_feedback",
@@ -27,6 +35,7 @@ POST /documents/ingest-from-table
 ```
 
 **Response**:
+
 ```json
 {
   "job_id": "db_ingest_xyz123",
@@ -55,6 +64,7 @@ POST /documents/sql-ingest
 **Purpose**: Executes a SELECT query and ingests the results as a CSV document. The query results are stored as a document that can be chunked and searched. This provides a way to make database query results searchable via RAG.
 
 **Request body**:
+
 ```json
 {
   "sql_query": "SELECT id, title, content, author, published_date FROM articles WHERE status = 'published' AND category = 'technical'",
@@ -64,17 +74,20 @@ POST /documents/sql-ingest
 ```
 
 **Request Parameters**:
-- `sql_query` (required): A SELECT query to execute (only SELECT queries are allowed)
-- `role` (optional): Database role to use for query execution (default: from `DEFAULT_SQL_ROLE` environment variable)
-- `document_name` (optional): Name for the generated CSV document (default: "query_results")
+
+* `sql_query` (required): A SELECT query to execute (only SELECT queries are allowed)
+* `role` (optional): Database role to use for query execution (default: from `DEFAULT_SQL_ROLE` environment variable)
+* `document_name` (optional): Name for the generated CSV document (default: "query\_results")
 
 **Security Notes**:
-- Only SELECT queries are allowed (enforced by regex validation)
-- Multiple statements are not allowed (no semicolons outside of quoted strings)
-- User must have permission to use the specified role
-- Query is executed using MariaDB's role-based access control
+
+* Only SELECT queries are allowed (enforced by regex validation)
+* Multiple statements are not allowed (no semicolons outside of quoted strings)
+* User must have permission to use the specified role
+* Query is executed using MariaDB's role-based access control
 
 **Response**:
+
 ```json
 {
   "id": 42,
@@ -112,6 +125,7 @@ GET /documents/ingest-status/{job_id}
 **Purpose**: Checks the status of a database ingestion job.
 
 **Response**:
+
 ```json
 {
   "job_id": "db_ingest_xyz123",
@@ -130,3 +144,7 @@ GET /documents/ingest-status/{job_id}
 curl "http://localhost:8000/documents/ingest-status/db_ingest_xyz123" \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

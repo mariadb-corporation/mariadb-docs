@@ -1,4 +1,10 @@
-# Archive
+---
+description: >-
+  The Archive storage engine is optimized for high-speed insertion and
+  compression of large amounts of data, suitable for logging and auditing.
+---
+
+# ARCHIVE
 
 The `ARCHIVE` storage engine is a storage engine that uses gzip to compress rows. It is mainly used for storing large amounts of data, without indexes, with only a very small footprint.
 
@@ -18,7 +24,7 @@ The first method can be used to install the plugin without restarting the server
 INSTALL SONAME 'ha_archive';
 ```
 
-The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mysqld](../../clients-and-utilities/legacy-clients-and-utilities/mariadbd_safe.md) or it can be specified in a relevant server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mysqld](../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) or it can be specified in a relevant server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```
 [mariadb]
@@ -49,8 +55,10 @@ If you installed the plugin by providing the [--plugin-load](../../server-manage
 * Does not support [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
 * No storage limit.
 * Supports row locking.
-* Supports [table discovery](storage-engines-storage-engine-development/table-discovery.md), and the server can access ARCHIVE tables even if the corresponding `.frm` file is missing.
+* Supports [table discovery](../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md), and the server can access ARCHIVE tables even if the corresponding `.frm` file is missing.
 * [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) and [REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) can be used to compress the table in its entirety, resulting in slightly better compression.
 * With MariaDB, it is possible to upgrade from the MySQL 5.0 format without having to dump the tables.
 * [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is supported.
 * Running many SELECTs during the insertions can deteriorate the compression, unless only multi-rows INSERTs and INSERT DELAYED are used.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,5 +1,7 @@
 ---
-description: Introduction to Views Guide
+description: >-
+  Discover how to create and use views to simplify complex queries, restrict
+  data access, and present a specific perspective of your data.
 ---
 
 # Creating & Using Views Guide
@@ -8,9 +10,9 @@ This guide introduces SQL Views in MariaDB, virtual tables based on the result-s
 
 ### Prerequisites
 
-* A basic understanding of SQL, particularly `JOIN` operations. (You may want to refer to guides like "Basic Joins Guide" or "More Advanced Joins" if available.)
+* A basic understanding of SQL, particularly `JOIN` operations. (You may want to refer to [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md).)
 * Access to a MariaDB database.
-* Privileges to `CREATE TABLE` and `CREATE VIEW`.
+* Privileges to `CREATE TABLE` and [`CREATE VIEW`](../server-usage/views/create-view.md).
 
 ### Setup: Example Employee Database
 
@@ -18,6 +20,7 @@ First, we'll create and populate two tables, `Employees` and `Hours`, to use in 
 
 **Employees Table:**
 
+{% code expandable="true" %}
 ```sql
 CREATE TABLE `Employees` (
   `ID` TINYINT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -38,9 +41,11 @@ VALUES
   ('Fanny', 'Crowne', 'Restocker', '1023 Bokanovsky Lane', '326-555-6329'),
   ('Helmholtz', 'Watson', 'Janitor', '944 Soma Court', '329-555-2478');
 ```
+{% endcode %}
 
 **Hours Table:**
 
+{% code expandable="true" %}
 ```sql
 CREATE TABLE `Hours` (
   `ID` TINYINT(3) UNSIGNED NOT NULL,
@@ -80,6 +85,7 @@ VALUES ('1', '2005-08-08 07:00:42', '2005-08-08 17:01:36'),
   ('6', '2005-08-11 07:00:05', '2005-08-11 17:02:57'),
   ('6', '2005-08-12 07:02:07', '2005-08-12 16:58:23');
 ```
+{% endcode %}
 
 ### Building a Complex Query (Example: Employee Tardiness)
 
@@ -200,7 +206,7 @@ SELECT * FROM Employee_Tardiness WHERE Difference >= 5;
 * **Simplifying Complex Queries:** As demonstrated, views hide complex joins and calculations.
 * **Restricting Data Access (Column-Level Security):** Views can expose only a subset of columns from underlying tables, preventing users or applications from seeing sensitive information (e.g., `Home_Address`, `Home_Phone` were not included in our `Employee_Tardiness` view).
 * **Implementing Row-Level Security:** A view can include a `WHERE` clause that filters rows based on the user querying it or other criteria, effectively providing row-level access control. For updatable views, defining them with `WITH CHECK OPTION` (or the similar effect of a `CASCADE` clause mentioned in original text, usually `WITH CASCADED CHECK OPTION`) can ensure that `INSERT`s or `UPDATE`s through the view adhere to the view's `WHERE` clause conditions.
-* **Pre-emptive Optimization:** Complex, frequently used queries can be defined as views with optimal join strategies and indexing considerations. Other users or applications query the already optimized view, reducing the risk of running inefficient ad-hoc queries.
+* **Preemptive Optimization:** Complex, frequently used queries can be defined as views with optimal join strategies and indexing considerations. Other users or applications query the already optimized view, reducing the risk of running inefficient ad-hoc queries.
 * **Abstracting Table Structures:** Views provide a consistent interface to applications even if the underlying table structures change (e.g., tables are normalized, split, or merged). The view definition can be updated to map to the new structure, while applications continue to query the unchanged view.
 
 ### Summary of View Advantages
@@ -211,6 +217,11 @@ Views offer a powerful way to:
 * **Abstract database logic:** Separate application code from the complexities of the database schema.
 * **Enhance security:** Control access to specific rows and columns.
 * **Improve maintainability:** Changes to underlying tables can often be managed by updating the view definition without altering application queries.
+
+### See Also
+
+* [Views](../server-usage/views/) — the full reference for `CREATE VIEW`, `ALTER VIEW`, `DROP VIEW`, and updatable views
+* [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

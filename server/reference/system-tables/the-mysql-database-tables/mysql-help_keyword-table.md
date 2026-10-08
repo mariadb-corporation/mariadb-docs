@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.help_keyword table maps keywords to help topics, facilitating
+  keyword-based searches within the MariaDB help system.
+---
+
 # mysql.help\_keyword Table
 
 `mysql.help_keyword` is one of the four tables used by the [HELP command](../../sql-statements/administrative-sql-statements/help-command.md). It is populated when the server is installed by the `fill_help_tables.sql` script. The other help tables are [help\_relation](mysql-help_relation-table.md), [help\_category](mysql-help_category-table.md) and [help\_topic](mysql-help_topic-table.md).

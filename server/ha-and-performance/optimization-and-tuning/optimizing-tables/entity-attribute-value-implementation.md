@@ -1,3 +1,9 @@
+---
+description: >-
+  Implementing the entity-attribute-value (EAV) model in MariaDB, and its
+  trade-offs.
+---
+
 # Entity-Attribute-Value Implementation
 
 ## The desires
@@ -36,7 +42,7 @@ Decide which columns need to be searched/sorted by SQL queries. No, you don't ne
 
 The solution uses one table for all the EAV stuff. The columns include the searchable fields plus one [BLOB](../../../reference/data-types/string-data-types/blob.md). Searchable fields are declared appropriately ([INT](../../../reference/data-types/numeric-data-types/int.md), [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md), etc). The BLOB contains JSON-encoding of all the extra fields.
 
-The table should be [InnoDB](../../../server-usage/storage-engines/innodb/), hence it should have a PRIMARY KEY. The entitity\_id is the 'natural' PK. Add a small number of other indexes (often 'composite') on the searchable fields. [PARTITIONing](../../../server-usage/partitioning-tables/) is unlikely to be of any use, unless the Entities should purged after some time. (Example: News Articles)
+The table should be [InnoDB](../../../server-usage/storage-engines/innodb/), hence it should have a PRIMARY KEY. The entity\_id is the 'natural' PK. Add a small number of other indexes (often 'composite') on the searchable fields. [PARTITIONing](../../../server-usage/partitioning-tables/) is unlikely to be of any use, unless the Entities should purged after some time. (Example: News Articles)
 
 ## But what about the ad hoc queries?
 
@@ -78,7 +84,7 @@ Posted Jan, 2014; Refreshed Feb, 2016.
 * MariaDB's [Dynamic Columns](../../../reference/sql-structure/nosql/dynamic-columns.md)
 * [MySQL 5.7's JSON](https://dev.mysql.com/doc/refman/5.7/en/json.html)
 
-This looks very promising; I will need to do more research to see how much of this article is obviated by it: [Using MySQL as a Document Store in 5.7](https://dev.mysql.com/doc/refman/5.7/en/document-store.html),[more DocStore discussion](https://mysqlserverteam.com/mysql-5-7-12-part-6-mysql-document-store-a-new-chapter-in-the-mysql-story/)
+This looks very promising; I will need to do more research to see how much of this article is obviated by it: [Using MySQL as a Document Store in 5.7](https://dev.mysql.com/doc/refman/5.7/en/document-store.html),[more DocStore discussion](https://web.archive.org/web/20160823135933/https://mysqlserverteam.com/mysql-5-7-12-part-6-mysql-document-store-a-new-chapter-in-the-mysql-story/)
 
 If you insist on EAV, set [optimizer\_search\_depth=1](../system-variables/server-system-variables.md#optimizer_search_depth).
 
@@ -86,7 +92,7 @@ If you insist on EAV, set [optimizer\_search\_depth=1](../system-variables/serve
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [eav](https://mysql.rjweb.org/doc.php/eav)

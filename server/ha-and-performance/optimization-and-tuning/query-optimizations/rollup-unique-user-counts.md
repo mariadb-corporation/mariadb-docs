@@ -1,3 +1,9 @@
+---
+description: >-
+  Efficiently rolling up unique-user counts without repeatedly reprocessing
+  large logs.
+---
+
 # Rollup Unique User Counts
 
 ## The Problem
@@ -20,15 +26,15 @@ A sufficiently random hash (eg MD5) will fold userids into the same bits with a 
 
 I simulated the problem by generating random hashes and calculated the number of bits that would be set. Then, with the help of Eureqa software, I derived the formula:
 
-Y = 0.545&#x36;_&#x58; + 0.654&#x33;_&#x74;an(1.3&#x39;_&#x58;_&#x58;\*X)
+Y = 0.5456_X + 0.6543_tan(1.39_X_X\*X)
 
 ## How good is it?
 
 The formula is reasonably precise. It is usually within 1% of the correct value; rarely off by 2%.
 
-Of course, if virtually all the bits are set, the forumla can't be very precise. Hence, you need to plan to have the bit strings big enough to handle the expected number of Uniques. In practice, you can use less than 1 bit per Unique. This would be a huge space savings over trying to save all the userids.
+Of course, if virtually all the bits are set, the formula can't be very precise. Hence, you need to plan to have the bit strings big enough to handle the expected number of Uniques. In practice, you can use less than 1 bit per Unique. This would be a huge space savings over trying to save all the userids.
 
-Another suggestion... If you are rolling up over a big span of time (eg hourly -> monthly), the bit strings must all be the same length, and the monthly string must be big enough to handle the expected count. This is likely to lead to very sparse hourly bit strings. Hence, it may be prudent to compress the hourly stings.
+Another suggestion... If you are rolling up over a big span of time (eg hourly -> monthly), the bit strings must all be the same length, and the monthly string must be big enough to handle the expected count. This is likely to lead to very sparse hourly bit strings. Hence, it may be prudent to compress the hourly strings.
 
 ## Postlog
 
@@ -36,15 +42,14 @@ Invented Nov, 2013; published Apr, 2014
 
 Future: Rick is working on actual code (Sep, 2016)\
 It is complicated by bit-wise operations being limited to BIGINT.\
-However, with MySQL 8.0 (freshly released), the desired bit-wise\
-operations can be applied to BLOB, greatly simplifying my code.\
-I hope to publish the pre-8.0 code soon; 8.0 code later.
+However, with MySQL 8.0, the desired bit-wise
+operations can be applied to BLOB, greatly simplifying my code.
 
 ## See also
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,
 optimizations, and debugging tips.
 
 Original source: [uniques](https://mysql.rjweb.org/doc.php/uniques)

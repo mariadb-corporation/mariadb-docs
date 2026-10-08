@@ -1,3 +1,10 @@
+---
+description: >-
+  Auto-Eviction keeps MariaDB Galera Cluster stable by removing unresponsive
+  nodes through a consensus-driven delayed-list mechanism, controlled via the
+  evs.auto_evict provider option.
+---
+
 # Configuring Auto-Eviction
 
 Auto-Eviction enhances cluster stability by automatically removing non-responsive or "unhealthy" [nodes](../../high-availability/monitoring-mariadb-galera-cluster.md#understanding-galera-node-states) in MariaDB Galera Cluster. This prevents a single problematic node from degrading the entire cluster's [performance](../performance-tuning/flow-control-in-galera-cluster.md#monitoring-flow-control). In a Galera Cluster, each node monitors the network response times of other nodes. If a node becomes unresponsive due to reasons like memory swapping, network congestion, or a hung process, it can delay and potentially disrupt cluster operations. Auto-Eviction provides a deterministic method to isolate these misbehaving nodes effectively.
@@ -24,7 +31,7 @@ The value of `evs.auto_evict` determines the threshold for eviction. It defines 
 wsrep_provider_options = "evs.auto_evict=5"
 ```
 
-In the above example example, if a node registers that a peer has been delayed 5 times, it will vote to have that peer evicted from the cluster.
+In the above example, if a node registers that a peer has been delayed 5 times, it will vote to have that peer evicted from the cluster.
 
 To disable Auto-Eviction, you can set the value to `0`:
 

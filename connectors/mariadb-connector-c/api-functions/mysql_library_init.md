@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_library_init initializes the MariaDB Connector/C library before any
+  other functions are called, starting the embedded server if used in that
+  configuration.
+---
+
 # mysql\_library\_init
 
 ## Syntax
@@ -16,8 +23,10 @@ Call [mysql\_library\_end()](mysql_library_end.md) to clean up after completion.
 `mysql_server_init()` is an alias.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_library\_end()](mysql_library_end.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

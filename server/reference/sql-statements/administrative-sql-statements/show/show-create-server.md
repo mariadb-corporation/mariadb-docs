@@ -1,18 +1,28 @@
+---
+description: >-
+  Display the CREATE SERVER statement. This statement shows the configuration
+  details for a defined federated server connection.
+---
+
 # SHOW CREATE SERVER
 
 {% tabs %}
 {% tab title="Current" %}
-## Syntax
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
+**Syntax**
 
 ```sql
 SHOW CREATE SERVER server_name
 ```
 
-## Description
+**Description**
 
 Shows the [CREATE SERVER](../../data-definition/create/create-server.md) statement that created the given server definition.
 
-## Example
+**Example**
 
 ```sql
 SHOW CREATE SERVER srv1\G
@@ -24,6 +34,10 @@ Create Server: CREATE SERVER `srv1` FOREIGN DATA WRAPPER mysql
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 The `SHOW CREATE SERVER` statement is not available.
 {% endtab %}
 {% endtabs %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Strategies for moving data from PostgreSQL to MariaDB, using the CONNECT
+  storage engine with ODBC/JDBC or foreign data wrappers.
+---
+
 # Migrating to MariaDB from PostgreSQL
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/DIKbJcrzYIyfEVdDst6b/" %}
@@ -12,7 +18,7 @@ See [Loading the CONNECT Storage Engine](../../../server-usage/storage-engines/c
 
 ### Tables with ODBC table\_type
 
-The CONNECT storage engine allows you to create tables that refer to tables on an external server, and it can fetch the data using a compatible [ODBC](https://en.wikipedia.org/wiki/Open_Database_Connectivity) driver. PostgreSQL does have a freely available ODBC driver called [psqlODBC](https://odbc.postgresql.org/). Therefore, if you install `psqlODBC` on the MariaDB Server, and then configure the system's ODBC framework (such as [unixODBC](https://www.unixodbc.org/)), then the MariaDB server will be able to connect to the remote PostgreSQL server. At that point, you can create tables with the [ENGINE=CONNECT](../../../reference/sql-statements-and-structure/sql-statements/data-definition/create/create-table.md#storage-engine) and [table\_type=ODBC](../../../server-usage/storage-engines/connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) table options set, so that you can access the PostgreSQL tables from MariaDB.
+The CONNECT storage engine allows you to create tables that refer to tables on an external server, and it can fetch the data using a compatible [ODBC](https://en.wikipedia.org/wiki/Open_Database_Connectivity) driver. PostgreSQL does have a freely available ODBC driver called [psqlODBC](https://odbc.postgresql.org/). Therefore, if you install `psqlODBC` on the MariaDB Server, and then configure the system's ODBC framework (such as [unixODBC](https://www.unixodbc.org/)), then the MariaDB server will be able to connect to the remote PostgreSQL server. At that point, you can create tables with the [ENGINE=CONNECT](../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) and [table\_type=ODBC](../../../server-usage/storage-engines/connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) table options set, so that you can access the PostgreSQL tables from MariaDB.
 
 See [CONNECT ODBC Table Type: Accessing Tables From Another DBMS](../../../server-usage/storage-engines/connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) for more information on how to do that.
 
@@ -104,7 +110,7 @@ PostgreSQL's [COPY TO](https://www.postgresql.org/docs/current/sql-copy.html) al
 
 MySQL Workbench has a [migration feature](https://www.mysql.com/products/workbench/migrate/) that requires an [ODBC](https://en.wikipedia.org/wiki/Open_Database_Connectivity) driver. PostgreSQL does have a freely available ODBC driver called [psqlODBC](https://odbc.postgresql.org/).
 
-See [Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard](https://mysqlworkbench.org/2012/11/set-up-and-configure-postgresql-odbc-drivers-for-the-mysql-workbench-migration-wizard/) for more information.
+See Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard for more information.
 
 ## Known Issues
 
@@ -112,9 +118,35 @@ See [Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migrat
 
 PostgreSQL's [functions](https://www.postgresql.org/docs/current/sql-createfunction.html) and [procedures](https://www.postgresql.org/docs/11/sql-createprocedure.html) use a language called [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html). This language is quite different than the default `SQL/PSM` language used for MariaDB's [stored procedures](../../../server-usage/stored-routines/stored-procedures/). `PL/pgSQL` is more similar to `PL/PSQL` from Oracle, so you may find it beneficial to try migrate with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) set.
 
-## See also
+## MariaDB / PostgreSQL Comparison
 
-* [Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard](https://mysqlworkbench.org/2012/11/set-up-and-configure-postgresql-odbc-drivers-for-the-mysql-workbench-migration-wizard/)
+{% columns %}
+{% column %}
+{% embed url="https://www.youtube.com/watch?v=l_5AgRPTa54" %}
+MariaDB and PostgreSQL: A technical deep-dive into how they differ (54 minutes • 2024)
+{% endembed %}
+{% endcolumn %}
+
+{% column %}
+This deep-dive explores the architectural and philosophy differences between MariaDB and PostgreSQL. It is particularly useful for users who are troubleshooting performance issues or deciding which database engine best suits their specific workload requirements.
+
+**Core Topics Covered:**
+
+* Storage Engine Architecture: Explains MariaDB’s unique "pluggable storage engine" architecture (like InnoDB, MyRocks, and Aria) compared to PostgreSQL's single integrated storage engine approach.
+* SQL Compatibility & Standards: A look at how PostgreSQL strictly adheres to SQL standards, whereas MariaDB prioritizes high performance and "pragmatic" features (like temporal tables and virtual columns).
+* Concurrency Models: A comparison of how each handles multi-user traffic. The video highlights MariaDB’s thread-pool approach versus PostgreSQL’s process-per-connection model.
+* JSON & Modern Data Types: How both databases have evolved to handle NoSQL-style data, comparing MariaDB’s dynamic columns and JSON functions against PostgreSQL's JSONB.
+
+**Key Takeaway for Troubleshooting:**
+
+The video emphasizes that because MariaDB is a multi-engine database, connection or performance issues are often solved by tuning the specific engine being used (usually InnoDB) rather than the server as a whole – a major difference from the more "monolithic" troubleshooting approach in PostgreSQL.
+{% endcolumn %}
+{% endcolumns %}
+
+## See Also
+
+* Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard
+* [MariaDB and PostgreSQL: A technical deep-dive into how they differ](https://youtu.be/l_5AgRPTa54) (54 minutes • 2024)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

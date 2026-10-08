@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate exponential value. This function returns the value of e (the base of
+  natural logarithms) raised to the power of the argument.
+---
+
 # EXP
 
 ## Syntax
 
-```sql
+```bnf
 EXP(X)
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate the total sum. This function returns the sum of all values in a
+  numeric expression, ignoring NULL values.
+---
+
 # SUM
 
 ## Syntax
 
-```sql
+```bnf
 SUM([DISTINCT] expr)
 ```
 
@@ -33,7 +39,7 @@ SELECT SUM(DISTINCT(sales_value)) FROM sales;
 +----------------------------+
 ```
 
-Commonly, `SUM` is used with a [GROUP BY](../../sql-statements/data-manipulation/selecting-data/select.md#group-by) clause:
+Commonly, `SUM` is used with a [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause:
 
 ```sql
 CREATE TABLE sales (name CHAR(10), month CHAR(10), units INT);
@@ -55,7 +61,7 @@ SELECT name, SUM(units) FROM sales GROUP BY name;
 +---------+------------+
 ```
 
-The [GROUP BY](../../sql-statements/data-manipulation/selecting-data/select.md#group-by) clause is required when using an aggregate function along with regular column data, otherwise the result will be a mismatch, as in the following common type of mistake:
+The [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause is required when using an aggregate function along with regular column data, otherwise the result will be a mismatch, as in the following common type of mistake:
 
 ```sql
 SELECT name,SUM(units) FROM sales

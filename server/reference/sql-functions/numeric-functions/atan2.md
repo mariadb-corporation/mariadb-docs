@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate arc tangent of two variables. This function returns the angle in
+  radians between the positive x-axis and the point (X, Y).
+---
+
 # ATAN2
 
 ## Syntax
 
-```sql
+```bnf
 ATAN(Y,X), ATAN2(Y,X)
 ```
 

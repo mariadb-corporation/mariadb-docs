@@ -64,8 +64,8 @@ Remember, practice is the key to mastering these advanced SQL concepts, like any
 
 * [Joining Tables with JOIN Clauses Guide](../../mariadb-quickstart-guides/mariadb-join-guide.md)
 * [More Advanced Joins](../sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
-* [JOIN Syntax](../sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md)
-* [Comma vs JOIN](../sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/comma-vs-join.md)
+* [JOIN Syntax](../sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
+* [Comma vs JOIN](../sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

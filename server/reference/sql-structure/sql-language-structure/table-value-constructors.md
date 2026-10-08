@@ -1,18 +1,23 @@
+---
+description: >-
+  The VALUES table value constructor, which produces a set of rows.
+---
+
 # Table Value Constructors
 
 ## Syntax
 
-```sql
+```bnf
 VALUES ( row_value[, row_value...]), (...)...
 ```
 
 ## Description
 
-In Unions, Views, and subqueries, a Table Value Constructor (TVC) allows you to inject arbitrary values into the result set. The given values must have the same number of columns as the result set, otherwise it returns [Error 1222](broken-reference).
+In Unions, Views, and subqueries, a Table Value Constructor (TVC) allows you to inject arbitrary values into the result set. The given values must have the same number of columns as the result set, otherwise it returns [Error 1222](../../error-codes/mariadb-error-codes-1200-to-1299/e1222.md).
 
 ## Examples
 
-Using TVC's with [UNION](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md) operations:
+Using TVC's with [UNION](../../sql-statements/data-manipulation/selecting-data/set-operations/union.md) operations:
 
 ```sql
 CREATE TABLE test.t1 (val1 INT, val2 INT);

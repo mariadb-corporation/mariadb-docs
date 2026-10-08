@@ -1,3 +1,10 @@
+---
+description: >-
+  Manually reset Quorum and bootstrap a new MariaDB Galera Cluster Primary
+  Component after a majority failure, using the Safe-to-Bootstrap flag in
+  grastate.dat to pick the right node.
+---
+
 # Resetting the Quorum (Cluster Bootstrap)
 
 {% hint style="info" %}
@@ -84,9 +91,7 @@ This method involves a [full shutdown](recovering-a-primary-component.md#manual-
 1. Ensure the `mysqld` service is stopped on all nodes in the cluster.
 2.  On the most advanced node only, start the cluster using the [bootstrap script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#bootstrap):
 
-    Bash
-
-    ```
+    ```bash
     galera_new_cluster
     ```
 

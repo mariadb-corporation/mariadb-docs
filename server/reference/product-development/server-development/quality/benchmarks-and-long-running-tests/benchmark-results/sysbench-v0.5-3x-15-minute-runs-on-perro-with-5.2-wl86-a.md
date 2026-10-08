@@ -1,0 +1,96 @@
+# sysbench v0.5 - 3x 15 Minute Runs on perro with 5.2-wl86 a
+
+sysbench v0.5 - 3x 15 Minute Runs on perro with 5.2-wl86 key cache partitions off, 8, and 32 and key buffer size 400
+
+MariDB sysbench benchmark comparison for
+key\_cache\_partitions in % with key\_buffer\_size = 400MB
+
+Each test was run 3 times for 15 minutes with 3 minutes warmup.
+
+```
+Number of threads
+                     1       4       8       16      32      64      128
+ sysbench test
+  oltp_complex_ro
+      8 / off        -0.78   -0.42   -0.18   -0.49   -1.03   -0.64    1.08
+     32 / off        -0.38   -0.30    0.55   -0.39   -0.75   -0.05    2.49
+  oltp_simple
+      8 / off        -1.19   -2.20   -0.74   -2.74   -1.54    0.28   -1.46
+     32 / off        -1.24   -1.22    0.33   -0.13    0.11    2.09   -1.34
+  select
+      8 / off        -0.71   -1.68   -1.48   -2.05    0.94   -2.93   -0.18
+     32 / off        -0.71   -1.33   -2.11   -0.63   -0.40  -19.68* -11.45*
+  update_index
+      8 / off        -1.30    4.37  -14.69*  -2.56   17.69*  -1.14    2.82
+     32 / off        -1.47    7.03*   0.71   -0.72   15.61*   1.61    0.33
+
+ ( 8/off*100)-100
+ (32/off*100)-100
+
+ * means due to unusual high STDEV (see OO.org spreadsheet for details)
+
+ off means key_cache_partitions off
+   8 means key_cache_partitions = 8
+  32 means key_cache_partitions = 32
+```
+
+Benchmark was run on
+perro: Linux openSUSE 11.1 (x86\_64), single socket dual-core Intel 3.2GHz. with 1MB L2 cache, 2GB RAM, data\_dir on 2 disk software RAID 0
+
+MariaDB and MySQL were compiled with
+
+```
+BUILD/compile-amd64-max
+```
+
+MariaDB revision was:
+
+```
+revno: 2742
+committer: Igor Babaev <igor@askmonty.org>
+branch nick: maria-5.2-keycache
+timestamp: Tue 2010-02-16 08:41:11 -0800
+message:
+  WL#86: Partitioned key cache for MyISAM.
+  This is the base patch for the task.
+```
+
+sysbench was run with the following parameters:
+
+```
+--oltp-table-size=20000000 \       # 20 million rows.
+--max-requests=0 \
+--mysql-table-engine=MyISAM \
+--mysql-user=root \
+--mysql-engine-trx=no \
+--myisam-max-rows=50000000 \
+--rand-seed=303
+```
+
+and these variable parameters:
+
+```
+--num-threads=$THREADS --test=${TEST_DIR}/${SYSBENCH_TEST}
+```
+
+Configuration used for MariaDB:
+
+```
+--no-defaults \
+--datadir=/mnt/data/sysbench/data \
+--language=./sql/share/english \
+--key_buffer_size=400M \
+--key_cache_partitions=32 \        # Off | 8 | 32
+--max_connections=256 \
+--query_cache_size=0 \
+--query_cache_type=0 \
+--skip-grant-tables \
+--socket=/tmp/mysql.sock \
+--table_open_cache=512 \
+--thread_cache=512 \
+--tmpdir=/mnt/data/sysbench
+```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

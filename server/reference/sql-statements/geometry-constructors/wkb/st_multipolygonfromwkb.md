@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a MultiPolygon value using its WKB representation and an optional
+  SRID.
+---
+
 # ST\_MultiPolygonFromWKB
 
 A synonym for [ST\_GeomFromWKB](st_geomfromwkb.md).

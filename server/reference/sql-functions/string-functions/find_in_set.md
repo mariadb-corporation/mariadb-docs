@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the index of a string in a comma-separated list. This function finds
+  the position of a string within a list of strings separated by commas.
+---
+
 # FIND\_IN\_SET
 
 ## Syntax
 
-```sql
+```bnf
 FIND_IN_SET(pattern, strlist)
 ```
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand the DUAL table. This dummy table allows selecting values without
+  referencing a real table, often used for calculations or retrieving system
+  variables.
+---
+
 # DUAL
 
 ## Description

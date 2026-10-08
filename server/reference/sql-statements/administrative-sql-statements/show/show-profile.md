@@ -1,8 +1,14 @@
+---
+description: >-
+  Display profiling information for a query. View resource usage statistics like
+  CPU and block IO for the most recent statement.
+---
+
 # SHOW PROFILE
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PROFILE [type [, type] ... ]
     [FOR QUERY n]
     [LIMIT row_count [OFFSET offset]]
@@ -46,7 +52,7 @@ Optional type values may be specified to display specific additional types of in
 * `CONTEXT SWITCHES` displays counts for voluntary and involuntary context switches
 * `CPU` displays user and system CPU usage times
 * `IPC` displays counts for messages sent and received
-* `MEMORY` is not currently implemented
+* `MEMORY` is not implemented
 * `PAGE FAULTS` displays counts for major and minor page faults
 * `SOURCE` displays the names of functions from the source code, together with the name and line number of the file in which the function occurs
 * `SWAPS` displays swap counts

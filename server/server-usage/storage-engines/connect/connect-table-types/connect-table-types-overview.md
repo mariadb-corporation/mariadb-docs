@@ -1,12 +1,12 @@
+---
+description: The CONNECT storage engine.
+---
+
 # CONNECT Table Types Overview
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
-CONNECT can handle very many table formats; it is indeed one of its main\
-features. The Type option specifies the type and format of the table. The Type\
-options available values and their descriptions are listed in the following\
+CONNECT can handle very many table formats; it is indeed one of its main
+features. The Type option specifies the type and format of the table. The Type
+options available values and their descriptions are listed in the following
 table:
 
 | Type                                                                                                     | Description                                                                                                                                                                                                                                                                                                                          |
@@ -21,7 +21,7 @@ table:
 | [FMT](connect-csv-and-fmt-table-types.md)                                                                | File in which each record contains the column values in a non-standard format (the same for each record) This format is specified in the column definition.                                                                                                                                                                          |
 | [INI](connect-ini-table-type.md)                                                                         | File having the format of the initialization or configuration files used by many applications.                                                                                                                                                                                                                                       |
 | [JDBC](connect-jdbc-table-type-accessing-tables-from-another-dbms.md)\*                                  | Table accessed via a JDBC driver.                                                                                                                                                                                                                                                                                                    |
-| [JSON](connect-json-table-type.md)\*$                                                                    | File having the JSON format.                                                                                                                                                                                                                                                                                                         |
+| [JSON](connect-json-table-type/README.md)\*$                                                                    | File having the JSON format.                                                                                                                                                                                                                                                                                                         |
 | [MAC](connect-table-types-special-virtual-tables.md#mac-address-table-type-mac)                          | Virtual table returning information about the machine and network cards (Windows only).                                                                                                                                                                                                                                              |
 | [MONGO](connect-mongo-table-type.md)\*                                                                   | Table accessed via the MongoDB C Driver API.                                                                                                                                                                                                                                                                                         |
 | [MYSQL](connect-mysql-table-type-accessing-mysqlmariadb-tables.md)\*                                     | Table accessed using the MySQL API like the FEDERATED engine.                                                                                                                                                                                                                                                                        |
@@ -40,10 +40,10 @@ table:
 
 ## Catalog Tables
 
-For all table types marked with a '\*' in the table above, CONNECT is able to\
-analyze the data source to retrieve the column definition. This can be used to\
-define a “catalog” table that display the column description of the source, or\
-to create a table without specifying the column definition that are\
+For all table types marked with a '\*' in the table above, CONNECT is able to
+analyze the data source to retrieve the column definition. This can be used to
+define a “catalog” table that display the column description of the source, or
+to create a table without specifying the column definition that are
 automatically constructed by CONNECT when creating the table.
 
 When marked with a ‘$’ the file can be the result returned by a REST query.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Details the hardware sizing, system prerequisites and supported OS versions
+  for deploying the Enterprise Manager server and agents.
+---
+
 # Hardware and System Requirements
 
 This guide outlines the system and hardware requirements for deploying the Enterprise Manager Server and the Enterprise Manager Agent.
@@ -16,24 +22,31 @@ Tip: Adjust storage size depending on your requirements for metrics retention.
 
 ### System Requirements
 
-* CPU Architecture: x86-64
-* Operating System: 64-bit Linux with Docker support.
-* Software: Docker Engine and Docker Compose must be installed.
+* CPU Architecture: x86-64 and ARM64
+* Linux OS with either of the supported container engines
+  * Docker with Docker Compose
+    https://docs.docker.com/engine/install
+  * Podman with Podman Compose
+    * The podman-docker compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
 
 ## Enterprise Manager Agent🕵
 
-The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/basics-guide#connecting-to-mariadb-server) and [MaxScale](../../../mariadb-enterprise-operator/maxscale-database-proxy.md) instance you wish to monitor. Below are the supported operating systems.
+The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/basics-guide#connecting-to-mariadb-server) and [MaxScale](../../../mariadb-enterprise-operator/topologies/maxscale.md) instance you wish to monitor. Below are the supported operating systems.
 
 ### Supported Platforms for MariaDB Server
 
-| MariaDB Server Version | Supported OS (x86\_64, ARM64)                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------- |
-| **10.6, 11.4, 11.8**   | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10 </p><p>Ubuntu LTS 22.04, 24.04 </p><p>Debian 11, 12, 13</p> |
+| MariaDB Server Version | Supported OS (x86\_64, ARM64)                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| **10.6, 11.4, 11.8**   | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p> |
 
 ### Supported Platforms for MariaDB MaxScale
 
-| MaxScale Version                                              | Supported OS (x86\_64, ARM64)                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **23.02\***, **23.08\***, **24.02\***, **25.01\***, **25.10** | <p>RHEL/Rocky/AlmaLinux 8, 9, 10 </p><p>Ubuntu LTS 22.04, 24.04 </p><p>Debian 11, 12, 13</p> |
+| MaxScale Version                                              | Supported OS (x86\_64, ARM64)                                                              |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **23.02\***, **23.08\***, **24.02\***, **25.01\***, **25.10** | <p>RHEL/Rocky/AlmaLinux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p> |
 
 \* Monitoring and Single Sign-On(SSO) are only supported for MaxScale versions 25.10 and Above
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

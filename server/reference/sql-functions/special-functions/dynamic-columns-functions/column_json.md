@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert dynamic columns to JSON. This function returns a JSON string
+  representation of the data stored in a dynamic column blob.
+---
+
 # COLUMN\_JSON
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_JSON(dyncol_blob)
 ```
 

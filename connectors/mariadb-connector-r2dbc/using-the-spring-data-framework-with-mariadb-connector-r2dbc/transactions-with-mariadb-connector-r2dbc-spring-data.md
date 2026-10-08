@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC transactions with MariaDB Connector/R2DBC use
+  R2dbcTransactionManager and TransactionalOperator for framework-managed
+  reactive commit and rollback.
+---
+
 # Transactions with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview
@@ -139,7 +146,7 @@ public class App {
 * The DatabaseClient is configured with the proxy connection factory that is aware of Spring managed transactions.
 * The TransactionAwareConnectionFactoryProxy as a proxy must not be used when using the reactive streams transactions.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

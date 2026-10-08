@@ -1,3 +1,10 @@
+---
+description: >-
+  Extends standard server monitoring with Galera-specific metrics like flow
+  control pauses, write conflicts, replication queue depth, and individual node
+  cluster states.
+---
+
 # MariaDB Galera Cluster
 
 The [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) dashboard mirrors most sections from the [MariaDB Server](mariadb-server.md) dashboard extending it with **Galera Metrics** section and the **Galera Nodes** table. Use this dashboard when you need Galera-specific cluster health alongside the familiar server views.
@@ -20,7 +27,7 @@ Insights into Galera Cluster health with critical metrics and node-specific stat
 
 ### Galera Nodes
 
-<figure><img src="../../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
 
 Per-node status summary with short state logic
 
@@ -32,3 +39,7 @@ Per-node status summary with short state logic
 | **Flow Control**      | Is this node throttling or being throttled? (`wsrep_flow_control_*` rate > 0 → **ON**, otherwise **OFF**) |
 | **Cluster Status**    | Is the node in the **Primary** component? (Based on `wsrep_cluster_status`)                               |
 | **Connected**         | Is the node linked to the group? (Based on `wsrep_connected`)                                             |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

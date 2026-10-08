@@ -1,8 +1,14 @@
+---
+description: >-
+  List installed server plugins. View the name, status, type, and library file
+  for each active plugin.
+---
+
 # SHOW PLUGINS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PLUGINS;
 ```
 

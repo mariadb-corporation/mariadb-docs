@@ -1,15 +1,15 @@
 # MariaDB 10.2.35 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download 10.2.35](https://downloads.mariadb.org/mariadb/10.2.35/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes.md)[Changelog](mariadb-10235-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download 10.2.35](https://downloads.mariadb.org/mariadb/10.2.35/)[Release Notes](../../old-releases/10.2/10.2.35.md)[Changelog](mariadb-10235-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 3 Nov 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.35.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * Includes all fixes from [MariaDB 10.1.48](../changelogs-mariadb-101-series/mariadb-10148-changelog.md)
@@ -212,7 +212,7 @@ in that revision.
   * [MDEV-23327](https://jira.mariadb.org/browse/MDEV-23327) Can't uninstall UDF if the implementation library file doesn't exist
 * [Revision #95bb3cb886](https://github.com/MariaDB/server/commit/95bb3cb886)\
   2020-10-06 17:43:13 +0200
-  * [MDEV-16676](https://jira.mariadb.org/browse/MDEV-16676) Using malloc-lib=jemalloc in [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) causes non-critical error about missing mysql\_config on startup
+  * [MDEV-16676](https://jira.mariadb.org/browse/MDEV-16676) Using malloc-lib=jemalloc in [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) causes non-critical error about missing mysql\_config on startup
 * [Revision #db02c458c9](https://github.com/MariaDB/server/commit/db02c458c9)\
   2020-10-17 13:13:01 +0300
   * Clean up some encryption tests
@@ -627,6 +627,6 @@ in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

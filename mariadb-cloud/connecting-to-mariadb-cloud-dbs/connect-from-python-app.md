@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from a Python application using the MariaDB
+  Connector/Python library, including connection-string format, TLS
+  configuration, and authentication.
+---
+
 # Connect From Python App
 
 ## Overview
@@ -14,13 +21,13 @@ Connections are managed using the following Python class:
 
 Connections are created, used, and managed using the following `Connection` class functions:
 
-| Function       | Description                                                                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| connect()      | Establishes a connection to a database server and returns a connection object.                                                                    |
-| cursor()       | Returns a new cursor object for the current connection.                                                                                           |
-| change\_user() | Changes the user and default database of the current connection.                                                                                  |
-| reconnect()    | Tries to make a connection object active again by reconnecting to the server using the same credentials which were specified in connect() method. |
-| close()        | Closes the connection.                                                                                                                            |
+| Function       | Description                                                                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| connect()      | Establishes a connection to a database server and returns a connection object.                                                                         |
+| cursor()       | Returns a new cursor object for the current connection.                                                                                                |
+| change\_user() | Changes the user and default database of the current connection.                                                                                       |
+| reconnect()    | Tries to make a connection object active again by reconnecting to the server using the same credentials, which were specified in the connect() method. |
+| close()        | Closes the connection.                                                                                                                                 |
 
 Determine the connection information for your MariaDB Cloud database service:
 
@@ -105,7 +112,7 @@ Connections can also be explicitly closed using the `close()` method, which is h
 
 ## Connection Failover
 
-Starting with MariaDB Connector/Python 1.1 when MariaDB Connector/Python is built with MariaDB Connector/C 3.3, the connector supports connection failover when `auto_reconnect` is enabled and the connection string contains a comma-separated list of multiple server addresses.
+Starting with MariaDB Connector/Python 1.1, when MariaDB Connector/Python is built with MariaDB Connector/C 3.3, the connector supports connection failover when `auto_reconnect` is enabled and the connection string contains a comma-separated list of multiple server addresses.
 
 To enable connection failover:
 
@@ -162,3 +169,5 @@ except mariadb.Error as e:
 # Close Connection
 conn.close()
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

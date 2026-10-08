@@ -1,11 +1,25 @@
+---
+description: >-
+  Implement the logic for a stored package. This statement defines the private
+  variables and code for the subroutines declared in the package specification.
+---
+
 # CREATE PACKAGE BODY
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE BODY` statement can be used in any mode.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE BODY` statement can be used in [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 {% endtab %}
 {% endtabs %}
@@ -110,10 +124,17 @@ A package body provides implementations of the package public routines and can o
 * forward declarations for private routines
 * an executable initialization section
 
+> Starting with MariaDB 13.0.1, package bodies can define `RECORD` and `REF CURSOR` types that can be used as:
+>
+> * Parameters (IN, OUT, INOUT) for procedures and functions defined in the package
+> * RETURN clause data types for package functions
+>
+> For detailed syntax and examples, see [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md).<br>
+
 ## Examples
 
 ```sql
-SET sql_mode=ORACLE; # unnecessary from MariaDB 11.4
+SET sql_mode=ORACLE;
 DELIMITER $$
 CREATE OR REPLACE PACKAGE employee_tools AS
   FUNCTION getSalary(eid INT) RETURN DECIMAL(10,2);

@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to retrieve and use a Customer Download Token to access
+  MariaDB Enterprise Server packages and binaries.
+---
+
 # Customer Download Token
 
 MariaDB Corporation customers can use a Customer Download Token to download MariaDB database products using command-line tools or automation. This page provides instructions on how to retrieve and use the Customer Download Token.
@@ -36,7 +42,7 @@ MariaDB Corporation provides the MariaDB Enterprise Repository to install MariaD
 
 The MariaDB Enterprise Repository is configured using the `mariadb_es_repo_setup` script, which requires the Customer Download Token to be provided via the `--token` option.
 
-For additional information, see "[MariaDB Package Repository Setup and Usage](../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md)".
+For additional information, see "[MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md)".
 
 ### Download Binary Files
 
@@ -53,9 +59,7 @@ Download a binary file using the following procedure:
 1. In your web browser, visit the MariaDB Download interface for the specific MariaDB database product:
    * MariaDB Enterprise Server
    * MariaDB MaxScale
-   * MariaDB Xpand
-2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\
-
+2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\\
 
     ```
     https://dlm.mariadb.com/FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz
@@ -63,14 +67,12 @@ Download a binary file using the following procedure:
 
     \
     `FILE_ID` is an internal identifier that is different for each file.
-3.  Extract the `FILE` path from the copied URL. For example, to download the file mentioned above, the FILE path is:\
-
+3.  Extract the `FILE` path from the copied URL. For example, to download the file mentioned above, the FILE path is:\\
 
     ```
     FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz
     ```
-4.  Use your Customer Download Token and the FILE path to construct your customer-specific URL to download the file using command-line tools or automation.For example, to download the file mentioned above, the customer-specific URL is:\
-
+4.  Use your Customer Download Token and the FILE path to construct your customer-specific URL to download the file using command-line tools or automation.For example, to download the file mentioned above, the customer-specific URL is:\\
 
     ```
     https://dlm.mariadb.com/CUSTOMER_DOWNLOAD_TOKEN/FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz
@@ -91,10 +93,10 @@ curl -LO https://dlm.mariadb.com/CUSTOMER_DOWNLOAD_TOKEN/FILE_ID/mariadb-enterpr
 
 Docker is an open platform for developing, shipping, and running applications that allows you to separate your applications from your infrastructure. MariaDB Corporation provides the [MariaDB Enterprise Docker Registry](../../automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md).
 
-The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. The Docker images for MariaDB Enterprise Server are currently beta maturity, so they are not currently recommended for production.
+The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterprise Server. These images are generally available (GA) and supported for production use.
 
 For additional information, see "[Deploy MariaDB Enterprise Server with Docker](../../automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker.md)".
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

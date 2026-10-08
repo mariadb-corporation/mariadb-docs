@@ -1,3 +1,8 @@
+---
+description: >-
+  Where to find MariaDB RPM packages for Fedora and other distributions, plus
+  the YUM repository configuration tool.
+---
 
 # MariaDB RPM Packages
 

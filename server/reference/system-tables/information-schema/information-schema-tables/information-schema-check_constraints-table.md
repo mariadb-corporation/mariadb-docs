@@ -1,17 +1,23 @@
+---
+description: >-
+  The Information Schema CHECK_CONSTRAINTS table stores metadata about the
+  constraints defined for tables in all databases, including the check clause.
+---
+
 # Information Schema CHECK\_CONSTRAINTS Table
 
 The [Information Schema](../) `CHECK_CONSTRAINTS` table stores metadata about the [constraints](../../../sql-statements/data-definition/constraint.md) defined for tables in all databases.
 
 It contains the following columns:
 
-| Column              | Description                                                                                                                                                                                         |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CONSTRAINT\_CATALOG | Always contains the string 'def'.                                                                                                                                                                   |
-| CONSTRAINT\_SCHEMA  | Database name.                                                                                                                                                                                      |
-| CONSTRAINT\_NAME    | Constraint name.                                                                                                                                                                                    |
-| TABLE\_NAME         | Table name.                                                                                                                                                                                         |
-| LEVEL               | Type of the constraint ('Column' or 'Table'). From [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10510-release-notes). |
-| CHECK\_CLAUSE       | Constraint clause.                                                                                                                                                                                  |
+| Column              | Description                                                                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CONSTRAINT\_CATALOG | Always contains the string 'def'.                                                                                                                                |
+| CONSTRAINT\_SCHEMA  | Database name.                                                                                                                                                   |
+| CONSTRAINT\_NAME    | Constraint name.                                                                                                                                                 |
+| TABLE\_NAME         | Table name.                                                                                                                                                      |
+| LEVEL               | Type of the constraint ('Column' or 'Table'). |
+| CHECK\_CLAUSE       | Constraint clause.                                                                                                                                               |
 
 ## Example
 
@@ -106,10 +112,6 @@ ERROR 4025 (23000): CONSTRAINT `b` failed for `test`.`tt`
 INSERT INTO tt VALUES (10),(20),(100);
 ERROR 4025 (23000): CONSTRAINT `b_upper` failed for `test`.`tt`
 ```
-
-{% hint style="info" %}
-The following statement can be performed from MariaDB 10.5.10.
-{% endhint %}
 
 ```sql
 CREATE TABLE majra(CHECK(x>0), x INT, y INT CHECK(y < 0), z INT,

@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract a specific part of a date. This function retrieves components like
+  YEAR, MONTH, DAY, or HOUR from a date or datetime expression.
+---
+
 # EXTRACT
 
 ## Syntax
 
-```sql
+```bnf
 EXTRACT(unit FROM date)
 ```
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  This procedure traces a specific statement digest in the Performance Schema,
+  capturing details about its execution for performance analysis.
+---
+
 # ps\_trace\_statement\_digest
 
 ## Syntax

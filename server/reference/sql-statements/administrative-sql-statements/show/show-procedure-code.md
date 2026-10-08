@@ -1,8 +1,14 @@
+---
+description: >-
+  Display the internal instruction representation of a stored procedure. This
+  debug statement shows the low-level opcodes of the routine.
+---
+
 # SHOW PROCEDURE CODE
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PROCEDURE CODE proc_name
 ```
 

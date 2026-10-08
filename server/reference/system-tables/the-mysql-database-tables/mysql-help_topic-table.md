@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.help_topic table stores the detailed content of help topics,
+  including descriptions and examples displayed by the HELP command.
+---
+
 # mysql.help\_topic Table
 
 `mysql.help_topic` is one of the four tables used by the [HELP command](../../sql-statements/administrative-sql-statements/help-command.md). It is populated when the server is installed by the `fill_help_tables.sql` script. The other help tables are [help\_relation](mysql-help_relation-table.md), [help\_category](mysql-help_category-table.md) and [help\_keyword](mysql-help_keyword-table.md).

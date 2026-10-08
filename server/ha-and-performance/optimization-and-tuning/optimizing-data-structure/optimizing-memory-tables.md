@@ -1,3 +1,9 @@
+---
+description: >-
+  Optimizing MEMORY-engine tables, including choosing between B-tree and hash
+  indexes.
+---
+
 # Optimizing MEMORY Tables
 
 [MEMORY tables](../../../server-usage/storage-engines/memory-storage-engine.md) are a good choice for data that needs to be accessed often, and is rarely updated. Being in memory, it's not suitable for critical data or for storage, but if data can be moved to memory for reading without needing to be regenerated often, if at all, it can provide a significant performance boost.

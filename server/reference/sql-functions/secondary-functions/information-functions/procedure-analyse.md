@@ -1,8 +1,14 @@
+---
+description: >-
+  Analyze query results. This procedure examines the result set and suggests
+  optimal data types for columns based on the data.
+---
+
 # PROCEDURE ANALYSE
 
 ## Syntax
 
-```sql
+```bnf
 ANALYSE([max_elements[,max_memory]])
 ```
 

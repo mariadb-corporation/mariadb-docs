@@ -1,8 +1,8 @@
 ---
 description: >-
-  Understand replication threads in MariaDB Server. This section explains the
-  I/O and SQL threads, their roles in the replication process, and how they
-  impact performance and consistency.
+  Gain insight into the background threads that drive replication. Understand
+  the roles of the I/O thread, SQL thread, and binlog dump thread in moving data
+  between servers.
 ---
 
 # Replication Threads
@@ -27,9 +27,9 @@ The primary creates a separate binary log dump thread for each replica connected
 
 #### Binary Log Dump Threads and the Shutdown Process
 
-When a primary server is shutdown and it goes through the normal shutdown process, the primary kills client threads in random order. By default, the primary also considers its binary log dump threads to be regular client threads. As a consequence, the binary log dump threads can be killed while client threads still exist, and this means that data can be written on the primary during a normal shutdown that won't be replicated. This is true even if [semi-synchronous replication](semisynchronous-replication.md) is being used. Data is not lost, it is stored in the primary server's binary log. The replicas on reconnection, after the primary server restarts, will resume at the exact position they where killed off during the primary shutdown. No data is lost.
+When a primary server is shut down and it goes through the normal shutdown process, the primary kills client threads in random order. By default, the primary also considers its binary log dump threads to be regular client threads. As a consequence, the binary log dump threads can be killed while client threads still exist, and this means that data can be written on the primary during a normal shutdown that won't be replicated. This is true even if [semi-synchronous replication](semisynchronous-replication.md) is being used. Data is not lost; it is stored in the primary server's binary log. The replicas on reconnection, after the primary server restarts, will resume at the exact position they were killed off during the primary shutdown. No data is lost.
 
-In [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) and later, this problem can be solved by shutting down the server using either the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility or the [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command, and providing a special option.
+This problem can be solved by shutting down the server using either the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility or the [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command and providing a special option.
 
 For example, this problem can be solved by shutting down the server with the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility and by providing the `--wait-for-all-slaves` option to the utility and by executing the `shutdown` command with the utility:
 
@@ -45,9 +45,7 @@ SHUTDOWN WAIT FOR ALL SLAVES;
 
 When one of these special options is provided, the server only kills its binary log dump threads after all client threads have been killed, and it only completes the shutdown after the last [binary log](../../server-management/server-monitoring-logs/binary-log/) has been sent to all connected replicas.
 
-In [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
-
-In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and before, it is recommended to manually switchover replicas to a new primary before shutting down the old primary.
+It is not possible to enable this behavior by default in MariaDB Community Server. This means that this behavior is inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd/README.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
 
 ### ACK Receiver Thread
 
@@ -69,7 +67,7 @@ The [binary log](../../server-management/server-monitoring-logs/binary-log/) pos
 
 The [binary log](../../server-management/server-monitoring-logs/binary-log/) position of the replica's I/O thread can be set by setting the [MASTER\_LOG\_FILE](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_pos) options with the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement.
 
-The [binary log](../../server-management/server-monitoring-logs/binary-log/) position of the replica's I/O thread and the values of most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The replica's I/O thread keeps this [binary log](../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when the [MASTER\_USE\_GTID](replication-threads.md#master_use_gtid) option is set to `NO`. Otherwise the file is not updated on a per event basis. See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
+The [binary log](../../server-management/server-monitoring-logs/binary-log/) position of the replica's I/O thread and the values of most other [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The replica's I/O thread keeps this [binary log](../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when the [MASTER\_USE\_GTID](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_use_gtid) option is set to `NO`. Otherwise the file is not updated on a per event basis. See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 
 ### Replica SQL Thread
 
@@ -89,9 +87,9 @@ The corresponding [binary log](../../server-management/server-monitoring-logs/bi
 
 #### GTID Position
 
-If the replica is replicating [binary log](../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](gtid.md), then the [replica's's SQL thread](replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](gtid.md#gtid_slave_pos) system variable.
+If the replica is replicating [binary log](../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](gtid/README.md), then the [replica's's SQL thread](replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](gtid/gtid-system-variables.md#gtid_slave_pos) system variable.
 
-If the replica has the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](gtid.md#gtid_binlog_pos) system variable.
+If the replica has the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](gtid/README.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](gtid/gtid-system-variables.md#gtid_binlog_pos) system variable.
 
 See [CHANGE MASTER TO: GTID Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#gtid-persistence) for more information.
 

@@ -1,17 +1,17 @@
 # MariaDB 5.2.1 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.1-beta) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-521-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://archive.mariadb.org/mariadb-5.2.1-beta/) | [Release Notes](../../old-releases/5.2/5.2.1.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 18 Jun 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-521-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.1.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #2784](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2784): don't hide old\_password\_plugin from embedded, it may be compiled with grant support
-* [Revision #2785](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2785): Automerge [mariadb 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) -> [mariadb 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
-* [Revision #2786](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2786): Merge OQGraph into [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md).
-* [Revision #2787](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2787): small changes to \[\[mwl:43]]:
+* [Revision #2785](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2785): Automerge [mariadb 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) -> [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
+* [Revision #2786](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2786): Merge OQGraph into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
+* [Revision #2787](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2787): small changes to MWL#43:
   * consistency: don't use "index" and "key" interchangeably
     * rename "key" to "index"
   * consistency: all option types are logical, besides ULL
@@ -35,7 +35,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2797](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2797): rename "partitioned key cache" to "segmented"
 * [Revision #2798](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2798): first initialize variable, then use it, not the other way around
 * [Revision #2799](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2799): only run maria tests if maria is compiled in
-* [Revision #2800](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2800): [MWL#43](https://askmonty.org/worklog/?tid=43): initialize lex->option\_list for foreign keys
+* [Revision #2800](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2800): MWL#43: initialize lex->option\_list for foreign keys
 * [Revision #2801](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2801): merge 5.1->5.2
 * [Revision #2802](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2802): handle a case when a user connects with a password to a passwordless account
 * [Revision #2803](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2803): fixes for test suite
@@ -56,6 +56,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

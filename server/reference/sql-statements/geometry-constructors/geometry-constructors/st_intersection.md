@@ -1,8 +1,14 @@
+---
+description: >-
+  Returns a geometry representing the point set intersection of two geometries.
+  It outputs the spatial region shared by both input objects.
+---
+
 # ST\_INTERSECTION
 
 ## Syntax
 
-```sql
+```bnf
 ST_INTERSECTION(g1,g2)
 ```
 

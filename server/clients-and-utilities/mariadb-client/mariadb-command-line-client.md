@@ -1,16 +1,15 @@
+---
+description: >-
+  Complete MariaDB command-line client guide. Complete reference for server
+  connections, query execution, data import, and batch processing for production
+  use.
+---
+
 # mariadb Command-Line Client
 
 `mariadb` is a simple SQL shell with GNU readline capabilities.
 
-{% tabs %}
-{% tab title="Current" %}
 The command-line client is called `mariadb`. On Unix system, a symlink named `mysql` is available. On Windows, an alternative binary named `mysql.exe` is available.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-The command-line client is called `mysql`.
-{% endtab %}
-{% endtabs %}
 
 ## Overview
 
@@ -116,7 +115,7 @@ Number of seconds before connection timeout. Defaults to `0`.
 
 Database to use.
 
-#### `-``[`_`options`_`], --debug[=`_`options`_`]`
+#### `-#[`_`options`_`], --debug[=`_`options`_`]`
 
 On debugging builds, write a debugging log. A typical `debug_options` string is `d:t:o,file_name`. The default is `d:t:o,/tmp/mysql.trace`.
 
@@ -242,7 +241,7 @@ Print the program argument list and exit. Must be given as the first option.
 
 #### `--progress-reports`
 
-Get [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
+Get [progress reports](../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
 
 #### `--prompt=`_`name`_
 
@@ -260,10 +259,18 @@ Don't cache result, print it row by row. This may slow down the server if the ou
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20:
+{% endhint %}
+
 Maximal field length limit in case of `--quick`.
 {% endtab %}
 
-{% tab title="< 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20 / 10.5.27" %}
+{% tab title="< 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20" %}
+{% hint style="info" %}
+Before MariaDB 11.7.1 / 11.6.2 / 11.4.4 / 10.11.10 / 10.6.20:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
@@ -284,22 +291,38 @@ Allow only those [UPDATE](../../reference/sql-statements/data-manipulation/chang
 
 {% tabs %}
 {% tab title="Current" %}
-Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(`\P`` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
+{% hint style="info" %}
+From MariaDB 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18:
+{% endhint %}
+
+Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(` \P`` `` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
 {% endtab %}
 
-{% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18 / 10.5.25" %}
+{% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18" %}
+{% hint style="info" %}
+Before MariaDB 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
 
-#### `--script-dir`
+#### `--script-dir=`_`name`_
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 Sets an alternative directory path for searching scripts invoked via the source command.
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 This option is not available.
 {% endtab %}
 {% endtabs %}
@@ -354,7 +377,7 @@ Don't write line number for errors. See `--line-numbers`.
 
 #### `--skip-progress-reports`
 
-Disables getting [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands. See `--progress-reports`.
+Disables getting [progress reports](../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for long running commands. See `--progress-reports`.
 
 #### `--skip-reconnect`
 
@@ -373,53 +396,69 @@ For connections to localhost, the Unix socket file to use, or, on Windows, the n
 
 {% tabs %}
 {% tab title="Current" %}
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
+{% hint style="info" %}
+From MariaDB 10.10:
+{% endhint %}
+
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 
 TLS with `--ssl` is enabled by default.
 {% endtab %}
 
 {% tab title="< 10.10" %}
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
+{% hint style="info" %}
+Before MariaDB 10.10:
+{% endhint %}
+
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 {% endtab %}
 {% endtabs %}
 
 #### `--ssl-ca=`_`name`_
 
-Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
+Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
 
 #### `--ssl-capath=`_`name`_
 
-Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
+Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
 
 #### `--ssl-cert=`_`name`_
 
-Defines a path to the X509 certificate file to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to the X509 certificate file to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### `--ssl-cipher=`_`name`_
 
-List of permitted ciphers or cipher suites to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
+List of permitted ciphers or cipher suites to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
 
 #### `--ssl-crl=`_`name`_
 
-Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### `--ssl-crlpath=`_`name`_
 
-Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### `--ssl-key=`_`name`_
 
-Defines a path to a private key file to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to a private key file to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### `--ssl-verify-server-cert`
 
 {% tabs %}
 {% tab title="Current" %}
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default. Use `--disable-ssl` or `--disable-ssl-verify-server-cert` to revert this behavior.
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default. Use `--disable-ssl` or `--disable-ssl-verify-server-cert` to revert this behavior.
 {% endtab %}
 
 {% tab title="< 11.4" %}
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
 
@@ -433,7 +472,7 @@ Append everything into outfile. See interactive help (`\h`) also. Does not work 
 
 #### `--tls-version=`_`name`_
 
-This option accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
+This option accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
 
 #### `--ssl-fp=`_`name`_
 
@@ -477,13 +516,13 @@ In addition to reading options from the command line, `mariadb` can also read op
 
 The following options relate to how MariaDB command line tools handles option files. They must be given as the first argument on the command line:
 
-| Option                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| --print-defaults          | Print the program argument list and exit.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| --no-defaults             | Don't read default options from any option file.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| --defaults-file=#         | Only read default options from the given file #.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| --defaults-extra-file=#   | Read this file after the global files are read.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| --defaults-group-suffix=# | In addition to the default option groups, also read option groups with this suffix. If not set, MariaDB checks the $MYSQL\_GROUP\_SUFFIX environment variable. From [MariaDB 12.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0.1-release-notes), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-6-release-notes), [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes), `$MARIADB_GROUP_SUFFIX` is also checked, and takes precedence if both are set. |
+| Option                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --print-defaults          | Print the program argument list and exit.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| --no-defaults             | Don't read default options from any option file.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --defaults-file=#         | Only read default options from the given file #.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --defaults-extra-file=#   | Read this file after the global files are read.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| --defaults-group-suffix=# | In addition to the default option groups, also read option groups with this suffix. If not set, MariaDB checks the $MYSQL\_GROUP\_SUFFIX environment variable. From [MariaDB 12.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/12.0.1), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.6), [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12), `$MARIADB_GROUP_SUFFIX` is also checked, and takes precedence if both are set. |
 
 `mariadb` is linked with [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c). However, MariaDB Connector/C does not handle the parsing of option files for this client. That is performed by the server option file parsing code. See [MDEV-19035](https://jira.mariadb.org/browse/MDEV-19035) for more information.
 
@@ -550,15 +589,7 @@ At the end, the delimiter is restored to the default semicolon. The `\g` and `\G
 
 You can force which protocol are used to connect to the `mariadbd` server, by giving the `protocol` option one of the following values: `tcp`, `socket`, `pipe` , or `memory`.
 
-{% tabs %}
-{% tab title="Current" %}
 A connection property specified via the command line (e.g. `--port=3306`) forces its type. The protocol that matches the respective connection property is used. For instance, a TCP/IP connection is created when `--port` is specified.
-{% endtab %}
-
-{% tab title="< 10.6.1" %}
-If `protocol` is not specified, command-line connection properties that do not force protocol are ignored.
-{% endtab %}
-{% endtabs %}
 
 If multiple or no connection properties are specified via the command line, the following happens on Unix and Windows systems:
 
@@ -612,7 +643,7 @@ There are also a number of commands that can be run inside the client. Note that
 
 | Command            | Description                                                                                                                                                                                           |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -                  | Enables sandbox mode until EOF (current file or the session, if interactive). From MariaDB 10.5.25, MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2. |
+| -                  | Enables sandbox mode until EOF (current file or the session, if interactive). From MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2. |
 | ?, ?               | Synonym for \`help'.                                                                                                                                                                                  |
 | clear, \c          | Clear the current input statement.                                                                                                                                                                    |
 | connect,           | Reconnect to the server. Optional arguments are db and host.                                                                                                                                          |
@@ -686,7 +717,7 @@ The prompt command reconfigures the default prompt `\N [\d]>`. The string for de
 | \Y     | The current year, four digits.                                      |
 | \y     | The current year, two digits.                                       |
 | \_     | A space.                                                            |
-| \      | A space (a space follows the backslash).                            |
+| \\     | A space (a space follows the backslash).                            |
 | '      | Single quote.                                                       |
 | "      | Double quote.                                                       |
 | \\\\   | A literal “\” backslash character.                                  |
@@ -752,7 +783,7 @@ mariadb --safe-updates --select_limit=500 --max_join_size=10000
 
 ### Disabling mariadb Auto-Reconnect
 
-If the mariadb client loses its connection to the server while sending a statement, it immediately and automatically tries to reconnect once to the server and send the statement again. However, even if mariadb succeeds in reconnecting, your first connection has ended and all your previous session\
+If the mariadb client loses its connection to the server while sending a statement, it immediately and automatically tries to reconnect once to the server and send the statement again. However, even if mariadb succeeds in reconnecting, your first connection has ended and all your previous session
 objects and settings are lost: temporary tables, the autocommit mode, and user-defined and session variables. Also, any current transaction rolls back. This behavior may be dangerous for you, as in the following example where the server was shut down and restarted between the first and second statements without you knowing it:
 
 ```sql

@@ -1,3 +1,10 @@
+---
+description: >-
+  Browse the complete reference of system variables for the Audit Plugin. Use
+  these settings to fine-tune logging behavior, control performance impact, and
+  manage log file handling.
+---
+
 # Audit Plugin Options and System Variables
 
 ## Overview
@@ -14,6 +21,7 @@ SHOW GLOBAL VARIABLES LIKE 'server_audit%';
 | server_audit_file_buffer_size | 0                     |
 | ...                           | ...                   |
 | server_audit_syslog_priority  | LOG_INFO              |
+| server_audit_timestamp_format | %Y%m%d %H:%i:%s       |
 +-------------------------------+-----------------------+
 ```
 
@@ -36,9 +44,9 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-events=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: Empty string
-* Valid Values:
+* Data type: `string`
+* Default value: Empty string
+* Valid values:
   * `CONNECT`, `QUERY`, `TABLE` (MariaDB Audit Plugin < 1.2.0)
   * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML` (MariaDB Audit Plugin >= 1.2.0)
   * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML`, `QUERY_DCL` (MariaDB Audit Plugin >=1.3.0)
@@ -51,18 +59,19 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-excl-users=`_`value`_
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: Empty string
+* Data type: `string`
+* Default value: Empty string
 * Size limit: 1024 characters
 
 #### `server_audit_file_buffer_size`
 
-* Description: Size (in bytes) of file buffer to make logging faster.
-* Command line: `--server-audit-file-bugger-size=`_`#`_&#x20;
+* Description: Size (in bytes) of file buffer to make logging faster. Values > `0` are adjusted in increments of `8192`. (For instance, a value of `100` would be adjusted to `8192`.)
+* Command line: `--server-audit-file-buffer-size=`_`#`_
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `numeric`
-* Size limit: 65536
+* Data type: `numeric`
+* Value range: `0` to `65536`
+* Default value: `0` (no buffering)
 * Introduced: MariaDB 12.1
 * Usage: See [description](mariadb-audit-plugin-options-and-system-variables.md#audit_file_buffer_size-and-server_audit_sync_log_file)
 
@@ -72,8 +81,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-file-path=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: `server_audit.log`
+* Data type: `string`
+* Default value: `server_audit.log`
 
 #### `server_audit_file_rotate_now`
 
@@ -81,8 +90,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-rotate-now[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
+* Data type: `boolean`
+* Default value: `OFF`
 
 #### `server_audit_file_rotate_size`
 
@@ -100,8 +109,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-rotations=#`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `9`
+* Data type: `numeric`
+* Default value: `9`
 * Range: `0` to `999`
 
 #### `server_audit_incl_users`
@@ -110,8 +119,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-incl-users=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: Empty string
+* Data type: `string`
+* Default value: Empty string
 * Size limit: 1024 characters
 
 #### `server_audit_loc_info`
@@ -131,8 +140,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-logging[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
+* Data type: `boolean`
+* Default value: `OFF`
 
 #### `server_audit_mode`
 
@@ -140,8 +149,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-mode[=#]`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
+* Data type: `numeric`
+* Default value: `0`
 * Range: `0` to `1`
 
 #### `server_audit_output_type`
@@ -150,9 +159,9 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-output-type=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `enum`
-* Default Value: `file`
-* Valid Values: `SYSLOG`, `FILE`
+* Data type: `enum`
+* Default value: `file`
+* Valid values: `SYSLOG`, `FILE`
 
 #### `server_audit_query_log_limit`
 
@@ -160,18 +169,20 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-query-log-limit=#`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1024`
-* Range: `0` to `2147483647`&#x20;
+* Data type: `numeric`
+* Default value: `1024`
+* Range: `0` to `2147483647`
 
 #### `server_audit_sync_log_file`
 
-* Description: Force sync log file.
+* Description: Flushes the buffer to the log file.\
+  While log records are in the buffer, they don't appear in the log file. To write them out from the buffer, issue this statement:\
+  `SET GLOBAL server_audit_sync_log_file=1`
 * Command line: `--server-audit-sync-log-file`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: N/A
-* Default Value: `OFF`
+* Data type: N/A
+* Default value: `OFF`
 * Valid values: `ON` (or `1`), `OFF` (or `0`)
 * Introduced: MariaDB 12.1
 * Usage: See [description](mariadb-audit-plugin-options-and-system-variables.md#audit_file_buffer_size-and-server_audit_sync_log_file)
@@ -182,9 +193,9 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-syslog-facility=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `enum`
-* Default Value: `LOG_USER`
-* Valid Values: `LOG_USER`, `LOG_MAIL`, `LOG_DAEMON`, `LOG_AUTH`, `LOG_SYSLOG`, `LOG_LPR`, `LOG_NEWS`, `LOG_UUCP`, `LOG_CRON`, `LOG_AUTHPRIV`, `LOG_FTP`, and `LOG_LOCAL0`–`LOG_LOCAL7`.
+* Data type: `enum`
+* Default value: `LOG_USER`
+* Valid values: `LOG_USER`, `LOG_MAIL`, `LOG_DAEMON`, `LOG_AUTH`, `LOG_SYSLOG`, `LOG_LPR`, `LOG_NEWS`, `LOG_UUCP`, `LOG_CRON`, `LOG_AUTHPRIV`, `LOG_FTP`, and `LOG_LOCAL0`–`LOG_LOCAL7`.
 
 #### `server_audit_syslog_ident`
 
@@ -192,8 +203,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-syslog-ident=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: `mysql-server_auditing`
+* Data type: `string`
+* Default value: `mysql-server_auditing`
 
 #### `server_audit_syslog_info`
 
@@ -201,8 +212,8 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-syslog-info=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `string`
-* Default Value: Empty string
+* Data type: `string`
+* Default value: Empty string
 
 #### `server_audit_syslog_priority`
 
@@ -210,9 +221,18 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Command line: `--server-audit-syslog-priority=value`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `enum`
-* Default Value: `LOG_INFO`
-* Valid Values:`LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG`
+* Data type: `enum`
+* Default value: `LOG_INFO`
+* Valid values:`LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG`
+
+#### `server_audit_timestamp_format`
+
+* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE_FORMAT](../../sql-functions/date-time-functions/date_format.md).
+* Command line: `--server-audit-timestamp-format=value`
+* Scope: Global
+* Dynamic: Yes
+* Data type: `string`
+* Default value: `%Y%m%d %H:%i:%s`
 
 ## Notes on System Variables
 

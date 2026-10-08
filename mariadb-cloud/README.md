@@ -1,22 +1,16 @@
 ---
+description: >-
+  MariaDB Cloud is an AI-driven fully managed DBaaS for MariaDB and MySQL
+  workloads, supporting provisioned and serverless deployments, AI agents,
+  automated backups, and global replication.
 icon: cloud-sun
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # MariaDB Cloud
+
+{% hint style="info" %}
+📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~300 pages, 5.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
 
 ## Overview
 
@@ -26,13 +20,13 @@ Originally developed by [MariaDB](http://mariadb.com), MariaDB Cloud is aimed to
 
 MariaDB Cloud provides MariaDB and MySQL-compatible workloads with enterprise-grade and production-ready features:
 
-* [Serverless deployment for instant autoscaling](broken-reference)
+* [Serverless deployment for instant autoscaling](readme/serverless.md#intelligent-scaling)
 * [Integrated AI agents for database interaction](cloud-ai/copilot-guide.md)
 * [Automated complex database configurations](cloud-management/config/)
 * [Cloud-native capabilities with auto-scaling](cloud-management/autonomously-scale-compute-storage.md)
-* [Global replication](<High Availability, DR/Setup Global Replication.md>)
+* [Global replication](high-availability-dr/setup-global-replication.md)
 * [Automated backups](cloud-data-handling/backup-and-restore/mariadb-backup.md)
-* [Advanced security with end-to-end encryption and private connectivity](Security/)
+* [Advanced security with end-to-end encryption and private connectivity](security/)
 * Compliance and governance features
 * Numerous additional powerful capabilities
 
@@ -42,7 +36,7 @@ It has:
 
 * Sensible defaults
 * Consistent configuration
-* MariaDB Cloud DBA
+* MariaDB Remote DBA
 
 So you can:
 
@@ -54,48 +48,45 @@ So you can:
 * Adapt to any workload
 
 ```mermaid
----
-config:
-  theme: neutral
-  layout: dagre
----
-flowchart LR
- subgraph cloud["MariaDB Cloud"]
-    direction LR
-        nodeId["MaxScale<br>(SQL Proxy)"]
-        n1["Replicas<br>in other zones, regions"]
-        n2["MariaDB Primary<br>+ replicas"]
-  end
- subgraph s1["User Interfaces"]
-        n3["MariaDB Cloud<br>Portal UI"]
-        n4["MariaDB Cloud<br>Monitoring UI"]
-  end
- subgraph s2["Developer API"]
-        n6["MariaDB SQL"]
-        n7["NoSQL"]
-        n8["REST API"]
-  end
-    nodeId <-.-> n1 & n2
-    s1 <--> cloud
-    s2 <--> cloud
-    cloud --> n9["Alerts<br>Autoscale<br>Monitor"] & n10["Cloud backups"]
-    n11["MariaDB Cloud<br>Unified, automated, simple"]
-    nodeId@{ shape: hex}
-    n1@{ shape: cyl}
-    n2@{ shape: cyl}
-    n6@{ shape: rect}
-    n7@{ shape: rect}
-    n8@{ shape: rect}
-    n9@{ shape: stored-data}
-    n10@{ shape: stored-data}
-    n11@{ shape: text}
-    style n3 stroke-width:1px,stroke-dasharray: 0,fill:#FFF9C4,stroke:none
-    style n4 stroke:none,fill:#FFF9C4
-    style n6 stroke-width:1px,stroke-dasharray: 0,fill:#C8E6C9,stroke:none
-    style n7 fill:#C8E6C9,stroke:none
-    style n8 fill:#C8E6C9,stroke:none
-    style cloud fill:#BBDEFB,stroke:#000000
-    style n9 fill:#FFE0B2
-    style n10 fill:#FFE0B2
-    style n11 color:#616161
+graph TD
+    subgraph UI [User Interfaces]
+        Portal[MariaDB Cloud Portal UI]
+        MonitorUI[MariaDB Cloud Monitoring UI]
+    end
+
+    subgraph API [Developer API]
+        SQL[MariaDB SQL]
+        NoSQL[NoSQL]
+        REST[REST API]
+    end
+
+    subgraph Cloud [MariaDB Cloud]
+        MaxScale{MaxScale SQL Proxy}
+        Primary[MariaDB Primary + replicas]
+        Replicas[Replicas in other zones, regions]
+    end
+
+    subgraph External [External Services]
+        Alerts[Alerts / Autoscale / Monitor]
+        Backups[Cloud backups]
+    end
+
+    %% Entry points at the top
+    UI <--> Cloud
+    API <--> Cloud
+    
+    %% Internal Cloud Logic
+    MaxScale <--> Primary
+    MaxScale <--> Replicas
+    
+    %% Force External Services to the bottom
+    Cloud ~~~ External
+    Cloud --> Alerts
+    Cloud --> Backups
 ```
+
+## See Also
+
+* [MariaDB Cloud Datasheet](https://mariadb.com/resources/datasheets/mariadb-cloud/)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

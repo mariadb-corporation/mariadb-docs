@@ -1,14 +1,14 @@
 # MariaDB 10.1.45 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.45/)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10145-release-notes.md)[Changelog](mariadb-10145-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.45/)[Release Notes](../../old-releases/10.1/10.1.45.md)[Changelog](mariadb-10145-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 12 May 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10145-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.45.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 5.5.68](../changelogs-mariadb-55-series/mariadb-5568-changelog.md)
@@ -77,7 +77,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-22271](https://jira.mariadb.org/browse/MDEV-22271) Excessive stack memory usage due to WSREP\_LOG
 * [Revision #f462fbac61](https://github.com/MariaDB/server/commit/f462fbac61)\
   2020-04-21 22:57:54 +0200
-  * [MDEV-22078](https://jira.mariadb.org/browse/MDEV-22078) MariaDB-compat missing from [MariaDB 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series) CentOS 8 Yum Repo
+  * [MDEV-22078](https://jira.mariadb.org/browse/MDEV-22078) MariaDB-compat missing from [MariaDB 10.4](../../old-releases/10.4/) CentOS 8 Yum Repo
 * [Revision #6be05ceb05](https://github.com/MariaDB/server/commit/6be05ceb05)\
   2020-04-27 09:40:51 +0300
   * [MDEV-22203](https://jira.mariadb.org/browse/MDEV-22203): WSREP\_ON is unnecessarily expensive to evaluate
@@ -217,6 +217,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

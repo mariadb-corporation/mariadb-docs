@@ -1,21 +1,35 @@
+---
+description: >-
+  Get the SQL statement to recreate a scheduled event. This statement displays
+  the complete syntax used to define a specific event.
+---
+
 # SHOW CREATE EVENT
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE EVENT event_name
 ```
 
 ## Description
 
-This statement displays the [CREATE EVENT](../../data-definition/create/create-event.md) statement that creates a given [event](../../../../server-usage/triggers-events/event-scheduler/events.md), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) that was used when the trigger was created, and the character set used by the connection. To find out which events are present, use [SHOW EVENTS](show-events.md).
+This statement displays the [CREATE EVENT](../../data-definition/create/create-event.md) statement that creates a given [event](../../../../server-usage/triggers-events/event-scheduler/events.md), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger was created, and the character set used by the connection. To find out which events are present, use [SHOW EVENTS](show-events.md).
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE EVENT` quotes identifiers according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 
-{% tab title="< 10.6.5 / 10.5.13 / 10.4.22" %}
+{% tab title="< 10.6.5" %}
+{% hint style="info" %}
+Before MariaDB 10.6.5:
+{% endhint %}
+
 `SHOW CREATE EVENT` quotes identifiers according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable. Note, however, that the output of this statement is unreliably affected by the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 {% endtab %}
 {% endtabs %}

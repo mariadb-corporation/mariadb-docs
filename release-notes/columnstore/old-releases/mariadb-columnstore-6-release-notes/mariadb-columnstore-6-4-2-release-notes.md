@@ -2,11 +2,11 @@
 
 ## Overview
 
-[MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 6.4.2 is a maintenance release of [MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) . MariaDB Enterprise ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the sixth release in the Enterprise ColumnStore 6 series.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 6.4.2 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the sixth release in the ColumnStore 6 series.
 
-MariaDB Enterprise ColumnStore 6.4.2 was released on 2022-07-19. This release is of General Availability (GA) maturity.
+MariaDB ColumnStore 6.4.2 was released on 2022-07-19. This release is of General Availability (GA) maturity.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.6.8-4.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.6.8-4.
 
 ## Issues Fixed
 
@@ -20,11 +20,11 @@ ERROR 1815 (HY000): Internal error: TupleAggregateStep::threadedAggregateRowGrou
 Unknown error while aggregation.
 ```
 
-**This change was a speculative bug fix. Please use Enterprise ColumnStore 6.4.4 or later for the complete bug fix.**
+**This change was a speculative bug fix. Please use ColumnStore 6.4.4 or later for the complete bug fix.**
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 6.4.2 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.4.2 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)
@@ -34,6 +34,6 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 * Ubuntu 18.04 (x86\_64)
 * Ubuntu 20.04 (x86\_64)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

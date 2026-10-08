@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns the patch release version number of the MariaDB Server
+  instance, such as the 4 in 10.6.4.
+---
+
 # version\_patch
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

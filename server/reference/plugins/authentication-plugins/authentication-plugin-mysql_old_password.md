@@ -1,3 +1,10 @@
+---
+description: >-
+  This plugin provides backward compatibility for pre-4.1 clients using an
+  older, insecure password hashing algorithm and should not be used for new
+  installations.
+---
+
 # Authentication Plugin - mysql\_old\_password
 
 The `mysql_old_password` authentication plugin is the default authentication plugin that is used for an account created when no authentication plugin is explicitly mentioned and [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. It uses the pre-MySQL 4.1 password hashing algorithm, which is also used by the [OLD\_PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/old_password.md) function and by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function when `old_passwords=1` is set.
@@ -12,14 +19,14 @@ The `mysql_old_password` authentication plugin is statically linked into the ser
 
 ## Creating Users
 
-The easiest way to create a user account with the `mysql_old_password` authentication plugin is to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) that does not specify an authentication plugin, but instead specifies a password via the [IDENTIFIED BY](../../sql-statements-and-structure/sql-statements/account-management-sql-commands/create-user.md#identified-by-password) clause:
+The easiest way to create a user account with the `mysql_old_password` authentication plugin is to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) that does not specify an authentication plugin, but instead specifies a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
 
 ```sql
 SET old_passwords=1;
 CREATE USER username@hostname IDENTIFIED BY 'mariadb';
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 SET old_passwords=1;
@@ -59,7 +66,7 @@ You can change a user account's password with the [SET PASSWORD](../../sql-state
 SET PASSWORD =  PASSWORD('new_secret')
 ```
 
-You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to make sure that [old\_passwords=1](../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and you have to specify a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
+You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and you have to specify a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
 
 ```sql
 SET old_passwords=1;

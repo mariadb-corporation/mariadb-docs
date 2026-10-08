@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Galera Cluster is a multi-primary replication solution for high
+  availability and consistency, integrating Galera technology with MariaDB
+  Community Server and Enterprise Server.
+---
+
 # MariaDB Galera Cluster Overview
 
 _MariaDB Enterprise Cluster is a solution designed to handle high workloads exceeding the capacity of a single server. It is based on Galera Cluster technology integrated with MariaDB Enterprise Server and includes features like data-at-rest encryption for added security. This multi-primary replication alternative is ideal for maintaining data consistency across multiple servers, providing enhanced reliability and scalability._
@@ -16,7 +23,33 @@ Database replication is the process of continuously copying data from one databa
 
 #### **Primary/Replica**
 
-<div align="left"><figure><img src="../.gitbook/assets/asynchronousreplication.png" alt=""><figcaption><p>Primary/Primary Replication</p></figcaption></figure></div>
+```mermaid
+flowchart TD
+    accTitle: Primary/Replica replication
+    accDescr {
+        A client sends a write (transaction A) to the Primary node, which commits it
+        locally. The Primary then propagates transaction A through the replication layer
+        to one or more Replica nodes, which apply the same transaction to their own copy
+        of the data.
+    }
+    Client["Client<br/>writes trx A"]
+    Primary[("Primary<br/>trx A")]
+    Replica1[("Replica<br/>trx A")]
+    Replica2[("Replica<br/>trx A")]
+    Repl["Replication"]
+    Client --> Primary
+    Primary --> Repl
+    Repl --> Replica1
+    Repl --> Replica2
+    classDef primary fill:#d4edda,stroke:#28a745,stroke-width:2px,color:#111;
+    classDef replica fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#111;
+    classDef node fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#111;
+    class Primary primary
+    class Replica1,Replica2 replica
+    class Client,Repl node
+```
+
+_Primary/Replica replication: one node accepts writes and propagates them to the replicas._
 
 The most common replication architecture is Primary/Replica (also known as Master/Slave). In this model:
 
@@ -26,7 +59,37 @@ The most common replication architecture is Primary/Replica (also known as Maste
 
 #### **Multi-Primary Replication**
 
-<div align="left"><figure><img src="../.gitbook/assets/synchronousreplication.png" alt=""><figcaption><p>Multi-primary Replication</p></figcaption></figure></div>
+```mermaid
+flowchart TD
+    accTitle: Multi-primary (synchronous) replication
+    accDescr {
+        Client applications connect transparently to any of three DBMS nodes. Every node
+        is a primary and accepts writes. All nodes are kept consistent by a synchronous
+        replication layer that applies each transaction on every node, so a commit is
+        confirmed only once the data exists on all of them.
+    }
+    subgraph Clients [Clients]
+        C1["Client"]
+        C2["Client"]
+        C3["Client"]
+    end
+    N1[("DBMS")]
+    N2[("DBMS")]
+    N3[("DBMS")]
+    Repl["Replication"]
+    C1 <--> N1
+    C2 <--> N2
+    C3 <--> N3
+    N1 <--> Repl
+    N2 <--> Repl
+    N3 <--> Repl
+    classDef node fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#111;
+    classDef bar fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#111;
+    class N1,N2,N3 node
+    class Repl bar
+```
+
+_Multi-primary replication: every node accepts writes and stays consistent through synchronous replication._
 
 In a multi-primary system, every node in the cluster acts as a primary. This means any node can accept write operations. When a node receives an update, it automatically propagates that change to all other primary nodes in the cluster. Each primary node logs its own changes and communicates them to its peers to maintain synchronization.
 
@@ -74,7 +137,7 @@ The certification-based replication system that Galera Cluster uses is built on 
 
 ## How it Works
 
-MariaDB Enterprise Cluster is built on MariaDB Enterprise Server with Galera Cluster and MariaDB MaxScale. In MariaDB Enterprise Server 10.5 and later, it features enterprise-specific options, such as data-at-rest encryption for the write-set cache, that are not available in other Galera Cluster implementations.
+MariaDB Enterprise Cluster is built on MariaDB Enterprise Server with Galera Cluster and MariaDB MaxScale. It features enterprise-specific options, such as data-at-rest encryption for the write-set cache, that are not available in other Galera Cluster implementations.
 
 As a multi-primary replication solution, any MariaDB Enterprise Server can operate as a Primary Server. This means that changes made to any node in the cluster replicate to every other node in the cluster, using certification-based replication and global ordering of transactions for the InnoDB storage engine.
 
@@ -163,7 +226,7 @@ It is best practice to list all nodes on this system variable, as this is the li
 
 MariaDB Enterprise Server connects to other Servers and replicates data from the cluster through a wsrep Provider called the Galera Replicator plugin. In order to enable clustering, specify the path to the relevant `.so` file using the `wsrep_provider` system variable.
 
-MariaDB Enterprise Server 10.4 and later installations use an enterprise-build of the Galera Enterprise 4 plugin. This includes all the features of Galera Cluster 4 as well as enterprise features like GCache encryption.
+MariaDB Enterprise Server installations use an enterprise build of the Galera Enterprise 4 plugin. This includes all the features of Galera Cluster 4 as well as enterprise features like GCache encryption.
 
 To enable MariaDB Enterprise Cluster, use the `libgalera_enterprise_smm.so` library:
 
@@ -258,7 +321,7 @@ Evicted nodes become non-operational components. They cannot rejoin the cluster 
 
 Under normal operation, huge transactions and long-running transactions are difficult to replicate. MariaDB Enterprise Cluster rejects conflicting transactions and rolls back the changes. A transaction that takes several minutes or longer to run can encounter issues if a small transaction is run on another node and attempts to write to the same table. The large transaction fails because it encounters a conflict when it attempts to replicate.
 
-MariaDB Enterprise Server 10.4 and later support streaming replication for MariaDB Enterprise Cluster. In streaming replication, huge transactions are broken into transactional fragments, which are replicated and applied as the operation runs. This makes it more difficult for intervening sessions to introduce conflicts.
+MariaDB Enterprise Server supports streaming replication for MariaDB Enterprise Cluster. In streaming replication, huge transactions are broken into transactional fragments, which are replicated and applied as the operation runs. This makes it more difficult for intervening sessions to introduce conflicts.
 
 ### Initiate Streaming Replication
 
@@ -320,13 +383,11 @@ For data-in-transit, MariaDB Enterprise Cluster supports encryption the same as 
 
 MariaDB Enterprise Server 10.6 encrypts Galera replication and SST traffic using the server's TLS configuration by default. With the `wsrep_ssl_mode` system variable, you can configure the node to use the TLS configuration of [wsrep Provider options](../reference/wsrep-variable-details/wsrep_provider_options.md).
 
-MariaDB Enterprise Server 10.5 and earlier support encrypting Galera replication and SST traffic through [wsrep Provider options](../reference/wsrep-variable-details/wsrep_provider_options.md).
-
 TLS encryption is only available when used by all nodes in the cluster.
 
 ### Enabling GCache Encryption
 
-To encrypt data-at-rest such as GCache, stop the server, set `encrypt_binlog=ON` within the MariaDB Enterprise Server configuration file, and restart the server. This variable also controls encryption of the binary log and the relay log when used.
+To enable data-at-rest encryption for the GCache file, stop the server, set `encrypt_binlog=ON` within the MariaDB Enterprise Server configuration file, and restart the server. This variable also controls encryption of the binary log and the relay log when used.
 
 ```ini
 [mariadb]
@@ -346,6 +407,6 @@ To stop using encryption on the GCache file, stop the server, set `encrypt_binlo
 encrypt_binlog=OFF
 ```
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

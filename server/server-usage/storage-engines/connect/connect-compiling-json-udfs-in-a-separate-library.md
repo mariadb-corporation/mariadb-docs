@@ -1,10 +1,10 @@
+---
+description: The CONNECT storage engine.
+---
+
 # Compiling JSON UDFs in a Separate Library
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
-Although the JSON UDFs can be nicely included in the CONNECT library module, there are cases when you may need to have them in a separate library.
+Although the JSON UDFs can be included in the CONNECT library module, there are cases when you may need to have them in a separate library.
 
 This is when CONNECT is compiled embedded, or if you want to test or use these UDFs with other MariaDB versions not including them.
 
@@ -101,7 +101,7 @@ Then you can create the functions using this name as the soname parameter.
 
 There are some restrictions when using the UDFs this way:
 
-* The [connect\_json\_grp\_size](connect-system-variables.md#connect_json_grp_size) variable cannot be accessed. The group size is set and retrieved using the [jsonset\_grp\_size](connect-table-types/connect-json-table-type.md#jsonset_grp_size) and [jsonget\_grp\_size](connect-table-types/connect-json-table-type.md#jsonget_grp_size) functions (previously 100).
+* The [connect\_json\_grp\_size](connect-system-variables.md#connect_json_grp_size) variable cannot be accessed. The group size is set and retrieved using the [jsonset\_grp\_size](connect-table-types/connect-json-table-type/connect-json-udfs.md#jsonset_grp_size) and [jsonget\_grp\_size](connect-table-types/connect-json-table-type/connect-json-udfs.md#jsonget_grp_size) functions (previously 100).
 * In case of error, warnings are replaced by messages sent to stderr.
 * No trace.
 

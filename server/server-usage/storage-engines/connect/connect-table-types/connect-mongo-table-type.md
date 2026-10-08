@@ -1,8 +1,8 @@
-# CONNECT MONGO Table Type: Accessing Collections from MongoDB
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT MONGO Table Type: Accessing Collections from MongoDB
 
 Classified as a NoSQL database program, MongoDB uses JSON-like documents (BSON) grouped in collections. The MONGO type is used to directly access MongoDB collections as tables.
 
@@ -17,7 +17,7 @@ Accessing MongoDB from CONNECT can be done in different ways:
 
 #### Using the MongoDB C Driver
 
-This is currently not available from binary distributions but only for versions compiled from source. The preferred version of the MongoDB C Driver is 1.7, because they provide package recognition. What must be done is:
+This is not available from binary distributions but only for versions compiled from source. The preferred version of the MongoDB C Driver is 1.7, because they provide package recognition. What must be done is:
 
 1. Install libbson and the MongoDB C Driver 1.7.
 2. Configure, compile and install MariaDB.
@@ -191,7 +191,7 @@ The MongoDB syntax for Jpath does not allow the CONNECT specific items on arrays
 | Driver\*    | String  | C or Java.                              |
 | Version\*   | Integer | The Java Driver version (defaults to 3) |
 
-* : To be specified in the option list.
+Options marked with an asterisk (\*) must be specified in the option list.
 
 Note: For the content of these options, refer to the MongoDB documentation.
 
@@ -372,7 +372,7 @@ All modifying operations are supported. However, inserting into arrays must be d
 From Connect 1.7.0002
 
 ```
-CREATE TABLE testin (
+CREATE TABLE testing (
 n INT NOT NULL,
 m CHAR(12) NOT NULL,
 surname CHAR(16) NOT NULL jpath='person.name.first',
@@ -388,7 +388,7 @@ CONNECTION='mongodb://localhost:27017';
 Before Connect 1.7.0002
 
 ```
-CREATE TABLE testin (
+CREATE TABLE testing (
 n INT NOT NULL,
 m CHAR(12) NOT NULL,
 surname CHAR(16) NOT NULL field_format='person.name.first',
@@ -404,7 +404,7 @@ CONNECTION='mongodb://localhost:27017';
 Now it is possible to populate it by:
 
 ```
-INSERT INTO testin VALUES
+INSERT INTO testing VALUES
 (1789, 'Welcome', 'Olivier','Bertrand',56, 3.14, 2.36, 8.45),
 (1515, 'Hello', 'John','Smith',32, 65.17, 98.12, NULL),
 (2014, 'Coucou', 'Foo','Bar',20, -1.0, 74, 81356);

@@ -1,4 +1,12 @@
+---
+description: >-
+  Complete InnoDB row size troubleshooting: innodb_strict_mode, ALTER TABLE
+  ROW_FORMAT=DYNAMIC, VARCHAR/VARBINARY(256) overflow, and BLOB/TEXT solutions.
+---
+
 # Troubleshooting Row Size Too Large Errors with InnoDB
+
+## Overview
 
 With InnoDB, users can see the following message as an error or warning:
 
@@ -16,18 +24,38 @@ the row size is 8478 which is greater than maximum allowed size (8126) for a
 record on index leaf page.
 ```
 
-These messages indicate that the table's definition allows rows that the table's InnoDB row format can't actually store.
+These messages indicate that the table definition allows rows that InnoDB row format can't store.
 
 These messages are raised in the following cases:
 
-* If [InnoDB strict mode](../innodb-strict-mode.md) is enabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), then InnoDB will raise an error with this message
-* If [InnoDB strict mode](../innodb-strict-mode.md) is disabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), then InnoDB will raise a warning with this message.
-* Regardless of whether [InnoDB strict mode](../innodb-strict-mode.md) is enabled, if a [DML](../../../../reference/sql-statements/data-manipulation/) statement is executed that attempts to write a row that the table's InnoDB row format can't store, then InnoDB will raise an error with this message.
+* If [InnoDB strict mode](../innodb-strict-mode.md) is enabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), InnoDB raises an error with the above message.
+* If [InnoDB strict mode](../innodb-strict-mode.md) is disabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), InnoDB raises a warning with the above message.
+* Regardless of whether [InnoDB strict mode](../innodb-strict-mode.md) is enabled, if a [DML](../../../../reference/sql-statements/data-manipulation/) statement is executed that attempts to write a row that the table's InnoDB row format can't store, InnoDB raises an error with the above message.
+
+## Does the Problem Affect me?
+
+The cause of the problem is described [here](troubleshooting-row-size-too-large-errors-with-innodb.md#root-cause-of-the-problem). In very short, it affected only old, unsupported MariaDB versions. If you're on a supported version, the problem could yet still come up if the following applies:
+
+* You created tables with a MariaDB version that has the problem.
+* The tables weren't changed by any DML[^1] statements in a newer MariaDB version since then.
+
+If that's the case, you could still face the `Row size too large` error, particularly when issuing statements like [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) or [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md).
+
+{% hint style="info" %}
+Take into account that the `Row size too large` error can come up for a good reason, for instance, when issuing DDL statements that actually exceed the row size.
+{% endhint %}
+
+{% hint style="info" %}
+For tables created in old MariaDB versions, an additional issue could come up: Tables were created whose row size wasn't calculated correctly. Creating those tables should have failed with the `Row size too large error`, but didn't.
+
+With such tables, you can get failures, both for DML (when inserted or updated data actually exceed the row size limit), and for DDL operations that should not affect the row size, like [`TRUNCATE TABLE`](../../../../reference/sql-statements/table-statements/truncate-table.md), [`CREATE TABLE LIKE`](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-like), or [`OPTIMIZE TABLE`](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md), or even dropping columns with [`ALTER TABLE ... DROP COLUMN`](../../../../reference/sql-statements/data-definition/alter/alter-table/#drop-column) which makes the row size shorter.
+{% endhint %}
 
 ## Example of the Problem
 
 Here is an example of the problem:
 
+{% code expandable="true" %}
 ```sql
 SET GLOBAL innodb_default_row_format='dynamic';
 
@@ -237,12 +265,13 @@ CREATE OR REPLACE TABLE tab (
 ERROR 1118 (42000): Row size too large (> 8126). Changing some columns to 
 TEXT or BLOB may help. In current row format, BLOB prefix of 0 bytes is stored inline.
 ```
+{% endcode %}
 
 ## Root Cause of the Problem
 
 The root cause is that InnoDB has a maximum row size that is roughly equivalent to half of the value of the [innodb\_page\_size](../innodb-system-variables.md) system variable. See [InnoDB Row Formats Overview: Maximum Row Size](innodb-row-formats-overview.md#maximum-row-size) for more information.
 
-InnoDB's row formats work around this limit by storing certain kinds of variable-length columns on overflow pages. However, different row formats can store different types of data on overflow pages. Some row formats can store more data in overflow pages than others. For example, the [DYNAMIC](innodb-dynamic-row-format.md) and [COMPRESSED](innodb-compressed-row-format.md) row formats can store the most data in overflow pages. To learn how the various InnoDB row formats use overflow pages, see the following pages:
+The InnoDB row formats work around this limit by storing certain kinds of variable-length columns on overflow pages. However, different row formats can store different types of data on overflow pages. Some row formats can store more data in overflow pages than others. For example, the [DYNAMIC](innodb-dynamic-row-format.md) and [COMPRESSED](innodb-compressed-row-format.md) row formats can store the most data in overflow pages. To learn how the various InnoDB row formats use overflow pages, see the following pages:
 
 * [InnoDB REDUNDANT Row Format: Overflow Pages with the REDUNDANT Row Format](innodb-redundant-row-format.md#overflow-pages-with-the-redundant-row-format)
 * [InnoDB COMPACT Row Format: Overflow Pages with the COMPACT Row Format](innodb-compact-row-format.md#overflow-pages-with-the-compact-row-format)
@@ -251,9 +280,9 @@ InnoDB's row formats work around this limit by storing certain kinds of variable
 
 ## Checking Existing Tables for the Problem
 
-InnoDB does not currently have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
+InnoDB does not have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
 
-One method to check a single existing table for this problem is to enable [InnoDB strict mode](../innodb-strict-mode.md), and then try to create a duplicate of the table with [CREATE TABLE ... LIKE](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-like). If the table has this problem, then the operation will fail:
+One method to check a single existing table for this problem is to enable [InnoDB strict mode](../innodb-strict-mode.md), and then try to create a duplicate of the table with [CREATE TABLE ... LIKE](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-like). If the table has this problem, then the operation fails:
 
 ```sql
 SET SESSION innodb_strict_mode=ON;
@@ -265,59 +294,70 @@ TEXT or BLOB may help. In current row format, BLOB prefix of 0 bytes is stored i
 
 ## Finding All Tables That Currently Have the Problem
 
-The following shell script will read through a MariaDB server to identify every table that has a row size definition that is too large for its row format and the server's page size. It runs on most common distributions of Linux.
+The following shell script checks every InnoDB table on a MariaDB server and reports each table whose row size is too large for its row format and the server's page size. It requires Bash and the `mariadb` command-line client.
 
-To run the script, copy the code below to a shell-script named `rowsize.sh`, make it executable with the command `chmod 755 ./rowsize.sh`, and invoke it with the following parameters:
+For each table, the script creates an empty copy with `CREATE TABLE ... LIKE` in a temporary database, with InnoDB strict mode enabled, and sets the copy to the row format the original table actually uses. If the copy fails with a "Row size too large" error, the table has the problem. The script does not read or change any data.
 
-```
-./rowsize.sh host user password
-```
-
-When the script runs, it displays the name of the temporary database it creates, so that if the script is interrupted before cleaning up, the database can be easily identified and removed manually.
-
-As the script runs it will output one line reporting the database and tablename for each table it finds that has the oversize row problem. If it finds none, it will print the following message: "No tables with rows size too big found."
-
-In either case, the script prints one final line to announce when it's done: `./rowsize.sh done.`
+To run the script, copy the code below to a shell script named `rowsize.sh`, make it executable with the command `chmod 755 ./rowsize.sh`, and invoke it with the [mariadb client options](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#options) needed to connect to the server. To keep the password off the command line, put the credentials in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) and pass it with `--defaults-extra-file`:
 
 ```bash
-#!/bin/bash
-
-[ -z "$3" ] && echo "Usage: $0 host user password" >&2 && exit 1
-
-dt="tmp_$RANDOM$RANDOM"
-
-mysql -h $1 -u $2 -p$3 -ABNe "create database $dt;"
-[ $? -ne 0 ] && echo "Error: $0 terminating" >&2 exit 1
-
-echo
-echo "Created temporary database ${dt} on host $1"
-echo
-
-c=0
-for d in $(mysql -h $1 -u $2 -p$3 -ABNe "show databases;" | egrep -iv "information_schema|mysql|performance_schema|$dt")
-do
-	for t in $(mysql -h $1 -u $2 -p$3 -ABNe "show tables;" $d)
-	do
-		tc=$(mysql -h $1 -u $2 -p$3 -ABNe "show create table $t\\G" $d | egrep -iv "^\*|^$t")
-		
-		echo $tc | grep -iq "ROW_FORMAT"
-		if [ $? -ne 0 ]
-		then
-			tf=$(mysql -h $1 -u $2 -p$3 -ABNe "select row_format from information_schema.innodb_sys_tables where name = '${d}/${t}';")
-			tc="$tc ROW_FORMAT=$tf"
-		fi
-		
-		ef="/tmp/e$RANDOM$RANDOM"
-		mysql -h $1 -u $2 -p$3 -ABNe "set innodb_strict_mode=1; set foreign_key_checks=0; ${tc};" $dt >/dev/null  2>$ef
-		[ $? -ne 0 ] && cat $ef | grep -q "Row size too large" && echo "${d}.${t}" && let c++ || mysql -h $1 -u $2 -p$3 -ABNe "drop table if exists ${t};" $dt
-		rm -f $ef
-	done
-done
-mysql -h $1 -u $2 -p$3 -ABNe "set innodb_strict_mode=1; drop database $dt;"
-[ $c -eq 0 ] && echo "No tables with rows size too large found." || echo && echo "$c tables found with row size too large."
-echo
-echo "$0 done."
+./rowsize.sh --defaults-extra-file=./rowsize.cnf -h db1.example.com
 ```
+
+The account needs the `SELECT` privilege on the tables it checks, and the `CREATE`, `ALTER`, and `DROP` privileges for the temporary database.
+
+When the script runs, it displays the name of the temporary database it creates. The script drops this database when it finishes, or when it is interrupted. If the script is killed before it can clean up, use this name to identify and drop the database manually.
+
+The script outputs one line for each table that has the problem, with the database name, the table name, and the row format. If it finds none, it prints the following message: "No tables with row size too large found." Tables it cannot check are reported as warnings on standard error.
+
+{% code expandable="true" %}
+```bash
+#!/usr/bin/env bash
+# Find InnoDB tables whose row size is too large for their row format.
+# Usage: ./rowsize.sh [mariadb client options]
+
+opts=("$@")
+sql() { mariadb "${opts[@]}" --batch --raw --skip-column-names -e "$1" </dev/null; }
+quote() { local id=${1//\`/\`\`}; printf '`%s`' "$id"; }
+
+tmpdb="rowsize_tmp_$$_$RANDOM"
+
+tables=$(sql "SELECT TABLE_SCHEMA, TABLE_NAME, ROW_FORMAT
+              FROM information_schema.TABLES
+              WHERE ENGINE = 'InnoDB'
+                AND TABLE_TYPE IN ('BASE TABLE', 'SYSTEM VERSIONED')
+                AND TABLE_SCHEMA NOT IN ('mysql', 'sys')
+              ORDER BY TABLE_SCHEMA, TABLE_NAME") ||
+  { echo "Error: cannot read the table list" >&2; exit 1; }
+
+sql "CREATE DATABASE $tmpdb" ||
+  { echo "Error: cannot create database $tmpdb" >&2; exit 1; }
+trap 'sql "DROP DATABASE IF EXISTS $tmpdb"' EXIT
+echo "Created temporary database $tmpdb"
+
+count=0
+while IFS=$'\t' read -r db tbl format; do
+  [ -z "$tbl" ] && continue
+  err=$(sql "SET SESSION innodb_strict_mode = ON;
+             CREATE TABLE $tmpdb.t LIKE $(quote "$db").$(quote "$tbl");
+             ALTER TABLE $tmpdb.t ROW_FORMAT = $format;" 2>&1)
+  if [[ $err == *"Row size too large"* ]]; then
+    echo "$db.$tbl (ROW_FORMAT=$format)"
+    count=$((count + 1))
+  elif [ -n "$err" ]; then
+    echo "Warning: could not check $db.$tbl: $err" >&2
+  fi
+  sql "DROP TABLE IF EXISTS $tmpdb.t"
+done <<< "$tables"
+
+echo
+if [ "$count" -eq 0 ]; then
+  echo "No tables with row size too large found."
+else
+  echo "$count tables found with row size too large."
+fi
+```
+{% endcode %}
 
 ## Solving the Problem
 
@@ -329,14 +369,14 @@ If the table is using either the [REDUNDANT](innodb-redundant-row-format.md) or 
 
 If your tables were originally created on an older version of MariaDB or MySQL, then your table may be using one of InnoDB's older row formats:
 
-* In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) and before, and in MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
+* In MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
 * In MySQL 4.1 and before, the [REDUNDANT](innodb-redundant-row-format.md) row format was the default row format.
 
 The [DYNAMIC](innodb-dynamic-row-format.md) row format can store more data on overflow pages than these older row formats, so this row format may actually be able to store the table's data safely. See [InnoDB DYNAMIC Row Format: Overflow Pages with the DYNAMIC Row Format](innodb-dynamic-row-format.md#overflow-pages-with-the-dynamic-row-format) for more information.
 
 Therefore, a potential solution to the _Row size too large_ error is to convert the table to use the [DYNAMIC](innodb-dynamic-row-format.md) row format:
 
-```
+```sql
 ALTER TABLE tab ROW_FORMAT=DYNAMIC;
 ```
 
@@ -349,7 +389,7 @@ WHERE ROW_FORMAT IN('Redundant', 'Compact')
 AND NAME NOT IN('SYS_DATAFILES', 'SYS_FOREIGN', 'SYS_FOREIGN_COLS', 'SYS_TABLESPACES', 'SYS_VIRTUAL', 'SYS_ZIP_DICT', 'SYS_ZIP_DICT_COLS');
 ```
 
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and later, the [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on one of these newer versions, then they may already be using this row format. In that case, you may need to try the next solution.
+The [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on a recent version, then they may already be using this row format. In that case, you may need to try the next solution.
 
 ### Fitting More Columns on Overflow Pages
 
@@ -383,6 +423,7 @@ Therefore, a potential solution to the _Row size too large_ error is to ensure t
 
 For example, when using InnoDB's [DYNAMIC](innodb-dynamic-row-format.md) row format and a default character set of [latin1](../../../../reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations.md) (which requires up to 1 byte per character), the 256 byte limit means that a [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md) column will only be stored on overflow pages if it is at least as large as a `varchar(256)`:
 
+{% code expandable="true" %}
 ```sql
 SET GLOBAL innodb_default_row_format='dynamic';
 SET SESSION innodb_strict_mode=ON;
@@ -588,9 +629,11 @@ CREATE OR REPLACE TABLE tab (
    PRIMARY KEY (col1)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ```
+{% endcode %}
 
 And when using InnoDB's [DYNAMIC](innodb-dynamic-row-format.md) row format and a default character set of [utf8](../../../../reference/data-types/string-data-types/character-sets/unicode.md) (which requires up to 3 bytes per character), the 256 byte limit means that a [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md) column will only be stored on overflow pages if it is at least as large as a `varchar(86)`:
 
+{% code expandable="true" %}
 ```sql
 SET GLOBAL innodb_default_row_format='dynamic';
 SET SESSION innodb_strict_mode=ON;
@@ -796,9 +839,11 @@ CREATE OR REPLACE TABLE tab (
    PRIMARY KEY (col1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+{% endcode %}
 
 And when using InnoDB's [DYNAMIC](innodb-dynamic-row-format.md) row format and a default character set of [utf8mb4](../../../../reference/data-types/string-data-types/character-sets/unicode.md) (which requires up to 4 bytes per character), the 256 byte limit means that a [VARCHAR](../../../../reference/data-types/string-data-types/varchar.md) column will only be stored on overflow pages if it is at least as large as a `varchar(64)`:
 
+{% code expandable="true" %}
 ```sql
 SET GLOBAL innodb_default_row_format='dynamic';
 SET SESSION innodb_strict_mode=ON;
@@ -1004,6 +1049,7 @@ CREATE OR REPLACE TABLE tab (
    PRIMARY KEY (col1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+{% endcode %}
 
 ## Working Around the Problem
 
@@ -1038,6 +1084,7 @@ An _unsafe_ workaround is to disable [InnoDB strict mode](../innodb-strict-mode.
 
 For example, even though the following table schema is too large for most InnoDB row formats to store, it can still be created when [InnoDB strict mode](../innodb-strict-mode.md) is disabled:
 
+{% code expandable="true" %}
 ```sql
 SET GLOBAL innodb_default_row_format='dynamic';
 SET SESSION innodb_strict_mode=OFF;
@@ -1243,6 +1290,7 @@ CREATE OR REPLACE TABLE tab (
    PRIMARY KEY (col1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+{% endcode %}
 
 But as mentioned above, if [InnoDB strict mode](../innodb-strict-mode.md) is **disabled** and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed, then InnoDB will still raise a **warning** with this message. The [SHOW WARNINGS](../../../../reference/sql-statements/administrative-sql-statements/show/show-warnings.md) statement can be used to view the warning:
 
@@ -1261,3 +1309,5 @@ As mentioned above, even though InnoDB is allowing the table to be created, ther
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.

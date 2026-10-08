@@ -1,8 +1,14 @@
+---
+description: >-
+  Quote a string for SQL usage. This function produces a string ready for use as
+  a data value in an SQL statement, escaping special characters.
+---
+
 # QUOTE
 
 ## Syntax
 
-```sql
+```bnf
 QUOTE(str)
 ```
 

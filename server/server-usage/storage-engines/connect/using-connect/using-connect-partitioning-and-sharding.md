@@ -1,27 +1,24 @@
-# Using CONNECT - Partitioning and Sharding
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# Using CONNECT - Partitioning and Sharding
 
 CONNECT supports the MySQL/MariaDB partition specification. It is done similar to the way [MyISAM](../../myisam-storage-engine/) or [InnoDB](../../innodb/) do by using the PARTITION engine that must be enabled for this to work. This type of partitioning is sometimes referred as “horizontal partitioning”.
 
-Partitioning enables you to distribute portions of individual tables across a file system according to\
-rules which you can set largely as needed. In effect, different portions of a table are stored as separate\
-tables in different locations. The user-selected rule by which the division of data is accomplished is\
-known as a partitioning function, which in MariaDB can be the modulus, simple matching against a set\
-of ranges or value lists, an internal hashing function, or a linear hashing function.
+Partitioning enables you to distribute portions of individual tables across a file system according to
+rules which you can set largely as needed. In effect, different portions of a table are stored as separate tables in different locations. The user-selected rule by which the division of data is accomplished is known as a partitioning function, which in MariaDB can be the modulus, simple matching against a set of ranges or value lists, an internal hashing function, or a linear hashing function.
 
 CONNECT takes this notion a step further, by providing two types of partitioning:
 
 1. File partitioning. Each partition is stored in a separate file like in multiple tables.
 2. Table partitioning. Each partition is stored in a separate table like in TBL tables.
 
-## Partition engine issues
+## Partition Engine Issues
 
 Using partitions sometimes requires creating the tables in an unnatural way to avoid some error due to several partition engine bugs:
 
-1. Engine specific column and index options are not recognized and cause a syntax error when the table is created. The workaround is to create the table in two steps, a CREATE TABLE statement followed by an ALTER TABLE statement.
+1. Engine specific column and index options are not recognized and cause a syntax error when the table is created. The workaround is to create the table in two steps, a `CREATE TABLE` statement followed by an `ALTER TABLE` statement.
 2. The connection string, when specified for the table, is lost by the partition engine. The workaround is to specify the connection string in the option\_list.
 3. [MySQL upstream bug #71095](https://bugs.mysql.com/bug.php?id=71095). In case of list columns partitioning it sometimes causes a false “impossible where” clause to be raised. This makes a wrong void result returned when it should not be void. There is no workaround but this bug should be hopefully fixed.
 
@@ -29,7 +26,7 @@ The following examples are using the above workaround syntax to address these is
 
 ## File Partitioning
 
-File partitioning applies to file-based CONNECT table types. As with multiple tables, physical data is\
+File partitioning applies to file-based CONNECT table types. As with multiple tables, physical data is
 stored in several files instead of just one. The differences to multiple tables are:
 
 1. Data is distributed amongst the different files following the partition rule.
@@ -38,7 +35,7 @@ stored in several files instead of just one. The differences to multiple tables 
 4. The file names are generated from the partition names.
 5. Query pruning is automatically made by the partition engine.
 
-The table file names are generated differently depending on whether the table is an inward or outward\
+The table file names are generated differently depending on whether the table is an inward or outward
 table. For inward tables, for which the file name is not specified, the partition file names are:
 
 ```
@@ -70,7 +67,7 @@ CONNECT will generate in the current data directory the files:
 | t1#P#last.fnx
 ```
 
-This is similar to what the partition engine does for other engines - CONNECT\
+This is similar to what the partition engine does for other engines - CONNECT
 partitioned inward tables behave like other engines partition tables do. Just the data format is different.
 
 Note: If sub-partitioning is used, inward table files and index files are named:
@@ -82,13 +79,9 @@ Note: If sub-partitioning is used, inward table files and index files are named:
 
 ### Outward Tables
 
-The real problems occur with outward tables, in particular when they are created from already existing\
-files. The first issue is to make the partition table use the correct existing file names. The second one,\
-only for already existing not void tables, is to be sure the partitioning function match the distribution of\
-the data already existing in the files.
+The real problems occur with outward tables, in particular when they are created from already existing files. The first issue is to make the partition table use the correct existing file names. The second one, only for already existing not void tables, is to be sure the partitioning function match the distribution of the data already existing in the files.
 
-The first issue is addressed by the way data file names are constructed. For instance let us suppose we\
-want to make a table from the fixed formatted files:
+The first issue is addressed by the way data file names are constructed. For instance let us suppose we want to make a table from the fixed formatted files:
 
 ```
 E:\Data\part1.txt
@@ -110,7 +103,7 @@ PARTITION `2` VALUES LESS THAN(50),
 PARTITION `3` VALUES LESS THAN(MAXVALUE));
 ```
 
-The rule is that for each partition the matching file name is internally generated by replacing in the\
+The rule is that for each partition the matching file name is internally generated by replacing in the
 given FILE \_ NAME option value the “%s” part by the partition name.
 
 If the table was initially void, further inserts will populate it according to the partition function.\
@@ -138,13 +131,13 @@ SELECT CASE WHEN id < 10 THEN 1 WHEN id < 50 THEN 2 ELSE 3 END
 AS pn, COUNT(*) FROM part3 GROUP BY pn;
 ```
 
-If they match, the distribution can be correct although this does not prove it. However, if they do not\
+If they match, the distribution can be correct although this does not prove it. However, if they do not
 match, the distribution is surely wrong.
 
 #### Partitioning on a Special Column
 
-There are some cases where the files of a multiple table do not contain columns that can be used for\
-range or list partitioning. For instance, let’s suppose we have a multiple table based on the following\
+There are some cases where the files of a multiple table do not contain columns that can be used for
+range or list partitioning. For instance, let’s suppose we have a multiple table based on the following
 files:
 
 ```
@@ -179,11 +172,11 @@ salary DOUBLE(8,2) NOT NULL
 ) ENGINE=CONNECT table_type=FIX file_name='tmp/*.txt' multiple=1;
 ```
 
-The issue is that if we want to create a partitioned table on these files, there are no columns to use for\
-defining a partition function. Each city file can have the same kind of column values and there is no\
+The issue is that if we want to create a partitioned table on these files, there are no columns to use for
+defining a partition function. Each city file can have the same kind of column values and there is no
 way to distinguish them.
 
-However, there is a solution. It is to add to the table a special column that are used by the partition\
+However, there is a solution. It is to add to the table a special column that are used by the partition
 function. For instance, the new table creation can be done by:
 
 ```sql
@@ -209,11 +202,11 @@ Note 1: we had to do it in two steps because of the column CONNECT options.
 
 Note 2: the special column PARTID returns the name of the partition in which the row is located.
 
-Note 3: here we could have used the FNAME special column instead because the file name is specified\
+Note 3: here we could have used the FNAME special column instead because the file name is specified
 as being the partition name.
 
-This may seem rather stupid because it means for instance that a row are in partition boston if it\
-belongs to the partition boston! However, it works because the partition engine doesn’t know about\
+This may seem rather stupid because it means for instance that a row are in partition boston if it
+belongs to the partition boston! However, it works because the partition engine doesn’t know about
 special columns and behaves as if the city column was a real column.
 
 What happens if we populate it by?
@@ -227,8 +220,8 @@ INSERT INTO partemp VALUES
 (1864,'Jack','Daniels','1991-12-01','2013-02-16','DEVELOPMENT',63540.50,'atlanta');
 ```
 
-The value given for the city column (explicitly or by default) are used by the partition engine to\
-decide in which partition to insert the rows. It are ignored by CONNECT (a special column cannot\
+The value given for the city column (explicitly or by default) are used by the partition engine to
+decide in which partition to insert the rows. It are ignored by CONNECT (a special column cannot
 be given a value) but later will return the matching value. For instance:
 
 ```sql
@@ -244,26 +237,26 @@ This query returns:
 
 Everything works as if the city column was a real column contained in the table data files.
 
-#### Partitioning of zipped tables
+#### Partitioning of Zipped Tables
 
-Two cases are currently supported:\
+Two cases are supported:\
 If a table is based on several zipped files, portioning is done the standard way as above. This is the _file\_name_ option specifying the name of the zip files that shall contain the ‘%s’ part used to generate the file names.\
 If a table is based on only one zip file containing several entries, this is indicated by placing the ‘%s’ part in the entry option value.\
 Note: If a table is based on several zipped files each containing several entries, only the first case is possible. Using sub-partitioning to make partitions on each entries is not supported yet.
 
 ## Table Partitioning
 
-With table partitioning, each partition is physically represented by a sub-table. Compared to standard\
+With table partitioning, each partition is physically represented by a sub-table. Compared to standard
 partitioning, this brings the following features:
 
-1. The partitions can be tables driven by different engines. This relieves the current existing\
+1. The partitions can be tables driven by different engines. This relieves the current existing
    limitation of the partition engine.
-2. The partitions can be tables driven by engines not currently supporting partitioning.
+2. The partitions can be tables driven by engines that don't support partitioning.
 3. Partition tables can be located on remote servers, enabling table sharding.
-4. Like for TBL tables, the columns of the partition table do not necessarily match the columns\
+4. Like for TBL tables, the columns of the partition table do not necessarily match the columns
    of the sub-tables.
 
-The way it is done is to create the partition table with a table type referring to other tables, [PROXY](../connect-table-types/connect-proxy-table-type.md),[MYSQL](../connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md) [ODBC](../connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) or [JDBC](../connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md). Let us see how this is done on a simple example. Supposing we have created the\
+The way it is done is to create the partition table with a table type referring to other tables, [PROXY](../connect-table-types/connect-proxy-table-type.md),[MYSQL](../connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md) [ODBC](../connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) or [JDBC](../connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md). Let us see how this is done on a simple example. Supposing we have created the
 following tables:
 
 ```sql
@@ -295,7 +288,7 @@ PARTITION `2` VALUES LESS THAN(50),
 PARTITION `3` VALUES LESS THAN(MAXVALUE));
 ```
 
-Here the name of each partition sub-table are made by replacing the ‘%s’ part of the tabname\
+Here the name of each partition sub-table are made by replacing the ‘%s’ part of the tabname
 option value by the partition name. Now if we do:
 
 ```sql
@@ -305,7 +298,7 @@ INSERT INTO t3 VALUES
 (11,'eleven'),(1,'one'),(35,'thirty five'),(8,'eight');
 ```
 
-The rows are distributed in the different sub-tables according to the partition function. This can be\
+The rows are distributed in the different sub-tables according to the partition function. This can be
 seen by executing the query:
 
 ```sql
@@ -337,8 +330,8 @@ When executing this select query, only sub-table xt3 are used.
 
 ### Indexing with Table Partitioning
 
-Using the [PROXY](../connect-table-types/connect-proxy-table-type.md) table type seems natural. However, in this current version, the issue is that PROXY\
-(and [ODBC](../connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)) tables are not indexable. This is why, if you want the table to be indexed, you must use\
+Using the [PROXY](../connect-table-types/connect-proxy-table-type.md) table type seems natural. However, in this current version, the issue is that PROXY
+(and [ODBC](../connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)) tables are not indexable. This is why, if you want the table to be indexed, you must use
 the [MYSQL](../connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md) table type. The CREATE TABLE statement are almost the same:
 
 ```sql
@@ -355,8 +348,8 @@ PARTITION `3` VALUES LESS THAN(MAXVALUE));
 The column _id_ is declared as a key, and the table type is now MYSQL. This makes Sub-tables accessed by calling a MariaDB server as MYSQL tables do. Note that this modifies only the way\
 CONNECT sub-tables are accessed.
 
-However, indexing just make the partitioned table use “remote indexing” the way FEDERATED\
-tables do. This means that when sending the query to retrieve the table data, a where clause are\
+However, indexing just make the partitioned table use “remote indexing” the way FEDERATED
+tables do. This means that when sending the query to retrieve the table data, a where clause are
 added to the query. For instance, let’s suppose you ask:
 
 ```sql
@@ -369,20 +362,17 @@ The query sent to the server are:
 SELECT `id`, `msg` FROM `xt1` WHERE `id` = 7
 ```
 
-On a query like this one, it does not change much because the where clause could have been added\
-anyway by the cond\_push function, but it does make a difference in case of joins. The main thing to\
+On a query like this one, it does not change much because the where clause could have been added
+anyway by the cond\_push function, but it does make a difference in case of joins. The main thing to
 understand is that real indexing is done by the called table and therefore that it should be indexed.
 
-This also means that the xt1, xt2, and xt3 table indexes should be made separately because creating the\
-t2 table as indexed does not make the indexes on the sub-tables.
+This also means that the `xt1`, `xt2`, and `xt3` table indexes should be made separately because creating the `t2` table as indexed does not make the indexes on the sub-tables.
 
 ### Sharding with Table Partitioning
 
-Using table partitioning can have one more advantage. Because the sub-tables can address a table\
+Using table partitioning can have one more advantage. Because the sub-tables can address a table
 located on another server, it is possible to shard a table on separate servers and hardware machines.\
-This may be required to access as one table data already located on several remote machines, such as\
-servers of a company branches. Or it can be just used to split a huge table for performance reason.\
-For instance, supposing we have created the following tables:
+This may be required to access as one table data already located on several remote machines, such as servers of a company branches. Or it can be just used to split a huge table for performance reason. For instance, supposing we have created the following tables:
 
 ```sql
 CREATE TABLE rt1 (id INT KEY NOT NULL, msg VARCHAR(32))
@@ -408,15 +398,11 @@ PARTITION `2` VALUES LESS THAN(50),
 PARTITION `3` VALUES LESS THAN(MAXVALUE));
 ```
 
-.
-
-The only difference is the tabname option now referring to the rt1, rt2, and rt3 tables. However, even if\
-it works, this is not the best way to do it. This is because accessing a table via the MySQL API is done\
-twice per table. Once by CONNECT to access the FEDERATED table on the local server, then a\
+The only difference is the tabname option now referring to the rt1, rt2, and rt3 tables. However, even if it works, this is not the best way to do it. This is because accessing a table via the MySQL API is done twice per table. Once by CONNECT to access the FEDERATED table on the local server, then a
 second time by FEDERATED engine to access the remote table.
 
-The CONNECT MYSQL table type being used anyway, you’d rather use it to directly access the\
-remote tables. Indeed, the partition names can also be used to modify the connection URL’s. For\
+The CONNECT MYSQL table type being used anyway, you’d rather use it to directly access the
+remote tables. Indeed, the partition names can also be used to modify the connection URL’s. For
 instance, in the case shown above, the partition table can be created as:
 
 ```sql
@@ -433,14 +419,14 @@ PARTITION `3` VALUES LESS THAN(MAXVALUE));
 
 Several things can be noted here:
 
-1. As we have seen before, the partition engine currently loses the connection string. This is why\
+1. As we have seen before, the partition engine loses the connection string. This is why
    it was specified as “connect” in the option list.
-2. For each partition sub-tables, the “%s” part of the connection string has been replaced by the\
+2. For each partition sub-tables, the “%s” part of the connection string has been replaced by the
    partition name.
 3. It is not needed anymore to define the rt1, rt2, and rt3 tables (even it does not harm) and the\
    FEDERATED engine is no more used to access the remote tables.
 
-This is a simple case where the connection string is almost the same for all the sub-tables. But what if\
+This is a simple case where the connection string is almost the same for all the sub-tables. But what if
 the sub-tables are accessed by very different connection strings? For instance:
 
 ```
@@ -449,7 +435,7 @@ For rt2: connection='mysql://foo:foopass@denver/dbemp/xt2'
 For rt3: connection='mysql://root@huston :5505/test/tabx'
 ```
 
-There are two solutions. The first one is to use the parts of the connection string to differentiate as\
+There are two solutions. The first one is to use the parts of the connection string to differentiate as
 partition names:
 
 ```sql
@@ -464,8 +450,8 @@ PARTITION `foo:foopass@denver/dbemp/xt2` VALUES LESS THAN(50),
 PARTITION `root@huston :5505/test/tabx` VALUES LESS THAN(MAXVALUE));
 ```
 
-The second one, allowing avoiding too complicated partition names, is to create federated servers to\
-access the remote tables (if they do not already exist, else just use them). For instance the first one\
+The second one, allowing avoiding too complicated partition names, is to create federated servers to
+access the remote tables (if they do not already exist, else just use them). For instance the first one
 could be:
 
 ```sql
@@ -478,7 +464,7 @@ PASSWORD 'tinono',
 PORT 3307);
 ```
 
-Similarly, “server\_two” and “server\_three” would be created and the final partition table would be\
+Similarly, “server\_two” and “server\_three” would be created and the final partition table would be
 created as:
 
 ```sql
@@ -493,14 +479,14 @@ PARTITION `two/xt2` VALUES LESS THAN(50),
 PARTITION `three/tabx` VALUES LESS THAN(MAXVALUE));
 ```
 
-It would be even simpler if all remote tables had the same name on the remote databases, for instance if\
-they all were named xt1, the connection string could be set as “server\_%s/xt1” and the partition names\
+It would be even simpler if all remote tables had the same name on the remote databases, for instance if
+they all were named xt1, the connection string could be set as “server\_%s/xt1” and the partition names
 would be just “one”, “two”, and “three”.
 
 #### Sharding on a Special Column
 
 The technique we have seen above with file partitioning is also available with table partitioning.\
-Companies willing to use as one table data sharded on the company branch servers can, as we have\
+Companies willing to use as one table data sharded on the company branch servers can, as we have
 seen, add to the table create definition a special column. For instance:
 
 ```sql
@@ -518,15 +504,15 @@ PARTITION `west` VALUES IN('west'));
 ```
 
 This example assumes that federated servers had been created named “server\_main”, “server\_east” and\
-“server\_west” and that all remote tables are named “sales”. Note also that in this example, the column\
+“server\_west” and that all remote tables are named “sales”. Note also that in this example, the column
 id is no more a key.
 
 ## Current Partition Limitations
 
-Because the partition engine was written before some other engines were added to MariaDB, the way it\
+Because the partition engine was written before some other engines were added to MariaDB, the way it
 works is sometime incompatible with these engines, in particular with CONNECT.
 
-### Update statement
+### Update Statement
 
 With the sample tables above, you can do update statements such as:
 
@@ -540,10 +526,10 @@ It works perfectly and is accepted by CONNECT. However, let us consider the stat
 UPDATE t2 SET id = 41 WHERE msg = 'four';
 ```
 
-This statement is not accepted by CONNECT. The reason is that the column id being part of the\
+This statement is not accepted by CONNECT. The reason is that the column id being part of the
 partition function, changing its value may require the modified row to be moved to another partition.\
-The way it is done by the partition engine is to delete the old row and to re-insert the new modified\
-one. However, this is done in a way that is not currently compatible with CONNECT (remember that\
+The way it is done by the partition engine is to delete the old row and to re-insert the new modified
+one. However, this is done in a way that is not compatible with CONNECT (remember that\
 CONNECT supports UPDATE in a specific way, in particular for the table type MYSQL)\
 This limitation could be temporary. Meanwhile the workaround is to manually do what is done above,
 
@@ -554,24 +540,20 @@ DELETE FROM t2 WHERE id = 4;
 INSERT INTO t2 VALUES(41, 'four');
 ```
 
-### Alter Table statement
+### Alter Table Statement
 
-For all CONNECT outward tables, the ALTER TABLE statement does not make any change in the table\
-data. This is why ALTER TABLE should not be used; in particular to modify the partition definition,\
-except of course to correct a wrong definition. Note that using ALTER TABLE to create a partition table\
-in two steps because column options would be lost is valid as it applies to a table that is not yet\
+For all CONNECT outward tables, the `ALTER TABLE` statement does not make any change in the table
+data. This is why `ALTER TABLE` should not be used; in particular to modify the partition definition,
+except of course to correct a wrong definition. Note that using `ALTER TABLE` to create a partition table in two steps because column options would be lost is valid as it applies to a table that is not yet
 partitioned.
 
-As we have seen, it is also safe to use it to create or drop indexes. Otherwise, a simple rule of thumb is\
-to avoid altering a table definition and better drop and re-create a table whose definition must be\
-modified. Just remember that for outward CONNECT tables, dropping a table does not erase the data\
+As we have seen, it is also safe to use it to create or drop indexes. Otherwise, a simple rule of thumb is to avoid altering a table definition and better drop and re-create a table whose definition must be
+modified. Just remember that for outward CONNECT tables, dropping a table does not erase the data
 and that creating it does not modify existing data.
 
-### Rowid special column
+### Rowid Special Column
 
-Each partition being handled separately as one table, the ROWID special column returns the rank of the\
-row in its partition, not in the whole table. This means that for partition tables ROWID and ROWNUM are\
-equivalent.
+Each partition being handled separately as one table, the `ROWID` special column returns the rank of the row in its partition, not in the whole table. This means that for partition tables `ROWID` and `ROWNUM` are equivalent.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

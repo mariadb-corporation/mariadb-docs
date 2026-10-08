@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the weight string. This function returns the binary string that
+  represents the sorting and comparison value of the input string.
+---
+
 # WEIGHT\_STRING
 
 ## Syntax
 
-```sql
+```bnf
 WEIGHT_STRING(str [AS {CHAR|BINARY}(N)] [LEVEL levels] [flags])
   levels: N [ASC|DESC|REVERSE] [, N [ASC|DESC|REVERSE]] ...
 ```

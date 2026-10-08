@@ -1,3 +1,9 @@
+---
+description: >-
+  The setup_consumers table controls which consumers (destinations) are enabled
+  to store event data, managing the flow of metrics to history tables.
+---
+
 # Performance Schema setup\_consumers Table
 
 Lists the types of consumers for which event information is available.

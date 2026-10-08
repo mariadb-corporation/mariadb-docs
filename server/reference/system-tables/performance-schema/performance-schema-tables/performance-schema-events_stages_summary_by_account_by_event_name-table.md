@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes stage events aggregated by the client account and the
+  specific event name, showing counts and wait times.
+---
+
 # Performance Schema events\_stages\_summary\_by\_account\_by\_event\_name Table
 
 The table lists stage events, summarized by account and event name.

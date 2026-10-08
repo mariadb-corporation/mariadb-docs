@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_LOCKS table displays information about locks
+  currently held or requested by MyRocks transactions.
+---
+
 # Information Schema ROCKSDB\_LOCKS Table
 
 The [Information Schema](../../) `ROCKSDB_LOCKS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

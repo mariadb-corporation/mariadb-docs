@@ -7,9 +7,11 @@ description: >-
 
 # Connection Redirection Mechanism in the MariaDB Client/Server Protocol
 
-**MariaDB starting with** [**11.3**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113)
+{% hint style="info" %}
+This functionality is available from MariaDB 11.3.
+{% endhint %}
 
-A connection redirection mechanism was added in [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes) ([MDEV-15935](https://jira.mariadb.org/browse/MDEV-15935))
+A connection redirection mechanism was added via [MDEV-15935](https://jira.mariadb.org/browse/MDEV-15935).
 
 Redirection mechanisms are widely used in proxy-based scenarios.
 
@@ -19,26 +21,26 @@ With a redirection mechanism, much like HTTP redirects or Oracle redirected conn
 
 ## Usage
 
-Redirection is handled through a new system variable, [redirect\_url](optimization-and-tuning/system-variables/server-system-variables.md#redirect_url). The value defaults to an empty string, but can also contain a connection string in the conventional format (in the style of a Connector/C etc. connection url), that is:
+Redirection is handled through a new system variable, [redirect\_url](optimization-and-tuning/system-variables/server-system-variables.md#redirect_url). The value defaults to an empty string, but can also contain a connection string in the conventional format (in the style of a Connector/C etc. connection url), like this:
 
 ```
 {mysql,mariadb}://host[:port]
 ```
 
-where _host_ is an arbitrary string not containing colons, and _port_ is a number between 0 and 65535 inclusive.
+Here, _`host`_ is an arbitrary string not containing colons, and _`port`_ is a number between `0` and `65535` inclusive.
 
-This variable is appended to the default value of the [session\_track\_system\_variables](optimization-and-tuning/system-variables/server-system-variables.md#session_track_system_variables) system variable. If not empty, clients will be redirected to the specified server.
+This variable is appended to the default value of the [session\_track\_system\_variables](optimization-and-tuning/system-variables/server-system-variables.md#session_track_system_variables) system variable. Unless empty, clients are redirected to the specified server.
 
-## Possible Use Cases
+## Use Cases
 
 * Always redirect all clients to a new location:
-  * set @@global.redirect\_url, start the server with --redirect-url=, or put it in my.cnf
-* redirect to a group of servers randomly
-  * create a table with connection urls, one per row.
-  * use an sql script that selects a random row from it and sets @@redirect\_url to this value
-  * specify this script in the --init-connect server parameter
-* dynamically redirect from the primary to one of the replicas
-  * same as above, but use [INFORMATION\_SCHEMA.PROCESSLIST](../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) to get the list of active replicas.
+  * Set `@@global.redirect_url`, or start the server with `--redirect-url=`_`url`_, or add that setting to the [server configuration file](../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md).
+* Redirect to a group of servers randomly:
+  * Create a table with connection URLs, one per row.
+  * Use an SQL script that selects a random row from that table, and sets `@@redirect_url` to this value.
+  * Specify this script in the [`--init-connect`](optimization-and-tuning/system-variables/server-system-variables.md#init_connect) server parameter.
+* Dynamically redirect from the primary server to one of the replicas:
+  * Same as before, but use [INFORMATION\_SCHEMA.PROCESSLIST](../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) to get the list of active replicas.
 
 ## Example
 

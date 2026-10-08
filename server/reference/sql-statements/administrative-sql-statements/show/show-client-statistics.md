@@ -1,24 +1,22 @@
+---
+description: >-
+  View statistics on client connections. This statement displays metrics like
+  bytes sent/received and busy time for connected clients.
+---
+
 # SHOW CLIENT\_STATISTICS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CLIENT_STATISTICS
 ```
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
 The `SHOW CLIENT_STATISTICS` statement has effectively been replaced by the generic [SHOW TABLE STATISTICS](show-table-statistics.md) statement. The [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) table holds statistics about client connections.
-{% endtab %}
 
-{% tab title="< 10.1.1" %}
-The `SHOW CLIENT_STATISTICS` statement is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature. The [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) table holds statistics about client connections.
-{% endtab %}
-{% endtabs %}
-
-The [userstat](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) articles for more information.
+The [userstat](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md#userstat) system variable must be set to 1 to activate this feature. See the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) and [information\_schema.CLIENT\_STATISTICS](../../../system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) articles for more information.
 
 ## Example
 

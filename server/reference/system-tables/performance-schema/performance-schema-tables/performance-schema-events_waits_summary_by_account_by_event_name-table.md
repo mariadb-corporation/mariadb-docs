@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes wait events aggregated by client account and event name,
+  providing statistics on wait times and execution counts.
+---
+
 # Performance Schema events\_waits\_summary\_by\_account\_by\_event\_name Table
 
 The [Performance Schema](../) `events_waits_summary_by_account_by_event_name` table contains wait events summarized by account and event name. It contains the following columns:

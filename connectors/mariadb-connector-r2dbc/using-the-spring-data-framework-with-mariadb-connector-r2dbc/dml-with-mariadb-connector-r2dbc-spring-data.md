@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC DML with MariaDB Connector/R2DBC uses DatabaseClient
+  methods execute, select, insert, update, and delete for reactive INSERT,
+  SELECT, UPDATE, and DELETE.
+---
+
 # DML with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview
@@ -214,6 +221,6 @@ Lee
 Dani
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

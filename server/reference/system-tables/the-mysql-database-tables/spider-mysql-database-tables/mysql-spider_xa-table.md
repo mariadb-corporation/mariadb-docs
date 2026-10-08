@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.spider_xa table tracks the status of XA transactions involving
+  Spider tables, ensuring atomicity across distributed nodes.
+---
+
 # mysql.spider\_xa Table
 
 The `mysql.spider_xa` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to Orchestrator, a tool for managing MySQL and MariaDB
+  replication topologies, providing high availability and automated failover
+  capabilities.
+---
+
 # Orchestrator Overview
 
 Orchestrator is no longer actively maintained.
@@ -20,11 +27,11 @@ To install Orchestrator, see:
 
 ## Supported Topologies
 
-Currently, Orchestrator fully supports MariaDB [GTID](../../ha-and-performance/standard-replication/gtid.md), [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), and [semi-synchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md). While Orchestrator does not support Galera specific logic, it works with Galera clusters. For details, see [Supported Topologies and Versions](https://github.com/openark/orchestrator/blob/master/docs/supported-topologies-and-versions.md) in Orchestrator documentation.
+Orchestrator fully supports MariaDB [GTID](../../ha-and-performance/standard-replication/gtid/README.md), [replication](../../ha-and-performance/standard-replication/), and [semi-synchronous replication](../../ha-and-performance/standard-replication/semisynchronous-replication.md). While Orchestrator does not support Galera specific logic, it works with Galera clusters. For details, see [Supported Topologies and Versions](https://github.com/openark/orchestrator/blob/master/docs/supported-topologies-and-versions.md) in Orchestrator documentation.
 
 ## Architecture
 
-Orchestrator consists of a single executable called `orchestrator`. This is a process that periodically connects to the target servers. It will run SQL queries against target servers, so it needs a user with proper permissions. When the process is running, a GUI is available via a web browser, at the URL '[localhost:3000'](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/getting-installing-and-upgrading-mariadb/binary-packages/automated-mariadb-deployment-and-administration/https:/localhost:3000'/README.md). It also exposes a REST API (see [Using the web API](https://github.com/openark/orchestrator/blob/master/docs/using-the-web-api.md) in the Orchestrator documentation).
+Orchestrator consists of a single executable called `orchestrator`. This is a process that periodically connects to the target servers. It will run SQL queries against target servers, so it needs a user with proper permissions. When the process is running, a GUI is available via a web browser, at the URL 'localhost:3000'. It also exposes a REST API (see [Using the web API](https://github.com/openark/orchestrator/blob/master/docs/using-the-web-api.md) in the Orchestrator documentation).
 
 Orchestrator expects to find a JSON configuration file called `orchestrator.conf.json`, in `/etc`.
 
@@ -92,7 +99,7 @@ The `--debug` and `--stack` options can be added to the above commands to make t
 * [Documentation](https://github.com/openark/orchestrator/tree/master/docs).
 * [Raft consensus protocol website](https://raft.github.io/).
 
-The [README.md](https://github.com/openark/orchestrator/blob/master/README) file lists some related community projects, including modules to automate Orchestrator with [Puppet](automated-mariadb-deployment-and-administration-puppet-and-mariadb/) and other technologies.
+The [README.md](https://github.com/openark/orchestrator/blob/master/README.md) file lists some related community projects, including modules to automate Orchestrator with [Puppet](automated-mariadb-deployment-and-administration-puppet-and-mariadb/) and other technologies.
 
 On GitHub you can also find links to projects that allow the use of automation software to deploy and manage Orchestrator.
 

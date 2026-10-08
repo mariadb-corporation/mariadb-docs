@@ -1,8 +1,10 @@
-# Information Schema THREAD\_POOL\_WAITS Table
+---
+description: >-
+  The Information Schema THREAD_POOL_WAITS table lists the number of times
+  threads in the thread pool have waited for various events.
+---
 
-{% hint style="info" %}
-This table is available from MariaDB 10.5.
-{% endhint %}
+# Information Schema THREAD\_POOL\_WAITS Table
 
 The table provides wait counters for the [thread pool](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb.md), and contains the following columns:
 

@@ -1,8 +1,10 @@
-# Performance Schema replication\_applier\_status Table
+---
+description: >-
+  The replication_applier_status_by_worker table provides status information for
+  each worker thread involved in parallel replication.
+---
 
-{% hint style="info" %}
-The `replication_applier_status` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema replication\_applier\_status Table
 
 The [Performance Schema](../) replication\_applier\_status table contains information about the general transaction execution status on the replica.
 

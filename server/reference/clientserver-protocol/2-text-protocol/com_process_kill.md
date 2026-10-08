@@ -1,3 +1,9 @@
+---
+description: >-
+  This command asks the server to terminate a specific connection thread,
+  functionally equivalent to the KILL statement.
+---
+
 # COM\_PROCESS\_KILL
 
 Forces the server to terminate a specified connection.

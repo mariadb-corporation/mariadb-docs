@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.innodb_table_stats table holds persistent table-level statistics for
+  InnoDB, such as row counts, used for query optimization.
+---
+
 # mysql.innodb\_table\_stats
 
 The `mysql.innodb_table_stats` table stores data related to [InnoDB Persistent Statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md), and contains one row per table.

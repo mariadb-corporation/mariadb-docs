@@ -1,8 +1,14 @@
+---
+description: >-
+  List dynamic column names. This function returns a comma-separated list of all
+  column names contained within a dynamic column blob.
+---
+
 # COLUMN\_LIST
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_LIST(dyncol_blob);
 ```
 

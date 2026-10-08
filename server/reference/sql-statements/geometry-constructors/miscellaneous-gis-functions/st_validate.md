@@ -1,12 +1,19 @@
+---
+description: >-
+  Validate and optionally return a geometry. This function checks if a geometry
+  is valid according to OGC rules; it returns the geometry if valid, or NULL if
+  not.
+---
+
 # ST\_Validate
 
 {% hint style="info" %}
-ST\_Validate is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+ST\_Validate is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 ST_Validate(g)
 ```
 
@@ -20,7 +27,7 @@ The function is useful to filter out invalid geometry data.
 
 ## Examples
 
-A [POINT](../geometry-constructors/point.md) requires both x and y co-ordinates:
+A [POINT](../geometry-constructors/point.md) requires both x and y coordinates:
 
 ```sql
 SELECT ST_ASTEXT(ST_VALIDATE(ST_GeomFromText('POINT(1 0)')));          

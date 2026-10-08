@@ -1,3 +1,9 @@
+---
+description: >-
+  This function escapes special characters in a string to make it safe for use
+  in Mroonga full-text search queries.
+---
+
 # mroonga\_escape
 
 ## Syntax
@@ -11,7 +17,7 @@ mroonga_escape (string [,special_characters])
 
 ## Description
 
-`mroonga_escape` is a [user-defined function](../../../../server-usage/user-defined-functions/) (UDF) included with the [Mroonga storage engine](../), used for escaping a string. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
+`mroonga_escape` is a [user-defined function](../../../user-defined-functions/) (UDF) included with the [Mroonga storage engine](../), used for escaping a string. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
 
 If no `special_characters` parameter is provided, by default `+-<>*()":` are escaped.
 

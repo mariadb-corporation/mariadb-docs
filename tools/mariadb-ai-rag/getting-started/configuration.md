@@ -1,3 +1,12 @@
+---
+description: >-
+  Basic configuration for MariaDB AI RAG sets database credentials, JWT
+  secret keys, and embedding provider API keys in a config.env file copied
+  from the provided template.
+hidden: true
+noIndex: true
+---
+
 # Configuration
 
 ## Overview
@@ -61,3 +70,7 @@ For production environments, it is strongly recommended to use a properly genera
 ### API Key Management
 
 External service API keys should be securely stored in the `.env` file. In production environments, consider using a secure vault solution or environment variable management system.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

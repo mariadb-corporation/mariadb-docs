@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for the DROP CATALOG statement, used to remove a catalog and all its
+  associated databases and users.
+---
+
 # DROP CATALOG
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

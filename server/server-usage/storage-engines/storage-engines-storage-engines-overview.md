@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to MariaDB's pluggable storage engine architecture,
+  highlighting key engines like InnoDB, MyISAM, and Aria for different
+  workloads.
+---
+
 # Storage Engines Overview
 
 ## Overview
@@ -12,14 +19,14 @@ A storage engine is a type of [plugin](../../reference/plugins/) for MariaDB:
 
 | Engine                                                                    | Target          | Optimization         | Availability |
 | ------------------------------------------------------------------------- | --------------- | -------------------- | ------------ |
-| [Aria](aria/)                                                             | Read-Heavy      | Reads                | ES 10.5+     |
-| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) | Analytics, HTAP | Big Data, Analytical | ES 10.5+     |
-| [InnoDB](innodb/)                                                         | General Purpose | Mixed Read/Write     | ES 10.5+     |
-| [Memory](memory-storage-engine.md)                                        | Cache, Temp     | Temporary Data       | ES 10.5+     |
-| [MyISAM](myisam-storage-engine/)                                          | Reads           | Reads                | ES 10.5+     |
-| [MyRocks](myrocks/)                                                       | Write-Heavy     | I/O Reduction, SSD   | ES 10.5+     |
-| [S3](s3-storage-engine/)                                                  | Cloud           | Read-Only            | ES 10.5+     |
-| [Spider](spider/)                                                         | Federation      | Sharding, Interlink  | ES 10.5+     |
+| [Aria](aria/)                                                             | Read-Heavy      | Reads                | ES           |
+| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) | Analytics, HTAP | Big Data, Analytical | ES           |
+| [InnoDB](innodb/)                                                         | General Purpose | Mixed Read/Write     | ES           |
+| [Memory](memory-storage-engine.md)                                        | Cache, Temp     | Temporary Data       | ES           |
+| [MyISAM](myisam-storage-engine/)                                          | Reads           | Reads                | ES           |
+| [MyRocks](myrocks/)                                                       | Write-Heavy     | I/O Reduction, SSD   | ES           |
+| [S3](s3-storage-engine/)                                                  | Cloud           | Read-Only            | ES           |
+| [Spider](spider/)                                                         | Federation      | Sharding, Interlink  | ES           |
 
 ## Examples
 
@@ -125,7 +132,7 @@ Standard MariaDB storage engines are used for System Table storage:
 
 ### What storage engine should I use if my application performs both transactional and analytical queries?
 
-An application that performs both transactional and analytical queries is known as [hybrid transactional-analytical processing (HTAP)](https://mariadb.com/kb/en/deploy-htap-topology/).
+An application that performs both transactional and analytical queries is known as [hybrid transactional-analytical processing (HTAP)](../../architecture/topologies/htap/).
 
 HTAP can be implemented with MariaDB by using [InnoDB](innodb/) for transactional queries and [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) for analytical queries.
 
@@ -137,6 +144,6 @@ HTAP can be implemented with MariaDB by using [InnoDB](innodb/) for transactiona
 * [Information Schema ENGINES table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-engines-table.md), which shows available storage engines.
 * [Information Schema TABLES table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md), which shows storage engine by table.
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

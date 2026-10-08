@@ -1,3 +1,9 @@
+---
+description: >-
+  Read from and write to external ODBC data sources from a Spider Node using
+  virtual Spider Tables and the ODBC foreign data wrapper.
+---
+
 # ODBC MariaDB Enterprise Spider Topology
 
 ## Overview
@@ -9,7 +15,7 @@ In the ODBC MariaDB Enterprise Spider topology, a Spider Node contains one or mo
 MariaDB Enterprise Spider:
 
 * Supports a MariaDB foreign data wrapper. The MariaDB foreign data wrapper can be used to replace the older Federated and FederatedX storage engines.
-* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+* Supports an ODBC foreign data wrapper. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider ODBC topology:
 
@@ -17,15 +23,35 @@ The Spider ODBC topology:
 * Can be used to join ODBC Data Sources with tables on the Spider Node using the ODBC foreign data wrapper.
 * Can be used to migrate table data from ODBC Data Sources to the Spider Node using the ODBC foreign data wrapper.
 
-ODBC MariaDB Enterprise Spider Topology
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart LR
+    accTitle: ODBC Spider topology
+    accDescr {
+        A client connects to a Spider Node, a MariaDB Enterprise Server running the Spider
+        storage engine and holding virtual Spider Tables. Using the Spider ODBC federation
+        (an ODBC foreign data wrapper), the Spider Node reads from and writes to an external
+        ODBC Data Source, such as Microsoft SQL Server, Oracle, or PostgreSQL.
+    }
+    Client["Client"]
+    Spider[("Spider Node<br/>Enterprise Server")]
+    ODBC[("ODBC Data Source<br/>SQL Server · Oracle · PostgreSQL")]
+    Client --> Spider
+    Spider <-->|"rw · Spider ODBC federation"| ODBC
+    classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    classDef external fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
+    classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    class Spider node
+    class ODBC external
+    class Client client
+    linkStyle default color:#111111
+```
 
-<figure><img src="../../../.gitbook/assets/spider-federated-odbc.png" alt=""><figcaption></figcaption></figure>
+_In the Spider ODBC topology, a Spider Node uses an ODBC foreign data wrapper to read from and write to an external ODBC Data Source._
 
 In the Spider ODBC topology, a Spider Node contains one or more "virtual" Spider Tables. A Spider Table does not store data. When the Spider Table is queried in this topology, the Enterprise Spider storage engine uses an ODBC foreign data wrapper to read from and write to an ODBC Data Source.
 
-MariaDB Enterprise Spider implemented support for the ODBC foreign data wrapper in MariaDB Enterprise Server 10.5.
-
-The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+The maturity of the ODBC foreign data wrapper can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider ODBC topology consists of:
 
@@ -93,7 +119,7 @@ The Spider ODBC topology can be used to query tables located on non-MariaDB data
 
 ## Examples
 
-### Load Spider with Configuration File (ES 10.4+)
+### Load Spider with Configuration File
 
 ```ini
 [mariadb]
@@ -101,13 +127,13 @@ The Spider ODBC topology can be used to query tables located on non-MariaDB data
 plugin_load_add = "ha_spider"
 ```
 
-### Load Spider with INSTALL SONAME (ES 10.4+)
+### Load Spider with INSTALL SONAME
 
 ```sql
 INSTALL SONAME "ha_spider";
 ```
 
-### View Foreign Data Wrappers (ES 10.5+)
+### View Foreign Data Wrappers
 
 ```sql
 SELECT * FROM information_schema.SPIDER_WRAPPER_PROTOCOLS;
@@ -145,6 +171,6 @@ CREATE OR REPLACE TABLE contacts (
 
 * [Enterprise Spider Storage Engine](../../../server-usage/storage-engines/spider/)
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

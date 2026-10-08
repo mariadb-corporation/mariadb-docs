@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for integrating Enterprise Manager with an OpenID Connect (OIDC)
+  identity provider for centralized Single Sign-On (SSO) authentication.
+---
+
 # Configure OpenID Connect Identity Provider
 
 MariaDB Enterprise Manager can be integrated with external identity providers (like Okta, Keycloak, or Azure AD) using OpenID Connect (OIDC). This allows you to centralize user authentication, enforce your organization's security policies, and enable single sign-on (SSO).
@@ -12,7 +18,7 @@ Before configuring OIDC in Enterprise Manager, you must first register Enterpris
 
 {% stepper %}
 {% step %}
-### **Configure client settings in your identity provider**
+**Configure client settings in your identity provider**
 
 In your Identity Provider's client configuration screen, you will need to provide several URLs that point back to your MariaDB Enterprise Manager instance. These URLs tell the provider where to send the user after authentication and what origins are allowed to make requests.
 
@@ -27,7 +33,7 @@ While the exact field names may vary, you must configure the following endpoints
 {% endstep %}
 
 {% step %}
-### **Obtain your credentials**
+**Obtain your credentials**
 
 Once the client application is saved in your Identity Provider, find and copy the following values:
 
@@ -41,13 +47,11 @@ Once the client application is saved in your Identity Provider, find and copy th
 
 Finally, you must configure your Identity Provider to pass the user's role in the JWT token. This is explained in the "Mapping IDP Roles" section further down this page.
 
-## Configuration Steps in Enterprise Manager
+#### Configuration Steps in Enterprise Manager
 {% endstep %}
-{% endstepper %}
 
-{% stepper %}
 {% step %}
-### Navigate to Identity Provider settings
+**Navigate to Identity Provider settings**
 
 * From the main UI, click the **Settings icon (⚙️)** in the left navigation bar.
 * On the Settings page, click the **Identity Provider** card.
@@ -56,7 +60,7 @@ Finally, you must configure your Identity Provider to pass the user's role in th
 {% endstep %}
 
 {% step %}
-### Enter your OIDC provider details
+**Enter your OIDC provider details**
 
 On the OpenID Connect (OIDC) configuration page, fill in the details from your provider:
 
@@ -67,7 +71,7 @@ On the OpenID Connect (OIDC) configuration page, fill in the details from your p
 {% endstep %}
 
 {% step %}
-### Save the configuration
+**Save the configuration**
 
 * Click the **Save** button to apply the settings.
 
@@ -114,20 +118,19 @@ Resetting the OIDC Configuration
 
 To restore the default settings:
 
-1.  Click the **Reset Configuration** button.\
-
+1.  Click the **Reset Configuration** button.
 
     <figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
-2.  In the confirmation dialog, click **Reset**.\
-
+2.  In the confirmation dialog, click **Reset**.
 
     <figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
 A success message will confirm the reset.
-
-
 {% endstep %}
 {% endstepper %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

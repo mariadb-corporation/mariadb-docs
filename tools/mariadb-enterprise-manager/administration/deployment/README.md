@@ -1,3 +1,9 @@
+---
+description: >-
+  Guidelines and instructions for deploying MariaDB Enterprise Manager,
+  including network and firewall requirements for successful installation.
+---
+
 # Deployment
 
 This section provides an overview of the deployment process for MariaDB Enterprise Manager, covering installation and upgrades for both the central server and the monitoring agents.
@@ -17,7 +23,7 @@ After confirming your hardware, system, and network are compliant, proceed with 
 
 ### Installing Enterprise Manager Agents
 
-To monitor a MariaDB Server and MaxScale host,  [install agent](adding-databases/agent-installation-t-copy.md) on it. Then, use the Enterprise Manager UI to [add the database](adding-databases/) topology and generate the agent setup command. This command includes the correct metric labels for that host.
+To monitor a MariaDB Server and MaxScale host, [install agent](adding-databases/agent-installation-t-copy.md) on it. Then, use the Enterprise Manager UI to [add the database](adding-databases/) topology and generate the agent setup command. This command includes the correct metric labels for that host.
 
 ### Quick start
 
@@ -26,3 +32,7 @@ You can quickly set up and launch MariaDB Enterprise Manager with a single-line 
 
 Enterprise Manager includes a helper tool, integrated in the UI, for adding agents. The helper prompts you to download a small (< 50M) binary and then provides command-line instructions to install and register agents, enabling quick and seamless addition of new MariaDB databases to Enterprise Manager.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

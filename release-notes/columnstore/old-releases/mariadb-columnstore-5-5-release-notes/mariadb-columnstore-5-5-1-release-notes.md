@@ -2,13 +2,13 @@
 
 ## Overview
 
-MariaDB Enterprise ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the third release in the Enterprise ColumnStore 5 series.
+MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the third release in the ColumnStore 5 series.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.5.8-5.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.5.8-5.
 
 This release is of General Availability (GA) maturity.
 
-MariaDB Enterprise ColumnStore 5.5.1 was released on 2020-12-14.
+MariaDB ColumnStore 5.5.1 was released on 2020-12-14.
 
 * Documentation
 
@@ -25,14 +25,14 @@ MariaDB Enterprise ColumnStore 5.5.1 was released on 2020-12-14.
 ### Can result in a hang or crash
 
 * Possible crash in mariadbd when calling stored procedures in the columnstore\_info database. ([MCOL-4105](https://jira.mariadb.org/browse/MCOL-4105))
-* INSERT .. SELECT hangs on cpimport when MariaDB Enterprise ColumnStore is installed in a non-default path. ([MCOL-4425](https://jira.mariadb.org/browse/MCOL-4425))
+* INSERT .. SELECT hangs on cpimport when MariaDB ColumnStore is installed in a non-default path. ([MCOL-4425](https://jira.mariadb.org/browse/MCOL-4425))
 
 ### Can result in unexpected behavior
 
 * Incorrect error message shown when using unsupported JSON functions. ([MCOL-4108](https://jira.mariadb.org/browse/MCOL-4108))
 * Equality does not respect the NOPAD collation attribute. ([MCOL-4388](https://jira.mariadb.org/browse/MCOL-4388))
 * ROUND() function returns incorrect answer for DATE data type. ([MCOL-4255](https://jira.mariadb.org/browse/MCOL-4255), [MCOL-4281](https://jira.mariadb.org/browse/MCOL-4281))
-* calgetshowpartitions fails if MariaDB Enterprise Server started before MariaDB Enterprise ColumnStore. ([MCOL-4397](https://jira.mariadb.org/browse/MCOL-4397))
+* calgetshowpartitions fails if MariaDB Enterprise Server started before MariaDB ColumnStore. ([MCOL-4397](https://jira.mariadb.org/browse/MCOL-4397))
 
 ### Related to install and upgrade
 
@@ -42,7 +42,7 @@ MariaDB Enterprise ColumnStore 5.5.1 was released on 2020-12-14.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 5.5.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.5.1 is provided for:
 
 * CentOS 8
 * CentOS 7
@@ -58,16 +58,16 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 
 ## Installation Instructions
 
-* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
-* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
-* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB Enterprise ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
-* [Single-Node Enterprise ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
-* [Single-Node Enterprise ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
+* [ColumnStore Object Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-object-storage)
+* [ColumnStore Shared Local Storage Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/columnstore-shared-local-storage)
+* [HTAP Topology with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)[ and MariaDB ColumnStore 5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap)
+* [Single-Node ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)[ and Object Storage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server-with-columnstore-object-storage)
+* [Single-Node ColumnStore 5 with MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies)
 
 ## Upgrade Instructions
 
-* [Major Release Upgrades for MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/columnstore-release-notes/README.md)
+* [Major Release Upgrades for MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/upgrades/major-release-upgrades-for-mariadb-enterprise-columnstore)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

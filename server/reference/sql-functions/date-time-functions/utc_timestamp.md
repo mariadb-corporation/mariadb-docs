@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the current UTC timestamp. This function returns the current
+  Coordinated Universal Time date and time.
+---
+
 # UTC\_TIMESTAMP
 
 ## Syntax
 
-```sql
+```bnf
 UTC_TIMESTAMP
 UTC_TIMESTAMP([precision])
 ```

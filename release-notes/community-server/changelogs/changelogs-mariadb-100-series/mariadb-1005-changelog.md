@@ -1,15 +1,15 @@
 # MariaDB 10.0.5 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.5) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.5) |[Release Notes](../../old-releases/10.0/10.0.5.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 7 Nov 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.5.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
-Launchpad you can view more details of the revision and view diffs of the code\
+Launchpad you can view more details of the revision and view diffs of the code
 modified in that revision.
 
 * [Revision #3882](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3882) \[merge]\
@@ -126,7 +126,7 @@ modified in that revision.
           * In open\_table() reuse code from find\_temporary\_table()
       * [Revision #3427.36.26](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.36.26)\
         Sun 2013-10-13 23:20:57 +0300
-        * Give a warning, not an error, if the log file size in innodb doesn't match what is on disk This helps when moving from [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) to [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) as sometimes the log file size is rounded differently.
+        * Give a warning, not an error, if the log file size in innodb doesn't match what is on disk This helps when moving from [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) as sometimes the log file size is rounded differently.
       * [Revision #3427.36.25](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.36.25)\
         Tue 2013-10-08 14:36:06 +0200
         * [MDEV-4506](https://jira.mariadb.org/browse/MDEV-4506): Parallel replication.
@@ -892,7 +892,7 @@ modified in that revision.
   * Merging more ctype\_\* tests from MySQL-5.6.
 * [Revision #3867](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3867)\
   Fri 2013-10-25 20:13:54 +0400
-  * Better test coverage for [WL#4013](https://askmonty.org/worklog/?tid=4013) Unicode german2 collation Merge from MySQL-5.6
+  * Better test coverage for [WL#4013](https://dev.mysql.com/worklog/task/?id=4013) Unicode german2 collation Merge from MySQL-5.6
 * [Revision #3866](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3866)\
   Fri 2013-10-25 15:01:03 +0400
   * [MDEV-5180](https://jira.mariadb.org/browse/MDEV-5180) Data type for WEIGHT\_STRING is too short in some cases (a bug in upstream)
@@ -1284,7 +1284,7 @@ modified in that revision.
                 * Removed incorrect assert
 * [Revision #3852](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3852)\
   Tue 2013-10-15 13:39:44 +0400
-  * A follow-up for [WL#5624](https://askmonty.org/worklog/?tid=5624): Collation customization improvements
+  * A follow-up for [WL#5624](https://dev.mysql.com/worklog/task/?id=5624): Collation customization improvements
 * [Revision #3851](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3851) \[merge]\
   Tue 2013-10-15 10:26:08 +0400
   * Merge 10.0-base -> 10.0
@@ -1592,7 +1592,7 @@ modified in that revision.
       * [MDEV-5026](https://jira.mariadb.org/browse/MDEV-5026) cannot use system jemalloc
     * [Revision #3413.21.364](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.364)\
       Wed 2013-09-18 17:25:10 +0200
-      * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+      * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/5.5/5.5.33.md) with .frm from older MariaDB release
   * [Revision #3427.1.266](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.1.266)\
     Thu 2013-09-19 11:58:44 +0200
     * fix debian builds. don't use WITH\_MAX anymore
@@ -1607,7 +1607,7 @@ modified in that revision.
         * fix upgrades when mariadb-galera-server-5.5 is installed
       * [Revision #3413.21.362](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.362)\
         Wed 2013-09-18 09:09:27 +0200
-        * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+        * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/5.5/5.5.33.md) with .frm from older MariaDB release
       * [Revision #3413.21.361](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.361) \[merge]\
         Tue 2013-09-17 20:44:34 +0200
         * merge with 5.5-release
@@ -2347,7 +2347,7 @@ modified in that revision.
     * Merge
     * [Revision #3427.26.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.26.1)\
       Tue 2013-08-06 13:31:38 -0700
-      * [MWL#205](https://askmonty.org/worklog/?tid=205) DELETE with result set ([MDEV-3814](https://jira.mariadb.org/browse/MDEV-3814)) Includes all post-review fixes as well.
+      * MWL#205 DELETE with result set ([MDEV-3814](https://jira.mariadb.org/browse/MDEV-3814)) Includes all post-review fixes as well.
 * [Revision #3816](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3816)\
   Wed 2013-09-18 11:17:16 +0400
   * [MDEV-4883](https://jira.mariadb.org/browse/MDEV-4883) - Not all host\_cache tests have been merged
@@ -2397,7 +2397,7 @@ modified in that revision.
     * Server crashes on attempt to change engine on a SPIDER table
   * [Revision #3805.1.11](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3805.1.11)\
     Sat 2013-08-24 18:37:49 +0900
-    * Change for mearging [MariaDB 10.0.4](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1004-release-notes.md).
+    * Change for mearging [MariaDB 10.0.4](../../old-releases/10.0/10.0.4.md).
   * [Revision #3805.1.10](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3805.1.10)\
     Sat 2013-08-24 15:20:44 +0900
     * Add mysql.spider\_xa\_failed\_log table.
@@ -2452,6 +2452,6 @@ modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

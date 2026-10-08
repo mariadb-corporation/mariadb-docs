@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiLineStringFromWKB. Constructs a MultiLineString value from
+  its WKB representation and an optional SRID.
+---
+
 # MultiLineStringFromWKB
 
 A synonym for [MLineFromWKB()](mlinefromwkb.md).

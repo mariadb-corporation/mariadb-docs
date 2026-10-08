@@ -1,3 +1,10 @@
+---
+description: >-
+  Browse the List of Performance Schema Tables in MariaDB. Access a
+  comprehensive index of tables and descriptions to assist in monitoring server
+  performance.
+---
+
 # List of Performance Schema Tables
 
 Below is a list of all [Performance Schema](../) tables as well as a brief description of each of them.

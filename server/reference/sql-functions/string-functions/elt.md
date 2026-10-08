@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the string at a specific index. This function returns the N-th string
+  from a list of arguments.
+---
+
 # ELT
 
 ## Syntax
 
-```sql
+```bnf
 ELT(N, str1[, str2, str3,...])
 ```
 

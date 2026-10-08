@@ -1,3 +1,10 @@
+---
+description: >-
+  Failure detection and recovery in MariaDB Galera Cluster, covering the EVS
+  protocol's evs.* timeouts, single-node recovery, and Primary Component
+  restoration after a full cluster outage.
+---
+
 # Recovering a Primary Component
 
 In a MariaDB Galera Cluster, an individual node is considered to have "failed" when it loses communication with the cluster's [Primary Component](understanding-quorum-monitoring-and-recovery.md#primary-component). This can happen for many reasons, including hardware failure, a software crash, loss of network connectivity, or a critical error during a [state transfer](state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md).
@@ -17,7 +24,7 @@ The cluster determines a node's health based on the last time it received a netw
 5. Additionally, if no messages are received from a node for a period greater than [evs.inactive\_timeout](../reference/wsrep-variable-details/wsrep_provider_options.md#evs.inactive_timeout), it is declared failed immediately, regardless of consensus.
 
 {% hint style="warning" %}
-#### Cluster Fault Tolerance
+**Cluster Fault Tolerance**
 
 A safeguard mechanism ensures the cluster remains operational even if some nodes become unresponsive. If a node is active but overwhelmed—perhaps from excessive [memory swapping](../galera-management/performance-tuning/flow-control-in-galera-cluster.md)—it will be labeled as failed. This process ensures that one struggling node doesn't disrupt the entire cluster's functionality.
 {% endhint %}

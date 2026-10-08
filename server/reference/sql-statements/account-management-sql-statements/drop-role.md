@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove a role from the system. Learn the syntax to delete defined roles and
+  revoke them from any users or roles that currently hold them.
+---
+
 # DROP ROLE
 
 ## Syntax

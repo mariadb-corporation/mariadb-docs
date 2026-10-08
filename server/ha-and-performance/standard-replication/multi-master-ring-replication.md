@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement multi-master ring replication in MariaDB Server. This section covers
-  configuring a circular replication topology for high availability and load
-  balancing across multiple active master server
+  Explore the ring topology where each server acts as both primary and replica.
+  Learn the configuration steps and caveats for setting up a circular
+  replication environment.
 ---
 
 # Multi-Master Ring Replication
@@ -19,7 +19,29 @@ The benefit of asynchronous replication compared to [Galera Cluster](https://app
 
 The following picture shows one of the more advanced Multi-Master setups that is resilient against any master going down but can also handle 'human failures', like an accidental drop table, thanks to the addition of [delayed slaves](delayed-replication.md).
 
-![](../../.gitbook/assets/multi-master-ring-replication1.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication with replicas and delayed replicas
+    accDescr {
+        Two primaries, on separate replication domains, replicate to each other in a
+        ring. Each primary also feeds a replica, and each replica feeds a delayed
+        replica, which lags intentionally to guard against human error such as an
+        accidental DROP TABLE.
+    }
+    P1[("MariaDB Primary<br/>Domain 1")]
+    P2[("MariaDB Primary<br/>Domain 2")]
+    P1 <--> P2
+    P1 --> S1[("MariaDB<br/>Replica")]
+    P2 --> S2[("MariaDB<br/>Replica")]
+    S1 --> D1[("MariaDB<br/>Delayed Replica")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class P1,S1,D1 d1
+    class P2,S2,D2 d2
+```
+
+_Multi-master ring with replicas: two primaries replicate to each other; each also has a replica and a delayed replica._
 
 One should [setup replication](setting-up-replication.md) on each master like one does in [standard MariaDB replication](./). The replication setup among the masters should be a ring. In other words, each master should replicate to one other master and each master should only have one other master as a slave.
 
@@ -34,8 +56,8 @@ First, follow the instructions in [setup replication](setting-up-replication.md)
 The main things that are different for Multi-Master Ring Replication are:
 
 * Give every master and slave in the replication setup a unique server\_id. This can be a number from 1 to 4294967295 or 1-255 if one is using [uuid\_short()](../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md). It is a good practice to ensure that you do not have any servers in your system with the same server\_id!
-* Use [global transaction id](gtid.md) (as described above)
-* Give each master a unique [gtid\_domain\_id](gtid.md#gtid_domain_id). This will allow replication to apply transactions from a different master in parallel independent from other masters.
+* Use [global transaction id](gtid/README.md) (as described above)
+* Give each master a unique [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id). This will allow replication to apply transactions from a different master in parallel independent from other masters.
 
 Add the following into your [my.cnf](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) file for **all masters** and restart the servers.
 
@@ -65,7 +87,11 @@ log_slave_updates
 
 ### Limitations when using Ring Replication
 
-* MariaDB does not yet support conflict resolution for conflicting changes. It is up to the application to ensure that there is never a conflicting insert/update/delete between the masters. The easiest setup is having each master server work on a different database or table. If not, one must:
+{% hint style="info" %}
+MariaDB Enterprise Server 12.3 adds [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), a beta feature that lets each master resolve a conflicting row event on its applier thread — using a policy you write in SQL — instead of stopping the SQL thread. This relaxes the first limitation below for tables that more than one master writes to, and makes ring and master-to-master topologies a recommended option for those workloads, provided every master in the ring defines triggers implementing the same deterministic, symmetric policy. The guidance below still applies wherever CDR triggers are not in use.
+{% endhint %}
+
+* Before [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) were added in MariaDB Enterprise Server 12.3, MariaDB had no built-in conflict resolution for conflicting changes. Without CDR triggers, it is up to the application to ensure that there is never a conflicting insert/update/delete between the masters. The easiest setup is having each master server work on a different database or table. If not, one must:
   * Ensure you have an id (master-unique-id) for each row that unequally identifies the master who is responsible for this row. This should preferably be short and part of the primary key in each table. A good value for this would be the `gtid_domain_id` as this is unique for each local cluster.
   * Never insert rows with `PRIMARY KEY` or `UNIQUE KEY` values that can be same on another master. This can be avoided by
     * Have the master-unique-id part of all primary and unique keys.
@@ -73,7 +99,7 @@ log_slave_updates
     * Use [uuid\_short()](../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) to generate unique values, like in `create table t1 (a bigint unsigned default(uuid_short()) primary key)`. Note that if one is using [uuid\_short()](../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) in Multi-Master ring replication, one can only use `server_id` in the range 1-255!
   * Ensure that [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) on each master only update rows generated by this master.
 * If several masters are constantly generating and updating rows for common tables, one has to be extra careful with `ALTER TABLE` to ensure that any change one does will not cause conflicts when the `ALTER TABLE` is replicated to other servers. In particular one has to ensure that all masters and their slaves are configured with `slave_type_conversions=ALL_NON_LOSSY,ALL_LOSSY`.
-* The `server_id` should be unique for each server. One should not change the `server_id` of an active master, as the ID is used by the master to recognize its own events and stop them from replicating endlessly around the ring (see [replicate\_same\_server\_id](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-replicate-same-server-id)).
+* The `server_id` should be unique for each server. One should not change the `server_id` of an active master, as the ID is used by the master to recognize its own events and stop them from replicating endlessly around the ring (see [replicate\_same\_server\_id](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#replicate-same-server-id)).
 
 ### How does Multi-Master Ring Replication work
 
@@ -92,7 +118,7 @@ When used correctly, Multi-Master Ring Replication is as resilient to errors as 
 
 If the slave is **not up to date** and one cannot access any information of the old master, then one can continue the following way:
 
-* Enable the option [--gtid-ignore-duplicates](gtid.md#gtid_ignore_duplicates) on the servers.
+* Enable the option [--gtid-ignore-duplicates](gtid/gtid-system-variables.md#gtid_ignore_duplicates) on the servers.
 * Add the slave to the replication ring.
 * The two masters (one of which is the old slave now added to the ring) will each replicate the events they are missing from one another. The `--gtid-ignore-duplicates` option is needed to allow the two masters in the ring to start replicating from each other when each server is ahead of the other in one domain and behind in another.
 
@@ -102,6 +128,8 @@ As long as each master handles their own set of data, as described above, there 
 
 If there are conflicts, one should resolve them as one resolves issues with normal replication.\
 The most common way to solve issues is to skip the conflicting log events with [SET GLOBAL SQL\_SLAVE\_SKIP\_COUNTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md).
+
+On MariaDB Enterprise Server 12.3, [CDR triggers](conflict-detection-and-resolution-triggers.md) can resolve these conflicts as they occur, so replication does not stop and wait for an operator to skip events.
 
 #### Handling duplicate key errors and other conflicts
 
@@ -116,10 +144,32 @@ To fix this:
 
 ## Multi-Master Ring Replication through slaves
 
-An alternative setup to use for Multi-master ring replications is to replicate to the other\
+An alternative setup to use for Multi-master ring replications is to replicate to the other
 masters through slaves. The following setup shows how this can be done.
 
-![](../../.gitbook/assets/multi-master-ring-replication2.png)
+```mermaid
+flowchart TD
+    accTitle: Ring replication relayed through replicas
+    accDescr {
+        Two primaries on separate domains form a ring that is relayed through their
+        replicas: each primary feeds a replica, and each replica forwards changes to the
+        other domain's primary. Each replica also feeds a delayed replica.
+    }
+    M1[("MariaDB Primary 1<br/>Domain 1")]
+    M2[("MariaDB Primary 2<br/>Domain 2")]
+    M1 --> S1[("MariaDB<br/>Replica 1")]
+    M2 --> S2[("MariaDB<br/>Replica 2")]
+    S1 --> M2
+    S2 --> M1
+    S1 --> D1[("MariaDB<br/>Delayed Replica 1")]
+    S2 --> D2[("MariaDB<br/>Delayed Replica 2")]
+    classDef d1 fill:#3aa0e6,stroke:#1f6fa8,stroke-width:2px,color:#111;
+    classDef d2 fill:#5cb85c,stroke:#2f7d2f,stroke-width:2px,color:#111;
+    class M1,S1,D1 d1
+    class M2,S2,D2 d2
+```
+
+_Multi-master ring relayed through replicas: each replica forwards to the other domain's primary, closing the ring._
 
 ### Benefits of replication through slaves
 
@@ -130,7 +180,7 @@ masters through slaves. The following setup shows how this can be done.
 
 ### Disadvantages of replication through slaves
 
-* There will be a slightly longer delay for the data to hit the next master as it has to go trough the slave. This can be notable if there is a very large transaction executed on the master.
+* There will be a slightly longer delay for the data to hit the next master as it has to go through the slave. This can be notable if there is a very large transaction executed on the master.
 * If the master OR the slave dies, the replication to other masters will stop.
 * A replicating master is subject to the configuration of a slave (e.g. transactions may be incorrectly filtered out).
 * Re-setting replication after failover is a bit more complex.
@@ -148,7 +198,7 @@ Here follows a step by step description of how to do this.
 
 The new slave that will be added to replace slave1 place will below be called slave3.\
 The new master will be called master3 (to simplify explanations).\
-Note that in some cases, the failed master can be re-used as the new slave if it did recover properly. If this is the case, reset all replications setups on the failed master.
+Note that in some cases, the failed master can be reused as the new slave if it did recover properly. If this is the case, reset all replications setups on the failed master.
 
 Note that when one sets up a master->slave replication, all configurations are done only on the slave!
 
@@ -163,12 +213,13 @@ Note that when one sets up a master->slave replication, all configurations are d
 
 Some other options:
 
-* For semi-sync setups, the old master1 can be re-used as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
-* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) or higher).
+* For semi-sync setups, the old master1 can be reused as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
+* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) or higher).
 
 ### See also
 
 * [Multi-source replication](multi-source-replication.md)
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

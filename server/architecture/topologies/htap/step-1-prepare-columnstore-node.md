@@ -152,6 +152,6 @@ This page was step 1 of 4.
 
 Next: Step 2: Install MariaDB Enterprise Server.
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

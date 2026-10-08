@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema PROFILING table provides statement resource usage
+  details, such as CPU time and block operations, when profiling is enabled.
+---
+
 # Information Schema PROFILING Table
 
 The [Information Schema](../) `PROFILING` table contains information about statement resource usage. Profiling information is only recorded if the [profiling](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#profiling) session variable is set to `1`.

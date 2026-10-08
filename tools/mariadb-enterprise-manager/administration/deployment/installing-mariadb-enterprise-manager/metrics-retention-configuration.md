@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to modifying the default 30-day metrics data retention period by editing
+  the PROMETHEUS_RETENTION_TIME environment variable and restarting services.
+---
+
 # Metrics Retention Configuration
 
 By default, MariaDB Enterprise Manager retains detailed metrics for **30 days**. You can configure this data retention period to balance your need for historical data with storage costs.
@@ -10,7 +16,7 @@ Changing the retention time is done by editing the environment file for Enterpri
 
 {% stepper %}
 {% step %}
-### Locate and edit the .env file
+**Locate and edit the .env file**
 
 Navigate to your Enterprise Manager installation directory and open the `.env` file in a text editor.
 
@@ -23,7 +29,7 @@ vim .env
 {% endstep %}
 
 {% step %}
-### Modify the retention time variable
+**Modify the retention time variable**
 
 Find the line containing `PROMETHEUS_RETENTION_TIME` and change its value. The change will only take effect after the Prometheus service is restarted.
 
@@ -47,7 +53,7 @@ Changes to `PROMETHEUS_RETENTION_TIME` take effect only after the Prometheus ser
 {% endstep %}
 
 {% step %}
-### Restart services to apply the change
+**Restart services to apply the change**
 
 You must restart the services for the new retention period to be applied.
 
@@ -86,3 +92,7 @@ When setting `PROMETHEUS_RETENTION_TIME`, you can use the following units:
 * `h` - hours
 * `m` - minutes
 * `s` - seconds
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

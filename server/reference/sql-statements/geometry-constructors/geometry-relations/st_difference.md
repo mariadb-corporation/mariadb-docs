@@ -1,8 +1,14 @@
+---
+description: >-
+  Returns a geometry representing the difference between two geometries. The
+  result contains points from the first geometry that are not in the second.
+---
+
 # ST\_DIFFERENCE
 
 ## Syntax
 
-```sql
+```bnf
 ST_DIFFERENCE(g1,g2)
 ```
 

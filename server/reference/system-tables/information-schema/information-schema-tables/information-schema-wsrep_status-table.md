@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_STATUS table provides a comprehensive view of the
+  Galera Cluster status variables, similar to SHOW STATUS LIKE 'wsrep%'
+---
+
 # Information Schema WSREP\_STATUS Table
 
 The `WSREP_STATUS` table makes [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) node cluster status information available through the [Information Schema](../). The same information can be returned using the [SHOW WSREP\_STATUS](../../../sql-statements/administrative-sql-statements/show/show-wsrep_status.md) statement. Only users with the [SUPER](../../../sql-statements/account-management-sql-statements/grant.md#super) privilege can access information from this table.

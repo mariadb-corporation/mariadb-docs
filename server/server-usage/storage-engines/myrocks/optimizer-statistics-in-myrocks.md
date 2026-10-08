@@ -1,3 +1,7 @@
+---
+description: MyRocks storage engine statistics for the query optimizer.
+---
+
 # Optimizer Statistics in MyRocks
 
 This article describes how MyRocks storage engine provides statistics to the query optimizer.
@@ -29,9 +33,9 @@ MyRocks uses RocksDB's GetApproximateSizes() call to produce an estimate for the
 
 ## ANALYZE TABLE
 
-ANALYZE TABLE will possibly flush the MemTable (depending on the [rocksdb\_flush\_memtable\_on\_analyze](myrocks-system-variables.md#rocksdb_flush_memtable_on_analyze) and [rocksdb\_pause\_background\_work](myrocks-system-variables.md#rocksdb_pause_background_work) settings).
+ANALYZE TABLE does not flush the MemTable. To include MemTable data in the statistics, flush it first by setting [rocksdb\_force\_flush\_memtable\_now](myrocks-system-variables.md#rocksdb_force_flush_memtable_now).
 
-After that, it will re-read statistics from the SST files and re-compute the summary numbers\
+ANALYZE TABLE re-reads statistics from the SST files and re-compute the summary numbers\
 (TODO: and if the data was already on disk, the result should not be different from the one we had before ANALYZE?)
 
 ## Debugging helper variables

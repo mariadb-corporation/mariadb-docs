@@ -1,8 +1,14 @@
+---
+description: >-
+  Subtract a time interval from a date. This function calculates a past date by
+  subtracting a specified unit, such as days, from a starting value.
+---
+
 # DATE\_SUB
 
 ## Syntax
 
-```sql
+```bnf
 DATE_SUB(date,INTERVAL expr unit)
 ```
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  This diagnostic procedure creates a report of the statements currently running
+  or recently run on the server, aiding in performance troubleshooting.
+---
+
 # statement\_performance\_analyzer
 
 ## Syntax

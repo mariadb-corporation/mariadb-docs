@@ -2,17 +2,16 @@
 
 ## MariaDB Galera Cluster 10.0.20 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.20)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10020-release-notes.md)[Changelog](mariadb-galera-cluster-10020-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.20)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10020-release-notes.md)[Changelog](mariadb-galera-cluster-10020-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 27 Jun 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10020-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #5467b12](https://github.com/MariaDB/server/commit/5467b12)\
   2015-06-24 23:28:42 -0400
@@ -52,7 +51,7 @@ modified in that revision.
   * [MDEV-5309](https://jira.mariadb.org/browse/MDEV-5309) - RENAME TABLE does not check for existence of the table's engine
 * [Revision #5a4c5fa](https://github.com/MariaDB/server/commit/5a4c5fa)\
   2015-06-17 14:18:16 +0200
-  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
+  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../10.0/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
 * [Revision #b56ad49](https://github.com/MariaDB/server/commit/b56ad49)\
   2015-06-16 17:27:53 +0200
   * [MDEV-8287](https://jira.mariadb.org/browse/MDEV-8287) DROP TABLE suppresses all engine errors
@@ -483,6 +482,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

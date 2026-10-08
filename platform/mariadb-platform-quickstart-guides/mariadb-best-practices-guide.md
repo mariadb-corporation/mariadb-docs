@@ -48,4 +48,6 @@ Adhering to best practices is crucial for ensuring the performance, stability, a
 
 This guide provides a high-level overview. For more in-depth information, refer to the official MariaDB documentation on best practices.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

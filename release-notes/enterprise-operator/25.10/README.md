@@ -1,0 +1,56 @@
+---
+description: >-
+  MariaDB Enterprise Kubernetes Operator 25.08 is a Stable (GA) release of
+  MariaDB Enterprise Kubernetes Operator, released on 2025-10-29
+---
+
+# MariaDB Enterprise Kubernetes Operator 25.10
+
+**Release date**: 29 Oct 2025
+
+We are excited to announce release of **MariaDB Enterprise Operator 25.10** - delivering enterprise-grade automation for managing MariaDB Enterprise workloads on Kubernetes and Red Hat OpenShift.
+
+If you're updating from previous versions, **please follow the [UPDATE GUIDE](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates/update-25.10)** to ensure a safe transition.
+
+### Long-Term Support (LTS) Release
+
+With the 25.10 release, we’re introducing annual LTS releases for the Enterprise Kubernetes Operator to provide long-term stability and a predictable upgrade path. LTS releases focus on security updates and critical bug fixes and maintain CRD compatibility within the LTS release, helping teams meet SLAs and reduce operational overhead in mission-critical environments. New features will continue to ship in the rolling releases between LTS cycles, while the LTS serves as a hardened, stable baseline.
+
+Please refer to the [OpenShift](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/openshift#release-channels) and [Helm](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#long-term-support-versions) documentation to start using LTS releases.
+
+### Primary/Replica Topology with Replication
+
+The Enterprise Kubernetes Operator now enables provisioning of MariaDB primary/replica topology with MaxScale for automated failover/switchover with topology – and health-aware routing. Replicas scale on demand and can be seeded from physical backups or VolumeSnapshots, reducing day-2 toil while improving availability and read throughput. When replication errors occur, the Enterprise Kubernetes Operator automatically re-seeds the replica from the latest physical backup or VolumeSnapshot and rejoins it to the topology, cutting MTTR.
+
+Please refer to the [replication documentation](https://mariadb.com/docs/tools/mariadb-enterprise-operator/topologies/replication) for more details about this topology.
+
+### MariaDB Enterprise Server
+
+The Enterprise Kubernetes Operator now supports MariaDB Enterprise Server 11.8, which delivers security improvements, compatibility enhancements, new data types and SQL functions, performance and disk-space management, and auditing/monitoring enhancements – giving teams a stronger, more efficient engine for production with the Enterprise Kubernetes Operator.
+
+### MariaDB MaxScale
+
+The Enterprise Kubernetes Operator also supports MariaDB MaxScale 25.10, the most current release that includes new capabilities such as a database firewall (learns safe query patterns and blocks unsafe ones), MaxGUI SSO via OpenID Connect, and NoSQL compatibility improvements.
+
+### VolumeSnapshot Lock Optimization
+
+The Enterprise Kubernetes Operator now optimizes the locking mechanism during volume snapshot creation. With this enhancement, the lock is released immediately after the VolumeSnapshot is provisioned, eliminating potential contention during the long replication process of a snapshot by backend storage.
+
+### Support for Galera Sequence + GTID in Recovery
+
+The Enterprise Kubernetes Operator now supports recovery of Galera clusters in mixed-topology deployments where a Galera cluster also exposes GTIDs for downstream replicas. Now the recovery process proceeds without error when the recovered position includes both the Galera sequence and a GTID.
+
+### Platform and component versions
+
+The current release has been tested with the following versions:
+
+| Platform/Component        | Version  |
+| ------------------------- | -------- |
+| Kubernetes                | 1.35     |
+| OpenShift                 | 4.18.6   |
+| MariaDB Enterprise Server | 11.8.5-2 |
+| MaxScale                  | 25.10.1  |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formid="4316" formId="4316" %}

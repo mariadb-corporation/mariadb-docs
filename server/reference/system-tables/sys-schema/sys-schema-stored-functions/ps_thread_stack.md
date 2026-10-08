@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns a JSON-formatted stack trace of all statements, stages,
+  and events for a given thread, useful for deep diagnostics.
+---
+
 # ps\_thread\_stack
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

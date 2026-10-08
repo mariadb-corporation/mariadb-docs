@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains the handshake and acknowledgement process for semi-synchronous
+  replication, ensuring data is committed on at least one replica.
+---
+
 # 4-Semi-Sync Replication
 
 [Regular MariaDB replication](../../../ha-and-performance/standard-replication/) is asynchronous. MariaDB also includes [semisynchronous replication](../../../ha-and-performance/standard-replication/semisynchronous-replication.md) semi-synchronous Binlog Event.
@@ -29,13 +35,13 @@ This event is sent by the replica **only if** the semi-sync flag is set to `0x01
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) semi-sync indicator, always 0xef;
 * [uint<8>](../protocol-data-types.md#fixed-length-integers) the next position of received event;
-* [string](../protocol-data-types.md#fixed-length-integers) binlog file name.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-integers) binlog file name.
 
 {% hint style="info" %}
 This packet sent by the replica never includes the `CRC32`.
 {% endhint %}
 
-Sending an `ACK` when the semi-sync flag is set to `0x0`  causes an error, and the connection is closed.
+Sending an `ACK` when the semi-sync flag is set to `0x0` causes an error, and the connection is closed.
 
 ## Example of Heartbeat Event With Semi-Sync Protocol and CRC32
 
@@ -78,7 +84,7 @@ This is sent by the replica server after the `XID_EVENT` receiving.
 We see:
 
 * The semi sync indicator \[1] = 0xef, sent before anything else.
-* The Next Event position \[8] = 4a 05 00 00 00 00 00 00 => 1354\
+* The Next Event position \[8] = 4a 05 00 00 00 00 00 00 => 1354
   which is the next position of the XID\_EVENT above.
 * The binlog filename = mysql-bin.000034.
 

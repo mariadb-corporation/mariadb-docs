@@ -1,16 +1,16 @@
 # MariaDB 5.1.49 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.49) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5149-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.49/) | [Release Notes](../../old-releases/5.1/5.1.49.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 09 Aug 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5149-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.49.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #2895](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2895) Ensure that xtradb & InnoDB plugin compiles if valgrind is installed but not valgrind debug libraries
 * [Revision #2894](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2894)\
-  This patch fixes [Bug #613408](https://bugs.launchpad.net/bugs/613408) Memory corruption with (M) aria storage engine and virtual columns in [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)\
+  This patch fixes [Bug #613408](https://bugs.launchpad.net/bugs/613408) Memory corruption with (M) aria storage engine and virtual columns in [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)\
   Fixed compiler warnings\
   Disabled some tests that doesn't work on windows (uses shell tools or strange characters)
 * [Revision #2893](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2893)\
@@ -44,7 +44,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2882](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2882)\
   Fix [Bug #600744](https://bugs.launchpad.net/bugs/600744)
 * [Revision #2881](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2881)\
-  bug [Bug #578117](https://bugs.launchpad.net/bugs/578117) - Wrong usage of mutex LOCK\_sync and LOCK\_active in XA\
+  bug [Bug #578117](https://bugs.launchpad.net/bugs/578117) - Wrong usage of mutex LOCK\_sync and LOCK\_active in XA
   redone locking in TC\_LOG\_MMAP::log\_xid
 * [Revision #2880](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2880)\
   Remove the file libmysqld.exp from the installer
@@ -70,7 +70,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   Fixed trival bug introduced in last patch (buffer was not extended)
 * [Revision #2869](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2869)\
   Fixes for Opensolaris (to get buildbot green)
-  * Fixed memory leaks in [mysqldump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysqldump)
+  * Fixed memory leaks in mysqldump
   * Fixed printf of NULL which caused crashes on OpenSolaris when using `--debug`
   * Fixed realloc() problem that caused out of memory when running mysqldump.test on OpenSolaris
 * [Revision #2868](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2868)\
@@ -87,21 +87,21 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * [Revision #2864.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2864.1.1)\
     Fixed some bugs in the Maria storage engine
     * Changed default recovery mode from OFF to NORMAL to get automatic repair of not properly closed tables.
-    * Fixed a rase condition when two threads calls external\_lock and thr\_lock() in different order. When this happend the transaction that called external lock first\
+    * Fixed a rase condition when two threads calls external\_lock and thr\_lock() in different order. When this happend the transaction that called external lock first
       and thr\_lock() last did not see the rows from the other transaction, even if it had to wait in thr\_lock() for other to complete.
     * Fixed that one can run maria\_chk on an automatcally recovered tables without warnings about too small transaction id
     * Don't give warning that crashed table could not be repaired if repair was disabled (and thus not run)
     * Fixed a error result from flush\_key\_cache() which caused a DBUG\_ASSERT() when one was using concurrent reads on non transactional tables that was updated.
 * [Revision #2865](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2865)\
-  mtr: when applying @opt\_extra\_mysqld\_opt for `--help`,\
-  filter out `--binlog-format` - it makes mysqld to fail without `--log-bin`,\
+  mtr: when applying @opt\_extra\_mysqld\_opt for `--help`,
+  filter out `--binlog-format` - it makes mysqld to fail without `--log-bin`,
   and we don't need either anyway for `--help` to work.
 * [Revision #2864](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2864)\
   ugly-ugly. $with\_plugin\_innobase was hard-coded in configure.in in
 * [Revision #2863](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2863)\
   fixed for mysql-test-run to
   * fully support `--mysqld=--plugin-load=xxxx`
-  * uniformly support all loadable plugins, no need to hard-code\
+  * uniformly support all loadable plugins, no need to hard-code
     every new plugin in mtr
   * autodetect MTR\_VS\_CONFIG on windows
 * [Revision #2862](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2862)\
@@ -109,10 +109,10 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2861](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2861)\
   fix questionable UNIV\_EXPECT's in the xtradb that confused old gcc.
 * [Revision #2860](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2860) \[merge]\
-  Automerge [MariaDB 5.1.47](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5147-release-notes.md) release into main.
+  Automerge [MariaDB 5.1.47](../../old-releases/5.1/5.1.47.md) release into main.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

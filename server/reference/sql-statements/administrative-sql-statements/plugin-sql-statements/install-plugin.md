@@ -1,8 +1,14 @@
+---
+description: >-
+  Install a specific plugin from a shared library. This statement adds the
+  plugin to the mysql.plugin table and loads its code into the server memory.
+---
+
 # INSTALL PLUGIN
 
 ## Syntax
 
-```sql
+```bnf
 INSTALL PLUGIN [IF NOT EXISTS] plugin_name SONAME 'plugin_library'
 ```
 
@@ -31,11 +37,11 @@ If the value of [plugin\_dir](../../../../ha-and-performance/optimization-and-tu
 
 To use `INSTALL PLUGIN`, you must have the [INSERT privilege](../../account-management-sql-statements/grant.md) for the `mysql.plugin` table.
 
-At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL PLUGIN` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started withthe `--skip-grant-tables` option.
+At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL PLUGIN` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started with the `--skip-grant-tables` option.
 
 When the server shuts down, it executes the de-initialization functionfor each plugin that is loaded so that the plugin has a chance toperform any final cleanup.
 
-If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load).
+If you need to load plugins for a single server startup when the`--skip-grant-tables` option is given (which tells the servernot to read system tables), use the`--plugin-load` [mariadbd option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load).
 
 #### IF NOT EXISTS
 

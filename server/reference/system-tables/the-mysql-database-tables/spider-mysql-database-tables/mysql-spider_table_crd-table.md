@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.spider_table_crd table stores cardinality statistics for Spider
+  tables, which the optimizer uses to create efficient query plans.
+---
+
 # mysql.spider\_table\_crd Table
 
 The `mysql.spider_table_crd` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

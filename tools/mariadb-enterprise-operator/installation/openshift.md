@@ -1,6 +1,13 @@
+---
+description: >-
+  This guide details installing the MariaDB Enterprise Kubernetes Operator on
+  OpenShift, leveraging the Operator Lifecycle Manager, and configuring image
+  pull credentials.
+---
+
 # OpenShift
 
-This documentation provides guidance on installing the MariaDB Enterprise Operator operator in OpenShift. This operator has been [certified by Red Hat](https://connect.redhat.com/en/partner-with-us/what-are-operators) and it is available in the OpenShift console.
+This documentation provides guidance on installing the MariaDB Enterprise Kubernetes Operator operator in OpenShift. This operator has been [certified by Red Hat](https://connect.redhat.com/en/partner-with-us/what-are-operators) and it is available in the OpenShift console.
 
 Operators are deployed into OpenShift with the [Operator Lifecycle Manager (OLM)](https://olm.operatorframework.io/), which facilitates the installation, updates, and overall management of their lifecycle.
 
@@ -57,7 +64,6 @@ spec:
   name: mariadb-enterprise-operator
   source: certified-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: mariadb-enterprise-operator.v1.0.0
 ```
 
 This will use the `global-operators` `OperatorGroup` that is created by default in the `openshift-operators` namespace. This `OperatorGroup` will watch all namespaces in the cluster, and the operator will be able to manage resources across all namespaces.
@@ -98,12 +104,32 @@ spec:
   name: mariadb-enterprise-operator
   source: certified-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: mariadb-enterprise-operator.v1.0.0
 ```
 
 ## Release channels
 
-Currently, the only release channel available to install the operator is `stable`, which contains supported releases of the operator. This is controlled by the `channel` field in the `Subscription` object.
+We maintain support across a variety of OpenShift channels to ensure compatibility with different release schedules and stability requirements. Below, you will find an overview of the specific OpenShift channels we support.
+
+| Channel         | Supported OpenShift Versions | Description                                                                                                                                                                                                           |
+| --------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stable`        | 4.18, 4.16                   | Points to the latest stable version of the operator. This channel may span multiple major versions.                                                                                                                   |
+| `stable-v25.10` | 4.18, 4.16                   | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. |
+
+An example Subscription would look like this:
+
+```yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: mariadb-enterprise-operator
+  namespace: openshift-operators
+spec:
+  channel: stable # Change this to the actual channel you want
+  installPlanApproval: Automatic
+  name: mariadb-enterprise-operator
+  source: certified-operators
+  sourceNamespace: openshift-marketplace
+```
 
 ## Updates
 
@@ -129,7 +155,7 @@ As an alternative to create `Subscription` objects via the command line, you can
 
 ![](../../.gitbook/assets/certified-operator.png)
 
-Select `MariaDB Enterprise Operator`, click on install, and you will be able to create a `Subscription` object via the UI.
+Select `MariaDB Enterprise Kubernetes Operator`, click on install, and you will be able to create a `Subscription` object via the UI.
 
 Once deployed, the operator comes with example resources that can be deployed from the console directly. For instance, to create a `MariaDB`:
 
@@ -139,6 +165,6 @@ As you can see in the previous screenshot, the form view that the OpenShift cons
 
 ![](../../.gitbook/assets/openshift-console-yaml.png)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

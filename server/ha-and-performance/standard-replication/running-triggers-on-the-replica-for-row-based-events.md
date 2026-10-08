@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about running triggers on MariaDB replicas for row-based events. This
-  section explains how to configure triggers to execute on replicated data,
-  enabling custom logic and data consistency.
+  Understand how triggers behave under row-based replication. Learn when and why
+  triggers are not executed on the replica and how to manage complex logic in
+  this mode.
 ---
 
 # Running Triggers on the Replica for Row-based Events
@@ -17,14 +17,18 @@ The setting is controlled by the [slave\_run\_triggers\_for\_rbr](replication-an
 
 Possible values are:
 
-| Value        | Meaning                                                                                                                                                                                                                                                                 |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NO (Default) | Don't invoke triggers for row-based events                                                                                                                                                                                                                              |
-| YES          | Invoke triggers for row-based events, don't log their effect into the binary log                                                                                                                                                                                        |
-| LOGGING      | Invoke triggers for row-based events, and log their effect into the binary log                                                                                                                                                                                          |
-| ENFORCE      | From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes) only. Triggers will always be run on the replica, even if there are triggers on the master. ENFORCE implies LOGGING. |
+| Value        | Meaning                                                                                                                                                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NO (Default) | Don't invoke triggers for row-based events                                                                                                                                                                                           |
+| YES          | Invoke triggers for row-based events, don't log their effect into the binary log                                                                                                                                                     |
+| LOGGING      | Invoke triggers for row-based events, and log their effect into the binary log                                                                                                                                                       |
+| ENFORCE      | Triggers will always be run on the replica, even if there are triggers on the master. ENFORCE implies LOGGING. |
 
 **Note that if you just want to use triggers together with replication, you most likely don't need this option.** Read below for details.
+
+{% hint style="info" %}
+Starting with MariaDB Enterprise Server 12.3, enabling `slave_run_triggers_for_rbr` also activates [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) — a dedicated trigger type for resolving replication conflicts on the replica instead of stopping the SQL thread.
+{% endhint %}
 
 ## When to Use slave\_run\_triggers\_for\_rbr
 
@@ -56,6 +60,7 @@ If the master modifies a table that has triggers, it will produce row-based binl
 
 ## See Also
 
+* [Conflict Detection and Resolution (CDR) Triggers](conflict-detection-and-resolution-triggers.md)
 * Task in Jira, [MDEV-5095](https://jira.mariadb.org/browse/MDEV-5095).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

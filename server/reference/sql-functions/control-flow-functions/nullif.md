@@ -1,8 +1,14 @@
+---
+description: >-
+  Compare two expressions and return NULL if they are equal. If the expressions
+  differ, the function returns the first expression.
+---
+
 # NULLIF
 
 ## Syntax
 
-```sql
+```bnf
 NULLIF(expr1,expr2)
 ```
 

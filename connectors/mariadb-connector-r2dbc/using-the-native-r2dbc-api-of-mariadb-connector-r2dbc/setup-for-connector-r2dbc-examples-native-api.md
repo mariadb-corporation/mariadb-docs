@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up the test database, contact table, and user account required by the
+  MariaDB Connector/R2DBC native API code examples in this documentation
+  section.
+---
+
 # Setup for Connector/R2DBC Examples (Native API)
 
 ## Overview
@@ -39,7 +46,7 @@ GRANT ALL PRIVILEGES
    TO 'connr2dbc_test'@'192.0.2.50';
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 
 {% @marketo/form formId="4316" %}

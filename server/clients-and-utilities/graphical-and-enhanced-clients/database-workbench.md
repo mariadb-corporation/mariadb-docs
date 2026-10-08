@@ -1,4 +1,15 @@
+---
+description: >-
+  Complete Database Workbench guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage with comprehensive
+  examples and.
+---
+
 # Database Workbench
+
+{% hint style="info" %}
+Database Workbench is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [Database Workbench](https://www.upscene.com/database_workbench/) is a Windows application (_which works fine under Wine on Linux_) for database design, development, maintenance and testing for several database systems, including MySQL and MariaDB.
 

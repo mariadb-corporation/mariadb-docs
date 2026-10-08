@@ -1,8 +1,14 @@
+---
+description: >-
+  Constructs a GeometryCollection value from its WKB representation and an
+  optional SRID.
+---
+
 # ST\_GeomCollFromText
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomCollFromText(wkt[,srid])
 ST_GeometryCollectionFromText(wkt[,srid])
 GeomCollFromText(wkt[,srid])

@@ -1,3 +1,9 @@
+---
+description: >-
+  These helper functions allow you to easily enable or disable specific
+  optimizer_switch flags for the current session.
+---
+
 # optimizer\_switch Helper Functions
 
 ## Syntax

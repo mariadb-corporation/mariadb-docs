@@ -1,8 +1,14 @@
+---
+description: >-
+  Extract the month. This function returns the month portion of a date as a
+  number from 1 (January) to 12 (December).
+---
+
 # MONTH
 
 ## Syntax
 
-```sql
+```bnf
 MONTH(date)
 ```
 

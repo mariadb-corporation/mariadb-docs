@@ -1,3 +1,10 @@
+---
+description: >-
+  High-level dashboard providing an aggregated view of the entire database
+  fleet, highlighting overall health, critical alerts, and resource consumption
+  across multiple topologies.
+---
+
 # Database Fleet Overview
 
 The "fleet" dashboard is the central inventory for all your monitored database topologies. It provides a hierarchical, at-a-glance overview of the health, status, and configuration of your entire database environment.
@@ -48,14 +55,14 @@ You can perform actions on your databases and nodes using the three-dot menu (�
 
 {% stepper %}
 {% step %}
-### Accessing the MaxScale GUI
+**Accessing the MaxScale GUI**
 
 * Click the three-dot menu (⋮) next to a MaxScale node.
 * Select "Manage MaxScale".
 {% endstep %}
 
 {% step %}
-### Configuring SSO in `maxscale.cnf`
+**Configuring SSO in `maxscale.cnf`**
 
 To enable SSO, add the following parameters to your MaxScale configuration file (`maxscale.cnf`) on the MaxScale host:
 
@@ -78,3 +85,7 @@ admin_oidc_ssl_insecure=true
 | `admin_oidc_ssl_insecure`  | Skip TLS certificate verification in case certificates aren't configured         |
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

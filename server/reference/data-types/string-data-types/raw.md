@@ -1,3 +1,9 @@
+---
+description: >-
+  In Oracle mode, RAW is a variable-length binary data type synonymous with
+  VARBINARY.
+---
+
 # RAW
 
 ## Overview
@@ -28,6 +34,6 @@ Create Table: CREATE TABLE "raw_example" (
 )
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,8 +1,14 @@
+---
+description: >-
+  View server status variables. This statement displays counters and metrics for
+  server activity, performance, and health.
+---
+
 # SHOW STATUS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [GLOBAL | SESSION] STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

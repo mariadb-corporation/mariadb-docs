@@ -1,8 +1,10 @@
-# Performance Schema events\_transactions\_summary\_by\_thread\_by\_event\_name Table
+---
+description: >-
+  This table summarizes stage events aggregated by thread and event name,
+  providing granular statistics on thread execution stages.
+---
 
-{% hint style="info" %}
-The events\_transactions\_summary\_by\_thread\_by\_event\_name table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema events\_transactions\_summary\_by\_thread\_by\_event\_name Table
 
 The `events_transactions_summary_by_thread_by_event_name` table contains information on transaction events aggregated by thread and event name.
 

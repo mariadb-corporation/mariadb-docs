@@ -1,9 +1,15 @@
+---
+description: >-
+  Retrieve global instance details. Access version information, manage global
+  configuration parameters, and monitor the logging status of your MaxScale
+  instance.
+---
+
 # MaxScale MaxScale Resource
 
 ## Overview
 
-The MaxScale resource represents a MaxScale instance and it is the core on top
-of which the modules build upon.
+The MaxScale resource represents a MaxScale instance and it is the core on top of which the modules build upon.
 
 ## Resource Operations
 
@@ -13,8 +19,7 @@ of which the modules build upon.
 GET /v1/maxscale
 ```
 
-Retrieve global information about a MaxScale instance. This includes various
-file locations, configuration options and version information.
+Retrieve global information about a MaxScale instance. This includes various file locations, configuration options and version information.
 
 #### Response
 
@@ -160,10 +165,7 @@ file locations, configuration options and version information.
 PATCH /v1/maxscale
 ```
 
-Update MaxScale parameters. The request body must define updated values for the
-`data.attributes.parameters` object. The parameters that can be modified are
-listed in the `/v1/maxscale/modules/maxscale` endpoint and have the `modifiable`
-value set to `true`.
+Update MaxScale parameters. The request body must define updated values for the `data.attributes.parameters` object. The parameters that can be modified are listed in the `/v1/maxscale/modules/maxscale` endpoint and have the `modifiable` value set to `true`.
 
 #### Response
 
@@ -181,9 +183,7 @@ Invalid JSON body:
 GET /v1/maxscale/threads/:id
 ```
 
-Get the information and statistics of a particular thread. The _:id_ in
-the URI must map to a valid thread number between 0 and the configured
-value of `threads`.
+Get the information and statistics of a particular thread. The _:id_ in the URI must map to a valid thread number between 0 and the configured value of `threads`.
 
 #### Response
 
@@ -365,17 +365,11 @@ Get the information for all threads. Returns a collection of threads resources.
 GET /v1/maxscale/logs
 ```
 
-Get information about the current state of logging, enabled log files and the
-location where the log files are stored.
+Get information about the current state of logging, enabled log files and the location where the log files are stored.
 
-**Note:** The parameters in this endpoint are a subset of the parameters in the
-  `/v1/maxscale` endpoint. Because of this, the parameters in this endpoint are
-  deprecated as of MaxScale 6.0.
+**Note:** The parameters in this endpoint are a subset of the parameters in the `/v1/maxscale` endpoint. Because of this, the parameters in this endpoint are deprecated as of MaxScale 6.0.
 
-**Note:** In MaxScale 2.5 the `log_throttling` and `ms_timestamp` parameters
-  were incorrectly named as `throttling` and `highprecision`. In MaxScale 6,
-  the parameter names are now correct which means the parameters declared here
-  aren't fully backwards compatible.
+**Note:** In MaxScale 2.5 the `log_throttling` and `ms_timestamp` parameters were incorrectly named as `throttling` and `highprecision`. In MaxScale 6, the parameter names are now correct which means the parameters declared here aren't fully backwards compatible.
 
 #### Response
 
@@ -424,43 +418,26 @@ GET /v1/maxscale/logs/data
 
 Get the contents of the MaxScale logs. This endpoint was added in MaxScale 6.
 
-To navigate the log, use the `prev` link to move backwards to older log
-entries. The latest log entries can be read with the `last` link.
+To navigate the log, use the `prev` link to move backwards to older log entries. The latest log entries can be read with the `last` link.
 
-The entries are sorted in ascending order by the time they were logged. This
-means that with the default parameters, the latest logged event is the last
-element in the returned array.
+The entries are sorted in ascending order by the time they were logged. This means that with the default parameters, the latest logged event is the last element in the returned array.
 
 #### Parameters
 
 This endpoint supports the following parameters:
 
-- `page[size]`
+* `page[size]`
+  * Set number of rows of data to read. By default, 50 rows of data are read from the log.
+* `page[cursor]`
+  *   Set position from where the log data is retrieved. The default position to retrieve the log data is the end of the log.
 
-  - Set number of rows of data to read. By default, 50 rows of data are read
-    from the log.
+      This value should not be modified by the user and the values returned in the `links` object should be used instead. This way the navigation will provide a consistent view of the log that does not overlap.
 
-- `page[cursor]`
+      Optionally, the `id` values in the returned data can be used as the values for this parameter to read data from a known point in the file.
+* `priority`
+  *   Include messages only from these log levels. The default is to include all messages.
 
-  - Set position from where the log data is retrieved. The default position to
-    retrieve the log data is the end of the log.
-
-    This value should not be modified by the user and the values returned in the
-    `links` object should be used instead. This way the navigation will provide
-    a consistent view of the log that does not overlap.
-
-    Optionally, the `id` values in the returned data can be used as the values
-    for this parameter to read data from a known point in the file.
-
-- `priority`
-
-  - Include messages only from these log levels. The default is to include all
-    messages.
-
-    The value given should be a comma-separated list of log priorities. The
-    priorities are `alert`, `error`, `warning`, `notice`, `info` and
-    `debug`. Note that the `debug` log level is only used in debug builds of
-    MaxScale.
+      The value given should be a comma-separated list of log priorities. The priorities are `alert`, `error`, `warning`, `notice`, `info` and `debug`. Note that the `debug` log level is only used in debug builds of MaxScale.
 
 #### Response
 
@@ -512,14 +489,11 @@ This endpoint supports the following parameters:
 GET /v1/maxscale/logs/entries
 ```
 
-Get the contents of the MaxScale logs as separate entries. This endpoint was
-added in MaxScale 24.02. This endpoint is nearly identical to the
-`/v1/maxscale/logs/data` endpoint except that this is a resource collection
-where each log line is a separate resource.
+Get the contents of the MaxScale logs as separate entries. This endpoint was added in MaxScale 24.02. This endpoint is nearly identical to the `/v1/maxscale/logs/data` endpoint except that this is a resource collection where each log line is a separate resource.
 
 #### Parameters
 
-This endpoint supports the same parameters as [/maxscale/logs/data](#get-log-data).
+This endpoint supports the same parameters as [/maxscale/logs/data](maxscale-maxscale-resource.md#get-log-data).
 
 #### Response
 
@@ -581,11 +555,7 @@ GET /v1/maxscale/logs/stream
 
 Stream the contents of the MaxScale logs. This endpoint was added in MaxScale 6.
 
-This endpoint opens a [WebSocket](https://tools.ietf.org/html/rfc6455)
-connection and streams the contents of the log to it. Each WebSocket message
-will contain the JSON representation of the log message. The JSON is formatted
-in the same way as the values in the `log` array of the `/v1/maxscale/logs/data`
-endpoint:
+This endpoint opens a [WebSocket](https://tools.ietf.org/html/rfc6455) connection and streams the contents of the log to it. Each WebSocket message will contain the JSON representation of the log message. The JSON is formatted in the same way as the values in the `log` array of the `/v1/maxscale/logs/data` endpoint:
 
 ```javascript
 {
@@ -598,38 +568,22 @@ endpoint:
 
 ### Limitations
 
-* If the client writes any data to the open socket, it will be treated as
-  an error and the stream is closed.
-
-* The WebSocket ping and close commands are not yet supported and will be
-  treated as errors.
-
-* When `maxlog` is used as source of log data, any log messages logged after log
-  rotation will not be sent if the file was moved or truncated. To fetch new
-  events after log rotation, reopen the WebSocket connection.
+* If the client writes any data to the open socket, it will be treated as an error and the stream is closed.
+* The WebSocket ping and close commands are not yet supported and will be treated as errors.
+* When `maxlog` is used as source of log data, any log messages logged after log rotation will not be sent if the file was moved or truncated. To fetch new events after log rotation, reopen the WebSocket connection.
 
 #### Parameters
 
 This endpoint supports the following parameters:
 
-- `page[cursor]`
+* `page[cursor]`
+  *   Set position from where the log data is retrieved. The default position to retrieve the log data is the end of the log.
 
-  - Set position from where the log data is retrieved. The default position to
-    retrieve the log data is the end of the log.
+      To stream data from a known point, first read the data via the `/v1/maxscale/logs/data` endpoint and then use the `id` value of the newest log message (i.e. the first value in the `log` array) to start the stream.
+* `priority`
+  *   Include messages only from these log levels. The default is to include all messages.
 
-    To stream data from a known point, first read the data via the
-    `/v1/maxscale/logs/data` endpoint and then use the `id` value of the newest
-    log message (i.e. the first value in the `log` array) to start the stream.
-
-- `priority`
-
-  - Include messages only from these log levels. The default is to include all
-    messages.
-
-    The value given should be a comma-separated list of log priorities. The
-    priorities are `alert`, `error`, `warning`, `notice`, `info` and
-    `debug`. Note that the `debug` log level is only used in debug builds of
-    MaxScale.
+      The value given should be a comma-separated list of log priorities. The priorities are `alert`, `error`, `warning`, `notice`, `info` and `debug`. Note that the `debug` log level is only used in debug builds of MaxScale.
 
 #### Response
 
@@ -643,20 +597,15 @@ Client didn't request a WebSocket upgrade:
 
 ## Update logging parameters
 
-**Note:** The modification of logging parameters via this endpoint has
-  deprecated in MaxScale 6.0. The parameters should be modified with the
-  `/v1/maxscale` endpoint instead.
+**Note:** The modification of logging parameters via this endpoint has deprecated in MaxScale 6.0. The parameters should be modified with the `/v1/maxscale` endpoint instead.
 
-  Any PATCH requests done to this endpoint will be redirected to the
-  `/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and
-  `log_throttling` parameters, this is not fully backwards compatible.
+Any PATCH requests done to this endpoint will be redirected to the `/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and `log_throttling` parameters, this is not fully backwards compatible.
 
 ```
 PATCH /v1/maxscale/logs
 ```
 
-Update logging parameters. The request body must define updated values for the
-`data.attributes.parameters` object. All logging parameters can be altered at runtime.
+Update logging parameters. The request body must define updated values for the `data.attributes.parameters` object. All logging parameters can be altered at runtime.
 
 #### Response
 
@@ -674,8 +623,7 @@ Invalid JSON body:
 POST /v1/maxscale/logs/flush
 ```
 
-Flushes any pending messages to disk and reopens the log files. The body of the
-message is ignored.
+Flushes any pending messages to disk and reopens the log files. The body of the message is ignored.
 
 #### Response
 
@@ -687,16 +635,9 @@ message is ignored.
 POST /v1/maxscale/tls/reload
 ```
 
-Reloads all TLS certificates for listeners and servers as well as the REST API
-itself. If the reloading fails, the old certificates will remain in use for the
-objects that failed to reload. This also causes the JWT signature keys to be
-reloaded if one of the asymmetric key algorithms is being used. If JWTs are
-being signed with a random symmetric keys, a new random key is created.
+Reloads all TLS certificates for listeners and servers as well as the REST API itself. If the reloading fails, the old certificates will remain in use for the objects that failed to reload. This also causes the JWT signature keys to be reloaded if one of the asymmetric key algorithms is being used. If JWTs are being signed with a random symmetric keys, a new random key is created.
 
-The reloading is not transactional: if a single listener or server fails to
-reload its certificates, the remaining ones are not reloaded. This means that a
-failed reload can partially reload certificates. The REST API certificates are
-only reloaded if all other certificate reloads were successful.
+The reloading is not transactional: if a single listener or server fails to reload its certificates, the remaining ones are not reloaded. This means that a failed reload can partially reload certificates. The REST API certificates are only reloaded if all other certificate reloads were successful.
 
 #### Response
 
@@ -708,17 +649,13 @@ only reloaded if all other certificate reloads were successful.
 GET /v1/maxscale/modules/:name
 ```
 
-Retrieve information about a loaded module. The _:name_ must be the name of a
-valid loaded module or either `maxscale` or `servers`.
+Retrieve information about a loaded module. The _:name_ must be the name of a valid loaded module or either `maxscale` or `servers`.
 
-The `maxscale` module will display the global configuration options
-(i.e. everything under the `[maxscale]` section) as a module.
+The `maxscale` module will display the global configuration options (i.e. everything under the `[maxscale]` section) as a module.
 
-The `servers` module displays the server object type and the configuration
-parameters it accepts as a module.
+The `servers` module displays the server object type and the configuration parameters it accepts as a module.
 
-Any parameter with the `modifiable` value set to `true` can be modified
-at runtime using a PATCH command on the corresponding object endpoint.
+Any parameter with the `modifiable` value set to `true` can be modified at runtime using a PATCH command on the corresponding object endpoint.
 
 #### Response
 
@@ -1402,9 +1339,7 @@ GET /v1/maxscale/modules
 
 Retrieve information about all loaded modules.
 
-This endpoint supports the `load=all` parameter. When defined, all modules
-located in the MaxScale module directory (`libdir`) will be loaded. This allows
-one to see the parameters of a module before the object is created.
+This endpoint supports the `load=all` parameter. When defined, all modules located in the MaxScale module directory (`libdir`) will be loaded. This allows one to see the parameters of a module before the object is created.
 
 #### Response
 
@@ -5577,17 +5512,11 @@ For commands that can modify data:
 POST /v1/maxscale/modules/:module/:command
 ```
 
-Modules can expose commands that can be called via the REST API. The module
-resource lists all commands in the `data.attributes.commands` list. Each value
-is a command sub-resource identified by its `id` field and the HTTP method the
-command uses is defined by the `attributes.method` field.
+Modules can expose commands that can be called via the REST API. The module resource lists all commands in the `data.attributes.commands` list. Each value is a command sub-resource identified by its `id` field and the HTTP method the command uses is defined by the `attributes.method` field.
 
-The _:module_ in the URI must be a valid name of a loaded module and _:command_
-must be a valid command identifier that is exposed by that module. All
-parameters to the module commands are passed as HTTP request parameters.
+The _:module_ in the URI must be a valid name of a loaded module and _:command_ must be a valid command identifier that is exposed by that module. All parameters to the module commands are passed as HTTP request parameters.
 
-Here is an example POST requests to the mariadbmon module command _reset-replication_ with
-two parameters, the name of the monitor instance and the server name:
+Here is an example POST requests to the mariadbmon module command _reset-replication_ with two parameters, the name of the monitor instance and the server name:
 
 ```
 POST /v1/maxscale/modules/mariadbmon/reset-replication?MariaDB-Monitor&server1
@@ -5612,9 +5541,7 @@ Command with output:
 }
 ```
 
-The contents of the `meta` field will contain the output of the module
-command. This output depends on the command that is being executed. It can
-contain any valid JSON value.
+The contents of the `meta` field will contain the output of the module command. This output depends on the command that is being executed. It can contain any valid JSON value.
 
 Command with no output:
 
@@ -5662,27 +5589,28 @@ GET /v1/maxscale/query_classifier/classify?sql=SELECT+1
 POST /v1/maxscale/query_classifier/dump
 ```
 
-Initiates the dumping of the query classifier cache. The request body
-must be a JSON object consisting of the following fields:
+Initiates the dumping of the query classifier cache. The request body must be a JSON object consisting of the following fields:
 
 * `path`
-    * The path of the directory where the dump should be saved. This is a mandatory field.
-
+  * The path of the directory where the dump should be saved. This is a mandatory field.
 * `format`
   * Specifies the format of the dump. Allowed values are `json`, `pretty_json` and `json_lines`. This is an optional field and the default is 'json'.
 
 Here is an example request body:
+
 ```
 {
     "path": "/tmp",
     "format": "pretty_json"
 }
 ```
+
 #### Response
 
 The dumping is successfully initiated:
 
 `Status: 200 OK`
+
 ```
 {
   data: {
@@ -5694,11 +5622,8 @@ The dumping is successfully initiated:
   }
 }
 ```
-The dump is written to a temporary file in the specified directory.
-At the end the file is renamed to the name returned in the response.
-Thus, if the file is immediately checked for, it may not yet be
-present.
 
+The dump is written to a temporary file in the specified directory. At the end the file is renamed to the name returned in the response. Thus, if the file is immediately checked for, it may not yet be present.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

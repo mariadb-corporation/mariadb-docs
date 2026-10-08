@@ -1,4 +1,10 @@
-# inet4
+---
+description: >-
+  The inet4 plugin provides the INET4 data type, allowing for efficient native
+  storage and manipulation of IPv4 addresses as 4-byte binary strings.
+---
+
+# INET4 Plugin
 
 This plugin implements the [inet4 data type](../../data-types/string-data-types/inet4.md) and functions used by this data type, like conversions.
 
@@ -10,5 +16,4 @@ This plugin is built in to MariaDB Server. It cannot be disabled.
 
 `inet4` is a data type plugin. It can be used in stored procedures as a variable type and as a data type for table columns.
 
-
-
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,4 +1,14 @@
+---
+description: >-
+  dbForge Documenter automatically generates MariaDB database documentation in
+  HTML, PDF, and Markdown, with a range of options for adjusting the output.
+---
+
 # dbForge Documenter
+
+{% hint style="info" %}
+dbForge Documenter is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 [**dbForge Documenter**](https://www.devart.com/dbforge/mysql/documenter/) is a useful tool for the MariaDB database that allows for the automatic generation of database documentation in such formats as HTML, PDF, and Markdown. Users can adjust the created documentation with a great variety of options.
 
@@ -16,7 +26,7 @@ Various cloud services: Amazon RDS, Amazon Aurora, Google Cloud, Oracle MySQL Cl
 
 Security connections: Secure Socket Layer (SSL), Secure Shell (SSH), HTTP Tunneling, PAM Percona.
 
-![compatiblity](../../.gitbook/assets/compatiblity.png)
+![compatibility](../../.gitbook/assets/compatibility.png)
 
 ## Database Structure
 
@@ -51,7 +61,6 @@ Download a free 30-day trial of dbForge Documenter for MariaDB and MySQL [here](
 | dbForge Documenter 10.0 | Support for MariaDB 11.4. Added support for temporal tables in MariaDB.                                                                                                |
 | dbForge Documenter 2.2  | Support for MariaDB 11.3.                                                                                                                                              |
 | dbForge Documenter 2.1  | Support for MariaDB 10.9 and 10.10.                                                                                                                                    |
-| dbForge Documenter 2.0  | Connectivity support for MariaDB 10.5.                                                                                                                                 |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

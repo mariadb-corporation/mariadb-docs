@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for POWER(). Returns the value of a number raised to the power of
+  another number.
+---
+
 # POW
 
 ## Syntax
 
-```sql
+```bnf
 POW(X,Y)
 ```
 

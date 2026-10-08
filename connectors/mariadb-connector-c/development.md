@@ -25,10 +25,10 @@ MariaDB Connector/C includes several header files. In some cases, developers mig
 The header files:
 
 * Contain the definitions of structures, functions, and constants.
-* Are installed to the `/usr/include/mariadb/` directory by default on Linux.
+* Are installed to the `/usr/include/mariadb/` directory by default on Linux for tarball and DEB packages. RPM packages install headers directly to `/usr/include/` instead.
 
 C applications developed using MariaDB Connector/C must include the `mysql.h` header file.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

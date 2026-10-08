@@ -1,8 +1,14 @@
+---
+description: >-
+  Calculate MD5 checksum. This function returns the MD5 hash of a string as a
+  32-character hexadecimal number.
+---
+
 # MD5
 
 ## Syntax
 
-```sql
+```bnf
 MD5(str)
 ```
 
@@ -13,6 +19,14 @@ Calculates an MD5 128-bit checksum for the string.
 The return value is a 32-hex digit string, and a nonbinary string in the connection [character set and collation](../../../data-types/string-data-types/character-sets/), determined by the values of the [character\_set\_connection](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_connection) and [collation\_connection](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) system variables.
 
 `NULL` is returned if the argument was `NULL`.
+
+{% hint style="warning" %}
+**Don't use this function as an encryption function.**
+
+MD5 can be used as a checksum to verify data integrity against unintentional corruption. Historically it was widely used as a cryptographic hash function; however it has been found to suffer from extensive vulnerabilities.
+
+See [https://en.wikipedia.org/wiki/MD5](https://en.wikipedia.org/wiki/MD5) for details.
+{% endhint %}
 
 ## Examples
 

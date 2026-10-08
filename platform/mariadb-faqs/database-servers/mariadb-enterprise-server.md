@@ -11,4 +11,6 @@
 * Q: How can my organization obtain MariaDB Enterprise Server?\
   A: MariaDB Enterprise Server is available via a commercial subscription from MariaDB plc. This subscription generally includes the hardened server software, a suite of enterprise tools, comprehensive support packages, and related services.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

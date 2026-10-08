@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the different row formats supported by Aria, particularly the
+  default PAGE format which enables crash safety and better concurrency.
+---
+
 # Aria Storage Formats
 
 The [Aria](./) storage engine supports three different table storage formats.
@@ -12,7 +18,7 @@ Fixed-length (or static) tables contain records of a fixed-length. Each column i
 
 Tables containing BLOB or TEXT fields cannot be FIXED, as by design these are both dynamic fields.
 
-Fixed-length tables have a number of characteristics
+Fixed-length tables have a number of characteristics:
 
 * fast, since MariaDB will always know where a record begins
 * easy to cache
@@ -22,7 +28,7 @@ Fixed-length tables have a number of characteristics
 
 ## Dynamic
 
-Dynamic tables contain records of a variable length. It is the default format if a table has any BLOB, TEXT, VARCHAR or VARBINARY fields, and no ROW FORMAT is provided. You can also specify a DYNAMIC table with ROW\_FORMAT=DYNAMIC in the table definition.
+Dynamic tables contain records of a variable length. It is the default format if a table has any `BLOB`, `TEXT`, `VARCHAR` or `VARBINARY` fields, and no `ROW FORMAT` is provided. You can also specify a `DYNAMIC` table with `ROW_FORMAT=DYNAMIC` in the table definition.
 
 Dynamic tables have a number of characteristics
 
@@ -30,16 +36,16 @@ Dynamic tables have a number of characteristics
 * Rows tend to become fragmented easily. UPDATING a record to be longer will likely ensure it is stored in different places on the disk.
 * All string columns with a length of four or more are dynamic.
 * They require much less space than fixed-length tables.
-* Restoring after a crash is more complicated than with FIXED tables.
+* Restoring after a crash is more complicated than with `FIXED` tables.
 
 ## Page
 
-Page format is the default format for Aria tables, and is the only format that can be used if TRANSACTIONAL=1.
+Page format is the default format for Aria tables, and is the only format that can be used if `TRANSACTIONAL=1`.
 
 Page tables have a number of characteristics:
 
 * It's cached by the page cache, which gives better random performance as it uses fewer system calls.
-* Does not fragment as easily as the DYNAMIC format during UPDATES. The maximum number of fragments are very low.
+* Does not fragment as easily as the `DYNAMIC` format during `UPDATES`. The maximum number of fragments are very low.
 * Updates more quickly than dynamic tables.
 * Has a slight storage overhead, mainly notable on very small rows
 * Slower to perform a full table scan
@@ -47,7 +53,7 @@ Page tables have a number of characteristics:
 
 ## Transactional
 
-See [Aria Storage Engine](aria-storage-engine.md) for the impact of the TRANSACTIONAL option on the row format.
+See [Aria Storage Engine](aria-storage-engine.md) for the impact of the `TRANSACTIONAL` option on the row format.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,12 +1,19 @@
+---
+description: >-
+  Generate a Geohash string from a point or coordinates. This function encodes
+  spatial locations into short, alphanumeric strings for efficient indexing and
+  proximity searches.
+---
+
 # ST\_GeoHash
 
 {% hint style="info" %}
-ST\_GeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120).
+ST\_GeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeoHash(longitude, latitude, max_length)
 ST_GeoHash(point, max_length)
 ```
@@ -17,7 +24,7 @@ Returns the geohash corresponding to the input values, or NULL if any argument i
 
 The `longitude` parameter is a numeric value in the interval \[180, -180]. `latitude` is a numeric value in the interval \[90, -90].
 
-In the case of `point`, the x coordinate is treated as the latitude and the y coordinate is treated as the latitude. The same constraints apply.
+In the case of `point`, the x coordinate is treated as the longitude and the y coordinate is treated as the latitude. The same constraints apply.
 
 The `max_length` parameter is the upper limit on the resulting string size and cannot exceed 100.
 

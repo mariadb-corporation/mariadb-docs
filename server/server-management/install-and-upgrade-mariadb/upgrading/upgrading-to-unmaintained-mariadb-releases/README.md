@@ -1,9 +1,95 @@
 ---
-description: >-
-  Learn about upgrading to unmaintained MariaDB Server releases. This section
-  provides information on potential risks and considerations when working with
-  older, unsupported versions.
+description: Upgrading guides for unmaintained versions of MariaDB Community Server.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Archived Guides (Unmaintained CS Versions)
 
+{% columns %}
+{% column %}
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-2-to-mariadb-11-3.md" %}
+[upgrading-from-mariadb-11-2-to-mariadb-11-3.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-2-to-mariadb-11-3.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-1-to-mariadb-11-2.md" %}
+[upgrading-from-mariadb-11-1-to-mariadb-11-2.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-1-to-mariadb-11-2.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="upgrading-from-mariadb-11-0-to-mariadb-11-1.md" %}
+[upgrading-from-mariadb-11-0-to-mariadb-11-1.md](upgrading-from-mariadb-11-0-to-mariadb-11-1.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="upgrading-from-mariadb-10-11-to-mariadb-11-0.md" %}
+[upgrading-from-mariadb-10-11-to-mariadb-11-0.md](upgrading-from-mariadb-10-11-to-mariadb-11-0.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="upgrading-from-mariadb-10-7-to-mariadb-10-8.md" %}
+[upgrading-from-mariadb-10-7-to-mariadb-10-8.md](upgrading-from-mariadb-10-7-to-mariadb-10-8.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="upgrading-from-mariadb-10-6-to-mariadb-10-7.md" %}
+[upgrading-from-mariadb-10-6-to-mariadb-10-7.md](upgrading-from-mariadb-10-6-to-mariadb-10-7.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+An upgrading guide for unmaintained versions of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

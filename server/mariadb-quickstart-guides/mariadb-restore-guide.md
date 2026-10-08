@@ -1,5 +1,7 @@
 ---
-description: Data Restoration Guide
+description: >-
+  Restore MariaDB data from mariadb-dump backup files using the mariadb client,
+  including how to selectively restore a single table.
 ---
 
 # Restoring Data from Dump Files Guide
@@ -76,5 +78,7 @@ If only one table has been lost or corrupted and your backup file contains an en
     ```
 
 This method helps to isolate the restore operation to the intended table, protecting other data from being inadvertently reverted to an older state.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

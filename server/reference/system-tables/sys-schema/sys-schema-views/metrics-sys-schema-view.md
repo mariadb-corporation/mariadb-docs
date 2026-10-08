@@ -1,3 +1,9 @@
+---
+description: >-
+  The metrics view consolidates key performance metrics from Global Status,
+  InnoDB Metrics, and memory summaries into a single unified table.
+---
+
 # metrics Sys Schema View
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

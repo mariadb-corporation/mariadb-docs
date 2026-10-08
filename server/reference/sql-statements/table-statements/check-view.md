@@ -1,8 +1,14 @@
+---
+description: >-
+  Verify the validity of a view's algorithm. This statement checks if the view
+  definition is correct and references existing tables.
+---
+
 # CHECK VIEW
 
 ## Syntax
 
-```sql
+```bnf
 CHECK VIEW view_name
 ```
 

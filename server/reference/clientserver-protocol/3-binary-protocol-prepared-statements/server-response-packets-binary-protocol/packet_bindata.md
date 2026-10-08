@@ -1,3 +1,9 @@
+---
+description: >-
+  This packet type in the binary protocol transfers result set row data in a
+  compact binary format, determined by the column types returned in metadata.
+---
+
 # PACKET\_BINDATA
 
 In contrast to the text protocol, the binary protocol transfers data according to the format of the field types returned in `PACKET_METADATA`.

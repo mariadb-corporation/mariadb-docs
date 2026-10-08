@@ -1,16 +1,14 @@
+---
+description: >-
+  Stress-test a MariaDB server by running test scenarios repeatedly with
+  mariadb-stress-test (a symlink to mysql-stress-test).
+---
+
 # mariadb-stress-test
 
 `mariadb-stress-test` is a symlink to `mysql-stress-test`, the script for assisting with adding users or databases or changing passwords in MariaDB.
 
-{% tabs %}
-{% tab title="Current" %}
-&#x20;`mysql-stress-test` is the symlink, and `mariadb-stress-test` the binary name.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-&#x20;`mysql-stress-test` is the binary name.
-{% endtab %}
-{% endtabs %}
+ `mysql-stress-test` is the symlink, and `mariadb-stress-test` the binary name.
 
 _mariadb-stress-test.pl_ is a Perl script that performs stress-testing of the MariaDB server. It requires a version of Perl that has been built with threads support.
 
@@ -52,5 +50,7 @@ mariadb-stress-test.pl [options]
 | --verbose                         | Verbose mode. Print more information about what the program does                                                                                                                                                                                                                                                         |
 
 CC BY-SA / Gnu FDL
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

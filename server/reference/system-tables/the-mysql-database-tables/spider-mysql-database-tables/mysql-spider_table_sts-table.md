@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.spider_table_sts table holds statistics such as row counts and data
+  length for Spider tables, supporting the optimizer.
+---
+
 # mysql.spider\_table\_sts Table
 
 The `mysql.spider_table_sts` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

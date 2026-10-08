@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 11.8 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 11.8](../../../mariadb-11-8-series/what-is-mariadb-118.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.43 and the [MariaDB 11.8.3](../../../mariadb-11-8-series/mariadb-11.8.3-release-notes.md) releases.
+The following is a list of all function differences between [MariaDB 11.8](../../../11.8/what-is-mariadb-118.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.43 and the [MariaDB 11.8.3](../../../11.8/11.8.3.md) releases.
 
 ## Present in MariaDB Only
 
@@ -207,3 +207,5 @@ MariaDB and MySQL have differing [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2O
 * [System Variable Differences Between MariaDB Rolling and MySQL 8.0](../system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
 * [MariaDB versus MySQL - Compatibility](../mariadb-vs-mysql-compatibility.md)
 * [MariaDB versus MySQL - Features](../mariadb-vs-mysql-features.md)
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

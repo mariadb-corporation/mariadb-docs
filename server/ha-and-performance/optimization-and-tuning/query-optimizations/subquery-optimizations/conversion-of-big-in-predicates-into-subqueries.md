@@ -1,6 +1,6 @@
 # Conversion of Big IN Predicates Into Subqueries
 
-Starting from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103), the optimizer converts certain big IN predicates into IN subqueries.
+The optimizer converts certain big IN predicates into IN subqueries.
 
 That is, an IN predicate in the form
 
@@ -23,7 +23,7 @@ The conversion happens if the following conditions are met:
 
 ## Controlling the Optimization
 
-* The optimization is on by default. [MariaDB 10.3.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10318-release-notes) (and debug builds prior to that) introduced the [in\_predicate\_conversion\_threshold](../../system-variables/server-system-variables.md#in_predicate_conversion_threshold) variable. Set to `0` to disable the optimization.
+* The optimization is on by default. The [in\_predicate\_conversion\_threshold](../../system-variables/server-system-variables.md#in_predicate_conversion_threshold) variable controls it. Set to `0` to disable the optimization.
 
 ## Benefits of the Optimization
 
@@ -37,7 +37,7 @@ by trying to construct a range access. If the list is large, the analysis may ta
 
 Conversion of IN predicates into subqueries bypass the range analysis, which means the query optimization phase will use less CPU and memory.
 
-Possible disadvantages of the conversion are are:
+Possible disadvantages of the conversion are:
 
 * The optimization may convert 'IN LIST elements' key accesses to a table scan (if there is no other usable index for the table)
 * The estimates for the number of rows matching the `IN (...)` are less precise.

@@ -1,3 +1,10 @@
+---
+description: >-
+  The Simple Password Check Plugin enforces basic password complexity rules,
+  such as minimum length and required numbers of digits, letters, and special
+  characters.
+---
+
 # Simple Password Check Plugin
 
 `simple_password_check` is a [password validation](./) plugin. It can check whether a password contains at least a certain number of characters of a specific type. When first installed, a password is required to be at least eight characters, and requires at least one digit, one uppercase character, one lowercase character, and one character that is neither a digit nor a letter.

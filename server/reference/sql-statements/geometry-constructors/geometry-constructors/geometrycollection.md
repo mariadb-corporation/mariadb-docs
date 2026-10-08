@@ -1,8 +1,14 @@
+---
+description: >-
+  Constructs a GeometryCollection value from a list of WKB arguments. This
+  function creates a collection containing multiple geometry objects.
+---
+
 # GEOMETRYCOLLECTION
 
 ## Syntax
 
-```sql
+```bnf
 GeometryCollection(g1,g2,...)
 ```
 

@@ -1,3 +1,7 @@
+---
+description: Boolean literal for 1 = TRUE or 0 = FALSE, respectively.
+---
+
 # TRUE FALSE
 
 ## Description

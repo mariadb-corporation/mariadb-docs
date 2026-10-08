@@ -1,8 +1,14 @@
+---
+description: >-
+  Assign values to different types of variables. Learn the syntax for setting
+  user-defined variables, system variables, and stored program variables.
+---
+
 # SET
 
 ## Syntax
 
-```sql
+```bnf
 SET variable_assignment [, variable_assignment] ...
 
 variable_assignment:
@@ -10,6 +16,10 @@ variable_assignment:
     | [GLOBAL | SESSION] system_var_name = expr
     | [@@global. | @@session. | @@]system_var_name = expr
 ```
+
+![Railroad diagram of SET](../../../../.gitbook/assets/set-railroad.svg)
+
+![Railroad diagram of variable_assignment](../../../../.gitbook/assets/set-variable-assignment-railroad.svg)
 
 One can also set a user variable in any expression with this syntax:
 
@@ -19,15 +29,7 @@ user_var_name:= expr
 
 ## Description
 
-{% tabs %}
-{% tab title="Current" %}
 The `SET` statement assigns values to different types of variables that affect the operation of the server or your client.
-{% endtab %}
-
-{% tab title="< 10.0" %}
-The `SET` statement assigns values to different types of variables that affect the operation of the server or your client. Older versions of MySQL employed `SET OPTION`, but this syntax was deprecated in favor of `SET` without `OPTION`.
-{% endtab %}
-{% endtabs %}
 
 Changing a system variable by using the SET statement does not make the change permanently. To do so, the change must be made in a [configuration file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md).
 

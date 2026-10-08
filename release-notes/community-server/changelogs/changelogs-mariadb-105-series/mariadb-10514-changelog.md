@@ -1,14 +1,14 @@
 # MariaDB 10.5.14 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.14](https://mariadb.org/download/?tab=mariadb\&release=10.5.14\&product=mariadb)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10514-release-notes.md)[Changelog](mariadb-10514-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.14](https://mariadb.org/download/?tab=mariadb\&release=10.5.14\&product=mariadb)[Release Notes](../../old-releases/10.5/10.5.14.md)[Changelog](mariadb-10514-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 9 Feb 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10514-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.14.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.4.23](../changelogs-mariadb-10-4-series/mariadb-10423-changelog.md)
@@ -97,7 +97,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-26230](https://jira.mariadb.org/browse/MDEV-26230) mysql\_upgrade fails to load type\_mysql\_json due to insufficient maturity level
 * [Revision #5af6a13771](https://github.com/MariaDB/server/commit/5af6a13771)\
   2021-12-29 13:53:19 +0100
-  * [MDEV-25373](https://jira.mariadb.org/browse/MDEV-25373) DROP TABLE doesn't raise error while dropping non-existing table in [MariaDB 10.5.9](../../old-releases/mariadb-10-5-series/mariadb-1059-release-notes.md) when OQGraph SE is loaded to the server
+  * [MDEV-25373](https://jira.mariadb.org/browse/MDEV-25373) DROP TABLE doesn't raise error while dropping non-existing table in [MariaDB 10.5.9](../../old-releases/10.5/10.5.9.md) when OQGraph SE is loaded to the server
 * [Revision #f18e25649d](https://github.com/MariaDB/server/commit/f18e25649d)\
   2022-01-17 16:09:09 +0200
   * [MDEV-27461](https://jira.mariadb.org/browse/MDEV-27461): Buffer pool resize fails to wake up the page cleaner
@@ -249,6 +249,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the day of the year. This function returns a number from 1 to 366
+  indicating the day's position within the year.
+---
+
 # DAYOFYEAR
 
 ## Syntax
 
-```sql
+```bnf
 DAYOFYEAR(date)
 ```
 

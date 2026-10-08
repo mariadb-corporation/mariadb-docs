@@ -1,15 +1,15 @@
 # MariaDB 10.2.14 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.14)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes.md)[Changelog](mariadb-10214-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.14)[Release Notes](../../old-releases/10.2/10.2.14.md)[Changelog](mariadb-10214-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 27 Mar 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.14.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * [Revision #b3cdafcb93](https://github.com/MariaDB/server/commit/b3cdafcb93)\
@@ -208,7 +208,7 @@ in that revision.
   * [MDEV-14581](https://jira.mariadb.org/browse/MDEV-14581) Warning info not cleared when caching THD
 * [Revision #5511e8ed59](https://github.com/MariaDB/server/commit/5511e8ed59)\
   2018-03-05 17:43:30 +0100
-  * [MDEV-15328](https://jira.mariadb.org/browse/MDEV-15328): [MariaDB 10.2.13](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md) Crashes upon CALL PROCEDURE PARAM LAST\_INSERT\_ID ()
+  * [MDEV-15328](https://jira.mariadb.org/browse/MDEV-15328): [MariaDB 10.2.13](../../old-releases/10.2/10.2.13.md) Crashes upon CALL PROCEDURE PARAM LAST\_INSERT\_ID ()
 * Merge [Revision #3a93ec53c1](https://github.com/MariaDB/server/commit/3a93ec53c1) 2018-03-12 14:27:17 +0200 - Merge 10.1 into 10.2
 * [Revision #cd109592ca](https://github.com/MariaDB/server/commit/cd109592ca)\
   2018-03-12 08:30:08 +0400
@@ -361,6 +361,6 @@ in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

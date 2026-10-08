@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains Aria's deadlock detection mechanism, which uses a two-step process
+  with configurable search depths and timeouts to resolve conflicts.
+---
+
 # Aria Two-step Deadlock Detection
 
 ## Description

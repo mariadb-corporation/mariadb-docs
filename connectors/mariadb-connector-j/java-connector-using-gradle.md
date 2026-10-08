@@ -1,3 +1,10 @@
+---
+description: >-
+  Add MariaDB Connector/J to a Gradle project by declaring the
+  mariadb-java-client dependency in build.gradle, then connect to MariaDB
+  using standard JDBC DriverManager methods.
+---
+
 # Java Connector Using Gradle
 
 [MariaDB Connector/J](./) is used to connect applications developed in Java to MariaDB and MySQL databases using the standard JDBC API.
@@ -123,5 +130,7 @@ BUILD SUCCESSFUL in 1s
 ## See Also
 
 * More information at [About MariaDB Connector/J](about-mariadb-connector-j.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

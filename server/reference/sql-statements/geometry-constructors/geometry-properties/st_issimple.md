@@ -1,8 +1,14 @@
+---
+description: >-
+  Checks if the geometry is simple (no self-intersections or anomalous points).
+  Returns 1 if simple, 0 otherwise.
+---
+
 # ST\_IsSimple
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsSimple(g)
 IsSimple(g)
 ```

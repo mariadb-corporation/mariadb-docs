@@ -1,3 +1,10 @@
+---
+description: >-
+  Procedures for performing consistent backups and restores in a federated
+  Spider topology using MariaDB Backup and MariaDB Dump, ensuring data
+  synchronization.
+---
+
 # Federated MariaDB Enterprise Spider Topology Backup and Restore
 
 ## Overview
@@ -273,6 +280,6 @@ SELECT * FROM spider_hq_sales.invoices;
 +-----------+------------+-------------+----------------------------+---------------+----------------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.proxies_priv table manages proxy user privileges, defining which
+  accounts are authorized to proxy as other users.
+---
+
 # mysql.proxies\_priv Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

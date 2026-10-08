@@ -1,3 +1,9 @@
+---
+description: >-
+  The online_alter_log plugin provides logging capabilities for online ALTER
+  TABLE operations, helping administrators monitor and debug schema changes.
+---
+
 # online\_alter\_log
 
 {% hint style="info" %}
@@ -12,3 +18,4 @@ See the [Online Schema Change](../../sql-statements/data-definition/alter/alter-
 
 For plugin version and maturity level, see [this page](../information-on-plugins/list-of-plugins.md).
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,8 +1,14 @@
+---
+description: >-
+  Complete SUBSTRING_INDEX() reference: SUBSTRING_INDEX(str,delim,count) syntax,
+  positive/negative count, case-sensitive delimiter, NULL rules.
+---
+
 # SUBSTRING\_INDEX
 
 ## Syntax
 
-```sql
+```bnf
 SUBSTRING_INDEX(str,delim,count)
 ```
 

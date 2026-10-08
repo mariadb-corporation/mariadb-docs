@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of GIS support in MariaDB, based on the OpenGIS Simple Feature
+  Access standard.
+---
+
 # GIS Features
 
 GIS stands for [Geographic Information System](https://en.wikipedia.org/wiki/Geographic_information_system).

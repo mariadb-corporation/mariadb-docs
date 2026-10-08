@@ -1,3 +1,9 @@
+---
+description: >-
+  The COMMAND values a thread can show in SHOW PROCESSLIST, and what each one
+  means.
+---
+
 # Thread Command Values
 
 A thread can have any of the following `COMMAND` values (displayed by the `COMMAND` field listed by the [SHOW PROCESSLIST](../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) statement or in the [Information Schema PROCESSLIST Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md), as well as the `PROCESSLIST_COMMAND` value listed in the [Performance Schema threads Table](../../../reference/system-tables/performance-schema/performance-schema-tables/performance-schema-threads-table.md)). These indicate the nature of the thread's activity.

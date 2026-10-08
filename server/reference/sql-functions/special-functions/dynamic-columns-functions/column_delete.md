@@ -1,8 +1,14 @@
+---
+description: >-
+  Remove dynamic columns. This function deletes specified columns from a dynamic
+  column blob and returns the updated blob.
+---
+
 # COLUMN\_DELETE
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_DELETE(dyncol_blob, column_nr, column_nr...)
 COLUMN_DELETE(dyncol_blob, column_name, column_name...)
 ```

@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the sign of a number. This function returns -1, 0, or 1 depending on
+  whether the argument is negative, zero, or positive.
+---
+
 # SIGN
 
 ## Syntax
 
-```sql
+```bnf
 SIGN(X)
 ```
 

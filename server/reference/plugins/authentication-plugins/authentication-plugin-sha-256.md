@@ -1,3 +1,9 @@
+---
+description: >-
+  The SHA-256 authentication plugin uses the SHA-256 hashing algorithm for
+  password storage, offering stronger security than the default SHA-1 method.
+---
+
 # Authentication Plugin - SHA-256
 
 ## Background
@@ -9,7 +15,7 @@ The `caching_sha2_password` plugin is now the default authentication plugin in M
 ## Support in MariaDB Server
 
 {% hint style="warning" %}
-MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin was added in MariaDB [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8). See [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804) for more information.&#x20;
+MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1. It was implemented in [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804); the Enterprise Server 10.6 version is a backport of that work ([MENT-2480](https://jira.mariadb.org/browse/MENT-2480)). See the [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new) release notes for more.
 {% endhint %}
 
 Reasons for not supporting the SHA-256 plugin:
@@ -17,7 +23,7 @@ Reasons for not supporting the SHA-256 plugin:
 * To use the protocol, you have to distribute the server's public key to all MariaDB users, which can be cumbersome and impractical.
 * The server receives the password in clear text, which can cause problems if the user connects to a malicious server.
 
-If you are migrating from a MySQL instance that is using SHA-256 authentication, you have to change the SHA-256 authentication to  `mysql_native_authentication` :
+If you are migrating from a MySQL instance that is using SHA-256 authentication, you have to change the SHA-256 authentication to `mysql_native_authentication` :
 
 ```sql
 ALTER USER user_name IDENTIFIED WITH mysql_native_password BY 'new_password'

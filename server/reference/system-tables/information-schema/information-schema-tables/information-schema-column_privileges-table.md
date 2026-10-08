@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema COLUMN_PRIVILEGES table contains column privilege
+  information derived from the mysql.columns_priv grant table.
+---
+
 # Information Schema COLUMN\_PRIVILEGES Table
 
 The [Information Schema](../) `COLUMN_PRIVILEGES` table contains column privilege information derived from the [mysql.columns\_priv](../../the-mysql-database-tables/mysql-columns_priv-table.md) grant table.

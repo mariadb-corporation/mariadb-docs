@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to expand a sharded Spider topology by adding new data
+  nodes (shards) and rebalancing the data distribution.
+---
+
 # Sharded MariaDB Enterprise Spider Topology Add a Shard
 
 ## Overview
@@ -146,6 +152,6 @@ SELECT * FROM spider_sharded_sales.invoices;
 +-----------+------------+-------------+----------------------------+---------------+----------------+
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

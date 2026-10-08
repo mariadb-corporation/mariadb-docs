@@ -1,20 +1,26 @@
+---
+description: >-
+  Execute a block until a condition is met. This loop construct runs at least
+  once and continues repeating as long as the UNTIL condition remains false.
+---
+
 # REPEAT LOOP
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] REPEAT
     statement_list
 UNTIL search_condition
 END REPEAT [end_label]
 ```
 
-The statement list within a `REPEAT` statement is repeated until the search\_condition is true. Thus, a `REPEAT` always enters the loop at least once. statement\_list consists of one or more statements, each\
+The statement list within a `REPEAT` statement is repeated until the search\_condition is true. Thus, a `REPEAT` always enters the loop at least once. statement\_list consists of one or more statements, each
 terminated by a semicolon (i.e., `;`) statement delimiter.
 
-A `REPEAT` statement can be [labeled](labels.md). end\_label cannot be given unless begin\_label also is present. If both are present, they must be the same.
+A `REPEAT` statement can be [labeled](labels.md). end\_label cannot be given unless begin\_label is also present. If both are present, they must be the same.
 
-See [Delimiters](broken-reference) in the [mariadb](../../../clients-and-utilities/mariadb-client/) client for more on client delimiter usage.
+See [Delimiters](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) in the [mariadb](../../../clients-and-utilities/mariadb-client/) client for more on client delimiter usage.
 
 ```sql
 DELIMITER //

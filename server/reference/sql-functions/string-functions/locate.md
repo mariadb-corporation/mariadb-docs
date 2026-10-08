@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the position of the first occurrence of a substring. This function
+  finds the starting position of a substring within a string.
+---
+
 # LOCATE
 
 ## Syntax
 
-```sql
+```bnf
 LOCATE(substr,str), LOCATE(substr,str,pos)
 ```
 

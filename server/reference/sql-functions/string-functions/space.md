@@ -1,8 +1,14 @@
+---
+description: >-
+  Return a string of spaces. This function returns a string consisting of a
+  specified number of space characters.
+---
+
 # SPACE
 
 ## Syntax
 
-```sql
+```bnf
 SPACE(N)
 ```
 

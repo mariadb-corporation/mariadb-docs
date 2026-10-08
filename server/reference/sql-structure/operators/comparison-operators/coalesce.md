@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 COALESCE(value,...)
 ```
 

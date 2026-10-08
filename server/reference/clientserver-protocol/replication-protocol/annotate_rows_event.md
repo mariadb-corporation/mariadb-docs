@@ -1,3 +1,9 @@
+---
+description: >-
+  This event accompanies row-based events to provide the original SQL query
+  text, which is useful for auditing and debugging replication.
+---
+
 # ANNOTATE\_ROWS\_EVENT
 
 `ANNOTATE_ROWS_EVENT` events accompany row events and describe the query which caused the row event.
@@ -14,11 +20,11 @@ The master server sends `ANNOTATE_ROWS_EVENT` events only if the replica server 
 
 ## Header
 
-* Event Type is 160 (0xa0).
+* Event Type is 160 (`0xa0`).
 
 ## Fields
 
-* [string](../protocol-data-types.md#fixed-length-bytes) The SQL statement (not null-terminated).
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The SQL statement (not null-terminated).
 
 ## Complete Example with CRC32
 

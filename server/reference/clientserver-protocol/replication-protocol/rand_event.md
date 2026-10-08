@@ -1,3 +1,10 @@
+---
+description: >-
+  The RAND_EVENT records the two seed values used for the random number
+  generator, ensuring that calls to the RAND() function produce identical
+  results on replicas.
+---
+
 # RAND\_EVENT
 
 The SQL function [RAND()](../../sql-functions/numeric-functions/rand.md) generates a random number.

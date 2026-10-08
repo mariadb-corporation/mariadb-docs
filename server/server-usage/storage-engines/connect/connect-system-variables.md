@@ -1,8 +1,8 @@
-# Connect System Variables
+---
+description: Reference for the system variables that configure the CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# CONNECT System Variables
 
 This page documents system variables related to the [CONNECT storage engine](./). See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for instructions on setting them.
 
@@ -33,9 +33,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * > \= [MariaDB 10.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1048-release-notes): `1024`
-  * <= [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes): `8192`
+* Default Value: `1024`
 * Range: `0` to `65500`
 
 #### `connect_default_depth`
@@ -47,7 +45,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value:`5`
 * Range: `-1` to `16`
-* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes)
+* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16)
 
 #### `connect_default_prec`
 
@@ -58,18 +56,17 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value:`6`
 * Range: `0` to `16`
-* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1059-release-notes), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10418-release-notes)
+* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18)
 
 #### `connect_enable_mongo`
 
-* Description: Enable the [Mongo table type](connect-table-types/connect-mongo-table-type.md).
+* Description: Enable the [Mongo table type](connect-table-types/connect-mongo-table-type.md). Available only in builds with Java or MongoDB C Driver support.
 * Command line: `--connect-enable-mongo={0|1}`
 * Scope: Global, Session
 * Dynamic:
 * Data Type: `boolean`
-* Default Value: `OFF`
-* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1029-release-notes)
-* Removed: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Default Value: `ON`
+* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9)
 
 #### `connect_exact_info`
 
@@ -88,7 +85,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1059-release-notes), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10418-release-notes)
+* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18)
 
 #### `connect_indx_map`
 
@@ -117,7 +114,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes)
+* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16)
 
 #### `connect_json_grp_size`
 
@@ -165,8 +162,8 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 * Description:
   * `NO`: The first algorithm is always used. Because it can cause errors when updating variable record length tables, this value should be set only for testing.
-  * `AUTO`: This is the default value. It leaves CONNECT to choose the algorithm to use. Currently it is equivalent to `NO`, except when updating variable record length tables ([DOS](connect-table-types/connect-table-types-data-files.md#dos-and-fix-table-types), [CSV](connect-table-types/connect-table-types-data-files.md#csv-and-fmt-table-types) or [FMT](connect-table-types/connect-table-types-data-files.md#fmt-type)) with file mapping forced to OFF.
-  * `YES`: Using a temporary file is chosen with some exceptions. These are when file mapping is ON, for [VEC](connect-table-types/connect-table-types-data-files.md#vec-table-type-vector) tables and when deleting from [DBF](connect-table-types/connect-table-types-data-files.md#dbf-type) tables (soft delete). For variable record length tables, file mapping is forced to OFF.
+  * `AUTO`: This is the default value. It leaves CONNECT to choose the algorithm to use. It is equivalent to `NO`, except when updating variable record length tables ([DOS](connect-table-types/connect-dos-and-fix-table-types.md), [CSV](connect-table-types/connect-csv-and-fmt-table-types.md#csv-type) or [FMT](connect-table-types/connect-csv-and-fmt-table-types.md#fmt-type)) with file mapping forced to OFF.
+  * `YES`: Using a temporary file is chosen with some exceptions. These are when file mapping is ON, for [VEC](connect-table-types/connect-vec-table-type.md) tables and when deleting from [DBF](connect-table-types/connect-dbf-table-type.md) tables (soft delete). For variable record length tables, file mapping is forced to OFF.
   * `FORCE`: Like YES but forces file mapping to be OFF for all table types.
   * `TEST`: Reserved for CONNECT development.
 * Command line: `--connect-use-tempfile=#`

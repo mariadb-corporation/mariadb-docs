@@ -1,10 +1,12 @@
+---
+description: >-
+  Overview of the integrated Grafana-based alerting engine used to detect
+  critical conditions and dispatch notifications to various destinations.
+---
+
 # Alerts and Notifications
 
 MariaDB Enterprise Manager provides a powerful and flexible alerting system, built on the capabilities of the integrated **Grafana Alerting** engine. It allows you to proactively monitor your entire database fleet, define custom rules for potential issues, and receive notifications through various channels to ensure you can respond quickly.
-
-{% hint style="danger" %}
-All persistent Grafana settings are managed through the MariaDB Enterprise Manager configuration files. Changes made directly in the Grafana UI will be lost upon restart.
-{% endhint %}
 
 ### How It Works: The Alerting Flow
 
@@ -12,25 +14,25 @@ The alerting process in MariaDB Enterprise Manager follows a clear, four-step fl
 
 {% stepper %}
 {% step %}
-### Alert Rule is Defined
+**Alert Rule is Defined**
 
 An alert rule contains a query (what to measure, e.g., disk usage), a condition (the threshold, e.g., `> 90%`), and labels for routing (e.g., `type = server disk`).
 {% endstep %}
 
 {% step %}
-### Instances are Evaluated
+**Instances are Evaluated**
 
 Grafana periodically runs the query against your monitored targets. It creates an **Alert Instance** for each distinct entity (e.g., one for Server 01, one for Server 02, etc.).
 {% endstep %}
 
 {% step %}
-### An Instance "Fires"
+**An Instance "Fires"**
 
 If the condition is met for a specific instance (e.g., Server 01's disk usage is over 90%), that instance enters a "firing" state.
 {% endstep %}
 
 {% step %}
-### Notifications are Sent
+**Notifications are Sent**
 
 The firing alert is routed through a **Notification Policy**. The policy matches the alert's labels (e.g., `type = server disk`) and sends a notification to the configured **Contact Point** (such as Email, Slack, or PagerDuty).
 {% endstep %}
@@ -51,3 +53,7 @@ To configure alerting effectively, it's helpful to understand these core concept
 {% hint style="info" %}
 For a deep dive into advanced topics like custom message templating, alert grouping, and more complex routing, see the [official Grafana documentation](https://grafana.com/docs/grafana/latest/alerting/fundamentals/).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

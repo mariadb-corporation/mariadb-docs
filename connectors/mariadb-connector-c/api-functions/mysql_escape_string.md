@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_escape_string encodes a string using the default character set for safe
+  use in SQL statements. Deprecated — use mysql_real_escape_string instead.
+---
+
 # mysql\_escape\_string
 
 ## Syntax
@@ -16,9 +22,10 @@ Escapes a string using the default character set.
 This function is deprecated and will be discontinued. Please use [mysql\_real\_escape\_string()](mysql_real_escape_string.md) instead.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_real\_escape\_string()](mysql_real_escape_string.md)
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

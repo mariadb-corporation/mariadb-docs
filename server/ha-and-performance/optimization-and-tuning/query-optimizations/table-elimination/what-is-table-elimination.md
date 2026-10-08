@@ -1,13 +1,24 @@
 # What is Table Elimination?
 
-The basic idea behind table elimination is that sometimes it is possible to resolve a query without even accessing some of the tables that the query refers to. One can invent many kinds of such cases, but in Table Elimination we targeted only a certain class of SQL constructs that one ends up writing when\
+The basic idea behind table elimination is that sometimes it is possible to resolve a query without even accessing some of the tables that the query refers to. One can invent many kinds of such cases, but in Table Elimination we targeted only a certain class of SQL constructs that one ends up writing when
 they are querying [highly-normalized](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/database-theory/database-normalization) data.
 
-The sample queries were drawn from “Anchor Modeling”, a database modeling technique which takes normalization to the extreme. The [slides](https://www.anchormodeling.com/tiedostot/SU_KTH_Course_Presentation.pdf) at the [anchor modeling website](https://www.anchormodeling.com) have an in-depth explanation of Anchor modeling and its merits, but the part that's important for table elimination can be shown with an example.
+The sample queries were drawn from “Anchor Modeling”, a database modeling technique which takes normalization to the extreme. The [slides](https://web.archive.org/web/20091211131908/https://www.anchormodeling.com/tiedostot/SU_KTH_Course_Presentation.pdf) at the [anchor modeling website](https://www.anchormodeling.com) have an in-depth explanation of Anchor modeling and its merits, but the part that's important for table elimination can be shown with an example.
 
 Suppose the database stores information about actors, together with their names, birthdays, and ratings, where ratings can change over time:
 
-![actor-attrs](../../../../.gitbook/assets/actor-attrs.png)
+```mermaid
+erDiagram
+    accTitle: Actor entity with Name, Date of Birth, and Rating attributes
+    accDescr { The Actor entity has three attributes: Name, Date of Birth, and Rating. Name and Date of Birth are single-valued attributes. Rating is drawn as a stack of bubbles because it is historized, meaning several rating values are recorded for the same actor over time. }
+    ACTOR {
+        string Name
+        date DateOfBirth
+        int Rating "historized: multiple values over time"
+    }
+```
+
+_The Actor entity with its Name, Date of Birth, and Rating attributes; Rating is historized, so it can hold multiple values over time._
 
 According to anchor modeling, each attribute should go into its own table:
 

@@ -1,3 +1,7 @@
+---
+description: Synonym for SMALLINT. This type uses 2 bytes of storage.
+---
+
 # INT2
 
 `INT2` is a synonym for [SMALLINT](smallint.md).

@@ -1,3 +1,10 @@
+---
+description: >-
+  The socket.ssl wsrep_provider_options entry enables TLS encryption for
+  Galera Cluster replication traffic; it defaults to NO and cannot be changed
+  dynamically.
+---
+
 # socket.ssl
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>
@@ -55,3 +62,5 @@ Trying to change a non-dynamic option with `SET` results in an error:
 ```sql
 ERROR 1210 (HY000): Incorrect arguments to SET
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

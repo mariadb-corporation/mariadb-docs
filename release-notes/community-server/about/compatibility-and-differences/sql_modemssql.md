@@ -1,15 +1,22 @@
+---
+description: >-
+  Documentation for the MSSQL SQL mode, which enables a subset of Microsoft
+  SQL Server syntax and behavior compatibility in MariaDB, such as using
+  brackets [] for quoting.
+---
+
 # SQL\_MODE=MSSQL
 
-`SET SQL_MODE=MSSQL` implies all the following [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) flags:
+`SET SQL_MODE=MSSQL` implies all the following [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) flags:
 
-* [PIPES\_AS\_CONCAT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
-* [ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
-* [IGNORE\_SPACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
-* [NO\_KEY\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
-* [NO\_TABLE\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
-* [NO\_FIELD\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
+* [PIPES\_AS\_CONCAT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
+* [ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
+* [IGNORE\_SPACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
+* [NO\_KEY\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
+* [NO\_TABLE\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
+* [NO\_FIELD\_OPTIONS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
 
-Setting the [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) system variable to `MSSQL` allows the server to understand a small subset of Microsoft SQL Server's language. For the moment `MSSQL` mode only has limited functionality, but we plan to add more later according to demand.
+Setting the [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) system variable to `MSSQL` allows the server to understand a small subset of Microsoft SQL Server's language. For the moment `MSSQL` mode only has limited functionality, but we plan to add more later according to demand.
 
 ## Supported Syntax in MSSQL Mode
 
@@ -27,13 +34,13 @@ t 1    CREATE TABLE "t 1" (
 )
 ```
 
-You can use '\[' in identifiers. If you want to use ']' in identifiers\
+You can use '\[' in identifiers. If you want to use ']' in identifiers
 you have to specify it twice.
 
 ## See Also
 
 * [SQL\_MODE=ORACLE](sql_modeoracle.md)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

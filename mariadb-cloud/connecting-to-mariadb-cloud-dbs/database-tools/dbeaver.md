@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud with DBeaver, configuring the JDBC connection URL,
+  TLS settings, and credentials in the DBeaver connection wizard.
+---
+
 # DBeaver
 
 ## Steps
@@ -19,3 +25,4 @@ Ensure you are using the latest MariaDB driver in DBeaver to avoid compatibility
 If you experience connection issues, verify your firewall settings and database credentials.
 {% endhint %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

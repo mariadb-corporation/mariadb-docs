@@ -1,3 +1,9 @@
+---
+description: >-
+  Frequently asked questions about the Aria storage engine, covering its
+  history, comparison with MyISAM, and key features like crash safety.
+---
+
 # Aria FAQ
 
 This FAQ provides information on the [Aria](./) storage engine.
@@ -28,7 +34,7 @@ The current goal is to keep the code stable and fix all bugs.
 
 The next version of Aria is 2.0. The goal for this release is to develop a fully transactional storage engine with at least all the major features of InnoDB.
 
-Currently, Aria 2.0 is on hold as its developers are focusing on improving MariaDB. However, they are interested in working with interested customers and partners to add more features to Aria and eventually release 2.0.
+Aria 2.0 is on hold as its developers are focusing on improving MariaDB. However, they are interested in working with interested customers and partners to add more features to Aria and eventually release 2.0.
 
 These are some of the goals for Aria 2.0:
 
@@ -36,7 +42,7 @@ These are some of the goals for Aria 2.0:
 * Commit/Rollback
 * Concurrent updates/deletes
 * Row locking
-* Group commit (Already in [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2))
+* Group commit
 * Faster lookup in index pages (Page directory)
 
 Beginning in Aria 2.5, the plan is to focus on improving performance.
@@ -58,10 +64,10 @@ Long term, we have the following goals for Aria:
 * Allow 'any' length transactions to work (Having long running transactions will cause more log space to be used).
 * Allow log shipping; that is, you can do incremental backups of Aria tables just by copying the Aria logs.
 * Allow copying of Aria tables between different Aria servers (under some well-defined constraints).
-* Better blob handling (than is currently offered in MyISAM, at a minimum).
+* Better blob handling (than MyISAM offers, at a minimum).
 * No memory copying or extra memory used for blobs on insert/update.
 * Blobs allocated in big sequential blocks - Less fragmentation over time.
-* Blobs are stored so that Aria can easily be extended to have access to any part of a blob with a single fetch in the future.
+* Blobs are stored so that Aria can easily be extended to have access to any part of a blob with a single fetch.
 * Efficient storage on disk (that is, low row data overhead, low page data overhead and little lost space on pages). Note: There is still some more work to succeed with this goal. The disk layout is fine, but we need more in-memory caches to ensure that we get a higher fill factor on the pages.
 * Small footprint, to make MariaDB + Aria suitable for desktop and embedded applications.
 * Flexible memory allocation and scalable algorithms to utilize large amounts of memory efficiently, when it is available.
@@ -95,10 +101,10 @@ All except Guilhem Bichot are working for [MariaDB Corporation Ab](https://maria
 
 ### What is the release policy/schedule of Aria?
 
-Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) as for [MariaDB](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb/README.md). Some clarifications, unique for the Aria storage engine:
+Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) as for MariaDB. Some clarifications, unique for the Aria storage engine:
 
 * Aria index and data file formats should be backwards and forwards compatible to ensure easy upgrades and downgrades.
-* The [log file](aria-storage-engine.md#aria-log-files) format should also be compatible, but we don't make any guarantees yet. In some cases when upgrading, you must remove the old `aria_log.%` and `maria_log.%` files before restarting MariaDB. (So far, this has only occurred in the upgrade from [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) and [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2)).
+* The [log file](aria-storage-engine.md#aria-log-files) format should also be compatible, but we don't make any guarantees yet. In some cases when upgrading, you must remove the old `aria_log.%` and `maria_log.%` files before restarting MariaDB.
 
 #### Extended commitment for Beta 1.5
 
@@ -122,10 +128,10 @@ Aria supports all aspects of MyISAM, except as noted below. This includes extern
 * Multiple concurrent inserters into the same table.
 * When using `PAGE` format (default) row data is cached by page cache.
 * Aria has unit tests of most parts.
-* Supports both crash-safe (soon to be transactional) and not transactional tables. (Non-transactional tables are not logged and rows uses less space): `CREATE TABLE foo (...) TRANSACTIONAL=0|1 ENGINE=Aria`.
+* Supports both crash-safe and not transactional tables. (Non-transactional tables are not logged and rows uses less space): `CREATE TABLE foo (...) TRANSACTIONAL=0|1 ENGINE=Aria`.
 * `PAGE` is the only crash-safe/transactional row format.
 * `PAGE` format should give a notable speed improvement on systems which have bad data caching. (For example Windows).
-* From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), max key length is 2000 bytes, compared to 1000 bytes in MyISAM.
+* The max key length is 2000 bytes, compared to 1000 bytes in MyISAM.
 
 ### Differences between Aria and MyISAM
 
@@ -146,13 +152,6 @@ Aria supports all aspects of MyISAM, except as noted below. This includes extern
 * Aria doesn't support MySQL internal RAID (disabled in MyISAM too, it's a deprecated feature).
 * Minimum data file size for PAGE format is 16K (with 8K pages).
 * Aria doesn't support indexes on virtual fields.
-
-### Differences between [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) release and the normal MySQL-5.1 release?
-
-See:
-
-* [Aria storage engine](aria-storage-engine.md)
-* [MariaDB versus MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
 
 ### Why do you use the `TRANSACTIONAL` keyword now when Aria is not yet transactional?
 
@@ -274,7 +273,7 @@ Note that this automatic detection doesn't work if you copy tables within the sa
 
 If you want to remove the [Aria log files](aria-storage-engine.md#aria-log-files) (`aria_log.%`) with `rm` or delete, then you must first shut down MariaDB cleanly (for example, with [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md)) before deleting the old files.
 
-The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between\
+The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between
 releases.
 
 Don't remove the `aria_log_control` file! This is not a log file, but a file that contains information about the Aria setup (current transaction id, unique id, next log file number etc.).

@@ -1,3 +1,10 @@
+---
+description: >-
+  Insert multiple rows in a single prepared statement call using row-wise
+  binding. This example packs parameters into a C struct and sets
+  STMT_ATTR_ROW_SIZE for MariaDB Connector/C.
+---
+
 # Bulk Insert (Row-wise Binding)
 
 The following example uses indicator variables and row-wise binding to insert an array of structures.
@@ -111,5 +118,6 @@ MariaDB [example_db]> SELECT id,forename,surname FROM bulk_example2;
 +----+----------+----------+
 ```
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

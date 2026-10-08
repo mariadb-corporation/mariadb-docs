@@ -1,8 +1,14 @@
+---
+description: >-
+  List stored packages. View metadata about the interface part of
+  Oracle-compatible packages in the database.
+---
+
 # SHOW PACKAGE STATUS
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PACKAGE STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

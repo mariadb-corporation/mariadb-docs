@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete Authentication Plugin - mysql_native_password guide for MariaDB.
+  Complete reference documentation for implementation, configuration, and usage.
+---
+
 # Authentication Plugin - mysql\_native\_password
 
 The `mysql_native_password` authentication plugin is the default authentication plugin that will be used for an account created when no authentication plugin is explicitly mentioned and [old\_passwords=0](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. It uses the password hashing algorithm introduced in MySQL 4.1, which is also used by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function when [old\_passwords=0](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. This hashing algorithm is based on [SHA-1](https://en.wikipedia.org/wiki/SHA-1).
@@ -17,7 +23,7 @@ SET old_passwords=0;
 CREATE USER username@hostname IDENTIFIED BY 'mariadb';
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 SET old_passwords=0;
@@ -40,7 +46,7 @@ CREATE USER username@hostname
   IDENTIFIED BY PASSWORD '*54958E764CE10E50764C2EECBB71D01F08549980';
 ```
 
-Similar to all other [authentication plugins](./), you could also specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause while providing the password hash as the `USING` clause:
+Similar to all other [authentication plugins](./), you could also specify the name of the plugin in the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-via-or-with-authentication_plugin) clause while providing the password hash as the `USING` clause:
 
 ```sql
 CREATE USER username@hostname
@@ -90,15 +96,7 @@ The `mysql_native_password` authentication plugin is one of the conventional aut
 
 For compatibility reasons, the `mysql_native_password` authentication plugin tries to read the password hash from both the `Password` and `authentication_string` columns in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table. This has caused issues in the past if one of the columns had a different value than the other.
 
-{% tabs %}
-{% tab title="Current" %}
 [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md), [GRANT](../../sql-statements/account-management-sql-statements/grant.md), and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) set the `Password` and `authentication_string` columns in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table whenever an account's password is changed.
-{% endtab %}
-
-{% tab title="< 10.3.11 / 10.2.19" %}
-[CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md), [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md), [GRANT](../../sql-statements/account-management-sql-statements/grant.md), and [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) do **not** set the `Password` and `authentication_string` columns in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table whenever an account's password is changed.
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

@@ -1,11 +1,18 @@
+---
+description: >-
+  MYSQL_BIND is the MariaDB Connector/C structure used to bind input parameters
+  and output result columns to a prepared statement, with support for array
+  binding and indicator variables.
+---
+
 # MYSQL\_BIND
 
 The `MYSQL_BIND` structure is used to bind parameters (which will be sent to the server) and result sets (output sent from server to client). The `MYSQL_BIND` structure is bound with [mysql\_stmt\_bind\_param()](../mysql_stmt_bind_param.md) or [mysql\_stmt\_bind\_result()](../mysql_stmt_bind_result.md) to a prepared statement.
 
 ### Members of MYSQL\_BIND structure
 
-* `enum enum_field_types` field\_type: Type of the buffer for in- or output. For a complete list of types see the [types and definitions](connectorc-types-and-definitions.md) section.
-* `void` buffer: Address of a variable, array or structure used for data transfer.
+* `enum enum_field_types` buffer\_type: Type of the buffer for in- or output. For a complete list of types see the [types and definitions](connectorc-types-and-definitions.md) section.
+* `void *` buffer: Address of a variable, array or structure used for data transfer.
 * `unsigned long` buffer\_length: Size of buffer in bytes.
 * `unsigned long *` length: Pointer to a length variable for output or array of length elements for input (array binding).
 * `my_bool *` error: Pointer to an error variable for output.
@@ -15,7 +22,7 @@ The `MYSQL_BIND` structure is used to bind parameters (which will be sent to the
 
 ### Array binding
 
-Array binding for bulk insert/updates was introduced with Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) or above. It allows clients to control the number of rows that will be physically transferred between the server and the client in one logical bind or fetch. This can greatly improve the performance of many applications by trading buffer space for time (network traffic) and is a better and more secure alternative to `LOAD DATA LOCAL INFILE`, especially when the data will be generated within application.
+Array binding for bulk insert/updates was introduced with Connector/C 3.0 and requires MariaDB Server. It allows clients to control the number of rows that will be physically transferred between the server and the client in one logical bind or fetch. This can greatly improve the performance of many applications by trading buffer space for time (network traffic) and is a better and more secure alternative to `LOAD DATA LOCAL INFILE`, especially when the data will be generated within application.
 
 #### Indicator variables
 
@@ -65,5 +72,7 @@ If `row_size` is zero, column wise binding will be used instead.
 ![row\_wise\_binding](../../../.gitbook/assets/row_wise_binding.png)
 
 An example for row wise binding can be found [here](../prepared-statement-examples/bulk-insert-row-wise-binding.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

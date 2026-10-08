@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 10.0.23 Changelog
 
-The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
+The most recent [MariaDB Galera Cluster 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 10.0.38**](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/10.0.23)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10023-release-notes.md)[Changelog](mariadb-galera-cluster-10023-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/10.0.23)[Release Notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10023-release-notes.md)[Changelog](mariadb-galera-cluster-10023-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 24 Dec 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-100-release-notes/mariadb-galera-cluster-10023-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #89a2648](https://github.com/MariaDB/server/commit/89a2648)\
   2015-12-23 09:51:32 -0500
@@ -352,7 +351,7 @@ modified in that revision.
   * Remove duplicate code.
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #2553f14](https://github.com/MariaDB/server/commit/2553f14)\
   2015-11-19 10:17:40 +0100
   * fix feedback plugin not to crash in debug builds
@@ -415,7 +414,7 @@ modified in that revision.
   * Remove compiler warning
 * [Revision #e8c1b35](https://github.com/MariaDB/server/commit/e8c1b35)\
   2015-11-12 14:51:01 +0200
-  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #83ed38d](https://github.com/MariaDB/server/commit/83ed38d)\
   2015-05-11 20:18:30 +0800
   * fix [MDEV-8140](https://jira.mariadb.org/browse/MDEV-8140)
@@ -488,6 +487,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

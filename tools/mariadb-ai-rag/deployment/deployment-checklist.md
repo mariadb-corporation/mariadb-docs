@@ -1,3 +1,12 @@
+---
+description: >-
+  The MariaDB AI RAG deployment checklist covers hardware and software
+  verification, port checks, API key validation, standalone and Vault
+  startup steps, and post-deployment tests.
+hidden: true
+noIndex: true
+---
+
 # Deployment Checklist
 
 ## Pre-Deployment Checklist
@@ -842,3 +851,7 @@ docker-compose down -v && docker-compose up -d
 ***
 
 **✅ Deployment Complete!**
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

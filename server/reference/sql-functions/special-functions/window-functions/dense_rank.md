@@ -1,11 +1,17 @@
+---
+description: >-
+  Calculate rank without gaps. This function assigns a rank to each row within a
+  partition, with tied values receiving the same rank and no numbers skipped.
+---
+
 # DENSE\_RANK
 
 ## Syntax
 
-```sql
+```bnf
 DENSE_RANK() OVER (
   [ PARTITION BY partition_expression ]
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

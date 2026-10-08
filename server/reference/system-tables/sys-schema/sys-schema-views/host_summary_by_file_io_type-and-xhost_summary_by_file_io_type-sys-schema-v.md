@@ -1,3 +1,9 @@
+---
+description: >-
+  These views provide a breakdown of file I/O events by event type (e.g., read,
+  write) for each host, helping to characterize the I/O workload.
+---
+
 # host\_summary\_by\_file\_io\_type and x$host\_summary\_by\_file\_io\_type Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

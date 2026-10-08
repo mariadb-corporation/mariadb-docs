@@ -1,15 +1,15 @@
 # MariaDB 10.2.15 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.15)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes.md)[Changelog](mariadb-10215-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.15)[Release Notes](../../old-releases/10.2/10.2.15.md)[Changelog](mariadb-10215-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 17 May 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.15.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
-you can view more details of the revision and view diffs of the code modified\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)
+you can view more details of the revision and view diffs of the code modified
 in that revision.
 
 * [Revision #bb045e7931](https://github.com/MariaDB/server/commit/bb045e7931)\
@@ -28,7 +28,7 @@ in that revision.
   * Adjusted the test case for MariaDB
 * [Revision #0ba299da02](https://github.com/MariaDB/server/commit/0ba299da02)\
   2015-08-17 13:44:52 +0300
-  * Bug#21628087 innodb\_log\_checkpoint\_now not fully compatible with [WL#7142](https://askmonty.org/worklog/?tid=7142)
+  * Bug#21628087 innodb\_log\_checkpoint\_now not fully compatible with [WL#7142](https://dev.mysql.com/worklog/task/?id=7142)
 * [Revision #be465cfb8c](https://github.com/MariaDB/server/commit/be465cfb8c)\
   2018-05-14 19:22:26 +0530
   * Move the test case from innodb.alter\_page\_size to innodb.innodb-online-alter-gis
@@ -46,7 +46,7 @@ in that revision.
   * Adjust the tests for MariaDB. New added test case: alter\_kill in innodb suite.
 * [Revision #ac2410f6d8](https://github.com/MariaDB/server/commit/ac2410f6d8)\
   2014-08-11 10:43:11 +0300
-  * Bug#19330255 [WL#7142](https://askmonty.org/worklog/?tid=7142) - CRASH DURING ALTER TABLE LEADS TO DATA DICTIONARY INCONSISTENCY
+  * Bug#19330255 [WL#7142](https://dev.mysql.com/worklog/task/?id=7142) - CRASH DURING ALTER TABLE LEADS TO DATA DICTIONARY INCONSISTENCY
 * [Revision #6f4534e622](https://github.com/MariaDB/server/commit/6f4534e622)\
   2018-05-15 01:44:03 +0530
   * [MDEV-14695](https://jira.mariadb.org/browse/MDEV-14695): Assertion \`n < m\_size' failed in Bounds\_checked\_array\<Element\_type>::operator
@@ -437,7 +437,7 @@ in that revision.
   * [MDEV-15575](https://jira.mariadb.org/browse/MDEV-15575) different results when using CTE and big\_tables=1.
 * [Revision #87af52d7dd](https://github.com/MariaDB/server/commit/87af52d7dd)\
   2018-04-16 13:21:13 +0200
-  * [MDEV-15866](https://jira.mariadb.org/browse/MDEV-15866) Mysql CRASH : Json connect + [MariaDB 10.3.4](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1034-release-notes.md)
+  * [MDEV-15866](https://jira.mariadb.org/browse/MDEV-15866) Mysql CRASH : Json connect + [MariaDB 10.3.4](../../old-releases/10.3/10.3.4.md)
 * Merge [Revision #29d4ac2ceb](https://github.com/MariaDB/server/commit/29d4ac2ceb) 2018-04-16 14:19:09 +0300 - Merge pull request #665 from codership/10.2-fix-mtr-wait
 * [Revision #72deed5988](https://github.com/MariaDB/server/commit/72deed5988)\
   2018-03-19 08:41:33 +0100
@@ -581,6 +581,6 @@ in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

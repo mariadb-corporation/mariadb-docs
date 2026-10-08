@@ -1,8 +1,14 @@
+---
+description: >-
+  Encrypt a string using Unix crypt(). This function encrypts a string using the
+  Unix crypt() system call, typically used for password hashing.
+---
+
 # ENCRYPT
 
 ## Syntax
 
-```sql
+```bnf
 ENCRYPT(str[,salt])
 ```
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Return values based on NULL status. This function returns the second argument
+  if the first is not NULL, and the third argument if the first is NULL.
+---
+
 # NVL2
 
 ## Syntax
 
-```sql
+```bnf
 NVL2(expr1,expr2,expr3)
 ```
 

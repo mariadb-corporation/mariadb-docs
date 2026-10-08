@@ -1,3 +1,9 @@
+---
+description: >-
+  The events_statements_history_long table stores the most recent 10,000
+  completed statement events globally, providing extensive query history.
+---
+
 # Performance Schema events\_statements\_history\_long Table
 
 The `events_statements_history_long` table by default contains the ten thousand most recent completed statement events. This number can be adjusted by setting the [performance\_schema\_events\_statements\_history\_long\_size](../performance-schema-system-variables.md#performance_schema_events_statements_history_long_size) system variable when the server starts up.
@@ -19,13 +25,13 @@ The table structure is identical to the [events\_statements\_current](performanc
 | DIGEST                     | [Statement digest](../performance-schema-digests.md).                                                                                                                                                                                                         |
 | DIGEST\_TEXT               | [Statement digest](../performance-schema-digests.md) text.                                                                                                                                                                                                    |
 | CURRENT\_SCHEMA            | Statement's default database for the statement, or NULL if there was none.                                                                                                                                                                                    |
-| OBJECT\_SCHEMA             | Reserved, currently NULL                                                                                                                                                                                                                                      |
-| OBJECT\_NAME               | Reserved, currently NULL                                                                                                                                                                                                                                      |
-| OBJECT\_TYPE               | Reserved, currently NULL                                                                                                                                                                                                                                      |
+| OBJECT\_SCHEMA             | `NULL` for top-level statements. For nested statements (stored programs), the schema of the parent statement's object. |
+| OBJECT\_NAME               | `NULL` for top-level statements. For nested statements (stored programs), the name of the parent statement's object. |
+| OBJECT\_TYPE               | `NULL` for top-level statements. For nested statements (stored programs), the type of the parent statement's object. |
 | OBJECT\_INSTANCE\_BEGIN    | Address in memory of the statement object.                                                                                                                                                                                                                    |
-| MYSQL\_ERRNO               | Error code. See [MariaDB Error Codes](broken-reference) for a full list.                                                                                                                                                                                      |
+| MYSQL\_ERRNO               | Error code. See [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md) for a full list.                                                                                                                                                  |
 | RETURNED\_SQLSTATE         | The [SQLSTATE](../../../sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/sqlstate.md) value.                                                                                                                      |
-| MESSAGE\_TEXT              | Statement error message. See [MariaDB Error Codes](broken-reference).                                                                                                                                                                                         |
+| MESSAGE\_TEXT              | Statement error message. See [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md).                                                                                                                                                     |
 | ERRORS                     | 0 if SQLSTATE signifies completion (starting with 00) or warning (01), otherwise 1.                                                                                                                                                                           |
 | WARNINGS                   | Number of warnings from the diagnostics area.                                                                                                                                                                                                                 |
 | ROWS\_AFFECTED             | Number of rows affected the statement affected.                                                                                                                                                                                                               |
@@ -44,8 +50,8 @@ The table structure is identical to the [events\_statements\_current](performanc
 | SORT\_SCAN                 | Number of sorts performed by the statement which used a full table scan.                                                                                                                                                                                      |
 | NO\_INDEX\_USED            | 0 if the statement performed a table scan with an index, 1 if without an index.                                                                                                                                                                               |
 | NO\_GOOD\_INDEX\_USED      | 0 if a good index was found for the statement, 1 if no good index was found. See the Range checked for each record description in the [EXPLAIN](../../../sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) article.     |
-| NESTING\_EVENT\_ID         | Reserved, currently NULL.                                                                                                                                                                                                                                     |
-| NESTING\_EVENT\_TYPE       | Reserved, currently NULL.                                                                                                                                                                                                                                     |
+| NESTING\_EVENT\_ID         | `NULL` for top-level statements. For nested statements (stored programs), the event ID of the parent statement. |
+| NESTING\_EVENT\_TYPE       | `NULL` for top-level statements. For nested statements (stored programs), the event type of the parent statement. |
 
 It is possible to empty this table with a `TRUNCATE TABLE` statement.
 

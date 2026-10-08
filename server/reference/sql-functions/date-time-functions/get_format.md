@@ -1,8 +1,14 @@
+---
+description: >-
+  Return a format string. This function provides standard format strings for
+  DATE_FORMAT and STR_TO_DATE based on regions like 'USA' or 'EUR'.
+---
+
 # GET\_FORMAT
 
 ## Syntax
 
-```sql
+```bnf
 GET_FORMAT({DATE|DATETIME|TIME}, {'EUR'|'USA'|'JIS'|'ISO'|'INTERNAL'})
 ```
 

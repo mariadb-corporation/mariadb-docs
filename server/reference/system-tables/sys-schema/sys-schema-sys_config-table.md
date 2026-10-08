@@ -1,3 +1,10 @@
+---
+description: >-
+  The sys_config table holds persistent configuration options for the Sys
+  Schema, stored using the Aria storage engine to maintain settings across
+  restarts.
+---
+
 # Sys Schema sys\_config Table
 
 {% include "../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

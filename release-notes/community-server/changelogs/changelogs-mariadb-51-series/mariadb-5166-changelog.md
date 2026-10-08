@@ -1,10 +1,10 @@
 # MariaDB 5.1.66 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.1.66) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.66/) | [Release Notes](../../old-releases/5.1/5.1.66.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 29 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.66.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -164,7 +164,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * Raise version number after cloning 5.1.65
 * [Revision #3163](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3163) \[merge]\
   Thu 2012-11-01 16:20:09 +0100
-  * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+  * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
   * [Revision #0.6.48](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/0.6.48)\
     Thu 2012-11-01 15:16:42 +0100
     * Updated with changes from Percona Server 5.1.66-rel14.1 tarball.
@@ -265,7 +265,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * Bug#14238406 NEW COMPILATION WARNINGS WITH GCC 4.7 (-WERROR=NARROWING)
   * [Revision #2502.1137.209](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2502.1137.209)\
     Fri 2012-06-29 12:55:45 +0400
-    * Backport of the deprecation warning from [WL#6219](https://askmonty.org/worklog/?tid=6219): "Deprecate and remove YEAR(2) type"
+    * Backport of the deprecation warning from WL#6219: "Deprecate and remove YEAR(2) type"
   * [Revision #2502.1137.208](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2502.1137.208) \[merge]\
     Thu 2012-06-28 14:34:49 +0200
     * Merge.
@@ -383,7 +383,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * Backport 5.5=>5.1 Patch for Bug#13805127: Stored program cache produces wrong result in same THD.
   * [Revision #2502.1137.171](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2502.1137.171)\
     Wed 2012-04-18 10:08:01 +0100
-    * [WL#6236](https://askmonty.org/worklog/?tid=6236): Allow SHOW MASTER LOGS and SHOW BINARY LOGS with REPLICATION CLIENT
+    * WL#6236: Allow SHOW MASTER LOGS and SHOW BINARY LOGS with REPLICATION CLIENT
   * [Revision #2502.1137.170](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2502.1137.170)\
     Wed 2012-04-18 11:25:01 +0530
     * Bug#12713907:STRANGE OPTIMIZE & WRONG RESULT UNDER ORDER BY COUNT(\*) LIMIT.
@@ -575,7 +575,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * Raise version number after cloning 5.1.62
 * [Revision #3148](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3148)\
   Sat 2012-05-12 11:53:14 +0400
-  * BUG#997747: Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed in greedy\_search with LEFT JOINs and unique keys - Backport the fix for BUG#806524 from [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+  * BUG#997747: Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed in greedy\_search with LEFT JOINs and unique keys - Backport the fix for BUG#806524 from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #3147](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/3147)\
   Tue 2012-04-24 17:29:03 +0200
   * [Bug #986120](https://bugs.launchpad.net/bugs/986120) Problem installing mariadb 5 on solaris 10
@@ -585,6 +585,6 @@ The revision number links will take you to the revision's page on Launchpad. On 
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

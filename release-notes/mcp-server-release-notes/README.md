@@ -1,0 +1,2 @@
+# MCP Server Release Notes
+

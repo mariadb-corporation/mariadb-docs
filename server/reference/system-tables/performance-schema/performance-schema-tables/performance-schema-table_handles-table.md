@@ -1,8 +1,10 @@
-# Performance Schema table\_handles Table
+---
+description: >-
+  The table_handles table lists all open table handles, showing which threads
+  are currently accessing which table instances and the locks they hold.
+---
 
-{% hint style="info" %}
-The `table_handles` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema table\_handles Table
 
 The `table_handles` table contains table lock information. It uses the `wait/lock/table/sql/handler` instrument, which is enabled by default.
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  Returns a geometry representing the point set union of two geometries. This
+  function merges multiple spatial objects into a single geometry.
+---
+
 # ST\_UNION
 
 ## Syntax
 
-```sql
+```bnf
 ST_UNION(g1,g2)
 ```
 

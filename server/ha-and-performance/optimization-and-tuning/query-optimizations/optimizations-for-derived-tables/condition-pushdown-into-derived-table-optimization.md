@@ -29,7 +29,7 @@ This is obviously inefficient, if there are 1000 customers, then one will be doi
 
 However, the optimizer can take the condition `customer_id=1` and push it down into the OCT\_TOTALS view.
 
-Inside the OCT_\TOTALS, the added condition is put into its HAVING clause, so we end up with:
+Inside the OCT\_\TOTALS, the added condition is put into its HAVING clause, so we end up with:
 
 ```sql
 SELECT
@@ -40,9 +40,9 @@ WHERE  order_date BETWEEN '2017-10-01' AND '2017-10-31'
 GROUP BY customer_id
 HAVING
   customer_id=1 
- ```
+```
 
-Then, parts of HAVING clause that refer to GROUP BY columns are  moved into the WHERE clause:
+Then, parts of HAVING clause that refer to GROUP BY columns are moved into the WHERE clause:
 
 ```sql
 SELECT
@@ -55,9 +55,7 @@ WHERE
 GROUP BY customer_id
 ```
 
-Once a restriction like `customer_id=1` is in the WHERE, the query  optimizer can use it to construct efficient table access paths.
-
-
+Once a restriction like `customer_id=1` is in the WHERE, the query optimizer can use it to construct efficient table access paths.
 
 ## Controlling the Optimization
 
@@ -67,18 +65,26 @@ The pushdown from HAVING to WHERE part is controlled by `condition_pushdown_from
 
 {% tabs %}
 {% tab title="Current" %}
-From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [DERIVED\_CONDITION\_PUSHDOWN and NO\_DERIVED\_CONDITION\_PUSHDOWN](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#derived_condition_pushdown-and-no_derived_condition_pushdown).
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
+From MariaDB 12.1, it is possible to enable or disable the optimization with  [DERIVED_CONDITION_PUSHDOWN() and NO_DERIVED_CONDITION_PUSHDOWN() optimizer hints](../../optimizer-hints/table-level-hints.md#derived_condition_pushdown-no_derived_condition_pushdown).
 {% endtab %}
 
-{% tab title="<12.1" %}
+{% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 No optimizer hint is available.
 {% endtab %}
 {% endtabs %}
 
 ## See Also
 
-* Condition Pushdown through Window Functions (since [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103))
-* [Condition Pushdown into IN Subqueries](../subquery-optimizations/condition-pushdown-into-in-subqueries.md) (since [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/broken-reference/README.md))
+* Condition Pushdown through Window Functions
+* [Condition Pushdown into IN Subqueries](../subquery-optimizations/condition-pushdown-into-in-subqueries.md)
 * The Jira task for the feature is [MDEV-9197](https://jira.mariadb.org/browse/MDEV-9197).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

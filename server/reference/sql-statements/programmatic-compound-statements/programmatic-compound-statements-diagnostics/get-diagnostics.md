@@ -53,7 +53,7 @@ To read information from a condition, the `CONDITION` keyword must be specified 
 
 The condition properties that can be read with `GET DIAGNOSTICS` are the same that can be set with `SIGNAL` and `RESIGNAL` statements. They are explained in the [diagnostics area](diagnostics-area.md) page. However, there is one more property: `RETURNED_SQLSTATE`, which indicates the condition's [SQLSTATE](sqlstate.md).
 
-For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
+For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md).
 
 The type for all the condition properties is `VARCHAR`(64), except for `MYSQL_ERRNO`, whose valid range is 1 to 65534.
 
@@ -61,10 +61,18 @@ The type for all the condition properties is `VARCHAR`(64), except for `MYSQL_ER
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 You can use the `ROW_NUMBER` property to retrieve the row number, too, even if the error text does not mention it. This property is named `ERROR_INDEX` . `ROW_NUMBER` is a [reserved word](../../../sql-structure/sql-language-structure/reserved-words.md).
 {% endtab %}
 
 {% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 There is no way, short of parsing the error text, to know in what row an error had happened.
 {% endtab %}
 {% endtabs %}

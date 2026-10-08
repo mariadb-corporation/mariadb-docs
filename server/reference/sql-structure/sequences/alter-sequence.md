@@ -1,9 +1,15 @@
+---
+description: >-
+  ALTER SEQUENCE changes the properties of an existing sequence object.
+---
+
 # ALTER SEQUENCE
 
 ### Syntax
 
 ```sql
 ALTER SEQUENCE [IF EXISTS] sequence_name
+[AS { TINYINT | SMALLINT | |MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
 [ INCREMENT [ BY | = ] number ]
 [ MINVALUE [=] number | NO MINVALUE | NOMINVALUE ]
 [ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]

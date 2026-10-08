@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete INSERT IGNORE reference: ignore insert errors and warnings, duplicate
+  key error handling, invalid value coercion, and SHOW WARNINGS compatibility.
+---
+
 # INSERT IGNORE
 
 ## Ignoring Errors
@@ -10,15 +16,7 @@ Invalid values are changed to the closest valid value and inserted, with a warni
 
 The IGNORE and DELAYED options are ignored when you use [ON DUPLICATE KEY UPDATE](insert-on-duplicate-key-update.md).
 
-{% tabs %}
-{% tab title="Current" %}
-Warnings are issued for duplicate key errors when using `IGNORE`. You can get the old behavior if you set [OLD\_MODE](../../../../server-management/variables-and-modes/old-mode.md) to `NO_DUP_KEY_WARNINGS_WITH_IGNORE`.
-{% endtab %}
-
-{% tab title="< 5.5.28" %}
-No warnings are issued for duplicate key errors when using `IGNORE`.
-{% endtab %}
-{% endtabs %}
+Warnings are issued for duplicate key errors when using `IGNORE`. You can get the old behavior if you set [OLD\_MODE](../../../../server-management/variables-and-modes/old_mode.md) to `NO_DUP_KEY_WARNINGS_WITH_IGNORE`.
 
 See [IGNORE](ignore.md) for a full description of effects.
 

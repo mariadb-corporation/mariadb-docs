@@ -1,17 +1,33 @@
+---
+description: >-
+  Repair corrupted tables. This statement fixes errors in tables for supported
+  storage engines like MyISAM, Aria, and Archive.
+---
+
 # REPAIR TABLE
 
 ## Syntax
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
+```bnf
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
-    [QUICK] [EXTENDED] [USE_FRM] [FORCE
+    [QUICK] [EXTENDED] [USE_FRM] [FORCE]
 ```
+
+![Railroad diagram of REPAIR TABLE — equivalent to the BNF above](../../../.gitbook/assets/repair-table-railroad.svg)
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 ```
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
@@ -40,17 +56,9 @@ See [aria\_chk](../../../clients-and-utilities/aria-clients-and-utilities/aria_c
 
 This statement requires [SELECT and INSERT privileges](../account-management-sql-statements/grant.md) for the table.
 
-By default, `REPAIR TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
+By default, `REPAIR TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
-{% tabs %}
-{% tab title="Current" %}
 `REPAIR TABLE` statements are not logged to the binary log if [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../../ha-and-performance/standard-replication/read-only-replicas.md).
-{% endtab %}
-
-{% tab title="< 10.3.19" %}
-`REPAIR TABLE` statements are logged to the binary log.
-{% endtab %}
-{% endtabs %}
 
 When an index is recreated, the storage engine may use a configurable buffer in the process. Incrementing the buffer speeds up the index creation. [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) allocate a buffer whose size is defined by [aria\_sort\_buffer\_size](../../../server-usage/storage-engines/aria/aria-system-variables.md) or [myisam\_sort\_buffer\_size](../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md), also used for [ALTER TABLE](../data-definition/alter/alter-table/).
 
@@ -70,10 +78,18 @@ For use only when the index file is missing or its header corrupted. MariaDB the
 
 {% tabs %}
 {% tab title="Current" %}
-The `FORCE` argument allows to first run internal repair to fix damaged blocks, and then follow it up with `ALTER TABLE` ([MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449)).
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
+The `FORCE` argument allows to first run internal repair to fix damaged blocks and then follow it up with `ALTER TABLE` ([MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449)).
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The `FORCE` option is not available.
 {% endtab %}
 {% endtabs %}
@@ -84,7 +100,7 @@ The `FORCE` option is not available.
 
 ### Progress Reporting
 
-The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/table-statements/broken-reference/README.md) for this statement.
+The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for this statement.
 
 ## See Also
 

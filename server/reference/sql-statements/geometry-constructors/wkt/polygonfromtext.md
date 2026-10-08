@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_PolyFromText. Constructs a Polygon value from its WKT
+  representation and an optional SRID.
+---
+
 # PolygonFromText
 
 A synonym for [ST\_PolyFromText](st_polyfromtext.md).

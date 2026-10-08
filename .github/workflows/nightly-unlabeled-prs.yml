@@ -1,0 +1,311 @@
+name: Nightly unlabeled-PR digest
+
+# Reports open PRs carrying no label, so a contribution from outside the docs
+# team's normal flow doesn't sit untriaged. Every docs-team PR gets
+# `documentation` or `release-notes` at open time and Dependabot labels its own
+# (.github/dependabot.yml), so an unlabeled PR is by definition one nobody has
+# routed yet -- currently ~1 of 22 open.
+#
+# Read-only: it never labels or comments. Triage stays a human decision.
+#
+# Tuesday to Friday it posts nothing when the list is empty: a daily "0
+# untriaged" message trains the channel to ignore the bot. The run summary
+# records every run regardless, including the failed ones.
+#
+# Monday is the exception, and it exists to make silence mean something. Without
+# it, "nothing untriaged" is indistinguishable from "cron suspended after 60
+# days without a push", "scheduled run dropped under load", "someone broke the
+# YAML", or "the run was cancelled" -- and since most nights genuinely have
+# nothing to report, the healthy state and the dead state look the same forever.
+# `errors: true` below catches a failed *delivery*, but a run that never happens
+# cannot report itself. So Monday posts even when there is nothing, with its own
+# wording, and a missing Monday message is the signal that something is wrong.
+#
+# The residual gap: a Monday message proves Monday worked, not Tue-Fri. This
+# bounds undetected breakage at about a week rather than eliminating it. Making
+# it same-day would mean an event-driven trigger (pull_request: [opened]) with
+# this digest as the backstop.
+
+on:
+  workflow_dispatch:
+    inputs:
+      always_post:
+        description: 'Post to Slack even when nothing is untriaged'
+        required: false
+        default: false
+        type: boolean
+  # 06:15 UTC: lands just before the CET/CEST workday. Weekends are skipped
+  # because a Saturday digest reaches nobody and only ages by Monday.
+  # :15 rather than :00 -- GitHub delays on-the-hour crons the most.
+  #
+  # Split into two entries rather than one '15 6 * * 1-5' so that the steps can
+  # tell Monday apart: github.event.schedule carries the cron string verbatim,
+  # which is only useful as a discriminator if Monday has its own line.
+  schedule:
+    # Tue-Fri: speaks only when something is untriaged.
+    - cron: '15 6 * * 2-5'
+    # Monday: also speaks when nothing is untriaged, as the weekly heartbeat.
+    - cron: '15 6 * * 1'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: nightly-unlabeled-prs
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    # Two gh calls and some jq. Without this the job inherits the 6-hour default,
+    # so a gh call wedged on a stalled connection burns six hours of runner time
+    # and then ends as *cancelled* -- which `if: failure()` does not catch, so
+    # nobody would hear about it.
+    timeout-minutes: 5
+    steps:
+      # No checkout: nothing here reads repository content. gh is preinstalled
+      # on the runner, but with no git remote to infer from it needs GH_REPO --
+      # the same trap the PDF release job documents.
+      - name: Collect unlabeled open PRs
+        id: collect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          # gh pr list with no --label/--author/--search filter takes the
+          # non-search path, which orders by CREATED_AT DESC -- so the limit
+          # keeps the *newest* N and discards the oldest. The oldest untriaged PR
+          # is exactly what this workflow exists to surface, so hitting the limit
+          # silently removes the most important row. Hence the assertion below.
+          PR_LIMIT: '500'
+        run: |
+          set -euo pipefail
+
+          # Listing every open PR and filtering locally, rather than asking the
+          # search API for `no:label`: the search index lags by minutes to
+          # hours, and a PR opened last evening is exactly the one this digest
+          # exists to catch.
+          gh pr list --state open --limit "$PR_LIMIT" \
+            --json number,title,url,labels,isDraft,author,createdAt \
+            > prs.json
+
+          # Oldest first, so the PR that has gone untriaged longest leads.
+          # Drafts are kept but tagged: an unlabeled draft from an outside
+          # contributor still needs routing, just not first.
+          jq '[.[] | select(.labels | length == 0)] | sort_by(.createdAt)' \
+            prs.json > untriaged.json
+
+          # Assigned on their own lines rather than inside `echo "count=$(...)"`:
+          # the exit status of a command substitution used as an argument is
+          # discarded, so `set -e` cannot see a jq failure there. That produced
+          # count='', which the step gate below compares as a string ('' != '0'
+          # is true) and so posted a digest reading " of  open PRs".
+          count=$(jq 'length' untriaged.json)
+          total=$(jq 'length' prs.json)
+
+          # A truncation notice travels as a file rather than a step output, so
+          # the next step reads it with --rawfile instead of interpolating an
+          # expression into a shell script -- the rule link-check-pr.yml
+          # documents (DOCS-6361). The syntax is described rather than shown on
+          # purpose: GitHub substitutes expressions anywhere in a run: block,
+          # shell comments included, so writing one here would be evaluated
+          # rather than illustrated.
+          : > note.txt
+          if [[ "$total" -ge "$PR_LIMIT" ]]; then
+            # The Slack copy is emoji-prefixed; the annotation is not, because
+            # "::warning:::warning: ..." is what that collision looks like in
+            # the Actions log.
+            msg="Fetched only the newest $PR_LIMIT open PRs; gh returns newest-first, so older untriaged PRs are missing from this list."
+            printf ':warning: %s' "$msg" > note.txt
+            echo "::warning::$msg"
+          fi
+
+          {
+            echo "count=$count"
+            echo "total=$total"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build the Slack payload
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          # 'true' only on the Monday cron. github.event.schedule holds the cron
+          # string exactly as written above, and is absent on workflow_dispatch,
+          # where the comparison yields false. Renders as the literal 'true' or
+          # 'false', which --argjson reads as a boolean.
+          HEARTBEAT: ${{ github.event.schedule == '15 6 * * 1' }}
+        run: |
+          set -euo pipefail
+          # jq builds the whole payload, so a title containing a quote, a
+          # backslash, or an emoji cannot produce invalid JSON. Hand-interpolating
+          # titles into a YAML payload: block is the same class of bug as the
+          # filename quoting in link-check-pr.yml (DOCS-6361).
+          #
+          # But valid JSON is not the same as safe *mrkdwn*. PR titles are
+          # attacker-controlled -- anyone with a GitHub account can open a PR on
+          # this public repo -- and Slack parses the `text` field as mrkdwn,
+          # where `<url|label>` is link syntax and `<`, `>` and `&` are all legal
+          # title characters. Unescaped, a title reading
+          #   see <https://evil.example|github.com/.../pull/9999> *(approved)*
+          # renders in the channel as a clickable link whose visible text is a
+          # github.com URL and whose target is not, delivered by a trusted bot.
+          # `esc` neutralizes that; `collapse` folds newlines and tabs to spaces
+          # so a title cannot forge additional bullet lines.
+          #
+          # Order matters: collapse, then truncate, then escape. Escaping first
+          # would let the 120-char cut land inside `&lt;` and emit a half
+          # entity, and would spend the budget on markup rather than title text.
+          #
+          # This does NOT escape `*`, `_` or backticks. They can only produce
+          # styled text -- with `<` and `>` escaped there is no way to forge a
+          # link, and a bare `@name` is not a Slack mention -- while backticks
+          # appear in ordinary titles here (`readwrite-split-router-usage`) and
+          # stripping them would degrade every honest message for a marginal
+          # gain. The step summary is handled separately; see that step.
+          #
+          # The author handle is written "by <login>" rather than "@<login>":
+          # a GitHub handle is not a Slack user, and a bare @ reads as a failed
+          # mention.
+          #
+          # Titles are truncated only when they actually exceed the limit, and
+          # the ellipsis replaces the cut rather than being appended to every
+          # line -- a bare mid-word cut with no marker reads as a title that
+          # genuinely ends there. The trailing-whitespace trim keeps the cut
+          # from landing as "chapter while …".
+          #
+          # The empty case gets its own message rather than falling through the
+          # list branch: join("\n") over no elements leaves the header's newline
+          # against the footer's, so the generic text renders as a heading above
+          # a blank stanza.
+          #
+          # Two empty variants. The Monday heartbeat is worded so its *absence*
+          # is what a reader notices, which means it has to be recognisable at a
+          # glance and distinct from the digest -- if it looked like the ordinary
+          # "nothing to report" line, a reader would not register which one was
+          # missing. The plain variant covers always_post and the run summary.
+          #
+          # It says "nothing untriaged" rather than "no new PRs": the check is on
+          # labels, not arrival, so a quiet weekend by this measure is perfectly
+          # compatible with ten new PRs that were all labelled correctly.
+          jq -n \
+            --slurpfile prs untriaged.json \
+            --rawfile note note.txt \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg run "$RUN_URL" \
+            --argjson now "$(date -u +%s)" \
+            --argjson heartbeat "${HEARTBEAT:-false}" '
+            def collapse: gsub("\\s+"; " ");
+            def esc: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+
+            ($prs[0]) as $p
+            | ($p | length) as $n
+            | (if $note == "" then "" else "\n\n" + ($note | esc) end) as $warn
+            | { text: (
+                  if $n == 0 and $heartbeat then
+                    ":coffee: *Weekend was quiet* — nothing untriaged in \($repo)."
+                    + $warn + "\n\n<\($run)|workflow run>"
+                  elif $n == 0 then
+                    ":white_check_mark: No unlabeled open PRs in \($repo)"
+                    + $warn + "\n\n<\($run)|workflow run>"
+                  else
+                    ":label: *\($n) open PR\(if $n == 1 then "" else "s" end) with no label* in \($repo)\n"
+                    + ($p | map(
+                        (($now - (.createdAt | fromdateiso8601)) / 86400 | floor) as $age
+                        | (((.title // "") | collapse)) as $t
+                        | (if ($t | length) > 120
+                           then (($t[0:119] | sub("\\s+$"; "")) + "…")
+                           else $t end | esc) as $title
+                        | "• <\(.url)|#\(.number)> \($title) — by \(.author.login // "ghost"), \($age)d old"
+                          + (if .isDraft then " _(draft)_" else "" end)
+                      ) | join("\n"))
+                    + $warn + "\n\n<\($run)|workflow run>"
+                  end
+                ) }' > payload.json
+
+          jq -e . payload.json > /dev/null   # fail loudly rather than posting garbage
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which skips exactly the
+        # runs most worth a record -- a gh rate-limit or a jq failure. Nothing
+        # below assumes the counts or the payload exist.
+        if: always()
+        env:
+          # Via env rather than interpolated into the script: these are integers
+          # from `jq length` today, but link-check-pr.yml documents the house
+          # rule (DOCS-6361) and this is the shape it forbids.
+          COUNT: ${{ steps.collect.outputs.count }}
+          TOTAL: ${{ steps.collect.outputs.total }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Unlabeled-PR digest"
+            echo
+            if [[ -s payload.json ]]; then
+              echo "${COUNT:-?} of ${TOTAL:-?} open PRs carry no label."
+              echo
+              # Fenced. This summary is a GFM rendering surface and PR titles are
+              # attacker-controlled, so the Slack escaping above does not cover
+              # it: `[text](url)` and `<!--` need no angle brackets, and a
+              # crafted title can otherwise forge a heading, plant a link, or
+              # open a comment that swallows the rest of the page. Inside a fence
+              # it is literal text. Four backticks so a title containing three
+              # cannot close it.
+              echo '````text'
+              jq -r '.text' payload.json
+              echo '````'
+            else
+              echo "No payload was produced -- an earlier step failed."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Both steps post to NOTIFICATIONS_WEBHOOK_URL -- one channel for the
+      # digest and for the notice that the digest broke. Note the consequence:
+      # if that webhook is what fails, the failure notice has nowhere to go
+      # either. `errors: true` still turns the run red, so the Actions tab
+      # remains the backstop, but nothing reaches Slack.
+      #
+      # Never set `payload-templated` on either step. It defaults to false; with
+      # it on, the action expands ${{ }} inside the payload against the env and
+      # github contexts, so a PR titled ${{ env.NOTIFICATIONS_WEBHOOK_URL }}
+      # would print the webhook into the channel.
+      # The Monday clause is what makes the heartbeat reach Slack at all -- the
+      # count is 0 on a quiet Monday, so the first clause is false and without
+      # the second nothing would be sent. On a Monday that *does* have untriaged
+      # PRs the first clause already fires and the payload is the normal digest,
+      # so this only ever adds the heartbeat, never a duplicate.
+      - name: Post the digest to Slack
+        if: steps.collect.outputs.count != '0' || github.event.schedule == '15 6 * * 1' || inputs.always_post
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          # payload-file-path rather than an inline payload: block, because the
+          # message body is dynamic and must stay valid JSON. Keep the .json
+          # extension: the action picks its parser from it, and a .yml name would
+          # route this through js-yaml instead of JSON.parse.
+          payload-file-path: payload.json
+          # REQUIRED, not optional. This input defaults to false, and at v3.0.5
+          # the action's catch block has no else branch -- with errors off, a
+          # revoked webhook, an archived channel, a 429, or msg_too_long is
+          # swallowed with no warning and the step still goes green. Because the
+          # digest is deliberately silent when there is nothing to report, a
+          # dead webhook and a clean day look identical in the channel, so the
+          # failure would go unnoticed indefinitely.
+          errors: true
+
+      # A step-level failure notice rather than a second job: gh rate limits or
+      # a jq error would otherwise fail silently at 06:15 with nobody watching.
+      # Note this covers failure() only -- a cancelled run, a dropped scheduled
+      # run, or a suspended cron reaches nobody. See KNOWN GAP at the top.
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "❌ *Unlabeled-PR digest failed*\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          # Same reasoning as above, and it matters more here: this is the step
+          # that only runs when something is already broken.
+          errors: true

@@ -1,3 +1,10 @@
+---
+description: >-
+  The LOCALES plugin enables the INFORMATION_SCHEMA.LOCALES table and SHOW
+  LOCALES statement, allowing users to view all locales compiled into the
+  server.
+---
+
 # Locales Plugin
 
 The `LOCALES` plugin creates the [LOCALES](../../../../system-tables/information-schema/information-schema-tables/information-schema-locales-table.md) table in the [INFORMATION\_SCHEMA](../../../../system-tables/information-schema/) database. The plugin also adds the [SHOW LOCALES](../../../../sql-statements/administrative-sql-statements/show/show-locales.md) statement.The table and statement can be queried to see all [locales](server-locale.md) that are compiled into the server.

@@ -1,8 +1,8 @@
-# Using CONNECT - General Information
+---
+description: The CONNECT storage engine.
+---
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
+# Using CONNECT - General Information
 
 The main characteristic of [CONNECT](../) is to enable accessing data scattered on a machine as if it was a centralized database. This, and the fact that locking is not used by connect (data files are open and closed for each query) makes CONNECT very useful for importing or exporting data into or from a MariaDB database and also for all types of Business Intelligence applications. However, it is not suited for transactional applications.
 
@@ -14,7 +14,7 @@ This means also that CONNECT is not designed to be used by centralized servers, 
 
 ### Performance
 
-Performances vary a great deal depending on the table type. For instance, ODBC tables are only\
+Performances vary a great deal depending on the table type. For instance, ODBC tables are only
 retrieved as fast as the other DBMS can do. If you have a lot of queries to execute, the best way to optimize your work can be sometime to translate the data from one type to another. Fortunately this is very simple with CONNECT. Fixed formats like FIX, BIN or VEC tables can be created from slower ones by commands such as:
 
 ```
@@ -42,7 +42,7 @@ For outward tables, the [DROP TABLE](../../../../reference/sql-statements/data-d
 
 ### Alter Table statement
 
-Be careful using the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement. Currently the data compatibility is not tested and the modified definition can become incompatible with the data. In particular, Alter modifies the table definition only but does not modify the table data. Consequently, the table type should not be modified this way, except to correct an incorrect definition. Also adding, dropping or modifying columns may be wrong because the default offset values (when not explicitly given by the FLAG option) may be wrong when recompiled with missing columns.
+Be careful using the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement. The data compatibility is not tested and the modified definition can become incompatible with the data. In particular, Alter modifies the table definition only but does not modify the table data. Consequently, the table type should not be modified this way, except to correct an incorrect definition. Also adding, dropping or modifying columns may be wrong because the default offset values (when not explicitly given by the FLAG option) may be wrong when recompiled with missing columns.
 
 Safe use of ALTER is for indexing, as we have seen earlier, and to change options such as MAPPED or HUGE those do not impact the data format but just the way the data file is accessed. Modifying the BLOCK\_SIZE option is all right with FIX, BIN, DBF, split VEC tables; however it is unsafe for VEC tables that are not split (only one data file) because at their creation the estimate size has been made a multiple of the block size. This can cause errors if this estimate is not a multiple of the new value of the block size.
 

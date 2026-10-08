@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert radians to degrees. This function transforms an angle measured in
+  radians to its equivalent in degrees.
+---
+
 # DEGREES
 
 ## Syntax
 
-```sql
+```bnf
 DEGREES(X)
 ```
 

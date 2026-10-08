@@ -1,6 +1,18 @@
+---
+description: >-
+  Complete MariaDB release notes. Complete version history with new features,
+  changes, security updates, and upgrade considerations for production use.
+---
+
 # MariaDB Release Notes
 
-Release dates for all upcoming MariaDB Server releases can be found [on Jira](https://jira.mariadb.org/).
+{% hint style="info" %}
+📄 Read offline: [mariadb-release-notes.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-release-notes.pdf) (~5,700 pages, 93 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
+Release dates for upcoming MariaDB Enterprise Server releases can be found [here](enterprise-server/about/enterprise-server-release-schedule.md#next-scheduled-releases). Release dates for MariaDB Community Server releases can be found [on Jira](https://jira.mariadb.org/).
+
+## MariaDB Server Release Notes
 
 {% content-ref url="enterprise-server/" %}
 [enterprise-server](enterprise-server/)
@@ -9,6 +21,8 @@ Release dates for all upcoming MariaDB Server releases can be found [on Jira](ht
 {% content-ref url="community-server/" %}
 [community-server](community-server/)
 {% endcontent-ref %}
+
+## Other Release Notes
 
 {% content-ref url="columnstore/" %}
 [columnstore](columnstore/)
@@ -22,38 +36,30 @@ Release dates for all upcoming MariaDB Server releases can be found [on Jira](ht
 [connectors](connectors/)
 {% endcontent-ref %}
 
+{% content-ref url="galera-cluster/" %}
+[galera-cluster](galera-cluster/)
+{% endcontent-ref %}
+
 {% content-ref url="enterprise-operator/" %}
 [enterprise-operator](enterprise-operator/)
 {% endcontent-ref %}
 
-{% content-ref url="latest-releases.md" %}
-[latest-releases.md](latest-releases.md)
+{% content-ref url="enterprise-manager/" %}
+[enterprise-manager](enterprise-manager/)
 {% endcontent-ref %}
 
-{% content-ref url="community-server/about/release-criteria.md" %}
-[release-criteria.md](community-server/about/release-criteria.md)
+{% content-ref url="ai-rag-release-notes/" %}
+[ai-rag-release-notes](ai-rag-release-notes/)
 {% endcontent-ref %}
 
-{% content-ref url="community-server/about/release-model.md" %}
-[release-model.md](community-server/about/release-model.md)
+{% content-ref url="mcp-server-release-notes/" %}
+[mcp-server-release-notes](mcp-server-release-notes/)
 {% endcontent-ref %}
 
-{% content-ref url="community-server/about/compatibility-and-differences/" %}
-[compatibility-and-differences](community-server/about/compatibility-and-differences/)
+{% content-ref url="mariadb-cloud-release-notes/" %}
+[mariadb-cloud-release-notes](mariadb-cloud-release-notes/)
 {% endcontent-ref %}
 
-{% content-ref url="community-server/about/platform-deprecation-policy.md" %}
-[platform-deprecation-policy.md](community-server/about/platform-deprecation-policy.md)
-{% endcontent-ref %}
-
-{% content-ref url="community-server/about/maintenance-policy.md" %}
-[maintenance-policy.md](community-server/about/maintenance-policy.md)
-{% endcontent-ref %}
-
-{% content-ref url="community-server/about/feature-deprecation-policy.md" %}
-[feature-deprecation-policy.md](community-server/about/feature-deprecation-policy.md)
-{% endcontent-ref %}
-
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

@@ -34,18 +34,18 @@ $ sudo systemctl stop mariadb-columnstore-cmapi
 
 **On each Enterprise ColumnStore node**, configure Enterprise Server.
 
-| Connector                                                                                                                                                 | MariaDB Connector/R2DBC                                                                                                  |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [character\_set\_server](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables) | Set this system variable to utf8                                                                                         |
-| [collation\_server](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)      | Set this system variable to utf8\_general\_ci                                                                            |
-| columnstore\_use\_import\_for\_batchinsert                                                                                                                | Set this system variable to ALWAYS to always use cpimport for LOAD DATA INFILE and INSERT...SELECT statements.           |
-| [gtid\_strict\_mode](../../../ha-and-performance/standard-replication/gtid.md#gtid_strict_mode)                                                           | Set this system variable to ON.                                                                                          |
-| [log\_bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin)                                       | Set this option to the file you want to use for the Binary Log. Setting this option enables binary logging.              |
-| [log\_bin\_index](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin_index)                          | Set this option to the file you want to use to track binlog filenames.                                                   |
-| [log\_slave\_updates](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates)                  | Set this system variable to ON.                                                                                          |
-| [relay\_log](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log)                                   | Set this option to the file you want to use for the Relay Logs. Setting this option enables relay logging.               |
-| [relay\_log\_index](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_index)                      | Set this option to the file you want to use to index Relay Log filenames.                                                |
-| [server\_id](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id)                                   | Sets the numeric Server ID for this MariaDB Enterprise Server. The value set on this option must be unique to each node. |
+| Connector                                                                                                                                                                                                                                                       | MariaDB Connector/R2DBC                                                                                                  |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| [character\_set\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#list-of-server-system-variables)                                          | Set this system variable to utf8                                                                                         |
+| [collation\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#list-of-server-system-variables)                                               | Set this system variable to utf8\_general\_ci                                                                            |
+| [loose-columnstore\_use\_import\_for\_batchinsert](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select#batch-insert-mode) | Set this system variable to ALWAYS to always use cpimport for LOAD DATA INFILE and INSERT...SELECT statements.           |
+| [gtid\_strict\_mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_strict_mode)                                                                                                    | Set this system variable to ON.                                                                                          |
+| [log\_bin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin)                                                                                | Set this option to the file you want to use for the Binary Log. Setting this option enables binary logging.              |
+| [log\_bin\_index](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin_index)                                                                   | Set this option to the file you want to use to track binlog filenames.                                                   |
+| [log\_slave\_updates](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates)                                                           | Set this system variable to ON.                                                                                          |
+| [relay\_log](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#relay_log)                                                                            | Set this option to the file you want to use for the Relay Logs. Setting this option enables relay logging.               |
+| [relay\_log\_index](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#relay_log_index)                                                               | Set this option to the file you want to use to index Relay Log filenames.                                                |
+| [server\_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id)                                                                            | Sets the numeric Server ID for this MariaDB Enterprise Server. The value set on this option must be unique to each node. |
 
 Mandatory system variables and options for ColumnStore Object Storage include:
 
@@ -142,7 +142,7 @@ $ sudo mcsSetConfig CrossEngineSupport User util_user
 $ sudo mcsSetConfig CrossEngineSupport Password util_user_passwd
 ```
 
-For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/managing-columnstore/enterprise-columnstore-credentials-management)".
+For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/security/enterprise-columnstore-credentials-management)".
 
 Passwords should meet your organization's password policies. If your MariaDB Enterprise Server instance has a password validation plugin installed, then the password should also meet the configured requirements.
 
@@ -686,6 +686,6 @@ This page was step 4 of 9.
 
 Next: Step 5: Test MariaDB Enterprise Server.
 
-{% include "../../../.gitbook/includes/license-copyright-mariadb.md" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

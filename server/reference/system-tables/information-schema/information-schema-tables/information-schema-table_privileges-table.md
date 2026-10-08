@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema TABLE_PRIVILEGES table lists privileges granted
+  specifically at the table level.
+---
+
 # Information Schema TABLE\_PRIVILEGES Table
 
 The [Information Schema](../) `TABLE_PRIVILEGES` table contains table privilege information derived from the [mysql.tables\_priv](../../the-mysql-database-tables/mysql-tables_priv-table.md) grant table.

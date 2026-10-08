@@ -2,15 +2,15 @@
 
 ## Overview
 
-[MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) 6.3.1 is a maintenance release of [MariaDB Enterprise ColumnStore](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-columnstore/README.md) . MariaDB Enterprise ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the fourth release in the Enterprise ColumnStore 6 series.
+[MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) 6.3.1 is a maintenance release of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) . MariaDB ColumnStore is a columnar storage engine included with MariaDB Enterprise Server. This is the fourth release in the ColumnStore 6 series.
 
-MariaDB Enterprise ColumnStore 6.3.1 was released on 2022-04-25. This release is of General Availability (GA) maturity.
+MariaDB ColumnStore 6.3.1 was released on 2022-04-25. This release is of General Availability (GA) maturity.
 
-This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterprise Server 10.6.7-3.
+This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 10.6.7-3.
 
 ## Notable Changes
 
-* Deprecated and historical values have been removed from Columnstore.xml ([MCOL-4560](https://jira.mariadb.org/browse/MCOL-4560))
+* Deprecated and historical values have been removed from ColumnStore.xml ([MCOL-4560](https://jira.mariadb.org/browse/MCOL-4560))
 * Performance improvements. ([MCOL-4801](https://jira.mariadb.org/browse/MCOL-4801), [MCOL-4871](https://jira.mariadb.org/browse/MCOL-4871), [MCOL-4809](https://jira.mariadb.org/browse/MCOL-4809), [MCOL-4957](https://jira.mariadb.org/browse/MCOL-4957))
 
 ## Issues Fixed
@@ -31,7 +31,7 @@ This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterpri
 
 ## Related to install and upgrade
 
-* On Debian, non-interactive upgrade complains that /etc/columnstore/Columnstore.xml has been modified since installation. ([MCOL-4928](https://jira.mariadb.org/browse/MCOL-4928))
+* On Debian, non-interactive upgrade complains that /etc/columnstore/ColumnStore.xml has been modified since installation. ([MCOL-4928](https://jira.mariadb.org/browse/MCOL-4928))
 * Upgrade from ColumnStore 5 to ColumnStore 6 does not restore saved configuration files. ([MCOL-4965](https://jira.mariadb.org/browse/MCOL-4965))
   * Prior to this release, configuration files were saved at uninstall but not restored upon upgrade.
   * With this release, ColumnStore configuration files are properly restored upon reinstall. New parameters, included in the configuration files packaged with the release, will not be merged and must be migrated manually.
@@ -40,7 +40,7 @@ This release of MariaDB Enterprise ColumnStore is included with MariaDB Enterpri
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB Enterprise ColumnStore 6.3.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.3.1 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)
@@ -49,6 +49,6 @@ In alignment with the [enterprise lifecycle](../../../enterprise-server/enterpri
 * Ubuntu 18.04 (x86\_64)
 * Ubuntu 20.04 (x86\_64)
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

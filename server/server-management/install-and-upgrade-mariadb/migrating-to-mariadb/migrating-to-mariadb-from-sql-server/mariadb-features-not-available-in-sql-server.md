@@ -1,3 +1,9 @@
+---
+description: >-
+  Highlights features unique to MariaDB, such as pluggable storage engines,
+  dynamic columns, and Flashback, which can offer advantages after migration.
+---
+
 # MariaDB Features Not Available in SQL Server
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}
@@ -12,12 +18,12 @@ This page has a list of MariaDB features that are not supported in SQL Server. T
 
 * [Storage engines](../../../../server-usage/storage-engines/).
 * [Authentication plugins](../../../../reference/plugins/authentication-plugins/).
-* [Encryption plugins](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
-* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is a columnar storage engine designed to scale horizontally. It runs on a specific edition of MariaDB, so currently it cannot be used in combination with other engines.
+* [Encryption plugins](../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is a columnar storage engine designed to scale horizontally. It is installed as a storage engine plugin, so ColumnStore tables can be used alongside tables that use other storage engines.
 
 ## SQL
 
-* The [sql\_mode](../../../variables-and-modes/sql-mode.md) variable determines in which cases an SQL statement should fail with an error, and in which cases it should succeed with a warning even if it is not entirely correct. For example, when a statement tries to insert a string in a column which is not big enough to contain it, it could fail, or it could insert a truncated string and emit a warning. It is a tradeoff between reliability and flexibility.
+* The [sql\_mode](../../../variables-and-modes/sql_mode.md) variable determines in which cases an SQL statement should fail with an error, and in which cases it should succeed with a warning even if it is not entirely correct. For example, when a statement tries to insert a string in a column which is not big enough to contain it, it could fail, or it could insert a truncated string and emit a warning. It is a tradeoff between reliability and flexibility.
   * [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) allows one to use a small subset of SQL Server proprietary syntax.
 * The [CREATE ... IF EXISTS, CREATE OR REPLACE, DROP ... IF NOT EXISTS](syntax-differences-between-mariadb-and-sql-server.md#if-exists-if-not-exists-or-replace) options are supported for most [DDL statements](../../../../reference/sql-statements/data-definition/).
 * [SHOW](syntax-differences-between-mariadb-and-sql-server.md#show-statements) statements.
@@ -57,7 +63,7 @@ For compatibility with some other database systems, MariaDB supports the [JSON](
   * Tables can be partitioned based on [multiple columns](../../../../server-usage/partitioning-tables/partitioning-types/range-columns-and-list-columns-partitioning-types.md).
   * Several [partitioning types](../../../../server-usage/partitioning-tables/partitioning-overview.md#partitioning-types) are available.
   * Subpartitions.
-* [Progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for some typically expensive statements.
+* [Progress reporting](../../../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for some typically expensive statements.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

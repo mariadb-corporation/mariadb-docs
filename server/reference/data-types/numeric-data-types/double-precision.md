@@ -1,8 +1,14 @@
+---
+description: >-
+  Synonym for DOUBLE. This keyword declares a normal-size (8-byte)
+  floating-point number with double precision.
+---
+
 # DOUBLE PRECISION
 
 ## Syntax
 
-```sql
+```bnf
 DOUBLE PRECISION[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 REAL[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
@@ -11,7 +17,7 @@ REAL[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 
 `REAL` and `DOUBLE PRECISION` are synonyms for [DOUBLE](double.md).
 
-Exception: If the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled, `REAL` is a synonym for [FLOAT](float.md) rather than [DOUBLE](double.md).
+Exception: If the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled, `REAL` is a synonym for [FLOAT](float.md) rather than [DOUBLE](double.md).
 
 ## EXAMPLES
 
@@ -23,10 +29,9 @@ CREATE TABLE double_precision_example (
 
 ```sql
 SHOW CREATE TABLE double_precision_example\G
-<</code>>
+```
 
-<<sql>>
-
+```sql
 *************************** 1. row ***************************
        Table: double_precision_example
 Create Table: CREATE TABLE `double_precision_example` (

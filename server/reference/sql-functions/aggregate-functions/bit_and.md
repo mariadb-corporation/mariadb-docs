@@ -1,8 +1,14 @@
+---
+description: >-
+  Perform a bitwise AND operation. This function returns the result of
+  performing a bitwise AND on all values in a given expression.
+---
+
 # BIT\_AND
 
 ## Syntax
 
-```sql
+```bnf
 BIT_AND(expr) [over_clause]
 ```
 

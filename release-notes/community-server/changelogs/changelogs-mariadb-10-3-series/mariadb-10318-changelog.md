@@ -1,14 +1,14 @@
 # MariaDB 10.3.18 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.18/)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10318-release-notes.md)[Changelog](mariadb-10318-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.18/)[Release Notes](../../old-releases/10.3/10.3.18.md)[Changelog](mariadb-10318-changelog.md)[Overview of 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 
 **Release date:** 11 Sep 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10318-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.18.md).
 
-The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
+The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more
 details of the revision and view diffs of the code modified in that revision.
 
 * Includes all fixes from [MariaDB 10.2.27](../changelogs-mariadb-102-series/mariadb-10227-changelog.md)
@@ -136,7 +136,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20138](https://jira.mariadb.org/browse/MDEV-20138) innodb.trx\_id\_future fails on 10.3+
 * [Revision #20c78a6d3e](https://github.com/MariaDB/server/commit/20c78a6d3e)\
   2019-08-13 13:54:59 +0400
-  * Fixing `[MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) SPACE(-1) returns a wrong data type` compilation problem in Windows
+  * Fixing [MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) (SPACE(-1) returns a wrong data type): compilation problem in Windows
 * [Revision #98b24da038](https://github.com/MariaDB/server/commit/98b24da038)\
   2018-11-03 18:00:22 +0300
   * [MDEV-17609](https://jira.mariadb.org/browse/MDEV-17609) mysql client sets wrong application name for Readline library
@@ -163,7 +163,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20303](https://jira.mariadb.org/browse/MDEV-20303) SPACE(-1) returns a wrong data type
 * [Revision #2dac123515](https://github.com/MariaDB/server/commit/2dac123515)\
   2019-08-09 09:00:17 +0400
-  * A cleanup for `[MDEV-20273](https://jira.mariadb.org/browse/MDEV-20273) Add class Item_sum_min_max` - removing duplicate code
+  * A cleanup for [MDEV-20273](https://jira.mariadb.org/browse/MDEV-20273) (Add class `Item_sum_min_max`) - removing duplicate code
 * [Revision #c3d67c17c1](https://github.com/MariaDB/server/commit/c3d67c17c1)\
   2019-08-08 17:08:56 +0400
   * [MDEV-20292](https://jira.mariadb.org/browse/MDEV-20292) REPEAT(x,-1) returns a wrong data type
@@ -203,6 +203,6 @@ details of the revision and view diffs of the code modified in that revision.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

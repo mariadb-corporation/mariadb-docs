@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains the client/server architecture, central components (Supermax,
+  Grafana, Prometheus), and local agents (OpenTelemetry, exporters).
+---
+
 # Architecture Overview
 
 MariaDB Enterprise Manager is a client/server application for monitoring and managing MariaDB deployments. It provides topology-aware monitoring, visual schema management, and query editing across multiple database connections.
@@ -8,7 +14,7 @@ The architecture consists of two primary components: a central **Enterprise Mana
 
 ## Enterprise Manager Server
 
-The Enterprise Manager Server runs on a dedicated host and acts as the central command center. It is delivered as a suite of Docker containers managed by Docker Compose.
+The Enterprise Manager Server runs on a dedicated host and acts as the central command center. It is delivered as a suite of container images managed by container engine (Docker or Podman).
 
 <figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
@@ -42,3 +48,7 @@ For the system to function correctly, the following firewall ports must be open 
 
 * `8090` (_HTTP/S_): The main entry point for the web UI. Nginx listens on this port and proxies requests to Supermax and Grafana.
 * `4318` (_HTTP/S_): Agents on monitored nodes push telemetry data to this port.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

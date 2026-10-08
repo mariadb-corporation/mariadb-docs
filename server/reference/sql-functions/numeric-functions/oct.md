@@ -1,8 +1,14 @@
+---
+description: >-
+  Convert to octal. This function returns the octal string representation of a
+  numeric argument.
+---
+
 # OCT
 
 ## Syntax
 
-```sql
+```bnf
 OCT(N)
 ```
 

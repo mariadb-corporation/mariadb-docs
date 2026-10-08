@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to manage InnoDB undo logs in MariaDB Enterprise Server, including
+  moving them to separate tablespaces and enabling truncation.
+---
+
 # Configure the InnoDB Undo Log
 
 ## Overview
@@ -191,6 +197,6 @@ innodb_max_undo_log_size=2G
 innodb_purge_rseg_truncate_frequency=64
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

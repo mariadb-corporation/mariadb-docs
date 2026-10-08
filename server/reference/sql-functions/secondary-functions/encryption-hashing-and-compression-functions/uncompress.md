@@ -1,8 +1,14 @@
+---
+description: >-
+  Uncompress a compressed string. This function uncompresses a binary string
+  compressed by the COMPRESS function.
+---
+
 # UNCOMPRESS
 
 ## Syntax
 
-```sql
+```bnf
 UNCOMPRESS(string_to_uncompress)
 ```
 

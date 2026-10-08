@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the type of a JSON value. This function returns a string indicating the
+  type of a JSON value (e.g., OBJECT, ARRAY, INTEGER).
+---
+
 # JSON\_TYPE
 
 ## Syntax
 
-```sql
+```bnf
 JSON_TYPE(json_val)
 ```
 

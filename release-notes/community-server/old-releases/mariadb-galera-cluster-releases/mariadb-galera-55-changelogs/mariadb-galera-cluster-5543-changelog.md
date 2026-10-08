@@ -1,16 +1,15 @@
 # MariaDB Galera Cluster 5.5.43 Changelog
 
-The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
+The most recent [MariaDB Galera Cluster 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) release is:[**MariaDB Galera Cluster 5.5.63**](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5563-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb-galera/5.5.63)
 
-[Download](https://downloads.mariadb.org/mariadb-galera/5.5.43)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5543-release-notes.md)[Changelog](mariadb-galera-cluster-5543-changelog.md)[Overview of MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/what-is-mariadb-galera-cluster/README.md)
+[Download](https://downloads.mariadb.org/mariadb-galera/5.5.43)[Release Notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5543-release-notes.md)[Changelog](mariadb-galera-cluster-5543-changelog.md)[Overview of MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide)
 
 **Release date:** 15 May 2015
 
 For the highlights of this release, see the [release notes](../mariadb-galera-55-release-notes/mariadb-galera-cluster-5543-release-notes.md).
 
 The revision number links will take you to the revision's page on Github. On\
-Github you can view more details of the revision and view diffs of the code\
-modified in that revision.
+Github you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #014fe12](https://github.com/MariaDB/server/commit/014fe12)\
   2015-05-12 14:19:30 -0400
@@ -183,7 +182,7 @@ modified in that revision.
   * [MDEV-7814](https://jira.mariadb.org/browse/MDEV-7814) Assertion \`args\[0]->fixed' fails in Item\_func\_conv\_charset::Item\_func\_conv\_charset Removing a wrong assertion.
 * [Revision #b9a7586](https://github.com/MariaDB/server/commit/b9a7586)\
   2015-03-05 16:34:13 +0100
-  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md) server crash on update table left join with a view
+  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../5.5/5.5.40.md) server crash on update table left join with a view
 * [Revision #83ce352](https://github.com/MariaDB/server/commit/83ce352)\
   2015-04-14 13:26:55 +1000
   * quote table name in mysql\_check:is\_view. increment version too
@@ -321,6 +320,6 @@ modified in that revision.
 
 {% include "../../../../.gitbook/includes/announce.md" %}
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formid="4316" formId="4316" %}

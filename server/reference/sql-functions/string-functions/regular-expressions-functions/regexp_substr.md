@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the substring matching a regex. This function extracts the actual part
+  of the string that matches the given pattern.
+---
+
 # REGEXP\_SUBSTR
 
 ## Syntax
 
-```sql
+```bnf
 REGEXP_SUBSTR(subject,pattern)
 ```
 
@@ -29,6 +35,7 @@ SELECT REGEXP_SUBSTR(
   'https?://[^/]*');
 -> https://mariadb.org
 ```
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

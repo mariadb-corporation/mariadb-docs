@@ -1,12 +1,15 @@
 ---
 description: >-
-  MariaDB Galera Cluster is a virtually synchronous multi-master cluster that
-  runs on Linux only. Its Enterprise version is MariaDB Enterprise Cluster
-  (powered by Galera).
+  Complete MariaDB Galera Cluster guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 icon: circle-nodes
 ---
 
 # MariaDB Galera Cluster
+
+{% hint style="info" %}
+📄 Read offline: [mariadb-galera-cluster.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-galera-cluster.pdf) (~270 pages, 4.7 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
 
 {% content-ref url="galera-cluster-quickstart-guides/" %}
 [galera-cluster-quickstart-guides](galera-cluster-quickstart-guides/)
@@ -14,6 +17,10 @@ icon: circle-nodes
 
 {% content-ref url="galera-management/" %}
 [galera-management](galera-management/)
+{% endcontent-ref %}
+
+{% content-ref url="galera-architecture/" %}
+[galera-architecture](galera-architecture/)
 {% endcontent-ref %}
 
 {% content-ref url="galera-security/" %}
@@ -32,8 +39,6 @@ icon: circle-nodes
 [reference](reference/)
 {% endcontent-ref %}
 
-
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
-<!-- This page is: Copyright 2025, MariaDB -->
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

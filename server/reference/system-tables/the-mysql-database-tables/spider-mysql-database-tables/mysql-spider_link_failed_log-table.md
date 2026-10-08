@@ -1,3 +1,9 @@
+---
+description: >-
+  This table logs failures when attempting to establish connections to remote
+  Spider links, helping to diagnose network or configuration issues.
+---
+
 # mysql.spider\_link\_failed\_log Table
 
 The `mysql.spider_link_failed_log` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

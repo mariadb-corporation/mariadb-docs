@@ -1,13 +1,25 @@
+---
+description: >-
+  MariaDB Galera Cluster offers three DDL methods for schema upgrades: Total
+  Order Isolation (the safe blocking default), Rolling Schema Upgrade, and
+  Non-Blocking Operations.
+---
+
 # Performing Schema Upgrades in Galera Cluster
 
 Performing schema changes (i.e., Data Definition Language or DDL statements like `ALTER TABLE`, `CREATE INDEX`) in a MariaDB Galera Cluster requires special handling. Because Galera is a [multi-primary cluster](../../galera-architecture/introduction-to-galera-architecture.md) where all nodes must remain in sync, a schema change on one [node](../../high-availability/monitoring-mariadb-galera-cluster.md#checking-individual-node-status) must be safely replicated to all other nodes without causing inconsistencies or blocking the entire cluster for an extended period.
 
 MariaDB Galera Cluster provides two methods for handling schema upgrades:
 
-| Method                       | Description                                                                                                                                               |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Total Order Isolation (TOI)  | Default and safest method. The DDL statement is replicated to all nodes, blocking the entire cluster until all preceding transactions complete.           |
-| Rolling Schema Upgrade (RSU) | Advanced, non-blocking method. The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online. |
+| Method                                     | Description                                                                                                                                                                                              |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Total Order Isolation (TOI)                | Default and safest method. The DDL statement is replicated to all nodes, blocking the entire cluster until all preceding transactions complete.                                                          |
+| Rolling Schema Upgrade (RSU)               | Advanced, non-blocking method. The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online.                                                |
+| Non-Blocking Operations (NBO)<sup>\*</sup> | Enterprise grade non-blocking method. The DDL replicates to all nodes in total order, using an efficient locking strategy that only blocks the specific table being altered, keeping the cluster online. |
+
+{% hint style="info" %}
+<sup>\*Only available for MariaDB Enterprise Server</sup>&#x20;
+{% endhint %}
 
 The method used is controlled by the `wsrep_OSU_method` [session variable](../../reference/galera-cluster-system-variables.md#wsrep_osu_method).
 
@@ -20,7 +32,8 @@ Total Order Isolation is the default method for schema upgrades (`wsrep_OSU_meth
 When you execute a DDL statement, such as `ALTER TABLE...`, on any node in a cluster, the following process occurs:
 
 1. **Replication**: The statement is replicated across all nodes in the cluster.
-2. **Transaction Wait**: Each node waits for any pre-existing transactions to complete before proceeding.
+2. **Transaction Wait**: Each node waits for transactions that have already been certified (i.e., those already in commit mode) to complete. \
+   Active transactions that have not been committed yet are terminated and rolled back immediately. On their next statement, the client will receive `ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction`, and the TOI operation proceeds without waiting.
 3. **Execution**: Once caught up, the node executes the DDL statement.
 4. **Resume Processing**: After execution, the node can process new transactions.
 
@@ -55,7 +68,7 @@ The RSU method tells the cluster to not replicate the DDL statement. The change 
    On the first node, set the session to `RSU` mode:\
    `SET SESSION wsrep_OSU_method = 'RSU';`
 2. **Remove the Node from Rotation:**\
-   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#id-2.-recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
+   Remove the node from the [load balancer](../../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md#recommended-load-balancer-mariadb-maxscale) to stop it from receiving traffic.
 3. **Apply the Schema Change:**\
    Execute the DDL statement (e.g., `ALTER TABLE...`) on the isolated node.
 4. **Return the Node to Rotation:**\
@@ -81,5 +94,76 @@ RSU is the best method for:
 * Environments where high availability is the top priority.
 
 It requires careful planning and a good understanding of your application's queries to ensure that no replication errors occur during the upgrade process.
+
+## Non-Blocking Operations (NBO)
+
+{% hint style="info" %}
+Non-Blocking Operations is exclusive to MariaDB Enterprise Server.&#x20;
+{% endhint %}
+
+Non-Blocking Operations is an advanced, non-blocking method (`wsrep_OSU_method = 'NBO'`) that replicates schema changes automatically across the cluster while significantly reducing the impact on cluster availability.
+
+### **How NBO Works**
+
+Like the TOI method, NBO replicates DDL statements to all nodes in the cluster simultaneously. Nodes wait for all preceding transactions to commit before executing the schema change in the same total order sequence. However, NBO utilizes a much more efficient locking strategy that only blocks access to the specific table being altered, allowing the rest of the cluster to continue processing unrelated transactions.
+
+#### **Steps to Apply Schema Changes to a Cluster using NBO**
+
+1.  Set the NBO Method: It is highly recommended to set this at the session level to avoid accidentally running unsupported DDL (like `CREATE`) under this mode.
+
+    ```sql
+    SET SESSION wsrep_OSU_method = 'NBO';
+    ```
+2. Verify Application Connectivity: Ensure no clients have long-running open transactions that include the target table, as this can cause the initial table-locking phase to block the cluster.
+3.  Execute the DDL with explicit LOCK: Execute your `ALTER TABLE` statement ensuring you include a mandatory `SHARED` or `EXCLUSIVE` lock clause.
+
+    * Using SHARED: Allows other clients to read from the table during the alter, but blocks writes.
+    * Using EXCLUSIVE: Blocks both reads and writes to that specific table.
+
+    ```sql
+    ALTER TABLE my_table LOCK SHARED, ADD COLUMN new_col INT;
+    ```
+4. Confirm Completion: The statement will complete automatically across all nodes in the same total order sequence. You can monitor the operation's persistence even if a node crashes during the process.
+5.  Revert to Default Method (Optional): After the operation, return the session to the default method for safety.
+
+    ```sql
+    SET SESSION wsrep_OSU_method = 'TOI';
+    ```
+
+### **Advantages of NBO**
+
+* Cluster Availability: You can continue to process DML (inserts, updates, deletes) on all tables in the cluster except for the one currently being modified.
+* Automatic Consistency: Unlike RSU, changes are applied automatically and consistently across all nodes in total order without manual intervention.
+* Parallel Operations: You can execute another NBO alter on a different table while an existing NBO operation is already in progress.
+* Fault Tolerance: If one node crashes during the operation, the DDL will continue on the remaining nodes and persist if successful.
+
+### **Disadvantages of NBO**
+
+* Table-Level Locking: Writes to the table being altered are completely blocked until the operation is finished. If `LOCK EXCLUSIVE` is used, read operations are also blocked.
+* SST and IST Impact: Nodes cannot serve as donors for State Snapshot Transfers (SST) while an NBO operation is running. Furthermore, any node that leaves the cluster during the DDL becomes inconsistent and can only rejoin via a full SST, not an IST.
+* Syntax Requirements: NBO has strict requirements for SQL syntax and does not support many common DDL statements like `CREATE TABLE`, `RENAME`, `REPAIR`, or `ANALYZE TABLE`.
+
+### **Key Considerations for NBO Syntax**
+
+NBO supports only a specific set of DDL statements. To use NBO, the statement must meet these criteria:
+
+* **Explicit locking:** `ALTER TABLE` and `CREATE INDEX` statements must include an explicit `LOCK = SHARED` or `LOCK = EXCLUSIVE` clause. A statement with no `LOCK` clause, or with `LOCK = DEFAULT` or `LOCK = NONE`, is **not** supported.
+* **Supported statements:** `ALTER TABLE ... LOCK = {SHARED | EXCLUSIVE}` (including the partition-management form), `CREATE INDEX ... LOCK = {SHARED | EXCLUSIVE}`, `DROP INDEX`, `DROP TABLE` (supported since MariaDB Enterprise Server 10.6.18-14), and `OPTIMIZE TABLE`.
+* **Unsupported statements:** `CREATE TABLE`, `RENAME`, `REPAIR`, and `ANALYZE TABLE`.
+* **Single-table check:** only `OPTIMIZE TABLE` explicitly rejects statements that operate on more than one table.
+
+{% hint style="warning" %}
+Running an unsupported statement while `wsrep_OSU_method = 'NBO'` **returns an error** rather than falling back to another method. For this reason, set NBO at the session level for the specific statements that support it — never server-wide — and run `CREATE TABLE`, `ANALYZE TABLE`, and similar statements under the default `TOI` method.
+{% endhint %}
+
+### **When to Use NBO**
+
+NBO is the best method for:
+
+* Applying long-running `ALTER TABLE` statements where you need to maintain global schema consistency automatically without manual steps.
+* Environments that require high availability for the majority of the database while a specific table is being upgraded.
+* Standard maintenance operations such as `OPTIMIZE TABLE` on large tables.
+
+To ensure cluster stability, it is recommended to enable NBO only for specific sessions running compatible DDL rather than on a server-wide basis. SQL statements such as `CREATE TABLE` and `ANALYZE TABLE` should always be executed using the Total Order Isolation (TOI) method to avoid schema conflict
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,6 +1,12 @@
+---
+description: >-
+  Best practices and procedures for performing rolling updates and version
+  upgrades for MariaDB Enterprise Server and MaxScale without downtime.
+---
+
 # Updates
 
-By leveraging the automation provided by MariaDB Enterprise Operator, you can declaratively manage large fleets of databases using CRs. This also covers day two operations, such as upgrades, which can be risky when rolling out updates to thousands of instances simultaneously.
+By leveraging the automation provided by MariaDB Enterprise Kubernetes Operator, you can declaratively manage large fleets of databases using CRs. This also covers day two operations, such as upgrades, which can be risky when rolling out updates to thousands of instances simultaneously.
 
 To mitigate this, and to give you full control on the upgrade process, you are able to choose between multiple update strategies described in the following sections.
 
@@ -23,8 +29,10 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   updateStrategy:
     type: ReplicasFirstPrimaryLast
+  # [...]
 ```
 
 It defaults to `ReplicasFirstPrimaryLast` if not provided.
@@ -39,7 +47,7 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
 - image: docker.mariadb.com/enterprise-server:10.6.18-14.2
 + image: docker.mariadb.com/enterprise-server:10.6.19-15.1
   resources:
@@ -49,6 +57,7 @@ spec:
     limits:
 -     memory: 1Gi
 +     memory: 2Gi
+  # [...]
 ```
 
 Once the update is triggered, the operator manages it differently based on the selected update strategy.
@@ -73,11 +82,12 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
+  # [...]
 ```
 
 ## `OnDelete`
@@ -116,22 +126,24 @@ The operator will not perform updates on the `StatefulSet` whenever this update 
 
 ## Data-plane updates
 
-Galera relies on [data-plane containers](galera-cluster.md#data-plane) that run alongside MariaDB to implement provisioning and high availability operations on the cluster. These containers use the `mariadb-enterprise-operator` image, which can be automatically updated by the operator based on its image version:
+Highly available topologies rely on [data-plane containers](topologies/data-plane.md) that run alongside MariaDB to enable the remote management of the database instances. These containers use the `mariadb-enterprise-operator` image, which can be automatically updated by the operator based on its image version:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
-  name: mariadb-galera
+  name: mariadb-repl
 spec:
+  # [...]
   updateStrategy:
     autoUpdateDataPlane: true
+  # [...]
 ```
 
 By default, `updateStrategy.autoUpdateDataPlane` is `false`, which means that no automatic upgrades will be performed, but you can opt-in/opt-out from this feature at any point in time by updating this field. For instance, you may want to selectively enable `updateStrategy.autoUpdateDataPlane` in a subset of your `MariaDB` instances after the operator has been upgraded to a newer version, and then disable it once the upgrades are completed.
 
 It is important to note that this feature is fully compatible with the [Never](updates.md#never) strategy: no upgrades will happen when `updateStrategy.autoUpdateDataPlane=true` and `updateStrategy.type=Never`.
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

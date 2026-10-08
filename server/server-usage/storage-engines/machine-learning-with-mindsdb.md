@@ -1,4 +1,14 @@
+---
+description: >-
+  Learn how to integrate MindsDB with MariaDB to train and query machine
+  learning models directly using standard SQL commands.
+---
+
 # Machine Learning with MindsDB
+
+{% hint style="info" %}
+MindsDB is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
+{% endhint %}
 
 ## Overview
 

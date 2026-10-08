@@ -1,8 +1,14 @@
+---
+description: >-
+  Decrypt a string. This function decrypts an encrypted string using a password.
+  It is the reverse of the ENCODE function.
+---
+
 # DECODE
 
 ## Syntax
 
-```sql
+```bnf
 DECODE(crypt_str,pass_str)
 ```
 

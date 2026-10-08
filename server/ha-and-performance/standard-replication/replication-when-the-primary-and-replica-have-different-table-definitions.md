@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about replication challenges when primary & replica servers have
-  differing table definitions. The section explores strategies to manage
-  inconsistencies & ensure data integrity in such scenarios.
+  Understand the rules and limitations when replicating between tables with
+  differing structures. Learn how attribute promotion and column handling work
+  in row-based replication.
 ---
 
 # Replication When the Primary and Replica Have Different Table Definitions
@@ -13,17 +13,17 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 While replication is usually meant to take place between primaries and replicas with the same table definitions and this is recommended, in certain cases replication can still take place even if the definitions are identical.
 
-Tables on the replica and the primary do not need to have the same definition in order for [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to take place. There can be differing numbers of columns, or differing data definitions and, in certain cases, replication can still proceed.
+Tables on the replica and the primary do not need to have the same definition in order for [replication](./) to take place. There can be differing numbers of columns, or differing data definitions and, in certain cases, replication can still proceed.
 
 ## Different Column Definitions - Attribute Promotion and Demotion
 
 It is possible in some cases to replicate to a replica that has a column of a different type on the replica and the primary. This process is called attribute promotion (to a larger type) or attribute demotion (to a smaller type).
 
-The conditions differ depending on whether [statement-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) or [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based) is used.
+The conditions differ depending on whether [statement-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) is used.
 
 ### Statement-Based Replication
 
-When using [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based), generally, if a statement can run successfully on the replica, it will be replicated. If a column definition is the same or a larger type on the replica than on the primary, it can replicate successfully. For example a column defined as [VARCHAR(10)](../../../reference/data-types/string-data-types/varchar.md) will successfully be replicated on a replica with a definition of `VARCHAR(12)`.
+When using [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), generally, if a statement can run successfully on the replica, it will be replicated. If a column definition is the same or a larger type on the replica than on the primary, it can replicate successfully. For example, a column defined as [VARCHAR(10)](../../reference/data-types/string-data-types/varchar.md) will successfully be replicated on a replica with a definition of `VARCHAR(12)`.
 
 Replicating to a replica where the column is defined as smaller than on the primary can also work. For example, given the following table definitions:
 
@@ -82,7 +82,7 @@ Last_Error: Error 'Data too long for column 'v' at row 1' on query.
 
 ### Row-Based Replication
 
-When using [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based), the value of the [slave\_type\_conversions](replication-and-binary-log-system-variables.md) variable is important. The default value of this variable is empty, in which case MariaDB will not perform attribute promotion or demotion. If the column definitions do not match, replication will stop. If set to `ALL_NON_LOSSY`, safe replication is permitted. If set to `ALL_LOSSY` as well, replication will be permitted even if data loss takes place.
+When using [row-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging), the value of the [slave\_type\_conversions](replication-and-binary-log-system-variables.md) variable is important. The default value of this variable is empty, in which case MariaDB will not perform attribute promotion or demotion. If the column definitions do not match, replication will stop. If set to `ALL_NON_LOSSY`, safe replication is permitted. If set to `ALL_LOSSY` as well, replication will be permitted even if data loss takes place.
 
 For example:
 
@@ -117,7 +117,7 @@ SHOW VARIABLES LIKE 'slave_ty%';
 +-------+------------+------+-----+---------+-------+
 ```
 
-The following query will fail:
+The following query fails:
 
 ```sql
 INSERT INTO r VALUES (3,'c');
@@ -154,15 +154,16 @@ SHOW SLAVE STATUS\G;
 
 #### Supported Conversions
 
-* Between [TINYINT](../../reference/data-types/numeric-data-types/tinyint.md), [SMALLINT](../../reference/data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../reference/data-types/numeric-data-types/mediumint.md), [INT](../../reference/data-types/numeric-data-types/int.md) and [BIGINT](../../reference/data-types/numeric-data-types/bigint.md). If lossy conversion is supported, the value from the primary will be converted to the maximum or minimum permitted on the replica, which non-lossy conversions require the replica column to be large enough. For example, SMALLINT UNSIGNED can be converted to MEDIUMINT, but not SMALLINT SIGNED.
+* Between [TINYINT](../../reference/data-types/numeric-data-types/tinyint.md), [SMALLINT](../../reference/data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../reference/data-types/numeric-data-types/mediumint.md), [INT](../../reference/data-types/numeric-data-types/int.md) and [BIGINT](../../reference/data-types/numeric-data-types/bigint.md). If lossy conversion is supported, the value from the primary will be converted to the maximum or minimum permitted on the replica, which non-lossy conversions require the replica column to be large enough. For example, `SMALLINT UNSIGNED` can be converted to `MEDIUMINT`, but not `SMALLINT SIGNED`.
 
 ## Different Number or Order of Columns
 
 Replication can also take place when the primary and replica have a different number of columns if the following criteria are met:
 
-* columns must be in the same order on the primary and replica
-* common columns must be defined with the same data type
-* extra columns must be defined after the common columns
+* Columns are in the same order on the primary and replica.
+* Common columns are defined with the same data type.
+* Extra columns are defined after the common columns.
+* The primary is configured with `binlog_row_metadata=FULL` and the replica runs on MariaDB 12.3 or higher (note option `slave_type_conversions=ERROR_IF_MISSING_FIELD`).
 
 ### Row-Based
 
@@ -244,6 +245,24 @@ SELECT * FROM r;
 +------+------+------+
 ```
 
+## ALTER TABLE Issues
+
+### Row-Based Replication
+
+In row-based multi-master replication, [`ALTER TABLE`](../../reference/sql-statements/data-definition/alter/alter-table/) statements can make replication fail.
+
+`ALTER TABLE` works fine when columns are added to the end of the table definition. When columns are deleted or added in the middle of a table, though, this causes subsequent DML[^1] queries to fail.
+
+{% hint style="info" %}
+The following functionality is available from MariaDB 12.3.
+{% endhint %}
+
+The solution to this problem is to **start master servers with** [**`--binlog_row_metadata`**](replication-and-binary-log-system-variables.md#binlog_row_metadata)**`=full`**. With that setting, the master writes column names to the [binary log](../../server-management/server-monitoring-logs/binary-log/). The replicas receiving binlog events can then look up the columns using column names.
+
+The solution to the other problem, deleting columns in the middle of a table, is addressed by **configuring the replica with** [**`--slave_type_conversions`**](replication-and-binary-log-system-variables.md#slave_type_conversions)**`=ignore_missing_columns`**.
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.

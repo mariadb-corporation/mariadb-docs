@@ -1,8 +1,15 @@
+---
+description: >-
+  Learn about the JSON_COMPACT function in MariaDB. This function removes all
+  unnecessary whitespace from a JSON document, minimizing its size for efficient
+  storage and transmission.
+---
+
 # JSON\_COMPACT
 
 ## Syntax
 
-```sql
+```bnf
 JSON_COMPACT(json_doc)
 ```
 

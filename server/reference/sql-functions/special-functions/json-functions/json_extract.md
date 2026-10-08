@@ -1,8 +1,15 @@
+---
+description: >-
+  Complete JSON_EXTRACT() reference: JSON_EXTRACT(json_doc, path[, path]...)
+  syntax, JSONPath arguments, NULL/error behavior, and multi-match array
+  autowrap.
+---
+
 # JSON\_EXTRACT
 
 ## Syntax
 
-```sql
+```bnf
 JSON_EXTRACT(json_doc, path[, path] ...)
 ```
 
@@ -45,6 +52,7 @@ SELECT JSON_EXTRACT(@json, '$[2][1]');
 
 ## See Also
 
+* [JSON Arrow Operators](json-arrow-operators.md) — the `->` operator is shorthand for `JSON_EXTRACT()`.
 * [JSON video tutorial](https://www.youtube.com/watch?v=sLE7jPETp8g) covering JSON\_EXTRACT.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

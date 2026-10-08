@@ -1,3 +1,9 @@
+---
+description: >-
+  Covers status variables related to catalog operations and performance, useful
+  for monitoring multi-tenant environments.
+---
+
 # Catalog Status Variables
 
 {% include "../../../.gitbook/includes/catalogs.md" %}
@@ -16,7 +22,7 @@ SHOW CATALOG STATUS;
 ```
 
 Both commands show the status for the current catalog.\
-The reason that `GLOBAL` shows catalog status is that because catalogs are 'multi-tenant', a\
+The reason that `GLOBAL` shows catalog status is that because catalogs are 'multi-tenant', a
 catalog user should not be able to see the status from other users (for most things).
 
 ```sql

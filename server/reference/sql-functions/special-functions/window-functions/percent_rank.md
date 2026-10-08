@@ -1,11 +1,17 @@
+---
+description: >-
+  Calculate relative rank. This function returns the percentage rank of the
+  current row within its partition, ranging from 0 to 1.
+---
+
 # PERCENT\_RANK
 
 ## Syntax
 
-```sql
+```bnf
 PERCENT_RANK() OVER (
   [ PARTITION BY partition_expression ] 
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

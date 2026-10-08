@@ -1,3 +1,10 @@
+---
+description: >-
+  Compile MariaDB Connector/C after configuration using CMake on Windows or
+  Unix. Supports Visual Studio builds and GNU make, with both IDE and
+  command-line build options.
+---
+
 # Compiling Connector/C
 
 After successful configuration, Connector/C can now be compiled.
@@ -32,5 +39,6 @@ or
 cmake --build . --config Release
 ```
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

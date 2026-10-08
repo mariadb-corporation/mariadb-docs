@@ -1,3 +1,9 @@
+---
+description: >-
+  LONG CHARACTER VARYING is a compatibility synonym for the MEDIUMTEXT string
+  data type.
+---
+
 # LONG CHARACTER VARYING
 
 ## Overview
@@ -24,6 +30,6 @@ Create Table: CREATE TABLE `long_character_varying_example` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

@@ -10,16 +10,16 @@ noIndex: true
 
 * MariaDB Server 5.5.35 was released on 29 Jan 2014.
 * Please note: Newer releases exist within the MariaDB Server 5.5 release series.
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5535-release-notes)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.35)
 * MariaDB Server is open source software. [Source code is available.](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity.
-* This release contains [security content](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5535-release-notes)
+* This release contains [security content](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.35)
 
 ## About this Release Series
 
 * This release is part of the MariaDB Server 5.5 release series.
 * The MariaDB Server 5.5 release series will be supported until April 2020.
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* [What's new in this release series?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 ## Release History
 
@@ -35,6 +35,6 @@ noIndex: true
 * [Contact Us](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/about/contact-us)
 * [Learn about the MariaDB Community](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community)
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

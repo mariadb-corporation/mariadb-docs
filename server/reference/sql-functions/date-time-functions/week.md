@@ -1,8 +1,14 @@
+---
+description: >-
+  Return the week number. This function returns the week number for a date, with
+  an optional mode to define the start of the week.
+---
+
 # WEEK
 
 ## Syntax
 
-```sql
+```bnf
 WEEK(date[,mode])
 ```
 

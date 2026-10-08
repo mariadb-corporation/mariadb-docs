@@ -31,11 +31,48 @@ You can identify the following attributes:
 
 Based on these entities and relationships, you can construct the entity-relationship diagram shown below:
 
-![poets-circle-erd1](../../.gitbook/assets/poets-circle-erd1.png)
+```mermaid
+erDiagram
+    accTitle: Poet's Circle entity-relationship diagram with many-to-many relationships
+    accDescr {
+        The initial entity-relationship diagram for the Poet's Circle example. A Poet writes
+        zero or many Poems. A Poem appears in many Publications and a Publication contains many
+        Poems, so Poem and Publication have a many-to-many relationship. A Sale is for many
+        Publications and a Publication is sold in many Sales, so Sale and Publication also have
+        a many-to-many relationship. A Customer makes zero or many Sales.
+    }
+    POET ||--o{ POEM : "Writes"
+    POEM }o--o{ PUBLICATION : "Appears in"
+    SALE }o--o{ PUBLICATION : "Is for"
+    CUSTOMER ||--o{ SALE : "Is made to"
+```
+
+_The initial diagram has two many-to-many relationships: Poem–Publication ("Appears in") and Sale–Publication ("Is for")._
 
 There are two many-to-many relationships in the figure above. These need to be converted into one-to-many relationships before you can implement them in a DBMS. After doing so, the intersection entities _poem-publication_ and _sale-publication_ are created.
 
-![poets-circle-erd2](../../.gitbook/assets/poets-circle-erd2.png)
+```mermaid
+erDiagram
+    accTitle: Poet's Circle entity-relationship diagram after resolving many-to-many relationships
+    accDescr {
+        The revised entity-relationship diagram for the Poet's Circle example, with the two
+        many-to-many relationships resolved into one-to-many relationships using intersection
+        entities. A Poet writes zero or many Poems. The Poem-publication intersection entity
+        links Poems and Publications: a Poem appears in zero or many Poem-publication records
+        and a Publication contains zero or many Poem-publication records. The Sale-publication
+        intersection entity links Sales and Publications: a Publication makes zero or many
+        Sale-publication records and a Sale is for zero or many Sale-publication records. A
+        Customer makes zero or many Sales.
+    }
+    POET ||--o{ POEM : "Writes"
+    POEM ||--o{ "Poem-publication" : "Appears in"
+    PUBLICATION ||--o{ "Poem-publication" : "Contains"
+    PUBLICATION ||--o{ "Sale-publication" : "Makes"
+    SALE ||--o{ "Sale-publication" : "Is for"
+    CUSTOMER ||--o{ SALE : "Is made to"
+```
+
+_After resolution: the intersection entities Poem-publication and Sale-publication turn each many-to-many relationship into two one-to-many relationships._
 
 Now, to begin the logical and physical design, you need to add attributes that can create the relationship between the entities and specify primary keys. You do what's usually best, and create new, unique, primary keys. The following tables show the structures for the tables created from each of the entities:
 

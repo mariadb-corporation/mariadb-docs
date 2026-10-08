@@ -1,3 +1,9 @@
+---
+description: >-
+  A list of status variables specific to the Aria engine, providing metrics on
+  page cache usage, transaction log syncs, and other internal operations.
+---
+
 # Aria Status Variables
 
 This page documents status variables related to the [Aria storage engine](./). See [Server Status Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).

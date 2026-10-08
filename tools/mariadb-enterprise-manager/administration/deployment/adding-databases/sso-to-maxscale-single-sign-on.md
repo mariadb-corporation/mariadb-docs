@@ -1,10 +1,16 @@
+---
+description: >-
+  Instructions for configuring Single Sign-On (SSO) integration to seamlessly
+  access the MaxScale GUI directly from MariaDB Enterprise Manager.
+---
+
 # SSO to MaxScale (Single Sign-On)
 
 For topologies managed by MaxScale, you can seamlessly access the MaxScale GUI directly from Enterprise Manager using Single Sign-On.SSO to MaxScale requires MaxScale 25.10.0 or higher.1
 
 {% stepper %}
 {% step %}
-### &#x20;Accessing the MaxScale GUI <a href="#accessing-the-maxscale-gui" id="accessing-the-maxscale-gui"></a>
+**Accessing the MaxScale GUI**
 
 1. Click the three-dot menu (⋮) next to a MaxScale node.
 2. Select "Manage MaxScale".
@@ -13,7 +19,7 @@ For topologies managed by MaxScale, you can seamlessly access the MaxScale GUI d
 {% endstep %}
 
 {% step %}
-### Configuring SSO in `maxscale.cnf` <a href="#configuring-sso-in-maxscale.cnf" id="configuring-sso-in-maxscale.cnf"></a>
+**Configuring SSO in `maxscale.cnf`**
 
 To enable SSO, add the following parameters to your MaxScale configuration file (`maxscale.cnf`) on the MaxScale host:
 
@@ -34,3 +40,7 @@ admin_oidc_client_secret=mariadb
 ```
 {% endstep %}
 {% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

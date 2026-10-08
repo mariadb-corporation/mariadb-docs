@@ -1,12 +1,18 @@
+---
+description: >-
+  Convert to string. This function converts a value (often date/time) to a
+  string, potentially using a format mask.
+---
+
 # TO\_CHAR
 
 {% hint style="info" %}
-`TO_CHAR` is available from [MariaDB 10.6.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)
+`TO_CHAR` is available from [MariaDB 10.6.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 {% endhint %}
 
 ## Syntax
 
-```sql
+```bnf
 TO_CHAR(expr[, fmt])
 ```
 
@@ -14,25 +20,61 @@ TO_CHAR(expr[, fmt])
 
 {% tabs %}
 {% tab title="Current" %}
-The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
 
-FM can be specified multiple times, with each time disabling the previous state:
+The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
 
-* an odd number of FMs disables padding
-* an even number of FMs enables padding
+`FM` can be specified multiple times, with each time disabling the previous state:
+
+* An odd number of `FM`s disables padding.
+* An even number of `FM`s enables padding.
+
+These additional formats (for _`fmt`_) are available:
+
+* `FF[1-6]` – Fractional seconds
+* `DDD` – Day (1-366)
+* `IW` – Week 1-53 according to ISO 8601
+* `I` – 1-digit year according to ISO 8601
+* `IY` – 2-digit year according to ISO 8601
+* `IYY` – 3-digit year according to ISO 8601
+* `IYYY` – 4-digit year according to ISO 8601
+* `SYYY` – 4-digit year according to ISO 8601 (Oracle can use signed years)
 {% endtab %}
 
-{% tab title="< MariaDB 12.0" %}
-The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`.
+{% tab title="< 12.3" %}
+{% hint style="info" %}
+From MariaDB 12.0 to before MariaDB 12.3:
+{% endhint %}
+
+The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
+
+`FM` can be specified multiple times, with each time disabling the previous state:
+
+* An odd number of `FM`s disables padding.
+* An even number of `FM`s enables padding.
+{% endtab %}
+
+{% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
+The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _`fmt`_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`.
 {% endtab %}
 {% endtabs %}
 
-In Oracle, `TO_CHAR` can also be used to convert numbers to strings, but this is not supported in MariaDB and will give an error.
+In Oracle, `TO_CHAR` can also be used to convert numbers to strings, but this is not supported in MariaDB and gives an error.
 
 ## Examples
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 ```sql
 SELECT TO_CHAR('1980-01-11 04:50:39', 'YYYY-MM-DD');
 +----------------------------------------------+
@@ -120,6 +162,10 @@ SELECT CONCAT('/', TO_CHAR('2020-01-06 10:11:12', 'DAYFM'), '/');
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 ```sql
 SELECT TO_CHAR('1980-01-11 04:50:39', 'YYYY-MM-DD');
 +----------------------------------------------+

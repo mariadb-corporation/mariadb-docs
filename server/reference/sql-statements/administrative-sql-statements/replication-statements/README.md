@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about replication SQL statements in MariaDB Server. This section covers
-  commands for configuring, controlling, and monitoring replication, essential
-  for high availability and data distribution.
+  Control replication topologies. Learn statements like CHANGE MASTER TO and
+  START SLAVE to configure primaries and replicas.
 ---
 
 # Replication Statements
@@ -35,10 +34,6 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 [stop-replica.md](stop-replica.md)
 {% endcontent-ref %}
 
-{% content-ref url="legacy-replication-statements/" %}
-[legacy-replication-statements](legacy-replication-statements/)
-{% endcontent-ref %}
-
-{% include "../../../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

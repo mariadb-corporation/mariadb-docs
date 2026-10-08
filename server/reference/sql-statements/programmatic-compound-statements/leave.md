@@ -1,8 +1,15 @@
+---
+description: >-
+  Exit a labeled block or loop immediately. This statement terminates the
+  execution of the current loop or compound statement and continues after the
+  block.
+---
+
 # LEAVE
 
 ## Syntax
 
-```sql
+```bnf
 LEAVE label
 ```
 

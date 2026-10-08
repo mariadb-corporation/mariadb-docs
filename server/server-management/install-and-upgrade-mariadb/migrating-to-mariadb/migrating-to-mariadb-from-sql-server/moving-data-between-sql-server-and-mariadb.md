@@ -1,3 +1,10 @@
+---
+description: >-
+  Provides methods for transferring data from SQL Server to MariaDB, including
+  generating CSV files, using mariadb-dump, or leveraging the CONNECT storage
+  engine with ODBC.
+---
+
 # Moving Data Between SQL Server and MariaDB
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}
@@ -16,7 +23,7 @@ To copy SQL Server data structures to MariaDB, one has to:
 
 DDL statements are affected by some server system variables.
 
-[sql\_mode](../../../variables-and-modes/sql-mode.md) determines the behavior of some SQL statements and expressions, including how strict error checking is, and some details regarding the syntax. Objects like [stored procedures](../../../../server-usage/stored-routines/stored-procedures/), [stored functions](../../../../server-usage/stored-routines/stored-functions/) [triggers](../../../../server-usage/triggers-events/triggers/) and [views](../../../../server-usage/views/), are always executed with the sql\_mode that was in effect during their creation. [sql\_mode='MSSQL'](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-sql-server/broken-reference/README.md) can be used to have MariaDB behaving as close to SQL Server as possible.
+[sql\_mode](../../../variables-and-modes/sql_mode.md) determines the behavior of some SQL statements and expressions, including how strict error checking is, and some details regarding the syntax. Objects like [stored procedures](../../../../server-usage/stored-routines/stored-procedures/), [stored functions](../../../../server-usage/stored-routines/stored-functions/) [triggers](../../../../server-usage/triggers-events/triggers/) and [views](../../../../server-usage/views/), are always executed with the sql\_mode that was in effect during their creation. [sql\_mode='MSSQL'](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) can be used to have MariaDB behaving as close to SQL Server as possible.
 
 [innodb\_strict\_mode](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_strict_mode) enables the so-called InnoDB strict mode. Normally some errors in the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) options are ignored. When InnoDB strict mode is enabled, the creation of InnoDB tables will fail with an error when certain mistakes are made.
 
@@ -115,7 +122,7 @@ CSV files can also be used to export data to SQL Server. There are several ways 
 
 The [CONNECT](../../../../server-usage/storage-engines/connect/) storage engine allows one to access external data, in many forms:
 
-* [Data files](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-data-files.md) ([CSV](../../../../server-usage/storage-engines/connect/connect-table-types/connect-csv-and-fmt-table-types.md), [JSON](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), [XML](../../../../server-usage/storage-engines/connect/connect-table-types/connect-xml-table-type.md), HTML and more).
+* [Data files](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-data-files.md) ([CSV](../../../../server-usage/storage-engines/connect/connect-table-types/connect-csv-and-fmt-table-types.md), [JSON](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/README.md), [XML](../../../../server-usage/storage-engines/connect/connect-table-types/connect-xml-table-type.md), HTML and more).
 * Remote databases, using the [ODBC](../../../../server-usage/storage-engines/connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) or [JDBC](../../../../server-usage/storage-engines/connect/connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md) standards, or [MariaDB/MySQL native protocol](../../../../server-usage/storage-engines/connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md).
 * Some [special data sources](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-special-virtual-tables.md).
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_affected_rows returns the number of rows affected by the last
+  INSERT, UPDATE, DELETE, or REPLACE prepared statement, or -1 if the statement
+  failed.
+---
+
 # mysql\_stmt\_affected\_rows
 
 ## Syntax
@@ -5,6 +12,8 @@
 ```c
 my_ulonglong mysql_stmt_affected_rows(MYSQL_STMT * stmt);
 ```
+
+## Parameter
 
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init().](mysql_stmt_init.md)
 
@@ -21,5 +30,7 @@ The [REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-state
 ## See Also
 
 * [mysql\_stmt\_insert\_id()](mysql_stmt_insert_id.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

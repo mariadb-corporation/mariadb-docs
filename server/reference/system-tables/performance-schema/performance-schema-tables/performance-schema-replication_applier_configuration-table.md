@@ -1,8 +1,10 @@
-# Performance Schema replication\_applier\_configuration Table
+---
+description: >-
+  This table displays the configuration parameters used by the replica to
+  connect to the primary server, such as host, port, and user credentials.
+---
 
-{% hint style="info" %}
-The `replication_applier_configuration` table is available from MariaDB 10.5.2.
-{% endhint %}
+# Performance Schema replication\_applier\_configuration Table
 
 The [Performance Schema](../) replication\_applier\_configuration table contains configuration settings affecting replica transactions.
 

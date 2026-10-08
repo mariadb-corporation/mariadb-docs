@@ -1,8 +1,14 @@
+---
+description: >-
+  Assign values to user-defined variables. This guide explains how to store data
+  in session-specific variables for reuse in subsequent SQL statements.
+---
+
 # SET Variable
 
 ## Syntax
 
-```sql
+```bnf
 SET var_name = expr [, var_name = expr] ...
 ```
 

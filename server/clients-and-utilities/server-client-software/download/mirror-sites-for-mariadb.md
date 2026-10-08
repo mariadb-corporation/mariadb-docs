@@ -1,3 +1,9 @@
+---
+description: >-
+  How MariaDB is distributed through mirror sites, and how to volunteer your
+  server as an official MariaDB mirror.
+---
+
 # Mirror Sites for MariaDB
 
 We rely on mirrors to distribute MariaDB to the world through the official download site at [download](https://mariadb.org/download). If you would like to volunteer to become a mirror, thank you! Getting you set up is easy.
@@ -9,7 +15,6 @@ The state of MariaDB mirrors is monitored at [https://mirmon.mariadb.org/](https
 ## How to Become a MariaDB Mirror
 
 The only requirements for becoming a mirror are:
-
 1. A willingness to mirror MariaDB
 1. Mirroring is done using rsync
 1. An https mirror should be utilised (http mirrors are not accepted any more)
@@ -130,14 +135,18 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - CICKU (Global - CloudFlare)
 
+### Algeria
+
+- Hostarts (Algiers)
+
 ### Australia
 
 - AARNet (Brisbane)
-- Digital Pacific (Sydney)
 - Real World Group (Sydney)
 
 ### Austria
 
+- Alwyzon (Vienna)
 - Digital Nova (Graz)
 - Kumi Systems e.U (Vienna)
 - next layer GmbH (Vienna)
@@ -150,17 +159,12 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - Neterra Telecommunications
 
-### Canada
-
-- ACORN-NS (Halifax)
-
 ### Chile
 
-- Insacom (Valparaíso)
+- Insacom (Santiago de Chile)
 
 ### China - 中国
 
-- Dalian Neusoft University of Information / 大连东软信息学院 (Dalian)
 - 清华大学 TUNA 协会 - Tsinghua University TUNA Association (Beijing)
 - 中国科学技术大学, 合肥 - USTC (Hefei)
 - eScience Center, Nanjing University (南京大学)
@@ -178,6 +182,10 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Estonia
 
 - xTom GmbH (Tallinn)
+
+### Finland
+
+- CSC - IT center for Science Ltd / Finnish University and Research Network (Helsinki)
 
 ### France
 
@@ -210,22 +218,19 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - Budapest University of Technology and Economics (Budapest)
 
-### India
-
-- Bharat Datacenter (New Delhi)
-- Indian Institute Of Technology Delhi (New Delhi)
-
 ### Indonesia
 
 - Universitas Surabaya (Surabaya)
 - Citrahost By Citranet (Jakarta)
 - Heru Nugroho (Jakarta)
+- Nevacloud (Jakarta)
+- Domainesia (Jakarta)
 
 ### Iran
 
 - Kernel.ir (Tehran)
-- Mobinhost (Tehran)
 - Parsvds (Tehran)
+- Sindad (Tehran)
 
 ### Ireland
 
@@ -244,6 +249,7 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 - 山形大学, 米沢市 - Yamagata University (Yonezawa)
 - xTom GmbH (Osaka)
 - KuronekoServer (Tokyo)
+- S-TECH (Tokyo)
 
 ### Kenya
 
@@ -266,7 +272,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - bouwhuis.network (Amsterdam)
 - NLUUG (Amsterdam)
-- Serverion.com (Zoetermeer)
 - Triple IT B.V.
 - xTom GmbH (Amsterdam)
 - Mirhosting (Dronten)
@@ -303,8 +308,7 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Singapore
 
 - Daan van Gorkum
-- National University of Singapore
-- vHost (Singapore)
+- Quape (operated by MariaDB Foundation on Quape's infra)
 
 ### South Korea
 
@@ -333,10 +337,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 - Distrohub (Kyiv)
 - mirohost.net (Kyiv)
 
-### United Kingdom
-
-- Starburst Hosting (Portsmouth)
-
 ### The United States of America (USA)
 
 - Accretive Networks (Washington, Seattle)
@@ -353,11 +353,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Uruguay
 
 - Universidad de la República - Facultad de Derecho (Montevideo)
-
-### Vietnam
-
-- BKNS.VN (Hanoi)
-- vHost (Hanoi)
 
 ## The MariaDB Archive
 

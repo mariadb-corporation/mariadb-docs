@@ -1,12 +1,19 @@
+---
+description: >-
+  Protect table files during backups. This command blocks DDL operations like
+  ALTER TABLE while allowing read/write activity, ensuring file consistency for
+  backup tools.
+---
+
 # BACKUP LOCK
 
-BACKUP LOCK blocks a table from DDL statements. This is mainly intended to be used by tools like [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) that need to ensure there are no DDLs on a table while the table files are opened. For example, for an Aria table that stores data in 3 files with extensions .frm, .MAI and .MAD. Normal read/write operations can continue as normal.
+`BACKUP LOCK` blocks a table from DDL statements. This is mainly intended to be used by tools like [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/) that need to ensure there are no DDL[^1] statements on a table while the table files are opened. For example, for an Aria table that stores data in 3 files with extensions `.frm`, `.MAI` and `.MAD`. Normal read/write operations can continue as normal.
 
 ## Syntax
 
 To lock a table:
 
-```sql
+```bnf
 BACKUP LOCK table_name
 ```
 
@@ -32,14 +39,26 @@ This ensures that all files are from the same generation, that is created at the
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5:
+{% endhint %}
+
 BACKUP LOCK requires the [database LOCK TABLES](../../account-management-sql-statements/grant.md#database-privileges) privileges.
 {% endtab %}
 
 {% tab title="< 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5" %}
+{% hint style="info" %}
+Before MariaDB 11.4.1 / 11.3.2 / 11.2.3 / 11.1.4 / 11.0.5:
+{% endhint %}
+
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.
 {% endtab %}
 
-{% tab title="< 10.11.7 / 10.6.17 / 10.5.24" %}
+{% tab title="< 10.11.7 / 10.6.17" %}
+{% hint style="info" %}
+Before MariaDB 10.11.7 / 10.6.17:
+{% endhint %}
+
 BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.md#reload) privilege.
 {% endtab %}
 {% endtabs %}
@@ -61,3 +80,5 @@ BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: 
