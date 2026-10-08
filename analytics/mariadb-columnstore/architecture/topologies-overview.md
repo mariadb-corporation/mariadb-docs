@@ -68,7 +68,8 @@ flowchart TD
         A MaxScale proxy routes write traffic to one MariaDB Enterprise Server node and read
         traffic to the other two. All three nodes belong to a Galera Cluster and stay
         synchronized with each other through virtually synchronous, certification-based Galera
-        replication, so any node can accept writes.
+        replication, so any node can accept writes. Arrows labelled Galera lead from the
+        read-write node to each of the two read-only nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES")]
@@ -109,7 +110,9 @@ flowchart TD
     accDescr {
         A MaxScale proxy routes write traffic to one MariaDB Enterprise Server and ColumnStore
         node and read traffic to two others. All three ColumnStore nodes share the same data by
-        reading from and writing to a common S3-compatible object storage bucket.
+        using a common S3 object storage box. Each of the three MariaDB Enterprise Server
+        boxes is joined by a line with no direction to its own ColumnStore box. Arrows
+        lead from the S3 object storage box to each of the three ColumnStore boxes.
     }
     MX["MariaDB MaxScale"]
     E1[("ES")]

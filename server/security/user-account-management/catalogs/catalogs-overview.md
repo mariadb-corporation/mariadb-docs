@@ -34,13 +34,16 @@ The following picture shows the change:
 flowchart TB
     accTitle: Moving to catalogs
     accDescr {
-        A comparison of multi-tenant approaches. In the container or VM approach, one physical
-        machine runs several containers or virtual machines, each with its own database,
+        A comparison of multi-tenant approaches. In the container or VM approach, there are
+        several containers or virtual machines, each with its own database,
         requiring at least 1 GB per VM. In the shared-server, separate-schema approach, a single
         MySQL or MariaDB server holds one schema per customer, so customers have a limited number
         of schemas. The catalogs approach places many customer catalogs on a single MariaDB
-        server, and each catalog can contain many schemas for a single customer, such as WebApp,
-        WordPress, Messaging, Historical Data, Analytics, and MySQL schemas.
+        server. Arrows labelled Catalogs lead from the container or VM approach, and from the
+        shared-server approach, to the catalogs approach. A dotted arrow leads from Catalog
+        Customer 3 to a group labelled Catalog for a single customer, which shows that a
+        catalog can contain many schemas for one customer: WebApp, WordPress, Messaging,
+        Historical Data, Analytics, and MySQL schemas.
     }
     subgraph VM["Container / VM approach — 1 GB minimum per VM"]
         VM1[("Container or VM<br/>database")]

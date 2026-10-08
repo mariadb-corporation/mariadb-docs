@@ -21,7 +21,7 @@ All nodes have been running a mysqlslap client attached to the local spider node
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
   accTitle: Spider sharding architecture with XA two-phase commit
-  accDescr { A client fans out to three Spider nodes, each holding the full partition map for TABLE1 (PART1, PART2, PART3). One Spider node routes to three backend shards, each storing a single partition of TABLE1. The three backends coordinate distributed writes with each other using XA two-phase commit (XA 2PC). }
+  accDescr { A client fans out to three Spider nodes, each holding the full partition map for TABLE1 (PART1, PART2, PART3). Only the first Spider node has arrows to the backends: it routes to three backend shards, each storing one partition of TABLE1: PART1, PART2 and PART3 respectively. Arrows labelled XA 2PC (XA two-phase commit) lead from the PART1 backend to the PART2 backend, from the PART2 backend to the PART3 backend, and from the PART1 backend to the PART3 backend. }
 
   CLIENT[CLIENT]
   SPIDER1["SPIDER<br/>TABLE1: PART1, PART2, PART3"]

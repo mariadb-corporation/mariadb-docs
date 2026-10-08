@@ -1,8 +1,8 @@
 ---
 description: >-
   Overview of the metrics collected by Enterprise Manager, including MariaDB
-  Server counters, MaxScale performance data, and node-level system resource
-  utilization.
+  Server counters, MaxScale performance data, GridGain 8 cluster metrics, and
+  node-level system resource utilization.
 ---
 
 # Metrics
@@ -27,6 +27,23 @@ MariaDB Server metrics are gathered with the Prometheus exporter for MySQL and s
 MariaDB Enterprise Manager collects a wide range of time-series metrics from your MariaDB MaxScale instances to provide deep insight into their performance, health, and activity. Monitoring these metrics is crucial for diagnosing performance bottlenecks, ensuring high availability, and understanding how your database proxy is handling application traffic.
 
 Here is the list of available [MaxScale metrics](../../../../mariadb-enterprise-operator/metrics.md#maxscale-metrics) collected by Enterprise Manager.
+
+## GridGain 8 Cluster Metrics
+
+GridGain 8 nodes push their metrics to Enterprise Manager with the GridGain OpenTelemetry metric exporter (`OpenTelemetryMetricExporterSpi`). Enterprise Manager receives them over OTLP/HTTP on port `4318` and stores them in its Prometheus. To configure the exporter on a cluster, see [Add a GridGain 8 Cluster](../../../administration/deployment/adding-databases/add-gridgain-8-cluster.md#send-cluster-metrics-to-enterprise-manager).
+
+Every GridGain 8 series carries two labels:
+
+| Label      | Example                                | Meaning                                        |
+| ---------- | -------------------------------------- | ---------------------------------------------- |
+| `job`      | `gridgain/cluster1`                    | The cluster, as `gridgain/<cluster name>`      |
+| `instance` | `bca8aa76-c330-4270-b79e-b30ce33fde00` | The node's consistent ID                       |
+
+Metric names are the GridGain metric names with dots replaced by underscores. For example, `sys.CpuLoad` is stored as `sys_CpuLoad`. Cache, cache group, data region, thread pool, and data center names are part of the metric name rather than labels. For example, `io.dataregion.default.OffHeapSize` is stored as `io_dataregion_default_OffHeapSize`.
+
+<!-- DOCS-6280 TODO: link the GridGain 8 metrics reference once the GridGain docs are migrated into mariadb-docs. -->
+
+For the list of GridGain 8 metrics and their meaning, see the GridGain 8 metrics documentation.
 
 ## Node Metrics
 

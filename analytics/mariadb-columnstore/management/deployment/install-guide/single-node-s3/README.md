@@ -51,8 +51,8 @@ flowchart TD
     accDescr {
         A MaxScale node routes client connections to three MariaDB Enterprise Server
         ColumnStore nodes, sending one read-write connection and two read-only
-        connections. Each ColumnStore node reads and writes table data to a shared
-        S3-compatible object storage bucket.
+        connections. Each ColumnStore node uses a shared S3 object storage box for table
+        data. Arrows lead from each of the three nodes to the S3 object storage box.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]

@@ -1,3 +1,9 @@
+---
+description: >-
+  How the optimizer converts a long IN list into an IN subquery over a
+  temporary table, and how in_predicate_conversion_threshold controls it.
+---
+
 # Conversion of Big IN Predicates Into Subqueries
 
 The optimizer converts certain big IN predicates into IN subqueries.
@@ -18,7 +24,7 @@ which opens new opportunities for the query optimizer.
 
 The conversion happens if the following conditions are met:
 
-* the IN list has more than 1000 elements (One can control it through the [in\_predicate\_conversion\_threshold](../../system-variables/server-system-variables.md#in_predicate_conversion_threshold) parameter).
+* the IN list has at least as many values as [in\_predicate\_conversion\_threshold](../../system-variables/server-system-variables.md#in_predicate_conversion_threshold) (1000 by default). For a list of rows, such as `(a, b) IN ((1, 2), (3, 4))`, each element of each row counts as a value, so 500 two-column rows reach the default threshold. See [Row Constructor Optimization](../row-constructor-optimization.md).
 * the \[NOT] IN condition is at the top level of the WHERE/ON clause.
 
 ## Controlling the Optimization

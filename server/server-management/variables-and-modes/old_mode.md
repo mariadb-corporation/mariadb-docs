@@ -81,6 +81,28 @@ From [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 From MariaDB 13.1, `UTF8_IS_UTF8MB3` is no longer set by default. The default `old_mode` is now empty, so `utf8` is an alias for `utf8mb4` by default. The flag is also deprecated from MariaDB 13.1, and setting it raises a deprecation warning.
 {% endhint %}
 
+### X509\_LENIENT\_COMPARE
+
+{% hint style="info" %}
+This feature is available from MariaDB 10.11.20, 11.4.14, 11.8.10, 12.3.4, and 13.1.2, and from MariaDB Enterprise Server 10.6.29-25.
+{% endhint %}
+
+`X509_LENIENT_COMPARE` lets accounts that use [`REQUIRE ISSUER` or `REQUIRE SUBJECT`](../../reference/sql-statements/account-management-sql-statements/create-user.md#tls-options) keep matching after the server switches to a different TLS library.
+
+The server compares these values with the certificate's issuer and subject as the TLS library renders them, and the libraries differ. OpenSSL 3.0 and later escape a literal `/` or `+` inside a field value with a backslash (`/CN=a\/b\+c`). OpenSSL 1.1 and WolfSSL don't (`/CN=a/b+c`). The comparison is exact by default, so an account written in one form stops matching when the server moves to a library that uses the other.
+
+With `X509_LENIENT_COMPARE` set, the server first compares exactly. If that fails, it compares again, ignoring a backslash before `/` or `+`. Both forms then match.
+
+The server checks the certificate while the client connects, before the session exists. Set the flag globally, and keep the flags already set:
+
+```sql
+SET GLOBAL old_mode = CONCAT(@@GLOBAL.old_mode, ',X509_LENIENT_COMPARE');
+```
+
+{% hint style="warning" %}
+Lenient matching can't tell a literal `/` or `+` inside a value from a real field separator. A crafted certificate could use that to match another account. Treat the flag as a stopgap, and fix the affected accounts with `ALTER USER ... REQUIRE SUBJECT` (or `ISSUER`) using the form your current TLS library produces.
+{% endhint %}
+
 ### ZERO\_DATE\_TIME\_CAST
 
 When a [TIME](../../reference/data-types/date-and-time-data-types/time.md) value is cast to a [DATETIME](../../reference/data-types/date-and-time-data-types/datetime.md), the date part will be `0000-00-00`, not [CURRENT\_DATE](../../reference/sql-functions/date-time-functions/curdate.md) (as dictated by the SQL standard).

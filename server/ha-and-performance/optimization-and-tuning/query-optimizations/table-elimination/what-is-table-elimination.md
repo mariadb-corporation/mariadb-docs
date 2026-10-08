@@ -10,7 +10,7 @@ Suppose the database stores information about actors, together with their names,
 ```mermaid
 erDiagram
     accTitle: Actor entity with Name, Date of Birth, and Rating attributes
-    accDescr { The Actor entity has three attributes: Name, Date of Birth, and Rating. Name and Date of Birth are single-valued attributes. Rating is drawn as a stack of bubbles because it is historized, meaning several rating values are recorded for the same actor over time. }
+    accDescr { The Actor entity has three attributes: Name, of type string; DateOfBirth, of type date; and Rating, of type int, with the comment "historized: multiple values over time". Historized means several rating values are recorded for the same actor over time. }
     ACTOR {
         string Name
         date DateOfBirth

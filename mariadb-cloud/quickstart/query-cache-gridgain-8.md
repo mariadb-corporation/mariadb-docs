@@ -32,6 +32,19 @@ title: Simplified Query Result Cache Architecture (Technical View)
 ---
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Simplified Query Result Cache Architecture (Technical View)
+    accDescr {
+        Two groups are drawn. Access & Routing holds Application Clients, MariaDB
+        Cloud endpoint and MaxScale. Storage & Cache holds MariaDB Primary +
+        replicas (authoritative data store) and GridGain (in-memory query result
+        cache). The MaxScale box reads: Cache Filter checks cache for cacheable
+        reads; fills on miss; applies TTL; bypasses to MariaDB if cache is down.
+        Application Clients and MariaDB Cloud endpoint are joined by a line with
+        no direction. An arrow leads from MariaDB Cloud endpoint to MaxScale.
+        Three numbered arrows follow: 1. Check cache, from MaxScale to GridGain.
+        2a. Hit: cached result, from GridGain back to MaxScale. 2b. Miss: run
+        query, then cache result, from MaxScale to MariaDB Primary + replicas.
+    }
     subgraph Routing_Layer [Access & Routing]
         App[Application Clients] --- Endpoint["MariaDB Cloud endpoint"]
         Endpoint --> MS(MaxScale<br/>Cache Filter<br/>checks cache for cacheable reads;<br/>fills on miss; applies TTL;<br/>bypasses to MariaDB if cache is down)

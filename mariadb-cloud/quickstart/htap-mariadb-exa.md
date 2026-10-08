@@ -24,6 +24,20 @@ title: Simplified MariaDB Exa HTAP Architecture (Technical View)
 ---
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Simplified MariaDB Exa HTAP Architecture (Technical View)
+    accDescr {
+        Two groups are drawn. Access & Routing holds Application Clients, Port
+        3310 and Maxscale. Storage & Analytics holds MariaDB Primary + replicas
+        (Binlog Source), CDC using Debezium (Async) and MariaDB Exa (in memory
+        columnar). Application Clients and Port 3310 are joined by a line with no
+        direction. An arrow leads from Port 3310 to Maxscale, whose text reads:
+        All writes to Primary; OLTP reads load balance to MariaDB cluster; All
+        Analytical queries goto MariaDB Exa. Two arrows lead from Maxscale: Writes
+        & OLTP Reads to MariaDB Primary + replicas, and Analytical Queries to
+        MariaDB Exa. In the second group, an arrow leads from MariaDB Primary +
+        replicas to CDC using Debezium, and an arrow labelled CDC Feed (Async)
+        leads from CDC using Debezium to MariaDB Exa.
+    }
     %% Row 1: Access & Routing
     subgraph Routing_Layer [Access & Routing]
         App[Application Clients] --- Port["Port 3310"]

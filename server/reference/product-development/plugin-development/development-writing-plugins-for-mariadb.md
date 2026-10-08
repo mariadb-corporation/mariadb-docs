@@ -172,6 +172,15 @@ The build takes the values of `PLUGIN_NAME`, `PLUGIN_AUTHOR`, `PLUGIN_DESCRIPTIO
 
 ```mermaid
 stateDiagram-v2
+    accTitle: Plugin maturity stages
+    accDescr {
+        A state diagram with three top-level states: Experimental, Release
+        Candidate and General Availability. Experimental leads to Release
+        Candidate, which leads to General Availability. Experimental is a box that
+        contains the states Alpha and Beta, with its own start and end markers.
+        Inside it, the start marker leads to Alpha, to Beta and to the end marker.
+        Alpha leads to Beta, and Beta leads to the end marker.
+    }
     state "Release Candidate" as RC
     state "General Availability" as GA
     state "Experimental" as Exp {

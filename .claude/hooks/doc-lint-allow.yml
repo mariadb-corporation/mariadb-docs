@@ -67,6 +67,8 @@ shrink:
     reason: "configuration structure and CLI update prose moved to gridgain9-management/cluster-configuration.md; the page now lists only the parameter references — DOCS-6896"
   - path: gridgain9/security/README.md
     reason: "seven child cards regrouped under two sub-hubs (authentication-and-authorization/, encryption-and-transport/), which list all seven, matching SUMMARY.md — DOCS-6896"
+  - path: tools/mariadb-enterprise-manager/administration/deployment/adding-databases/README.md
+    reason: "split into without-MaxScale, with-MaxScale and GridGain 8 subpages; the hub links all three — DOCS-6280"
 
 # Both entries are the August 2026 Connector/C round (DOCS-6732). Each version
 # was built only as part of a Server release, so mariadb.com offers no download

@@ -18,6 +18,26 @@ The following diagram illustrates the flow of a request from a client applicatio
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Request flow from a client through the MCP Server and RAG API
+    accDescr {
+        Client Applications (MCP Clients, REST APIs, AI Assistants) sit outside
+        three groups. The MCP Server (Port 8002) group holds two boxes. Token
+        Extraction & Validation lists: 1. Extract from Authorization header, 2.
+        Verify JWT signature, 3. Validate user in shared database. Adaptive Tool
+        Registration lists: Core Tools (always), Database Tools (always), Vector
+        Tools (always), RAG Tools (when API available). The RAG API (Port 8000)
+        group holds two boxes. Authentication & Authorization lists: Verify JWT
+        token, Check user roles, Enforce permissions. RAG Pipeline lists: Document
+        ingestion, Vector embedding, Retrieval, Generation. The Shared MariaDB
+        Database group holds three boxes: Users (authentication), Documents
+        (content) and Vector Store (embeddings). Five one-way arrows: Client
+        Applications to Token Extraction & Validation, labelled JWT Bearer Token.
+        Adaptive Tool Registration to Authentication & Authorization, labelled
+        Forwards Token. Token Extraction & Validation to Users (authentication),
+        labelled Validates User. RAG Pipeline to Documents (content), labelled
+        Reads/Writes Data. RAG Pipeline to Vector Store (embeddings), labelled
+        Reads/Writes Data.
+    }
     A["Client Applications<br>(MCP Clients, REST APIs, AI Assistants)"]
 
     subgraph "MCP Server (Port 8002)"
