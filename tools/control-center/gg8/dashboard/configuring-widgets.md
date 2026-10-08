@@ -192,6 +192,30 @@ The widget displays as you have defined it and starts updating at the specified 
 
 ![System Views](../../../.gitbook/assets/cc-gg8-system-view-widget.png)
 
+#### Supported System Views
+
+The **System view table** drop-down list shows the system views that the cluster reports, such as **Caches**, **Nodes**, **Services**, **SQL queries**, **Tasks**, and **Transactions**. If the cluster doesn't report its system views, Control Center shows a default list of the GridGain 8 system views.
+
+For a description of each system view and its columns, see [System Views](https://www.gridgain.com/docs/latest/administrators-guide/monitoring-metrics/system-views) in the GridGain documentation.
+
+#### Services System View
+
+The **Services** system view lets you stop a service running on the cluster.
+
+To stop a service:
+
+1. In the widget, find the row for the service.
+2. Click the **More** (⋮) button at the end of the row.
+3. Select **Stop service**.
+
+![Stop Service](../../../.gitbook/assets/cc-gg8-system-view-services-stop.png)
+
+Control Center stops the service immediately, without asking for confirmation, and shows a **Service stopped** notification.
+
+{% hint style="info" %}
+The **More** button is shown only if the cluster supports stopping services from Control Center. Other GridGain 8 system views don't have row actions.
+{% endhint %}
+
 ### Caches Widget
 
 This widget is a table that contains the information about existing caches. You can copy this data or export it to a CSV file.
