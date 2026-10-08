@@ -33,8 +33,37 @@ The `style-apply` skill enforces the checkable parts of this digest.
   keyboard shortcuts, SQL keywords, file names. Keywords like `NULL` and value ranges (`0` to
   `360`) are formatted as code.
 - **Placeholders → *italics*** (and also `code` when adjacent to a literal). Use **meaningful
-  names** — `table`, `database`, `string` — not `tbl`, `db`, `x`, `<x>`. Exception: inside code
-  blocks GitBook can't format, so use "fancy" placeholders there (e.g. `CREATE TABLE tbl`).
+  names** — `table_name`, `db_name`, `column_name` — not `tbl`, `db`, `x`, `<x>`. Exception:
+  inside code blocks GitBook can't format, so use "fancy" placeholders there
+  (e.g. `CREATE TABLE tbl`).
+- **Never use a reserved word as a placeholder or example name.** A reader who copies
+  `CREATE TABLE table (…)` gets a syntax error (`ERROR 1064`). Quoting the word in backticks
+  (`` CREATE TABLE `table` (…) ``) works, but it's cumbersome, and readers copy examples
+  without it. Use these names instead:
+
+  | Don't write | Placeholder | Example table or column name |
+  | ----------- | ----------- | ---------------------------- |
+  | `table` | `table_name` | `t1`, `customers` |
+  | `column` | `column_name` | `c1`, `email` |
+  | `index` | `index_name` | `idx_email` |
+  | `key` | `key_name` | `item_key` |
+  | `constraint` | `constraint_name` | `fk_order_customer` |
+  | `partition` | `partition_name` | `p0` |
+  | `procedure` | `proc_name` | `get_orders` |
+  | `trigger` | `trigger_name` | `orders_before_insert` |
+  | `cursor` | `cursor_name` | `cur1` |
+  | `condition` | `condition_name` | `no_such_table` |
+  | `order` | — | `orders`, `order_id` |
+  | `group` | `group_name` | `groups`, `user_group` |
+  | `range` | — | `price_range` |
+  | `interval` | — | `interval_value` |
+  | `default` | — | `default_value` |
+  | `desc` | — | `description` |
+  | `values` | — | `vals`, `item_values` |
+
+  `database` and `schema` are accepted as names, although
+  [Reserved Words](https://mariadb.com/docs/server/reference/sql-structure/sql-language-structure/reserved-words)
+  lists them. Still write `db_name` for consistency. For any other word, check that list.
 - **Don't mix natural language and keywords:** "INSERTs cannot be used" → "`INSERT` statements
   cannot be used." **SQL things are statements, not commands** ("the `INSERT` statement", not
   "the INSERT command").
@@ -53,6 +82,25 @@ The `style-apply` skill enforces the checkable parts of this digest.
   *please*. Say "Click OK", not "Simply click OK".
 - **Neutral action verbs:** avoid violent metaphors — `kill`/`abort`/`hang` → `terminate` /
   `stop` / `cancel` / `unresponsive`.
+
+## Acronyms
+
+- **Spell out an acronym the first time it appears on a page**, with the acronym in
+  parentheses. Use the acronym for the rest of the page: "The Java Virtual Machine (JVM) runs
+  the connector. The JVM loads …". Keep any article the spelled-out form needs ("the JVM").
+- **Per page, not per site.** Readers often land on a page from search, so every page
+  introduces its own acronyms, even if a parent or neighboring page already did.
+- **Introduce an acronym only if you use it again.** If it appears once, write out the full term
+  and leave the acronym out.
+- **Don't spell out acronyms that are better known than their expansion:** `SQL`, `JSON`, `XML`,
+  `HTML`, `HTTP`/`HTTPS`, `URL`, `API`, `CPU`, `RAM`, `SSL`/`TLS`. The same applies to product
+  and protocol names that are acronyms.
+- **Spell out in body text, not in headings.** If a page title or heading uses an acronym,
+  still spell it out at its first use in the body text.
+- **Plurals take no apostrophe:** `APIs`, `CPUs`, `GTIDs`.
+- For anything else, follow Google's
+  [Abbreviations](https://developers.google.com/style/abbreviations) page, which the published
+  style guide adopts.
 
 ## Plain language (DOCS-6890)
 
