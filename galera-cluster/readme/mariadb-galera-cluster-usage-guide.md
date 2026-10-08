@@ -286,6 +286,10 @@ SET GLOBAL wsrep_provider_options="pc.bootstrap=YES";
 
 The node bootstraps the Primary Component onto itself. Other nodes in the cluster with network connectivity then submit state transfer requests to this node to bring their local databases into sync with what's available on this node.
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin]({server}/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 ### State Transfers
 
 From time to time a node can fall behind the cluster. This can occur due to expensive operations being issued to it or due to network connectivity issues that lead to write-sets backing up in the queue. Whatever the cause, when a node finds that it has fallen too far behind the cluster, it attempts to initiate a state transfer.

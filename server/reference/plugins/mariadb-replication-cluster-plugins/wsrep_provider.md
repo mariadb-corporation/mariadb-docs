@@ -10,7 +10,7 @@ description: >-
 This plugin is for [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/). It splits up the `wsrep_provider_options` setting into individual configuration variables.
 
 {% hint style="info" %}
-The plugin is available from MariaDB 11.4, and built in to the server, but not enabled by default.
+The plugin is available from MariaDB 11.0, and built in to the server, but not enabled by default.
 {% endhint %}
 
 Without that plugin, options are grouped together, like this:
@@ -36,6 +36,32 @@ plugin-wsrep-provider=ON
 ```
 
 Alternatively, start the server with the `--plugin-wsrep-provider` option.
+
+## Changing Provider Options at Runtime
+
+When the plugin is enabled, `wsrep_provider_options` can no longer be changed while the server is running. A `SET GLOBAL wsrep_provider_options=...` statement fails, even for options that are dynamic. Set the individual system variable for the option instead. Its name is `wsrep_provider_` followed by the option name, with dots replaced by underscores. For example, to bootstrap a new Primary Component:
+
+```sql
+-- Fails when the plugin is enabled:
+SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';
+
+-- Use this instead:
+SET GLOBAL wsrep_provider_pc_bootstrap=ON;
+```
+
+The failing statement returns this error from MariaDB 11.4.13, 11.8.9, 12.3.3, and 13.0.2:
+
+```
+ERROR 1210 (HY000): wsrep_provider_options cannot be changed while the wsrep-provider plugin is loaded
+```
+
+Earlier releases report the variable as read-only instead:
+
+```
+ERROR 1238 (HY000): Variable 'wsrep_provider_options' is a read only variable
+```
+
+The same applies to every other dynamic option. For example, set `wsrep_provider_pc_weight` instead of `pc.weight` in `wsrep_provider_options`.
 
 See the [wsrep\_provider\_options](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options) page for what you can configure for Galera Cluster.
 
