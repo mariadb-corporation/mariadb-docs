@@ -284,6 +284,7 @@ type=monitor
 module=mariadbmon
 servers=db1,db2,db3
 cooperative_monitoring_locks=majority_of_all
+master_conditions=primary_monitor_master,disk_space_ok,connecting_slave,running_slave
 servers_no_promotion=db3
 auto_failover=true
 auto_rejoin=true
@@ -296,6 +297,16 @@ servers=db1,db2
 {% endcode %}
 
 Use the same configuration on both instances, except that `db3`'s address is the tiebreaker host's address as seen from each instance.
+
+The
+[master_conditions](../reference/maxscale-monitors/mariadb-monitor.md#master_conditions)
+setting makes sure that the monitor takes the health of the replication into
+account when considering cluster majority. The primary keeps its _Master_ status
+only while at least one running replica is replicating from it, so a primary
+that a network partition has cut off from its replicas loses _Master_ status
+even if both MaxScale instances can still reach it, and the monitor can fail
+over to a replica. `primary_monitor_master` and `disk_space_ok` are the default
+conditions and must be listed explicitly when you add the replica conditions.
 
 {% hint style="warning" %}
 `majority_of_all` guarantees consistency only with semisynchronous replication configured so the primary never falls back to asynchronous replication — see the [semisynchronous-replication requirement](failover-with-multiple-maxscales.md#primary-server-in-the-minority-partition). MariaDB needs an acknowledgment from one replica, and the tiebreaker can be the one that supplies it, so set `rpl_semi_sync_slave_enabled=ON` on the tiebreaker too. Otherwise a partition that isolates the primary with only the tiebreaker for company leaves the primary unable to get an acknowledgment from anywhere.

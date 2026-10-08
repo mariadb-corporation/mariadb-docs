@@ -185,6 +185,7 @@ module=mariadbmon
 servers=server1,server2,server3
 cooperative_monitoring_locks=majority_of_running
 # cooperative_monitoring_locks=majority_of_all
+# master_conditions=primary_monitor_master,disk_space_ok,connecting_slave,running_slave
 auto_failover=true
 auto_rejoin=true
 ```
@@ -196,6 +197,18 @@ and lock. In a three-server cluster with all three running, that is two locks.
 With [majority_of_all](../reference/maxscale-monitors/mariadb-monitor.md#majority-of-all),
 all configured servers are counted. See the specific documentation for more
 details.
+
+When you use `majority_of_all`, also set the commented-out
+[master_conditions](../reference/maxscale-monitors/mariadb-monitor.md#master_conditions)
+line. It makes sure that the monitor takes the health of the replication into
+account when considering cluster majority: the primary keeps its _Master_
+status only while at least one running replica is replicating from it. If a
+network partition cuts the primary off from the replicas while MaxScale can
+still reach it, the primary loses _Master_ status and the monitor can fail over
+to a replica. Without this, MaxScale keeps routing writes to a primary whose
+commits stall waiting for semisynchronous acknowledgments that never arrive.
+The first two values, `primary_monitor_master` and `disk_space_ok`, are the
+default conditions; keep them when you add the replica conditions.
 
 {% hint style="warning" %}
 `cooperative_monitoring_locks` is independent of `passive`. If `passive=true`,

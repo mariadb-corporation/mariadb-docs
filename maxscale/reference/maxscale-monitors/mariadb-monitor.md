@@ -183,6 +183,26 @@ For example, to require that the primary must have a replica which is both conne
 master_conditions=connected_slave,running_slave
 ```
 
+{% hint style="info" %}
+With
+[cooperative_monitoring_locks=majority_of_all](#cooperative_monitoring_locks)
+in a three-server cluster with semisynchronous replication, set:
+
+```
+master_conditions=primary_monitor_master,disk_space_ok,connecting_slave,running_slave
+```
+
+This makes the monitor take the health of the replication into account when
+considering cluster majority. If a network partition isolates the primary from
+its replicas while MaxScale can still connect to it, the primary loses _Master_
+status and the monitor can fail over to a replica. With the default conditions,
+the primary keeps _Master_ status and its commits stall waiting for
+semisynchronous acknowledgments. This combination is only relevant with
+`majority_of_all`. Keep `primary_monitor_master` and `disk_space_ok` in the
+list, as setting `master_conditions` replaces the defaults. See
+[Majority of all](#majority-of-all).
+{% endhint %}
+
 ### `slave_conditions`
 
 * Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
@@ -1311,6 +1331,22 @@ MaxScale is configured with `cooperative_monitoring_locks=majority_of_all` and
 it notices that the primary server has lost the _master_-lock, MaxScale will
 disconnect the entire routing session. Thus, clients will not get an OK-reply to
 their hanging commits, alerting them that something is wrong.
+
+The above covers a partition that separates the primary server from the
+primary MaxScale. A partition can also isolate the primary server from its
+replicas while every MaxScale can still connect to it. All locks then stay
+where they are, so lock majority alone does not trigger a failover, and with
+semisynchronous replication, writes to the primary stall. To handle this in a
+three-server cluster, configure the monitor to take the health of the
+replication into account when considering cluster majority:
+
+```
+master_conditions=primary_monitor_master,disk_space_ok,connecting_slave,running_slave
+```
+
+With this setting, the primary loses _Master_ status once no running replica is
+replicating from it, and the primary MaxScale can fail over to a replica. See
+[master_conditions](#master_conditions) for details on each condition.
 
 ### Releasing locks
 
