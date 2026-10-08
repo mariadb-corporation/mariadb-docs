@@ -12,7 +12,7 @@ description: >-
 ```mermaid
 flowchart TD
     accTitle: Spider storage engine architecture
-    accDescr { Three clients connect down into the MariaDB Server box. The MariaDB Server sits above a Storage Engine Interface box. Below the interface are three storage engine columns side by side: InnoDB, ColumnStore, and Partition. The Partition column contains the Spider storage engine. From Spider, arrows fan out down to three separate MariaDB Spider Node database cylinders, showing that the Partition/Spider engine links out to multiple remote MariaDB Spider Node servers. }
+    accDescr { Three clients connect down into the MariaDB Server box. An arrow leads from the MariaDB Server to a Storage Engine Interface box. Arrows lead from the interface to three boxes side by side in a group labelled Storage Engines: InnoDB, ColumnStore, and one box labelled Partition and Spider. From the Partition and Spider box, arrows fan out down to three separate MariaDB Spider Node database cylinders, showing that the Partition/Spider engine links out to multiple remote MariaDB Spider Node servers. }
 
     CLIENT1["Client"]
     CLIENT2["Client"]
@@ -269,7 +269,7 @@ Without connection pool or MariaDB thread pool, HaProxy and Spider have been pro
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider single-node sharded topology across two backends
-    accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions. Part 1 is routed to Backend1 at 192.168.0.202, and Part 2 is routed to Backend2 at 192.168.0.203. The two backend servers coordinate an XA two-phase commit (XA 2PC) between themselves so that writes spanning both shards stay consistent. }
+    accDescr { A client connects to a single Spider node, SPIDER1 at 192.168.0.201, which shards the sbtest table into two partitions. Part 1 is routed to Backend1 at 192.168.0.202, and Part 2 is routed to Backend2 at 192.168.0.203. The two backend servers coordinate an XA two-phase commit (XA 2PC) between themselves so that writes spanning both shards stay consistent. }
 
     CLIENT["Client"]
     SPIDER1["Spider Node: SPIDER1<br/>192.168.0.201<br/>sbtest"]
@@ -582,7 +582,7 @@ Spider's high availability feature has been deprecated ([MDEV-28479](https://jir
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider sharded topology with cross-backend replication for high availability
-    accDescr { A single Spider node, SPIDER1 at 192.168.0.201, shards the sbtest table into two partitions, Part 1 and Part 2. Backend1, at 192.168.0.202, holds Part 1 as primary and keeps a replica of Part 2; Backend2, at 192.168.0.203, holds Part 2 as primary and keeps a replica of Part 1. The two backends coordinate an XA two-phase commit (XA 2PC) and replicate each other's shard, so that if one backend fails, the other still holds a full replica of both partitions. }
+    accDescr { A client connects to a single Spider node, SPIDER1 at 192.168.0.201, which shards the sbtest table into two partitions, Part 1 and Part 2. Arrows lead from SPIDER1 to each backend. Backend1, at 192.168.0.202, holds Part 1 as primary and keeps a replica of Part 2; Backend2, at 192.168.0.203, holds Part 2 as primary and keeps a replica of Part 1. The two backends coordinate an XA two-phase commit (XA 2PC) and replicate each other's shard, so that if one backend fails, the other still holds both partitions, one as primary and one as replica. }
 
     CLIENT["Client"]
     SPIDER1["Spider Node: SPIDER1<br/>192.168.0.201<br/>sbtest"]
@@ -750,7 +750,7 @@ Checking the state of the nodes:
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Spider link monitoring during a backend failure
-    accDescr { A SQL client sends queries into the Spider node SPIDER1 at 192.168.0.201. Inside SPIDER1, the SPIDER_TABLES catalog tracks PART1 with link_status 1 and PART2 with link_status 3. The SBTEST table's PART 1 and PART 2 are linked to two backend servers. SPIDER_LINK_MON_SERVER lists SPIDER1 itself as the monitoring node, and exchanges MAJORITY quorum votes with SBTEST to decide link status. A MONITORING process runs background checks with monitoring_bg_kind 1 calling mysql_ping, monitoring_bg_kind 2 running select 1 from SBTEST limit 1, and monitoring_bg_kind 3 running select 1 from SBTEST where a condition. Backend1 at 192.168.0.202 holds SBTEST PART 1 and PART 2 and is reachable, but an ERROR is reported between SBTEST and Backend1. Backend2 at 192.168.0.203 has failed, shown crossed out, and the MONITORING process reports an ERROR trying to reach Backend2's SBTEST PART 2. }
+    accDescr { A SQL client sends queries into the Spider node SPIDER1 at 192.168.0.201. Inside SPIDER1, the SPIDER_TABLES catalog tracks PART1 with link_status 1 and PART2 with link_status 3. Also inside SPIDER1, an SBTEST box lists PART 1 and PART 2. SPIDER_LINK_MON_SERVER lists SPIDER1 itself as the monitoring node, and exchanges MAJORITY quorum votes with SBTEST to decide link status. A MONITORING process runs background checks with monitoring_bg_kind 1 calling mysql_ping, monitoring_bg_kind 2 running select 1 from SBTEST limit 1, and monitoring_bg_kind 3 running select 1 from SBTEST where a condition. Backend1 at 192.168.0.202 holds SBTEST PART 1 and PART 2. A two-headed dotted arrow labelled ERROR joins SBTEST and Backend1. Backend2 at 192.168.0.203 is marked down, and lists SBTEST PART 2 as failed alongside PART 1. A dotted arrow labelled ERROR leads from MONITORING to Backend2. }
 
     SQL["SQL"]
 
