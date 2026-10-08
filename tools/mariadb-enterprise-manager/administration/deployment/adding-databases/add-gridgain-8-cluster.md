@@ -14,10 +14,10 @@ GridGain 8 clusters are view-only in Enterprise Manager. To manage a cluster, op
 
 ## Requirements
 
-<!-- DOCS-6280 TODO: minimum Control Center version; link the Control Center installation and OpenID Connect pages once the Control Center docs are published in this space. -->
+<!-- DOCS-6280 TODO: link the Control Center installation and OpenID Connect pages once the Control Center docs are published in this space. -->
 
 * Enterprise Manager 26.10 or later.
-* GridGain Control Center, installed on its own host, with your GridGain 8 clusters attached to it. For installation steps, see the GridGain Control Center installation documentation.
+* GridGain Control Center 2026.2 or later, installed on its own host, with your GridGain 8 clusters attached to it. For installation steps, see the GridGain Control Center installation documentation.
 * Control Center configured to use Enterprise Manager as its OpenID Connect provider, with the client secret you enter as the **SSO client secret** below.
 
 ## Connect Enterprise Manager to Control Center
@@ -83,7 +83,9 @@ The GridGain 8 dashboards and alert rules in Enterprise Manager need metrics fro
    | `endpoint`         | The Enterprise Manager address on port `4318`, for example `https://em.example.com:4318` |
    | `serviceNamespace` | `gridgain`                                                     |
    | `serviceName`      | The cluster name                                               |
-3. Set these properties on the `OpenTelemetryMetricExporterSpi` bean in the configuration of every node, then restart the nodes. For the full procedure, select **View setup instructions** in the dialog.
+3. Set these properties on the `OpenTelemetryMetricExporterSpi` bean in the configuration of every node. Also set `protocol` to `HTTP`: the dialog doesn't show it, the exporter uses gRPC by default, and port `4318` accepts only OTLP over HTTP. Without it, no metrics reach Enterprise Manager.
+4. If Enterprise Manager uses a self-signed certificate or a certificate from a private CA, add that certificate to the trust store of every node. The Enterprise Manager receiver accepts only TLS connections.
+5. Restart the nodes. For the full procedure, select **View setup instructions** in the dialog.
 
 When metrics arrive, the **Uptime** and **Last metric age** columns fill in for the cluster's nodes, and the **View monitoring dashboard** action opens the [GridGain 8 dashboards](../../../usage/monitoring/dashboards/).
 

@@ -52,11 +52,9 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 
 To show GridGain 8 clusters in Enterprise Manager, connect Enterprise Manager to GridGain Control Center. See [Add a GridGain 8 Cluster](adding-databases/add-gridgain-8-cluster.md).
 
-<!-- DOCS-6280 TODO: minimum Control Center version. -->
-
 | Enterprise Manager Version | GridGain Control Center Version | GridGain Version |
 | -------------------------- | ------------------------------- | ---------------- |
-| **26.10** and later        | TBD and later                   | GridGain 8       |
+| **26.10** and later        | **2026.2** and later            | GridGain 8       |
 
 Control Center runs on its own host, separate from the Enterprise Manager Server.
 
