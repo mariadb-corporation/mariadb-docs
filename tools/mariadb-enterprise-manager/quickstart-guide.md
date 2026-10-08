@@ -225,7 +225,7 @@ GRANT PROCESS, BINLOG MONITOR, REPLICA MONITOR, REPLICATION MASTER ADMIN ON *.* 
 {% step %}
 **Setup agent using the command generated in Enterprise Manager UI**
 
-1. Click the three dots beside the server or MaxScale instance you want to install the Agent on and click **Install Agent**.
+1. Click the three dots beside the server or MaxScale instance you want to install the Agent on and click **Metrics configuration**.
 2. The UI will generate a unique setup command for that specific server/MaxScale instance with the username and password you provide. Copy the command.
 3. On that specific server/MaxScale instance, paste and run the command in your terminal.
 4. Repeat for all MaxScale and MariaDB servers.
