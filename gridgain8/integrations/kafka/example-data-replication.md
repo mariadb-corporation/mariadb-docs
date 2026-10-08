@@ -183,7 +183,7 @@ Create the source and sink Ignite cluster configurations. The following configur
 {% endcode %}
 
 {% hint style="info" %}
-If you are going to use Control Center for replication monitoring,  do not forget to [enable the agent module]({tools}/control-center/getting-started/connect/connect-gridgain-cluster#enabling-the-control-center-module).
+If you are going to use Control Center for replication monitoring,  do not forget to [enable the agent module](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/connect/connect-gridgain-cluster#enabling-the-control-center-module).
 {% endhint %}
 
 Start the source Ignite cluster (assuming the Ignite configuration file is in the current directory):
@@ -230,7 +230,7 @@ $IGNITE_HOME/bin/ignite.sh ignite-server-sink.xml
 
 ### 2.2. Attach Both Clusters to Control Center
 
-Refer to [following article]({tools}/control-center/getting-started/connect/connect-gridgain-cluster#attaching-the-cluster-to-control-center) for the cluster attachment procedure.
+Refer to [following article](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/connect/connect-gridgain-cluster#attaching-the-cluster-to-control-center) for the cluster attachment procedure.
 
 You should end up having both clusters in the Control Center cluster list:
 
