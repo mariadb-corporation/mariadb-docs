@@ -26,13 +26,13 @@ depending on which one can provide the response faster.
 Unlike the other routers of MaxScale, the targets _ExasolRouter_ routes to
 are not specified using `servers`, `targets`, or `cluster` settings in
 the configuration file. Instead, Exasol is specified using the
-[connection\_string](#connection_string) setting.
+[odbc\_connection\_string](#odbc_connection_string) setting.
 
 However, if _ExasolRouter_ is used standalone, a MariaDB server or a service
 should be specified using `targets`. _ExasolRouter_ will not route to it,
 but it will use it for authenticating clients. Exasol will still be accessed
 on behalf of all clients using the credentials specified in the
-[connection\_string](#connection_string).
+[odbc\_connection\_string](#odbc_connection_string).
 
 _ExasolRouter_ is intended to be used with the value of the Exasol
 setting `SQL_IDENTIFIER_COMPARISON` being `IGNORE CASE`. The value
@@ -51,7 +51,7 @@ password=
 ```
 
 The user and password to be used when accessing Exasol must be specified
-using `UID` and `PWD` in the [connection\_string](maxscale-exasolrouter.md#connection_string).
+using `UID` and `PWD` in the [odbc\_connection\_string](maxscale-exasolrouter.md#odbc_connection_string).
 
 ## Preprocessing
 
@@ -62,7 +62,7 @@ selected using the setting [preprocessor](#preprocessor).
 
 ## Settings
 
-### `connection_string`
+### `odbc_connection_string`
 
 * Type: string
 * Mandatory: Yes
@@ -73,12 +73,12 @@ contents of `odbc.ini` and `odbcinst.ini`.
 
 For example:
 ```
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 Here it is assumed there is an `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
-### `login_timeout`
+### `odbc_login_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -90,7 +90,7 @@ Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeo
 will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
 
-### `query_timeout`
+### `odbc_query_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -255,15 +255,15 @@ driver can be referred to using the directory and not the symbolic link,
 as that will no longer work, if the included Exasol driver is updated
 in a MaxScale patch release.
 
-In [connection_string](#connection_string), the driver can be referred
+In [odbc_connection_string](#odbc_connection_string), the driver can be referred
 to directly as in
 ```
-connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 
 Alternatively, the driver location can be specified in `/etc/odbcinst.ini`
 or `~/.odbcinst.ini`, in which case it need not be specified in
-`connection_string`.
+`odbc_connection_string`.
 ```
 [EXAODBC]
 Description = Exasol ODBC Driver
@@ -273,7 +273,7 @@ FileUsage = 1
 ```
 With that file present, the connection string could be like:
 ```
-connection_string=DRIVER=EXAODBC;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DRIVER=EXAODBC;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 By creating an `/etc/odbc.ini` or `~/.odbc.ini`, the information that must
 be provided in the connection string can further be reduced. For instance,
@@ -288,7 +288,7 @@ FINGERPRINT=NOCERTCHECK
 ```
 the connection string can be reduced to
 ```
-connection_string=DSN=ExasolDSN
+odbc_connection_string=DSN=ExasolDSN
 ```
 
 ## Examples
@@ -315,7 +315,7 @@ servers=Server1
 [ExasolService]
 type=service
 router=exasolrouter
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol
 user=
 password=
 
@@ -367,7 +367,7 @@ servers=Server1
 [ExasolService]
 type=service
 router=exasolrouter
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 targets=Server1
 user=MyServiceUser
 password=MyServicePassword
