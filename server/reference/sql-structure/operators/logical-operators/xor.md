@@ -1,3 +1,9 @@
+---
+description: >-
+  Logical exclusive OR. XOR returns 1 if an odd number of operands is
+  non-zero, 0 otherwise, and NULL if any operand is NULL.
+---
+
 # XOR
 
 ## Syntax

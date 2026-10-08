@@ -1,3 +1,10 @@
+---
+description: >-
+  Compare two values for equality. The = operator returns 1 if they are
+  equal, 0 if not, and NULL if either is NULL, converting types when they
+  differ.
+---
+
 # =
 
 ## Syntax

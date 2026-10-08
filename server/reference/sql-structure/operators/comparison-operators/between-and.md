@@ -1,3 +1,10 @@
+---
+description: >-
+  Test whether a value falls within a range. expr BETWEEN min AND max
+  returns 1 if expr is greater than or equal to min and less than or equal
+  to max.
+---
+
 # BETWEEN AND
 
 ## Syntax
