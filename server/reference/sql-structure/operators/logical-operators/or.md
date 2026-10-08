@@ -72,8 +72,6 @@ SELECT 0 || NULL;
 
 ## See Also
 
-## See Also
-
 * [Operator Precedence](../operator-precedence.md)
 * [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 

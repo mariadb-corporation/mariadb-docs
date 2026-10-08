@@ -26,7 +26,7 @@ The pattern need not be a literal string. For example, it can be specified as a 
 
 **Note:** Because MariaDB uses the C escape syntax in strings (for example, `\n` to represent the newline character), you must double any backslash (`\`) that you use in your `REGEXP` strings.
 
-`REGEXP` is not case sensitive, except when used with binary strings.
+`REGEXP` is not case sensitive, except when used with a binary string, a string with a binary collation such as `utf8mb4_bin`, or a string with certain case-sensitive collations such as `latin1_general_cs`. Some case-sensitive collations, including the UCA-based `_as_cs` collations such as `utf8mb4_uca1400_as_cs`, still match case-insensitively. To force a case-sensitive match, use [BINARY](../binary-operator.md) or start the pattern with `(?-i)`.
 
 The [default\_regex\_flags](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_regex_flags) variable addresses the remaining compatibilities between PCRE and the old regex library.
 

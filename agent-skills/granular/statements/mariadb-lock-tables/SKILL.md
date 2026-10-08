@@ -5,7 +5,7 @@ description: "MariaDB explicit table locking (LOCK TABLES / UNLOCK TABLES: READ,
 
 # Explicit Locking in MariaDB
 
-*Last updated: 2026-07-20*
+*Last updated: 2026-10-08*
 
 This skill covers the **delta between what an LLM tends to assume about locking and MariaDB's actual behavior**: the `LOCK TABLES` / `UNLOCK TABLES` statements and the `GET_LOCK()` family of named user-level locks. It assumes the agent already knows that databases have locks; it does not re-explain locking in general.
 
@@ -89,7 +89,7 @@ These are **application/advisory locks**, keyed by an arbitrary string name, sco
 - **Recursive re-acquisition**: calling `GET_LOCK()` again on a name the same connection already holds increments a reference count instead of blocking; it must be released the same number of times.
 - **Independent of transactions** — `COMMIT`/`ROLLBACK` never release a named lock. Release happens only via `RELEASE_LOCK()`, `RELEASE_ALL_LOCKS()` *(since 10.5.2)*, or the connection ending (cleanly or not).
 - **`timeout`** is in seconds but supports fractional/microsecond precision; a negative or `NULL` timeout makes `GET_LOCK()` return `NULL` (with a warning) rather than blocking or erroring outright.
-- `str` empty or `NULL` → `GET_LOCK()`/`RELEASE_LOCK()`/etc. all return `NULL` and do nothing; name matching is case-insensitive.
+- `str` empty or `NULL` → `GET_LOCK()`/`RELEASE_LOCK()`/etc. all return `NULL` and do nothing; name matching is **case-sensitive**: `lock1` and `LOCK1` are different locks.
 - Deadlocks between named locks are detected automatically — the losing connection gets `ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction`.
 - **Not safe for statement-based replication**; and on a replica applying via SQL thread, `GET_LOCK()` is a no-op that always returns `1` — it never actually blocks, since replication is already serialized.
 - With the `metadata_lock_info` plugin (or the `METADATA_LOCK_INFO`/`performance_schema.metadata_locks` tables) installed, named locks are visible alongside regular MDL entries as `LOCK_TYPE = User lock`.

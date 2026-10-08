@@ -115,12 +115,12 @@ SELECT * FROM t1 where d like "t%";
 Use [collate](../secondary-functions/information-functions/collation.md) to specify a binary collation, forcing case-sensitive matches:
 
 ```sql
-SELECT * FROM t1 WHERE d like "t%" COLLATE latin1_bin;
+SELECT * FROM t1 WHERE d like "t%" COLLATE utf8mb4_bin;
 ```
 
 ```sql
-SELECT * FROM t1 WHERE d like "t%" COLLATE latin1_bin;
-Empty SET (0.00 sec)
+SELECT * FROM t1 WHERE d like "t%" COLLATE utf8mb4_bin;
+Empty set (0.00 sec)
 ```
 
 You can include functions and operators in the expression to match. Select dates based on their day name:
@@ -139,14 +139,14 @@ SELECT * FROM t2 WHERE DAYNAME(d) LIKE "T%";
 
 ```sql
 SELECT * FROM t2 WHERE DAYNAME(d) LIKE "T%";
-+------------------+
-| d                |
-+------------------+
-| 2007-01-30 21:31 |
-| 2011-04-21 12:34 |
-| 2004-10-07 11:19 |
-+------------------+
-3 rows in set, 7 warnings (0.00 sec)
++---------------------+
+| d                   |
++---------------------+
+| 2007-01-30 21:31:07 |
+| 2011-04-21 12:34:56 |
+| 2004-10-07 11:19:34 |
++---------------------+
+3 rows in set (0.00 sec)
 ```
 
 ## Optimizing LIKE

@@ -16,7 +16,7 @@ MOD(N,M), N % M, N MOD M
 
 Modulo operation. Returns the remainder of N divided by M. See also [Modulo Operator](../../sql-structure/operators/arithmetic-operators/modulo-operator.md).
 
-If the `ERROR_ON_DIVISION_BY_ZERO` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is used, any number modulus zero produces an error. Otherwise, it returns `NULL`.
+Any number modulo zero returns `NULL`. When the [ERROR\_FOR\_DIVISION\_BY\_ZERO](../../../server-management/variables-and-modes/sql_mode.md#error_for_division_by_zero) SQL mode is enabled, as it is by default, it also produces a warning. If [strict mode](../../../server-management/variables-and-modes/sql_mode.md#strict_trans_tables) is also enabled, an `INSERT` or `UPDATE` that takes a modulo by zero fails with an error instead.
 
 The integer part of a division can be obtained using [DIV](div.md).
 

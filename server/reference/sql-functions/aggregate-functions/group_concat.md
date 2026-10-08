@@ -20,7 +20,13 @@ It returns NULL if all arguments are NULL, or there are no matching rows.
 
 The maximum returned length in bytes is determined by the [group\_concat\_max\_len](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#group_concat_max_len) server system variable, which defaults to 1M.
 
-If group\_concat\_max\_len <= 512, the return type is [VARBINARY](../../data-types/string-data-types/varbinary.md) or [VARCHAR](../../data-types/string-data-types/varchar.md); otherwise, the return type is [BLOB](../../data-types/string-data-types/blob.md) or [TEXT](../../data-types/string-data-types/text.md). The choice between binary or non-binary types depends from the input.
+If group\_concat\_max\_len <= 512, the return type is [VARBINARY](../../data-types/string-data-types/varbinary.md) or [VARCHAR](../../data-types/string-data-types/varchar.md); otherwise, the return type is the smallest [BLOB](../../data-types/string-data-types/blob.md) or [TEXT](../../data-types/string-data-types/text.md) type that can hold a result of that length. With the default `group_concat_max_len`, that is `MEDIUMBLOB` or `MEDIUMTEXT`. The choice between binary or non-binary types depends on the input.
+
+If the result is longer than `group_concat_max_len`, it is truncated to that length, and a warning is issued:
+
+```
+Warning (Code 1260): Row 2 was cut by group_concat()
+```
 
 The full syntax is as follows:
 
@@ -58,7 +64,7 @@ SELECT GROUP_CONCAT(DISTINCT User ORDER BY User SEPARATOR '\n')
    FROM mysql.user;
 ```
 
-In the former example, `DISTINCT` is used because the same user may occur more than once. The new line () used as a `SEPARATOR` makes the results easier to read.
+In the former example, `DISTINCT` is used because the same user may occur more than once. The new line (`\n`) used as a `SEPARATOR` makes the results easier to read.
 
 Get a readable list of hosts from which each user can connect:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether an expression is NULL. ISNULL() returns 1 if the expression is
+  NULL, and 0 otherwise.
+---
+
 # ISNULL
 
 ## Syntax

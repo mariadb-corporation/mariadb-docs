@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the remainder of one number divided by another. N % M is the same as
+  MOD(N,M) and N MOD M.
+---
+
 # Modulo Operator (%)
 
 ## Syntax

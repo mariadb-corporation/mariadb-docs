@@ -35,7 +35,7 @@ SELECT 1 XOR NULL;
 +------------+
 ```
 
-In the following example, the right `1 XOR 1` is evaluated first, and returns `0`. Then, `1 XOR 0` is evaluated, and `1` is returned.
+`XOR` is evaluated from left to right. In the following example, the left `1 XOR 1` is evaluated first, and returns `0`. Then, `0 XOR 1` is evaluated, and `1` is returned.
 
 ```sql
 SELECT 1 XOR 1 XOR 1;
