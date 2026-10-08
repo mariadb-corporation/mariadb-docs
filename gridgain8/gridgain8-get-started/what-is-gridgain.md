@@ -88,13 +88,9 @@ Calcite SQL engine is not supported in GridGain and there are currently no plans
 
 Cellular affinity is an experimental mode in Apache Ignite. As such, it is not implemented in GridGain.
 
-### Service Intercepors
+### Service Interceptors
 
-Service interceptors ("middleware") are an experimental feature in Apache Ignite. It is currently not available in GridGain.
-
-### Custom Execution Context
-
-It is currently not possible to set up a custom execution context in GridGain.
+GridGain supports service interceptors starting with version 8.10.0-b1. See [Service Call Interceptors](../gridgain8-development/services/services.md#service-call-interceptors).
 
 ### Service Call Context
 

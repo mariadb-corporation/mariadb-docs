@@ -109,7 +109,7 @@ Please refer to the [Configuration Properties](../../../architecture/storage/nat
 
 ## IgniteConfig Resource
 
-This custom resource is responsible for managing internal cluster configuration through the embedded XML configuration file. Please refer to [GridGain configuration docs](../../../gridgain8-usage/understanding-configuration.md) for details.
+This custom resource is responsible for managing internal cluster configuration through the embedded XML configuration file. Please refer to [GridGain configuration docs](../../cluster-configuration/understanding-configuration.md) for details.
 
 {% hint style="warning" %}
 Changes in the custom resource trigger the operator reconciliation loop, and, as a result, the pods are re-created.

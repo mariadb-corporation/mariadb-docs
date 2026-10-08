@@ -486,7 +486,7 @@ SQLFreeHandle(SQL_HANDLE_STMT, stmt);
 ```
 
 {% hint style="info" %}
-This type of batching is currently supported for `INSERT`, `UPDATE`, `DELETE`, and `MERGE` statements and does not work for `SELECTs`. The data-at-execution capability is not supported with Arrays of Parameters batching either.
+This type of batching is supported for `INSERT`, `UPDATE`, `DELETE`, and `MERGE` statements and does not work for `SELECTs`. The data-at-execution capability is not supported with Arrays of Parameters batching either.
 {% endhint %}
 
 ## Streaming

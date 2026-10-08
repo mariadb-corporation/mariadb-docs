@@ -69,7 +69,7 @@ In addition to basic scan querying capabilities, GridGain also provides the foll
 
 - [SQL queries](../../reference/sql/dml.md#select), including support for distributed JOIN operations
 - SQL Field queries, allowing the retrieval of specific value fields instead of the whole object
-- [MapReduce queries](../../gridgain8-usage/distributed-computing/map-reduce.md), allowing for preprocessing of the data on the data node side, instead of the client side, for better performance
+- [MapReduce queries](../../gridgain8-development/distributed-computing/map-reduce.md), allowing for preprocessing of the data on the data node side, instead of the client side, for better performance
 
 ### Query Execution
 
@@ -344,7 +344,7 @@ try (Transaction tx = transactions.txStart(OPTIMISTIC, REPEATABLE_READ)) {
 ```
 {% endcode %}
 
-Learn more about GridGain transactions [here](../../gridgain8-usage/transactions.md).
+Learn more about GridGain transactions [here](../../gridgain8-development/transactions.md).
 
 ## Affinity Colocation
 
@@ -461,4 +461,4 @@ GridGain also provides Thin Clients - lightweight GridGain clients that connect 
 
 Unlike Coherence, which only supports proprietary XML configuration syntax, GridGain supports standard Spring XML configuration syntax. In addition to the XML configuration, GridGain allows configuring the grid directly from code.
 
-For more information about GridGain configuration, refer to [Understanding Configuration](../../gridgain8-usage/understanding-configuration.md).
+For more information about GridGain configuration, refer to [Understanding Configuration](../cluster-configuration/understanding-configuration.md).

@@ -43,7 +43,7 @@ Previously used syntax is supported for backwards compatibility.
 
 ### Snapshot Encryption
 
-Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
+Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
 
 You can also manually set snapshot encryption when creating then by using the `encryption-provider` parameter.
 

@@ -36,7 +36,7 @@ Read-write transactions now use the wound-wait deadlock prevention algorithm ins
 
 Under wait-die, a transaction that requested a lock held by an older transaction was cancelled and retried. Under wound-wait the priority runs the other way: an older transaction that needs a lock held by a younger one aborts the younger transaction and proceeds, while a younger transaction that meets an older holder waits for the lock to be released.
 
-No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/transactions#deadlock-prevention).
+No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/transactions#deadlock-prevention).
 
 ### Built-In Roles Can No Longer Be Assigned, Revoked, or Dropped
 
@@ -61,7 +61,7 @@ One response shape covers every kind of statement, reporting a row set, an affec
 
 A `cursorId` is valid only on the node that issued it, so paging requests must go to that same node.
 
-See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/rest-api/overview#running-sql).
+See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/rest-api#running-sql).
 
 ### Connect Timeout for the C++ Client
 

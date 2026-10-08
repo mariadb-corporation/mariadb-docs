@@ -66,7 +66,7 @@ The table below covers the configuration for client connector:
 | port | 10800 | The port the client connector will be listening to. |
 | sendServerExceptionStackTraceToClient | `false` | Defines if cluster exceptions are sent to the client. |
 | ssl.ciphers | | The cipher used for SSL communication. |
-| ssl.clientAuth | | Type of client authentication used by clients. For more information, see [SSL/TLS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/ssl-tls). |
+| ssl.clientAuth | | Type of client authentication used by clients. For more information, see [SSL/TLS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/ssl-tls). |
 | ssl.enabled | | Defines if SSL is enabled. |
 | ssl.keyStore.password | | SSL keystore password. |
 | ssl.keyStore.path | | Path to the SSL keystore. |

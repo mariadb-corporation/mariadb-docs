@@ -41,7 +41,7 @@ For more information, see [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoB
 
 With this release, you can deploy your code in a `zip` archive preserving its folder structure. To do this, you use the new `/management/v1/deployment/units/zip/{unitId}/{unitVersion}` REST endpoint. Once GridGain receives the archive, it will unpack it and the code will be available from your compute jobs.
 
-For more information about code deployment, see [Code Deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/code-deployment) documentation.
+For more information about code deployment, see [Code Deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/code-deployment) documentation.
 
 ### Deployment Unit Context in Compute Jobs
 
@@ -65,11 +65,11 @@ public class DiagnosticJob implements ComputeJob<Void, String> {
 }
 ```
 
-For more information about distributed computing, see [Compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing) documentation.
+For more information about distributed computing, see [Compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) documentation.
 
 ### Improved CDC Monitoring
 
-This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture).
+This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture).
 
 ### Improved CLI Tool Configuration for Docker
 

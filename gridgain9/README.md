@@ -55,8 +55,8 @@ How GridGain 9 is built: cluster architecture, consensus, data distribution, con
 
 {% columns %}
 {% column %}
-{% content-ref url="gridgain9-usage/" %}
-[Usage](gridgain9-usage/)
+{% content-ref url="gridgain9-development/" %}
+[Development](gridgain9-development/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -67,8 +67,8 @@ Guides for building applications on GridGain 9 — setting up a project, working
 
 {% columns %}
 {% column %}
-{% content-ref url="gridgain9-management/" %}
-[Management](gridgain9-management/)
+{% content-ref url="gridgain9-development/" %}
+[Management](gridgain9-development/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -91,8 +91,8 @@ Secure a GridGain 9 cluster with SSL/TLS encryption, user authentication, role-b
 
 {% columns %}
 {% column %}
-{% content-ref url="ha-and-performance/" %}
-[HA and Performance](ha-and-performance/)
+{% content-ref url="tuning-and-troubleshooting/" %}
+[Tuning and Troubleshooting](tuning-and-troubleshooting/)
 {% endcontent-ref %}
 {% endcolumn %}
 

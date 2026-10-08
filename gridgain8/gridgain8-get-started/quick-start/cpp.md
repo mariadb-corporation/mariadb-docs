@@ -133,5 +133,5 @@ Proceed as follows:
 
 From here, you may want to:
 
-- Read more about using [GridGain](../../gridgain8-usage/README.md)
+- Read more about using [GridGain](../../gridgain8-development/README.md)
 - Use [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster

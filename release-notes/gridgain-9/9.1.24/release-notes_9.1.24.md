@@ -34,7 +34,7 @@ ignite.compute.dotnet {
 }
 ```
 
-See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#configuring-the-.net-compute-executor) for more information.
+See [.NET Compute Executor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#configuring-the-.net-compute-executor) for more information.
 
 ### .NET Client: Cluster API
 
@@ -80,7 +80,7 @@ var options = DataStreamerOptions.builder()
     .build();
 ```
 
-See [same-key update mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming#same-key-update-mode) and [continuous query events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#event-generation) for more information.
+See [same-key update mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/data-streaming#same-key-update-mode) and [continuous query events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries#event-generation) for more information.
 
 ### Schema-Qualified Objects in SQL GRANT/REVOKE
 

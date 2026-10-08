@@ -183,7 +183,7 @@ access before either privilege has any effect.
 
 | Name | Has Selector | Description |
 |---|---|---|
-|EXECUTE_SQL|no|Allows the user to execute SQL statements, including over the [REST API](../reference/rest-api/overview.md#running-sql). The user also needs the object privileges that a statement requires, such as `SELECT_FROM_TABLE`.|
+|EXECUTE_SQL|no|Allows the user to execute SQL statements, including over the [REST API](../gridgain9-development/rest-api.md#running-sql). The user also needs the object privileges that a statement requires, such as `SELECT_FROM_TABLE`.|
 |GET_SQL_QUERY_STATE|no|Allows the user to get status of running queries.|
 |KILL_SQL_QUERY|no|Allows the user to stop running queries.|
 
@@ -203,7 +203,7 @@ The operations below are refused whatever letter case you use, over both SQL and
 The privilege check runs before these restrictions, so holding `GRANT_ROLE`, `REVOKE_ROLE`, or `DROP_ROLE` does not permit the operation.
 Changing the privileges of the `system` role is also refused, as described for the `WRITE_SECURITY_CONFIG` action in [Cluster Configuration](#cluster-configuration).
 
-A refused assignment or revocation is recorded as a [`USER_OPERATION_REFUSED`](../gridgain9-usage/events/available-events.md) event.
+A refused assignment or revocation is recorded as a [`USER_OPERATION_REFUSED`](../gridgain9-development/events/available-events.md) event.
 
 ## Object Permission Hierarchy
 

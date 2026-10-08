@@ -28,7 +28,7 @@ topology using the [control script](../reference/cli-tool/README.md#activation-d
 
 {% hint style="warning" %}
 Any attempt to create a cache while the baseline topology is being changed results in an exception.
-For more details, see [Creating Caches Dynamically](../gridgain8-usage/key-value-api/basic-cache-operations.md#creating-caches-dynamically).
+For more details, see [Creating Caches Dynamically](../gridgain8-development/key-value-api/basic-cache-operations.md#creating-caches-dynamically).
 {% endhint %}
 
 ## Baseline Topology in Pure In-Memory Clusters

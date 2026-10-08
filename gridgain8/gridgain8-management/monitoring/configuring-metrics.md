@@ -164,7 +164,7 @@ Disable data region metrics for every region you do not need the metrics for.
 
 Data region metrics can be disabled in two ways:
 
-* in the [configuration of the region](../../gridgain8-usage/memory-configuration/data-regions.md)
+* in the [configuration of the region](../../gridgain8-development/memory-configuration/data-regions.md)
 * via JMX Beans
 
 The following example illustrates how to enable metrics for the default data region and one custom data region.
@@ -354,4 +354,4 @@ To switch the metrics off for all indexes on a node, regardless of the cache sta
 
 The default value is `false`.
 The property is read when an index tree is created, so set it before you start the node.
-See [Setting JVM Options](../../gridgain8-usage/starting-nodes.md#setting-jvm-options) to learn about different ways to set system properties.
+See [Setting JVM Options](../cluster-configuration/starting-nodes.md#setting-jvm-options) to learn about different ways to set system properties.

@@ -9,7 +9,7 @@ description: >-
 ## Overview
 
 _Ignite Persistence_, or _Native Persistence_, is a set of features designed to provide persistent storage.
-When native persistence is enabled, Ignite  stores all the data on disk and loads [as much data as it can](../../gridgain8-usage/memory-configuration/data-regions.md) to RAM for processing.
+When native persistence is enabled, Ignite  stores all the data on disk and loads [as much data as it can](../../gridgain8-development/memory-configuration/data-regions.md) to RAM for processing.
 For example, if there are 100 entries and RAM has the capacity to store only 20, then all 100 are stored on disk and only 20 are cached in RAM for better performance.
 
 {% hint style="info" %}
@@ -34,7 +34,7 @@ In addition to data partitions, GridGain stores indexes and metadata. It stores 
 
 ## Enabling Persistent Storage
 
-Native persistence is configured per [data region](../../gridgain8-usage/memory-configuration/data-regions.md).
+Native persistence is configured per [data region](../../gridgain8-development/memory-configuration/data-regions.md).
 To enable persistent storage, set the `persistenceEnabled` property to `true` in the data region configuration.
 You can have in-memory data regions and data regions with persistence at the same time.
 
@@ -117,7 +117,7 @@ Each individual node must use a unique consistent id, otherwise it won't be able
 We strongly recommend user-defined consistent IDs for nodes with persistence in production clusters. To set up the the consistent ID for a node, add `property name="consistentId" value="{value}"` to the node configuration (XML) file.
 
 {% hint style="info" %}
-Currently, auto-generated IDs might cause inconsistent persistence folder naming in PDS cleaning scenarios.
+Auto-generated IDs might cause inconsistent persistence folder naming in PDS cleaning scenarios.
 {% endhint %}
 
 Consider a scenario where multiple nodes with persistence are started on the same machine, then all these nodes are shut down, then they are re-started. If a node doesn't have its consistent ID defined in configuration, re-starting this node will result in locking in to the first available persistent directory, which may cause unwanted/unpredictable node start order. If the same node has its consistent ID defined in configuration, its re-start will lock the predefined/intended persistent folders.
@@ -223,7 +223,7 @@ unsupported
 You can change the [Write-Ahead Log (WAL)](#write-ahead-log-wal) and [WAL Archive](#wal-archive) paths to point directories outside of the storage directory.
 
 {% hint style="warning" %}
-To estimate the required size of the data storage, refer to the [Empirical Estimation of Disk Capacity Usage](../../ha-and-performance/disk-capacity-estimation.md) section.
+To estimate the required size of the data storage, refer to the [Empirical Estimation of Disk Capacity Usage](../../tuning-and-troubleshooting/disk-capacity-estimation.md) section.
 {% endhint %}
 
 ## Checkpointing
@@ -258,7 +258,7 @@ Setting the dynamic `checkpoint.frequency` property to zero (0) or to a negative
 You can configure the checkpointing buffer, throttling, etc. For more information, see:
 
 - [Monitoring Checkpointing Operations](../../reference/monitoring/jmx-metrics.md#monitoring-checkpointing-operations)
-- [Persistence Tuning](../../ha-and-performance/performance-tuning/persistence-tuning.md)
+- [Persistence Tuning](../../tuning-and-troubleshooting/performance-tuning/persistence-tuning.md)
 
 ## Write-Ahead Log (WAL)
 
@@ -423,7 +423,7 @@ If a node crashes while WAL is disabled, you may need to do some cleanup to rest
 You may try to recover files manually before cleanup although this option is not recommended.
 {% endhint %}
 
-Back up the corrupted data files (optional), then clean up persistence ase described in the [troubleshooting section](../../ha-and-performance/maintenance-mode.md).
+Back up the corrupted data files (optional), then clean up persistence ase described in the [troubleshooting section](../../gridgain8-management/maintenance-mode.md).
 
 ### WAL Archive Compaction
 

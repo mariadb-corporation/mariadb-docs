@@ -96,7 +96,7 @@ After configuration is updated and the node restarted, the new storage profile b
 
 ## Defining Tables With Storage Profiles
 
-After defining storage profiles and [distribution zones](distribution-zones.md), you can create tables using SQL or [from code](../../gridgain9-usage/tables-from-java-classes.md). Both zone and storage profile cannot be changed after table creation.
+After defining storage profiles and [distribution zones](distribution-zones.md), you can create tables using SQL or [from code](../../gridgain9-development/tables-from-java-classes.md). Both zone and storage profile cannot be changed after table creation.
 
 To create a table with a specific storage profile:
 
@@ -143,30 +143,6 @@ SELECT /*+ use_secondary_storage */ * FROM Person
 ```
 
 With secondary storage configured, all updates written to the primary storage will be automatically propagated to the secondary storage. While secondary storage data may be slightly behind primary storage (typically by less than a second), it offers significant performance benefits for analytical queries. You can mix primary and secondary storage access in complex queries by specifying the `use_secondary_storage` hint only for the specific tables you want to read from secondary storage. Remember that secondary storage is read-only; all writes must go through the primary storage.
-
-{% columns %}
-{% column %}
-{% content-ref url="distribution-zones.md" %}
-[Distribution Zones](distribution-zones.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Create and configure GridGain 9 distribution zones to control how tables are partitioned, replicated, and distributed across cluster nodes.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="data-partitioning.md" %}
-[Data Partitioning](data-partitioning.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How GridGain 9 partitions and replicates table data across cluster nodes, including RAFT consensus, the Fair distribution algorithm, and primary replica leases.
-{% endcolumn %}
-{% endcolumns %}
 
 {% columns %}
 {% column %}

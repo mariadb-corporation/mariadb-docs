@@ -15,7 +15,7 @@ It covers the SQL engine change, the per-language client differences, and the ch
 These changes apply to every deployment that runs SQL queries.
 
 - *Engine:* GridGain uses H2 exclusively. Remove Calcite configuration and the `queryEngine` connection property, and re-test every query, because optimization and type coercion differ.
-- *Memory quotas:* GridGain enables [SQL memory quotas](../../../ha-and-performance/performance-tuning/sql-memory-management.md) by default (Ignite has none). Large queries that worked in Ignite may fail with quota errors. Set `sqlGlobalMemoryQuota=0` to restore unlimited behavior, or tune to your needs.
+- *Memory quotas:* GridGain enables [SQL memory quotas](../../../tuning-and-troubleshooting/performance-tuning/sql-memory-management.md) by default (Ignite has none). Large queries that worked in Ignite may fail with quota errors. Set `sqlGlobalMemoryQuota=0` to restore unlimited behavior, or tune to your needs.
 - *Syntax:* `CREATE`/`ALTER`/`DROP USER` work in GridGain the same as in Ignite, through Ignite's built-in authentication. If you use GridGain enterprise security instead, manage users through its authenticator configuration rather than these SQL commands.
 
 ## Clients

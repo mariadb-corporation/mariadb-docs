@@ -205,7 +205,7 @@ docker run -d -v {absolute_path}/gridgain-license.xml:/opt/gridgain/gridgain-lic
 
 ## Enabling Modules
 
-To enable specific [modules](../../gridgain8-usage/setup.md#enabling-modules), specify their names in the `OPTION_LIBS` system variable as follows:
+To enable specific [modules](../../gridgain8-development/project-setup.md#enabling-modules), specify their names in the `OPTION_LIBS` system variable as follows:
 
 ```shell
 docker run -d \
@@ -228,7 +228,7 @@ The following parameters can be passed as environment variables in the docker co
 | Parameter Name | Description | Default |
 |---|---|---|
 | `CONFIG_URI` | URL to the GridGain configuration file (can also be relative to the META-INF folder on the class path). The downloaded configuration file is saved to `./ignite-config.xml` | N/A |
-| `OPTION_LIBS` | A list of [modules](../../gridgain8-usage/setup.md#enabling-modules) that will be enabled for the node. | ignite-log4j, ignite-spring, ignite-indexing |
+| `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) that will be enabled for the node. | ignite-log4j, ignite-spring, ignite-indexing |
 | `JVM_OPTS` | JVM arguments passed to the GridGain instance. | N/A |
 | `EXTERNAL_LIBS` | A list of URL's to external libraries. Refer to [Deploying User Libraries](#deploying-user-libraries). | N/A |
 | `LICENCE_URL` | URL to the license file. A license is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |

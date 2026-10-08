@@ -43,7 +43,7 @@ To run GridGain with Java 11 or later:
 {% endtabs %}
 
 {% hint style="info" %}
-Other parameters, for example, [Detailed GC Logs](../../ha-and-performance/troubleshooting.md#detailed-gc-logs), they may be version-dependent as well.
+Other parameters, for example, [Detailed GC Logs](../../tuning-and-troubleshooting/troubleshooting.md#detailed-gc-logs), they may be version-dependent as well.
 {% endhint %}
 
 When upgrading your environment to Java 11 or later, your GridGain cluster nodes may start successfully and reach `ACTIVE` status, but certain runtime operations can still fail with module access errors, caused by Java 9+ module system restrictions (JPMS). Below is the example of an error you many encounter:

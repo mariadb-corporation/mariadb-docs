@@ -1687,7 +1687,7 @@ The command arguments are as follows.
 
 ### kill continuous
 
-This command stops the specific [continuous query](../../gridgain8-usage/continuous-queries.md).
+This command stops the specific [continuous query](../../gridgain8-development/continuous-queries.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1708,7 +1708,7 @@ Use the CONTINUOUS_QUERIES [system view](../monitoring/system-views.md#continuou
 
 ### kill scan
 
-This command stops the specific [scan query](../../gridgain8-usage/key-value-api/using-scan-queries.md).
+This command stops the specific [scan query](../../gridgain8-development/key-value-api/using-scan-queries.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1735,7 +1735,7 @@ The command arguments are as follows.
 
 ### kill compute
 
-This command stops the specific [compute task](../../gridgain8-usage/distributed-computing/distributed-computing.md).
+This command stops the specific [compute task](../../gridgain8-development/distributed-computing/distributed-computing.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1759,7 +1759,7 @@ The command arguments are as follows.
 
 ### kill service
 
-This command stops the specific [service](../../gridgain8-usage/services/services.md).
+This command stops the specific [service](../../gridgain8-development/services/services.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -1783,7 +1783,7 @@ The command arguments are as follows.
 
 ### kill transaction
 
-This command stops the specific [transaction](../../gridgain8-usage/transactions.md).
+This command stops the specific [transaction](../../gridgain8-development/transactions.md).
 
 {% tabs %}
 {% tab title="Linux/Unix" %}
@@ -2185,7 +2185,7 @@ The command argument is as follows.
 Use this command to schedule and run a maintenance task to clean up DR trees:
 
 {% hint style="info" %}
-The operation this command initiates can be performed only in the [maintenance mode](../../ha-and-performance/maintenance-mode.md).
+The operation this command initiates can be performed only in the [maintenance mode](../../gridgain8-management/maintenance-mode.md).
 {% endhint %}
 
 {% tabs %}
@@ -2408,7 +2408,7 @@ You can use the `control.sh|bat` script to define the way the data files and cac
 
 ### persistence
 
-This command works only for nodes in [maintenance](../../ha-and-performance/maintenance-mode.md) mode.
+This command works only for nodes in [maintenance](../../gridgain8-management/maintenance-mode.md) mode.
 
 To get information about the potentially corrupted caches on a local node, use either:
 

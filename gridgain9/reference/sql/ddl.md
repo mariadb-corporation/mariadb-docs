@@ -14,7 +14,7 @@ This section walks you through all data definition language (DDL) commands suppo
 Creates a new table.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -539,10 +539,10 @@ ALTER TABLE employees SET ROW LEVEL SECURITY OFF;
 
 ## DROP TABLE
 
-The `DROP TABLE` command drops an existing table. The table will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/storage/data-partitioning.md#version-storage) point is reached. Until the data is removed, it will be available to [read-only transactions](../../gridgain9-usage/transactions.md#read-only-transactions) that check the time before the table was marked for deletion.
+The `DROP TABLE` command drops an existing table. The table will be marked for deletion and will be removed by garbage collection after the [low watermark](../../architecture/storage/data-partitioning.md#version-storage) point is reached. Until the data is removed, it will be available to [read-only transactions](../../gridgain9-development/transactions.md#read-only-transactions) that check the time before the table was marked for deletion.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -574,7 +574,7 @@ DROP TABLE IF EXISTS "Person";
 Creates a new index.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 When you create a new index, it will start building only after all transactions started before the index creation had been completed. Index build will not start if there are any “hung“ transactions in the logical topology of the cluster.
@@ -628,7 +628,7 @@ CREATE INDEX department_city_idx ON Person USING SORTED (age ASC, city_id DESC);
 Drops an index.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 When you drop an index, it stays in the STOPPING status until all transactions started before the DROP INDEX command had been completed (even those that do not affect any of the tables for which the index is being dropped).
@@ -702,7 +702,7 @@ Diagram(Terminal('DROP SCHEMA'),Optional(Terminal('IF EXISTS')),NonTerminal('nam
 Caches must use the storage profile or distribution zone with `aimem` storage engine.
 {% endhint %}
 
-Creates a new [cache](../../gridgain9-usage/caches.md).
+Creates a new [cache](../../gridgain9-development/caches.md).
 
 ```bnf
 CREATE CACHE [IF NOT EXISTS] cache_name
@@ -725,7 +725,7 @@ Diagram(Start({type:'complex'}),Optional(Sequence(Optional('PRIMARY'),Terminal('
 - `COLOCATE BY` - colocation key. The key can be composite. Primary key must include colocation key. Was `affinity_key` in GridGain 2.x.
 - `ZONE` - sets the [Distribution Zone](distribution-zones.md). Can be specified as a case-sensitive string or case-insensitive identifier. Can be preceded by `PRIMARY` to signify the primary distribution zone.
 - `STORAGE PROFILE` - sets the [storage profile](../../architecture/storage/storage-profiles.md) that will be used to store the table. Must be specified as a case-sensitive string. Can be preceded by `PRIMARY` to signify the primary storage profile.
-- `WRITE MODE` - configures if the data is written to [external store](../../gridgain9-usage/caches.md#caches-as-external-storage). Default value: `SYNC`. Possible values:
+- `WRITE MODE` - configures if the data is written to [external store](../../gridgain9-development/caches.md#caches-as-external-storage). Default value: `SYNC`. Possible values:
   - `SYNC` - External Cache store writes are synchronous. KeyValueView operations won't return until external cache store write is complete.
   - `ASYNC` - External Cache store writes are asynchronous and performed in background. KeyValueView operations may return before external cache store write completes.
 - `EXPIRE AT` - allows specifying a column with a point in time when a record should be deleted.

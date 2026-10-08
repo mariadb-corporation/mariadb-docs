@@ -122,7 +122,7 @@ If you use Native persistence, in addition to RAM, you should monitor the size o
 The size of the data loaded into a node is available at different levels of aggregation. You can monitor for:
 
 - The total size of the data the node keeps on disk or in RAM. This amount is the sum of the size of each configured data region (in the simplest case, only the default data region) plus the sizes of the system data regions.
-- The size of a specific [data region](../../gridgain8-usage/memory-configuration/data-regions.md) on that node. The data region size is the sum of the sizes of all cache groups.
+- The size of a specific [data region](../../gridgain8-development/memory-configuration/data-regions.md) on that node. The data region size is the sum of the sizes of all cache groups.
 - The size of a specific cache/cache group on that node, including the backup partitions.
 
 These metrics can be enabled/disabled for each level separately and are exposed via different JMX beans listed below.
@@ -217,7 +217,7 @@ group=DataRegionMetrics,name=<Data Region name>
 
 #### Cache Group Size
 
-If you don't use [cache groups](../../gridgain8-usage/configuring-caches/cache-groups.md), each cache will be its own group.
+If you don't use [cache groups](../../gridgain8-development/configuring-caches/cache-groups.md), each cache will be its own group.
 There is a separate JMX bean for each cache group.
 The name of the bean corresponds to the name of the group.
 
@@ -237,7 +237,7 @@ Checkpointing may slow down cluster operations.
 You may want to monitor how much time each checkpoint operation takes, so that you can tune the properties that affect checkpointing.
 You may also want to monitor the disk performance to see if the slow-down is caused by external reasons.
 
-See [Pages Writes Throttling](../../ha-and-performance/performance-tuning/persistence-tuning.md#pages-writes-throttling) and [Checkpointing Buffer Size](../../ha-and-performance/performance-tuning/persistence-tuning.md#adjusting-checkpointing-buffer-size) for performance tips.
+See [Pages Writes Throttling](../../tuning-and-troubleshooting/performance-tuning/persistence-tuning.md#pages-writes-throttling) and [Checkpointing Buffer Size](../../tuning-and-troubleshooting/performance-tuning/persistence-tuning.md#adjusting-checkpointing-buffer-size) for performance tips.
 
 **Mbean's Object Name:**
 

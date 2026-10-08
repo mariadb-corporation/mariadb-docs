@@ -168,7 +168,7 @@ If a new replica is chosen to receive the lease, it first makes sure it is up-to
 
 ### Reading Data From Replicas
 
-Reading data as part of a read-write [transaction](../../gridgain9-usage/transactions.md) is always handled by the primary data replica.
+Reading data as part of a read-write [transaction](../../gridgain9-development/transactions.md) is always handled by the primary data replica.
 
 Read-only transactions are also handled by the primary replica when you use the table or key-value API. Only SQL can read from non-primary replicas, and only when follower reads are enabled - see the cluster-wide [`sql.allowFollowerReads`](../../reference/configuration/cluster-configuration-parameters.md#sql-configuration) setting and the `allowFollowerReads` statement property.
 
@@ -176,7 +176,7 @@ Read-only transactions are also handled by the primary replica when you use the 
 
 As new data is written to the partition, GridGain does not immediately delete the old one. Instead, GridGain stores old keys in a *version chain* within the same partition.
 
-Older key versions can only be accessed by [read-only transactions](../../gridgain9-usage/transactions.md#read-only-transactions), while up-to-date version can be accessed by any transactions.
+Older key versions can only be accessed by [read-only transactions](../../gridgain9-development/transactions.md#read-only-transactions), while up-to-date version can be accessed by any transactions.
 
 Older key versions are kept until the *low watermark* point is reached, after which they are considered garbage and removed by the garbage collector. [Dropped tables](../../reference/sql/ddl.md#drop-table) are retained in the same way: they remain on disk until the low watermark passes the point at which they were dropped, though you can no longer write to them.
 
@@ -184,7 +184,7 @@ For how the low watermark controls retention, how to configure it, and the impac
 
 ## Distribution Reset
 
-The SQL query performance can deteriorate in a cluster where tables had been created over a long period, alongside topology changes, due to sub-optimum data colocation. To resolve this issue, you can reset (recalculate) partition distribution using [CLI](../../reference/cli-tool.md#distribution-commands) or [REST API](../../reference/rest-api/overview.md).
+The SQL query performance can deteriorate in a cluster where tables had been created over a long period, alongside topology changes, due to sub-optimum data colocation. To resolve this issue, you can reset (recalculate) partition distribution using [CLI](../../reference/cli-tool.md#distribution-commands) or [REST API](../../gridgain9-development/rest-api.md).
 
 {% hint style="info" %}
 Reset is likely to result in [Partition Rebalance](#partition-rebalance) that may take a long time.

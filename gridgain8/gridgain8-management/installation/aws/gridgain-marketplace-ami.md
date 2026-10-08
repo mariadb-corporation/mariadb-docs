@@ -34,7 +34,7 @@ Consider the following points:
   You may want to uncheck the **Delete on Termination** option for your storage.
 - **Networking:** GridGain nodes discover and communicate with each other by TCP/IP. A number of ports must be open for this communication. See [Configuring Security Group](#configuring-security-group).
 
-Visit our [Capacity Planning](../../../ha-and-performance/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
+Visit our [Capacity Planning](../../../tuning-and-troubleshooting/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
 
 ## Selecting and Obtaining GridGain AMI
 
@@ -75,7 +75,7 @@ Additionally, we recommend you to attach following permissions:
 
 ### For Amazon ELB
 
-Set the following permissions for [automatic discovery using Amazon ELB](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md#amazon-elb-based-discovery):
+Set the following permissions for [automatic discovery using Amazon ELB](../../clustering/discovery-in-the-cloud.md#amazon-elb-based-discovery):
 
 ```
 elasticloadbalancing:DescribeLoadBalancerAttributes
@@ -99,7 +99,7 @@ elasticloadbalancing:GetResourcePolicy
 
 ### For S3 Bucket
 
-Set the following permissions for [automatic discovery using S3 bucket](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder):
+Set the following permissions for [automatic discovery using S3 bucket](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder):
 
 ```
 s3:ListBucket
@@ -143,11 +143,11 @@ Because the service is enabled by default, it should start automatically and be 
 Cluster nodes launched in different EC2 instances must be able to connect to each other.
 This is achieved by configuring the discovery mechanisms on each node. There are two ways you can do that:
 
-- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../../gridgain8-usage/clustering/tcp-ip-discovery.md) of each node.
-- Use one of the [IP Finders designed for AWS](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md).
+- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../clustering/tcp-ip-discovery.md) of each node.
+- Use one of the [IP Finders designed for AWS](../../clustering/discovery-in-the-cloud.md).
 
 {% hint style="info" %}
-We recommend using one of the [Amazon IP Finders](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md).
+We recommend using one of the [Amazon IP Finders](../../clustering/discovery-in-the-cloud.md).
 They allow you to add more instances to the cluster without updating the discovery configuration of the running nodes.
 {% endhint %}
 
@@ -197,7 +197,7 @@ Make sure that the IP finder configuration of at least one node contains the loc
 
 ### Automatic Discovery Using Amazon S3
 
-You can use the [Amazon S3 IP Finder](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
+You can use the [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
 
 The 'ignite-aws' module is already enabled.
 

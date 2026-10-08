@@ -44,7 +44,7 @@ public record Person(
 ) {}
 ```
 
-For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api).
+For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api).
 
 ### Custom Object Mapping in .NET
 

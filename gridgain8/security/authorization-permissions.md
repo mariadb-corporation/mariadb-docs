@@ -153,7 +153,7 @@ GridGain supports the following permissions:
 - ADMIN_METADATA_OPS - administrative operations on cluster metadata (removing or updating binary type metadata)
 - ADMIN_READ_DISTRIBUTED_PROPERTY - reading the values of distributed properties
 - ADMIN_WRITE_DISTRIBUTED_PROPERTY - changing the values of distributed properties
-- SET_QUERY_MEMORY_QUOTA - setting [memory quotas](../ha-and-performance/performance-tuning/sql-memory-management.md) for SQL queries
+- SET_QUERY_MEMORY_QUOTA - setting [memory quotas](../tuning-and-troubleshooting/performance-tuning/sql-memory-management.md) for SQL queries
 - GET_QUERY_VIEWS - viewing the `LOCAL_SQL_RUNNING_QUERIES` or `LOCAL_SQL_QUERY_HISTORY` system views
 - KILL_QUERY - execute the `KILL QUERY` command
 - CACHE_CREATE - creating new caches (including ones specified in the node configuration)

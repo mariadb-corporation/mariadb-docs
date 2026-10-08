@@ -12,9 +12,9 @@ MVCC support is in beta and is not recommended for production use.
 
 ## Overview
 
-Caches with the `TRANSACTIONAL_SNAPSHOT` atomicity mode support SQL transactions as well as [key-value transactions](../gridgain8-usage/transactions.md) and enable multiversion concurrency control (MVCC) for both types of transactions.
+Caches with the `TRANSACTIONAL_SNAPSHOT` atomicity mode support SQL transactions as well as [key-value transactions](../gridgain8-development/transactions.md) and enable multiversion concurrency control (MVCC) for both types of transactions.
 
-By default, SQL operations in GridGain 8 are not transactional, so [concurrent queries](../gridgain8-usage/sql/sql-introduction.md#concurrent-queries) may read partially committed data from other operations. This beta implementation of MVCC aims to solve this by creating consistent data snapshots for each transaction. Current MVCC implementation is not recommended for production environments.
+By default, SQL operations in GridGain 8 are not transactional, so [concurrent queries](../gridgain8-development/sql/sql-introduction.md#concurrent-queries) may read partially committed data from other operations. This beta implementation of MVCC aims to solve this by creating consistent data snapshots for each transaction. Current MVCC implementation is not recommended for production environments.
 
 {% hint style="info" %}
 In [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr), all SQL operations are transactional by default.
@@ -42,7 +42,7 @@ When a nested transaction occurs within another transaction, the `nestedTransact
 
 ### Continuous Queries
 
-If you use [Continuous Queries](../gridgain8-usage/continuous-queries.md) with an MVCC-enabled cache, there are several limitations that you should be aware of:
+If you use [Continuous Queries](../gridgain8-development/continuous-queries.md) with an MVCC-enabled cache, there are several limitations that you should be aware of:
 
 - When an update event is received, subsequent reads of the updated key may return the old value for a period of time before the MVCC-coordinator learns of the update. This is because the update event is sent from the node where the key is updated, as soon as it is updated. In such a case, the MVCC-coordinator may not be immediately aware of that update, and therefore, subsequent reads may return outdated information during that period of time.
 - There is a limit on the number of keys per node a single transaction can update when continuous queries are used. The updated values are kept in memory, and if there are too many updates, the node might not have enough RAM to keep all the objects. To avoid OutOfMemory errors, each transaction is allowed to update at most 20,000 keys (the default value) on a single node. If this value is exceeded, the transaction will throw an exception and will be rolled back. This number can be changed by specifying the `IGNITE_MVCC_TX_SIZE_CACHING_THRESHOLD` system property.
@@ -51,12 +51,12 @@ If you use [Continuous Queries](../gridgain8-usage/continuous-queries.md) with a
 
 The following features are not supported for the MVCC-enabled caches. These limitations may be addressed in future releases.
 
-- [Near Caches](../gridgain8-usage/near-caches.md)
-- [Expiry Policies](../gridgain8-usage/configuring-caches/expiry-policies.md)
-- [Events](../gridgain8-usage/events/listening-to-events.md)
+- [Near Caches](../gridgain8-development/near-caches.md)
+- [Expiry Policies](../gridgain8-development/configuring-caches/expiry-policies.md)
+- [Events](../gridgain8-development/events/listening-to-events.md)
 - [Cache Interceptors](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/CacheInterceptor.html)
-- [External Storage](../gridgain8-usage/persistence/external-storage.md)
-- [On-Heap Caching](../gridgain8-usage/configuring-caches/on-heap-caching.md)
+- [External Storage](../gridgain8-development/persistence/external-storage.md)
+- [On-Heap Caching](../gridgain8-development/configuring-caches/on-heap-caching.md)
 - [Explicit Locks](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#lock-K-)
 - The [localEvict()](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#localEvict-java.util.Collection-) and [localPeek()](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/IgniteCache.html#localPeek-K-org.apache.ignite.cache.CachePeekMode...-) methods
 
@@ -98,7 +98,7 @@ CREATE TABLE Person WITH "ATOMICITY=TRANSACTIONAL_SNAPSHOT"
 {% endtabs %}
 
 {% hint style="info" %}
-The `TRANSACTIONAL_SNAPSHOT` mode only supports the default concurrency mode (`PESSIMISTIC`) and default isolation level (`REPEATABLE_READ`). See [Concurrency modes and isolation levels](../gridgain8-usage/transactions.md#concurrency-modes-and-isolation-levels) for details.
+The `TRANSACTIONAL_SNAPSHOT` mode only supports the default concurrency mode (`PESSIMISTIC`) and default isolation level (`REPEATABLE_READ`). See [Concurrency modes and isolation levels](../gridgain8-development/transactions.md#concurrency-modes-and-isolation-levels) for details.
 {% endhint %}
 
 ## Concurrent Updates

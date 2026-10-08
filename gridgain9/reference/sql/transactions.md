@@ -9,7 +9,7 @@ description: >-
 A transaction is a sequence of SQL operations that starts with the `START TRANSACTION` statement and ends with the `COMMIT` statement. Either the effect of all operations will be published, or no results will be published at all.
 
 {% hint style="warning" %}
-Transaction control statements are only allowed within a [script](../../gridgain9-usage/sql/sql-api.md#using-scripts).
+Transaction control statements are only allowed within a [script](../../gridgain9-development/sql/sql-api.md#using-scripts).
 {% endhint %}
 
 In GridGain 9, you start the transaction by using the `START TRANSACTION` statement:

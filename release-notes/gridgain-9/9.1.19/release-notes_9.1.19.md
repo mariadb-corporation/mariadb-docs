@@ -172,7 +172,7 @@ Four prediction modes are available:
 
 All prediction modes also have asynchronous variants.
 
-For more information about GridGain ML, see the [ML documentation section](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/machine-learning/get-started-with-gridgain-ml).
+For more information about GridGain ML, see the [ML documentation section](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/machine-learning/get-started-with-gridgain-ml).
 
 #### Setup Requirements
 
@@ -254,7 +254,7 @@ This release continues to add new metrics to GridGain 9. The following metrics w
 #### Data Center Replication Connector (DR Connector)  Metrics
 
 {% hint style="info" %}
-These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) only.
+These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) only.
 {% endhint %}
 
 Per-cache metrics (`DrReceiverCacheMetricsMxBean`):

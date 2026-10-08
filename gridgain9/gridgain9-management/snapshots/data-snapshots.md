@@ -25,9 +25,9 @@ There are currently the following limitations on snapshots:
 
 Since snapshots store all data, it may be preferable to only create a snapshot of data you need. You can use the following parameters to configure snapshot scope:
 
-- `--all` - creates a snapshot of all tables and [distributed maps](../../gridgain9-usage/data-structures/distributed-maps.md) and [sequences](../../gridgain9-usage/sql/sql-api.md#using-sequences). This is a standalone flag that does not accept arguments, and is not compatible with other scope parameters.
+- `--all` - creates a snapshot of all tables and [distributed maps](../../gridgain9-development/data-structures/distributed-maps.md) and [sequences](../../gridgain9-development/sql/sql-api.md#using-sequences). This is a standalone flag that does not accept arguments, and is not compatible with other scope parameters.
 - `--tables` - comma-separated list of tables that will be included in the snapshot. Any structures required for the specified tables will be included in the snapshot automatically. Incompatible with `--all`.
-- `--structures` - comma-separated list of [distributed structures](../../gridgain9-usage/data-structures/distributed-maps.md) and [sequences](../../gridgain9-usage/sql/sql-api.md#using-sequences) that will be included in the snapshot. Any system tables required for the specified structures will be included in the snapshot automatically. Incompatible with `--all`.
+- `--structures` - comma-separated list of [distributed structures](../../gridgain9-development/data-structures/distributed-maps.md) and [sequences](../../gridgain9-development/sql/sql-api.md#using-sequences) that will be included in the snapshot. Any system tables required for the specified structures will be included in the snapshot automatically. Incompatible with `--all`.
 
 ## Snapshot Sizing
 

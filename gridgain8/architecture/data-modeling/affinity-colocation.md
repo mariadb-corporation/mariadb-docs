@@ -19,7 +19,7 @@ For example, let's say you have `Person` and `Company` objects, and each person 
 By specifying the `Person.companyId` and `Company.ID` as affinity keys, you ensure that all the persons working for the same company are stored on the same node, where the company object is stored as well.
 Queries that request persons working for a specific company are processed on a single node.
 
-You can also colocate a computation task with the data. See [Colocating Computations With Data](../../gridgain8-usage/colocating-computations.md).
+You can also colocate a computation task with the data. See [Colocating Computations With Data](../../gridgain8-development/colocating-computations.md).
 
 ## Configuring Affinity Key
 

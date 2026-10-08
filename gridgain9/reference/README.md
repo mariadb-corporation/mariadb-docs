@@ -17,7 +17,7 @@ Look-up material for GridGain 9 — the exhaustive lists and syntax you reach fo
 {% endcolumn %}
 
 {% column %}
-Reference for the GridGain 9 command line interface: interactive and non-interactive modes and the full command set for managing SQL, clusters, nodes, snapshots, recovery, security, replication, and change data capture.
+Reference for the GridGain 9 command line interface: the full command set for managing SQL, clusters, nodes, snapshots, recovery, security, replication, and change data capture.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -29,7 +29,7 @@ Reference for the GridGain 9 command line interface: interactive and non-interac
 {% endcolumn %}
 
 {% column %}
-Work with a GridGain 9 cluster over its REST API, including the OpenAPI specification, connector configuration, and authentication.
+Reference for the GridGain 9 REST API, including the OpenAPI specification and authentication.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -53,7 +53,7 @@ Reference documentation for GridGain 9 SQL — statements, data types, functions
 {% endcolumn %}
 
 {% column %}
-How GridGain 9 cluster and node configuration is structured, stored in HOCON or JSON, and updated from the CLI at startup and during runtime.
+Reference lists of GridGain 9 cluster, node, and CLI configuration parameters.
 {% endcolumn %}
 {% endcolumns %}
 

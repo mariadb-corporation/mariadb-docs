@@ -753,7 +753,7 @@ Client configuration in these scenarios should be configured for the authenticat
 ## Control Center OpenID Authentication
 
 {% hint style="info" %}
-This authenticator is designed to work with [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) and is part of Control Center Agent [optional module](../gridgain8-usage/setup.md#enabling-modules).
+This authenticator is designed to work with [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) and is part of Control Center Agent [optional module](../gridgain8-development/project-setup.md#enabling-modules).
 {% endhint %}
 
 The OpenID Authenticator allows users who logged in to Control Center via OpenID Connect to work with the cluster under the same user.
@@ -1342,4 +1342,4 @@ When authentication is configured in the cluster, all client applications must p
 * [Thin clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/getting-started-with-thin-clients#authentication)
 * [JDBC driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
 * [ODBC driver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
-* [REST API](../reference/rest-api/README.md#security)
+* [REST API](../gridgain8-development/rest-api.md#security)

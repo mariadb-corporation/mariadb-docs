@@ -23,7 +23,7 @@ Therefore, you should use swap space as an extension to RAM only to give yoursel
 {% hint style="warning" %}
 Since swap space is located on disk, it should not be considered as a replacement to native persistence.
 Data from the swap space is available as long as the node is active. Once the node shuts down, the data lost.
-To ensure that data is available at all times, you should either enable [native persistence](native-persistence.md) or use an [external storage](../../gridgain8-usage/persistence/external-storage.md).
+To ensure that data is available at all times, you should either enable [native persistence](native-persistence.md) or use an [external storage](../../gridgain8-development/persistence/external-storage.md).
 {% endhint %}
 
 ## Enabling Swapping

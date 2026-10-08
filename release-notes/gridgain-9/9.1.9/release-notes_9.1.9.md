@@ -18,7 +18,7 @@ GridGain 9.1.9 is a private release that fixes the known issue from the previous
 This is an experimental API. This API can be changed in subsequent releases.
 {% endhint %}
 
-This release provides support for using [WebAssembly](https://webassembly.org/) compute jobs in GridGain 9, expanding the options for creating computing jobs. You can compile your code to WebAssembly and then load the binaries as [deployment units](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/code-deployment) and execute the code on cluster nodes.
+This release provides support for using [WebAssembly](https://webassembly.org/) compute jobs in GridGain 9, expanding the options for creating computing jobs. You can compile your code to WebAssembly and then load the binaries as [deployment units](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/code-deployment) and execute the code on cluster nodes.
 
 The example below shows how you can execute your code, and assumes it is already deployed to the cluster:
 
@@ -47,7 +47,7 @@ try (IgniteClient client = IgniteClient.builder()
 }
 ```
 
-For step-by-step instructions, see [WebAssembly Compute Jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/webassembly-compute-jobs) documentation.
+For step-by-step instructions, see [WebAssembly Compute Jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/webassembly-compute-jobs) documentation.
 
 ### Dropping SQL Plans
 

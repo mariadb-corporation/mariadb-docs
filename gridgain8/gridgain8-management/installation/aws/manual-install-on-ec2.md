@@ -35,7 +35,7 @@ Consider the following points:
   You may want to uncheck the **Delete on Termination** option for your storage.
 - **Networking:** GridGain nodes discover and communicate with each other by TCP/IP. A number of ports must be open for this communication. See [Configuring Security Group](#configuring-security-group).
 
-Visit our [Capacity Planning](../../../ha-and-performance/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
+Visit our [Capacity Planning](../../../tuning-and-troubleshooting/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
 
 {% hint style="info" %}
 We recommend you should [create an Amazon AMI image](https://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/tkv-create-ami-from-instance.html) after configuring your first instance with GridGain.
@@ -111,7 +111,7 @@ Login to the instance again and unpack the package:
 $ unzip gridgain-enterprise-8.10.zip
 ```
 
-If you are going to connect to the cluster via REST API, enable the ['ignite-rest-http'](../../../gridgain8-usage/setup.md#enabling-modules) module:
+If you are going to connect to the cluster via REST API, enable the ['ignite-rest-http'](../../../gridgain8-development/project-setup.md#enabling-modules) module:
 
 ```shell
 $ cp -r gridgain-enterprise-8.10/libs/optional/ignite-rest-http/ gridgain-enterprise-8.10/libs/
@@ -125,11 +125,11 @@ Now we are ready to configure the cluster nodes.
 Cluster nodes launched in different EC2 instances must be able to connect to each other.
 This is achieved by configuring the discovery mechanisms on each node. There are two ways you can do that:
 
-- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../../gridgain8-usage/clustering/tcp-ip-discovery.md) of each node.
-- Use one of the [IP Finders designed for AWS](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md).
+- Manually provide the IP addresses of all instances in the [Static IP Finder configuration](../../clustering/tcp-ip-discovery.md) of each node.
+- Use one of the [IP Finders designed for AWS](../../clustering/discovery-in-the-cloud.md).
 
 {% hint style="info" %}
-We recommend using one of the [Amazon IP Finders](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md).
+We recommend using one of the [Amazon IP Finders](../../clustering/discovery-in-the-cloud.md).
 They allow you to add more instances to the cluster without updating the discovery configuration of the running nodes.
 {% endhint %}
 
@@ -188,7 +188,7 @@ After starting the second node, you should see the following message in the cons
 
 ### Automatic Discovery Using Amazon S3
 
-You can use the [Amazon S3 IP Finder](../../../gridgain8-usage/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
+You can use the [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
 
 Enable the 'ignite-aws' module:
 

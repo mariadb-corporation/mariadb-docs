@@ -41,7 +41,7 @@ The low watermark is the single retention boundary for all historical and obsole
 The low watermark also defines the consistency boundary for operations that read or reconstruct historical data. None of the following can read or recover data older than the low watermark:
 
 * [Read-only transactions](../transactions.md#read-only-transactions) and time-travel queries.
-* [Continuous queries](../../gridgain9-usage/continuous-queries.md) that scan historical data.
+* [Continuous queries](../../gridgain9-development/continuous-queries.md) that scan historical data.
 * [Point-in-time recovery](../../gridgain9-management/snapshots/point-in-time-recovery.md).
 * [Data center replication](../../gridgain9-management/data-center-replication/configuring-replication.md).
 

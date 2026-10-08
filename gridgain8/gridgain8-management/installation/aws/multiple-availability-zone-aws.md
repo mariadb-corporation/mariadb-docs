@@ -10,7 +10,7 @@ To deploy GridGain in multiple availability zones, perform the steps below:
 
 1. Create an EKS cluster with [auto scaling groups](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html) in different availability zones;
 2. Deploy the [Cluster AutoScaler](https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html) to work with given autoscaling groups when scheduling nodes;
-3. Define an [affinity backup filter](../../../gridgain8-usage/configuring-caches/managing-data-distribution.md#backup-filter) to place backup entries onto availability zones that differ from the primary entries.
+3. Define an [affinity backup filter](../../../gridgain8-development/configuring-caches/managing-data-distribution.md#backup-filter) to place backup entries onto availability zones that differ from the primary entries.
 
 ## Creating EKS Cluster and Deploying Cluster AutoScaler
 
@@ -38,7 +38,7 @@ To create an EKS cluster and to deploy [Cluster AutoScaler](https://docs.aws.ama
 ## Configuring Backup Filters
 
 {% hint style="info" %}
-Define an [affinity backup filter](../../../gridgain8-usage/configuring-caches/managing-data-distribution.md#backup-filter) to make sure that backup entries are stored in an availability zone that is different from that of your primary entry.
+Define an [affinity backup filter](../../../gridgain8-development/configuring-caches/managing-data-distribution.md#backup-filter) to make sure that backup entries are stored in an availability zone that is different from that of your primary entry.
 {% endhint %}
 
 The following sections describe in detail how to set up a back up filter:
@@ -83,7 +83,7 @@ public class AvailabilityZoneLifecycleBean implements LifecycleBean {
 This section describes how to change the config to call the lifecycle bean and configure the backup filters to use the availability zone attribute.
 
 For more information, see the [Class ClusterNodeAttributeAffinityBackupFilter](https://www.gridgain.com/sdk/ee/latest/javadoc/org/apache/ignite/cache/affinity/rendezvous/ClusterNodeAttributeAffinityBackupFilter.html) section.
-Note the uses of [cache templates](../../../gridgain8-usage/configuring-caches/configuration-overview.md#cache-templates) in the example below:
+Note the uses of [cache templates](../../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates) in the example below:
 
 ```xml
 <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">

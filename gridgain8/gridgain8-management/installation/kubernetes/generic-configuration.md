@@ -16,7 +16,7 @@ This guide was written using `kubectl` version 1.17.
 In this tutorial, we will use StatefulSet to manage GridGain cluster in Kubernetes. We will create both in-memory and persistent clusters.
 
 {% hint style="warning" %}
-This guide focuses on Kubernetes server nodes. If you want to run client nodes on Kubernetes while your cluster is deployed elsewhere, you need to enable the communication mode designed for client nodes running behind a NAT. Refer to [this section](../../../gridgain8-usage/clustering/running-client-nodes-behind-nat.md).
+This guide focuses on Kubernetes server nodes. If you want to run client nodes on Kubernetes while your cluster is deployed elsewhere, you need to enable the communication mode designed for client nodes running behind a NAT. Refer to [this section](../../clustering/running-client-nodes-behind-nat.md).
 {% endhint %}
 
 ## Kubernetes Configuration
@@ -319,7 +319,7 @@ After scaling the cluster, [change the baseline topology](../../../reference/cli
 {% endtabs %}
 
 {% hint style="warning" %}
-If you reduce the number of nodes by more than the [number of partition backups](../../../gridgain8-usage/configuring-caches/configuring-backups.md), you may lose data. The proper way to scale down is to redistribute the data after removing a node by changing the [baseline topology](../../../reference/cli-tool/README.md).
+If you reduce the number of nodes by more than the [number of partition backups](../../../gridgain8-development/configuring-caches/configuring-backups.md), you may lose data. The proper way to scale down is to redistribute the data after removing a node by changing the [baseline topology](../../../reference/cli-tool/README.md).
 {% endhint %}
 
 ## Connecting to the Cluster

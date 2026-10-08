@@ -14,7 +14,7 @@ Experimental API
 GridGain.NET provides an additional layer of caching in the [CLR](https://docs.microsoft.com/en-us/dotnet/standard/clr) heap. The platform cache keeps a deserialized copy of every cache entry that is present on the current node, thus greatly improving cache read performance at the cost of increased memory usage.
 
 {% hint style="info" %}
-Platform caches are bypassed within transactions: when a transaction is active, `cache.Get` and the other APIs listed below do not use the platform cache. Transaction support is coming soon.
+Platform caches are bypassed within transactions: when a transaction is active, `cache.Get` and the other APIs listed below do not use the platform cache.
 {% endhint %}
 
 ## Configuring Platform Cache
