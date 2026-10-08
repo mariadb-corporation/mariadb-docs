@@ -120,6 +120,9 @@ flowchart TD
       db1 is down. MaxScale 1 holds locks on db2 and db3, two of the three configured servers,
       which is a majority, so it has promoted db2 and accepts writes. MaxScale 2 is the secondary
       monitor and follows the master lock to db2.
+      Arrows labelled write lead from MaxScale 1 and MaxScale 2 to db2. An unlabelled arrow
+      leads from each MaxScale to db3, a replica, and an unlabelled arrow leads from db2 to
+      db3.
     }
     MX1["MaxScale 1<br/>primary monitor"]:::node
     MX2["MaxScale 2<br/>secondary monitor"]:::node
@@ -191,6 +194,8 @@ flowchart TD
       db1 is down. db3, a small MariaDB instance co-located on the MaxScale 1 host, acts as the
       third vote. MaxScale 1 holds locks on db2 and db3, a majority of the three configured
       servers, so it has promoted db2 and accepts writes. Reads are never routed to db3.
+      MaxScale 2, the secondary monitor, also writes to db2: an arrow labelled write leads
+      from MaxScale 2 to db2. An unlabelled arrow leads from db2 to db3.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1<br/>primary monitor"]:::node
@@ -318,8 +323,8 @@ flowchart TD
     accDescr {
       node1 is down. The arbitrator garbd, co-located on the MaxScale 1 host, is the third vote,
       so node2 plus the arbitrator are a majority of the Galera cluster and node2 stays in the
-      primary component. Both MaxScale instances route to node2. The arbitrator is not a MaxScale
-      server and holds no data.
+      primary component. Both MaxScale instances route to node2. An arrow labelled gcomm leads
+      from node2 to garbd. The arbitrator is not a MaxScale server and holds no data.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1"]:::node
