@@ -11,7 +11,7 @@ This page describes the BINARY operator. For details about the data type, see [B
 ## Syntax
 
 ```bnf
-BINARY
+BINARY expr
 ```
 
 ## Description

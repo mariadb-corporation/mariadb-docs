@@ -24,7 +24,7 @@ Locks obtained with `GET_LOCK()` do not interact with transactions. That is, com
 
 It is also possible to recursively set the same lock. If a lock with the same name is set `n` times, it needs to be released `n` times as well.
 
-`str` is case insensitive for `GET_LOCK()` and related functions. If `str` is an empty string or `NULL`, `GET_LOCK()` returns `NULL` and does nothing. `timeout` supports microseconds.
+`str` is case-sensitive for `GET_LOCK()` and related functions, so `lock1` and `LOCK1` are two different locks. If `str` is an empty string or `NULL`, `GET_LOCK()` returns `NULL` and does nothing. `timeout` supports microseconds.
 
 If the [metadata\_lock\_info](../../../plugins/other-plugins/metadata-lock-info-plugin.md) plugin is installed, locks acquired with this function are visible in the [Information Schema](../../../system-tables/information-schema/) [METADATA\_LOCK\_INFO](../../../system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table.md) table.
 

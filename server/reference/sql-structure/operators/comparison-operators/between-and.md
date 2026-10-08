@@ -55,7 +55,7 @@ SELECT 2 BETWEEN 2 AND 'x-3';
 +-----------------------+
 1 row in set, 1 warning (0.00 sec)
 
-Warning (Code 1292): Truncated incorrect DOUBLE value: 'x-3'
+Warning (Code 1292): Truncated incorrect DECIMAL value: 'x-3'
 ```
 
 `NULL`:
