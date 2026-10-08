@@ -69,6 +69,17 @@ SELECT 1 BETWEEN 1 AND NULL;
 +----------------------+
 ```
 
+The bounds are not swapped, so a range whose lower bound is greater than its upper bound never matches:
+
+```sql
+SELECT 5 BETWEEN 5 AND 2, 5 BETWEEN 2 AND 5;
++-------------------+-------------------+
+| 5 BETWEEN 5 AND 2 | 5 BETWEEN 2 AND 5 |
++-------------------+-------------------+
+|                 0 |                 1 |
++-------------------+-------------------+
+```
+
 `DATE`, `DATETIME` and `TIMESTAMP` examples. Omitting the time component compares against `00:00`, so later times on the same date are not returned:
 
 ```sql

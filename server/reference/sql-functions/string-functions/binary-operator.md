@@ -52,6 +52,23 @@ SELECT BINARY 'a' = 'a ';
 +-------------------+
 ```
 
+In `ORDER BY`, `BINARY` sorts by byte value, so uppercase letters come before lowercase ones:
+
+```sql
+CREATE TABLE t1 (c VARCHAR(10));
+INSERT INTO t1 VALUES ('b'), ('B'), ('a'), ('A');
+
+SELECT c FROM t1 ORDER BY BINARY c;
++------+
+| c    |
++------+
+| A    |
+| B    |
+| a    |
+| b    |
++------+
+```
+
 ## See Also
 
 * [Operator Precedence](../../sql-structure/operators/operator-precedence.md)
