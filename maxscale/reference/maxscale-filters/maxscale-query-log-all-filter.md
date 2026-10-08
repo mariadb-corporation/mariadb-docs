@@ -172,6 +172,8 @@ The type of log file to use.
 | stdout  | Same as unified, but to stdout  |
 | kafka   | Send log events to Kafka        |
 
+**From MaxScale 26.10,** the value `kafka` is available.
+
 If you enable Kafka logging, you need to also configure
 [Kafka bootstrap servers](#kafka_bootstrap_servers) and [topic](#kafka_topic).
 Depending on the Kafka broker configuration, the various other [Kafka
@@ -304,6 +306,10 @@ newline_replacement=" NL "
 
 ### `logged_query_max_length`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: count
 * Mandatory: No
 * Dynamic: Yes
@@ -321,17 +327,15 @@ Use this setting to ensure that large queries do not cause the log file to
 consume too much space. Setting `logged_query_max_length=0` removes the length
 limit, causing the filter to always log the entire query.
 
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
-
 ```
 logged_query_max_length=100
 ```
 
 ### Kafka settings
+
+{% hint style="info" %}
+These settings are available from MaxScale 26.10.
+{% endhint %}
 
 These settings resemble the equivalent settings in the
 [KafkaCDC Router](../maxscale-routers/maxscale-kafkacdc.md#settings). Although
@@ -341,6 +345,10 @@ any modifications only affect new client sessions. Define at least
 logging only activates when the value of `log_type` includes `kafka`.
 
 #### `kafka_bootstrap_servers`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: string
 * Mandatory: No
@@ -356,6 +364,10 @@ kafka_bootstrap_servers=127.0.0.1:9092
 
 #### `kafka_topic`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
@@ -369,6 +381,10 @@ kafka_topic=maxscale_qlalogs
 
 #### `kafka_enable_idempotence`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
@@ -380,6 +396,10 @@ avoids event duplication due to broker outages or other network errors.
 
 #### `kafka_ssl`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
@@ -388,6 +408,10 @@ avoids event duplication due to broker outages or other network errors.
 Enable SSL for Kafka connections.
 
 #### `kafka_ssl_ca`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: path
 * Mandatory: No
@@ -398,6 +422,10 @@ Path to the certificate authority file in PEM format. If this is not provided,
 the default system certificates will be used.
 
 #### `kafka_ssl_cert`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: path
 * Mandatory: No
@@ -413,6 +441,10 @@ If `kafka_ssl_cert` is provided, `kafka_ssl_key` must also be provided.
 
 #### `kafka_ssl_key`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
@@ -422,6 +454,10 @@ Path to the private key in PEM format. If `kafka_ssl_key` is provided,
 `kafka_ssl_cert` must also be provided.
 
 #### `kafka_sasl_user`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: string
 * Mandatory: No
@@ -433,6 +469,10 @@ Username for SASL authentication. If `kafka_sasl_user` is provided,
 
 #### `kafka_sasl_password`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
@@ -442,6 +482,10 @@ Password for SASL authentication. If `kafka_sasl_password` is provided,
 `kafka_sasl_user` must also be provided.
 
 #### `kafka_sasl_mechanism`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No

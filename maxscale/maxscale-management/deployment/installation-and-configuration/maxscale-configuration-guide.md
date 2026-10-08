@@ -452,6 +452,10 @@ The minimum value is 1 and the maximum 60.
 
 #### `worker_assignment`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [enum](maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
@@ -675,6 +679,10 @@ Individual trace files may sometimes exceed this limit and under heavy load the 
 When enabled, a warning is logged whenever a client with SUPER-privilege successfully authenticates. This also applies to COM\_CHANGE\_USER-commands. The setting is intended for diagnosing situations where a client interferes with a primary server switchover. Super-users bypass the _read\_only_-flag which switchover uses to block writes to the primary.
 
 #### `log_timestamp_format`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [enum](maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -1753,6 +1761,10 @@ Timeout for all SQL operations done during the configuration synchronization. If
 
 #### `statistics`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
@@ -1804,33 +1816,6 @@ Optional global attributes to send with every metric. Example `telemetry_attribu
 
 Minimum interval to send metrics to the collector.
 
-#### `telemetry_sql_count`
-
-* Type: count
-* Mandatory: No
-* Dynamic: Yes
-* Default: `50`
-
-The maximum number of SQL statements whose latency is exported as the `maxscale.query.latency` metric. The most frequently executed statements are exported first. A value of `0` disables the metric. For the full list of exported metrics, see [MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
-
-#### `telemetry_sql_match`
-
-* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `""`
-
-Only export latency metrics for SQL statements whose canonical form matches this regular expression.
-
-#### `telemetry_sql_exclude`
-
-* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `""`
-
-Do not export latency metrics for SQL statements whose canonical form matches this regular expression.
-
 #### `telemetry_ssl_insecure`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
@@ -1880,6 +1865,10 @@ The path to a TLS CA certificate in PEM format.
 
 #### `telemetry_sql_count`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
@@ -1895,7 +1884,14 @@ the query you're interested in, increase the value of `telemetry_sql_count` or
 use `telemetry_sql_match` and `telemetry_sql_exclude` to filter the metrics to
 the important ones.
 
+For the full list of exported metrics, see
+[MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
+
 #### `telemetry_sql_match`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [regex](maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
@@ -1910,6 +1906,10 @@ the constant values replaced with question marks. Only query digests that match
 the pattern are included in the metrics.
 
 #### `telemetry_sql_exclude`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [regex](maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
@@ -1997,12 +1997,21 @@ event_firewall_incident_level=LOG_CRIT
 
 #### `session_start`
 
+{% hint style="info" %}
+This event is available from MaxScale 26.10.
+{% endhint %}
+
 This event occurs when a client session is successfully started.
 ```
 event_session_start_facility=LOG_AUTH
 event_session_start_level=LOG_CRIT
 ```
+
 #### `session_stop`
+
+{% hint style="info" %}
+This event is available from MaxScale 26.10.
+{% endhint %}
 
 This event occurs when a client disconnects.
 ```
@@ -2721,6 +2730,10 @@ For a complete list of listener configuration parameters, see the [Listener Refe
 
 #### `sni_mapping_file`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
@@ -2952,6 +2965,10 @@ be established, the connection fails.
 
 Starting with MaxScale 2.5.20, if the TLS certificate given to MaxScale has the X509v3 extended key usage information, MaxScale will check it and refuse to use a certificate with the wrong usage. This means that a certificate with only clientAuth can only be used with servers and a certificate with only serverAuth can only be used with listeners. In order to use the same certificate for both listeners and servers, it must have both the clientAuth and serverAuth usages.
 
+**From MaxScale 26.10,** listeners are SSL-enabled by default and can accept
+both encrypted and unencrypted connections. In earlier versions they are not
+SSL-enabled by default and cannot accept both.
+
 ### Settings for TLS/SSL Encryption
 
 #### `ssl`
@@ -2984,6 +3001,9 @@ Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
 SSL cannot log in through that listener. Any user account with a non-empty
 _ssl\_type_-field in _mysql.user_-table is blocked. This includes users created
 with `REQUIRE SSL` or `REQUIRE X509`.
+
+**From MaxScale 26.10,** the value `allow` is available and is the default.
+In earlier versions the setting is a boolean and the default is `false`.
 
 #### `ssl_key`
 

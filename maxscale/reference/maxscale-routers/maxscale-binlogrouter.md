@@ -364,6 +364,10 @@ odbc_include_tables=sales.orders,sales.customers,inventory.stock
 
 ### `odbc_insert_only_tables`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: stringlist
 * Mandatory: No
 * Dynamic: No
@@ -378,6 +382,10 @@ odbc_insert_only_tables=audit.events
 ```
 
 ### `odbc_case`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -420,6 +428,10 @@ When enabled (the default), replication stops at the transaction that failed and
 Because the GTID position is persisted, CDC resumes from where it stopped when the service is restarted.
 
 ### `odbc_manage_user_grants`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No

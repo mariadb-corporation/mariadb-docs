@@ -90,6 +90,10 @@ A complete configuration example can be found at the end of this document.
 
 ### `causal_reads`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
@@ -115,13 +119,11 @@ that parameter are not supported by SmartRouter.
 A change of the value affects only the sessions that are created after the
 change. For details, see [Causal reads](#causal-reads).
 
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
-
 ### `causal_reads_timeout`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
@@ -133,13 +135,11 @@ session, before [causal\_reads\_on\_timeout](#causal_reads_on_timeout) is
 applied. The granularity is seconds, so a timeout given in milliseconds is
 rejected.
 
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
-
 ### `causal_reads_on_timeout`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -164,12 +164,6 @@ What to do with a read when the cluster has not caught up within
     intended for cases where an up-to-date result is essential but running the
     read on the master would take too long.
 
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
-
 ## Cluster selection - how queries are routed
 
 SmartRouter keeps track of the performance, or the execution time, of queries to the clusters. Measurements are stored with the canonical of a query as the key. The canonical of a query is the sql with all user-defined constants replaced with question marks. When SmartRouter sees a read-query whose canonical has not been seen before, it will send the query to all clusters. The first response from a cluster will designate that cluster as the best one for that canonical. Also, when the first response is received, the other queries are cancelled. The response is sent to the client once all clusters have responded to the query or the cancel.
@@ -180,16 +174,14 @@ The performance behavior of queries under dynamic conditions, and their effect o
 
 ## Causal reads
 
+{% hint style="info" %}
+This feature is available from MaxScale 26.10.
+{% endhint %}
+
 A client that writes and then reads expects to see what it wrote. As
 SmartRouter may send the read to a cluster that is updated asynchronously, for
 example by replication, that cluster may not yet have the write. With
 `causal_reads=local` SmartRouter makes sure that it has.
-
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
 
 SmartRouter learns the GTID of each write that a session makes from the
 master, using the same session tracking of `last_gtid` as readwritesplit. The

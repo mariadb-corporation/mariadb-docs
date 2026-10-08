@@ -221,9 +221,10 @@ parameters are described in the [ColumnStore commands-section](#settings).
 * Dynamic: Yes
 * Default: `true`
 
-This parameter is deprecated and will be removed in a later release. If
-monitored servers are in a private network, define a private address for
-each server with the server setting [private\_address](#private_address).
+**From MaxScale 26.10,** this parameter is deprecated and will be removed in a
+later release. If monitored servers are in a private network, define a private
+address for each server with the server setting
+[private\_address](#private_address).
 
 When active, the monitor assumes that server hostnames and
 ports are consistent between the server definitions in the MaxScale
@@ -553,6 +554,10 @@ servers_no_cooperative_monitoring_locks=backup_dc_server1,backup_dc_server2
 ```
 
 ### `cooperative_monitoring_arbitrator_nodes`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * **Type**: string
 * **Mandatory**: No
@@ -1423,6 +1428,10 @@ enforce_simple_topology=true
 
 #### `heal_primary_truncated_binlog`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
@@ -1579,6 +1588,9 @@ via an encrypted connection.
 replication_master_ssl=off
 ```
 
+**From MaxScale 26.10,** the value `auto` is available and is the default.
+In earlier versions the setting is a boolean and the default is `off`.
+
 #### `replication_custom_options`
 
 Type: string
@@ -1628,6 +1640,10 @@ timeouts is seconds, a timeout specified in milliseconds will be rejected,
 even if the duration is longer than a second.
 
 #### `switchover_wait_for_trx`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
@@ -2983,6 +2999,10 @@ promoted or some other monitor feature alters it (e.g. `auto_rejoin`).
 
 #### `external_replication_monitor`
 
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
 * Type: Monitor name
 * Mandatory: No
 * Dynamic: Yes
@@ -3003,6 +3023,10 @@ external_replication_monitor=MyExternalClusterMonitor
 ```
 
 #### `external_replication_primary_role`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
 
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
