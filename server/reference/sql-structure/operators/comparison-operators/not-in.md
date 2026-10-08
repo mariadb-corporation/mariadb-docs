@@ -10,11 +10,14 @@ description: >-
 
 ```bnf
 expr NOT IN (value,...)
+expr NOT IN (subquery)
 ```
 
 ## Description
 
 This is the same as `NOT` (`expr` [IN](in.md) (value,...)).
+
+With a subquery, `expr NOT IN (subquery)` is the same as `expr <> ALL (subquery)`. See [Subqueries with IN and NOT IN](../../../sql-statements/data-manipulation/selecting-data/subqueries/subqueries-with-in-and-not-in.md).
 
 ## Examples
 
@@ -69,6 +72,12 @@ SELECT 5 NOT IN (1, 2, NULL);
 |                  NULL |
 +-----------------------+
 ```
+
+## See Also
+
+* [IN](in.md)
+* [Subqueries with IN and NOT IN](../../../sql-statements/data-manipulation/selecting-data/subqueries/subqueries-with-in-and-not-in.md)
+* [Operator Precedence](../operator-precedence.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
