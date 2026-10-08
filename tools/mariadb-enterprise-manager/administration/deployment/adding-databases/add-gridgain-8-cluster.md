@@ -3,6 +3,7 @@ description: >-
   Connect Enterprise Manager to GridGain Control Center to show GridGain 8
   clusters in the Databases list, open them in Control Center with single
   sign-on, and send their metrics to Enterprise Manager.
+hidden: true
 ---
 
 # Add a GridGain 8 Cluster

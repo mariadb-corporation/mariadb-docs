@@ -2,6 +2,7 @@
 description: >-
   Overview of the six Grafana dashboards Enterprise Manager provides for
   GridGain 8 clusters, how to open them, and what they need to show data.
+hidden: true
 ---
 
 # GridGain 8 Cluster

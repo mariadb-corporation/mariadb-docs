@@ -3,6 +3,7 @@ description: >-
   The GridGain 8 Cluster dashboard in Enterprise Manager: cluster state,
   topology, partition redundancy, JVM pauses, partition map exchange, clients,
   transactions, SQL, thread pools, and communication.
+hidden: true
 ---
 
 # Cluster

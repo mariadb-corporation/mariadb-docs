@@ -3,6 +3,7 @@ description: >-
   How GridGain 8 clusters appear in the Enterprise Manager Databases list:
   cluster health, node rows, metric columns, and opening a cluster in
   GridGain Control Center.
+hidden: true
 ---
 
 # GridGain 8 Clusters

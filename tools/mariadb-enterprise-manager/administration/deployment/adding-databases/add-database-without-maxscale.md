@@ -3,6 +3,7 @@ description: >-
   Register a standalone MariaDB Server, or a primary/replica or Galera
   topology without MaxScale, in Enterprise Manager and link the monitoring
   agent on each server.
+hidden: true
 ---
 
 # Add a Database without MaxScale

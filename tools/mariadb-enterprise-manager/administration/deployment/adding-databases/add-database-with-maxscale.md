@@ -3,6 +3,7 @@ description: >-
   Register a primary/replica or Galera topology managed by MaxScale in
   Enterprise Manager and link the monitoring agent on every server in the
   topology.
+hidden: true
 ---
 
 # Add a Database with MaxScale
