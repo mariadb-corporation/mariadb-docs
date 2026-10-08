@@ -35,11 +35,12 @@ Based on these entities and relationships, you can construct the entity-relation
 erDiagram
     accTitle: Poet's Circle entity-relationship diagram with many-to-many relationships
     accDescr {
-        The initial entity-relationship diagram for the Poet's Circle example. A Poet writes
-        zero or many Poems. A Poem appears in many Publications and a Publication contains many
-        Poems, so Poem and Publication have a many-to-many relationship. A Sale is for many
-        Publications and a Publication is sold in many Sales, so Sale and Publication also have
-        a many-to-many relationship. A Customer makes zero or many Sales.
+        The initial entity-relationship diagram for the Poet's Circle example. A Poet writes zero
+        or many Poems, and each Poem has exactly one Poet. A Poem appears in zero or many
+        Publications and a Publication contains zero or many Poems, so Poem and Publication have a
+        many-to-many relationship. A Sale is for zero or many Publications and a Publication is
+        sold in zero or many Sales, so Sale and Publication also have a many-to-many relationship.
+        A Customer makes zero or many Sales, and each Sale is made to exactly one Customer.
     }
     POET ||--o{ POEM : "Writes"
     POEM }o--o{ PUBLICATION : "Appears in"
@@ -63,6 +64,9 @@ erDiagram
         intersection entity links Sales and Publications: a Publication makes zero or many
         Sale-publication records and a Sale is for zero or many Sale-publication records. A
         Customer makes zero or many Sales.
+        Each Poem has exactly one Poet, each Poem-publication record belongs to exactly one Poem
+        and exactly one Publication, each Sale-publication record belongs to exactly one
+        Publication and exactly one Sale, and each Sale is made to exactly one Customer.
     }
     POET ||--o{ POEM : "Writes"
     POEM ||--o{ "Poem-publication" : "Appears in"
