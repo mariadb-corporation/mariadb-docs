@@ -14,7 +14,7 @@ SELECT * FROM t1 WHERE (a, b) IN ((1, 2), (3, 4));
 SELECT * FROM t1 WHERE (a, b) > (98, 30);
 ```
 
-Whether the optimizer can use an index for such a condition depends on the operator. Equality and `IN` work as well as their single-column forms. The other comparisons don't use an index, so rewrite them if the query needs one.
+Whether the optimizer can use an index for such a condition depends on the operator. In a `SELECT`, equality and `IN` can use an index much like their single-column forms. The other comparisons don't use an index, so rewrite them if the query needs one.
 
 ## How Rows Are Compared
 
@@ -56,7 +56,7 @@ ANALYZE TABLE t1 PERSISTENT FOR ALL;
 
 ### Equality
 
-The optimizer splits a row equality into one equality per element before it plans the query, so `(a, b) = (1, 2)` is planned exactly like `a = 1 AND b = 2`, and nested rows are split the same way:
+In a `SELECT`, the optimizer treats a row equality much like the equalities of its elements, so `(a, b) = (1, 2)` can use an index the way `a = 1 AND b = 2` does:
 
 ```sql
 EXPLAIN SELECT * FROM t1 WHERE (a, b) = (1, 2);
@@ -69,6 +69,10 @@ EXPLAIN SELECT * FROM t1 WHERE (a, b) = (1, 2);
 |    1 | SIMPLE      | t1    | ref  | ab            | ab   | 10      | const,const | 6    |       |
 +------+-------------+-------+------+---------------+------+---------+-------------+------+-------+
 ```
+
+{% hint style="warning" %}
+A single-table `UPDATE` or `DELETE` can't use an index for a row equality: `WHERE (a, b) = (1, 2)` reads the whole table even where the `SELECT` uses the index ([MDEV-32878](https://jira.mariadb.org/browse/MDEV-32878)). The same applies to an `IN` list with a single row, such as `(a, b) IN ((1, 2))`. Write the condition as `a = 1 AND b = 2` instead.
+{% endhint %}
 
 ### IN
 
