@@ -122,8 +122,8 @@ You can use GZIP compression and ZSTD compression with `dictionaryRequired=false
 
 ## Limitations
 
-Currently, enabling data compression for a cache disables the [historical rebalancing](../../architecture/rebalancing/historical-rebalancing.md) of that cache. Full partition rebalance is used instead.
+Enabling data compression for a cache disables the [historical rebalancing](../../architecture/rebalancing/historical-rebalancing.md) of that cache. Full partition rebalance is used instead.
 
 If the `compressKeys` property is set, the data key and data value are considered for compression separately. The key may end up compressed, but the value will not, or vice versa. The same dictionary is used for the compression of both keys and values.
 
-Currently, only [binary objects](../../architecture/data-modeling/introduction.md#binary-object-format) will be compressed. This covers most of the usage patterns: POJO classes, SQL tables, and BinaryObject. Primitive types are not compressed. Therefore, if `String` or `byte[]` is desired to be used as a compressed key/value type, it needs to be stored as an object field.
+Only [binary objects](../../architecture/data-modeling/introduction.md#binary-object-format) will be compressed. This covers most of the usage patterns: POJO classes, SQL tables, and BinaryObject. Primitive types are not compressed. Therefore, if `String` or `byte[]` is desired to be used as a compressed key/value type, it needs to be stored as an object field.

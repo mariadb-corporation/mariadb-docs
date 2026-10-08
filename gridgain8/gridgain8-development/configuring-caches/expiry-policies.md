@@ -172,7 +172,7 @@ fut.listen(f -> System.out.println("Time-to-live value was " + (f.get() ? "succe
 ```
 {% endcode %}
 
-Currently, these methods have the following limitations:
+These methods have the following limitations:
 
 - Touch operations are only supported for [Atomic caches](atomicity-modes.md).
 - Touch operation is guaranteed to omit loading the entry into memory for in-memory clusters only.

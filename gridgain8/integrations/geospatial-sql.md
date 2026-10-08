@@ -9,7 +9,7 @@ description: >-
 
 In addition to the standard ANSI-99 SQL queries that are executed over primitive data types, or objects of custom types, GridGain also allows querying and indexing geometry data types such as points, lines, and polygons, while considering the spatial relationship between these geometries.
 
-Spatial query capabilities, as well as available functions and operands, are defined by the [Simple Features Specification for SQL](http://www.opengeospatial.org/docs/is/). Currently, GridGain supports the intersection operation (`&&`) using the [JTS Topology Suite](http://tsusiatsoftware.net/jts/main.html).
+Spatial query capabilities, as well as available functions and operands, are defined by the [Simple Features Specification for SQL](http://www.opengeospatial.org/docs/is/). GridGain supports the intersection operation (`&&`) using the [JTS Topology Suite](http://tsusiatsoftware.net/jts/main.html).
 
 ## Including Geospatial Library
 

@@ -348,7 +348,9 @@ If the row cache is enabled, you might be able to trade RAM for performance. You
 {% hint style="warning" %}
 **SQL On-Heap Row Cache Size**
 
-Presently, the cache is unlimited and can occupy as much RAM as allocated to your memory data regions. Make sure to:
+By default, the cache is unlimited and can occupy as much RAM as allocated to your memory data regions. To cap it, set `CacheConfiguration.sqlOnheapCacheMaxSize` to the maximum number of rows to keep; when the limit is reached, the oldest cached rows are evicted. A zero or negative value means unlimited.
+
+If you leave the cache unlimited, make sure to:
 
 - Set the JVM max heap size equal to the total size of all the data regions that store caches for which this on-heap row cache is enabled.
 - [Tune](memory-and-jvm-tuning.md#java-heap-and-gc-tuning) JVM garbage collection accordingly.
@@ -356,7 +358,7 @@ Presently, the cache is unlimited and can occupy as much RAM as allocated to you
 
 ## Using TIMESTAMP instead of DATE
 
-Use the `TIMESTAMP` type instead of `DATE` whenever possible. Presently, the `DATE` type is serialized/deserialized very inefficiently resulting in performance degradation.
+Use the `TIMESTAMP` type instead of `DATE` whenever possible. The `DATE` type is serialized/deserialized very inefficiently resulting in performance degradation.
 
 ## Hash Joins
 

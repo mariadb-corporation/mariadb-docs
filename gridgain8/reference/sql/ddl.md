@@ -251,7 +251,7 @@ Parameters:
 - `indexName` - the name of the index to be created.
 - `ASC` - specifies ascending sort order (default).
 - `DESC` - specifies descending sort order.
-- `SPATIAL` - create the spatial index. Presently, only geometry types are supported.
+- `SPATIAL` - create the spatial index. Only geometry types are supported.
 - `IF NOT EXISTS` - do not throw an error if an index with the same name already exists. The database checks indexes' names only, and does not consider columns types or count.
 - `index_option` - additional options for index creation:
   - `INLINE_SIZE` - specifies index inline size in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
@@ -364,7 +364,7 @@ DROP INDEX idx_person_name;
 
 The command creates a user with a given name and password.
 
-A new user can only be created using a superuser account when authentication for thin clients is enabled. GridGain creates the superuser account under the name `ignite` and password `ignite` on the first cluster start-up. Presently, you can't rename the superuser account nor grant its privileges to any other account.
+A new user can only be created using a superuser account when authentication for thin clients is enabled. GridGain creates the superuser account under the name `ignite` and password `ignite` on the first cluster start-up. You can't rename the superuser account nor grant its privileges to any other account.
 
 ```sql
 CREATE USER userName WITH PASSWORD 'password';

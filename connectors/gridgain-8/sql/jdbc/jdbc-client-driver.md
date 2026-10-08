@@ -88,7 +88,7 @@ Class.forName("org.apache.ignite.IgniteJdbcDriver");
 Connection conn = DriverManager.getConnection("jdbc:ignite:cfg://streaming=true@file:///etc/config/ignite-jdbc.xml");
 ```
 
-Presently, streaming mode is supported only for INSERT operations. This is useful in cases when you want to achieve fast data preloading into a cache. The JDBC driver defines multiple connection parameters that affect the behavior of the streaming mode. These parameters are listed in the parameters table above.
+Streaming mode is supported only for INSERT operations. This is useful in cases when you want to achieve fast data preloading into a cache. The JDBC driver defines multiple connection parameters that affect the behavior of the streaming mode. These parameters are listed in the parameters table above.
 
 {% hint style="danger" %}
 **Cache Name**

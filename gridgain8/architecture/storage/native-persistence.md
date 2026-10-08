@@ -117,7 +117,7 @@ Each individual node must use a unique consistent id, otherwise it won't be able
 We strongly recommend user-defined consistent IDs for nodes with persistence in production clusters. To set up the the consistent ID for a node, add `property name="consistentId" value="{value}"` to the node configuration (XML) file.
 
 {% hint style="info" %}
-Currently, auto-generated IDs might cause inconsistent persistence folder naming in PDS cleaning scenarios.
+Auto-generated IDs might cause inconsistent persistence folder naming in PDS cleaning scenarios.
 {% endhint %}
 
 Consider a scenario where multiple nodes with persistence are started on the same machine, then all these nodes are shut down, then they are re-started. If a node doesn't have its consistent ID defined in configuration, re-starting this node will result in locking in to the first available persistent directory, which may cause unwanted/unpredictable node start order. If the same node has its consistent ID defined in configuration, its re-start will lock the predefined/intended persistent folders.

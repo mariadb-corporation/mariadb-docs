@@ -9,7 +9,7 @@ description: >-
 
 GridGain is shipped with JDBC drivers that allow processing of distributed data using standard SQL statements like `SELECT`, `INSERT`, `UPDATE` or `DELETE` directly from the JDBC side.
 
-Presently, there are two drivers supported by GridGain: the lightweight and easy to use JDBC Thin Driver described in this document and [JDBC Client Driver](jdbc-client-driver.md) that interacts with the cluster by means of a [client node](https://www.gridgain.com/docs/gridgain8/latest/getting-started/concepts#clustering-servers-and-clients).
+GridGain supports two drivers: the lightweight and easy to use JDBC Thin Driver described in this document and [JDBC Client Driver](jdbc-client-driver.md) that interacts with the cluster by means of a [client node](https://www.gridgain.com/docs/gridgain8/latest/getting-started/concepts#clustering-servers-and-clients).
 
 ## JDBC Thin Driver
 
@@ -453,7 +453,7 @@ try {
 }
 ```
 
-The table below lists all the [ANSI SQLSTATE](https://en.wikipedia.org/wiki/SQLSTATE) error codes currently supported by GridGain. Note that the list may be extended in the future.
+The table below lists all the [ANSI SQLSTATE](https://en.wikipedia.org/wiki/SQLSTATE) error codes that GridGain supports.
 
 | Code | Description |
 | --- | --- |

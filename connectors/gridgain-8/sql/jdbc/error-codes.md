@@ -37,7 +37,7 @@ try {
 }
 ```
 
-The table below lists all the [ANSI SQLSTATE](https://en.wikipedia.org/wiki/SQLSTATE) error codes currently supported by GridGain. Note that the list may be extended in the future.
+The table below lists all the [ANSI SQLSTATE](https://en.wikipedia.org/wiki/SQLSTATE) error codes that GridGain supports.
 
 | Code | Description |
 | --- | --- |

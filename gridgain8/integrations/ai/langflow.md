@@ -19,7 +19,7 @@ The following is required to install early access Langflow integration:
 
 ## Using Early Access Version
 
-Currently, GridGain provides early access version of Langflow components in a prebuilt Langflow fork that includes GridGain components. To use Langflow:
+GridGain provides early access version of Langflow components in a prebuilt Langflow fork that includes GridGain components. To use Langflow:
 
 - Download the latest version from [GridGain website](https://www.gridgain.com/media/langflow/langflow-1.1.13.gridgain.3.zip).
 - Unpack the downloaded archive.
