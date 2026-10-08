@@ -67,7 +67,7 @@ For more information about Kafka Sink connector, see the [Kafka Sink Connector](
 
 ### Metastore and CMG Majority Loss Recovery
 
-You can now perform [disaster recovery for system RAFT groups](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/disaster-recovery/system-groups-recovery) that are essential for the GridGain 9 cluster's normal operation:
+You can now perform [disaster recovery for system RAFT groups](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/disaster-recovery/system-groups-recovery) that are essential for the GridGain 9 cluster's normal operation:
 
 - [Cluster Management Group (CMG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#cluster-management-group)
 - [Metastorage Group (MG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#cluster-metastorage-group)

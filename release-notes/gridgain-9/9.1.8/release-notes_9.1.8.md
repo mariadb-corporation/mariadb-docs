@@ -346,7 +346,7 @@ CREATE ZONE IF NOT EXISTS exampleZone (REPLICAS 3, QUORUM SIZE 3) STORAGE PROFIL
 
 This release features major changes in migration tools:
 
-- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
+- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
   ```
   dr-service-config = {
     cacheMapping = [
@@ -369,7 +369,7 @@ This release features major changes in migration tools:
   }
   ```
 
-- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
+- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
 
 ### Creating Caches From Java
 

@@ -51,6 +51,18 @@ Common tips and techniques for debugging and troubleshooting GridGain and Ignite
 
 {% columns %}
 {% column %}
+{% content-ref url="critical-failures-handling.md" %}
+[Critical Failures Handling](critical-failures-handling.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How GridGain detects critical failures, configures the failure handler, and runs health checks on critical system workers.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="monitoring-rebalance.md" %}
 [Monitoring Rebalance Progress](monitoring-rebalance.md)
 {% endcontent-ref %}

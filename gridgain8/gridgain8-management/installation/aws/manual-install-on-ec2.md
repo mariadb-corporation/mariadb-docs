@@ -111,7 +111,7 @@ Login to the instance again and unpack the package:
 $ unzip gridgain-enterprise-8.10.zip
 ```
 
-If you are going to connect to the cluster via REST API, enable the ['ignite-rest-http'](../../../gridgain8-development/setup.md#enabling-modules) module:
+If you are going to connect to the cluster via REST API, enable the ['ignite-rest-http'](../../../gridgain8-development/project-setup.md#enabling-modules) module:
 
 ```shell
 $ cp -r gridgain-enterprise-8.10/libs/optional/ignite-rest-http/ gridgain-enterprise-8.10/libs/

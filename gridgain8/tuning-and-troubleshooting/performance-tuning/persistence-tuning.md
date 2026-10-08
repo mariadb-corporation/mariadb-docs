@@ -442,7 +442,7 @@ a slight benefit regarding the WAL files as well: the WAL data will not be store
 it will be flushed (depending on the WAL mode) at the next page cache scan and removed from the page cache.
 {% endhint %}
 
-You can enable Direct I/O, move the `{gridgain_dir}/libs/optional/ignite-direct-io` folder to the upper level `libs/optional/ignite-direct-io` folder in your GridGain distribution or as a Maven dependency as described [here](../../gridgain8-development/setup.md#enabling-modules).
+You can enable Direct I/O, move the `{gridgain_dir}/libs/optional/ignite-direct-io` folder to the upper level `libs/optional/ignite-direct-io` folder in your GridGain distribution or as a Maven dependency as described [here](../../gridgain8-development/project-setup.md#enabling-modules).
 
 You can use the `IGNITE_DIRECT_IO_ENABLED` system property to enable or disable the plugin at runtime.
 

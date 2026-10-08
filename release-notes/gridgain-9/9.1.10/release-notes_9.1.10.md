@@ -69,7 +69,7 @@ For more information about distributed computing, see [Compute](https://app.gitb
 
 ### Improved CDC Monitoring
 
-This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture).
+This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture).
 
 ### Improved CLI Tool Configuration for Docker
 

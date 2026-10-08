@@ -120,7 +120,7 @@ For the full syntax of every command, see [CLI Configuration Commands](../cli-to
 
 ## Configuration Profiles
 
-GridGain [CLI](../cli-tool.md#interactive-cli-mode) supports configuration profiles to manage different sets of settings.
+GridGain [CLI](../../gridgain9-management/using-the-cli-tool.md#interactive-cli-mode) supports configuration profiles to manage different sets of settings.
 Each profile stores its own CLI-specific settings.
 
 The first time you run the CLI, it creates a profile named `default` and makes it active. Profiles are stored in the `ignitecli/defaults` file under your configuration directory. Keystore, truststore, and authentication settings are kept separately in `ignitecli/secrets`.

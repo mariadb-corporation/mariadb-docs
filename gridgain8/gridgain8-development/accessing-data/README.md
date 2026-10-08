@@ -79,6 +79,18 @@ How to use the GridGain Data Streaming API to inject large volumes of data into 
 
 {% columns %}
 {% column %}
+{% content-ref url="../rest-api.md" %}
+[Using the REST API](../rest-api.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Enable and configure the GridGain 8 REST API — the ignite-rest-http module, Jetty configuration, the Jetty 12 module for Java 17, and REST security.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../tools/" %}
 [Tools and Analytics](../tools/)
 {% endcontent-ref %}

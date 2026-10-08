@@ -8,7 +8,7 @@ description: >-
 In addition to common DDL commands, such as CREATE/DROP INDEX, developers can use GridGain's [SQL APIs](sql-api.md) to define indexes.
 
 {% hint style="info" %}
-Indexing capabilities are provided by the 'ignite-indexing' module. If you start GridGain from Java code, [add this module to your classpath](../setup.md#enabling-modules).
+Indexing capabilities are provided by the 'ignite-indexing' module. If you start GridGain from Java code, [add this module to your classpath](../project-setup.md#enabling-modules).
 {% endhint %}
 
 GridGain automatically creates indexes for each primary key and affinity key field.

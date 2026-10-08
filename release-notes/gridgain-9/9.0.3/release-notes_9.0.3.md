@@ -15,7 +15,7 @@ GridGain 9.0.3 is focused on improving CLI reporting and cluster performance.
 
 ### Incremental Snapshots
 
-With this release, you can make incremental [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/snapshots/data-snapshots). Incremental snapshots automatically find the previous snapshot for the specified tables and create a snapshot of all data since that point of time. For example:
+With this release, you can make incremental [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/snapshots/data-snapshots). Incremental snapshots automatically find the previous snapshot for the specified tables and create a snapshot of all data since that point of time. For example:
 
 ```bash
 cluster snapshot create --type=full --all

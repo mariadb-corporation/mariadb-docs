@@ -218,7 +218,7 @@ unsupported
 
 When query offloading is enabled, GridGain uses the `$IGNITE_WORK_DIR/tmp/spill` directory to temporarily store
 query data for the queries that exceed the quota.
-Read more about the `$IGNITE_WORK_DIR` directory [here](../../gridgain8-development/setup.md#configuring-work-directory).
+Read more about the `$IGNITE_WORK_DIR` directory [here](../../gridgain8-development/project-setup.md#configuring-work-directory).
 
 ## Using JMX to Set Memory Quotas
 

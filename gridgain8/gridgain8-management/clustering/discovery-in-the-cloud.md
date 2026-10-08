@@ -125,7 +125,7 @@ automatic node discovery. To use S3 based automatic node discovery,
 you need to configure the TcpDiscoveryS3IpFinder type of ipFinder.
 
 {% hint style="warning" %}
-You must [enable the 'ignite-aws' module](../../gridgain8-development/setup.md#enabling-modules).
+You must [enable the 'ignite-aws' module](../../gridgain8-development/project-setup.md#enabling-modules).
 {% endhint %}
 
 Here is an example of how to configure Amazon S3 based IP finder:
@@ -257,7 +257,7 @@ To use ELB based automatic node discovery, you need to configure the
 `TcpDiscoveryElbIpFinder` type of `ipFinder`.
 
 {% hint style="warning" %}
-You must [enable the 'ignite-aws' module](../../gridgain8-development/setup.md#enabling-modules).
+You must [enable the 'ignite-aws' module](../../gridgain8-development/project-setup.md#enabling-modules).
 {% endhint %}
 
 Here is an example of how to configure Amazon ELB based IP finder:
@@ -329,7 +329,7 @@ unsupported
 GridGain supports automatic node discovery by utilizing Google Cloud Storage store. This mechanism is implemented in `TcpDiscoveryGoogleStorageIpFinder`. On start-up, each node registers its IP address in the storage and discovers other nodes by reading the storage.
 
 {% hint style="warning" %}
-To use `TcpDiscoveryGoogleStorageIpFinder`, enable the `ignite-gce` [module](../../gridgain8-development/setup.md#enabling-modules) in your application.
+To use `TcpDiscoveryGoogleStorageIpFinder`, enable the `ignite-gce` [module](../../gridgain8-development/project-setup.md#enabling-modules) in your application.
 {% endhint %}
 
 Here is an example of how to configure Google Cloud Storage based IP finder:

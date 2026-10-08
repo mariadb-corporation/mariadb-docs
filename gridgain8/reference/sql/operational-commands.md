@@ -13,7 +13,7 @@ description: >-
 Imports data from an external source into a table or exports data to a file from the table. The table the data is imported into must exist.
 
 {% hint style="info" %}
-You must [enable the 'gridgain-bulkload' module](../../gridgain8-development/setup.md#enabling-modules).
+You must [enable the 'gridgain-bulkload' module](../../gridgain8-development/project-setup.md#enabling-modules).
 {% endhint %}
 
 {% hint style="info" %}

@@ -18,7 +18,7 @@ If you create tables using JDBC or SQL tools, you do not need to define queryabl
 {% endhint %}
 
 {% hint style="info" %}
-Indexing capabilities are provided by the 'ignite-indexing' module. If you start GridGain from java code, [add this module to the classpath of your application](../setup.md#enabling-modules).
+Indexing capabilities are provided by the 'ignite-indexing' module. If you start GridGain from java code, [add this module to the classpath of your application](../project-setup.md#enabling-modules).
 {% endhint %}
 
 In Java, queryable fields can be configured in two ways:

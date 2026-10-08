@@ -82,7 +82,7 @@ For more information, see the [continuous query](https://app.gitbook.com/o/diTpX
 
 ### CDC Failover
 
-With this release, [CDC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture) will automatically switch to a different execution node from the list of execution nodes if the node it is currently running on exits the cluster. The CDC process will only be interrupted if no execution node is available.
+With this release, [CDC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture) will automatically switch to a different execution node from the list of execution nodes if the node it is currently running on exits the cluster. The CDC process will only be interrupted if no execution node is available.
 
 ## Improvements and Fixed Issues
 

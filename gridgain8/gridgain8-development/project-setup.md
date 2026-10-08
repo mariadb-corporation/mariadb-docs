@@ -4,7 +4,7 @@ description: >-
   installation, Docker, work directory, and enabling optional modules.
 ---
 
-# Setting Up
+# Project Setup
 
 ## System Requirements
 

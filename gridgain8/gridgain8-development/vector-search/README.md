@@ -17,7 +17,7 @@ GridGain can index vectors stored in a field and then search the cache based on 
 
 ## Installation
 
-To start using vector store, enable the optional `gridgain-vector-query` [module](../setup.md#enabling-modules).
+To start using vector store, enable the optional `gridgain-vector-query` [module](../project-setup.md#enabling-modules).
 
 ## In This Section
 

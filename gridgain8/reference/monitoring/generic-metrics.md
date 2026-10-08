@@ -158,7 +158,7 @@ unsupported
 
 To use the OpenCensus exporter:
 
-1. [Enable the 'ignite-opencensus' module](../../gridgain8-development/setup.md#enabling-modules).
+1. [Enable the 'ignite-opencensus' module](../../gridgain8-development/project-setup.md#enabling-modules).
 2. Add `org.apache.ignite.spi.metric.opencensus.OpenCensusMetricExporterSpi` to the list of exporters in the node configuration.
 3. Configure OpenCensus StatsCollector to export to a specific system. See [OpenCensusMetricsExporterExample.java](https://github.com/apache/ignite/blob/master/examples/src/main/java/org/apache/ignite/examples/opencensus/OpenCensusMetricsExporterExample.java) for an example and OpenCensus documentation for additional information.
 
@@ -176,7 +176,7 @@ Configuration parameters:
 
 To use the OpenTelemetry exporter:
 
-- [Enable the 'ignite-opentelemetry' module](../../gridgain8-development/setup.md#enabling-modules).
+- [Enable the 'ignite-opentelemetry' module](../../gridgain8-development/project-setup.md#enabling-modules).
 - Add `org.apache.ignite.spi.metric.otlp.OpenTelemetryMetricExporterSpi` to the list of exporters in the node configuration.
 - Configure OpenTelemetry exported to send metrics to your endpoint.
 

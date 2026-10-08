@@ -51,7 +51,7 @@ This section explains system requirements for running GridGain, how to install G
    ```shell
    cp -R $IGNITE_HOME/libs/optional/ignite-rest-http $IGNITE_HOME/libs/ignite-rest-http
    ```
-8. (Optional) Enable any of the [modules](../../gridgain8-development/setup.md#enabling-modules) you might want to use.
+8. (Optional) Enable any of the [modules](../../gridgain8-development/project-setup.md#enabling-modules) you might want to use.
 9. Enable the z/OS Enhanced ASCII support that allows tools to recognize the `chtag` commands by specifying `_BPXK_AUTOCVT=ON`. For more details, click [here](https://www.ibm.com/docs/en/zos/2.4.0?topic=ascii-setting-up-enhanced).
 10. (Optional) You can upload your own license file using the [instructions](../licensing.md) or the following command:
 

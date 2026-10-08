@@ -25,8 +25,8 @@ If you are getting started with Ignite or GridGain, we recommend attending [an u
 
 {% columns %}
 {% column %}
-{% content-ref url="setup.md" %}
-[Setting Up](setup.md)
+{% content-ref url="project-setup.md" %}
+[Project Setup](project-setup.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

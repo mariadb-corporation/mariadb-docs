@@ -88,3 +88,15 @@ Load large volumes of data into a GridGain 9 cluster with the Data Streamer API,
 How data archiving in GridGain 9 removes aged data from primary storage after moving it to secondary storage for HTAP workloads.
 {% endcolumn %}
 {% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../rest-api.md" %}
+[Using the REST API](../rest-api.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Use the GridGain 9 REST API to monitor and manage a cluster over HTTP, run SQL statements and scripts, page through results, and generate a Java client.
+{% endcolumn %}
+{% endcolumns %}

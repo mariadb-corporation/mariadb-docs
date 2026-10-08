@@ -40,7 +40,7 @@ You can provide a custom configuration file via the `java.util.logging.config.fi
 ## Using Log4j2
 
 {% hint style="info" %}
-Before using Log4j2, enable the [ignite-log4j2](../../gridgain8-development/setup.md#enabling-modules) module.
+Before using Log4j2, enable the [ignite-log4j2](../../gridgain8-development/project-setup.md#enabling-modules) module.
 {% endhint %}
 
 To enable Log4j2 logger, set the `gridLogger` property of `IgniteConfiguration`, as shown below:
@@ -146,7 +146,7 @@ In the above example, the path to `log4j-config.xml` can be either an absolute p
 ## Using JCL
 
 {% hint style="info" %}
-Before using JCL, enable the [ignite-jcl](../../gridgain8-development/setup.md#enabling-modules) module.
+Before using JCL, enable the [ignite-jcl](../../gridgain8-development/project-setup.md#enabling-modules) module.
 {% endhint %}
 
 {% hint style="info" %}
@@ -195,7 +195,7 @@ unsupported
 ## Using SLF4J
 
 {% hint style="info" %}
-Before using SLF4J, enable the [ignite-slf4j](../../gridgain8-development/setup.md#enabling-modules) module.
+Before using SLF4J, enable the [ignite-slf4j](../../gridgain8-development/project-setup.md#enabling-modules) module.
 {% endhint %}
 
 To enable the SLF4J logger, set the `gridLogger` property of `IgniteConfiguration`, as shown below:

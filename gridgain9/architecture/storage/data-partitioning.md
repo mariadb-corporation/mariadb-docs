@@ -184,7 +184,7 @@ For how the low watermark controls retention, how to configure it, and the impac
 
 ## Distribution Reset
 
-The SQL query performance can deteriorate in a cluster where tables had been created over a long period, alongside topology changes, due to sub-optimum data colocation. To resolve this issue, you can reset (recalculate) partition distribution using [CLI](../../reference/cli-tool.md#distribution-commands) or [REST API](../../reference/rest-api/overview.md).
+The SQL query performance can deteriorate in a cluster where tables had been created over a long period, alongside topology changes, due to sub-optimum data colocation. To resolve this issue, you can reset (recalculate) partition distribution using [CLI](../../reference/cli-tool.md#distribution-commands) or [REST API](../../gridgain9-development/rest-api.md).
 
 {% hint style="info" %}
 Reset is likely to result in [Partition Rebalance](#partition-rebalance) that may take a long time.

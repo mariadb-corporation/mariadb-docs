@@ -29,7 +29,7 @@ Reference for the GridGain control.sh|bat command line tool used to monitor and 
 {% endcolumn %}
 
 {% column %}
-GridGain's HTTP REST API — how to enable and configure the connector, the supported data types, authentication, and the full command reference.
+GridGain's HTTP REST API reference — the supported data types, binary objects in query results, returned values, and the full command reference.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -65,7 +65,7 @@ Monitoring reference for GridGain 8 — the JMX metrics, system views, and gener
 {% endcolumn %}
 
 {% column %}
-Exceptions raised by the Ignite and GridGain APIs, the action to take for each, and how to configure the critical failure handler.
+Exceptions raised by the Ignite and GridGain APIs and the action to take for each.
 {% endcolumn %}
 {% endcolumns %}
 

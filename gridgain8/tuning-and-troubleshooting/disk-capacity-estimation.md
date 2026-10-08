@@ -93,7 +93,7 @@ Configure a cache with a single partition and enable metrics. An example configu
 ```
 {% endcode %}
 
-Upload data into the cache. You can use the code provided in the following snippet to start a node and upload a sample of 2,000,000 entries. Make sure to add the [required libraries to the classpath](../gridgain8-development/setup.md).
+Upload data into the cache. You can use the code provided in the following snippet to start a node and upload a sample of 2,000,000 entries. Make sure to add the [required libraries to the classpath](../gridgain8-development/project-setup.md).
 
 Change the `createSampleValue` method to return objects of your specific type.
 

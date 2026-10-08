@@ -39,7 +39,7 @@ cdc source create --name mssql_source --type mssql --tables dbo.ACCOUNTS \
   --experimental
 ```
 
-See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture#replicating-from-microsoft-sql-server-experimental) for setup steps, source parameters, and current limitations.
+See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#replicating-from-microsoft-sql-server-experimental) for setup steps, source parameters, and current limitations.
 
 ### GridGain 9 CDC Sink
 
@@ -57,7 +57,7 @@ The `gridgain_9` sink does not create the destination table - the table must alr
 cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ACCOUNTS --experimental
 ```
 
-See [GridGain 9 sink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture#create-the-gridgain-9-sink) for details.
+See [GridGain 9 sink](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#create-the-gridgain-9-sink) for details.
 
 ### Row-Level Security (RLS)
 

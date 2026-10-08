@@ -44,7 +44,7 @@ GridGain uses Spring 5 by default. This version has known vulnerabilities, howev
 When running GridGain as a local installation, you need to enable the optional Spring 6 module:
 
 - Delete or move the `{GRIDGAIN_HOME}/libs/ignite-spring` directory.
-- Copy the [ignite-spring6 directory](../gridgain8-development/setup.md#enabling-modules) from the `{GRIDGAIN_HOME}/libs/optional` directory to `{GRIDGAIN_HOME}/libs`. Do not rename it.
+- Copy the [ignite-spring6 directory](../gridgain8-development/project-setup.md#enabling-modules) from the `{GRIDGAIN_HOME}/libs/optional` directory to `{GRIDGAIN_HOME}/libs`. Do not rename it.
 
 When you next start GridGain, it will automatically use Spring 6.
 

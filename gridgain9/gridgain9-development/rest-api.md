@@ -4,7 +4,7 @@ description: >-
   statements and scripts, page through results, and generate a Java client.
 ---
 
-# REST API
+# Using the REST API
 
 The GridGain 9 clusters provide an [OpenAPI](https://www.openapis.org/) specification that can be used to work with GridGain 9 by standard REST methods.
 
@@ -14,7 +14,7 @@ You can access [online specification](https://www.gridgain.com/sdk/gridgain9/lat
 
 ## REST Connector Configuration
 
-By [default](../configuration/node-configuration-parameters.md), rest connector starts on port 10300. THis port can be configured in the `ignite.rest` [node configuration](../configuration/node-configuration-parameters.md#rest-configuration).
+By [default](../reference/configuration/node-configuration-parameters.md), rest connector starts on port 10300. THis port can be configured in the `ignite.rest` [node configuration](../reference/configuration/node-configuration-parameters.md#rest-configuration).
 
 ## Using HTTP Tools
 
@@ -24,7 +24,7 @@ Once the cluster is started, you can use external tools to monitor the cluster o
 curl 'http://localhost:10300/management/v1/cluster/state'
 ```
 
-You are not limited to only monitoring, as GridGain REST API provides endpoints that can be used to manage the cluster as well. For example, you can create a [snapshot](../../gridgain9-management/snapshots/data-snapshots.md) via REST:
+You are not limited to only monitoring, as GridGain REST API provides endpoints that can be used to manage the cluster as well. For example, you can create a [snapshot](../gridgain9-management/snapshots/data-snapshots.md) via REST:
 
 ```bash
 curl -H "Content-Type: application/json" -d '{"snapshotType": "FULL","tableNames": "table1,table2","startTimeEpochMilli": 0}' http://localhost:10300/management/v1/snapshot/create
@@ -36,7 +36,7 @@ You can also rename an already-initialized cluster. The new name is sent as a pl
 curl -X POST -H "Content-Type: text/plain" -d 'newClusterName' http://localhost:10300/management/v1/cluster/rename
 ```
 
-On success, the endpoint returns the updated `ClusterTag` as JSON, including the new name and the unchanged cluster ID. The request fails with `400` if the supplied name is empty. The same operation is available from the CLI tool as [`cluster rename`](../cli-tool.md#cluster-rename).
+On success, the endpoint returns the updated `ClusterTag` as JSON, including the new name and the unchanged cluster ID. The request fails with `400` if the supplied name is empty. The same operation is available from the CLI tool as [`cluster rename`](../reference/cli-tool.md#cluster-rename).
 
 ## Running SQL
 
@@ -48,7 +48,7 @@ curl -H "Content-Type: application/json" -d '{"statement": "SELECT id, name FROM
 
 To run SQL, a caller needs the cluster-level `EXECUTE_SQL` privilege, and the object privileges the statement
 itself requires, such as `SELECT_FROM_TABLE` or `INSERT_INTO_TABLE`. A caller that lacks either gets `403`.
-For the full list, see [User Permissions and Roles](../../security/user-permissions-and-roles.md).
+For the full list, see [User Permissions and Roles](../security/user-permissions-and-roles.md).
 
 One response shape covers every kind of statement. `hasRowSet` reports whether the statement produced rows;
 when it did, `meta` describes the columns and `rows` holds the first page, each row ordered as in `meta`.
@@ -78,7 +78,7 @@ The `type` names a column type rather than a SQL type, as described in [Value En
 
 By default, a page holds up to 1000 rows. Set `pageSize` on the request to ask for a different size. A request
 for more than the configured maximum of 10000 rows is rejected with `400`, rather than reduced to the maximum.
-Both limits are configurable, as described in [REST Configuration](../configuration/node-configuration-parameters.md#rest-configuration).
+Both limits are configurable, as described in [REST Configuration](../reference/configuration/node-configuration-parameters.md#rest-configuration).
 
 When rows remain beyond the returned page, the response sets `hasMore` to `true` and includes a `cursorId`. Pass it to the `sql/cursors` endpoint to read the next page:
 
@@ -145,7 +145,7 @@ Values whose full range a JSON number cannot carry are sent and returned as stri
 A finite number too large for the type it is sent as is rejected rather than saturated to infinity, so a value can never read back as something the caller did not send.
 
 {% hint style="warning" %}
-`TIMESTAMP` names an instant here, while the SQL type of that name is `DATETIME`. See [Data Types](../sql/data-types.md) for the full correspondence between SQL types and column types.
+`TIMESTAMP` names an instant here, while the SQL type of that name is `DATETIME`. See [Data Types](../reference/sql/data-types.md) for the full correspondence between SQL types and column types.
 {% endhint %}
 
 ### Status Codes

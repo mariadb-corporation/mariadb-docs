@@ -254,7 +254,7 @@ This release continues to add new metrics to GridGain 9. The following metrics w
 #### Data Center Replication Connector (DR Connector)  Metrics
 
 {% hint style="info" %}
-These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) only.
+These metrics were added for [DR connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) only.
 {% endhint %}
 
 Per-cache metrics (`DrReceiverCacheMetricsMxBean`):

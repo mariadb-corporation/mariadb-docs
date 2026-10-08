@@ -61,7 +61,7 @@ One response shape covers every kind of statement, reporting a row set, an affec
 
 A `cursorId` is valid only on the node that issued it, so paging requests must go to that same node.
 
-See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/rest-api/overview#running-sql).
+See [Running SQL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/rest-api#running-sql).
 
 ### Connect Timeout for the C++ Client
 
