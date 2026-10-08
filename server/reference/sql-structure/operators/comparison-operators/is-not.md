@@ -1,3 +1,9 @@
+---
+description: >-
+  Test a value against TRUE, FALSE, or UNKNOWN and negate the result. IS NOT
+  always returns 1 or 0, never NULL.
+---
+
 # IS NOT
 
 ## Syntax

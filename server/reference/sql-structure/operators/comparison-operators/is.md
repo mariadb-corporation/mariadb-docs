@@ -1,3 +1,9 @@
+---
+description: >-
+  Test a value against TRUE, FALSE, or UNKNOWN. Unlike =, IS TRUE matches
+  any logically true value, and IS always returns 1 or 0, never NULL.
+---
+
 # IS
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether a value is NULL. IS NULL returns 1 for NULL and 0 for any
+  other value, unlike a comparison with = NULL, which returns NULL.
+---
+
 # IS NULL
 
 ## Syntax

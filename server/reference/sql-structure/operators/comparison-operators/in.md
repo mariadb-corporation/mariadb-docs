@@ -1,3 +1,10 @@
+---
+description: >-
+  Test whether a value matches any value in a list. IN returns 1 on a match
+  and 0 if nothing matches, or NULL when the value is NULL or the list has a
+  NULL and no match.
+---
+
 # IN
 
 ## Syntax

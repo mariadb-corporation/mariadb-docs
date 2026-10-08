@@ -1,3 +1,9 @@
+---
+description: >-
+  Test whether a value matches none of the values in a list. expr NOT IN
+  (value,...) is the same as NOT (expr IN (value,...)).
+---
+
 # NOT IN
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Test whether a value is valid JSON, optionally of a given type (value,
+  array, object, or scalar) and with unique keys. Available from MariaDB
+  12.3.
+---
+
 # IS JSON
 
 ## Syntax
