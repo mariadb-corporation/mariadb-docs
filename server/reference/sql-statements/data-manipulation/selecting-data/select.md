@@ -153,6 +153,8 @@ When specifying a column, you can either use just the column name or qualify the
 
 You can quote column names using backticks. If you are qualifying column names with table names, quote each part separately as ``tbl_name`.`col_name``.
 
+You can give a select expression an alias with `AS alias_name`. [GROUP BY](group-by.md#aliases-in-group-by-and-having), `HAVING`, and [ORDER BY](order-by.md#aliases-in-order-by) can refer to the alias, but `WHERE` can't. Avoid aliases that have the same name as a column in the `FROM` tables, because `GROUP BY` and `ORDER BY` resolve such a name differently.
+
 If you use any [grouping functions](../../../sql-functions/aggregate-functions/) in any of the select expressions, all rows in your results will be implicitly grouped, as if you had used `GROUP BY NULL`. `GROUP BY NULL` being an expression behaves specially such that the entire result set is treated as a group.
 
 ### DISTINCT
