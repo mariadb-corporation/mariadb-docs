@@ -27,6 +27,17 @@ SELECT 1042 % 50;
 +-----------+
 ```
 
+The operands can be decimals:
+
+```sql
+SELECT 0.5 % 0.33;
++------------+
+| 0.5 % 0.33 |
++------------+
+|       0.17 |
++------------+
+```
+
 ## See Also
 
 * [Operator Precedence](../operator-precedence.md)
