@@ -14,9 +14,14 @@ cards, embeds, files, buttons, icons, expandable (`<details>`), GitBook variable
 
 ## Frontmatter
 
-About half of existing pages open with YAML frontmatter; the rest have none. **New pages should
-always include `description:`** (used for SEO + listings) even though many older pages lack it.
-`icon:` is **rarely used** (≈0.2% of pages) — optional, omit if unsure.
+Most pages open with YAML frontmatter that includes a `description:`. About 90% of the
+published content pages have one. The pages without it are mostly generated or archival:
+error-code pages, release notes and changelogs, post-download pages, and old MaxScale versions.
+**Every new page must include `description:`**, which is used for SEO and listings. Keep it
+plain text and at most 200 characters: GitBook cuts it off there and shows any Markdown
+literally. The `desccheck` CI gate enforces both on changed pages, but it doesn't flag a missing
+description. `icon:` is **rarely used** (about 1% of pages) and is
+optional, so omit it if unsure.
 
 ```yaml
 ---
