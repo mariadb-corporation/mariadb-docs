@@ -68,7 +68,7 @@ Statement stmt = client.sql().statementBuilder()
     .build();
 ```
 
-For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-consistency-and-replication).
+For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/replication-and-consistency/data-consistency-and-replication).
 
 ## Improvements and Fixed Issues
 

@@ -146,30 +146,6 @@ With secondary storage configured, all updates written to the primary storage wi
 
 {% columns %}
 {% column %}
-{% content-ref url="distribution-zones.md" %}
-[Distribution Zones](distribution-zones.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Create and configure GridGain 9 distribution zones to control how tables are partitioned, replicated, and distributed across cluster nodes.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="data-partitioning.md" %}
-[Data Partitioning](data-partitioning.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How GridGain 9 partitions and replicates table data across cluster nodes, including RAFT consensus, the Fair distribution algorithm, and primary replica leases.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="storage-profiles.md" %}
 [Storage Profiles](storage-profiles.md)
 {% endcontent-ref %}

@@ -42,7 +42,7 @@ This issue will be resolved in the next release.
 
 ### Lazy Default Zone creation
 
-Starting with this release, the `default` [distribution zone](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/distribution-zones) is no longer created on startup. Instead, the zone is only created when no distribution zone is specified during table creation.
+Starting with this release, the `default` [distribution zone](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-distribution/distribution-zones) is no longer created on startup. Instead, the zone is only created when no distribution zone is specified during table creation.
 
 {% hint style="warning" %}
 Explicitly specifying the `default` zone during table creation will not create the `default` zone if it does not yet exist.

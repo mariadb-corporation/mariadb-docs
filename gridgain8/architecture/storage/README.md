@@ -1,12 +1,24 @@
 ---
 description: >-
-  GridGain's storage options for keeping data beyond RAM, including native
-  persistence for durable on-disk storage and swapping as an extension of memory.
+  GridGain's storage architecture — the multi-tiered memory architecture, native
+  persistence for durable on-disk storage, and swapping as an extension of memory.
 ---
 
-# Persistence
+# Storage
 
 This section covers how GridGain stores data beyond RAM. It describes [Native Persistence](native-persistence.md), which durably stores all data on disk and loads as much as it can into RAM for processing, and [Swapping](swapping.md), which lets the operating system move in-memory data to disk to avoid out-of-memory errors.
+
+{% columns %}
+{% column %}
+{% content-ref url="../memory-architecture.md" %}
+[Memory Architecture](../memory-architecture.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+GridGain's multi-tiered, page-based memory architecture that stores data and indexes both in memory and on disk for in-memory speed with disk durability.
+{% endcolumn %}
+{% endcolumns %}
 
 {% columns %}
 {% column %}

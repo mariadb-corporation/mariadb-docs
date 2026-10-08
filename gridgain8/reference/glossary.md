@@ -43,7 +43,7 @@ GridGain's built-in disk store that keeps a superset of the data on disk so the 
 A subset of a cache's data. Partitions are distributed across server nodes to balance storage and load. See [Data Partitioning](../architecture/data-modeling/data-partitioning.md).
 
 **Rebalancing**
-The redistribution of partitions across nodes when the cluster topology changes. See [Rebalancing](../architecture/rebalancing/README.md).
+The redistribution of partitions across nodes when the cluster topology changes. See [Data Rebalancing](../architecture/rebalancing/data-rebalancing.md).
 
 **Server node**
 A node that stores data and performs computations; the base storage and compute unit of a cluster.

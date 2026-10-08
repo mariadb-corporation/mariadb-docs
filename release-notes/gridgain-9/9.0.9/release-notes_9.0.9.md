@@ -69,8 +69,8 @@ For more information about Kafka Sink connector, see the [Kafka Sink Connector](
 
 You can now perform [disaster recovery for system RAFT groups](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/disaster-recovery/system-groups-recovery) that are essential for the GridGain 9 cluster's normal operation:
 
-- [Cluster Management Group (CMG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#cluster-management-group)
-- [Metastorage Group (MG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#cluster-metastorage-group)
+- [Cluster Management Group (CMG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster/cluster-lifecycle#cluster-management-group)
+- [Metastorage Group (MG)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster/cluster-lifecycle#cluster-metastorage-group)
 
 You perform disaster recovery operations on system RAFT groups when a permanent majority loss occurs. Once you have detected that majority has been lost in cluster logs in the console or in the [rotated log files](https://en.wikipedia.org/wiki/Log_rotation), you can use the [CLI commands](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool#disaster-recovery-commands) or REST API calls to perform disaster recovery
 

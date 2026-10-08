@@ -4,14 +4,14 @@ description: >-
   partitioning, affinity colocation, and the key-value and SQL access models.
 ---
 
-# Data Modeling
+# Data Distribution
 
-This section explains how GridGain distributes and represents data across a cluster. It covers the physical organization of data through [data partitioning](data-partitioning.md) and [affinity colocation](affinity-colocation.md), as well as the two logical representations of data — the key-value cache and SQL tables — described in the [Data Modeling introduction](introduction.md).
+This section explains how GridGain distributes and represents data across a cluster. It covers the physical organization of data through [data partitioning](../data-modeling/data-partitioning.md) and [affinity colocation](../data-modeling/affinity-colocation.md), as well as the two logical representations of data — the key-value cache and SQL tables — described in the [Data Modeling introduction](../data-modeling/introduction.md).
 
 {% columns %}
 {% column %}
-{% content-ref url="introduction.md" %}
-[Introduction](introduction.md)
+{% content-ref url="../data-modeling/introduction.md" %}
+[Introduction](../data-modeling/introduction.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -22,8 +22,8 @@ How data is stored and accessed in GridGain, contrasting the physical partitione
 
 {% columns %}
 {% column %}
-{% content-ref url="data-partitioning.md" %}
-[Data Partitioning](data-partitioning.md)
+{% content-ref url="../data-modeling/data-partitioning.md" %}
+[Data Partitioning](../data-modeling/data-partitioning.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -34,8 +34,8 @@ How GridGain partitions data across server nodes with the affinity function, the
 
 {% columns %}
 {% column %}
-{% content-ref url="affinity-colocation.md" %}
-[Affinity Colocation](affinity-colocation.md)
+{% content-ref url="../data-modeling/affinity-colocation.md" %}
+[Affinity Colocation](../data-modeling/affinity-colocation.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

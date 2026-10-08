@@ -22,7 +22,7 @@ If you use these metrics, re-enable them via configuration.
 
 ### Partition Calculation in Default Zones
 
-Previously, when a distribution zone was created lazily, it was set to use 25 partitions. Starting with this release, partition count will be calculated automatically based on [default partitioning rules](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/data-partitioning#partition-number).
+Previously, when a distribution zone was created lazily, it was set to use 25 partitions. Starting with this release, partition count will be calculated automatically based on [default partitioning rules](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-distribution/data-partitioning#partition-number).
 
 ## New Features
 
