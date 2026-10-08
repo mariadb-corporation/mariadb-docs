@@ -118,7 +118,7 @@ await foreach (var batch in view.QueryContinuouslyAsync(
 
 The LINQ overload is not available in AOT-compiled .NET builds; use the SQL form there.
 
-See [remote filter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#remote-filter) in the continuous queries documentation.
+See [remote filter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries#remote-filter) in the continuous queries documentation.
 
 ### Support for Listing Local Snapshot Paths
 
@@ -142,7 +142,7 @@ public class MyJob implements ComputeJob<MyArg, MyResult> {
 }
 ```
 
-See [propagating cancellation from a job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#propagating-cancellation-from-a-job) for more information.
+See [propagating cancellation from a job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#propagating-cancellation-from-a-job) for more information.
 
 ### Memory Quota Block Size for JDBC and .NET
 
@@ -168,7 +168,7 @@ var stmt = new SqlStatement("SELECT * FROM large_table")
 };
 ```
 
-In both clients, the default is `null` (use the node-level setting). Negative values are rejected. See [memory quota block size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#memory-quota-block-size) for more information.
+In both clients, the default is `null` (use the node-level setting). Negative values are rejected. See [memory quota block size](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/sql-api#memory-quota-block-size) for more information.
 
 ### New Metrics
 
@@ -188,7 +188,7 @@ This release adds three new metrics groups for storage, thread-pool, and Raft-lo
 
 ### .NET 10 Support in Compute Executor
 
-With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#.net-compute-jobs) for more information.
+With this release, the .NET compute job executor supports .NET 10, so a server node can host .NET compute jobs on either runtime. See [.NET compute jobs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#.net-compute-jobs) for more information.
 
 ## Improvements and Fixed Issues
 

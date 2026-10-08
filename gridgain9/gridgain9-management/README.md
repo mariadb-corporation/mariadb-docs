@@ -106,15 +106,3 @@ Use GridGain 9 Change Data Capture (CDC) to replicate table changes to external 
 Data center replication (DCR) keeps tables in sync across multiple GridGain 9 clusters through one-way, asynchronous, last-write-wins replication.
 {% endcolumn %}
 {% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="data-archiving.md" %}
-[Data Archiving](data-archiving.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How data archiving in GridGain 9 removes aged data from primary storage after moving it to secondary storage for HTAP workloads.
-{% endcolumn %}
-{% endcolumns %}

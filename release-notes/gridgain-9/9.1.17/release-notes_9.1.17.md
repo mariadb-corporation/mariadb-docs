@@ -90,7 +90,7 @@ Another set of new metrics helps monitor [Raft snapshots](https://app.gitbook.co
 
 This release introduces new `IMapper<T>` support to SQL, Compute and PartitionManager .NET APIs, enabling custom object mapping for serialization and deserialization, including AOT-friendly scenarios where reflection-based mapping is not suitable.
 
-For example, that is how you use it to create a colocated [compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing#running-.net-compute-jobs) job target for a specific table and key:
+For example, that is how you use it to create a colocated [compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing#running-.net-compute-jobs) job target for a specific table and key:
 
 ```csharp
 public sealed class PocoMapper : IMapper<Poco> {}
@@ -105,7 +105,7 @@ This release adds official support for [Native AOT](https://learn.microsoft.com/
 
 #### .NET Continuous Query API
 
-Continuous Query .NET [API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
+Continuous Query .NET [API](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries#continuous-query-watermark) is extended with the new `IContinuousQueryWatermark.AfterTransaction` interface to allow the user to obtain a consistent view of table data and future updates.
 
 This is how to start a continuous query with transaction watermark:
 

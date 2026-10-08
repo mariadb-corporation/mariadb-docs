@@ -96,5 +96,5 @@ As a result, you should see a node launch and the "Hello, World" text displayed 
 
 From here, you may want to:
 
-- Read more about using GridGain: [Developers Guide](../../gridgain8-usage/README.md), [Administrators Guide](../../gridgain8-management/README.md)
+- Read more about using GridGain: [Developers Guide](../../gridgain8-development/README.md), [Administrators Guide](../../gridgain8-management/README.md)
 - Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster

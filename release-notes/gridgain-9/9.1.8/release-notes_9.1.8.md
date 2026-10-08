@@ -38,7 +38,7 @@ This release has the following major changes:
 
 Starting with this release, all table views are `AutoCloseable` and can be wrapped in a `try-with-resources` statement.
 
-Only views for [near caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/near-caches#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
+Only views for [near caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
 
 ```java
 // Using try-with-resources statement to safely handle a near cache.
@@ -74,7 +74,7 @@ These features were added in this release:
 
 ### AWS KMS Encryption
 
-When using [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/transparent-data-encryption) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
+When using [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/transparent-data-encryption) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
 
 The example below shows how to create a provider and use it on the cluster:
 
@@ -96,7 +96,7 @@ The example below shows how to create a provider and use it on the cluster:
 
 ### Skipping Old Entries in Continuous Queries
 
-A new `skipOldEntries` option was added to [continuous queries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
+A new `skipOldEntries` option was added to [continuous queries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
 
 ```java
 var options = ContinuousQueryOptions.builder()
@@ -204,7 +204,7 @@ These features were added in one of the releases between 9.1.0 and 9.1.8. If you
 
 This release reintroduces support for near caches in GridGain 9. Near caches provide a way to store data locally on your clients and avoid lengthy network queries for latest data from the cluster.
 
-You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
+You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
 
 Just like with table views, it is recommended to use `try-with-resources` statement to avoid any possible memory leaks.
 
@@ -227,7 +227,7 @@ try (KeyValueView<Tuple, Tuple> kvView = client.tables().table(myTable).keyValue
 }
 ```
 
-For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/near-caches) documentation.
+For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches) documentation.
 
 ### Python Client
 
@@ -282,7 +282,7 @@ To start CDC replication:
 
 ### Snapshot Encryption
 
-Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
+Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
 
 You can also manually set snapshot encryption when creating them by using the `encryption-provider` parameter.
 
@@ -373,7 +373,7 @@ This release features major changes in migration tools:
 
 ### Creating Caches From Java
 
-With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/caches) documentation.
+With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/caches) documentation.
 
 ```java
 class PojoKey {

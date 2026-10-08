@@ -67,7 +67,7 @@ cacheRdd.savePairs(sparkContext.parallelize(1 to 10000, 10).map(i => (i, i)))
 
 ## Running SQL queries against a GridGain cache
 
-When a GridGain cache is configured with the indexing subsystem enabled, it is possible to run SQL queries against the cache using `objectSql` and `sql` methods. See [Working with SQL](../../gridgain8-usage/sql/sql-introduction.md) for more information about Ignite SQL queries.
+When a GridGain cache is configured with the indexing subsystem enabled, it is possible to run SQL queries against the cache using `objectSql` and `sql` methods. See [Working with SQL](../../gridgain8-development/sql/sql-introduction.md) for more information about Ignite SQL queries.
 
 For example, assuming the "partitioned" cache is configured to index pairs of integers, the following code will get all integers in the range (10, 100):
 

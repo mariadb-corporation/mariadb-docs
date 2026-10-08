@@ -114,7 +114,7 @@ This section shows how to use `HiveCacheJdbcPojoStore` for data loading and sync
 
 Both `org.apache.ignite.cache.store.jdbc.CacheJdbcPojoStore` and `org.gridgain.cachestore.HiveCacheJdbcPojoStore` are based on the read-through and write-through cache capabilities.
 
-Read more about these concepts in [Database Caching](https://ignite.apache.org/use-cases/caching/database-caching.html) and [Read-Through and Write-Through](../../gridgain8-usage/persistence/external-storage.md).
+Read more about these concepts in [Database Caching](https://ignite.apache.org/use-cases/caching/database-caching.html) and [Read-Through and Write-Through](../../gridgain8-development/persistence/external-storage.md).
 
 The generated project will already contain the code that enables this functionality.
 

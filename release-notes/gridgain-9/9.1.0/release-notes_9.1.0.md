@@ -71,7 +71,7 @@ For more information on columnar storage, see [Columnar Storage](https://app.git
 
 ### Streamer Support in Kafka Sink
 
-Kafka Sink now supports receiving data via [data streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming).
+Kafka Sink now supports receiving data via [data streamer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/data-streaming).
 
 To enable data streamer support, specify the name of the receiver class in the `ignite.streamer.receiver.class.name` kafka sink configuration property. You can specify the deployment units containing the class in the `ignite.streamer.receiver.deployment.units` property.
 

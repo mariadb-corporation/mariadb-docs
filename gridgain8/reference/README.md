@@ -1,13 +1,13 @@
 ---
 description: >-
   Deep lookup reference for GridGain 8 — SQL, the control script, the REST API,
-  monitoring metrics and system views, tools, error codes, and a glossary.
+  monitoring metrics and system views, error codes, and a glossary.
 icon: book
 ---
 
 # Reference
 
-Categorized lookup material for GridGain 8: SQL syntax, command-line and REST interfaces, the metrics and system views you monitor, supporting tools, and the exceptions the platform can raise.
+Categorized lookup material for GridGain 8: SQL syntax, command-line and REST interfaces, the metrics and system views you monitor, and the exceptions the platform can raise.
 
 {% columns %}
 {% column %}
@@ -60,36 +60,12 @@ Monitoring reference for GridGain 8 — the JMX metrics, system views, and gener
 {% columns %}
 {% column %}
 {% content-ref url="error-codes/" %}
-[Handling Exceptions](error-codes/)
+[Exceptions List](error-codes/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
 Exceptions raised by the Ignite and GridGain APIs, the action to take for each, and how to configure the critical failure handler.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="tools/" %}
-[Tools and Analytics](tools/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Third-party tools and analytics integrations for working with data stored in a GridGain cluster.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="sql-statistics.md" %}
-[SQL Statistics](sql-statistics.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-How GridGain collects and uses SQL statistics to build optimal query plans, including configuration, overriding, and obsolescence tracking.
 {% endcolumn %}
 {% endcolumns %}
 

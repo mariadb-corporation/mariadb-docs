@@ -314,7 +314,7 @@ CITY table description:
 | `OPTION_CREATE_TABLE_PARAMETERS` | Additional parameters for a newly created table. The value of this option is used for the `WITH` part of a `CREATE TABLE` query. |
 | `OPTION_CREATE_TABLE_PRIMARY_KEY_FIELDS` | Comma separated list of primary key fields. |
 | `OPTION_STREAMER_ALLOW_OVERWRITE` | If `true`, then an existing row will be overwritten with DataFrame content. If `false`, then the row will be skipped if the primary key already exists in the table. |
-| `OPTION_STREAMER_FLUSH_FREQUENCY` | Automatic flush frequency. This is the time after which the streamer will make an attempt to submit all data added so far to remote nodes (see [Data Streaming](../../gridgain8-usage/data-streaming.md)). |
+| `OPTION_STREAMER_FLUSH_FREQUENCY` | Automatic flush frequency. This is the time after which the streamer will make an attempt to submit all data added so far to remote nodes (see [Data Streaming](../../gridgain8-development/data-streaming.md)). |
 | `OPTION_STREAMER_PER_NODE_BUFFER_SIZE` | Per node buffer size. See also. The size of the per node key-value pairs buffer. |
 | `OPTION_STREAMER_PER_NODE_PARALLEL_OPERATIONS` | Per node buffer size. The maximum number of parallel stream operations for a single node. |
 | `OPTION_SCHEMA` | The GridGain SQL schema name in which the specified table exists. When `OPTION_SCHEMA` is not specified, all schemas will be scanned to find a table with a matching name. This option can be used to differentiate two tables of the same name in different GridGain SQL schemas.<br><br>When creating new tables, `OPTION_SCHEMA` must be specified as `PUBLIC`, otherwise an exception will be thrown because currently GridGain SQL can issue `CREATE TABLE` statements within the `PUBLIC` schema only. |

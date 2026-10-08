@@ -753,7 +753,7 @@ Client configuration in these scenarios should be configured for the authenticat
 ## Control Center OpenID Authentication
 
 {% hint style="info" %}
-This authenticator is designed to work with [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) and is part of Control Center Agent [optional module](../gridgain8-usage/setup.md#enabling-modules).
+This authenticator is designed to work with [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) and is part of Control Center Agent [optional module](../gridgain8-development/setup.md#enabling-modules).
 {% endhint %}
 
 The OpenID Authenticator allows users who logged in to Control Center via OpenID Connect to work with the cluster under the same user.

@@ -31,7 +31,7 @@ This release increases default timeout values for [critical workers](https://app
 This release features multiple improvements to cluster monitoring:
 
 - New `ClockSkewExceedingMaxClockSkew` [metric](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#clock.service) can be used to monitor clock drift.
-- A set of new [compute events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
+- A set of new [compute events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/messaging-and-events/events/available-events#compute-job-events) allows for easier monitoring of your distributed computing jobs.
 
 ### Improved Migration Tools
 

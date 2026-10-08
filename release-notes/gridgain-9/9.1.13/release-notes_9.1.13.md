@@ -82,7 +82,7 @@ String helloRes = compute.execute(target, helloDesc, "World");
 System.out.println("Python job result: " + helloRes);
 ```
 
-For more information about the command mode, see the [WASM](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/webassembly-compute-jobs) documentation.
+For more information about the command mode, see the [WASM](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/webassembly-compute-jobs) documentation.
 
 ### Improved Kafka Sink Configuration
 

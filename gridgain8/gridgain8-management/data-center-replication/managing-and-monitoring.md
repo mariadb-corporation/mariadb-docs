@@ -214,7 +214,7 @@ The table below covers common failure scenarios during active-passive data trans
 
 In addition to metrics, you can listen to replication-specific events.
 DR events must be enabled first and can be handled as regular Ignite events.
-To learn how to listen to specific events, refer to the [Working with Events](../../gridgain8-usage/events/listening-to-events.md) section. Replication events may include a collection of `DrUpdateEntry` objects containing information about specific entries that were updated prior to triggering this event.
+To learn how to listen to specific events, refer to the [Working with Events](../../gridgain8-development/events/listening-to-events.md) section. Replication events may include a collection of `DrUpdateEntry` objects containing information about specific entries that were updated prior to triggering this event.
 
 ```java
 IgniteConfiguration cfg = new IgniteConfiguration();

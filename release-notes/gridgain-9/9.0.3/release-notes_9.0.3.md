@@ -47,7 +47,7 @@ INSERT INTO Person (city_id, name, age, company) values (1, 'John', 30, 'newCorp
 
 ### Cache Expiry
 
-[Expiry policies](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/expiry-policies) can now also be configured for caches. You can create the `ttl` column and use the `EXPIRE AT` clause to remove the rows at the specified time:
+[Expiry policies](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/expiry-policies) can now also be configured for caches. You can create the `ttl` column and use the `EXPIRE AT` clause to remove the rows at the specified time:
 
 ```sql
 CREATE CACHE Accounts (

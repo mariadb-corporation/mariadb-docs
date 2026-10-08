@@ -31,7 +31,7 @@ A node that connects to the cluster to run application logic but does not store 
 A group of interconnected nodes that pool their memory and CPU to store and process data.
 
 **Data region**
-A configurable block of memory that caches are assigned to, with its own size limits and persistence settings. See [Configuring Data Regions](../gridgain8-usage/memory-configuration/data-regions.md).
+A configurable block of memory that caches are assigned to, with its own size limits and persistence settings. See [Configuring Data Regions](../gridgain8-development/memory-configuration/data-regions.md).
 
 **Discovery**
 The mechanism by which nodes find and join each other to form a cluster. See [Clustering](../architecture/clustering.md).

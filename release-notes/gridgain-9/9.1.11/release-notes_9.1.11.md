@@ -78,7 +78,7 @@ ContinuousQueryOptions options = ContinuousQueryOptions.builder().watermark(wm).
 accounts.queryContinuously(subscriber, options);
 ```
 
-For more information, see the [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries) documentation.
+For more information, see the [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries) documentation.
 
 ### CDC Failover
 

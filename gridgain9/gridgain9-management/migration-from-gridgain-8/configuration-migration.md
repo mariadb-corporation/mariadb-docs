@@ -194,7 +194,7 @@ Events configuration is simplified in GridGain 9. It is separated in 2 configura
 - Event **channels** define what is collected.
 - Event **sinks** define where the data is sent.
 
-In the current release, only `log` sink are supported. You can configure events as described in the [Events](../../gridgain9-usage/events/working-with-events.md) section.
+In the current release, only `log` sink are supported. You can configure events as described in the [Events](../../gridgain9-development/events/working-with-events.md) section.
 
 #### Metrics Collection
 

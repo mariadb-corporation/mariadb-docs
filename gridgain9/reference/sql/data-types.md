@@ -185,7 +185,7 @@ Maximum length: `2147483647`
 ### TIME
 
 {% hint style="info" %}
-The following Java types are not supported and cannot be used from [table API](../../gridgain9-usage/table-api.md):
+The following Java types are not supported and cannot be used from [table API](../../gridgain9-development/table-api.md):
 
 - `java.sql.Time`
 - `java.util.Date`
@@ -212,7 +212,7 @@ Mapped to: `LocalTime`
 ### DATE
 
 {% hint style="info" %}
-The following Java types are not supported and cannot be used from [table API](../../gridgain9-usage/table-api.md):
+The following Java types are not supported and cannot be used from [table API](../../gridgain9-development/table-api.md):
 
 - `java.sql.Time`
 - `java.util.Date`
@@ -241,7 +241,7 @@ The timestamp data type only supports precision up to milliseconds (3 symbols). 
 {% endhint %}
 
 {% hint style="info" %}
-The following Java types are not supported and cannot be used from [table API](../../gridgain9-usage/table-api.md):
+The following Java types are not supported and cannot be used from [table API](../../gridgain9-development/table-api.md):
 
 - `java.sql.Time`
 - `java.util.Date`
@@ -272,7 +272,7 @@ In SQL, the timestamp with local time zone data type only supports precision up 
 {% endhint %}
 
 {% hint style="info" %}
-The following Java types are not supported and cannot be used from [table API](../../gridgain9-usage/table-api.md):
+The following Java types are not supported and cannot be used from [table API](../../gridgain9-development/table-api.md):
 
 - `java.sql.Time`
 - `java.util.Date`

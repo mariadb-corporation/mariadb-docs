@@ -63,7 +63,7 @@ This release adds two new event types for monitoring client connections:
 - `CLIENT_CONNECTION_ESTABLISHED` - Fired when a client successfully connects to the node;
 - `CLIENT_CONNECTION_CLOSED` - Fired when a client disconnects from the node.
 
-For more information on working with events, see the [Events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/events) documentation.
+For more information on working with events, see the [Events](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/messaging-and-events/events) documentation.
 
 ### Paged SQL Results in CLI Tool
 
@@ -85,7 +85,7 @@ cli config set ignite.cli.sql.display-page-size=500
 
 #### MapperBuilder Inheritance Support
 
-The `MapperBuilder` now supports [mapping fields](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api#working-with-mappers) inherited from superclasses when using manual mapping. This enhancement allows you to work with object hierarchies more naturally:
+The `MapperBuilder` now supports [mapping fields](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api#working-with-mappers) inherited from superclasses when using manual mapping. This enhancement allows you to work with object hierarchies more naturally:
 
 ```java
 Mapper<ChildClass> mapper = Mapper.builder(ChildClass.class)

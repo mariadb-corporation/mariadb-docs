@@ -92,10 +92,10 @@ The node with backup partitions is called the _backup node_.
 When a node with the primary partition for some key leaves the cluster, GridGain triggers the partition map exchange (PME) process.
 PME labels one of the backup partitions (if they are configured) for the key as primary.
 
-Backup partitions can increase the availability of your data, and in some cases, the speed of read operations, if you set GridGain to read data from backed-up partitions if they are available on the local node (this is not the default behavior and needs to be enabled. See [Cache Configuration](../../gridgain8-usage/configuring-caches/configuration-overview.md) for details.). However, they also increase memory consumption or the size of the persistent storage (if enabled).
+Backup partitions can increase the availability of your data, and in some cases, the speed of read operations, if you set GridGain to read data from backed-up partitions if they are available on the local node (this is not the default behavior and needs to be enabled. See [Cache Configuration](../../gridgain8-development/configuring-caches/configuration-overview.md) for details.). However, they also increase memory consumption or the size of the persistent storage (if enabled).
 
 {% hint style="info" %}
-Backup partitions can be configured in PARTITIONED mode only. Refer to the [Configuring Partition Backups](../../gridgain8-usage/configuring-caches/configuring-backups.md) section.
+Backup partitions can be configured in PARTITIONED mode only. Refer to the [Configuring Partition Backups](../../gridgain8-development/configuring-caches/configuring-backups.md) section.
 {% endhint %}
 
 ## Partition Map Exchange

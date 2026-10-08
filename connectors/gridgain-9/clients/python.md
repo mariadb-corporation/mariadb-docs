@@ -100,7 +100,7 @@ All paths to certificate file and keys should be provided in string format appro
 
 ### Configuring Authorization
 
-If the cluster uses [basic authorization](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication#basic-authentication), you need to provide user `identity` and `secret` to authorize on it, for example:
+If the cluster uses [basic authorization](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/authentication#basic-authentication), you need to provide user `identity` and `secret` to authorize on it, for example:
 
 ```python
 def create_authenticated_connection():

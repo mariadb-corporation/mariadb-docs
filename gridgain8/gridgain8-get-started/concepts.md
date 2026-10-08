@@ -97,7 +97,7 @@ Once the data is colocated, not only complex SQL queries with JOINs will perform
 compute logic you want to perform over a specific data set will be sent to the nodes where the required data is located  and only the results of the computations are sent back.
 
 Refer to [Affinity Colocation](../architecture/data-modeling/affinity-colocation.md)
-and [Colocating Computations with Data](../gridgain8-usage/colocating-computations.md) articles for more details.
+and [Colocating Computations with Data](../gridgain8-development/colocating-computations.md) articles for more details.
 
 ## GridGain as an In-Memory Data Grid
 

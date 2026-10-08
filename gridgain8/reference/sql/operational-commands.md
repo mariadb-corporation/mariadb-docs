@@ -13,7 +13,7 @@ description: >-
 Imports data from an external source into a table or exports data to a file from the table. The table the data is imported into must exist.
 
 {% hint style="info" %}
-You must [enable the 'gridgain-bulkload' module](../../gridgain8-usage/setup.md#enabling-modules).
+You must [enable the 'gridgain-bulkload' module](../../gridgain8-development/setup.md#enabling-modules).
 {% endhint %}
 
 {% hint style="info" %}
@@ -204,7 +204,7 @@ While streaming mode allows you to load data much faster than other data loading
 
 ### Example
 
-Use the world.sql file that is shipped with the latest GridGain distribution. It can be found in the `{gridgain_dir}/examples/sql/` directory. You can use the `run` command from [SQLLine](../tools/sqlline.md), as shown below:
+Use the world.sql file that is shipped with the latest GridGain distribution. It can be found in the `{gridgain_dir}/examples/sql/` directory. You can use the `run` command from [SQLLine](../../gridgain8-development/tools/sqlline.md), as shown below:
 
 ```bash
 !run /apache_ignite_version/examples/sql/world.sql

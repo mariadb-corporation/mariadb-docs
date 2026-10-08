@@ -11,7 +11,7 @@ JSON functions are only available in GridGain Enterprise and Ultimate Editions.
 {% endhint %}
 
 {% hint style="info" %}
-You must [enable the 'gridgain-sql' module](../../../gridgain8-usage/setup.md#enabling-modules).
+You must [enable the 'gridgain-sql' module](../../../gridgain8-development/setup.md#enabling-modules).
 {% endhint %}
 
 ## IS_JSON

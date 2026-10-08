@@ -29,25 +29,25 @@ Parameters:
 - `IF NOT EXISTS` - create the table only if a table with the same name does not exist.
 - `PRIMARY KEY` - specifies a primary key for the table that can consist of a single column or multiple columns.
 - `WITH` - accepts additional parameters not defined by ANSI-99 SQL:
-  - `TEMPLATE=<cache's template name>` - case-sensitive​ name of a [cache template](../../gridgain8-usage/configuring-caches/configuration-overview.md#cache-templates). A template is an instance of the `CacheConfiguration` class registered by calling `Ignite.addCacheConfiguration()`. Use predefined `TEMPLATE=PARTITIONED` or `TEMPLATE=REPLICATED` templates to create the cache with the corresponding replication mode. The rest of the parameters will be those that are defined in the `CacheConfiguration` object. By default, `TEMPLATE=PARTITIONED` is used if the template is not specified explicitly.
-  - `BACKUPS=<number of backups>` - sets the number of [partition backups](../../gridgain8-usage/configuring-caches/configuring-backups.md). If neither this nor the `TEMPLATE` parameter is set, then the cache is created with `0` backup copies.
-  - `ATOMICITY=<ATOMIC | TRANSACTIONAL | TRANSACTIONAL_SNAPSHOT>` - sets [atomicity mode](../../gridgain8-usage/transactions.md) for the underlying cache. If neither this nor the `TEMPLATE` parameter is set, then the cache is created with the `ATOMIC` mode enabled. If `TRANSACTIONAL_SNAPSHOT` is specified, the table will [support transactions](../../architecture/mvcc.md).
+  - `TEMPLATE=<cache's template name>` - case-sensitive​ name of a [cache template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates). A template is an instance of the `CacheConfiguration` class registered by calling `Ignite.addCacheConfiguration()`. Use predefined `TEMPLATE=PARTITIONED` or `TEMPLATE=REPLICATED` templates to create the cache with the corresponding replication mode. The rest of the parameters will be those that are defined in the `CacheConfiguration` object. By default, `TEMPLATE=PARTITIONED` is used if the template is not specified explicitly.
+  - `BACKUPS=<number of backups>` - sets the number of [partition backups](../../gridgain8-development/configuring-caches/configuring-backups.md). If neither this nor the `TEMPLATE` parameter is set, then the cache is created with `0` backup copies.
+  - `ATOMICITY=<ATOMIC | TRANSACTIONAL | TRANSACTIONAL_SNAPSHOT>` - sets [atomicity mode](../../gridgain8-development/transactions.md) for the underlying cache. If neither this nor the `TEMPLATE` parameter is set, then the cache is created with the `ATOMIC` mode enabled. If `TRANSACTIONAL_SNAPSHOT` is specified, the table will [support transactions](../../architecture/mvcc.md).
   - `WRITE_SYNCHRONIZATION_MODE=<PRIMARY_SYNC | FULL_SYNC | FULL_ASYNC>` - sets the write synchronization mode for the underlying cache. If neither this nor the `TEMPLATE` parameter is set, then the cache is created with `FULL_SYNC` mode enabled.
-  - `CACHE_GROUP=<group name>` - specifies the [group name](../../gridgain8-usage/configuring-caches/cache-groups.md) the underlying cache belongs to.
+  - `CACHE_GROUP=<group name>` - specifies the [group name](../../gridgain8-development/configuring-caches/cache-groups.md) the underlying cache belongs to.
   - `AFFINITY_KEY=<affinity key column name>` - specifies an [affinity key](../../architecture/data-modeling/affinity-colocation.md) name which is a column of the `PRIMARY KEY` constraint.
-  - `AFFINITY_INDEX_INLINE_SIZE` - specifies inline size of the affinity index in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../ha-and-performance/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
+  - `AFFINITY_INDEX_INLINE_SIZE` - specifies inline size of the affinity index in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
   - `CACHE_NAME=<custom name of the new cache>` - the name of the underlying cache created by the command.
-  - `DATA_REGION=<existing data region name>` - name of the [data region](../../gridgain8-usage/memory-configuration/data-regions.md) where table entries should be stored. By default, GridGain stores all the data in a default region.
+  - `DATA_REGION=<existing data region name>` - name of the [data region](../../gridgain8-development/memory-configuration/data-regions.md) where table entries should be stored. By default, GridGain stores all the data in a default region.
   - `KEY_TYPE=<custom name of the key type>` - sets the name of the custom key type that is used from the key-value APIs in Ignite. The name should correspond to a Java, .NET, or C++ class, or it can be a random one if [BinaryObjects](../../architecture/data-modeling/introduction.md#binary-object-format) is used instead of a custom class. The number of fields and their types in the custom key type has to correspond to the `PRIMARY KEY`. Refer to the Description section below for more details.
   - `VALUE_TYPE=<custom name of the value type of the new cache>` - sets the name of a custom value type that is used from the key-value and other non-SQL APIs in GridGain. The name should correspond to a Java, .NET, or C++ class, or it can be a random one if [BinaryObjects](../../architecture/data-modeling/introduction.md#binary-object-format) is used instead of a custom class. The value type should include all the columns defined in the CREATE TABLE command except for those listed in the `PRIMARY KEY` constraint. Refer to the Description section below for more details.
-  - `PK_INLINE_SIZE` - specifies inline size of the primary key in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../ha-and-performance/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
+  - `PK_INLINE_SIZE` - specifies inline size of the primary key in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
   - `WRAP_KEY=<true | false>` - this flag controls whether a *single column* `PRIMARY KEY` should be wrapped in the [BinaryObjects](../../architecture/data-modeling/introduction.md#binary-object-format) format or not. By default, this flag is set to false. This flag does not have any effect on the `PRIMARY KEY` with multiple columns; it always gets wrapped regardless of the value of the parameter.
   - `WRAP_VALUE=<true | false>` - this flag controls whether a single column value of a primitive type should be wrapped in the [BinaryObjects](../../architecture/data-modeling/introduction.md#binary-object-format) format or not. By default, this flag is set to true. This flag does not have any effect on the value with multiple columns; it always gets wrapped regardless of the value of the parameter. Set this parameter to false if you have a single column value and do not plan to add additional columns to the table. Note that once the parameter is set to false, you can't use the `ALTER TABLE ADD COLUMN` command for this specific table.
   - `ENCRYPTED`= <true | false> - this flag controls whether encryption is enabled
 
 The CREATE TABLE command creates a new GridGain cache and defines a SQL table on top of it. The cache stores the data in the form of key-value pairs while the table allows processing the data with SQL queries.
 
-The table will reside in the schema specified in the connection parameters. If no schema is specified, the PUBLIC schema will be used. See [Schemas](../../gridgain8-usage/sql/schemas.md) for more information about schemas in GridGain.
+The table will reside in the schema specified in the connection parameters. If no schema is specified, the PUBLIC schema will be used. See [Schemas](../../gridgain8-development/sql/schemas.md) for more information about schemas in GridGain.
 
 Note that the CREATE TABLE operation is synchronous and blocks the execution of other DDL commands that are issued while CREATE TABLE is still in progress. The execution of DML commands is not affected and can be performed in parallel.
 
@@ -56,7 +56,7 @@ If you wish to access the data using the key-value APIs, then setting the `CACHE
 - When the CREATE TABLE command is executed, the name of the cache is generated with the following format- `SQL_{SCHEMA_NAME}_{TABLE}`. Use the CACHE_NAME parameter to override the default name.
 - Additionally, the command creates two new binary types - for the key and value respectively. Ignite generates the names of the types randomly including a UUID string. This complicates the usage of these 'types' from a non-SQL API. Use KEY_TYPE and VALUE_TYPE to override the names with custom ones corresponding to your business model objects.
 
-Read more about the database architecture on the [SQL Introduction](../../gridgain8-usage/sql/sql-introduction.md) page.
+Read more about the database architecture on the [SQL Introduction](../../gridgain8-development/sql/sql-introduction.md) page.
 
 Examples:
 
@@ -254,7 +254,7 @@ Parameters:
 - `SPATIAL` - create the spatial index. Presently, only geometry types are supported.
 - `IF NOT EXISTS` - do not throw an error if an index with the same name already exists. The database checks indexes' names only, and does not consider columns types or count.
 - `index_option` - additional options for index creation:
-  - `INLINE_SIZE` - specifies index inline size in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../ha-and-performance/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
+  - `INLINE_SIZE` - specifies index inline size in bytes. Depending on the size, GridGain will place the whole indexed value or a part of it directly into index pages, thus omitting extra calls to data pages and increasing queries' performance. Index inlining is enabled by default and the size is pre-calculated automatically based on the table structure. To disable inlining, set the size to 0 (not recommended). Refer to the [Increasing Index Inline Size](../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#increasing-index-inline-size) section for more details.
   - `PARALLEL` - specifies the number of threads to be used in parallel for index creation. The greater number is set, the faster the index is created and built. If the value exceeds the number of CPUs, then it will be decreased to the number of cores. If the parameter is not specified, then the number of threads is calculated as 25% of the CPU cores available.
 
 `CREATE INDEX` creates a new index on the specified table. Regular indexes are stored in the internal B+tree data structures. The B+tree gets distributed across the cluster along with the actual data. A cluster node stores a part of the index for the data it owns.
@@ -448,7 +448,7 @@ DROP USER test;
 
 ## ANALYZE
 
-The ANALYZE command collects [statistics](../sql-statistics.md). Requires `CHANGE_STATISTICS` security permission.
+The ANALYZE command collects [statistics](../../tuning-and-troubleshooting/performance-tuning/sql-statistics.md). Requires `CHANGE_STATISTICS` security permission.
 
 ```sql
 ANALYZE 'schemaName'.'tableName'(column1, column2);
@@ -468,7 +468,7 @@ ANALYZE public.statistics_test, statistics_test2, statistics_test3(col3)
 
 Possible parameters:
 
-- MAX_CHANGED_PARTITION_ROWS_PERCENT - Maximum percentage of outdated rows in the table (the default value is 15%). See the [SQL Statistics](../sql-statistics.md#statistics-obsolescence) page for more details.
+- MAX_CHANGED_PARTITION_ROWS_PERCENT - Maximum percentage of outdated rows in the table (the default value is 15%). See the [SQL Statistics](../../tuning-and-troubleshooting/performance-tuning/sql-statistics.md#statistics-obsolescence) page for more details.
 - NULLS - Number of null values in column.
 - TOTAL - Total number of column values.
 - SIZE - Average size of column values (in bytes).
@@ -476,7 +476,7 @@ Possible parameters:
 
 ## REFRESH STATISTICS
 
-The command refreshes [statistics](../sql-statistics.md). Requires `REFRESH_STATISTICS` security permission.
+The command refreshes [statistics](../../tuning-and-troubleshooting/performance-tuning/sql-statistics.md). Requires `REFRESH_STATISTICS` security permission.
 
 ```sql
 REFRESH STATISTICS 'schemaName'.'tableName'(column1, column2);
@@ -496,7 +496,7 @@ REFRESH STATISTICS PRODUCTS, SALE(productId, discount)
 
 ## DROP STATISTICS
 
-The command drops [statistics](../sql-statistics.md). Requires `CHANGE_STATISTICS` security permission.
+The command drops [statistics](../../tuning-and-troubleshooting/performance-tuning/sql-statistics.md). Requires `CHANGE_STATISTICS` security permission.
 
 ```sql
 DROP STATISTICS 'schemaName'.'tableName'(column1, column2);

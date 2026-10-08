@@ -37,7 +37,7 @@ In the replica cluster, a subset of nodes, called _receivers_, is configured to 
 
 Now, when you update a cache entry in the master cluster, the update happens on the node that hosts the entry (the primary node), but the update is not immediately sent to the replica. Instead, this update and other cache entry updates are accumulated into batches on the primary nodes. When the batch reaches its maximum size, or if the batch has been waiting for too long, it is sent to one of the sender nodes in the master cluster. The sender node then transfers the updates to the replica.
 
-When the receiver cluster gets the update, it writes the data in the same way as when the update is performed by the user, triggering all related events and updates (for example, [continuous queries](../../gridgain8-usage/continuous-queries.md) and [events](../../gridgain8-usage/events/README.md)).
+When the receiver cluster gets the update, it writes the data in the same way as when the update is performed by the user, triggering all related events and updates (for example, [continuous queries](../../gridgain8-development/continuous-queries.md) and [events](../../gridgain8-development/events/README.md)).
 
 Note that DR replicates only the content of caches. It does not copy cluster or cache configuration. This means that the replica cluster has to be configured manually and can have a different topology and settings.
 
@@ -65,6 +65,6 @@ Below are the recommended minimum for
 
 - The `IgniteCache.clear()` operation does not affect remote clusters when using DR.
 - The `GG_DR_FORCE_DC_ID` property is not supported for incremental DR.
-- Data replication may not work properly for caches that load data using [Data Streamers that disallow overwriting existing keys](../../gridgain8-usage/data-streaming.md#avoiding-overwriting-existing-keys). If you are going to use data replication with data streamers, make sure the `allowOverwrite` property of the data streamer is set to `true`. If the property is set to `false` when replication is started, correct replication is not guaranteed. Some keys may be not replicated and will be excluded from replication. You would need to manually repopulate the cache on the sender cluster with the `allowOverwrite` property set to `true`.
-- Data Center Replication should not be used with caches that have [access-based expiry policy](../../gridgain8-usage/configuring-caches/expiry-policies.md).
+- Data replication may not work properly for caches that load data using [Data Streamers that disallow overwriting existing keys](../../gridgain8-development/data-streaming.md#avoiding-overwriting-existing-keys). If you are going to use data replication with data streamers, make sure the `allowOverwrite` property of the data streamer is set to `true`. If the property is set to `false` when replication is started, correct replication is not guaranteed. Some keys may be not replicated and will be excluded from replication. You would need to manually repopulate the cache on the sender cluster with the `allowOverwrite` property set to `true`.
+- Data Center Replication should not be used with caches that have [access-based expiry policy](../../gridgain8-development/configuring-caches/expiry-policies.md).
 - [Cache Interceptors](https://www.gridgain.com/sdk/8.9.38/javadoc/org/apache/ignite/cache/CacheInterceptor.html) are not invoked in the remote cluster when it receives updates from the master cluster.

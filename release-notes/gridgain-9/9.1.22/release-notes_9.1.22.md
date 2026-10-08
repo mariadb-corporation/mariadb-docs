@@ -27,7 +27,7 @@ To use Kubernetes operator, make sure you meet the prerequisites specified in th
 
 ### Memory Quota Block Size Configuration in Java Clients
 
-Java client now supports configuring memory quotas by using the `memoryQuotaBlockSize` [property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#memory-quota-block-size) for SQL statements. The default value is 512 KB. Setting a larger block size can improve performance for memory-intensive queries by reducing synchronization overhead with the node-level memory tracker.
+Java client now supports configuring memory quotas by using the `memoryQuotaBlockSize` [property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/sql-api#memory-quota-block-size) for SQL statements. The default value is 512 KB. Setting a larger block size can improve performance for memory-intensive queries by reducing synchronization overhead with the node-level memory tracker.
 
 The example below shows how you can configure memory quotas:
 

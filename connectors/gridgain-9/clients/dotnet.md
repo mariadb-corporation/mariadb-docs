@@ -44,7 +44,7 @@ using var client = await IgniteClient.StartAsync(clientCfg);
 The cluster API lets you inspect the cluster topology, access it through the `IIgnite.Cluster` property:
 
 - `Cluster.GetNodesAsync()` returns all nodes that are part of the [logical topology](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/cluster-lifecycle#logical-and-physical-topology).
-- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
+- `Cluster.LocalNode` returns the local cluster node. On the client side it is `null`; it is populated only when accessed from server-side code inside a [compute job](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) (`IJobExecutionContext.Ignite`) or a [data streamer receiver](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/data-streaming) (`IDataStreamerReceiverContext.Ignite`),  where it identifies the node executing that code.
 
 Each `IClusterNode` exposes its `Id` (a `Guid` that changes after a node restart), `Name` (the consistent ID, stable across restarts), and `Address`.
 

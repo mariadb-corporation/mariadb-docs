@@ -77,7 +77,7 @@ Row filtering is applied consistently across read and write paths, including SQL
 
 The configured policies are exposed through the new [`POLICIES`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/system-views#policies) system view (schema, table, policy name, assigned roles, and condition).
 
-See [Row-Level Security](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/row-level-security) for the full policy syntax, the `POLICIES` system view, and the required privileges.
+See [Row-Level Security](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/row-level-security) for the full policy syntax, the `POLICIES` system view, and the required privileges.
 
 ### Configurable Observable Timestamp Delay
 

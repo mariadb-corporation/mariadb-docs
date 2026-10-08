@@ -96,7 +96,7 @@ After configuration is updated and the node restarted, the new storage profile b
 
 ## Defining Tables With Storage Profiles
 
-After defining storage profiles and [distribution zones](distribution-zones.md), you can create tables using SQL or [from code](../../gridgain9-usage/tables-from-java-classes.md). Both zone and storage profile cannot be changed after table creation.
+After defining storage profiles and [distribution zones](distribution-zones.md), you can create tables using SQL or [from code](../../gridgain9-development/tables-from-java-classes.md). Both zone and storage profile cannot be changed after table creation.
 
 To create a table with a specific storage profile:
 

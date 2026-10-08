@@ -14,7 +14,7 @@ Internally, GridGain uses Jetty to provide HTTP server features. See [Configurat
 
 To enable HTTP connectivity, make sure that the `ignite-rest-http` module is enabled.
 If you use the binary distribution, copy the `ignite-rest-http` module from `IGNITE_HOME/libs/optional/` to the `IGNITE_HOME/libs` folder.
-See [Enabling modules](../../gridgain8-usage/setup.md#enabling-modules) for details.
+See [Enabling modules](../../gridgain8-development/setup.md#enabling-modules) for details.
 
 {% hint style="info" %}
 GridGain ships two REST-HTTP modules, and a node's classpath must contain **exactly one** of them:
@@ -196,7 +196,7 @@ Path to this configuration should be set to `ConnectorConfiguration.setJettyPath
 
 `ignite-rest-http-jetty-12` is an optional module that provides the same HTTP REST server as the default `ignite-rest-http` module, but runs on Jetty 12 and requires Java 17 or later. Use it when your deployment runs on Java 17 or later and you want the REST connector on the Jetty 12 line.
 
-To enable the module in a standalone node, move the `optional/ignite-rest-http-jetty-12` folder into the `IGNITE_HOME/libs` folder before you run the `ignite.{sh|bat}` script. See [Enabling modules](../../gridgain8-usage/setup.md#enabling-modules) for details.
+To enable the module in a standalone node, move the `optional/ignite-rest-http-jetty-12` folder into the `IGNITE_HOME/libs` folder before you run the `ignite.{sh|bat}` script. See [Enabling modules](../../gridgain8-development/setup.md#enabling-modules) for details.
 
 {% hint style="warning" %}
 Enable exactly one of `ignite-rest-http` and `ignite-rest-http-jetty-12`. Both modules define the same `GridJettyRestProtocol` class, so having both in `libs` puts two copies on the classpath and the node fails to start. If `ignite-rest-http` is already in `libs`, remove it before enabling the Jetty 12 module.
@@ -823,7 +823,7 @@ http://host:port/ignite?cmd=rep&key=repKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to store in cache.|name|
 |`val`|string||Value associated with the given key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-usage/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -1164,7 +1164,7 @@ http://host:port/ignite?cmd=add&key=newKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to be associated with the value.|name|
 |`val`|string||Value to be associated with the key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-usage/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -1197,7 +1197,7 @@ http://host:port/ignite?cmd=put&key=newKey&val=newValue&cacheName={cacheName}&de
 |`key`|string||Key to be associated with values.|name|
 |`val`|string||Value to be associated with keys.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-usage/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -1262,7 +1262,7 @@ http://host:port/ignite?cmd=putifabs&key={getKey}&val={newVal}&cacheName={cacheN
 |`key`|string||Key to be associated with value.|name|
 |`val`|string||Value to be associated with key.|Jack|
 |`destId`|string|Yes|Node ID for which the metrics are to be returned.|8daab5ea-af83-4d91-99b6-77ed2ca06647|
-|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-usage/configuring-caches/expiry-policies.md).|60000|
+|`exp`|long|Yes|Expiration time in milliseconds for the entry. When the parameter is set, the operation is executed with [ModifiedExpiryPolicy](../../gridgain8-development/configuring-caches/expiry-policies.md).|60000|
 
 **Response:**
 
@@ -1354,7 +1354,7 @@ http://host:port/ignite?cmd=getorcreate&cacheName={cacheName}
 |`cacheName`|String|Yes|Cache name.|
 |`backups`|int|Yes|Number of backups for cache data. Default is 0.|
 |`dataRegion`|String|Yes|Name of the data region the cache should belong to.|
-|`templateName`|String|Yes|Name of the cache template registered in Ignite to use as a configuration for the distributed cache. See the [Cache Template](../../gridgain8-usage/configuring-caches/configuration-overview.md#cache-templates) section for more information.|
+|`templateName`|String|Yes|Name of the cache template registered in Ignite to use as a configuration for the distributed cache. See the [Cache Template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates) section for more information.|
 |`cacheGroup`|String|Yes|Name of the group the cache should belong to.|
 |`writeSynchronizationMode`|String|Yes|Sets the write synchronization mode for the given cache: `FULL_SYNC`, `FULL_ASYNC`, `PRIMARY_SYNC`|
 
@@ -1853,7 +1853,7 @@ selects the operation.
 
 |`action` value|Meaning|
 |---|---|
-|`start`|Sets the drain flag. Under the [`GRACEFUL` shutdown policy](../../gridgain8-usage/starting-nodes.md), the command is refused with 503 if this node is the sole owner of any cache group's partitions, so that terminating it would not make that data unavailable; pass `force=true` to override and accept the data loss. Requires `ADMIN_OPS` privilege.|
+|`start`|Sets the drain flag. Under the [`GRACEFUL` shutdown policy](../../gridgain8-management/cluster-configuration/starting-nodes.md), the command is refused with 503 if this node is the sole owner of any cache group's partitions, so that terminating it would not make that data unavailable; pass `force=true` to override and accept the data loss. Requires `ADMIN_OPS` privilege.|
 |`stop`|Clears the drain flag, returning the node to normal readiness behavior. Requires `ADMIN_OPS` privilege.|
 |`status`|Returns whether the drain flag is currently set. Does not require authentication.|
 
@@ -1912,7 +1912,7 @@ behavior.
 With `shutdown=true` is set, the node is stopped only when all of the following checks pass. They are
 evaluated in order, and the node keeps running if any of them fails:
 
-1. The node is not the sole owner of any cache group's partitions, under the [`GRACEFUL` shutdown policy](../../gridgain8-usage/starting-nodes.md). Pass `force=true` to skip this check and accept data loss.
+1. The node is not the sole owner of any cache group's partitions, under the [`GRACEFUL` shutdown policy](../../gridgain8-management/cluster-configuration/starting-nodes.md). Pass `force=true` to skip this check and accept data loss.
 2. No partition map exchange is in progress.
 3. The node is not pulling partitions from other nodes.
 4. The node is not supplying partitions to other nodes.

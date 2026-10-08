@@ -292,9 +292,9 @@ var options = ContinuousQueryOptions.builder()
 
 ### Low Latency Continuous Queries
 
-This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries) latency with the following improvements:
+This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries) latency with the following improvements:
 
-- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
+- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
 - Parallel partition polling removes event delivery delays caused by other partitions;
 - Active transactions no longer delay event delivery.
 

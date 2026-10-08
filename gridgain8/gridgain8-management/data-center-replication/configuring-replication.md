@@ -689,7 +689,7 @@ var cacheCfg = new CacheConfiguration()
    If you create caches using the [CREATE TABLE](../../reference/sql/ddl.md#create-table) command, the only way to specify the sender group name is to use a predefined cache template.
    You can create a cache template with the desired sender group (and other replication-specific properties) and pass it as a parameter to the CREATE TABLE command.
    The created cache will have the properties of the specified template.
-   For more information and examples on how to use cache templates, see the [Cache Template](../../gridgain8-usage/configuring-caches/configuration-overview.md#cache-templates) page.
+   For more information and examples on how to use cache templates, see the [Cache Template](../../gridgain8-development/configuring-caches/configuration-overview.md#cache-templates) page.
 2. Create a similar cache in the replica(s) that will receive replicated data.
 3. Start using the cache. The data will be sent to the replica.
 4. If you started putting data into the cache before creating its counterpart in the replica(s), you have to transfer the cache's content to the replica. This will ensure that the remote caches have exactly the same data and sending updates will not cause any issues.

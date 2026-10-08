@@ -10,7 +10,7 @@ Throughout the cluster’s lifecycle, it may happen that some data partitions ar
 Such a situation leads to a partial data loss and needs to be addressed according to your use case.
 
 A partition is lost when both the primary copy and all backup copies of the partition are not available to the cluster, i.e. when the primary and backup nodes for the partition become unavailable. It means that for a given cache, you cannot afford to lose more than `number_of_backups` nodes.
-You can set the number of backup partitions for a cache in the [cache configuration](../../gridgain8-usage/configuring-caches/configuring-backups.md).
+You can set the number of backup partitions for a cache in the [cache configuration](../../gridgain8-development/configuring-caches/configuring-backups.md).
 
 When the cluster topology changes, GridGain checks if the change resulted in a partition loss, and, depending on the configured partition loss policy and baseline autoadjustment settings, allows or prohibits operations on caches.
 See the description of each policy in the next section.
@@ -71,7 +71,7 @@ This event is fired for every partition that is lost and contains the number of 
 Partition loss events are triggered only when either `READ_WRITE_SAFE` or `READ_ONLY_SAFE` policy is used.
 
 Enable the event in the cluster configuration first.
-See [Enabling Events](../../gridgain8-usage/events/listening-to-events.md#enabling-events).
+See [Enabling Events](../../gridgain8-development/events/listening-to-events.md#enabling-events).
 
 {% tabs %}
 {% tab title="Java" %}
@@ -101,7 +101,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-See [Cache Rebalancing Events](../../gridgain8-usage/events/events.md#cache-rebalancing-events) for the information about other events related to rebalancing of partitions.
+See [Cache Rebalancing Events](../../gridgain8-development/events/events.md#cache-rebalancing-events) for the information about other events related to rebalancing of partitions.
 
 ## Handling Partition Loss
 

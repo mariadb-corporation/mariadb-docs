@@ -58,7 +58,7 @@ For a full list of metrics, see the [Available Metrics](https://app.gitbook.com/
 
 ### Improved Near Cache Support
 
-Prior to this release, [Near Caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/near-caches) were only configurable for clients. This release introduces support for initializing them from embedded mode.
+Prior to this release, [Near Caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches) were only configurable for clients. This release introduces support for initializing them from embedded mode.
 
 The example below shows how you can create a near cache from an embedded node:
 

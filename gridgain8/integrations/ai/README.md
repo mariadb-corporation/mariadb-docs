@@ -12,5 +12,5 @@ GridGain 8 integrates with popular AI and LLM frameworks, including LangChain, L
 - [Feast Integration](feast.md): Use GridGain as an online feature store for Feast to serve features in real time.
 
 {% hint style="info" %}
-GridGain 8's native vector search capability is documented separately. See [Vector Search](../../gridgain8-usage/vector-search/README.md).
+GridGain 8's native vector search capability is documented separately. See [Vector Search](../../gridgain8-development/vector-search/README.md).
 {% endhint %}

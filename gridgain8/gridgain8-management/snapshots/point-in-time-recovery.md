@@ -18,7 +18,7 @@ Because PITR replays the operations starting from the latest available snapshot,
 
 ## Write-ahead Log and Continuous Archiving
 
-The [WAL](../../architecture/storage/native-persistence.md#wal-archive) keeps track of all operations that were performed on the data. Log files contain operations for a fixed period of time. However, if PITR is enabled, GridGain keeps all WAL files permanently, archiving them in a directory specified in `DataStorageConfiguration`. This process is known as `continuous archiving`. For more information about WAL files and performance, see [Keep WALs Separate](../../ha-and-performance/performance-tuning/persistence-tuning.md#keep-wals-separately).
+The [WAL](../../architecture/storage/native-persistence.md#wal-archive) keeps track of all operations that were performed on the data. Log files contain operations for a fixed period of time. However, if PITR is enabled, GridGain keeps all WAL files permanently, archiving them in a directory specified in `DataStorageConfiguration`. This process is known as `continuous archiving`. For more information about WAL files and performance, see [Keep WALs Separate](../../tuning-and-troubleshooting/performance-tuning/persistence-tuning.md#keep-wals-separately).
 
 If continuous archiving causes the WAL archive to grow beyond the `maxWalArchiveSize` and `minWalArchiveSize` values (see [persistence configuration properties](../../architecture/storage/native-persistence.md#configuration-properties)), self-cleanup of the archive might prevent you from returning to the exact point in time you need. To work around this limitation, you can do one (or both) of the following:
 

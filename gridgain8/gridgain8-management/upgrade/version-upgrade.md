@@ -18,7 +18,7 @@ Updating node version is as simple as replacing the GridGain binaries with a new
 
 - GridGain cluster cannot have nodes that run on different GridGain versions. You need to stop the cluster and start it again on the new GridGain version.
 - It is possible to accidentally overwrite your persistent storage or other important data during the upgrade. It is recommended to move this data outside of installation folder if you are planning upgrades:
-* The work directory is used to store application data and all data required for the node to work. You can change its location as described in the [Configuring Work Directory](../../gridgain8-usage/setup.md#configuring-work-directory) section.
+* The work directory is used to store application data and all data required for the node to work. You can change its location as described in the [Configuring Work Directory](../../gridgain8-development/setup.md#configuring-work-directory) section.
 * The persistent storage holds all information stored on the node. You can change its location as described in the [Configuring Persistent Storage Directory](../../architecture/storage/native-persistence.md#configuring-persistent-storage-directory) section.
 * WAL Archive os used to store WAL segments for recovery. You can change its location as described in [WAL Archive](../../architecture/storage/native-persistence.md#wal-archive) section.
 
