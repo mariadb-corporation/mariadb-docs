@@ -1258,11 +1258,14 @@ During this time, transactions can still commit to the old primary.
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter with primary server disconnected (majority_of_all)
     accDescr {
-      Datacenter A has lost its connection to datacenters B and C but keeps running. MaxScale A
-      still reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2
-      and Server 3, and MaxScale C reaches Server 3 normally. Until the master lock expires,
-      Server 1 keeps accepting writes while MaxScale B promotes Server 2, so the two servers
-      diverge.
+      Three datacenters. Datacenter A holds Server 1 (read-write, soon read-only) and MaxScale A
+      (secondary). Datacenter B holds Server 2 (read-only, soon read-write) and MaxScale B
+      (primary). Datacenter C holds Server 3 (read-only) and MaxScale C (secondary). Datacenter
+      A has lost its connection to datacenters B and C but keeps running. MaxScale A still
+      reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2 and
+      Server 3, and MaxScale C reaches Server 3 normally and also has an unlabelled arrow to
+      Server 2. Until the master lock expires, Server 1 keeps accepting writes while MaxScale B
+      promotes Server 2, so the two servers diverge.
     }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
