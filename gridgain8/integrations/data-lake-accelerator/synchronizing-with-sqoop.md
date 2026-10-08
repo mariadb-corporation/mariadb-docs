@@ -17,7 +17,7 @@ All operations are performed by running the Sqoop command with relevant paramete
 
 ## Setup
 
-Download the GridGain Hadoop Connector from [http://gridgain.com/tryfree](http://gridgain.com/tryfree#gridgain8-ultimateedition) and unpack the archive into a directory. We will refer to this directory as `GG_HADOOP_CONNECTOR_HOME`.
+Download the GridGain Hadoop Connector from [https://www.gridgain.com/tryfree](https://www.gridgain.com/tryfree#gridgain8-ultimateedition) and unpack the archive into a directory. We will refer to this directory as `GG_HADOOP_CONNECTOR_HOME`.
 
 The `GRIDGAIN_HOME` variable refers to the GridGain distribution folder.
 

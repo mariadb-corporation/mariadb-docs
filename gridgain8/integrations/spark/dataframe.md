@@ -121,7 +121,7 @@ GridGain can serve as a storage for DataFrames created or updated in Spark. The 
   - A new table will be created using the schema of the DataFrame and provided options.
   - DataFrame content will be inserted into the new table.
 
-Save mode can be specified using the `mode(SaveMode mode)` method. For more information, please see the [Spark Documentation](https://spark.apache.org/docs/2.2.0/api/scala/index.html#org.apache.spark.sql.DataFrameWriter@mode%28saveMode:org.apache.spark.sql.SaveMode%29:org.apache.spark.sql.DataFrameWriter%5BT%5D)). Here is a code example that shows this method:
+Save mode can be specified using the `mode(SaveMode mode)` method. For more information, please see the [Spark Documentation](https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/DataFrameWriter.html). Here is a code example that shows this method:
 
 {% tabs %}
 {% tab title="Java" %}

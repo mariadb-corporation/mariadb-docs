@@ -186,4 +186,4 @@ cache.query(qry).getAll();
 
 ## A Complete Example
 
-A ready-to-run example of geospatial query usage can be found [here](https://github.com/gridgain/gridgain/tree/master/modules/geospatial) or [here](https://github.com/dmagda/geospatial).
+A ready-to-run example of geospatial query usage can be found [here](https://github.com/dmagda/geospatial).

@@ -11,7 +11,7 @@ This example demonstrates how to configure and run both the Source and Sink conn
 
 ## Prerequisites
 
-- [GridGain Enterprise or Ultimate version 8.8.31](http://gridgain.com/tryfree#gridgain8-ultimateedition) or later is installed. The `IGNITE_HOME` environment variable points to GridGain installation directory on every GridGain node.
+- [GridGain Enterprise or Ultimate version 8.8.31](https://www.gridgain.com/tryfree#gridgain8-ultimateedition) or later is installed. The `IGNITE_HOME` environment variable points to GridGain installation directory on every GridGain node.
 - [Kafka 3.5.0](https://kafka.apache.org/downloads) is installed. The `KAFKA_HOME` environment variable points to Kafka installation directory on every node.
 - **Optional:** [Control Center 2023.2](https://www.gridgain.com/tryfree#cloud) is available as an on-premise or cloud-based service.
 

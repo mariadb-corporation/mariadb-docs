@@ -35,7 +35,7 @@ GridGain Data Lake Accelerator is a solution architecture that enables real-time
 
 ## Getting Started
 
-- Download the latest GridGain Enterprise or Ultimate Edition: [http://gridgain.com/tryfree](http://gridgain.com/tryfree#gridgain8-datalake)
+- Download the latest GridGain Enterprise or Ultimate Edition: [https://www.gridgain.com/tryfree](https://www.gridgain.com/tryfree#gridgain8-datalake)
 - If you're new to GridGain, follow the [GridGain Getting Started Guide](../../gridgain8-get-started/quick-start/README.md) to get your first cluster up and running.
 - Decide which operations will be executed against GridGain. The best candidates are operations for which low-latency response time, high-throughput, and real-time analytics are required. Set up your GridGain cluster's memory and native persistence configuration, and begin data modeling. Hive Store can be used for model importing from Hive to GridGain.
 - Accomplish initial data loading from Hadoop to GridGain.

@@ -15,7 +15,7 @@ Spark Data Loader supports the following structured data sources:
 
 In this example, we create a table in Hadoop and populate it with data. Then we load the data from Hadoop into GridGain.
 
-The source code files for this example are available in the Hadoop Connector distribution package. Download the GridGain Hadoop Connector from [http://gridgain.com/tryfree](http://gridgain.com/tryfree#gridgain8-ultimateedition) and unpack the archive into a directory. We will refer to this directory as `GG_HADOOP_CONNECTOR_HOME`.
+The source code files for this example are available in the Hadoop Connector distribution package. Download the GridGain Hadoop Connector from [https://www.gridgain.com/tryfree](https://www.gridgain.com/tryfree#gridgain8-ultimateedition) and unpack the archive into a directory. We will refer to this directory as `GG_HADOOP_CONNECTOR_HOME`.
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ We assume that you already have a running Hadoop cluster and have configured Spa
 Refer to the following guides for the installation of HDFS:
 
 1. https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
-2. https://spark.apache.org/docs/2.4.0/spark-standalone.html
+2. https://spark.apache.org/docs/latest/spark-standalone.html
 3. https://cwiki.apache.org/confluence/display/Hive/GettingStarted
 
 ### Keep the Following In Mind:
