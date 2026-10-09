@@ -57,32 +57,41 @@ Advanced Cluster needs no installation procedure or package repository of its ow
 
 {% stepper %}
 {% step %}
-#### Install MariaDB Enterprise Server
+#### Configure the MariaDB Enterprise Repository for 12.3
 
-Follow [Installing Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server#installation) for your operating system: YUM on RHEL, CentOS, and Rocky; APT on Debian and Ubuntu; ZYpp on SLES.
+Follow [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) to download the `mariadb_es_repo_setup` script, verify its checksum, and run it with your Customer Download Token.
+
+{% hint style="warning" %}
+Pass `--mariadb-server-version="12.3"` when you run the script. It configures the latest GA series by default, which is **not** 12.3 — without this option you configure the wrong repository and install the wrong server version.
+{% endhint %}
+
+```bash
+sudo ./mariadb_es_repo_setup --token="${token}" --apply \
+   --mariadb-server-version="12.3"
+```
 {% endstep %}
 
 {% step %}
-#### Add the Raft package
+#### Install the Server, Galera, and Raft Packages
 
 Include `mariadb-raft` in the install command alongside the Enterprise Server packages:
 
 {% tabs %}
 {% tab title="RHEL, CentOS & Rocky" %}
 ```bash
-sudo yum install MariaDB-server MariaDB-backup galera-enterprise-4 mariadb-raft
+sudo yum install MariaDB-server MariaDB-server-galera MariaDB-backup galera-enterprise-4 mariadb-raft
 ```
 {% endtab %}
 
 {% tab title="Debian & Ubuntu" %}
 ```bash
-sudo apt install mariadb-server mariadb-backup galera-enterprise-4 mariadb-raft
+sudo apt install mariadb-server mariadb-server-galera mariadb-backup galera-enterprise-4 mariadb-raft
 ```
 {% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
-The `galera-enterprise-4` package is required because of a dependency in the MariaDB Enterprise Server package.
+Starting with MariaDB 12.3, Galera Cluster support is no longer included in the base server package. To enable cluster functionality you must explicitly install the `MariaDB-server-galera` package (`mariadb-server-galera` on Debian and Ubuntu), which contains the cluster-specific scripts, systemd bootstrap capability, and the `wsrep_info` plugin. The `galera-enterprise-4` package provides the Galera 4 wsrep provider library.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
