@@ -1,7 +1,7 @@
 ---
 description: >-
-  Documentation for the `mysql.server` script, a SysVinit-style wrapper used to
-  start and stop `mariadbd-safe`.
+  Documentation for the mysql.server script, a SysVinit-style wrapper used to
+  start and stop mariadbd-safe.
 ---
 
 # mysql.server

@@ -22,7 +22,22 @@ The MariaDB Exa layout separates transactional and analytical workloads so heavy
 ---
 title: Simplified MariaDB Exa HTAP Architecture (Technical View)
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Simplified MariaDB Exa HTAP Architecture (Technical View)
+    accDescr {
+        Two groups are drawn. Access & Routing holds Application Clients, Port
+        3310 and Maxscale. Storage & Analytics holds MariaDB Primary + replicas
+        (Binlog Source), CDC using Debezium (Async) and MariaDB Exa (in memory
+        columnar). Application Clients and Port 3310 are joined by a line with no
+        direction. An arrow leads from Port 3310 to Maxscale, whose text reads:
+        All writes to Primary; OLTP reads load balance to MariaDB cluster; All
+        Analytical queries goto MariaDB Exa. Two arrows lead from Maxscale: Writes
+        & OLTP Reads to MariaDB Primary + replicas, and Analytical Queries to
+        MariaDB Exa. In the second group, an arrow leads from MariaDB Primary +
+        replicas to CDC using Debezium, and an arrow labelled CDC Feed (Async)
+        leads from CDC using Debezium to MariaDB Exa.
+    }
     %% Row 1: Access & Routing
     subgraph Routing_Layer [Access & Routing]
         App[Application Clients] --- Port["Port 3310"]
@@ -55,6 +70,7 @@ graph TD
     %% Style subgraphs to be subtle
     style Routing_Layer fill:#f9f9f9,stroke:#ddd,stroke-dasharray: 5 5
     style Engine_Layer fill:#fff,stroke:#ddd
+    linkStyle default color:#111111
 ```
 
 ### Core components
@@ -185,7 +201,7 @@ The router applies **syntax translation** and **type coercion** from the MariaDB
 Use **standard MariaDB or MySQL-compatible** client libraries and connectors only.
 
 **SQL dialect**\
-Author application SQL in the [**MariaDB dialect**](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-exa/limitations#v.-sql-syntax-differences). The intelligent router performs translation for the analytical path where needed.
+Author application SQL in the [**MariaDB dialect**](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-exa/limitations#iv.-sql-syntax-differences). The intelligent router performs translation for the analytical path where needed.
 
 **Handling lag**\
 If the application must **immediately** see data just written (for example, right after a profile update), connect on **port 3306**. Use **port 3310** for dashboards, exploration, and **heavy analytics** where small CDC lag is acceptable.

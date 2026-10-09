@@ -25,11 +25,10 @@ Backup support is specific to storage engines. All supported storage engines ena
 
 A feature of MariaDB Backup and MariaDB Server, non-blocking backups minimize workload impact during backups. When MariaDB Backup connects to MariaDB Server, staging operations are initiated to protect data during read.
 
-Non-blocking backup functionality differs from historical backup functionality in the following ways:
+Non-blocking backups work in the following ways:
 
 * MariaDB Backup includes optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
-* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
-* Older MariaDB Community Server releases used `FLUSH TABLES WITH READ LOCK`, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+* MariaDB Backup blocks commits, and writes to log tables and statistics tables, only during the final stage of the backup. DDL statements and new writes to non-transactional tables are blocked earlier.
 
 ## **Understanding Recovery**
 
@@ -145,7 +144,7 @@ Once a full backup has been [prepared](https://app.gitbook.com/s/SsmexDFPv2xG2OT
 To restore from a full backup:
 
 1. Stop the MariaDB Server.
-2. [Empty](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Restore_Requires_Empty_Data_Directory) the data directory.
+2. [Empty](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup#restoring-the-backup) the data directory.
 3.  Restore from the "full" directory using the `--copy-back` option:
 
     `$ sudo mariabackup --copy-back --target-dir=/data/backups/full`
@@ -194,7 +193,7 @@ Once the incremental backup has been applied to the full backup, the full backup
 
 ### **Restoring from Incremental Backups**
 
-Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Server, [empty](https://mariadb.com/docs/server/data-operations/backups/community-server/mariadb-backup/#Restore_Requires_Empty_Data_Directory) its data directory, and restore from the original full backup directory using the `--copy-back` option:
+Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Server, [empty](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/incremental-backup-and-restore-with-mariadb-backup#restoring-the-backup) its data directory, and restore from the original full backup directory using the `--copy-back` option:
 
 `$ sudo mariabackup --copy-back --target-dir=/data/backups/full`
 

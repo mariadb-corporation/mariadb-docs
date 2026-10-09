@@ -3,6 +3,7 @@ description: >-
   Fully automated, Infrastructure-as-Code deployment of GridGain Control Center
   using its REST API, with JSON configuration files for users, teams, clusters,
   notifications, and alerts.
+hidden: true
 ---
 
 # Automated Deployment
@@ -371,5 +372,5 @@ The automated deployment uses Control Center's REST API. Key endpoint categories
 For detailed API documentation, refer to the OpenAPI specification.
 
 {% hint style="info" %}
-GridGain 8 clusters will be automatically attached and shared with all members of a [global team](configuration.md#teams) if `account.globalTeam.enabled` is enabled.
+By default, GridGain 8 clusters are attached automatically and shared with all members of the [global team](configuration.md#teams), because `account.globalTeam.enabled` and `account.globalTeam.attachCluster` are `true`.
 {% endhint %}

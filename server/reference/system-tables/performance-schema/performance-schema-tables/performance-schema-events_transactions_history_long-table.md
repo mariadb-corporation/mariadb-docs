@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema events\_transactions\_history\_long Table
 
-{% hint style="info" %}
-The `events_transactions_history_long` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `events_transactions_history_long` table contains the most recent completed transaction events that have ended globally, across all threads.
 
 The number of records stored in the table is determined by the [performance\_schema\_events\_transactions\_history\_long\_size](../performance-schema-system-variables.md#performance_schema_events_transactions_history_long_size) system variable, which is autosized on startup.
@@ -26,7 +22,7 @@ The table contains the following columns:
 | EVENT\_NAME                         | varchar(128)                                      | The name of the instrument from which the event was collected. This is a NAME value from the setup\_instruments table.                                                                    |
 | STATE                               | enum('ACTIVE', 'COMMITTED',' ROLLED BACK')        | The current transaction state. The value is ACTIVE (after START TRANSACTION or BEGIN), COMMITTED (after COMMIT), or ROLLED BACK (after ROLLBACK).                                         |
 | TRX\_ID                             | bigint(20) unsigned                               | Unused.                                                                                                                                                                                   |
-| GTID                                | varchar(64)                                       | Transaction [GTID](../../../../ha-and-performance/standard-replication/gtid.md), using the format DOMAIN-SERVER\_ID-SEQUENCE\_NO.                                                         |
+| GTID                                | varchar(64)                                       | Transaction [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md), using the format DOMAIN-SERVER\_ID-SEQUENCE\_NO.                                                         |
 | XID\_FORMAT\_ID                     | int(11)                                           | XA transaction format ID for GTRID and BQUAL values.                                                                                                                                      |
 | XID\_GTRID                          | varchar(130)                                      | XA global transaction ID.                                                                                                                                                                 |
 | XID\_BQUAL                          | varchar(130)                                      | XA transaction branch qualifier.                                                                                                                                                          |

@@ -60,8 +60,6 @@ MariaDB 10.6 ES and 11.6 introduced new variables to measure replication lag. Th
    event due to MASTER\_DELAY, this fields displays: "Waiting until MASTER\_DELAY
    seconds after master executed event".
 
-When using older versions prior to [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3), a 3rd party tool called [pt-slave-delay](https://www.percona.com/doc/percona-toolkit/LATEST/pt-slave-delay.html) can be used. It is part of the Percona Toolkit. Note that pt-slave-delay does not support MariaDB multi-channel replication syntax.
-
 ## clock\_difference\_between\_master\_and\_slave
 
 When setting up a master and slaves it is important that the internal clock has the same

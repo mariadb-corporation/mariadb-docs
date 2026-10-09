@@ -11,7 +11,7 @@ This page describes the BINARY operator. For details about the data type, see [B
 ## Syntax
 
 ```bnf
-BINARY
+BINARY expr
 ```
 
 ## Description
@@ -50,6 +50,23 @@ SELECT BINARY 'a' = 'a ';
 +-------------------+
 |                 0 |
 +-------------------+
+```
+
+In `ORDER BY`, `BINARY` sorts by byte value, so uppercase letters come before lowercase ones:
+
+```sql
+CREATE TABLE t1 (c VARCHAR(10));
+INSERT INTO t1 VALUES ('b'), ('B'), ('a'), ('A');
+
+SELECT c FROM t1 ORDER BY BINARY c;
++------+
+| c    |
++------+
+| A    |
+| B    |
+| a    |
+| b    |
++------+
 ```
 
 ## See Also

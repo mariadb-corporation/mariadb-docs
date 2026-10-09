@@ -7,10 +7,18 @@ Code. It contains:
 |------|------------|
 | `settings.json` | Project settings, incl. the `PreToolUse(Bash)` hook wiring |
 | `settings.local.json` | **Personal** overrides — gitignored, never committed |
-| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus four checks it delegates to their own scripts: includes (`includecheck.sh`), heading anchors (`fragcheck.py`), orphaned pages and gutted pages (`navcheck.py` and an inline guard) |
+| `hooks/doc-lint.sh` | Canonical codespell + lychee linter (single source of truth, mirrors CI), plus five checks it delegates to their own scripts: includes (`includecheck.sh`), Mermaid edge-label contrast (`mermaidcheck.py`), page descriptions (`desccheck.py`), heading anchors (`fragcheck.py`), orphaned pages (`navcheck.py`) and gutted pages (`shrinkcheck.py`). All five are gated in CI too |
 | `hooks/includecheck.sh` | Resolves every relative GitBook `{% include %}`; fails on a dead or cross-space target. Also the entry point for `includecheck-pr.yml` (DOCS-6586), which runs it tree-wide |
-| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` |
-| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` |
+| `hooks/mermaidcheck.py` | Fails a Mermaid flowchart whose edge labels miss WCAG AA contrast in GitBook's dark theme (DOCS-6630); `--fix` adds the house fix. Called by `doc-lint.sh` and, tree-wide, by `mermaidcheck-pr.yml` |
+| `hooks/desccheck.py` | Fails a frontmatter `description:` that GitBook renders broken — over 200 characters, split by a blank line, containing Markdown, or repeating the H1 (DOCS-6763). Called by `doc-lint.sh` and, on changed pages, by `desccheck-pr.yml` |
+| `hooks/railroadcheck.py` | Fails a railroad-diagram SVG without the white background card that keeps its connector lines visible in GitBook's dark theme (DOCS-6637); `--fix` adds it, and is the last step of every regeneration (`dev-docs/railroad-diagrams.md`). Run tree-wide by `railroadcheck-pr.yml`. Not called by `doc-lint.sh`, which checks Markdown |
+| `hooks/fragcheck.py` | GitBook-accurate heading-anchor checker, called by `doc-lint.sh` and by `fragcheck-pr.yml` |
+| `hooks/timeless.py` | High-precision finder for undated product claims ("currently in beta", "coming soon", "at the time of writing"), the check behind the style guide's *Timeless wording* rule (DOCS-6640). **Advisory only** — called by `nightly-timeless.yml` and the `style-apply` skill, never by `doc-lint.sh` or a PR gate |
+| `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
+| `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
+| `hooks/postdownload.py` | The Post Download page map, plus two checks: `audit` keeps the `no-standalone:` register true, and `new <rev>` fails a release-notes page added since `<rev>` that lacks its `platform/post-download/` page or its `platform/SUMMARY.md` entry (DOCS-6408). Called by `doc-lint.sh` and by `postdownload-pr.yml` |
+| `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
+| `hooks/allowlist.py` | The **only** parser for that register — a strict subset of YAML, standard library only. Both guards read it through this one script |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
 | `hooks/doc-lint-test.sh` | Regression suite for `doc-lint.sh` — fixtures in a throwaway repo; run it after editing the linter |
 | `skills/` | Shared skills (e.g. `docs-check`) |
@@ -130,8 +138,28 @@ tool a contributor may not have; that one is checked in beside it, so its absenc
 checkout). DOCS-6586 also added the `navcheck.py` cases: both orphan directions, the
 `DOC_LINT_ALLOW_ORPHAN` hatch, `check` vs `new`, what is not a page (`SUMMARY.md`, anything under
 `.gitbook/`) and what is not a space (no `SUMMARY.md` beside it), the ignored-vs-untracked
-enumeration distinction, and four SKIP branches. Run it after any change to `doc-lint.sh`,
-`includecheck.sh` or `navcheck.py`:
+enumeration distinction, and four SKIP branches.
+
+DOCS-6586's second half added 27 more, for the acknowledgment register and the two guards that
+now read it: what `allowlist.py` accepts and what it rejects, each rejection asserting the
+line number as well as the exit code; that a register entry acknowledges an orphan or a shrink
+through both entry points; that the register and the `DOC_LINT_ALLOW_*` variables are unioned
+rather than exclusive; that a **stale** acknowledgment fails (the page has since been listed, or
+deleted, or was never a page in any space) and that neither a narrow file scope nor a local
+`DOC_LINT_ALLOW_*=all` can hide one; that a malformed register is exit 2 rather than being read
+as an empty one; and that `shrinkcheck.py`'s own surface holds up — `--stdin0` against a path
+containing a space, the counts line the CI assertion reads back, its usage errors, and its SKIP
+branches. DOCS-6630 added 11 for `mermaidcheck.py`: the unfixed, fixed, low-contrast and
+unlabelled cases, the one-line directive first proposed on that ticket (which must fail), the
+detector regression its first draft shipped, `--fix` idempotence, `--stdin0`, and the
+`doc-lint.sh` delegation. DOCS-6637 added 7 for `railroadcheck.py`: raw generator output, the
+`fill=` attribute that the generator's CSS overrides, a card that misses 3:1, `--fix` padding
+and idempotence, and `--stdin0`. DOCS-6763 added 11 for `desccheck.py`: the 200/201-character
+boundary, a blank line in a folded scalar, a backtick, a title repeat, the `<`/`&` case that must
+pass, the `agent-skills/` exemption, `--stdin0` with a space and with empty input, its usage
+error, and the `doc-lint.sh` delegation. Run the suite after any change to `doc-lint.sh`,
+`includecheck.sh`, `mermaidcheck.py`, `desccheck.py`, `railroadcheck.py`, `navcheck.py`, `shrinkcheck.py` or
+`allowlist.py`:
 
 ```bash
 .claude/hooks/doc-lint-test.sh              # --keep to inspect the sandbox, --verbose for output

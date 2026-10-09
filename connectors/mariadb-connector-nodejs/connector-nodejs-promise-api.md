@@ -15,7 +15,7 @@ There are two different connection implementations: one, the default, uses Promi
 
 The documentation provided on this page is the promise API (default). If you want information on the Callback API, see the [CALLBACK API](connector-nodejs-callback-api.md).
 
-See [TypeScript usage](connector-nodejs-promise-api.md#typescript-usage) for TypeScript specifics.
+See [TypeScript usage](typescript-usage.md) for TypeScript specifics.
 
 #### Quick Start
 
@@ -65,12 +65,12 @@ const mariadb = require('mariadb');
 
 #### Migrating from 2.x or mysql/mysql2 to 3.x
 
-Default behaviour for decoding [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) datatype for 2.x version and mysql/mysql2 drivers return a JavaScript [Number](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/number) object. BIGINT/DECIMAL values might not be in threturns range, resulting in approximate results.
+Default behaviour for decoding [BIGINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) / [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal) datatype for 2.x version and mysql/mysql2 drivers return a JavaScript [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) object. BIGINT/DECIMAL values might not be in the safe range, resulting in approximate results.
 
 Since 3.x version, driver has reliable default, returning:
 
 * DECIMAL => javascript String
-* BIGINT => javascript [BigInt](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/bigint) object
+* BIGINT => javascript [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) object
 
 For compatibility with previous version or mysql/mysql driver, 4 options have been added to return BIGINT/DECIMAL as number, as previous defaults.
 
@@ -432,7 +432,7 @@ Specific options for pools are:
 |           **`minimumIdle`** | Permit to set a minimum number of connection in pool. **Recommendation is to use fixed pool, so not setting this value**.                                                                                                                                                                                                                        | _integer_ |   _set to connectionLimit value_   |
 |    **`minDelayValidation`** | When asking a connection to pool, the pool will validate the connection state. "minDelayValidation" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. In milliseconds. 0 means validation is done each time the connection is asked.       | _integer_ |                 500                |
 |     **`noControlAfterUse`** | After giving back connection to pool (connection.end) connector will reset or rollback connection to ensure a valid state. This option permit to disable those controls                                                                                                                                                                          | _boolean_ |                false               |
-|         **`resetAfterUse`** | When a connection is given back to pool, reset the connection if the server allows it (only for MariaDB version >= 10.2.22 /10.3.13). If disabled or server version doesn't allows reset, pool will only rollback open transaction if any                                                                                                        | _boolean_ | true before version 3, false since |
+|         **`resetAfterUse`** | When a connection is given back to pool, reset the connection if the server allows it. If disabled or server version doesn't allows reset, pool will only rollback open transaction if any                                                                                                        | _boolean_ | true before version 3, false since |
 |  **`leakDetectionTimeout`** | Permit to indicate a timeout to log connection borrowed from pool. When a connection is borrowed from pool and this timeout is reached, a message will be logged to console indicating a possible connection leak. Another message will tell if the possible logged leak has been released. In milliseconds. 0 means leak detection is disabled. | _integer_ |                  0                 |
 |           **`pingTimeout`** | Validation timeout (ping) for checking an connection not used recently from pool. In milliseconds.                                                                                                                                                                                                                                               | _integer_ |                 500                |
 
@@ -656,7 +656,7 @@ The following options can be set at either the query level or the connection lev
 
 _number, timeout in ms_
 
-Sets a timeout for query execution. Only available for MariaDB server >= 10.1.2.
+Sets a timeout for query execution. Only available for MariaDB servers.
 
 The driver implements this using `SET STATEMENT max_statement_time=<timeout> FOR <command>`, which allows the server to cancel operations that exceed the specified timeout.
 
@@ -1104,7 +1104,7 @@ const res = await conn.execute('SELECT * FROM mytable WHERE someVal = ? and othe
 > * resolves with a JSON object.
 > * rejects with an [Error](connector-nodejs-promise-api.md#error).
 
-Implementation depends on the server type and version. for MariaDB server version 10.2.7+, the implementation uses dedicated bulk protocol.
+Implementation depends on the server type. For MariaDB servers, the implementation uses dedicated bulk protocol.
 
 For other, insert queries will be rewritten for optimization. example: insert into ab (i) values (?) with first batch values = 1, second = 2 will be rewritten insert into ab (i) values (1), (2).
 
@@ -1164,7 +1164,7 @@ The `fullResult` option is particularly useful when:
 
 **Performance considerations**
 
-For MariaDB servers that support it (version 10.2.7+), the connector will use the optimized `COM_STMT_BULK_EXECUTE` protocol for better performance when possible. The `fullResult` option with bulk protocol requires 11.5.1.
+For MariaDB servers, the connector will use the optimized `COM_STMT_BULK_EXECUTE` protocol for better performance when possible. The `fullResult` option with bulk protocol requires 11.5.1.
 
 #### `connection.beginTransaction() → Promise`
 
@@ -1754,7 +1754,7 @@ async function getRecentOrders(options) {
 
 Executes a batch operation using a connection from the pool. The pool automatically handles connection acquisition and release.
 
-For MariaDB server version 10.2.7+, this implementation uses a dedicated bulk protocol for improved performance.
+For MariaDB servers, this implementation uses a dedicated bulk protocol for improved performance.
 
 **Example: Batch insert with generated IDs**
 
@@ -2455,227 +2455,7 @@ The pool cluster supports three different selection strategies for choosing whic
 
 ## TypeScript Usage
 
-MariaDB Connector/Node.js ships with built-in TypeScript definitions. No additional `@types/` package is required.
-
-### Quick Start
-
-Install the connector (TypeScript definitions are included):
-
-```
-$ npm install mariadb
-```
-
-Import using ES module syntax:
-
-```ts
-import mariadb from 'mariadb';
-```
-
-Or with named imports:
-
-```ts
-import { createConnection, createPool, SqlError } from 'mariadb';
-```
-
-A minimal typed example:
-
-```ts
-import mariadb from 'mariadb';
-
-async function main(): Promise<void> {
-  const conn = await mariadb.createConnection({
-    host: 'mydb.com',
-    user: 'myUser',
-    password: 'myPwd',
-  });
-
-  try {
-    const rows = await conn.query<{ now: Date }[]>('SELECT NOW() as now');
-    console.log(rows[0].now);
-  } finally {
-    await conn.end();
-  }
-}
-
-main();
-```
-
-### Typing Query Results
-
-`connection.query()` and `connection.execute()` accept a generic type parameter for the result type, and an optional second parameter for the values array (added in 3.5.1).
-
-```ts
-interface Animal {
-  id: number;
-  name: string;
-}
-
-// Typed result rows
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
-rows.forEach(row => console.log(row.name)); // row.name is string
-
-// Typed result rows AND typed values (since 3.5.1)
-const rows2 = await conn.query<Animal[], [number]>(
-  'SELECT id, name FROM animals WHERE id = ?',
-  [1]
-);
-```
-
-For `INSERT`, `UPDATE`, and `DELETE` queries, the result is a `UpsertResult` object:
-
-```ts
-import { UpsertResult } from 'mariadb';
-
-const result: UpsertResult = await conn.query(
-  "INSERT INTO animals (name) VALUES (?)",
-  ['sea lion']
-);
-console.log(result.insertId);      // bigint
-console.log(result.affectedRows);  // number
-```
-
-### Connection with Type-Safe Options
-
-Connection options are fully typed via the `ConnectionConfig` interface:
-
-```ts
-import mariadb, { ConnectionConfig } from 'mariadb';
-
-const config: ConnectionConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PWD,
-  database: 'mydb',
-  connectionLimit: 5,
-};
-
-const conn = await mariadb.createConnection(config);
-```
-
-### Pool with TypeScript
-
-Pool options are typed via the `PoolConfig` interface:
-
-```ts
-import mariadb, { Pool, PoolConfig } from 'mariadb';
-
-const config: PoolConfig = {
-  host: 'mydb.com',
-  user: 'myUser',
-  password: 'myPwd',
-  connectionLimit: 5,
-};
-
-const pool: Pool = mariadb.createPool(config);
-```
-
-#### Getting a Typed Connection from a Pool
-
-```ts
-import { PoolConnection } from 'mariadb';
-
-const conn: PoolConnection = await pool.getConnection();
-try {
-  const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
-  console.log(rows);
-} finally {
-  conn.release();
-}
-```
-
-### Automatic Connection Release with `await using`
-
-Since 3.5.1, `ConnectionPromise` implements `Symbol.asyncDispose`, enabling the `await using` syntax from TypeScript 5.2+ (ES2024). This ensures `conn.end()` or `conn.release()` is called automatically when the block exits, even if an error is thrown.
-
-**Requirements**: TypeScript ≥ 5.2 and `"lib": ["ES2022", "ESNext"]` (or `"ESNext"`) in your `tsconfig.json`.
-
-#### Standalone connection
-
-```ts
-await using conn = await mariadb.createConnection(config);
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
-// conn.end() is called automatically here
-```
-
-#### Pool connection
-
-```ts
-await using conn = await pool.getConnection();
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
-// conn.release() is called automatically here
-```
-
-#### Transaction with `await using`
-
-For transactions, use `try/catch` inside the block to handle rollback on error. The connection is still released automatically regardless of outcome:
-
-```ts
-await using conn = await pool.getConnection();
-try {
-  await conn.beginTransaction();
-  await conn.query("INSERT INTO testTransaction VALUES ('test')");
-  await conn.query("INSERT INTO testTransaction VALUES ('test2')");
-  await conn.commit();
-} catch (err) {
-  await conn.rollback();
-  throw err;
-}
-// conn.release() is called automatically here
-```
-
-This replaces the previous `try/finally` pattern:
-
-```ts
-// Before 3.5.1
-const conn = await pool.getConnection();
-try {
-  await conn.beginTransaction();
-  await conn.query("INSERT INTO testTransaction VALUES ('test')");
-  await conn.query("INSERT INTO testTransaction VALUES ('test2')");
-  await conn.commit();
-} catch (err) {
-  await conn.rollback();
-  throw err;
-} finally {
-  conn.release();
-}
-```
-
-### Error Handling
-
-Errors thrown by the connector are instances of `SqlError`, which extends the standard `Error` with additional properties:
-
-```ts
-import { SqlError } from 'mariadb';
-
-try {
-  await conn.query('SELECT * FROM nonexistent_table');
-} catch (err) {
-  if (err instanceof SqlError) {
-    console.error(err.code);      // e.g. 'ER_NO_SUCH_TABLE'
-    console.error(err.errno);     // e.g. 1146
-    console.error(err.sqlState);  // e.g. '42S02'
-    console.error(err.fatal);     // boolean: connection is no longer usable if true
-    console.error(err.sql);       // the query that caused the error
-  }
-}
-```
-
-### tsconfig.json Recommendations
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2022", "ESNext"],
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "strict": true
-  }
-}
-```
-
-The `"ESNext"` entry in `lib` is required for `Symbol.asyncDispose` and the `await using` syntax.
+MariaDB Connector/Node.js ships with built-in TypeScript definitions. For typed query results, result metadata, pools, `await using`, error handling, and `tsconfig.json` recommendations, see [TypeScript Usage](typescript-usage.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -21,7 +21,7 @@ The main features of CONNECT are:
 
 1. No need for additional SQL language extensions.
 2. Embedded wrappers for many external data types (files, data sources, virtual).
-3. NoSQL query facilities for [JSON](connect-table-types/connect-json-table-type.md), [XML](connect-table-types/connect-xml-table-type.md), HTML files and using JSON UDFs.
+3. NoSQL query facilities for [JSON](connect-table-types/connect-json-table-type/README.md), [XML](connect-table-types/connect-xml-table-type.md), HTML files and using JSON UDFs.
 4. NoSQL data obtained from REST queries (requires cpprestsdk).
 5. NoSQL new data type [MONGO](connect-table-types/connect-mongo-table-type.md) accessing MongoDB collections as relational tables.
 6. Read/Write access to external files of most commonly used formats.
@@ -29,7 +29,7 @@ The main features of CONNECT are:
 8. Only used columns are retrieved from external scan.
 9. Push-down WHERE clauses when appropriate.
 10. Support of special and virtual columns.
-11. Parallel execution of multi-table tables (currently unavailable).
+11. Parallel execution of multi-table tables (not supported).
 12. Supports partitioning by sub-files or by sub-tables (enabling table sharding).
 13. Support of MRR for SELECT, UPDATE and DELETE.
 14. Provides remote, block, dynamic and virtual indexing.

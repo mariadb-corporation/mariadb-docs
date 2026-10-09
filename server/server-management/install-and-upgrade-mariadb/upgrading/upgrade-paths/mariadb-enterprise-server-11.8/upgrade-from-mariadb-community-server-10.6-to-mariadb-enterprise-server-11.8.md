@@ -69,7 +69,7 @@ MariaDB Enterprise Server 10.6 and later changed the `COMPRESSED` InnoDB row for
 
 ### Audit Plugin Considerations
 
-If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) (`server_audit.so`) installed on your Community Server, remove it before upgrading. Otherwise it will conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit.md) that ships with MariaDB Enterprise Server 10.4 and later.
+If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) (`server_audit.so`) installed on your Community Server, remove it before upgrading. Otherwise it will conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/README.md) that ships with MariaDB Enterprise Server.
 
 Remove the plugin by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
 
@@ -116,7 +116,7 @@ These defaults ensure 11.8 keeps behaving like your 10.6 instance for applicatio
 
 When switching from MariaDB Community Server to MariaDB Enterprise Server, it is necessary to remove the existing Community Server installation before installing Enterprise Server. Otherwise, the package manager will refuse to install the Enterprise Server packages.
 
-For Community Server 10.6, the Galera package is `galera-4` (named `galera-3` on APT for some legacy 10.3 installations, but 10.6 always uses `galera-4`).
+For Community Server 10.6, the Galera package is `galera-4`.
 
 {% tabs %}
 {% tab title="Uninstall via YUM" %}

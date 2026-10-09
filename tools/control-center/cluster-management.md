@@ -2,6 +2,7 @@
 description: >-
   The Cluster Management screen — viewing registered clusters, statuses, tokens,
   logs, sharing, activation, and license updates.
+hidden: true
 ---
 
 # Cluster Management Screen
@@ -122,6 +123,10 @@ A progress bar appears. Once the log package is ready, it automatically download
 
 ## Generating a Token
 
+{% hint style="info" %}
+With the default configuration, clusters attach to Control Center automatically and you don't need a token. A token is needed only when `account.globalTeam.attachCluster` is set to `false`. For details, see [Global Team](profile/teams.md#global-team).
+{% endhint %}
+
 Token generation is only available for Gridgain 8 clusters. To generate a token, use the `management.sh` script located in the `bin` directory of your Gridgain installation folder:
 
 {% tabs %}
@@ -189,7 +194,7 @@ Any team member can check which clusters had been shared with their team. To see
 
 Control Center remembers what cluster you had selected and displays it next time you open the page. If the cluster had been reassigned to another team, Control Center opens the cluster in the new team's context.
 
-If the *Global Team* feature is [enabled](admin-guide/configuration.md#teams) in your Control Center environment, the **Global Team** option appears on the drop-down list. By default, this team includes all active Control Center users. If your environment is integrated with AD/LDAP, Global Team includes all AD/LDAP users who had logged into Control Center at least once. The environment can be configured to [automatically share](admin-guide/configuration.md#teams) all clusters in Control Center with Global Team.
+The *Global Team* feature is [enabled by default](admin-guide/configuration.md#teams), so the **Global Team** option appears on the drop-down list. This team includes all active Control Center users. If your environment is integrated with AD/LDAP, Global Team includes all AD/LDAP users who had logged into Control Center at least once. By default, Control Center also [automatically shares](admin-guide/configuration.md#teams) all clusters with Global Team.
 
 ### Stopping a Cluster Share
 

@@ -13,35 +13,14 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 Also see the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
-#### `have_innodb`
-
-* Description: If the server supports [InnoDB tables](./), are set to `YES`, otherwise are set to `NO`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), use the [Information Schema PLUGINS](../../../reference/system-tables/information-schema/information-schema-tables/all-plugins-table-information-schema.md) table or [SHOW ENGINES](../../../reference/sql-statements/administrative-sql-statements/show/show-engines.md) instead.
-* Scope: Global
-* Dynamic: No
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
 #### `ignore_builtin_innodb`
 
-* Description: Setting this to `1` results in the built-in InnoDB storage engine being ignored. In some versions of MariaDB, XtraDB is the default and is always present, so this variable is ignored and setting it results in a warning. From [MariaDB 10.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.1) to [MariaDB 10.0.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.8), when InnoDB was the default instead of XtraDB, this variable needed to be set. Usually used in conjunction with the [plugin-load=innodb=ha\_innodb](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option to use the InnoDB plugin.
+* Description: Setting this to `1` disables the initialization of the built-in InnoDB storage engine. Usually used in conjunction with the [plugin-load=innodb=ha\_innodb](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option to use the InnoDB plugin.
 * Command line: `--ignore-builtin-innodb`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-
-#### `innodb_adaptive_checkpoint`
-
-* Description: Replaced with [innodb\_adaptive\_flushing\_method](innodb-system-variables.md#innodb_adaptive_flushing_method). Controls adaptive checkpointing. InnoDB's fuzzy checkpointing can cause stalls, as many dirty blocks are flushed at once as the checkpoint age nears the maximum. Adaptive checkpointing aims for more consistent flushing, approximately `modified age / maximum checkpoint age`. Can result in larger transaction log files
-  * `reflex` Similar to [innodb\_max\_dirty\_pages\_pct](innodb-system-variables.md#innodb_max_dirty_pages_pct) flushing but flushes blocks constantly and contiguously based on the oldest modified age. If the age exceeds 1/2 of the maximum age capacity, flushing are weak contiguous. If the age exceeds 3/4, flushing are strong. Strength can be adjusted by the variable [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity).
-  * `estimate` The default, and independent of [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity). If the oldest modified age exceeds 1/2 of the maximum age capacity, blocks are flushed every second at a rate determined by the number of modified blocks, LSN progress speed and the average age of all modified blocks.
-  * `keep_average` Attempts to keep the I/O rate constant by using a shorter loop cycle of one tenth of a second. Designed for SSD cards.
-* Command line: `--innodb-adaptive-checkpoint=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value: `estimate`
-* Valid Values: `none` or `0`, `reflex` or `1`, `estimate` or `2`, `keep_average` or `3`
-* Removed: XtraDB 5.5 - replaced with [innodb\_adaptive\_flushing\_method](innodb-system-variables.md#innodb_adaptive_flushing_method)
 
 #### `innodb_adaptive_flushing`
 
@@ -62,26 +41,15 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `10.000000`
 * Range: `0` to `70`
 
-#### `innodb_adaptive_flushing_method`
-
-* Description: Determines the method of flushing dirty blocks from the InnoDB [buffer pool](innodb-buffer-pool.md). If set to `native` or `0`, the original InnoDB method is used. The maximum checkpoint age is determined by the total length of all transaction log files. When the checkpoint age reaches the maximum checkpoint age, blocks are flushed. This can cause lag if there are many updates per second and many blocks with an almost identical age need to be flushed. If set to `estimate` or `1`, the default, the oldest modified age are compared with the maximum age capacity. If it's more than 1/4 of this age, blocks are flushed every second. The number of blocks flushed is determined by the number of modified blocks, the LSN progress speed and the average age of all modified blocks. It's therefore independent of the [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) for the 1-second loop, but not entirely so for the 10-second loop. If set to `keep_average` or `2`, designed specifically for SSD cards, a shorter loop cycle is used in an attempt to keep the I/O rate constant. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with InnoDB flushing method from MySQL 5.6.
-* Command line: `innodb-adaptive-flushing-method=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enumeration`
-* Default Value: `estimate`
-* Valid Values: `native` or `0`, `estimate` or `1`, `keep_average` or `2`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced with InnoDB flushing method from MySQL 5.6
-
 #### `innodb_adaptive_hash_index`
 
-* Description: If set to `1`, the default until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations. From [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070), this variable is an enumeration. The `IF_SPECIFIED` value enables the adaptive hash index only for tables and indexes whose [ADAPTIVE\_HASH\_INDEX](../../../reference/sql-statements/data-definition/create/create-table.md#adaptive_hash_index) option is set to `YES`.
+* Description: If set to `1`, the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations. From [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070), this variable is an enumeration. The `IF_SPECIFIED` value enables the adaptive hash index only for tables and indexes whose [ADAPTIVE\_HASH\_INDEX](../../../reference/sql-statements/data-definition/create/create-table.md#adaptive_hash_index) option is set to `YES`.
 * Command line: `--innodb-adaptive-hash-index[={OFF|ON|IF_SPECIFIED}]`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration` (`boolean` before [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
 * Valid Values: `OFF`, `ON`, `IF_SPECIFIED` (from [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
-* Default Value: `OFF` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `ON` (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
+* Default Value: `OFF`
 
 #### **`innodb_adaptive_hash_index_cells`**
 
@@ -93,16 +61,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `134217728`
 * Introduced: [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.8/11.8.4), [MariaDB 12.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.1/12.1.2), [MariaDB 12.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.2/12.2.1)
 
-#### `innodb_adaptive_hash_index_partitions`
-
-* Description: Specifies the number of partitions for use in adaptive searching. If set to `1`, no extra partitions are created. XtraDB-only. From [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB), this is an alias for [innodb\_adaptive\_hash\_index\_parts](innodb-system-variables.md#innodb_adaptive_hash_index_parts) to allow for easier upgrades.
-* Command line: `innodb-adaptive-hash-index-partitions=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `64`
-
 #### `innodb_adaptive_hash_index_parts`
 
 * Description: Specifies the number of partitions for use in adaptive searching. If set to `1`, no extra partitions are created.
@@ -113,33 +71,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `8`
 * Range: `1` to `512`
 
-#### `innodb_adaptive_max_sleep_delay`
-
-* Description: Maximum time in microseconds to automatically adjust the [innodb\_thread\_sleep\_delay](innodb-system-variables.md#innodb_thread_sleep_delay) value to, based on the workload. Useful in extremely busy systems with hundreds of thousands of simultaneous connections. `0` disables any limit. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* Command line: `--innodb-adaptive-max-sleep-delay=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value:
-  * `0` (>= [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5))
-  * `150000` (<= [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4))
-* Range: `0` to `1000000`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_additional_mem_pool_size`
-
-* Description: Size in bytes of the [InnoDB](./) memory pool used for storing information about internal data structures. Defaults to 8MB, if your application has many tables and a large structure, and this is exceeded, operating system memory are allocated and warning messages written to the error log, in which case you should increase this value. Deprecated in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and removed in [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) along with InnoDB's internal memory allocator.
-* Command line: `--innodb-additional-mem-pool-size=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `8388608`
-* Range: `2097152` to `4294967295`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2)
-
 #### `innodb_alter_copy_bulk`
 
 * Description: Allow bulk insert operation for copy alter operation.
@@ -149,68 +80,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `ON`
 * Introduced: [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3), [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.2), [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.1)
 
-#### `innodb_api_bk_commit_interval`
-
-* Description: Time in seconds between auto-commits for idle connections using the InnoDB memcached interface (not implemented in MariaDB).
-* Command line: `--innodb-api-bk-commit-interval=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `5`
-* Range: `1` to `1073741824`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-
-#### `innodb_api_disable_rowlock`
-
-* Description: For use with MySQL's memcached (not implemented in MariaDB)
-* Command line: `--innodb-api-disable-rowlock={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-
-#### `innodb_api_enable_binlog`
-
-* Description: For use with MySQL's memcached (not implemented in MariaDB)
-* Command line: `--innodb-api-enable-binlog={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-
-#### `innodb_api_enable_mdl`
-
-* Description: For use with MySQL's memcached (not implemented in MariaDB)
-* Command line: `--innodb-api-enable-mdl={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-
-#### `innodb_api_trx_level`
-
-* Description: For use with MySQL's memcached (not implemented in MariaDB)
-* Command line: `--innodb-api-trx-level=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-
-#### `innodb_auto_lru_dump`
-
-* Description: Renamed [innodb\_buffer\_pool\_restore\_at\_startup](innodb-system-variables.md#innodb_buffer_pool_restore_at_startup) since XtraDB 5.5.10-20.1, which was in turn replaced by [innodb\_buffer\_pool\_load\_at\_startup](innodb-system-variables.md#innodb_buffer_pool_load_at_startup) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0).
-* Command line: `--innodb-auto-lru-dump=#`
-* Removed: XtraDB 5.5.10-20.1
-
 #### `innodb_autoextend_increment`
 
 * Description: Size in MB to increment an auto-extending shared tablespace file when it becomes full. If [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) was set to `1`, this setting does not apply to the resulting per-table tablespace files, which are automatically extended in their own way.
@@ -218,7 +87,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `64` (from [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)) `8` (before [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)),
+* Default Value: `64`
 * Range: `1` to `1000`
 
 #### `innodb_autoinc_lock_mode`
@@ -236,62 +105,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value: `1`
 * Range: `0` to `2`
-
-#### `innodb_background_scrub_data_check_interval`
-
-* Description: Check if spaces needs scrubbing every [innodb\_background\_scrub\_data\_check\_interval](innodb-system-variables.md#innodb_background_scrub_data_check_interval) seconds. See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-* Command line: `--innodb-background-scrub-data-check-interval=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `3600`
-* Range: `1` to `4294967295`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_background_scrub_data_compressed`
-
-* Description: Enable scrubbing of compressed data by background threads (same as encryption\_threads). See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-* Command line: `--innodb-background-scrub-data-compressed={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `0`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_background_scrub_data_interval`
-
-* Description: Scrub spaces that were last scrubbed longer than this number of seconds ago. See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-* Command line: `--innodb-background-scrub-data-interval=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `604800`
-* Range: `1` to `4294967295`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_background_scrub_data_uncompressed`
-
-* Description: Enable scrubbing of uncompressed data by background threads (same as encryption\_threads). See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-* Command line: `--innodb-background-scrub-data-uncompressed={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `0`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_blocking_buffer_pool_restore`
-
-* Description: If set to `1` (`0` is default), XtraDB will wait until the least-recently used (LRU) dump is completely restored upon restart before reporting back to the server that it has successfully started up. Available with XtraDB only, not InnoDB.
-* Command line: `innodb-blocking-buffer-pool-restore={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
 
 #### `innodb_buf_dump_status_frequency`
 
@@ -315,7 +128,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
   * `134217728` (until [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0))
 * Range:
   * `0`, as autosize, and then `1048576` to `18446744073709551615` (from [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108))
-  * `1048576` to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size)/[innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) (until [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107))
+  * `1048576` to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) (until [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107))
 * Block size: `1048576`
 * Deprecated and ignored from MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
 
@@ -369,18 +182,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `ib_buffer_pool`
 * Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
-#### `innodb_buffer_pool_instances`
-
-* Description: If [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) is set to more than 1GB, innodb\_buffer\_pool\_instances divides the [InnoDB](./) buffer pool into the specified number of instances. The default was 1 in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), but for large systems with buffer pools of many gigabytes, many instances could help reduce contention concurrency through [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102). The default is 8 in MariaDB 10 (except on Windows 32-bit, where it varies according to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), or from [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), where it is set to 1 if [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) < 1GB). Each instance manages its own data structures and takes an equal portion of the total buffer pool size, so for example if innodb\_buffer\_pool\_size is 4GB and `innodb_buffer_pool_instances` is set to 4, each instance are 1GB. Each instance should ideally be at least 1GB in size.\
-  Starting with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), performance improvements intended to reduce the overhead of context-switching between buffer pools changed the recommended number of innodb\_buffer\_pool\_instances to one for every 128GB of buffer pool size. Based on these changes, the variable is deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), where the buffer pool runs in a single instance regardless of size.
-* Command line: `--innodb-buffer-pool-instances=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: >= [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.4): `8`, `1` (>= [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) if [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) < 1GB), or dependent on [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) (Windows 32-bit)
-* Deprecated: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_buffer_pool_load_abort`
 
 * Description: Aborts the process of restoring [buffer pool](innodb-buffer-pool.md) contents started by [innodb\_buffer\_pool\_load\_at\_startup](innodb-system-variables.md#innodb_buffer_pool_load_at_startup) or [innodb\_buffer\_pool\_load\_now](innodb-system-variables.md#innodb_buffer_pool_load_now).
@@ -418,49 +219,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `9223372036854775807`
 * Range: `1` to `9223372036854775807`
 
-#### `innodb_buffer_pool_populate`
-
-* Description: When set to `1` (`0` is default), XtraDB will preallocate pages in the buffer pool on starting up so that NUMA[^1] allocation decisions are made while the buffer cache is still clean. XtraDB only. This option was made ineffective in [MariaDB 10.0.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.23). Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-buffer-pool-populate={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.0.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.23)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_buffer_pool_restore_at_startup`
-
-* Description: Time in seconds between automatic buffer pool dumps. If set to a non-zero value, XtraDB will also perform an automatic restore of the [buffer pool](innodb-buffer-pool.md) at startup. If set to `0`, automatic dumps are not performed, nor automatic restores on startup. Replaced by [innodb\_buffer\_pool\_load\_at\_startup](innodb-system-variables.md#innodb_buffer_pool_load_at_startup) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0).
-* Command line: `innodb-buffer-pool-restore-at-startup`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range - 32 bit: `0` to `4294967295`
-* Range - 64 bit: `0` to `18446744073709547520`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced by [innodb\_buffer\_pool\_load\_at\_startup](innodb-system-variables.md#innodb_buffer_pool_load_at_startup)
-
-#### `innodb_buffer_pool_shm_checksum`
-
-* Description: Used with Percona's SHM buffer pool patch in XtraDB 5.5. Was shortly deprecated and removed in XtraDB 5.6. XtraDB only.
-* Command line: `innodb-buffer-pool-shm-checksum={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_buffer_pool_shm_key`
-
-* Description: Used with Percona's SHM buffer pool patch in XtraDB 5.5. Later deprecated in XtraDB 5.5, and removed in XtraDB 5.6.
-* Command line: `innodb-buffer-pool-shm-key={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `0`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
 #### `innodb_buffer_pool_size`
 
 * Description: InnoDB buffer pool size in bytes. The primary value to adjust on a database server with entirely/primarily [InnoDB](./) tables, can be set up to 80% of the total memory in these environments. See the [InnoDB Buffer Pool](innodb-buffer-pool.md) for more on setting this variable, and also [Setting InnoDB Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md) if doing so dynamically.
@@ -471,19 +229,18 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `134217728` (128MiB)
 * Range:
   * Minimum: `5242880` (5MiB ) for [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) <= 16k otherwise `25165824` (24MiB) for [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) > 16k (for versions less than next line)
-  * Minimum: `2MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 4k, `3MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 8k, `5MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 16k, `10MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 32k, `20MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 64k, (>= [MariaDB 10.2.42](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.42), >= [MariaDB 10.3.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.33), >= [MariaDB 10.4.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.23), >= [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), >= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), >= [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2))
-  * Minimum: 1GiB for [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) > 1 (<= [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107))
+  * Minimum: `2MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 4k, `3MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 8k, `5MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 16k, `10MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 32k, `20MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 64k, (>= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), >= [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2))
   * Maximum: `9223372036854775807` (8192PB) (all versions)
 * Block size: `1048576`
 
 #### `innodb_buffer_pool_size_auto_min`
 
-* Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
+* Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only available on Linux, and on debug builds on other platforms. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
 * Command line: `--innodb-buffer-pool-size-auto-min=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `134217728` (128MiB)
+* Default Value: `0`, which is replaced at startup by [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max). A value greater than `innodb_buffer_pool_size_max` is also replaced by it.
 * Range: `0` to `18446744073701163008`
 * Block size: `8388608` (8 MB on 64-bit systems)
 * Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
@@ -491,20 +248,24 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 #### `innodb_buffer_pool_size_max`
 
 {% hint style="danger" %}
-`innodb_buffer_pool_size_max` is a **read-only** variable. If not specified at startup, it defaults to the initial `innodb_buffer_pool_size`, which effectively disables upward dynamic resizing at runtime (attempts to increase size results in _Warning 1292_).
+`innodb_buffer_pool_size_max` is a **read-only** variable, so it can only be set at startup. Attempts to raise [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) above it at runtime result in _Warning 1292_.
+{% endhint %}
+
+{% hint style="info" %}
+From MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2, `innodb_buffer_pool_size_max` defaults to 8 TiB of reserved virtual address space on 64-bit systems other than IBM AIX, so the buffer pool can be grown at runtime without configuring anything at startup ([MDEV-38671](https://jira.mariadb.org/browse/MDEV-38671)). Before those releases it defaulted to the initial `innodb_buffer_pool_size` on every system, which meant `SET GLOBAL innodb_buffer_pool_size` could not increase the buffer pool unless `innodb_buffer_pool_size_max` had been set explicitly.
 {% endhint %}
 
 {% hint style="warning" %}
-Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://jira.mariadb.org/browse/MDEV-36197)). This variable currently serves only as a pre-allocated virtual address ceiling for **manual** resizing operations.
+Automatic upward dynamic resizing is not implemented ([MDEV-36197](https://jira.mariadb.org/browse/MDEV-36197)). This variable serves only as a pre-allocated virtual address ceiling for **manual** resizing operations.
 {% endhint %}
 
 * Description: Maximum `innodb_buffer_pool_size` value. On 64-bit systems other than IBM AIX, the default is 8 TiB, and the minimum 8 MiB. On other systems, the default and minimum are `0`, and the value `0` is replaced with the initial `innodb_buffer_pool_size` rounded up to the allocation unit (2 MiB or 8 MiB). The maximum value is 4GiB-2MiB on 32-bit systems and 16EiB-8MiB on 64-bit systems. This maximum is likely to be limited further by the operating system.\
-  On 64-bit systems, while the default maximum is 8 TiB, the actual available address space may be restricted by operating system limits (such as [`RLIMIT_AS`](#user-content-fn-2)[^2]) or specific hardware architectures. If MariaDB is unable to allocate the default 8 TiB of virtual address space at startup, it automatically attempts to fall back to a 128 GiB limit to ensure the server can still start. (128 GiB is often chosen as a fallback because it’s a safe value that almost any modern 64-bit Linux kernel/CPU can handle without special configuration, while still being plenty large for the vast majority of database workloads.)
+  On 64-bit systems the default 8 TiB only reserves virtual address space; no memory is committed until the buffer pool actually grows into it. The default is reduced automatically in two cases. If the address-space limit [`RLIMIT_AS`](#user-content-fn-2)[^2] is set and a quarter of it is less than 8 TiB, the default is lowered to that quarter. On architectures whose usable virtual address space can be narrower than 8 TiB — ARM64, RISC-V, MIPS and LoongArch — a failed reservation is retried with 128 GiB, or with the initial `innodb_buffer_pool_size` if that is larger, so that the server can still start. On any other architecture, a failed reservation is a startup error, and a smaller `innodb_buffer_pool_size_max` has to be configured explicitly.
 * Command line: `--innodb-buffer-pool-size-max=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: specified by the initial value of [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), rounded up to the block size of that variable. See [the section about buffer pool changes](innodb-buffer-pool.md#buffer-pool-changes) in MariaDB 10.11.12, 11.4.6, and 11.8.2.
+* Default Value: `8796093022208` (8 TiB) on 64-bit systems other than IBM AIX, from MariaDB 10.11.17, 11.4.11, 11.8.7 and 12.3.2. Otherwise `0`, which is replaced at startup by the initial [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) rounded up to the block size of that variable. See [the section about buffer pool changes](innodb-buffer-pool.md#buffer-pool-changes).
 * Range: `0` to `18446744073701163008`
 * Block size: `8388608` (8 MB on 64-bit systems)
 * Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
@@ -537,10 +298,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Command line: `--innodb-change-buffering=#`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `enumeration` (>= [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7)), `string` (<= [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6))
+* Data Type: `enumeration`
 * Default Value:
-  * > \= [MariaDB 10.5.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.15), [MariaDB 10.6.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.7), [MariaDB 10.7.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.3), [MariaDB 10.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.2): `none`
-  * <= [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1):`all`
+  * > \= [MariaDB 10.6.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.7), [MariaDB 10.7.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.3), [MariaDB 10.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.2): `none`
+  * <= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1):`all`
 * Valid Values: `inserts`, `none`, `deletes`, `purges`, `changes`, `all`
 * Deprecated: [MariaDB 10.9.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.0)
 * Removed: [MariaDB 11.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.0)
@@ -555,63 +316,19 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `0`
 * Range: `0` to `2`
 
-#### `innodb_checkpoint_age_target`
-
-* Description: The maximum value of the checkpoint age. If set to `0`, has no effect. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with InnoDB flushing method from MySQL 5.6.
-* Command line: `innodb-checkpoint-age-target=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` upwards
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced with InnoDB flushing method from MySQL 5.6.
-
 #### `innodb_checksum_algorithm`
 
 * Description: Specifies how the InnoDB tablespace checksum is generated and verified.
-  * `innodb`: Backwards compatible with earlier versions (<= [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)). Deprecated in [MariaDB 10.3.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.29), [MariaDB 10.4.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.19), [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10) and removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). If really needed, data files can still be converted with [innochecksum](../../../clients-and-utilities/administrative-tools/innochecksum.md).
   * `crc32`: A newer, faster algorithm, but incompatible with earlier versions. Tablespace blocks are converted to the new format over time, meaning that a mix of checksums may be present.
-  * `full_crc32` and `strict_full_crc32`: From [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3). Permits encryption to be supported over a [SPATIAL INDEX](../../../reference/sql-structure/geometry/spatial-index.md), which `crc32` does not support. Newly-created data files will carry a flag that indicates that all pages of the file will use a full CRC-32C checksum over the entire page contents (excluding the bytes where the checksum is stored, at the very end of the page). Such files will always use that checksum, no matter what parameter `innodb_checksum_algorithm` is assigned to. Even if `innodb_checksum_algorithm` is modified later, the same checksum will continue to be used. A special flag are set in the FSP\_SPACE\_FLAGS in the first data page to indicate the new format of checksum and encryption/page\_compressed. ROW\_FORMAT=COMPRESSED tables will only use the old format.\
+  * `full_crc32` and `strict_full_crc32`: Permit encryption to be supported over a [SPATIAL INDEX](../../../reference/sql-structure/geometry/spatial-index.md), which `crc32` does not support. Newly-created data files will carry a flag that indicates that all pages of the file will use a full CRC-32C checksum over the entire page contents (excluding the bytes where the checksum is stored, at the very end of the page). Such files will always use that checksum, no matter what parameter `innodb_checksum_algorithm` is assigned to. Even if `innodb_checksum_algorithm` is modified later, the same checksum will continue to be used. A special flag are set in the FSP\_SPACE\_FLAGS in the first data page to indicate the new format of checksum and encryption/page\_compressed. ROW\_FORMAT=COMPRESSED tables will only use the old format.\
     These tables do not support new features, such as larger innodb\_page\_size or instant ADD/DROP COLUMN. Also cleans up the MariaDB tablespace flags - flags are reserved to store the page\_compressed compression algorithm, and to store the compressed payload length, so that checksum can be computed over the compressed (and possibly encrypted) stream and can be validated without decrypting or decompressing the page. In the full\_crc32 format, there no longer are separate before-encryption and after-encryption checksums for pages. The single checksum is computed on the page contents that is written to the file.See [MDEV-12026](https://jira.mariadb.org/browse/MDEV-12026) for details.
-  * `none`: Writes a constant rather than calculate a checksum. Deprecated in [MariaDB 10.3.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.29), [MariaDB 10.4.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.19), [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10) and removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) as was mostly used to disable the original, slow, page checksum for benchmarking purposes.
-  * `strict_crc32`, `strict_innodb` and `strict_none`: The options are the same as the regular options, but InnoDB will halt if it comes across a mix of checksum values. These are faster, as both new and old checksum values are not required, but can only be used when setting up tablespaces for the first time.
+  * `strict_crc32` and `strict_full_crc32`: The options are the same as the regular options, but InnoDB will halt if it comes across a mix of checksum values. These are faster, as both new and old checksum values are not required, but can only be used when setting up tablespaces for the first time.
 * Command line: `--innodb-checksum-algorithm=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
-* Default Value:
-  * `full_crc32` (>= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0))
-  * `crc32` (>= [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) to <= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
-  * `innodb` (<= [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1))
-* Valid Values:
-  * > \= [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0): `crc32`, `full_crc32`, `strict_crc32`, `strict_full_crc32`
-  * [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3): `innodb`, `crc32`, `full_crc32`, `none`, `strict_innodb`, `strict_crc32`, `strict_none`, `strict_full_crc32`
-  * <= [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2): `innodb`, `crc32`, `none`, `strict_innodb`, `strict_crc32`, `strict_none`
-
-#### `innodb_checksums`
-
-* Description: By default, [InnoDB](./) performs checksum validation on all pages read from disk, which provides extra fault tolerance. You would usually want this set to `1` in production environments, although setting it to `0` can provide marginal performance improvements. Deprecated and functionality replaced by [innodb\_checksum\_algorithm](innodb-system-variables.md#innodb_checksum_algorithm) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), and should be removed to avoid conflicts. `ON` is equivalent to `--innodb_checksum_algorithm=innodb` and `OFF` to `--innodb_checksum_algorithm=none`.
-* Command line: `--innodb-checksums`, `--skip-innodb-checksums`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-
-#### `innodb_cleaner_lsn_age_factor`
-
-* Description: XtraDB has enhanced page cleaner heuristics, and with these in place, the default InnoDB adaptive flushing may be too aggressive. As a result, a new LSN age factor formula has been introduced, controlled by this variable. The default setting, `high_checkpoint`, uses the new formula, while the alternative, `legacy`, uses the original algorithm. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-cleaner-lsn-age-factor=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enum`
-* Default Value:
-  * `deprecated`
-* Valid Values:
-  * `deprecated`, `high_checkpoint`, `legacy`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
+* Default Value: `full_crc32`
+* Valid Values: `crc32`, `full_crc32`, `strict_crc32`, `strict_full_crc32`
 
 #### `innodb_cmp_per_index_enabled`
 
@@ -622,18 +339,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `boolean`
 * Default Value: `OFF`
 * Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_commit_concurrency`
-
-* Description: Limit to the number of transaction threads that can commit simultaneously. 0, the default, imposes no limit. While you can change from one positive limit to another at runtime, you cannot set this variable to 0, or change it from 0, while the server is running. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* Command line: `--innodb-commit-concurrency=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `1000`
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `innodb_compression_algorithm`
 
@@ -703,39 +408,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Range: `0` to `75`
 * Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
-#### `innodb_concurrency_tickets`
-
-* Description: Number of times a newly-entered thread can enter and leave [InnoDB](./) until it is again subject to the limitations of [innodb\_thread\_concurrency](innodb-system-variables.md#innodb_thread_concurrency) and may possibly be queued. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* Command line: `--innodb-concurrency-tickets=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value:
-  * `0` (>= [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5))
-  * `5000` (<= [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4))
-* Range: `1` to `18446744073709551615`
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_corrupt_table_action`
-
-* Description: What action to perform when a corrupt table is found. XtraDB only.
-  * When set to `assert`, the default, XtraDB will intentionally crash the server when it detects corrupted data in a single-table tablespace, with an assertion failure.
-  * When set to `warn`, it will pass corruption as corrupt table instead of crashing, and disable all further I/O (except for deletion) on the table file.
-  * If set to `salvage`, read access is permitted, but corrupted pages are ignored. [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) must be enabled for this option. Previously named `innodb_pass_corrupt_table`.
-  * Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-corrupt-table-action=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enumeration`
-* Default Value:
-  * `assert` (<= [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1))
-  * `deprecated` (<= [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6))
-* Valid Values:
-  * `deprecated`, `assert`, `warn`, `salvage`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
 #### `innodb_data_file_buffering`
 
 * Description: Whether to enable the file system cache for data files. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `fsync`, `littlesync`, `nosync`, or (Windows specific) `normal`.
@@ -753,7 +425,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `ibdata1:12M:autoextend` (from [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)), `ibdata1:10M:autoextend` (before [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0))
+* Default Value: `ibdata1:12M:autoextend`
 
 #### `innodb_data_file_write_through`
 
@@ -796,19 +468,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `full`
 * Valid Values: `off`, `basic`, `full`
 * Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_default_page_encryption_key`
-
-* Description: Encryption key used for page encryption.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
-* Command line: `--innodb-default-page-encryption-key=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `255`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
-* Removed: [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4)
 
 #### `innodb_default_encryption_key_id`
 
@@ -903,18 +562,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Deprecated: [MariaDB 11.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.1)
 * Removed: [MariaDB 11.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.0)
 
-#### `innodb_dict_size_limit`
-
-* Description: Size in bytes of a soft limit the memory used by tables in the data dictionary. Once this limit is reached, XtraDB will attempt to remove unused entries. If set to `0`, the default and standard InnoDB behavior, there is no limit to memory usage. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced by MySQL 5.6's new [table\_definition\_cache](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_definition_cache) implementation.
-* Command line: `innodb-dict-size-limit=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Default Value - 32 bit: `2147483648`
-* Default Value - 64 bit: `9223372036854775807`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced by MySQL 5.6's [table\_definition\_cache](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#table_definition_cache) implementation.
-
 #### `innodb_disable_sort_file_cache`
 
 * Description: If set to `1` (`0` is default), the operating system file system cache for merge-sort temporary files is disabled.
@@ -938,6 +585,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0.6:
+{% endhint %}
+
 *   Description: If set to `ON`, the default, to improve fault tolerance [InnoDB](./) first stores data to a [doublewrite buffer](innodb-doublewrite-buffer.md) before writing it to data file. Disabling will provide a marginal performance improvement, and assumes that writes of [innodb\_page\_size](innodb-system-variables.md#innodb_page_size) are atomic. `fast` is available from [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), and is like `ON`, but writes are not synchronized to data files. The deprecated start-up parameter [innodb\_flush\_method=NO\_FSYNC](innodb-system-variables.md#innodb_flush_method) will cause `innodb_doublewrite=ON` to be changed to `innodb_doublewrite=fast`, which will prevent InnoDB from making any durable writes to data files. This is normally done right before the log checkpoint LSN is updated. Depending on the file systems being used and their configuration, this may or may not be safe.
 
     The value `innodb_doublewrite=fast` differs from the previous combination of `innodb_doublewrite=ON` and `innodb_flush_method=O_DIRECT_NO_FSYNC` by always invoking `os_file_flush()` on the doublewrite buffer itself in `buf_dblwr_t::flush_buffered_writes_completed()`. This is safer when there are multiple doublewrite batches between checkpoints.
@@ -953,7 +604,11 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Valid Values: `OFF`, `ON`, `fast`
 {% endtab %}
 
-{% tab title="< MariaDB 11.0.6" %}
+{% tab title="< 11.0.6" %}
+{% hint style="info" %}
+Before MariaDB 11.0.6:
+{% endhint %}
+
 * Description: If set to `1`, the default, to improve fault tolerance [InnoDB](./) first stores data to a [doublewrite buffer](innodb-doublewrite-buffer.md) before writing it to data file. Disabling will provide a marginal performance improvement.
 * Command line: `--innodb-doublewrite`, `--skip-innodb-doublewrite`
 * Scope: Global
@@ -962,39 +617,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `ON`
 {% endtab %}
 {% endtabs %}
-
-#### `innodb_doublewrite_file`
-
-* Description: The absolute or relative path and filename to a dedicated tablespace for the [doublewrite buffer](innodb-doublewrite-buffer.md). In heavy workloads, the doublewrite buffer can impact heavily on the server, and moving it to a different drive will reduce contention on random reads. Since the doublewrite buffer is mostly sequential writes, a traditional HDD is a better choice than SSD. This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: `innodb-doublewrite-file=filename`
-* Scope: Global
-* Dynamic: No
-* Data Type: `filename`
-* Default Value: `NULL`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_empty_free_list_algorithm`
-
-* Description: XtraDB 5.6.13-61 introduced an algorithm to assist with reducing mutex contention when the buffer pool free list is empty, controlled by this variable. If set to `backoff`, the new algorithm is used. If set to `legacy`, the original InnoDB algorithm is used. XtraDB only. Added as a deprecated and ignored option in MariaDB 10.2.6 (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. See [#1651657](https://bugs.launchpad.net/percona-server/+bug/1651657) for the reasons this was changed back to `legacy` in XtraDB 5.6.36-82.0.
-* Command line: `innodb-empty-free-list-algorithm=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enum`
-* Default Value: `deprecated`
-* Valid Values: `deprecated`, `backoff`, `legacy`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_enable_unsafe_group_commit`
-
-* Description: Unneeded after XtraDB 1.0.5. If set to `0`, the default, InnoDB keep transactions between the transaction log and [binary log](../../../server-management/server-monitoring-logs/binary-log/) is in the same order. Safer, but slower. If set to `1`, transactions can be group-committed, but there is no guarantee of the order being kept, and a small risk of the two logs getting out of sync. In write-intensive environments, can lead to a significant improvement in performance.
-* Command line: `--innodb-enable-unsafe-group-commit`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `1`
-* Removed: Not needed after XtraDB 1.0.5
 
 #### `innodb_encrypt_log`
 
@@ -1063,65 +685,21 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `0`
-* Range:
-  * `0` to `4294967295` (<= [MariaDB 10.1.45](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.45), [MariaDB 10.2.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.32), [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.23), [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13), [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.3))
-  * `0` to `255` (>= [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.46), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.33), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.24), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.14), [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4))
-
-#### `innodb_extra_rsegments`
-
-* Description: Removed in XtraDB 5.5 and replaced by [innodb\_rollback\_segments](innodb-system-variables.md#innodb_rollback_segments). Usually there is one rollback segment protected by single mutex, a source of contention in high write environments. This option specifies a number of extra user rollback segments. Changing the default will make the data readable by XtraDB only, and is incompatible with InnoDB. After modifying, the server must be slow-shutdown. If there is existing data, it must be dumped before changing, and re-imported after the change has taken effect.
-* Command line: `--innodb-extra-rsegments=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `126`
-* Removed: XtraDB 5.5 - replaced by [innodb\_rollback\_segments](innodb-system-variables.md#innodb_rollback_segments)
-
-#### `innodb_extra_undoslots`
-
-* Description: Usually, InnoDB has 1024 undo slots in its rollback segment, so 1024 transactions can run in parallel. New transactions will fail if all slots are used. Setting this variable to `1` expands the available undo slots to 4072. Not recommended unless you get the `Warning: cannot find a free slot for an undo log` error in the error log, as it makes data files unusable for ibbackup, or MariaDB servers not run with this option. See also [undo log](innodb-undo-log.md).
-* Command line: `--innodb-extra-undoslots={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: XtraDB 5.5
-
-#### `innodb_fake_changes`
-
-* Description: From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) until [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), XtraDB-only option that enables the fake changes feature. In [replication](../../../ha-and-performance/standard-replication/replication-overview.md), setting up or restarting a replica can cause a replication reads to perform more slowly, as MariaDB is single-threaded and needs to read the data before it can execute the queries. This can be speeded up by prefetching threads to warm the server, replaying the statements and then rolling back at commit. This however has an overhead from locking rows only then to undo changes at rollback. Fake changes attempts to reduce this overhead by reading the rows for `INSERT`, `UPDATE`, and `DELETE` statements but not updating them. The rollback is then very fast with little or nothing to do. Added as a deprecated and ignored option in MariaDB 10.2.6 (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. Not present in MariaDB 10.3 and beyond.
-* Command line: `--innodb-fake-changes={0|1}`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_fast_checksum`
-
-* Description: Implements a more CPU efficient XtraDB checksum algorithm, useful for write-heavy loads with high I/O. If set to `1` on a server with tables that have been created with it set to `0`, reads are slower, so tables should be recreated (dumped and reloaded). XtraDB fails to start if set to `0` and there are tables created while set to `1`. Replaced with [innodb\_checksum\_algorithm](innodb-system-variables.md#innodb_checksum_algorithm) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6.
-* Command line: `--innodb-fast-checksum={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 - replaced with [innodb\_checksum\_algorithm](innodb-system-variables.md#innodb_checksum_algorithm)
+* Range: `0` to `255`
 
 #### `innodb_fast_shutdown`
 
 * Description: The shutdown mode:
-  * `0` - InnoDB performs a slow shutdown, including full purge (before [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6), not always, due to [MDEV-13603](https://jira.mariadb.org/browse/MDEV-13603)) and change buffer merge. Can be very slow, even taking hours in extreme cases.
+  * `0` - InnoDB performs a slow shutdown, including full purge and change buffer merge. Can be very slow, even taking hours in extreme cases.
   * `1` - the default, [InnoDB](./) performs a fast shutdown, not performing a full purge or an insert buffer merge.
   * `2`, the [InnoDB redo log](innodb-redo-log.md) is flushed and a cold shutdown takes place, similar to a crash. The resulting startup then performs crash recovery. Extremely fast, in cases of emergency, but risks corruption. Not suitable for upgrades between major versions!
-  * `3` (from [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6)) - active transactions will not be rolled back, but all changed pages are written to data files. The active transactions are rolled back by a background thread on a subsequent startup. The fastest option that will not involve [InnoDB redo log](innodb-redo-log.md) apply on subsequent startup. See [MDEV-15832](https://jira.mariadb.org/browse/MDEV-15832).
+  * `3` - active transactions will not be rolled back, but all changed pages are written to data files. The active transactions are rolled back by a background thread on a subsequent startup. The fastest option that will not involve [InnoDB redo log](innodb-redo-log.md) apply on subsequent startup. See [MDEV-15832](https://jira.mariadb.org/browse/MDEV-15832).
 * Command line: `--innodb-fast-shutdown[=#]`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1`
-* Range: `0` to `3` (>= [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6)), `0` to `2` (<= [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5))
+* Range: `0` to `3`
 
 #### `innodb_fatal_semaphore_wait_threshold`
 
@@ -1132,44 +710,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `numeric`
 * Default Value: `600`
 * Range: `1` to `4294967295`
-
-#### `innodb_file_format`
-
-* Description: File format for new [InnoDB](./) tables. Can either be `Antelope`, the default and the original format, or `Barracuda`, which supports [compression](innodb-page-compression.md). Note that this value is also used when a table is re-created with an [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) which requires a table copy. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats. Removed in 10.3.1 and restored as a deprecated and unused variable in 10.4.3 for compatibility purposes.
-* Command line: `--innodb-file-format=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value:
-  * `Barracuda`
-* Valid Values: `Antelope`, `Barracuda`
-* Deprecated: [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1)
-* Re-introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) (for compatibility purposes)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_file_format_check`
-
-* Description: If set to `1`, the default, [InnoDB](./) checks the shared tablespace file format tag. If this is higher than the current version supported by XtraDB/InnoDB (for example Barracuda when only Antelope is supported), XtraDB/InnoDB will not start. If it the value is not higher, XtraDB/InnoDB starts correctly and the [innodb\_file\_format\_max](innodb-system-variables.md#innodb_file_format_max) value is set to this value. If `innodb_file_format_check` is set to `0`, no checking is performed. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
-* Command line: `--innodb-file-format-check={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1)
-
-#### `innodb_file_format_max`
-
-* Description: The highest [XtraDB/InnoDB](./) file format. This is set to the value of the file format tag in the shared tablespace on startup (see [innodb\_file\_format\_check](innodb-system-variables.md#innodb_file_format_check)). If the server later creates a higher table format, `innodb_file_format_max` is set to that value. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
-* Command line: `--innodb-file-format-max=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value: `Antelope`
-* Valid Values: `Antelope`, `Barracuda`
-* Deprecated: [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1)
 
 #### `innodb_file_per_table`
 
@@ -1202,7 +742,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_flush_log_at_trx_commit`
 
-* Description: Set to `1`, along with [sync\_binlog=1](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) for the greatest level of fault tolerance. The value of [innodb\_use\_global\_flush\_log\_at\_trx\_commit](innodb-system-variables.md#innodb_use_global_flush_log_at_trx_commit) determines whether this variable can be reset with a `SET` statement or not.
+* Description: Set to `1`, along with [sync\_binlog=1](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) for the greatest level of fault tolerance.
   * `1` The default, the log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and a flush to disk performed after each transaction. This is required for full ACID[^3] compliance.
   * `0` Nothing is done on commit; rather the log buffer is written and flushed to the [InnoDB redo log](innodb-redo-log.md) once a second. This gives better performance, but a server crash can erase the last second of transactions.
   * `2` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) after each commit, but flushing takes place every [innodb\_flush\_log\_at\_timeout](innodb-system-variables.md#innodb_flush_log_at_timeout) seconds (by default once a second). Performance is slightly better, but a OS or power outage can cause the last second's transactions to be lost.
@@ -1220,6 +760,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0:
+{% endhint %}
+
 * Description: [InnoDB](./) flushing method. **Deprecated from** [**MariaDB 11.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)**.** The variable can still be set, but the preferred way to control flushing behavior is to use `SET GLOBAL` on the four replacement Boolean dynamic parameters, which can be changed while the server is running:
   * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (enable file system cache on the InnoDB write-ahead log; added in 10.8.4, 10.9.2)
   * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (enable file system cache on data files)
@@ -1235,14 +779,17 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `enumeration`
 * Default Value:
   * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
-  * `fsync` (only in MariaDB < 10.5)
 * Valid Values:
   * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
   * Windows: `unbuffered`, `async_unbuffered`, `normal`
 * Deprecated: [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
 {% endtab %}
 
-{% tab title="< MariaDB 11.0" %}
+{% tab title="< 11.0" %}
+{% hint style="info" %}
+Before MariaDB 11.0:
+{% endhint %}
+
 * Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered`, meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
 * A detailed description of the variable and its effects can be found [on this page](innodb-flush-method.md).
   * `O_DSYNC` is used to open and flush logs, and `fsync()` to flush the data files.
@@ -1259,27 +806,15 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `enumeration`
 * Default Value:
   * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
-  * `fsync` (only in MariaDB < 10.5)
 * Valid Values:
   * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
   * Windows: `unbuffered`, `async_unbuffered`, `normal`
 {% endtab %}
 {% endtabs %}
 
-#### `innodb_flush_neighbor_pages`
-
-* Description: Determines whether, when dirty pages are flushed to the data file, neighboring pages in the data file are flushed at the same time. If set to `none`, the feature is disabled. If set to `area`, the default, the standard InnoDB behavior is used. For each page to be flushed, dirty neighboring pages are flushed too. If there's little head seek delay, such as SSD or large enough write buffer, one of the other two options may be more efficient. If set to `cont`, for each page to be flushed, neighboring contiguous blocks are flushed at the same time. Being contiguous, a sequential I/O is used, unlike the random I/O used in `area`. Replaced by [innodb\_flush\_neighbors](innodb-system-variables.md#innodb_flush_neighbors) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6.
-* Command line: `innodb-flush-neighbor-pages=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enumeration`
-* Default Value: `area`
-* Valid Values: `none` or `0`, `area` or `1`, `cont` or `2`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 - replaced by [innodb\_flush\_neighbors](innodb-system-variables.md#innodb_flush_neighbors)
-
 #### `innodb_flush_neighbors`
 
-* Description: Determines whether flushing a page from the [buffer pool](innodb-buffer-pool.md) will flush other dirty pages in the same group of pages (extent). In high write environments, if flushing is not aggressive enough, it can fall behind resulting in higher memory usage, or if flushing is too aggressive, cause excess I/O activity. SSD devices, with low seek times, would be less likely to require dirty neighbor flushing to be set. Since [MariaDB 10.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4) an attempt is made under Windows and Linux to determine SSD status which was exposed in [information\_schema.innodb\_tablespaces\_scrubbing\_table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table.md). This variable is ignored for table spaces that are detected as stored on SSD (and the `0` behavior applies).
+* Description: Determines whether flushing a page from the [buffer pool](innodb-buffer-pool.md) will flush other dirty pages in the same group of pages (extent). In high write environments, if flushing is not aggressive enough, it can fall behind resulting in higher memory usage, or if flushing is too aggressive, cause excess I/O activity. SSD devices, with low seek times, would be less likely to require dirty neighbor flushing to be set. An attempt is made under Windows and Linux to determine SSD status. This variable is ignored for table spaces that are detected as stored on SSD (and the `0` behavior applies).
   * `1`: The default, flushes contiguous dirty pages in the same extent from the buffer pool.
   * `0`: No other dirty pages are flushed.
   * `2`: Flushes dirty pages in the same extent from the buffer pool.
@@ -1311,7 +846,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_force_load_corrupted`
 
-* Description: Set to `0` by default, if set to `1`, [InnoDB](./) are permitted to load tables marked as corrupt. Only use this to recover data you can't recover any other way, or in troubleshooting. Always restore to `0` when the returning to regular use. Given that [MDEV-11412](https://jira.mariadb.org/browse/MDEV-11412) in [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4) aims to allow any metadata for a missing or corrupted table to be dropped, and given that [MDEV-17567](https://jira.mariadb.org/browse/MDEV-17567) and [MDEV-25506](https://jira.mariadb.org/browse/MDEV-25506) and related tasks made DDL operations crash-safe, the parameter no longer serves any purpose and was removed in [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6).
+* Description: Set to `0` by default, if set to `1`, [InnoDB](./) are permitted to load tables marked as corrupt. Only use this to recover data you can't recover any other way, or in troubleshooting. Always restore to `0` when the returning to regular use. Given that [MDEV-11412](https://jira.mariadb.org/browse/MDEV-11412) aims to allow any metadata for a missing or corrupted table to be dropped, and given that [MDEV-17567](https://jira.mariadb.org/browse/MDEV-17567) and [MDEV-25506](https://jira.mariadb.org/browse/MDEV-25506) and related tasks made DDL operations crash-safe, the parameter no longer serves any purpose and was removed in [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6).
 * Command line: `--innodb-force-load-corrupted`
 * Scope: Global
 * Dynamic: No
@@ -1337,22 +872,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `enumeration`
 * Default Value: `0`
 * Range: `0` to `6`
-
-#### `innodb_foreground_preflush`
-
-* Description: Before XtraDB 5.6.13-61.0, if the checkpoint age is in the sync preflush zone while a thread is writing to the [XtraDB redo log](innodb-redo-log.md), it will try to advance the checkpoint by issuing a flush list flush batch if this is not already being done. XtraDB has enhanced page cleaner tuning, and may already be performing furious flushing, resulting in the flush simply adding unneeded mutex pressure. Instead, the thread now waits for the flushes to finish, and then has two options, controlled by this variable. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-  * `exponential_backoff` - thread sleeps while it waits for the flush list flush to occur. The sleep time randomly progressively increases, periodically reset to avoid runaway sleeps.
-  * `sync_preflush` - thread issues a flush list batch, and waits for it to complete. This is the same as is used when the page cleaner thread is not running.
-* Command line: `innodb-foreground-preflush=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enum`
-* Default Value:
-  * `deprecated`
-* Valid Values:
-  * `deprecated`, `exponential_backoff`, `sync_preflush`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
 #### `innodb_ft_aux_table`
 
@@ -1468,51 +987,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `string`
 * Default Value: Empty
 
-#### `innodb_ibuf_accel_rate`
-
-* Description: Allows the insert buffer activity to be adjusted. The following formula is used: \[real activity] = \[default activity] \* (innodb\_io\_capacity/100) \* (innodb\_ibuf\_accel\_rate/100). As `innodb_ibuf_accel_rate` is increased from its default value of `100`, the lowest setting, insert buffer activity is increased. See also [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity). This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: `innodb-ibuf-accel-rate=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `100`
-* Range: `100` to `999999999`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_ibuf_active_contract`
-
-* Description: Specifies whether the insert buffer can be processed before it's full. If set to `0`, the standard InnoDB method is used, and the buffer is not processed until it's full. If set to `1`, the default, the insert buffer can be processed before it is full. This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: `innodb-ibuf-active-contract=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `0` to `1`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_ibuf_max_size`
-
-* Description: Maximum size in bytes of the insert buffer. Defaults to half the size of the [buffer pool](innodb-buffer-pool.md) so you may want to reduce if you have a very large buffer pool. If set to `0`, the insert buffer is disabled, which will cause all secondary index updates to be performed synchronously, usually at a cost to performance. This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: `innodb-ibuf-max-size=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: 1/2 the size of the InnoDB buffer pool
-* Range: `0` to 1/2 the size of the InnoDB buffer pool
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_idle_flush_pct`
-
-* Description: Up to what percentage of dirty pages should be flushed when innodb finds it has spare resources to do so. Has had no effect since merging InnoDB 5.7 from mysql-5.7.9 ([MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2)). Deprecated in [MariaDB 10.2.37](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.37), [MariaDB 10.3.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.28), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18) and removed in [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9).
-* Command line: `--innodb-idle-flush-pct=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `100`
-* Range: `0` to `100`
-* Deprecated: [MariaDB 10.2.37](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.37), [MariaDB 10.3.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.28), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18)
-* Removed: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9)
-
 #### `innodb_immediate_scrub_data_uncompressed`
 
 * Description: Enable scrubbing of data. See [Data Scrubbing](innodb-data-scrubbing.md).
@@ -1521,17 +995,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-
-#### `innodb_import_table_from_xtrabackup`
-
-* Description: If set to `1`, permits importing of .ibd files exported with the [XtraBackup](../../backup-and-restore/mariadb-backup/README.md) --export option. Previously named `innodb_expand_import`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced with MySQL 5.6's transportable tablespaces.
-* Command line: `innodb-import-table-from-xtrabackup=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `1`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 #### `innodb_index_shrink`
 
@@ -1546,40 +1009,25 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
-  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes
+  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. A `BLOB` in the hidden metadata record is used to store column mappings. This makes
     it possible to drop or reorder columns without rebuilding the table. This also makes it possible to add columns to any position or drop columns from any position in the table without rebuilding the table. If a column is dropped without rebuilding the table, old records will contain garbage in that column's former position, and new records are written with `NULL` values, empty strings, or dummy values.
   * This is generally not a problem. However, there may be cases where
     you want to avoid putting a table into this format. For example, to ensure that future `UPDATE` operations after an `ADD COLUMN` are performed in-place, to reduce write amplification. (Instantly added columns are essentially always variable-length.) Also avoid bugs similar to [MDEV-19916](https://jira.mariadb.org/browse/MDEV-19916), or to be able to export tables to older versions of the server.
   * This variable has been introduced as a result, with the following values:
   * `never` (0): Do not allow instant add/drop/reorder, to maintain format compatibility with MariaDB 10.x and MySQL 5.x. If the table (or partition) is not in the canonical format, then any ALTER TABLE (even one that does not involve instant column operations) will force a table rebuild.
-  * `add_last` (1, default in 10.3): Store a hidden metadata record that
+  * `add_last` (1): Store a hidden metadata record that
     allows columns to be appended to the table instantly ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)).\
-    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)
+    If the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)
     will force a table rebuild.
-  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant
+  * `add_drop_reorder` (2, default): Like 'add\_last', but allow the metadata record to store a column map, to support instant
     add/drop/reorder of columns.
 * Command line: `--innodb-instant-alter-column-allowed=value`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enum`
-* Valid Values:
-  * <= [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103): `never`, `add_last`
-  * > \= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104): `never`, `add_last`, `add_drop_reorder`
-* Default Value:
-  * <= [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103): `add_last`
-  * > \= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104): `add_drop_reorder`
+* Valid Values: `never`, `add_last`, `add_drop_reorder`
+* Default Value: `add_drop_reorder`
 * Introduced: [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.23), [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13), [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.3)
-
-#### `innodb_instrument_semaphores`
-
-* Description: Enable semaphore request instrumentation. This could have some effect on performance but allows better information on long semaphore wait problems.
-* Command line: `--innodb-instrument-semaphores={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5) (treated as if `OFF`)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
 #### `innodb_io_capacity`
 
@@ -1602,56 +1050,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `2000` or twice [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity), whichever is higher.
 * Range : `100` to `4294967295` (2<sup>32</sup>-1)
 
-#### `innodb_kill_idle_transaction`
-
-* Description: Time in seconds before killing an idle XtraDB transaction. If set to `0` (the default), the feature is disabled. Used to prevent accidental user locks. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `9223372036854775807`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_large_prefix`
-
-* Description: If set to `1`, tables that use specific [row formats](innodb-row-formats/innodb-row-formats-overview.md) are permitted to have index key prefixes up to 3072 bytes (for 16k pages, [smaller otherwise](innodb-limitations.md#page-sizes)). If not set, the limit is 767 bytes.
-  * This applies to the [DYNAMIC](innodb-row-formats/innodb-dynamic-row-format.md) and [COMPRESSED](innodb-row-formats/innodb-compressed-row-format.md) row formats.
-  * Removed in 10.3.1 and restored as a deprecated and unused variable in 10.4.3 for compatibility purposes.
-* Command line: `--innodb-large-prefix`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value:
-  * `ON`
-* Deprecated: [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1)
-* Re-introduced: [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) (for compatibility purposes)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_lazy_drop_table`
-
-* Description: Deprecated and removed in XtraDB 5.6. [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md) processing can take a long time when [innodb\_file\_per\_table](innodb-system-variables.md#innodb_file_per_table) is set to 1 and there's a large [buffer pool](innodb-buffer-pool.md). If `innodb_lazy_drop_table` is set to `1` (`0` is default), XtraDB attempts to optimize [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md) processing by deferring the dropping of related pages from the [buffer pool](innodb-buffer-pool.md) until there is time, only initially marking them.
-* Command line: `innodb-lazy-drop-table={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `0`
-* Deprecated: XtraDB 5.5.30-30.2
-* Removed: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
-
-#### `innodb_lock_schedule_algorithm`
-
-* Description: Removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0) due to problems with the VATS implementation ([MDEV-16664](https://jira.mariadb.org/browse/MDEV-16664)). Specifies the algorithm that InnoDB uses to decide which of the waiting transactions should be granted the lock once it has been released. The possible values are: `FCFS` (First-Come-First-Served) where locks are granted in the order they appear in the lock queue and `VATS` (Variance-Aware-Transaction-Scheduling) where locks are granted based on the Eldest-Transaction-First heuristic. Note that `VATS` should not be used with [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), and InnoDB will refuse to start if `VATS` is used with Galera. It is also not recommended to set to `VATS` even in the general case ([MDEV-16664](https://jira.mariadb.org/browse/MDEV-16664)). From [MariaDB 10.2.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.12), the value was changed to `FCFS` and a warning produced when using Galera.
-* Command line: `--innodb-lock-schedule-algorithm=#`
-* Scope: Global
-* Dynamic: No (>= [MariaDB 10.2.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.12), [MariaDB 10.1.30](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.30)), Yes (<= [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.11), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.29))
-* Data Type: `enum`
-* Valid Values: `FCFS`, `VATS`
-* Default Value: `FCFS` ([MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.9), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17)), `VATS` ([MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3)), `FCFS` ([MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1))
-* Deprecated: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.26), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.35)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_lock_wait_timeout`
 
 * Description: Time in seconds that an InnoDB transaction waits for an InnoDB record lock (or table lock) before giving up with the error `ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction`. When this occurs, the statement (not transaction) is rolled back. The whole transaction can be rolled back if the [innodb\_rollback\_on\_timeout](innodb-system-variables.md#innodb_rollback_on_timeout) option is used. Increase this for data warehousing applications or where other long-running operations are common, or decrease for OLTP and other highly interactive applications. This setting does not apply to deadlocks, which InnoDB detects immediately, rolling back a deadlocked transaction. `0` means no wait. See [WAIT and NOWAIT](../../../reference/sql-statements/transactions/wait-and-nowait.md). Setting to `100000000` or more (from [MariaDB 10.6.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.3), `100000000` is the maximum) means the timeout is infinite.
@@ -1662,51 +1060,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `50`
 * Range:
   * `0` to `100000000` (>= [MariaDB 10.6.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.3))
-  * `0` to `1073741824` (>= [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) to <= [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2))
-
-#### `innodb_locking_fake_changes`
-
-* Description: From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) to [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), XtraDB-only option that if set to `OFF`, fake transactions (see [innodb\_fake\_changes](innodb-system-variables.md#innodb_fake_changes)) don't take row locks. This is an experimental feature to attempt to deal with drawbacks in fake changes blocking real locks. It is not safe for use in all environments. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-locking-fake-changes`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_locks_unsafe_for_binlog`
-
-* Description: Set to `0` by default, in which case XtraDB/InnoDB uses [gap locking](innodb-lock-modes.md). If set to `1`, gap locking is disabled for searches and index scans. Deprecated in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), and removed in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), use [READ COMMITTED transaction isolation level](../../../reference/sql-statements/transactions/transactions-read-committed.md) instead.
-* Command line: `--innodb-locks-unsafe-for-binlog`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-
-#### `innodb_log_arch_dir`
-
-* Description: The directory for [XtraDB redo log](innodb-redo-log.md) archiving. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-log-arch-dir=name`
-* Scope: Global
-* Dynamic: No
-* Data Type: `string`
-* Default Value: `./`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_log_arch_expire_sec`
-
-* Description: Time in seconds since the last change after which the archived [XtraDB redo log](innodb-redo-log.md) should be deleted. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-log-arch-expire-sec=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
+  * `0` to `1073741824` (<= [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2))
 
 #### `innodb_log_archive`
 
@@ -1722,17 +1076,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `boolean`
 * Default Value: `OFF`
 * Introduced: MariaDB 13.0
-
-#### `innodb_log_block_size`
-
-* Description: Size in bytes of the [XtraDB redo log](innodb-redo-log.md) records. Generally `512`, the default, or `4096`, are the only two useful values. If the server is restarted and this value is changed, all old log files need to be removed. Should be set to `4096` for SSD cards or if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `ALL_O_DIRECT` on ext4 filesystems. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-log-block-size=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `512`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
 #### `innodb_log_buffer_size`
 
@@ -1755,49 +1098,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `boolean`
 * Default Value: `OFF`
 * Introduced: [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.6), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.2)
-
-#### `innodb_log_checksum_algorithm`
-
-* Description: Experimental feature (as of [MariaDB 10.0.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.9)), this variable specifies how to generate and verify [XtraDB redo log](innodb-redo-log.md) checksums. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-  * `none` - No checksum. A constant value is instead written to logs, and no checksum validation is performed.
-  * `innodb` - The default, and the original InnoDB algorithm. This is inefficient, but compatible with all MySQL, MariaDB and Percona versions that don't support other checksum algorithms.
-  * `crc32` - CRC32© is used for log block checksums, which also permits recent CPUs to use hardware acceleration (on SSE4.2 x86 machines and Power8 or later) for the checksums.
-  * `strict_*` - Whether or not to accept checksums from other algorithms. If strict mode is used, checksums blocks are considered corrupt if they don't match the specified algorithm. Normally they are considered corrupt only if no other algorithm matches.
-* Command line: `innodb-log-checksum-algorithm=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enum`
-* Default Value:
-  * `deprecated` (>= [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6))
-  * `innodb` (<= [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1))
-* Valid Values:
-  * `deprecated`, `innodb`, `none`, `crc32`, `strict_none`, `strict_innodb`, `strict_crc32` (>= [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6))
-  * `innodb`, `none`, `crc32`, `strict_none`, `strict_innodb`, `strict_crc32` (<= [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1))
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_log_checksums`
-
-* Description: If set to `1`, the CRC32C for Innodb or `innodb_log_checksum_algorithm` for XtraDB algorithm is used for [InnoDB redo log](innodb-redo-log.md) pages. If disabled, the checksum field contents are ignored. From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), the variable is deprecated, and checksums are always calculated, as previously, the InnoDB redo log used the slow innodb algorithm, but with hardware or SIMD assisted CRC-32C computation being available, there is no reason to allow checksums to be disabled on the redo log.
-* Command line: `innodb-log-checksums={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_log_compressed_pages`
-
-* Description: Whether or not images of recompressed pages are stored in the [InnoDB redo log](innodb-redo-log.md). Deprecated and ignored from [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.3).
-* Command line: `--innodb-log-compressed-pages={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value:
-  * `ON`
-* Deprecated: [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.3)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `innodb_log_file_buffering`
 
@@ -1832,12 +1132,12 @@ SELECT @@GLOBAL.innodb_log_file_buffering;
 
 #### `innodb_log_file_size`
 
-* Description: Size in bytes of each [InnoDB redo log](innodb-redo-log.md) file in the log group. The combined size can be no more than 512GB. Larger values mean less disk I/O due to less flushing checkpoint activity, but also slower recovery from a crash. In [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), crash recovery has been improved and shouldn't run out of memory, so the default has been increased. It can safely be set higher to reduce checkpoint flushing, even larger than [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size).From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109) the variable is dynamic, and the server no longer needs to be restarted for the resizing to take place. Unless the log is located in a persistent memory file system (PMEM), an attempt to [SET GLOBAL](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) innodb\_log\_file\_size to less than [innodb\_log\_buffer\_size](innodb-system-variables.md#innodb_log_buffer_size) are refused. Log resizing can be aborted by killing the connection that is executing the SET GLOBAL statement.
+* Description: Size in bytes of each [InnoDB redo log](innodb-redo-log.md) file in the log group. The combined size can be no more than 512GB. Larger values mean less disk I/O due to less flushing checkpoint activity, but also slower recovery from a crash. Crash recovery doesn't run out of memory, so it can safely be set higher to reduce checkpoint flushing, even larger than [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size).From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109) the variable is dynamic, and the server no longer needs to be restarted for the resizing to take place. Unless the log is located in a persistent memory file system (PMEM), an attempt to [SET GLOBAL](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) innodb\_log\_file\_size to less than [innodb\_log\_buffer\_size](innodb-system-variables.md#innodb_log_buffer_size) are refused. Log resizing can be aborted by killing the connection that is executing the SET GLOBAL statement.
 * Command line: `--innodb-log-file-size=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109)), No (<= [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108))
 * Data Type: `numeric`
-* Default Value: `100663296` (96MB) (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `50331648` (48MB) (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112))
+* Default Value: `100663296` (96MB)
 * Range:
   * > \= [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3): `4194304` to `512GB` (4MB to 512GB)
   * <= [MariaDB 10.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.2): `1048576` to `512GB` (1MB to 512GB)
@@ -1863,44 +1163,18 @@ SELECT @@GLOBAL.innodb_log_file_write_through;
 ```
 {% endhint %}
 
-#### `innodb_log_files_in_group`
-
-* Description: Number of physical files in the [InnoDB redo log](innodb-redo-log.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Command line: `--innodb-log-files-in-group=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `2` (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
-* Range: `1` to `100` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4))
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_log_group_home_dir`
 
-* Description: Path to the [InnoDB redo log](innodb-redo-log.md) files. If none is specified, [innodb\_log\_files\_in\_group](innodb-system-variables.md#innodb_log_files_in_group) files named ib\_logfile0 and so on, with a size of [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) are created in the data directory.
+* Description: Path to the [InnoDB redo log](innodb-redo-log.md) files. If none is specified, a redo log file named `ib_logfile0`, with a size of [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size), is created in the data directory.
 * Command line: `--innodb-log-group-home-dir=path`
 * Scope: Global
 * Dynamic: No
 * Data Type: `directory name`
 
-#### `innodb_log_optimize_ddl`
-
-* Description: Whether [InnoDB redo log](innodb-redo-log.md) activity should be reduced when natively creating indexes or rebuilding tables. Reduced logging requires additional page flushing and interferes with [mariadb-backup](../../backup-and-restore/mariadb-backup/). Enabling this may slow down backup and cause delay due to page flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1). Deprecated (but not ignored) from [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.26) and [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.35).
-* Command line: `--innodb-log-optimize-ddl={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value:
-  * `OFF` (>= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.26), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.35))
-  * `ON` (<= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.15), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.25), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.34))
-* Introduced: [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17), [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.9)
-* Deprecated: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.26), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.35)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_log_recovery_start`
 
 * Description: Specifies the Log Sequence Number (LSN) at which the recovery process begins. Only meaningful when recovering a backup that contains log files in the [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive)`=ON` format.
-* Usage: Set this variable to limit the scope of a recovery operation. The server expects to find an optional sequence of `FILE_MODIFY` records followed by a `FILE_CHECKPOINT` record at the specified _lsn_. This is typically used when restoring an incremental backup, by setting the variable to the end LSN of the previous restore.
+* Usage: Set this variable to limit the scope of a recovery operation. The server expects to find an optional sequence of `FILE_MODIFY` records followed by a `FILE_CHECKPOINT` record at the specified _lsn_. This is typically used when restoring a backup, by setting the variable to the LSN that points to the start checkpoint of the backup.
 * Special value: `0` (the default) means start recovery from the latest completed checkpoint. The latest checkpoint is guaranteed to live in one of the last two `ib_`_`lsn`_`.log` files in the data directory, typically the last one.
 * Property: Set at startup
 * Data Type: `numeric` (64-bit unsigned integer)
@@ -1970,35 +1244,9 @@ If you set a target that is unreachable in the other direction (for example, low
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * `1536` (>= [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7))
-  * `1024` (<= [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.6))
+* Default Value: `1536`
 * Range - 32bit: `100` to `2^32-1`
 * Range - 64bit: `100` to `2^64-1`
-
-#### `innodb_max_bitmap_file_size`
-
-* Description: Limit in bytes of the changed page bitmap files. For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. These files are rotated when the server restarts or when this limit is reached. XtraDB only. See also [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages) and [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages).
-  * Deprecated and ignored in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-max-bitmap-file-size=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `4096` (4KB)
-* Range: `4096` (4KB) to `18446744073709551615` (16EB)
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-
-#### `innodb_max_changed_pages`
-
-* Description: Limit to the number of changed page bitmap files (stored in the [Information Schema INNODB\_CHANGED\_PAGES table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_changed_pages-table.md)). Zero is unlimited. See [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size) and [innodb\_track\_changed\_pages](innodb-system-variables.md#innodb_track_changed_pages). Previously named `innodb_changed_pages_limit`. XtraDB only.
-  * Deprecated and ignored in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-max-changed-pages=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1000000`
-* Range: `0` to `18446744073709551615`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 
 #### `innodb_max_dirty_pages_pct`
 
@@ -2008,22 +1256,18 @@ If you set a target that is unreachable in the other direction (for example, low
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * `90.000000` (>= [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7))
-  * `75.000000` (<= [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.6))
+* Default Value: `90.000000`
 * Range: `0` to `99.999`
 
 #### `innodb_max_dirty_pages_pct_lwm`
 
-* Description: Low water mark percentage of dirty pages that will enable preflushing to lower the dirty page ratio. The value 0 (default) means 'refer to [innodb\_max\_dirty\_pages\_pct](innodb-system-variables.md#innodb_max_dirty_pages_pct)'. (Note that 0 meant 0 in 10.5.7 to 10.5.8, but was then reverted back to "same as innodb\_max\_dirty\_pages\_pct" again in 10.5.9)
+* Description: Low water mark percentage of dirty pages that will enable preflushing to lower the dirty page ratio. The value 0 (default) means 'refer to [innodb\_max\_dirty\_pages\_pct](innodb-system-variables.md#innodb_max_dirty_pages_pct)'.
   * See [InnoDB Page Flushing](innodb-page-flushing.md) for more information.
 * Command line: `--innodb-max-dirty-pages-pct-lwm=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * `0` (>= [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1))
-  * `0.001` (<= [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0))
+* Default Value: `0`
 * Range: `0` to `99.999`
 
 #### `innodb_max_purge_lag`
@@ -2067,37 +1311,6 @@ If you set a target that is unreachable in the other direction (for example, low
   * `10485760`
 * Range: `10485760` to `18446744073709551615`
 
-#### `innodb_merge_sort_block_size`
-
-* Description: Size in bytes of the block used for merge sorting in fast index creation. Replaced in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 by [innodb\_sort\_buffer\_size](innodb-system-variables.md#innodb_sort_buffer_size).
-* Command line: `innodb-merge-sort-block-size=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1048576` (1M)
-* Range: `1048576` (1M) to `1073741824` (1G)
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced by [innodb\_sort\_buffer\_size](innodb-system-variables.md#innodb_sort_buffer_size)
-
-#### `innodb_mirrored_log_groups`
-
-* Description: Unused. Restored as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) - [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5)
-
-#### `innodb_mtflush_threads`
-
-* Description: Sets the number of threads to use in Multi-Threaded Flush operations. For more information, see [Fusion-io Multi-threaded Flush](innodb-page-flushing.md).
-  * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
-* Command line: `--innodb-mtflush-threads=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `8`
-* Range: `1` to `64`
-* Deprecated: [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9)
-* Removed: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
-
 #### `innodb_monitor_disable`
 
 * Description: Disables the specified counters in the [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) table.
@@ -2138,7 +1351,7 @@ If you set a target that is unreachable in the other direction (for example, low
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Removed: [MariaDB 10.2.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.23), [MariaDB 10.3.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.14), [MariaDB 10.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4)
+* Availability: Only in builds compiled with NUMA support (`WITH_NUMA`). Official MariaDB release packages are built without it ([MDEV-18954](https://jira.mariadb.org/browse/MDEV-18954)).
 
 #### `innodb_old_blocks_pct`
 
@@ -2189,19 +1402,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `innodb_page_cleaners`
-
-* Description: Number of page cleaner threads. The default is `4`, but the value are set to the number of [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if this is lower. If set to `1`, only a single cleaner thread is used, as was the case until [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1). Cleaner threads flush dirty pages from the [buffer pool](innodb-buffer-pool.md), performing flush list and least-recently used (LRU) flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), as the original reasons for splitting the buffer pool have mostly gone away.
-  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
-* Command line: `--innodb-page-cleaners=#`
-* Scope: Global
-* Dynamic: Yes (>= [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)), No (<= [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2))
-* Data Type: `numeric`
-* Default Value: `4` (or set to [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if lower)
-* Range: `1` to `64`
-* Deprecated: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_page_size`
 
 * Description: Specifies the page size in bytes for all InnoDB tablespaces. The default, `16k`, is suitable for most uses.
@@ -2216,10 +1416,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `enumeration`
 * Default Value: `16384`
 * Valid Values: `4k` or `4096`, `8k` or `8192`, `16k` or `16384`, `32k` and `64k`.
-
-#### `innodb_pass_corrupt_table`
-
-* Removed: XtraDB 5.5 - renamed [innodb\_corrupt\_table\_action](innodb-system-variables.md#innodb_corrupt_table_action).
 
 #### `innodb_prefix_index_cluster_optimization`
 
@@ -2276,23 +1472,12 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_random_read_ahead`
 
-* Description: Originally, random read-ahead was always set as an optimization technique, but was removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). `innodb_random_read_ahead` permits it to be re-instated if set to `1` (`0`) is default.
+* Description: Enables random read-ahead, an optimization technique that InnoDB does not use by default, if set to `1`. The default is `0`.
 * Command line: `--innodb-random-read-ahead={0|1}`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-
-#### `innodb_read_ahead`
-
-* Description: If set to `linear`, the default, XtraDB/InnoDB will automatically fetch remaining pages if there are enough within the same extent that can be accessed sequentially. If set to `none`, read-ahead is disabled. `random` has been removed and is now ignored, while `both` sets to both `linear` and `random`. Also see [innodb\_read\_ahead\_threshold](innodb-system-variables.md#innodb_read_ahead_threshold) for more control on read-aheads. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced by MySQL 5.6's [innodb\_random\_read\_ahead](innodb-system-variables.md#innodb_random_read_ahead).
-* Command line: `innodb-read-ahead=value`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `enumeration`
-* Default Value: `linear`
-* Valid Values: `none`, `random`, `linear`, `both`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 - replaced by MySQL 5.6's [innodb\_random\_read\_ahead](innodb-system-variables.md#innodb_random_read_ahead)
 
 #### `innodb_read_ahead_threshold`
 
@@ -2306,7 +1491,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_read_io_threads`
 
-* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB reads. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multiplied by 256 to determine the maximum number of concurrent asynchronous I/O read requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous read requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
+* Description: InnoDB read requests are completed by asynchronous I/O in the InnoDB Background Thread Pool. This variable is multiplied by 256 to determine the maximum number of concurrent asynchronous I/O read requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous read requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
 * Command line: `--innodb-read-io-threads=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011)), No (<= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010))
@@ -2333,150 +1518,14 @@ If you set a target that is unreachable in the other direction (for example, low
 * Default Value: `OFF` (>= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6)), `ON` (<= [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.5))
 * Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
-#### `innodb_recovery_stats`
-
-* Description: If set to `1` (`0` is default) and recovery is necessary on startup, the server will write detailed recovery statistics to the error log at the end of the recovery process. This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: No
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-
-#### `innodb_recovery_update_relay_log`
-
-* Description: If set to `1` (`0` is default), the relay log info file are overwritten on crash recovery if the information differs from the InnoDB record. Should not be used if multiple storage engine types are being replicated. Previously named `innodb_overwrite_relay_log_info`. Removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6 and replaced by MySQL 5.6's `relay-log-recovery`
-* Command line: `innodb-recovery-update-relay-log={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced by MySQL 5.6's `relay-log-recovery`
-
-#### `innodb_replication_delay`
-
-* Description: Time in milliseconds for the replica server to delay the replication thread if [innodb\_thread\_concurrency](innodb-system-variables.md#innodb_thread_concurrency) is reached. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* Command line: `--innodb-replication-delay=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `4294967295`
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_rollback_on_timeout`
 
-* Description: InnoDB usually rolls back the last statement of a transaction that's been timed out (see [innodb\_lock\_wait\_timeout](innodb-system-variables.md#innodb_lock_wait_timeout)). If innodb\_rollback\_on\_timeout is set to 1 (0 is default), InnoDB will roll back the entire transaction. Before [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), rolling back the entire transaction was the default behavior.
+* Description: InnoDB usually rolls back the last statement of a transaction that's been timed out (see [innodb\_lock\_wait\_timeout](innodb-system-variables.md#innodb_lock_wait_timeout)). If innodb\_rollback\_on\_timeout is set to 1 (0 is default), InnoDB will roll back the entire transaction.
 * Command line: `--innodb-rollback-on-timeout`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `0`
-
-#### `innodb_rollback_segments`
-
-* Description: Specifies the number of rollback segments that XtraDB/InnoDB will use within a transaction (see [undo log](innodb-undo-log.md)). Deprecated and replaced by [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0). Removed in [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) as part of an InnoDB cleanup, as it makes sense to always create and use the maximum number of rollback segments. |
-* Command line: `--innodb-rollback-segments=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `128`
-* Range: `1` to `128`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-
-#### `innodb_safe_truncate`
-
-* Description: Use a backup-safe [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md) implementation and crash-safe rename operations inside InnoDB. This is not compatible with hot backup tools other than [mariadb-backup](../../backup-and-restore/mariadb-backup/mariadb-backup-overview.md). Users who need to use such tools may set this to `OFF`.
-* Command line: `--innodb-safe-truncate={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Introduced: [MariaDB 10.2.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.19)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_scrub_log`
-
-* Description: Enable [InnoDB redo log](innodb-redo-log.md) scrubbing. See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), as never really worked ([MDEV-13019](https://jira.mariadb.org/browse/MDEV-13019) and [MDEV-18370](https://jira.mariadb.org/browse/MDEV-18370)). If old log contents should be kept secret, then enabling [innodb\_encrypt\_log](innodb-system-variables.md#innodb_encrypt_log) or setting a smaller [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) could help.
-* Command line: `--innodb-scrub-log`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_scrub_log_interval`
-
-* Description: Used with [Data Scrubbing](innodb-data-scrubbing.md) in 10.1.3 only - replaced in 10.1.4 by [innodb\_scrub\_log\_speed](innodb-system-variables.md#innodb_scrub_log_speed). [InnoDB redo log](innodb-redo-log.md) scrubbing interval in milliseconds.
-* Command line: `--innodb-scrub-log-interval=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `56`
-* Range: `0` to `50000`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
-* Removed: [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4)
-
-#### `innodb_scrub_log_speed`
-
-* Description: [InnoDB redo log](innodb-redo-log.md) scrubbing speed in bytes/sec. See [Data Scrubbing](innodb-data-scrubbing.md). Deprecated and ignored from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-* Command line: `--innodb-scrub-log-speed=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `256`
-* Range: `1` to `50000`
-* Deprecated: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_sched_priority_cleaner`
-
-* Description: Set a thread scheduling priority for cleaner and least-recently used (LRU) manager threads. The range from `0` to `39` corresponds in reverse order to Linux nice values of `-20` to `19`. So `0` is the lowest priority (Linux nice value `19`) and `39` is the highest priority (Linux nice value `-20`). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-sched-priority-cleaner=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `19`
-* Range: `0` to `39`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_show_locks_held`
-
-* Description: Specifies the number of locks held for each InnoDB transaction to be displayed in [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-show-locks-held=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `10`
-* Range: `0` to `1000`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_show_verbose_locks`
-
-* Description: If set to `1`, and [innodb\_status\_output\_locks](innodb-system-variables.md#innodb_status_output_locks) is also ON, the traditional InnoDB behavior is followed and locked records are shown in [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) output. If set to `0`, the default, only high-level information about the lock is shown. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-show-verbose-locks=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `1`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_simulate_comp_failures`
-
-* Description: Simulate compression failures. Used for testing robustness against random compression failures. XtraDB only.
-* Command line: None
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `99`
 
 #### `innodb_snapshot_isolation`
 
@@ -2502,12 +1551,12 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_spin_wait_delay`
 
-* Description: Maximum delay (not strictly corresponding to a time unit) between spin lock polls. Default changed from `6` to `4` in [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5), as this was verified to give the best throughput by OLTP update index and read-write benchmarks on Intel Broadwell (2/20/40) and ARM (1/46/46).
+* Description: Maximum delay (not strictly corresponding to a time unit) between spin lock polls. The default, `4`, was verified to give the best throughput by OLTP update index and read-write benchmarks on Intel Broadwell (2/20/40) and ARM (1/46/46).
 * Command line: `--innodb-log-spin-wait-delay=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `4` (>= [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5)), `6` (<= [MariaDB 10.3.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.4))
+* Default Value: `4`
 * Range: `0` to `4294967295`
 
 #### `innodb_stats_auto_recalc`
@@ -2518,15 +1567,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-
-#### `innodb_stats_auto_update`
-
-* Description: If set to `0` (`1` is default), index statistics will not be automatically calculated except when an [ANALYZE TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) is run, or the table is first opened. Replaced by [innodb\_stats\_auto\_recalc](innodb-system-variables.md#innodb_stats_auto_recalc) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6.
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `1`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) - replaced by [innodb\_stats\_auto\_recalc](innodb-system-variables.md#innodb_stats_auto_recalc).
 
 #### `innodb_stats_include_delete_marked`
 
@@ -2587,22 +1627,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `numeric`
 * Default Value: `20`
 
-#### `innodb_stats_sample_pages`
-
-* Description: Gives control over the index distribution statistics by determining the number of index pages to sample. Higher values produce more disk I/O, but, especially for large tables, produce more accurate statistics and therefore make more effective use of the query optimizer. Lower values than the default are not recommended, as the statistics can be quite inaccurate.
-  * If [innodb\_stats\_traditional](innodb-system-variables.md#innodb_stats_traditional) is enabled, then the exact number of pages configured by this system variable are sampled for statistics.
-  * If [innodb\_stats\_traditional](innodb-system-variables.md#innodb_stats_traditional) is disabled, then the number of pages to sample for statistics is calculated using a logarithmic algorithm, so the exact number can change depending on the size of the table. This means that more samples may be used for larger tables.
-  * If [persistent statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) are enabled, then the [innodb\_stats\_persistent\_sample\_pages](innodb-system-variables.md#innodb_stats_persistent_sample_pages) system variable applies instead. [persistent statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md) are enabled with the [innodb\_stats\_persistent](innodb-system-variables.md#innodb_stats_persistent) system variable.
-  * This system variable has been deprecated. The [innodb\_stats\_transient\_sample\_pages](innodb-system-variables.md#innodb_stats_transient_sample_pages) system variable should be used instead.
-* Command line: `--innodb-stats-sample-pages=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `8`
-* Range: `1` to `2^64-1`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-
 #### `innodb_stats_traditional`
 
 * Description: This system variable affects how the number of pages to sample for transient statistics is determined, in particular how [innodb\_stats\_transient\_sample\_pages](innodb-system-variables.md#innodb_stats_transient_sample_pages) is used.
@@ -2627,15 +1651,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `numeric`
 * Default Value: `8`
 * Range: `1` to `2^64-1`
-
-#### `innodb_stats_update_need_lock`
-
-* Description: Setting to `0` (`1` is default) may help reduce contention of the `&dict_operation_lock`, but also disables the Data\_free option in [SHOW TABLE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-table-status.md). This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `1`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6
 
 #### `innodb_status_output`
 
@@ -2663,28 +1678,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-
-#### `innodb_support_xa`
-
-* Description: If set to `1`, the default, [XA transactions](../../../reference/sql-statements/transactions/xa-transactions.md) are supported. XA support ensures data is written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) in the same order to the actual database, which is critical for [replication](../../../ha-and-performance/standard-replication/replication-overview.md) and disaster recovery, but comes at a small performance cost. If your database is set up to only permit one thread to change data (for example, on a replication replica with only the replication thread writing), it is safe to turn this option off. Removed in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), XA transactions are always supported.
-* Command line: `--innodb-support-xa`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_sync_array_size`
-
-* Description: By default `1`, can be increased to split internal thread co-ordinating, giving higher concurrency when there are many waiting threads.
-* Command line: `--innodb-sync-array-size=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `1024`
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `innodb_sync_spin_loops`
 
@@ -2727,42 +1720,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Range: `0` to `18446744073709551615`
 * Introduced: MariaDB 13.1
 
-#### `innodb_thread_concurrency`
-
-* Description: Once this number of threads is reached (excluding threads waiting for locks), XtraDB/InnoDB will place new threads in a wait state in a first-in, first-out queue for execution, in order to limit the number of threads running concurrently. A setting of `0`, the default, permits as many threads as necessary. A suggested setting is twice the number of CPU's plus the number of disks. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
-* Command line: `--innodb-thread-concurrency=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `0`
-* Range: `0` to `1000`
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
-#### `innodb_thread_concurrency_timer_based`
-
-* Description: If set to `1`, thread concurrency are handled in a lock-free timer-based manner rather than the default mutex-based method. Depends on atomic op builtins being available. This Percona XtraDB variable has not been ported to XtraDB 5.6.
-* Command line: `innodb-thread-concurrency-timer-based={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6
-
-#### `innodb_thread_sleep_delay`
-
-* Description: Time in microseconds that InnoDB threads sleep before joining the queue. Setting to `0` disables sleep. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Command line: `--innodb-thread-sleep-delay=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value:
-  * `0` (>= [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).)
-  * `10000` (<= [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4))
-* Range: `0` to `1000000`
-* Deprecated: [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_temp_data_file_path`
 
 * Description: Path where to store data for [InnoDB](./) temporary tables. Argument is `filename:size` followed by options separated by ':' Multiple paths can be given separated by ';' A file size is specified (with K for kilobytes, M for megabytes and G for gigabytes). Also whether or not to `autoextend` the data file, `max` size and whether or not to [autoshrink](innodb-tablespaces/innodb-system-tablespaces.md#decreasing-the-size) on startup may also be specified.
@@ -2783,26 +1740,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `string`
 * Default Value: Empty
 
-#### `innodb_track_changed_pages`
-
-* Description: For faster incremental backup with [Xtrabackup](../../backup-and-restore/mariadb-backup/README.md), XtraDB tracks pages with changes written to them according to the [XtraDB redo log](innodb-redo-log.md) and writes the information to special changed page bitmap files. This read-only variable is used for controlling this feature. See also [innodb\_max\_changed\_pages](innodb-system-variables.md#innodb_max_changed_pages) and [innodb\_max\_bitmap\_file\_size](innodb-system-variables.md#innodb_max_bitmap_file_size). XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-track-changed-pages={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-
-#### `innodb_track_redo_log_now`
-
-* Description: Available on debug builds only. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-track-redo-log-now={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-
 #### `innodb_truncate_temporary_tablespace_now`
 
 * Description: Set to ON to shrink the temporary tablespace.
@@ -2815,7 +1752,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_undo_directory`
 
-* Description: Path to the directory (relative or absolute) that InnoDB uses to create separate tablespaces for the [undo logs](innodb-undo-log.md). `.` (the default value before 10.2.2) leaves the undo logs in the same directory as the other log files. From [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), the default value is NULL, and if no path is specified, undo tablespaces are created in the directory defined by [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). Use together with [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs) and [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces). Undo logs are most usefully placed on a separate storage device.
+* Description: Path to the directory (relative or absolute) that InnoDB uses to create separate tablespaces for the [undo logs](innodb-undo-log.md). The default value is NULL: if no path is specified, undo tablespaces are created in the directory defined by [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). `.` leaves the undo logs in the same directory as the other log files. Use together with [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces). Undo logs are most usefully placed on a separate storage device.
 * Command line: `--innodb-undo-directory=name`
 * Scope: Global
 * Dynamic: No
@@ -2831,21 +1768,9 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `innodb_undo_logs`
-
-* Description: Specifies the number of rollback segments that XtraDB/InnoDB will use within a transaction (or the number of active [undo logs](innodb-undo-log.md)). By default set to the maximum, `128`, it can be reduced to avoid allocating unneeded rollback segments. See the [Innodb\_available\_undo\_logs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md) status variable for the number of undo logs available. See also [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory) and [innodb\_undo\_tablespaces](innodb-system-variables.md#innodb_undo_tablespaces). Replaced [innodb\_rollback\_segments](innodb-system-variables.md#innodb_rollback_segments) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0). The [Information Schema XTRADB\_RSEG Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-xtradb-tables/information-schema-xtradb_rseg-table.md) contains information about the XtraDB rollback segments. Deprecated and ignored in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), as it always makes sense to use the maximum number of rollback segments.
-* Command line: `--innodb-undo-logs=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `128`
-* Range: `0` to `128`
-* Deprecated: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-* Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-
 #### `innodb_undo_tablespaces`
 
-* Description: Number of tablespaces files used for dividing up the [undo logs](innodb-undo-log.md). Zero (the default before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)) means that undo logs are all part of the system tablespace, which contains one undo tablespace more than the `innodb_undo_tablespaces` setting. A value of 1 is reset to 0 as 2 or more are needed for separate tablespaces. When the undo logs can grow large, splitting them over multiple tablespaces will reduce the size of any single tablespace. Until [MariaDB 10.11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), must be set before InnoDB is initialized, or else MariaDB will fail to start, with an error saying that `InnoDB did not find the expected number of undo tablespaces`. The files are created in the directory specified by [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory), and are named `undoN`, N being an integer. The default size of an undo tablespace is 10MB.From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set. Before [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), [innodb\_undo\_logs](innodb-system-variables.md#innodb_undo_logs) must have a non-zero setting for `innodb_undo_tablespaces` to take effect.
+* Description: Number of tablespaces files used for dividing up the [undo logs](innodb-undo-log.md). Zero (the default before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)) means that undo logs are all part of the system tablespace, which contains one undo tablespace more than the `innodb_undo_tablespaces` setting. A value of 1 is reset to 0 as 2 or more are needed for separate tablespaces. When the undo logs can grow large, splitting them over multiple tablespaces will reduce the size of any single tablespace. Until [MariaDB 10.11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), must be set before InnoDB is initialized, or else MariaDB will fail to start, with an error saying that `InnoDB did not find the expected number of undo tablespaces`. The files are created in the directory specified by [innodb\_undo\_directory](innodb-system-variables.md#innodb_undo_directory), and are named `undoN`, N being an integer. The default size of an undo tablespace is 10MB.From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), multiple undo tablespaces are enabled by default, and the default is changed to 3 so that the space occupied by possible bursts of undo log records can be reclaimed after [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
 * Command line: `--innodb-undo-tablespaces=#`
 * Scope: Global
 * Dynamic: No
@@ -2862,44 +1787,6 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `ON`
 
-#### `innodb_use_fallocate`
-
-* Description: Preallocate files fast, using operating system functionality. On POSIX systems, posix\_fallocate system call is used.
-  * Automatically set to `1` when [innodb\_use\_atomic\_writes](innodb-system-variables.md#innodb_use_atomic_writes) is set - see [FusionIO DirectFS atomic write support](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/atomic-write-support.md).
-  * See [InnoDB Page Compression: Saving Storage Space with Sparse Files](innodb-page-compression.md#saving-storage-space-with-sparse-files) for more information.
-* Command line: `innodb-use-fallocate={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5) (treated as if `ON`)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_use_global_flush_log_at_trx_commit`
-
-* Description: Determines whether a user can set the variable [innodb\_flush\_log\_at\_trx\_commit](innodb-system-variables.md#innodb_flush_log_at_trx_commit). If set to `1`, a user cannot reset the value with a SET command, while if set to `1`, a user can reset the value of `innodb_flush_log_at_trx_commit`. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `innodb-use-global-flush-log-at-trx_commit={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_use_mtflush`
-
-* Description: Whether to enable Multi-Threaded Flush operations.\
-  For more information, see Fusion.
-  * InnoDB's multi-thread flush feature was deprecated in [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9) and removed from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2). In later versions of MariaDB, use [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners) system variable instead.
-  * See [InnoDB Page Flushing: Page Flushing Before MariaDB Server 10.5](innodb-page-flushing.md#page-flushing-before-mariadb-server-10.5) for more information.
-* Command line: `--innodb-use-mtflush={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9)
-* Removed: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
-
 #### `innodb_use_native_aio`
 
 * Description: For Linux systems only, specified whether to use Linux's asynchronous I/O subsystem. Set to `ON` by default, it may be changed to `0` at startup if InnoDB detects a problem, or from [MariaDB 10.6.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.5)/[MariaDB 10.7.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.1), if a 5.11 - 5.15 Linux kernel is detected, to avoid an io-uring bug/incompatibility ([MDEV-26674](https://jira.mariadb.org/browse/MDEV-26674)). MariaDB-10.6.6/MariaDB-10.7.2 and later also consider 5.15.3+ as a fixed kernel and default to `ON`. To really benefit from the setting, the files should be opened in O\_DIRECT mode ([innodb\_flush\_method=O\_DIRECT](innodb-system-variables.md#innodb_flush_method), default from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)), to bypass the file system cache. In this way, the reads and writes can be submitted with DMA, using the InnoDB buffer pool directly, and no processor cycles need to be used for copying data.
@@ -2909,64 +1796,9 @@ If you set a target that is unreachable in the other direction (for example, low
 * Data Type: `boolean`
 * Default Value: `ON`
 
-#### `innodb_use_purge_thread`
-
-* Description: Usually with InnoDB, data changed by a transaction is written to an undo space to permit read consistency, and freed when the transaction is complete. Many, or large, transactions, can cause the main tablespace to grow dramatically, reducing performance. This option, introduced in XtraDB 5.1 and removed for 5.5, allows multiple threads to perform the purging, resulting in slower, but much more stable performance.
-* Command line: `--innodb-use-purge-thread=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `0` to `32`
-* Removed: XtraDB 5.5
-
-#### `innodb_use_stacktrace`
-
-* Description: If set to `ON` (`OFF` is default), a signal handler for SIGUSR2 is installed when the InnoDB server starts. When a long semaphore wait is detected at sync/sync0array.c, a SIGUSR2 signal is sent to the waiting thread and thread that has acquired the RW-latch. For both threads a full stacktrace is produced as well as if possible. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-use-stacktrace={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
-#### `innodb_use_sys_malloc`
-
-* Description: If set the `1`, the default, XtraDB/InnoDB will use the operating system's memory allocator. If set to `0` it will use its own. Deprecated in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and removed in [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) along with InnoDB's internal memory allocator.
-* Command line: `--innodb-use-sys-malloc={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
-* Removed: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2)
-
-#### `innodb_use_sys_stats_table`
-
-* Description: If set to `1` (`0` is default), XtraDB will use the SYS\_STATS system table for extra table index statistics. When a table is opened for the first time, statistics will then be loaded from SYS\_STATS instead of sampling the index pages. Statistics are designed to be maintained only by running an [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md). Replaced by MySQL 5.6's Persistent Optimizer Statistics.
-* Command line: `innodb-use-sys-stats-table={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `0`
-* Removed: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)/XtraDB 5.6
-
-#### `innodb_use_trim`
-
-* Description: Use trim to free up space of compressed blocks.
-  * See [InnoDB Page Compression: Saving Storage Space with Sparse Files](innodb-page-compression.md#saving-storage-space-with-sparse-files) for more information.
-* Command line: `--innodb-use-trim={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `ON`
-* Deprecated: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
 #### `innodb_version`
 
-* Description: InnoDB version number. From [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7), as the InnoDB implementation in MariaDB has diverged from MySQL, the MariaDB version is instead reported. For example, the InnoDB version reported in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) (which is based on MySQL 5.6) included encryption and variable-size page compression before MySQL 5.7 introduced them. [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) (based on MySQL 5.7) introduced persistent AUTO\_INCREMENT ([MDEV-6076](https://jira.mariadb.org/browse/MDEV-6076)) in a GA release before MySQL 8.0. [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) (based on MySQL 5.7) introduced instant ADD COLUMN ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)) before MySQL.
+* Description: InnoDB version number. As the InnoDB implementation in MariaDB has diverged from MySQL, the MariaDB version is reported instead.
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
@@ -2974,7 +1806,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 #### `innodb_write_io_threads`
 
-* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB writes. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multiplied by 256 to determine the maximum number of concurrent asynchronous I/O write requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous write requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
+* Description: InnoDB write requests are completed by asynchronous I/O in the InnoDB Background Thread Pool. This variable is multiplied by 256 to determine the maximum number of concurrent asynchronous I/O write requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous write requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
 * Command line: `--innodb-write-io-threads=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011)), No (<= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010))

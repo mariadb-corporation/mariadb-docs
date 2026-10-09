@@ -12,30 +12,30 @@ For incompatibilities such as removed features, and changes to variables, see th
 
 To install a minor upgrade with MSI, just download the MSI and install it. It will do everything that needs to be done for minor upgrade automatically - shutdown MariaDB service(s), replace executables and DLLs, and start service(s) again.
 
-The rest of the article is dedicated to _major_ upgrades, e.g 10.1.x to 10.2.y.
+The rest of the article is dedicated to _major_ upgrades, e.g 10.6.x to 10.11.y.
 
 ## General Information on Upgrade and Version Coexistence
 
 This section assumes MSI installations.
 
-First, check everything listed in the Incompatibilities section of the article relating to the version you are upgrading, for example, [Upgrading from MariaDB 10.1 to MariaDB 10.2](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102.md), to make sure you are prepared for the upgrade.
+First, check everything listed in the Incompatibilities section of the article relating to the version you are upgrading, for example, [Upgrading from MariaDB 10.11 to MariaDB 11.4](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md), to make sure you are prepared for the upgrade.
 
 MariaDB (and also MySQL) allows different versions of the product to co-exist
 on the same machine, as long as these versions are different either in major or
-minor version numbers. For example, it is possible to have say [MariaDB 5.1.51](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/5.1.51)
-and 5.2.6 to be installed on the same machine.
+minor version numbers. For example, it is possible to have say MariaDB 10.6.21
+and 10.11.11 to be installed on the same machine.
 
-However only a single instance of 5.2 can exist. If for example 5.2.7 is
-installed on a machine where 5.2.6 is already installed, the installer will
-just replace 5.2.6 executables with 5.2.7 ones.
+However only a single instance of 10.6 can exist. If for example 10.6.22 is
+installed on a machine where 10.6.21 is already installed, the installer will
+just replace 10.6.21 executables with 10.6.22 ones.
 
-Now imagine, that both 5.1 and 5.2 are installed on the same machine and we
-want to upgrade the database instance running on 5.1 to the new version. In
+Now imagine, that both 10.6 and 10.11 are installed on the same machine and we
+want to upgrade the database instance running on 10.6 to the new version. In
 this case special tools are required. Traditionally, [mysql\_upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) is used
 to accomplish this. On Windows, the[MySQL
 upgrade](https://dev.mysql.com/doc/refman/5.5/en/windows-upgrading.html) is a complicated multiple-step manual process.
 
-Since [MariaDB 5.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.6), the Windows distribution includes tools that simplify
+The Windows distribution includes tools that simplify
 migration between different versions and also allow migration between MySQL and\
 MariaDB.
 
@@ -46,7 +46,7 @@ Windows service.
 
 **Important:** Ignore any statement that tells you to _"just uninstall MySQL and install MariaDB"_. This does not work on Windows, never has, and never will. Keep your MySQL installed until after the database had been converted.
 
-The following install/upgrade sequence is recommended in case of "major" upgrades, like going from 5.3 to 5.5
+The following install/upgrade sequence is recommended in case of "major" upgrades, like going from 10.6 to 10.11
 
 * Install new version, while still retaining the old one
 * Upgrade services one by one, like described later in the document (e.g with mysql\_upgrade\_service). It is recommended to have services cleanly shut down before the upgrade.
@@ -82,7 +82,7 @@ a MariaDB/MySQL instance running as the service to the current version.
 Earlier we said that only single instance of "MariaDB ." version
 can be installed on the same machine. This was almost correct, because MariaDB\
 MSI installations allow 32 and 64-bit versions to be installed on the same
-machine, and in this case it is possible to have two instances of say 5.2
+machine, and in this case it is possible to have two instances of say 10.6
 installed at the same time, an x86 one and an x64 one. One can use the x64\
 Upgrade wizard to upgrade an instance running as a 32-bit process to run as\
 64-bit.

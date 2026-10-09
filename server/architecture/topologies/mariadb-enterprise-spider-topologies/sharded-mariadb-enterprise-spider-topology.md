@@ -18,7 +18,7 @@ In the Sharded MariaDB Enterprise Spider topology, a Spider Node contains one or
 MariaDB Enterprise Spider:
 
 * Supports a MariaDB foreign data wrapper. The MariaDB foreign data wrapper can be used to replace the older Federated and FederatedX storage engines.
-* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The ODBC foreign data wrapper was backported to MariaDB Enterprise Server in a previous version. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+* Supports an ODBC foreign data wrapper. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider Sharded topology:
 
@@ -29,6 +29,7 @@ The Spider Sharded topology:
 ## Sharded MariaDB Enterprise Spider Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Sharded Spider topology
     accDescr {
@@ -51,6 +52,7 @@ flowchart LR
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
     class Spider,S1,S2,S3 node
     class Client client
+    linkStyle default color:#111111
 ```
 
 _Sharded Spider: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
@@ -117,7 +119,7 @@ plugin_load_add = "ha_spider"
 INSTALL SONAME "ha_spider";
 ```
 
-### View Foreign Data Wrappers (ES 10.5+)
+### View Foreign Data Wrappers
 
 ```sql
 SELECT * FROM information_schema.SPIDER_WRAPPER_PROTOCOLS;

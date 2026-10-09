@@ -1,6 +1,6 @@
 ---
 description: >-
-  A guide to using the `logrotate` utility on Linux to manage MariaDB log files,
+  A guide to using the logrotate utility on Linux to manage MariaDB log files,
   ensuring they don't consume excessive disk space by rotating, compressing, and
   archiving them.
 ---

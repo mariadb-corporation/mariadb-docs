@@ -180,7 +180,7 @@ In addition there are `AnyDatabase` versions of `dbAdmin`, `read` and`readWrite`
 
 If the `root` role is assigned to a user in the `admin` database, then the privileges are granted on `*.*`, otherwise on `<db>.*`.
 
-Other pre-defined roles are recognized and stored in the local nosqlprotocol account database, but they do not affect what privileges are granted to the MariaDB user. Currently user-defined roles are not supported.
+Other pre-defined roles are recognized and stored in the local nosqlprotocol account database, but they do not affect what privileges are granted to the MariaDB user. User-defined roles are not supported.
 
 ### Client Authentication
 
@@ -757,7 +757,7 @@ Enumeration values:
 * Mandatory: No
 * Default: `false`
 
-Specifies whether an unknown command should be logged. This is primarily for debugging purposes, to find out whether a client uses a command that currently is not supported.
+Specifies whether an unknown command should be logged. This is primarily for debugging purposes, to find out whether a client uses a command that is not supported.
 
 ### `auto_create_databases`
 
@@ -840,7 +840,7 @@ to have the incoming command, the corresponding SQL sent to the backend and the 
 * Mandatory: No
 * Default: ''
 
-Specifies what internal cache to use if any. Currently, the only permissible value is `cache`, which refers to the [cache filter](../maxscale-filters/maxscale-cache.md).
+Specifies what internal cache to use if any. The only permissible value is `cache`, which refers to the [cache filter](../maxscale-filters/maxscale-cache.md).
 
 Please see [caching](maxscale-nosql-protocol-module.md#caching) for more information.
 
@@ -904,9 +904,9 @@ _Nosqlprotocol_ translates that query into something like
 
 The former condition picks out objects whose `color` field contains a literal value `"red"` while the latter picks out objects whose `color` field contains an array containing the value `"color"`.
 
-In MariaDB Server it is currently not possible to create an index that would be appropriate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
+In MariaDB Server it is not possible to create an index that would be appropriate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
 
-Currently, an index is created with the assumption that the field is a literal text-value.
+An index is created with the assumption that the field is a literal text-value.
 
 When an index is created like
 
@@ -984,7 +984,7 @@ the document will be found, but the index will not be used.
 
 ## Operators
 
-The following operators are currently supported.
+The following operators are supported.
 
 ### Query and Projection Operators
 
@@ -1392,13 +1392,13 @@ Each element of the updates array is an update statement document. Each document
 | u     | document | The modifications to apply. See behavior below for details.                                                                                                        |
 | multi | boolean  | Optional. If true, updates all documents that meet the query criteria. If false limit the update to one document that meets the query criteria. Defaults to false. |
 
-Note that currently it is possible to set `multi` to `true` in conjunction with a _replacement-style_ update, even though MongoDB® rejects that.
+Note that it is possible to set `multi` to `true` in conjunction with a _replacement-style_ update, even though MongoDB® rejects that.
 
 All other fields are ignored, with the exception of `upsert` that if present with the value of `true` will cause the command to fail.
 
 **Behavior**
 
-Currently only updating using _update operator expressions_ or with a _replacement document_ is supported. In particular, updating using an _aggregation pipeline_ is not supported.
+Only updating using _update operator expressions_ or with a _replacement document_ is supported. In particular, updating using an _aggregation pipeline_ is not supported.
 
 \####### Update with an Update Operator Expressions document
 
@@ -1632,7 +1632,7 @@ The following fields are relevant.
 | capped | boolean | Optional. If specified, the value must be false as capped collections are not supported. |
 | viewOn | string  | Optional. If specified, the command will fail as views are not supported.                |
 
-Currently, _capped collections_ and _views_ are not supported. Consequently, specifying that the collection should be capped or that it should be a view on another collection, will cause the command to fail.
+_Capped collections_ and _views_ are not supported. Consequently, specifying that the collection should be capped or that it should be a view on another collection, will cause the command to fail.
 
 #### createIndexes
 
@@ -1645,7 +1645,7 @@ The following fields are relevant for each document in the `indexes` array.
 
 | Field  | Type     | Description                                                                                                                                                                                            |
 | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| key    | document | Contains key/value pairs, where the key is the name of the field to index and value the index direction or the index type. Currently the direction is ignored and a specific type cannot be specified. |
+| key    | document | Contains key/value pairs, where the key is the name of the field to index and value the index direction or the index type. The direction is ignored and a specific type cannot be specified. |
 | name   | string   | The name of the index.                                                                                                                                                                                 |
 | unique | boolean  | Optional. If true, a unique index will be created.                                                                                                                                                     |
 | sparse | boolean  | Optional and has no effect.                                                                                                                                                                            |
@@ -1748,7 +1748,7 @@ The following fields are relevant.
 | ----------- | ------ | --------------------------- |
 | listIndexes | string | The name of the collection. |
 
-**NOTE** As it currently is not possible to actually create indexes, although an attempt to do so using `createIndexes` will succeed, the result will always only contain information about the built-in index `_id_`.
+**NOTE** As it is not possible to actually create indexes, although an attempt to do so using `createIndexes` will succeed, the result will always only contain information about the built-in index `_id_`.
 
 #### renameCollection
 

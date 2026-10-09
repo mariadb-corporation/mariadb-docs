@@ -30,16 +30,20 @@ The suggested solution is to solve all of the above and thus create a better mul
 The following picture shows the change:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TB
     accTitle: Moving to catalogs
     accDescr {
-        A comparison of multi-tenant approaches. In the container or VM approach, one physical
-        machine runs several containers or virtual machines, each with its own database,
+        A comparison of multi-tenant approaches. In the container or VM approach, there are
+        several containers or virtual machines, each with its own database,
         requiring at least 1 GB per VM. In the shared-server, separate-schema approach, a single
         MySQL or MariaDB server holds one schema per customer, so customers have a limited number
         of schemas. The catalogs approach places many customer catalogs on a single MariaDB
-        server, and each catalog can contain many schemas for a single customer, such as WebApp,
-        WordPress, Messaging, Historical Data, Analytics, and MySQL schemas.
+        server. Arrows labelled Catalogs lead from the container or VM approach, and from the
+        shared-server approach, to the catalogs approach. A dotted arrow leads from Catalog
+        Customer 3 to a group labelled Catalog for a single customer, which shows that a
+        catalog can contain many schemas for one customer: WebApp, WordPress, Messaging,
+        Historical Data, Analytics, and MySQL schemas.
     }
     subgraph VM["Container / VM approach — 1 GB minimum per VM"]
         VM1[("Container or VM<br/>database")]
@@ -69,6 +73,7 @@ flowchart TB
     classDef schema fill:#eaeaf5,stroke:#5b4b8a,stroke-width:2px,color:#111;
     class VM1,VM2,VM3,SHDB,CATDB db
     class S1,S2,S3,S4,S5,SMY,C1,C2,C3,C4,C5,C6,W,WP,MSG,HD,AN,CMY schema
+    linkStyle default color:#111111
 ```
 
 _Moving to catalogs: instead of one VM or one schema per customer, a single MariaDB server hosts many customer catalogs, and each catalog holds all of that customer's schemas._

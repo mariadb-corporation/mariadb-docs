@@ -2,13 +2,17 @@ name: Test the Doc Lint Hooks
 
 # Gates the repo's shell tooling: shellcheck over every tracked shell script, actionlint over
 # the shell inside the workflow files, and a fixture suite over .claude/hooks/doc-lint.sh --
-# the script that hosts the two documentation-rot checks with NO CI counterpart anywhere else
-# (the GitBook `{% include %}` resolver from DOCS-6372, and the net line-loss "gutted page"
-# guard from DOCS-6470).
+# the script that hosts the documentation-rot checks every other workflow here delegates to
+# (the GitBook `{% include %}` resolver from DOCS-6372, the heading-anchor gate from DOCS-6491,
+# the orphaned-page guard from DOCS-6567 and the net line-loss "gutted page" guard from
+# DOCS-6470 -- all four now gated by their own workflow as well, as of DOCS-6586).
 #
 # The shellcheck and actionlint jobs are one concern split only by where the shell lives: a
-# .sh file or a workflow's `run:` block. Twelve workflows against four standalone scripts, so
-# most of this repo's shell is in the half actionlint covers (DOCS-6587).
+# .sh file or a workflow's `run:` block. Sixteen workflows against nine tracked .sh files, so
+# most of this repo's shell is in the half actionlint covers (DOCS-6587). Note what that split
+# no longer covers: DOCS-6586 moved the gutted-page guard out of doc-lint.sh into
+# shrinkcheck.py, so a check that shellcheck used to read is now Python -- the fixture suite
+# below is the only thing that exercises it.
 #
 # WHY THIS EXISTS
 #   Until now nothing in CI ran doc-lint.sh at all, and its only caller is a Claude Code
@@ -276,6 +280,59 @@ jobs:
               echo '````'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # The Tier 2 function-skill extractor (agent-skills/extractor/) feeds a bot PR whose content
+  # gates all passed while five catalog entries were dropped or garbled (DOCS-6889): no gate
+  # reads generated content. Its tests run here, on every PR and without a paths: filter,
+  # because what breaks the extractor is usually a change to the PAGES it reads -- DOCS-6672
+  # added a hint inside every version tab and touched no extractor code at all.
+  # The HELP-table extractor (help-tables/) runs here for the same reason: its
+  # Markdown stripping had been turning `SELECT * FROM t` into `SELECT  FROM t`
+  # in fill_help_tables.sql, which ships with the server (DOCS-6894).
+  extractor-test:
+    runs-on: ubuntu-latest
+    # Well under a second of Python. Explicit for the same reason as the jobs above.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run the extractor tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -uo pipefail
+          python3 --version
+          python3 -m unittest discover -s agent-skills/extractor -p 'test_*.py' -v > extractor-test.log 2>&1
+          rc=$?
+          cat extractor-test.log
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::The Tier 2 function-skill extractor tests failed. If a page-format change caused it, fix the extractor rather than the test -- the next scheduled regeneration would otherwise ship the broken catalog."
+            exit "$rc"
+          fi
+          # unittest exits 0 on "Ran 0 tests" -- a renamed file or a broken -p pattern would pass
+          # silently, so require a nonzero count.
+          if ! grep -qE '^Ran [1-9][0-9]* tests? in ' extractor-test.log; then
+            echo "::error::unittest discovered no extractor tests, so this pass would mean nothing. Check the file name still matches test_*.py."
+            exit 1
+          fi
+
+      - name: Run the HELP-table extractor tests
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          set -uo pipefail
+          python3 -m unittest discover -s help-tables -p 'test_*.py' -v > help-tables-test.log 2>&1
+          rc=$?
+          cat help-tables-test.log
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::The HELP-table extractor tests failed. Its output ships with the server as fill_help_tables.sql; fix the extractor (or the page) rather than the test."
+            exit "$rc"
+          fi
+          if ! grep -qE '^Ran [1-9][0-9]* tests? in ' help-tables-test.log; then
+            echo "::error::unittest discovered no HELP-table extractor tests, so this pass would mean nothing. Check the file name still matches test_*.py."
+            exit 1
+          fi
 
   # actionlint covers what no other gate here can see: the shell inside `run:` blocks, plus
   # workflow-specific checks -- untrusted-input interpolation above all. DOCS-6401's third defect

@@ -69,7 +69,7 @@ This feature was designed to help you understand your database environment faste
 Although we tried to make introspection look exactly the same in both classic Jupyter Notebook and Jupyterlab interfaces, it wasn't possible due to some fundamental difference in how Notebook renders the introspection tooltip in comparison to the newer JupyterLab interface.\
 For the moment, to see the full introspection information in Notebook that the MariaDB kernel sends to the frontend, you'll need to hit `shift-tab` then click on the expand button from the tooltip to get the `HTML` representation of the introspection information.
 
-Here's a visual summary of our currently supported introspection capabilities.
+Here's a visual summary of the supported introspection capabilities.
 
 **Database introspection**
 

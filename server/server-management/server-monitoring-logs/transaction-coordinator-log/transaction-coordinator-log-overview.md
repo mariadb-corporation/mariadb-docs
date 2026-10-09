@@ -1,6 +1,6 @@
 ---
 description: >-
-  Explains the purpose of the Transaction Coordinator (TC) log (`tc.log`), which
+  Explains the purpose of the Transaction Coordinator (TC) log (tc.log), which
   maintains consistency for XA transactions that affect multiple storage
   engines, and how to configure it.
 ---
@@ -11,7 +11,7 @@ The transaction coordinator log (tc\_log) is used to coordinate transactions tha
 
 ## Types of Transaction Coordinator Logs
 
-There are currently two implementations of the transaction coordinator log:
+There are two implementations of the transaction coordinator log:
 
 * Binary log-based transaction coordinator log
 * Memory-mapped file-based transaction coordinator log
@@ -58,22 +58,6 @@ One of the main purposes of the transaction coordinator log is in crash recovery
 
 ## Known Issues
 
-### You must enable exactly N storage engines
-
-Prior to [MariaDB 10.1.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.10), if you were using the memory-mapped file-based transaction coordinator log, and then if the server crashed and you changed the number of XA-capable storage engines that it loaded, then you could see errors like the following:
-
-```
-2018-11-30 23:08:49 140046048638848 [Note] Recovering after a crash using tc.log          
-2018-11-30 23:08:49 140046048638848 [ERROR] Recovery failed! You must enable exactly 3 storage engines that support two-phase commit protocol
-2018-11-30 23:08:49 140046048638848 [ERROR] Crash recovery failed. Either correct the problem (if it's, for example, out of memory error) and restart, or delete tc log and start mysqld with --tc-heuristic-recover={commit|rollback}
-2018-11-30 23:08:49 140046048638848 [ERROR] Can't init tc log
-2018-11-30 23:08:49 140046048638848 [ERROR] Aborting
-```
-
-To recover from this error, delete the file defined by the [--log-tc](../../starting-and-stopping-mariadb/mariadbd-options.md#log-tc) server option, and then restart the server with the [--tc-heuristic-recover](../../starting-and-stopping-mariadb/mariadbd-options.md#tc-heuristic-recover) option set.
-
-See [MDEV-9214](https://jira.mariadb.org/browse/MDEV-9214) for more information.
-
 ### Bad magic header in tc log
 
 If you are using the memory-mapped file-based transaction coordinator log, then it is possible to see errors like the following:
@@ -97,15 +81,7 @@ See [this docker issue](https://github.com/MariaDB/mariadb-docker/issues/201) fo
 
 ### MariaDB Galera Cluster
 
-[MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) builds include a built-in plugin called `wsrep`. Prior to [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), this plugin was internally considered an [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) [storage engine](../../../server-usage/storage-engines/). Consequently, these MariaDB Galera Cluster builds have multiple XA-capable storage engines by default, even if the only "real" storage engine that supports external [XA transactions](../../../reference/sql-statements/transactions/xa-transactions.md) enabled on these builds by default is [InnoDB](../../../server-usage/storage-engines/innodb/). Therefore, when using one these builds MariaDB would be forced to use a transaction coordinator log by default, which could have performance implications.
-
-For example, [MDEV-16509](https://jira.mariadb.org/browse/MDEV-16509) describes performance problems where MariaDB Galera Cluster actually performs better when the [binary log](../binary-log/) is enabled. It is possible that this is caused by the fact that MariaDB is forced to use the memory-mapped file-based transaction coordinator log in this case, which may not perform as well.
-
-This became a bigger issue in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) when the [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch that powers MariaDB Galera Cluster was enabled on most MariaDB builds on Linux by default. Consequently, this built-in `wsrep` plugin would exist on those MariaDB builds on Linux by default. Therefore, MariaDB users might pay a performance penalty, even if they never actually intended to use the MariaDB Galera Cluster features included in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1).
-
-In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, the built-in `wsrep` plugin has been changed to a replication plugin. Therefore, it is no longer considered an [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) storage engine, so it no longer forces MariaDB to use a transaction coordinator log by default.
-
-See [MDEV-16442](https://jira.mariadb.org/browse/MDEV-16442) for more information.
+[MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) builds include a built-in plugin called `wsrep`. This plugin is a replication plugin, so it is not considered an [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) storage engine and does not force MariaDB to use a transaction coordinator log by default.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

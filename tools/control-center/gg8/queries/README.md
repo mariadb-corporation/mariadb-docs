@@ -1,6 +1,7 @@
 ---
 description: >-
   The Control Center Queries screen for GridGain 8 and Apache Ignite 2 clusters.
+hidden: true
 ---
 
 # Queries Screen

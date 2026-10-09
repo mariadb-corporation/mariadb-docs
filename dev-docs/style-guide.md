@@ -33,8 +33,37 @@ The `style-apply` skill enforces the checkable parts of this digest.
   keyboard shortcuts, SQL keywords, file names. Keywords like `NULL` and value ranges (`0` to
   `360`) are formatted as code.
 - **Placeholders → *italics*** (and also `code` when adjacent to a literal). Use **meaningful
-  names** — `table`, `database`, `string` — not `tbl`, `db`, `x`, `<x>`. Exception: inside code
-  blocks GitBook can't format, so use "fancy" placeholders there (e.g. `CREATE TABLE tbl`).
+  names** — `table_name`, `db_name`, `column_name` — not `tbl`, `db`, `x`, `<x>`. Exception:
+  inside code blocks GitBook can't format, so use "fancy" placeholders there
+  (e.g. `CREATE TABLE tbl`).
+- **Never use a reserved word as a placeholder or example name.** A reader who copies
+  `CREATE TABLE table (…)` gets a syntax error (`ERROR 1064`). Quoting the word in backticks
+  (`` CREATE TABLE `table` (…) ``) works, but it's cumbersome, and readers copy examples
+  without it. Use these names instead:
+
+  | Don't write | Placeholder | Example table or column name |
+  | ----------- | ----------- | ---------------------------- |
+  | `table` | `table_name` | `t1`, `customers` |
+  | `column` | `column_name` | `c1`, `email` |
+  | `index` | `index_name` | `idx_email` |
+  | `key` | `key_name` | `item_key` |
+  | `constraint` | `constraint_name` | `fk_order_customer` |
+  | `partition` | `partition_name` | `p0` |
+  | `procedure` | `proc_name` | `get_orders` |
+  | `trigger` | `trigger_name` | `orders_before_insert` |
+  | `cursor` | `cursor_name` | `cur1` |
+  | `condition` | `condition_name` | `no_such_table` |
+  | `order` | — | `orders`, `order_id` |
+  | `group` | `group_name` | `groups`, `user_group` |
+  | `range` | — | `price_range` |
+  | `interval` | — | `interval_value` |
+  | `default` | — | `default_value` |
+  | `desc` | — | `description` |
+  | `values` | — | `vals`, `item_values` |
+
+  `database` and `schema` are accepted as names, although
+  [Reserved Words](https://mariadb.com/docs/server/reference/sql-structure/sql-language-structure/reserved-words)
+  lists them. Still write `db_name` for consistency. For any other word, check that list.
 - **Don't mix natural language and keywords:** "INSERTs cannot be used" → "`INSERT` statements
   cannot be used." **SQL things are statements, not commands** ("the `INSERT` statement", not
   "the INSERT command").
@@ -54,6 +83,121 @@ The `style-apply` skill enforces the checkable parts of this digest.
 - **Neutral action verbs:** avoid violent metaphors — `kill`/`abort`/`hang` → `terminate` /
   `stop` / `cancel` / `unresponsive`.
 
+## Acronyms
+
+- **Spell out an acronym the first time it appears on a page**, with the acronym in
+  parentheses. Use the acronym for the rest of the page: "The Java Virtual Machine (JVM) runs
+  the connector. The JVM loads …". Keep any article the spelled-out form needs ("the JVM").
+- **Per page, not per site.** Readers often land on a page from search, so every page
+  introduces its own acronyms, even if a parent or neighboring page already did.
+- **Introduce an acronym only if you use it again.** If it appears once, write out the full term
+  and leave the acronym out.
+- **Don't spell out acronyms that are better known than their expansion:** `SQL`, `JSON`, `XML`,
+  `HTML`, `HTTP`/`HTTPS`, `URL`, `API`, `CPU`, `RAM`, `SSL`/`TLS`. The same applies to product
+  and protocol names that are acronyms.
+- **Spell out in body text, not in headings.** If a page title or heading uses an acronym,
+  still spell it out at its first use in the body text.
+- **Plurals take no apostrophe:** `APIs`, `CPUs`, `GTIDs`.
+- For anything else, follow Google's
+  [Abbreviations](https://developers.google.com/style/abbreviations) page, which the published
+  style guide adopts.
+
+## Plain language (DOCS-6890)
+
+Readers notice machine-written prose, and once they notice it, they trust the page less. In
+October 2026 we counted writing habits in the prose added since June 2026 and compared it with
+the docs as they stood in June. The words usually blamed for that impression are not the
+problem: *robust*, *seamless*, *leverage* and filler such as *simply* are rarer in the new prose
+than in the old. What grew is an explaining voice. Compared with the June docs, the new prose
+has:
+
+- 4.5 times as many em dashes
+- 3.3 times as many colons in mid-sentence that announce an explanation
+- 1.9 times as many *This means* and *In other words*
+- 1.7 times as many *Note that*
+- twice as many sentences over 35 words (16% of all sentences, up from 8%)
+
+### The test
+
+Read each sentence as if you were saying it to a colleague at your desk.
+
+1. **Would you say it out loud?** If it only works on paper, write the spoken version.
+2. **Does every word carry information?** Delete a word and read the sentence again. If the
+   meaning is the same, leave the word out.
+3. **Is it literal?** Replace a metaphor or an idiom with the thing itself.
+4. **Is it one idea?** Split a sentence that stacks clauses with semicolons, dashes, or a colon.
+5. **Does it add something, or only announce what comes next?** Cut the announcement.
+6. **Does the reader learn something?** Cut what they already know.
+
+When a sentence reads wrong, try deleting it before you reword it. Often nothing is lost,
+because the sentence only introduced or repeated another one.
+
+### Habits to cut
+
+These are the patterns that grew. Each one has legitimate uses, so treat a hit as a question.
+
+- **Explaining the previous sentence.** *This means*, *In other words*, *That is*, *which
+  means*. Usually the second sentence repeats the first one in other words. Keep the sentence
+  that states the fact the reader acts on, and delete the other. "Changes take effect without a
+  restart. This means you can tune the value on a running server." → "You can change the value
+  on a running server."
+- **Signposts.** *Note that*, *It is worth noting that*, *It is important to note*, *Keep in
+  mind that*. State the fact. If the reader must not miss it, put it in a hint block.
+- **Em dashes.** They are allowed. Aim for no more than one per paragraph, and make an
+  exception only when it is justified. Never use one to attach a second thought to a finished
+  sentence. A period, a comma, or parentheses usually work better.
+- **A colon in the middle of a sentence that announces an explanation.** "The reason is
+  simple: the server reads the file only at startup." → "The server reads the file only at
+  startup." Use colons to introduce lists, code blocks, and examples.
+- **Semicolons between clauses.** Write two sentences.
+- **Long sentences.** Aim for 15 to 20 words per sentence. A longer sentence needs a reason,
+  such as a list of options that belongs together.
+- **Contrast framing.** *rather than*, *not X but Y*, *X, not Y*. Say what something is. Name
+  the alternative only when the reader would otherwise expect it.
+- **Announcing.** *Here is how*, *The following explains*, *There are a few things to
+  consider*. Start with the first thing.
+- **Emphasis adverbs.** *deliberately*, *genuinely*, *explicitly*, *precisely*, *exactly*,
+  *entirely*. Keep the word when it carries a fact (an *explicit* `COMMIT`, *exactly* one row).
+  Delete it when it only adds weight.
+- **Marketing words and hyperbole.** *robust*, *seamless*, *comprehensive*, *powerful*,
+  *leverage*, *crucial*, *vital*, *easily*, *obviously*, *clearly*, *trivially*. These are rare
+  in our docs. Keep them rare. (Filler words are covered under *Grammar & word choice* above.)
+
+### Plain words
+
+- Use the common word when it does the same job: *use* (not *utilize* or *leverage*),
+  *returns an error* or *fails with an error* (not *raises*, *throws*, or *emits*), *check*
+  (not *sanity-check*), *start* (not *kick off*).
+- Replace idioms with what they mean: *out of the box* → *by default*; *under the hood* →
+  *internally*, or name the component; *low-hanging fruit*, *rabbit hole*, *belt and braces* →
+  say what happens.
+- Replace dramatic words with what happens: *catastrophic*, *severe*, *must never*. A security
+  warning can be firm, but it still states the consequence: "Anyone who can read this file can
+  log in as `root`."
+- Keep a term exact when it is the product's own word, even if a plainer word exists:
+  *execute* in "`EXECUTE` a prepared statement", *validate* where an option is named that way.
+
+### Outside the page: reviews, pull requests, Jira
+
+The same rules apply to what we write about the docs. A few more apply there:
+
+- **Headings in sentence case.** Jira tickets and pull request descriptions use sentence case
+  ("What changes"). Published pages keep Title Case (see *Headings*).
+- **Agree plainly.** "Agreed", "Yes, changed", "You're right, fixed." Not "I concede", not
+  "scratch that", not "my mistake" followed by a paragraph. State the correct position and stop.
+- **Answer a numbered review by number**, and don't offer work nobody asked for.
+
+### Where these rules come from
+
+This section adapts the writing rules in the `mariadb-qa` Claude writing kit
+(`claude/writing/`), evaluated in DOCS-6642. These kit rules conflict with this guide, so we
+did not adopt them:
+
+- **ASCII only, no em dashes.** Our docs use em dashes, and Google style allows them.
+- **Jira wiki markup.** DOCS Jira is Jira Cloud. Wiki markup applies only on jira.mariadb.org.
+- **No version lines.** Docs carry version notes.
+- **No line numbers.** Fact-check reports cite `file:line`.
+
 ## Inclusive terminology (DOCS-5606)
 
 In core docs (Server, MaxScale, ColumnStore, Connectors): **master → primary**, **slave →
@@ -72,6 +216,106 @@ Discovery (informational for the unchangeable cases):
 **Avoid** statements about future/unreleased behavior. Exception: a concrete, planned change —
 indicated by an MDEV ticket with a **Fix Version** filled in. (This is exactly what
 `doc-from-ticket` verifies before asserting behavior.)
+
+## Timeless wording (DOCS-6640)
+
+Avoid *currently*, *at this time*, *at present*, *at the moment*, *for now*, *right now*,
+*as of now*, *as of today*, *soon*, *in the future*, *upcoming*, *recently*, and *as of
+this writing* when they date a claim about the **product**. Nobody
+knows when "currently" was written, so a reader has to assume it is true today
+([Google: timeless documentation](https://developers.google.com/style/timeless-documentation)).
+
+- **Fix — product state.** What the product supports, its maturity, a limitation:
+  "Row-based replication is not currently supported" → "Row-based replication is not
+  supported", or tie it to a version: "From MariaDB 11.4, …". **Verify the claim against
+  source before rewording** — a "not currently supported" is often no longer true, and then
+  the fact is what needs fixing, not the adverb.
+- **Anchor, don't delete — a true, time-bound claim.** "Version 2.0 is currently a Release
+  Candidate" is correct today and wrong the day 2.0 goes GA. Dropping *currently* makes it a
+  timeless falsehood; "As of 2.0.0rc2, version 2.0 is a Release Candidate" stays true and
+  shows its age. Use a version, or a month and year for claims with no version ("As of
+  September 2026, there are no known CVEs …").
+- **Leave alone — runtime state.** "The number of currently connected clients", "the server
+  currently acting as primary", "least recently used". Here the word means *at this moment,
+  while the server runs*, and it is the right word.
+- **Also fine:** fixed phrases ("as soon as", "at the moment the snapshot was taken",
+  "at some time in the future" describing a scheduled event), tutorial asides ("for now,
+  let's use …"), quoted output and error-message text, and dated records such as release
+  notes and the year-stamped Google Summer of Code pages.
+
+**Check:** `python3 .claude/hooks/timeless.py check <file>` lists the high-precision cases
+(maturity and support status, "coming soon", "at the time of writing"). It is advisory: a hit
+is a question, not a verdict, and it deliberately misses most "currently", so read the page
+too. The nightly digest (`nightly-timeless.yml`) runs the same patterns on new commits.
+
+## Versions before 10.6
+
+MariaDB Community Server 10.6 reached end of life in July 2026. Remove mentions of MariaDB
+versions before 10.6, and rewrite the sentence so it stands on its own: "Starting with
+MariaDB 10.3.6, MariaDB uses this feature" → "MariaDB uses this feature". Two exceptions:
+
+- **Release notes** (and *What's New* pages) keep their version mentions; they record the past.
+- **Reference pages of variables** (system and status variables) keep the version in their
+  `Introduced:` field, however old it is.
+
+## Version tabs (DOCS-6672)
+
+Pages use GitBook tabs to show how a feature behaves in different versions. Readers misread the
+tab titles — they take **Current** to mean "the version I'm currently running" — so every
+version tab repeats its version range at the top of its content.
+
+**Tab titles:**
+
+- The first tab is always `Current`.
+- Name every other tab after the version it ends at, with a leading `<`: `< 11.4`. With more
+  than two tabs, go from newest to oldest.
+- Abbreviate Community Server and Enterprise Server as `CS` and `ES` in titles:
+  `< CS 12.0 / ES 11.8`. Spell them out in the tab content.
+- Separate multiple versions with ` / `: `< 11.4.3 / 10.11.9 / 10.6.19`, not
+  `<10.6.19, <10.11.9`.
+- **Tab titles are link anchors** (`< 11.1` → `#less-than-11.1`). Before renaming a tab, search
+  the docs for links to its old anchor.
+
+**Tab content** — start every version tab with an info hint (`{% hint style="info" %}`) naming
+the versions it applies to:
+
+| Tab | Hint text |
+|-----|-----------|
+| `Current` | `From MariaDB 11.4:` |
+| `< 11.4`, the last tab | `Before MariaDB 11.4:` |
+| `< 11.4`, followed by `< 10.7` | `From MariaDB 10.7 to before MariaDB 11.4:` |
+| `< CS 12.0 / ES 11.8` | `Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:` |
+
+```
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+
+{% tab title="< CS 12.0 / ES 11.8" %}
+{% hint style="info" %}
+Before Community Server (CS) 12.0 / Enterprise Server (ES) 11.8:
+{% endhint %}
+…
+{% endtab %}
+{% endtabs %}
+```
+
+- If the tab title doesn't mention `CS` or `ES`, write `MariaDB X`.
+- **Only name ES versions you have verified against ES source.** ES often gets features earlier
+  than CS, as backports, so the CS version is not a safe guess.
+- Tabs that don't differentiate versions (*Oracle Mode*, *Background*, product tabs for
+  Enterprise vs. Community install steps) get no hint.
+
+**Which version to name:** normally the release series only (CS 12.0, ES 11.8). Name a full
+version only when a feature was backported within a series to a release other than `.0`
+(preview) or `.1` (normally the first GA) — for example ES 11.8.9-6 (DOCS-6424).
+
+**Example:** `server/reference/sql-statements/data-definition/create/create-function.md`, the
+`RETURN` tab block.
 
 ## Links
 

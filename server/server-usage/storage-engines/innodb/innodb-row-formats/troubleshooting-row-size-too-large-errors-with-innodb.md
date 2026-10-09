@@ -34,7 +34,7 @@ These messages are raised in the following cases:
 
 ## Does the Problem Affect me?
 
-The cause of the problem is described [here](troubleshooting-row-size-too-large-errors-with-innodb.md#root-cause-of-the-problem). In very short, it affected old MariaDB versions (up to 10.2.26, 10.3.17, and 10.4.7). If you're on a newer version, the problem could yet still come up if the following applies:
+The cause of the problem is described [here](troubleshooting-row-size-too-large-errors-with-innodb.md#root-cause-of-the-problem). In very short, it affected only old, unsupported MariaDB versions. If you're on a supported version, the problem could yet still come up if the following applies:
 
 * You created tables with a MariaDB version that has the problem.
 * The tables weren't changed by any DML[^1] statements in a newer MariaDB version since then.
@@ -280,7 +280,7 @@ The InnoDB row formats work around this limit by storing certain kinds of variab
 
 ## Checking Existing Tables for the Problem
 
-InnoDB does not currently have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
+InnoDB does not have an easy way to check all existing tables to determine which tables have this problem. See [MDEV-20400](https://jira.mariadb.org/browse/MDEV-20400) for more information.
 
 One method to check a single existing table for this problem is to enable [InnoDB strict mode](../innodb-strict-mode.md), and then try to create a duplicate of the table with [CREATE TABLE ... LIKE](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-like). If the table has this problem, then the operation fails:
 
@@ -294,59 +294,68 @@ TEXT or BLOB may help. In current row format, BLOB prefix of 0 bytes is stored i
 
 ## Finding All Tables That Currently Have the Problem
 
-The following shell script will read through a MariaDB server to identify every table that has a row size definition that is too large for its row format and the server's page size. It runs on most common distributions of Linux.
+The following shell script checks every InnoDB table on a MariaDB server and reports each table whose row size is too large for its row format and the server's page size. It requires Bash and the `mariadb` command-line client.
 
-To run the script, copy the code below to a shell-script named `rowsize.sh`, make it executable with the command `chmod 755 ./rowsize.sh`, and invoke it with the following parameters:
+For each table, the script creates an empty copy with `CREATE TABLE ... LIKE` in a temporary database, with InnoDB strict mode enabled, and sets the copy to the row format the original table actually uses. If the copy fails with a "Row size too large" error, the table has the problem. The script does not read or change any data.
 
+To run the script, copy the code below to a shell script named `rowsize.sh`, make it executable with the command `chmod 755 ./rowsize.sh`, and invoke it with the [mariadb client options](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#options) needed to connect to the server. To keep the password off the command line, put the credentials in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) and pass it with `--defaults-extra-file`:
+
+```bash
+./rowsize.sh --defaults-extra-file=./rowsize.cnf -h db1.example.com
 ```
-./rowsize.sh host user password
-```
 
-When the script runs, it displays the name of the temporary database it creates, so that if the script is interrupted before cleaning up, the database can be easily identified and removed manually.
+The account needs the `SELECT` privilege on the tables it checks, and the `CREATE`, `ALTER`, and `DROP` privileges for the temporary database.
 
-As the script runs it will output one line reporting the database and tablename for each table it finds that has the oversize row problem. If it finds none, it will print the following message: "No tables with rows size too big found."
+When the script runs, it displays the name of the temporary database it creates. The script drops this database when it finishes, or when it is interrupted. If the script is killed before it can clean up, use this name to identify and drop the database manually.
 
-In either case, the script prints one final line to announce when it's done: `./rowsize.sh done.`
+The script outputs one line for each table that has the problem, with the database name, the table name, and the row format. If it finds none, it prints the following message: "No tables with row size too large found." Tables it cannot check are reported as warnings on standard error.
 
 {% code expandable="true" %}
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
+# Find InnoDB tables whose row size is too large for their row format.
+# Usage: ./rowsize.sh [mariadb client options]
 
-[ -z "$3" ] && echo "Usage: $0 host user password" >&2 && exit 1
+opts=("$@")
+sql() { mariadb "${opts[@]}" --batch --raw --skip-column-names -e "$1" </dev/null; }
+quote() { local id=${1//\`/\`\`}; printf '`%s`' "$id"; }
 
-dt="tmp_$RANDOM$RANDOM"
+tmpdb="rowsize_tmp_$$_$RANDOM"
 
-mysql -h $1 -u $2 -p$3 -ABNe "create database $dt;"
-[ $? -ne 0 ] && echo "Error: $0 terminating" >&2 exit 1
+tables=$(sql "SELECT TABLE_SCHEMA, TABLE_NAME, ROW_FORMAT
+              FROM information_schema.TABLES
+              WHERE ENGINE = 'InnoDB'
+                AND TABLE_TYPE IN ('BASE TABLE', 'SYSTEM VERSIONED')
+                AND TABLE_SCHEMA NOT IN ('mysql', 'sys')
+              ORDER BY TABLE_SCHEMA, TABLE_NAME") ||
+  { echo "Error: cannot read the table list" >&2; exit 1; }
+
+sql "CREATE DATABASE $tmpdb" ||
+  { echo "Error: cannot create database $tmpdb" >&2; exit 1; }
+trap 'sql "DROP DATABASE IF EXISTS $tmpdb"' EXIT
+echo "Created temporary database $tmpdb"
+
+count=0
+while IFS=$'\t' read -r db tbl format; do
+  [ -z "$tbl" ] && continue
+  err=$(sql "SET SESSION innodb_strict_mode = ON;
+             CREATE TABLE $tmpdb.t LIKE $(quote "$db").$(quote "$tbl");
+             ALTER TABLE $tmpdb.t ROW_FORMAT = $format;" 2>&1)
+  if [[ $err == *"Row size too large"* ]]; then
+    echo "$db.$tbl (ROW_FORMAT=$format)"
+    count=$((count + 1))
+  elif [ -n "$err" ]; then
+    echo "Warning: could not check $db.$tbl: $err" >&2
+  fi
+  sql "DROP TABLE IF EXISTS $tmpdb.t"
+done <<< "$tables"
 
 echo
-echo "Created temporary database ${dt} on host $1"
-echo
-
-c=0
-for d in $(mysql -h $1 -u $2 -p$3 -ABNe "show databases;" | egrep -iv "information_schema|mysql|performance_schema|$dt")
-do
-	for t in $(mysql -h $1 -u $2 -p$3 -ABNe "show tables;" $d)
-	do
-		tc=$(mysql -h $1 -u $2 -p$3 -ABNe "show create table $t\\G" $d | egrep -iv "^\*|^$t")
-		
-		echo $tc | grep -iq "ROW_FORMAT"
-		if [ $? -ne 0 ]
-		then
-			tf=$(mysql -h $1 -u $2 -p$3 -ABNe "select row_format from information_schema.innodb_sys_tables where name = '${d}/${t}';")
-			tc="$tc ROW_FORMAT=$tf"
-		fi
-		
-		ef="/tmp/e$RANDOM$RANDOM"
-		mysql -h $1 -u $2 -p$3 -ABNe "set innodb_strict_mode=1; set foreign_key_checks=0; ${tc};" $dt >/dev/null  2>$ef
-		[ $? -ne 0 ] && cat $ef | grep -q "Row size too large" && echo "${d}.${t}" && let c++ || mysql -h $1 -u $2 -p$3 -ABNe "drop table if exists ${t};" $dt
-		rm -f $ef
-	done
-done
-mysql -h $1 -u $2 -p$3 -ABNe "set innodb_strict_mode=1; drop database $dt;"
-[ $c -eq 0 ] && echo "No tables with rows size too large found." || echo && echo "$c tables found with row size too large."
-echo
-echo "$0 done."
+if [ "$count" -eq 0 ]; then
+  echo "No tables with row size too large found."
+else
+  echo "$count tables found with row size too large."
+fi
 ```
 {% endcode %}
 
@@ -360,7 +369,7 @@ If the table is using either the [REDUNDANT](innodb-redundant-row-format.md) or 
 
 If your tables were originally created on an older version of MariaDB or MySQL, then your table may be using one of InnoDB's older row formats:
 
-* In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before, and in MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
+* In MySQL 5.6 and before, the [COMPACT](innodb-compact-row-format.md) row format was the default row format.
 * In MySQL 4.1 and before, the [REDUNDANT](innodb-redundant-row-format.md) row format was the default row format.
 
 The [DYNAMIC](innodb-dynamic-row-format.md) row format can store more data on overflow pages than these older row formats, so this row format may actually be able to store the table's data safely. See [InnoDB DYNAMIC Row Format: Overflow Pages with the DYNAMIC Row Format](innodb-dynamic-row-format.md#overflow-pages-with-the-dynamic-row-format) for more information.
@@ -380,7 +389,7 @@ WHERE ROW_FORMAT IN('Redundant', 'Compact')
 AND NAME NOT IN('SYS_DATAFILES', 'SYS_FOREIGN', 'SYS_FOREIGN_COLS', 'SYS_TABLESPACES', 'SYS_VIRTUAL', 'SYS_ZIP_DICT', 'SYS_ZIP_DICT_COLS');
 ```
 
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and later, the [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on one of these newer versions, then they may already be using this row format. In that case, you may need to try the next solution.
+The [DYNAMIC](innodb-dynamic-row-format.md) row format is the default row format. If your tables were originally created on a recent version, then they may already be using this row format. In that case, you may need to try the next solution.
 
 ### Fitting More Columns on Overflow Pages
 

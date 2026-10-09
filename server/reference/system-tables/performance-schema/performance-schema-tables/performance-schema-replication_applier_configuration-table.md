@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema replication\_applier\_configuration Table
 
-{% hint style="info" %}
-The `replication_applier_configuration` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The [Performance Schema](../) replication\_applier\_configuration table contains configuration settings affecting replica transactions.
 
 It contains the following fields.

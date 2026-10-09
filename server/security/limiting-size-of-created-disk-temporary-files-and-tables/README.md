@@ -26,7 +26,7 @@ Overview of the feature introduced in MariaDB 11.5 to limit disk space used by t
 {% endcolumn %}
 
 {% column %}
-Documentation for the system variable that restricts the maximum total size of temporary files and tables allowed for an individual user session.
+Documentation for the system variable that limits the total size of temporary files and temporary tables that a single connection can use.
 {% endcolumn %}
 {% endcolumns %}
 

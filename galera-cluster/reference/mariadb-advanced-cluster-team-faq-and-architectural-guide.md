@@ -8,7 +8,7 @@ description: >-
 # MariaDB Advanced Cluster: Team FAQ & Architectural Guide
 
 {% hint style="info" %}
-MariaDB Advanced Cluster is currently in Technical Preview. This FAQ is an interim guide. Once the Advanced Cluster reaches General Availability (GA), this page will be redirected to the official comprehensive documentation.
+MariaDB Advanced Cluster is available as a Technical Preview. This FAQ is an interim guide until General Availability (GA) documentation exists.
 {% endhint %}
 
 ## The Basics
@@ -63,6 +63,18 @@ Result: Your application's write performance in New York is directly tied to you
 
 ```mermaid
 sequenceDiagram
+    accTitle: Write path in a three-region cluster with leaderless ordering
+    accDescr {
+        A sequence between four participants: NY App, NY Node (Initiator), LON
+        Nodes (2) and TYO Nodes (2). NY App sends 1. Write Data to the NY Node.
+        Notes mark three steps. Step 1, Write-Set Broadcast: the NY Node sends
+        Broadcast to the LON Nodes and to the TYO Nodes in parallel. Step 2,
+        Ordering Agreement (Leaderless): the LON Nodes and the TYO Nodes send each
+        other Order check messages in parallel. Step 3, Acknowledgments: in
+        parallel, the LON Nodes send Ack (Fast) and the TYO Nodes send Ack
+        (Slowest) to the NY Node. A note says Bottleneck: MUST wait for Tokyo.
+        Finally the NY Node sends Commit Success (Delayed) to NY App.
+    }
     participant App as NY App
     participant NY1 as NY Node (Initiator)
     participant LON as LON Nodes (2)
@@ -106,6 +118,19 @@ Result: The Leader completely ignores the latency of the furthest outlier (Tokyo
 
 ```mermaid
 sequenceDiagram
+    accTitle: Leader-based write with quorum commit
+    accDescr {
+        A sequence between five participants: NY App, NY Leader, NY Followers (2),
+        LON Followers (2) and TYO Followers (2). NY App sends 1. Write Data to the
+        NY Leader. In a parallel block labelled Log Broadcast, the NY Leader sends
+        Append Log to the NY Followers, the LON Followers and the TYO Followers.
+        The NY Followers send Ack (Count: 3/7) to the NY Leader. The LON Followers
+        send 1st LON Ack Arrives (Count: 4/7) to the NY Leader. A note beside the
+        NY Leader says Quorum Reached! (4 > 3). The NY Leader then sends Commit
+        Success (Fast) to NY App. A note over the TYO Followers says Background
+        Catch-up, and the TYO Followers send Ack (Ignored for Commit) to the NY
+        Leader.
+    }
     participant App as NY App
     participant LDR as NY Leader
     participant NYF as NY Followers (2)

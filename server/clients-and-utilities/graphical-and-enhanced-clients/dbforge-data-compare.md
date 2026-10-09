@@ -84,7 +84,6 @@ Download a free 30-day trial of dbForge Data Compare [here](https://www.devart.c
 | dbForge Data Compare 10.0 | Support for MariaDB 11.4, Added support for temporal tables in MariaDB.                                                                                                |
 | dbForge Data Compare 5.9  | Support for MariaDB 11.3.                                                                                                                                              |
 | dbForge Data Compare 5.8  | Support for MariaDB 10.9 and 10.10.                                                                                                                                    |
-| dbForge Data Compare 5.7  | Connectivity support for MariaDB 10.5.                                                                                                                                 |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

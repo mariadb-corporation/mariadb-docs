@@ -15,21 +15,10 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the st
 
 The monitor user requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
 GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-```sql
-CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
-GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
-```
-{% endtab %}
-{% endtabs %}
 
 If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set), it needs the `FILE` privilege:
 
@@ -59,6 +48,10 @@ If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-ope
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0:
+{% endhint %}
+
 ```sql
 GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -67,7 +60,11 @@ GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
-{% tab title="< 11.0.1" %}
+{% tab title="< 11.0" %}
+{% hint style="info" %}
+Before MariaDB 11.0:
+{% endhint %}
+
 ```sql
 GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -85,21 +82,10 @@ GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
 
 If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-```sql
-CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
-GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
-```
-{% endtab %}
-{% endtabs %}
 
 ## Primary selection
 
@@ -353,10 +339,10 @@ See [operation details](mariadb-monitor.md#operation-details) for more informati
 
 MariaDB Monitor also supports backup operations that copy or overwrite the entire contents of a server: `rebuild-server` (run with the `async-rebuild-server` command), `create-backup` (`async-create-backup`), and `restore-from-backup` (`async-restore-from-backup`). These are described in the [Backup operations](mariadb-monitor.md#backup-operations) section.
 
-The cluster operations require that the monitor user (`user`) has the following privileges:
+Before MariaDB Server 11.0.1, the cluster operations require that the monitor user (`user`) has the following privileges:
 
 * SUPER, to modify replica connections, set globals such as read\_only and kill connections from other super-users
-* REPLICATION CLIENT (REPLICATION SLAVE ADMIN in MariaDB Server 10.5), to list replica connections
+* REPLICA MONITOR, to list replica connections
 * RELOAD, to flush binary logs
 * PROCESS, to check if the event\_scheduler process is running
 * SHOW DATABASES and EVENT, to list and modify server events
@@ -364,8 +350,6 @@ The cluster operations require that the monitor user (`user`) has the following 
 * SELECT on mysql.global\_priv so see to see which users have READ\_ONLY ADMIN
 
 A list of the grants can be found in the [Required Grants](mariadb-monitor.md#required-grants) section.
-
-The privilege system was changed in MariaDB Server 10.5. The effects of this on the MaxScale monitor user are minor, as the SUPER-privilege contains many of the required privileges and is still required to kill connections from other super-users.
 
 In MariaDB Server 11.0.1 and later, SUPER no longer contains all the required grants. The monitor requires:
 
@@ -1030,6 +1014,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 The flowchart below illustrates the lock handling logic.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
     accDescr {
@@ -1064,6 +1049,7 @@ flowchart TD
     class Check,AcqRemaining,AcqAll,Release proc
     class Have,CanGet,Got decision
     class Start,Primary,Secondary terminal
+    linkStyle default color:#111111
 ```
 
 _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
@@ -1073,8 +1059,18 @@ _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or ca
 `cooperative_monitoring_locks=majority_of_running` is meant for situations where the network is reliable in the sense that a network partition is highly unlikely. In a reliable network, if a server becomes unconnectable for one MaxScale, it does so for all MaxScales. This is typically the case if all servers and all MaxScales are close by, in the same datacenter under the same router. Because `majority_of_running` adjusts the total number of servers in the majority calculation according to how many servers are connectable, a lock majority is possible even with just one server left running.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - majority with one server remaining (majority_of_running)
+    accDescr {
+        Three servers, Server 1, Server 2 and Server 3, and two MaxScales,
+        MaxScale A and MaxScale B. Each MaxScale has an arrow to each server. The
+        arrow from MaxScale A to Server 1 is labelled locked. The arrow from
+        MaxScale B to Server 1 is labelled reachable. The four arrows from the two
+        MaxScales to Server 2 and Server 3 are labelled unreachable. The boxes
+        show the outcome: MaxScale A is primary, MaxScale B is secondary, Server 1
+        is read-write, and Server 2 and Server 3 are down.
+    }
 
     MXA["MaxScale A<br/>primary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1089,14 +1085,26 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1. All other servers are down. MaxScale A has claimed the exclusive lock on Server 1 and concludes it has lock majority (1/1 running servers). MaxScale A either considers Server 1 primary, or promotes it if [auto_failover](#auto_failover) is enabled. MaxScale A has also claimed the master-lock on Server 1. MaxScale B sees the locks taken and agrees that Server 1 is the primary._
 
 `cooperative_monitoring_locks=majority_of_running` should not be used when network partition is a credible threat. This is the case when the MaxScales and the servers are separated into multiple datacenters or are otherwise in multiple networks. If a network partition takes place, different MaxScales see different servers as connectable, and claim the exclusive locks on them. Thus, multiple MaxScales can conclude that they have lock majority, which leads to multiple primary servers. This may lead to write-queries being routed to multiple servers, splitting the cluster. Once the split happens, MaxScale can no longer reassemble the cluster automatically, and manual intervention is required.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - split-brain scenario (majority_of_running)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1, Server 2 and MaxScale A.
+        Datacenter B holds Server 3, Server 4 and MaxScale B. Arrows labelled
+        locked lead from MaxScale A to Server 1 and Server 2, and from MaxScale B
+        to Server 3 and Server 4. Dotted arrows lead from each MaxScale to the two
+        servers in the other datacenter. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: MaxScale A and MaxScale B are both primary. Server 1 and Server 3
+        are read-write, and Server 2 and Server 4 are read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>primary"]:::warn
@@ -1118,6 +1126,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A and B is broken. MaxScale A holds locks on Server 1 and Server 2, but cannot connect to Server 3 and Server 4. Datacenter B has the opposite situation. Both MaxScales think they have two locks out of two running servers, and act as the primary MaxScale. This leads to a split-brain situation with two independent read-write servers._
 
@@ -1126,8 +1135,18 @@ _The link between datacenters A and B is broken. MaxScale A holds locks on Serve
 `cooperative_monitoring_locks=majority_of_all` is meant for situations where a network partition is possible, e.g. when the servers and MaxScales are spread over multiple datacenters. Because `majority_of_all` calculates the required majority over all configured servers, it ensures that only one MaxScale can have lock majority at any time. This does not mean that the cluster will survive failure scenarios without service outage, though. If the network partitions or too many servers go down, then the typical outcome is that no MaxScale will have lock majority, no MaxScale is the primary MaxScale, and no server is writable. Still, this may be preferable to a split cluster with multiple primary servers.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - network partition (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Each MaxScale has an arrow labelled reachable to the server in
+        its own datacenter, and dotted arrows to the servers in the other two
+        datacenters. Dotted arrows show servers that the MaxScale cannot reach, as
+        the page caption explains. The boxes show the outcome: all three MaxScales
+        are secondary and all three servers are read-only.
+    }
 
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
@@ -1156,14 +1175,25 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A, B and C is broken. Each MaxScale can only connect to the server in their local datacenter. Each MaxScale can acquire one lock out of three total servers, which is not enough for majority. All MaxScales are in secondary status, and will release any locks they may have acquired. No primary server is detected so all servers are in read-only mode. Once connectivity is restored, one MaxScale will again claim lock majority and the cluster resumes normal operation._
 
 The downside of `majority_of_all` is that it can lead to a read-only cluster in situations where it is not strictly necessary. This is the case when too many servers go down or otherwise become unconnectable, so that a majority can no longer be formed.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - no majority (majority_of_all)
+    accDescr {
+        Four servers, Server 1, Server 2, Server 3 and Server 4, and two
+        MaxScales, MaxScale A and MaxScale B. Arrows labelled reachable lead from
+        each MaxScale to Server 1 and Server 2. Dotted arrows lead from each
+        MaxScale to Server 3 and Server 4. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: both MaxScales are secondary, Server 1 and Server 2 are
+        read-only, and Server 3 and Server 4 are down.
+    }
 
     MXA["MaxScale A<br/>secondary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1179,14 +1209,25 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1 and Server 2. Server 3 and Server 4 are down. Neither MaxScale can reach lock majority, which would require three locks. Servers remain unlocked. Because both MaxScales are in secondary mode, no server is declared primary. Servers 1 and 2 are in read-only mode._
 
 `cooperative_monitoring_locks=majority_of_all` requires at least three servers to work reliably. With only two servers, just one server going down means that lock majority is no longer possible (one out of two is not a majority). Also, separating the three servers to just two datacenters is fragile: if the datacenter with two servers loses power, the remaining datacenter can no longer reach majority.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - majority datacenter down (majority_of_all)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1 and MaxScale A. Datacenter B
+        holds Server 2, Server 3 and MaxScale B. An arrow labelled reachable leads
+        from MaxScale A to Server 1, and dotted arrows lead from MaxScale A to
+        Server 2 and Server 3. Dotted arrows show servers that the MaxScale cannot
+        reach, as the page caption explains. MaxScale B has no arrows. The boxes
+        show the outcome: MaxScale B, Server 2 and Server 3 are down. MaxScale A
+        is secondary and Server 1 is read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>down"]:::warn
@@ -1207,14 +1248,27 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter B is down. Since it contained two out of three servers, the surviving datacenter does not have enough servers to claim majority._
 
 Resistance to datacenter-wide failures requires at least three datacenters, so that a majority can be formed with the remaining datacenters.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter down (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Arrows labelled locked lead from MaxScale A to Server 1 and
+        Server 2. Arrows labelled reachable lead from MaxScale B to Server 1 and
+        Server 2. Dotted arrows lead from MaxScale A and MaxScale B to Server 3.
+        Dotted arrows show servers that the MaxScale cannot reach, as the page
+        caption explains. MaxScale C has no arrows. The boxes show the outcome:
+        MaxScale C and Server 3 are down. MaxScale A is primary and Server 1 is
+        read-write. MaxScale B is secondary and Server 2 is read-only.
+    }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>down"]:::warn
       SC1["Server 3<br/>down"]:::warn
@@ -1240,6 +1294,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter C is down. It only contained one out of three servers, so the servers in the remaining datacenters can still form a majority._
 
@@ -1256,14 +1311,18 @@ settings) do the other MaxScales realize that the situation has changed.
 During this time, transactions can still commit to the old primary.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter with primary server disconnected (majority_of_all)
     accDescr {
-      Datacenter A has lost its connection to datacenters B and C but keeps running. MaxScale A
-      still reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2
-      and Server 3, and MaxScale C reaches Server 3 normally. Until the master lock expires,
-      Server 1 keeps accepting writes while MaxScale B promotes Server 2, so the two servers
-      diverge.
+      Three datacenters. Datacenter A holds Server 1 (read-write, soon read-only) and MaxScale A
+      (secondary). Datacenter B holds Server 2 (read-only, soon read-write) and MaxScale B
+      (primary). Datacenter C holds Server 3 (read-only) and MaxScale C (secondary). Datacenter
+      A has lost its connection to datacenters B and C but keeps running. MaxScale A still
+      reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2 and
+      Server 3, and MaxScale C reaches Server 3 normally and also has an unlabelled arrow to
+      Server 2. Until the master lock expires, Server 1 keeps accepting writes while MaxScale B
+      promotes Server 2, so the two servers diverge.
     }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
@@ -1291,6 +1350,7 @@ flowchart TD
     MXC --> |reachable| SC1
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter A disconnects from datacenters B and C but stays running. MaxScale A
 (secondary) still sees the master-lock taken on Server 1 and assumes that it is
@@ -1318,7 +1378,7 @@ Monitor cooperation depends on the server locks. The locks are connection-specif
 
 If the primary MaxScale or its monitor is stopped normally, the monitor connections are properly closed, releasing the locks. This allows the secondary MaxScale to quickly claim the locks. However, if the primary simply vanishes (broken network), the connection may just look idle. In this case, the MariaDB Server may take a long time before it considers the monitor connection lost. This time ultimately depends on TCP keepalive settings on the machines running MariaDB Server.
 
-On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
+The TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring TCP keepalive is no longer necessary as the monitor sets the session _wait\_timeout_ variable when acquiring a lock. This causes the MariaDB Server to close the monitor connection if the connection appears idle for too long. The value of _wait\_timeout_ used depends on the monitor interval and connection timeout settings, and is logged at MaxScale startup.
 
@@ -1916,7 +1976,7 @@ maxctrl call command mariadbmon fetch-cmd-result MyMonitor
 }
 ```
 
-### Settings for Columnstore commands
+### Settings for ColumnStore commands
 
 #### `cs_admin_port`
 

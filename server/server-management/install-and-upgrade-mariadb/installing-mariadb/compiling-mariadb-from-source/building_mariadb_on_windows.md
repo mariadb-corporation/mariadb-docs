@@ -10,7 +10,7 @@ description: >-
 
 To build MariaDB you need the following:
 
-* [Visual C++](https://www.microsoft.com/visualstudio): We currently support Visual Studio 2019 and 2022. Generally we try to support the two most recent VS versions, but build ourselves using the last one. Community editions will work fine; we only use them in our builds.\
+* [Visual C++](https://www.microsoft.com/visualstudio): Visual Studio 2019 and 2022 are supported. Generally we try to support the two most recent VS versions, but build ourselves using the last one. Community editions will work fine; we only use them in our builds.\
   While installing Visual Studio, make sure to add "Desktop Development with C++".\
   Also, make sure to use [recent enough Windows SDK](https://learn.microsoft.com/en-us/cpp/overview/install-c17-support?view=msvc-170) - latest Windows 11 SDK is recommended.
 * [CMake](https://cmake.org/download): We recommend the latest release. Older releases might not support your version of Visual Studio. Visual Studio 2019 requires cmake 3.14 at least.
@@ -36,8 +36,7 @@ In the "Adjusting your PATH" dialog, choose "Use Git from Windows command prompt
 * [Strawberry perl](https://strawberryperl.com): Used to run the test suite.[ActiveState Perl](https://www.activestate.com/products/perl/) is
   another Win32 Perl distribution and should work as well (but it is not as
   well tested). NOTE: `Cygwin` or `mingw` Perl versions will not work for testing. Use Windows native Perl, please.
-* Optional: If you intend to build the MSI packages, install [Windows Installer XML](https://wixtoolset.org/releases/) . If you build MSI with 10.4,
-  also modify your Visual Studio installation, add "Redistributable MSMs" (see [MDEV-22555](https://jira.mariadb.org/browse/MDEV-22555))
+* Optional: If you intend to build the MSI packages, install [Windows Installer XML](https://wixtoolset.org/releases/) .
 * [Gnu Diff](https://gnuwin32.sourceforge.net/packages/diffutils.htm), needed if you run mysql-test-run.pl tests.
 
 Verify that bison.exe, or git.exe, cmake.exe and perl.exe can be found in the PATH
@@ -45,8 +44,6 @@ environment variable with "`where bison`", "`where git`", "`where perl`" etc. fr
 the command line prompt.
 
 ## Building Windows Binaries
-
-The above instructions assume [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or higher.
 
 Branch the MariaDB repository, or unpack the source archive. On the command
 prompt, switch to your source directory, then execute:
@@ -119,8 +116,8 @@ cmake --build . --config relwithdebinfo --target MSI
 
 ## Including HeidiSQL in the MSI Installer
 
-Starting with [MariaDB 5.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.7), it is possible to build an installer which
-includes 3rd party products, as described in [MWL#200](https://askmonty.org/worklog/Other/?tid=200). Currently only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
+It is possible to build an installer which
+includes 3rd party products, as described in MWL#200. Only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also
 included in the official builds. Use the `CMake` parameter`-DWITH_THIRD_PARTY=HeidiSQL` to include it in the installer.
 
 ## Code Signing
@@ -146,8 +143,8 @@ cmake --build . --config relwithdebinfo --target win_package
 cmake --build . --config relwithdebinfo  --target MSI
 ```
 
-This command sequence will produce a ZIP package (e.g mariadb-5.2.6-win32.zip)
-and MSI package (e.g mariadb-5.2.6-win32.msi) in the `bld` directory.
+This command sequence will produce a ZIP package (e.g mariadb-11.8.5-winx64.zip)
+and MSI package (e.g mariadb-11.8.5-winx64.msi) in the `bld` directory.
 
 ## Running Tests
 

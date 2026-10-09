@@ -6,10 +6,6 @@ description: >-
 
 # JSON\_ARRAYAGG
 
-{% hint style="info" %}
-`JSON_ARRAYAGG` is available from MariaDB 10.5.
-{% endhint %}
-
 ## Syntax
 
 ```bnf
@@ -24,7 +20,7 @@ The maximum returned length in bytes is determined by the [group\_concat\_max\_l
 
 Returns `NULL` in the case of an error, or if the result contains no rows.
 
-`JSON_ARRAYAGG` cannot currently be used as a [window function](../window-functions/).
+`JSON_ARRAYAGG` cannot be used as a [window function](../window-functions/).
 
 The full syntax is as follows:
 

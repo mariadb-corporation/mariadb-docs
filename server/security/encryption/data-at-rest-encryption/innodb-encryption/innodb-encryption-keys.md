@@ -119,9 +119,9 @@ Some [key management and encryption plugins](../key-management-and-encryption-pl
 
 You can set the maximum age for an encryption key using the [innodb\_encryption\_rotate\_key\_age](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotate_key_age) system variable. When this variable is set to a non-zero value, background encryption threads constantly check pages to determine if any page is encrypted with a key version that's too old. When the key version is too old, any page encrypted with the older version of the key is automatically re-encrypted in the background to use a more current version of the key. Bear in mind, this constant checking can sometimes result in high CPU usage.
 
-Key rotation for the InnoDB [Redo Log](../../../../server-usage/storage-engines/innodb/innodb-redo-log.md) is only supported in [MariaDB 10.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.0) and later. For more information, see [MDEV-12041](https://jira.mariadb.org/browse/MDEV-12041).
+Key rotation for the InnoDB [Redo Log](../../../../server-usage/storage-engines/innodb/innodb-redo-log.md) is supported. For more information, see [MDEV-12041](https://jira.mariadb.org/browse/MDEV-12041).
 
-In order for key rotation to work, both the backend key management service (KMS) and the corresponding [key management and encryption plugin](../key-management-and-encryption-plugins/encryption-key-management.md) have to support key rotation. See [Encryption Key Management: Support for Key Rotation in Encryption Plugins](../key-management-and-encryption-plugins/encryption-key-management.md#support-for-key-rotation-in-encryption-plugins) to determine which plugins currently support key rotation.
+In order for key rotation to work, both the backend key management service (KMS) and the corresponding [key management and encryption plugin](../key-management-and-encryption-plugins/encryption-key-management.md) have to support key rotation. See [Encryption Key Management: Support for Key Rotation in Encryption Plugins](../key-management-and-encryption-plugins/encryption-key-management.md#support-for-key-rotation-in-encryption-plugins) to determine which plugins support key rotation.
 
 ### Disabling Background Key Rotation Operations
 

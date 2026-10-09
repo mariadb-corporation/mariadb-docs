@@ -22,7 +22,7 @@ The columns shown in `SHOW PROCESSLIST` are:
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Id       | The client's thread ID.                                                                                                                                    |
 | User     | The username associated with the process.                                                                                                                  |
-| Host     | The host the client is connected to.                                                                                                                       |
+| Host     | The host the client is connected to. For Unix socket connections, this is `localhost`. For TCP/IP connections, the TCP port is appended (for instance, `192.168.1.17:58061`).                                                                                                                       |
 | db       | The default database of the process (`NULL` if no default).                                                                                                |
 | Command  | The command type. See [Thread Command Values](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-command-values.md). |
 | Time     | The amount of time, in seconds, the process has been in its current state.                                                                                 |

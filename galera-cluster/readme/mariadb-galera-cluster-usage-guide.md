@@ -63,6 +63,10 @@ The most common replication architecture is Primary/Replica (also known as Maste
 flowchart TD
     accTitle: Multi-primary (synchronous) replication
     accDescr {
+        Three boxes labelled Client sit in a Clients group. Each client is joined to its
+        own DBMS node by a line with arrows in both directions, and each of the three
+        DBMS nodes is joined by a line with arrows in both directions to one Replication
+        box.
         Client applications connect transparently to any of three DBMS nodes. Every node
         is a primary and accepts writes. All nodes are kept consistent by a synchronous
         replication layer that applies each transaction on every node, so a commit is
@@ -137,7 +141,7 @@ The certification-based replication system that Galera Cluster uses is built on 
 
 ## How it Works
 
-MariaDB Enterprise Cluster is built on MariaDB Enterprise Server with Galera Cluster and MariaDB MaxScale. In MariaDB Enterprise Server 10.5 and later, it features enterprise-specific options, such as data-at-rest encryption for the write-set cache, that are not available in other Galera Cluster implementations.
+MariaDB Enterprise Cluster is built on MariaDB Enterprise Server with Galera Cluster and MariaDB MaxScale. It features enterprise-specific options, such as data-at-rest encryption for the write-set cache, that are not available in other Galera Cluster implementations.
 
 As a multi-primary replication solution, any MariaDB Enterprise Server can operate as a Primary Server. This means that changes made to any node in the cluster replicate to every other node in the cluster, using certification-based replication and global ordering of transactions for the InnoDB storage engine.
 
@@ -226,7 +230,7 @@ It is best practice to list all nodes on this system variable, as this is the li
 
 MariaDB Enterprise Server connects to other Servers and replicates data from the cluster through a wsrep Provider called the Galera Replicator plugin. In order to enable clustering, specify the path to the relevant `.so` file using the `wsrep_provider` system variable.
 
-MariaDB Enterprise Server 10.4 and later installations use an enterprise-build of the Galera Enterprise 4 plugin. This includes all the features of Galera Cluster 4 as well as enterprise features like GCache encryption.
+MariaDB Enterprise Server installations use an enterprise build of the Galera Enterprise 4 plugin. This includes all the features of Galera Cluster 4 as well as enterprise features like GCache encryption.
 
 To enable MariaDB Enterprise Cluster, use the `libgalera_enterprise_smm.so` library:
 
@@ -282,6 +286,10 @@ SET GLOBAL wsrep_provider_options="pc.bootstrap=YES";
 
 The node bootstraps the Primary Component onto itself. Other nodes in the cluster with network connectivity then submit state transfer requests to this node to bring their local databases into sync with what's available on this node.
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 ### State Transfers
 
 From time to time a node can fall behind the cluster. This can occur due to expensive operations being issued to it or due to network connectivity issues that lead to write-sets backing up in the queue. Whatever the cause, when a node finds that it has fallen too far behind the cluster, it attempts to initiate a state transfer.
@@ -321,7 +329,7 @@ Evicted nodes become non-operational components. They cannot rejoin the cluster 
 
 Under normal operation, huge transactions and long-running transactions are difficult to replicate. MariaDB Enterprise Cluster rejects conflicting transactions and rolls back the changes. A transaction that takes several minutes or longer to run can encounter issues if a small transaction is run on another node and attempts to write to the same table. The large transaction fails because it encounters a conflict when it attempts to replicate.
 
-MariaDB Enterprise Server 10.4 and later support streaming replication for MariaDB Enterprise Cluster. In streaming replication, huge transactions are broken into transactional fragments, which are replicated and applied as the operation runs. This makes it more difficult for intervening sessions to introduce conflicts.
+MariaDB Enterprise Server supports streaming replication for MariaDB Enterprise Cluster. In streaming replication, huge transactions are broken into transactional fragments, which are replicated and applied as the operation runs. This makes it more difficult for intervening sessions to introduce conflicts.
 
 ### Initiate Streaming Replication
 
@@ -382,8 +390,6 @@ For data-in-transit, MariaDB Enterprise Cluster supports encryption the same as 
 ### Data-in-Transit Encryption
 
 MariaDB Enterprise Server 10.6 encrypts Galera replication and SST traffic using the server's TLS configuration by default. With the `wsrep_ssl_mode` system variable, you can configure the node to use the TLS configuration of [wsrep Provider options](../reference/wsrep-variable-details/wsrep_provider_options.md).
-
-MariaDB Enterprise Server 10.5 and earlier support encrypting Galera replication and SST traffic through [wsrep Provider options](../reference/wsrep-variable-details/wsrep_provider_options.md).
 
 TLS encryption is only available when used by all nodes in the cluster.
 

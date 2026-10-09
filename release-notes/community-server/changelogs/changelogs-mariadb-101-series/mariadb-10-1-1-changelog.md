@@ -622,7 +622,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Merge ../10.1-orderby-fixes into 10.1
 * [Revision #9c79227](https://github.com/MariaDB/server/commit/9c79227)\
   2014-09-08 20:56:56 +0300
-  * Fixed two bugs with CREATE OR REPLACE and LOCK TABLES: [MDEV-6560](https://jira.mariadb.org/browse/MDEV-6560) Assertion `! is_set() ' failed in Diagnostics_area::set_ok_status on killing CREATE OR REPLACE [MDEV-6525](https://jira.mariadb.org/browse/MDEV-6525) Assertion` table->pos\_in\_locked \_tables == null || table->pos\_in\_locked\_tables->table = table' failed in mark\_used\_tables\_as\_free\_for\_reuse, locking problems and binlogging problems on CREATE OR REPLACE under lock.
+  * Fixed two bugs with CREATE OR REPLACE and LOCK TABLES: [MDEV-6560](https://jira.mariadb.org/browse/MDEV-6560) (Assertion `! is_set()` failed in `Diagnostics_area::set_ok_status` on killing `CREATE OR REPLACE`) and [MDEV-6525](https://jira.mariadb.org/browse/MDEV-6525) (Assertion `table->pos_in_locked_tables == null || table->pos_in_locked_tables->table = table` failed in `mark_used_tables_as_free_for_reuse`), locking problems and binlogging problems on CREATE OR REPLACE under lock.
 * [Revision #26e048f](https://github.com/MariaDB/server/commit/26e048f)\
   2014-09-08 13:19:20 -0400
   * Merged sys\_vars.wsrep\_\* tests from maria-10.0-galera tree.
@@ -1659,7 +1659,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fixed assert in perfschema/pfs.cc::start\_idle\_wait\_v1 when using performance schema and big packets in debug version.
 * [Revision #e9b2f5b](https://github.com/MariaDB/server/commit/e9b2f5b)\
   2014-07-19 11:24:21 +0530
-  * [WL#7219](https://askmonty.org/worklog/?tid=7219): Reverting the [WL#7219](https://askmonty.org/worklog/?tid=7219) patch in mysql-5.5.39-release branch
+  * WL#7219: Reverting the WL#7219 patch in mysql-5.5.39-release branch
 * [Revision #54f9828](https://github.com/MariaDB/server/commit/54f9828)\
   2014-07-18 14:50:29 -0400
   * FT-304 Remove inconsistent 'struct' keyword which made the osx build sad.
@@ -1669,106 +1669,8 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 * [Revision #54538b4](https://github.com/MariaDB/server/commit/54538b4)\
   2014-07-18 19:45:21 +0400
   * [MDEV-6459](https://jira.mariadb.org/browse/MDEV-6459) - max\_relay\_log\_size and sql\_slave\_skip\_counter misbehave on PPC64
-*
-  * \[
-  * R
-  * e
-  * v
-  * i
-  * s
-  * i
-  * o
-  * n
-  *
-  *
-  * d
-  * 9
-  * 4
-  * c
-  * 2
-  * e
-  * 2
-  * ]
-  * (
-  * h
-  * t
-  * t
-  * p
-  * s
-  * :
-  * /
-  * /
-  * g
-  * i
-  * t
-  * h
-  * u
-  * b
-  * .
-  * c
-  * o
-  * m
-  * /
-  * M
-  * a
-  * r
-  * i
-  * a
-  * D
-  * B
-  * /
-  * s
-  * e
-  * r
-  * v
-  * e
-  * r
-  * /
-  * c
-  * o
-  * m
-  * m
-  * i
-  * t
-  * /
-  * d
-  * 9
-  * 4
-  * c
-  * 2
-  * e
-  * 2
-  * )
-  *
-  * 2
-  * 0
-  * 1
-  * 4
-  *
-    *
-  * 0
-  * 7
-  *
-    *
-  * 1
-  * 8
-  *
-  * 2
-  * 0
-  * :
-  * 5
-  * 5
-  * :
-  * 5
-  * 2
-  *
-  *
-    *
-  * 0
-  * 5
-  * 3
-  * 0
-  *
+* [Revision #d94c2e2](https://github.com/MariaDB/server/commit/d94c2e2)\
+  2014-07-18 20:55:52 +0530
 * [Revision #c0ebb3f](https://github.com/MariaDB/server/commit/c0ebb3f)\
   2014-07-18 15:16:25 +0400
   * [MDEV-6450](https://jira.mariadb.org/browse/MDEV-6450) - MariaDB crash on Power8 when built with advance tool chain
@@ -1795,7 +1697,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * This commit brings many changes, in particular two important ones: 1) Support of partitioning by connect. A table can be partitioned by files, this is an enhanced MULTIPLE table. It can be also partitioned by sub-tables like TBL and this enables table sharding. 2) Handling a CONNECT bug that causes in some cases extraneous rows to remain in the table after an UPDATE or DELETE when the command uses indexing (for not fixed file tables). Until a real fix is done, CONNECT tries to ignore indexing and if it cannot do it abort the command with an error message.
 * [Revision #e892e71](https://github.com/MariaDB/server/commit/e892e71)\
   2014-07-17 19:21:56 +0530
-  * [WL#7219](https://askmonty.org/worklog/?tid=7219): Pushing it to release 5.5.39-release branch
+  * WL#7219: Pushing it to release 5.5.39-release branch
 * [Revision #e543cf1](https://github.com/MariaDB/server/commit/e543cf1)\
   2014-07-16 10:13:37 -0400
   * \#263 enable bulk fetch for insert select sql commands
@@ -2021,106 +1923,8 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 * [Revision #b35c591](https://github.com/MariaDB/server/commit/b35c591)\
   2014-06-28 13:53:18 +0300
   * [MDEV-6376](https://jira.mariadb.org/browse/MDEV-6376): InnoDB: Assertion failure in thread 139995225970432 in file buf0mtflu.cc line 570.
-*
-  * \[
-  * R
-  * e
-  * v
-  * i
-  * s
-  * i
-  * o
-  * n
-  *
-  *
-  * 8
-  * e
-  * 4
-  * a
-  * e
-  * 8
-  * c
-  * ]
-  * (
-  * h
-  * t
-  * t
-  * p
-  * s
-  * :
-  * /
-  * /
-  * g
-  * i
-  * t
-  * h
-  * u
-  * b
-  * .
-  * c
-  * o
-  * m
-  * /
-  * M
-  * a
-  * r
-  * i
-  * a
-  * D
-  * B
-  * /
-  * s
-  * e
-  * r
-  * v
-  * e
-  * r
-  * /
-  * c
-  * o
-  * m
-  * m
-  * i
-  * t
-  * /
-  * 8
-  * e
-  * 4
-  * a
-  * e
-  * 8
-  * c
-  * )
-  *
-  * 2
-  * 0
-  * 1
-  * 4
-  *
-    *
-  * 0
-  * 6
-  *
-    *
-  * 2
-  * 7
-  *
-  * 1
-  * 9
-  * :
-  * 3
-  * 0
-  * :
-  * 1
-  * 9
-  *
-  *
-    *
-  * 0
-  * 5
-  * 3
-  * 0
-  *
+* [Revision #8e4ae8c](https://github.com/MariaDB/server/commit/8e4ae8c)\
+  2014-06-27 19:30:19 +0530
 * [Revision #f384ba7](https://github.com/MariaDB/server/commit/f384ba7)\
   2014-06-27 17:17:04 +0530
   * Bug#18903155: BACKPORT BUG-18008907 TO 5.5+ VERSIONS.

@@ -2,6 +2,7 @@
 description: >-
   Creating and managing Control Center teams, adding and promoting members, and
   using the system-managed Global Team.
+hidden: true
 ---
 
 # Managing Teams
@@ -32,7 +33,7 @@ The right-hand side of the screen, titled with the team name (or **All**), lists
 - If **Global Team** is selected — all Control Center users or, if integrated with AD/LDAP, all AD/LDAP users who have logged into Control Center at least once
 
 {% hint style="info" %}
-**Global Team** appears in the list only when `account.globalTeam.enabled` is set to `true` in your environment. For details, see [Global Team](#global-team).
+**Global Team** appears in the list when `account.globalTeam.enabled` is `true`, which is the default. For details, see [Global Team](#global-team).
 {% endhint %}
 
 To find a team member, use the search field above the member list.
@@ -136,7 +137,7 @@ Click `⋮` next to the team you want to leave and select **Leave Team**. In the
 
 ## Global Team
 
-The Global Team is a system-managed team available when `account.globalTeam.enabled` is set to `true` in your [environment configuration](../admin-guide/configuration.md#teams). Unlike regular teams, its membership is managed automatically by Control Center — you do not need to invite users or manage access manually.
+The Global Team is a system-managed team, available when `account.globalTeam.enabled` is `true` in your [environment configuration](../admin-guide/configuration.md#teams). This is the default. Unlike regular teams, its membership is managed automatically by Control Center — you do not need to invite users or manage access manually.
 
 ### How It Works
 
@@ -149,7 +150,7 @@ Because membership is managed by the system, you cannot manually add or remove i
 
 ### Cluster Auto-Attach
 
-When `account.globalTeam.attachCluster` is set to `true`, Control Center automatically shares every cluster in the environment with Global Team — including clusters registered after this setting is enabled.
+When `account.globalTeam.attachCluster` is `true`, which is the default, Control Center automatically shares every cluster in the environment with Global Team — including clusters registered after this setting is enabled.
 
 {% hint style="info" %}
 `account.globalTeam.attachCluster` applies to all clusters. You cannot exclude individual clusters from auto-attach while this setting is enabled. To restrict access to specific clusters, disable `account.globalTeam.attachCluster` and share clusters with individual teams manually.

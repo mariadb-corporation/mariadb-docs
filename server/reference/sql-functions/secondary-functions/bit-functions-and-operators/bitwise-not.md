@@ -14,7 +14,7 @@ description: >-
 
 ## Description
 
-Bitwise NOT. Converts the value to 4 bytes binary and inverts all bits.
+Bitwise NOT. Converts the value to a 64-bit unsigned integer and inverts all 64 bits.
 
 ## Examples
 
@@ -32,6 +32,13 @@ SELECT 5 & ~1;
 +--------+
 |      4 |
 +--------+
+
+SELECT ~0, HEX(~0);
++----------------------+------------------+
+| ~0                   | HEX(~0)          |
++----------------------+------------------+
+| 18446744073709551615 | FFFFFFFFFFFFFFFF |
++----------------------+------------------+
 ```
 
 ## See Also

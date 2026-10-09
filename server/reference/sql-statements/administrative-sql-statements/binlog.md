@@ -18,15 +18,7 @@ BINLOG 'str'
 string that the server decodes to determine the data change indicated by the
 corresponding event.
 
-{% tabs %}
-{% tab title="Current" %}
 This statement requires the [BINLOG REPLAY](../account-management-sql-statements/grant.md#binlog-replay) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-This statement requires the [SUPER](../account-management-sql-statements/grant.md#super) privilege.
-{% endtab %}
-{% endtabs %}
 
 ## See Also
 

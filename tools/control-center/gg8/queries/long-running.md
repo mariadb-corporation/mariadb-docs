@@ -2,6 +2,7 @@
 description: >-
   Using Control Center to localize and debug long-running SQL queries on
   GridGain 8 clusters.
+hidden: true
 ---
 
 # Debugging Running SQL Queries with Control Center

@@ -1,3 +1,9 @@
+---
+description: >-
+  Test a value against TRUE, FALSE, or UNKNOWN. Unlike =, IS TRUE matches
+  any logically true value, and IS always returns 1 or 0, never NULL.
+---
+
 # IS
 
 ## Syntax
@@ -11,6 +17,8 @@ IS boolean_value
 Tests a value against a boolean value, where `boolean_value` can be `TRUE`, `FALSE`, or `UNKNOWN`.
 
 There is an important difference between using `IS TRUE` or comparing a value with `TRUE` using `=`. When using `=`, only `1` equals to `TRUE`. But when using `IS TRUE`, all values which are logically true (like a number > 1) return `TRUE`.
+
+`IS` always returns `1` or `0`, never `NULL`. When the value is `NULL`, `IS TRUE` and `IS FALSE` both return `0`, and only `IS UNKNOWN` returns `1`. To test for `NULL` directly, use [IS NULL](is-null.md).
 
 ## Examples
 
@@ -34,10 +42,23 @@ SELECT 2 = TRUE, 2 IS TRUE;
 +----------+-----------+
 ```
 
+`NULL` tested against each boolean value:
+
+```sql
+SELECT NULL IS TRUE, NULL IS FALSE, NULL IS UNKNOWN;
++--------------+---------------+-----------------+
+| NULL IS TRUE | NULL IS FALSE | NULL IS UNKNOWN |
++--------------+---------------+-----------------+
+|            0 |             0 |               1 |
++--------------+---------------+-----------------+
+```
+
 ## See Also
 
 * [Boolean Literals](../../sql-language-structure/sql-language-structure-boolean-literals.md)
 * [BOOLEAN Data Type](../../../data-types/numeric-data-types/boolean.md)
+* [IS NOT](is-not.md)
+* [IS NULL](is-null.md)
 * [Operator Precedence](../operator-precedence.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

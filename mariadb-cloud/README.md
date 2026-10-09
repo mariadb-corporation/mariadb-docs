@@ -49,6 +49,21 @@ So you can:
 
 ```mermaid
 graph TD
+    accTitle: MariaDB Cloud architecture overview
+    accDescr {
+        Four groups are drawn, holding ten boxes in total. User Interfaces holds
+        two boxes: MariaDB Cloud Portal UI and MariaDB Cloud Monitoring UI.
+        Developer API holds three boxes: MariaDB SQL, NoSQL and REST API. MariaDB
+        Cloud holds three boxes: MaxScale SQL Proxy, MariaDB Primary + replicas,
+        and Replicas in other zones, regions. External Services holds two boxes:
+        Alerts / Autoscale / Monitor and Cloud backups. The User Interfaces group
+        and the Developer API group are each joined to the MariaDB Cloud group by
+        a line with arrows in both directions. Inside MariaDB Cloud, the MaxScale
+        SQL Proxy is joined to the MariaDB Primary + replicas box and to the
+        Replicas in other zones, regions box, each by a line with arrows in both
+        directions. Arrows lead one way from the MariaDB Cloud group to Alerts /
+        Autoscale / Monitor and to Cloud backups.
+    }
     subgraph UI [User Interfaces]
         Portal[MariaDB Cloud Portal UI]
         MonitorUI[MariaDB Cloud Monitoring UI]

@@ -7,7 +7,7 @@ description: >-
 # mariadb-secure-installation
 
 {% hint style="info" %}
-Note that many of the reasons for the existence of this script no longer apply (and therefore the guidelines in many online tutorials. In particular, from MariaDB 10.4, [Unix socket authentication](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is applied by default, and there is usually no need to create a root password. See [Authentication from MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md).
+Note that many of the reasons for the existence of this script no longer apply (and therefore the guidelines in many online tutorials. In particular, [Unix socket authentication](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is applied by default, and there is usually no need to create a root password. See [Authentication from MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md).
 {% endhint %}
 
 {% hint style="info" %}

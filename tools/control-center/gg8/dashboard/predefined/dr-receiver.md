@@ -2,6 +2,7 @@
 description: >-
   The DR receiver dashboard — statistics for the receiver nodes participating in
   GridGain 8 Data Center Replication.
+hidden: true
 ---
 
 # DR Receiver Tab for GridGain 8 Clusters

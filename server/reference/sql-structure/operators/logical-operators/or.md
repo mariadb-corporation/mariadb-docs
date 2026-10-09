@@ -1,3 +1,10 @@
+---
+description: >-
+  Logical OR. OR and || return 1 if any operand is non-zero, 0 if all
+  operands are 0, and NULL otherwise. With PIPES_AS_CONCAT, || concatenates
+  strings.
+---
+
 # ||
 
 ## Syntax
@@ -69,8 +76,6 @@ SELECT 0 || NULL;
 | 0         |
 +-----------+
 ```
-
-## See Also
 
 ## See Also
 

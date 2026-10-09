@@ -97,8 +97,8 @@ Complete guide to MariaDB replication setup. Complete walkthrough for primary-re
 
 {% columns %}
 {% column %}
-{% content-ref url="gtid.md" %}
-[gtid.md](gtid.md)
+{% content-ref url="gtid/README.md" %}
+[gtid.md](gtid/README.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

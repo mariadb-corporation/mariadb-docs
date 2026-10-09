@@ -36,7 +36,7 @@ Zero for success, nonzero if an error occurred.
 
 ## History
 
-`mysql_session_track_get_next()` was added in Connector/C 3.0 and MariaDB Server 10.2.
+`mysql_session_track_get_next()` was added in Connector/C 3.0.
 
 ## See Also
 

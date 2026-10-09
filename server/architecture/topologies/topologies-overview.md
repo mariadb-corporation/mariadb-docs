@@ -27,13 +27,13 @@ Although multiple topologies are listed on this page, the listed topologies are 
 
 | Diagram | Features                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         | <p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul> |
+|         | <p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MaxScale 2.5+</li></ul> |
 
 ### Galera Cluster Topology
 
 | Diagram | Features                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         | <p><strong>Galera Cluster Topology Multi-Primary Cluster Powered by Galera for Transactional/OLTP Workloads</strong></p><ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale Enterprise Server 10.3+, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul> |
+|         | <p><strong>Galera Cluster Topology Multi-Primary Cluster Powered by Galera for Transactional/OLTP Workloads</strong></p><ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul> |
 
 ### Analytical (OLAP, Data Warehousing, DSS)
 
@@ -46,12 +46,14 @@ Although multiple topologies are listed on this page, the listed topologies are 
 ### ColumnStore Shared Local Storage Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on shared NFS storage
     accDescr {
         A MaxScale proxy routes read-write traffic to one MariaDB Enterprise Server node and
         read-only traffic to two others. Each node runs Enterprise ColumnStore, and all three
-        ColumnStore instances read and write their table data over shared NFS storage.
+        ColumnStore instances use shared NFS storage for their table data. Arrows lead
+        from the NFS box to each of the three ColumnStore boxes.
     }
     MX["MariaDB MaxScale"]
     E1["ES"]
@@ -74,6 +76,7 @@ flowchart TD
     classDef storage fill:#fff4d6,stroke:#8a6d00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class NFS storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._
@@ -94,13 +97,13 @@ _MaxScale routes to a three-node ColumnStore cluster sharing NFS storage._
 
 | Diagram | Features                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|         | <ul><li>Read from and write to tables on remote ES nodes</li><li>Spider Node uses Spider storage engine for Federated Spider Tables</li><li>Federated Spider Table is a "virtual" table• Spider uses MariaDB foreign data wrapper to query Data Table on Data Node</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul> |
+|         | <ul><li>Read from and write to tables on remote ES nodes</li><li>Spider Node uses Spider storage engine for Federated Spider Tables</li><li>Federated Spider Table is a "virtual" table• Spider uses MariaDB foreign data wrapper to query Data Table on Data Node</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server, Enterprise Spider</li></ul> |
 
 ### Spider Sharded Topology
 
 | Diagram | Features                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         | <ul><li>Shard tables for horizontal scalability</li><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul> |
+|         | <ul><li>Shard tables for horizontal scalability</li><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server, Enterprise Spider</li></ul> |
 
 ## Single Node Topologies
 

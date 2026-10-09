@@ -73,6 +73,9 @@ Rules:
   existing pages have no frontmatter at all, new pages should have it. `icon:` is **optional and
   rarely used** (≈0.2% of pages) — omit it unless a sibling page sets one. When matching
   neighbors, match frontmatter *style/keys*, not their *absence* of frontmatter.
+- **Keep `description:` to 200 characters or fewer, as plain text.** GitBook cuts the subtitle
+  and meta description at exactly 200, mid-word, and shows Markdown (backticks, `**`, links)
+  literally. Don't repeat the H1 — say what the page covers. `desccheck-pr.yml` enforces this.
 - **House style:** American English, Google developer-doc tone, sentence-style headings, one
   `#` H1. See `dev-docs/style-guide.md`.
 - **GitBook blocks:** use `{% hint %}` (styles `info`/`warning`/`danger`/`success`),

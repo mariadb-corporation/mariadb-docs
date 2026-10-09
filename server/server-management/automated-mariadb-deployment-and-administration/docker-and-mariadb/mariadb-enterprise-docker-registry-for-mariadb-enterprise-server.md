@@ -34,7 +34,7 @@ The MariaDB Enterprise Docker Registry provides Docker images for **MariaDB Ente
 
 ### Storage Engines
 
-The Docker images for MariaDB Enterprise Server include all storage engines that are installed with MariaDB Enterprise Server by default. The following storage engines are currently included:
+The Docker images for MariaDB Enterprise Server include all storage engines that are installed with MariaDB Enterprise Server by default. The following storage engines are included:
 
 * [Aria](../../../server-usage/storage-engines/aria/)
 * [CSV](../../../server-usage/storage-engines/csv/)
@@ -88,7 +88,7 @@ The `enterprise-server` repository in the MariaDB Enterprise Docker Registry con
 
 | Type of release?        | Tags                                                                                                  | Description                                                                                                                                                                                                                                                                                       |
 | ----------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Latest release series   | <ul><li><code>latest</code></li></ul>                                                                 | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series, which is currently MariaDB Enterprise Server 11.8.                                                                                                                                              |
+| Latest release series   | <ul><li><code>latest</code></li></ul>                                                                 | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series.                                                                                                                                              |
 | Specific release series | <ul><li><code>11.8</code></li><li><code>11.4</code></li><li><code>10.6</code></li></ul>               | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                                                       |
 | Specific minor release  | <ul><li><code>11.8.3-1</code></li><li><code>11.4.8-5</code></li><li><code>10.6.23-19</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases). |
 

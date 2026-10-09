@@ -1,9 +1,8 @@
 ---
 description: >-
-  Compare the deployment topologies for running two MariaDB MaxScale instances
-  over the same cluster. Covers what each one costs in hardware, what it
-  survives, and how a co-located tiebreaker or Galera arbitrator buys
-  three-node safety at two-node cost.
+  Compare topologies for two MariaDB MaxScale instances over one cluster:
+  hardware cost, failures survived, and how a co-located tiebreaker or Galera
+  arbitrator gives three-node safety.
 ---
 
 # Deployment Topologies for Multiple MaxScales
@@ -38,6 +37,7 @@ Majority is `servers / 2 + 1`. With two servers in the count, that is two locks 
 Majority is counted over the servers each instance can currently reach. During a partition each instance reaches one server, needs `1 / 2 + 1 = 1` lock, and gets it. Both instances declare themselves the primary monitor, both mark a primary, and both accept writes — on different servers.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Two databases and two MaxScales partitioned with majority_of_running
     accDescr {
@@ -61,6 +61,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _Both sides reach a local majority, so both accept writes and the cluster diverges._
@@ -72,6 +73,7 @@ Divergence is not recoverable: one of the two write streams has to be discarded 
 Majority is counted over all configured servers, so it is always two locks whether or not both servers are up. No single side of a partition can reach two, and neither can either instance when one server is simply down. The pair goes read-only.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Two databases and two MaxScales partitioned with majority_of_all
     accDescr {
@@ -95,6 +97,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _With two configured servers, both are required for a majority, so no side of a partition is writable._
@@ -110,12 +113,16 @@ Do not run `majority_of_all` over two servers if write availability matters. The
 Adding a third database server is the direct fix. Majority over three configured servers is `3 / 2 + 1 = 2`, so `majority_of_all` tolerates the loss of one server: the two survivors are a majority, and the instance that can lock both keeps performing cluster operations and accepting writes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Three databases and two MaxScales with one node down
     accDescr {
       db1 is down. MaxScale 1 holds locks on db2 and db3, two of the three configured servers,
       which is a majority, so it has promoted db2 and accepts writes. MaxScale 2 is the secondary
       monitor and follows the master lock to db2.
+      Arrows labelled write lead from MaxScale 1 and MaxScale 2 to db2. An unlabelled arrow
+      leads from each MaxScale to db3, a replica, and an unlabelled arrow leads from db2 to
+      db3.
     }
     MX1["MaxScale 1<br/>primary monitor"]:::node
     MX2["MaxScale 2<br/>secondary monitor"]:::node
@@ -132,6 +139,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _With three configured servers, two locks are a majority, so one node can be lost._
@@ -139,6 +147,7 @@ _With three configured servers, two locks are a majority, so one node can be los
 The same count decides a partition. Only the side holding two of the three servers can act; the other side releases its locks and serves reads only.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Three databases and two MaxScales during a network partition
     accDescr {
@@ -164,6 +173,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _Only the majority side is writable, so there is never more than one write stream._
@@ -177,12 +187,15 @@ The majority count does not care what a server is for — only that the monitor 
 The result is three configured servers on four hosts. `majority_of_all` behaves exactly as it does in the three-server topology, at the hardware cost of the two-server one.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Two databases, two MaxScales, and a co-located tiebreaker with one node down
     accDescr {
       db1 is down. db3, a small MariaDB instance co-located on the MaxScale 1 host, acts as the
       third vote. MaxScale 1 holds locks on db2 and db3, a majority of the three configured
       servers, so it has promoted db2 and accepts writes. Reads are never routed to db3.
+      MaxScale 2, the secondary monitor, also writes to db2: an arrow labelled write leads
+      from MaxScale 2 to db2. An unlabelled arrow leads from db2 to db3.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1<br/>primary monitor"]:::node
@@ -200,6 +213,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _db1 is down, and the surviving full server plus the tiebreaker are a majority._
@@ -207,6 +221,7 @@ _db1 is down, and the surviving full server plus the tiebreaker are a majority._
 During a partition the tiebreaker's location decides which side wins, because it is reachable only from the host it runs on. If the partition leaves MaxScale 1 with the old primary, MaxScale 1 holds the tiebreaker's lock and the old primary's, which is two of three, and keeps writing. MaxScale 2 is left with one server, releases its lock, and serves reads.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Two databases, two MaxScales, and a co-located tiebreaker during a network partition
     accDescr {
@@ -235,6 +250,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _The MaxScale that can reach the tiebreaker has the majority._
@@ -301,13 +317,14 @@ The same pattern extends to Galera. Two Galera nodes are an even-sized cluster a
 Two nodes plus an arbitrator is three votes. Losing one node leaves two, which is a majority, and the surviving node stays in the primary component and keeps accepting writes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Two Galera nodes, two MaxScales, and a co-located arbitrator with one node down
     accDescr {
       node1 is down. The arbitrator garbd, co-located on the MaxScale 1 host, is the third vote,
       so node2 plus the arbitrator are a majority of the Galera cluster and node2 stays in the
-      primary component. Both MaxScale instances route to node2. The arbitrator is not a MaxScale
-      server and holds no data.
+      primary component. Both MaxScale instances route to node2. An arrow labelled gcomm leads
+      from node2 to garbd. The arbitrator is not a MaxScale server and holds no data.
     }
     subgraph H1["MaxScale 1 host"]
       MX1["MaxScale 1"]:::node
@@ -324,6 +341,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _The arbitrator is the third vote, so the surviving node keeps its quorum._

@@ -1,13 +1,13 @@
 ---
 description: >-
-  Plugin API reference: Memory Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The mysql_memory_register macro, which registers memory instruments with the Performance Schema.
 ---
 
-{#memoryinstrumentation}
+
 
 # Memory Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md#instrumentationinterface)
+> [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
@@ -16,8 +16,6 @@ description: >-
 | [`mysql_memory_register`](#mysql_memory_register)  | Memory registration. |
 
 ---
-
-{#mysql_memory_register}
 
 ### mysql_memory_register
 
@@ -36,8 +34,6 @@ Memory registration.
 | `void` | [`inline_mysql_memory_register`](#inline_mysql_memory_register) `static` `inline` |  |
 
 ---
-
-{#inline_mysql_memory_register}
 
 ### inline_mysql_memory_register
 

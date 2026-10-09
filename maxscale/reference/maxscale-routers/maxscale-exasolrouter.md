@@ -1,16 +1,17 @@
 ---
 description: >-
   Route analytical queries to an Exasol cluster. This router integrates Exasol
-  with MaxScale often used alongside SmartRouter for hybrid
+  with MaxScale and is often used with SmartRouter for hybrid
   transactional/analytical workloads.
-
-  The router is provided in the package `maxscale-exasol` that must be installed explicitly.
 ---
 
 # MaxScale Exasolrouter
 
 {% hint style="info" %}
 This functionality is available from MaxScale 25.10.1.
+
+The router is provided in the `maxscale-exasol` package, which must be
+installed separately.
 {% endhint %}
 
 ## Overview
@@ -131,6 +132,16 @@ The values mean:
   providing it as an argument. Unless an absolute path is used, it is
   interpreted relative to the _share_ directory.
 
+The bundled `maria_preprocessor.py` is installed by the `maxscale-exasol`
+package. The latest version of the script is available from the
+[exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql)
+repository. That file is written as an Exasol
+`CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its
+first line before using it with `internal`. For example:
+```
+preprocessor=internal:/path/to/maria_preprocessor.py
+```
+
 _Internal_ transpilation is performed using Python, but it is supported only
 if the Linux distribution supports a sufficiently new version of Python.
 On Ubuntu 24.04, Python 3.12 is sufficient, but on all other distributions
@@ -192,7 +203,7 @@ Whether _ExasolRouter_ should quote identifiers. This applies always
 when a `COM_INIT_DB` packet is converted to an `OPEN SCHEMA ...`
 statement and when the value of `preprocessor` is `disabled`.
 
-In the latter case, currently it only affects whether 'USE db' becomes
+In the latter case, it only affects whether 'USE db' becomes
 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
@@ -207,7 +218,7 @@ is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 If the value of `preprocessor` is `disabled`, _ExasolRouter_ itself
 translates some MariaDB constructs to equivalent Exasol constructs.
 
-Currently a transformation will be made _only_ if there is an **exact** match
+A transformation will be made _only_ if there is an **exact** match
 (apart from case and differences in whitespace) with the MariaDb SQL.
 
 | MariaDb                           | Exasol                                                                                                              |

@@ -57,7 +57,7 @@ See also:
 ### Extensions & new features
 
 * [Table Elimination](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/table-elimination) (New optimization) (MWL#17)
-* [Pool of Threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb-51-53) (Allows you to have 200,000+ connections
+* Pool of Threads (Allows you to have 200,000+ connections
   to MariadB)
 * MariaDB can handle up to 32 key segments per key (up from 16)
 * Added `--abort-source-on-error` to the mysql client.

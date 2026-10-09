@@ -65,27 +65,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `rocksdb_background_sync`
-
-* Description: Turns on background syncs for RocksDB
-* Command line: `--rocksdb-background-sync={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
-#### `rocksdb_base_background_compactions`
-
-* Description: DBOptions::base\_background\_compactions for RocksDB
-* Command line: `--rocksdb-base-background-compactions=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `-1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
 #### `rocksdb_blind_delete_primary_key`
 
 * Description: Deleting rows by primary key lookup, without reading rows (Blind Deletes). Blind delete is disabled if the table has secondary key.
@@ -319,16 +298,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `2000000`
-
-#### `rocksdb_concurrent_prepare`
-
-* Description: DBOptions::concurrent\_prepare for RocksDB.
-* Command line: `--rocksdb-coconcurrent-prepare={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `1`
-* Removed: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.15)
 
 #### `rocksdb_create_checkpoint`
 
@@ -591,16 +560,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Default Value: `1`
 * Range: `0` to `2`
 
-#### `rocksdb_flush_memtable_on_analyze`
-
-* Description: Forces memtable flush on ANALYZE table to get accurate cardinality.
-* Command line: `--rocksdb-flush-memtable-on-analyze={0|1}`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `ON`
-* Removed: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7), [MariaDB 10.2.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.15)
-
 #### `rocksdb_force_compute_memtable_stats`
 
 * Description: Force to always compute memtable stats.
@@ -666,6 +625,17 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
+
+#### `rocksdb_ignore_datadic_errors`
+
+* Description: If set to `1`, MyRocks logs data dictionary errors and tries to continue instead of failing. This covers a data dictionary that fails to initialize at startup, and a table whose `.frm` file has a different number of indexes than the MyRocks data dictionary records. Use it only to start the server and repair tables, never for regular operation. When it's set, the server logs a caution at startup.
+* Command line: `--rocksdb-ignore-datadic-errors=#`
+* Scope: Global
+* Dynamic: No
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `1`
+* Introduced: [MariaDB 10.6.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.23](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.23), [MariaDB 10.3.33](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.33), [MariaDB 10.2.42](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.42)
 
 #### `rocksdb_ignore_unknown_options`
 
@@ -814,28 +784,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `boolean`
 * Default Value: `OFF`
 
-#### `rocksdb_max_background_compactions`
-
-* Description: DBOptions::max\_background\_compactions for RocksDB.
-* Command line: `--rocksdb-max-background-compactions=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
-#### `rocksdb_max_background_flushes`
-
-* Description: DBOptions::max\_background\_flushes for RocksDB.
-* Command line: `--rocksdb-max-background-flushes=#`
-* Scope: Global
-* Dynamic: No
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `1` to `64`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
-
 #### `rocksdb_max_background_jobs`
 
 * Description: DBOptions::max\_background\_jobs for RocksDB.
@@ -906,9 +854,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1048576`
-* Range:
-  * `1` to `1073741824` (>= [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10), [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18))
-  * `1` to `1048576` (<= [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.9), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17))
+* Range: `1` to `1073741824`
 
 #### `rocksdb_max_subcompactions`
 
@@ -1061,16 +1007,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `9223372036854775807`
-
-#### `rocksdb_read_free_rpl_tables`
-
-* Description: List of tables that will use read-free replication on the slave (i.e. not lookup a row during replication).
-* Command line: `--rocksdb-read-free-rpl-tables=value`
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `string`
-* Default Value: (Empty)
-* Removed: [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26)
 
 #### `rocksdb_records_in_range`
 
@@ -1349,16 +1285,6 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-
-#### `rocksdb_use_direct_writes`
-
-* Description: DBOptions::use\_direct\_writes for RocksDB.
-* Command line: `--rocksdb-use-direct-reads={0|1}`
-* Scope: Global
-* Dynamic: No
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)
 
 #### `rocksdb_use_fsync`
 

@@ -45,10 +45,7 @@ MariaDB Galera Cluster is powered by:
 * MariaDB Server.
 * The [Galera wsrep provider library](https://github.com/codership/galera/).
 
-The functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package. The following [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) version corresponds to each MariaDB Server version:
-
-* In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, MariaDB Galera Cluster uses [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4. This means that the wsrep API version is 26 and the [Galera wsrep provider library](https://github.com/codership/galera/) is version 4.X.
-* In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and before, MariaDB Galera Cluster uses [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 3. This means that the wsrep API is version 25 and the [Galera wsrep provider library](https://github.com/codership/galera/) is version 3.X.
+The functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package. MariaDB Galera Cluster uses [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4. This means that the wsrep API version is 26 and the [Galera wsrep provider library](https://github.com/codership/galera/) is version 4.X.
 
 See [Versioning Information](https://web.archive.org/web/20190722120303/https://galeracluster.com/library/documentation/versioning-information.html) for more information about how to interpret these version numbers.
 
@@ -138,6 +135,10 @@ Recovery:
     SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
     ```
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 #### **All Nodes Go Down Without a Proper Shutdown**
 
 In a datacenter power failure or a severe bug, all nodes may crash. The `grastate.dat` file will not be updated correctly and will show `seqno: -1`.
@@ -169,6 +170,10 @@ A split-brain occurs when a network partition splits the cluster, and no resulti
     SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
     ```
 3. This group will now become operational. When network connectivity is restored, the nodes from the other partition will automatically detect this Primary Component and rejoin it.
+
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
 
 {% hint style="danger" %}
 Never execute the bootstrap command on both sides of a partition. This will create two independent, active clusters with diverging data, leading to severe data inconsistency.

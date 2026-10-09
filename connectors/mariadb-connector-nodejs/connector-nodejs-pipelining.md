@@ -44,9 +44,10 @@ sequenceDiagram
     accDescr {
         In the standard ping-pong pattern, the connector sends one query and waits for
         its response before sending the next, so each INSERT and the COMMIT round-trip
-        individually. With pipelining, the connector sends the three basket_item INSERT
-        queries back to back without waiting, then receives their three responses in
-        turn, before finally sending COMMIT and waiting for its response.
+        individually. With pipelining, the connector first sends INSERT INTO BASKET and
+        receives its response, then sends the three basket_item INSERT queries back to
+        back without waiting, then receives their three responses in turn, before
+        finally sending COMMIT and waiting for its response.
     }
     participant C as Connector
     participant D as Database

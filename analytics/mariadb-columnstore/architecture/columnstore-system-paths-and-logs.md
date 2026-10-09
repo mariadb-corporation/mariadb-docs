@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB ColumnStore file system paths: where binaries, data files,
-  configuration files, and logs are located, which paths can be configured
-  with mcsSetConfig, and how to gather logs for support tickets.
+  MariaDB ColumnStore file system paths: where binaries, data, configuration
+  files, and logs live, which paths mcsSetConfig can change, and how to gather
+  logs for support tickets.
 ---
 
 # ColumnStore System Paths and Logs
@@ -229,6 +229,22 @@ journalctl -u mariadb-columnstore-cmapi # only with the CMAPI package installed
 ### MariaDB Server Error Log
 
 Errors raised at the SQL layer (including ColumnStore plugin messages) go to the regular MariaDB Server [error log](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/error-log), configured with the [`log_error`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_error) system variable.
+
+## Checking Cluster Status
+
+To check the state of a node or cluster that doesn't start or doesn't respond, use `mcs status`. The `mcs` command requires CMAPI to be installed:
+
+```bash
+mcs status
+```
+
+By default, `mcs status` returns JSON. In ColumnStore 25.10.5 and later, add `-h` (`--human-readable`) to get plain-text output:
+
+```bash
+mcs status -h
+```
+
+For the full `mcs` command reference, run `mcs help-all` or `man mcs`. For help on a single command, run `mcs <command> --help`. For the underlying API call, see [Checking CMAPI Cluster Status](../high-availability/cluster-management/checking-cmapi-cluster-status.md).
 
 ## Gathering Logs for Support Tickets
 

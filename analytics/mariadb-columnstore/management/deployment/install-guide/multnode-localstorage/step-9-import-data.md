@@ -1,5 +1,7 @@
 ---
-description: 'Step 9: Import Data'
+description: >-
+  Step 9 of the multi-node MariaDB ColumnStore install with shared local
+  storage: import the schema and bulk-import data into ColumnStore.
 hidden: true
 ---
 

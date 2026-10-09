@@ -1,5 +1,7 @@
 ---
-description: 'Step 9: Import Data'
+description: >-
+  Step 9 of the MariaDB ColumnStore install with object storage: import the
+  schema and bulk-import data into ColumnStore.
 hidden: true
 ---
 

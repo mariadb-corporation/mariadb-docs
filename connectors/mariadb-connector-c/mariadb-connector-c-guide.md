@@ -21,7 +21,7 @@ MariaDB Connector/C is compatible with all MariaDB and MySQL server versions.
 
 ### Supported Release Series
 
-The following MariaDB Connector/C release series are currently supported:
+The following MariaDB Connector/C release series are supported:
 
 | Release Series | Stable (GA) Date |
 | -------------- | ---------------- |
@@ -50,7 +50,7 @@ An application can also retrieve the client library version at runtime by callin
 
 ## Integration with MariaDB Server
 
-MariaDB Connector/C is distributed with MariaDB Server packages. Eventually, it will completely replace the functionality that has traditionally been performed by `libmysqlclient` in those packages. Currently, MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
+MariaDB Connector/C is distributed with MariaDB Server packages. MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.
 
 ## Installing MariaDB Connector/C
 
@@ -71,7 +71,7 @@ MariaDB Connector/C is distributed in [binary tarballs](https://app.gitbook.com/
 
 #### Installing with a Package Manager
 
-Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories. The repository needs to be configured for [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or later.
+Since MariaDB Connector/C is now integrated with MariaDB Server, it can also be installed via a package manager on Linux. In order to do so, your system needs to be configured to install from one of the MariaDB repositories.
 
 You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
 

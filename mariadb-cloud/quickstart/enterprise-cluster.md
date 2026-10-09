@@ -63,7 +63,21 @@ Enterprise Cluster are designed for high availability, fault tolerance, and unif
 To maximize resiliency, multi-node clusters can be spread across multiple Availability Zones within a single cloud region.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
+    accTitle: Multi-node cluster across three Availability Zones
+    accDescr {
+        The Client Application, outside the Cloud Region, sends Read/Write Traffic
+        to MariaDB MaxScale. MariaDB MaxScale sits inside the Cloud Region group,
+        which also holds three Availability Zone groups with one node each: Node 1
+        (Writer / Active) in Availability Zone 1, Node 2 (Reader / Standby) in
+        Availability Zone 2 and Node 3 (Reader / Standby) in Availability Zone 3.
+        Three arrows lead from MaxScale to the nodes, labelled Routes Writes &
+        Reads to Node 1, Routes Reads to Node 2 and Routes Reads to Node 3. The
+        three nodes are also joined in a ring by two-way arrows, each labelled
+        Synchronous Replication: Node 1 and Node 2, Node 2 and Node 3, and Node 3
+        and Node 1.
+    }
     App[Client Application] -->|Read/Write Traffic| MS(MariaDB MaxScale)
     
     subgraph Region [Cloud Region]
@@ -89,6 +103,7 @@ flowchart TD
         Node2 <==>|Synchronous Replication| Node3
         Node3 <==>|Synchronous Replication| Node1
     end
+    linkStyle default color:#111111
 ```
 
 As illustrated above, MaxScale receives read and write connections from your application and can route them to any of the available primary nodes. Because all nodes participate in synchronous replication, data is kept strictly consistent across all availability zones.
@@ -105,6 +120,17 @@ Unlike asynchronous replication where the primary commits first and replicas cat
 
 ```mermaid
 sequenceDiagram
+    accTitle: Write transaction across three nodes with quorum
+    accDescr {
+        A sequence between four participants: Application, Node A, Node B and Node
+        C, with five numbered steps. Step 1: the Application sends a write
+        transaction to Node A. Step 2: Node A broadcasts the write-set to Node B
+        (2a) and to Node C (2b). Step 3, noted over Node B and Node C: they
+        certify the write-set with a conflict check. Node B and Node C each reply
+        Certification OK to Node A. Step 4, noted over Node A, Node B and Node C:
+        Quorum Reached. Node A, Node B and Node C each then commit. Step 5: Node A
+        acknowledges success to the Application.
+    }
     participant App as Application
     participant NA as Node A
     participant NB as Node B
@@ -130,7 +156,18 @@ Because Enterprise Cluster relies on a mathematical majority to maintain cluster
 If a node goes offline unexpectedly, MariaDB MaxScale detects the failure and immediately stops routing application traffic to it. The remaining active nodes check their voting pool; as long as more than half of the cluster remains online (e.g., 2 out of 3 nodes), the cluster maintains "quorum" and continues accepting reads and writes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
+    accTitle: Cluster keeps quorum when one node fails
+    accDescr {
+        The Client Application sends Read/Write traffic to MariaDB MaxScale.
+        MariaDB MaxScale is outside the Enterprise Cluster group, which holds
+        three nodes: Node A (Writer), Node B (Reader) and Node C (Failed, drawn
+        with a dashed red outline). MaxScale sends arrows labelled Routes Traffic
+        to Node A and to Node B. A dotted arrow labelled Routing Stopped leads
+        from MaxScale to Node C. Node A and Node B are joined by a two-way arrow
+        labelled Quorum Maintained (2 of 3 Votes).
+    }
     App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
     
     subgraph Cluster ["Enterprise Cluster"]
@@ -146,6 +183,7 @@ flowchart TD
     MS -.->|"Routing Stopped"| NC
     
     style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
+    linkStyle default color:#111111
 ```
 
 Once the failed node is recovered or replaced by the managed service, it automatically rejoins the cluster, synchronizes its state using a State Snapshot Transfer (SST) or Incremental State Transfer (IST), and resumes accepting traffic from MaxScale.
@@ -201,13 +239,23 @@ Enterprise Cluster supports cloud-native snapshot backups only. Full (physical) 
 To ensure safe re-formation, restores are initialized on a single node to bootstrap the cluster, followed by automated transfers to bring additional nodes online.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: Restoring an Enterprise Cluster from a snapshot
+    accDescr {
+        A left-to-right flow in three numbered steps. Step 1, Restore: an arrow
+        leads from the Cloud Snapshot to Node 1. Step 2, Safe-To-Bootstrap: an
+        arrow leads from Node 1 to the New Enterprise Cluster. Step 3, Managed
+        SST: two arrows lead from the New Enterprise Cluster, one to Node 2 and
+        one to Node 3.
+    }
     Snap[("Cloud Snapshot")] -->|1. Restore| N1("Node 1")
     N1 -->|2. Safe-To-Bootstrap| C["New Enterprise Cluster"]
     C -->|3. Managed SST| N2("Node 2")
     C -->|3. Managed SST| N3("Node 3")
     
     style Snap fill:#f9f,stroke:#333,stroke-width:2px
+    linkStyle default color:#111111
 ```
 
 ## Dev tools for Enterprise Cluster

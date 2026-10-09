@@ -36,13 +36,15 @@ MariaDB products can be deployed to form other topologies that leverage advanced
 ### ColumnStore with Object Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
     accDescr {
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
-        routes. All three nodes use a shared Amazon S3 object storage backend
-        for their table data.
+        routes. All three nodes use a shared S3 object storage backend
+        for their table data. Arrows lead from the S3 object storage box to
+        each of the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
@@ -57,6 +59,7 @@ flowchart TD
     S3 -.-> N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3,S3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3 object storage._
@@ -122,15 +125,11 @@ MariaDB ColumnStore is a columnar storage engine that is optimized for analytica
 
 ### MariaDB Enterprise Server
 
-MariaDB ColumnStore is built on top of [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server). MariaDB ColumnStore 5 is included with the standard MariaDB Enterprise Server 10.5 releases, while MariaDB ColumnStore 6 is included with the standard MariaDB Enterprise Server 10.6 releases.
+MariaDB ColumnStore is built on top of [MariaDB Enterprise Server](columnstore-architectural-overview.md#mariadb-enterprise-server) and is included with the standard MariaDB Enterprise Server releases.
 
 ColumnStore interfaces with the Enterprise Server SQL engine through the ColumnStore storage engine plugin.
 
-MariaDB has been continually improving the integration of MariaDB ColumnStore with MariaDB Enterprise Server:
-
-* MariaDB ColumnStore required special custom-built releases of MariaDB Server.
-* MariaDB ColumnStore was included with the standard MariaDB Enterprise Server 10.5 releases up to ES 10.5.5-3. It was the first release to replace the Operations/Administration/Maintenance (OAM) API with the more modern Cluster Management API (CMAPI), which is still in use.
-* Starting with ES 10.5.6-4, MariaDB ColumnStore is included with the standard MariaDB Enterprise Server 10.5 releases.
+ColumnStore clusters are managed through the Cluster Management API (CMAPI), which replaced the older Operations/Administration/Maintenance (OAM) API.
 
 ### ColumnStore Storage Engine Plugin
 
@@ -372,6 +371,7 @@ The CMAPI server has a role in automatic failover. After MaxScale performs autom
 ## Data Loading
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Data loading flow from an application to S3-compatible storage in MariaDB Enterprise ColumnStore
     accDescr {
@@ -415,6 +415,7 @@ flowchart LR
     class App,Client,Table,Cache,S3 node
     class CSEngine,WE,SM,CPImport proc
     class TSV file
+    linkStyle default color:#111111
 ```
 
 _Data loading with MariaDB Enterprise ColumnStore: a client query streams contacts.tsv through cpimport into the WriteEngine process, the Storage Manager, and the local cache, which appends the new data to S3-compatible storage._

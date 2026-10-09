@@ -80,7 +80,6 @@ You might consider using the following major new features in [MariaDB 10.8](http
 * Upgrading from MariaDB 10.7 to MariaDB 10.7 with Galera Cluster
 * [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-from-mariadb-10-6-to-mariadb-10-7.md)
 * [Upgrading from MariaDB 10.5 to MariaDB 10.6](../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md)
-* [Upgrading from MariaDB 10.4 to MariaDB 10.5](upgrading-from-mariadb-10-4-to-mariadb-10-5.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

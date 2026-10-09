@@ -6,7 +6,7 @@ The most recent release of [MariaDB 10.3](what-is-mariadb-103.md) is:[**MariaDB 
 
 [MariaDB 10.3](what-is-mariadb-103.md) is a previous major stable version. The first stable release was in May 2018, and it was [maintained until](https://mariadb.org/about/#maintenance-policy) May 2023.
 
-For details on upgrading from [MariaDB 10.2](../10.2/what-is-mariadb-102.md), see [Upgrading from MariaDB 10.2 to 10.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103).
+For details on upgrading from [MariaDB 10.2](../10.2/what-is-mariadb-102.md), see Upgrading from MariaDB 10.2 to 10.3.
 
 MariaDB Server 10.3 is included in MariaDB TX 3.0. [Watch the webinar recording](https://go.mariadb.com/mariadbtx3.0_webinar_registration-LP.html?utm_source=kb\&utm_campaign=mariadbtx-ondemand-webinar-kb-changes-improvements) to learn more about the new features included in this release.
 
@@ -148,7 +148,7 @@ Connections with idle transactions can be automatically killed after a specified
 
 For a list of all new variables, see [System Variables Added in MariaDB 10.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-10-3) and [Status Variables Added in MariaDB 10.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/status-variables-added-in-mariadb-103).
 
-* New system variable [gtid\_pos\_auto\_engines](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_pos_auto_engines).
+* New system variable [gtid\_pos\_auto\_engines](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_pos_auto_engines).
 * New system variable [secure\_timestamp](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#secure_timestamp) for restricting the direct setting of a session timestamp ([MDEV-15923](https://jira.mariadb.org/browse/MDEV-15923))
 * [session variables tracking](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#session_track_system_variables) is enabled by default ([MDEV-11825](https://jira.mariadb.org/browse/MDEV-11825))
 * Remove deprecated variables [innodb\_file\_format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables), [innodb\_file\_format\_check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables), [innodb\_file\_format\_max](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) and [innodb\_large\_prefix](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables).

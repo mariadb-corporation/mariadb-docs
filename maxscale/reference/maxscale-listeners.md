@@ -174,7 +174,7 @@ Each array element in the _server\_credentials_-array can define the following f
 
 When a client successfully logs into MaxScale, MaxScale first searches for name-based mapping. The incoming client does not need to be a Linux user for name-based mapping to take place. If the name is not found, MaxScale checks if the client is a Linux user with a group membership matching an element in the group mapping array. If the client is a member of more than 100 groups, this check may fail.
 
-If a mapping is found, MaxScale searches the credentials array for a matching username, and uses the password and plugin listed. The plugin need not be the same as the one the original user used. Currently, "mysql\_native\_password" and "pam" are supported as mapped plugins.
+If a mapping is found, MaxScale searches the credentials array for a matching username, and uses the password and plugin listed. The plugin need not be the same as the one the original user used. "mysql\_native\_password" and "pam" are supported as mapped plugins.
 
 An example mapping file is below.
 

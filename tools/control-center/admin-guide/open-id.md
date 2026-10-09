@@ -2,9 +2,14 @@
 description: >-
   Setting up OpenID Connect authentication for GridGain Control Center,
   including RBAC, scopes, redirect URI, and provider configuration.
+hidden: true
 ---
 
 # OpenID Connect Authentication
+
+{% hint style="info" %}
+To use MariaDB Enterprise Manager as the OpenID Connect provider, see [Enterprise Manager Integration](enterprise-manager-integration.md).
+{% endhint %}
 
 Set up OpenID authentication so users can log in to Control Center using their OpenID accounts, allowing them to bypass traditional email and password sign-in to simplify access management. Authentication can be restricted exclusively to OpenID, preventing the creation of login-password accounts. Additionally, role management could be handled via OpenID, meaning that both authentication and role assignments are controlled externally.
 

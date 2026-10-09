@@ -29,7 +29,29 @@ config:
   theme: neutral
   layout: dagre
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: High-level architecture of a MariaDB Cloud Kubernetes cluster
+    accDescr {
+        A left-to-right diagram with five numbered steps. A group labelled
+        Kubernetes Cluster holds four boxes: Intelligent Proxy (Multitenant
+        Intelligent Proxy with routing, load balancing and failover), Database
+        Server, Warm 'hot' DB Server Pool, and K8 Operator/Controllers (Vertical
+        Autoscaler, Horizontal Autoscaler, AutoPark). Outside the cluster are the
+        Central Control Plane, the Application Client and Elastic Load Balancing.
+        Step 1: an arrow labelled Request operator to launch leads from the
+        Central Control Plane to the Kubernetes Cluster. Step 2: an arrow labelled
+        Checkout from pool, assign to user namespace leads from the Warm 'hot' DB
+        Server Pool to the Database Server. Step 3: the K8 Operator/Controllers
+        and the Database Server are joined by a two-way arrow labelled Scale to
+        1SCU. Step 4: the K8 Operator/Controllers and the Intelligent Proxy are
+        joined by a two-way arrow labelled Register DB. Step 5: Elastic Load
+        Balancing and the Kubernetes Cluster are joined by a two-way arrow
+        labelled Set up DNS endpoint for new service. Three arrows have no number:
+        a two-way arrow between the Application Client and Elastic Load Balancing,
+        a two-way arrow between the Database Server and the Intelligent Proxy, and
+        an arrow from the Intelligent Proxy to the Warm 'hot' DB Server Pool.
+    }
  subgraph cloud["Kubernetes Cluster"]
     direction TB
         proxies["Intelligent Proxy
@@ -69,6 +91,7 @@ flowchart LR
     linkStyle 4 stroke:#FF6D00,fill:none
     linkStyle 6 stroke:#FF6D00,fill:none
     linkStyle 7 stroke:#FF6D00,fill:none
+ linkStyle default color:#111111
 ```
 
 ## Core Components

@@ -60,7 +60,7 @@ The absolute path to a UNIX domain socket the MariaDB server is listening on.
 * Dynamic: Yes
 * Default: `""`
 
-Alternative IP-address or hostname for the server. This is currently only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
+Alternative IP-address or hostname for the server. This is only used by MariaDB Monitor to detect and set up replication. See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md) for more information.
 
 ### `monitoruser`
 
@@ -163,9 +163,9 @@ If `proxy_protocol` is enabled, MaxScale will send a [PROXY protocol](https://ww
 
 **NOTE**: If you use a cloud load balancer like AWS ELB that supports the proxy protocol in front of a MaxScale, you need to configure [proxy\_protocol\_networks](maxscale-listeners.md#proxy_protocol_networks) in MaxScale. This also needs to be done whenever one MaxScale may connect to another Maxscale and the connecting MaxScale has `proxy_protocol` enabled.
 
-PROXY protocol will be supported by MariaDB 10.3, which this feature has been tested with. To use it, enable the PROXY protocol in MaxScale for every compatible server and configure the MariaDB servers themselves to accept the protocol headers from MaxScale's IP address. On the server side, the protocol should be enabled only for trusted IPs, as it allows the sender to spoof the connection origin. If a proxy header is sent to a server not expecting it, the connection will fail. Usually PROXY protocol should be enabled for every server in a cluster, as they typically have similar grants.
+MariaDB Server supports the PROXY protocol. To use it, enable the PROXY protocol in MaxScale for every compatible server and configure the MariaDB servers themselves to accept the protocol headers from MaxScale's IP address. On the server side, the protocol should be enabled only for trusted IPs, as it allows the sender to spoof the connection origin. If a proxy header is sent to a server not expecting it, the connection will fail. Usually PROXY protocol should be enabled for every server in a cluster, as they typically have similar grants.
 
-Other SQL-servers may support PROXY protocol as well, but the implementation may be highly restricting. Strict adherence to the protocol requires that the backend server does not allow mixing of un-proxied and proxied connections from a given IP. MaxScale requires normal connections to backends for monitoring and authentication data queries, which would be blocked. To bypass this restriction, the server monitor needs to be disabled and the service listener needs to be configured to disregard authentication errors (`skip_authentication=true`). Server states also need to be set manually in MaxCtrl. These steps are _not_ required for MariaDB 10.3, since its implementation is more flexible and allows both PROXY-headered and headerless connections from a proxy-enabled IP.
+Other SQL-servers may support PROXY protocol as well, but the implementation may be highly restricting. Strict adherence to the protocol requires that the backend server does not allow mixing of un-proxied and proxied connections from a given IP. MaxScale requires normal connections to backends for monitoring and authentication data queries, which would be blocked. To bypass this restriction, the server monitor needs to be disabled and the service listener needs to be configured to disregard authentication errors (`skip_authentication=true`). Server states also need to be set manually in MaxCtrl. These steps are _not_ required for MariaDB Server, since its implementation is more flexible and allows both PROXY-headered and headerless connections from a proxy-enabled IP.
 
 ### `disk_space_threshold`
 
@@ -174,9 +174,9 @@ Other SQL-servers may support PROXY protocol as well, but the implementation may
 * Dynamic: Yes
 * Default: None
 
-This parameter specifies how full a disk may be, before MaxScale should start logging warnings or take other actions (e.g. perform a switchover). This functionality will only work with MariaDB server versions 10.1.32, 10.2.14 and 10.3.6 onwards, if the `DISKS` _information schema plugin_ has been installed.
+This parameter specifies how full a disk may be, before MaxScale should start logging warnings or take other actions (e.g. perform a switchover). This functionality only works if the `DISKS` _information schema plugin_ has been installed.
 
-**NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the information will be available _only_ if the monitor user has the `FILE` privilege.
+**NOTE**: The information is available _only_ if the monitor user has the `FILE` privilege.
 
 A limit is specified as a path followed by a colon and a percentage specifying how full the corresponding disk may be, before action is taken. E.g. an entry like
 
@@ -262,7 +262,7 @@ The `main-site-primary` and `main-site-replica` servers will be used as long as 
 * Dynamic: Yes
 * Default: 0
 
-Server priority. Currently only used by galeramon to choose the order in which nodes are selected as the current primary server. Refer to the [Server Priorities](maxscale-monitors/galera-monitor.md#interaction-with-server-priorities) section of the galeramon documentation for more information on how to use it.
+Server priority. Only used by galeramon to choose the order in which nodes are selected as the current primary server. Refer to the [Server Priorities](maxscale-monitors/galera-monitor.md#interaction-with-server-priorities) section of the galeramon documentation for more information on how to use it.
 
 Starting with MaxScale 2.5.21, this parameter also accepts negative values. In older versions, the parameter only accepted non-negative values.
 

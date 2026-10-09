@@ -32,8 +32,6 @@ Poorly-formed recursive CTEs can in theory cause infinite loops. The [max\_recur
 
 #### CYCLE ... RESTRICT
 
-{% tabs %}
-{% tab title="Current" %}
 The `CYCLE` clause enables CTE cycle detection, avoiding excessive or infinite loops,\
 MariaDB supports a relaxed, non-standard grammar.\
 The SQL Standard permits a `CYCLE` clause, as follows:
@@ -58,12 +56,6 @@ CYCLE <cycle column list> RESTRICT
 ```
 
 With the use of `CYCLE ... RESTRICT` it makes no difference whether the CTE uses `UNION ALL` or `UNION DISTINCT` anymore. `UNION ALL` means "all rows, but without cycles", which is exactly what the `CYCLE` clause enables. And `UNION DISTINCT` means all rows should be different, which, again, is what will happen — as uniqueness is enforced over a subset of columns, complete rows will automatically all be different.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-`CYCLE ... RESTRICT` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### Examples
 

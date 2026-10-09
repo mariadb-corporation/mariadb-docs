@@ -1,9 +1,12 @@
 ---
-description: 'Step 5: Test MariaDB Enterprise Server'
+description: >-
+  Step 5 of the MariaDB ColumnStore install with object storage: test the S3
+  connection, the Enterprise Server service, client connections, ColumnStore
+  status, DDL, and DML.
 hidden: true
 ---
 
-# Step 5: Test MariaDB Enterprise Serverd
+# Step 5: Test MariaDB Enterprise Server
 
 ## Overview
 

@@ -2,6 +2,7 @@
 description: >-
   Reference for GridGain Control Center configuration parameters: common
   properties, rate and size limits, sessions, SSL/TLS, mail, LDAP, and OpenID.
+hidden: true
 ---
 
 # Configuration Parameters
@@ -148,8 +149,8 @@ When the table size limit is set, Control Center automatically cleans tables in 
 
 | Parameter | Description | Default |
 |---|---|---|
-| `account.globalTeam.enabled` | If true, automatically creates a team called *Global Team*, which includes all active users (local or AD/LDAP-managed). | false |
-| `account.globalTeam.attachCluster` | If true, and if Global Team is enabled, automatically shares all clusters in the environment with that team. | false |
+| `account.globalTeam.enabled` | If true, automatically creates a team called *Global Team*, which includes all active users (local or AD/LDAP-managed). | true |
+| `account.globalTeam.attachCluster` | If true, and if Global Team is enabled, automatically shares all clusters in the environment with that team. Clusters attach without a token. | true |
 
 ## SSL/TLS
 

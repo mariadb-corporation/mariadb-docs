@@ -1,15 +1,13 @@
 ---
 description: >-
   Describes the SPIDER_WRAPPER_PROTOCOLS table, which lists the available
-  foreign data wrappers (like `mysql`) that Spider can use to connect to remote
+  foreign data wrappers (like mysql) that Spider can use to connect to remote
   servers.
 ---
 
 # Information Schema SPIDER\_WRAPPER\_PROTOCOLS Table
 
-**MariaDB starting with** [**10.5.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4)
-
-The [Information Schema](../../../reference/system-tables/information-schema/) `SPIDER_WRAPPER_PROTOCOLS` table is installed along with the [Spider](./) storage engine from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4).
+The [Information Schema](../../../reference/system-tables/information-schema/) `SPIDER_WRAPPER_PROTOCOLS` table is installed along with the [Spider](./) storage engine.
 
 It contains the following columns:
 

@@ -61,10 +61,18 @@ The type for all the condition properties is `VARCHAR`(64), except for `MYSQL_ER
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 You can use the `ROW_NUMBER` property to retrieve the row number, too, even if the error text does not mention it. This property is named `ERROR_INDEX` . `ROW_NUMBER` is a [reserved word](../../../sql-structure/sql-language-structure/reserved-words.md).
 {% endtab %}
 
 {% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 There is no way, short of parsing the error text, to know in what row an error had happened.
 {% endtab %}
 {% endtabs %}

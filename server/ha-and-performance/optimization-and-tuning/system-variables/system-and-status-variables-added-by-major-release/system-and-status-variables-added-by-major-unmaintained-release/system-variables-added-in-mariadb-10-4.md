@@ -7,7 +7,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 | [analyze\_sample\_percentage](../../server-system-variables.md#analyze_sample_percentage)                                                                    | [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)   |
 | [default\_password\_lifetime](../../server-system-variables.md#default_password_lifetime)                                                                    | [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)   |
 | [disconnect\_on\_expired\_password](../../server-system-variables.md#disconnect_on_expired_password)                                                         | [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3)   |
-| [gtid\_cleanup\_batch\_size](../../../../standard-replication/gtid.md#gtid_cleanup_batch_size)                                                               | [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1)   |
+| [gtid\_cleanup\_batch\_size](../../../../standard-replication/gtid/gtid-system-variables.md#gtid_cleanup_batch_size)                                                               | [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1)   |
 | [innodb\_encrypt\_temporary\_ables](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md)                                           | [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7)   |
 | [innodb\_instant\_alter\_column\_allowed](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_instant_alter_column_allowed) | [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13) |
 | [max\_password\_errors](../../server-system-variables.md#max_password_errors)                                                                                | [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)   |
@@ -19,7 +19,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 | [wsrep\_trx\_fragment\_size](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_size)               | [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)   |
 | [wsrep\_trx\_fragment\_unit](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_trx_fragment_unit)               | [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)   |
 
-For system variables that have been removed or deprecated, see [Upgrading from MariaDB 10.3 to MariaDB 10.4](../../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-103-to-mariadb-104.md).
+For system variables that have been removed or deprecated, see Upgrading from MariaDB 10.3 to MariaDB 10.4.
 
 ## See Also
 

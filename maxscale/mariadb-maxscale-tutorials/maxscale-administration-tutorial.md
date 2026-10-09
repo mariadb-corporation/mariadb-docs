@@ -80,7 +80,7 @@ Log file rotation is achieved by use of the `rotate logs` command in maxctrl.
 maxctrl rotate logs
 ```
 
-As there currently is only the maxscale log, that is the only one that will be rotated.
+As there is only the maxscale log, that is the only one that will be rotated.
 
 This may be integrated into the Linux _logrotate_ mechanism by adding a configuration file to the /etc/logrotate.d directory. If we assume we want to rotate the log files once per month and wish to keep 5 log files worth of history, the configuration file would look as follows.
 

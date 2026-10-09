@@ -292,10 +292,18 @@ Used for producing a dump file from a replica server that can be used to set up 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 This option pauses any running SQL threads during the dump.
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 This option stops any running SQL threads before the dump, and restarts **all stopped IO and SQL** threads after completion.
 {% endtab %}
 {% endtabs %}
@@ -324,10 +332,6 @@ Fields in the output file are optionally enclosed by the given _character_. Used
 
 Fields in the output file are escaped by the given _character_. Used with the --tab option and has the same meaning as the corresponding `FIELDS` clause for [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md).
 
-#### --first-slave
-
-Removed in MariaDB 5.5. Use `--lock-all-tables` instead.
-
 #### -F, --flush-logs
 
 Flush the MariaDB server log files before starting the dump. This option requires the [RELOAD privilege](../../reference/sql-statements/account-management-sql-statements/grant.md#reload). If you use this option in combination with the `--databases=` or `--all-databases` option, the logs are flushed for each database dumped. The exception is when using `--lock-all-tables` or `--master-data`: In this case, the logs are flushed only once, corresponding to the moment all tables are locked. If you want your dump and the log flush to happen at the same exact moment, you should use `--flush-logs` together with either `--lock-all-tables` or `--master-data`.
@@ -342,7 +346,7 @@ Continue even if an SQL error occurs during a table dump. One use for this optio
 
 #### --gtid
 
-Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
+Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid/README.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid/README.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
 
 #### --header
 

@@ -1,5 +1,8 @@
 ---
-description: 'Step 7: Start and Configure MariaDB MaxScale'
+description: >-
+  Step 7 of the multi-node MariaDB ColumnStore install with shared local
+  storage: configure MaxScale servers, the MariaDB Monitor, and a router, then
+  start services.
 hidden: true
 ---
 

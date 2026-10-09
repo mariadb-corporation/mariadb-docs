@@ -159,7 +159,7 @@ The available hints cover:
 
 ## Binary Logging and Replication
 
-* **InnoDB-based binary log**: binary log events can now be written to InnoDB-managed, page-structured files (`.ibb`) that are integrated with InnoDB's redo log and crash recovery, removing the costly two-phase commit between the binary log and InnoDB. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_binlog_state_interval)
+* **InnoDB-based binary log**: binary log events can now be written to InnoDB-managed, page-structured files (`.ibb`) that are integrated with InnoDB's redo log and crash recovery, removing the costly two-phase commit between the binary log and InnoDB. It is selected at startup with the read-only [binlog\_storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_storage_engine) option and is only available for engines that support it. Related settings are [binlog\_directory](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_directory) and [innodb\_binlog\_state\_interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#innodb_binlog_state_interval)
 * **Fragmented row events**: row events larger than `max_packet_size` are split rather than failing, controlled by [binlog\_row\_event\_fragment\_threshold](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_event_fragment_threshold)
 * **Predictable temporary tables in replication**: [create\_tmp\_table\_binlog\_formats](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#create_tmp_table_binlog_formats) makes the binary logging of temporary table creation and use explicit rather than format-dependent
 * **Configurable replication TLS defaults**: the `MASTER_SSL_*` settings used by `CHANGE MASTER` can be given server defaults, so each replica does not have to repeat them
@@ -205,7 +205,7 @@ Nine new GIS functions improve compatibility with MySQL 8:
 Two capabilities from the MariaDB Community audit plugin are now available in MariaDB Enterprise Audit:
 
 * **Client port in connection records**: a connection is identified as `HOST:PORT` rather than by host alone, which distinguishes concurrent connections from the same host. When no port is available, the field records `unavailable`
-* **TLS version in `CONNECT` events**: each connection event records the TLS version negotiated, so audit logs can evidence which sessions used which protocol version
+* **TLS version in connection events**: `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, `CHANGE_USER`, and `CHANGE_USER_DONE` records each carry the TLS version negotiated for the session, so audit logs can evidence which sessions used which protocol version
 
 ## Observability and Information Schema
 
@@ -223,7 +223,7 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 
 * [**mariadb-dump**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump): the `-L` or `--wildcards` option selects databases and tables by pattern rather than by exact name
 * [**mariadb-check**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) **and** [**CHECK TABLE**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table): both now support [SEQUENCE tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine)
-* [**mariadb client**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir): the `--script-dir` option sets an alternative directory for scripts invoked with the `source` command
+* [**mariadb client**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mariadb-command-line-client#script-dir-name): the `--script-dir` option sets an alternative directory for scripts invoked with the `source` command
 
 ## Enterprise Packaging and Upgrade
 

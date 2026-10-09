@@ -35,7 +35,7 @@ This architecture allows applications to use a single connection endpoint for bo
   See the [getting started guide](../maxscale-quickstart-guides/maxscale-getting-started-guide.md) if required.
 * MaxScale running on x86\_64 architecture
   * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
-  * The Exasol ODBC driver currently requires x86\_64.
+  * The Exasol ODBC driver requires x86\_64.
   * So, MaxScale must run on x86\_64 when using `exasolrouter`.
 * The `maxscale-exasol` package, which contains the Exasolrouter module and the Exasol ODBC driver, and is installed separately from `maxscale`. See Step 1 below.
 * A Linux distribution that provides Python 3.13 or later, which the Exasolrouter's internal SQL preprocessor requires. Python 3.12 is sufficient on Ubuntu 24.04. In practice, this means one of:
@@ -136,7 +136,7 @@ mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
 mariadb -e "GRANT SELECT ON mysql.global_priv TO maxuser@'%'"
 ```
 
-On MariaDB 10.4.1 and later, the `mysql.global_priv` grant lets MaxScale read the authentication data of each account. Without it, MaxScale logs a warning when it loads users, and accounts that have more than one authentication mechanism cannot authenticate.
+The `mysql.global_priv` grant lets MaxScale read the authentication data of each account. Without it, MaxScale logs a warning when it loads users, and accounts that have more than one authentication mechanism cannot authenticate.
 
 **Exasol User**\
 \
@@ -177,7 +177,7 @@ These privileges cover the full integration:
 
 Narrow the list if your deployment does not use all of it. For example, an Exasolrouter service that only reads and does not use CDC or the external preprocessor does not need the script, `ALTER SYSTEM`, or table-modification privileges.
 
-**Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
+**Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not receive user‑level authentication from MariaDB clients.
 
 ### Step 3. Configure the MaxScale server and monitor.
 
@@ -211,6 +211,14 @@ Replace the following placeholders with values that match your actual environmen
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 * `targets`: The MariaDB server that the Exasolrouter service uses to authenticate clients. The Exasolrouter never routes queries to this server — Exasol is reached only through `connection_string` — but the service needs it to load user accounts, so that you can also connect to the Exasolrouter service directly, as in Step 7
+
+With `preprocessor=internal`, the Exasolrouter translates MariaDB SQL to Exasol SQL using the `maria_preprocessor.py` script that ships with the `maxscale-exasol` package, so no further setup is needed. To use a different or newer version of the script, give its path as an argument:
+
+```
+preprocessor=internal:/path/to/maria_preprocessor.py
+```
+
+The latest script is available from the [exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql) repository. That file is written as an Exasol `CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its first line before saving it as `maria_preprocessor.py`. A relative path is interpreted relative to the MaxScale share directory. For details, see [`preprocessor`](../reference/maxscale-routers/maxscale-exasolrouter.md#preprocessor).
 
 ### Step 5. Configure the MaxScale SmartRouter.
 
@@ -312,7 +320,22 @@ The Exasolrouter does not replicate data — it only routes queries. To keep Exa
 binlogrouter connects to the MariaDB cluster as a replica and reads its binary log. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: MaxScale write path and CDC replication to Exasol
+    accDescr {
+        Five boxes joined by four numbered arrows. Three boxes stand alone:
+        Application (MariaDB connector), MariaDB (transactional core, binlog,
+        GTID) and Exasol (analytics engine, columnar). A group labelled MaxScale
+        holds two boxes: Smart Router (routes writes and reads) and MaxScale CDC
+        (tails binlog, applies to Exasol). Arrow 1, labelled "1 - reads and
+        writes", leads from Application to Smart Router. Arrow 2, labelled "2 -
+        write committed to binlog", leads from Smart Router to MariaDB. Arrow 3,
+        labelled "3 - CDC tails binlog (async)", leads from MariaDB to MaxScale
+        CDC. Arrow 4, labelled "4 - applies change + GTID", leads from MaxScale
+        CDC to Exasol. Arrows 1 and 2 show the synchronous write path. Arrows 3
+        and 4 are dotted and show asynchronous CDC replication.
+    }
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
         SR["Smart Router<br/>routes writes and reads"]
@@ -333,6 +356,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._
@@ -341,6 +365,16 @@ Internally, the pipeline runs in four stages, then applies each batch to Exasol 
 
 ```mermaid
 flowchart LR
+    accTitle: Pipeline from binlog capture to Exasol MERGE
+    accDescr {
+        A chain of five boxes, with an arrow from each box to the next. The first
+        box, 01 Capture, says: tail MariaDB binlog as a replica. The second, 02
+        Compact: collapse row updates to final state. The third, 03 Batch:
+        accumulate many rows per write. The fourth, 04 Bulk insert: apply to
+        Exasol in one transaction, matching GTID. The fifth, Staging table +
+        MERGE: bulk-load into _stagingN, then MERGE inserts, updates, deletes
+        atomically.
+    }
     C1["01 Capture<br/>tail MariaDB binlog as a replica"]
     C2["02 Compact<br/>collapse row updates to final state"]
     C3["03 Batch<br/>accumulate many rows per write"]
@@ -417,10 +451,10 @@ Key settings:
 * `expire_log_minimum_files` and `expire_log_duration` — how long the locally stored binary logs are retained (here, at least 2 files, purged after 96 hours).
 * `odbc_connection_str` — the Exasol ODBC connection used to apply changes, using the `cdc_user` credentials from Step 2. Referencing the driver through the `current` symlink keeps the configuration working across driver updates.
 
-By default, the pipeline creates target tables automatically from incoming `CREATE TABLE` statements (`odbc_create_table_from_sql`) and stops on error (`odbc_stop_on_error`). To replicate only specific tables, set `odbc_include_tables` to a comma-separated list; leaving it unset replicates all tables.
+By default, the pipeline creates each target table lazily from the first row event that maps it, and stops on error (`odbc_stop_on_error`). Set `odbc_create_table_from_sql=true` to create target tables from the replicated `CREATE TABLE` statements instead. To replicate only specific tables, set `odbc_include_tables` to a comma-separated list of `schema.table` entries; leaving it unset replicates all tables.
 
 {% hint style="info" %}
-The bulk-load pipeline's throughput is controlled by `odbc_perf_batch_size` (default 200 MB), `odbc_perf_max_idle_rows` (default 400000), `odbc_perf_max_buffered_rows` (default 750000), and `odbc_perf_ncycles` (default and maximum 4). The defaults suit most workloads; raise the batch size for more throughput, or lower `odbc_perf_ncycles` if memory use is high.
+The bulk-load pipeline's throughput is controlled by `odbc_perf_batch_size` (default 200Mi), `odbc_perf_max_idle_rows` (default 400000), `odbc_perf_max_buffered_rows` (default 750000), and `odbc_perf_ncycles` (default and maximum 4). The defaults suit most workloads; raise the batch size for more throughput, or lower `odbc_perf_ncycles` if memory use is high. Every CDC setting is described in [ODBC replication to Exasol](../reference/maxscale-routers/maxscale-binlogrouter.md#odbc-replication-to-exasol).
 {% endhint %}
 
 ### Step 4. Verify replication.

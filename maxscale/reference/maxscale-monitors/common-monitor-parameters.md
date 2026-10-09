@@ -44,7 +44,7 @@ Password for the user defined with the `user` parameter. If a server defines the
 * Dynamic: Yes
 * Default: None
 
-[Role](../../../server/security/user-account-management/roles/roles_overview.md) the monitor should activate right after connecting to a server. If empty, no role is set. This setting may be useful if the same username is used for both monitors and services. As monitors and services require different privileges, these privileges can be granted to the monitor and the service roles separately instead of granting them all to the same user. MariaDB Monitor and Galera Monitor currently use this setting. If the monitor is configured to use a role, the role is taken into use even if the server uses a [custom monitor username](../maxscale-servers.md#monitoruser).
+[Role](../../../server/security/user-account-management/roles/roles_overview.md) the monitor should activate right after connecting to a server. If empty, no role is set. This setting may be useful if the same username is used for both monitors and services. As monitors and services require different privileges, these privileges can be granted to the monitor and the service roles separately instead of granting them all to the same user. MariaDB Monitor and Galera Monitor use this setting. If the monitor is configured to use a role, the role is taken into use even if the server uses a [custom monitor username](../maxscale-servers.md#monitoruser).
 
 ### `servers`
 
@@ -149,7 +149,7 @@ backend_connect_attempts=1
 
 This parameter duplicates the `disk_space_threshold` [server parameter](../maxscale-servers.md#disk_space_threshold). If the parameter has _not_ been specified for a server, then the one specified for the monitor is applied.
 
-**NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the information will be available _only_ if the monitor user has the `FILE` privilege.
+**NOTE**: The information is available _only_ if the monitor user has the `FILE` privilege.
 
 That is, if the disk configuration is the same on all servers monitored by the monitor, it is sufficient (and more convenient) to specify the disk space threshold in the monitor section, but if the disk configuration is different on all or some servers, then the disk space threshold can be specified individually for each server.
 
@@ -274,7 +274,7 @@ Any output by the executed script will be logged into the MaxScale log. Each out
 
 The log level on which the messages are logged depends on the format of the messages. If the first word in the output line is one of `alert:`, `error:`,`warning:`, `notice:`, `info:` or `debug:`, the message will be logged on the corresponding level. If the message is not prefixed with one of the keywords, the message will be logged on the notice level. Whitespace before, after or between the keyword and the colon is ignored and the matching is case-insensitive.
 
-Currently, the script must not execute any of the following MaxCtrl calls as they cause a deadlock:
+The script must not execute any of the following MaxCtrl calls as they cause a deadlock:
 
 * `alter monitor` to the monitor executing the script
 * `stop monitor` to the monitor executing the script

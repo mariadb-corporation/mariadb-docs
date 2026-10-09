@@ -6,7 +6,7 @@ description: >-
 
 # Upgrading Between Major MariaDB Versions
 
-MariaDB is designed to allow easy upgrades. You should be able to trivially upgrade from ANY earlier MariaDB version to the latest one (for example [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103).x to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011).x), usually in a few seconds. This is also mainly true for any MySQL version < 8.0 to [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and up.
+MariaDB is designed to allow easy upgrades. You should be able to trivially upgrade from ANY earlier MariaDB version to the latest one (for example MariaDB 10.6.x to MariaDB 10.11.x), usually in a few seconds. This is also mainly true for any MySQL version < 8.0 to MariaDB 10.6 and up.
 
 Upgrades are normally easy because:
 
@@ -14,21 +14,19 @@ Upgrades are normally easy because:
 * The MariaDB connection protocol is backward compatible. You don't normally need to upgrade any of your old clients to be able to connect to a newer MariaDB version.
 * The MariaDB replica can be of any newer version than the primary.
 
-MariaDB Corporation regularly runs tests to check that one can upgrade from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) to the latest MariaDB version without any trouble. All older versions should work too (as long as the storage engines you were using are still around).
-
 Note that if you are using [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), you have to follow the [Galera upgrading instructions](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster)!
 
 ## Requirements for Doing an Upgrade Between Major Versions
 
 * Galera Cluster Users (Upgrading to 12.3+): You must manually install the `mariadb-server-galera` (or `MariaDB-server-galera`) package during the upgrade. Because the automatic dependency has been removed, a standard upgrade will not pull in the necessary cluster management components, which may prevent your cluster from bootstrapping.
 * Go through the individual version upgrade notes (listed below) to look for any major changes or configuration options that have changed.
-* Ensure that the target MariaDB version supports the storage engines you are using. For example, in 10.5 TokuDB is not supported.
-* Back up the database (just in case). At least, take a copy of the `mysql` system database directory under the data directory with [mariadb-dump --add-drop-table mysql](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (called `mysqldump` in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and earlier) as most of the upgrade changes are done there (adding new fields and new system tables etc).
+* Ensure that the target MariaDB version supports the storage engines you are using. For example, TokuDB is not supported in MariaDB 10.6 and later.
+* Back up the database (just in case). At least, take a copy of the `mysql` system database directory under the data directory with [mariadb-dump --add-drop-table mysql](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) as most of the upgrade changes are done there (adding new fields and new system tables etc).
 * Cleanly shutdown the server. This is necessary because even if data files are compatible between versions, recovery logs may not be.
   * Ensure that the [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) variable is not 2 (fast crash shutdown). The default of this variable is `1`.
   * [innodb\_force\_recovery](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_force_recovery) must be less than `3`.
 
-Note that rpms don't support upgrading between major versions, only minor like 10.4.1 to 10.4.2. If you are using rpms, you should de-install the old MariaDB rpms and install the new MariaDB rpms before running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md). Note that when installing the new rpms, [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) may be run automatically. There is no problem with running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) many times.
+Note that rpms don't support upgrading between major versions, only minor like 10.6.1 to 10.6.2. If you are using rpms, you should de-install the old MariaDB rpms and install the new MariaDB rpms before running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md). Note that when installing the new rpms, [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) may be run automatically. There is no problem with running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) many times.
 
 ## Recommended Steps
 
@@ -47,7 +45,7 @@ Note that rpms don't support upgrading between major versions, only minor like 1
 The main work done when upgrading is done by running [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md). The main things it does are:
 
 * Updating the system tables in the `mysql` database to the newest version. This is very quick.
-* [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) also runs [mariadb-check --check-upgrade](../../../clients-and-utilities/table-tools/mariadb-check.md) to check if there have been any collation changes between the major versions. This recreates indexes in old tables that are using any of the changed collations. This can take a bit of time if there are a lot of tables or there are many tables which used the changed collation. The last time a collation changed was in MariaDB/MySQL 5.1.23.
+* [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) also runs [mariadb-check --check-upgrade](../../../clients-and-utilities/table-tools/mariadb-check.md) to check if there have been any collation changes between the major versions. This recreates indexes in old tables that are using any of the changed collations. This can take a bit of time if there are a lot of tables or there are many tables which used the changed collation.
 
 ## Post Upgrade Work
 
@@ -98,7 +96,6 @@ MariaDB server is not designed for downgrading. That said, in most cases, as lon
 * [Upgrading from MariaDB 10.6 to MariaDB 10.11](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-6-to-mariadb-10-7.md)
 * [Upgrading from MariaDB 10.5 to MariaDB 10.6](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md)
-* [Upgrading from MariaDB 10.4 to MariaDB 10.5](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md)
 * [Galera upgrading instructions](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster)
 * [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown)
 

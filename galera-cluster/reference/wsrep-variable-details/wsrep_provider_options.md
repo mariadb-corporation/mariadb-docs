@@ -11,6 +11,10 @@ The following options can be set as part of the Galera [wsrep\_provider\_options
 
 Options need to be provided as a semicolon (;) separated list on a single line. Options that are not explicitly set are set to their default value.
 
+{% hint style="warning" %}
+When the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled (`plugin-wsrep-provider=ON`), `wsrep_provider_options` can't be changed while the server is running, and `SET GLOBAL wsrep_provider_options=...` fails even for options marked _Dynamic: Yes_ on this page. Set the individual `wsrep_provider_<option>` system variable instead, with dots in the option name replaced by underscores. For example, use `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead of `SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';`. See [Changing Provider Options at Runtime](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider#changing-provider-options-at-runtime).
+{% endhint %}
+
 Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `base_dir`
@@ -281,7 +285,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gcs.fc_master_slave`
 
-* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6), [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [MariaDB 10.4.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.22)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcs.fc_single_primary)
+* Description: Whether to assume that the cluster only contains one master. Deprecated since Galera 4.10 ([MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.2), [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.6)) - see [gcs.fc\_single\_primary](wsrep_provider_options.md#gcs.fc_single_primary)
 * Dynamic: No
 * Default: `no`
 
@@ -437,6 +441,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
   * The option is a trigger rather than a stored setting. It only takes effect while the node is in a non-primary state; on a node that is already part of a Primary Component the provider writes `ignoring 'pc.bootstrap' in state <state>` to the error log and nothing changes.
   * Because the value is only a trigger, it is not interpreted: `YES`, `true` and `1` all bootstrap the node — and so do `0` and `false`.
   * Setting it does not change the value the node reports for [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options), and it can be set again on each subsequent loss of quorum.
+  * When the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, use `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead.
   * See [Resetting the Quorum (Cluster Bootstrap)](../../high-availability/resetting-the-quorum-cluster-bootstrap.md) for the full procedure, including how to choose the node to bootstrap from.
 * Dynamic: Yes
 * Default: None
@@ -503,7 +508,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `protonet.backend`
 
-* Description: Deprecated option. Transport backend to use. Only ASIO is supported currently.
+* Description: Deprecated option. Transport backend to use. Only ASIO is supported.
 * Dynamic: No
 * Default: `asio`
 
@@ -568,9 +573,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 * Description: Size in bytes of the receive buffer used on the network sockets between nodes, passed on to the kernel via the SO\_RCVBUF socket option.
 * Dynamic: No
-* Default:
-  * > \= [MariaDB 10.3.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.23), [MariaDB 10.2.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.32), [MariaDB 10.1.45](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.45): Auto
-  * < [MariaDB 10.3.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.22): [MariaDB 10.2.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.31), [MariaDB 10.1.44](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.44): `212992`
+* Default: Auto
 
 #### `socket.send_buf_size`
 
@@ -597,9 +600,9 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `socket.ssl_cipher`
 
-* Description: TLS cipher to use. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option. Since [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18) defaults to the value of the [ssl\_cipher](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_cipher) system variable.
+* Description: TLS cipher to use. Implicitly enables the [socket.ssl](wsrep_provider_options.md#socket.ssl) option. Defaults to the value of the [ssl\_cipher](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_cipher) system variable.
 * Dynamic: No
-* Default: system default, before [MariaDB 10.2.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.18) defaults to `AES128-SHA`.
+* Default: system default
 
 #### `socket.ssl_compression`
 

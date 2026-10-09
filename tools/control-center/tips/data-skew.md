@@ -2,6 +2,7 @@
 description: >-
   Using Control Center to diagnose data skew when one cluster node shows high
   CPU usage.
+hidden: true
 ---
 
 # Dealing with Data Skew with Control Center

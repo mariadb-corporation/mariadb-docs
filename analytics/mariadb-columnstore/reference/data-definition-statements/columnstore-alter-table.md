@@ -69,7 +69,7 @@ The `CHANGE` clause allows you to rename a column in a table.
 
 Notes to `CHANGE COLUMN`:
 
-* You cannot currently use `CHANGE COLUMN` to change the definition of that column.
+* You cannot use `CHANGE COLUMN` to change the definition of that column.
 * You can only change a single column at a time. The following example renames the `order_qty` field to quantity in the orders table:
 
 ```sql

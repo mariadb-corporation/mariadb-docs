@@ -10,7 +10,7 @@ description: >-
 This guide helps you migrate your applications from MariaDB Connector/Python 1.1 to version 2.0.0.
 
 {% hint style="info" %}
-**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Until 2.0 reaches GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
+**As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Until 2.0 reaches GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 ## API Reference
@@ -453,7 +453,7 @@ pool = await mariadb.create_async_pool(
 ### Server Compatibility
 
 Both versions support:
-- MariaDB Server 10.3+
+- MariaDB Server 10.6+
 - MySQL Server 5.7+
 
 ### API Compatibility

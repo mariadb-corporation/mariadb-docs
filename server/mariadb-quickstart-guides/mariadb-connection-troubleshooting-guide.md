@@ -109,7 +109,7 @@ Connection is established, but authentication fails (for instance, "Access denie
 
 * **Unix Socket Authentication:** On Unix-like systems, the `unix_socket` authentication plugin is enabled by default for local connections via the Unix socket file. This plugin uses operating system user credentials.
   * See the [`unix_socket` authentication plugin documentation](../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) for connection instructions and how to switch to password-based authentication if needed.
-  * For an overview of authentication changes in MariaDB 10.4, see [Authentication from MariaDB 10.4](../security/user-account-management/authentication-from-mariadb-10-4.md).
+  * For an overview of the authentication model, see [Authentication](../security/user-account-management/authentication-from-mariadb-10-4.md).
 * **Incorrect Username/Host Combination:** Authentication is specific to a `username@host` combination. For example, `'user1'@'localhost'` is distinct from `'user1'@'166.78.144.191'`. Ensure the user account exists for the host from which you are connecting.
   * See [GRANT](../reference/sql-statements/account-management-sql-statements/grant.md) for details on granting permissions.
 * **Password Hashing:** When setting or changing passwords using `SET PASSWORD`, ensure the `PASSWORD()` function is used if the server expects hashed passwords.
@@ -187,7 +187,7 @@ Before doing this, particularly if you cannot connect to a freshly installed Mar
 
 #### Quick Fix: Access Denied for 'root'@'localhost'?
 
-Starting with MariaDB 10.4, the default security model for Linux installations uses the `unix_socket` authentication plugin. This means the MariaDB `root` user is tied to your system's `root` user.
+The default security model for Linux installations uses the `unix_socket` authentication plugin. This means the MariaDB `root` user is tied to your system's `root` user.
 
 * **The Problem:** If you try to connect using `mariadb -u root -p`, the server may reject you because it is looking for your operating system identity, not a password.
 *   **The Solution:** Instead of a password, use `sudo`:
@@ -256,16 +256,16 @@ Example output showing the problem:
 {% columns %}
 {% column %}
 {% embed url="https://www.youtube.com/watch?v=aWFG4uLbimM" %}
-MariaDB authentication from MariaDB 10.4
+MariaDB authentication
 {% endembed %}
 {% endcolumn %}
 
 {% column %}
-In this video tutorial, the MariaDB team explains the fundamental changes to the security model introduced in version 10.4, specifically regarding how the `root` user and local connections are handled.
+In this video tutorial, the MariaDB team explains the fundamental changes to the security model, specifically regarding how the `root` user and local connections are handled.
 
 **Core Topics Covered:**
 
-* The "No Password" Default: Explains why, in MariaDB 10.4 and later, the `root` user does not have a password by default on many Linux distributions.
+* The "No Password" Default: Explains why the `root` user does not have a password by default on many Linux distributions.
 * Unix Socket Authentication: A walkthrough of the `unix_socket` plugin. This plugin allows the OS-level `root` user to log in to the MariaDB `root` account without a password, as security is verified by the operating system identity.
 * The `mysql.global_priv` table: Introduction of the new table that replaces the old `mysql.user` table for storing privileges, and how this change simplifies managing multiple authentication methods for a single user.
 * Switching Authentication Methods: Practical steps on how to move from socket-based authentication back to traditional password-based authentication (using the `mysql_native_password` plugin) if your environment requires it.

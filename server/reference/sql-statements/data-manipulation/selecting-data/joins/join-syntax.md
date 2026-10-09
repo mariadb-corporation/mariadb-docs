@@ -106,6 +106,10 @@ A table subquery is specified as a parenthesized query and must contain a follow
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 You can optionally specify a list of column names in parenthesis.
 
 ```sql
@@ -122,6 +126,10 @@ Here, the table subquery for t1 will be materialized and named dt2, with column 
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 You **cannot** optionally specify a list of column names in parenthesis.
 {% endtab %}
 {% endtabs %}

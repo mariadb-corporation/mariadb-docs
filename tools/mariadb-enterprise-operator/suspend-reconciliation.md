@@ -19,7 +19,7 @@ More specifically, the reconciliation loop of the operator is omitted, anything 
 
 ## Suspend a resource
 
-Currently, only `MariaDB` and `MaxScale` resources support suspension. You can enable it by setting `suspend=true`:
+Only `MariaDB` and `MaxScale` resources support suspension. You can enable it by setting `suspend=true`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1

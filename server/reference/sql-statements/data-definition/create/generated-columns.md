@@ -15,15 +15,7 @@ description: >-
 
 ![Railroad diagram of a generated-column definition — equivalent to the BNF above](../../../../.gitbook/assets/generated-columns-railroad.svg)
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is also compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
-{% endtab %}
-
-{% tab title="< 10.2" %}
-MariaDB's generated columns syntax is designed to be similar to the syntax for [Microsoft SQL Server's computed columns](https://docs.microsoft.com/en-us/sql/relational-databases/tables/specify-computed-columns-in-a-table?view=sql-server-2017) and [Oracle Database's virtual columns](https://oracle-base.com/articles/11g/virtual-columns-11gr1). The syntax is **not** compatible with the syntax for [MySQL's generated columns](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html).
-{% endtab %}
-{% endtabs %}
 
 ## Description
 
@@ -56,19 +48,7 @@ All data types are supported when defining generated columns.
 
 Using the [ZEROFILL](create-table.md#zerofill-column-option) column option is supported when defining generated columns.
 
-{% tabs %}
-{% tab title="Tab 1" %}
 Using the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) column option is not supported when defining generated columns.
-{% endtab %}
-
-{% tab title="< 10.2.25" %}
-Using the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) column option is supported when defining generated columns.
-
-{% hint style="warning" %}
-It does not work correctly, though. See [MDEV-11117](https://jira.mariadb.org/browse/MDEV-11117).
-{% endhint %}
-{% endtab %}
-{% endtabs %}
 
 ### Index Support
 
@@ -94,10 +74,18 @@ If an index is defined on a generated column, then the optimizer considers using
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 {% endtabs %}
@@ -203,33 +191,15 @@ CREATE TABLE t1 (a int as (1));
 
 When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) setting disagree.
 
-There are currently two affected classes of inconsistencies: character padding and unsigned subtraction:
+There are two affected classes of inconsistencies: character padding and unsigned subtraction:
 
 * For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
 * If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.
 
-{% tabs %}
-{% tab title="Current" %}
 A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
-{% endtab %}
 
-{% tab title="< 10.5" %}
-For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
 A potentially inconsistent generated column outputs a warning when created or first used (without restricting the creation).
-{% endtab %}
 
-{% tab title="< 10.4.8 / 10.3.18 / 10.2.27" %}
-A potentially inconsistent generated column does not output a warning when created or first used.
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
 Here is an example of two tables that are warned about:
 
 ```sql
@@ -279,28 +249,6 @@ CREATE TABLE good_sub (
   KEY(vnum)
 );
 ```
-{% endtab %}
-
-{% tab title="< 10.6" %}
-Here is an example of two tables whose creation is rejected:
-
-```sql
-CREATE TABLE bad_pad (
-  txt CHAR(5),
-  -- CHAR -> VARCHAR or CHAR -> TEXT can't be persistent or indexed:
-  vtxt VARCHAR(5) AS (txt) PERSISTENT
-);
-
-CREATE TABLE bad_sub (
-  num1 BIGINT UNSIGNED,
-  num2 BIGINT UNSIGNED,
-  -- The resulting value can vary for some large values
-  vnum BIGINT AS (num1 - num2) VIRTUAL,
-  KEY(vnum)
-);
-```
-{% endtab %}
-{% endtabs %}
 
 ### MySQL Compatibility Support
 
@@ -335,7 +283,7 @@ If you try to update a virtual column, you will get an error if the default [str
 
 ## Development History
 
-Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty did the work on [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) to lift some of the limitations.
+Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty later did the work to lift some of the limitations.
 
 ## Examples
 

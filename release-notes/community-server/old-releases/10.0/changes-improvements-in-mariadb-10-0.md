@@ -6,7 +6,7 @@ The most recent release in the [MariaDB 10.0](changes-improvements-in-mariadb-10
 
 [MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is a previous stable series of MariaDB. It is built on the [MariaDB 5.5 series](../5.5/changes-improvements-in-mariadb-5-5.md) with backported features from MySQL 5.6 and entirely new features not found anywhere else. The first stable release was in March 2014, and the final release was in January 2019.
 
-For details on upgrading from [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md), see [Upgrading from MariaDB 5.5 to MariaDB 10.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
+For details on upgrading from [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md), see Upgrading from MariaDB 5.5 to MariaDB 10.0.
 
 Blog posts with details of the reasoning behind calling this version MariaDB 10:
 
@@ -69,7 +69,7 @@ Features that are in a release.
 ### New Features Re-implemented From a Similar MySQL Feature
 
 * [CURRENT\_TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/current_timestamp) as DEFAULT for [DATETIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime) columns ([MDEV-452](https://jira.mariadb.org/browse/MDEV-452))
-* [EXPLAIN for INSERT/UPDATE/DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) ([MDEV-3798](https://jira.mariadb.org/browse/MDEV-3798), [MWL#51](https://askmonty.org/worklog/?tid=51))
+* [EXPLAIN for INSERT/UPDATE/DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) ([MDEV-3798](https://jira.mariadb.org/browse/MDEV-3798), MWL#51)
 
 ### New Features Backported from MySQL 5.6
 

@@ -26,7 +26,7 @@ Various articles about MariaDB Galera Cluster, including [known limitations](htt
 * See the [MariaDB 5.5.53 Release Notes](../../5.5/5.5.53.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5553-changelog.md) for more information on the changes in\
   MariaDB.
 
-Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
+Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB with Galera 25.3.x must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socket.checksum) in order to make it backward compatible with Galera v2. Galera wsrep providers other than 25.3.x or 25.2.x are not supported.
 
 ## Changelog
 

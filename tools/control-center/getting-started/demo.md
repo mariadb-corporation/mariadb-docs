@@ -2,6 +2,7 @@
 description: >-
   Run GridGain's preconfigured demo cluster and streaming application, and
   attach it to Control Center.
+hidden: true
 ---
 
 # Connecting to Demo Cluster
@@ -62,7 +63,7 @@ To work with a local copy of Control Center:
    ```bash
    ./management.sh http://host.docker.internal:3000
    ```
-4. Generate a new one-time token to register the cluster with Control Center:
+4. Generate a new one-time token to register the cluster with Control Center. With the default configuration, the cluster attaches automatically and you can skip this step:
 
    ```bash
    ./management.sh --token

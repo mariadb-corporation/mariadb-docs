@@ -34,7 +34,7 @@ Tutorials related to the AWS Key Management plugin can be found at the following
 
 ## Installing the Plugin's Package
 
-The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.com/aws/aws-sdk-cpp), which uses the [Apache License, Version 2.0](https://github.com/aws/aws-sdk-cpp/blob/master/LICENSE). This license is not compatible with MariaDB Server's [GPL 2.0 license](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq#licenses-used-by-mariadb), so we are not able to distribute packages that contain the AWS Key Management plugin. Therefore, the only way to currently obtain the plugin is to install it from source.
+The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.com/aws/aws-sdk-cpp), which uses the [Apache License, Version 2.0](https://github.com/aws/aws-sdk-cpp/blob/master/LICENSE). This license is not compatible with MariaDB Server's [GPL 2.0 license](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/licensing-questions/licensing-faq#licenses-used-by-mariadb), so we are not able to distribute packages that contain the AWS Key Management plugin. Therefore, the only way to obtain the plugin is to install it from source.
 
 ### Installing from Source
 
@@ -139,7 +139,7 @@ The AWS Key Management Plugin supports [using multiple encryption keys](encrypti
 
 When [encrypting InnoDB tables](../innodb-encryption/), the key that is used to encrypt tables [can be changed](../innodb-encryption/innodb-encryption-keys.md).
 
-When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot currently be changed](../aria-encryption/aria-encryption-keys.md).
+When [encrypting Aria tables](../aria-encryption/), the key that is used to encrypt tables [cannot be changed](../aria-encryption/aria-encryption-keys.md).
 
 ## Key Rotation
 
@@ -154,14 +154,6 @@ Or to rotate all keys, set the value to -1:
 ```sql
 SET GLOBAL aws_key_management_rotate_key=-1;
 ```
-
-## Versions
-
-| Version | Status       | Introduced                                                                                                                                                                                                                                       |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1.0     | Stable       | [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6), [MariaDB 10.1.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.24)                         |
-| 1.0     | Beta         | [MariaDB 10.1.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.18)                                                                                                                                     |
-| 1.0     | Experimental | MariaDB 10.1.13 |
 
 ## System Variables
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Logical AND. AND and && return 1 if all operands are non-zero and not
+  NULL, 0 if any operand is 0, and NULL otherwise.
+---
+
 # &&
 
 ## Syntax

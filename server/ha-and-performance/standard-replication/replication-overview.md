@@ -248,16 +248,14 @@ _Multi-source replication: one replica pulls from two primaries on separate doma
 
 The following table describes replication compatibility between different MariaDB Community Server versions. In general, the replica should be of the same or a later version than the primary. The constraint also applies to minor/patch releases:
 
-| Replica ↓ / Primary → | [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) | [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) | [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) | [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) | [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) | [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) | [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) | [MariaDB 13.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements) |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) | ✅ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ |
-| [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) | ✅ | ✅ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ |
-| [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) | ✅ | ✅ | ✅ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ |
-| [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) | ✅ | ✅ | ✅ | ✅ | ⛔ | ⛔ | ⛔ | ⛔ |
-| [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) | ✅ | ✅ | ✅ | ✅ | ✅ | ⛔ | ⛔ | ⛔ |
-| [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⛔ | ⛔ |
-| [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⛔ |
-| [MariaDB 13.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Replica ↓ / Primary → | [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) | [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) | [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) | [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) | [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) | [MariaDB 13.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements) |
+| --- | --- | --- | --- | --- | --- | --- |
+| [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) | ✅ | ⛔ | ⛔ | ⛔ | ⛔ | ⛔ |
+| [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) | ✅ | ✅ | ⛔ | ⛔ | ⛔ | ⛔ |
+| [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) | ✅ | ✅ | ✅ | ⛔ | ⛔ | ⛔ |
+| [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) | ✅ | ✅ | ✅ | ✅ | ⛔ | ⛔ |
+| [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) | ✅ | ✅ | ✅ | ✅ | ✅ | ⛔ |
+| [MariaDB 13.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 * ✅: This combination is supported.
 * ⛔: This combination is not supported.

@@ -22,25 +22,38 @@ Duplicated entries in the `ORDER BY` clause are removed.
 
 `ORDER BY` can also be used to order the activities of a [DELETE](../changing-deleting-data/delete.md) or [UPDATE](../changing-deleting-data/update.md) statement (usually with the [LIMIT](limit.md) clause).
 
-{% tabs %}
-{% tab title="Current" %}
 It is possible to use `ORDER BY` (or [LIMIT](limit.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
 
-{% tab title="< 10.3.2" %}
-It is **not** possible to use `ORDER BY` (or [LIMIT](limit.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Current" %}
 MariaDB allows packed sort keys and values of non-sorted fields in the sort buffer. This can make filesort temporary files much smaller when `VARCHAR`, `CHAR` or `BLOB` columns are used, notably speeding up some `ORDER BY` sorts.
-{% endtab %}
 
-{% tab title="< 10.5" %}
-MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.
-{% endtab %}
-{% endtabs %}
+## Aliases in ORDER BY
+
+`ORDER BY` can refer to a select expression by the alias given to it with `AS`. If an alias has the same name as a column of a table in the `FROM` clause, `ORDER BY` uses the alias, without a warning. To sort by the table column instead, qualify it with the table name. This differs from [GROUP BY](group-by.md#aliases-in-group-by-and-having), where the table column takes precedence:
+
+```sql
+CREATE TABLE items (category VARCHAR(10), color VARCHAR(10));
+INSERT INTO items VALUES ('shirt','red'), ('shirt','blue'), ('hat','red');
+
+SELECT color AS category FROM items ORDER BY category;
++----------+
+| category |
++----------+
+| blue     |
+| red      |
+| red      |
++----------+
+
+SELECT color AS category FROM items ORDER BY items.category;
++----------+
+| category |
++----------+
+| red      |
+| red      |
+| blue     |
++----------+
+```
+
+If two select expressions have the same alias, `ORDER BY` that alias fails with `ERROR 1052 (23000): Column '...' in ORDER BY is ambiguous`.
 
 ## Examples
 

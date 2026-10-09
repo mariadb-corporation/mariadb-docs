@@ -359,37 +359,7 @@ Be sure to replace `-–ldapserver` and `-–ldapbasedn` with values that are re
 
 ### Installing the pam\_user\_map PAM Module
 
-{% tabs %}
-{% tab title="Current" %}
 The `pam_user_map` PAM module is included in the base install. No installation is needed.
-{% endtab %}
-
-{% tab title="< 10.5.2 / 10.4.13 / 10.3.23 / 10.2.32.7" %}
-Next, let's [install the pam\_user\_map PAM module](user-and-group-mapping-with-pam.md#installing-the-pam_user_map-pam-module).
-
-Before the module can be compiled from source, we may need to install some dependencies.
-
-On RHEL, CentOS, and other similar Linux distributions that use [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/), we need to install `gcc` and `pam-devel`:
-
-```bash
-sudo yum install gcc pam-devel
-```
-
-On Debian, Ubuntu, and other similar Linux distributions that use [DEB packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md), we need to install `gcc` and `libpam0g-dev`:
-
-```bash
-sudo apt-get install gcc libpam0g-dev
-```
-
-And then we can build and install the library with the following:
-
-```bash
-wget https://raw.githubusercontent.com/MariaDB/server/10.4/plugin/auth_pam/mapper/pam_user_map.c 
-gcc pam_user_map.c -shared -lpam -fPIC -o pam_user_map.so 
-sudo install --mode=0755 pam_user_map.so /lib64/security/
-```
-{% endtab %}
-{% endtabs %}
 
 ### Configuring the pam\_user\_map PAM Module
 

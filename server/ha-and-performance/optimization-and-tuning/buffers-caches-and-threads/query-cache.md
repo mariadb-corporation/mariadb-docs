@@ -311,6 +311,7 @@ Setting [query\_cache\_type](../system-variables/server-system-variables.md#quer
 
 * The query cache needs to be disabled in order to use [OQGRAPH](../../../server-usage/storage-engines/oqgraph-storage-engine/).
 * The query cache is not used by the [Spider](../../../server-usage/storage-engines/spider/) storage engine (amongst others).
+* All cache lookups and inserts serialize on a single internal mutex (see [Timeout and Mutex Contention](query-cache.md#timeout-and-mutex-contention)). On modern multi-core systems, contention on this mutex under concurrent access usually outweighs any benefit from caching, which is why MariaDB doesn't recommend enabling the query cache on current hardware.
 
 ## LOCK TABLES and the Query Cache
 

@@ -43,16 +43,4 @@ Documents the system and status variables used to configure and monitor the Mari
 {% endcolumn %}
 {% endcolumns %}
 
-{% columns %}
-{% column %}
-{% content-ref url="thread-pool-in-mariadb-51-53.md" %}
-[thread-pool-in-mariadb-51-53.md](thread-pool-in-mariadb-51-53.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Documents the old pool-of-threads implementation in MariaDB up to version 5.3, retained for reference by older compatibility pages.
-{% endcolumn %}
-{% endcolumns %}
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

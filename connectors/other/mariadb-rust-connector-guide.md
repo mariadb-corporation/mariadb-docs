@@ -1,8 +1,8 @@
 ---
 description: >-
-  The Rust connector for MariaDB provides two community-maintained crates for
-  building native Rust applications that connect to MariaDB databases, with
-  MariaDB-specific features contributed directly by MariaDB.
+  The Rust connector for MariaDB: two community-maintained crates for building
+  native Rust applications on MariaDB, with MariaDB-specific features
+  contributed by MariaDB.
 icon: link
 ---
 

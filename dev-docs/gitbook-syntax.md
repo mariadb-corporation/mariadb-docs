@@ -14,9 +14,14 @@ cards, embeds, files, buttons, icons, expandable (`<details>`), GitBook variable
 
 ## Frontmatter
 
-About half of existing pages open with YAML frontmatter; the rest have none. **New pages should
-always include `description:`** (used for SEO + listings) even though many older pages lack it.
-`icon:` is **rarely used** (≈0.2% of pages) — optional, omit if unsure.
+Most pages open with YAML frontmatter that includes a `description:`. About 90% of the
+published content pages have one. The pages without it are mostly generated or archival:
+error-code pages, release notes and changelogs, post-download pages, and old MaxScale versions.
+**Every new page must include `description:`**, which is used for SEO and listings. Keep it
+plain text and at most 200 characters: GitBook cuts it off there and shows any Markdown
+literally. The `desccheck` CI gate enforces both on changed pages, but it doesn't flag a missing
+description. `icon:` is **rarely used** (about 1% of pages) and is
+optional, so omit it if unsure.
 
 ```yaml
 ---
@@ -72,6 +77,9 @@ Instructions for RHEL.
 {% endtabs %}
 ```
 
+For tabs that differentiate **versions** (`Current` / `< 11.4`), follow the title and
+info-hint convention in `dev-docs/style-guide.md` › *Version tabs*.
+
 ## Code blocks with a title or line numbers
 
 For a titled or line-numbered block, wrap a fenced code block in `{% code %}`:
@@ -115,6 +123,46 @@ Standard Markdown, with assets stored alongside content:
 ```
 ![Alt text describing the image](path/to/image.png)
 ```
+
+## Diagrams (Mermaid)
+
+GitBook renders ` ```mermaid ` fences natively, client-side, in both the light and the dark
+theme. Prefer an inline Mermaid diagram to a PNG, and follow these house rules so the diagram
+is accessible and legible in both themes:
+
+- **Screen-reader text.** Directly after the diagram-type line, add `accTitle:` (a short title)
+  and `accDescr { … }` (what the diagram shows, in words). Mermaid puts them in the SVG's
+  `<title>` and `<desc>`.
+- **A visible caption.** Add an italic line right below the fence.
+- **Node colors that work in both themes.** Give styled nodes an explicit text color, such as
+  `classDef box fill:#eef2ff,stroke:#33415c,color:#111`. The dark theme otherwise draws node
+  text in `#ccc`, which is unreadable on a light fill.
+- **Edge labels need a contrast fix.** In the dark theme, a flowchart edge label (`A -->|Yes| B`,
+  `A -- No --> B`) is `#ccc` text on a `#585858` pill, which is 4.43:1, below the WCAG AA
+  minimum of 4.5:1. `classDef` can't reach edge labels, and the site has no custom CSS, so
+  every flowchart with edge labels carries this fix: the directive as the block's first line
+  and `linkStyle default` as its last. The fix gives 16.89:1 in both themes.
+
+````
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    accTitle: Retry decision
+    accDescr { A failed request is retried if it is idempotent, and reported otherwise. }
+    A[Request failed] --> B{Idempotent?}
+    B -->|Yes| C[Retry]
+    B -->|No| D[Report the error]
+    linkStyle default color:#111111
+```
+
+_A failed request is retried only when it is safe to repeat._
+````
+
+Both lines are needed. The directive alone, including a version that also sets
+`tertiaryTextColor`, changes only the pill, and leaves `#ccc` text on it (1.44:1). The CI gate
+`mermaidcheck-pr.yml` fails any flowchart that has edge labels and lacks the fix, and
+`python3 .claude/hooks/mermaidcheck.py --fix <file>` adds it. Flowcharts without edge labels,
+and other diagram types, don't need it.
 
 ## Reusable content (includes)
 

@@ -42,7 +42,6 @@ The default value for `log_slow_verbosity` is ' ', to be compatible with MySQL 5
 
 The possible values for `log_slow_verbosity are`innodb,query\_plan,explain,engine,warnings`. Multiple options are separated by ','.` log\_slow\_verbosity is not supported when log\_output='TABLE'.
 
-In the future we will add more `engine` statistics and also support for other engines.
 
 ### log\_slow\_filter
 
@@ -57,13 +56,13 @@ You can define which queries to log to the slow query log by setting the variabl
   * Log statement if it uses filesort
 * `filesort_on_disk`
   * Log statement if it uses filesort that needs temporary tables on disk
-* `filesort_priority_queue` (from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2))
+* `filesort_priority_queue`
   * Log statement if it uses filesort with priority\_queue (filesort can either use disk or priority queue).
 * `full_join`
   * Log statements that don't uses indexes to join tables
 * `full_scan`
   * Log statements that use full table scans
-* `not_using_index` (From [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1))
+* `not_using_index`
   * Logs queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows
   * Disregards long\_query\_time, unlike other options!
   * [log\_queries\_not\_using\_indexes](../../system-variables/server-system-variables.md#log_queries_not_using_indexes) maps to this option

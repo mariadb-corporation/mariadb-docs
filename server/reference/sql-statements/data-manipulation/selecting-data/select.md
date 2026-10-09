@@ -71,32 +71,56 @@ The SELECT grammar is broken out into named sub-clauses for readability. Each cl
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 `[/*+ hints */]` syntax is available.
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 `[/*+ hints */]` syntax is **not** available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 Available join order hints [can be found here](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/expanded-optimizer-hints.md#join-order-hints).
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 Join order hints are **not** available.
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 `[/*+ MAX_EXECUTION_TIME(`_`milliseconds`_`) */]` syntax is available.
 
 The hint limits the time of statement execution to the number of milliseconds given in the hint argument.
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 `[/*+ MAX_EXECUTION_TIME(`_`milliseconds`_`) */]` syntax is **not** available.
 {% endtab %}
 {% endtabs %}
@@ -129,6 +153,8 @@ When specifying a column, you can either use just the column name or qualify the
 
 You can quote column names using backticks. If you are qualifying column names with table names, quote each part separately as ``tbl_name`.`col_name``.
 
+You can give a select expression an alias with `AS alias_name`. [GROUP BY](group-by.md#aliases-in-group-by-and-having), `HAVING`, and [ORDER BY](order-by.md#aliases-in-order-by) can refer to the alias, but `WHERE` can't. Avoid aliases that have the same name as a column in the `FROM` tables, because `GROUP BY` and `ORDER BY` resolve such a name differently.
+
 If you use any [grouping functions](../../../sql-functions/aggregate-functions/) in any of the select expressions, all rows in your results will be implicitly grouped, as if you had used `GROUP BY NULL`. `GROUP BY NULL` being an expression behaves specially such that the entire result set is treated as a group.
 
 ### DISTINCT
@@ -155,15 +181,7 @@ See [LOCK IN SHARE MODE](lock-in-share-mode.md) and [FOR UPDATE](for-update.md) 
 
 ### OFFSET ... FETCH
 
-{% tabs %}
-{% tab title="Current" %}
 See [SELECT ... OFFSET ... FETCH](select-offset-fetch.md).
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### ORDER BY
 
@@ -179,15 +197,7 @@ Passes the whole result set to a C Procedure. See [PROCEDURE](procedure.md) and 
 
 ### SKIP LOCKED
 
-{% tabs %}
-{% tab title="Current" %}
 This causes rows that couldn't be locked ([LOCK IN SHARE MODE](lock-in-share-mode.md) or [FOR UPDATE](for-update.md)) to be excluded from the result set. An explicit `NOWAIT` is implied here. This is only implemented on [InnoDB](../../../../server-usage/storage-engines/innodb/) tables and ignored otherwise.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The clause doesn't exist.
-{% endtab %}
-{% endtabs %}
 
 ### Optimizer Hints
 
@@ -230,7 +240,7 @@ See [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-se
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
 * [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
-* [Oracle mode from MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

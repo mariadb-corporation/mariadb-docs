@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="939" height="283">
+<svg xmlns="http://www.w3.org/2000/svg" width="955" height="299">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -29,6 +29,8 @@
     polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
   </style>
    </defs>
+   <rect class="plate" width="100%" height="100%" rx="8" style="fill: #FFFFFF; stroke: none"/>
+   <g transform="translate(8 8)">
    <polygon points="9 61 1 57 1 65"/>
    <polygon points="17 61 9 57 9 65"/>
    <rect x="31" y="47" width="70" height="32" rx="10"/>
@@ -182,4 +184,5 @@
          d="m17 61 h2 m0 0 h10 m70 0 h10 m20 0 h10 m0 0 h144 m-174 0 h20 m154 0 h20 m-194 0 q10 0 10 10 m174 0 q0 -10 10 -10 m-184 10 v12 m174 0 v-12 m-174 12 q0 10 10 10 m154 0 q10 0 10 -10 m-164 10 h10 m130 0 h10 m0 0 h4 m-164 -10 v20 m174 0 v-20 m-174 20 v24 m174 0 v-24 m-174 24 q0 10 10 10 m154 0 q10 0 10 -10 m-164 10 h10 m134 0 h10 m40 -76 h10 m0 0 h84 m-114 0 h20 m94 0 h20 m-134 0 q10 0 10 10 m114 0 q0 -10 10 -10 m-124 10 v12 m114 0 v-12 m-114 12 q0 10 10 10 m94 0 q10 0 10 -10 m-104 10 h10 m74 0 h10 m40 -32 h10 m0 0 h66 m-96 0 h20 m76 0 h20 m-116 0 q10 0 10 10 m96 0 q0 -10 10 -10 m-106 10 v12 m96 0 v-12 m-96 12 q0 10 10 10 m76 0 q10 0 10 -10 m-86 10 h10 m56 0 h10 m20 -32 h10 m80 0 h10 m20 0 h10 m26 0 h10 m20 0 h10 m80 0 h10 m-120 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m100 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-100 0 h10 m24 0 h10 m0 0 h56 m20 44 h10 m26 0 h10 m-252 0 h20 m232 0 h20 m-272 0 q10 0 10 10 m252 0 q0 -10 10 -10 m-262 10 v14 m252 0 v-14 m-252 14 q0 10 10 10 m232 0 q10 0 10 -10 m-242 10 h10 m0 0 h222 m22 -34 l2 0 m2 0 l2 0 m2 0 l2 0 m-816 186 l2 0 m2 0 l2 0 m2 0 l2 0 m2 0 h10 m130 0 h10 m20 0 h10 m40 0 h10 m0 0 h10 m98 0 h10 m0 0 h10 m46 0 h10 m0 0 h10 m74 0 h10 m20 0 h10 m80 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m48 0 h10 m-238 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m218 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-218 0 h10 m24 0 h10 m0 0 h174 m-596 44 h20 m596 0 h20 m-636 0 q10 0 10 10 m616 0 q0 -10 10 -10 m-626 10 v14 m616 0 v-14 m-616 14 q0 10 10 10 m596 0 q10 0 10 -10 m-606 10 h10 m0 0 h586 m23 -34 h-3"/>
    <polygon points="929 247 937 243 937 251"/>
    <polygon points="929 247 921 243 921 251"/>
+   </g>
 </svg>

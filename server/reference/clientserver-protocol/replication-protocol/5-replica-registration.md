@@ -12,7 +12,7 @@ The replica server, when properly configured with `CHANGE MASTER TO ...` , can s
 
 After authentication, some [COM\_QUERY](../2-text-protocol/com_query.md) packets are exchanged before sending [COM\_REGISTER\_SLAVE](com_register_slave.md) and [COM\_BINLOG\_DUMP](com_binlog_dump.md).
 
-The following `COM_QUERY` packets come from MariaDB 10.X replicas using [GTID](../../../ha-and-performance/standard-replication/gtid.md):
+The following `COM_QUERY` packets come from MariaDB 10.X replicas using [GTID](../../../ha-and-performance/standard-replication/gtid/README.md):
 
 * `SELECT UNIX_TIMESTAMP()`;
 * `SHOW VARIABLES LIKE 'SERVER_ID'`;

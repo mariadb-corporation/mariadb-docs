@@ -113,6 +113,10 @@ GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA unix_socket;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 The authentication string (if present) is compared with the socket's user name. Authentication proceeds if there's a match. In this case, the [external\_user](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#external_user) system variable contains the OS user.
 
 Consider an OS user named 'bob' that has been created like this:
@@ -150,6 +154,10 @@ SELECT USER(),@@external_user;
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 The plugin only checks whether the OS socket user id matches the MariaDB user name. It ignores the authentication string.
 {% endtab %}
 {% endtabs %}

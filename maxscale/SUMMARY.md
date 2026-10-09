@@ -64,6 +64,7 @@
 * [Reference](reference/README.md)
   * [MaxScale Configuration Settings](reference/maxscale-configuration-settings.md)
   * [MaxScale Module Commands](reference/maxscale-module-commands.md)
+  * [MaxScale Telemetry](reference/maxscale-telemetry.md)
   * [MaxScale Authenticators](reference/maxscale-authenticators/README.md)
     * [MaxScale Ed25519 Authenticator](reference/maxscale-authenticators/maxscale-ed25519-authenticator.md)
     * [MaxScale GSSAPI Client Authenticator](reference/maxscale-authenticators/maxscale-gssapi-client-authenticator.md)

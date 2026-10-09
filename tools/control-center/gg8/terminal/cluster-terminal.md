@@ -2,6 +2,7 @@
 description: >-
   Running GridGain 8 control script commands against the selected cluster from
   the Cluster terminal panel in Control Center.
+hidden: true
 ---
 
 # Cluster Terminal for GridGain 8 Clusters

@@ -30,7 +30,7 @@ The related configuration options, which are explained in more detail in the con
 * [_archivedir_](maxscale-binlogrouter.md#archivedir) \_Directory to which files are archived. This directory must exist when MaxScale is started.
 * [expire\_log\_minimum\_files](maxscale-binlogrouter.md#expire_log_minimum_files) The minimum number of binlogs to keep before purge or archive is allowed.
 * [_expire\_log\_duration_](maxscale-binlogrouter.md#expire_log_duration) Duration from the last file modification until the binlog is eligible for purge or archive.
-* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Currently only zstandard is supported.
+* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Only zstandard is supported.
 * [number\_of\_noncompressed\_files](maxscale-binlogrouter.md#number_of_noncompressed_files) The minimum number of binlogs not to compress.
 
 Following are example settings where it is expected that a replica is down for no more than 24 hours.
@@ -96,7 +96,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SHOW BINARY LOGS`
 * Lists the current files and their sizes. These will be different from the ones listed by the original primary where the binlogrouter is replicating from.
 * `PURGE { BINARY | MASTER } LOGS TO <filename>`
-* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not currently supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
+* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
 * `SHOW MASTER STATUS`
 * Shows the name and position of the file to which the binlogrouter will write the next replicated data. The name and position do not correspond to the name and position in the primary.
 * `SHOW SLAVE STATUS`
@@ -143,7 +143,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SET`
 * `@@global.gtid_slave_pos`: Set the position from which binlogrouter should start replicating. E.g. `SET @@global.gtid_slave_pos="0-1000-1234,1-1001-5678"`
 * `SHOW VARIABLES LIKE '...'`
-* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not currently supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. Currently the only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
+* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. The only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
 
 ## Semi-sync replication
 
@@ -152,6 +152,8 @@ If the server from which the binlogrouter replicates from is using semi-sync rep
 ## Settings
 
 The binlogrouter is configured similarly to how normal routers are configured in MaxScale. It requires at least one listener where clients can connect to and one server from which the database user information can be retrieved. An example configuration can be found in the [example](maxscale-binlogrouter.md#example) section of this document.
+
+The settings that control change data capture from MariaDB to Exasol are documented separately in [ODBC replication to Exasol](#odbc-replication-to-exasol).
 
 ### `datadir`
 
@@ -296,7 +298,7 @@ Re-encryption of binlogs using another encryption key is not possible. However, 
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
 * Default: `AES_GCM`
 
-The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are currently supported.
+The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are supported.
 
 Possible values are:
 
@@ -315,6 +317,175 @@ Possible values are:
 * Dynamic: Yes
 
 Enable [semi-synchronous](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md) replication when replicating from a MariaDB server. If enabled, the binlogrouter will send acknowledgment for each received event. Note that the [rpl\_semi\_sync\_master\_enabled](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_enabled) parameter must be enabled in the MariaDB server where the replication is done from for the semi-synchronous replication to take place.
+
+## ODBC replication to Exasol
+
+In addition to serving binary logs to replicas, binlogrouter can apply the changes it reads to an [Exasol](https://www.exasol.com/) database over ODBC, providing change data capture (CDC) from MariaDB to Exasol. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order. Replication is asynchronous.
+
+CDC is enabled by setting [`odbc_connection_str`](#odbc_connection_str). When it is empty, none of the other `odbc_*` settings have any effect.
+
+{% hint style="info" %}
+CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package and is available from MaxScale 25.10.3. For a step-by-step setup, see the [MariaDB MaxScale Exasolrouter tutorial](../../mariadb-maxscale-tutorials/mariadb-maxscale-exasolrouter.md#synchronizing-data-to-exasol-with-change-data-capture-cdc).
+{% endhint %}
+
+{% hint style="warning" %}
+None of the `odbc_*` settings are dynamic. Changing one takes effect only after MaxScale is restarted, even if the value is modified at runtime with `maxctrl alter service`.
+{% endhint %}
+
+### `odbc_connection_str`
+
+* Type: string
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+
+The ODBC connection string used to apply changes to Exasol. Setting it to a non-empty value enables CDC on the service; leaving it empty disables CDC entirely.
+
+The user in the connection string creates staging tables, merges changes into the target tables, and drops the staging tables again, so it needs privileges to create, modify, and drop tables in the target schemas.
+
+```
+odbc_connection_str=DRIVER=/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so;EXAHOST=exasoldb:8563;UID=cdc_user;PWD=cdc_password;FINGERPRINT=NOCERTCHECK;ANSIDATAENCODING=UTF-8;ANSIARGENCODING=UTF-8
+```
+
+Referring to the driver through the `current` symbolic link keeps the configuration working when a MaxScale patch release updates the bundled Exasol ODBC driver. The driver can also be declared in `/etc/odbcinst.ini` and the connection reduced to a DSN. For the driver layout and the alternative forms of the connection string, see [ODBC](maxscale-exasolrouter.md#odbc) in the Exasolrouter documentation.
+
+### `odbc_include_tables`
+
+* Type: stringlist
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+
+A comma-separated list of tables to replicate to Exasol, each written as `schema.table`. When the list is empty, all tables are replicated.
+
+```
+odbc_include_tables=sales.orders,sales.customers,inventory.stock
+```
+
+### `odbc_insert_only_tables`
+
+* Type: stringlist
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+
+A comma-separated list of tables that replicate `INSERT` statements only, each written as `schema.table`. Updates and deletes for these tables are dropped, so rows deleted in MariaDB are retained in Exasol. This suits append-only analytics targets, such as event or audit history that must outlive the source rows.
+
+Listing a table here enables its replication independently of [`odbc_include_tables`](#odbc_include_tables), so a table does not have to appear in both lists. A schema containing an insert-only table is also protected from `DROP SCHEMA`, so dropping the schema in MariaDB does not discard the retained data in Exasol.
+
+```
+odbc_insert_only_tables=audit.events
+```
+
+### `odbc_case`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `keep`, `sensitive`, `insensitive`
+* Default: `keep`
+
+How the identifier case comparison of the target Exasol database is set when CDC starts.
+
+* `keep` — leave the target's setting untouched.
+* `sensitive` — make identifier comparison case-sensitive.
+* `insensitive` — make identifier comparison case-insensitive.
+
+With `sensitive` or `insensitive`, CDC issues `ALTER SYSTEM SET SQL_IDENTIFIER_COMPARISON` on the Exasol system when it starts. This is a system-wide change on Exasol, not a per-session one, so it affects other users of that database.
+
+### `odbc_create_table_from_sql`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+
+Whether a target table in Exasol is created immediately from the replicated `CREATE TABLE` statement.
+
+When disabled (the default), a target table is instead created lazily from the first row event that maps it, which derives the table from the binary log's row metadata rather than from the SQL. DDL that arrives for a table that does not yet exist in Exasol, such as an `ALTER TABLE` or a `RENAME TABLE`, is skipped rather than applied.
+
+Enabling [`odbc_manage_user_grants`](#odbc_manage_user_grants) turns this setting on implicitly, because grants are resolved against tables that must already exist.
+
+### `odbc_stop_on_error`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `true`
+
+Whether CDC stops replicating when applying a change to Exasol fails.
+
+When enabled (the default), replication stops at the transaction that failed and the error is logged, so the divergence can be investigated before it grows. When disabled, the failing transaction is logged and replication continues, which keeps the pipeline running at the cost of letting Exasol drift from MariaDB.
+
+Because the GTID position is persisted, CDC resumes from where it stopped when the service is restarted.
+
+### `odbc_manage_user_grants`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+
+Whether MariaDB users and their grants are replicated to Exasol. When disabled (the default), user and privilege statements such as `CREATE USER`, `DROP USER`, `GRANT`, and `REVOKE` are not applied to the target, and Exasol users are managed independently.
+
+Enabling this setting also enables [`odbc_create_table_from_sql`](#odbc_create_table_from_sql).
+
+### `odbc_perf_ncycles`
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Minimum: `1`
+* Maximum: `4`
+* Default: `4`
+
+The maximum number of bulk-load cycles that run in parallel. Each cycle uses its own staging table in Exasol, so this value also sets the number of staging tables in use.
+
+Lower this value to reduce memory use and the load placed on Exasol, at the cost of throughput. Setting it to `1` serializes the bulk load.
+
+### `odbc_perf_max_buffered_rows`
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `750000`
+
+The number of buffered rows that triggers a bulk load to Exasol. Rows read from the binary log accumulate in memory until this many are held, then they are sent as one batch.
+
+Raising this value increases throughput and memory use; lowering it reduces replication lag for a lightly loaded pipeline.
+
+### `odbc_perf_max_idle_rows`
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `400000`
+
+The number of buffered rows that triggers a bulk load when the pipeline is otherwise idle, that is, when no cycle is currently loading data into Exasol.
+
+This is the lower of the two row thresholds: it lets a batch be sent before [`odbc_perf_max_buffered_rows`](#odbc_perf_max_buffered_rows) is reached when there is spare capacity, which keeps lag down on a moderate write load. Setting it to `0` disables the idle threshold, leaving `odbc_perf_max_buffered_rows` as the only row-count trigger.
+
+### `odbc_perf_batch_size`
+
+* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Mandatory: No
+* Dynamic: No
+* Default: `200Mi`
+
+The maximum size of a single batch sent to Exasol over the wire. A batch of buffered rows larger than this is split into as many transfers as needed.
+
+Raising this value increases throughput and the memory required per transfer.
+
+### `odbc_perf_nthreads`
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `0`
+
+The maximum number of threads used to process changes in the CDC pipeline. The default of `0` places no limit on the thread pool.
+
+Set a value to cap the CPU that CDC consumes on a MaxScale host shared with other services.
 
 ## New installation
 

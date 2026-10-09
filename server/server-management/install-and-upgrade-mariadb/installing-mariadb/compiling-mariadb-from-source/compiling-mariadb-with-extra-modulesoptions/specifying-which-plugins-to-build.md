@@ -1,6 +1,6 @@
 ---
 description: >-
-  Explains how to use CMake options like `PLUGIN_xxx` to control which plugins
+  Explains how to use CMake options like PLUGIN_xxx to control which plugins
   are built statically, dynamically, or not at all during compilation.
 ---
 

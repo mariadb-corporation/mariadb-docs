@@ -148,13 +148,12 @@ The same applies even if the entity is recursive. The person entity that has an 
 erDiagram
     accTitle: Recursive brother relationship and its intersection entity
     accDescr {
-        On one side, a single Person entity has a recursive "Is a brother to"
-        relationship with itself, where each side is optional and can involve
-        many Persons, making it a many-to-many relationship. On the other
-        side, the same relationship is resolved with an intersection entity,
-        Brother: each Person has zero or more Brother records via the Has
-        relationship, and each Brother record stores the primary keys of the
-        two Persons in the pairing.
+        A Person entity has a recursive "Is a brother to" relationship with
+        itself, where each side is optional and can involve many Persons, making
+        it a many-to-many relationship. The same Person entity also has a "Has"
+        relationship with an intersection entity, Brother: each Person has zero
+        or more Brother records, and each Brother record belongs to exactly one
+        Person.
     }
     PERSON }o--o{ PERSON : "Is a brother to"
     PERSON ||--o{ BROTHER : Has

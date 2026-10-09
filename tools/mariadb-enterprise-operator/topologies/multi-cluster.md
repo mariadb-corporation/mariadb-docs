@@ -55,6 +55,7 @@ Place replica clusters closer to your application instances to reduce network la
 ## Architecture
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Multi-cluster MariaDB Enterprise Kubernetes Operator topology
     accDescr {
@@ -70,7 +71,7 @@ flowchart TD
       maxscale-1 pods, which route into its MariaDB Cluster containing
       mariadb-0 (Primary Replica) and mariadb-1 (Secondary Replica). Its own
       mariadb-operator pod provisions, configures, and monitors that MariaDB
-      Cluster, but takes no backups there. The Replica Cluster's mariadb-0
+      Cluster. The Replica Cluster's mariadb-0
       (Primary Replica) pod replicates from the Primary Cluster's MaxScale
       Service, forming the cross-cluster replication connection.
     }
@@ -124,6 +125,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _A client connects via a LoadBalancer to the Primary Cluster's MaxScale Service in eu-south, which routes to the Primary Cluster's MariaDB pods managed by its own mariadb-operator. The Replica Cluster in eu-central mirrors this structure, and its primary replica Pod replicates from the Primary Cluster's MaxScale Service._
@@ -225,7 +227,7 @@ Key fields:
 * `spec.multiCluster.enabled`: Enables the multi-cluster topology.
 * `spec.multiCluster.primary`: The name of the primary cluster member. This must be the name of the current cluster.
 * `spec.multiCluster.members`: A list of all clusters in the multi-cluster topology, each with its `ExternalMariaDB` reference, containing connection details.
-* `spec.replication.gtidDomainId`: The GTID domain ID for this cluster. For example: the primary cluster uses `0`, and replica clusters use different values (e.g., `1`, `2`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
+* `spec.replication.gtidDomainId`: The GTID domain ID for this cluster. For example: the primary cluster uses `0`, and replica clusters use different values (e.g., `1`, `2`, etc.) to prevent GTID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id) for additional documentation.
 * `spec.replication.serverIdStartIndex`: The starting server ID for this cluster. Each Pod increments this value by `1`. Replica clusters should use a different starting value to avoid server ID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
 
 Verify the primary cluster is running:
@@ -388,7 +390,7 @@ spec:
 Key differences from the primary cluster:
 
 * `spec.bootstrapFrom`: Points to the S3 bucket where the primary cluster's backups are stored. This is used to bootstrap the replica cluster with the latest data.
-* `spec.replication.gtidDomainId`: Set to a different value (`1`) than the primary cluster (`0`). Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_domain_id) for additional documentation.
+* `spec.replication.gtidDomainId`: Set to a different value (`1`) than the primary cluster (`0`). Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id) for additional documentation.
 * `spec.replication.serverIdStartIndex`: Set to a different value (`20`) than the primary cluster (`10`) to avoid server ID conflicts. Refer to [MariaDB docs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id) for additional documentation.
 
 When the replica cluster is deployed, the operator will automatically:
@@ -884,7 +886,7 @@ The external load balancer that routes traffic to the primary cluster is not man
 
 ### Backups on primary only
 
-Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and currently only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format currently supported by the operator.
+Physical backups can only be taken from the primary cluster. This is because backups capture the GTID of the cluster, and only backups with a single GTID domain ID are supported. Replica clusters have multiple GTID domain IDs (their own plus the domains they replicate from), therefore, they are incompatible with the GTID backup format supported by the operator.
 
 As a consequence, replica clusters cannot be backed up and restored directly using its own backups. To recover a replica cluster from a failure, it must be re-bootstrapped from a backup taken in the primary cluster.
 

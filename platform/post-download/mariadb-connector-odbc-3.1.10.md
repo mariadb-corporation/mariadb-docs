@@ -19,7 +19,8 @@ noIndex: true
 * The prior release in this series was MariaDB Connector/ODBC 3.1.9, released on 30 Jun 2020.
 * This release (MariaDB Connector/ODBC 3.1.10) was released on 20 Oct 2020.
 * The next release in this series is MariaDB Connector/ODBC 3.1.11, released on 11 Dec 2020.
-* The latest release in this series is MariaDB Connector/ODBC 3.1.19, released on 7 Jul 2023.
+
+{% include "../.gitbook/includes/most-recent-odbc.md" %}
 
 ## Useful Resources
 

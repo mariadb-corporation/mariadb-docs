@@ -1,0 +1,308 @@
+name: Check Post Download Pages in PR
+
+# Gates the `no-standalone:` acknowledgment register: the signal that says a connector release
+# legitimately has NO platform/post-download/ page, because that version shipped only inside a
+# Server release and no standalone package was ever published. There is no download for a reader
+# to land on, so there is no page to write.
+#
+# WHY THE SIGNAL NEEDS A GATE OF ITS OWN
+#   DOCS-6408 proposes requiring a Post Download page whenever a PR adds connector release notes.
+#   That check, as specified, would have blocked PR #1011 -- Connector/C 3.3.20 and 3.4.10, both
+#   correct, both with no standalone package. So the gate needs an exemption, and an exemption
+#   nothing verifies is not a signal, it is a comment. This workflow is what verifies it.
+#
+# WHY A REGISTER ENTRY AND NOT PAGE FRONTMATTER
+#   Decided on DOCS-6734 after checking both. GitBook's frontmatter set is closed (description,
+#   icon, hidden, vars, if, layout), so a bare `standalone: false` is not something GitBook
+#   promises to preserve, and the sanctioned `vars:` escape hatch is used by no page in this repo
+#   -- its survival across a web-app round-trip is unproven, and the web app is already known to
+#   silently drop what it does not model (GITBOOK-1636 deleted HTML comments). An exemption that
+#   someone can switch off by editing prose in a browser is worse than none. `.claude/` is not a
+#   GitBook space and never syncs, so a register entry cannot be touched that way.
+#
+#   The prose sentence on the page stays -- it is what tells a READER why there is no download
+#   link. It is not the signal, and cannot be: of the dozens of releases with no Post Download
+#   page, two carry such a sentence and the two are worded differently from each other.
+#
+# WHAT THIS GATES
+#   Two things, both in postdownload.py:
+#
+#   1. The register audits itself (`audit`). An entry whose page is gone, whose release has since
+#      gained a Post Download page, or which names something that could never need one (a
+#      changelog, a landing page, a product with no Post Download pages) fails. Self-pruning in
+#      both directions -- unlike the `shrink:` section, which has no "un-shrink" signal.
+#
+#   2. A release notes page ADDED by the PR must have its Post Download page, linked from
+#      platform/SUMMARY.md, unless the register acknowledges it (`new <base>`, DOCS-6408). It
+#      reads only pages absent at the base, because it cannot run tree-wide -- dozens of existing
+#      releases would fail it, a mix of pages predating the system (Connector/J 1.1.x is from
+#      2013) and untriaged gaps. `hidden: true` notes are held to the same rule.
+#
+#   The `most-recent-<x>` include is versioncheck-pr.yml's, not this workflow's.
+#
+# FORK PRs ARE ADVISORY
+#   Writing platform pages is the docs team's job, not an outside contributor's, and nobody can
+#   push to a fork branch to fix it for them -- a blocking check there is a red PR its author can
+#   neither read as theirs nor clear. So for a PR whose head repo is not this one the new-page gate
+#   still runs, but its findings become a warning and a run-summary section addressed to the
+#   team, and the job passes. The register audit stays blocking: it concerns a file only the team
+#   edits. The cost is that a fork PR merged without anyone acting on the warning ships the gap;
+#   a post-merge sweep for that is a follow-up, not part of this gate.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+# A second push supersedes the first.
+concurrency:
+  group: postdownload-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  postdownload:
+    runs-on: ubuntu-latest
+    # Milliseconds -- it stats one file per register entry. 10 minutes is headroom for the
+    # checkout; without an explicit timeout the job inherits the 6-hour default, and a wedged run
+    # would end as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # Full history. The register audit is absolute, but the new-page gate reads its base
+          # side out of the object store. A shallow clone makes it SKIP and exit ZERO, which
+          # reads as a pass -- the base step below fails loudly instead.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          # postdownload.py and allowlist.py are standard library only, so this pins the
+          # interpreter rather than installing anything.
+          python-version: '3.12'
+
+      # The new-page gate is measured against what THIS PR does to its base branch. For a
+      # pull_request run the checkout is the merge commit of head into base, so its first parent
+      # is the base tip that was merged and `HEAD^1..HEAD` is exactly the PR. Measuring against
+      # base.sha would instead count whatever landed on the base branch since the PR forked.
+      # Falls back to base.sha when HEAD has no second parent (a head-ref checkout, a local
+      # re-run). Same shape as navcheck-pr.yml.
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; measuring against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; measuring against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so the new-page gate has no baseline to compare against."
+            exit 1
+          fi
+          # cat-file -e, not rev-parse: rev-parse succeeds on a well-formed sha that is not in
+          # the object database, which is exactly the shallow-clone case this guards.
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the new-page gate would SKIP and report success. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      # Its own step, and before the audit, so a malformed register is reported as a register
+      # problem rather than surfacing as whatever the audit happens to do next. Same shape as
+      # shrinkcheck-pr.yml and navcheck-pr.yml.
+      - name: Validate the acknowledgment register
+        run: |
+          set -uo pipefail
+          set +e
+          python3 .claude/hooks/allowlist.py validate
+          rc=$?
+          set -e
+          if [[ "$rc" != "0" ]]; then
+            echo "::error::.claude/hooks/doc-lint-allow.yml is malformed -- see the message above for the line. The accepted shape is in .claude/hooks/allowlist.py's header."
+            exit "$rc"
+          fi
+
+      - name: Audit the no-standalone register
+        id: postdownload
+        run: |
+          set -uo pipefail
+          # Findings go to stderr, the counts line to stdout; capture both in order so the run
+          # summary reads the way a local run does.
+          set +e
+          python3 .claude/hooks/postdownload.py audit > postdownload.log 2>&1
+          rc=$?
+          set -e
+          cat postdownload.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::An entry in the no-standalone section of .claude/hooks/doc-lint-allow.yml no longer records something true -- its page is gone, its release has since gained a Post Download page, or it names something that could never need one. The register is meant to prune itself at the point someone forgets. Details in the job log and the run summary." ;;
+            2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR." ;;
+            *) echo "::error::postdownload.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # The gate has to be able to prove it looked at something. postdownload.py SKIPs and exits
+      # zero when platform/post-download/ is absent, so a renamed space directory would read as
+      # success. An EMPTY register is legitimate, though -- every exemption may genuinely have
+      # been retired -- so the assertion here is on the SKIP and on the summary line being
+      # present at all, not on a nonzero entry count.
+      - name: Assert the audit was not vacuous
+        if: steps.postdownload.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'SKIPPED' postdownload.log; then
+            cat postdownload.log
+            echo "::error::postdownload found no platform/post-download/ directory and SKIPPED, in a checkout that must contain one. A space directory has been renamed or moved, not the PR's pages -- and a pass here would mean nothing."
+            exit 1
+          fi
+          if ! grep -qE '^postdownload: [0-9]+ no-standalone entr(y|ies) audited' postdownload.log; then
+            cat postdownload.log
+            echo "::error::Could not read the audited-entry count out of postdownload's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+          echo "Register audited: $(cat postdownload.log)"
+
+      # Not skipped when the audit failed: both findings are worth seeing in one run, and the
+      # audit's exit code is already captured in its own output.
+      - name: Check new release notes pages for their Post Download page
+        id: newpages
+        if: always() && steps.base.outcome == 'success'
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+          # Compared as strings, never interpolated into the script body.
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          THIS_REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          advisory=()
+          fork=false
+          if [[ -n "${HEAD_REPO:-}" && "$HEAD_REPO" != "$THIS_REPO" ]]; then
+            fork=true
+            advisory=(--advisory)
+            echo "This PR comes from a fork (${HEAD_REPO}); findings are advisory for the docs team."
+          fi
+          set +e
+          python3 .claude/hooks/postdownload.py new "$BASE_SHA" ${advisory[@]+"${advisory[@]}"} > postdownload-new.log 2>&1
+          rc=$?
+          set -e
+          cat postdownload-new.log
+          echo "fork=$fork" >> "$GITHUB_OUTPUT"
+          echo "raw_rc=$rc" >> "$GITHUB_OUTPUT"
+
+          # A fork PR's findings (exit 1) are demoted to a warning. Exit 2 and crashes stay
+          # failures: they mean the tooling broke, whoever opened the PR.
+          if [[ "$rc" == "1" && "$fork" == "true" ]]; then
+            echo "::warning::This fork PR adds release notes pages with no Post Download page or nav entry under platform/post-download/. A docs-team member owes them before or right after merge -- the contributor does not. Details in the run summary."
+            rc=0
+          fi
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::A release notes page added by this PR has no Post Download page under platform/post-download/, or that page is not linked from platform/SUMMARY.md. Add them in this PR. If the version shipped only inside a Server release and has no standalone package, add a no-standalone entry with a reason to .claude/hooks/doc-lint-allow.yml. Details in the job log and the run summary." ;;
+            2) echo "::error::postdownload.py rejected its arguments, or could not read the acknowledgment register -- this workflow or that file is at fault, not necessarily the PR." ;;
+            *) echo "::error::postdownload.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # Zero new pages is the common case and legitimate, so this asserts the SKIP and the
+      # summary line, not a nonzero count. postdownload.py SKIPs and exits zero for a missing
+      # platform/post-download/, an unresolvable base, or a nested tree; none of those may read
+      # as a pass in a checkout that must have all three.
+      - name: Assert the new-page gate was not vacuous
+        if: steps.newpages.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'SKIPPED' postdownload-new.log; then
+            cat postdownload-new.log
+            echo "::error::The new-page gate SKIPPED in a checkout that must support it -- a space directory was renamed, the base revision is missing, or the tree is nested. A pass here would mean nothing."
+            exit 1
+          fi
+          if ! grep -qE '^postdownload: [0-9]+ new release pages? checked vs ' postdownload-new.log; then
+            cat postdownload-new.log
+            echo "::error::Could not read the checked-page count out of postdownload's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+          echo "New-page gate ran: $(cat postdownload-new.log)"
+
+      - name: Record the result in the run summary
+        # always(): the default is an implicit success(), which would skip exactly the runs worth
+        # recording.
+        if: always()
+        env:
+          RC: ${{ steps.postdownload.outputs.rc }}
+          NEW_RC: ${{ steps.newpages.outputs.rc }}
+          NEW_RAW_RC: ${{ steps.newpages.outputs.raw_rc }}
+          NEW_FORK: ${{ steps.newpages.outputs.fork }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Post Download register check"
+            echo
+            if [[ ! -s postdownload.log ]]; then
+              echo "No output was produced -- an earlier step failed before the audit ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every \`no-standalone:\` acknowledgment still records something true." ;;
+                1) echo "An acknowledgment has gone stale. If the release now has a Post Download page, or its notes were removed, delete the entry -- the register prunes itself at the point someone forgets rather than piling up entries nobody dares remove." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Fenced, and with four backticks. This summary is a GFM rendering surface and the
+              # output embeds paths and reasons from the register, which are author-controlled:
+              # unfenced, a crafted path could forge a heading, plant a link, or open an HTML
+              # comment that swallows the rest of the page. Four backticks so content containing
+              # three cannot close the fence. Same reasoning as includecheck-pr.yml.
+              echo '````text'
+              cat postdownload.log
+              echo '````'
+              echo
+              echo "Run the same audit locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py audit"
+              echo '````'
+              echo
+              echo "To see which Post Download page a release-notes page maps to:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py path release-notes/connectors/c/3.4/3.4.11.md"
+              echo '````'
+            fi
+            echo
+            echo "## Post Download new-page gate"
+            echo
+            if [[ ! -s postdownload-new.log ]]; then
+              echo "No output was produced -- the base revision step failed before the gate ran."
+            else
+              case "${NEW_RC:-}" in
+                0) if [[ "${NEW_RAW_RC:-0}" == "1" && "${NEW_FORK:-}" == "true" ]]; then
+                     echo "**Docs-team action needed.** This PR comes from a fork, so the check is advisory and passed. The release notes pages it adds still need their \`platform/post-download/\` pages and \`platform/SUMMARY.md\` entries, written by a docs-team member before or right after merge. The contributor does not need to do anything."
+                   else
+                     echo "Every release notes page this PR adds has its Post Download page, or a register entry saying it has none."
+                   fi ;;
+                1) echo "A release notes page this PR adds is missing its Post Download page or its \`platform/SUMMARY.md\` entry. Add them in this PR, or acknowledge a no-standalone release in \`.claude/hooks/doc-lint-allow.yml\`." ;;
+                *) echo "The check did not complete (exit ${NEW_RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              echo '````text'
+              cat postdownload-new.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "python3 .claude/hooks/postdownload.py new ${GITHUB_BASE_REF:-main}"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

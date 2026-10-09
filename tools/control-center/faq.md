@@ -2,6 +2,7 @@
 description: >-
   Answers to common GridGain Control Center questions — preserving cluster IDs,
   automating cluster connection, SSL proxying, limited clusters, and mail setup.
+hidden: true
 ---
 
 # Frequently Asked Questions
@@ -16,7 +17,7 @@ If this happened, you can reattach the cluster and continue monitoring it. Howev
 
 ### Preserving Cluster ID
 
-#### Without a global team:
+#### With the global team disabled
 
 For this example, we will assume that Control Center is running on `http://mydomain.com:3000`.
 
@@ -39,9 +40,9 @@ When starting the cluster, you need to prepare secret, cluster id and cluster ta
 
 If you lose persistence, next time just run all commands except `--token` again.
 
-#### With the global team
+#### With the global team (default)
 
-First, you need to configure the [global team](profile/teams.md#global-team) in Control Center with the `account.globalTeam.enabled` and `account.globalTeam.attachCluster` properties. With it configured, you no longer need to create a token.
+The [global team](profile/teams.md#global-team) is enabled by default: `account.globalTeam.enabled` and `account.globalTeam.attachCluster` are `true`. With this configuration, you don't need to create a token.
 
 - Start your cluster and activate it.
 - Run the following commands in the order you see:
@@ -54,7 +55,7 @@ First, you need to configure the [global team](profile/teams.md#global-team) in 
 
 ## How can I automate connection of clusters to Control Center?
 
-For persistent clusters, you only need to enable the Control Center Global Team by enabling the `account.globalTeam.enabled` and `account.globalTeam.attachCluster` properties.
+For persistent clusters, keep the Control Center Global Team enabled. With `account.globalTeam.enabled` and `account.globalTeam.attachCluster` set to `true`, which is the default, clusters attach automatically.
 
 For in-memory clusters, consider adding a small persistent data region. It can be used to store system information, while your caches are still in-memory. If this is not possible, set cluster secret, ID, and other properties after each cluster restart by using the control script. To do this, run the following commands when starting the cluster:
 
