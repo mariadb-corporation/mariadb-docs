@@ -68,7 +68,7 @@ The updated configuration will automatically be applied across the cluster.
 
 ### Update via Non-Interactive Mode
 
-You can also modify cluster configuration via [non-interactive](../cli-tool.md#non-interactive-cli-mode) CLI mode without starting the CLI tool first.
+You can also modify cluster configuration via [non-interactive](../../gridgain9-management/using-the-cli-tool.md#non-interactive-cli-mode) CLI mode without starting the CLI tool first.
 
 - Pass the configuration file with the `--file` parameter:
 

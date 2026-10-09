@@ -77,7 +77,7 @@ To do that, you will need change default discovery configuration, which is expla
 
 ## Changing Default Properties
 
-If you want to use custom configuration parameters, such as enable [persistence](../../../architecture/storage/native-persistence.md) or change [memory settings](../../../gridgain8-usage/memory-configuration/data-regions.md)
+If you want to use custom configuration parameters, such as enable [persistence](../../../architecture/storage/native-persistence.md) or change [memory settings](../../../gridgain8-development/memory-configuration/data-regions.md)
 To change the default configuration parameters, you can either:
 
 - modify `/opt/gridgain/gridgain-enterprise-8.10/config/default-config.xml` , or

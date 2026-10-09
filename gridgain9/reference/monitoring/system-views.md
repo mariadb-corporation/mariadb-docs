@@ -261,7 +261,7 @@ Describes available system view columns.
 | TABLE_COLOCATION_COLUMNS | STRING | The name of the column that is used to colocate data. |
 | SCHEMA_ID | STRING | The identifier of the schema used by the table. |
 | ZONE_ID | STRING | The identifier of the zone the table belongs to. |
-| IS_CACHE | BOOLEAN | Defines if it is a [cache](../../gridgain9-usage/caches.md). |
+| IS_CACHE | BOOLEAN | Defines if it is a [cache](../../gridgain9-development/caches.md). |
 | SECONDARY_ZONE_ID | INT32 | The identifier of the distribution zone used for secondary storage. Returns `NULL` if the table does not have secondary storage configured. |
 | SECONDARY_ZONE_NAME | STRING | The name of the distribution zone used for secondary storage. Returns `NULL` if the table does not have secondary storage configured. |
 | SECONDARY_STORAGE_PROFILE | STRING | The name of the storage profile used for secondary storage. Returns `NULL` if the table does not have secondary storage configured. |
@@ -273,9 +273,9 @@ Describes available system view columns.
 | COLOCATION_KEY_INDEX | STRING | **Deprecated**. The name of the column that is used to colocate data. |
 | ZONE | STRING | **Deprecated**. The distribution zone the table belongs to. |
 | CATALOG_VERSION | INT32 | The version of the current catalog that contains this table. |
-| EXPIRE_COLUMN_ID | INT32 | The identifier of the column used for row [expiration](../../gridgain9-usage/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
-| EXPIRE_COLUMN_NAME | STRING | The name of the column used for row [expiration](../../gridgain9-usage/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
-| ARCHIVE_COLUMN_ID | INT32 | The identifier of the column used for [archiving](../../gridgain9-management/data-archiving.md). Returns `NULL` if the table has no archive column. |
+| EXPIRE_COLUMN_ID | INT32 | The identifier of the column used for row [expiration](../../gridgain9-development/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
+| EXPIRE_COLUMN_NAME | STRING | The name of the column used for row [expiration](../../gridgain9-development/expiry-policies.md). Returns `NULL` if the table has no expiration column. |
+| ARCHIVE_COLUMN_ID | INT32 | The identifier of the column used for [archiving](../../gridgain9-development/data-archiving.md). Returns `NULL` if the table has no archive column. |
 | ARCHIVE_COLUMN_NAME | STRING | The name of the column used for archiving. Returns `NULL` if the table has no archive column. |
 | PROPERTIES | STRING | The table options set with the `WITH (...)` clause, in the form `MIN STALE ROWS <n>, STALE ROWS FRACTION <f>`. Tables created without these options show the defaults: `MIN STALE ROWS 500, STALE ROWS FRACTION 0.2`. |
 | TABLE_SCHEMA_VERSION | INT32 | The latest schema version of the table. The version increases every time the table's schema changes, for example when a column is added or dropped. |

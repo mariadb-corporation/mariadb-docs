@@ -65,7 +65,7 @@ Values set directly via the CLI take precedence over values set in the configura
 
 ### Update via Non-Interactive Mode
 
-You also can update the configuration [without](../cli-tool.md#non-interactive-cli-mode) starting the CLI.
+You also can update the configuration [without](../../gridgain9-management/using-the-cli-tool.md#non-interactive-cli-mode) starting the CLI.
 
 - Pass the configuration file with the `--file` parameter:
 
@@ -74,7 +74,7 @@ You also can update the configuration [without](../cli-tool.md#non-interactive-c
   ```
 - Restart the node to apply the configuration changes.
 
-You can also modify cluster configuration via [non-interactive](../cli-tool.md#non-interactive-cli-mode) CLI mode without starting the CLI tool first.
+You can also modify cluster configuration via [non-interactive](../../gridgain9-management/using-the-cli-tool.md#non-interactive-cli-mode) CLI mode without starting the CLI tool first.
 
 ## Exporting Node Configuration
 
@@ -259,13 +259,13 @@ GridGain 9 uses several network ports for inter-node communication, client acces
 The following ports are used by GridGain 9 by default.
 
 - `3344`: Cluster communication port
-- `10300`: [HTTP REST](../rest-api/overview.md) endpoint
+- `10300`: [HTTP REST](../../gridgain9-development/rest-api.md) endpoint
 - `10400`: [HTTPS REST](../../security/ssl-tls.md) endpoint (**when HTTPS is enabled**)
 - `10800`: Client connector ([JDBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver), [ODBC](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/odbc/odbc-driver), [clients](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/overview), [CLI](../cli-tool.md))
 - `49000`: [Data Replication](../../gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8.md) (DR) connector inbound port
 
 {% hint style="info" %}
-To enable the [JMX remote](https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html#GUID-2C1922AD-4BA0-4397-A3FE-7823F42A94A3__READY-TO-USEMONITORINGANDMANAGEMENT-0CCB777F) agent which creates a remote JMX connector to listen through the specified port, use `com.sun.management.jmxremote.port` to [set](README.md#configuration-files) the port explicitly.
+To enable the [JMX remote](https://docs.oracle.com/en/java/javase/17/management/monitoring-and-management-using-jmx-technology.html#GUID-2C1922AD-4BA0-4397-A3FE-7823F42A94A3__READY-TO-USEMONITORINGANDMANAGEMENT-0CCB777F) agent which creates a remote JMX connector to listen through the specified port, use `com.sun.management.jmxremote.port` to [set](../../gridgain9-management/cluster-configuration.md#configuration-files) the port explicitly.
 {% endhint %}
 
 #### Suspicion-Based Failure Node Detection
@@ -584,7 +584,7 @@ Both differ from the hard limits in several important ways:
 |dualProtocol|false|Defines if both HTTP and HTTPS protocols are used by the endpoint.|true, false|
 |httpToHttpsRedirection|false|Defines if requests to HTTP endpoint will be redirected to HTTPS.|true, false|
 |port|10300|The port of the node's REST endpoint.|A valid port|
-|sql.cursorIdleTimeoutMillis|300000|How long a paged [SQL result](../rest-api/overview.md#running-sql) may go untouched, in milliseconds, before the node releases its cursor. Keep this below `ignite.transaction.readOnlyTimeoutMillis` so that a client sees the cursor released rather than its transaction expiring.|1000 - Long.MAX_VALUE|
+|sql.cursorIdleTimeoutMillis|300000|How long a paged [SQL result](../../gridgain9-development/rest-api.md#running-sql) may go untouched, in milliseconds, before the node releases its cursor. Keep this below `ignite.transaction.readOnlyTimeoutMillis` so that a client sees the cursor released rather than its transaction expiring.|1000 - Long.MAX_VALUE|
 |sql.defaultPageSize|1000|Number of rows in a page when a SQL request over REST does not ask for a specific page size. Must not exceed `sql.maxPageSize`.|1 - Integer.MAX_VALUE|
 |sql.maxOpenCursors|100|How many paged SQL results one node may hold at once. A request that needs another cursor while the node is at this limit fails with `429`.|1 - Integer.MAX_VALUE|
 |sql.maxPageSize|10000|Largest page a SQL request over REST may ask for. A request for a larger page fails with `400`.|1 - Integer.MAX_VALUE|

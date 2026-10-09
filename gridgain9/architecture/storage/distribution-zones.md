@@ -220,7 +220,7 @@ zone datanodes reset --zone-names=ZONE_NAME_1,ZONE_NAME_2
 
 All tables stored in the distribution zone share resources. As the result, it is recommended to consider how large distribution zone needs to be.
 
-As partitions are colocated on the same nodes, assigning tables commonly accessed together to the same distribution zone can reduce the overhead required for transmitting query results between nodes, and allows colocated [compute jobs](../../gridgain9-usage/distributed-computing/about-distributed-computing.md).
+As partitions are colocated on the same nodes, assigning tables commonly accessed together to the same distribution zone can reduce the overhead required for transmitting query results between nodes, and allows colocated [compute jobs](../../gridgain9-development/distributed-computing/about-distributed-computing.md).
 
 However, if a table is under heavy load, it may negatively affect the performance when working with other tables in the same distribution zone. In most scenarios, this should not be a significant concern and correct data distribution for your scenarios should be prioritized.
 

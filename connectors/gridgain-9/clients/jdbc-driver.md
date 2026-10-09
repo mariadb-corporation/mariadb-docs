@@ -92,7 +92,7 @@ If the same parameters are passed by using different means, the JDBC driver prio
 
 By default, a JDBC connection is in auto-commit mode, and in this mode all its SQL statements will be executed and committed as individual transactions.
 To be able to manage the transaction, you must switch connection to non-autocommit mode.
-In non-autocommit mode, you can perform `commit` and `rollback` transactions. For more information about transactions, see [Performing Transactions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/transactions).
+In non-autocommit mode, you can perform `commit` and `rollback` transactions. For more information about transactions, see [Performing Transactions](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/transactions).
 
 Here is how you can commit a transaction:
 

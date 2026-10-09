@@ -15,7 +15,7 @@ GridGain 9.0.10 is a release that continues work on stability while also bringin
 
 ### Improved Data Center Replication
 
-This release features multiple improvements to [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/data-center-replication):
+This release features multiple improvements to [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/data-center-replication):
 
 - Time-based conflict resolution during active-active replication is significantly more reliable.
 - You can now run data replication on clusters secured via SSL.

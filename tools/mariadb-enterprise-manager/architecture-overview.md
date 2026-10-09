@@ -42,12 +42,24 @@ These components are installed via the `mema-agent` package (RPM or DEB) and inc
 * **OpenTelemetry Collector:** This local collector pulls data from the Prometheus exporters and pushes it to the central collector on the Enterprise Manager Server.
 * **mema-agent CLI:** A setup utility used to register the host with the Enterprise Manager Server and configure the local agent services.
 
+## GridGain Control Center
+
+To monitor GridGain 8 clusters, Enterprise Manager connects to GridGain Control Center, which runs on its own host:
+
+* The Enterprise Manager Server reads the list of GridGain 8 clusters from Control Center and shows them in the **Databases** list. It authenticates to Control Center with a token that it signs.
+* Users open a cluster in Control Center from Enterprise Manager. Control Center signs them in through Enterprise Manager, which acts as its OpenID Connect provider.
+* GridGain 8 nodes push their metrics directly to the OpenTelemetry Collector on the Enterprise Manager Server. They don't use the Enterprise Manager Agent.
+
+For setup, see [Add a GridGain 8 Cluster](administration/deployment/adding-databases/add-gridgain-8-cluster.md).
+
 ## Networking Requirements
 
 For the system to function correctly, the following firewall ports must be open on the Enterprise Manager Server host:
 
 * `8090` (_HTTP/S_): The main entry point for the web UI. Nginx listens on this port and proxies requests to Supermax and Grafana.
-* `4318` (_HTTP/S_): Agents on monitored nodes push telemetry data to this port.
+* `4318` (_HTTP/S_): Agents on monitored nodes, and GridGain 8 nodes, push telemetry data to this port.
+
+For the ports used with GridGain Control Center, see [Network and Firewall Requirements](administration/deployment/network-and-firewall-requirements.md).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

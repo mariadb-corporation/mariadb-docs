@@ -322,6 +322,20 @@ binlogrouter connects to the MariaDB cluster as a replica and reads its binary l
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: MaxScale write path and CDC replication to Exasol
+    accDescr {
+        Five boxes joined by four numbered arrows. Three boxes stand alone:
+        Application (MariaDB connector), MariaDB (transactional core, binlog,
+        GTID) and Exasol (analytics engine, columnar). A group labelled MaxScale
+        holds two boxes: Smart Router (routes writes and reads) and MaxScale CDC
+        (tails binlog, applies to Exasol). Arrow 1, labelled "1 - reads and
+        writes", leads from Application to Smart Router. Arrow 2, labelled "2 -
+        write committed to binlog", leads from Smart Router to MariaDB. Arrow 3,
+        labelled "3 - CDC tails binlog (async)", leads from MariaDB to MaxScale
+        CDC. Arrow 4, labelled "4 - applies change + GTID", leads from MaxScale
+        CDC to Exasol. Arrows 1 and 2 show the synchronous write path. Arrows 3
+        and 4 are dotted and show asynchronous CDC replication.
+    }
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
         SR["Smart Router<br/>routes writes and reads"]
@@ -351,6 +365,16 @@ Internally, the pipeline runs in four stages, then applies each batch to Exasol 
 
 ```mermaid
 flowchart LR
+    accTitle: Pipeline from binlog capture to Exasol MERGE
+    accDescr {
+        A chain of five boxes, with an arrow from each box to the next. The first
+        box, 01 Capture, says: tail MariaDB binlog as a replica. The second, 02
+        Compact: collapse row updates to final state. The third, 03 Batch:
+        accumulate many rows per write. The fourth, 04 Bulk insert: apply to
+        Exasol in one transaction, matching GTID. The fifth, Staging table +
+        MERGE: bulk-load into _stagingN, then MERGE inserts, updates, deletes
+        atomically.
+    }
     C1["01 Capture<br/>tail MariaDB binlog as a replica"]
     C2["02 Compact<br/>collapse row updates to final state"]
     C3["03 Batch<br/>accumulate many rows per write"]

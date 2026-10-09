@@ -747,7 +747,7 @@ For more information refer to the documentation:
 
 - Kubernetes: [Use Port Forwarding to Access Applications in a Cluster](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 - `kubectl` command reference: [kubectl port-forward](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/)
-- GridGain 9 REST API docs: [REST API](../../reference/rest-api/overview.md)
+- GridGain 9 REST API docs: [REST API](../../gridgain9-development/rest-api.md)
 
 ## Limitations and Considerations
 

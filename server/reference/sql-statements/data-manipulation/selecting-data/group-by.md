@@ -6,17 +6,17 @@ description: >-
 
 # GROUP BY
 
-Use the `GROUP BY` clause in a [SELECT](select.md) statement to group rows together that have the same value in one or more column, or the same computed value using expressions with any [functions and operators](../../../sql-functions/) except [grouping functions](../../../sql-functions/aggregate-functions/). When you use a `GROUP BY` clause, you will get a single result row for each group of rows that have the same value for the expression given in `GROUP BY`.
+Use the `GROUP BY` clause in a [SELECT](select.md) statement to group rows together that have the same value in one or more columns, or the same computed value using expressions with any [functions and operators](../../../sql-functions/) except [grouping functions](../../../sql-functions/aggregate-functions/). When you use a `GROUP BY` clause, you will get a single result row for each group of rows that have the same value for the expression given in `GROUP BY`.
 
 When grouping rows, grouping values are compared as if by the [=](../../../sql-structure/operators/comparison-operators/) operator. For string values, the `=` operator ignores trailing whitespace and may normalize characters and ignore case, depending on the [collation](../../../data-types/string-data-types/character-sets/) in use.
 
 You can use any of the grouping functions in your select expression. Their values will be calculated based on all the rows that have been grouped together for each result row. If you select a non-grouped column or a value computed from a non-grouped column, it is undefined which row the returned value is taken from. This is not permitted if the `ONLY_FULL_GROUP_BY` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is used.
 
-You can use multiple expressions in the `GROUP BY` clause, separated by commas.\
+You can use multiple expressions in the `GROUP BY` clause, separated by commas.
 Rows are grouped together if they match on each of the expressions.
 
 You can also use a single integer as the grouping expression. If you use an integer _n_,
-the results will be grouped by the \_n\_th column in the select expression.
+the results will be grouped by the column at position _n_ in the select expression.
 
 The `WHERE` clause is applied before the `GROUP BY` clause. It filters non-aggregated
 rows before the rows are grouped together. To filter grouped rows based on aggregate values, use the `HAVING` clause. The `HAVING` clause takes any expression and evaluates it as a boolean, just like the `WHERE` clause. You can use grouping functions in the `HAVING` clause. As with the select expression, if you reference non-grouped columns in the `HAVING` clause, the behavior is undefined.
@@ -24,6 +24,50 @@ rows before the rows are grouped together. To filter grouped rows based on aggre
 By default, if a `GROUP BY` clause is present, the rows in the output will be sorted by the expressions used in the `GROUP BY`. You can also specify `ASC` or `DESC` (ascending, descending) after those expressions, like in [ORDER BY](order-by.md). The default is `ASC`.
 
 If you want the rows to be sorted by another field, you can add an explicit [ORDER BY](order-by.md). If you don't want the result to be ordered, you can add [ORDER BY NULL](order-by.md).
+
+### Aliases in GROUP BY and HAVING
+
+`GROUP BY` and `HAVING` can refer to a select expression by the alias given to it with `AS`, as in the `winavg` examples below. `WHERE` can't, because it's evaluated before the select expressions: `WHERE winavg > 0.2` fails with `ERROR 1054 (42S22): Unknown column 'winavg' in 'WHERE'`.
+
+An alias can have the same name as a column of a table in the `FROM` clause. Then the name means different things in different clauses:
+
+* In `GROUP BY`, the name refers to the **table column**, not to the alias. MariaDB issues warning 1052, `Column '...' in GROUP BY is ambiguous`.
+* In `HAVING`, the name refers to the alias, unless `GROUP BY` uses the table column of the same name. In that case, the name refers to the table column, and MariaDB issues warning 1052, `Column '...' in HAVING is ambiguous`.
+* In [ORDER BY](order-by.md#aliases-in-order-by), the name refers to the alias.
+
+This is intended behavior. To avoid surprises, don't give an alias the name of a column in the `FROM` tables. For example, the following query groups by the `category` column, not by the `color` values that the alias `category` stands for. It returns two groups, `hat` and `shirt`, and the `category` value shown for each group comes from an arbitrary row of that group:
+
+```sql
+CREATE TABLE items (category VARCHAR(10), color VARCHAR(10));
+INSERT INTO items VALUES ('shirt','red'), ('shirt','blue'), ('hat','red');
+
+SELECT color AS category, COUNT(*) FROM items GROUP BY category;
++----------+----------+
+| category | COUNT(*) |
++----------+----------+
+| red      |        1 |
+| red      |        2 |
++----------+----------+
+
+SHOW WARNINGS;
++---------+------+--------------------------------------------+
+| Level   | Code | Message                                    |
++---------+------+--------------------------------------------+
+| Warning | 1052 | Column 'category' in GROUP BY is ambiguous |
++---------+------+--------------------------------------------+
+```
+
+With an alias that doesn't clash with a column name, the query groups by color:
+
+```sql
+SELECT color AS shade, COUNT(*) FROM items GROUP BY shade;
++-------+----------+
+| shade | COUNT(*) |
++-------+----------+
+| blue  |        1 |
+| red   |        2 |
++-------+----------+
+```
 
 ### WITH ROLLUP
 

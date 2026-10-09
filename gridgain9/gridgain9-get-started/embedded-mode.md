@@ -169,5 +169,5 @@ More examples of working with GridGain can be found in the [examples](https://gi
 
 From here, you may want to:
 
-- Check out the [Developers guide](../gridgain9-usage/table-api.md) page for more information on available APIs
+- Check out the [Developers guide](../gridgain9-development/table-api.md) page for more information on available APIs
 - Try out our [examples](https://github.com/apache/ignite-3/tree/main/examples)

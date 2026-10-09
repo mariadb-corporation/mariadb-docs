@@ -32,7 +32,7 @@ If you are using Python 3.9, make sure to update to 3.10 or later.
 
 ### Structure Snapshots
 
-[Data snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/snapshots/data-snapshots) now support creating snapshots of [distributed maps](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/data-structures/distributed-maps) and [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#using-sequences). When a snapshot is created for a table, any data structures required for it are included in the snapshot automatically. You can also use the new `--structures` parameter to explicitly specify the data structures that you want to include in the snapshot, for example:
+[Data snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/snapshots/data-snapshots) now support creating snapshots of [distributed maps](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/data-structures/distributed-maps) and [sequences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/sql-api#using-sequences). When a snapshot is created for a table, any data structures required for it are included in the snapshot automatically. You can also use the new `--structures` parameter to explicitly specify the data structures that you want to include in the snapshot, for example:
 
 ```bash
 cluster snapshot create --type=full --tables=PERSON --structures=personStruct --destination=relative-path-example
@@ -50,7 +50,7 @@ cluster config update ignite.sql.createTable.minStaleRowsCount=1000
 
 ### Ignored Fields in DR Connector
 
-When configuring [data center replication from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8), you can now configure ignored key fields. The configuration mirrors the previously available configuration for value fields. The example below shows a minimal configuration that ignores fields K4 and V4.
+When configuring [data center replication from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8), you can now configure ignored key fields. The configuration mirrors the previously available configuration for value fields. The example below shows a minimal configuration that ignores fields K4 and V4.
 
 ```
 dr-service-config = {

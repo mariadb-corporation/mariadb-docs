@@ -60,7 +60,7 @@ try (org.apache.ignite.client.IgniteClient client = org.apache.ignite.client.Ign
 
 ## Authentication
 
-To pass [authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication#basic-authentication) information, use the `IgniteClientAuthenticator` class and pass it to `IgniteClient` builder:
+To pass [authentication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/authentication#basic-authentication) information, use the `IgniteClientAuthenticator` class and pass it to `IgniteClient` builder:
 
 {% code title="Java" %}
 ```java

@@ -197,7 +197,7 @@ Remove the following properties from your startup configuration when migrating:
 | `IGNITE_ALLOW_MIXED_CACHE_GROUPS` | Mixed cache groups are not available in GridGain. |  |
 | `IGNITE_ENABLE_OBJECT_INPUT_FILTER_AUTOCONFIGURATION` | Object input filter auto-configuration is not available in GridGain. |  |
 | `IGNITE_USE_BINARY_ARRAYS` | Typed binary arrays are not available in GridGain. | Confirm it was not enabled on the Apache Ignite source before migrating data; an explicitly enabled binary-array format changes the on-disk and on-wire layout. |
-| `IGNITE_SQL_FORCE_LAZY_RESULT_SET` | Not available in the GridGain H2-based SQL engine. | Enable lazy execution per query with `SqlFieldsQuery.setLazy(true)` or the JDBC thin `lazy` connection parameter. See [Lazy SQL Queries](../../../ha-and-performance/performance-tuning/sql-tuning.md#lazy-sql-queries). |
+| `IGNITE_SQL_FORCE_LAZY_RESULT_SET` | Not available in the GridGain H2-based SQL engine. | Enable lazy execution per query with `SqlFieldsQuery.setLazy(true)` or the JDBC thin `lazy` connection parameter. See [Lazy SQL Queries](../../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#lazy-sql-queries). |
 | `IGNITE_THIN_CLIENT_ASYNC_REQUESTS_WAIT_TIMEOUT` | This thin-client async request setting is not available in GridGain. |  |
 
 ### Stricter Validation
@@ -225,4 +225,4 @@ After the first GridGain node starts, run two checks:
 * *Look at the logs.* A topology-validation or handshake error mentioning `IGNITE_BINARY_SORT_OBJECT_FIELDS` means a server or client is running with a different value.
 * *Smoke-test a known key.* Run a key-based `get` against a row you know exists. If it returns nothing while `SELECT` over the same row succeeds, GridGain is using a different value than what is on disk.
 
-For background, see [Working with Binary Objects](../../../gridgain8-usage/key-value-api/binary-objects.md).
+For background, see [Working with Binary Objects](../../../gridgain8-development/key-value-api/binary-objects.md).

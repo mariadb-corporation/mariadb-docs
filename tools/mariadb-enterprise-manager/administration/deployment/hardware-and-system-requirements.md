@@ -1,7 +1,8 @@
 ---
 description: >-
   Details the hardware sizing, system prerequisites and supported OS versions
-  for deploying the Enterprise Manager server and agents.
+  for deploying the Enterprise Manager server and agents, and the supported
+  GridGain Control Center versions.
 ---
 
 # Hardware and System Requirements
@@ -46,6 +47,16 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 | **23.02\***, **23.08\***, **24.02\***, **25.01\***, **25.10** | <p>RHEL/Rocky/AlmaLinux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p> |
 
 \* Monitoring and Single Sign-On(SSO) are only supported for MaxScale versions 25.10 and Above
+
+## GridGain Control Center
+
+To show GridGain 8 clusters in Enterprise Manager, connect Enterprise Manager to GridGain Control Center. See [Add a GridGain 8 Cluster](adding-databases/add-gridgain-8-cluster.md).
+
+| Enterprise Manager Version | GridGain Control Center Version | GridGain Version |
+| -------------------------- | ------------------------------- | ---------------- |
+| **26.10** and later        | **2026.2** and later            | GridGain 8       |
+
+Control Center runs on its own host, separate from the Enterprise Manager Server.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

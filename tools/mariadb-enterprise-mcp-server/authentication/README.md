@@ -24,6 +24,12 @@ A cornerstone of the Enterprise edition is its ability to integrate with central
 ```mermaid
 
 graph TD
+    accTitle: User registration flow
+    accDescr {
+        A top-to-bottom chain of five boxes joined by one-way arrows. User leads
+        to POST /register, which leads to Hash Password. Hash Password leads to
+        Store in DB, which leads to Return User Object.
+    }
     A[User] --> B[POST /register]
     B --> C[Hash Password]
     C --> D[Store in DB]
@@ -36,6 +42,13 @@ graph TD
 ```mermaid
 
 graph TD
+    accTitle: User login flow
+    accDescr {
+        A top-to-bottom chain of six boxes joined by one-way arrows. User leads to
+        POST /token, which leads to Verify Credentials. Verify Credentials leads
+        to Assign Roles, which leads to Generate JWT. Generate JWT leads to Return
+        Token.
+    }
     A[User] --> B[POST /token]
     B --> C[Verify Credentials]
     C --> D[Assign Roles]
@@ -48,6 +61,15 @@ graph TD
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Authenticated request flow
+    accDescr {
+        Four boxes are drawn: Client, MCP Server, RAG API (Optional) and Database.
+        Six one-way arrows connect them. 1. Request with JWT: from Client to MCP
+        Server. 2. Validate User: from MCP Server to Database. User Record: from
+        Database to MCP Server. 3. Forward Request: from MCP Server to RAG API
+        (Optional). Result: from RAG API (Optional) to MCP Server. 4. Response:
+        from MCP Server to Client.
+    }
     A[Client]
     B[MCP Server]
     C["RAG API (Optional)"]

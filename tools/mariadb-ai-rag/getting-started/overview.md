@@ -66,6 +66,13 @@ config:
   layout: dagre
 ---
 flowchart TB
+    accTitle: RAG pipeline from document ingestion to response
+    accDescr {
+        A top-to-bottom chain of seven boxes joined by arrows. Document Ingestion
+        leads to Chunking Module, which leads to Vector Database. Vector Database
+        leads to Query Processing, which leads to Retrieval Module. Retrieval
+        Module leads to Generation Module, which leads to Response.
+    }
     n1["Document Ingestion"] --> n2["Chunking Module"]
     n2 --> n3["Vector Database"]
     n3 --> n4["Query Processing"]

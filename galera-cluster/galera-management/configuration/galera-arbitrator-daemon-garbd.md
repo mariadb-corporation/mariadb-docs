@@ -11,6 +11,14 @@ When deploying a Galera Cluster, it is recommended to use a minimum of three ins
 
 ```mermaid
 graph TD
+    accTitle: Galera Arbitrator in a two-data-center cluster
+    accDescr {
+        A hub-and-spoke network. A central WAN (Wide Area Network) is joined by
+        plain lines, with no direction, to six boxes: the Arbitrator (garbd), Node
+        1, Node 2, and three boxes each labelled Clients. Node 1 sits inside the
+        Data Center 1 box and Node 2 sits inside the Data Center 2 box. The
+        Arbitrator and the three Clients boxes are outside both data centers.
+    }
     WAN("WAN (Wide Area Network)")
     
     Arbitrator["Arbitrator<br>(garbd)"]

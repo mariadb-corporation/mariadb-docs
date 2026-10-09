@@ -349,7 +349,7 @@ Ignite does not support the following sub-features:
 
 `F031–19REVOKE` statement: RESTRICT clause
 
-A [DDL](ddl.md) is being actively developed; more features will be supported in upcoming releases.
+For the DDL statements GridGain supports, see [DDL](ddl.md).
 
 ## `F041` Basic joined table
 

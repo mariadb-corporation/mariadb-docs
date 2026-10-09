@@ -603,7 +603,7 @@ Refer to the main [cluster groups](https://www.gridgain.com/docs/gridgain8/lates
 
 ## Executing Compute Tasks
 
-Presently, the Java thin client supports basic [compute capabilities](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/distributed-computing)
+The Java thin client supports basic [compute capabilities](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/distributed-computing)
 by letting you execute those compute tasks that are **already deployed** in the cluster. You can either run a task across all
 cluster nodes or a specific [cluster group](#logical-nodes-grouping). The deployment
 assumes that you create a JAR file with the compute tasks and add the JAR to the cluster nodes' classpath.

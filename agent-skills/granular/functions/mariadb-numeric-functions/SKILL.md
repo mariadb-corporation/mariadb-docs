@@ -5,7 +5,7 @@ description: "MariaDB numeric and math functions — rounding/truncation (ROUND,
 
 # MariaDB Numeric Functions
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-10-08*
 
 Catalog of every built-in numeric/math function in MariaDB, with signature and a one-line semantic summary per entry. For a function not listed here, fall back to the canonical reference at <https://mariadb.com/docs/server/reference/sql-functions/numeric-functions>.
 
@@ -17,13 +17,13 @@ Catalog of every built-in numeric/math function in MariaDB, with signature and a
 |---|---|
 | `a / b` between two integers returns an integer (e.g. `7/2 = 3`) | `/` **always returns a decimal** — `7/2` is `3.5000` (four fractional digits by default, via `div_precision_increment`). Use `a DIV b` for integer (toward-zero) division |
 | `7 DIV 2` returns a float or rounds | `DIV` returns an **integer**, discarding the remainder (`3`); it's `BIGINT`-based. Get the remainder with `MOD` / `%` |
-| `x / 0` raises a division-by-zero error | By default it returns **`NULL`**. You get an error only when `ERROR_ON_DIVISION_BY_ZERO` is in `sql_mode` (it's part of the default strict mode). Same for `MOD` by zero |
+| `x / 0` raises a division-by-zero error | In a query it returns **`NULL`**, with warning 1365 when `ERROR_FOR_DIVISION_BY_ZERO` is in `sql_mode` (it is by default). It's an **error** only in an `INSERT`/`UPDATE` when strict mode is also on, which is the default. Same for `DIV` and `MOD` by zero |
 | `ROUND(2.5)` uses banker's rounding (round-half-to-even) | For **`DECIMAL`/exact** values MariaDB rounds **half away from zero**: `ROUND(2.5)=3`, `ROUND(-2.5)=-3`. For **`FLOAT`/`DOUBLE`** the platform C library decides, so results can differ between operating systems — round a `DECIMAL` if you need determinism |
 | Storing money in `FLOAT`/`DOUBLE` and rounding for display | `FLOAT`/`DOUBLE` are **approximate** (`0.1 + 0.2 != 0.3`). Use `DECIMAL(p,s)` for currency and anything needing exactness (up to 38 digits) |
 | `TRUNCATE(x, d)` and `TRUNCATE TABLE` are related | They're unrelated despite the name. `TRUNCATE(X, D)` is the **function** that chops to `D` decimal places toward zero; `TRUNCATE TABLE` is the **DDL statement** that empties a table (see `mariadb-drop-table`) |
 | `FLOOR(x)` / `CEILING(x)` always return a `BIGINT` | The return type **follows the argument**: integer/string/double args yield `BIGINT`, but a `DECIMAL` argument yields a **`DECIMAL`**. Don't assume the result fits an integer column |
 | `RAND()` is fine for security tokens or unbiased sampling | `RAND()` is **not cryptographically secure**; `RAND(N)` with a constant seed is **repeatable** (good for tests, not secrets), and `RAND()` is unsafe for statement-based replication. `ORDER BY RAND()` scans the whole table — avoid on large ones |
-| `MOD(n, 0)` errors, or `MOD` of a negative behaves like Python's `%` | `MOD` returns **`NULL`** for a zero divisor (unless `ERROR_ON_DIVISION_BY_ZERO`), and the result **takes the sign of the dividend** (`-7 MOD 3 = -1`), not the divisor. `N % M`, `N MOD M`, `MOD(N,M)` are equivalent |
+| `MOD(n, 0)` errors, or `MOD` of a negative behaves like Python's `%` | `MOD` returns **`NULL`** for a zero divisor (an error only when writing a row under the default strict mode, as with `/`), and the result **takes the sign of the dividend** (`-7 MOD 3 = -1`), not the divisor. `N % M`, `N MOD M`, `MOD(N,M)` are equivalent |
 | `FORMAT(n, 2)` returns a number you can compute with | `FORMAT` returns a **string** with locale-aware thousands separators (`'1,234,567.89'`). Feeding it back into arithmetic re-parses and truncates at the first separator |
 | `CONV(n, 10, 62)` works on every version | Bases up to **62** are supported *(since 11.4)*; earlier versions cap at base 36. `CONV` returns a string at 64-bit precision |
 | `CRC32('abc')` is unary and `CRC32C` always exists | `CRC32` gained an optional rolling-checksum argument — `CRC32([par,] expr)` — and `CRC32C` (Castagnoli, as used by InnoDB/MyRocks) was added, both *(since 10.8)* |

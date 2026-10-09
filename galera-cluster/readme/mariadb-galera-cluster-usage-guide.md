@@ -63,6 +63,10 @@ The most common replication architecture is Primary/Replica (also known as Maste
 flowchart TD
     accTitle: Multi-primary (synchronous) replication
     accDescr {
+        Three boxes labelled Client sit in a Clients group. Each client is joined to its
+        own DBMS node by a line with arrows in both directions, and each of the three
+        DBMS nodes is joined by a line with arrows in both directions to one Replication
+        box.
         Client applications connect transparently to any of three DBMS nodes. Every node
         is a primary and accepts writes. All nodes are kept consistent by a synchronous
         replication layer that applies each transaction on every node, so a commit is
@@ -281,6 +285,10 @@ SET GLOBAL wsrep_provider_options="pc.bootstrap=YES";
 ```
 
 The node bootstraps the Primary Component onto itself. Other nodes in the cluster with network connectivity then submit state transfer requests to this node to bring their local databases into sync with what's available on this node.
+
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
 
 ### State Transfers
 

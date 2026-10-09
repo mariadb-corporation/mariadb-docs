@@ -1,7 +1,7 @@
 ---
 description: >-
-  Operate a GridGain 8 cluster — installation and upgrade, snapshots and
-  recovery, data center replication, monitoring, and migration.
+  Operate a GridGain 8 cluster — installation and upgrade, cluster
+  configuration, snapshots and recovery, data center replication, monitoring, and migration.
 icon: gears
 ---
 
@@ -29,9 +29,9 @@ Join our upcoming live, instructor-led Control Center training session and learn
 
 If you're looking for information about installing the product or getting started, see the [Getting Started Guide](../gridgain8-get-started/README.md) and the [Installation Guide](installation/README.md).
 
-If you're looking for information on how to build an application, see the [Usage Guide](../gridgain8-usage/README.md).
+If you're looking for information on how to build an application, see the [Development](../gridgain8-development/README.md) section.
 
-If you're looking to learn more about performance or troubleshooting, see the [HA and Performance Guide](../ha-and-performance/performance-tuning/general-tips.md).
+If you're looking to learn more about performance or troubleshooting, see the [Tuning and Troubleshooting](../tuning-and-troubleshooting/README.md) section.
 
 {% columns %}
 {% column %}
@@ -42,6 +42,18 @@ If you're looking to learn more about performance or troubleshooting, see the [H
 
 {% column %}
 Install and start GridGain — system requirements, the binary distribution, starting a node with default or custom configuration, and deployment options.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cluster-configuration/" %}
+[Cluster Configuration](cluster-configuration/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Configure and run GridGain cluster nodes — node configuration, logging, starting and stopping nodes, and how nodes discover each other and form a cluster.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -89,7 +101,7 @@ Overview of monitoring and metrics in GridGain, including the available monitori
 {% endcolumn %}
 
 {% column %}
-Keep a running GridGain cluster healthy — control the CPU and memory a node uses, and reclaim disk space through persistence defragmentation.
+Keep a running GridGain cluster healthy — control the CPU and memory a node uses, reclaim disk space through persistence defragmentation, and isolate a node in maintenance mode.
 {% endcolumn %}
 {% endcolumns %}
 

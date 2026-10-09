@@ -135,6 +135,10 @@ Recovery:
     SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
     ```
 
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
+
 #### **All Nodes Go Down Without a Proper Shutdown**
 
 In a datacenter power failure or a severe bug, all nodes may crash. The `grastate.dat` file will not be updated correctly and will show `seqno: -1`.
@@ -166,6 +170,10 @@ A split-brain occurs when a network partition splits the cluster, and no resulti
     SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
     ```
 3. This group will now become operational. When network connectivity is restored, the nodes from the other partition will automatically detect this Primary Component and rejoin it.
+
+{% hint style="info" %}
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+{% endhint %}
 
 {% hint style="danger" %}
 Never execute the bootstrap command on both sides of a partition. This will create two independent, active clusters with diverging data, leading to severe data inconsistency.

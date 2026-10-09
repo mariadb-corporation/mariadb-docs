@@ -21,7 +21,7 @@ or deliberately bypass them.
 - [**Secondary distribution zones**](../architecture/storage/distribution-zones.md#using-secondary-zones). Tables that use a secondary distribution zone are not supported
 with row-level security.
 
-- [**Near caches**](../gridgain9-usage/near-caches.md). The near cache does not track row-level security policy changes.
+- [**Near caches**](../gridgain9-development/near-caches.md). The near cache does not track row-level security policy changes.
 An entry that was cached while visible and later becomes hidden by a policy change is refreshed
 (removed from the cache) only after it expires (based on `expireAfterAccess` and `expireAfterUpdate`) or
 on the next access that re-validates it. Until then, the stale row may still be served from the near cache.

@@ -34,8 +34,8 @@ Developers can also leverage GridGain's hybrid cloud support that allows establi
 
 GridGain provides two implementations of the discovery mechanism intended for different usage scenarios:
 
-- [TCP/IP Discovery](../gridgain8-usage/clustering/tcp-ip-discovery.md) is designed and optimized for 100s of nodes.
-- [ZooKeeper Discovery](../gridgain8-usage/clustering/zookeeper-discovery.md) that allows scaling GridGain clusters to 100s and 1000s of nodes preserving linear scalability
+- [TCP/IP Discovery](../gridgain8-management/clustering/tcp-ip-discovery.md) is designed and optimized for 100s of nodes.
+- [ZooKeeper Discovery](../gridgain8-management/clustering/zookeeper-discovery.md) that allows scaling GridGain clusters to 100s and 1000s of nodes preserving linear scalability
 and performance.
 
 ## Cluster Activation

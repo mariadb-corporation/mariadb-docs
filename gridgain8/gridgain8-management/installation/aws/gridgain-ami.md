@@ -34,7 +34,7 @@ Consider the following points:
   You may want to uncheck the **Delete on Termination** option for your storage.
 - **Networking:** GridGain nodes discover and communicate with each other by TCP/IP. A number of ports must be open for this communication. See [Configuring Security Group](#configuring-security-group).
 
-Visit our [Capacity Planning](../../../ha-and-performance/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
+Visit our [Capacity Planning](../../../tuning-and-troubleshooting/capacity-planning.md) page for information about ways to estimate hardware requirements for your use case.
 
 ## Obtaining GridGain AMI
 

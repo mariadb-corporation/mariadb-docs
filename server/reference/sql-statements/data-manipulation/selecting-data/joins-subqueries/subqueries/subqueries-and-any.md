@@ -28,7 +28,7 @@ Although `IN` functions similarly to `= ANY`, it is documented separately due to
 
 * `TRUE` if the comparison operator returns `TRUE` for at least one row returned by the table subquery.
 * `FALSE` if the comparison operator returns `FALSE` for all rows returned by the table subquery, or if the table subquery has no rows.
-* `NULL` if the comparison operator returns `NULL` for at least one row returned by the table subquery and doesn't returns `TRUE` for any of them, or if `scalar_expression` returns `NULL`.
+* `NULL` if the comparison operator returns `NULL` for at least one row returned by the table subquery and doesn't return `TRUE` for any of them, or if `scalar_expression` returns `NULL` and the table subquery returns at least one row.
 
 ## Examples
 

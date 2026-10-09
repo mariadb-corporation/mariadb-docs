@@ -177,7 +177,7 @@ Node network configuration is now performed in  the `network` section of the [no
 
 REST API is a significant part of GridGain 9. It can be used for multiple purposes, including cluster and node configuration and running SQL requests.
 
-You can configure REST properties in [node configuration](../../reference/configuration/node-configuration-parameters.md). For more information about REST API, see the [REST API](../../reference/rest-api/overview.md) documentation and the provided [OpenAPI](https://www.gridgain.com/sdk/gridgain9/latest/openapi.html) specification.
+You can configure REST properties in [node configuration](../../reference/configuration/node-configuration-parameters.md). For more information about REST API, see the [REST API](../../gridgain9-development/rest-api.md) documentation and the provided [OpenAPI](https://www.gridgain.com/sdk/gridgain9/latest/openapi.html) specification.
 
 ### Cluster Configuration
 
@@ -194,7 +194,7 @@ Events configuration is simplified in GridGain 9. It is separated in 2 configura
 - Event **channels** define what is collected.
 - Event **sinks** define where the data is sent.
 
-In the current release, only `log` sink are supported. You can configure events as described in the [Events](../../gridgain9-usage/events/working-with-events.md) section.
+In the current release, only `log` sink are supported. You can configure events as described in the [Events](../../gridgain9-development/events/working-with-events.md) section.
 
 #### Metrics Collection
 

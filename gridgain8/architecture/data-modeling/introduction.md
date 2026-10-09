@@ -40,7 +40,7 @@ Cache API supports the following features:
 - Events
 
 {% hint style="info" %}
-Even after you get your cluster up and running, you can create both key-value caches and SQL tables [dynamically](../../gridgain8-usage/key-value-api/basic-cache-operations.md#creating-caches-dynamically).
+Even after you get your cluster up and running, you can create both key-value caches and SQL tables [dynamically](../../gridgain8-development/key-value-api/basic-cache-operations.md#creating-caches-dynamically).
 {% endhint %}
 
 ## Binary Object Format
@@ -54,7 +54,7 @@ GridGain stores data entries in a specific format called _binary objects_. This 
 
 Binary objects can be used only when the default binary marshaller is used (i.e., no other marshaller is set in the configuration).
 
-For more information on how to configure and use binary objects, refer to the [Working with Binary Objects](../../gridgain8-usage/key-value-api/binary-objects.md) page.
+For more information on how to configure and use binary objects, refer to the [Working with Binary Objects](../../gridgain8-development/key-value-api/binary-objects.md) page.
 
 ## Data Partitioning
 

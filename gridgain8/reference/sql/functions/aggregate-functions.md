@@ -93,7 +93,7 @@ This function can only be used with colocated data; you have to use the `colocat
 
 The collocated hint can be set as follows:
 
-- `SqlFieldsQuery.collocated = true` if you use [GridGain SQL API](../../../gridgain8-usage/sql/sql-api.md) to execute queries
+- `SqlFieldsQuery.collocated = true` if you use [GridGain SQL API](../../../gridgain8-development/sql/sql-api.md) to execute queries
 - [JDBC connection string parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
 - [ODBC connection string argument](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 
@@ -152,7 +152,7 @@ This function can only be used with colocated data and you have to use the `coll
 
 The colocated hint can be set as follows:
 
-- `SqlFieldsQuery.collocated=true` if you use [GridGain SQL API](../../../gridgain8-usage/sql/sql-api.md) to execute queries
+- `SqlFieldsQuery.collocated=true` if you use [GridGain SQL API](../../../gridgain8-development/sql/sql-api.md) to execute queries
 - [JDBC connection string parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/jdbc/jdbc-driver#parameters)
 - [ODBC connection string argument](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/sql/odbc/connection-string-dsn#supported-arguments)
 

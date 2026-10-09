@@ -15,7 +15,7 @@ GridGain 9.0.16 is a stability release that is dedicated to improving user exper
 
 ### DCR Syntax Changes
 
-With this release, all [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/data-center-replication/configuring-replication) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
+With this release, all [Data Center Replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/data-center-replication/configuring-replication) commands are updated to consistently use the `--name` parameter to specify the replication name. Previous behavior is temporarily supported for backwards compatibility, but is deprecated and will be removed at some point later.
 
 ### Standardized System Views
 

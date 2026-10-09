@@ -165,7 +165,7 @@ cluster init --name=GridGain --license=/opt/gridgain/etc/license.json
 ```
 
 {% hint style="info" %}
-The cluster name can be changed after initialization by using the [`cluster rename`](../reference/cli-tool.md#cluster-rename) CLI command or the [`cluster/rename`](../reference/rest-api/overview.md#using-http-tools) REST endpoint.
+The cluster name can be changed after initialization by using the [`cluster rename`](../reference/cli-tool.md#cluster-rename) CLI command or the [`cluster/rename`](../gridgain9-development/rest-api.md#using-http-tools) REST endpoint.
 {% endhint %}
 
 The output from this step should be similar to this:

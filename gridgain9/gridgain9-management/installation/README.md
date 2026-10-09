@@ -103,3 +103,15 @@ Deploy GridGain 9 on Amazon Web Services using the GridGain 9 AMI or the GridGai
 Deploy GridGain 9 on Google Cloud Platform using the GridGain 9 GCP OS image or the GridGain Terraform module.
 {% endcolumn %}
 {% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../upgrade/" %}
+[Upgrading GridGain 9](../upgrade/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Procedures for upgrading GridGain 9 — full-cluster and rolling upgrades of the cluster, and upgrading client applications.
+{% endcolumn %}
+{% endcolumns %}

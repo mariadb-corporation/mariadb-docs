@@ -58,7 +58,7 @@ The following example shows how you can use the topology validator to allow cach
     }
 ```
 
-You can also set up TopologyValidator to use an external service like [Zookeeper](../gridgain8-usage/clustering/zookeeper-discovery.md) to make a topology check and decide if the current node group is segmented and should be deactivated.
+You can also set up TopologyValidator to use an external service like [Zookeeper](../gridgain8-management/clustering/zookeeper-discovery.md) to make a topology check and decide if the current node group is segmented and should be deactivated.
 
 After you resolve the split-brain situation, it is necessary to restart inactive groups to restore valid topology.
 

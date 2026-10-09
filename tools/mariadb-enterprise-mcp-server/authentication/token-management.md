@@ -18,6 +18,12 @@ The process involves two main steps:
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: User registration flow
+    accDescr {
+        A top-to-bottom chain of four boxes joined by one-way arrows. User leads
+        to POST /register, labelled Sends Email & Password. POST /register leads
+        to Hash Password with bcrypt, which leads to Store User in Database.
+    }
     A[User] -->|Sends Email & Password| B(POST /register)
     B --> C[Hash Password with bcrypt]
     C --> D[Store User in Database]
@@ -29,6 +35,13 @@ graph TD
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: User login and token generation flow
+    accDescr {
+        A top-to-bottom chain of six boxes joined by one-way arrows. User leads to
+        POST /token, labelled Sends Credentials. POST /token leads to Verify
+        Credentials in DB, which leads to Determine User Roles. Determine User
+        Roles leads to Generate JWT Token, which leads to Return Token to User.
+    }
     A[User] -->|Sends Credentials| B(POST /token)
     B --> C[Verify Credentials in DB]
     C --> D[Determine User Roles]
@@ -43,6 +56,17 @@ Once a client has a JWT, it includes it in the `Authorization` header of every r
 
 ```mermaid
 sequenceDiagram
+    accTitle: Token validation for an MCP Server request
+    accDescr {
+        A sequence between four participants: Client, MCP Server, RAG API and
+        Database. Client sends Tool Call + JWT Token to MCP Server. A note over
+        MCP Server lists two steps: 1. Extract Token and 2. Verify JWT Signature.
+        3. Validate User in DB: MCP Server sends this to Database, and Database
+        replies User Record to MCP Server. A note over MCP Server reads (If RAG
+        tool is called). 4. Forward Request + Token: MCP Server sends this to RAG
+        API. A note over RAG API reads 5. Verify Token Again. RAG API replies
+        Processed Result to MCP Server. MCP Server replies Response to Client.
+    }
     participant Client
     participant MCP Server
     participant RAG API

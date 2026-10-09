@@ -1,3 +1,10 @@
+---
+description: >-
+  Return the smallest of two or more values. The arguments are compared as
+  integers, reals, or strings depending on context, and NULL is returned if
+  any is NULL.
+---
+
 # LEAST
 
 ## Syntax

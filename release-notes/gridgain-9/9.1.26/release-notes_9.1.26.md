@@ -35,7 +35,7 @@ Review your roles before upgrading and grant the new actions to the roles that n
 GRANT PRIVILEGES WRITE_SECURITY_CONFIG TO cluster_admin;
 ```
 
-See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/access-control-functions#grant-to-role) for the statement syntax, and [User Permissions and Roles](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/user-permissions-and-roles) for the full list of actions.
+See [GRANT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/access-control-functions#grant-to-role) for the statement syntax, and [User Permissions and Roles](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/authentication-and-authorization/user-permissions-and-roles) for the full list of actions.
 
 ### SQL Follower Reads Disabled by Default
 
@@ -55,7 +55,7 @@ You can also allow or disallow follower reads for an individual statement or JDB
 
 ### Per-Statement Control Over Follower Reads
 
-You can now control, for an individual SQL statement, whether the SQL engine may read from non-primary replicas. The new `allowFollowerReads` [statement property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/sql/sql-api#using-statements) overrides the cluster-wide setting for that statement only, and applies to read-only statements.
+You can now control, for an individual SQL statement, whether the SQL engine may read from non-primary replicas. The new `allowFollowerReads` [statement property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/sql-api#using-statements) overrides the cluster-wide setting for that statement only, and applies to read-only statements.
 
 Enabling follower reads spreads read load across all replicas and lets a query read from a local replica, avoiding a network hop. The trade-off is latency, because reading from a follower replica may introduce delays while the replica catches up. Disabling it forces the statement to always read from primary replicas. Leaving the property unset keeps the cluster-wide setting, which is the default behavior.
 
@@ -68,7 +68,7 @@ Statement stmt = client.sql().statementBuilder()
     .build();
 ```
 
-For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-consistency-and-replication).
+For the JDBC equivalent, see [Controlling Follower Reads](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/jdbc-driver#controlling-follower-reads). For how follower reads relate to read-only transactions, see [Consistency Model](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/replication-and-consistency/data-consistency-and-replication).
 
 ## Improvements and Fixed Issues
 

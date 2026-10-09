@@ -66,7 +66,7 @@ Given the following structure:
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Step 1, execution of the anchor part of the recursive CTE
-    accDescr { A diagram titled Computation showing the recursive ancestors CTE query split into two parts. The Anchor part node contains SELECT star FROM folks WHERE name = 'Alex' and is highlighted because it executes first. The Recursive part node contains SELECT f.star FROM folks AS f, ancestors AS a WHERE f.id = a.father OR f.id = a.mother and has not executed yet. The Anchor part node points to the Result table node, which after this step contains one row: id 100, name Alex, father 20, mother 30. }
+    accDescr { The group labelled "with recursive ancestors as (...)" shows the recursive ancestors CTE query split into two parts. The Anchor part node contains SELECT star FROM folks WHERE name = 'Alex' and is highlighted because it executes first. The Recursive part node contains SELECT f.star FROM folks AS f, ancestors AS a WHERE f.id = a.father OR f.id = a.mother and has not executed yet. The Anchor part node points to the Result table node, which after this step contains one row: id 100, name Alex, father 20, mother 30. }
 
     subgraph cte["with recursive ancestors as (...)"]
         anchor["Anchor part:<br/>SELECT * FROM folks<br/>WHERE name = 'Alex'"]

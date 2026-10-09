@@ -11,12 +11,12 @@ All user actions trigger specific events.
 The events contain the information about the user and the data that was accessed or modified by the action.
 You can track the events and export them into an external system.
 
-You can use an [event listener](../gridgain8-usage/events/listening-to-events.md) to listen to events, or you can create a custom event storage.
+You can use an [event listener](../gridgain8-development/events/listening-to-events.md) to listen to events, or you can create a custom event storage.
 On this page, we provide an example of an event storage that outputs information about events to `System.out`.
 
 ## Enabling Events
 
-Decide which actions you want to track and [enable the corresponding event types](../gridgain8-usage/events/events.md).
+Decide which actions you want to track and [enable the corresponding event types](../gridgain8-development/events/events.md).
 We recommend enabling only the specific events you really need.
 Too many events can have an impact on the performance of the cluster.
 The events must be enabled on every server node.
@@ -66,7 +66,7 @@ Not supported.
 
 ## Custom Event Storage
 
-Implement a custom [event storage](../gridgain8-usage/events/listening-to-events.md#storing-and-querying-events) and specify it in the node configuration.
+Implement a custom [event storage](../gridgain8-development/events/listening-to-events.md#storing-and-querying-events) and specify it in the node configuration.
 The storage does not have to store events, it can simply output the information to the log or export into an external system.
 The implementation will receive all events in the `record()` method.
 

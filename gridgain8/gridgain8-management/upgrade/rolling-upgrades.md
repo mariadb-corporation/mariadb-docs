@@ -191,7 +191,7 @@ control.bat --rolling-upgrade finish
 
 When Rolling Upgrades are enabled, every network message is appended with rolling upgrade data. In most situations, the overhead is small compared to the overall throughput and has almost no performance impact. This includes workloads dealing with medium- or large-sized entries (1 KB and larger), as well as compute-intensive applications.
 
-The impact can get more noticeable if the system handles a comparatively larger number of smaller entries and messages. Using batching techniques (for example, [data streamer](../../gridgain8-usage/data-streaming.md) or [putAll method](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/IgniteCache.html#putAll-java.util.Map-)) allows you to combine entries in larger requests and reduce the overhead ratio.
+The impact can get more noticeable if the system handles a comparatively larger number of smaller entries and messages. Using batching techniques (for example, [data streamer](../../gridgain8-development/data-streaming.md) or [putAll method](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/IgniteCache.html#putAll-java.util.Map-)) allows you to combine entries in larger requests and reduce the overhead ratio.
 
 ## Rolling Upgrade Monitoring in Control Center
 

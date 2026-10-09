@@ -185,3 +185,15 @@ Deploy and manage GridGain clusters on Kubernetes, including managed services su
 GridGain Operator for Kubernetes automates the deployment and management of GridGain and Apache Ignite clusters in a Kubernetes environment.
 {% endcolumn %}
 {% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../upgrade/" %}
+[Upgrade](../upgrade/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Upgrade a GridGain 8 cluster — a standard version upgrade, or a rolling upgrade that keeps the cluster available throughout.
+{% endcolumn %}
+{% endcolumns %}

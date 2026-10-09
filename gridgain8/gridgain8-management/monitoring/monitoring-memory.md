@@ -6,11 +6,11 @@ description: >-
 
 # Monitoring Memory
 
-GridGain provides metrics for [data regions](../../gridgain8-usage/memory-configuration/data-regions.md) and persistence. This page shows how to read those metrics programmatically and how to use them to calculate memory usage. To enable or disable these metrics, see [Configuring Metrics](configuring-metrics.md); for the full list of available metrics, see the [Monitoring Reference](../../reference/monitoring/README.md).
+GridGain provides metrics for [data regions](../../gridgain8-development/memory-configuration/data-regions.md) and persistence. This page shows how to read those metrics programmatically and how to use them to calculate memory usage. To enable or disable these metrics, see [Configuring Metrics](configuring-metrics.md); for the full list of available metrics, see the [Monitoring Reference](../../reference/monitoring/README.md).
 
 ## Data Region Metrics
 
-GridGain's [memory-centric storage](../../gridgain8-usage/memory-configuration/README.md) can be monitored through the `DataRegionMetrics` interface and the related JMX bean. These metrics help you track overall memory utilization, measure performance, and plan optimizations. Because a node can have several data regions configured, metrics are collected for each region individually.
+GridGain's [memory-centric storage](../../gridgain8-development/memory-configuration/README.md) can be monitored through the `DataRegionMetrics` interface and the related JMX bean. These metrics help you track overall memory utilization, measure performance, and plan optimizations. Because a node can have several data regions configured, metrics are collected for each region individually.
 
 ### Reading Data Region Metrics
 

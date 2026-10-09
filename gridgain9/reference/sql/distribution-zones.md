@@ -13,7 +13,7 @@ This section describes GridGain 9 distribution zones. In GridGain 9, you can fin
 Creates a new distribution zone.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf
@@ -251,7 +251,7 @@ Terminal('DEFAULT')
 Drops an existing distribution zone.
 
 {% hint style="info" %}
-This can also be done via the [Java API](../../gridgain9-usage/tables-from-java-classes.md).
+This can also be done via the [Java API](../../gridgain9-development/tables-from-java-classes.md).
 {% endhint %}
 
 ```bnf

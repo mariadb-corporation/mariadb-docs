@@ -16,7 +16,7 @@ GridGain 9.1.2 is a big milestone release with support for new storage type, big
 
 This release reintroduces support for near caches in GridGain 9. Near caches provide a way to store data locally on your clients and avoid lengthy network queries for latest data from the cluster.
 
-You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
+You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
 
 Below is a simple example of configuring near cache for a table:
 
@@ -38,7 +38,7 @@ QualifiedName myTable = QualifiedName.parse("PUBLIC.accounts");
 KeyValueView<Tuple, Tuple> kvView = client.tables().table(myTable).keyValueView(tableViewOptions);
 ```
 
-For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/near-caches) documentation.
+For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches) documentation.
 
 ### Mapping Empty Values in COPY INTO Command
 

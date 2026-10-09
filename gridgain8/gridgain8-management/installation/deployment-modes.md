@@ -45,7 +45,7 @@ represents GridGain as a classical system of record/hybrid database where GridGa
 
 ### In-Memory Data Grid
 
-When GridGain is used as a caching layer on top of an [external storage](../../gridgain8-usage/persistence/external-storage.md), such as a relational database,
+When GridGain is used as a caching layer on top of an [external storage](../../gridgain8-development/persistence/external-storage.md), such as a relational database,
 you are dealing with the in-memory data grid (IMDG) use case. In this case, the whole data set is stored in the
 external database and what fits in memory is loaded there to boost application performance.
 
@@ -149,6 +149,6 @@ microseconds range, the writes/updates still have to be propagated to all of the
 restart of embedded server nodes (your storage).
 
 {% hint style="info" %}
-If there is no need to cache the entire data set on the application end, then consider [near-caches](../../gridgain8-usage/near-caches.md),
+If there is no need to cache the entire data set on the application end, then consider [near-caches](../../gridgain8-development/near-caches.md),
 which let you keep frequently accessed records on the application end.
 {% endhint %}

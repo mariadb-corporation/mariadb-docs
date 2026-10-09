@@ -137,7 +137,7 @@ readinessProbe:
 
 ### Custom Transformations for DCR Connector
 
-With this release, a new API was added for the [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) that can be used for complex data mapping.
+With this release, a new API was added for the [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) that can be used for complex data mapping.
 
 With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can create a transformer class, and add it to the connector.
 
@@ -203,7 +203,7 @@ With it, instead of mapping GridGain 8 fields to GridGain 9 columns you can crea
   You cannot mix mapping via transformer with direct mapping. Make sure all of your fields are mapped correctly.
   {% endhint %}
 
-For more information about transformer configuration, see [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-from-gridgain-8/dcr-from-gridgain-8) documentation.
+For more information about transformer configuration, see [DCR Connector](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) documentation.
 
 ### Improved CLI Tool Usability
 
@@ -292,9 +292,9 @@ var options = ContinuousQueryOptions.builder()
 
 ### Low Latency Continuous Queries
 
-This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries) latency with the following improvements:
+This release significantly reduces [continuous query](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries) latency with the following improvements:
 
-- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-usage/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
+- Long polling, configurable with [`ContinuousQueryOptions.longPollingWaitTimeMs`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries#parameters), immediately delivers new events when the table was previously idle;
 - Parallel partition polling removes event delivery delays caused by other partitions;
 - Active transactions no longer delay event delivery.
 
