@@ -31,13 +31,19 @@ Needs Feedback=5, TODO=11, CANCELED=3, DUPLICATED=4.
 DOCS lives in MariaDB's Atlassian (`mariadbcorp.atlassian.net`). What the tooling needs is **one
 Atlassian MCP connection that reaches that site** — it does not care what the connection is called.
 
-There are two ways to have one, and both talk to the same endpoint
-(`https://mcp.atlassian.com/v1/mcp`):
+There are three ways to have one. All of them talk to `mcp.atlassian.com`:
 
-| Connection | How you get it | Tool prefix |
-|------------|----------------|-------------|
-| `claude.ai Atlassian Rovo` | the account-level Atlassian integration on claude.ai | `mcp__claude_ai_Atlassian_Rovo__*` |
-| `atlassian-mariadb` | `claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp` | `mcp__atlassian-mariadb__*` |
+| Connection | How you get it | Generation | Tool prefix |
+|------------|----------------|------------|-------------|
+| `claude.ai Atlassian MCP` | the account-level [Atlassian connector](https://claude.ai/directory/atlassian) on claude.ai | **v2 (preferred)** | `mcp__claude_ai_Atlassian_MCP__*` |
+| `claude.ai Atlassian Rovo` | the older account-level Atlassian integration on claude.ai | v1 | `mcp__claude_ai_Atlassian_Rovo__*` |
+| `atlassian-mariadb` | `claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp` | v1 | `mcp__atlassian-mariadb__*` |
+
+**Use v2 when you have it.** It covers everything the `jira` skill does, reaches more Atlassian
+products, and takes simple HTML for @mentions in comments instead of hand-built ADF. After
+connecting it on claude.ai, authenticate it in Claude Code with `/mcp` → `claude.ai Atlassian MCP`.
+Several v2 tools have different names from their v1 equivalents; the `jira` skill carries the
+mapping table. The v1 connections keep working as fallbacks.
 
 **If your account-level connection already reaches `mariadbcorp`, you are done — you do not need
 to add a second server.** Add `atlassian-mariadb` only when you need MariaDB *alongside* another
@@ -51,7 +57,8 @@ Either way, **verify before trusting it**:
 getAccessibleAtlassianResources()
 ```
 
-It must list `mariadbcorp.atlassian.net` (cloudId `164b0d33-…`) with a `write:jira-work` scope.
+It must list `mariadbcorp.atlassian.net` (cloudId `164b0d33-…`) with Jira write access: a
+`write:jira-work` scope on v1, or a `jira` product with `access: "read-write"` on v2.
 
 > **The connection's name proves nothing about which account it reaches.** Only this call does.
 > If it returns some other site (e.g. only `ggsystems`), that connection bound to the wrong
