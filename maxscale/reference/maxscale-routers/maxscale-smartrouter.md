@@ -212,6 +212,17 @@ updated. A smaller `monitor_interval` therefore makes a held read be released
 sooner after the cluster has caught up. The position of a service is that of
 its least up to date running server.
 
+* The value of `causal_reads` is fixed when a session is created. A change
+  affects only new sessions.
+* If the master does not report a GTID for a write, for example because the
+  binary log is disabled, there is nothing to wait for and reads are not held.
+* MaxScale must be able to learn the GTID position of a cluster. The MariaDB
+  Monitor and the Galera Monitor report it for servers. If a cluster never
+  reports a position, every read to it is held for the entire
+  `causal_reads_timeout`, so `causal_reads` should not be enabled for it.
+* A held read adds latency of up to `causal_reads_timeout`. This also applies
+  to the first execution of a query that SmartRouter has not seen before.
+
 **Example**
 
 ```
@@ -224,20 +235,6 @@ causal_reads = local
 causal_reads_timeout = 5s
 causal_reads_on_timeout = error
 ```
-
-### Limitations of causal reads
-
-* Only `none` and `local` are supported.
-* The value of `causal_reads` is fixed when a session is created. A change
-  affects only new sessions.
-* If the master does not report a GTID for a write, for example because the
-  binary log is disabled, there is nothing to wait for and reads are not held.
-* MaxScale must be able to learn the GTID position of a cluster. The MariaDB
-  Monitor and the Galera Monitor report it for servers. If a cluster never
-  reports a position, every read to it is held for the entire
-  `causal_reads_timeout`, so `causal_reads` should not be enabled for it.
-* A held read adds latency of up to `causal_reads_timeout`. This also applies
-  to the first execution of a query that SmartRouter has not seen before.
 
 ## Limitations
 
