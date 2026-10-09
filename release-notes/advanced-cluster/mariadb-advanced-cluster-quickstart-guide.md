@@ -59,7 +59,7 @@ Advanced Cluster needs no installation procedure or package repository of its ow
 {% step %}
 #### Configure the MariaDB Enterprise Repository for 12.3
 
-Follow [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) to download the `mariadb_es_repo_setup` script, verify its checksum, and run it with your Customer Download Token.
+Follow [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) to download the `mariadb_es_repo_setup` script, verify its checksum, and run it with your Customer Download Token.
 
 {% hint style="warning" %}
 Pass `--mariadb-server-version="12.3"` when you run the script. It configures the latest GA series by default, which is **not** 12.3 — without this option you configure the wrong repository and install the wrong server version.
