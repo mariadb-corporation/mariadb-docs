@@ -1,8 +1,8 @@
 ---
 description: >-
-  How to downgrade MariaDB Server to a lower release series: the two
-  backup-based approaches, the risks of replication-based rollback, and
-  version-specific incompatibilities for currently supported releases.
+  How to downgrade MariaDB Server to a lower release series: backup-based
+  approaches, replication rollback risks, and version-specific
+  incompatibilities for supported releases.
 ---
 
 # Downgrading MariaDB
