@@ -27,10 +27,6 @@ The third-party tools described in this section are not developed or maintained 
 [beekeeper-studio.md](beekeeper-studio.md)
 {% endcontent-ref %}
 
-{% content-ref url="cost-effective-agentless-mariadb-database-performance-management.md" %}
-[cost-effective-agentless-mariadb-database-performance-management.md](cost-effective-agentless-mariadb-database-performance-management.md)
-{% endcontent-ref %}
-
 {% content-ref url="database-workbench.md" %}
 [database-workbench.md](database-workbench.md)
 {% endcontent-ref %}
@@ -137,6 +133,10 @@ The third-party tools described in this section are not developed or maintained 
 
 {% content-ref url="sb-data-generator.md" %}
 [sb-data-generator.md](sb-data-generator.md)
+{% endcontent-ref %}
+
+{% content-ref url="sql-diagnostic-manager-and-sqlyog.md" %}
+[sql-diagnostic-manager-and-sqlyog.md](sql-diagnostic-manager-and-sqlyog.md)
 {% endcontent-ref %}
 
 {% content-ref url="sqlpro-studio.md" %}
