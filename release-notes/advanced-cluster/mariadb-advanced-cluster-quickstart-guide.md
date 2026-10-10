@@ -72,32 +72,32 @@ sudo ./mariadb_es_repo_setup --token="${token}" --apply \
 {% endstep %}
 
 {% step %}
-#### Install the Server, Galera, and Raft Packages
+#### Add the Raft Package
 
 Include `mariadb-raft` in the install command alongside the Enterprise Server packages:
 
 {% tabs %}
 {% tab title="RHEL, CentOS & Rocky" %}
 ```bash
-sudo yum install MariaDB-server MariaDB-server-galera MariaDB-backup galera-enterprise-4 mariadb-raft
+sudo yum install MariaDB-server MariaDB-backup galera-enterprise-4 mariadb-raft
 ```
 {% endtab %}
 
 {% tab title="Debian & Ubuntu" %}
 ```bash
-sudo apt install mariadb-server mariadb-server-galera mariadb-backup galera-enterprise-4 mariadb-raft
+sudo apt install mariadb-server mariadb-backup galera-enterprise-4 mariadb-raft
 ```
 {% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
-Starting with MariaDB 12.3, Galera Cluster support is no longer included in the base server package. To enable cluster functionality you must explicitly install the `MariaDB-server-galera` package (`mariadb-server-galera` on Debian and Ubuntu), which contains the cluster-specific scripts, systemd bootstrap capability, and the `wsrep_info` plugin. The `galera-enterprise-4` package provides the Galera 4 wsrep provider library.
+The `galera-enterprise-4` package is required because of a dependency in the MariaDB Enterprise Server package.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
 
 {% hint style="info" %}
-If you install from a tar archive downloaded from the MariaDB download page rather than from a package repository, the Raft packages are bundled in the MariaDB Enterprise RPM/DEB tar file. Extract the archive and install the Raft package from it alongside the server packages.
+If you install from a tar archive downloaded from the MariaDB download page rather than from a package repository, the `mariadb-raft` package is included in the MariaDB Enterprise RPM/DEB tar file. Extract the archive and install the `mariadb-raft` package alongside the server packages. See [Deploy with Package Tarballs]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs).
 {% endhint %}
 
 ## Firewall Configuration (on Each Node)
