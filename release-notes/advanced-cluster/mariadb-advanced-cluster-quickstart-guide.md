@@ -97,7 +97,7 @@ The `galera-enterprise-4` package is required because of a dependency in the Mar
 {% endstepper %}
 
 {% hint style="info" %}
-If you install from a tar archive downloaded from the MariaDB download page rather than from a package repository, the `mariadb-raft` package is included in the MariaDB Enterprise RPM/DEB tar file. Extract the archive and install the `mariadb-raft` package alongside the server packages. See [Deploy with Package Tarballs]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs).
+If you install from a tar archive downloaded from the MariaDB download page rather than from a package repository, the `mariadb-raft` package is included in the MariaDB Enterprise RPM/DEB tar file. Extract the archive and install the `mariadb-raft` package alongside the server packages. See [Deploy with Package Tarballs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs).
 {% endhint %}
 
 ## Firewall Configuration (on Each Node)
