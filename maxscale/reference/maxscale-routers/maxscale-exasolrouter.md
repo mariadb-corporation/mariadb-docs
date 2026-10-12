@@ -381,9 +381,31 @@ odbc_connection_string=DSN=ExasolDSN
 This functionality is available from MaxScale 26.10.
 {% endhint %}
 
-A NULL in a result from Exasol is returned to the client as a NULL. The
-type of each column is derived from the metadata of the result that the
+The type of each column is derived from the metadata of the result that the
 Exasol ODBC driver provides.
+
+## Killing a Query
+
+A statement running on Exasol is killed using the `KILL STATEMENT` statement
+of Exasol, and not using a MariaDB `KILL` statement. The session in which the
+statement runs is found, for instance, in the table `EXA_DBA_SESSIONS`.
+```
+SELECT SESSION_ID, SQL_TEXT FROM EXA_DBA_SESSIONS WHERE STATUS = 'EXECUTE SQL';
+KILL STATEMENT IN SESSION <session-id>;
+```
+The statement is sent to Exasol as it is, irrespective of the value of
+[preprocessor](#preprocessor).
+
+A MariaDB `KILL` statement, such as `KILL QUERY 123`, is handled by MaxScale
+and does not reach Exasol. The number is the connection id that MaxScale has
+given the client, which Exasol does not know. MaxScale carries out such a
+statement by sending a kill to the connections it has to MariaDB servers, and
+as _ExasolRouter_ has no such connections, nothing is killed.
+
+[SmartRouter](maxscale-smartrouter.md) kills the query on Exasol when it has
+received the response from another target and no longer needs the response
+from Exasol. The kill is made using a separate connection, which is kept alive
+for [kill\_connection\_timeout](#kill_connection_timeout) after the last use.
 
 ## Examples
 
@@ -504,5 +526,7 @@ of `maxctrl show service`, has the following field.
 * Changing the user of a session using `COM_CHANGE_USER` is not supported.
   The session is closed with an error message and the client must reconnect
   as the desired user.
+* A MariaDB `KILL` statement does not kill a running statement on Exasol, see
+  [Killing a Query](#killing-a-query).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
