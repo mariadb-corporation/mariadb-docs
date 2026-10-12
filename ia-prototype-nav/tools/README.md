@@ -2,8 +2,8 @@
 title: Enterprise Tools
 description: >-
   Clients, utilities, and management applications for MariaDB Server and
-  MariaDB Enterprise Platform, including Enterprise Manager, the Kubernetes
-  Operator, and the MCP server.
+  MariaDB Enterprise Platform, including Enterprise Manager and the Kubernetes
+  Operator.
 icon: screwdriver-wrench
 ---
 
@@ -15,7 +15,7 @@ This space documents the clients, utilities, and management applications that su
 
 **Kubernetes.** The MariaDB Enterprise Operator runs MariaDB Enterprise Server and MaxScale on Kubernetes, managing them as custom resources declared in your manifests and reconciled by the cluster. If your workloads already run on Kubernetes, this makes the database deploy the same way everything else does.
 
-**AI and agent access.** The MariaDB MCP Server exposes a database over the Model Context Protocol, so an agent can inspect schemas and run read only SQL under access you control. The AI RAG tooling assembles a retrieval pipeline that pairs vector search in the database with a language model.
+**AI and agent access.** The MariaDB Enterprise MCP Server and MariaDB AI RAG are documented in the AI Tools section, together with the other tools that connect AI applications and agents to MariaDB.
 
 **Command line utilities.** The client and utility programs that ship with the server handle the everyday work: connecting, dumping and loading data, taking physical backups, and checking tables. These are documented alongside the server as well, and they are the tools most operational procedures are actually built from.
 
@@ -29,12 +29,4 @@ Start from the tool that matches the problem you have rather than reading the sp
 
 {% content-ref url="mariadb-enterprise-operator/README.md" %}
 [MariaDB Enterprise Kubernetes Operator](mariadb-enterprise-operator/README.md)
-{% endcontent-ref %}
-
-{% content-ref url="mariadb-enterprise-mcp-server/README.md" %}
-[MariaDB Enterprise MCP Server](mariadb-enterprise-mcp-server/README.md)
-{% endcontent-ref %}
-
-{% content-ref url="mariadb-ai-rag/README.md" %}
-[MariaDB AI RAG](mariadb-ai-rag/README.md)
 {% endcontent-ref %}

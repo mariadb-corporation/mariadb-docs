@@ -93,7 +93,3 @@ Find the product you run, then read every release between your current version a
 {% content-ref url="gridgain-8/README.md" %}
 [GridGain 8 Release Notes](gridgain-8/README.md)
 {% endcontent-ref %}
-
-{% content-ref url="test-page.md" %}
-[Test Page](test-page.md)
-{% endcontent-ref %}

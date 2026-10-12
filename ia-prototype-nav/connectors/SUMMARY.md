@@ -97,5 +97,4 @@
   * [RMariaDB: MariaDB Driver for R]({connectors}/other/rmariadb)
   * [Ruby]({connectors}/other/mariadb-connector-ruby-guide)
   * [Rust]({connectors}/other/mariadb-rust-connector-guide)
-  * [LangChain MariaDB]({connectors}/other/langchain-mariadb)
   * [The MariaDB Jupyter kernel]({connectors}/other/mariadb-jupyter-kernel)

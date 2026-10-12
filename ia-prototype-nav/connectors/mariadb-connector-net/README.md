@@ -1,0 +1,37 @@
+---
+description: >-
+  Guide to ADO.NET connectors for MariaDB, with MySqlConnector as the
+  recommended choice: connection strings, DbConnection and DbCommand classes,
+  and parameterized queries.
+icon: link
+---
+
+# .NET Connector
+
+.NET applications connect to MariaDB and MySQL through ADO.NET connectors. MariaDB recommends MySqlConnector, an open-source, third-party ADO.NET library.
+
+{% columns %}
+{% column %}
+{% content-ref url="{connectors}/mariadb-connector-net/mariadb-connector-net-guide" %}
+[mariadb-connector-net-guide.md]({connectors}/mariadb-connector-net/mariadb-connector-net-guide)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MySqlConnector is the recommended ADO.NET connector for MariaDB Server, offering high performance and MariaDB-specific features including zero-configuration SSL and GSSAPI authentication.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="{connectors}/mariadb-connector-net/other-net-connectors" %}
+[other-net-connectors.md]({connectors}/mariadb-connector-net/other-net-connectors)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Alternative ADO.NET connectors for MariaDB include MySQL Connector/NET and dotConnect for MySQL, supporting .NET Framework, .NET Core, and optional Entity Framework ORM integration.
+{% endcolumn %}
+{% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

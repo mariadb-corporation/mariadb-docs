@@ -185,6 +185,19 @@ site:
           content:
             directory: ./mariadb-cloud
     - type: section
+      key: ai-tools-sec
+      title: AI Tools
+      path: ai-tools
+      icon: robot
+      children:
+        - type: space
+          key: ai-tools
+          title: AI Tools
+          path: ai-tools-home
+          default: true
+          content:
+            directory: ./ai-tools
+    - type: section
       key: connectors-sec
       title: Connectors
       path: connectors
