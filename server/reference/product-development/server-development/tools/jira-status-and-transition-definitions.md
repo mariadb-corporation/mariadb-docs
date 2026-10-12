@@ -6,7 +6,9 @@ description: >-
 
 # Jira - Status and Transition Definitions
 
-Here is the MariaDB Server (MDEV) [Jira](jira.md) project workflow.
+Here is the MariaDB Server (MDEV & MENT) [Jira](jira.md) project workflow, including the Dev Owner / reviewer assignment for review transitions.
+
+Note: the workflow diagram is from December 2023 and does not show APPROVED or the Redo rename; flag this for a new screenshot.
 
 **OPEN**
 
@@ -48,23 +50,72 @@ Here is the MariaDB Server (MDEV) [Jira](jira.md) project workflow.
   * Needs feedback → NEEDS FEEDBACK
   * Close Issue → CLOSED
   * Request Review → IN REVIEW
+    * The transition screen shows the "Assigned for review" field so the reviewer
+      can be checked, changed, or filled in if missing.
+    * The standard Assignee field is not on this transition screen.
+    * On transition, the current Assignee is saved to "Assigned for implementation",
+      and the "Assigned for review" person becomes the Assignee.
 
 **IN REVIEW**
 
 * Status used to request a peer review of an issue, typically involving code evaluation
 * Seeking input from another assignee to ensure quality and adherence to standards
 * Transitions
-  * Review done → STALLED
+  * Redo → STALLED
+    * The transition screen shows the "Assigned for implementation" field so the
+      implementer can be checked, changed, or filled in if missing.
+    * The standard Assignee field is not on this transition screen.
+    * On transition, the current Assignee is saved to "Assigned for review",
+      and the "Assigned for implementation" person becomes the Assignee again.
   * Request testing → IN TESTING
+  * Approved → APPROVED
   * Close Issue → CLOSED
+
+**Review follow-up**
+
+**Reviewer acknowledgement**
+
+* When a reviewer is assigned, Jira sends the standard assignment email.
+* Within 2 business days (excluding the reviewer's time off), the reviewer must
+  either comment with an estimated workload and set the Due Date to when they
+  can start, or reassign to a more suitable reviewer (who gets the same 2 days).
+* If neither happens, the requester, reviewer, and project manager are notified
+  in Slack.
+* If the reviewer is off, the notification gives the expected date as
+  return date + 2 business days.
+
+**Progress tracking**
+
+* When the Due Date is reached, there is a 2-business-day grace period
+  (excluding time off) before progress is checked.
+* If the review is underway, the requester gets a Slack update; if not,
+  the requester, reviewer, and project manager are notified in Slack and
+  asked for a new Due Date.
+
+**Ongoing maintenance**
+
+* For reviews longer than one week, the reviewer updates the Due Date and adds
+  a progress comment at least weekly; Jira sends an email reminder if this
+  is missing.
 
 **IN TESTING**
 
-* Status employed to initiate testing of completed work, often involving a quality engineer
+* Status employed to initiate testing of completed work, often involving a quality engineer.
 * Ensuring that the implemented solution meets functional and performance requirements
 * Transitions
+  * Approved → APPROVED
   * Stop Testing → STALLED
   * Close Issue → CLOSED
+
+**APPROVED**
+
+* Status used when reviewed or tested work has been approved and is ready
+  for closure or release follow-up.
+* Indicates that the issue has passed the required review/testing gate and
+  no further implementation changes are expected before final closure.
+* Transitions
+  * Close Issue → CLOSED
+  * Reopen Issue → STALLED
 
 **STALLED**
 
