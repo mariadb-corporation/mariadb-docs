@@ -121,6 +121,7 @@
     * [MaxScale Cat](reference/maxscale-routers/maxscale-cat.md)
     * [MaxScale Diff](reference/maxscale-routers/maxscale-diff.md)
     * [MaxScale Exasolrouter](reference/maxscale-routers/maxscale-exasolrouter.md)
+    * [MaxScale GridGainrouter](reference/maxscale-routers/maxscale-gridgainrouter.md)
     * [MaxScale KafkaCDC](reference/maxscale-routers/maxscale-kafkacdc.md)
     * [MaxScale KafkaImporter](reference/maxscale-routers/maxscale-kafkaimporter.md)
     * [MaxScale Mirror](reference/maxscale-routers/maxscale-mirror.md)
