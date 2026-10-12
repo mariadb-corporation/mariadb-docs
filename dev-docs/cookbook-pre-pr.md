@@ -36,8 +36,9 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   GitBook-UI edit bypassed it entirely. Now the same check runs on every PR touching `*.md`.
 - **A nightly digest (`nightly-fragcheck.yml`) covers what a PR trigger cannot.** GitBook-UI
   edits sync straight back to Git, and the alias-expansion bot rewrites links *after* the PR gate
-  ran green. The nightly re-runs the same command against a rolling 24-hour base and posts to
-  Slack only when something broke, plus a Monday heartbeat so silence stays meaningful. It is
+  ran green. The nightly re-runs the same command against a rolling 24-hour base (72 hours on
+  Monday, so the weekend is covered) and posts to Slack only when something broke, plus a Monday
+  heartbeat so silence stays meaningful. It is
   read-only: it files nothing, and triage stays a human decision.
 - **A second nightly digest (`nightly-timeless.yml`, DOCS-6640) reports undated product claims**
   — "currently in beta", "not currently supported", "coming soon", "at the time of writing" —
@@ -50,6 +51,10 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   a PR changed, so an alias that arrives by GitBook-UI edit or direct push would otherwise
   publish as a 404 with nothing to report it. It runs `.claude/hooks/expand-aliases.py --base`,
   the same script you can run locally, and it never rewrites anything.
+- **A fourth nightly digest (`nightly-gitbook-edits.yml`, DOCS-6914) lists every GitBook-UI
+  edit** for a person to review, with the `run-doc-gates.sh` results for each commit. Unlike the
+  other three it posts every edit, not only the failing ones. The review routine is in
+  [cookbook-gitbook-edit-review.md](cookbook-gitbook-edit-review.md).
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
