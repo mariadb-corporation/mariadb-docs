@@ -78,6 +78,19 @@ odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 Here it is assumed there is an `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
+**From MaxScale 26.10,** the values of the credential keys `UID`, `USER`,
+`USERNAME`, `PWD`, `PASSWORD` and `PASSWD` are shown as `*****` where
+MaxScale displays the setting, for instance in the output of
+`maxctrl show service`.
+
+**From MaxScale 26.10,** unless the connection string contains
+`ANSIDATAENCODING`, MaxScale adds `ANSIDATAENCODING=UTF-8` to it. Without
+it the Exasol ODBC driver would encode character data using the locale
+of the MaxScale process and characters outside ASCII would be lost. If
+the connection string already contains `ANSIDATAENCODING`, it is left as
+it is and a warning is logged, as _ExasolRouter_ will not function
+properly unless the value is equivalent to UTF-8.
+
 ### `odbc_login_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
@@ -206,6 +219,77 @@ statement and when the value of `preprocessor` is `disabled`.
 In the latter case, it only affects whether 'USE db' becomes
 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
+### `impersonate`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: false
+
+Whether the Exasol session of a client should assume the identity of the
+client.
+
+By default all clients access Exasol using the account specified in
+[odbc\_connection\_string](#odbc_connection_string). If `impersonate` is
+enabled, MaxScale issues `IMPERSONATE` on the Exasol connection using the
+name of the authenticated MariaDB user, so that the privileges of the
+client's own Exasol user are applied.
+
+* The account in `odbc_connection_string` must have the Exasol system
+  privilege `IMPERSONATE ANY USER`.
+* The client must have an Exasol user with the name of the MariaDB user.
+  A client that has none will not get a usable session.
+* Exasol user names are always upper case, so the MariaDB users `bob` and
+  `BOB` both map to the Exasol user `BOB`.
+* The users to be impersonated need not have the privilege `CREATE SESSION`,
+  as the session is opened by the account in `odbc_connection_string`.
+
+An Exasol `IMPERSONATE` cannot be undone, so changing the user of a
+session is not supported, see [Limitations](#limitations).
+
+### `gtid_polling`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+
+Whether MaxScale should poll the GTID position that `exasol_cdc` writes into
+the Exasol table `maxscale_cdc.gtid_current_pos`.
+
+The position is used for causal reads when the service is a target of
+[SmartRouter](maxscale-smartrouter.md). A read that SmartRouter would send to
+Exasol is then held until the position shows that Exasol has applied the last
+write of the session, see
+[causal\_reads](maxscale-smartrouter.md#causal_reads).
+
+The setting should be disabled if `exasol_cdc` is not used.
+
+### `gtid_poll_interval`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 1s
+
+How often the GTID position is polled, see [gtid\_polling](#gtid_polling).
+The minimum is 100ms.
+
+A causal read may have to wait up to this long, in addition to the time it
+takes `exasol_cdc` to apply a change.
+
 ## Transformations
 
 ### `COM_INIT_DB`
@@ -290,6 +374,16 @@ the connection string can be reduced to
 ```
 odbc_connection_string=DSN=ExasolDSN
 ```
+
+## Result Sets
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.
+{% endhint %}
+
+A NULL in a result from Exasol is returned to the client as a NULL. The
+type of each column is derived from the metadata of the result that the
+Exasol ODBC driver provides.
 
 ## Examples
 
@@ -380,5 +474,35 @@ port=4008
 
 With this setup, it is possible to connect using the regular `mariadb` command line
 utility to the port 4008 and all queries will be sent to Exasol.
+
+## Router Diagnostics
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.
+{% endhint %}
+
+The `router_diagnostics` output of _ExasolRouter_, for instance in the output
+of `maxctrl show service`, has the following field.
+
+* `gtid_polling`: The state of the polling of the GTID position, see
+  [gtid\_polling](#gtid_polling). If polling is disabled, the object only
+  has the field `state`, with the value `disabled`. Otherwise it has the
+  following fields.
+  * `state`: `starting` before the first poll has completed, `ok` if the
+    last poll succeeded and `failing` if it did not.
+  * `interval`: The polling interval, e.g. `1000ms`.
+  * `gtid`: The GTID position most recently read from Exasol, or `null` if
+    none has been read.
+  * `last_success`: The time of the last successful poll, or `null`.
+  * `last_failure`: The time of the last failed poll, or `null`.
+  * `last_error`: The error of the last failed poll, or `null`.
+  * `consecutive_failures`: The number of failed polls since the last
+    successful one.
+
+## Limitations
+
+* Changing the user of a session using `COM_CHANGE_USER` is not supported.
+  The session is closed with an error message and the client must reconnect
+  as the desired user.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
