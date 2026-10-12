@@ -193,6 +193,15 @@ SmartRouter keeps track of the performance, or the execution time, of queries to
 
 There is obviously overhead when a new canonical is seen. This means that queries after a MaxScale start will be slightly slower than normal. The execution time of a query depends on the database engine, and on the contents of the tables being queried. As a result, MaxScale will periodically re-measure queries.
 
+When a new canonical is measured, the query is sent to all clusters and the
+first response is returned to the client. The query is then killed on the
+other clusters, so that the queries do not keep using resources for a response that
+is not used. **From MaxScale 26.10,** this also applies to a target that is a
+service using the [Exasolrouter](maxscale-exasolrouter.md) or the
+[GridGainrouter](maxscale-gridgainrouter.md), provided that the service is a
+direct target of SmartRouter. If it is not, the query is not killed, and runs
+until it completes or until `odbc_query_timeout` expires.
+
 The performance behavior of queries under dynamic conditions, and their effect on different storage engines is being studied at MariaDB. As we learn more, we will be able to better categorize queries and move that knowledge into SmartRouter.
 
 ## Causal reads
@@ -289,6 +298,8 @@ This feature is only available in MaxScale 26.10.0 and later.
 
 * `LOAD DATA LOCAL INFILE` is not supported.
 * The performance data is not persisted. The measurements will be performed anew after each startup.
+* A query on a target that is an Exasolrouter or GridGainrouter service is
+  killed only if the service is a direct target of SmartRouter.
 
 ## Complete configuration example
 
