@@ -24,7 +24,15 @@ import sys
 from collections import Counter
 
 # Per-run noise: lychee's summary and preamble change on every run and say nothing about a page.
-NOISE = re.compile(r"^(🔍|Issues found in \d+ input|Find details below)")
+NOISE = re.compile(r"^(🔍|Issues found in \d+ input|Find details below|Hint: )")
+
+# A block that opens with a gate's own name ("fragcheck: 1 heading anchor(s)...", "doc-lint:
+# retired ...", "versioncheck: ...") starts a new gate even when it is not a header, so the
+# headers of the gate before it no longer apply. Without this, a new fragcheck finding printed
+# lychee's "[file]:" header above it with no lychee finding under it (seen on the DOCS-6914
+# acceptance run). Lychee entries open with "[" and codespell entries with a path, so neither
+# matches.
+GATE_START = re.compile(r"^[A-Za-z][\w-]*: ")
 
 NORMALIZE = [
     (re.compile(r"\(at \d+:\d+\)"), "(at N)"),     # lychee positions
@@ -75,6 +83,8 @@ def main(argv):
                 pending = []
             pending.append(b)
             continue
+        if GATE_START.match(b[0]):
+            pending = []
         k = key(b)
         if seen[k] > 0:
             seen[k] -= 1        # a multiset: two identical findings before, three after = one new
