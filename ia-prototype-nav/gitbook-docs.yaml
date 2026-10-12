@@ -231,12 +231,15 @@ site:
         - type: external-link
           key: more-resources
           title: Resources
+          icon: book-open
           url: https://mariadb.com/resources
         - type: external-link
           key: more-community
           title: Community
+          icon: users
           url: https://mariadb.com/kb/en/community/
         - type: external-link
           key: more-about
           title: About
+          icon: circle-info
           url: https://mariadb.com/about-us/

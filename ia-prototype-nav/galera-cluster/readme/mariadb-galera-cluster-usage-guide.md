@@ -3,6 +3,7 @@ description: >-
   MariaDB Galera Cluster is a multi-primary replication solution for high
   availability and consistency, integrating Galera technology with MariaDB
   Community Server and Enterprise Server.
+icon: book-open
 ---
 
 # MariaDB Galera Cluster Overview

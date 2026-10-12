@@ -1,5 +1,6 @@
 ---
 description: Release Notes for the GridGain Control Center Agent
+icon: satellite-dish
 ---
 
 # Control Center Agent Release Notes

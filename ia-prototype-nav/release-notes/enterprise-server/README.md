@@ -2,6 +2,7 @@
 description: >-
   This section contains release notes for MariaDB Enterprise Server releases
   divided into the major MariaDB series
+icon: database
 ---
 
 # Enterprise Server Release Notes

@@ -3,6 +3,7 @@ description: >-
   Release notes and changelogs for MariaDB Corporation's command-line tools,
   including the mariadb_repo_setup and mariadb_es_repo_setup package repository
   setup scripts.
+icon: screwdriver-wrench
 ---
 
 # Tools Release Notes

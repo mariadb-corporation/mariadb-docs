@@ -2,6 +2,7 @@
 description: >-
   Complete MariaDB Community Server release notes. Complete version history with
   features, bug fixes, and upgrade compatibility details for production use.
+icon: database
 ---
 
 # Community Server Release Notes

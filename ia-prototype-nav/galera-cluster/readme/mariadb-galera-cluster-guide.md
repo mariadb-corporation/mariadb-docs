@@ -2,6 +2,7 @@
 description: >-
   Complete Galera Cluster reference: active-active multi-primary replication,
   IST vs SST (gcache.size), galera_new_cluster bootstrap, pc.bootstrap recovery.
+icon: circle-info
 ---
 
 # What is MariaDB Galera Cluster?

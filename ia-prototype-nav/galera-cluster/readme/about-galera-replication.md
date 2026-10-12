@@ -3,6 +3,7 @@ description: >-
   Galera replication is a virtually synchronous, certification-based replication
   system for MariaDB Cluster, broadcasting write-sets at commit time through
   the wsrep API for high availability.
+icon: arrows-rotate
 ---
 
 # What is Galera Replication?

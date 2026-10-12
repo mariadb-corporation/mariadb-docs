@@ -1,5 +1,5 @@
 ---
-
+icon: rocket
 ---
 
 # MariaDB Platform Quickstart Guides

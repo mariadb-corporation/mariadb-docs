@@ -3,6 +3,7 @@ description: >-
   Overview of MariaDB Enterprise Manager, a centralized observability and
   management solution offering topology-aware monitoring, visual schema
   management, and query editing via an integrated workspace.
+icon: gauge
 ---
 
 # MariaDB Enterprise Manager

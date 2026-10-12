@@ -1,6 +1,7 @@
 ---
 description: >-
   Using GridGain Control Center with GridGain 9 and Apache Ignite 3 clusters.
+icon: bolt
 ---
 
 # GridGain 9

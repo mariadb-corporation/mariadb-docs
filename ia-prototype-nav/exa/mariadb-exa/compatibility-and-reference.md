@@ -4,6 +4,7 @@ description: >-
   behavioral differences between MariaDB and Exasol, and SQL functions that
   fail in the Exasol preprocessor.
 noIndex: true
+icon: list-check
 ---
 
 # Compatibility and Reference

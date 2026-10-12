@@ -1,5 +1,5 @@
 ---
-
+icon: briefcase
 ---
 
 # MariaDB Platform Use Cases

@@ -2,6 +2,7 @@
 description: >-
   GridGain 9 client libraries and drivers for connecting applications to a
   cluster across Java, .NET, C++, Python, JDBC, and ADO.NET.
+icon: plug
 ---
 
 # Clients

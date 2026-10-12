@@ -1,5 +1,6 @@
 ---
 description: MariaDB Frequently Asked Questions
+icon: circle-question
 ---
 
 # MariaDB FAQs

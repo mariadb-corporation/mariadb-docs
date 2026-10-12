@@ -1,5 +1,6 @@
 ---
 description: Release Notes for GridGain Control Center
+icon: gauge-high
 ---
 
 # Control Center Release Notes

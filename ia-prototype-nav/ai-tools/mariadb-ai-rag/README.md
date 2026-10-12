@@ -3,6 +3,7 @@ description: >-
   MariaDB AI RAG is an enterprise-ready solution covering the full RAG
   pipeline: document parsing, chunking, embedding, hybrid search, and AI
   response generation in one package.
+icon: brain
 ---
 
 # MariaDB AI RAG

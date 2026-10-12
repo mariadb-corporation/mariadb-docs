@@ -2,6 +2,7 @@
 description: >-
   Where to get a MariaDB license and how to install it, for every MariaDB product that requires
   one. Start here, then follow the link for your product.
+icon: key
 ---
 
 # Install a MariaDB Enterprise License

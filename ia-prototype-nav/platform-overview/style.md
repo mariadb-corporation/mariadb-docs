@@ -1,5 +1,5 @@
 ---
-
+icon: palette
 ---
 
 # Style
