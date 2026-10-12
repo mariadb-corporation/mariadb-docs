@@ -22,22 +22,26 @@ You do not deploy all of it. A typical production topology is Enterprise Server 
 
 Read the overview, decide which components your workload needs, then follow that component's own space.
 
-{% content-ref url="{platform}/mariadb-platform-use-cases" %}
-[MariaDB Platform Use Cases]({platform}/mariadb-platform-use-cases)
+{% content-ref url="enterprise-license-install.md" %}
+[Install a MariaDB Enterprise License](enterprise-license-install.md)
 {% endcontent-ref %}
 
-{% content-ref url="{platform}/mariadb-platform-quickstart-guides" %}
-[MariaDB Platform Quickstart Guides]({platform}/mariadb-platform-quickstart-guides)
+{% content-ref url="mariadb-platform-use-cases.md" %}
+[MariaDB Platform Use Cases](mariadb-platform-use-cases.md)
 {% endcontent-ref %}
 
-{% content-ref url="{platform}/post-download" %}
-[Post Download]({platform}/post-download)
+{% content-ref url="mariadb-platform-quickstart-guides/README.md" %}
+[MariaDB Platform Quickstart Guides](mariadb-platform-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{platform}/style" %}
-[Style]({platform}/style)
+{% content-ref url="post-download/README.md" %}
+[Post Download](post-download/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{platform}/mariadb-faqs" %}
-[MariaDB FAQs]({platform}/mariadb-faqs)
+{% content-ref url="style.md" %}
+[Style](style.md)
+{% endcontent-ref %}
+
+{% content-ref url="mariadb-faqs/README.md" %}
+[MariaDB FAQs](mariadb-faqs/README.md)
 {% endcontent-ref %}

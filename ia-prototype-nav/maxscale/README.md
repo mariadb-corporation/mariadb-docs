@@ -20,38 +20,38 @@ Three jobs follow from that position. MaxScale routes queries, sending writes to
 
 Install MaxScale, configure a read/write split against a test cluster, and confirm your application reconnects through it.
 
-{% content-ref url="{maxscale}/maxscale-quickstart-guides" %}
-[Quickstart Guides]({maxscale}/maxscale-quickstart-guides)
+{% content-ref url="maxscale-quickstart-guides/README.md" %}
+[Quickstart Guides](maxscale-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/maxscale-architecture" %}
-[MaxScale Architecture]({maxscale}/maxscale-architecture)
+{% content-ref url="maxscale-architecture/README.md" %}
+[MaxScale Architecture](maxscale-architecture/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/maxscale-management" %}
-[MaxScale Management]({maxscale}/maxscale-management)
+{% content-ref url="maxscale-management/README.md" %}
+[MaxScale Management](maxscale-management/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/maxscale-security" %}
-[MaxScale Security]({maxscale}/maxscale-security)
+{% content-ref url="maxscale-security/README.md" %}
+[MaxScale Security](maxscale-security/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/maxscale-use-cases" %}
-[MaxScale Use Cases]({maxscale}/maxscale-use-cases)
+{% content-ref url="maxscale-use-cases/README.md" %}
+[MaxScale Use Cases](maxscale-use-cases/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/mariadb-maxscale-tutorials" %}
-[Tutorials]({maxscale}/mariadb-maxscale-tutorials)
+{% content-ref url="mariadb-maxscale-tutorials/README.md" %}
+[Tutorials](mariadb-maxscale-tutorials/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/reference" %}
-[Reference]({maxscale}/reference)
+{% content-ref url="reference/README.md" %}
+[Reference](reference/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/documentation-no-longer-available" %}
-[Documentation No Longer Available]({maxscale}/documentation-no-longer-available)
+{% content-ref url="documentation-no-longer-available.md" %}
+[Documentation No Longer Available](documentation-no-longer-available.md)
 {% endcontent-ref %}
 
-{% content-ref url="{maxscale}/maxscale-old-versions" %}
-[Old MaxScale Versions]({maxscale}/maxscale-old-versions)
+{% content-ref url="maxscale-old-versions/README.md" %}
+[Old MaxScale Versions](maxscale-old-versions/README.md)
 {% endcontent-ref %}

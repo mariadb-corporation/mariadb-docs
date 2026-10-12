@@ -23,42 +23,42 @@ Galera Cluster is available in MariaDB Community Server. Its Non-Blocking Operat
 
 Form a three node cluster, kill a node, and confirm writes continue on the remaining two.
 
-{% content-ref url="{galera}/readme/mariadb-galera-cluster-usage-guide" %}
-[MariaDB Galera Cluster Overview]({galera}/readme/mariadb-galera-cluster-usage-guide)
+{% content-ref url="readme/mariadb-galera-cluster-usage-guide.md" %}
+[MariaDB Galera Cluster Overview](readme/mariadb-galera-cluster-usage-guide.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/readme/mariadb-galera-cluster-guide" %}
-[What is MariaDB Galera Cluster?]({galera}/readme/mariadb-galera-cluster-guide)
+{% content-ref url="readme/mariadb-galera-cluster-guide.md" %}
+[What is MariaDB Galera Cluster?](readme/mariadb-galera-cluster-guide.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/readme/about-galera-replication" %}
-[What is Galera Replication?]({galera}/readme/about-galera-replication)
+{% content-ref url="readme/about-galera-replication.md" %}
+[What is Galera Replication?](readme/about-galera-replication.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/galera-cluster-quickstart-guides" %}
-[Quickstart Guides]({galera}/galera-cluster-quickstart-guides)
+{% content-ref url="galera-cluster-quickstart-guides/README.md" %}
+[Quickstart Guides](galera-cluster-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/galera-management" %}
-[Galera Management]({galera}/galera-management)
+{% content-ref url="galera-management/README.md" %}
+[Galera Management](galera-management/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/galera-architecture" %}
-[Galera Architecture]({galera}/galera-architecture)
+{% content-ref url="galera-architecture/README.md" %}
+[Galera Architecture](galera-architecture/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/galera-security" %}
-[Galera Security]({galera}/galera-security)
+{% content-ref url="galera-security/README.md" %}
+[Galera Security](galera-security/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/galera-use-cases" %}
-[Galera Use Cases]({galera}/galera-use-cases)
+{% content-ref url="galera-use-cases.md" %}
+[Galera Use Cases](galera-use-cases.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/high-availability" %}
-[High Availability]({galera}/high-availability)
+{% content-ref url="high-availability/README.md" %}
+[High Availability](high-availability/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{galera}/reference" %}
-[Reference]({galera}/reference)
+{% content-ref url="reference/README.md" %}
+[Reference](reference/README.md)
 {% endcontent-ref %}

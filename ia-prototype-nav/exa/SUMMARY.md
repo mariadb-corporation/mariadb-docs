@@ -2,9 +2,9 @@
 
 * [Exa](README.md)
 
-* [Architecture]({analytics}/mariadb-exa/architecture)
-* [Deployment]({analytics}/mariadb-exa/deployment)
-* [Performance & Benchmarking]({analytics}/mariadb-exa/performance-and-benchmarking)
-* [Monitoring and Observability]({analytics}/mariadb-exa/monitoring-and-observability)
-* [Limitations]({analytics}/mariadb-exa/limitations)
-* [Compatibility and Reference]({analytics}/mariadb-exa/compatibility-and-reference)
+* [Architecture](mariadb-exa/architecture.md)
+* [Deployment](mariadb-exa/deployment.md)
+* [Performance & Benchmarking](mariadb-exa/performance-and-benchmarking.md)
+* [Monitoring and Observability](mariadb-exa/monitoring-and-observability.md)
+* [Limitations](mariadb-exa/limitations.md)
+* [Compatibility and Reference](mariadb-exa/compatibility-and-reference.md)

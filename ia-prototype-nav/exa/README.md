@@ -24,26 +24,26 @@ Exa and MariaDB ColumnStore solve the same class of problem at different scales,
 
 Measure your workload on ColumnStore first. Read the overview here to learn what changes when a query is distributed.
 
-{% content-ref url="{analytics}/mariadb-exa/architecture" %}
-[Architecture]({analytics}/mariadb-exa/architecture)
+{% content-ref url="mariadb-exa/architecture.md" %}
+[Architecture](mariadb-exa/architecture.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-exa/deployment" %}
-[Deployment]({analytics}/mariadb-exa/deployment)
+{% content-ref url="mariadb-exa/deployment.md" %}
+[Deployment](mariadb-exa/deployment.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-exa/performance-and-benchmarking" %}
-[Performance & Benchmarking]({analytics}/mariadb-exa/performance-and-benchmarking)
+{% content-ref url="mariadb-exa/performance-and-benchmarking.md" %}
+[Performance & Benchmarking](mariadb-exa/performance-and-benchmarking.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-exa/monitoring-and-observability" %}
-[Monitoring and Observability]({analytics}/mariadb-exa/monitoring-and-observability)
+{% content-ref url="mariadb-exa/monitoring-and-observability.md" %}
+[Monitoring and Observability](mariadb-exa/monitoring-and-observability.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-exa/limitations" %}
-[Limitations]({analytics}/mariadb-exa/limitations)
+{% content-ref url="mariadb-exa/limitations.md" %}
+[Limitations](mariadb-exa/limitations.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-exa/compatibility-and-reference" %}
-[Compatibility and Reference]({analytics}/mariadb-exa/compatibility-and-reference)
+{% content-ref url="mariadb-exa/compatibility-and-reference.md" %}
+[Compatibility and Reference](mariadb-exa/compatibility-and-reference.md)
 {% endcontent-ref %}

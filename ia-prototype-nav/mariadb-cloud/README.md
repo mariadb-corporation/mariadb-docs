@@ -24,50 +24,54 @@ The service also includes an AI agent builder. It puts a natural language interf
 
 Create a database in the portal and connect to it. That confirms your credentials and network path before any application code changes.
 
-{% content-ref url="{mariadb-cloud}/readme/key-features-and-capabilities" %}
-[Key Features & Capabilities]({mariadb-cloud}/readme/key-features-and-capabilities)
+{% content-ref url="readme/key-features-and-capabilities.md" %}
+[Key Features & Capabilities](readme/key-features-and-capabilities.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/readme/serverless" %}
-[MariaDB Cloud Serverless]({mariadb-cloud}/readme/serverless)
+{% content-ref url="readme/service-tiers.md" %}
+[Service Tiers](readme/service-tiers.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/readme/architecture" %}
-[MariaDB Cloud Serverless Architecture]({mariadb-cloud}/readme/architecture)
+{% content-ref url="readme/serverless.md" %}
+[MariaDB Cloud Serverless](readme/serverless.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/quickstart" %}
-[Quickstart Guides]({mariadb-cloud}/quickstart)
+{% content-ref url="readme/architecture.md" %}
+[MariaDB Cloud Serverless Architecture](readme/architecture.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/connecting-to-mariadb-cloud-dbs" %}
-[Connection Methods]({mariadb-cloud}/connecting-to-mariadb-cloud-dbs)
+{% content-ref url="quickstart/README.md" %}
+[Quickstart Guides](quickstart/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/cloud-management" %}
-[Management & Configuration]({mariadb-cloud}/cloud-management)
+{% content-ref url="connecting-to-mariadb-cloud-dbs/README.md" %}
+[Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/cloud-usage" %}
-[Cloud Portal]({mariadb-cloud}/cloud-usage)
+{% content-ref url="cloud-management/README.md" %}
+[Management & Configuration](cloud-management/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/cloud-data-handling" %}
-[Data Loading & Backup]({mariadb-cloud}/cloud-data-handling)
+{% content-ref url="cloud-usage/README.md" %}
+[Cloud Portal](cloud-usage/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/cloud-ai" %}
-[AI Agents & Copilot]({mariadb-cloud}/cloud-ai)
+{% content-ref url="cloud-data-handling/README.md" %}
+[Data Loading & Backup](cloud-data-handling/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/high-availability-dr" %}
-[HA & DR]({mariadb-cloud}/high-availability-dr)
+{% content-ref url="cloud-ai/README.md" %}
+[AI Agents & Copilot](cloud-ai/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/security" %}
-[Security]({mariadb-cloud}/security)
+{% content-ref url="high-availability-dr/README.md" %}
+[HA & DR](high-availability-dr/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{mariadb-cloud}/reference" %}
-[Reference]({mariadb-cloud}/reference)
+{% content-ref url="security/README.md" %}
+[Security](security/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="reference/README.md" %}
+[Reference](reference/README.md)
 {% endcontent-ref %}

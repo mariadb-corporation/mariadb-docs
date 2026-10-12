@@ -22,42 +22,42 @@ Two capabilities matter more than the rest in production. Connection pooling reu
 
 Pick the connector for your language, get one query returning rows, then configure pooling and TLS before you go to production.
 
-{% content-ref url="{connectors}/connectors-quickstart-guides" %}
-[Quickstart Guides]({connectors}/connectors-quickstart-guides)
+{% content-ref url="connectors-quickstart-guides/README.md" %}
+[Quickstart Guides](connectors-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-c" %}
-[Connector/C]({connectors}/mariadb-connector-c)
+{% content-ref url="mariadb-connector-c/README.md" %}
+[Connector/C](mariadb-connector-c/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-cpp" %}
-[Connector/C++]({connectors}/mariadb-connector-cpp)
+{% content-ref url="mariadb-connector-cpp/README.md" %}
+[Connector/C++](mariadb-connector-cpp/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-j" %}
-[Connector/J]({connectors}/mariadb-connector-j)
+{% content-ref url="mariadb-connector-j/README.md" %}
+[Connector/J](mariadb-connector-j/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-r2dbc" %}
-[Connector/R2DBC]({connectors}/mariadb-connector-r2dbc)
+{% content-ref url="mariadb-connector-r2dbc/README.md" %}
+[Connector/R2DBC](mariadb-connector-r2dbc/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-net" %}
-[.NET Connector]({connectors}/mariadb-connector-net)
+{% content-ref url="mariadb-connector-net/README.md" %}
+[.NET Connector](mariadb-connector-net/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-nodejs" %}
-[Connector/Node.js]({connectors}/mariadb-connector-nodejs)
+{% content-ref url="mariadb-connector-nodejs/README.md" %}
+[Connector/Node.js](mariadb-connector-nodejs/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-odbc" %}
-[Connector/ODBC]({connectors}/mariadb-connector-odbc)
+{% content-ref url="mariadb-connector-odbc/README.md" %}
+[Connector/ODBC](mariadb-connector-odbc/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/mariadb-connector-python" %}
-[Connector/Python]({connectors}/mariadb-connector-python)
+{% content-ref url="mariadb-connector-python/README.md" %}
+[Connector/Python](mariadb-connector-python/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{connectors}/other" %}
-[Other Connectors and Methods]({connectors}/other)
+{% content-ref url="other/README.md" %}
+[Other Connectors and Methods](other/README.md)
 {% endcontent-ref %}

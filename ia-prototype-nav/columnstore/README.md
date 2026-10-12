@@ -26,38 +26,34 @@ It runs two ways. As a standalone analytics deployment it holds the analytical d
 
 Load a copy of your own reporting data and compare query times against your current setup before planning a deployment.
 
-{% content-ref url="{analytics}/mariadb-columnstore/columnstore-quickstart-guides" %}
-[Quickstart Guides]({analytics}/mariadb-columnstore/columnstore-quickstart-guides)
+{% content-ref url="mariadb-columnstore/columnstore-quickstart-guides/README.md" %}
+[Quickstart Guides](mariadb-columnstore/columnstore-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/architecture" %}
-[Architecture]({analytics}/mariadb-columnstore/architecture)
+{% content-ref url="mariadb-columnstore/architecture/README.md" %}
+[Architecture](mariadb-columnstore/architecture/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/management" %}
-[Management]({analytics}/mariadb-columnstore/management)
+{% content-ref url="mariadb-columnstore/management/README.md" %}
+[Management](mariadb-columnstore/management/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/security" %}
-[Security]({analytics}/mariadb-columnstore/security)
+{% content-ref url="mariadb-columnstore/security/README.md" %}
+[Security](mariadb-columnstore/security/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/use-cases" %}
-[Use Cases]({analytics}/mariadb-columnstore/use-cases)
+{% content-ref url="mariadb-columnstore/use-cases/README.md" %}
+[Use Cases](mariadb-columnstore/use-cases/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/high-availability" %}
-[High Availability]({analytics}/mariadb-columnstore/high-availability)
+{% content-ref url="mariadb-columnstore/high-availability/README.md" %}
+[High Availability](mariadb-columnstore/high-availability/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/clients-and-tools" %}
-[Clients & Tools]({analytics}/mariadb-columnstore/clients-and-tools)
+{% content-ref url="mariadb-columnstore/clients-and-tools/README.md" %}
+[Clients & Tools](mariadb-columnstore/clients-and-tools/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{analytics}/mariadb-columnstore/tutorials" %}
-[Tutorials]({analytics}/mariadb-columnstore/tutorials)
-{% endcontent-ref %}
-
-{% content-ref url="{analytics}/mariadb-columnstore/reference" %}
-[Reference]({analytics}/mariadb-columnstore/reference)
+{% content-ref url="mariadb-columnstore/reference/README.md" %}
+[Reference](mariadb-columnstore/reference/README.md)
 {% endcontent-ref %}

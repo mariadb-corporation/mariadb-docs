@@ -23,18 +23,18 @@ This space documents the clients, utilities, and management applications that su
 
 Start from the tool that matches the problem you have rather than reading the space end to end.
 
-{% content-ref url="{tools}/mariadb-enterprise-manager" %}
-[MariaDB Enterprise Manager]({tools}/mariadb-enterprise-manager)
+{% content-ref url="mariadb-enterprise-manager/README.md" %}
+[MariaDB Enterprise Manager](mariadb-enterprise-manager/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{tools}/mariadb-enterprise-operator" %}
-[MariaDB Enterprise Kubernetes Operator]({tools}/mariadb-enterprise-operator)
+{% content-ref url="mariadb-enterprise-operator/README.md" %}
+[MariaDB Enterprise Kubernetes Operator](mariadb-enterprise-operator/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{tools}/mariadb-enterprise-mcp-server" %}
-[MariaDB Enterprise MCP Server]({tools}/mariadb-enterprise-mcp-server)
+{% content-ref url="mariadb-enterprise-mcp-server/README.md" %}
+[MariaDB Enterprise MCP Server](mariadb-enterprise-mcp-server/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{tools}/mariadb-ai-rag" %}
-[MariaDB AI RAG]({tools}/mariadb-ai-rag)
+{% content-ref url="mariadb-ai-rag/README.md" %}
+[MariaDB AI RAG](mariadb-ai-rag/README.md)
 {% endcontent-ref %}

@@ -16,7 +16,9 @@ GridGain comes in two generations, and each has its own documentation.
 
 **GridGain 9** is documented for existing GridGain 9 deployments. Its architecture differs from GridGain 8.
 
-Open either one below, or use the switcher at the top of the sidebar.
+**Control Center** is the management and monitoring console for GridGain 8 and GridGain 9 clusters.
+
+Open GridGain 8 or GridGain 9 below, or use the switcher at the top of the sidebar to reach any of the three.
 
 {% content-ref url="https://app.gitbook.com/s/ArQLGGUSG0VzKl1t2Y53/" %}
 [GridGain 8](https://app.gitbook.com/s/ArQLGGUSG0VzKl1t2Y53/)

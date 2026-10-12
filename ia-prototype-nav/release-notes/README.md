@@ -22,62 +22,78 @@ Dates for releases that have not shipped yet live outside these notes. The Enter
 
 Find the product you run, then read every release between your current version and your target.
 
-{% content-ref url="{release-notes}/latest-releases" %}
-[Download Latest Releases]({release-notes}/latest-releases)
+{% content-ref url="latest-releases.md" %}
+[Download Latest Releases](latest-releases.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/enterprise-server" %}
-[Enterprise Server Release Notes]({release-notes}/enterprise-server)
+{% content-ref url="enterprise-server/README.md" %}
+[Enterprise Server Release Notes](enterprise-server/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/community-server" %}
-[Community Server Release Notes]({release-notes}/community-server)
+{% content-ref url="community-server/README.md" %}
+[Community Server Release Notes](community-server/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/maxscale" %}
-[MaxScale Release Notes]({release-notes}/maxscale)
+{% content-ref url="maxscale/README.md" %}
+[MaxScale Release Notes](maxscale/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/columnstore" %}
-[ColumnStore Release Notes]({release-notes}/columnstore)
+{% content-ref url="columnstore/README.md" %}
+[ColumnStore Release Notes](columnstore/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/galera-cluster" %}
-[Galera Cluster Release Notes]({release-notes}/galera-cluster)
+{% content-ref url="galera-cluster/README.md" %}
+[Galera Cluster Release Notes](galera-cluster/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/advanced-cluster" %}
-[Advanced Cluster Release Notes]({release-notes}/advanced-cluster)
+{% content-ref url="advanced-cluster/README.md" %}
+[Advanced Cluster Release Notes](advanced-cluster/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/connectors" %}
-[Connectors Release Notes]({release-notes}/connectors)
+{% content-ref url="connectors/README.md" %}
+[Connectors Release Notes](connectors/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/enterprise-operator" %}
-[Enterprise Kubernetes Operator Release Notes]({release-notes}/enterprise-operator)
+{% content-ref url="enterprise-operator/README.md" %}
+[Enterprise Kubernetes Operator Release Notes](enterprise-operator/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/enterprise-manager" %}
-[Enterprise Manager Release Notes]({release-notes}/enterprise-manager)
+{% content-ref url="enterprise-manager/README.md" %}
+[Enterprise Manager Release Notes](enterprise-manager/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/ai-rag-release-notes" %}
-[AI Rag Release Notes]({release-notes}/ai-rag-release-notes)
+{% content-ref url="ai-rag-release-notes/README.md" %}
+[AI Rag Release Notes](ai-rag-release-notes/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/mcp-server-release-notes" %}
-[MCP Server Release Notes]({release-notes}/mcp-server-release-notes)
+{% content-ref url="mcp-server-release-notes/README.md" %}
+[MCP Server Release Notes](mcp-server-release-notes/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/mariadb-cloud-release-notes" %}
-[MariaDB Cloud Release Notes]({release-notes}/mariadb-cloud-release-notes)
+{% content-ref url="mariadb-cloud-release-notes/README.md" %}
+[MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/tools" %}
-[Tools Release Notes]({release-notes}/tools)
+{% content-ref url="control-center/README.md" %}
+[Control Center Release Notes](control-center/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{release-notes}/test-page" %}
-[Test Page]({release-notes}/test-page)
+{% content-ref url="ignite-agent/README.md" %}
+[Control Center Agent Release Notes](ignite-agent/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="tools/README.md" %}
+[Tools Release Notes](tools/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="gridgain-9/README.md" %}
+[GridGain 9 Release Notes](gridgain-9/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="gridgain-8/README.md" %}
+[GridGain 8 Release Notes](gridgain-8/README.md)
+{% endcontent-ref %}
+
+{% content-ref url="test-page.md" %}
+[Test Page](test-page.md)
 {% endcontent-ref %}

@@ -1,65 +1,127 @@
 ---
 title: GridGain 9
 description: >-
-  Install, configure, and operate GridGain 9 for existing GridGain 9
-  deployments.
+  GridGain 9 is a unified real-time platform that stores and processes data
+  across a cluster of interconnected machines.
 icon: bolt
 ---
 
 # GridGain 9
 
-GridGain 9 is an in-memory data platform documented for existing GridGain 9 deployments. It holds a distributed store across a cluster of nodes and serves data from memory, so hot reads do not reach the database of record. It is built on Apache Ignite 3.
+## What Is GridGain?
 
-**Install and connect.** GridGain 9 runs as a cluster your application connects to as a client. Install the nodes, initialize the cluster, then connect and confirm the cluster answers.
+GridGain is a unified real-time platform for storing and processing data at scale.
 
-**Configure and secure it.** The settings that matter most govern how tables are distributed and replicated across nodes and how the cluster loads from and writes back to the database of record. Secure the cluster as you would the database, because it holds a copy of the data.
+GridGain is a platform that is designed to tackle speed and scale challenges. But what does that mean? In practice, it signifies that GridGain is capable of storing and processing your data across a cluster of interconnected machines that are deeply integrated into your environment.
 
-**Understand the architecture.** The concepts pages cover the cluster and storage model, how SQL is executed across nodes, and the transactional guarantees on offer, which is what tells you which read and write paths are safe to route through it.
+GridGain APIs are developed in a way to minimize network traffic between cluster nodes and your applications. You can perform both distributed processing and distributed data storage for the applications.
 
-Start from the overview to see how the cluster, SQL engine, and transaction model fit together before you change a deployment.
+GridGain builds on the technology that became Apache Ignite, whose original code was donated to the Apache Software Foundation (ASF) in 2014. Apache Ignite, one of the fastest ASF projects to graduate to top-level status, is now a top 5 ASF project in terms of contributions and dev-list activity and is downloaded millions of times annually.
 
-## Get Started
+GridGain 9 brings modern technologies to the platform, addressing the pain points of the previous major release.
 
-{% content-ref url="get-started/install-gridgain-9.md" %}
-[install-gridgain-9.md](get-started/install-gridgain-9.md)
+## What Can You Do with GridGain?
+
+We've seen many usage scenarios of GridGain in various environments and for various architectures. Among the benefits it provides are:
+
+- Improved performance: In modern environments, performance is paramount. GridGain provides high throughput potential to keep up with demand of your customers.
+- Dynamic scalability: You can scale your database dynamically to answer demand. New nodes can be added to GridGain cluster at peak demand times, and removed afterwards, all without downtime or performance drawbacks.
+- Redundancy: While modern data centers provide high stability, it is still not guaranteed that your database server will not suddenly have an outage. GridGain provides redundancy for all data stored in it, potentially spanning several data centers for increased safety. Losing just one node does not significantly degrade the overall cluster performance, allowing you to keep up with any incidents.
+- Distributed high performance computing (HPC): Computing tasks are vital for any modern business. With GridGain, you can have your computations split across multiple servers and colocated with required data, significantly increasing total computation performance.
+- Digital integration: Almost no modern application uses a single tool, as there are best tools for each purpose. GridGain can act as the integration platform, rapidly transferring data between multiple interconnected systems.
+
+{% columns %}
+{% column %}
+{% content-ref url="gridgain9-get-started/README.md" %}
+[Get Started](gridgain9-get-started/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-{% content-ref url="get-started/connect-to-gridgain-9.md" %}
-[connect-to-gridgain-9.md](get-started/connect-to-gridgain-9.md)
+{% column %}
+A step-by-step introduction to GridGain 9: start a cluster, run SQL, persist data, use the Java API, work with secondary storage, and connect monitoring.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="architecture/README.md" %}
+[Architecture](architecture/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-## Tutorials
+{% column %}
+How GridGain 9 is built: cluster architecture, consensus, data distribution, consistency, availability, and storage.
+{% endcolumn %}
+{% endcolumns %}
 
-{% content-ref url="tutorials/gridgain-9-tutorial.md" %}
-[gridgain-9-tutorial.md](tutorials/gridgain-9-tutorial.md)
+{% columns %}
+{% column %}
+{% content-ref url="gridgain9-development/README.md" %}
+[Development](gridgain9-development/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-## How-To Guides
+{% column %}
+Guides for building applications on GridGain 9 — setting up a project, working with tables and SQL, and using the transactional, caching, and query APIs.
+{% endcolumn %}
+{% endcolumns %}
 
-{% content-ref url="how-to-guides/configure-gridgain-9.md" %}
-[configure-gridgain-9.md](how-to-guides/configure-gridgain-9.md)
+{% columns %}
+{% column %}
+{% content-ref url="gridgain9-development/README.md" %}
+[Management](gridgain9-development/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-{% content-ref url="how-to-guides/secure-gridgain-9.md" %}
-[secure-gridgain-9.md](how-to-guides/secure-gridgain-9.md)
+{% column %}
+Guidance for operating a GridGain 9 cluster, covering configuration, storage, security, metrics, and recovery.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="security/README.md" %}
+[Security](security/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-## Concepts
+{% column %}
+Secure a GridGain 9 cluster with SSL/TLS encryption, user authentication, role-based authorization, row-level security, and data encryption at rest.
+{% endcolumn %}
+{% endcolumns %}
 
-{% content-ref url="overview/what-is-gridgain-9.md" %}
-[what-is-gridgain-9.md](overview/what-is-gridgain-9.md)
+{% columns %}
+{% column %}
+{% content-ref url="tuning-and-troubleshooting/README.md" %}
+[Tuning and Troubleshooting](tuning-and-troubleshooting/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-{% content-ref url="concepts/how-gridgain-9-works.md" %}
-[how-gridgain-9-works.md](concepts/how-gridgain-9-works.md)
+{% column %}
+Guidance for tuning GridGain 9 performance, covering general considerations, JVM, operating system, persistence, SQL, and data streaming.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="reference/README.md" %}
+[Reference](reference/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-## Reference
+{% column %}
+Reference material for GridGain 9: CLI, REST API, SQL syntax, configuration parameters, monitoring, error codes, and glossary.
+{% endcolumn %}
+{% endcolumns %}
 
-{% content-ref url="reference/gridgain-9-reference.md" %}
-[gridgain-9-reference.md](reference/gridgain-9-reference.md)
+{% columns %}
+{% column %}
+{% content-ref url="integrations/README.md" %}
+[Integrations](integrations/README.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
-{% content-ref url="release-notes/gridgain-9-releases.md" %}
-[gridgain-9-releases.md](release-notes/gridgain-9-releases.md)
-{% endcontent-ref %}
+{% column %}
+Integrate GridGain 9 with external systems and frameworks, including Apache Kafka, Spring Boot, Spring Data, and Hibernate.
+{% endcolumn %}
+{% endcolumns %}

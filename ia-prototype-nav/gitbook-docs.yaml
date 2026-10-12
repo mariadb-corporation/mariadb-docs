@@ -152,6 +152,12 @@ site:
               path: gridgain-9-home
               content:
                 directory: ./gridgain-9
+            - type: space
+              key: control-center
+              title: Control Center
+              path: control-center-home
+              content:
+                directory: ./control-center
         - type: section
           key: tools-sec
           title: Enterprise Tools

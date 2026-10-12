@@ -22,34 +22,34 @@ Because the SQL surface is shared, most of the MariaDB Server documentation appl
 
 Confirm which Enterprise Server version your support agreement covers, then install from the Enterprise repository.
 
-{% content-ref url="{server}/mariadb-quickstart-guides" %}
-[Quickstart Guides]({server}/mariadb-quickstart-guides)
+{% content-ref url="mariadb-quickstart-guides/README.md" %}
+[Quickstart Guides](mariadb-quickstart-guides/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/server-usage" %}
-[Server Usage]({server}/server-usage)
+{% content-ref url="server-usage/README.md" %}
+[Server Usage](server-usage/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/server-management" %}
-[Server Management]({server}/server-management)
+{% content-ref url="server-management/README.md" %}
+[Server Management](server-management/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/security" %}
-[Security]({server}/security)
+{% content-ref url="security/README.md" %}
+[Security](security/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/architecture" %}
-[Architecture]({server}/architecture)
+{% content-ref url="architecture/README.md" %}
+[Architecture](architecture/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/clients-and-utilities" %}
-[Clients & Utilities]({server}/clients-and-utilities)
+{% content-ref url="clients-and-utilities/README.md" %}
+[Clients & Utilities](clients-and-utilities/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/ha-and-performance" %}
-[HA & Performance]({server}/ha-and-performance)
+{% content-ref url="ha-and-performance/README.md" %}
+[HA & Performance](ha-and-performance/README.md)
 {% endcontent-ref %}
 
-{% content-ref url="{server}/reference" %}
-[Reference]({server}/reference)
+{% content-ref url="reference/README.md" %}
+[Reference](reference/README.md)
 {% endcontent-ref %}
