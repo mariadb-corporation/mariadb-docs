@@ -32,7 +32,7 @@ Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and ME
 
 * Status utilised when progress is contingent on receiving essential feedback
 * Feedback requests should be clearly communicated to the designated individual
-* Issue can be closed after staying in a month in NEED FEEDBACK with no activity
+* The issue can be closed after it has been in NEED FEEDBACK for a month with no activity.
 * Transitions
   * Provide feedback → OPEN
   * No Feedback → CLOSED
@@ -43,14 +43,13 @@ Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and ME
 * Denotes that the issue is being actively addressed and moving forward
 * Transitions
   * Stop Progress → STALLED
-    * From the end of 2023, we are moving the issues “IN PROGRESS”, which didn’t get any time to get meaningful updates from the assignee for 6 weeks in this status, to STALLED.
+    * We move issues marked “IN PROGRESS” that have had no meaningful updates from the assignee for six weeks to STALLED.
   * Request testing → IN TESTING
   * Needs feedback → NEEDS FEEDBACK
   * Close Issue → CLOSED
   * Request Review → IN REVIEW
     * The transition screen shows the "Assigned for review" field so the reviewer
       can be checked, changed, or filled in if missing.
-    * The standard Assignee field is not on this transition screen.
     * On transition, the current Assignee is saved to "Assigned for implementation",
       and the "Assigned for review" person becomes the Assignee.
 
@@ -62,12 +61,10 @@ Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and ME
   * Redo → STALLED
     * The transition screen shows the "Assigned for implementation" field so the
       implementer can be checked, changed, or filled in if missing.
-    * The standard Assignee field is not on this transition screen.
     * On transition, the current Assignee is saved to "Assigned for review",
       and the "Assigned for implementation" person becomes the Assignee again.
   * Request testing → IN TESTING
   * Approved → APPROVED
-  * Close Issue → CLOSED
 
 **IN TESTING**
 
@@ -108,33 +105,6 @@ Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and ME
 * The resolution is another field that will explain how it has been resolved.
 * Transitions
   * Reopen Issue → STALLED
-
-## Review Follow-Up
-
-### Reviewer Acknowledgment
-
-* When a reviewer is assigned, Jira sends the standard assignment email.
-* Within 2 business days (excluding the reviewer's time off), the reviewer must
-  either comment with an estimated workload and set the Due Date to when they
-  can start, or reassign to a more suitable reviewer (who gets the same 2 days).
-* If neither happens, the requester, reviewer, and project manager are notified
-  in Slack.
-* If the reviewer is off, the notification gives the expected date as
-  return date + 2 business days.
-
-### Progress Tracking
-
-* When the Due Date is reached, there is a 2-business-day grace period
-  (excluding time off) before progress is checked.
-* If the review is underway, the requester gets a Slack update; if not,
-  the requester, reviewer, and project manager are notified in Slack and
-  asked for a new Due Date.
-
-### Ongoing Maintenance
-
-* For reviews longer than one week, the reviewer updates the Due Date and adds
-  a progress comment at least weekly; Jira sends an email reminder if this
-  is missing.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
