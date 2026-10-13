@@ -209,21 +209,49 @@ The widget displays as you have defined it and starts updating at the specified 
 
 ![System Views](../../../.gitbook/assets/cc-gg9-system_view_widget_screen_gg9.png)
 
+#### Supported System Views
+
+The **System view table** drop-down list shows the system views that the cluster reports, such as **Compute tasks**, **Indexes**, **Locks**, **SQL queries**, **Tables**, **Transactions**, and **Zones**. If the cluster doesn't report its system views, Control Center shows a default list of the GridGain 9 system views.
+
+For a description of each system view and its columns, see [System Views](https://www.gridgain.com/docs/gridgain9/latest/administrators-guide/metrics/system-views) in the GridGain documentation.
+
+#### System View Actions
+
+Some system views let you act on the rows they display. To run an action, click the **More** (⋮) button at the end of a row and select the action. The **More** button is shown only for system views that support actions on the cluster.
+
+| System view | Action | Available for |
+| --- | --- | --- |
+| **Compute tasks** | **Change priority**, **Cancel job** | GridGain 9 and Apache Ignite 3 clusters |
+| **Transactions** | **Kill transaction** | GridGain 9 clusters |
+
+Actions run immediately, without asking for confirmation. Control Center shows a notification when an action succeeds or fails.
+
 #### Compute System View
 
-The Compute system view lets you change the priority of a task or cancel it.
+The **Compute tasks** system view lets you change the priority of a compute task or cancel it. Each action is available only when the task is in a status that allows it. Otherwise, the action is disabled in the menu.
+
+| Action | Available when the task status is |
+| --- | --- |
+| **Change priority** | `SUBMITTED` or `QUEUED` |
+| **Cancel job** | `QUEUED` or `EXECUTING` |
 
 ![Compute View](../../../.gitbook/assets/cc-gg9-compute_view_gg9.png)
 
-You can change the priority for tasks that are either in `SUBMITTED` or `QUEUED` status.
+To change the priority of a task:
+
+1. Click the **More** (⋮) button at the end of the task's row and select **Change priority**.
+2. In the **Change priority** dialog, enter the new priority as an integer in the **Priority** field.
+3. Click **Set**.
 
 ![Compute View](../../../.gitbook/assets/cc-gg9-compute_view_priority_gg9.png)
 
-You can also cancel tasks that are in the `QUEUED` or `EXECUTING` status.
+To cancel a task, click the **More** (⋮) button at the end of the task's row and select **Cancel job**.
 
 #### Transactions System View
 
-Control Center supports terminating transactions on the cluster through the Transactions *system view* widget.
+The **Transactions** system view lets you terminate an active transaction on the cluster. This action is available for GridGain 9 clusters only.
+
+To terminate a transaction, click the **More** (⋮) button at the end of the transaction's row and select **Kill transaction**.
 
 ![TX View](../../../.gitbook/assets/cc-gg9-tx_view_actions_gg9.png)
 
