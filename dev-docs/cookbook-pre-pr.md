@@ -55,6 +55,13 @@ check greps for the host-and-path pair, which is why this page spells it in two 
   edit** for a person to review, with the `run-doc-gates.sh` results for each commit. Unlike the
   other three it posts every edit, not only the failing ones. The review routine is in
   [cookbook-gitbook-edit-review.md](cookbook-gitbook-edit-review.md).
+- **A fifth nightly digest (`nightly-postdownload.yml`, DOCS-6882) reports release notes pages
+  that reached `main` without their Post Download page** or its `platform/SUMMARY.md` entry. The
+  PR gate (`postdownload-pr.yml`) is only advisory on a fork PR, and it never sees GitBook-UI
+  edits or direct pushes, so a page can still land without one. The nightly runs
+  `.claude/hooks/postdownload.py new` against a **fixed** baseline, the commit where that gate
+  landed, rather than a rolling window. A finding therefore repeats every weekday until someone
+  adds the page or a `no-standalone:` register entry.
 
 ## 1. Spelling + links + includes + orphans + gutted pages — `doc-lint.sh`
 
