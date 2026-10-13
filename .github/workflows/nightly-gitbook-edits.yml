@@ -53,6 +53,8 @@ on:
 
 permissions:
   contents: read
+  # To read the head of the previous successful scheduled run, which starts the window.
+  actions: read
 
 concurrency:
   group: nightly-gitbook-edits
@@ -108,6 +110,7 @@ jobs:
           BASE_OVERRIDE: ${{ inputs.base_rev }}
           HEAD_OVERRIDE: ${{ inputs.head_rev }}
           SCHEDULE: ${{ github.event.schedule }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
@@ -125,18 +128,46 @@ jobs:
 
           if [[ -n "${BASE_OVERRIDE:-}" ]]; then
             base=$(resolve "$BASE_OVERRIDE")
+            source="the base_rev input"
           else
-            # Monday covers 72 hours, not 24. With no weekend runs, a 24-hour Monday window
-            # would never list an edit made between Friday morning and Sunday morning -- and
-            # this digest promises every edit, not a sample.
-            hours=24
-            [[ "${SCHEDULE:-}" == '35 6 * * 1' ]] && hours=72
-            base=$(git rev-list -1 --before="$hours hours ago" "$head" || true)
-            if [[ -z "$base" ]]; then
-              echo "::error::No commit older than $hours hours was found, so there is no window start. Expected on a brand-new or shallow clone only."
-              exit 1
+            # Start where the last successful scheduled run ended (DOCS-6930). A window
+            # measured back by time from "now" leaves gaps: GitHub starts scheduled runs 30 to
+            # 55 minutes late, by a different amount each day, so when a run starts later than
+            # the one before it, an edit landing between the two start times is the newest
+            # commit before the cutoff -- it becomes `base`, and base..head excludes it. A
+            # failed or never-started run would also leave its day uncovered for good.
+            #
+            # Only scheduled runs count: a dispatch may have covered an arbitrary window.
+            # Only successful ones: a failed run is covered again, so an entry can repeat but
+            # cannot be dropped. The run in progress is not `success` yet, so it is not found.
+            base=""
+            prev=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow nightly-gitbook-edits.yml \
+                     --event schedule --status success --branch main --limit 1 \
+                     --json headSha,databaseId --jq '.[0] | "\(.headSha) \(.databaseId)"' || true)
+            prev_sha=${prev%% *}
+            prev_run=${prev##* }
+            if [[ -n "$prev_sha" && "$prev_sha" != null ]] &&
+               git rev-parse --verify --quiet "${prev_sha}^{commit}" > /dev/null &&
+               git merge-base --is-ancestor "$prev_sha" "$head"; then
+              base=$prev_sha
+              source="the head of scheduled run ${prev_run}"
+            else
+              # No usable previous run: the first run, a lookup failure, or a rewritten
+              # history. Fall back to a time window. Monday covers 72 hours, not 24: with no
+              # weekend runs, a 24-hour Monday window would never list an edit made between
+              # Friday morning and Sunday morning.
+              hours=24
+              [[ "${SCHEDULE:-}" == '35 6 * * 1' ]] && hours=72
+              echo "::warning::No usable previous scheduled run (found: '${prev:-nothing}'), so the window falls back to the last $hours hours. An edit made just before that can be missed; check the previous post's window."
+              base=$(git rev-list -1 --before="$hours hours ago" "$head" || true)
+              source="the $hours-hour fallback"
+              if [[ -z "$base" ]]; then
+                echo "::error::No commit older than $hours hours was found, so there is no window start. Expected on a brand-new or shallow clone only."
+                exit 1
+              fi
             fi
           fi
+          echo "Window start: $base, from $source."
 
           if ! git merge-base --is-ancestor "$base" "$head"; then
             echo "::error::The window start $base is not an ancestor of $head, so base..head would not be the commits in between."
@@ -148,6 +179,7 @@ jobs:
             echo "head=$head"
             echo "short=$(git rev-parse --short "$base")"
             echo "date=$(git log -1 --format=%cI "$base")"
+            echo "source=$source"
           } >> "$GITHUB_OUTPUT"
 
       - name: List and gate the GitBook commits
@@ -198,6 +230,7 @@ jobs:
         env:
           BASE_SHORT: ${{ steps.window.outputs.short }}
           BASE_DATE: ${{ steps.window.outputs.date }}
+          BASE_SOURCE: ${{ steps.window.outputs.source }}
           RC: ${{ steps.scan.outputs.rc }}
         run: |
           set -euo pipefail
@@ -211,7 +244,7 @@ jobs:
               cat scan.log 2>/dev/null || true
               echo '````'
             else
-              echo "Window starts at \`${BASE_SHORT}\` (${BASE_DATE}). $(wc -l < digest/commits.jsonl | tr -d ' ') GitBook commit(s)."
+              echo "Window starts at \`${BASE_SHORT}\` (${BASE_DATE}), taken from ${BASE_SOURCE}. $(wc -l < digest/commits.jsonl | tr -d ' ') GitBook commit(s)."
               echo
               # The full list lives here, untruncated, because the Slack post is capped.
               # Fenced, never rendered as a table: titles and paths come from unreviewed

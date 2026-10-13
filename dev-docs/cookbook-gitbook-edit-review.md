@@ -20,9 +20,15 @@ practical, so the docs team reviews them after they land. This page describes ho
 It lists **every** GitBook commit, including clean ones, because the goal is for a person to
 look at each diff. The gate results are there to help.
 
-Tuesday to Friday it covers the last 24 hours and stays silent when there were no GitBook edits.
-Monday covers the 72 hours since Friday's run, and posts even when there was nothing. That
-message is the heartbeat: it shows the schedule is still running.
+Each run starts where the last successful scheduled run ended, so consecutive posts cover
+`main` with no gap between them. A run that failed or never started is caught up by the next
+one, which can list a few entries again but never drops one. Only when there is no usable
+previous run does it fall back to the last 24 hours (72 on Mondays) and warn about it. The run
+summary says which way the window start was chosen.
+
+Tuesday to Friday it stays silent when there were no GitBook edits. Monday covers the weekend,
+and posts even when there was nothing. That message is the heartbeat: it shows the schedule is
+still running.
 
 ### What the gate result means
 
