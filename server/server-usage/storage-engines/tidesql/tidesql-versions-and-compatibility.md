@@ -6,7 +6,7 @@ description: >-
 
 # TideSQL Versions and Compatibility
 
-TideSQL is a storage engine plugin built on the TidesDB library, and it is compiled against a specific MariaDB Server. Three version lines therefore matter when you deploy it, the TideSQL plugin version, the TidesDB library version it links, and the MariaDB Server version it is built for.
+TideSQL is a storage engine plugin built on the TidesDB library, and it is compiled against a specific MariaDB Server. Three version lines therefore matter when you deploy it. They are the TideSQL plugin version, the TidesDB library version it links, and the MariaDB Server version it is built for.
 
 ## TideSQL Versions and the TidesDB Library
 
