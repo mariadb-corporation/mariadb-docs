@@ -6,7 +6,7 @@ description: >-
 
 # TideSQL Partitioning
 
-TidesDB tables can be partitioned with MariaDB's standard partitioning syntax. Each partition becomes a separate TidesDB table, and therefore a separate column family, so compaction and flushes happen independently per partition.
+TidesDB tables can be partitioned with MariaDB's standard partitioning syntax. Each partition becomes a separate TidesDB table, and therefore a separate column family with its own SSTables, so compaction runs independently per partition. The memtable and write-ahead log are database-level and shared by every column family, so a flush is not per partition.
 
 ```sql
 CREATE TABLE metrics (
@@ -22,12 +22,15 @@ PARTITION BY RANGE COLUMNS(ts) (
 );
 ```
 
-All of MariaDB's partitioning schemes work, `HASH`, `KEY`, `RANGE`, `LIST`, and `RANGE COLUMNS`. Secondary indexes on partitioned tables work too, with each partition holding its own index column family.
+MariaDB's partitioning schemes are handled by the server, and the engine's test suite covers `HASH`, `KEY`, `RANGE`, `LIST`, and `RANGE COLUMNS`. Secondary indexes on partitioned tables work too, with each partition holding its own index column family.
 
-Partitions are added and dropped with `ALTER TABLE`. Dropping a partition removes all of its data:
+Partitions are added, split, and dropped with `ALTER TABLE`. Because `metrics` ends with a `MAXVALUE` partition, a new range is split out of `p_future` with `REORGANIZE PARTITION` rather than appended with `ADD PARTITION`, which MariaDB refuses after a `MAXVALUE` partition. Dropping a partition removes all of its data:
 
 ```sql
-ALTER TABLE metrics ADD PARTITION (PARTITION p_2026 VALUES LESS THAN ('2027-01-01'));
+ALTER TABLE metrics REORGANIZE PARTITION p_future INTO (
+  PARTITION p_2026   VALUES LESS THAN ('2027-01-01'),
+  PARTITION p_future VALUES LESS THAN MAXVALUE
+);
 ALTER TABLE metrics DROP PARTITION p_2024;
 ```
 

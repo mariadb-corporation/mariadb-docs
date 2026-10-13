@@ -28,7 +28,7 @@ TideSQL defaults to `FULL`, so out of the box a committed write has reached the 
 
 ## What FULL Costs and How INTERVAL Sits Between
 
-`FULL` costs commit throughput, because every commit waits for the device instead of returning once the bytes reach the operating system. How much depends entirely on the storage. Group commit softens the cost by letting concurrent commits that land in the same commit round share a single device sync, so the more concurrent the workload the better `FULL` amortizes.
+`FULL` costs commit throughput, because every commit waits for the device instead of returning once the bytes reach the operating system. How much depends entirely on the storage. Commits whose log writes reach the WAL at the same time are written out together by the WAL flush thread and wait on the same flush, which softens the cost for concurrent writers, so the more concurrent the workload the better `FULL` amortizes.
 
 `INTERVAL` forces the log on a timer, so the exposure to a machine crash is bounded by `tidesdb_memtable_sync_interval` microseconds rather than being unbounded, without paying a device barrier on every commit.
 
