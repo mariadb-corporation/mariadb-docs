@@ -62,6 +62,8 @@ concurrency:
 
 jobs:
   digest:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     # About 35 seconds per gated commit, twice that for one with findings (the parent is gated
     # too). The busiest day since July had six GitBook commits. Without a limit a wedged lychee
