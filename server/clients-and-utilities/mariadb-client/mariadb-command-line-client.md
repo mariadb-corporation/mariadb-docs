@@ -357,7 +357,7 @@ Ignore `SIGINT` signals (usually `CTRL-C`).
 
 #### `-s, --silent`
 
-Be more silent. This option can be given multiple times to produce less and less output. This option results in nontabular output format and escaping of special characters. Escaping may be disabled by using raw mode; see the description for the `--raw` option.
+Be more silent. This option can be given multiple times to produce less and less output. This option results in nontabular output format and escaping of special characters. Escaping may be disabled by using raw mode; see the description for the `--raw` option. From MariaDB 13.2, to get this output for a single statement in an interactive session, terminate the statement with `\S`; see [Displaying Query Results for Copying](#displaying-query-results-for-copying).
 
 #### `--skip-auto-rehash`
 
@@ -662,6 +662,7 @@ There are also a number of commands that can be run inside the client. Note that
 | quit, \q           | Quit mariadb.                                                                                                                                                                                         |
 | rehash, #          | Rebuild completion hash.                                                                                                                                                                              |
 | serveroutput, \O   | Enables displaying of `DBMS_OUTPUT` messages. See [this page](../../server-usage/stored-routines/dbms_output.md) for details.                                                                         |
+| silent, \S         | Send command to MariaDB server, display result without column names or borders. Applies to that one statement. From MariaDB 13.2. See [Displaying Query Results for Copying](#displaying-query-results-for-copying). |
 | source, .          | Execute an SQL script file. Takes a file name as an argument. Usually looks in the working directory, unless, from MariaDB 12.0, a path is given with `--script-dir`.                                 |
 | status, \s         | Get status information from the server.                                                                                                                                                               |
 | system, !          | Execute a system shell command. Only works in Unix-like systems.                                                                                                                                      |
@@ -752,6 +753,43 @@ Monty
     hash: 190402944
 1 row in set (0.09 sec)
 ```
+
+### Displaying Query Results for Copying
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.2.
+{% endhint %}
+
+A common task is to generate SQL statements with a query and then run them, or paste them into another session. In the usual table format, the borders and the column name get in the way:
+
+```sql
+mariadb> SELECT CONCAT('ANALYZE TABLE ', table_name, ';') FROM information_schema.tables WHERE table_schema='test';
++-------------------------------------------+
+| CONCAT('ANALYZE TABLE ', table_name, ';') |
++-------------------------------------------+
+| ANALYZE TABLE t_auto;                     |
+| ANALYZE TABLE t2;                         |
+| ANALYZE TABLE t1;                         |
++-------------------------------------------+
+3 rows in set (0.004 sec)
+```
+
+Terminate the query with `\S` instead of a semicolon to print only the values:
+
+```sql
+mariadb> SELECT CONCAT('ANALYZE TABLE ', table_name, ';') FROM information_schema.tables WHERE table_schema='test'\S
+ANALYZE TABLE t_auto;
+ANALYZE TABLE t2;
+ANALYZE TABLE t1;
+```
+
+`\S` works like starting the client with [--silent](#s-silent) and [--skip-column-names](#n-skip-column-names), but for one statement only, from inside a running session. It doesn't need a pager, so it also works on Windows. In detail:
+
+* The result has no borders, no column names, and no row count line. Each row is printed on its own line, and columns are separated by a tab.
+* Newline, tab, NUL, and backslash characters in values are escaped as `\n`, `\t`, `\0`, and `\\`, as with `--silent`. Start the client with [--raw](#r-raw) to print them unescaped.
+* `\S` applies only to the statement it terminates. The next statement is displayed in the session's usual format again.
+* `\S` overrides [--table](#t-table) and [--vertical](#e-vertical), but [--html](#h-html) and [--xml](#x-xml) take precedence over it, as they do over `\G`.
+* `\S` changes only the result format. Options that add output around the result, such as [--verbose](#v-verbose) and [--show-warnings](#show-warnings), still apply.
 
 ### Using the --safe-updates Option
 
