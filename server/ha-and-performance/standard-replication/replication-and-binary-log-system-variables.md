@@ -71,6 +71,10 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Range - 32 bit: `4096` to `4294967295`
 * Range - 64 bit: `4096` to `18446744073709547520`
 
+{% hint style="info" %}
+From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine=innodb`), `binlog_cache_size` is still the size of each connection's in-memory buffer. A transaction that outgrows the buffer is not written to a temporary file; its changes are written to the [InnoDB-based binary log](innodb-based-binary-log.md) in pieces while the transaction runs.
+{% endhint %}
+
 #### `binlog_checksum`
 
 * Description: Specifies the type of `BINLOG_CHECKSUM_ALG` for log events in the [binary log](../../server-management/server-monitoring-logs/binary-log/).
