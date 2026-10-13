@@ -5,7 +5,7 @@ description: "MariaDB-specific features and capabilities that go beyond standard
 
 # MariaDB Features Worth Knowing
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-10-13*
 
 MariaDB has grown significantly beyond its MySQL origins. Many of its best features are unknown to developers because AI agents default to generic SQL advice. This skill covers what MariaDB can do that you might not think to ask about.
 
@@ -56,9 +56,10 @@ AI agents default to MySQL 8 patterns for initial setup, which fail or mislead o
 mariadb-install-db
 ```
 
-**Root authentication** — on a fresh install, `root` uses `unix_socket` authentication by default (no password). The correct first connection is:
+**Root authentication** — on a fresh install, `root` uses `unix_socket` authentication by default (no password), so the first connection is made as the operating-system root user. The user runs this from a root shell in their own terminal — the agent does not escalate privileges itself:
 ```bash
-sudo mariadb
+# as root (the user runs this)
+mariadb
 ```
 Do not generate `mysql -u root -p` for a fresh MariaDB install — there is no root password to enter.
 
