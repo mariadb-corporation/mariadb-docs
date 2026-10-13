@@ -12,7 +12,50 @@ It is best-used for read-only caches of data from other tables, or for temporary
 
 Since the data is stored in memory, it is highly vulnerable to power outages or hardware failure, and is unsuitable for permanent data storage. In fact, after a server restart, `MEMORY` tables are recreated (because the definition file is stored on disk), but they are empty. It is possible to re-populate them with a query using the `--init-file` server startup option.
 
-Variable-length types like [VARCHAR](../../reference/data-types/string-data-types/varchar.md) can be used in MEMORY tables. [BLOB](../../reference/data-types/string-data-types/blob.md) or [TEXT](../../reference/data-types/string-data-types/text.md) columns are not supported for MEMORY tables.
+Variable-length types like [VARCHAR](../../reference/data-types/string-data-types/varchar.md) can be used in MEMORY tables. From MariaDB 13.2, so can [BLOB](../../reference/data-types/string-data-types/blob.md), [TEXT](../../reference/data-types/string-data-types/text.md), [JSON](../../reference/data-types/string-data-types/json.md), and [geometry](../../reference/sql-structure/geometry/geometry-types.md) columns. See [BLOB, TEXT, and Geometry Columns](#blob-text-and-geometry-columns).
+
+## BLOB, TEXT, and Geometry Columns
+
+{% hint style="info" %}
+This feature is available from MariaDB 13.2.
+{% endhint %}
+
+A MEMORY table can contain columns of these types:
+
+* `TINYBLOB`, `BLOB`, `MEDIUMBLOB`, and `LONGBLOB`.
+* `TINYTEXT`, `TEXT`, `MEDIUMTEXT`, and `LONGTEXT`, including `JSON`, which is an alias for `LONGTEXT`.
+* `GEOMETRY` and its subtypes, such as `POINT`, `LINESTRING`, and `POLYGON`. Spatial functions such as `ST_AsText()` work on these columns as on any other table.
+
+Before MariaDB 13.2, creating a MEMORY table with such a column fails with an error.
+
+### Indexes on BLOB, TEXT, and Geometry Columns
+
+A MEMORY table can't have an index that includes a `BLOB`, `TEXT`, `JSON`, or geometry column. This applies to `HASH` and `BTREE` indexes, prefix indexes, `UNIQUE` keys, and primary keys alike. MEMORY tables don't support `SPATIAL` indexes. Index the other columns of the table instead:
+
+```sql
+CREATE TABLE t1 (a INT, b BLOB, KEY (b)) ENGINE=MEMORY;
+ERROR 1073 (42000): BLOB column `b` can't be used in key specification in the MEMORY table
+
+CREATE TABLE t1 (a INT NOT NULL, b BLOB, PRIMARY KEY (a)) ENGINE=MEMORY;
+```
+
+### Memory Usage of BLOB and TEXT Values
+
+MEMORY tables use fixed-length rows. The row itself holds only the length and location of each `BLOB` or `TEXT` value. The value is stored in additional fixed-size chunks of the same size as a row, allocated from the table's memory. As a consequence:
+
+* `BLOB` and `TEXT` data counts toward the [max\_heap\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) limit of the table. When the limit is reached, an insert fails with a "table is full" error.
+* A value always occupies at least one chunk. In a table with wide rows, short values can use considerably more memory than their length.
+
+### Internal Temporary Tables
+
+The server uses internal temporary tables to resolve statements such as `GROUP BY`, `DISTINCT`, `UNION`, derived tables, common table expressions, and some subqueries. Before MariaDB 13.2, if such a temporary table had a `BLOB` or `TEXT` column, it was always created on disk, using the [Aria](aria/aria-storage-engine.md) storage engine. That happened even when the actual values were short, for example a small `JSON` document.
+
+From MariaDB 13.2, such temporary tables are created as MEMORY tables as well. As with any internal temporary table, they are converted to Aria tables if they grow larger than the smaller of [max\_heap\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) and [tmp\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmp_table_size). An internal temporary table is still created on disk from the start in these cases:
+
+* [tmp\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmp_table_size) is set to `0`.
+* The statement uses full-text search (`MATCH ... AGAINST`) on the result of a derived table or a `UNION`.
+
+As a result, the [Created\_tmp\_disk\_tables](../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#created_tmp_disk_tables) status variable can grow more slowly after an upgrade to MariaDB 13.2. For the same reason, `INFORMATION_SCHEMA` tables with `TEXT` columns, for example `ROUTINES` and `VIEWS`, report `MEMORY` instead of `Aria` in the `ENGINE` column, and `Fixed` in the `ROW_FORMAT` column, of [INFORMATION\_SCHEMA.TABLES](../../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md).
 
 ## Memory Usage
 
