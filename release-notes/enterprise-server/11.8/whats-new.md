@@ -288,6 +288,16 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380) | 8.8                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-102523](https://www.cve.org/CVERecord?id=CVE-2026-102523) | 8.0                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815) | 8.5                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816) | 6.4                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107817](https://www.cve.org/CVERecord?id=CVE-2026-107817) | 4.4                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107818](https://www.cve.org/CVERecord?id=CVE-2026-107818) | 8.4                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107819](https://www.cve.org/CVERecord?id=CVE-2026-107819) | 5.9                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821) | 8.0                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822) | 6.4                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823) | 7.2                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-47064](https://www.cve.org/CVERecord?id=CVE-2026-47064) | 6.5                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.8.8-5](11.8.8-5.md)        |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.8.8-5](11.8.8-5.md)        |
