@@ -357,7 +357,7 @@ Ignore `SIGINT` signals (usually `CTRL-C`).
 
 #### `-s, --silent`
 
-Be more silent. This option can be given multiple times to produce less and less output. This option results in nontabular output format and escaping of special characters. Escaping may be disabled by using raw mode; see the description for the `--raw` option. From MariaDB 13.2, to get this output for a single statement in an interactive session, terminate the statement with `\S`; see [Displaying Query Results for Copying](#displaying-query-results-for-copying).
+Be more silent. This option can be given multiple times to produce less and less output. This option results in nontabular output format and escaping of special characters. Escaping may be disabled by using raw mode; see the description for the `--raw` option. From MariaDB 13.2, to get this output without column names for a single statement in an interactive session, terminate the statement with `\S`; see [Displaying Query Results for Copying](#displaying-query-results-for-copying).
 
 #### `--skip-auto-rehash`
 
