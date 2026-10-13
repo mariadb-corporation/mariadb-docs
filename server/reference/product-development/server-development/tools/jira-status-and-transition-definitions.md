@@ -6,7 +6,7 @@ description: >-
 
 # Jira - Status and Transition Definitions
 
-Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and MENT), including how the reviewer and the implementer are assigned when an issue moves into and out of review. The [review follow-up](#review-follow-up) rules are at the end of the page.
+Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and MENT), including how the reviewer and the implementer are assigned when an issue moves into and out of review.
 
 **OPEN**
 
@@ -32,7 +32,7 @@ Here is the workflow of the MariaDB Server [Jira](jira.md) projects (MDEV and ME
 
 * Status utilised when progress is contingent on receiving essential feedback
 * Feedback requests should be clearly communicated to the designated individual
-* The issue can be closed after it has been in NEED FEEDBACK for a month with no activity.
+* The issue can be closed after it has been in NEEDS FEEDBACK for a month with no activity
 * Transitions
   * Provide feedback → OPEN
   * No Feedback → CLOSED
