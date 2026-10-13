@@ -8,10 +8,22 @@ description: >-
 # TideSQL
 
 {% hint style="info" %}
-TideSQL is a community contribution to MariaDB Server. It is a storage engine plugin built on the TidesDB library, which is developed and maintained upstream, outside MariaDB. TideSQL 5.0.0 ships at Beta maturity.
+TideSQL is a community contribution to MariaDB Server. It is a storage engine plugin built on the TidesDB library, which is developed and maintained upstream, outside MariaDB. TideSQL 5.2.0, which links TidesDB v10.2.1, ships at Beta maturity.
 {% endhint %}
 
-TideSQL stores a table's data in a TidesDB log-structured merge tree instead of InnoDB, reached through ordinary SQL. Moving a table from InnoDB to TidesDB is usually a change to the `ENGINE` clause and nothing more; see [TideSQL Limitations](tidesql-limitations.md) for the cases that need more care. The engine favors write throughput, keeps read cost bounded through background compaction, and provides transactions through the library's optimistic multi-version concurrency control, so readers proceed without blocking writers. In `SHOW ENGINES` the engine reports its name as `TidesDB`.
+TideSQL stores a table's data in a TidesDB log-structured merge tree instead of InnoDB, reached through ordinary SQL. Moving a table from InnoDB to TidesDB is usually a change to the `ENGINE` clause and nothing more; see [TideSQL Limitations](tidesql-limitations.md) for the cases that need more care. The engine favors write throughput, keeps read cost bounded through background compaction, and provides transactions through the library's optimistic multi-version concurrency control, so readers proceed without blocking writers. Through standard SQL it offers primary keys, secondary indexes, foreign keys, auto-increment, virtual and stored generated columns, savepoints, TTL expiration, data-at-rest encryption, full-text, vector and spatial indexes, online DDL, partitioning, and online backup. In `SHOW ENGINES` the engine reports its name as `TidesDB`.
+
+## What TideSQL Is Not
+
+* **Not a fork of InnoDB.** The concurrency model is optimistic MVCC from the library rather than InnoDB's pessimistic row locks, which changes how write contention behaves. Read [TideSQL Transactions and Isolation](tidesql-transactions-and-isolation.md) before porting a contention-heavy workload.
+* **Not a distributed system on its own.** The engine stores data on one node, and clustering comes from the layers above it. Within those layers, TideSQL takes full part in both MariaDB replication and Galera, with engine-level write-set certification and cross-node conflict resolution. See [TideSQL Replication and High Availability](tidesql-replication-and-ha.md).
+* **Not a place to relearn the library.** The on-disk format, compaction, and recovery all belong to TidesDB and are documented in the TidesDB library manual.
+
+## Where the Engine Keeps Its Data
+
+TidesDB data files live in a directory named `tidesdb_data` next to the MariaDB data directory, and the engine manages that layout itself. To override the location, set the read-only [`tidesdb_data_home_dir`](tidesql-system-variables.md#tidesdb_data_home_dir) system variable.
+
+## TideSQL Pages
 
 {% columns %}
 {% column %}
@@ -69,7 +81,7 @@ The optimistic MVCC model, how the SQL isolation levels map onto the library, an
 {% endcolumn %}
 
 {% column %}
-The sync modes that trade durability for throughput, what each one guarantees on a crash, and how they compare with InnoDB's log flushing.
+The sync modes that trade durability for throughput, what each one guarantees on a process or machine crash, and what the default `FULL` mode costs.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -129,7 +141,7 @@ Per-row data-at-rest encryption through MariaDB key management, key versions and
 {% endcolumn %}
 
 {% column %}
-Row expiration through a time-to-live column, how expired rows are reclaimed during compaction, and how TTL composes with the rest of the engine.
+Table-level, per-row, and per-session row expiration, the order they resolve in, how expired rows are reclaimed during compaction, and how a table rebuild keeps each row's expiry.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -201,7 +213,7 @@ Foreign-key constraints on TidesDB tables, the referential actions the engine en
 {% endcolumn %}
 
 {% column %}
-Taking a consistent online backup with a TidesDB checkpoint, what the checkpoint contains, and how to restore it.
+Taking a consistent online backup or a durable checkpoint, how the two differ, and why `FLUSH TABLES FOR EXPORT` is not a backup.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -213,7 +225,7 @@ Taking a consistent online backup with a TidesDB checkpoint, what the checkpoint
 {% endcolumn %}
 
 {% column %}
-How ANALYZE, OPTIMIZE, and REPAIR behave on TidesDB tables, and when to run them.
+How ANALYZE, OPTIMIZE, CHECK, and REPAIR behave on TidesDB tables, and when to run them.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -267,6 +279,42 @@ How TideSQL participates in MariaDB replication and Galera clustering, including
 
 {% columns %}
 {% column %}
+{% content-ref url="tidesql-storage-internals.md" %}
+[tidesql-storage-internals.md](tidesql-storage-internals.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How rows, indexes, and metadata are laid out in TidesDB column families, and how the row format makes column changes instant.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="tidesql-statistics-and-optimizer.md" %}
+[tidesql-statistics-and-optimizer.md](tidesql-statistics-and-optimizer.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The statistics the engine gives the optimizer, how index cardinality is sampled, and how scan and range costs are estimated.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="tidesql-write-path-optimizations.md" %}
+[tidesql-write-path-optimizations.md](tidesql-write-path-optimizations.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Single deletes, tombstone-driven compaction, range deletes, bulk batching, and how the engine handles write backpressure.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="tidesql-limitations.md" %}
 [tidesql-limitations.md](tidesql-limitations.md)
 {% endcontent-ref %}
@@ -274,6 +322,18 @@ How TideSQL participates in MariaDB replication and Galera clustering, including
 
 {% column %}
 The current limitations of the engine to know before putting a workload on it.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="tidesql-glossary.md" %}
+[tidesql-glossary.md](tidesql-glossary.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Definitions of the TidesDB and TideSQL terms used throughout these pages.
 {% endcolumn %}
 {% endcolumns %}
 

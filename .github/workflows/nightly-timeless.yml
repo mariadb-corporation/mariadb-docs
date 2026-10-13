@@ -60,6 +60,8 @@ concurrency:
 
 jobs:
   digest:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     # Two full-tree scans, ~13.5s locally. Without this the job inherits the
     # 6-hour default, so a wedged git call burns six hours of runner time and
@@ -87,6 +89,7 @@ jobs:
         id: base
         env:
           BASE_OVERRIDE: ${{ inputs.base_rev }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
 
@@ -105,9 +108,16 @@ jobs:
             #
             # -1 --before gives the newest commit at or before the cutoff, so
             # the window is "everything committed in the last 24 hours".
-            base=$(git rev-list -1 --before='24 hours ago' HEAD || true)
+            #
+            # Monday looks back 72 hours. There are no weekend runs, so a
+            # 24-hour Monday window never covered Friday morning to Sunday
+            # morning -- while the Monday heartbeat below announced "Weekend
+            # was quiet" for it. Found by DOCS-6914.
+            hours=24
+            [[ "${SCHEDULE:-}" == '25 6 * * 1' ]] && hours=72
+            base=$(git rev-list -1 --before="$hours hours ago" HEAD || true)
             if [[ -z "$base" ]]; then
-              echo "::error::No commit older than 24 hours was found, so there is no rolling base. Expected on a brand-new or shallow clone only."
+              echo "::error::No commit older than $hours hours was found, so there is no rolling base. Expected on a brand-new or shallow clone only."
               exit 1
             fi
           fi

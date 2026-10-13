@@ -63,6 +63,8 @@ jobs:
   # Resolve every input once -- a scheduled run supplies none of them -- so the
   # build matrix and the release job agree on one set of values.
   plan:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     outputs:
       spaces: ${{ steps.plan.outputs.spaces }}
@@ -246,7 +248,7 @@ jobs:
 
   release:
     needs: [plan, build]
-    if: always() && needs.build.result != 'cancelled'
+    if: always() && github.repository == 'mariadb-corporation/mariadb-docs' && needs.build.result != 'cancelled'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v7

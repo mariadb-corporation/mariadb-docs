@@ -1,6 +1,6 @@
 ---
 description: >-
-  MariaDB Cloud 2026.08.20 is a Tech Preview release, released on 2026-08-20.
+  MariaDB Cloud 2026.08.20 is a Public Preview release, released on 2026-08-20.
   It introduces Bring Your Own Cloud (BYOC) on Google Cloud.
 icon: rocket-launch
 ---
@@ -9,14 +9,14 @@ icon: rocket-launch
 
 **Release Date:** 20 August 2026
 
-Release 2026.08.20 is a Tech Preview release.
+Release 2026.08.20 is a Public Preview release.
 
 ## New Features
 
-### Bring Your Own Cloud (BYOC) on Google Cloud (Tech Preview)
+### Bring Your Own Cloud (BYOC) on Google Cloud (Public Preview)
 
 {% hint style="info" %}
-BYOC on Google Cloud is a **Tech Preview**. Features and behavior may change before general availability.
+BYOC on Google Cloud is in **Public Preview**. Features and behavior may change before general availability.
 {% endhint %}
 
 Bring Your Own Cloud (BYOC) deploys the MariaDB Cloud data plane inside your own Google Cloud account, while the control plane (Portal, API, and monitoring) remains in MariaDB Cloud. BYOC databases are managed with the same Cloud Portal, APIs, and Terraform provider. This release extends BYOC to Google Cloud.

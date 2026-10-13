@@ -81,7 +81,7 @@ Two behaviors are worth knowing in advance:
 * Passwords can never be set in the configuration the agent writes. They are resolved from the MariaDB Shell secret store when the migration runs, so never put a password in a prompt.
 * A connection that cannot be authenticated does not produce an error. Password lookups use the full connection URI, host and port included, and a connection whose lookup fails is simply not offered as a data source. Specify the port on each connection. (Run directly, the launcher stops with a connection error instead.)
 
-For a full walkthrough, see the [MySQL to MariaDB migration tutorial](https://ai-plugins.mariadb.com/tutorials/mysql-to-mariadb-migration/).
+For a full walkthrough, see the [MySQL to MariaDB migration tutorial](https://ai-plugins.mariadb.org/tutorials/mysql-to-mariadb-migration/).
 
 ## In This Section
 

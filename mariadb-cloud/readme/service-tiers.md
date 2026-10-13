@@ -85,7 +85,7 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 {% hint style="warning" %}
 **Technical preview features**
 
-MariaDB Enterprise Cluster, HTAP using MariaDB Exa, and BYOC are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOC is currently available on AWS and Microsoft Azure, with Google Cloud support to follow.
+MariaDB Enterprise Cluster and HTAP using MariaDB Exa are currently available as technical previews, and BYOC is available in Public Preview. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOC is currently available on AWS, Google Cloud, and Microsoft Azure.
 {% endhint %}
 
 ## Selecting a Tier
