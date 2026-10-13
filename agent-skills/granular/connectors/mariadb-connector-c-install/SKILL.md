@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/C, the C client libra
 
 # MariaDB Connector/C: Installation and Configuration
 
-*Last updated: 2026-08-10*
+*Last updated: 2026-10-13*
 
 MariaDB Connector/C is the C client library for MariaDB, and the layer that MariaDB Connector/Python, Connector/C++, and Connector/ODBC are built on. This skill covers installing it, getting an application to compile and link against it, and configuring it through option files and connection options. For calling the API, see **`mariadb-connector-c-usage`**.
 
@@ -15,6 +15,7 @@ MariaDB Connector/C is the C client library for MariaDB, and the layer that Mari
 
 | If the agent writes / assumes… | …prefer the MariaDB form |
 |---|---|
+| Runs the package manager or a system-wide `cmake --install` itself, as root | The agent does **not** run root steps. It hands them to the user and waits — see **Privileged steps** below. A build into `$HOME/.local` needs no root at all |
 | Installs only the runtime package and then tries to compile | Compiling needs the **development** package as well: `libmariadb-dev` on Debian and Ubuntu, `MariaDB-devel` on RHEL, Rocky Linux, and SLES. The runtime alone (`libmariadb3` / `MariaDB-shared`) has no headers and no `mariadb_config` |
 | Hardcodes `-I/usr/include/mysql -lmysqlclient` | Ask the installed connector instead: **`mariadb_config --cflags --libs`**, or `pkg-config --cflags --libs libmariadb`. The library is **`-lmariadb`**, and the include directory differs per distribution and per build |
 | Expects the library to pick up `/etc/my.cnf` or `~/.my.cnf` automatically | It does **not**. `mysql_real_connect()` reads option files only if the application first called `mysql_optionsv()` with **`MYSQL_READ_DEFAULT_FILE`** or **`MYSQL_READ_DEFAULT_GROUP`**. This is the single most common configuration surprise — the command-line clients read option files because *they* opt in |
@@ -32,30 +33,38 @@ MariaDB Connector/C is the C client library for MariaDB, and the layer that Mari
 
 ## Installing
 
+### Privileged steps
+
+Installing system packages and writing under `/usr` need root. The agent never runs these itself: privilege escalation hangs on a password prompt the agent cannot answer, and the decision to act as root belongs to the user.
+
+- **One command** — show it exactly, ask the user to run it as root in their own terminal, and wait for confirmation.
+- **Several commands** — write them into a script (for example `install-mariadb-connector-deps.sh`, with no privilege escalation inside it), ask the user to review it and run it as root, and wait.
+- **Afterwards** — verify without root: `mariadb_config --cc_version` (the Connector/C version; `--version` reports the server package version) and `pkg-config --modversion libmariadb`.
+
 ### Linux, from the MariaDB package repository
 
 Configure the repository first — `mariadb_repo_setup` for Community Server, `mariadb_es_repo_setup` (with a customer download token) for Enterprise Server. All major releases of a given server line ship the same Connector/C version.
 
 ```bash
-# Debian, Ubuntu
-sudo apt install libmariadb3 libmariadb-dev
-
-# CentOS, RHEL, Rocky Linux
-sudo yum install MariaDB-shared MariaDB-devel
-
-# SLES
-sudo zypper install MariaDB-shared MariaDB-devel
+# as root (the user runs this) — the line for the distribution
+apt install libmariadb3 libmariadb-dev           # Debian, Ubuntu
+yum install MariaDB-shared MariaDB-devel         # CentOS, RHEL, Rocky Linux
+zypper install MariaDB-shared MariaDB-devel      # SLES
 ```
 
 Binary tarballs for Linux and an MSI installer for Windows are available from the MariaDB Connector/C download page when the distribution's packages are unsuitable.
 
 ### Building from source
 
+Into a user prefix, with no root:
+
 ```bash
-cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo .
+cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="$HOME/.local" .
 cmake --build build
-sudo cmake --install build
+cmake --install build
 ```
+
+Set the prefix at **configure** time, not with `cmake --install --prefix`: the library's default plugin directory is fixed when CMake configures. The files land in `$HOME/.local/bin` (`mariadb_config`), `include/mariadb`, `lib/mariadb` (library and `plugin/`), and `lib/pkgconfig`. Consumers then need `$HOME/.local/bin` on `PATH`, `PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig`, and the library directory at run time — an rpath (below) or `LD_LIBRARY_PATH`. A system-wide install (default prefix `/usr/local`) is the same `cmake --install build` run as root — a privileged step for the user.
 
 Prerequisites:
 
@@ -67,6 +76,8 @@ Prerequisites:
 ```bash
 gcc app.c $(mariadb_config --cflags --libs) -o app
 ```
+
+For a library outside the runtime linker's search path, such as a `$HOME/.local` build, add an rpath: `-Wl,-rpath,"$(mariadb_config --variable=pkglibdir)"`.
 
 `mariadb_config` also reports `--version`, `--cc_version`, `--socket`, `--port`, and `--plugindir`, which is the reliable way to discover how a given installation was configured. Under pkg-config the module is `libmariadb`. In code, the public header is `mysql.h` and the API is `mysql_`-prefixed — that naming is historical and is what the library actually exports.
 

@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/C++ — that MariaDB 
 
 # MariaDB Connector/C++: Installation and Configuration
 
-*Last updated: 2026-08-10*
+*Last updated: 2026-10-13*
 
 MariaDB Connector/C++ is the C++ client library for MariaDB, layered on top of MariaDB Connector/C. This skill covers installing it, satisfying its dependency, and getting an application to compile, link, and find its plugins at runtime. For the API itself, see **`mariadb-connector-cpp-usage`**.
 
@@ -16,7 +16,8 @@ MariaDB Connector/C++ is the C++ client library for MariaDB, layered on top of M
 | If the agent writes / assumes… | …prefer the MariaDB form |
 |---|---|
 | Installs Connector/C++ on Linux and expects it to work | **MariaDB Connector/C is a hard prerequisite** and must be installed first. Connector/C++ **1.0** needs Connector/C **3.1.1 or later**; **1.1** needs **3.3.3 or later**. On Windows the MSI installs Connector/C for you |
-| Reaches for `apt install mariadb-connector-cpp` or `dnf install` from the MariaDB repository | Connector/C++ is **not** part of the server package repository. Download the `.deb`, `.rpm`, tarball, or MSI for the platform from the MariaDB Connector/C++ download page, then install the downloaded file — note the leading `./` on Debian: `sudo apt install ./mariadb-connector-cpp-*.deb` |
+| Reaches for `apt install mariadb-connector-cpp` or `dnf install` from the MariaDB repository | Connector/C++ is **not** part of the server package repository. Download the `.deb`, `.rpm`, tarball, or MSI for the platform from the MariaDB Connector/C++ download page, then install the downloaded file — note the leading `./` on Debian: `apt install ./mariadb-connector-cpp-*.deb`, run as root by the user |
+| Runs the package manager or copies into `/usr` itself, as root | The agent does **not** run root steps. It hands them to the user — a single command to run, or a script to review and run — and waits; see **Privileged steps**. Unpacking the tarball into `$HOME/.local` needs no root |
 | Installs from the binary tarball by copying `libmariadbcpp.so` and stopping | The tarball install is manual and has more parts than the library: the **headers** (`include/mariadb/`, including the `conncpp/` and `conncpp/compat/` subdirectories) and, most easily forgotten, the **plugin directory** (`lib/mariadb/plugin/`). Skip the plugins and the library builds and links fine, then fails at run time on authentication |
 | Uses `/usr/lib` on an RPM distribution | Path layout differs: **`/usr/lib64`** and `/usr/lib64/mariadb/plugin` on CentOS, RHEL, and Rocky Linux; **`/usr/lib`** and `/usr/lib/mariadb/plugin` on Debian and Ubuntu |
 | Links `-lmariadbcpp` but includes a Connector/C header | The public C++ header is **`mariadb/conncpp.hpp`**; the library is **`mariadbcpp`**. Including `mysql.h` pulls in the C API instead, and mixing the two in one translation unit is not the intended usage |
@@ -28,37 +29,52 @@ MariaDB Connector/C++ is the C++ client library for MariaDB, layered on top of M
 
 ## Installing
 
+### Privileged steps
+
+Package installs and writes under `/usr` need root. The agent never runs these itself: privilege escalation hangs on a password prompt the agent cannot answer, and the decision to act as root belongs to the user.
+
+- **One command** — show it exactly, ask the user to run it as root in their own terminal, and wait for confirmation.
+- **Several commands** (Connector/C plus the package, or a system-wide tarball install) — write them into a script such as `install-mariadb-connector-deps.sh`, with no privilege escalation inside it, ask the user to review it and run it as root, and wait.
+- **Afterwards** — verify without root: `mariadb_config --cc_version` for the Connector/C prerequisite, `ldconfig -p | grep mariadbcpp` (`/sbin/ldconfig` if it is not on `PATH`) for the library, and `ls /usr/include/mariadb/conncpp.hpp` for the headers.
+
 ### Linux, from RPM or DEB packages
 
-Install Connector/C first, then the downloaded Connector/C++ package:
+Install Connector/C first, then the downloaded Connector/C++ package — a natural fit for one script:
 
 ```bash
-# Prerequisite (from the MariaDB package repository)
-sudo apt install libmariadb3 libmariadb-dev      # Debian, Ubuntu
-sudo dnf install MariaDB-shared MariaDB-devel    # RHEL, Rocky Linux
-
-# Connector/C++, from the file downloaded for this distribution
-sudo dnf install mariadb-connector-cpp-*.rpm     # RPM-based
-sudo apt install ./mariadb-connector-cpp-*.deb   # Debian-based
+# install-mariadb-connector-deps.sh — as root (the user runs this); keep the lines for the distribution
+apt install libmariadb3 libmariadb-dev           # Debian, Ubuntu: Connector/C
+apt install ./mariadb-connector-cpp-*.deb        # Debian, Ubuntu: Connector/C++, the downloaded file
+dnf install MariaDB-shared MariaDB-devel         # RHEL, Rocky Linux: Connector/C
+dnf install mariadb-connector-cpp-*.rpm          # RHEL, Rocky Linux: Connector/C++, the downloaded file
 ```
 
 ### Linux, from the binary tarball
 
-All four groups of files matter — headers, the compatibility headers, the library, and the plugins:
+All four groups of files matter — headers, the compatibility headers, the library, and the plugins. Unpacked into a user prefix, none of it needs root (Connector/C must still be present — from packages or a `$HOME/.local` build, see **`mariadb-connector-c-install`**):
 
 ```bash
 tar -xvzf mariadb-connector-cpp-*.tar.gz
 cd mariadb-connector-cpp-*/
+mkdir -p "$HOME/.local"
+cp -R include lib "$HOME/.local/"     # include/mariadb/{conncpp,conncpp/compat}, lib/mariadb/{libmariadbcpp.so,plugin}
+```
 
-sudo install -d /usr/include/mariadb/conncpp /usr/include/mariadb/conncpp/compat
-sudo install include/mariadb/*                /usr/include/mariadb/
-sudo install include/mariadb/conncpp/*        /usr/include/mariadb/conncpp
-sudo install include/mariadb/conncpp/compat/* /usr/include/mariadb/conncpp/compat
+The application then compiles with `-I"$HOME/.local/include" -L"$HOME/.local/lib/mariadb" -Wl,-rpath,"$HOME/.local/lib/mariadb"`, and the plugins are found through `MARIADB_PLUGIN_DIR="$HOME/.local/lib/mariadb/plugin"` in the application's environment.
+
+A system-wide install is a script for the user to review and run as root:
+
+```bash
+# install-mariadb-connector-cpp.sh — as root (the user runs this), from the unpacked tarball directory
+install -d /usr/include/mariadb/conncpp /usr/include/mariadb/conncpp/compat
+install include/mariadb/*                /usr/include/mariadb/
+install include/mariadb/conncpp/*        /usr/include/mariadb/conncpp
+install include/mariadb/conncpp/compat/* /usr/include/mariadb/conncpp/compat
 
 # RPM-based distributions use lib64; Debian-based use lib
-sudo install -d /usr/lib64/mariadb/plugin
-sudo install lib/mariadb/libmariadbcpp.so /usr/lib64
-sudo install lib/mariadb/plugin/*         /usr/lib64/mariadb/plugin
+install -d /usr/lib64/mariadb/plugin
+install lib/mariadb/libmariadbcpp.so /usr/lib64
+install lib/mariadb/plugin/*         /usr/lib64/mariadb/plugin
 ```
 
 ### Windows, from the MSI
@@ -68,9 +84,9 @@ The MSI installs Connector/C as part of the same run. Afterwards, add the instal
 ### Building from source
 
 ```bash
-cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo .
+cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="$HOME/.local" .
 cmake --build build
-sudo cmake --install build
+cmake --install build      # user prefix, no root; a system prefix makes this a privileged step for the user
 ```
 
 CMake 3.10 or newer is required, and the build targets C++11. If a `libmariadb` subdirectory is present the build uses it and installs that Connector/C alongside; otherwise it links against the Connector/C already installed on the system.
