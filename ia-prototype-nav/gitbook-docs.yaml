@@ -165,12 +165,6 @@ site:
               default: true
               content:
                 directory: ./tools
-            - type: space
-              key: control-center
-              title: Control Center
-              path: control-center-home
-              content:
-                directory: ./control-center
     - type: section
       key: mariadb-cloud-sec
       title: Cloud

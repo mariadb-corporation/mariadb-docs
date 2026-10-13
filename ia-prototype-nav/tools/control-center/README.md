@@ -60,7 +60,7 @@ For the list of releases and what changed in each, see the [Control Center relea
 
 ## Licensing
 
-Control Center licenses for the number of nodes you run in your clusters, and can monitor these clusters for the duration. To get a Control Center license, [contact us](control-center/support.md).
+Control Center licenses for the number of nodes you run in your clusters, and can monitor these clusters for the duration. To get a Control Center license, [contact us](support.md).
 
 {% hint style="info" %}
 Licences are managed through a separate [Licensing]({tools}/control-center/admin-guide/license) screen.
@@ -99,37 +99,37 @@ A standard procedure for connecting a cluster to Control Center involves the fol
    - [Attaching a GridGain 8 Cluster]({tools}/control-center/getting-started/connect/connect-gridgain-cluster)
 
 {% content-ref url="control-center/cluster-management.md" %}
-[cluster-management.md](control-center/cluster-management.md)
+[cluster-management.md](cluster-management.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/profile/README.md" %}
-[profile](control-center/profile/README.md)
+[profile](profile/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/getting-started/README.md" %}
-[getting-started](control-center/getting-started/README.md)
+[getting-started](getting-started/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/admin-guide/README.md" %}
-[admin-guide](control-center/admin-guide/README.md)
+[admin-guide](admin-guide/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/gg9/README.md" %}
-[gg9](control-center/gg9/README.md)
+[gg9](gg9/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/gg8/README.md" %}
-[gg8](control-center/gg8/README.md)
+[gg8](gg8/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/tips/README.md" %}
-[tips](control-center/tips/README.md)
+[tips](tips/README.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/faq.md" %}
-[faq.md](control-center/faq.md)
+[faq.md](faq.md)
 {% endcontent-ref %}
 
 {% content-ref url="control-center/support.md" %}
-[support.md](control-center/support.md)
+[support.md](support.md)
 {% endcontent-ref %}
