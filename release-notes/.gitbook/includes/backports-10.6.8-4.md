@@ -8,3 +8,4 @@ MariaDB Enterprise Server enables a predictable development and operations exper
 * Added [JSON\_EQUALS() function](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_equals) to check JSON equality. (MENT-1452)
 * Added [JSON\_NORMALIZE() function](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_normalize) to normalize JSON values. (MENT-1456)
 * Added [password\_reuse\_check password validation plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-reuse-check-plugin). (MENT-1451)
+* Added the [SQL service for plugins]({server}/reference/product-development/plugin-development/sql-service-for-plugins), which lets a plugin run SQL statements on the local server. ([MDEV-19275](https://jira.mariadb.org/browse/MDEV-19275), MENT-1455)
