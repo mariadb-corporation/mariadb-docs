@@ -88,6 +88,12 @@ sudo dnf install mema-agent
 sudo apt-get install mema-agent
 ```
 {% endtab %}
+
+{% tab title="SLES" %}
+```bash
+sudo zypper install mema-agent
+```
+{% endtab %}
 {% endtabs %}
 
 The agent is now installed and running as a service.
