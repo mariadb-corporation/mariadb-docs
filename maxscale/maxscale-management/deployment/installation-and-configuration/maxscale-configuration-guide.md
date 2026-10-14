@@ -472,14 +472,18 @@ threads that are busy doing work have a smaller chance of accepting new
 connections and under a constant stream of new connections, threads with less
 work will naturally pick up more clients. Under bursty loads where connections
 come in batches and stay alive for a long time, the distribution of the
-connections may not be optimal.
+connections may not be optimal. For workloads where the connections have short
+to moderate lifetimes, the default `local` mode is the best choice as it
+balances the load based on how busy each worker thread is.
 
 With the `roundrobin` mode, all worker threads still accept connections but the
 worker thread is assigned in a round-robin manner so that each thread gets an
 equal number of connections. This mode works well when clients connect to
-MaxScale in batches and the sessions stay alive for a long time. This is also a
-good mode for doing performance evaluations with load generation frameworks that
-open up the connections on startup.
+MaxScale in batches and the sessions stay alive for a long time. If the workload
+consists of a small number of connections with very long lifetimes, for example
+when client-side connection pooling is used, it guarantees an even distribution
+of the connections. This is also a good mode for doing performance evaluations
+with load generation frameworks that open up the connections on startup.
 
 #### `skip_name_resolve`
 
@@ -692,7 +696,10 @@ This setting is available from MaxScale 26.10.
 
 The log timestamp format to use. The `default` and `iso_8601` values use ISO
 8601 timestamps with UTC timezone offset. The `datetime` is the legacy timestamp
-format.
+format. The formats, where the millisecond part is optional, are:
+
+* `iso_8601`: `YYYY-MM-DDTHH:MM:SS[.sss]+HH:MM`
+* `datetime`: `YYYY-MM-DD HH:MM:SS[.sss]`
 
 By default, if there are legacy log messages found in the first 100 lines of the
 MaxScale log, a warning is logged. To disable this warning, use `iso_8601`.
@@ -1807,7 +1814,8 @@ Enable tracking of query statistics.
 By default MaxScale tracks the latency of each executed query and keeps a record
 of the latency distribution. These latency measurements are then exported as
 metrics via the telemetry. The values are also exposed in the REST-API and the
-output of `maxctrl show qc_cache`.
+output of `maxctrl show qc_cache`. The `maxctrl show query_statistics` command
+also displays them.
 
 There is a cost to tracking the latency distribution. The most notable cost is
 an increase in memory usage per query which causes more pressure on the query
