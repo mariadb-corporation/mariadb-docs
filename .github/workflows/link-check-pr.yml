@@ -220,7 +220,7 @@ jobs:
           #
           #
           # DOCS-6415 (2026-09-14): medium.com, cited twice from
-          # tools/control-center/admin-guide/configuration.md as further reading on
+          # tools/enterprise/control-center/admin-guide/configuration.md as further reading on
           # Active Directory configuration. Medium serves 403 to automated clients
           # across the board -- same class as docs.oracle.com and access.redhat.com
           # above -- while both posts load normally in a browser. Nothing to

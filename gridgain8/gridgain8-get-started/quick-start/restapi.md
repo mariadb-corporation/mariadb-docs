@@ -108,4 +108,4 @@ Now that you've seen a very basic example of accessing GridGain clusters via the
 From here, you may want to:
 
 - Read more about using GridGain
-- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster
+- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster

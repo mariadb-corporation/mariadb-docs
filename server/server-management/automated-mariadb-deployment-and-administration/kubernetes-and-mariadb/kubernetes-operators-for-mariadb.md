@@ -25,7 +25,7 @@ A custom controller implements the checks that must be performed against the res
 MariaDB Enterprise Operator provides a seamless way to run and operate containerized versions of MariaDB Enterprise Server and MaxScale on Kubernetes, allowing you to leverage Kubernetes orchestration and automation capabilities. This document outlines the features and advantages of using Kubernetes and the MariaDB Enterprise Operator to streamline the deployment and management of MariaDB and MaxScale instances.
 
 {% hint style="success" %}
-Find the [documentation here](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator).
+Find the [documentation here](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator).
 {% endhint %}
 
 ## MariaDB Community Operator

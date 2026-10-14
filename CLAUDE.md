@@ -56,4 +56,4 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | Personal, machine-specific overrides | `.claude/settings.local.json` (gitignored) |
 | Agent / contributor playbooks | `dev-docs/` |
 
-> Note: `tools/` at the repo root is a **documentation space** (MariaDB Enterprise Tools docs), *not* a scripts directory. Agent scripts live under `.claude/hooks/`.
+> Note: `tools/` at the repo root is a **documentation space** (MariaDB Tools docs: Enterprise and Community tools), *not* a scripts directory. Agent scripts live under `.claude/hooks/`.

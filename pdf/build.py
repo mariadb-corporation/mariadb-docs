@@ -45,7 +45,7 @@ SPACE_TITLES = {
     "platform": "MariaDB Enterprise Platform",
     "connectors": "MariaDB Connectors",
     "analytics": "MariaDB Analytics and ColumnStore",
-    "tools": "MariaDB Enterprise Tools",
+    "tools": "MariaDB Tools",
     "mariadb-cloud": "MariaDB Cloud",
     "general-resources": "MariaDB General Resources",
     "galera-cluster": "MariaDB Galera Cluster",
