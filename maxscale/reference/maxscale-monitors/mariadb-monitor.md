@@ -1651,15 +1651,15 @@ This setting is available from MaxScale 26.10.
 * Default: `true`
 
 Whether to wait for open transactions to finish before proceeding with the
-switchover. The monitor will wait for one third of `switchover_timeout` for
-transactions to end which by default is 30 seconds.
+switchover. The monitor will wait at most one third of `switchover_timeout`,
+which is 30 seconds with default settings.
 
-If the cluster is being used by a service that uses the readwritesplit router,
-the monitor and the router will cooperate and the router will block new
-transactions from taking place when the switchover is about to begin. Existing
-transaction that were opened before the switch was started are allowed to
-complete, but if they do not complete before the timeout is hit, the switchover
-will proceed regardless of this.
+If the cluster is used by a service that uses the ReadWriteSplit router, the
+router will block new transactions from starting while the monitor is waiting
+for the transactions to end. Transactions that were opened before the switch was
+started are allowed to complete. If they do not complete before the timeout is
+hit, the switchover will proceed regardless. This usually results in the
+transactions failing.
 
 #### `verify_master_failure`
 
