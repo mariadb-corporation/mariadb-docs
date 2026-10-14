@@ -204,10 +204,10 @@ Every change InnoDB makes to a page happens inside a mini-transaction. From [Mar
 
 With [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log), 8 bytes of initialization vector sit between the sequence bit and the checksum and are covered by it. What else is encrypted depends on the format identifier (see [Format Identifiers](#format-identifiers)):
 
-* In the original encrypted subformat of the 10.8 format, identifier `0x50687973`, file names, page identifiers, and checkpoint information are not encrypted. Only the page-level payload is, with the tablespace ID and page number forming part of the initialization vector. A new encryption context is set up for every snippet of record payload, which made encrypted logging much slower than unencrypted logging.
-* In the current encrypted format, identifier `0xf09f979d`, everything except the type and length of each log record is encrypted, including page identifiers and `FILE_` records. The initialization vector consists of the 8 bytes stored before the checksum plus the type and length of the first record of the mini-transaction, and page identifiers are no longer part of it. Crash recovery and [mariadb-backup](../../backup-and-restore/mariadb-backup/) decrypt each mini-transaction to parse it, so both need access to the encryption keys.
+* In the original encrypted subformat of the 10.8 format, identifier `0xd0687973`, file names, page identifiers, and checkpoint information are not encrypted. Only the page-level payload is, with the tablespace ID and page number forming part of the initialization vector. A new encryption context is set up for every snippet of record payload, which made encrypted logging much slower than unencrypted logging.
+* In the current encrypted format, identifier `0xf09f979d`, everything except the type and length of each log record is encrypted, including page identifiers and `FILE_` records. The initialization vector consists of the 8 bytes stored before the checksum plus the type and length of the first record of the mini-transaction, and page identifiers are no longer part of it. Crash recovery and `mariadb-backup --backup` decrypt each mini-transaction to parse it, so both need access to the encryption keys.
 
-Because there is no mandatory block structure, InnoDB pads a write out to a block boundary with an `FILE_CHECKPOINT` record of whatever length is needed and an all-zero payload, instead of zero-filling the tail of a 512-byte block under a mutex.
+InnoDB does not pad the log to a block boundary. When a write ends partway through a block, the next write starts at the beginning of that block and overwrites it, including any leftover bytes after the last mini-transaction. The block size used for these writes is set by [innodb\_log\_write\_ahead\_size](innodb-system-variables.md#innodb_log_write_ahead_size).
 
 ### Format Identifiers
 
@@ -220,10 +220,11 @@ The first 4 bytes of `ib_logfile0` identify the format, as a big-endian unsigned
 | `0x00000067` | MariaDB 10.3.2                                                         |
 | `0x00000068` | MariaDB 10.4.0                                                         |
 | `0x50485953` | MariaDB 10.5.1, the physical redo log format                           |
-| `0x50687973` | MariaDB 10.8.1, the current format                                     |
+| `0x50687973` | MariaDB 10.8.1, the current format for unencrypted logs                |
+| `0xd0687973` | MariaDB 10.8.1, encrypted logs (read, but no longer written, from the versions in the next row) |
 | `0xf09f979d` | MariaDB 10.11.15, 11.4.9, 11.8.4, 12.1.2 and later, encrypted logs only |
 
-In the 10.4 and 10.5 formats, an encrypted log set the high bit of the identifier. The 10.8 format does not: encryption is indicated instead by the presence of encryption information after the creator field, so an encrypted log written by [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) still carries `0x50687973`.
+In the 10.4, 10.5, and 10.8 formats, an encrypted log has the high bit of the identifier set: `0x80000068`, `0xd0485953`, and `0xd0687973` respectively. The `0xf09f979d` identifier also has the high bit set.
 
 [MDEV-36024](https://jira.mariadb.org/browse/MDEV-36024) then redesigned [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log) to recover a performance regression, giving encrypted logs their own format identifier, `0xf09f979d`, from [MariaDB 10.11.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.15), [MariaDB 11.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.9), [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.4) and MariaDB 12.1.2. Those versions still read an encrypted log in the 10.8 format, but with `innodb_encrypt_log=ON` they write only the new format. A log written with [innodb\_encrypt\_log=OFF](innodb-system-variables.md#innodb_encrypt_log) is unaffected.
 
