@@ -44,20 +44,39 @@ In the following steps, the source database is named `PROD` , and the destinatio
 `RENAME TABLE` does not work for triggers, events, and routines. You need to dump these logical objects separately.
 
 ```bash
-mariadb-dump PROD --no-data --routines --triggers --events \
+mariadb-dump PROD --no-data --no-create-info --routines --triggers --events \
 > PROD_routines_triggers_events.sql
 ```
+
+{% hint style="danger" %}
+Do not omit `--no-create-info`. Without it, the dump contains `DROP TABLE IF EXISTS` and `CREATE TABLE` for every table. Restoring that file after the rename drops the moved tables and recreates them empty. `--no-data` does not prevent this.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**Dump Views.**
+
+`--no-create-info` leaves views out of the previous dump, and `RENAME TABLE` cannot move a view into another database. Dump the views separately, before the rename. This step requires bash, because it reads the view names into an array.
+
+```bash
+mapfile -t views < <(mysql -ss -e"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS \
+WHERE TABLE_SCHEMA = 'PROD'")
+[ ${#views[@]} -gt 0 ] && mariadb-dump PROD "${views[@]}" --no-data --skip-triggers \
+> PROD_views.sql
+```
+
+If `PROD` has no views, the second command does nothing and `PROD_views.sql` is not created, but the command exits with a non-zero status. In that case, skip the views restore in the later restore step.
 {% endstep %}
 
 {% step %}
 **Generate RENAME TABLE Commands.**
 
-Run the following query to generate a script with the necessary `RENAME TABLE` statements. This is much faster than a full logical dump.
+Run the following query to generate a script with the necessary `RENAME TABLE` statements. This is much faster than a full logical dump. Views are excluded, because they cannot be renamed into another database.
 
 ```sql
-mysql -ss -e"SELECT CONCAT('RENAME TABLE PROD.', TABLE_NAME, ' TO TEST.', \
-TABLE_NAME, ';') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD'" \
-> PROD_rename_table.sql
+mysql -ss -e"SELECT CONCAT('RENAME TABLE PROD.\`', TABLE_NAME, '\` TO TEST.\`', \
+TABLE_NAME, '\`;') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD' \
+AND TABLE_TYPE <> 'VIEW'" > PROD_rename_table.sql
 ```
 {% endstep %}
 
@@ -74,6 +93,15 @@ SELECT ROUTINE_SCHEMA, ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
 SELECT TRIGGER_SCHEMA, TRIGGER_NAME FROM INFORMATION_SCHEMA.TRIGGERS 
  WHERE TRIGGER_SCHEMA = 'PROD';
 ```
+
+Also record the number of rows in every base table. Take these counts now, before the rename, because afterwards the tables are no longer in `PROD`.
+
+```bash
+mysql -ss -e"SELECT CONCAT('SELECT ''', TABLE_NAME, ''', COUNT(*) FROM \`', \
+TABLE_NAME, '\`;') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD' \
+AND TABLE_TYPE IN ('BASE TABLE', 'SYSTEM VERSIONED')" > count_rows.sql
+mysql -ss PROD < count_rows.sql > PROD_row_counts.txt
+```
 {% endstep %}
 
 {% step %}
@@ -87,6 +115,10 @@ CREATE DATABASE TEST;
 {% step %}
 **Run the rename\_table Script.**
 
+{% hint style="warning" %}
+A table that has triggers cannot be renamed into another database. The rename fails with "Trigger in wrong schema". If the script fails partway, the tables before it have already been moved to `TEST`, so check the list of triggers from the previous steps before you run the script.
+{% endhint %}
+
 ```bash
 mysql TEST < PROD_rename_table.sql
 ```
@@ -95,10 +127,11 @@ mysql TEST < PROD_rename_table.sql
 {% step %}
 **Restore Logical Objects.**
 
-After the rename script completes, restore the triggers, routines, and events into the new database.
+After the rename script completes, restore the triggers, routines, and events into the new database. Restore the views last.
 
 ```bash
 mysql TEST < PROD_routines_triggers_events.sql
+mysql TEST < PROD_views.sql
 ```
 {% endstep %}
 
@@ -116,6 +149,13 @@ SELECT ROUTINE_SCHEMA, ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
        WHERE ROUTINE_SCHEMA = 'TEST';
 SELECT TRIGGER_SCHEMA, TRIGGER_NAME FROM INFORMATION_SCHEMA.TRIGGERS 
        WHERE TRIGGER_SCHEMA = 'TEST';
+```
+
+Then compare the row counts with the counts you took before the rename. Any difference means that rows were lost, so do not drop `PROD`.
+
+```bash
+mysql -ss TEST < count_rows.sql > TEST_row_counts.txt
+diff PROD_row_counts.txt TEST_row_counts.txt && echo "Row counts match"
 ```
 {% endstep %}
 
