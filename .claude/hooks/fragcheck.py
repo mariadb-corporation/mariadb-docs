@@ -221,6 +221,12 @@ FOREIGN_SPACES = {
 # thematic break that ends a group.
 NAV_ENTRY = re.compile(r'^(\s*)[*-] \[.*?\]\(<?([^)>]+?\.md)>?\)\s*$')
 NAV_GROUP = re.compile(r'^##\s+(.*?)\s*$')
+# A group whose slug differs from its title carries it as a trailing empty anchor,
+# which is how Git Sync writes a slug set in the GitBook UI:
+#   ## Pinned <a href="#offensive-security-experiments" id="offensive-security-experiments"></a>
+# The id is the slug verbatim: ired.team publishes that group under
+# /offensive-security-experiments/, and /pinned/ 404s (verified live in DOCS-6940).
+NAV_GROUP_ID = re.compile(r'\s*<a\s+href="#[^"]*"\s+id="([^"]+)"\s*>\s*</a>\s*$')
 NAV_BREAK = ('***', '---', '___')
 
 # Spelled out instead of collapsing to a dash. Every entry was read off a rendered
@@ -505,7 +511,9 @@ def nav_map(space):
         stem, or for a README.md its directory name -- and "readme" for the
         space's root README.md, whose children therefore sit under readme/
       * a "## Group" heading prefixes the pages under it with the group's slug,
-        until the next group or a *** thematic break
+        until the next group or a *** thematic break; the slug is the id of a
+        trailing <a href="#x" id="x"></a> when the heading has one, else the
+        slugged title
       * every segment is lowercased (File_instrumentation.md -> file_instrumentation)
       * the root README.md is also served at the space root
 
@@ -524,7 +532,9 @@ def nav_map(space):
     for line in text.splitlines():
         g = NAV_GROUP.match(line)
         if g:
-            group, stack = gitbook_slug(g.group(1)), []
+            explicit = NAV_GROUP_ID.search(g.group(1))
+            group = explicit.group(1) if explicit else gitbook_slug(g.group(1))
+            stack = []
             continue
         if line.startswith('# ') or line.strip() in NAV_BREAK:
             group, stack = '', []

@@ -16,7 +16,7 @@ orient before searching — the repo is ~9,900 `.md` files.
 | Connectors | `connectors/` | Client connectors (C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC) |
 | Analytics | `analytics/` | ColumnStore and analytics |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS |
-| Enterprise Tools | `tools/` | Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center |
+| Tools | `tools/` | Two section pages, each with its own folder. Enterprise Tools (`enterprise/`): Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center. Community Tools (`community/`): MySQL to MariaDB Migrator |
 | GridGain | `gridgain/` | GridGain 8 and GridGain 9 — **placeholder**, content being migrated from AsciiDoc |
 | General Resources | `general-resources/` | About, community, style guide, legal, theory |
 | Galera Cluster | `galera-cluster/` | Galera synchronous replication |
@@ -90,7 +90,17 @@ cannot see `{% include %}` at all, because it is template syntax rather than a M
 - Nav nesting is a **topical grouping** and need **not** match the file's directory location —
   entries under one nav section routinely link into unrelated directories. Match the indent of
   the sibling entries under your chosen parent, and link to the real file path. (GitBook derives
-  the page URL from the file path, independent of nav position.)
+  the page URL from the **nav position**, not the file path, so moving an entry moves the page's
+  URL even when the file stays put. See DOCS-6590.)
+- A `## Group` heading creates a sidebar section **and puts its slug into the URL** of every
+  page under it, until the next group. Adding a group above existing entries therefore moves
+  all of them. The slug comes from the title unless the heading carries an explicit one, which
+  Git Sync writes as a trailing anchor: `## Title <a href="#slug" id="slug"></a>`.
+  `fragcheck.py` reads both forms.
+- To split a space into sections whose URLs match their folders, use a section **page**
+  instead of a group: list `enterprise/README.md` and nest the products under it, and they
+  publish under `/tools/enterprise/…` because a README's slug is its directory name. That is
+  how Tools is split into Enterprise Tools and Community Tools (DOCS-6940).
 
 ## Moving or renaming a page
 
