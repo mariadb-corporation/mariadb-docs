@@ -8,7 +8,7 @@ description: >-
 # MySQL to MariaDB Migration: The Master Guide
 
 {% hint style="info" %}
-The [**MySQL to MariaDB Migrator**]({tools}/community/mariadb-migrator) tool automates end-to-end MySQL to MariaDB migrations — schema, data, users, and validation — in four selectable modes. Using it is the recommended way of migrating from MySQL to MariaDB.
+The [**MySQL to MariaDB Migrator**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-migrator) tool automates end-to-end MySQL to MariaDB migrations — schema, data, users, and validation — in four selectable modes. Using it is the recommended way of migrating from MySQL to MariaDB.
 
 This page describes how to migrate in a manual fashion.
 {% endhint %}

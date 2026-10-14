@@ -18,16 +18,16 @@ User creation on the target is plugin-aware: the source authentication plugin de
 
 | Source Plugin | Outcome on Target |
 | --- | --- |
-| [`mysql_native_password`]({server}/reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password) (with hash) | Migrated with the original password preserved. The hash is ported using MariaDB's `IDENTIFIED VIA ... USING` syntax. |
+| [`mysql_native_password`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password) (with hash) | Migrated with the original password preserved. The hash is ported using MariaDB's `IDENTIFIED VIA ... USING` syntax. |
 | `mysql_native_password` (no hash) | Created with the default password supplied at the prompt, with `PASSWORD EXPIRE` set so the user must change it on first login. |
-| [`caching_sha2_password`]({server}/reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password), `sha256_password` | Migrated with the original password preserved, so application users do not need a password reset after cutover. |
+| [`caching_sha2_password`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password), `sha256_password` | Migrated with the original password preserved, so application users do not need a password reset after cutover. |
 | `auth_socket`, `unix_socket`, `auth_pam`, `mysql_no_login`, anything else | **Skipped** — not created on the target. Configure these manually after the migration if needed. |
 
-Roles are detected separately and replayed on the target with [`CREATE ROLE IF NOT EXISTS`]({server}/reference/sql-statements/account-management-sql-statements/create-role). They are not migrated as users.
+Roles are detected separately and replayed on the target with [`CREATE ROLE IF NOT EXISTS`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/create-role). They are not migrated as users.
 
 ## Grants
 
-After each user is created, the migrator runs [`SHOW GRANTS`]({server}/reference/sql-statements/administrative-sql-statements/show/show-grants) against the source and replays each grant on the target. Grants that fail at replay time are dropped from the migration and listed in the per-user report. Common causes are:
+After each user is created, the migrator runs [`SHOW GRANTS`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-grants) against the source and replays each grant on the target. Grants that fail at replay time are dropped from the migration and listed in the per-user report. Common causes are:
 
 * MySQL 8.0 / 8.4 dynamic privileges that MariaDB does not recognize, such as `APPLICATION_PASSWORD_ADMIN`, `SYSTEM_USER`, or `SET_ANY_DEFINER`.
 * A grant on a database that does not exist on the target.

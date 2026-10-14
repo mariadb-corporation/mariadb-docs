@@ -33,7 +33,7 @@ Most modes share the same source and target connection variables:
 
 Requires the common source and target variables above. Optional:
 
-* `ANALYZE_TARGET` — `1` by default; runs [`ANALYZE TABLE`]({server}/reference/sql-statements/table-statements/analyze-table) on the target after the load to refresh optimizer statistics. Set to `0` to skip. (Applies to `one_step`, `two_step`, and `staged`.)
+* `ANALYZE_TARGET` — `1` by default; runs [`ANALYZE TABLE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/analyze-table) on the target after the load to refresh optimizer statistics. Set to `0` to skip. (Applies to `one_step`, `two_step`, and `staged`.)
 
 ## Parallel Restartable Streaming Copy (`two_step`)
 

@@ -16,7 +16,7 @@ The **MySQL to MariaDB Migrator** is a MariaDB tool that automates end-to-end mi
 All four migration modes have been exercised end-to-end against representative source and target pairs, including AWS RDS sources and MariaDB Cloud targets. As with any migration, rehearse against a non-production target and validate the result before you migrate a production database.
 {% endhint %}
 
-The migrator complements the manual workflows in the [MySQL to MariaDB Migration: The Master Guide]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide): the Master Guide explains the migration paths and the compatibility considerations, while the migrator automates the dump, load, user-migration, and validation steps for you.
+The migrator complements the manual workflows in the [MySQL to MariaDB Migration: The Master Guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide): the Master Guide explains the migration paths and the compatibility considerations, while the migrator automates the dump, load, user-migration, and validation steps for you.
 
 ## Supported Versions
 

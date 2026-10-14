@@ -140,7 +140,7 @@ Best for low-downtime cutover. For a step-by-step walkthrough, see [Migrate with
 
 ## Post-Load Optimizer Statistics
 
-After a dump-and-restore, the target's optimizer statistics are empty or stale, which can lead to poor query plans until they are refreshed. The migrator can run [`ANALYZE TABLE`]({server}/reference/sql-statements/table-statements/analyze-table) across the migrated databases on the target as a final step, so the optimizer has accurate statistics immediately.
+After a dump-and-restore, the target's optimizer statistics are empty or stale, which can lead to poor query plans until they are refreshed. The migrator can run [`ANALYZE TABLE`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/analyze-table) across the migrated databases on the target as a final step, so the optimizer has accurate statistics immediately.
 
 A prompt — `Run ANALYZE TABLE on target after load? (y/n)` — appears during setup, just after the application-user prompt. It defaults to `y` and is shown only for the modes where a fresh load occurs: Serial Streaming Copy (`one_step`), Parallel Restartable Streaming Copy (`two_step`), and Offline Copy (`staged`). It is not part of Replication (`binlog`), where replication keeps changing the tables after the seed.
 

@@ -48,7 +48,7 @@ Dedicated resources for specific MariaDB products and tools.
   * [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator)
   * [MariaDB Enterprise MCP Server](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-mcp-server)
   * [MariaDB AI RAG](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-ai-rag)
-  * [MySQL to MariaDB Migrator]({tools}/community/mariadb-migrator)
+  * [MySQL to MariaDB Migrator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-migrator)
 
 ### Ecosystem
 
