@@ -326,6 +326,7 @@ password=mariadbmon
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Introduced: MaxScale 26.10
 
 Defines the monitor for the external cluster. Must be a valid monitor name. The
 external cluster monitor needs to be running for replication management to
@@ -344,6 +345,7 @@ external_replication_monitor=MyExternalClusterMonitor
 * Dynamic: Yes
 * Values: `primary`, `replica`, `running`
 * Default: `primary`
+* Introduced: MaxScale 26.10
 
 Defines the external primary server to replicate from. This setting only has an
 effect when `external_replication_monitor` is set. The value defines a list of
@@ -361,6 +363,7 @@ external_replication_primary_role=replica
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Introduced: MaxScale 26.10
 
 This and `replication_password` specify the credentials for the
 replication user. These are given as the values for `MASTER_USER` and
@@ -380,11 +383,54 @@ privilege.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Introduced: MaxScale 26.10
 
 See [replication\_user](#replication_user). `replication_password` uses the same
 encryption scheme as other password parameters. If password encryption is in
 use, `replication_password` must be encrypted with the same key to avoid
 erroneous decryption.
+
+#### `replication_master_ssl`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `auto`
+* Values: `auto`, `off`, `on`
+* Introduced: MaxScale 26.10
+
+This controls the `MASTER_SSL`-option for any `CHANGE MASTER TO`-commands the
+monitor generates. Thus, this setting affects asynchronous replication
+connections only, not Galera replication.
+
+If set to `on`, the monitor will always set `MASTER_SSL=1` to enable encryption
+for the replication stream. `on` should only be used if the backend servers are
+configured for ssl.
+
+If set to `off`, monitors sets `MASTER_SSL=0` instead, disabling encryption
+for replication connections. Use `off` when you want to ensure that the monitor
+always sets up unencrypted replication.
+
+In `auto`-mode (default), the monitor attempts to guess the correct value for
+`MASTER_SSL`. The logic is as follows:
+
+1. When redirecting an existing replication connection, do not define the
+   `MASTER_SSL`-option at all. This preserves the existing value.
+2. When recreating a previously removed external replication connection, use the
+   settings from the removed connection.
+3. If no previous settings are available, e.g. due to MaxScale restart, match
+   monitor connection SSL-mode.
+
+`auto` should work for most cases. It allows for a mix of SSL-modes, with some
+replication connections encrypted and others unencrypted.
+
+If MaxScale has to guess the encryption mode, then the replication connection
+will use SSL if the primary server for the replication connection is monitored
+via an encrypted connection.
+
+```
+replication_master_ssl=off
+```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
