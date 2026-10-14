@@ -72,7 +72,15 @@ cannot see `{% include %}` at all, because it is template syntax rather than a M
 **`release-notes/`** is partitioned by product: `community-server/`, `enterprise-server/`,
 `maxscale/`, `columnstore/`, `galera-cluster/`, `connectors/`, `enterprise-operator/`,
 `enterprise-manager/`, `mcp-server-release-notes/`, `ai-rag-release-notes/`,
-`advanced-cluster/`.
+`advanced-cluster/`, `mariadb-cloud-release-notes/`.
+
+**Publishing a Cloud release note posts to #mariadb-product-releases**, the company-wide
+channel. A `mariadb-cloud-YYYY.MM.DD.md` page counts as published once it is on `main`, listed
+in `release-notes/SUMMARY.md` and not `hidden: true`. The push that makes all three true, whether
+from Git or the GitBook app, posts its `# Title`, `description:` and URL
+(`.github/workflows/announce-cloud-release-notes.yml`, DOCS-6936). So keep a note hidden until the
+release ships, and finish its description before unhiding it. Hiding it again does not retract
+the post, and unhiding it later posts a second time.
 
 **`connectors/`** has one directory per connector (`mariadb-connector-c/`,
 `-cpp/`, `-j/`, `-net/`, `-nodejs/`, `-odbc/`, `-python/`, `-r2dbc/`) plus
