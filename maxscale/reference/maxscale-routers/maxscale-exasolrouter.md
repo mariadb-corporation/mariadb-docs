@@ -95,7 +95,7 @@ properly unless the value is equivalent to UTF-8.
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 
 Defines the login timeout in seconds for a connection. Corresponds to the
@@ -103,17 +103,23 @@ Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeo
 will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
 
+**From MaxScale 26.10,** the setting can be modified at runtime. A change
+only affects sessions that are created after the change.
+
 ### `odbc_query_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 
 Defines the query timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
 will not explicitly be set, which means that a `QUERYTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
+
+**From MaxScale 26.10,** the setting can be modified at runtime. A change
+only affects sessions that are created after the change.
 
 ### `preprocessor`
 

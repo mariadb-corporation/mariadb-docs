@@ -71,23 +71,29 @@ setting, for instance in the output of `maxctrl show service`.
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 
 Defines the login timeout in seconds for a connection. If the value is set
 to 0, the timeout is not set explicitly, which means that the default of the
 ODBC driver applies.
 
+A change at runtime only affects sessions that are created after the
+change.
+
 ### `odbc_query_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 
 Defines the query timeout in seconds for a connection. If the value is set
 to 0, the timeout is not set explicitly, which means that the default of the
 ODBC driver applies.
+
+A change at runtime only affects sessions that are created after the
+change.
 
 ### `appearance`
 
