@@ -1661,25 +1661,6 @@ transaction that were opened before the switch was started are allowed to
 complete, but if they do not complete before the timeout is hit, the switchover
 will proceed regardless of this.
 
-#### `switchover_wait_for_trx`
-
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `true`
-
-Wait for transactions to commit before starting switchover. When enabled, the
-switchover operation waits for open transactions to commit before blocking new
-transactions. The switchover waits for at most a third of the
-`switchover_timeout` before proceeding with the operation if there still are
-open transactions that haven't finished.
-
-{% tabs %}
-{% tab title="< 26.10" %}
-This feature is only available in MaxScale 26.10.0 and later.
-{% endtab %}
-{% endtabs %}
-
 #### `verify_master_failure`
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
