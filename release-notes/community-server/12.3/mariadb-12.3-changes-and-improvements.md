@@ -200,6 +200,16 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Community Server 12.3 Release |
 | ----------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823) | 7.2                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822) | 6.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821) | 8.0                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107819](https://www.cve.org/CVERecord?id=CVE-2026-107819) | 5.9                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107818](https://www.cve.org/CVERecord?id=CVE-2026-107818) | 8.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107817](https://www.cve.org/CVERecord?id=CVE-2026-107817) | 4.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816) | 6.4                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815) | 8.5                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-102523](https://www.cve.org/CVERecord?id=CVE-2026-102523) | 8.0                    | [MariaDB 12.3.3](12.3.3.md)   |
+| [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380) | 8.8                    | [MariaDB 12.3.3](12.3.3.md)   |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [MariaDB 12.3.3](12.3.3.md)   |
 | [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [MariaDB 12.3.3](12.3.3.md)   |
 | [CVE-2026-60585](https://www.cve.org/CVERecord?id=CVE-2026-60585) | 6.6                    | [MariaDB 12.3.3](12.3.3.md)   |
