@@ -44,7 +44,7 @@ Executing the `CREATE TABLE` statement requires the [CREATE](../../account-manag
 
 ## CREATE OR REPLACE
 
-If the `OR REPLACE` clause is used and the table already exists, then instead of returning an error, the server will drop the existing table and replace it with the newly defined table.
+If the `OR REPLACE` clause is used and the table already exists, then instead of returning an error, the server will replace the existing table with the newly defined table.
 
 This syntax was originally added to make [replication](../../../../ha-and-performance/standard-replication/) more robust if it has to rollback and repeat statements such as `CREATE ... SELECT` on replicas.
 
@@ -52,7 +52,7 @@ This syntax was originally added to make [replication](../../../../ha-and-perfor
 CREATE OR REPLACE TABLE table_name (a INT);
 ```
 
-is basically the same as:
+Before MariaDB 13.2, and in the cases listed below where the existing table is dropped first, this is basically the same as:
 
 ```sql
 DROP TABLE IF EXISTS TABLE_NAME;
@@ -61,12 +61,22 @@ CREATE TABLE TABLE_NAME (a INT);
 
 with the following exceptions:
 
-* If `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md), it will continue to be locked after the statement.
+* When the existing table is dropped first, if `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md), it will continue to be locked after the statement.
 * Temporary tables are only dropped if the `TEMPORARY` keyword was used. (With [DROP TABLE](../drop/drop-table.md), temporary tables are preferred to be dropped before normal tables).
+
+From MariaDB 13.2, `CREATE OR REPLACE TABLE` is atomic by default. The server renames the existing table to a temporary backup name and creates the new table. It drops the backup only after the new table has been created and, if binary logging is enabled, the statement has been written to the binary log. If the `CREATE` fails, or the server crashes before then, the original table is kept. After the statement, `table_name` is therefore either the old table or the new table.
+
+The server drops the existing table first, as in the `DROP TABLE IF EXISTS` and `CREATE TABLE` statements above, in these cases:
+
+* The [drop\_before\_create\_or\_replace](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#drop_before_create_or_replace) system variable is `ON`.
+* The statement creates a `TEMPORARY` table.
+* The existing object is a view.
+* The existing table uses a storage engine for which renaming a table is expensive, such as [S3](../../../../server-usage/storage-engines/s3-storage-engine/README.md).
+* The statement runs on a [replica](../../../../ha-and-performance/standard-replication/) as part of replication.
 
 ### Things to be Aware of With CREATE OR REPLACE
 
-* The table is dropped first (if it existed), and after that, the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES`, it will be unlocked.
+* Before MariaDB 13.2, and in the cases listed above where the existing table is dropped first, the table is dropped (if it existed), and after that, the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES`, it will be unlocked.
 * One can't use `OR REPLACE` together with `IF EXISTS`.
 * [Replicas](../../../../ha-and-performance/standard-replication/) will, by default, use `CREATE OR REPLACE` when replicating `CREATE` statements that don't use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
 
@@ -962,7 +972,7 @@ CREATE OR REPLACE TABLE t1 (x INT)
 
 ## Atomic DDL
 
-MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic, except for `CREATE OR REPLACE`, which are only crash-safe.
+MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic. `CREATE OR REPLACE` is atomic from MariaDB 13.2, except where the existing table is dropped first (see [CREATE OR REPLACE](#create-or-replace)). Before MariaDB 13.2, it is only crash-safe.
 
 ## Examples
 
