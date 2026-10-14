@@ -1063,7 +1063,8 @@ The only _local_ storage implementation is `storage_inmemory` that simply stores
 
 There are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
 that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
-[gridgain](https://www.gridgain.com/) respectively.
+[gridgain](https://www.gridgain.com/) respectively. The `storage_memcached` storage is
+available until MaxScale 25.10.
 
 The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit. Namely, irrespective of whether the data is fetched from the cache or from the server there will be a network hop and often that network hop is, as far as the performance goes, what costs the most.
 
@@ -1208,6 +1209,10 @@ owns the queried data and should usually be enabled.
 The data in the GridGain server is _not_ encrypted.
 
 ### `storage_memcached`
+
+{% hint style="info" %}
+This storage module is available until MaxScale 25.10.
+{% endhint %}
 
 This storage module uses [memcached](https://memcached.org/) for storing the cached data.
 
