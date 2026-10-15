@@ -208,7 +208,9 @@ jobs:
           #
           # The body is truncated at 2,800 characters: Slack rejects an incoming-webhook payload
           # over 4,000 with msg_too_long, and at `errors: true` that is a red run. The step
-          # summary carries the full log.
+          # summary carries the full log. The cut comes after `esc`, because escaping can grow
+          # the text fivefold and only the escaped length is bounded; a cut that lands inside
+          # an entity (`&am`) drops the fragment rather than leaving it at the end.
           jq -n \
             --rawfile log postdownload.log \
             --rawfile added added-by.log \
@@ -222,14 +224,15 @@ jobs:
 
             (($log + (if $added == "" then "" else "\n" + $added end)) | esc) as $body
             | (if ($body | length) > 2800
-               then ($body[0:2800] + "\n… truncated; full output in the run summary.")
+               then (($body[0:2800] | sub("&[a-z]{0,3}$"; ""))
+                     + "\n… truncated; full output in the run summary.")
                else $body end) as $body
             | { text: (
                   if $rc == 0 and $heartbeat then
-                    ":coffee: *Weekly check-in* — every release notes page added to \($repo) since \($base) (\($basedate)) has its Post Download page."
+                    ":coffee: *Weekly check-in* — every Community Server and connector release notes page added to \($repo) since \($base) (\($basedate)) has its Post Download page."
                     + "\n\n<\($run)|workflow run>"
                   elif $rc == 0 then
-                    ":white_check_mark: Every release notes page added to \($repo) since \($base) has its Post Download page."
+                    ":white_check_mark: Every Community Server and connector release notes page added to \($repo) since \($base) has its Post Download page."
                     + "\n\n<\($run)|workflow run>"
                   else
                     ":package: *Post Download pages owed in \($repo)*\n"
@@ -259,7 +262,7 @@ jobs:
               echo "Baseline revision \`${BASE_SHORT:-?}\` (${BASE_DATE:-unknown})."
               echo
               case "${RC:-}" in
-                0) echo "Every release notes page added since the baseline has its Post Download page, or a register entry saying it has none." ;;
+                0) echo "Every Community Server and connector release notes page added since the baseline has its Post Download page, or a register entry saying it has none." ;;
                 1) echo "Release notes pages added since the baseline are missing their Post Download page or its \`platform/SUMMARY.md\` entry. Nothing was filed -- the fix stays a human decision." ;;
                 *) echo "The scan did not complete (exit ${RC:-unknown})." ;;
               esac
