@@ -448,3 +448,4 @@ Describes replication compatibility between MariaDB and MySQL.
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
