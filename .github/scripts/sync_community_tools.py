@@ -4,14 +4,18 @@
 The docs for MariaDB AI Plugins and MariaDB Shell are written in their own repos, under
 docs-ref/content/, laid out as this repo's Tools space. This script copies them in, one way:
 
-  docs-ref/content/community/<product>/   ->  tools/community/<product>/   (byte for byte)
+  docs-ref/content/community/<product>/   ->  tools/community/<product>/   (byte for byte*)
   the product's nav subtree               ->  tools/SUMMARY.md, under Community Tools
   its "## <title>" landing section        ->  tools/community/README.md
   its "### <title>" landing section       ->  tools/README.md, under Community Tools
   the images its pages use                ->  tools/.gitbook/assets/
 
-Nothing is rewritten on the way. A fix to a synced page is made in the product repo, and the
-next sync brings it back; a fix made here would be overwritten. That is also why the synced
+* With one exception, nothing is rewritten on the way: a link to a page the sync doesn't
+publish becomes plain text, and a content-ref to one is dropped. Such a page is either
+excluded in the config (an unreleased feature, for example) or in a community/ folder that
+isn't a synced product. The source keeps its links, so they come back on their own when the
+exclusion goes. A fix to a synced page is made in the product repo, and the next sync brings
+it back; a fix made here would be overwritten. That is also why the synced
 pages carry no link aliases: expand-gitbook-aliases.yml would rewrite them, and the files
 would stop matching their source. The script refuses a page that contains one.
 
@@ -52,6 +56,10 @@ SOURCE_ROOT = "docs-ref/content"
 ALIAS = re.compile(r"\]\(\{[a-z0-9-]+\}(/|\))")
 ASSET = re.compile(r"\.gitbook/assets/([^)\s\"'>]+)")
 NAV_LINE = re.compile(r"^(\s*)\* \[[^\]]*\]\(([^)]+)\)")
+# An inline Markdown link (not an image): [text](target) or [text](target "title").
+LINK = re.compile(r'(?<!!)\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)')
+CONTENT_REF = re.compile(r'\{% content-ref url="([^"]+)" %\}.*?\{% endcontent-ref %\}\n*', re.S)
+FENCE = re.compile(r"^\s*(```|~~~)")
 
 
 class ContentError(Exception):
@@ -67,6 +75,66 @@ def excluded(rel, patterns):
     """True if a path relative to the product folder matches an exclude pattern."""
     return any(fnmatch.fnmatch(rel, p) or rel.startswith(p.rstrip("/") + "/")
                for p in patterns)
+
+
+def unpublished_target(target, page_rel, key, patterns, products):
+    """True if a link target on a page resolves to a page the sync doesn't publish: one this
+    product excludes, or one in a community/ folder that isn't a synced product. page_rel is
+    the page's path relative to the product folder."""
+    if re.match(r"^[a-z][a-z0-9+.-]*:", target, re.I) or target.startswith(("#", "/")):
+        return False
+    path = unquote(target.split("#", 1)[0])
+    if not path:
+        return False
+    # Resolve against the source tree, docs-ref/content/, with the product at community/<key>/.
+    resolved = os.path.normpath(os.path.join(COMMUNITY, key, os.path.dirname(page_rel), path))
+    parts = resolved.split(os.sep)
+    if len(parts) < 3 or parts[0] != COMMUNITY:
+        return False
+    if parts[1] == key:
+        return excluded("/".join(parts[2:]), patterns)
+    return parts[1] not in products
+
+
+def unlink_unpublished(text, page_rel, key, patterns, products):
+    """Return (text, count): links to unpublished pages turned into their link text, and
+    content-refs to them dropped. Code blocks are left alone."""
+    hit = lambda t: unpublished_target(t, page_rel, key, patterns, products)
+    count = 0
+
+    def ref(m):
+        nonlocal count
+        if hit(m.group(1)):
+            count += 1
+            return ""
+        return m.group(0)
+
+    def link(m):
+        nonlocal count
+        if hit(m.group(2)):
+            count += 1
+            return m.group(1)
+        return m.group(0)
+
+    out, block, fenced = [], [], False
+
+    def flush():
+        if block:
+            out.append(LINK.sub(link, CONTENT_REF.sub(ref, "".join(block))))
+            block.clear()
+
+    for line in text.splitlines(keepends=True):
+        if FENCE.match(line):
+            if not fenced:
+                flush()
+            fenced = not fenced
+            out.append(line)
+        elif fenced:
+            out.append(line)
+        else:
+            block.append(line)
+    flush()
+    return "".join(out), count
 
 
 def image_used(image):
@@ -178,7 +246,7 @@ def replace_section(dest_path, src_path, heading):
             f.write(new)
 
 
-def sync_product(key, cfg, src_repo, state):
+def sync_product(key, cfg, src_repo, state, products):
     title, patterns = cfg["title"], cfg.get("exclude", [])
     src_content = os.path.join(src_repo, SOURCE_ROOT)
     src_dir = os.path.join(src_content, COMMUNITY, key)
@@ -186,10 +254,10 @@ def sync_product(key, cfg, src_repo, state):
     if not os.path.isdir(src_dir):
         raise ContentError(f"{cfg['repo']} has no {SOURCE_ROOT}/{COMMUNITY}/{key}/.")
 
-    # 1. The pages, byte for byte. Excluded pages are left out.
+    # 1. The pages, byte for byte. Excluded pages are left out, and links to them unlinked.
     if os.path.isdir(dest_dir):
         shutil.rmtree(dest_dir)
-    pages = []
+    pages, unlinked = [], 0
     for root, _dirs, files in os.walk(src_dir):
         for name in sorted(files):
             path = os.path.join(root, name)
@@ -201,6 +269,13 @@ def sync_product(key, cfg, src_repo, state):
             shutil.copyfile(path, out)
             if name.endswith(".md"):
                 pages.append(out)
+                with open(out, encoding="utf-8") as f:
+                    text = f.read()
+                new, n = unlink_unpublished(text, rel, key, patterns, products)
+                if n:
+                    with open(out, "w", encoding="utf-8") as f:
+                        f.write(new)
+                    unlinked += n
 
     # 2. No link aliases: the alias bot would rewrite them and break the byte-for-byte copy.
     problems = []
@@ -269,7 +344,8 @@ def sync_product(key, cfg, src_repo, state):
             os.remove(path)
             gone.append(image)
 
-    return {"commit": git_head(src_repo), "assets": sorted(images)}, len(pages), gone
+    return ({"commit": git_head(src_repo), "assets": sorted(images)}, len(pages), gone,
+            unlinked)
 
 
 def main():
@@ -297,7 +373,8 @@ def main():
             src_repo = os.path.join(args.src, key)
             if not os.path.isdir(os.path.join(src_repo, ".git")):
                 die(f"no checkout of {cfg['repo']} at {src_repo}.")
-            state, count, gone = sync_product(key, cfg, src_repo, synced.get(key, {}))
+            state, count, gone, unlinked = sync_product(key, cfg, src_repo,
+                                                        synced.get(key, {}), products)
             old = synced.get(key, {}).get("commit")
             synced[key] = state
             line = (f"- **{cfg['title']}**: {count} pages from "
@@ -308,6 +385,8 @@ def main():
                          f"(https://github.com/{cfg['repo']}/compare/{old}...{state['commit']})")
             if cfg.get("exclude"):
                 line += f"; not published: {', '.join(f'`{p}`' for p in cfg['exclude'])}"
+            if unlinked:
+                line += f"; {unlinked} link(s) to unpublished pages turned into plain text"
             if gone:
                 line += f"; removed unused images: {', '.join(gone)}"
             report.append(line)

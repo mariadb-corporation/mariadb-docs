@@ -40,7 +40,12 @@ from the Actions tab (input `products`: a space-separated list of product keys, 
 The scheduled run and `all` skip products on `hold` (see below). It
 calls `.github/scripts/sync_community_tools.py`, which, for each product:
 
-- replaces `tools/community/<product>/` with the source folder, **byte for byte**;
+- replaces `tools/community/<product>/` with the source folder, **byte for byte**, with one
+  exception: a link to a page the sync doesn't publish becomes its plain link text, and a
+  content-ref to such a page is dropped. That covers pages excluded in the config and pages in
+  a `community/` folder that isn't a synced product (such as `mariadb-rest-service/`). Code
+  blocks are left alone. The source keeps its links, so they come back by themselves when the
+  exclusion is removed;
 - replaces the product's subtree in `tools/SUMMARY.md`, under Community Tools;
 - replaces the product's `## <title>` section in `tools/community/README.md` and its
   `### <title>` section in `tools/README.md` with the sections from the source repo's stand-in
@@ -82,9 +87,10 @@ The sync stops without a PR if the source needs fixing first:
 - **`ref`** is the branch or tag to copy from.
 - **`exclude`** holds back pages that aren't ready to publish, for example docs for an
   unreleased feature. Each entry is a path relative to the product folder; a glob (`*`) or a
-  folder name excludes several pages. The sync drops their files and their nav entries. A
-  link to an excluded page from a synced page is dead, and the gates report it: remove the
-  link upstream, or exclude the linking page as well.
+  folder name excludes several pages. The sync drops their files and their nav entries, and
+  turns links to them into plain text (see above), so the product repo keeps its links. A
+  sentence like "See REST Daemon Tools." then stays as plain text; if that reads badly, ask
+  the product owner to reword it upstream.
 
 - **`hold`**, if `true`, keeps a product out of the scheduled run and out of `all`. Use it while
   a product's first sync waits on a decision. Naming the product in a manual run still syncs
