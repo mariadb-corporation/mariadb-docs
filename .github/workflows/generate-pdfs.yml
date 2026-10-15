@@ -161,6 +161,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # The runner image's package index can name versions the mirror has
+      # already dropped. On 2026-10-15 that made the qpdf/poppler install 404
+      # for two spaces, and those two PDFs were missing from the release
+      # (DOCS-6946). Refresh the index once, before the first install.
+      - name: Refresh the apt package index
+        run: sudo apt-get update
+
       # Ubuntu's packaged pandoc lags well behind and lacks the flags build.py
       # relies on, so pin the version explicitly.
       - name: Install pandoc ${{ env.PANDOC_VERSION }}
