@@ -39,7 +39,7 @@ cdc source create --name mssql_source --type mssql --tables dbo.ACCOUNTS \
   --experimental
 ```
 
-See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#replicating-from-microsoft-sql-server-experimental) for setup steps, source parameters, and current limitations.
+See [Replicating from Microsoft SQL Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture#replicating-from-microsoft-sql-server) for setup steps, source parameters, and current limitations.
 
 ### GridGain 9 CDC Sink
 

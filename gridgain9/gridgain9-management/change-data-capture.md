@@ -27,10 +27,10 @@ Command arguments:
 | Property | Default | Description |
 |---|---|---|
 | name |  | The name the CDC source. This name will be used to reference it. |
-| type |  | Data source type. Supported values: `gridgain`; `mssql` (experimental, requires `--experimental`). |
+| type |  | Data source type. Supported values: `gridgain`, `mssql`. |
 | tables |  | Comma-separated list of tables that will be replicated. |
 | parameters |  | Optional additional parameters. The following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
-| experimental | false | Optional. Enables experimental source types, such as `mssql`. Creating or updating a source with an experimental type fails unless this flag is set. |
+| experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. |
 
 Below is an example of a CDC data source:
 
@@ -40,7 +40,7 @@ cdc source create --name gridgain_source --type gridgain --tables PUBLIC.MY_TABL
 
 ### Updating CDC Source
 
-You can update the CDC source when the relevant replication is not running by using the `cdc source update` command. The command uses the same arguments as the `cdc source create` command, including `--experimental`: updating a source that uses an experimental type, such as `mssql`, also requires the `--experimental` flag. For example:
+You can update the CDC source when the relevant replication is not running by using the `cdc source update` command. The command uses the same arguments as the `cdc source create` command, including `--experimental`. For example:
 
 ```
 cdc source update --name gridgain_source --type gridgain --parameters "poll-interval-ms"=1000 --tables=PUBLIC.MY_TABLE1
@@ -213,28 +213,50 @@ Start the replication process:
 cdc replication start --name gg_to_iceberg
 ```
 
-## Replicating from Microsoft SQL Server (Experimental)
+## Replicating from Microsoft SQL Server
 
 {% hint style="warning" %}
-The Microsoft SQL Server CDC source and the GridGain 9 CDC sink are experimental features. They may change significantly in later releases.
+The GridGain 9 CDC sink (`gridgain_9`) used in this section is an experimental feature. It may change significantly in later releases. The Microsoft SQL Server CDC source (`mssql`) is not experimental.
 {% endhint %}
 
 This section describes how to replicate changes from a Microsoft SQL Server database into GridGain 9 tables. SQL Server acts as the CDC source, and a GridGain 9 sink lands the changes in local tables: inserts and updates are applied as upserts, and deletes remove the corresponding rows.
 
-### Prerequisites
+### Prerequisites and Required Permissions
 
-- Native CDC must be enabled on the SQL Server database and on each replicated table (capture instances).
-- The destination GridGain 9 table must already exist with a schema compatible with the source rows (matching column names and types). Schema changes are not propagated automatically.
+Prepare SQL Server in this order:
+
+1. Enable CDC on the database with `EXEC sys.sp_cdc_enable_db`. This requires the `sysadmin` role. The SQL Server Agent must be running, because the CDC capture and cleanup jobs run in it.
+2. Enable CDC on each replicated table with `sys.sp_cdc_enable_table`. The captured column list (`@captured_column_list`) must include every primary-key column, or the source refuses to start. If `@role_name` is not `NULL`, the replication login must be a member of that role. You can enable CDC on a table after the replication starts: the source waits for the capture instance before it takes the snapshot.
+3. Grant the replication login these permissions in the source database:
+   * `SELECT` on each source table, for the snapshot and the primary-key metadata.
+   * `SELECT` on `cdc.captured_columns` and `cdc.change_tables`, for the column and type checks at start.
+   * `SELECT` on the function `cdc.fn_cdc_get_all_changes_<capture_instance>`, for the change reads. The `sys.fn_cdc_*` functions are public.
+4. In `msdb`, create a user for the login and grant it `SELECT ON msdb.dbo.cdc_jobs`. The source reads the cleanup job's retention from this table to tell changes that the retention cleanup discarded (data loss) apart from a capture instance whose start position only moved. Without this grant the source runs in a degraded mode and logs a warning that names the grant. In that mode, a replication on a table that had no changes yet can end as expired after a restart, although no change was lost.
+5. Create the destination GridGain 9 table with a schema compatible with the source rows (matching column names and types). Schema changes are not propagated automatically.
+
+For example:
+
+```sql
+USE testdb;
+EXEC sys.sp_cdc_enable_db;
+EXEC sys.sp_cdc_enable_table @source_schema = N'dbo', @source_name = N'ACCOUNTS',
+    @role_name = NULL, @supports_net_changes = 0;
+GRANT SELECT ON dbo.ACCOUNTS TO replicator;
+GRANT SELECT ON cdc.captured_columns TO replicator;
+GRANT SELECT ON cdc.change_tables TO replicator;
+GRANT SELECT ON cdc.fn_cdc_get_all_changes_dbo_ACCOUNTS TO replicator;
+
+USE msdb;
+CREATE USER replicator FOR LOGIN replicator;
+GRANT SELECT ON dbo.cdc_jobs TO replicator;
+```
 
 ### Create the SQL Server Source
-
-Because the `mssql` source type is experimental, you must pass the `--experimental` flag. Without it, the command is rejected with `MSSQL source is experimental; pass the --experimental flag to enable it.`
 
 ```
 cdc source create --name mssql_source --type mssql --tables dbo.ACCOUNTS \
   --parameters jdbcUrl="jdbc:sqlserver://localhost:1433;databaseName=testdb;encrypt=true;trustServerCertificate=true" \
-  --parameters user=sa --parameters password=<password> \
-  --experimental
+  --parameters user=replicator --parameters password=<password>
 ```
 
 Source parameters:
@@ -249,6 +271,10 @@ Source parameters:
 | password |  | SQL Server password. |
 | pollIntervalMs | 1000 | Interval, in milliseconds, at which GridGain polls SQL Server for changes. |
 | fetchSize | 0 | JDBC fetch size. `0` uses the driver default. |
+| reconnectAttempts | 30 | How many times in a row the source reconnects after a lost connection before it fails the replication. `0` disables reconnecting. |
+| reconnectBackoffMs | 1000 | Delay, in milliseconds, before the first reconnect attempt. The delay doubles after each consecutive failure. |
+| reconnectMaxBackoffMs | 60000 | Upper bound, in milliseconds, of the reconnect delay. It is at least `reconnectBackoffMs`. With the defaults, the source keeps trying for about 25 minutes. |
+| watermarkFlushIntervalMs | 60000 | How often, in milliseconds, an idle table still records its position, so that a table without changes does not look expired after the retention period. |
 
 {% hint style="info" %}
 When the JDBC URL is built from `host`, `database`, and `port`, GridGain sets `encrypt=true;trustServerCertificate=true`. This encrypts the connection but does not validate the SQL Server certificate. To control the TLS behavior, pass an explicit `jdbcUrl` instead.
@@ -291,10 +317,31 @@ cdc replication start --name mssql_to_gg9
 
 Both `NEW_DATA` and `ALL` modes are supported.
 
+### Retention and Recovery
+
+- The SQL Server CDC cleanup retention (`sys.sp_cdc_change_job @job_type = N'cleanup', @retention = <minutes>`, 3 days by default) limits how long a stopped replication can be resumed. A replication whose saved position is older than the oldest retained change fails with `GG-CDC-15`: the changes in between are lost. Delete and recreate the replication. In `ALL` mode it starts from a fresh snapshot, in `NEW_DATA` mode from the current position.
+- A lost connection is re-established with an exponential backoff (see the `reconnect*` parameters). When the attempts are used up, the replication fails with `GG-CDC-16`.
+- A restart during the initial `ALL`-mode snapshot starts the snapshot again. If the connection is lost after snapshot rows have already been replicated, the replication stops instead of delivering those rows twice; delete and recreate it.
+
+### Schema Changes
+
+The source reads the capture instance named `<schema>_<table>`, which is the SQL Server default name; a different name cannot be configured. SQL Server keeps a capture instance's column list fixed, so a schema change needs a new capture instance:
+
+1. Stop the replication.
+2. Change the source table.
+3. Re-create the capture instance: run `sys.sp_cdc_disable_table` with `@capture_instance = N'<schema>_<table>'`, then `sys.sp_cdc_enable_table` with the default capture instance name.
+4. Apply the same change to the destination GridGain 9 table.
+5. Delete and recreate the replication. The saved position belongs to the old capture instance, so a resume fails with `GG-CDC-15`. Recreate it in `ALL` mode to copy the table again, or in `NEW_DATA` mode to continue from the current position without the changes made while it was stopped.
+
 ### Limitations
 
-- Type mapping covers common SQL Server types (integers, strings, decimals, booleans, dates and times). Other types are not yet mapped.
-- In `ALL` mode, the initial snapshot is not transactionally consistent with the start position for rows changed during the snapshot.
-- Connectivity and CDC-enablement are not deeply validated when the source is created.
+- Supported SQL Server types: `bit`, `tinyint`, `smallint`, `int`, `bigint`, `decimal`, `numeric`, `money`, `smallmoney`, `float`, `real`, `char`, `varchar`, `nchar`, `nvarchar`, `text`, `ntext`, `binary`, `varbinary`, `image`, `uniqueidentifier`, `date`, `time`, `datetime`, `datetime2`, `smalldatetime`, `datetimeoffset`, `rowversion`. A captured column of another type (for example `sql_variant` or `xml`) fails the replication at start. GridGain 9 stores time with microsecond precision: map `time(7)` and `datetime2(7)` to `TIME(6)` and `TIMESTAMP(6)` columns. A `datetimeoffset` value arrives as an instant in UTC (`TIMESTAMP WITH LOCAL TIME ZONE`).
+- No metrics: lag, throughput and errors are visible only in the node logs.
+- No backpressure: the source reads the next changes only after the sink has written the previous ones. A slow sink makes the lag grow; it does not fail the replication. Changes are read in chunks of up to 12288 rows or 16 MiB of row data, whichever comes first, and each chunk records its own position, so the memory a backlog needs does not grow with the backlog. One source transaction is never split: a transaction larger than both limits is held in memory whole. The initial snapshot is read in chunks of 1024 rows.
+- One thread and one JDBC connection per replicated table. 100 tables per source were tested on one node.
+- End-to-end lag has a floor set by the SQL Server capture job: about 4 to 8 seconds with the default job settings (`pollinginterval` of 5 seconds), about 2 to 3 seconds with a shorter `pollinginterval`. A `pollIntervalMs` below 1000 does not lower it.
+- The source checks only that the connection parameters are present when it is created. A wrong host, database or table shows up when the replication starts.
+- In `ALL` mode, the initial snapshot is not transactionally consistent with the start position for rows changed during the snapshot. Such rows converge when the incremental phase replays their changes.
+- A paused or unresponsive SQL Server is not detected until its connection returns.
 - Schema and DDL changes are not propagated; the destination table must exist with a compatible schema.
 - In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types.
