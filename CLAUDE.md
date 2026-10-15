@@ -31,6 +31,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | Publishing the docs-site MCP server to the official registry | `dev-docs/cookbook-mcp-registry.md` |
 | Reviewing GitBook-UI edits (the nightly digest) | `dev-docs/cookbook-gitbook-edit-review.md` |
 | Community Tools docs synced from product repos (AI Plugins, Shell) | `dev-docs/cookbook-community-tools-sync.md` |
+| The generated MaxScale settings reference (never hand-edit it) | `dev-docs/cookbook-maxscale-settings-reference.md` |
 | Claude Code status line (Roel's script) | `dev-docs/cookbook-statusline.md` |
 
 ## Skills

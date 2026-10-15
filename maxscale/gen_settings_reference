@@ -9,6 +9,11 @@
 # This script extracts the configuration settings of MaxScale
 # and outputs a file containing them all.
 #
+# The output, reference/maxscale-configuration-settings.md, is generated.
+# Never edit it by hand, in Git or in the GitBook editor: the next run
+# overwrites every hand edit. Change the module page the setting comes
+# from, then rerun this script.
+#
 # A setting is identified by scanning for "* Type" and that
 # line and every following line beginning with "* " are assumed
 # to be documentation for the parameter named in the heading above
@@ -24,7 +29,24 @@
 #
 #     * Type: string
 #     * Mandatory: No
-#     ...
+#     * Dynamic: Yes
+#     * Default: None
+#     * Description: One sentence that says what the setting does.
+#
+# The "* Description:" bullet is what the settings reference shows
+# for the setting, so every setting should have one. The script lists
+# the settings that have none on stderr.
+#
+# A setting may also be named by a bold paragraph instead of a heading,
+# as the key manager settings are:
+#
+#     #### Settings for File-based Key Manager
+#
+#     **`file.keyfile`**
+#
+#     * Type: path
+#
+# Its link then points at the heading above the bold paragraph.
 #
 # In case there are more groups, then the general group should
 # have the heading "Settings" and more specific groups then
@@ -38,6 +60,10 @@
 #
 # $ ./gen_settings_reference > reference/maxscale-configuration-settings.md
 #
+# Link anchors use the GitBook slug rules of the repository's fragment
+# checker (.claude/hooks/fragcheck.py), so the links it writes resolve.
+# See dev-docs/cookbook-maxscale-settings-reference.md.
+#
 
 import os
 import re
@@ -45,35 +71,60 @@ import sys
 
 from collections import deque
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "..", ".claude", "hooks"))
+from fragcheck import gitbook_slug
+
 link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
+bold_name_pattern = r'^\*\*`?([^*`]+)`?\*\*$'
+
+# A setting name is an identifier such as threads or vault.host. Pages
+# that are not module pages (the REST API resources, the telemetry
+# metrics) also have "* Type" bullets, under headings such as
+# "Create a filter"; this tells them apart.
+setting_name_pattern = r'^[a-z][A-Za-z0-9_.]*$'
+
+# Links in the output are relative to the page being generated.
+output_dir = "reference"
+
+# The deepest heading level GitBook gives an anchor to. Deeper groups
+# are printed as bold paragraphs instead.
+max_heading_level = 4
+
+missing_descriptions = []
+
+def relative_to_output(path):
+    return os.path.relpath(path, output_dir)
+
+def escape(name):
+    return name.replace("_", "\\_")
 
 class Entry:
-    def __init__(self, name, path):
+    def __init__(self, name, path, anchor):
         self.name = name
-        self.path = "../" + path
+        self.path = path
+        self.anchor = anchor
         self.lines = []
 
     def modify_link(self, match):
         name = match.group(1)
         link = match.group(2)
 
+        if re.match(r'^[a-z]+:', link):
+            return match.group(0)
+
         parts = link.split("#", 1)
         path = parts[0]
         entry = parts[1] if len(parts) > 1 else ""
 
-        # The "Master Path" we want everything to point to
-        target_guide = "../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md"
+        # Resolve the link against the module page it was written in,
+        # then make it relative to the generated page.
+        if path:
+            path = os.path.normpath(os.path.join(os.path.dirname(self.path), path))
+        else:
+            path = self.path
 
-        # Check if the path is empty (internal anchor)
-        # OR if it's a reference to the configuration guide (relative or direct)
-        if not path or "maxscale-configuration-guide.md" in path:
-            path = target_guide
-        elif path.startswith(".."):
-            # If it's a relative link to something else, we might need to
-            # adjust it, but for now, let's ensure it at least stays relative.
-            pass
-
-        link = path
+        link = relative_to_output(path)
         if entry:
             link += "#" + entry
 
@@ -84,10 +135,12 @@ class Entry:
 
         self.lines.append(line)
 
-    def print(self, prefix):
-        print(prefix + " [" + self.name + "](" + self.path + "#" + self.name + ")")
-        for line in self.lines:
-            print(line)
+    def block(self):
+        if not any(line.startswith("* Description:") for line in self.lines):
+            missing_descriptions.append(self.path + ": " + self.name)
+
+        link = relative_to_output(self.path) + "#" + self.anchor
+        return "[**" + escape(self.name) + "**](" + link + ")\n\n" + "\n".join(self.lines)
 
 class Header:
     def __init__(self, depth, line):
@@ -125,6 +178,25 @@ class Headers:
         else:
             return None
 
+def setting_name(lines, i, headers):
+    """Return (name, anchor, group) of the setting whose "* Type" is lines[i]."""
+    j = i - 1
+    while j >= 0 and not lines[j]:
+        j -= 1
+
+    if j >= 0:
+        match = re.match(bold_name_pattern, lines[j])
+        if match and headers.current():
+            heading = headers.current().name
+            return match.group(1).strip(), gitbook_slug(heading), heading
+
+    if not headers.current() or not headers.prev():
+        return None, None, None
+
+    heading = headers.current().name
+    name = heading.strip("`").strip()
+    return name, gitbook_slug(heading), headers.prev().name
+
 def scan_lines(entries, path, lines):
     i=0
     end = len(lines)
@@ -132,36 +204,22 @@ def scan_lines(entries, path, lines):
     while i < end:
         line = lines[i]
         headers.check(line)
-        if line.startswith("* Type"):
-            if i >= 1:
-                prev = headers.prev().name
-                relevant_entries = entries.get(prev)
+        if line.startswith("* Type") and not headers.in_code:
+            name, anchor, group = setting_name(lines, i, headers)
+
+            if name and re.match(setting_name_pattern, name):
+                relevant_entries = entries.get(group)
                 if not relevant_entries:
                     relevant_entries = {}
-                    entries[prev] = relevant_entries
+                    entries[group] = relevant_entries
 
-                # Search upwards for the nearest header
-                name = ""
-                for j in range(i - 1, -1, -1):
-                    if lines[j].startswith("#"):
-                        name = lines[j]
-                        break
-
-                # Clean the name
-                name = re.sub(r'^#+ ', '', name)
-                name = name.strip("`").strip()
-
-                # Only proceed if we actually found a name
-                if name:
-                    entry = Entry(name, path)
-                    entry.add(line)
+                entry = Entry(name, path, anchor)
+                entry.add(line)
+                i += 1
+                while i < end and lines[i].startswith("*"):
+                    entry.add(lines[i])
                     i += 1
-                    while i < end and lines[i].startswith("*"):
-                        entry.add(lines[i])
-                        i += 1
-                    relevant_entries[entry.name] = entry
-                else:
-                    i += 1
+                relevant_entries[entry.name] = entry
             else:
                 i += 1
         else:
@@ -173,10 +231,10 @@ def scan_md_file(entries, path):
             lines=fin.readlines()
             lines=[line.strip() for line in lines]
         except UnicodeDecodeError:
-            print("warning Could not decode file, ignoring.")
+            print("warning Could not decode file, ignoring.", file=sys.stderr)
             return
         except:
-            print("warning: Could not read file, ignoring.")
+            print("warning: Could not read file, ignoring.", file=sys.stderr)
             return
 
     scan_lines(entries, path, lines)
@@ -186,11 +244,11 @@ def scan_file(entries, path):
         scan_path(entries, path)
     elif path.endswith(".md"):
         name=path.split('/')[-1].replace('.md', '')
-        if name == "maxscale-configuration-settings.md" or path.endswith("maxscale-configuration-settings.md"):
+        if path.endswith("maxscale-configuration-settings.md"):
             return
         if name=="maxscale-configuration-guide":
             name="MaxScale"
-        scope="[" + name + "](../" + path + ")"
+        scope="[" + name + "](" + relative_to_output(path) + ")"
         sub_entries=entries.get(scope)
         if not sub_entries:
             sub_entries={}
@@ -204,7 +262,7 @@ def scan_dir(entries, dir):
 
 def scan_path(entries, path):
     if not os.path.exists(path):
-        print("warning: " + path + " does not exist.")
+        print("warning: " + path + " does not exist.", file=sys.stderr)
     elif os.path.isdir(path):
         sub_entries=entries.get(path)
         if not sub_entries:
@@ -220,7 +278,7 @@ def scan_path(entries, path):
             entries[dir]=sub_entries
         scan_file(sub_entries, path)
     else:
-        print("warning: '" + path + "' is not a regular file or directory, ignoring.")
+        print("warning: '" + path + "' is not a regular file or directory, ignoring.", file=sys.stderr)
 
 def scan_paths(paths):
     entries = {}
@@ -229,23 +287,34 @@ def scan_paths(paths):
 
     return entries
 
-def print_entries(entries, prefix):
+def title(name, level):
+    if level <= max_heading_level:
+        return "#" * level + " " + name
+    else:
+        return "**" + name + "**"
+
+def has_settings(entries):
+    return any(not isinstance(entry, dict) or has_settings(entry)
+               for entry in entries.values())
+
+def entry_blocks(entries, level):
+    blocks = []
     keys = sorted(entries.keys())
     for key in keys:
         entry = entries[key]
 
         if not isinstance(entry, dict):
-            entry.print(prefix)
-            print()
+            blocks.append(entry.block())
 
     for key in keys:
         entry = entries[key]
 
         if isinstance(entry, dict):
-            if len(entry) > 0:
-                print(prefix + " " + key)
-                print_entries(entry, prefix + "#")
-                print()
+            if has_settings(entry):
+                blocks.append(title(key, level))
+                blocks += entry_blocks(entry, level + 1)
+
+    return blocks
 
 def main(argv):
     name=argv[0]
@@ -256,29 +325,38 @@ def main(argv):
 
     entries = scan_paths(args)
 
+    blocks = []
+
+    getting_started = entries.pop("maxscale-management", None)
+
+    if getting_started:
+        blocks.append("## General")
+        blocks += entry_blocks(getting_started, 3)
+
+    blocks += entry_blocks(entries, 2)
+
     print("---")
     print("description: >-")
     print("  Browse the comprehensive list of MariaDB MaxScale configuration parameters.")
     print("  This reference details valid values, default settings, and dynamic")
     print("  capabilities for servers, services, and monitors.")
     print("---")
-
-    print("# Configuration Settings")
-
-    getting_started = entries.pop("maxscale-management", None)
-
-    if getting_started:
-        print("## General")
-        # We pass "###" because this section is already inside a ## General block
-        print_entries(getting_started, "###")
-
-    print_entries(entries, "##")
-
-    print("---") # Visual separator
+    print()
+    print("# MaxScale Configuration Settings")
+    print()
+    print("\n\n".join(blocks))
+    print()
+    print("***")
     print()
     print("<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>")
     print()
     print('{% @marketo/form formId="4316" %}')
+
+    if missing_descriptions:
+        print(str(len(missing_descriptions)) + " settings have no \"* Description:\" bullet:",
+              file=sys.stderr)
+        for missing in missing_descriptions:
+            print("  " + missing, file=sys.stderr)
 
 if __name__ == "__main__":
     main(sys.argv)

@@ -25,6 +25,7 @@ The filter works with both row based and statement based replication but we reco
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Includes only events that match the given regular expression.
 
 Include queries that match the regex. See next entry, `exclude`, for more information.
 
@@ -34,6 +35,7 @@ Include queries that match the regex. See next entry, `exclude`, for more inform
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Excludes events, which match the specified regular expression.
 
 Exclude queries that match the regex.
 
@@ -49,6 +51,7 @@ For statement based replication, the pattern is matched against all the tables i
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Describes the pattern that is used to match statements in replication events for rewriting.
 
 See the next entry, `rewrite_dest`, for more information.
 
@@ -58,6 +61,7 @@ See the next entry, `rewrite_dest`, for more information.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the replacement pattern that replication events use to rewrite statements.
 
 `rewrite_src` and `rewrite_dest` control the statement rewriting of the binlogfilter. The `rewrite_src` setting is a PCRE2 regular expression that is matched against the default database and the SQL of statement based replication events (query events). `rewrite_dest` is the replacement string which supports the normal PCRE2 backreferences (e.g the first capture group is `$1`, the second is `$2`, etc.).
 

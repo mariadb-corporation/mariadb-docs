@@ -37,6 +37,7 @@ research/
 /.claude/hooks/__pycache__/
 /help-tables/__pycache__/
 /.github/scripts/__pycache__/
+/maxscale/__pycache__/
 
 # /graphify output (knowledge-graph artifacts, written next to the pages it read).
 # Unanchored: the skill writes one of these per directory it is pointed at, and
