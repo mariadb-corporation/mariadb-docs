@@ -15,5 +15,12 @@
       "exclude": []
     }
   },
-  "synced": {}
+  "synced": {
+    "mariadb-ai-plugins": {
+      "commit": "2206a90dc25552bc52522c911e06f5a6f9668991",
+      "assets": [
+        "MariaDB_AI-Plugins_Architecture.svg"
+      ]
+    }
+  }
 }
