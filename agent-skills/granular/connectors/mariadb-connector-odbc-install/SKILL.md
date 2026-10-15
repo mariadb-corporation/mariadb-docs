@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/ODBC — that a drive
 
 # MariaDB Connector/ODBC: Installation and Configuration
 
-*Last updated: 2026-10-13*
+*Last updated: 2026-10-15*
 
 MariaDB Connector/ODBC is an ODBC 3.8-compliant driver built on MariaDB Connector/C. Almost everything that goes wrong with it goes wrong before the first query: the driver manager cannot find the driver, the bitness does not match, or the DSN is in a file nothing reads. This skill covers that layer. For the ODBC API itself, see **`mariadb-connector-odbc-usage`**.
 
@@ -113,7 +113,7 @@ cmake --build build
 cmake --install build                        # user prefix, no root
 ```
 
-Point the template's `Driver =` at the installed `libmaodbc.so` (`find "$HOME/.local" -name libmaodbc.so`) and register it under a user-owned `ODBCSYSINI` as above. For a system-wide driver, the install into the default prefix and the `odbcinst -i -d` registration together make a script for the user to review and run as root.
+With this prefix the driver lands at `$HOME/.local/lib/mariadb/libmaodbc.so` on every distribution, RPM-based ones included. Point the template's `Driver =` at that path and register it under a user-owned `ODBCSYSINI` as above. For a system-wide driver, the install into the default prefix and the `odbcinst -i -d` registration together make a script for the user to review and run as root.
 
 OpenSSL development headers are what make the resulting driver TLS-capable on Unix-like platforms; on Windows there are no dependencies beyond CMake, git, and Visual Studio.
 

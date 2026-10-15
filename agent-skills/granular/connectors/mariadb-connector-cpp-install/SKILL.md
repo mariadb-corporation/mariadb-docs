@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/C++ — that MariaDB 
 
 # MariaDB Connector/C++: Installation and Configuration
 
-*Last updated: 2026-10-13*
+*Last updated: 2026-10-15*
 
 MariaDB Connector/C++ is the C++ client library for MariaDB, layered on top of MariaDB Connector/C. This skill covers installing it, satisfying its dependency, and getting an application to compile, link, and find its plugins at runtime. For the API itself, see **`mariadb-connector-cpp-usage`**.
 
@@ -18,7 +18,7 @@ MariaDB Connector/C++ is the C++ client library for MariaDB, layered on top of M
 | Installs Connector/C++ on Linux and expects it to work | **MariaDB Connector/C is a hard prerequisite** and must be installed first. Connector/C++ **1.0** needs Connector/C **3.1.1 or later**; **1.1** needs **3.3.3 or later**. On Windows the MSI installs Connector/C for you |
 | Reaches for `apt install mariadb-connector-cpp` or `dnf install` from the MariaDB repository | Connector/C++ is **not** part of the server package repository. Download the `.deb`, `.rpm`, tarball, or MSI for the platform from the MariaDB Connector/C++ download page, then install the downloaded file — note the leading `./` on Debian: `apt install ./mariadb-connector-cpp-*.deb`, run as root by the user |
 | Runs the package manager or copies into `/usr` itself, as root | The agent does **not** run root steps. It hands them to the user — a single command to run, or a script to review and run — and waits; see **Privileged steps**. Unpacking the tarball into `$HOME/.local` needs no root |
-| Installs from the binary tarball by copying `libmariadbcpp.so` and stopping | The tarball install is manual and has more parts than the library: the **headers** (`include/mariadb/`, including the `conncpp/` and `conncpp/compat/` subdirectories) and, most easily forgotten, the **plugin directory** (`lib/mariadb/plugin/`). Skip the plugins and the library builds and links fine, then fails at run time on authentication |
+| Installs from the binary tarball by copying `libmariadbcpp.so` and stopping | The tarball install is manual and has more parts than the library: the **headers** (`include/mariadb/`, including the `conncpp/` and `conncpp/compat/` subdirectories) and, most easily forgotten, the **plugin directory** (`lib/mariadb/plugin/`, or `lib64/mariadb/plugin/` in the RPM tarballs). Skip the plugins and the library builds and links fine, then fails at run time on authentication |
 | Uses `/usr/lib` on an RPM distribution | Path layout differs: **`/usr/lib64`** and `/usr/lib64/mariadb/plugin` on CentOS, RHEL, and Rocky Linux; **`/usr/lib`** and `/usr/lib/mariadb/plugin` on Debian and Ubuntu |
 | Links `-lmariadbcpp` but includes a Connector/C header | The public C++ header is **`mariadb/conncpp.hpp`**; the library is **`mariadbcpp`**. Including `mysql.h` pulls in the C API instead, and mixing the two in one translation unit is not the intended usage |
 | Compiles with a pre-C++11 standard, or with `-std=c++98` inherited from an old project | The connector is built as **C++11** and its headers require it. Compile the application with `-std=c++11` or later |
@@ -51,16 +51,18 @@ dnf install mariadb-connector-cpp-*.rpm          # RHEL, Rocky Linux: Connector/
 
 ### Linux, from the binary tarball
 
-All four groups of files matter — headers, the compatibility headers, the library, and the plugins. Unpacked into a user prefix, none of it needs root (Connector/C must still be present — from packages or a `$HOME/.local` build, see **`mariadb-connector-c-install`**):
+All four groups of files matter — headers, the compatibility headers, the library, and the plugins. The library directory depends on the distribution family the tarball was built for: **`lib/mariadb`** in the Debian and Ubuntu tarballs, **`lib64/mariadb`** in the RHEL, Rocky Linux, and Fedora tarballs. Unpacked into a user prefix, none of it needs root (Connector/C must still be present — from packages or a `$HOME/.local` build, see **`mariadb-connector-c-install`**):
 
 ```bash
 tar -xvzf mariadb-connector-cpp-*.tar.gz
 cd mariadb-connector-cpp-*/
 mkdir -p "$HOME/.local"
-cp -R include lib "$HOME/.local/"     # include/mariadb/{conncpp,conncpp/compat}, lib/mariadb/{libmariadbcpp.so,plugin}
+cp -R include lib* "$HOME/.local/"   # include/mariadb/{conncpp,conncpp/compat}; lib*/mariadb/{libmariadbcpp.so,libmariadb.so.3,plugin/*.so incl. parsec.so}
+CPP_LIBDIR="$HOME/.local/lib/mariadb"     # Debian, Ubuntu
+CPP_LIBDIR="$HOME/.local/lib64/mariadb"   # RHEL, Rocky Linux, Fedora — keep the line for the tarball
 ```
 
-The application then compiles with `-I"$HOME/.local/include" -L"$HOME/.local/lib/mariadb" -Wl,-rpath,"$HOME/.local/lib/mariadb"`, and the plugins are found through `MARIADB_PLUGIN_DIR="$HOME/.local/lib/mariadb/plugin"` in the application's environment.
+The application then compiles with `-I"$HOME/.local/include" -L"$CPP_LIBDIR" -Wl,-rpath,"$CPP_LIBDIR"`, and the plugins are found through `MARIADB_PLUGIN_DIR="$CPP_LIBDIR/plugin"` in the application's environment.
 
 A system-wide install is a script for the user to review and run as root:
 
@@ -71,10 +73,15 @@ install include/mariadb/*                /usr/include/mariadb/
 install include/mariadb/conncpp/*        /usr/include/mariadb/conncpp
 install include/mariadb/conncpp/compat/* /usr/include/mariadb/conncpp/compat
 
-# RPM-based distributions use lib64; Debian-based use lib
+# RHEL, Rocky Linux, Fedora: the tarball and the system both use lib64
 install -d /usr/lib64/mariadb/plugin
-install lib/mariadb/libmariadbcpp.so /usr/lib64
-install lib/mariadb/plugin/*         /usr/lib64/mariadb/plugin
+install lib64/mariadb/libmariadbcpp.so /usr/lib64
+install lib64/mariadb/plugin/*         /usr/lib64/mariadb/plugin
+
+# Debian, Ubuntu: the tarball and the system both use lib — keep one of the two blocks
+install -d /usr/lib/mariadb/plugin
+install lib/mariadb/libmariadbcpp.so /usr/lib
+install lib/mariadb/plugin/*         /usr/lib/mariadb/plugin
 ```
 
 ### Windows, from the MSI
@@ -88,6 +95,8 @@ cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="$HOME/.
 cmake --build build
 cmake --install build      # user prefix, no root; a system prefix makes this a privileged step for the user
 ```
+
+The library lands in `$HOME/.local/lib/mariadb` on Debian and Ubuntu and in `$HOME/.local/lib64/mariadb` on RHEL, Rocky Linux, and Fedora — the libdir follows the build host's GNU convention — so set `-L`, the rpath, and `MARIADB_PLUGIN_DIR` to match.
 
 CMake 3.10 or newer is required, and the build targets C++11. If a `libmariadb` subdirectory is present the build uses it and installs that Connector/C alongside; otherwise it links against the Connector/C already installed on the system.
 
