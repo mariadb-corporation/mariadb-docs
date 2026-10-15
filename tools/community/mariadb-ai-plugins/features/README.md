@@ -18,7 +18,7 @@ For a quick overview of what you can ask an agent, see [Basic Usage](../basic-us
 | [SQL Script Creation and Execution](sql-script-creation-and-execution.md) | Writes schema create scripts, runs them on a server, and verifies the result. | `dev`, `sql` | The MCP server, to run scripts |
 | [Sandbox Instances](sandbox-instances.md) | Deploys local MariaDB Server instances for development and testing. | `dev`, `sql` | The MCP server |
 | [Versioned Schemas with Schema Management](versioned-schemas-with-schema-management.md) | Keeps a schema in a versioned project, and creates or upgrades it on any server. | `dev` | The MCP server |
-| [REST Endpoints with MariaDB REST Service](rest-endpoints-with-mariadb-rest-service.md) | Defines REST endpoints for schema objects with SQL statements. | `dev` | The MCP server and a server connection |
+| REST Endpoints with MariaDB REST Service | Defines REST endpoints for schema objects with SQL statements. | `dev` | The MCP server and a server connection |
 | [Migrating from MySQL](migrating-from-mysql.md) | Assesses MySQL compatibility and migrates a MySQL database to MariaDB. | `dev`; compatibility guidance also in `sql` | The migration tooling, on Linux and macOS |
 
 {% content-ref url="sql-script-creation-and-execution.md" %}
@@ -31,10 +31,6 @@ For a quick overview of what you can ask an agent, see [Basic Usage](../basic-us
 
 {% content-ref url="versioned-schemas-with-schema-management.md" %}
 [versioned-schemas-with-schema-management.md](versioned-schemas-with-schema-management.md)
-{% endcontent-ref %}
-
-{% content-ref url="rest-endpoints-with-mariadb-rest-service.md" %}
-[rest-endpoints-with-mariadb-rest-service.md](rest-endpoints-with-mariadb-rest-service.md)
 {% endcontent-ref %}
 
 {% content-ref url="migrating-from-mysql.md" %}

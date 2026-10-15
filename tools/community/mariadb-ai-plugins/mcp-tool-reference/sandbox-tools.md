@@ -20,7 +20,7 @@ The `sandbox.*` tools deploy and manage local MariaDB Server instances for devel
 | `sandbox.vendor` | Returns the instance's vendor, `MariaDB` or `MySQL`. |
 | `sandbox.version` | Returns the instance's server version. |
 
-In MariaDB Shell releases later than 26.10.1, an instance can have a MariaDB REST Daemon, set up with `rest.configure_restd`. The daemon's deployment is in the instance's folder, and the daemon follows the instance: `sandbox.start` starts it, and `sandbox.stop`, `sandbox.kill`, and `sandbox.delete` stop it. See [rest Tools](rest-tools.md).
+In MariaDB Shell releases later than 26.10.1, an instance can have a MariaDB REST Daemon, set up with `rest.configure_restd`. The daemon's deployment is in the instance's folder, and the daemon follows the instance: `sandbox.start` starts it, and `sandbox.stop`, `sandbox.kill`, and `sandbox.delete` stop it. See rest Tools.
 
 ## sandbox.list_available_versions
 

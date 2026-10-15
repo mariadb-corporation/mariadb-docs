@@ -25,6 +25,12 @@
       "assets": [
         "MariaDB_AI-Plugins_Architecture.svg"
       ]
+    },
+    "mariadb-shell": {
+      "commit": "eff5773d413e9b653fb61a3de42b0b885cd51a16",
+      "assets": [
+        "mcp-login.webp"
+      ]
     }
   }
 }
