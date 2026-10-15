@@ -5,14 +5,18 @@
       "title": "MariaDB AI Plugins",
       "repo": "mariadb-corporation/ai-plugins",
       "ref": "main",
-      "exclude": []
+      "exclude": [
+        "mcp-tool-reference/rest-tools.md",
+        "features/rest-endpoints-with-mariadb-rest-service.md"
+      ]
     },
     "mariadb-shell": {
       "title": "MariaDB Shell",
       "repo": "mariadb-corporation/mariadb-shell",
       "ref": "main",
-      "hold": true,
-      "exclude": []
+      "exclude": [
+        "mcp-server/rest-daemon-tools.md"
+      ]
     }
   },
   "synced": {
