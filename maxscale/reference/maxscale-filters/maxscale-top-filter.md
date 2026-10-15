@@ -37,6 +37,7 @@ The top filter has one mandatory parameter, `filebase`, and a number of optional
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the base name for session log files, followed by the session ID to generate unique output files.
 
 The basename of the output file created for each session. The session ID is added to the filename for each file written. This is a mandatory parameter.
 
@@ -52,6 +53,7 @@ The filebase may also be set as the filter, the mechanism to set the filebase vi
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10`
+* Description: Sets the number of SQL statements to store and include in the report.
 
 The number of SQL statements to store and report upon.
 
@@ -65,6 +67,7 @@ count=30
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern that only logs requests that match it, while ignoring others.
 
 [Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
 
@@ -80,6 +83,7 @@ options=case,extended
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern that prevents the filter from logging specific queries.
 
 [Limits](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) the queries logged by the filter.
 
@@ -90,6 +94,7 @@ options=case,extended
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`
+* Description: Determines how the `match` and `exclude` regex patterns are handled, including case sensitivity and extended syntax.
 
 [Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `match` and `exclude`.
 
@@ -99,6 +104,7 @@ options=case,extended
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits logging to sessions that start from a specific client IP address.
 
 Defines an address that is used to match against the address from which the client connection to MariaDB MaxScale originates. Only sessions that originate from this address will be logged.
 
@@ -112,6 +118,7 @@ source=127.0.0.1
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits logging to sessions initiated by a specific username.
 
 Defines a username that is used to match against the user from which the client connection to MariaDB MaxScale originates. Only sessions that are connected using this username will result in results being generated.
 
