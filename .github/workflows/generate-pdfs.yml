@@ -161,6 +161,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # The runner image's apt index can name package versions the mirrors have
+      # since dropped, and every install below then 404s (DOCS-6945).
+      - name: Refresh the apt index
+        run: sudo apt-get update
+
       # Ubuntu's packaged pandoc lags well behind and lacks the flags build.py
       # relies on, so pin the version explicitly.
       - name: Install pandoc ${{ env.PANDOC_VERSION }}
