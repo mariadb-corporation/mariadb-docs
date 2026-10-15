@@ -1,9 +1,9 @@
 ---
 name: prep-changelog
 description: Build a release's changelog page in mariadb-docs: MariaDB Community Server, any of the seven connectors (C, C++, J, Node.js, ODBC, Python, R2DBC), Enterprise Server, or a new version of the mariadb_repo_setup / mariadb_es_repo_setup scripts (single-page changelogs fed from the scripts' own Notes comments, plus the sha256 Versions table). Derives the commit range from the release TODO ticket and the tags, generates the revision list read-only with .claude/hooks/changelog-lines.py after proving its format against the previous page, and assembles the page, its SUMMARY.md entry, and the release notes page's Changelog link. Enterprise Server is scaffold-and-paste, because its generator is not in this repo. Use when asked to "prep the changelog", "make the changelog for 13.0.3", "do the ODBC 3.2.11 changelog", "update the repo_setup changelog", "/prep-changelog DOCS-XXXX", or as the changelog half of a release-notes round.
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [dbart]
-last_verified: 2026-10-13
+last_verified: 2026-10-15
 status: active
 ---
 
@@ -39,12 +39,21 @@ Proposal and rationale: `dev-docs/skill-proposals/0002-prep-changelog.md` (DOCS-
 **Setup** check first) and read the product and versions from the summary and description.
 
 Then get the **release TODO ticket** on `jira.mariadb.org`. It is Jira *Server*, so the Atlassian
-MCP cannot reach it. Use a GET with a personal access token, never a write:
+MCP cannot reach it, and TODO tickets are not public. Use a GET with your personal access token,
+never a write. The token comes from `$JIRA_MARIADB_TOKEN`, or from the file named by
+`$JIRA_MARIADB_TOKEN_FILE` (default `~/.config/mariadb-jira/token`). Setting it up:
+`.claude/README.md` › *Setup*, step 3. Never print the token.
 
 ```bash
-curl -s -H "Authorization: Bearer $(cat ~/.config/jira-claude-access-token)" \
+token="${JIRA_MARIADB_TOKEN:-$(cat "${JIRA_MARIADB_TOKEN_FILE:-$HOME/.config/mariadb-jira/token}" 2>/dev/null)}"
+[ -n "$token" ] || echo "No jira.mariadb.org token: see .claude/README.md › Setup, step 3" >&2
+curl -s -H "Authorization: Bearer $token" \
   "https://jira.mariadb.org/rest/api/2/issue/TODO-NNNN?fields=summary,description,comment"
 ```
+
+If no token is configured, stop and say so. Don't fall back to an anonymous request: it can't see
+TODO tickets, and its errors are easy to misread. An issue GET returns 401, and a search answers
+400 "The value 'TODO' does not exist for the field 'project'".
 
 Search by summary if the DOCS ticket doesn't name the TODO (`project=TODO AND summary~"13.0.3"`).
 
@@ -96,9 +105,26 @@ ticket:
     history and silently drops nothing. A tag created later can point at a newer commit, so
     re-running an old page against the tag may differ by a commit or two. 10.11.19 is an example.
 
-Run against the server source clone, the `server` entry in `.claude/doc-sources.local.json`.
+Run against the server source clone, the `server` entry in `.claude/doc-sources.local.json`. Read
+local clone paths from that file rather than assuming a layout; everyone's differs:
+
+```bash
+src() {  # the path of a product's clone in .claude/doc-sources.local.json
+  python3 - "$1" <<'PY'
+import json, sys
+try:
+    srcs = json.load(open('.claude/doc-sources.local.json'))['sources']
+    print(next(s['path'] for s in srcs if s.get('product') == sys.argv[1]))
+except (OSError, KeyError, ValueError, StopIteration):
+    sys.exit(f"no '{sys.argv[1]}' entry in .claude/doc-sources.local.json "
+             "(the doc-from-ticket skill's first run sets it up)")
+PY
+}
+S=$(src server)
+```
+
 `changelog-lines.py` only runs `git log` and `git rev-parse`. If a ref is missing it says so. Fetch
-with `git -C <server> fetch origin --tags`, which changes no branch or working tree. Never check
+with `git -C "$S" fetch origin --tags`, which changes no branch or working tree. Never check
 out or reset anything in that clone. It is pinned to a ref for other skills.
 
 ### Connectors
@@ -115,6 +141,16 @@ The range is `<prev-tag>..<this release>`:
   changes since Connector/C++ 0.9.4.`
 - **Dates and maturity** come from the release notes page, not from the tag date. Tags are often
   created days after the release.
+- **Not every series uses the plain range.** Connector/C pages have used two others, so follow
+  whichever rule reproduces the template in `--verify` (Step 2), and use the same rule for the new
+  page:
+  - **`--first-parent`:** 3.3.20 is exactly `v3.3.19..v3.3.20 --first-parent` (39 commits; the
+    plain range gives 49).
+  - **`--exclude <older series' release>`:** when an older series was merged in, its commits came
+    with it. 3.4.10 is `v3.4.9..v3.4.10 --exclude v3.3.20` (54 commits; the plain range gives 103).
+    The page has 53: its author also dropped CONC-846 `e8c0a16d` by hand.
+
+  Name the rule you used in the report and in the PR body.
 
 Work in a **scratch blobless clone** in the session scratchpad, never in a working clone under
 `~/src`. Those are people's working trees, and the developers' recipes pull and switch branches
@@ -143,7 +179,7 @@ python3 .claude/hooks/changelog-lines.py connector --verify \
 For Server, verify against the previous release's page and its own range and exclude:
 
 ```bash
-python3 .claude/hooks/changelog-lines.py server --repo <server> \
+python3 .claude/hooks/changelog-lines.py server --repo "$S" \
   --start mariadb-13.0.1 --rev mariadb-13.0.2 --exclude mariadb-12.3.3 \
   --verify release-notes/community-server/changelogs/13.0/13.0.2.md
 ```
@@ -151,8 +187,10 @@ python3 .claude/hooks/changelog-lines.py server --repo <server> \
 Read the diff:
 
 - **Revisions added, removed, or moved:** the range rule is wrong for this series, or the template
-  was built from a different range. Stop and find out why before generating. Never "fix" it by
-  editing lines.
+  was built from a different range. Stop and find out why before generating. For a connector, try
+  `--first-parent` and `--exclude` (Step 1). Never "fix" it by editing lines. When a rule leaves
+  only one or two extra commits, as 3.4.10 does, they may be the author's deliberate omissions:
+  name them to the writer rather than deciding alone.
 - **Text differences inside subjects only:** hand edits by the page's author (a typo corrected, an
   identifier renamed) or a broken published line the generator escapes correctly (an unescaped
   `<CONFIG>` that GitBook dropped, a bare `*` that renders as emphasis). Fine, so carry on.
@@ -225,11 +263,11 @@ differently from everything above. Skip Steps 1–4 for them and follow this sec
 - **The changelog is the script's own `# Notes:` comment block**, one dated entry per version,
   newest first, with items wrapped across comment lines. The page reproduces it, which is why its
   intro says the entries are "reproduced from the changelog comments at the top of the script".
-- **The scripts live in `~/src/mariadb-corporation/mariadb-enterprise-scripts`**, the
-  `enterprise-scripts` entry in `.claude/doc-sources.local.json`. The release is the file **at
+- **The scripts live in the `mariadb-enterprise-scripts` clone**, the `enterprise-scripts` entry
+  in `.claude/doc-sources.local.json`. The release is the file **at
   the commit that was uploaded to the CDN**, and the published checksum is generated from that file
   just before upload. So read it from git at that commit, and never from a working copy, which
-  may carry unreleased edits. `changelog-lines.py` uses `git show <rev>:<name>` and changes
+  may carry unreleased edits. `changelog-lines.py` uses `git cat-file blob <rev>:<name>` and changes
   nothing in the clone.
 - **The release-day commit** moves `version=` *and* the newest Notes date to the release date,
   and strips `TODO-NNNN` identifiers from the notes. 4171898 did all three for 2026-09-15. So a
@@ -237,7 +275,7 @@ differently from everything above. Skip Steps 1–4 for them and follow this sec
   not the release. The script warns on both. Ask which commit was uploaded rather than guess.
 
 ```bash
-E=~/src/mariadb-corporation/mariadb-enterprise-scripts
+E=$(src enterprise-scripts)   # src() is defined under Step 1, Community Server
 # 1. Prove the format: every entry on the page must regenerate from the released script.
 python3 .claude/hooks/changelog-lines.py repo-setup --repo "$E" --rev <release commit> \
   --name mariadb_es_repo_setup --page release-notes/tools/mariadb-es-repo-setup-changelog.md --verify

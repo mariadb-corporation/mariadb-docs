@@ -36,6 +36,10 @@ THREE MODES
                neighbors without a per-product table to keep in sync. Commit
                order follows the family: nested pages use --topo-order, flat
                pages use git's default order (both proven, below).
+               The range is usually `<prev-tag>..<tag>`, but not always:
+               Connector/C 3.3.20 is that range with --first-parent, and 3.4.10
+               needs --exclude v3.3.20 to leave out the 3.3 commits merged in.
+               --verify on the template shows which rule a series follows.
 
     repo-setup The two single-page changelogs, release-notes/tools/mariadb-repo-setup-
                changelog.md and mariadb-es-repo-setup-changelog.md. These are not
@@ -45,7 +49,7 @@ THREE MODES
                mariadb-enterprise-scripts repository, untagged; the release is the
                file there at the commit that was uploaded to the CDN, and the
                published checksum is generated from that file just before upload.
-               So this reads the script with `git show <rev>:<name>` and prints the
+               So this reads the script with `git cat-file blob <rev>:<name>` and prints the
                entries newer than the page's newest, plus the version and sha256
                for the Versions table on the "Package Repository Setup and Usage"
                page. TODO-NNNN prefixes are dropped (the release-day commit strips
@@ -59,6 +63,9 @@ PROVE THE FORMAT BEFORE USING IT: --verify
     DOCS-6612 (2026-10-13) it reproduced, with zero differing lines, Connector/C
     3.3.21 and 3.4.9, C++ 1.1.9 and 1.0.8, ODBC 3.2.10 and 3.1.24, Python 1.1.14
     and 1.1.13, J 2.7.15 and 3.4.4, Node.js 3.2.5, and R2DBC 1.2.4 and 1.4.2.
+    In review (#1272), Connector/C 3.3.20 reproduced its 39 commits exactly with
+    --first-parent, and 3.4.10 with --exclude v3.3.20 gave 54 for the page's 53:
+    its author dropped CONC-846 e8c0a16d by hand.
     Every other difference was a hand edit by the page's author (a typo fixed in
     a commit subject, an identifier renamed) or one omitted commit; for Server
     13.0.2, 13.1.1, 11.8.9, 11.4.13, and 10.6.26 the commit list and order
@@ -75,8 +82,10 @@ ESCAPING
     `<` matters most: an unescaped `<subquery>` is parsed as an HTML tag and
     GitBook drops it (DOCS-6717). Server pages leave `[` bare, as published. A leading `- ` or `* ` (a multi-line message
     flattened into a subject) is removed, since it would render as a nested
-    bullet, and runs of spaces collapse to one. Server merge lines are left raw,
-    as prep-changelog emits them.
+    bullet, and runs of spaces collapse to one (not on Server pages). Server merge
+    subjects are escaped like any other: prep-changelog emitted them raw, so a
+    `<` in one would vanish when published. None of the 117 published merge
+    lines contains a character this escapes, so no page's --verify changes.
 
 WARNINGS (stderr, never fatal)
     The script flags what published pages show authors fixing by hand: an issue
@@ -86,7 +95,8 @@ WARNINGS (stderr, never fatal)
 
 USAGE
     changelog-lines.py connector --template PAGE --repo DIR --range A..B
-                                 [--version X.Y.Z] [--verify]
+                                 [--version X.Y.Z] [--exclude REF]...
+                                 [--first-parent] [--verify]
     changelog-lines.py server --repo DIR --start REF --rev REF
                               [--exclude REF] [--verify PAGE]
     changelog-lines.py repo-setup --repo DIR [--rev REF] --name SCRIPT
@@ -237,10 +247,13 @@ def warn_subject(sha, subject, version):
         print(f'changelog-lines: {sha} — {n}\n                 {subject}', file=sys.stderr)
 
 
-def connector_lines(repo, rng, style, version=None):
+def connector_lines(repo, rng, style, version=None, exclude=(), first_parent=False):
     order = ['--topo-order'] if style['topo'] else []
+    if first_parent:
+        order.append('--first-parent')
     out = git(repo, 'log', *order, f'--abbrev={style["abbrev"]}',
-              '--pretty=format:%h%x00%ai%x00%s', rng)
+              '--pretty=format:%h%x00%ai%x00%s', rng,
+              *('^' + commit_of(repo, ref) for ref in exclude))
     lines = []
     for row in out.splitlines():
         sha, date, subject = row.split('\x00', 2)
@@ -255,8 +268,11 @@ def connector_lines(repo, rng, style, version=None):
     return lines
 
 
-# Published Server pages leave `[` bare, and keep prep-changelog's double spaces: `[No MDEV#]`, `strto[u][l]l`. With no `(` after
-# the `]` it renders as text either way, and escaping it would make every --verify noisy.
+# Published Server pages leave `[` bare: `[No MDEV#]`, `strto[u][l]l`. With no `(` after the `]` it
+# renders as text either way, and escaping it would make every --verify noisy. Runs of spaces are
+# kept as prep-changelog emits them. 11.8.9, 12.3.3 and 13.1.1 kept a subject's double space;
+# 13.0.2's author collapsed MDEV-40279's by hand, which --verify reports as a text-only
+# difference. Both render the same, since HTML collapses whitespace.
 SERVER_STYLE = {'esc_open': False, 'esc_close': False, 'collapse': False, 'bracket_links': False, 'bare_key_url': None,
                 'code_spans': True}
 
@@ -276,7 +292,8 @@ def server_lines(repo, start, rev, exclude):
         if full in merges:
             lines.append(f'{SERVER_MERGE_PREFIX}</mark>_</sup> [<sup>_<mark style='
                          f'"color:$primary;">Revision #{sha}</mark>_</sup>]({url}) '
-                         f'<sup>_<mark style="color:$info;">{date} - {subject}</mark>_</sup>')
+                         f'<sup>_<mark style="color:$info;">{date} - '
+                         f'{esc(subject, SERVER_STYLE)}</mark>_</sup>')
         else:
             warn_subject(sha, subject, None)
             lines.append(f'* [Revision #{sha}]({url}) <sup>_<mark style="color:$info;">'
@@ -340,7 +357,9 @@ def repo_setup_lines(entries):
 def repo_setup(repo, rev, name, page, verify):
     import hashlib
     where = f'{rev}:{name}'
-    p = subprocess.run(['git', '-C', str(repo), 'show', where], capture_output=True)
+    # cat-file, not show: show can apply a textconv filter, and the checksum must be of the
+    # exact bytes that were uploaded.
+    p = subprocess.run(['git', '-C', str(repo), 'cat-file', 'blob', where], capture_output=True)
     if p.returncode != 0:
         raise Fail(f'cannot read {where} in {repo}: '
                    f'{p.stderr.decode(errors="replace").strip()}')
@@ -395,6 +414,10 @@ def main(argv):
     c.add_argument('--repo', required=True)
     c.add_argument('--range', required=True)
     c.add_argument('--version')
+    c.add_argument('--exclude', action='append', default=[], metavar='REF',
+                   help='also leave out everything reachable from REF (repeatable)')
+    c.add_argument('--first-parent', action='store_true',
+                   help='follow only the first parent of merges')
     c.add_argument('--verify', action='store_true',
                    help='regenerate the template page itself from --range and diff')
     s = sub.add_parser('server')
@@ -421,7 +444,8 @@ def main(argv):
                 raise Fail(f'--range must be A..B, got {a.range!r}')
             published = page_block(a.template)
             style = infer_style(published, a.template)
-            generated = connector_lines(a.repo, a.range, style, a.version)
+            generated = connector_lines(a.repo, a.range, style, a.version,
+                                        a.exclude, a.first_parent)
             if a.verify:
                 return report(a.template, published, generated)
         elif a.mode == 'server':

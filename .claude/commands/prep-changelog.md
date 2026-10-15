@@ -1,7 +1,7 @@
 ---
 description: Build a release's changelog page (Community Server, any connector, Enterprise Server, or the mariadb_repo_setup / mariadb_es_repo_setup scripts) from its TODO ticket and tags, with the revision list generated read-only and its format proven first.
 argument-hint: DOCS-XXXX | <product> <version> | mariadb_repo_setup | mariadb_es_repo_setup
-allowed-tools: Bash, Read, Grep, Glob, Edit, Write, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Edit, Write, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 ---
 
 # /prep-changelog
