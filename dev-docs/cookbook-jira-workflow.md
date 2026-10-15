@@ -43,7 +43,10 @@ There are three ways to have one. All of them talk to `mcp.atlassian.com`:
 products, and takes simple HTML for @mentions in comments instead of hand-built ADF. After
 connecting it on claude.ai, authenticate it in Claude Code with `/mcp` → `claude.ai Atlassian MCP`.
 Several v2 tools have different names from their v1 equivalents; the `jira` skill carries the
-mapping table. The v1 connections keep working as fallbacks.
+mapping table. The v1 connections keep working as fallbacks: the skill tries v2 first, then each
+v1 connection, and uses the first one that reaches `mariadbcorp`. So if your v2 is signed in to
+another account (e.g. GridGain) and `atlassian-mariadb` reaches MariaDB, the commands use
+`atlassian-mariadb`.
 
 **If your account-level connection already reaches `mariadbcorp`, you are done — you do not need
 to add a second server.** Add `atlassian-mariadb` only when you need MariaDB *alongside* another
