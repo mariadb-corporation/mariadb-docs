@@ -1000,7 +1000,7 @@ The suffix can be upper or lower-case.
   * This is set with `--large-pages` or disabled with `--skip-large-pages`.
   * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
   * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. The implementation supports multiple page sizes (see `Hugepagesize` in `/proc/meminfo` for the default) using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
-    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
+    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
     * To determine how many huge pages are free, issue this command:\
@@ -1916,7 +1916,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `reorder_outer_joins` - see [reorder\_outer\_joins](../query-optimizations/reorder_outer_joins.md) ([MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements))
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
-  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0))
+  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), MariaDB Enterprise Server 10.6.15-10)
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
   * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `split_materialized={on|off}`

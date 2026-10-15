@@ -8,7 +8,7 @@ description: >-
 # JSON\_NORMALIZE
 
 {% hint style="info" %}
-`JSON_NORMALIZE` is available from MariaDB 10.7.
+`JSON_NORMALIZE` is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.8-4.
 {% endhint %}
 
 ## Syntax
