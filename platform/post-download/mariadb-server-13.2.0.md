@@ -13,7 +13,7 @@ description: >-
 * MariaDB Server 13.2.0 Preview was released on 23 Sep 2026
 * [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.2/mariadb-13.2-changes-and-improvements)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
-* This release is Alpha maturity
+* This release is Preview maturity. Only Stable (GA) releases should be used in production.
 
 ## About this Release Series
 
