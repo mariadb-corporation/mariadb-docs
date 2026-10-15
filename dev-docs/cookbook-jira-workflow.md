@@ -35,7 +35,7 @@ There are three ways to have one. All of them talk to `mcp.atlassian.com`:
 
 | Connection | How you get it | Generation | Tool prefix |
 |------------|----------------|------------|-------------|
-| `claude.ai Atlassian MCP` | the account-level [Atlassian connector](https://claude.ai/directory/atlassian) on claude.ai | **v2 (preferred)** | `mcp__claude_ai_Atlassian_MCP__*` |
+| `claude.ai Atlassian MCP` | the account-level Atlassian connector from the claude.ai connector directory | **v2 (preferred)** | `mcp__claude_ai_Atlassian_MCP__*` |
 | `claude.ai Atlassian Rovo` | the older account-level Atlassian integration on claude.ai | v1 | `mcp__claude_ai_Atlassian_Rovo__*` |
 | `atlassian-mariadb` | `claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp` | v1 | `mcp__atlassian-mariadb__*` |
 
