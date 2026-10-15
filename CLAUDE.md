@@ -30,6 +30,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 | GitBook redirects (CSV format for retired/moved URLs) | `dev-docs/cookbook-gitbook-redirects.md` |
 | Publishing the docs-site MCP server to the official registry | `dev-docs/cookbook-mcp-registry.md` |
 | Reviewing GitBook-UI edits (the nightly digest) | `dev-docs/cookbook-gitbook-edit-review.md` |
+| Community Tools docs synced from product repos (AI Plugins, Shell) | `dev-docs/cookbook-community-tools-sync.md` |
 | Claude Code status line (Roel's script) | `dev-docs/cookbook-statusline.md` |
 
 ## Skills
