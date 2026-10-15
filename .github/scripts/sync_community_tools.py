@@ -25,7 +25,7 @@ Usage:
 
   --src      directory holding one checkout per product, named after the product key
              (e.g. <dir>/mariadb-shell). The workflow checks them out there.
-  --product  sync only these products (default: all in the config).
+  --product  sync only these products (default: all in the config, except those on hold).
   --summary  write a Markdown summary of what changed, for the PR body.
 
 Run from the repo root. Exit 0 on success, 1 on a content problem that must be fixed in the
@@ -284,7 +284,7 @@ def main():
     with open(CONFIG, encoding="utf-8") as f:
         config = json.load(f)
     products = config["products"]
-    keys = args.product or list(products)
+    keys = args.product or [k for k, v in products.items() if not v.get("hold")]
     unknown = [k for k in keys if k not in products]
     if unknown:
         die(f"unknown product(s): {', '.join(unknown)}")

@@ -11,6 +11,7 @@
       "title": "MariaDB Shell",
       "repo": "mariadb-corporation/mariadb-shell",
       "ref": "main",
+      "hold": true,
       "exclude": []
     }
   },

@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       products:
-        description: 'Space-separated product keys from .github/community-tools.json, or "all"'
+        description: 'Space-separated product keys from .github/community-tools.json, or "all" (skips products on hold)'
         required: false
         default: 'all'
 
@@ -50,7 +50,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$PRODUCTS" = all ]; then
-            PRODUCTS="$(jq -r '.products | keys_unsorted | join(" ")' .github/community-tools.json)"
+            # A product with "hold": true is synced only when named explicitly.
+            PRODUCTS="$(jq -r '.products | to_entries | map(select(.value.hold != true) | .key) | join(" ")' .github/community-tools.json)"
           fi
           for key in $PRODUCTS; do
             jq -e --arg k "$key" '.products[$k]' .github/community-tools.json >/dev/null \

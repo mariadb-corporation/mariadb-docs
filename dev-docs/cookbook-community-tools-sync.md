@@ -36,7 +36,8 @@ Two checks enforce this:
 ## What the sync does
 
 `.github/workflows/sync-community-tools-docs.yml` runs on weekdays at 05:47 UTC, and on demand
-from the Actions tab (input `products`: a space-separated list of product keys, or `all`). It
+from the Actions tab (input `products`: a space-separated list of product keys, or `all`).
+The scheduled run and `all` skip products on `hold` (see below). It
 calls `.github/scripts/sync_community_tools.py`, which, for each product:
 
 - replaces `tools/community/<product>/` with the source folder, **byte for byte**;
@@ -84,6 +85,10 @@ The sync stops without a PR if the source needs fixing first:
   folder name excludes several pages. The sync drops their files and their nav entries. A
   link to an excluded page from a synced page is dead, and the gates report it: remove the
   link upstream, or exclude the linking page as well.
+
+- **`hold`**, if `true`, keeps a product out of the scheduled run and out of `all`. Use it while
+  a product's first sync waits on a decision. Naming the product in a manual run still syncs
+  it, so you can preview it as a PR, and nothing is published until that PR is merged.
 
 `synced` is written by the script: for each product, the source commit it copied last and the
 images it copied. Don't edit it by hand.
