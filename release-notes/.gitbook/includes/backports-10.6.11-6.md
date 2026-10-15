@@ -26,3 +26,4 @@ ALTER TABLE partitioned_table
 
 * The new `CONVERT PARTITION` and `CONVERT TABLE` clauses are crash-safe operations.
 * The `EXCHANGE PARTITION` clause can still be used, but it is not a crash-safe operation.
+* Statements that a plugin runs through the [SQL service](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/plugin-development/sql-service-for-plugins) are no longer written to the binary log. To log them, the plugin runs `SET SQL_LOG_BIN=1` through its connection. ([MDEV-27832](https://jira.mariadb.org/browse/MDEV-27832), MENT-1619)
