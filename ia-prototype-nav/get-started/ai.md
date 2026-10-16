@@ -20,11 +20,11 @@ Semantic search compares meanings instead. An embedding model, which is an AI mo
 
 Vector search is built into MariaDB Community Server from 11.7 and MariaDB Enterprise Server from 11.4.5-3, so there's no plugin or extension to install.
 
-## Teach the Search Box What a Lamp Is
+## Add Semantic Search
 
 {% stepper %}
 {% step %}
-### Give Each Product an Embedding
+### Create a Vector Table
 
 Create a table that holds one `VECTOR` value per product, with a `VECTOR INDEX` built for cosine distance, which measures how closely two vectors point in the same direction.
 
@@ -40,7 +40,7 @@ The indexed column must be `NOT NULL`, and a table can have only one vector inde
 {% endstep %}
 
 {% step %}
-### Store the Vectors
+### Insert the Vectors
 
 The `VEC_FromText` function turns a JSON array of numbers into a vector value. Every row needs the same number of dimensions as the column, which is four here so the numbers stay readable. A real embedding model produces hundreds or thousands, for example `VECTOR(768)`, and your application code writes them.
 
@@ -55,7 +55,7 @@ The [VEC\_FromText reference]({server}/reference/sql-functions/vector-functions/
 {% endstep %}
 
 {% step %}
-### Answer "Something to Light My Desk"
+### Find the Nearest Products
 
 The vector in this query stands in for the customer's phrase after the same model embeds it. Sort by the `VEC_DISTANCE_COSINE` function and stop at a `LIMIT`, because that `ORDER BY ... LIMIT` shape is what lets the optimizer walk the vector index. The join to the `products` table brings back names in the same query.
 
@@ -83,7 +83,7 @@ A smaller distance means a closer match. [Using the vector index efficiently]({s
 
 The customer who typed "something to light my desk" now sees the desk lamp first, and the notebook doesn't show up at all.
 
-## Build the Rest With Your Agent
+## Build With a Coding Agent
 
 The steps above use made-up vectors. Wiring in a real embedding model, backfilling every product, and keeping the vectors current when a description changes is application code, and a coding agent can write most of it with you if it knows MariaDB.
 
