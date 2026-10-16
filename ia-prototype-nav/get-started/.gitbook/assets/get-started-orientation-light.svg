@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" role="img" aria-label="Orientation. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it.">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="296" viewBox="0 0 760 296" role="img" aria-label="Orientation. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it.">
 <defs>
   <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
   <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
@@ -49,6 +49,5 @@
 <path class="ln dash" d="M460,140 H485 V75 H508" marker-end="url(#a)"/>
 <path class="ln dash" d="M460,156 H508" marker-end="url(#a)"/>
 <path class="ln dash" d="M460,172 H485 V251 H508" marker-end="url(#a)"/>
-<text class="xs mut" x="365" y="306" text-anchor="middle">The same server everywhere, so your schema and SQL move with you.</text>
 
 </svg>
