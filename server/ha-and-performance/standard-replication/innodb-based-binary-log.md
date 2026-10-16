@@ -191,10 +191,10 @@ Binlog files can be automatically removed based on age or disk usage, provided t
 
 ```sql
 -- Retain binary logs for 7 days (in seconds)
-SET GLOBAL binlog_expire_log_seconds = 604800;
+SET GLOBAL binlog_expire_logs_seconds = 604800;
 
 -- Retain binary logs for 14 days 
-SET GLOBAL binlog_expire_log_days = 14;
+SET GLOBAL expire_logs_days = 14;
 
 -- Limit total binary log disk usage to 100 GB
 SET GLOBAL max_binlog_total_size = 107374182400;

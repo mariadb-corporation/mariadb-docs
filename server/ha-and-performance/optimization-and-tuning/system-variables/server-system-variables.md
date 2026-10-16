@@ -1969,6 +1969,15 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Default Value: `4`
 * Range: `1` to `5`
 
+#### `path`
+
+* Description: Comma-separated list of schemas that MariaDB searches, in order, when it resolves the names of stored routines and packages. See [SET PATH](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-path.md). `CURRENT_SCHEMA` in the list stands for the default schema of the session.
+* Command line: No
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `string`
+* Default Value: the current schema only (`CURRENT_SCHEMA`)
+
 #### `pid_file`
 
 * Description: Full path of the process ID file. If [--log-basename](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#log-basename) is also set, `pid_file` should be placed after in the config files. Later settings override earlier settings, so `log-basename` will override any earlier log file name settings.
