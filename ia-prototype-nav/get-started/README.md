@@ -22,8 +22,6 @@ layout:
 
 # MariaDB Documentation
 
-{% columns %}
-{% column %}
 MariaDB gives your applications, and the agents you build on them, one durable place for their data. You get a single source of truth that scales with your workload and runs wherever you need it, from a laptop to Kubernetes to MariaDB Cloud. It's all built on curated open source.
 
 **MariaDB Server is the database.** These docs cover both MariaDB Community Server and MariaDB Enterprise Server. When a feature is Enterprise-only, its page tells you.
@@ -31,9 +29,7 @@ MariaDB gives your applications, and the agents you build on them, one durable p
 **MariaDB Platform builds on the server.** MaxScale, Galera Cluster, ColumnStore, Exa, and GridGain add query routing, clustering, analytics, and in-memory caching when your application needs them.
 
 Pick a tab to get a server running. The agent prompt has your coding agent do the setup. The other tabs show you how to do it yourself.
-{% endcolumn %}
 
-{% column %}
 {% tabs %}
 {% tab title="Agent prompt" %}
 Add the MariaDB plugin to Claude Code:
@@ -114,8 +110,6 @@ helm install mariadb-enterprise-operator \
 The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images with your customer credentials, which go in `values.yaml`. See [Install the operator with Helm]({tools}/mariadb-enterprise-operator/installation/helm).
 {% endtab %}
 {% endtabs %}
-{% endcolumn %}
-{% endcolumns %}
 
 ## From Install to Your First Query
 
