@@ -1,20 +1,32 @@
 ---
 title: AI
-description: Add semantic search to your data with native vector search in SQL, and build it alongside a coding agent that knows MariaDB.
+description: Help shoppers find products by meaning with vector search in SQL, next to the shop data it describes.
 icon: robot
 ---
 
 # AI
 
-Agentic applications need their data and their embeddings in one place, and MariaDB Server keeps both in the same tables. Vector search is built into MariaDB Community Server from 11.7 and MariaDB Enterprise Server from 11.4.5-3, so you don't install a plugin or an extension. The steps below add semantic search to the `shop.products` table from the landing page, then point you at the tools that let a coding agent build the rest with you.
+A customer opens the shop and types "something to light my desk" into the search box. The search runs the query that every shop starts with, a `LIKE` match on the product name:
 
-## Add Semantic Search to the Shop
+```sql
+SELECT name FROM shop.products WHERE name LIKE '%light%';
+```
+
+It returns an empty set. The shop sells exactly what the customer wants, but the product is called "Desk lamp", and the word "light" appears nowhere in it. Keyword matching compares letters, so it can't see that a lamp is a light.
+
+Semantic search compares meanings instead. An embedding model, which is an AI model that turns text into a list of numbers called a vector, places "something to light my desk" and "Desk lamp" close together because they mean similar things. MariaDB Server stores those vectors in the same database as the `products` table and finds the nearest ones in SQL.
+
+<figure><picture><source srcset=".gitbook/assets/ai-semantic-search-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/ai-semantic-search-light.svg" alt="Semantic search: your application turns the search phrase into a vector with an embedding model, then sends one SQL query to MariaDB Server. The query walks the vector index on the product_embeddings table, joins the products table for names, and returns the two nearest products with their distances."></picture><figcaption><p>The embedding model runs in your application, so the database only ever compares numbers, and one query returns both the matches and their names.</p></figcaption></figure>
+
+Vector search is built into MariaDB Community Server from 11.7 and MariaDB Enterprise Server from 11.4.5-3, so there's no plugin or extension to install.
+
+## Teach the Search Box What a Lamp Is
 
 {% stepper %}
 {% step %}
-### Store an Embedding for Each Product
+### Give Each Product an Embedding
 
-An embedding is a list of numbers that an AI model produces from content, such as a product description, so that similar meanings land close together. Create a table that holds one `VECTOR` value per product, with a `VECTOR INDEX` built for cosine distance:
+Create a table that holds one `VECTOR` value per product, with a `VECTOR INDEX` built for cosine distance, which measures how closely two vectors point in the same direction.
 
 ```sql
 CREATE TABLE shop.product_embeddings (
@@ -28,9 +40,9 @@ The indexed column must be `NOT NULL`, and a table can have only one vector inde
 {% endstep %}
 
 {% step %}
-### Insert the Vectors
+### Store the Vectors
 
-The `VEC_FromText` function turns a JSON array of numbers into a vector value. Every row must have the same number of dimensions as the column, which is four here:
+The `VEC_FromText` function turns a JSON array of numbers into a vector value. Every row needs the same number of dimensions as the column, which is four here so the numbers stay readable. A real embedding model produces hundreds or thousands, for example `VECTOR(768)`, and your application code writes them.
 
 ```sql
 INSERT INTO shop.product_embeddings (product_id, embedding) VALUES
@@ -43,9 +55,9 @@ The [VEC\_FromText reference]({server}/reference/sql-functions/vector-functions/
 {% endstep %}
 
 {% step %}
-### Find the Nearest Products
+### Answer "Something to Light My Desk"
 
-Embed the search phrase with the same model, then sort by the `VEC_DISTANCE_COSINE` function and take the top rows. Sorting with `ORDER BY` and stopping at a `LIMIT` is the shape that lets the optimizer use the vector index. The join to the `products` table brings back names in the same query.
+The vector in this query stands in for the customer's phrase after the same model embeds it. Sort by the `VEC_DISTANCE_COSINE` function and stop at a `LIMIT`, because that `ORDER BY ... LIMIT` shape is what lets the optimizer walk the vector index. The join to the `products` table brings back names in the same query.
 
 ```sql
 SELECT p.name,
@@ -65,28 +77,18 @@ LIMIT 2;
 +---------------+---------------------+
 ```
 
-A smaller distance means a closer match. For an index built with `DISTANCE=euclidean`, sort by the `VEC_DISTANCE_EUCLIDEAN` function instead. [Using the vector index efficiently]({server}/reference/sql-structure/vectors/vector-overview#using-the-vector-index-efficiently) lists the query patterns that fall back to a full table scan.
+A smaller distance means a closer match. [Using the vector index efficiently]({server}/reference/sql-structure/vectors/vector-overview#using-the-vector-index-efficiently) lists the query patterns that fall back to a full table scan.
 {% endstep %}
 {% endstepper %}
 
-{% hint style="info" %}
-Four dimensions keep the example readable. Real embedding models produce hundreds or thousands of dimensions per value, for example `VECTOR(768)` or `VECTOR(1536)`, and you generate them in your application code or AI framework, not by hand.
-{% endhint %}
+The customer who typed "something to light my desk" now sees the desk lamp first, and the notebook doesn't show up at all.
 
-## Work With a Coding Agent
+## Build the Rest With Your Agent
 
-Give your agent MariaDB skills, the current docs, and a controlled path to your databases.
+The steps above use made-up vectors. Wiring in a real embedding model, backfilling every product, and keeping the vectors current when a description changes is application code, and a coding agent can write most of it with you if it knows MariaDB.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB AI Plugins</strong></td><td>Skills, an MCP server, and a local sandbox server for Claude Code, Codex, Pi, Hermes Agent, and OpenCode.</td><td><a href="https://github.com/mariadb/ai-plugins">ai-plugins</a></td></tr><tr><td><strong>Docs MCP Server</strong></td><td>Add <code>https://mariadb.com/docs/~gitbook/mcp</code> to your agent so it reads current MariaDB syntax instead of guessing.</td><td><a href="README.md#keep-your-agent-in-the-docs">README.md#keep-your-agent-in-the-docs</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give agents access to production databases, with the authentication and permissions you set.</td><td><a href="{tools}/mariadb-enterprise-mcp-server/introduction">introduction</a></td></tr></tbody></table>
+The [MariaDB AI plugins](https://github.com/mariadb/ai-plugins) give Claude Code, Codex, Pi, Hermes Agent, and OpenCode a set of MariaDB skills, including one for vectors, plus a local sandbox server where the agent can try its SQL before you run it. Add the docs MCP server from the [landing page](README.md#keep-your-agent-in-the-docs) as well, so the agent reads the current `VECTOR` syntax instead of guessing from older training data. Ask it to add an embedding column for product descriptions, and it can check its own work against the reference.
 
-## Go Deeper on Vectors
+## Keep Going
 
-Read the overview before you design a production schema, then pick the retrieval pattern and framework that fit your application.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Vector Overview</strong></td><td>The <code>VECTOR</code> data type, the HNSW-based vector index, distance functions, and the versions of MariaDB Server that include them.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>Hybrid Search</strong></td><td>Merge vector similarity and full-text keyword results into one ranking with reciprocal rank fusion.</td><td><a href="{server}/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf">optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf</a></td></tr><tr><td><strong>Framework Integrations</strong></td><td>Use MariaDB as the vector store for LangChain, LlamaIndex, Spring AI, and other AI, web, and ORM frameworks.</td><td><a href="{server}/reference/sql-structure/vectors/vector-framework-integrations">vector-framework-integrations</a></td></tr></tbody></table>
-
-## Clone a Sample
-
-MariaDB maintains these open source projects on GitHub, and each README has the setup steps.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Vector Search Workshop</strong></td><td>Learn semantic search step by step with LangChain and MariaDB, in Python.</td><td><a href="https://github.com/mariadb-developers/vector-search-workshop">vector-search-workshop</a></td></tr><tr><td><strong>RAG Demo in Java</strong></td><td>Retrieval augmented generation with MariaDB vector search and the OpenAI API.</td><td><a href="https://github.com/mariadb-developers/mariadb-rag-demo-java">mariadb-rag-demo-java</a></td></tr><tr><td><strong>Semantic Search Web App</strong></td><td>A semantic search demo built with MariaDB, LangChain, FastAPI, and NiceGUI.</td><td><a href="https://github.com/mariadb-developers/langchain-fastapi-mariadb-webinar-demo">langchain-fastapi-mariadb-webinar-demo</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Vector Overview</strong></td><td>Read about the <code>VECTOR</code> data type, the HNSW-based vector index, and the distance functions before you design a production schema.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>Hybrid Search</strong></td><td>Merge vector matches and full-text keyword matches into one ranking with reciprocal rank fusion.</td><td><a href="{server}/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf">optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf</a></td></tr><tr><td><strong>Framework Integrations</strong></td><td>Use MariaDB as the vector store for LangChain, LlamaIndex, Spring AI, and other frameworks.</td><td><a href="{server}/reference/sql-structure/vectors/vector-framework-integrations">vector-framework-integrations</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give agents access to production databases with the authentication and permissions you set.</td><td><a href="{tools}/mariadb-enterprise-mcp-server/introduction">introduction</a></td></tr><tr><td><strong>Vector Search Workshop</strong></td><td>Build semantic search step by step in Python with LangChain and MariaDB.</td><td><a href="https://github.com/mariadb-developers/vector-search-workshop">vector-search-workshop</a></td></tr><tr><td><strong>RAG Demo in Java</strong></td><td>Run retrieval augmented generation on MariaDB vector search with the OpenAI API.</td><td><a href="https://github.com/mariadb-developers/mariadb-rag-demo-java">mariadb-rag-demo-java</a></td></tr></tbody></table>
