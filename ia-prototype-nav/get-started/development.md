@@ -1,21 +1,23 @@
 ---
 title: Development
 description: >-
-  Take the first Python query on MariaDB Server to application code with a connection pool, explicit transactions, and MariaDB SQL features.
+  Take the shop's first real order with a connection pool, a transaction that keeps stock honest, and INSERT ... RETURNING for the order number.
 icon: code
 ---
 
 # Development
 
-The landing page ended with one Python script that opens a connection, reads the `shop.products` table, and closes. An application needs a little more than that: connections it can reuse, writes that land together or not at all, and SQL that does work your code would otherwise do. The steps below use MariaDB Connector/Python, and the pool step also shows Node.js and Java. For PHP, .NET, and C++, the connector quickstarts further down pick up the same thread.
+The first real customer buys the standing desk. The script from the landing page could serve that one person, because it opens a connection, reads the `shop.products` table, and closes. A shop doesn't get one customer at a time, though. During a lunch-hour sale, every checkout that opens its own connection pays for a network handshake and a login before it runs a single query.
 
-## From a Script to an Application
+The order itself raises two more problems. The sale has to record the order and take the desk out of stock, and if the server stops between those two writes, the shop either sells a desk it doesn't have or loses track of one it sold. Then the confirmation page wants the new order number, which the database creates, not your code.
+
+## Take the First Order
 
 {% stepper %}
 {% step %}
-### Open a Connection Pool
+### Keep Connections Ready for the Rush
 
-A connection pool keeps a set of open connections, so each request borrows one instead of paying for a new login. With MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool.
+A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -88,53 +90,73 @@ The [ConnectionPool reference]({connectors}/mariadb-connector-python/pool) lists
 {% endstep %}
 
 {% step %}
-### Write Inside a Transaction
+### Sell the Desk and Count It Down Together
 
-MariaDB Connector/Python follows the Python DB API (PEP 249), so autocommit is off, and nothing you write is saved until you call `conn.commit()`. The `?` placeholders are the connector's default parameter style, and the connector sends the values separately from the SQL text, so never build a query with string formatting.
+The shop needs somewhere to record sales and a number to count down. In the `mariadb` client, add a `stock` column to the `products` table, give the standing desk five units, and create an `orders` table:
+
+```sql
+ALTER TABLE shop.products ADD COLUMN stock INT NOT NULL DEFAULT 0;
+UPDATE shop.products SET stock = 5 WHERE name = 'Standing desk';
+
+CREATE TABLE shop.orders (
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  product_id INT NOT NULL,
+  quantity   INT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES shop.products (id)
+);
+```
+
+MariaDB Connector/Python follows the Python DB API (PEP 249), so autocommit is off, and nothing you write is saved until you call `conn.commit()`. That makes the two writes one unit. The `UPDATE` statement only decrements stock when enough is left, and the `cur.rowcount` attribute tells you whether it matched a row. The `?` placeholders are the connector's default parameter style, and the connector sends the values separately from the SQL text, so never build a query with string formatting.
 
 ```python
+product_id, quantity = 2, 1  # the standing desk
+
 conn = pool.get_connection()
 cur = conn.cursor()
 try:
     cur.execute(
-        "INSERT INTO products (name, price) VALUES (?, ?)",
-        ("Monitor arm", 89.00),
+        "UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?",
+        (quantity, product_id, quantity),
     )
+    if cur.rowcount == 0:
+        raise ValueError("not enough stock")
     cur.execute(
-        "UPDATE products SET price = ? WHERE name = ?",
-        (229.00, "Standing desk"),
+        "INSERT INTO orders (product_id, quantity) VALUES (?, ?)",
+        (product_id, quantity),
     )
     conn.commit()
-except mariadb.Error as e:
+except (mariadb.Error, ValueError) as e:
     conn.rollback()
     print(f"Rolled back: {e}")
 finally:
     conn.close()
 ```
 
-If either statement fails, the `rollback()` call undoes both. [Transactions with MariaDB Connector/Python]({connectors}/mariadb-connector-python/transactions-with-mariadb-connector-python) shows how to turn on autocommit when you want each statement saved on its own.
+If either write fails, or the desk is sold out, the `rollback()` call undoes both. [Transactions with MariaDB Connector/Python]({connectors}/mariadb-connector-python/transactions-with-mariadb-connector-python) shows how to turn on autocommit when you want each statement saved on its own.
 {% endstep %}
 
 {% step %}
-### Get the New Row Back With `RETURNING`
+### Show the Customer Their Order Number
 
-MariaDB Server accepts a `RETURNING` clause on `INSERT`, so the statement hands back the generated `id` and any default values in the same round trip. Your code skips the follow-up `SELECT` and reads the row from the cursor.
+The `orders` table generates the order number with `AUTO_INCREMENT`, so your code doesn't know it until the row exists. A `RETURNING` clause on the `INSERT` statement hands back the new `id` and the server-filled `created_at` value in the same round trip, without a follow-up `SELECT`. Replace the `INSERT` and `commit()` lines in the previous step with these:
 
 ```python
-conn = pool.get_connection()
-cur = conn.cursor()
-cur.execute(
-    "INSERT INTO products (name, price) VALUES (?, ?) RETURNING id, name, price",
-    ("Desk mat", 19.00),
-)
-print(cur.fetchone())
-conn.commit()
-conn.close()
+    cur.execute(
+        "INSERT INTO orders (product_id, quantity) VALUES (?, ?) "
+        "RETURNING id, created_at",
+        (product_id, quantity),
+    )
+    order_id, created_at = cur.fetchone()
+    conn.commit()
+    print(f"Order {order_id} placed at {created_at}")
 ```
 
-`RETURNING` takes any expression a `SELECT` list can, and `REPLACE` and `DELETE` support it too. See [INSERT...RETURNING]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning).
+`RETURNING` accepts any expression a `SELECT` list can, and `DELETE` supports it too, so a cancelled order can hand back the row it removed. See [INSERT...RETURNING]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) and [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete).
 {% endstep %}
 {% endstepper %}
+
+The customer sees order 1 on the confirmation page, the standing desk drops from five units to four, and the connection goes back to the pool for the next checkout.
 
 {% hint style="info" %}
 MariaDB Connector/Python 2.0, now a release candidate, moves pooling into an optional package: `pip install --pre mariadb[pool]`, then `mariadb.create_pool()`. The [1.1 to 2.0 migration guide]({connectors}/mariadb-connector-python/migration-from-1.1-to-2.0) maps each change.
@@ -142,18 +164,8 @@ MariaDB Connector/Python 2.0, now a release candidate, moves pooling into an opt
 
 ## Connect From Your Language
 
-Each MariaDB connector has a quickstart that goes from an empty project to a query that returns rows.
-
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python, a DB API driver with built-in connection pooling.</td><td><a href="{connectors}/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js, with Promise and callback APIs.</td><td><a href="{connectors}/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J for JDBC, plus MariaDB Connector/R2DBC for reactive code.</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PDO and mysqli, the drivers PHP already ships with.</td><td><a href="{connectors}/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET for ADO.NET applications.</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++ for native applications.</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
 
-## Use What MariaDB Adds
+## Keep Going
 
-These features move work out of your application code and into a single SQL statement.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>JSON</strong></td><td>Store flexible attributes next to relational columns and filter on them with <code>JSON_VALUE</code> in the same query.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the server keep every version of a row, then read the table as it was with <code>FOR SYSTEM_TIME AS OF</code>.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Common Table Expressions</strong></td><td>Break a long query into named steps with <code>WITH</code>, including recursive queries over trees and graphs.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr></tbody></table>
-
-## Start From a Sample App
-
-MariaDB maintains quickstart repositories on GitHub that you can clone and run against the server from the landing page.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python Quickstart</strong></td><td>Create a database and table, then run create, read, update, and delete operations with MariaDB Connector/Python.</td><td><a href="https://github.com/mariadb-developers/python-quickstart">python-quickstart</a></td></tr><tr><td><strong>Node.js Quickstart</strong></td><td>Query, insert, and batch-load rows with MariaDB Connector/Node.js, including its connection pool.</td><td><a href="https://github.com/mariadb-developers/nodejs-quickstart">nodejs-quickstart</a></td></tr><tr><td><strong>Java Quickstart</strong></td><td>Samples for JDBC, JPA, Spring Boot, Jakarta EE, and Quarkus on MariaDB Connector/J.</td><td><a href="https://github.com/mariadb-developers/java-quickstart">java-quickstart</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>JSON</strong></td><td>Keep product attributes like color and size in a JSON column and filter on them with <code>JSON_VALUE</code>.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the server keep every past price and stock count, then read the table as it was with <code>FOR SYSTEM_TIME AS OF</code>.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Common Table Expressions</strong></td><td>Break a long query into named steps with <code>WITH</code>, including recursive queries over category trees.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Python Quickstart</strong></td><td>A GitHub repository that runs create, read, update, and delete operations with MariaDB Connector/Python.</td><td><a href="https://github.com/mariadb-developers/python-quickstart">python-quickstart</a></td></tr><tr><td><strong>Node.js Quickstart</strong></td><td>A GitHub repository that queries, inserts, and batch-loads rows through the MariaDB Connector/Node.js pool.</td><td><a href="https://github.com/mariadb-developers/nodejs-quickstart">nodejs-quickstart</a></td></tr><tr><td><strong>Java Quickstart</strong></td><td>A GitHub repository with JDBC, JPA, Spring Boot, Jakarta EE, and Quarkus samples on MariaDB Connector/J.</td><td><a href="https://github.com/mariadb-developers/java-quickstart">java-quickstart</a></td></tr></tbody></table>
