@@ -23,7 +23,7 @@ SHOW ENGINES;
 
 The `SHOW DATABASES` output lists `shop` next to system databases such as `mysql` and `information_schema`, where the server keeps its own bookkeeping. The `SHOW ENGINES` output is the interesting one. Each storage engine stores table data in its own way, and the `Support` column marks InnoDB as `DEFAULT`. That's why the `products` table became an InnoDB table without an `ENGINE` clause, and why it can handle checkout traffic with transactions and row-level locks. [A MariaDB Primer]({server}/mariadb-quickstart-guides/mariadb-usage-guide) walks through more of the client.
 
-## Give the App Its Own Key
+## Create an Application User
 
 So far the Python script connects as `root`, which can drop every database on the server. The shop doesn't need that much power, so create a `shop_app` account that can read and change rows in the `shop` database and nothing else.
 
@@ -38,7 +38,7 @@ SHOW GRANTS FOR 'shop_app'@'localhost';
 
 An account in MariaDB is a user name plus a host, so `'shop_app'@'localhost'` only gets in from the server machine itself. When the app runs on another host or outside a Docker container, put that host's name or address after the `@` instead. Point the Python script at the new account, and a bug in the app can no longer drop a table. The [GRANT]({server}/reference/sql-statements/account-management-sql-statements/grant) reference lists every privilege you can give.
 
-## Make a Setting Stick
+## Change a Server Setting
 
 Server behavior lives in system variables, such as the `max_connections` variable, which caps how many clients can connect at once. Its default is 151, and a busy sale with several app workers can use that up. You could run `SET GLOBAL max_connections = 300;`, but the server forgets that value at the next restart, because it reads its startup settings from option files such as `/etc/my.cnf`. Add a `[mariadb]` section there instead.
 
