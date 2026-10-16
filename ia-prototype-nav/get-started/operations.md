@@ -13,13 +13,13 @@ The `mariadb-backup` tool copies the data files while MariaDB Server keeps runni
 
 <figure><picture><source srcset=".gitbook/assets/operations-backup-restore-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/operations-backup-restore-light.svg" alt="Back up and restore with mariadb-backup in four stages. First, back up while the server keeps running. Second, prepare the copied files so they are consistent. Third, stop the server and copy the backup into an empty data directory. Fourth, start the server and verify row counts. The server is stopped only during the restore."></picture><figcaption><p>Customers lose access only during the third stage, so the length of an outage depends on how fast the files copy back.</p></figcaption></figure>
 
-## Get Friday's Data Back
+## Back Up and Restore
 
 Run these steps on a test server before the Friday that needs them. A restore you have practiced once takes minutes. A restore you are reading about for the first time during an outage takes much longer.
 
 {% stepper %}
 {% step %}
-### Take Last Night's Backup
+### Take a Backup
 
 The `mariadb-backup` tool connects to MariaDB Server as a user of its own, so create that user with the privileges the tool needs. Then point the tool at an empty target directory, which it creates if the directory doesn't exist yet.
 
@@ -38,7 +38,7 @@ The [mariadb-backup overview]({server}/server-usage/backup-and-restore/mariadb-b
 {% endstep %}
 
 {% step %}
-### Prepare the Files and Put Them Back
+### Prepare and Restore
 
 The tool copied the data files at slightly different moments while the shop kept taking writes, so the prepare step makes them consistent first. Then stop the server, move the damaged data directory (`/var/lib/mysql` by default) out of the way, copy the backup in, and give the files to the `mysql` user that MariaDB Server runs as.
 
@@ -57,7 +57,7 @@ Prepare the backup with the same version of the `mariadb-backup` tool that took 
 {% endstep %}
 
 {% step %}
-### Check That the Shop Is Whole
+### Verify the Restore
 
 Start the server and count the rows in a table whose contents you know. The `shop.products` table from the landing page should return 3, the same count it had when the backup ran.
 
@@ -72,7 +72,7 @@ When the counts match, the application can reconnect, and you can remove the old
 
 The shop is back, with everything up to last night's backup. Orders placed after that backup ran are the part a single server can't give back.
 
-## When One Server Isn't Enough
+## Add a Replica
 
 A replica, a second server that keeps its own copy of the data, covers both the outage and the lost orders. It applies each change from the primary server's binary log, usually within seconds, so a failed disk on the primary costs only the changes the replica hadn't applied yet, not a day of orders. MariaDB MaxScale sits between the application and the servers and spreads read queries across both, which is also where the shop starts getting faster. With [automatic failover]({maxscale}/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor) turned on in its monitor, MaxScale also promotes the replica when the primary fails. The [MariaDB Platform](readme/enterprise-platform.md) page shows how these pieces fit together.
 
