@@ -22,7 +22,11 @@ layout:
 
 # MariaDB Documentation
 
-MariaDB gives your applications and agents one durable place for their data: a single source of truth that scales with your workload, runs anywhere, and is built on curated open source. These docs cover MariaDB Server, both Community and Enterprise, plus the MariaDB Platform components that extend it. Pick a tab to get a server running, either with your coding agent or by hand.
+MariaDB gives your applications and agents one durable place for their data: a single source of truth that scales with your workload, runs anywhere, and is built on curated open source. These docs cover MariaDB Server, both Community and Enterprise, plus the MariaDB Platform components that extend it.
+
+<figure><picture><source srcset=".gitbook/assets/get-started-orientation-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/get-started-orientation-light.svg" alt="Orientation. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it."></picture><figcaption><p>Your code and your agent talk to the same server, wherever it runs.</p></figcaption></figure>
+
+Pick a tab to get a server running, either with your coding agent or by hand.
 
 {% tabs %}
 {% tab title="Agent prompt" %}
