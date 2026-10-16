@@ -30,10 +30,13 @@ To determine which MariaDB Connector/J release series would be best to use for e
 
 | Java Version(s)                            | Recommended MariaDB Connector/J Release Series                                | JDBC Version |
 | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------ |
+| Java 25, Java 21, Java 17                  | MariaDB Connector/J 4.0                                                       | JDBC 4.5     |
 | Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[1] | JDBC 4.5     |
 | Java 17, Java 11, Java 8                   | MariaDB Connector/J 2.7                                                       | JDBC 4.2     |
 
 1. see parsec authentication restriction
+
+MariaDB Connector/J 4.0 requires Java 17 or later. Applications that run on Java 8 or Java 11 must use the 3.5 release series, which remains maintained.
 
 ## Installing MariaDB Connector/J
 
@@ -47,7 +50,9 @@ MariaDB Connector/J `.jar` files and source code tarballs can be downloaded from
 
 ### Installing Dependencies
 
-JNA (net.java.dev.jna:jna) and JNA-PLATFORM (net.java.dev.jna:jna-platform) 4.2.1 or greater are also needed when you would like to connect to the server with Unix sockets or windows pipes.
+MariaDB Connector/J 4.0 has no required dependency: Unix domain sockets and Windows named pipes use the JDK implementation.
+
+With MariaDB Connector/J 3.x, JNA (net.java.dev.jna:jna) and JNA-PLATFORM (net.java.dev.jna:jna-platform) 4.2.1 or greater are also needed when you would like to connect to the server with Unix sockets or windows pipes.
 
 ## Using the Driver
 
@@ -131,7 +136,7 @@ jdbc:mariadb:[replication:|loadbalance:|sequential:|load-balance-read:]//<hostDe
 HostDescription:
 
 ```java
-<host>[:<portnumber>]  or address=(host=<host>|localSocket=<socket>|pipe=<namedpipe>)[(port=<portnumber>)][(type=(master|replica|slave))][(sslMode=disable|trust|verify-ca|verify-full)]
+<host>[:<portnumber>]  or address=(host=<host>|localSocket=<socket>|pipe=<namedpipe>)[(port=<portnumber>)][(type=(master|replica|slave))][(sslMode=disable|trust|verify-ca|verify-full|allow)]
 ```
 
 Some notes about this:
@@ -144,6 +149,7 @@ Some notes about this:
 * aurora failover prefix is available on 2.x version.
 * A detailed host description option supersedes a global option description
 * sslMode, pipe and localSocket are available since 3.4.1 version
+* the `allow` sslMode value is available since 3.5.11 and 4.0.0
 
 Examples:
 
@@ -213,7 +219,7 @@ The following options are supported.
 
 #### **connectTimeout**
 
-* Description: The connect timeout value, in milliseconds, or zero for no timeout
+* Description: The connect timeout value, in milliseconds, or zero for no timeout. Since 4.0.0, when the host name resolves to several addresses (IPv4 and IPv6), each address is tried in turn until one connects, and the timeout bounds the attempts as a whole: each attempt gets the remaining time divided by the number of addresses left.
 * Data Type: `integer`
 * Default Value: `30 000`
 * Introduced: 1.1.8
@@ -268,14 +274,15 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 #### **sslMode**
 
-* Description: Enables SSL/TLS in a specific mode. this option replaces the deprecated options: `disableSslHostnameVerification`, `trustServerCertificat`e, `useSsl`
+* Description: Enables SSL/TLS in a specific mode. This option replaces the deprecated options `disableSslHostnameVerification`, `trustServerCertificate`, and `useSsl`. Since 4.0.0, TLS is enabled by default: the default value is `verify-full`, and `sslMode=disable` must be set to connect without TLS (the legacy `useSsl=false` also disables it). In 3.x, the default value is `disable`.
 * Data Type: `string`
-* Default Value: `disable`
+* Default Value: `verify-full` since 4.0.0, `disable` in 3.x
 * Valid Values:
   * disable: Do not use SSL/TLS (alias 'false', '0')
   * trust: Only use SSL/TLS for encryption. Do not perform certificate or hostname verification. (alias 'required')
   * verify-ca: Use SSL/TLS for encryption and perform certificates verification, but do not perform hostname verification. (alias 'verify\_ca')
   * verify-full: Use SSL/TLS for encryption, certificate verification, and hostname verification (alias 'verify\_identity', 'true', '1')
+  * allow: `verify-full` when the server announces TLS, no encryption otherwise. This is a migration mode for a mix of servers with and without TLS behind one connection string: the choice is made from the capability flags the server sends in clear, so an active attacker can downgrade the connection. Replace it with `verify-full` once every server has TLS. Available since 3.5.11 and 4.0.0.
 * Introduced: 3.0.0
 
 #### **serverSslCert**
@@ -310,9 +317,9 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 #### **enabledSslProtocolSuites**
 
-* Description: Force TLS/SSL protocol to a specific set of TLS versions (comma separated list). Example : "`TLSv1`,`TLSv1.1`,`TLSv1.2`
+* Description: Force TLS/SSL protocol to a specific set of TLS versions (comma separated list). Example : "`TLSv1.2`,`TLSv1.3`"
 * Data Type: `string`
-* Default Value: `use JRE default`
+* Default Value: `TLSv1.3,TLSv1.2` since 4.0.0, whatever the JSSE defaults of the running JVM. `use JRE default` in 3.x
 * Alias: enabledSSLProtocolSuites
 * Introduced: 1.5.0
 
@@ -330,6 +337,13 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 * Default Value: `true`
 * Introduced: 3.3.2
 
+#### **deferCertificateValidation**
+
+* Description: When the server certificate cannot be validated against the trust store (self-signed certificate, or unknown issuer), permit deferring the server identity validation to authentication, where the certificate fingerprint is verified together with the password. This is the zero-configuration TLS of MariaDB Server 11.4 and later, which requires a MitM-proof authentication plugin and a non-empty password. When disabled, such a certificate is rejected at the TLS handshake.
+* Data Type: `boolean`
+* Default Value: `true`
+* Introduced: 4.0.0
+
 #### **disableSslHostnameVerification**
 
 * Description: _deprecated, use `sslMode` instead_ When using ssl, the driver checks the hostname against the server's identity as presented in the server's certificate (checking alternative names or the certificate CN) to prevent man-in-the-middle attacks. This option permits deactivating this validation. Hostname verification is disabled when the trustServerCertificate option is set
@@ -340,7 +354,7 @@ more information on [Using TLS/SSL with MariaDB java connector](using-tls-ssl-wi
 
 #### **useSsl**
 
-* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias).
+* Description: _deprecated, use sslMode instead_ Force [SSL/TLS on connection](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview)(useSSL can be used as alias). Since 4.0.0, TLS is enabled by default and `useSsl=false` still disables it.
 * Data Type: `boolean`
 * Default Value: `false`
 * Introduced: 1.1.0
@@ -446,9 +460,9 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **cacheCodecs**
 
-* Description: permit to enable/disable caching of codecs (FIELD encoder/decoder).
+* Description: permit to enable/disable caching of the codec (FIELD encoder/decoder) list loaded through `ServiceLoader`, so it is loaded once per JVM instead of on each connection. Disable only when codecs are registered dynamically after the first connection.
 * Data Type: `boolean`
-* Default Value: `false`
+* Default Value: `true` since 4.0.0, `false` in 3.x
 * Introduced: 3.5.4
 
 #### **cachePrepStmts**
@@ -481,14 +495,14 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **credentialType**
 
-* Description: Indicate the credential plugin type to use. Plugin must be present in classpath
+* Description: Indicate the credential plugin type to use. Plugin must be present in classpath. See [Credential service](about-mariadb-connector-j.md#credential-service) for the available plugins. Since 4.0.0, the `AWS-IAM` plugin ships in the separate `org.mariadb.jdbc:mariadb-java-client-aws` artifact.
 * Data Type: `string`
 * Default Value: `null`
 * Introduced: 2.5.0
 
 #### **defaultFetchSize**
 
-* Description: The driver will call setFetchSize(n) with this value on all newly-created Statements
+* Description: The driver will call setFetchSize(n) with this value on all newly-created Statements. Since 4.0.0, the value `Integer.MIN_VALUE` (`-2147483648`) means sequential access: a forward-only result set reads each row from the socket one column at a time, `Blob`, `Clob`, `InputStream`, and `Reader` columns are streamed without being loaded in memory, and columns must be read in increasing index order.
 * Data Type: `integer`
 * Default Value: `0`
 * Introduced: 2.4.2
@@ -530,7 +544,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **localSocket**
 
-* Description: Permits connecting to the database via Unix domain socket, if the server allows it. The value is the path of Unix domain socket (i.e "socket" database parameter : select @@socket) .
+* Description: Permits connecting to the database via Unix domain socket, if the server allows it. The value is the path of Unix domain socket (i.e "socket" database parameter : select @@socket). Since 4.0.0, the JDK implementation is used, so no JNA dependency is needed, and Unix domain sockets are also supported on Windows (for example, for an SSH tunnel).
 * Data Type: `string`
 * Default Value: `null`
 * Introduced: 1.1.4
@@ -586,9 +600,9 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **permitNoResults**
 
-* Description: Indicate if Statement/PreparedStatement.executeQuery for command that produce no result will return an exception or just an empty result-set. When enabled, command not returning no data will end returning an empty result-set, when disabled, command not returning no data will end throwing an exception
+* Description: Indicate if Statement/PreparedStatement.executeQuery for a command that produces no result set returns an empty result set instead of throwing an exception. When enabled, such a command returns an empty result set. When disabled, it throws an `SQLException`, as the JDBC specification requires. Disabled by default since 4.0.0: enable it to restore the former behavior.
 * Data Type: `boolean`
-* Default Value: `true`
+* Default Value: `false` since 4.0.0, `true` in 3.x
 * Introduced: 3.5.2
 
 #### **pinGlobalTxToPhysicalConnection**
@@ -788,13 +802,6 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 * Default Value: `false`
 * Introduced: 2.4.0
 
-#### **useReadAheadInput**
-
-* Description: Use a buffered inputSteam that read socket available data
-* Data Type: `boolean`
-* Default Value: `false`
-* Introduced: 2.4.0
-
 #### **yearIsDateType**
 
 * Description: returns Year as date type, rather than numerical.
@@ -804,13 +811,15 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 ### **Removed options**
 
-<table><thead><tr><th width="275">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>allowMasterDownConnection</code></td><td>When the replication Failover and Load Balancing Mode is in use, allow the creation of connections when the master is down. If no masters are available, then the default connection will be a replica, and Connection.isReadOnly() will return true. Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>interactiveClient</code></td><td>Session timeout is defined by the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a> server variable. Setting interactiveClient to true will tell the server to use the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables">interactive_timeout</a> server variable.Default: false. Since 1.1.7</td></tr><tr><td><code>assureReadOnly</code></td><td>When this parameter is enabled, when a failover and load balancing mode is in use and a read-only connection is made to a host, ensure that this connection is in read-only mode by setting the session to read-only. Default to false. Since 1.3.0, removed in 3.0.0</td></tr><tr><td><code>autoReconnect</code></td><td>If this parameter is enabled and Failover and Load Balancing Mode is not in use, the connector will simply try to reconnect to its host after a failure. This is referred to as Basic Failover. If this parameter is enabled and Failover and Load Balancing Mode is in use, the connector will blacklist the failed host and try to connect to a different host of the same type. This is referred to as Standard Failover. Default is false.since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>callableStmtCacheSize</code></td><td>This sets the number of callable statements that the driver will cache per VM if "cacheCallableStmts" is enabled.Default: true. Since 1.4.0, removed in 3.0.0</td></tr><tr><td><code>enablePacketDebug</code></td><td>Driver will save the last 16 MySQL packet exchanges (limited to first 1000 bytes). Hexadecimal value of those packets will be added to stacktrace when an IOException occur.This option has no impact on performance but driver will then take 16kb more memory.Default: false. Since 1.6.0, 2.0.1, removed in 3.0.0</td></tr><tr><td><code>failoverLoopRetries</code></td><td>When the connector is searching silently for a valid host, this parameter defines the maximum number of connection attempts the connector will make before throwing an exception.This parameter differs from the "retriesAllDown" parameter because this silent search is used in situations where the connector can temporarily workaround the problem, such as by using the master connection to execute reads when the replica connection fails.Default: 120.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>loadBalanceBlacklistTimeout</code></td><td>When a connection fails, this host will be blacklisted for the amount of time defined by this parameter.When connecting to a host, the driver will try to connect to a host in the list of non-blacklisted hosts and, only if none are found, attempt blacklisted ones.This blacklist is shared inside the classloader.Default: 50 seconds.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>log</code></td><td>Enable log information. require Slf4j version > 1.4 dependency.Log level correspond to Slf4j logging implementationDefault: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>passwordCharacterEncoding</code></td><td>Indicate password encoding charset. Charset value must be a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html">Java charset</a>. Example : "UTF-8" Default: null (= platform's default charset) . Since 1.5.9, removed in 3.0.0</td></tr><tr><td><code>profileSql</code></td><td>log query execution time.Default: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>slowQueryThresholdNanos</code></td><td>Will log query with execution time superior to this value (if defined )Default: 1024. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>serverTimezone</code></td><td>Defines the server time zone.to use only if the jre server has a different time implementation of the server.(best to have the same server time zone when possible).since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>sharedMemory</code></td><td>Permits connecting to the database via shared memory, if the server allows it. The value is the base name of the shared memory.since 1.1.4, removed in 3.0.0</td></tr><tr><td><code>staticGlobal</code></td><td>Indicates the values of the global variables <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#autocommit">autocommit</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables">auto_increment_increment</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#time_zone">time_zone</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#system_time_zone">system_time_zone</a> and <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tx_isolation">tx_isolation</a>) won't be changed, permitting the pool to create new connections faster.Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>tcpNoDelay</code></td><td>Sets corresponding option on the connection socket.since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpRcvBuf</code></td><td>set buffer size for TCP buffer (SO_RCVBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpSndBuf</code></td><td>set buffer size for TCP buffer (SO_SNDBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>trackSchema</code></td><td>Permit to disabled "session_track_schema" setting when server has CLIENT_SESSION_TRACK capabilityDefault: True. Since 2.5.4, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSend</code></td><td><em>Not compatible with aurora</em> Driver will can send queries by batch. If set to false, queries are sent one by one, waiting for the result before sending the next one. If set to true, queries will be sent by batch corresponding to the useBatchMultiSendNumber option value (default 100) or according to the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a> server variable if the packet size does not permit sending as many queries. Results will be read later, avoiding a lot of network latency when the client and server aren't on the same host. This option is mainly effective when the client is distant from the server. More information <a href="option-batchmultisend-description.md">here</a> Default: true (false if using aurora failover) . Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSendNumber</code></td><td>When option useBatchMultiSend is active, indicate the maximum query send in a row before reading results.Default: 100. Since 1.5.0</td></tr><tr><td><code>useFractionalSeconds</code></td><td>Correctly handle subsecond precision in timestamps. May confuse 3rd party components (Hibernated).Default: true. Since 1.0.0</td></tr><tr><td><code>useOldAliasMetadataBehavior</code></td><td>Metadata ResultSetMetaData.getTableName() returns the physical table name. "useOldAliasMetadataBehavior" permits activating the legacy code that sends the table alias if set. Default: false. Since 1.1.9</td></tr><tr><td><code>validConnectionTimeout</code></td><td>When multiple hosts are configured, the connector verifies that the connections haven't been lost after this much time in seconds has elapsed.When this parameter is set to 0, no verification will be done. Default:120 secondssince 1.2.0, removed in 3.0.0</td></tr></tbody></table>
+<table><thead><tr><th width="275">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>allowMasterDownConnection</code></td><td>When the replication Failover and Load Balancing Mode is in use, allow the creation of connections when the master is down. If no masters are available, then the default connection will be a replica, and Connection.isReadOnly() will return true. Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>interactiveClient</code></td><td>Session timeout is defined by the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a> server variable. Setting interactiveClient to true will tell the server to use the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables">interactive_timeout</a> server variable.Default: false. Since 1.1.7</td></tr><tr><td><code>assureReadOnly</code></td><td>When this parameter is enabled, when a failover and load balancing mode is in use and a read-only connection is made to a host, ensure that this connection is in read-only mode by setting the session to read-only. Default to false. Since 1.3.0, removed in 3.0.0</td></tr><tr><td><code>autoReconnect</code></td><td>If this parameter is enabled and Failover and Load Balancing Mode is not in use, the connector will simply try to reconnect to its host after a failure. This is referred to as Basic Failover. If this parameter is enabled and Failover and Load Balancing Mode is in use, the connector will blacklist the failed host and try to connect to a different host of the same type. This is referred to as Standard Failover. Default is false.since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>callableStmtCacheSize</code></td><td>This sets the number of callable statements that the driver will cache per VM if "cacheCallableStmts" is enabled.Default: true. Since 1.4.0, removed in 3.0.0</td></tr><tr><td><code>enablePacketDebug</code></td><td>Driver will save the last 16 MySQL packet exchanges (limited to first 1000 bytes). Hexadecimal value of those packets will be added to stacktrace when an IOException occur.This option has no impact on performance but driver will then take 16kb more memory.Default: false. Since 1.6.0, 2.0.1, removed in 3.0.0</td></tr><tr><td><code>failoverLoopRetries</code></td><td>When the connector is searching silently for a valid host, this parameter defines the maximum number of connection attempts the connector will make before throwing an exception.This parameter differs from the "retriesAllDown" parameter because this silent search is used in situations where the connector can temporarily workaround the problem, such as by using the master connection to execute reads when the replica connection fails.Default: 120.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>loadBalanceBlacklistTimeout</code></td><td>When a connection fails, this host will be blacklisted for the amount of time defined by this parameter.When connecting to a host, the driver will try to connect to a host in the list of non-blacklisted hosts and, only if none are found, attempt blacklisted ones.This blacklist is shared inside the classloader.Default: 50 seconds.since 1.2.0, removed in 3.0.0</td></tr><tr><td><code>log</code></td><td>Enable log information. require Slf4j version > 1.4 dependency.Log level correspond to Slf4j logging implementationDefault: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>passwordCharacterEncoding</code></td><td>Indicate password encoding charset. Charset value must be a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html">Java charset</a>. Example : "UTF-8" Default: null (= platform's default charset) . Since 1.5.9, removed in 3.0.0</td></tr><tr><td><code>profileSql</code></td><td>log query execution time.Default: false. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>slowQueryThresholdNanos</code></td><td>Will log query with execution time superior to this value (if defined )Default: 1024. Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>serverTimezone</code></td><td>Defines the server time zone.to use only if the jre server has a different time implementation of the server.(best to have the same server time zone when possible).since 1.1.7, removed in 3.0.0</td></tr><tr><td><code>sharedMemory</code></td><td>Permits connecting to the database via shared memory, if the server allows it. The value is the base name of the shared memory.since 1.1.4, removed in 3.0.0</td></tr><tr><td><code>staticGlobal</code></td><td>Indicates the values of the global variables <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#wait_timeout">wait_timeout</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#autocommit">autocommit</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables">auto_increment_increment</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#time_zone">time_zone</a>, <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#system_time_zone">system_time_zone</a> and <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tx_isolation">tx_isolation</a>) won't be changed, permitting the pool to create new connections faster.Default: false. Since 2.2.0, removed in 3.0.0</td></tr><tr><td><code>tcpNoDelay</code></td><td>Sets corresponding option on the connection socket.since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpRcvBuf</code></td><td>set buffer size for TCP buffer (SO_RCVBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>tcpSndBuf</code></td><td>set buffer size for TCP buffer (SO_SNDBUF).since 1.0.0, removed in 3.0.0</td></tr><tr><td><code>trackSchema</code></td><td>Permit to disabled "session_track_schema" setting when server has CLIENT_SESSION_TRACK capabilityDefault: True. Since 2.5.4, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSend</code></td><td><em>Not compatible with aurora</em> Driver will can send queries by batch. If set to false, queries are sent one by one, waiting for the result before sending the next one. If set to true, queries will be sent by batch corresponding to the useBatchMultiSendNumber option value (default 100) or according to the <a href="https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_allowed_packet">max_allowed_packet</a> server variable if the packet size does not permit sending as many queries. Results will be read later, avoiding a lot of network latency when the client and server aren't on the same host. This option is mainly effective when the client is distant from the server. More information <a href="option-batchmultisend-description.md">here</a> Default: true (false if using aurora failover) . Since 1.5.0, removed in 3.0.0</td></tr><tr><td><code>useBatchMultiSendNumber</code></td><td>When option useBatchMultiSend is active, indicate the maximum query send in a row before reading results.Default: 100. Since 1.5.0</td></tr><tr><td><code>useFractionalSeconds</code></td><td>Correctly handle subsecond precision in timestamps. May confuse 3rd party components (Hibernated).Default: true. Since 1.0.0</td></tr><tr><td><code>useReadAheadInput</code></td><td>Use a buffered input stream that reads the socket's available data. Default: false. Since 2.4.0, removed in 4.0.0</td></tr><tr><td><code>useOldAliasMetadataBehavior</code></td><td>Metadata ResultSetMetaData.getTableName() returns the physical table name. "useOldAliasMetadataBehavior" permits activating the legacy code that sends the table alias if set. Default: false. Since 1.1.9</td></tr><tr><td><code>validConnectionTimeout</code></td><td>When multiple hosts are configured, the connector verifies that the connections haven't been lost after this much time in seconds has elapsed.When this parameter is set to 0, no verification will be done. Default:120 secondssince 1.2.0, removed in 3.0.0</td></tr></tbody></table>
 
 ## JDBC API Implementation Notes
 
 ### Size consideration
 
-GSSAPI in windows isn't well supported in java, causing recurrent issues. Since 3.1, waffle-jna is marked as a dependency to provide good GSSAPI support without problems. This has the drawback to make connector and dependencies to a size of around 4Mb.
+Since 4.0.0, the connector has no dependency: the Waffle-based GSSAPI implementation and its `waffle-jna` dependency are removed, and GSSAPI relies on the operating-system GSS-API when the JVM runs with `-Dsun.security.jgss.native=true`. See [GSSAPI authentication](gssapi-authentication-with-mariadb-connector-j.md).
+
+In 3.x, GSSAPI in windows isn't well supported in java, causing recurrent issues. Since 3.1, waffle-jna is marked as a dependency to provide good GSSAPI support without problems. This has the drawback to make connector and dependencies to a size of around 4Mb.
 
 If size is important, the dependency can be removed, the connector working great, just will have some limitation using GSSAPI on windows :
 
@@ -844,9 +853,9 @@ dependencies {
 
 ### Parsec authentication
 
-Since 3.5.1, parsec authentication is implemented in connector. This requires java 15+ (to use java native ed25519 Algorithm implementation).
+Since 3.5.1, parsec authentication is implemented in connector. Since 3.5.11 and 4.0.0, it works on any supported Java version without an additional dependency.
 
-In order to use parsec authentication with previous version of java, BouncyCastle is required as dependency:
+Connector/J 3.5.1 to 3.5.10 require java 15+ (to use java native ed25519 Algorithm implementation). In order to use parsec authentication with those versions on an older java, BouncyCastle is required as dependency:
 
 ```xml
 <dependency>
@@ -1053,10 +1062,33 @@ The driver has 3 default plugins :
 
 This permits AWS database IAM authentication. The plugin generate a token using IAM credential and region. Token is valid for 15 minutes and cached for 10 minutes.
 
-To use this credential authentication, com.amazonaws:aws-java-sdk-rds dependency must be registered in classpath. Implementation use SDK `DefaultAWSCredentialsProviderChain` and `DefaultAwsRegionProviderChain` to get IAM credential and region.\
-see [DefaultAWSCredentialsProviderChain](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html) and [DefaultAwsRegionProviderChain](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html) to check how those information can be retrieved (environment variable / system properties, files, ...)
+The token is signed with the AWS credentials and region resolved by the AWS SDK default chains (environment variables, system properties, profile files, instance metadata). Connection string options can override them:
 
-Example: `jdbc:mariadb://host/db?credentialType=AWS-IAM&useSsl&serverSslCert=/somepath/rds-combined-ca-bundle.pem`
+| Option                     | Role                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `accessKeyId`, `secretKey` | Static credentials in place of the default credential chain                                              |
+| `region`                   | AWS region in place of the default region chain                                                          |
+| `roleArn`                  | IAM role to assume through STS. The token is then signed with the role's temporary credentials. Since 4.0.0 |
+| `roleSessionName`          | Session name of the assumed role, default `mariadb-connector-j`. Since 4.0.0                              |
+| `externalId`               | External id of the assumed role, when the role requires one. Since 4.0.0                                  |
+
+TLS is mandatory with IAM authentication: the plugin refuses `sslMode=disable`.
+
+**Connector/J 4.0 and later:** the plugin is the separate `org.mariadb.jdbc:mariadb-java-client-aws` artifact, so that the connector itself carries no AWS SDK dependency. Add it next to the connector; it brings the AWS SDK modules it needs. The artifact ships the RDS root certificates, so the default `sslMode=verify-full` validates the RDS certificate chain and host name without any option. The system trust store stays trusted next to them, so RDS Proxy endpoints, which use publicly issued certificates, work as well. The `serverSslCert` or `trustStore` options override the bundle, for example for the AWS China or GovCloud regions, which publish their own bundles.
+
+```xml
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client-aws</artifactId>
+    <version>4.0.0</version>
+</dependency>
+```
+
+Example: `jdbc:mariadb://mydb.123456789012.eu-west-1.rds.amazonaws.com/db?user=iam_user&credentialType=AWS-IAM`
+
+**Connector/J 3.x:** the plugin is bundled with the connector, and the `software.amazon.awssdk:rds` dependency must be present in the classpath. The RDS certificate bundle must be provided with the `serverSslCert` option.
+
+Example: `jdbc:mariadb://host/db?credentialType=AWS-IAM&sslMode=verify-full&serverSslCert=/somepath/global-bundle.pem`
 
 with `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_REGION` environment variable set.
 
@@ -1196,6 +1228,12 @@ Connector/J 3.x is a complete rewrite. While mostly compatible, several internal
 #### Feature Gaps
 
 * **rewriteBatchedStatements:** Removed in 3.0.0 and re-introduced in 3.5.6. Users requiring the "rewrite" behavior for `INSERT` statements must use version 3.5.6 or higher.
+
+### Upgrading from 3.x to 4.x
+
+Connector/J 4.0 requires Java 17 or later. The 3.5 release series remains maintained for applications on Java 8 or Java 11. The following defaults and behaviors changed:
+
+<table><thead><tr><th width="260">Behavior</th><th width="220">Connector/J 3.5</th><th>Connector/J 4.0</th></tr></thead><tbody><tr><td>Minimum Java version</td><td>Java 8</td><td>Java 17</td></tr><tr><td><strong>sslMode</strong> default</td><td><code>disable</code></td><td><code>verify-full</code>: TLS is enabled by default, with certificate and host name validation. Set <code>sslMode=disable</code> to connect without TLS. The new <code>deferCertificateValidation</code> option controls the zero-configuration TLS fallback.</td></tr><tr><td><strong>enabledSslProtocolSuites</strong> default</td><td>JVM default</td><td><code>TLSv1.3,TLSv1.2</code></td></tr><tr><td><strong>permitNoResults</strong> default</td><td><code>true</code></td><td><code>false</code>: <code>PreparedStatement.executeQuery()</code> throws for a statement that returns no result set, as the JDBC specification requires.</td></tr><tr><td><strong>cacheCodecs</strong> default</td><td><code>false</code></td><td><code>true</code></td></tr><tr><td><code>Connection.setSavepoint()</code> in auto-commit mode</td><td>Succeeds silently</td><td>Throws an <code>SQLException</code></td></tr><tr><td><strong>useReadAheadInput</strong> option</td><td>Available</td><td>Removed</td></tr><tr><td><strong>defaultFetchSize</strong></td><td>Positive values only</td><td><code>Integer.MIN_VALUE</code> enables sequential access, streaming LOB columns from the socket</td></tr><tr><td><code>AWS-IAM</code> credential plugin</td><td>Bundled, needs <code>software.amazon.awssdk:rds</code> on the classpath</td><td>Separate <code>mariadb-java-client-aws</code> artifact, with STS assume-role support and the RDS root certificates</td></tr><tr><td>GSSAPI on Windows</td><td>Waffle native implementation (<code>waffle-jna</code>)</td><td>Operating-system GSS-API with <code>-Dsun.security.jgss.native=true</code>. No third-party dependency</td></tr><tr><td>Unix domain sockets</td><td>Need JNA, Unix only</td><td>JDK implementation, no dependency, also on Windows</td></tr><tr><td>Java module</td><td>Automatic module</td><td>First-class <code>module-info.java</code> declaring the <code>org.mariadb.jdbc</code> module</td></tr></tbody></table>
 
 ## F.A.Q.
 
