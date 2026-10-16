@@ -11,13 +11,13 @@ You didn't start the shop on MariaDB. It already runs on MySQL, the `products` t
 
 From MySQL, the trip is short. MariaDB speaks the same wire protocol, accepts most of the same SQL, and loads a MySQL dump, so your application code and most of your schema come over unchanged. The trip from PostgreSQL, Oracle, or SQL Server is longer, because data types, built-in functions, and stored procedures need translation, and each source database has its own guide in the cards at the end.
 
-## Rehearse the Move on a Copy
+## Rehearse on a Copy
 
 The first move isn't the real one. You stand up a test MariaDB Server, copy the `shop` database into it, and check the result. Any schema problem shows up while it's cheap to fix, and you leave with a real number for how long the copy takes.
 
 {% stepper %}
 {% step %}
-### Find What Won't Carry Over
+### Check for Incompatibilities
 
 Before you dump anything, ask the MySQL source which tables use features that MariaDB stores differently. A MySQL `JSON` column arrives in MariaDB as `LONGTEXT` with a validity check, which is fine for most code but worth knowing about. MySQL's table-level `ENCRYPTION` and `COMPRESSION` options use syntax that MariaDB doesn't accept, so a dump that contains them stops partway through the import.
 
@@ -35,7 +35,7 @@ If the second query returns rows, remove those options with `ALTER TABLE` before
 {% endstep %}
 
 {% step %}
-### Copy the Shop Across
+### Dump and Load
 
 Use MySQL's own `mysqldump` tool on the source, because MariaDB's `mariadb-dump` tool hasn't been tested as widely against MySQL servers. Name the `shop` database with the `--databases` option instead of `--all-databases`, because MySQL's system databases differ from MariaDB's and fail on import. Then pipe the dump straight into the `mariadb` client on the test server.
 
@@ -50,7 +50,7 @@ The `--single-transaction` option takes a consistent InnoDB snapshot, so checkou
 {% endstep %}
 
 {% step %}
-### Prove the Copy Matches
+### Verify the Copy
 
 Run the same two statements on MySQL and on MariaDB, then compare the output. Repeat them for every table in the `shop` database, not only the `products` table.
 
@@ -69,7 +69,7 @@ mariadb-check -u root -p --analyze --all-databases
 {% endstep %}
 {% endstepper %}
 
-## The Day You Switch
+## Cut Over
 
 After the rehearsal, you know the dump time, and you know that the copy matches. If the shop can close for that long, repeat the same three steps against the production server and point the application at MariaDB. If it can't close at all, load the copy, then configure MariaDB as a replica of MySQL so that it keeps receiving every new order until you switch the connection string. [Migration from MySQL to MariaDB Galera Cluster using replication]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-using-replication) walks through that setup.
 
