@@ -1,23 +1,25 @@
 ---
 title: Migration
 description: >-
-  Move a database to MariaDB Server or MariaDB Cloud from MySQL, PostgreSQL, Oracle, SQL Server, or Amazon RDS.
+  Move a running MySQL database to MariaDB Server by rehearsing on a copy first, and find the guides for PostgreSQL, Oracle, SQL Server, and MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 
 # Migration
 
-You've seen MariaDB Community Server answer a query from Python. Now bring your own data over. Most moves start from MySQL, where MariaDB shares the wire protocol, most of the SQL, and the dump tooling, so many schemas load with few changes. From PostgreSQL, Oracle, or SQL Server, you translate data types, functions, and procedural code, and the guide for your source database lists those differences.
+You didn't start the shop on MariaDB. It already runs on MySQL, the `products` table has real prices in it, and customers place orders every hour. You want to move it to MariaDB Server without spending a weekend on surprises that a test run would have caught on a Tuesday.
 
-## Move a MySQL Database to a Copy First
+From MySQL, the trip is short. MariaDB speaks the same wire protocol, accepts most of the same SQL, and loads a MySQL dump, so your application code and most of your schema come over unchanged. The trip from PostgreSQL, Oracle, or SQL Server is longer, because data types, built-in functions, and stored procedures need translation, and each source database has its own guide in the cards at the end.
 
-Run these three steps against a test copy of MariaDB Server before you touch production. You get a real timing for the cutover, and any schema problems show up while they're cheap to fix. The examples move a database called `shop`.
+## Rehearse the Move on a Copy
+
+The first move isn't the real one. You stand up a test MariaDB Server, copy the `shop` database into it, and check the result. Any schema problem shows up while it's cheap to fix, and you leave with a real number for how long the copy takes.
 
 {% stepper %}
 {% step %}
-### Check What Changes
+### Find What Won't Carry Over
 
-On the MySQL source, look for the features that don't carry over as-is. A binary MySQL `JSON` column arrives in MariaDB as `LONGTEXT` with a validity check. MySQL's table-level `ENCRYPTION` and `COMPRESSION` options use syntax that MariaDB doesn't accept, so a dump that contains them fails on import.
+Before you dump anything, ask the MySQL source which tables use features that MariaDB stores differently. A MySQL `JSON` column arrives in MariaDB as `LONGTEXT` with a validity check, which is fine for most code but worth knowing about. MySQL's table-level `ENCRYPTION` and `COMPRESSION` options use syntax that MariaDB doesn't accept, so a dump that contains them stops partway through the import.
 
 ```sql
 -- Columns that use the MySQL JSON type
@@ -29,13 +31,13 @@ SELECT table_schema, table_name, create_options FROM information_schema.TABLES
 WHERE create_options LIKE "%ENCRYPT%" OR create_options LIKE "%COMP%";
 ```
 
-Remove the encryption and compression options with `ALTER TABLE` before you dump, and turn them back on with MariaDB syntax afterward. The [MySQL to MariaDB compatibility matrix]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix) covers authentication, SQL syntax, and the other high-impact differences.
+If the second query returns rows, remove those options with `ALTER TABLE` before you dump, and turn them back on with MariaDB syntax afterward. The [MySQL to MariaDB compatibility matrix]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix) lists the other differences, including authentication plugins and SQL syntax.
 {% endstep %}
 
 {% step %}
-### Dump From MySQL and Load Into MariaDB
+### Copy the Shop Across
 
-Use MySQL's own `mysqldump` tool on the source, because MariaDB's `mariadb-dump` tool hasn't been tested as widely against MySQL servers. Name your databases with `--databases` instead of `--all-databases`, because the MySQL system databases differ from MariaDB's and fail on import. Pipe the dump straight into the `mariadb` client on the target server:
+Use MySQL's own `mysqldump` tool on the source, because MariaDB's `mariadb-dump` tool hasn't been tested as widely against MySQL servers. Name the `shop` database with the `--databases` option instead of `--all-databases`, because MySQL's system databases differ from MariaDB's and fail on import. Then pipe the dump straight into the `mariadb` client on the test server.
 
 ```bash
 mysqldump --user=root --password --databases shop \
@@ -44,39 +46,33 @@ mysqldump --user=root --password --databases shop \
   | mariadb --host=new_server_ip --user=root --password
 ```
 
-The `--single-transaction` option takes a consistent InnoDB snapshot without locking tables. Binary columns come through intact because of the `--hex-blob` option. A streamed load can't resume if the connection drops, so for a large database, write the dump to a file first. The [MySQL to MariaDB migration guide]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide) covers the file method, server settings for big imports, and porting users and privileges.
+The `--single-transaction` option takes a consistent InnoDB snapshot, so checkout keeps writing on MySQL while the dump runs. The `--hex-blob` option keeps binary columns intact. A piped load can't resume if the connection drops, so when the database is large, write the dump to a file first. The [MySQL to MariaDB migration guide]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide) covers the file method, server settings for big imports, and how to port users and privileges.
 {% endstep %}
 
 {% step %}
-### Verify the Copy
+### Prove the Copy Matches
 
-Run the same statements on the MySQL source and on MariaDB, then compare the results table by table. Afterward, refresh the optimizer statistics on MariaDB with the `mariadb-check` tool, because the MariaDB optimizer plans queries differently from the MySQL one.
+Run the same two statements on MySQL and on MariaDB, then compare the output. Repeat them for every table in the `shop` database, not only the `products` table.
 
 ```sql
 SELECT COUNT(*) FROM shop.products;
 CHECKSUM TABLE shop.products;
 ```
 
+Row counts must match exactly. A checksum can differ on a table with date and time columns even when the data is the same, because the two servers can store those rows in different formats, so compare those tables row by row. [`CHECKSUM TABLE`]({server}/reference/sql-statements/table-statements/checksum-table) explains what changes the value.
+
+When the numbers agree, refresh the optimizer statistics on MariaDB with the `mariadb-check` tool. The MariaDB optimizer plans queries differently from the MySQL one, and it needs fresh statistics to pick good plans for the shop's queries.
+
 ```bash
 mariadb-check -u root -p --analyze --all-databases
 ```
-
-Row counts must match exactly. A checksum mismatch on a table with date and time columns can come from a different row storage format instead of different data, so check those tables row by row. [`CHECKSUM TABLE`]({server}/reference/sql-statements/table-statements/checksum-table) explains what changes the value.
 {% endstep %}
 {% endstepper %}
 
-{% hint style="info" %}
-**Need zero downtime?** Load the copy, then set up MariaDB as a replica of MySQL so it keeps up until you switch the application over. [Migration from MySQL to MariaDB Galera Cluster using replication]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-using-replication) walks through it.
-{% endhint %}
+## The Day You Switch
 
-## Start With the Differences
+After the rehearsal, you know the dump time, and you know that the copy matches. If the shop can close for that long, repeat the same three steps against the production server and point the application at MariaDB. If it can't close at all, load the copy, then configure MariaDB as a replica of MySQL so that it keeps receiving every new order until you switch the connection string. [Migration from MySQL to MariaDB Galera Cluster using replication]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-using-replication) walks through that setup.
 
-Scope the work before you move any data.
+## Keep Going
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Differences From Other Databases</strong></td><td>What changes when you move to MariaDB from another database system.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss">differences-between-mariadb-and-other-dbmss</a></td></tr><tr><td><strong>Migration Overview</strong></td><td>The supported source databases and the steps every migration shares.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb">migrating-to-mariadb</a></td></tr><tr><td><strong>MySQL Compatibility</strong></td><td>Feature-by-feature compatibility between MySQL and MariaDB versions.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix">mysql-to-mariadb-compatibility-matrix</a></td></tr></tbody></table>
-
-## Migrate From Your Database
-
-Pick your source database for the type mappings, syntax changes, and tools that apply to it.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>From MySQL</strong></td><td>Replace MySQL in place, move with a dump and restore, or switch over with replication.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql">moving-from-mysql</a></td></tr><tr><td><strong>From PostgreSQL</strong></td><td>Translate PostgreSQL types, functions, and syntax to MariaDB.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql">migrating-to-mariadb-from-postgresql</a></td></tr><tr><td><strong>From Oracle</strong></td><td>Set <code>sql_mode=ORACLE</code> to run much of your PL/SQL without rewriting it.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-oracle">migrating-to-mariadb-from-oracle</a></td></tr><tr><td><strong>From SQL Server</strong></td><td>Map SQL Server types, syntax, and T-SQL habits to MariaDB.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-sql-server">migrating-to-mariadb-from-sql-server</a></td></tr><tr><td><strong>Into MariaDB Cloud</strong></td><td>Load an existing database into a MariaDB Cloud service.</td><td><a href="{mariadb-cloud}/cloud-data-handling/migration-data-loading/data-loading-migration">data-loading-migration</a></td></tr><tr><td><strong>From Amazon RDS to MariaDB Cloud</strong></td><td>Move an Amazon RDS for MariaDB instance to MariaDB Cloud.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-from-mariadb-rds-to-mariadb-cloud">migrating-from-mariadb-rds-to-mariadb-cloud</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MySQL Compatibility Matrix</strong></td><td>Check each MySQL feature your shop uses against the MariaDB version you target.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix">mysql-to-mariadb-compatibility-matrix</a></td></tr><tr><td><strong>Differences From Other Databases</strong></td><td>See what changes when you move to MariaDB from another database system.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss">differences-between-mariadb-and-other-dbmss</a></td></tr><tr><td><strong>From PostgreSQL</strong></td><td>Translate PostgreSQL types, functions, and syntax to MariaDB.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql">migrating-to-mariadb-from-postgresql</a></td></tr><tr><td><strong>From Oracle</strong></td><td>Set <code>sql_mode=ORACLE</code> to run much of your PL/SQL without rewriting it.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-oracle">migrating-to-mariadb-from-oracle</a></td></tr><tr><td><strong>From SQL Server</strong></td><td>Map SQL Server types, syntax, and T-SQL habits to MariaDB.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-sql-server">migrating-to-mariadb-from-sql-server</a></td></tr><tr><td><strong>Into MariaDB Cloud</strong></td><td>Load an existing database into a MariaDB Cloud service instead of a server you run.</td><td><a href="{mariadb-cloud}/cloud-data-handling/migration-data-loading/data-loading-migration">data-loading-migration</a></td></tr></tbody></table>
