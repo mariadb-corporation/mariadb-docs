@@ -22,13 +22,7 @@ layout:
 
 # MariaDB Documentation
 
-MariaDB gives your applications, and the agents you build on them, one durable place for their data. You get a single source of truth that scales with your workload and runs wherever you need it, from a laptop to Kubernetes to MariaDB Cloud. It's all built on curated open source.
-
-**MariaDB Server is the database.** These docs cover both MariaDB Community Server and MariaDB Enterprise Server. When a feature is Enterprise-only, its page tells you.
-
-**MariaDB Platform builds on the server.** MaxScale, Galera Cluster, ColumnStore, Exa, and GridGain add query routing, clustering, analytics, and in-memory caching when your application needs them.
-
-Pick a tab to get a server running. The agent prompt has your coding agent do the setup. The other tabs show you how to do it yourself.
+MariaDB gives your applications and agents one durable place for their data: a single source of truth that scales with your workload, runs anywhere, and is built on curated open source. These docs cover MariaDB Server, both Community and Enterprise, plus the MariaDB Platform components that extend it. Pick a tab to get a server running, either with your coding agent or by hand.
 
 {% tabs %}
 {% tab title="Agent prompt" %}
@@ -179,26 +173,6 @@ On the sandbox, the port is `3310`. The [Python connector quickstart]({connector
 {% endstep %}
 {% endstepper %}
 
-{% hint style="info" %}
-**Already running MariaDB?** Go to [Server]({server}) for administration and the SQL reference, or to [MariaDB Platform]({platform}) for MaxScale, clustering, and analytics.
-{% endhint %}
-
-## Build With MariaDB
-
-Jump to a feature, find the connector for your language, or clone a sample app and run it.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI and Vector Search</strong></td><td>Store embeddings in a native <code>VECTOR</code> column and run similarity search in SQL, next to the rest of your data.</td><td><a href="ai.md">ai.md</a></td></tr><tr><td><strong>JSON</strong></td><td>Keep flexible documents in the same tables as relational data, and query both with one statement.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the database keep every version of a row, then query your data as it was at any point in time.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Modern SQL</strong></td><td>Recursive and non-recursive common table expressions, window functions, and sequences, for queries that go past a basic <code>SELECT</code>.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Analytics and HTAP</strong></td><td>Run columnar analytics on live operational data with ColumnStore and Exa.</td><td><a href="analytics.md">analytics.md</a></td></tr><tr><td><strong>Sample Apps</strong></td><td>Open source apps on GitHub, from to-do lists to RAG, in Python, Node.js, Java, .NET, and C++.</td><td><a href="https://github.com/mariadb-developers">mariadb-developers</a></td></tr></tbody></table>
-
-### Connect From Your Language
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python</td><td><a href="{connectors}/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js</td><td><a href="{connectors}/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PDO and mysqli</td><td><a href="{connectors}/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
-
-## Pick a Path
-
-Each path is a page that walks through one job in order and links to the docs you need along the way.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Build an AI Application</strong></td><td>Store and search vectors, connect your AI framework, and give an agent access to the database.</td><td><a href="ai.md">ai.md</a></td></tr><tr><td><strong>Develop an Application</strong></td><td>Connect from your language, write the SQL, and build the schema out from there.</td><td><a href="development.md">development.md</a></td></tr><tr><td><strong>Move to MariaDB</strong></td><td>See what's different, then bring your schema and data over from MySQL, PostgreSQL, or Amazon RDS.</td><td><a href="migration.md">migration.md</a></td></tr><tr><td><strong>Run MariaDB in Production</strong></td><td>Install from packages, deploy on Kubernetes, back up, and keep it available. For instructor-built courses and certification, see <a href="https://learn.mariadb.com">MariaDB University</a>.</td><td><a href="deployment.md">deployment.md</a></td></tr></tbody></table>
-
 ## Keep Your Agent in the Docs
 
 {% columns %}
@@ -214,9 +188,26 @@ claude mcp add --transport http mariadb-docs \
 {% endcolumn %}
 {% endcolumns %}
 
+{% hint style="info" %}
+**Already running MariaDB?** Go to [Server]({server}) for administration and the SQL reference, or to [MariaDB Platform]({platform}) for MaxScale, clustering, and analytics.
+{% endhint %}
+
+## Build With MariaDB
+
+Jump to a feature, find the connector for your language, or clone a sample app and run it.
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI and Vector Search</strong></td><td>Store embeddings in a native <code>VECTOR</code> column and run similarity search in SQL, next to the rest of your data.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>JSON</strong></td><td>Keep flexible documents in the same tables as relational data, and query both with one statement.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the database keep every version of a row, then query your data as it was at any point in time.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Modern SQL</strong></td><td>Recursive and non-recursive common table expressions, window functions, and sequences, for queries that go past a basic <code>SELECT</code>.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Columnar Analytics</strong></td><td>Run analytical queries on live operational data with ColumnStore, without copying it to a warehouse first.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Sample Apps</strong></td><td>Open source apps on GitHub, from to-do lists to RAG, in Python, Node.js, Java, .NET, and C++.</td><td><a href="https://github.com/mariadb-developers">mariadb-developers</a></td></tr></tbody></table>
+
+### Connect From Your Language
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python</td><td><a href="{connectors}/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js</td><td><a href="{connectors}/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PDO and mysqli</td><td><a href="{connectors}/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
+
+## Pick a Path
+
+Each path is a page that walks through one job in order and links to the docs you need along the way.
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Build an AI Application</strong></td><td>Store and search vectors, connect your AI framework, and give an agent access to the database.</td><td><a href="ai.md">ai.md</a></td></tr><tr><td><strong>Develop an Application</strong></td><td>Connect from your language, write the SQL, and build the schema out from there.</td><td><a href="development.md">development.md</a></td></tr><tr><td><strong>Analyze Your Data</strong></td><td>Run analytics at scale with ColumnStore and Exa, and pick the right storage engine for each reporting table.</td><td><a href="analytics.md">analytics.md</a></td></tr><tr><td><strong>Move to MariaDB</strong></td><td>See what's different, then bring your schema and data over from MySQL, PostgreSQL, or Amazon RDS.</td><td><a href="migration.md">migration.md</a></td></tr><tr><td><strong>Deploy MariaDB</strong></td><td>Install from packages, run on Kubernetes with the operator, or launch a managed service on MariaDB Cloud.</td><td><a href="deployment.md">deployment.md</a></td></tr><tr><td><strong>Run It in Production</strong></td><td>Back up and restore, run clustered and routed topologies, and tune performance. For courses and certification, see <a href="https://learn.mariadb.com">MariaDB University</a>.</td><td><a href="operations.md">operations.md</a></td></tr></tbody></table>
+
 ## Get Help
 
-* **Community:** [mariadb.org](https://mariadb.org) and the [MariaDB Zulip](https://mariadb.zulipchat.com) chat.
-* **Bugs and feature requests:** [MariaDB Jira](https://jira.mariadb.org).
-* **Support:** [MariaDB Cloud and Enterprise support](https://mariadb.com/support/).
-* **What's new:** [Release notes]({release-notes}).
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Community</strong></td><td>Ask questions and meet the people who build MariaDB on mariadb.org and the <a href="https://mariadb.zulipchat.com">MariaDB Zulip</a> chat.</td><td><a href="https://mariadb.org">mariadb.org</a></td></tr><tr><td><strong>Report a Bug</strong></td><td>File bugs and feature requests for MariaDB Server, the connectors, and MaxScale in MariaDB Jira.</td><td><a href="https://jira.mariadb.org">jira.mariadb.org</a></td></tr><tr><td><strong>Get Support</strong></td><td>Support for MariaDB Cloud and MariaDB Enterprise Platform customers.</td><td><a href="https://mariadb.com/support/">mariadb.com/support</a></td></tr></tbody></table>
