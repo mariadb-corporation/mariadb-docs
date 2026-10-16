@@ -11,11 +11,11 @@ The first real customer buys the standing desk. The script from the landing page
 
 The order itself raises two more problems. The sale has to record the order and take the desk out of stock, and if the server stops between those two writes, the shop either sells a desk it doesn't have or loses track of one it sold. Then the confirmation page wants the new order number, which the database creates, not your code.
 
-## Take the First Order
+## Handle an Order
 
 {% stepper %}
 {% step %}
-### Keep Connections Ready for the Rush
+### Use a Connection Pool
 
 A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
 
@@ -90,7 +90,7 @@ The [ConnectionPool reference]({connectors}/mariadb-connector-python/pool) lists
 {% endstep %}
 
 {% step %}
-### Sell the Desk and Count It Down Together
+### Write Inside a Transaction
 
 The shop needs somewhere to record sales and a number to count down. In the `mariadb` client, add a `stock` column to the `products` table, give the standing desk five units, and create an `orders` table:
 
@@ -137,7 +137,7 @@ If either write fails, or the desk is sold out, the `rollback()` call undoes bot
 {% endstep %}
 
 {% step %}
-### Show the Customer Their Order Number
+### Return the New Row
 
 The `orders` table generates the order number with `AUTO_INCREMENT`, so your code doesn't know it until the row exists. A `RETURNING` clause on the `INSERT` statement hands back the new `id` and the server-filled `created_at` value in the same round trip, without a follow-up `SELECT`. Replace the `INSERT` and `commit()` lines in the previous step with these:
 
