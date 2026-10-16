@@ -11,7 +11,7 @@ The shop runs. The `shop.products` table answers queries from Python, and before
 
 The tour has three stops. Open the `mariadb` command-line client against the server from the landing page and follow along.
 
-## Look Around the Engine Room
+## Look Around
 
 Start by asking the server what it is and what it holds. The answers come back in a few lines, and they tell you more than a version number.
 
