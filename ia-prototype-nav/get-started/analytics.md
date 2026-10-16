@@ -19,11 +19,11 @@ MariaDB ColumnStore stores each column on its own, so a report reads only the co
 To follow along, you need a server with ColumnStore installed. On MariaDB Community Server, install the `mariadb-plugin-columnstore` package (`MariaDB-columnstore-engine` on RHEL) from the MariaDB repository. For MariaDB Enterprise Server, the [single-node install guide]({analytics}/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage) walks through the setup.
 {% endhint %}
 
-## Give the Monday Report Its Own Engine
+## Move Sales to ColumnStore
 
 {% stepper %}
 {% step %}
-### Create a ColumnStore Table for Sales
+### Create a ColumnStore Table
 
 Add a `sales` table to the `shop` database with `ENGINE=ColumnStore`. ColumnStore tables don't use primary keys or indexes the way InnoDB tables do, because the engine scans compressed columns instead of looking up rows.
 
@@ -41,7 +41,7 @@ The [ColumnStore quickstart]({analytics}/mariadb-columnstore/columnstore-quickst
 {% endstep %}
 
 {% step %}
-### Load a Week of Sales
+### Bulk Load With cpimport
 
 The `cpimport` tool ships with ColumnStore and writes straight to the column files, skipping the SQL layer, which makes it the fastest way to load history. It reads pipe-delimited text by default, so write a small file on the server host and load it.
 
@@ -55,7 +55,7 @@ Reports keep running while the load is in progress. When your order history alre
 {% endstep %}
 
 {% step %}
-### Answer the Monday Question
+### Join Across Engines
 
 Revenue per product needs the sales figures from ColumnStore and the product names from InnoDB. One `SELECT` reads both.
 
