@@ -104,6 +104,6 @@ Galera Cluster behind MaxScale is a common production topology, because MaxScale
 
 ## Analyze and Manage
 
-ColumnStore and Exa run on MariaDB Enterprise Server, and MariaDB Enterprise Manager watches the whole deployment.
+Run reports next to your transactions with ColumnStore, scale them out with Exa, and watch the whole deployment from MariaDB Enterprise Manager.
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>ColumnStore Quickstart</strong></td><td>Answer analytical queries from a columnar storage engine next to your transactional tables.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Spread the largest analytical workloads across a cluster.</td><td><a href="{analytics}/mariadb-exa/deployment">deployment</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer your servers and MaxScale instances from one console.</td><td><a href="{tools}/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr></tbody></table>
