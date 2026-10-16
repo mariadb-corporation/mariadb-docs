@@ -123,3 +123,7 @@ $KAFKA_HOME/bin/connect-standalone.sh \
 ## Managing Kafka Connectors
 
 Each Kafka worker exposes REST API to manage Kafka Connectors (available on port `8083` by default). See [Kafka Connect REST Interface](https://docs.confluent.io/current/connect/references/restapi.html) for information on how to create, remove, pause, and resume connectors as well as see the status of the connectors and tasks.
+
+## See Also
+
+- [How to run the GridGain Kafka Connector on Amazon MSK](example-running-on-amazon-msk.md)

@@ -51,4 +51,4 @@ Both Apache Ignite and GridGain stores provide the following methods:
 
 GridGain provides a comprehensive example of using Ignite for creating an online store for a Feast integration with Kafka. This tutorial provides a detailed implementation that demonstrates the integration of Ignite Online Store with Feast in a Continuous Glucose Monitoring (CGM) use case. It includes examples of configuration, feature definitions, and usage in different environments.
 
-The full tutorial is available in the [Low-Latency Machine Learning Feature Store with GridGain and Feast](https://www.gridgain.com/docs/tutorials/vector/feast) section.
+The full tutorial is available in the [How to Build a Machine Learning Feature Store With GridGain and Feast](feast-feature-store-tutorial.md) page.

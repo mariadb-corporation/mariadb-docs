@@ -176,3 +176,7 @@ These methods have the following limitations:
 
 - Touch operations are only supported for [Atomic caches](atomicity-modes.md).
 - Touch operation is guaranteed to omit loading the entry into memory for in-memory clusters only.
+
+## See Also
+
+- [Cache Sizing and Expiry](../../gridgain8-tutorials/cache-centric-foundations/cache-sizing-and-expiry.md)

@@ -480,3 +480,7 @@ The following table describes native persistence properties.
 | `walCompactionLevel` | WAL archive compression level. `1` indicates the fastest speed, and `9` indicates the best compression. | `1` |
 | `maxWalArchiveSize` | The maximum size (in bytes) the WAL archive can occupy on the file system. Observed as long as it does not prevent completion of a checkpoint. If a specific checkpoint causes the archive to grow beyond the maximum size, the system starts self-cleanup as soon as this checkpoint is completed. "-1" means there is no archive size limit. | 1 Gb |
 | `minWalArchiveSize` | The size (in bytes) starting from which the WAL archive begins self-cleanup. | Half the value of `maxWalArchiveSize`; initially, 500 Mb |
+
+## See Also
+
+- [Beyond Cache: The Persistence Problem](../../gridgain8-tutorials/beyond-key-value/native-persistence-beyond-cache.md)

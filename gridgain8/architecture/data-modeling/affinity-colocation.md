@@ -420,3 +420,10 @@ p1 = personCache.Get(new AffinityKey(1, companyId));
 unsupported
 {% endtab %}
 {% endtabs %}
+
+## See Also
+
+- [Design for Data Locality](../../gridgain8-tutorials/data-locality/README.md)
+- [Design Keys for Colocation](../../gridgain8-tutorials/data-locality/design-keys-for-colocation.md)
+- [Verify Colocation Is Working](../../gridgain8-tutorials/data-locality/verify-colocation.md)
+- [When to Break Colocation](../../gridgain8-tutorials/data-locality/when-to-break-colocation.md)

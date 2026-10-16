@@ -35,3 +35,8 @@ lowercaseOutputName: false
 {% endcode %}
 
 You can connect to a single node and monitor its global metrics. If you want to monitor every node, add the JMX exporter to each node.
+
+## See Also
+
+- [How to Monitor GridGain 8 With Prometheus and Grafana](prometheus-grafana-step-by-step.md)
+- [How to Monitor GridGain Clusters With New Relic](new-relic.md)

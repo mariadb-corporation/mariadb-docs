@@ -290,4 +290,4 @@ The GridGainVectorStore allows you to store text data along with their vector em
 
 GridGain provides a comprehensive, real-world example of how to use this package. The tutorial includes a demonstration project that showcases the integration of GridGain with LangChain, using the custom `langchain-gridgain` package and provides examples of how to use GridGain as a backend for various LangChain components, focusing on a laptop recommendation system.
 
-The tutorial is available in the [Retrieval-Augmented Generation with GridGain and LangChain](https://www.gridgain.com/docs/tutorials/vector/langchain) section.
+The tutorial is available in the [How to Build Retrieval-Augmented Generation With GridGain and LangChain](langchain-rag-tutorial.md) page.

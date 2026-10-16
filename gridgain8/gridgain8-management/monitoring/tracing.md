@@ -137,3 +137,7 @@ The trace contains spans associated with the following operations:
 * close (`transactions.close`).
 
 The commit operation, in turn, consists of two operations: prepare and finish. You can click on each span to view the annotations and tags attached to it.
+
+## See Also
+
+- [Use Tracing to Resolve Performance Issues in GridGain]({tools}/enterprise/control-center/tutorials/gridgain8-management-and-monitoring/performance-tracing)

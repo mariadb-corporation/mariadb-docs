@@ -862,3 +862,8 @@ unsupported
 Refer to the [Monitoring Transactions](../reference/monitoring/jmx-metrics.md#monitoring-transactions) section for the list of metrics that expose some transaction-related information.
 
 You can also use the [control script](../reference/cli-tool/README.md#transaction-management) to get information about, or cancel, specific transactions being executed in the cluster.
+
+## See Also
+
+- [Use Transactions With the Cache API](../gridgain8-tutorials/cache-centric-foundations/cache-transactions.md)
+- [Atomic Operations Across Keys: The Transaction Problem](../gridgain8-tutorials/beyond-key-value/cross-partition-transactions.md)

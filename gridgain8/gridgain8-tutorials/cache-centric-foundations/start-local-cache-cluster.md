@@ -1,0 +1,361 @@
+---
+description: >-
+  Set up a single-node Ignite 2 or GridGain 8 cluster with Docker Compose for cache-centric development and testing.
+---
+
+# Start a Local Cache Development Cluster
+
+## Introduction
+
+Your application needs a fast caching layer. In this tutorial, you start a single-node cluster with Docker Compose and verify it is running. Every subsequent tutorial in the cache-centric Foundations path builds on this environment.
+
+The cache-centric architecture uses Apache Ignite 2 and GridGain 8. These products organize server nodes in a ring topology with no minimum node count.
+
+A single server node is all you need to start developing. Later tutorials add nodes when you explore partition distribution and resilience.
+
+This tutorial works with both Apache Ignite 2 and GridGain 8 Enterprise. Select your product version in the tabs where setup differs.
+
+## Prerequisites
+
+- **Docker** 20.10 or later
+- **Docker Compose** 2.23.1 or later (ships with Docker Desktop)
+- **Port 47500** available on your machine (cluster discovery)
+- **Port 10800** available on your machine (client connections)
+- **2 GB of available RAM** for the server node
+
+{% tabs %}
+{% tab title="Apache Ignite 2" %}
+
+No additional setup required. The Apache Ignite 2 image is free and available on Docker Hub.
+
+{% endtab %}
+
+{% tab title="GridGain 8" %}
+
+GridGain 8 Enterprise requires a trial license:
+
+1. Go to [gridgain.com](https://www.gridgain.com/) and request an Enterprise trial download
+2. Check your email for a download link to `gridgain-enterprise-8.9.32.zip`
+3. Download and extract the zip file
+4. Copy `gridgain-license.xml` from the top level of the extracted directory into your project directory (you create this directory in Step 1)
+
+The trial license is valid for 30 days. The 1.1 GB zip contains the full binary distribution, but only the license file is needed for Docker.
+
+{% endtab %}
+
+{% endtabs %}
+
+{% hint style="info" %}
+The Docker images for both Apache Ignite 2 and GridGain 8 are **amd64 only**. Docker Desktop runs them under Rosetta 2 emulation. Startup takes longer than native images, and JVM performance is reduced. This is an emulation artifact, not a product limitation.
+{% endhint %}
+
+## What You Will Learn
+
+A running single-node cluster verified through its startup log and a cluster state check. You will:
+
+- Start a cache-centric cluster node with Docker Compose
+- Read the topology snapshot log to confirm the node is active
+- Run a cluster state check to verify connectivity
+
+## Create the Docker Compose Environment
+
+Create a project directory and the configuration files. The cluster needs a `docker-compose.yml` for the server container and an XML configuration for node discovery.
+
+```bash
+mkdir cache-cluster
+```
+
+Create the XML configuration file that configures static IP discovery. Save this as `cache-cluster/ignite-config.xml`:
+
+{% code title="ignite-config.xml" %}
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+
+        <!-- Static IP discovery (no multicast) -->
+        <property name="discoverySpi">
+            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                <property name="ipFinder">
+                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                        <property name="addresses">
+                            <list>
+                                <value>node1:47500</value>
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
+        <!-- Inter-node communication port -->
+        <property name="communicationSpi">
+            <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+                <property name="localPort" value="47100"/>
+            </bean>
+        </property>
+
+        <!-- Allow the server to load classes defined on the client -->
+        <property name="peerClassLoadingEnabled" value="true"/>
+
+    </bean>
+
+</beans>
+```
+{% endcode %}
+
+The `TcpDiscoveryVmIpFinder` configures static IP discovery. In a Docker network, `node1` resolves to the container's IP address.
+
+The `peerClassLoadingEnabled` flag has to match on every node in the cluster, server and client. Later tutorials in this path ship user-defined classes (cache configurations, compute tasks) from the client to the server, which requires the flag set to `true`. Setting it now avoids restarting the cluster with a new config when you reach those tutorials. A client that connects with a different value fails immediately with `Remote node has peer class loading enabled flag different from local`.
+
+Now create the Docker Compose file. Save this as `cache-cluster/docker-compose.yml`:
+
+{% tabs %}
+{% tab title="Apache Ignite 2" %}
+
+{% code title="docker-compose.yml" %}
+```yaml
+name: ignite2
+
+services:
+  node1:
+    image: apacheignite/ignite:2.16.0
+    platform: linux/amd64
+    container_name: ignite2-node1
+    environment:
+      CONFIG_URI: /config/ignite-config.xml
+      JVM_OPTS: "-Xms1g -Xmx1g"
+    volumes:
+      - ./ignite-config.xml:/config/ignite-config.xml:ro
+    ports:
+      - "47500:47500"
+      - "10800:10800"
+```
+{% endcode %}
+
+{% endtab %}
+
+{% tab title="GridGain 8" %}
+
+{% code title="docker-compose.yml" %}
+```yaml
+name: gridgain8
+
+services:
+  node1:
+    image: gridgain/enterprise:8.9.32
+    platform: linux/amd64
+    container_name: gridgain8-node1
+    environment:
+      CONFIG_URI: /config/ignite-config.xml
+      JVM_OPTS: "-Xms1g -Xmx1g"
+    volumes:
+      - ./ignite-config.xml:/config/ignite-config.xml:ro
+      - ./gridgain-license.xml:/opt/gridgain/gridgain-license.xml:ro
+    ports:
+      - "47500:47500"
+      - "10800:10800"
+```
+{% endcode %}
+
+The additional volume mount maps your trial license into the container at the path GridGain expects. Verify the license file is in your project directory before starting:
+
+```bash
+ls cache-cluster/gridgain-license.xml
+```
+
+{% endtab %}
+
+{% endtabs %}
+
+Your project directory should now contain:
+
+{% tabs %}
+{% tab title="Apache Ignite 2" %}
+
+```text
+cache-cluster/
+  docker-compose.yml
+  ignite-config.xml
+```
+
+{% endtab %}
+
+{% tab title="GridGain 8" %}
+
+```text
+cache-cluster/
+  docker-compose.yml
+  ignite-config.xml
+  gridgain-license.xml
+```
+
+{% endtab %}
+
+{% endtabs %}
+
+{% hint style="success" %}
+**Checkpoint:** Your project directory contains the Docker Compose file and the XML configuration (plus the license file for GridGain 8).
+{% endhint %}
+
+## Start the Cluster
+
+Start the server node in detached mode and follow the logs:
+
+```bash
+docker compose -f cache-cluster/docker-compose.yml up -d
+docker compose -f cache-cluster/docker-compose.yml logs -f
+```
+
+The node takes 10-30 seconds to start (longer on Apple Silicon due to emulation). Watch for the banner and the topology snapshot:
+
+{% tabs %}
+{% tab title="Apache Ignite 2" %}
+
+```text
+[19:35:29]    __________  ________________
+[19:35:29]   /  _/ ___/ |/ /  _/_  __/ __/
+[19:35:29]  _/ // (7 7    // /  / / / _/
+[19:35:29] /___/\___/_/|_/___/ /_/ /x___/
+[19:35:29]
+[19:35:29] ver. 2.16.0#20231215-sha1:7bde6a42
+[19:35:29] 2023 Copyright(C) Apache Software Foundation
+...
+[19:35:31] Ignite node started OK (id=f022be07)
+[19:35:31] Topology snapshot [ver=1, locNode=f022be07, servers=1, clients=0,
+             state=ACTIVE, CPUs=8, offheap=3.5GB, heap=1.0GB]
+```
+
+{% endtab %}
+
+{% tab title="GridGain 8" %}
+
+```text
+>>>    __________  ________________
+>>>   /  _/ ___/ |/ /  _/_  __/ __/
+>>>  _/ // (7 7    // /  / / / _/
+>>> /___/\___/_/|_/___/ /_/ /___/
+>>>
+>>> Ignite ver. 8.9.32#20260403-sha1:308dda1e
+>>> 2026 Copyright(C) GridGain Systems, Inc. and Contributors
+...
+[19:47:09] License successfully loaded from file: file:/opt/gridgain/gridgain-license.xml
+[19:47:09] Licensed to [your name] on 04/15/2026. For evaluation purposes.
+...
+[19:47:10] Topology snapshot [ver=1, locNode=62f5be3e, servers=1, clients=0,
+             state=ACTIVE, CPUs=8, offheap=3.5GB, heap=1.0GB, ...]
+```
+
+{% endtab %}
+
+{% endtabs %}
+
+The key line is the **topology snapshot**. It confirms:
+
+- `servers=1` means one server node is active
+- `clients=0` means no client applications have connected yet (you add one in a later tutorial)
+- `state=ACTIVE` means the cluster is ready to accept operations
+
+Press `Ctrl+C` to stop following the logs. The container continues running in the background.
+
+{% hint style="success" %}
+**Checkpoint:** The topology snapshot shows servers=1, clients=0, state=ACTIVE.
+{% endhint %}
+
+## Verify the Cluster is Active
+
+Run a cluster state check to confirm the node is accepting connections:
+
+{% tabs %}
+{% tab title="Apache Ignite 2" %}
+
+```bash
+docker exec ignite2-node1 /opt/ignite/apache-ignite/bin/control.sh --state
+```
+
+```text
+Control utility [ver. 2.16.0#20231215-sha1:7bde6a42]
+2023 Copyright(C) Apache Software Foundation
+User: root
+--------------------------------------------------------------------------------
+Cluster  ID: ad7dddc4-1f48-4727-8ed7-56f05f152f86
+Cluster tag: vigilant_turing
+--------------------------------------------------------------------------------
+Cluster is active
+Command [STATE] finished with code: 0
+```
+
+{% endtab %}
+
+{% tab title="GridGain 8" %}
+
+```bash
+docker exec gridgain8-node1 /opt/gridgain/bin/control.sh --state
+```
+
+```text
+Control utility [ver. 8.9.32#20260403-sha1:308dda1e]
+2026 Copyright(C) GridGain Systems, Inc. and Contributors
+User: gridgain
+--------------------------------------------------------------------------------
+Cluster  ID: ae905e66-bc7a-4e18-b184-cb5ee4bed613
+Cluster tag: reverent_bose
+--------------------------------------------------------------------------------
+Cluster is active
+Command [STATE] finished with code: 0
+```
+
+{% endtab %}
+
+{% endtabs %}
+
+The output confirms `Cluster is active`. The cluster ID and tag are auto-generated and will differ on your machine.
+
+{% hint style="info" %}
+You may see a line that reads `JVM_OPTS environment variable is set, but will not be used. To pass JVM options use CONTROL_JVM_OPTS`. This is cosmetic. The `control.sh` utility runs its own JVM separate from the server. The warning is safe to ignore.
+{% endhint %}
+
+{% hint style="success" %}
+**Checkpoint:** The control utility reports "Cluster is active" with exit code 0.
+{% endhint %}
+
+## Why One Node?
+
+Starting with one node gives you the fastest possible setup. Later tutorials add server nodes when you explore partition distribution and what happens when a node leaves the cluster.
+
+## Managing the Cluster
+
+To stop the cluster and preserve its state for next time:
+
+```bash
+docker compose -f cache-cluster/docker-compose.yml stop
+```
+
+To restart:
+
+```bash
+docker compose -f cache-cluster/docker-compose.yml start
+```
+
+To destroy the cluster and remove all data:
+
+```bash
+docker compose -f cache-cluster/docker-compose.yml down
+```
+
+{% hint style="info" %}
+The cluster runs in-memory with no persistence configured. Stopping the container preserves the JVM state, but destroying the container (`down`) removes all cached data. Persistence configuration is covered in a later tutorial.
+{% endhint %}
+
+## Summary
+
+You started a single-node cache-centric cluster with Docker Compose and verified it is active. The server node is listening on port 47500 (discovery) and port 10800 (client connections).
+
+## Next Step
+
+In **Cache Data and Experience the Speed**, you connect a Java application as a thick client, create caches, and store your first data. The thick client joins the cluster ring and enables features like near-cache that are unique to the cache-centric architecture.

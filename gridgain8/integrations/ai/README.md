@@ -14,3 +14,10 @@ GridGain 8 integrates with popular AI and LLM frameworks, including LangChain, L
 {% hint style="info" %}
 GridGain 8's native vector search capability is documented separately. See [Vector Search](../../gridgain8-development/vector-search/README.md).
 {% endhint %}
+
+## See Also
+
+- [How to Build Retrieval-Augmented Generation With GridGain and LangChain](langchain-rag-tutorial.md)
+- [How to Build a Low-Code RAG Application With GridGain and Langflow](langflow-rag-tutorial.md)
+- [How to Build a Machine Learning Feature Store With GridGain and Feast](feast-feature-store-tutorial.md)
+- [How to Cache Machine Learning Predictions With GridGain and BigQuery](cache-ml-predictions-bigquery.md)
