@@ -1,93 +1,228 @@
 ---
 title: Get Started
 description: >-
-  Documentation for MariaDB Server, MariaDB Enterprise Platform, and MariaDB
-  Cloud. Choose how to run MariaDB, start from a task, or go straight to a
-  product.
+  Run MariaDB Server with your coding agent, Docker, a Linux package, MariaDB
+  Cloud, or Kubernetes, then go from install to your first query from Python.
 icon: rocket
+layout:
+  width: wide
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: false
+  pagination:
+    visible: false
+  metadata:
+    visible: false
 ---
 
-# Get Started
+# MariaDB Documentation
 
-This documentation covers MariaDB Server, MariaDB Enterprise Platform, and MariaDB Cloud, with the connectors and tools that work with them. All three run the same database. The SQL you write and the schemas you design work the same way on each, so most of these pages apply wherever you run MariaDB.
+{% columns %}
+{% column %}
+MariaDB gives your applications, and the agents you build on them, one durable place for their data. You get a single source of truth that scales with your workload and runs wherever you need it, from a laptop to Kubernetes to MariaDB Cloud. It's all built on curated open source.
 
-If you are new to MariaDB, start by choosing how to run it. When you have a specific job to do, the task pages gather the relevant pages from across the products. Readers who already know which product they need can go straight to its section in the top navigation.
+**MariaDB Server is the database.** These docs cover both MariaDB Community Server and MariaDB Enterprise Server. When a feature is Enterprise-only, its page tells you.
 
-## Choose How to Run MariaDB
+**MariaDB Platform builds on the server.** MaxScale, Galera Cluster, ColumnStore, Exa, and GridGain add query routing, clustering, analytics, and in-memory caching when your application needs them.
 
-The three ways to run MariaDB differ in who operates the database and whether a support contract covers it.
+Pick a tab to get a server running. The agent prompt has your coding agent do the setup. The other tabs show you how to do it yourself.
+{% endcolumn %}
 
-* **MariaDB Server** is the open source database. You download it, run it, and manage it yourself, with no contract.
-* **MariaDB Enterprise Platform** is MariaDB Enterprise Server plus the routing, clustering, analytics, and management components that a production deployment needs. The components are tested together and covered by a support contract, and you operate the deployment.
-* **MariaDB Cloud** is a fully managed service. The service operates the hardware, the updates, the backups, and the availability for you.
+{% column %}
+{% tabs %}
+{% tab title="Agent prompt" %}
+Add the MariaDB plugin to Claude Code:
 
-The choice is not permanent. Your SQL and your schemas carry over if you move to another option later.
+```bash
+claude plugin marketplace add mariadb/ai-plugins
+claude plugin install dev@mariadb
+```
 
-{% content-ref url="readme/community-server.md" %}
-[Server](readme/community-server.md)
-{% endcontent-ref %}
+Then start Claude Code in your project and paste this:
 
-{% content-ref url="readme/enterprise-platform.md" %}
-[MariaDB Platform](readme/enterprise-platform.md)
-{% endcontent-ref %}
+```
+Set up MariaDB for this project.
 
-{% content-ref url="readme/cloud.md" %}
-[Cloud](readme/cloud.md)
-{% endcontent-ref %}
+1. Use the MariaDB sandbox tools to deploy a MariaDB 11.8
+   sandbox on port 3310.
+2. Create a database called shop with a products table
+   (id, name, price) and add ten rows.
+3. Write a Python script that connects with MariaDB
+   Connector/Python and prints every product under 50.
+4. Show me how to connect to the sandbox with the
+   mariadb client.
+```
 
-{% content-ref url="choose-how-to-run-mariadb.md" %}
-[Choose How to Run MariaDB](choose-how-to-run-mariadb.md)
-{% endcontent-ref %}
+The sandbox runs a native MariaDB server binary, so you don't need Docker. Using Codex, Pi, Hermes Agent, or OpenCode? The [MariaDB AI plugins README](https://github.com/mariadb/ai-plugins) has the install steps for each.
+{% endtab %}
 
-## Start From a Task
+{% tab title="Docker" %}
+```bash
+docker run -d --name mariadb -p 3306:3306 \
+  -e MARIADB_ROOT_PASSWORD=changeme \
+  mariadb:lts
 
-Each task page collects the pages for one job, wherever those pages live. For example, the Operations page links to backups in the Server documentation and to failover in the Galera Cluster documentation, so you do not have to know where each procedure is documented.
+docker exec -it mariadb mariadb -uroot -pchangeme
+```
 
-{% content-ref url="development.md" %}
-[Development](development.md)
-{% endcontent-ref %}
+This runs the [official MariaDB image](https://hub.docker.com/_/mariadb) from Docker Hub. For volumes, configuration, and the other environment variables, see [Installing and Using MariaDB via Docker]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker).
+{% endtab %}
 
-{% content-ref url="deployment.md" %}
-[Deployment](deployment.md)
-{% endcontent-ref %}
+{% tab title="Linux" %}
+```bash
+# Debian and Ubuntu
+sudo apt install mariadb-server
 
-{% content-ref url="migration.md" %}
-[Migration](migration.md)
-{% endcontent-ref %}
+# RHEL, Rocky Linux, AlmaLinux, Fedora
+sudo dnf install mariadb-server
+sudo systemctl enable --now mariadb
 
-{% content-ref url="operations.md" %}
-[Operations](operations.md)
-{% endcontent-ref %}
+sudo mariadb
+```
 
-{% content-ref url="analytics.md" %}
-[Analytics](analytics.md)
-{% endcontent-ref %}
+Your distribution's package might be a few releases behind. To get the current release, [add the MariaDB package repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) first.
+{% endtab %}
 
-{% content-ref url="ai.md" %}
-[AI](ai.md)
-{% endcontent-ref %}
+{% tab title="Cloud" %}
+1. Sign in at [cloud.mariadb.com](https://cloud.mariadb.com) and launch a **Serverless** service. It's ready in seconds.
+2. Click **Connect** on the service and copy the host, port, user, and password.
+3. Connect:
 
-## Find a Product
+```bash
+mariadb --host <host> --port <port> \
+  --user <user> -p --ssl-verify-server-cert
+```
 
-The top navigation has one section for each product area.
+The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen.
+{% endtab %}
 
-| Section | What it documents |
-| --- | --- |
-| **Server** | MariaDB Server: installation, administration, security, high availability, and the SQL reference. |
-| **MariaDB Platform** | MariaDB Enterprise Server and the Platform components: MaxScale, Galera Cluster, Raft Cluster, ColumnStore, Exa, GridGain, and the Enterprise Tools. |
-| **Cloud** | MariaDB Cloud: launching and connecting to databases, high availability, data loading, and security. |
-| **AI Tools** | MCP servers, plugins for coding agents, retrieval tools, and AI framework integrations. |
-| **Connectors** | The MariaDB connectors for Java, Python, Node.js, C, C++, .NET, ODBC, and R2DBC, plus guides for other languages. |
-| **Release Notes** | Release notes by product, starting with a page of the latest releases. |
+{% tab title="Kubernetes" %}
+```bash
+helm repo add mariadb-enterprise-operator https://operator.mariadb.com
+helm install mariadb-enterprise-operator-crds \
+  mariadb-enterprise-operator/mariadb-enterprise-operator-crds
+helm install mariadb-enterprise-operator \
+  mariadb-enterprise-operator/mariadb-enterprise-operator \
+  -f values.yaml
+```
 
-Each MariaDB Platform component solves a specific production problem:
+The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images with your customer credentials, which go in `values.yaml`. See [Install the operator with Helm]({tools}/mariadb-enterprise-operator/installation/helm).
+{% endtab %}
+{% endtabs %}
+{% endcolumn %}
+{% endcolumns %}
 
-* **MaxScale** routes queries, balances reads, and hides failover from the application.
-* **Galera Cluster** and **Raft Cluster** replicate data across nodes and handle failover.
-* **ColumnStore** and **Exa** run columnar analytics on operational data. Both require MariaDB Enterprise Server.
-* **GridGain** provides in-memory caching and acceleration.
-* **Enterprise Tools** include MariaDB Enterprise Manager, which manages and monitors a set of servers, and the MariaDB Enterprise Kubernetes Operator, which runs MariaDB on Kubernetes.
+## From Install to Your First Query
 
-## Versions
+Three steps take you from a running server to rows coming back in Python.
 
-These pages document the current release series. When a feature behaves differently in an earlier version, the page that describes the feature tells you. For the changes in each release, see [Release Notes]({release-notes}).
+{% stepper %}
+{% step %}
+### Run MariaDB Server
+
+Use any tab above. Each one gives you MariaDB Server on a port you can reach. Not sure which one fits? [Choose how to run MariaDB](choose-how-to-run-mariadb.md).
+{% endstep %}
+
+{% step %}
+### Create Some Data
+
+Open the `mariadb` client and run:
+
+```sql
+CREATE DATABASE shop;
+
+CREATE TABLE shop.products (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  name  VARCHAR(100) NOT NULL,
+  price DECIMAL(8,2) NOT NULL
+);
+
+INSERT INTO shop.products (name, price) VALUES
+  ('Desk lamp', 39.00),
+  ('Standing desk', 249.00),
+  ('Notebook', 4.50);
+```
+
+[The MariaDB basics guide]({server}/mariadb-quickstart-guides/basics-guide) covers databases, tables, and your first statements in more depth.
+{% endstep %}
+
+{% step %}
+### Query It From Python
+
+Install MariaDB Connector/Python:
+
+```bash
+pip install mariadb
+```
+
+Version 1.1 builds against MariaDB Connector/C 3.3.1 or later, so install Connector/C first if your system doesn't have it. Then run:
+
+```python
+import mariadb
+
+conn = mariadb.connect(
+    host="127.0.0.1",
+    port=3306,
+    user="root",
+    password="changeme",
+    database="shop",
+)
+cur = conn.cursor()
+cur.execute("SELECT name, price FROM products WHERE price < ?", (50,))
+
+for name, price in cur:
+    print(f"{name}: {price}")
+
+conn.close()
+```
+
+On the sandbox, the port is `3310`. The [Python connector quickstart]({connectors}/connectors-quickstart-guides/connector-python-guide) picks up from here with transactions, connection pools, and error handling.
+{% endstep %}
+{% endstepper %}
+
+{% hint style="info" %}
+**Already running MariaDB?** Go to [Server]({server}) for administration and the SQL reference, or to [MariaDB Platform]({platform}) for MaxScale, clustering, and analytics.
+{% endhint %}
+
+## Build With MariaDB
+
+Jump to a feature, find the connector for your language, or clone a sample app and run it.
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI and Vector Search</strong></td><td>Store embeddings in a native <code>VECTOR</code> column and run similarity search in SQL, next to the rest of your data.</td><td><a href="ai.md">ai.md</a></td></tr><tr><td><strong>JSON</strong></td><td>Keep flexible documents in the same tables as relational data, and query both with one statement.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the database keep every version of a row, then query your data as it was at any point in time.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Modern SQL</strong></td><td>Recursive and non-recursive common table expressions, window functions, and sequences, for queries that go past a basic <code>SELECT</code>.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Analytics and HTAP</strong></td><td>Run columnar analytics on live operational data with ColumnStore and Exa.</td><td><a href="analytics.md">analytics.md</a></td></tr><tr><td><strong>Sample Apps</strong></td><td>Open source apps on GitHub, from to-do lists to RAG, in Python, Node.js, Java, .NET, and C++.</td><td><a href="https://github.com/mariadb-developers">mariadb-developers</a></td></tr></tbody></table>
+
+### Connect From Your Language
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python</td><td><a href="{connectors}/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js</td><td><a href="{connectors}/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PDO and mysqli</td><td><a href="{connectors}/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
+
+## Pick a Path
+
+Each path is a page that walks through one job in order and links to the docs you need along the way.
+
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Build an AI Application</strong></td><td>Store and search vectors, connect your AI framework, and give an agent access to the database.</td><td><a href="ai.md">ai.md</a></td></tr><tr><td><strong>Develop an Application</strong></td><td>Connect from your language, write the SQL, and build the schema out from there.</td><td><a href="development.md">development.md</a></td></tr><tr><td><strong>Move to MariaDB</strong></td><td>See what's different, then bring your schema and data over from MySQL, PostgreSQL, or Amazon RDS.</td><td><a href="migration.md">migration.md</a></td></tr><tr><td><strong>Run MariaDB in Production</strong></td><td>Install from packages, deploy on Kubernetes, back up, and keep it available. For instructor-built courses and certification, see <a href="https://learn.mariadb.com">MariaDB University</a>.</td><td><a href="deployment.md">deployment.md</a></td></tr></tbody></table>
+
+## Keep Your Agent in the Docs
+
+{% columns %}
+{% column %}
+This documentation is also an MCP server. Add it once, and your coding agent can search and read current MariaDB docs while it works with you, so it stops guessing at syntax.
+{% endcolumn %}
+
+{% column %}
+```bash
+claude mcp add --transport http mariadb-docs \
+  https://mariadb.com/docs/~gitbook/mcp
+```
+{% endcolumn %}
+{% endcolumns %}
+
+## Get Help
+
+* **Community:** [mariadb.org](https://mariadb.org) and the [MariaDB Zulip](https://mariadb.zulipchat.com) chat.
+* **Bugs and feature requests:** [MariaDB Jira](https://jira.mariadb.org).
+* **Support:** [MariaDB Cloud and Enterprise support](https://mariadb.com/support/).
+* **What's new:** [Release notes]({release-notes}).
