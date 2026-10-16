@@ -4,10 +4,17 @@ description: A list of all MariaDB Connector/J releases
 
 # Connector/J All Releases
 
+## 4.0
+
+| Release               | Release Date | Status      | Min. Java Compat. |
+| --------------------- | ------------ | ----------- | ----------------- |
+| [4.0.0](4.0/4.0.0.md) | 19 Oct 2026  | Stable (GA) | Java 17           |
+
 ## 3.5
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.5.11](3.5/3.5.11.md) | 19 Oct 2026  | Stable (GA) | Java 8            |
 | [3.5.10](3.5/3.5.10.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.5.9](3.5/3.5.9.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.5.8](3.5/3.5.8.md) | 01 Apr 2026  | Stable (GA) | Java 8            |
@@ -24,6 +31,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.4.5](3.4/3.4.5.md) | 19 Oct 2026  | Stable (GA) | Java 8            |
 | [3.4.4](3.4/3.4.4.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.4.3](3.4/3.4.3.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.4.2](3.4/3.4.2.md) | 27 Mar 2025  | Stable (GA) | Java 8            |
@@ -34,6 +42,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
+| [3.3.7](3.3/3.3.7.md) | 19 Oct 2026  | Stable (GA) | Java 8            |
 | [3.3.6](3.3/3.3.6.md) | 29 Jul 2026  | Stable (GA) | Java 8            |
 | [3.3.5](3.3/3.3.5.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.3.4](3.3/3.3.4.md) | 27 Mar 2025  | Stable (GA) | Java 8            |

@@ -7,8 +7,10 @@ description: >-
 # Installing MariaDB Connector/J
 
 {% hint style="info" %}
-The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is:[**MariaDB Connector/J 3.5.9**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/3.5/3.5.9)
+The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is: [**MariaDB Connector/J 4.0.0**]({release-notes}/connectors/java/4.0/4.0.0)
 {% endhint %}
+
+MariaDB Connector/J 4.0 requires Java 17 or later. Applications that run on Java 8 or Java 11 must use the 3.5 release series, whose latest release is [MariaDB Connector/J 3.5.11]({release-notes}/connectors/java/3.5/3.5.11).
 
 [Download MariaDB Connector/J](https://mariadb.com/downloads/connectors/)
 
