@@ -15,7 +15,7 @@ More servers fix the load, and replicas give you a copy to fall back on. The har
 
 MaxScale runs two modules that do the work. The `mariadbmon` monitor checks every server every few seconds and knows which one is the primary. The `readwritesplit` router uses that knowledge to send each `INSERT` or `UPDATE` to the primary and spread each `SELECT` across the replicas. MariaDB Enterprise Manager stays outside the query path, so it watches the whole deployment without adding a hop to any request.
 
-## Move the Shop Behind MaxScale
+## Put MaxScale in Front
 
 The steps below build the first node of that diagram on Debian or Ubuntu: one MariaDB Enterprise Server with MaxScale in front of it. On RHEL, Rocky Linux, or AlmaLinux, use `dnf install` in place of `apt install`. The replicas come later, without a change to the application.
 
@@ -39,7 +39,7 @@ sudo apt install mariadb-server mariadb-backup
 {% endstep %}
 
 {% step %}
-### Give the Shop One Address
+### Configure MaxScale
 
 Install MaxScale from the repository that the script configured with `sudo apt install maxscale`. MaxScale needs its own database account to monitor the server and read user accounts, so open the `mariadb` client with `sudo mariadb` and create one:
 
@@ -81,7 +81,7 @@ The [MaxScale beginner guide]({maxscale}/maxscale-quickstart-guides/maxscale-beg
 {% endstep %}
 
 {% step %}
-### See What MaxScale Sees
+### Check the Topology
 
 Start MaxScale, then ask the `maxctrl` command-line client which servers it tracks. The last command sends a query through port 4006 to prove the path works end to end.
 
