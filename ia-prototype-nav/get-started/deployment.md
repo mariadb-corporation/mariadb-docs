@@ -17,7 +17,7 @@ A team that already runs Linux servers often starts with MariaDB Community Serve
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB Community Server</strong></td><td>Run the open source server yourself, on hardware or cloud instances you already operate.</td><td><a href="readme/community-server.md">community-server.md</a></td></tr><tr><td><strong>MariaDB Enterprise Platform</strong></td><td>Run MariaDB Enterprise Server with MaxScale, clustering, and analytics, tested together and backed by a support contract.</td><td><a href="readme/enterprise-platform.md">enterprise-platform.md</a></td></tr><tr><td><strong>MariaDB Cloud</strong></td><td>Hand hardware, upgrades, backups, and failover to the managed service and keep your attention on the shop.</td><td><a href="readme/cloud.md">cloud.md</a></td></tr></tbody></table>
 
-## Give the Shop a Real Server
+## Install the Server
 
 If you chose to run it yourself, the next job is a server that starts on boot and gets updates from a known source. Pick the tab that matches where the shop will run.
 
@@ -125,7 +125,7 @@ spec:
 
 [The installation guide]({server}/mariadb-quickstart-guides/installing-mariadb-server-guide) also covers Windows and macOS.
 
-## Lock It Down Before the First Order
+## Secure the Server
 
 A fresh package install trusts too much. The `mariadb-secure-installation` script asks you to set a root password, then removes root accounts reachable from other hosts, anonymous users, and the `test` database:
 
