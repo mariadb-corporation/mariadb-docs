@@ -101,7 +101,7 @@ helm install mariadb-enterprise-operator \
   -f values.yaml
 ```
 
-The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images with your customer credentials, which go in `values.yaml`. See [Install the operator with Helm]({tools}/mariadb-enterprise-operator/installation/helm).
+The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images with your customer credentials, which go in the `values.yaml` file. See [Install the operator with Helm]({tools}/mariadb-enterprise-operator/installation/helm).
 {% endtab %}
 {% endtabs %}
 
@@ -148,7 +148,7 @@ Install MariaDB Connector/Python:
 pip install mariadb
 ```
 
-Version 1.1 builds against MariaDB Connector/C 3.3.1 or later, so install Connector/C first if your system doesn't have it. Then run:
+The current GA release, MariaDB Connector/Python 1.1, builds against MariaDB Connector/C 3.3.1 or later, so install Connector/C first if your system doesn't have it. Then run:
 
 ```python
 import mariadb
@@ -177,7 +177,7 @@ On the sandbox, the port is `3310`. The [Python connector quickstart]({connector
 
 {% columns %}
 {% column %}
-This documentation is also an MCP server. Add it once, and your coding agent can search and read current MariaDB docs while it works with you, so it stops guessing at syntax.
+This documentation is also a Model Context Protocol (MCP) server, which is how coding agents reach tools and data outside the editor. Add it once, and your agent can search and read current MariaDB docs while it works with you, so it stops guessing at syntax.
 {% endcolumn %}
 
 {% column %}
@@ -189,7 +189,7 @@ claude mcp add --transport http mariadb-docs \
 {% endcolumns %}
 
 {% hint style="info" %}
-**Already running MariaDB?** Go to [Server]({server}) for administration and the SQL reference, or to [MariaDB Platform]({platform}) for MaxScale, clustering, and analytics.
+**Already running MariaDB?** The [Server]({server}) docs cover administration and the full SQL reference. For MaxScale, clustering, and analytics, head to [MariaDB Platform]({platform}).
 {% endhint %}
 
 ## Build With MariaDB
