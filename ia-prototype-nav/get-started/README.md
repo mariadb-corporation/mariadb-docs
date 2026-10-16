@@ -38,8 +38,8 @@ Then start Claude Code in your project and paste this:
 ```
 Set up MariaDB for this project.
 
-1. Use the MariaDB sandbox tools to deploy a MariaDB 11.8
-   sandbox on port 3310.
+1. Use the MariaDB sandbox tools to deploy the latest
+   MariaDB version they offer, on port 3310.
 2. Create a database called shop with a products table
    (id, name, price) and add ten rows.
 3. Write a Python script that connects with MariaDB
