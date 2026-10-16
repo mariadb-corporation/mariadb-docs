@@ -1,7 +1,7 @@
 ---
 title: Development
 description: >-
-  Take the shop's first real order with a connection pool, a transaction that keeps stock honest, and INSERT ... RETURNING for the order number.
+  Build applications and agents on one SQL surface, with connection pools, transactions, and RETURNING, and connectors for Python, Node.js, Java, and more.
 icon: code
 ---
 

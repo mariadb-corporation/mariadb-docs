@@ -1,7 +1,7 @@
 ---
 title: AI Tools
 description: >-
-  Build MariaDB applications with a coding agent, give agents controlled access to live databases over MCP, and run retrieval pipelines on MariaDB.
+  Build with a coding agent that knows MariaDB, give production agents governed access over MCP, and run retrieval on the same database as your data.
 icon: robot
 ---
 

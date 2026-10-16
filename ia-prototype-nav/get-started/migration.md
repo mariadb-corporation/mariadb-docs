@@ -1,7 +1,7 @@
 ---
 title: Migration
 description: >-
-  Move a running MySQL database to MariaDB Server by rehearsing on a copy first, and find the guides for PostgreSQL, Oracle, SQL Server, and MariaDB Cloud.
+  Move from MySQL to open MariaDB by rehearsing on a copy first, with guides for PostgreSQL, Oracle, SQL Server, and MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: AI
-description: Help shoppers find products by meaning with vector search in SQL, next to the shop data it describes.
+description: >-
+  Keep vectors next to the data they describe. Add semantic search to MariaDB in plain SQL, with no separate vector store to keep in sync.
 icon: robot
 ---
 

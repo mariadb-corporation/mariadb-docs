@@ -1,7 +1,7 @@
 ---
 title: MariaDB Platform
 description: >-
-  Put MariaDB MaxScale in front of MariaDB Enterprise Server so the shop app keeps one connection address while reads spread out and failover stays out of the code.
+  MariaDB Enterprise Server with MaxScale, Galera Cluster, ColumnStore, Exa, and GridGain caching, tested together and supported as one open platform.
 icon: layer-group
 ---
 

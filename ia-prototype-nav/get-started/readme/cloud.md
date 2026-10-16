@@ -1,7 +1,7 @@
 ---
 title: Cloud
 description: >-
-  Move the shop database to a MariaDB Cloud service and keep the same table and Python script, with a cloud host and TLS.
+  Run the same open MariaDB Server as a managed service. Launch MariaDB Cloud, connect over TLS, and keep your schema, SQL, and code.
 icon: cloud
 ---
 

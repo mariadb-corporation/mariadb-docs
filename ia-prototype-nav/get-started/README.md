@@ -1,8 +1,7 @@
 ---
 title: Get Started
 description: >-
-  Run MariaDB Server with your coding agent, Docker, a Linux package, MariaDB
-  Cloud, or Kubernetes, then go from install to your first query from Python.
+  The unified open database for the agentic enterprise. Start MariaDB with your coding agent, Docker, Linux, MariaDB Cloud, or Kubernetes, then query it from Python.
 icon: rocket
 layout:
   width: wide

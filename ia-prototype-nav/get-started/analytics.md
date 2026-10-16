@@ -1,7 +1,7 @@
 ---
 title: Analytics
 description: >-
-  Run revenue reports on live shop data by adding a MariaDB ColumnStore table next to your InnoDB tables, in the same database.
+  Report on live data without copying it to a warehouse. Put a ColumnStore table beside your InnoDB tables and join them in one query.
 icon: chart-column
 ---
 

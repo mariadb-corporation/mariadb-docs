@@ -1,7 +1,7 @@
 ---
 title: Operations
 description: >-
-  Restore the shop's data after a failed disk with the mariadb-backup tool, then keep the next failure from taking the shop down.
+  Back up, restore, and verify MariaDB with the mariadb-backup tool, then add a replica so one failed server doesn't take your application down.
 icon: gauge-high
 ---
 

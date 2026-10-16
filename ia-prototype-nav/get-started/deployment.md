@@ -1,7 +1,7 @@
 ---
 title: Deployment
 description: >-
-  Decide how much of the database you run yourself, then move the shop from a laptop to a real server with packages, Docker, or Kubernetes.
+  Decide how much of the database you run yourself, then install MariaDB from packages, Docker, or Kubernetes. Your schema and SQL move with you.
 icon: cloud-arrow-up
 ---
 

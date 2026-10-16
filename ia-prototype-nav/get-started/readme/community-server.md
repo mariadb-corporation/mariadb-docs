@@ -1,7 +1,7 @@
 ---
 title: Server
 description: >-
-  Tour the MariaDB Community Server that runs your shop: its storage engines, its user accounts, and the option files that hold its settings.
+  MariaDB Community Server runs transactions, JSON, and vector search behind one SQL surface. Tour the open source core of MariaDB Enterprise Platform and MariaDB Cloud.
 icon: database
 ---
 
