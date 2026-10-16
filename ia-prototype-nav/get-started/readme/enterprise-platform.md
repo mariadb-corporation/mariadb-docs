@@ -1,17 +1,23 @@
 ---
 title: MariaDB Platform
 description: >-
-  Install MariaDB Enterprise Server, put MariaDB MaxScale in front of it, and find the MariaDB Enterprise Platform components for routing, clustering, analytics, and management.
+  Put MariaDB MaxScale in front of MariaDB Enterprise Server so the shop app keeps one connection address while reads spread out and failover stays out of the code.
 icon: layer-group
 ---
 
 # MariaDB Platform
 
-MariaDB Enterprise Platform is MariaDB Enterprise Server plus a set of components that MariaDB tests together. MariaDB MaxScale routes queries, Galera Cluster replicates synchronously, ColumnStore and Exa handle analytics, and GridGain adds in-memory caching. MariaDB Enterprise Manager and the MariaDB Enterprise Kubernetes Operator cover day-to-day operations. The landing page ended with a Python script that queries the `shop.products` table on one MariaDB Community Server. Here you swap that server for MariaDB Enterprise Server and put MaxScale between it and your application, which is the core of most MariaDB Enterprise Platform deployments.
+The shop outgrew its first server. During last month's sale, product pages sent thousands of reads a minute to the one machine that also took every order, and checkout slowed while the catalog loaded. A week later that server rebooted for a kernel update, and for four minutes nobody could buy anything. Both problems trace back to the same cause, because the Python script from the [landing page](../README.md) talks to exactly one server.
 
-## Run MariaDB Enterprise Server Behind MaxScale
+More servers fix the load, and replicas give you a copy to fall back on. The hard part is the application. It shouldn't need to know which server is the primary today, or which replica is free. MariaDB Enterprise Platform is how teams run this stage themselves: MariaDB Enterprise Server plus a set of components that MariaDB tests together and supports as one product. The first component most teams add is MariaDB MaxScale, a database proxy that sits between the application and the servers.
 
-These steps build a single-node test setup on Debian or Ubuntu. On RHEL, Rocky Linux, or AlmaLinux, use `dnf install` in place of `apt install`.
+<figure><picture><source srcset="../.gitbook/assets/platform-request-path-dark.svg" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/platform-request-path-light.svg" alt="Request path in MariaDB Enterprise Platform. Your application connects through a MariaDB connector to MaxScale on port 4006. MaxScale's read/write split service sends writes to the primary server and reads to the replicas, and its monitor tracks which server is primary. The primary replicates to two replicas. MariaDB Enterprise Manager watches every component from outside the query path."></picture><figcaption><p>The application only ever sees port 4006, so servers can join, fail, or change roles without a code change.</p></figcaption></figure>
+
+MaxScale runs two modules that do the work. The `mariadbmon` monitor checks every server every few seconds and knows which one is the primary. The `readwritesplit` router uses that knowledge to send each `INSERT` or `UPDATE` to the primary and spread each `SELECT` across the replicas. MariaDB Enterprise Manager stays outside the query path, so it watches the whole deployment without adding a hop to any request.
+
+## Move the Shop Behind MaxScale
+
+The steps below build the first node of that diagram on Debian or Ubuntu: one MariaDB Enterprise Server with MaxScale in front of it. On RHEL, Rocky Linux, or AlmaLinux, use `dnf install` in place of `apt install`. The replicas come later, without a change to the application.
 
 {% stepper %}
 {% step %}
@@ -33,16 +39,16 @@ sudo apt install mariadb-server mariadb-backup
 {% endstep %}
 
 {% step %}
-### Put MaxScale in Front
+### Give the Shop One Address
 
-Install MaxScale from the repository that the script configured with `sudo apt install maxscale`. Then open the `mariadb` client with `sudo mariadb` and create an account that MaxScale uses to monitor the server and read user accounts:
+Install MaxScale from the repository that the script configured with `sudo apt install maxscale`. MaxScale needs its own database account to monitor the server and read user accounts, so open the `mariadb` client with `sudo mariadb` and create one:
 
 ```sql
 CREATE USER 'maxscale' IDENTIFIED BY 'maxscale_passwd';
 GRANT ALL PRIVILEGES ON *.* TO 'maxscale';
 ```
 
-The broad grant keeps the test setup short. Next, give the `/etc/maxscale.cnf` file a server, a monitor, a read/write split service, and a listener on port 4006:
+The broad grant keeps the test setup short. Now describe the deployment in the `/etc/maxscale.cnf` file. It names the server, attaches the `mariadbmon` monitor to it, builds a `readwritesplit` service on that monitor, and opens a listener on port 4006 for the application:
 
 ```ini
 [server1]
@@ -71,13 +77,13 @@ service=Read-Write-Service
 port=4006
 ```
 
-The [MaxScale beginner guide]({maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide) explains each section and adds replicas to the service.
+The [MaxScale beginner guide]({maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide) explains each section and shows how to add replicas to the deployment.
 {% endstep %}
 
 {% step %}
-### Check the Topology
+### See What MaxScale Sees
 
-Start MaxScale and ask the `maxctrl` command-line client which servers it sees:
+Start MaxScale, then ask the `maxctrl` command-line client which servers it tracks. The last command sends a query through port 4006 to prove the path works end to end.
 
 ```bash
 sudo systemctl start maxscale
@@ -86,24 +92,14 @@ maxctrl list servers
 mariadb -h127.0.0.1 -P4006 -umaxscale -p -e "SELECT @@server_id"
 ```
 
-The `server1` row should show the state `Master, Running`. If it shows `Down`, the log at `/var/log/maxscale/maxscale.log` says why. Your application now connects to port 4006, so point the Python script from the landing page at that port and an account whose host pattern allows connections from MaxScale. Once you add replicas, the [ReadWriteSplit router]({maxscale}/reference/maxscale-routers/maxscale-readwritesplit) sends reads to them and keeps writes on the primary.
+The `server1` row should show the state `Master, Running`. If it shows `Down`, the log at `/var/log/maxscale/maxscale.log` says why. Point the shop's Python script at port 4006, with an account whose host pattern allows connections from MaxScale, and the application is done changing. The [ReadWriteSplit router]({maxscale}/reference/maxscale-routers/maxscale-readwritesplit) reference covers how reads move to replicas once you add them.
 {% endstep %}
 {% endstepper %}
 
-## Get Your Bearings
+The next sale still sends thousands of product reads, but now each new replica takes a share of them, and the shop's code never learns their names.
 
-Read how the components fit together, then set up security before real data arrives.
+The other components wait until the shop needs them. When a replica that lags a second behind isn't acceptable, because two warehouses update the same stock counts, you reach for [Galera Cluster]({galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide), where a commit returns only after every node in the cluster has received the write. When the Monday revenue report starts to slow checkout, you add a MariaDB ColumnStore table, and when that history outgrows one server, MariaDB Exa spreads it across a cluster (the [Analytics](../analytics.md) page follows that path). When the product catalog takes more reads than replicas can serve fast enough, GridGain keeps hot data in memory as the in-memory caching layer. When the number of servers passes what one person can watch by hand, MariaDB Enterprise Manager puts every server and MaxScale instance in one console. When the shop moves to Kubernetes, the MariaDB Enterprise Kubernetes Operator runs MariaDB Enterprise Server and MaxScale as custom resources. The [platform overview]({platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide) shows how all of them connect.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Platform Overview</strong></td><td>The MariaDB Enterprise Platform components and how they work together.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide">mariadb-overview-guide</a></td></tr><tr><td><strong>Best Practices</strong></td><td>Backups, change management, and the habits that keep a production deployment healthy.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/mariadb-best-practices-guide">mariadb-best-practices-guide</a></td></tr><tr><td><strong>Security</strong></td><td>Lock down accounts, network access, and encryption from the start.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/security">security</a></td></tr></tbody></table>
+## Keep Going
 
-## Route and Scale
-
-Galera Cluster behind MaxScale is a common production topology, because MaxScale turns a failed node into a routing change.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MaxScale Quickstart</strong></td><td>Route queries, split reads from writes, and handle failover in front of your servers.</td><td><a href="{maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide">maxscale-beginner-guide</a></td></tr><tr><td><strong>Galera Cluster Quickstart</strong></td><td>Set up synchronous replication where every node can take writes.</td><td><a href="{galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide">mariadb-galera-cluster-guide</a></td></tr><tr><td><strong>Kubernetes Operator</strong></td><td>Run MariaDB Enterprise Server and MaxScale on Kubernetes as custom resources.</td><td><a href="{tools}/mariadb-enterprise-operator/installation/helm">helm</a></td></tr></tbody></table>
-
-## Analyze and Manage
-
-Run reports next to your transactions with ColumnStore, scale them out with Exa, and watch the whole deployment from MariaDB Enterprise Manager.
-
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>ColumnStore Quickstart</strong></td><td>Answer analytical queries from a columnar storage engine next to your transactional tables.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Spread the largest analytical workloads across a cluster.</td><td><a href="{analytics}/mariadb-exa/deployment">deployment</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer your servers and MaxScale instances from one console.</td><td><a href="{tools}/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Add Replicas to MaxScale</strong></td><td>Grow the one-server setup into a primary with replicas behind the read/write split service.</td><td><a href="{maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide">maxscale-beginner-guide</a></td></tr><tr><td><strong>Galera Cluster Quickstart</strong></td><td>Set up synchronous replication where every node can take writes.</td><td><a href="{galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide">mariadb-galera-cluster-guide</a></td></tr><tr><td><strong>Secure the Deployment</strong></td><td>Lock down accounts, network access, and encryption before real orders arrive.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/security">security</a></td></tr><tr><td><strong>Production Habits</strong></td><td>Plan backups and change management so a busy week doesn't turn into an outage.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/mariadb-best-practices-guide">mariadb-best-practices-guide</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer your servers and MaxScale instances from one console.</td><td><a href="{tools}/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr><tr><td><strong>Kubernetes Operator</strong></td><td>Install the operator with Helm and run MariaDB Enterprise Server and MaxScale as custom resources.</td><td><a href="{tools}/mariadb-enterprise-operator/installation/helm">helm</a></td></tr></tbody></table>
