@@ -11,11 +11,11 @@ The shop runs on a MariaDB Community Server that you installed yourself, and lat
 
 MariaDB Cloud takes those jobs off your list. It runs MariaDB Server on AWS, Google Cloud, or Azure, handles the hardware and backups, and applies patches in a weekly maintenance window you choose. A service launched with replicas also fails over to a replica on its own. [Deployment](../deployment.md) compares who runs what across all three ways to run MariaDB. A Serverless service is ready in seconds and needs no sizing. Because it's the same MariaDB Server, the `shop.products` table and the Python script come along with two changes: a cloud host and TLS.
 
-## Move the Shop to MariaDB Cloud
+## Connect to MariaDB Cloud
 
 {% stepper %}
 {% step %}
-### Launch a Service and Let Your Laptop In
+### Launch a Service
 
 Sign in at [cloud.mariadb.com](https://cloud.mariadb.com), click **+ Launch New Service**, and pick **MariaDB Serverless Single Node** with a cloud provider and a region near your customers. Every service starts behind a firewall that refuses all connections, so add your laptop's public IP address under **Manage**, then **Security Access**. If you don't know the address, ask for it:
 
@@ -27,7 +27,7 @@ When the service shows **Healthy**, click **Connect** and copy the host, port, u
 {% endstep %}
 
 {% step %}
-### Rebuild the Shop Table Over TLS
+### Connect Over TLS
 
 Connect with the `mariadb` client and the values from the **Connect** dialog. The `--ssl-verify-server-cert` option makes the client check the server's TLS certificate, so nobody between your laptop and the cloud can pose as your database. With `-p`, the client prompts for the password.
 
@@ -57,7 +57,7 @@ INSERT INTO shop.products (name, price) VALUES
 {% endstep %}
 
 {% step %}
-### Point the Script at the Cloud
+### Connect From Python
 
 The Python script changes in two places. The `host` and `port` values come from the **Connect** dialog, and `ssl_verify_cert=True` turns on the certificate check, because MariaDB Connector/Python 1.1 leaves it off until you ask for it.
 
