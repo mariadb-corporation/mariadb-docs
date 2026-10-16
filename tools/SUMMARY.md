@@ -88,6 +88,7 @@
       * [26.06.3 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.3.md)
       * [26.06.4 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.4.md)
       * [26.06.5 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.5.md)
+      * [26.06.6 version update guide](enterprise/mariadb-enterprise-operator/updates/update-26.06.6.md)
     * [Metrics](enterprise/mariadb-enterprise-operator/metrics.md)
     * [SQL Resources](enterprise/mariadb-enterprise-operator/sql-resources.md)
     * [External MariaDB](enterprise/mariadb-enterprise-operator/external-mariadb.md)

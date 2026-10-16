@@ -2864,6 +2864,7 @@
     * [MariaDB Enterprise Kubernetes Operator 26.06.3](enterprise-operator/26.06/26.06.3.md)
     * [MariaDB Enterprise Kubernetes Operator 26.06.4](enterprise-operator/26.06/26.06.4.md)
     * [MariaDB Enterprise Kubernetes Operator 26.06.5](enterprise-operator/26.06/26.06.5.md)
+    * [MariaDB Enterprise Kubernetes Operator 26.06.6](enterprise-operator/26.06/26.06.6.md)
   * [All Releases](enterprise-operator/all-releases.md)
 * [Enterprise Manager Release Notes](enterprise-manager/README.md)
   * [All Releases](enterprise-manager/all-releases.md)
