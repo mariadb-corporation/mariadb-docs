@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="Semantic search: your application turns the search phrase into a vector with an embedding model, then sends one SQL query to MariaDB Server. The query walks the vector index on the product_embeddings table, joins the products table for names, and returns the two nearest products with their distances.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #1d2a33; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #5b6b75; } .acct { fill: #0E6488; }
+  .box { fill: #eef3f6; stroke: #b8c6ce; } .plain { fill: none; stroke: #b8c6ce; }
+  .accbox { fill: #dcecf3; stroke: #0E6488; } .frame { fill: none; stroke: #5b6b75; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #1d2a33; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #0E6488; stroke-width: 2; } .mut-ln { stroke: #5b6b75; }
+  .fillacc { fill: #0E6488; } .fillsoft { fill: #dcecf3; } .fillpanel { fill: #eef3f6; }
+  .halo { paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #ffffff; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #1d2a33; } .mkacc { fill: #0E6488; }
+</style>
+
+<rect class="box" x="20" y="36" width="230" height="58" rx="6"/>
+<text class="t" x="135" y="60" text-anchor="middle">Search phrase</text>
+<text class="mono sm mut" x="135" y="80" text-anchor="middle">"something to light my desk"</text>
+<line class="ln" x1="135" y1="94" x2="135" y2="124" marker-end="url(#a)"/>
+<rect class="box" x="20" y="126" width="230" height="58" rx="6"/>
+<text class="t" x="135" y="150" text-anchor="middle">Embedding model</text>
+<text class="sm mut" x="135" y="170" text-anchor="middle">in your app or AI framework</text>
+<rect class="accbox" x="20" y="222" width="230" height="62" rx="6"/>
+<text class="t acct" x="135" y="244" text-anchor="middle">Nearest products</text>
+<text class="mono sm" x="40" y="264">Desk lamp</text><text class="mono sm" x="230" y="264" text-anchor="end">0.007</text>
+<text class="mono sm" x="40" y="278">Standing desk</text><text class="mono sm" x="230" y="278" text-anchor="end">0.501</text>
+
+<rect class="frame" x="300" y="16" width="440" height="276" rx="8"/>
+<text class="t" x="520" y="38" text-anchor="middle">MariaDB Server</text>
+<rect class="plain" x="320" y="60" width="180" height="112" rx="6"/>
+<text class="sm mut" x="334" y="80">one SQL query</text>
+<text class="mono sm" x="334" y="102">ORDER BY</text>
+<text class="mono sm acct" x="334" y="120">VEC_DISTANCE_COSINE(</text>
+<text class="mono sm acct" x="350" y="138">embedding, ?)</text>
+<text class="mono sm" x="334" y="158">LIMIT 2</text>
+<rect class="accbox" x="550" y="60" width="170" height="54" rx="6"/>
+<text class="mono t acct" x="635" y="84" text-anchor="middle">VECTOR INDEX</text>
+<text class="xs" x="635" y="102" text-anchor="middle">neighbor graph, cosine</text>
+<rect class="box" x="550" y="142" width="170" height="54" rx="6"/>
+<text class="mono t" x="635" y="164" text-anchor="middle">product_embeddings</text>
+<text class="mono xs acct" x="635" y="184" text-anchor="middle">embedding VECTOR(4)</text>
+<rect class="box" x="550" y="226" width="170" height="50" rx="6"/>
+<text class="mono t" x="635" y="248" text-anchor="middle">products</text>
+<text class="mono xs mut" x="635" y="266" text-anchor="middle">id, name, price</text>
+<line class="ln acc" x1="500" y1="88" x2="548" y2="88" marker-end="url(#ac)"/>
+<text class="xs acct" x="524" y="80" text-anchor="middle">walks</text>
+<line class="ln" x1="635" y1="114" x2="635" y2="140" marker-end="url(#a)"/>
+<text class="xs mut" x="644" y="132">indexes</text>
+<line class="ln" x1="635" y1="196" x2="635" y2="224" marker-end="url(#a)"/>
+<text class="xs mut" x="644" y="214">JOIN on id</text>
+
+<path class="ln" d="M250,155 H285 V116 H318" marker-end="url(#a)"/>
+<text class="xs halo" x="285" y="108" text-anchor="middle">vector</text>
+<path class="ln dash" d="M320,150 H290 V253 H252" marker-end="url(#a)"/>
+<text class="xs halo" x="270" y="246" text-anchor="middle">rows</text>
+
+</svg>
