@@ -42,16 +42,20 @@ Then start Claude Code in your project and paste this:
 Set up MariaDB for this project.
 
 1. Use the MariaDB sandbox tools to deploy the latest
-   MariaDB version they offer, on port 3310.
+   MariaDB version they offer, on port 3310, with root
+   password "sandbox". If the port is busy, pick the next
+   free port and tell me.
 2. Create a database called shop with a products table
    (id, name, price) and add ten rows.
-3. Write a Python script that connects with MariaDB
-   Connector/Python and prints every product under 50.
-4. Show me how to connect to the sandbox with the
-   mariadb client.
+3. In a Python virtual environment, install MariaDB
+   Connector/Python with `pip install --pre mariadb`, then
+   write a script that prints every product under 50.
+   Run it.
+4. Show me how to connect to the sandbox with the mariadb
+   client. The sandbox has no TLS, so include --skip-ssl.
 ```
 
-The sandbox runs a native MariaDB server binary, so you don't need Docker. Using Codex, Pi, Hermes Agent, or OpenCode? The [MariaDB AI plugins README](https://github.com/mariadb/ai-plugins) has the install steps for each.
+The first run downloads the `mariadb-shell` client and a MariaDB server binary, about 80 MB in total, and the sandbox runs natively, so you don't need Docker. The `--pre` flag installs the MariaDB Connector/Python 2.0 release candidate, which needs no C library, so it suits a sandbox. Step 3 below uses the GA release for application code. The sandbox doesn't include the `mariadb` command-line client, so install it from the Linux tab or your package manager. Using Codex, Pi, Hermes Agent, or OpenCode? The [MariaDB AI plugins README](https://github.com/mariadb/ai-plugins) has the install steps for each.
 {% endtab %}
 
 {% tab title="Docker" %}
@@ -172,7 +176,7 @@ for name, price in cur:
 conn.close()
 ```
 
-On the sandbox, the port is `3310`. The [Python connector quickstart]({connectors}/connectors-quickstart-guides/connector-python-guide) picks up from here with transactions, connection pools, and error handling.
+On the sandbox, use port `3310` and the password `sandbox`. The [Python connector quickstart]({connectors}/connectors-quickstart-guides/connector-python-guide) picks up from here with transactions, connection pools, and error handling.
 {% endstep %}
 {% endstepper %}
 
