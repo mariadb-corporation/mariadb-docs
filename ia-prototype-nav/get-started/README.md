@@ -113,7 +113,7 @@ Three steps take you from a running server to rows coming back in Python.
 {% step %}
 ### Run MariaDB Server
 
-Use any tab above. Each one gives you MariaDB Server on a port you can reach. Not sure which one fits? [Choose how to run MariaDB](choose-how-to-run-mariadb.md).
+Use any tab above. Each one gives you MariaDB Server on a port you can reach. Deciding where to run it in production? [Deployment](deployment.md) walks through the options.
 {% endstep %}
 
 {% step %}

@@ -1,52 +1,30 @@
 ---
 title: AI
 description: >-
-  Build AI features on MariaDB Server. Store and search vector embeddings in SQL,
-  connect your AI framework, and give an agent access with the MCP server and
-  RAG tools.
+  Build AI features on MariaDB: work with a coding agent, store and search vectors in SQL, and connect retrieval to your AI framework.
 icon: robot
 ---
 
 # AI
 
-MariaDB Server stores embedding vectors in a `VECTOR` column, indexes them, and returns the nearest matches to a query vector using ordinary SQL. Vector search is built into the server itself, available in both MariaDB Community Server and MariaDB Enterprise Server from version 11.7, with no plugin or extension to install. Around it sit the framework integrations, an MCP server that gives an agent controlled access to the database, and tooling for retrieval augmented generation.
+There are two sides to AI on MariaDB. One is the application you're building, where MariaDB stores embeddings in a native `VECTOR` column and finds the nearest matches with ordinary SQL. The other is how you build it, with a coding agent that knows MariaDB and can reach a database while it works with you.
 
-Keeping the vectors next to the relational data they describe is the practical advantage. A similarity search and the joins and filters that qualify it run as one statement, against one system, inside one transaction.
+Vector search is part of the server in MariaDB Community Server and MariaDB Enterprise Server from version 11.7, with no plugin or extension to install. Because the vectors sit in the same tables as the rest of your data, a similarity search and the filters and joins around it run as one query.
 
-**Store and search vectors.** Start here. The vector overview explains vectors, distance functions, and vector indexes, and it is the page to read before designing a schema. The create table guide gives the exact syntax for a `VECTOR` column and its index. The hybrid search guide combines vector similarity with keyword matching using reciprocal rank fusion, which is what you want when pure semantic search returns results that are related but wrong.
+## Work With a Coding Agent
 
-**Connect your AI framework.** Most applications generate embeddings in a framework rather than in raw SQL. The framework integrations page covers using MariaDB as a vector store for the common AI development frameworks, so embeddings your application creates land in the database and are queried with the same SQL. For an application already in production, this is usually the shortest path to a working retrieval feature.
+Give your agent MariaDB knowledge and a database to work against.
 
-**Give an agent the database.** The MariaDB Enterprise MCP Server exposes the database over the Model Context Protocol, so an agent can inspect schemas and run read only SQL under access you control. The AI RAG tool assembles a retrieval pipeline that pairs vector search in the database with a language model.
-
-Create a `VECTOR` column, get one similarity query returning rows, then build outward from there.
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB AI Plugins</strong></td><td>Skills, an MCP server, and a local sandbox server for Claude Code, Codex, Pi, Hermes Agent, and OpenCode.</td><td><a href="https://github.com/mariadb/ai-plugins">ai-plugins</a></td></tr><tr><td><strong>Docs MCP Server</strong></td><td>Point your agent at these docs so it reads current MariaDB syntax instead of guessing.</td><td><a href="README.md#keep-your-agent-in-the-docs">README.md#keep-your-agent-in-the-docs</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give agents controlled access to production databases, with authentication and permissions you set.</td><td><a href="{tools}/mariadb-enterprise-mcp-server/introduction">introduction</a></td></tr></tbody></table>
 
 ## Store and Search Vectors
 
-{% content-ref url="explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/vector-overview/" %}
-[vector-overview](explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/vector-overview/)
-{% endcontent-ref %}
+Read the overview before you design a schema. It explains distance functions and vector indexes.
 
-{% content-ref url="explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/create-table-with-vectors/" %}
-[create-table-with-vectors](explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/create-table-with-vectors/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Vector Overview</strong></td><td>What a vector column is, how similarity search works, and when to add a vector index.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>Create a Table With Vectors</strong></td><td>The exact syntax for a <code>VECTOR</code> column and its index.</td><td><a href="{server}/reference/sql-structure/vectors/create-table-with-vectors">create-table-with-vectors</a></td></tr><tr><td><strong>Hybrid Search</strong></td><td>Combine vector similarity with keyword matching using reciprocal rank fusion.</td><td><a href="{server}/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf">optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf</a></td></tr></tbody></table>
 
-{% content-ref url="explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf/" %}
-[optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf](explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf/)
-{% endcontent-ref %}
+## Build Retrieval
 
-## Connect Your AI Framework
+Most applications create embeddings in a framework and keep them in the database.
 
-{% content-ref url="explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/vector-framework-integrations/" %}
-[vector-framework-integrations](explore-by-task/%7Bserver%7D/reference/sql-structure/vectors/vector-framework-integrations/)
-{% endcontent-ref %}
-
-## Give an Agent Access to the Database
-
-{% content-ref url="explore-by-task/%7Btools%7D/mariadb-enterprise-mcp-server/architecture/" %}
-[architecture](explore-by-task/%7Btools%7D/mariadb-enterprise-mcp-server/architecture/)
-{% endcontent-ref %}
-
-{% content-ref url="explore-by-task/%7Btools%7D/mariadb-ai-rag/" %}
-[mariadb-ai-rag](explore-by-task/%7Btools%7D/mariadb-ai-rag/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Framework Integrations</strong></td><td>Use MariaDB as the vector store for LangChain, LlamaIndex, Spring AI, and other frameworks.</td><td><a href="{server}/reference/sql-structure/vectors/vector-framework-integrations">vector-framework-integrations</a></td></tr><tr><td><strong>Vector Search Workshop</strong></td><td>A hands-on workshop that builds semantic search on MariaDB from the ground up.</td><td><a href="https://github.com/mariadb-developers/vector-search-workshop">vector-search-workshop</a></td></tr><tr><td><strong>RAG Demo in Java</strong></td><td>A retrieval augmented generation app that uses MariaDB for both its data and its vectors.</td><td><a href="https://github.com/mariadb-developers/mariadb-rag-demo-java">mariadb-rag-demo-java</a></td></tr></tbody></table>

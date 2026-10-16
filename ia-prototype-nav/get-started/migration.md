@@ -1,47 +1,20 @@
 ---
 title: Migration
 description: >-
-  Bring your data to MariaDB Server. Migrate from MySQL, PostgreSQL, and other
-  databases, or move an existing database into MariaDB Cloud.
+  Move to MariaDB Server from MySQL, PostgreSQL, Oracle, or SQL Server, or bring an existing database into MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 
 # Migration
 
-How much work a migration takes depends almost entirely on the source database. Moving from MySQL is close to a drop-in replacement for many schemas, because MariaDB shares the wire protocol, most of the SQL dialect, and much of the tooling. Moving from PostgreSQL, Oracle, or another system means translating types, functions, and procedural code. Moving into MariaDB Cloud gives you a managed target with a data loading path of its own.
+How much work a migration takes depends on where you're coming from. From MySQL, many schemas move over with few or no changes, because MariaDB shares the wire protocol, most of the SQL, and much of the tooling. From PostgreSQL, Oracle, or SQL Server, you translate data types, functions, and procedural code, and the guide for your source database tells you where those differences are.
 
-The guides below cover both the assessment and the move. The assessment matters more than it looks, because the cost of a migration is concentrated in the incompatibilities you find late.
-
-**Know what changes first.** Before moving any data, read how MariaDB differs from your current database. The differences guide separates the mechanical parts of a migration from the parts that need real translation, which turns an open ended job into a scoped one. The migration overview then lists the supported source databases and the process shared across them.
-
-**Pick your source.** Each source database has a guide written for its specific differences, and following the matching one is faster than working from the overview. MySQL is the most common path and usually needs the fewest changes. PostgreSQL requires attention to type and syntax differences. Oracle migrations can use `sql_mode=ORACLE`, which accepts a large share of PL/SQL without a rewrite.
-
-**Moving to the managed service.** MariaDB Cloud has a loading path that imports your data into a provisioned database, and a dedicated guide covers moving an existing Amazon RDS for MariaDB instance across.
-
-Run the migration against a non production copy first. That gives you a timing for the cutover and surfaces translation errors while they are still cheap to fix.
+Run the migration against a copy before you do it for real. You get a timing for the cutover, and translation problems show up while they're still cheap to fix.
 
 ## Start With the Differences
 
-{% content-ref url="explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss/" %}
-[differences-between-mariadb-and-other-dbmss](explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Differences From Other Databases</strong></td><td>What changes when you move to MariaDB, so you can scope the work before you start.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss">differences-between-mariadb-and-other-dbmss</a></td></tr><tr><td><strong>Migration Overview</strong></td><td>The supported source databases and the steps every migration shares.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb">migrating-to-mariadb</a></td></tr><tr><td><strong>MySQL Compatibility</strong></td><td>Feature-by-feature compatibility between MySQL and MariaDB versions.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix">mysql-to-mariadb-compatibility-matrix</a></td></tr></tbody></table>
 
-{% content-ref url="explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/" %}
-[migrating-to-mariadb](explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/)
-{% endcontent-ref %}
+## Migrate From Your Database
 
-## Migrate From Another Database
-
-{% content-ref url="explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql/" %}
-[migrating-to-mariadb-from-postgresql](explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql/)
-{% endcontent-ref %}
-
-## Migrate Into MariaDB Cloud
-
-{% content-ref url="explore-by-task/%7Bmariadb-cloud%7D/data-loading-migration/migrate-your-database-to-mariadb-cloud/" %}
-[migrate-your-database-to-mariadb-cloud](explore-by-task/%7Bmariadb-cloud%7D/data-loading-migration/migrate-your-database-to-mariadb-cloud/)
-{% endcontent-ref %}
-
-{% content-ref url="explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-from-mariadb-rds-to-mariadb-cloud/" %}
-[migrating-from-mariadb-rds-to-mariadb-cloud](explore-by-task/%7Bserver%7D/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-from-mariadb-rds-to-mariadb-cloud/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>From MySQL</strong></td><td>Replace MySQL in place or move over with replication.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql">moving-from-mysql</a></td></tr><tr><td><strong>From PostgreSQL</strong></td><td>Translate types, functions, and syntax from PostgreSQL.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql">migrating-to-mariadb-from-postgresql</a></td></tr><tr><td><strong>From Oracle</strong></td><td>Use <code>sql_mode=ORACLE</code> to run much of your PL/SQL without rewriting it.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-oracle">migrating-to-mariadb-from-oracle</a></td></tr><tr><td><strong>From SQL Server</strong></td><td>Map SQL Server types, syntax, and T-SQL habits to MariaDB.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-sql-server">migrating-to-mariadb-from-sql-server</a></td></tr><tr><td><strong>Into MariaDB Cloud</strong></td><td>Load an existing database into a MariaDB Cloud service.</td><td><a href="{mariadb-cloud}/cloud-data-handling/migration-data-loading/data-loading-migration">data-loading-migration</a></td></tr><tr><td><strong>From Amazon RDS to MariaDB Cloud</strong></td><td>Move an Amazon RDS for MariaDB instance to MariaDB Cloud.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-from-mariadb-rds-to-mariadb-cloud">migrating-from-mariadb-rds-to-mariadb-cloud</a></td></tr></tbody></table>

@@ -1,52 +1,26 @@
 ---
 title: Cloud
 description: >-
-  Get started with MariaDB Cloud, the fully managed database service. Launch a
-  database in minutes, connect your app, add high availability, and bring your
-  data in.
+  Get started with MariaDB Cloud, the managed MariaDB service. Launch a database, connect your application, add high availability, and bring your data in.
 icon: cloud
 ---
 
 # Cloud
 
-MariaDB Cloud is a fully managed database service for MariaDB and MySQL compatible workloads. You provision a database and the service operates the hardware, the updates, the backups, and the availability. Choose a provisioned instance for a steady workload, or serverless to scale with demand and avoid paying for idle capacity.
+MariaDB Cloud runs MariaDB for you. You create a database, and the service takes care of the hardware, patching, backups, and failover. A Serverless database is ready in seconds and scales with demand. A Provisioned one gives you dedicated capacity for a steady workload. Both run on AWS, Google Cloud, and Azure, in regions near your application.
 
-It runs across major cloud providers and regions, so the database can sit near your application, and it carries the same MariaDB and MySQL compatibility as MariaDB Server and MariaDB Enterprise Platform, so existing code and tools work unchanged. Patching, automated backups, and failover are on by default rather than being things you build.
-
-**Launch a database.** The portal is the fastest start. It walks through creating a database, sizing it, and collecting the connection details. To script it instead, the API can provision a database from Python, which is the same pattern you would use to create databases from a deployment pipeline.
-
-**Connect your application.** Point your code at the new database. The Java guide is a worked example: take the connection details from the portal, open a pool, run a query. The connection section has the equivalent for every supported language and driver.
-
-**Make it highly available.** A single database is enough to build against. Production wants a replicated topology, which keeps serving reads and writes through the loss of a node. Enabling it early costs little while the application is still easy to change.
-
-**Bring your data in.** Load an existing database into MariaDB Cloud to move from evaluating the service to running on it. There is a dedicated path for an existing Amazon RDS for MariaDB instance.
-
-Create a database in the portal and connect to it. That confirms the credentials and the network path before you change any application code.
+It's the same MariaDB as everywhere else in these docs, so your existing drivers, tools, and SQL work as they are.
 
 ## Launch a Database
 
-{% content-ref url="../start-with-a-product/%7Bmariadb-cloud%7D/quickstart/using-the-portal/" %}
-[using-the-portal](../start-with-a-product/%7Bmariadb-cloud%7D/quickstart/using-the-portal/)
-{% endcontent-ref %}
+The portal is the quickest way in. Use the API or Terraform when you want databases created from a pipeline.
 
-{% content-ref url="../start-with-a-product/%7Bmariadb-cloud%7D/quickstart/launch-db-using-python/" %}
-[launch-db-using-python](../start-with-a-product/%7Bmariadb-cloud%7D/quickstart/launch-db-using-python/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Launch From the Portal</strong></td><td>Sign up, launch a Serverless or Provisioned service, and get the connection details.</td><td><a href="{mariadb-cloud}/quickstart/using-the-portal">using-the-portal</a></td></tr><tr><td><strong>Launch From Python</strong></td><td>Provision a database with a short script against the MariaDB Cloud API.</td><td><a href="{mariadb-cloud}/quickstart/launch-db-using-python">launch-db-using-python</a></td></tr><tr><td><strong>Launch With Terraform</strong></td><td>Manage MariaDB Cloud databases as infrastructure as code.</td><td><a href="{mariadb-cloud}/quickstart/launch-db-using-the-terraform-provider">launch-db-using-the-terraform-provider</a></td></tr></tbody></table>
 
-## Connect Your Application
+## Connect and Stay Up
 
-{% content-ref url="../start-with-a-product/%7Bmariadb-cloud%7D/connecting-to-mariadb-cloud-dbs/connect-from-java-app/" %}
-[connect-from-java-app](../start-with-a-product/%7Bmariadb-cloud%7D/connecting-to-mariadb-cloud-dbs/connect-from-java-app/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Connect Your Application</strong></td><td>Connection settings for each supported language and driver.</td><td><a href="{mariadb-cloud}/connecting-to-mariadb-cloud-dbs">connecting-to-mariadb-cloud-dbs</a></td></tr><tr><td><strong>Connect From Java</strong></td><td>A worked example: take the details from the portal, open a pool, and run a query.</td><td><a href="{mariadb-cloud}/connecting-to-mariadb-cloud-dbs/connect-from-java-app">connect-from-java-app</a></td></tr><tr><td><strong>High Availability</strong></td><td>Switch to a replicated topology that keeps serving through the loss of a node.</td><td><a href="{mariadb-cloud}/high-availability-dr/ha-and-replicated-topology">ha-and-replicated-topology</a></td></tr></tbody></table>
 
-## Make It Highly Available
+## Bring Your Data In
 
-{% content-ref url="../start-with-a-product/%7Bmariadb-cloud%7D/high-availability-dr/ha-and-replicated-topology/" %}
-[ha-and-replicated-topology](../start-with-a-product/%7Bmariadb-cloud%7D/high-availability-dr/ha-and-replicated-topology/)
-{% endcontent-ref %}
-
-## Move Your Data In
-
-{% content-ref url="../start-with-a-product/%7Bmariadb-cloud%7D/data-loading-migration/migrate-your-database-to-mariadb-cloud/" %}
-[migrate-your-database-to-mariadb-cloud](../start-with-a-product/%7Bmariadb-cloud%7D/data-loading-migration/migrate-your-database-to-mariadb-cloud/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Migrate Your Database</strong></td><td>Load an existing database into a MariaDB Cloud service.</td><td><a href="{mariadb-cloud}/cloud-data-handling/migration-data-loading/data-loading-migration">data-loading-migration</a></td></tr><tr><td><strong>From Amazon RDS</strong></td><td>Move an Amazon RDS for MariaDB instance to MariaDB Cloud.</td><td><a href="{server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-from-mariadb-rds-to-mariadb-cloud">migrating-from-mariadb-rds-to-mariadb-cloud</a></td></tr><tr><td><strong>Import CSV Data</strong></td><td>Load CSV files into a MariaDB Cloud database with the <code>mariadb</code> client.</td><td><a href="{mariadb-cloud}/cloud-data-handling/migration-data-loading/data-loading/import-csv-data">import-csv-data</a></td></tr></tbody></table>

@@ -1,47 +1,24 @@
 ---
 title: Analytics
 description: >-
-  Run analytical queries at scale with MariaDB ColumnStore and MariaDB Exa,
-  and choose the right storage engine for each reporting table.
+  Run analytical queries at scale with MariaDB ColumnStore and MariaDB Exa, run analytics next to transactions, and pick the right storage engine for each table.
 icon: chart-column
 ---
 
 # Analytics
 
-Analytical queries ask a different question than transactional ones. They scan large amounts of data across a few columns, where a row oriented engine has to read whole rows to get at them. MariaDB Enterprise Server offers columnar engines built for that access pattern, so reporting queries do not have to run against tables laid out for single row reads.
+Analytical queries read a few columns across a lot of rows. A row store like InnoDB has to read whole rows to answer them, which is why reporting queries get slow on tables built for single-row lookups. MariaDB's columnar engines store each column on its own, so a query reads only the columns it needs.
 
-MariaDB ColumnStore and MariaDB Exa both require MariaDB Enterprise Server. Because MariaDB Server lets different tables in the same database use different storage engines, you can leave transactional tables where they are and move only the tables that are queried analytically.
+MariaDB Server lets each table use its own storage engine, so you don't have to move everything. Keep the transactional tables on InnoDB and put the tables you report on where they run fastest. MariaDB ColumnStore and MariaDB Exa both need MariaDB Enterprise Server.
 
-**Start with ColumnStore.** ColumnStore is a columnar storage engine for MariaDB Enterprise Server. It stores each column separately, so a query reads only the columns it references, and it compresses well because every column holds one kind of value. It can run as a standalone analytics deployment or alongside MariaDB Enterprise Server as a query accelerator that reads InnoDB data in near real time, which removes the need for a separate batch pipeline. The quickstart sets it up and runs a query. The hardware guide covers sizing, and it is worth reading before you commit machines, because analytical throughput depends heavily on memory, disk bandwidth, and core count.
+## Columnar Engines
 
-**Scale out with Exa.** When a single server no longer holds the data or the concurrency, Exa distributes queries across a cluster for the largest analytical workloads. Its deployment guide is the concrete first step in judging whether your volume has genuinely outgrown a single ColumnStore deployment.
+Start with ColumnStore, and look at Exa when one server isn't enough.
 
-**Put each table on the right engine.** The storage engine reference compares the options so you can match a table to how it is queried, and the DuckDB page covers where that newer columnar option stands today.
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>ColumnStore Quickstart</strong></td><td>Set up ColumnStore and run your first analytical query.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>ColumnStore Hardware</strong></td><td>Size memory, disk, and cores before you commit machines, since analytics throughput depends on all three.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide">mariadb-columnstore-hardware-guide</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Spread analytical queries across a cluster for the largest data volumes.</td><td><a href="{analytics}/mariadb-exa/deployment">deployment</a></td></tr></tbody></table>
 
-Run ColumnStore against a copy of your own data and compare the query times before planning anything larger.
+## Analytics Next to Transactions
 
-## Run Columnar Analytics With ColumnStore
+Run reports on live data without a separate warehouse or an overnight batch job.
 
-{% content-ref url="explore-by-task/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide/" %}
-[mariadb-columnstore-guide](explore-by-task/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide/)
-{% endcontent-ref %}
-
-{% content-ref url="explore-by-task/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide/" %}
-[mariadb-columnstore-hardware-guide](explore-by-task/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide/)
-{% endcontent-ref %}
-
-## Scale Further With Exa
-
-{% content-ref url="explore-by-task/%7Banalytics%7D/mariadb-exa/deployment/" %}
-[deployment](explore-by-task/%7Banalytics%7D/mariadb-exa/deployment/)
-{% endcontent-ref %}
-
-## Choose the Right Engine
-
-{% content-ref url="explore-by-task/%7Bserver%7D/server-usage/storage-engines/choosing-the-right-storage-engine/" %}
-[choosing-the-right-storage-engine](explore-by-task/%7Bserver%7D/server-usage/storage-engines/choosing-the-right-storage-engine/)
-{% endcontent-ref %}
-
-{% content-ref url="explore-by-task/%7Bserver%7D/server-usage/storage-engines/duckdb-storage-engine/" %}
-[duckdb-storage-engine](explore-by-task/%7Bserver%7D/server-usage/storage-engines/duckdb-storage-engine/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>HTAP on MariaDB Cloud</strong></td><td>Pair a transactional MariaDB service with Exa on MariaDB Cloud.</td><td><a href="{mariadb-cloud}/quickstart/htap-mariadb-exa">htap-mariadb-exa</a></td></tr><tr><td><strong>Choose a Storage Engine</strong></td><td>Match each table to how it's read and written.</td><td><a href="{server}/server-usage/storage-engines/choosing-the-right-storage-engine">choosing-the-right-storage-engine</a></td></tr><tr><td><strong>HTAP Quickstart App</strong></td><td>A sample app that writes transactions and reads analytics from the same MariaDB database.</td><td><a href="https://github.com/mariadb-developers/mariadb-htap-quickstart">mariadb-htap-quickstart</a></td></tr></tbody></table>

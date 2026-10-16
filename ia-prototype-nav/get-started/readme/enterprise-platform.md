@@ -1,54 +1,28 @@
 ---
 title: MariaDB Platform
 description: >-
-  Get started with MariaDB Enterprise Platform: supported MariaDB with routing,
-  clustering, and analytics for production. Understand it, route and scale it,
-  add analytics.
+  Get started with MariaDB Enterprise Platform: MariaDB Enterprise Server plus the routing, clustering, analytics, and management components that production deployments use.
 icon: layer-group
 ---
 
 # MariaDB Platform
 
-MariaDB Enterprise Platform is MariaDB Enterprise Server plus the components a production deployment needs, bundled, version certified against each other, and covered by a support contract. You still operate it. What the Platform provides is a tested set of parts rather than an assembly you validate yourself.
+MariaDB Enterprise Platform is MariaDB Enterprise Server plus the components that production deployments tend to need, tested together and covered by a support contract. You still run it yourself. What changes is that the parts arrive already checked against each other, so you don't have to validate the combination on your own.
 
-The components address distinct problems. MaxScale routes queries, balances reads, and hides failover from the application. Galera Cluster and Raft Cluster replicate data across nodes and handle failover. ColumnStore and Exa run columnar analytics, and both require MariaDB Enterprise Server. GridGain provides in-memory caching and acceleration. Enterprise Manager and the Enterprise Operator manage fleets and Kubernetes deployments.
+Each component handles one job. MaxScale routes queries, balances reads, and hides failover from the application. Galera Cluster keeps a synchronous copy of the data on every node. ColumnStore and Exa run columnar analytics, GridGain adds in-memory caching, and Enterprise Manager and the Enterprise Kubernetes Operator handle fleets and Kubernetes. Most teams start with one or two of these and add the rest as the workload asks for them.
 
-What the contract adds is concrete: component versions certified to work together, security fixes maintained across the whole stack, hardened builds, and an escalation path when a production system is failing.
+## Get Your Bearings
 
-**Get your bearings.** Read the platform overview to see what is included and which components your workload actually needs, so you deploy what you will use. Pick up the operational conventions early from the best practices guide, and set the security baseline before real data lands.
+Read the overview to see which components your workload actually needs, and set up security before real data lands.
 
-**Route and scale.** Most production topologies rest on two components together. Galera Cluster keeps a synchronous copy of the data on every node, so any node can accept writes. MaxScale sits in front and routes around a node that is gone. A Galera cluster behind MaxScale turns a node failure into a routing event.
-
-**Add analytics when reporting starts to hurt.** When analytical queries begin competing with transactional ones, ColumnStore answers them from a columnar engine in the same platform, reading your operational data without an export.
-
-Start with the platform overview, then follow the component that solves your next problem.
-
-## Understand the Platform
-
-{% content-ref url="../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/mariadb-overview-guide/" %}
-[mariadb-overview-guide](../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/mariadb-overview-guide/)
-{% endcontent-ref %}
-
-{% content-ref url="../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/mariadb-best-practices-guide/" %}
-[mariadb-best-practices-guide](../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/mariadb-best-practices-guide/)
-{% endcontent-ref %}
-
-{% content-ref url="../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/security/" %}
-[security](../start-with-a-product/%7Bplatform%7D/mariadb-platform-quickstart-guides/security/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Platform Overview</strong></td><td>What's in MariaDB Enterprise Platform and how the components fit together.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/mariadb-overview-guide">mariadb-overview-guide</a></td></tr><tr><td><strong>Best Practices</strong></td><td>Backups, change management, and the habits that keep a production deployment healthy.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/mariadb-best-practices-guide">mariadb-best-practices-guide</a></td></tr><tr><td><strong>Security</strong></td><td>Lock down accounts, network access, and encryption from the start.</td><td><a href="{platform}/mariadb-platform-quickstart-guides/security">security</a></td></tr></tbody></table>
 
 ## Route and Scale
 
-{% content-ref url="../start-with-a-product/%7Bmaxscale%7D/maxscale-quickstart-guides/maxscale-beginner-guide/" %}
-[maxscale-beginner-guide](../start-with-a-product/%7Bmaxscale%7D/maxscale-quickstart-guides/maxscale-beginner-guide/)
-{% endcontent-ref %}
+A Galera cluster behind MaxScale is the most common production topology. A failed node becomes a routing change, not an outage.
 
-{% content-ref url="../start-with-a-product/%7Bgalera%7D/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide/" %}
-[mariadb-galera-cluster-guide](../start-with-a-product/%7Bgalera%7D/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MaxScale Quickstart</strong></td><td>Route queries, split reads from writes, and handle failover in front of your servers.</td><td><a href="{maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide">maxscale-beginner-guide</a></td></tr><tr><td><strong>Galera Cluster Quickstart</strong></td><td>Set up synchronous replication where every node can take writes.</td><td><a href="{galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide">mariadb-galera-cluster-guide</a></td></tr><tr><td><strong>Kubernetes Operator</strong></td><td>Run MariaDB Enterprise Server and MaxScale on Kubernetes as custom resources.</td><td><a href="{tools}/mariadb-enterprise-operator/installation/helm">helm</a></td></tr></tbody></table>
 
-## Run Analytics in Place
+## Analyze and Manage
 
-{% content-ref url="../start-with-a-product/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide/" %}
-[mariadb-columnstore-guide](../start-with-a-product/%7Banalytics%7D/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide/)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>ColumnStore Quickstart</strong></td><td>Answer analytical queries from a columnar engine on the same platform.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Spread the largest analytical workloads across a cluster.</td><td><a href="{analytics}/mariadb-exa/deployment">deployment</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer your servers from one console.</td><td><a href="{tools}/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr></tbody></table>
