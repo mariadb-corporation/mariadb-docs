@@ -175,3 +175,7 @@ client.setBasePath("http://localhost:10300");
 ClusterConfigurationApi clusterConfigurationApi = new ClusterConfigurationApi(client);
 String configuration = clusterConfigurationApi.getClusterConfiguration();
 ```
+
+## See Also
+
+- [How to Manage Cluster Lifecycle With the REST API](../gridgain9-management/manage-cluster-lifecycle-rest-api.md)

@@ -143,3 +143,7 @@ The value for `--url` is resolved in the following order:
 2. If `--profile=<profileName>` is specified, the `ignite.cluster-endpoint-url` property from the specified CLI profile is used.
 3. If no URL was resolved from the previous steps and the CLI is currently connected to a node, the URL of the connected node is used.
 4. If no URL was resolved from the previous steps and the CLI is not connected to a node, the value is taken from the currently active profile.
+
+## See Also
+
+- [How to Work With the Ignite CLI](cli-tool-step-by-step.md)

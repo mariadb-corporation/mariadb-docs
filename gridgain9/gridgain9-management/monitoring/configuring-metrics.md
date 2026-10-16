@@ -245,3 +245,7 @@ Follow these steps:
 - Import the `yaml` file in **Configuration → Templates → Import**.
 
 - Link the template to the target host.
+
+## See Also
+
+- [How to Monitor GridGain 9 With Prometheus and Grafana](prometheus-grafana-step-by-step.md)

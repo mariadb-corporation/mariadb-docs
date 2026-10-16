@@ -506,4 +506,5 @@ If all nodes are in the command output, the cluster is now started and can be wo
 From here, you may want to:
 
 - Check out the [GridGain CLI Tool](../reference/cli-tool.md) page for more detail on supported commands
+- Work through the [GridGain 9 Tutorials](../gridgain9-tutorials/README.md) for hands-on, step-by-step practice
 - Try out our [examples](https://github.com/apache/ignite-3/tree/main/examples)

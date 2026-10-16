@@ -1031,3 +1031,7 @@ GridGain's SQL capabilities make it a powerful platform for building distributed
 Remember that GridGain is not just a SQL database—it's a comprehensive distributed computing platform with capabilities beyond what we've covered here. As you become more comfortable with GridGain SQL, you may want to explore other features such as compute grid, machine learning, and stream processing.
 
 Happy querying!
+
+## See Also
+
+- [Create Tables and Query Data With SQL](../gridgain9-tutorials/distributed-sql-foundations/query-music-store-sql.md)

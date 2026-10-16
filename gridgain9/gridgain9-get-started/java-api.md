@@ -400,3 +400,7 @@ Now that you've explored the basics of connecting to GridGain and interacting wi
 * Experiment with more complex schemas and data types;
 * Explore data partitioning strategies;
 * Investigate GridGain's distributed computing capabilities.
+
+## See Also
+
+- [Connect With the Java Thin Client](../gridgain9-tutorials/distributed-sql-foundations/connect-java-thin-client.md)

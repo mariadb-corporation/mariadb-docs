@@ -86,3 +86,8 @@ The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-
 - [Use Java API](../gridgain9-get-started/java-api.md) — an end-to-end example using the modules above.
 - [Java Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/java) — full client configuration reference.
 - [Table API](table-api.md) — work with data once the client is connected.
+
+## See Also
+
+- [How to Configure Logging for the Java Thin Client](configuring-java-client-logging.md)
+- [Connect With the Java Thin Client](../gridgain9-tutorials/distributed-sql-foundations/connect-java-thin-client.md)
