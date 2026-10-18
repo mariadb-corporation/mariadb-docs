@@ -1,34 +1,38 @@
 ---
 description: >-
-  Download, install, and start GridGain 9, then run SQL queries against the
-  cluster using the CLI tool.
+  Install and start GridGain 9, then run SQL queries against the cluster using
+  the CLI tool.
 ---
 
 # Getting Started With GridGain 9
 
-This guide shows you how to start working with GridGain: download it from the website, install it, start the database, and run some simple SQL queries by using the provided CLI tool.
+This guide shows you how to start working with GridGain: install it, start the database, and run some simple SQL queries by using the provided CLI tool.
 
 This guide uses the [zip archive](../gridgain9-management/installation/installing-using-zip.md) to demonstrate how to use GridGain. When using [deb or rpm packages](../gridgain9-management/installation/installing-deb-rpm.md), or when running GridGain in Docker, some steps may be different.
 
 If you are more comfortable with running the database from Java code, you can try [starting GridGain from code](embedded-mode.md).
 
+## Prerequisites
+
+GridGain provides the database and CLI archives (`gridgain9-db-<version>.zip` and `gridgain9-cli-<version>.zip`). If you do not have them yet, or if you are interested in trying out GridGain 9, [contact our support](https://support.gridgain.com).
+
 ## Install GridGain
 
 {% stepper %}
 {% step %}
-[Download](https://www.gridgain.com/tryfree) GridGain from the website. This archive contains everything related to the GridGain database itself.
+Make sure you have the GridGain 9 database archive. It contains everything related to the GridGain database itself.
 {% endstep %}
 
 {% step %}
-On the same page, [get a free trial license](https://www.gridgain.com/tryfree).
+Make sure you have a GridGain 9 license.
 {% endstep %}
 
 {% step %}
-Also from the same page, download the [GridGain command line interface](../reference/cli-tool.md). This tool is the main way of interacting with the GridGain database and is used in this tutorial.
+Also make sure you have the archive with the [GridGain command line interface](../reference/cli-tool.md). This tool is the main way of interacting with the GridGain database and is used in this tutorial.
 {% endstep %}
 
 {% step %}
-Unpack the downloaded archives:
+Unpack the archives you received:
 
 {% tabs %}
 {% tab title="Unix" %}
@@ -154,7 +158,7 @@ GridGain database functions as a cluster. Even if you are currently only running
 The process of starting a cluster is called _initialization_. When the cluster is initialized, GridGain creates 2 RAFT groups, the cluster management group (nodes responsible for managing cluster operation) and the metastorage group (nodes storing authoritative copy of the cluster's metadata). Once these groups are formed, they validate other nodes in the cluster, which establishes _logical topology_. Once the initialization process is complete, the cluster is ready.
 
 {% hint style="info" %}
-[Obtain a license](https://www.gridgain.com/tryfree) to initialize your cluster.
+You need a GridGain 9 license to initialize your cluster. If you are interested in trying out GridGain 9, contact our support.
 {% endhint %}
 
 To initialize the cluster with the node you have started (see [Start GridGain Node](#start-gridgain-node)), run the following command. Replace `$PATH_TO_LICENSE` with the actual path to the directory where your configuration file is located:

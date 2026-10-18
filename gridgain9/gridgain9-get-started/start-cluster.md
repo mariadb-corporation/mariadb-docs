@@ -125,7 +125,7 @@ Your nodes are now running, but the cluster is not initialized.
 ## Step 3: Initialize the Cluster
 
 {% hint style="info" %}
-You need an active GridGain license to complete this step. Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree).
+You need an active GridGain license to complete this step. If you are interested in trying out GridGain 9, contact our support.
 {% endhint %}
 
 {% stepper %}

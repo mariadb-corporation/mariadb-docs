@@ -26,7 +26,7 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ### Create ConfigMaps
 
-1. Create the GridGain configuration file and get a [license](https://www.gridgain.com/tryfree). The minimum node configuration is as follows:
+1. Create the GridGain configuration file and get a GridGain 9 license. The minimum node configuration is as follows:
 
    {% code title="gridgain-config.conf" %}
    ```javascript

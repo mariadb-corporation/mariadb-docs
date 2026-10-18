@@ -21,7 +21,7 @@ GridGain provides [Hibernate](https://hibernate.org/) integration that lets you 
   The integration uses `jakarta.persistence`, not `javax.persistence`. Update entity imports accordingly when migrating from Hibernate 5.x.
   {% endhint %}
 - GridGain 9.1.23 or later
-- [GridGain JDBC Driver](https://www.gridgain.com/tryfree) for the same GridGain version
+- GridGain JDBC Driver for the same GridGain version
 - Entity tables must already exist in GridGain. The dialect does not auto-create entity tables; only the L2 cache table is created automatically. See [Configuring Second-Level Cache](#configuring-second-level-cache) for more information.
 
 ## Installation

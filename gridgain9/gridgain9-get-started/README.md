@@ -17,7 +17,7 @@ This section walks you through the essentials of working with GridGain 9, from s
 {% endcolumn %}
 
 {% column %}
-Download, install, and start GridGain 9, then run SQL queries against the cluster using the CLI tool.
+Install and start GridGain 9, then run SQL queries against the cluster using the CLI tool.
 {% endcolumn %}
 {% endcolumns %}
 

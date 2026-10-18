@@ -22,14 +22,14 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ## GridGain Package Structure
 
-The GridGain provides 2 archives for the distribution:
+GridGain provides 2 archives for the distribution. If you do not have them, [contact our support](https://support.gridgain.com).
 
 - `gridgain9-db-9.1` - this archive contains everything related to the GridGain database, and when unpacked,  the folder where data will be stored by default. You start GridGain nodes from this folder.
 - `gridgain9-cli-9.1` - this archive contains the [GridGain CLI tool](../../reference/cli-tool.md). This tool is the main way of interacting with GridGain clusters and nodes.
 
 ## Installing GridGain Database
 
-To install the GridGain database, [download](https://www.gridgain.com/tryfree) the database archive from the website and then:
+To install the GridGain database, unpack the database archive provided by GridGain:
 
 1. Unpack the archive:
 
@@ -71,7 +71,7 @@ When the node is started, it will enter the cluster if it is already configured 
 
 The CLI tool is the primary means of working with the GridGain database. It is not necessary to install on every machine that is running GridGain, as you can connect to the node via REST interface.
 
-To install the GridGain CLI, [download](https://www.gridgain.com/tryfree) the database archive from the website and then unpack it:
+To install the GridGain CLI, unpack the CLI archive provided by GridGain:
 
 {% tabs %}
 {% tab title="Unix" %}

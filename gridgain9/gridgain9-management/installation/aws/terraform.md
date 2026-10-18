@@ -23,7 +23,7 @@ Following steps will describe how you can use Terraform module to deploy GridGai
 2. Visit AWS Marketplace to obtain [GridGain AMI ID](gridgain-ami.md);
 3. Clone [Terraform module repository from GitHub](https://github.com/gridgain/terraform-aws-gridgain9/);
 4. Navigate to `examples/with_license` subdirectory;
-5. [Obtain GridGain 9 license](https://www.gridgain.com/tryfree) and place it in `examples/with_license/files/gridgain-license.conf`;
+5. Obtain a GridGain 9 license and place it in `examples/with_license/files/gridgain-license.conf`;
 6. Edit `main.tf` file. Set AMI ID and your SSH public key (for accessing the instance);
 7. Run `terraform init`. It will download AWS provider and prepare for applying the infrastructure;
 8. Run `terraform apply`. It will present you the change plan. Upon your approval, Terraform will create infrastructure in AWS;

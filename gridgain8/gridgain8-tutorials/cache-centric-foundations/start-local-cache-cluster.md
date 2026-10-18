@@ -23,7 +23,7 @@ A single server node is all you need to start developing. Later tutorials add no
 
 GridGain 8 Enterprise requires a trial license:
 
-1. Go to [gridgain.com](https://www.gridgain.com/) and request an Enterprise trial download
+1. Go to [gridgain.com/tryfree](https://www.gridgain.com/tryfree) and request an Enterprise trial download
 2. Check your email for a download link to `gridgain-enterprise-8.9.32.zip`
 3. Download and extract the zip file
 4. Copy `gridgain-license.xml` from the top level of the extracted directory into your project directory (you create this directory in Step 1)

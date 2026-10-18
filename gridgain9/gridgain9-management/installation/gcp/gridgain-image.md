@@ -30,9 +30,8 @@ Visit the product page on GCP Marketplace, corresponding to the edition you need
 
 ## Providing a license
 
-There are 3 versions of GridGain 9 OS Image:
+There are 2 versions of GridGain 9 OS Image:
 
-- Free version without a licence. To start the cluster, get a [trial license](https://www.gridgain.com/tryfree) and provide it during cluster start.
 - Enterprise version with the included license that can be bought on GCP Marketplace.
 - Ultimate version with the included license that can be bought on GCP Marketplace.
 

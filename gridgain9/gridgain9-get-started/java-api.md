@@ -83,7 +83,7 @@ docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/li
 ```
 
 {% hint style="info" %}
-Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree). It will be required to initialize the cluster.
+You need a GridGain 9 license to initialize the cluster. If you are interested in trying out GridGain 9, contact our support.
 {% endhint %}
 {% endstep %}
 
