@@ -19,7 +19,7 @@ description: >-
 
 GridGain offers two options to integrate with Kafka:
 
-- *Streaming*, where you write your own custom code using the [Apache Ignite Kafka Streamer API](https://ignite.apache.org/docs/latest/extensions-and-integrations/streaming/kafka-streamer)
+- *Streaming*, where you write your own custom code using the [Kafka Streamer](../apache-ignite-extensions.md)
 - [GridGain Kafka Connector](certified-kafka-connector.md), which is a no-code, configuration-driven, scalable, resilient, DevOps-friendly, certified solution
 
 This guide presents the second option - GridGain Kafka Connector. It demonstrates Kafka running on Amazon MSK with the GridGain Kafka Connector running on EC2. The GridGain Kafka Connector sources and sinks data between MSK and a GridGain cluster running in AWS. This is a basic guide intended to get you started with Amazon MSK. For detailed configurations and advanced topics, refer to the [official AWS documentation](https://docs.aws.amazon.com/msk/latest/developerguide/getting-started.html).
@@ -187,4 +187,4 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
 ## Related
 
 - [GridGain Kafka Connector](certified-kafka-connector.md) - The certified, configuration-driven connector used in this guide.
-- [Apache Ignite Kafka Streamer API](https://ignite.apache.org/docs/latest/extensions-and-integrations/streaming/kafka-streamer) - The alternative code-based streaming integration.
+- [Kafka Streamer](../apache-ignite-extensions.md) - The alternative code-based streaming integration.
