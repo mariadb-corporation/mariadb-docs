@@ -869,7 +869,7 @@ sequenceDiagram
 
 Single-node persistence proves the durability story cleanly. Multi-node persistence introduces a second concern. The baseline expects every node it activated with. If a baseline node is missing on restart, the cluster does not auto-activate. The operator either waits for the missing node to rejoin, removes it from the baseline manually, or enables auto-adjust mode (`cluster().baselineAutoAdjustEnabled(true)`) so the cluster reshapes the baseline as nodes join and leave.
 
-Multi-node persistence deserves its own guide. Until that guide ships, the official docs cover the failure modes in detail at [Apache Ignite Baseline Topology](https://ignite.apache.org/docs/latest/clustering/baseline-topology).
+Multi-node persistence deserves its own guide. Until that guide ships, the official docs cover the failure modes in detail at [Baseline Topology](../../architecture/baseline-topology.md).
 
 ## Summary
 
@@ -897,7 +897,7 @@ Use `down -v` instead of `down` if you want to remove the named volumes. Keeping
 
 ## What's Next
 
-The next tutorial in the path takes the cluster past storage and shows it as a coordination layer: distributed locks, atomic counters, and queues that span the cluster. (Coming soon.)
+The next tutorial in the path, [Distributed Primitives: The Coordination Problem](distributed-data-structures.md), takes the cluster past storage and shows it as a coordination layer: distributed locks, atomic counters, and queues that span the cluster.
 
 ## Related
 

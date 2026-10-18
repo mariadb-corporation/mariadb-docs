@@ -16,7 +16,7 @@ This tutorial builds a commerce data generator that streams Customer, Invoice, a
 ## Prerequisites
 
 - **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
-- **Completed** [Connect a Java Thin Client](../distributed-sql-foundations/connect-java-thin-client.md) (familiarity with `IgniteClient`, `RecordView`, and `Tuple`)
+- **Completed** [Connect With the Java Thin Client](../distributed-sql-foundations/connect-java-thin-client.md) (familiarity with `IgniteClient`, `RecordView`, and `Tuple`)
 - **Java 17** or later
 - **Maven 3.8** or later
 

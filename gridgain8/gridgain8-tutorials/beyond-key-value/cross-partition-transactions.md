@@ -11,7 +11,7 @@ In a sharded cache, multi-key writes are only atomic when the keys live on the s
 
 ## Prerequisites
 
-- **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand Cache Distribution](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in `cache-cluster/docker-compose-3nodes.yml` pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
+- **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in `cache-cluster/docker-compose-3nodes.yml` pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
 - **Transaction API familiarity** from [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md)
 - **Java 11 or later** for the client runtime
 - **Maven 3.6** or later
@@ -1001,13 +1001,13 @@ You ran `txStart` against a three-node cluster, and the transaction committed ac
 
 ### What's Next
 
-- `setDistributedJoins(true)` for the case where colocation is not possible (coming soon).
-- Deadlock detection on `PESSIMISTIC` via the four-argument `txStart(c, i, timeout, txSize)` overload (coming soon).
-- `TransactionConfiguration` for cluster-wide defaults that change every transaction's behavior at once (coming soon).
+- `setDistributedJoins(true)` for the case where colocation is not possible, covered in [When to Break Colocation](../data-locality/when-to-break-colocation.md).
+- Deadlock detection on `PESSIMISTIC` via the four-argument `txStart(c, i, timeout, txSize)` overload (coming soon). In the meantime, see [Deadlock Detection](../../gridgain8-development/transactions.md#deadlock-detection) in Performing Transactions.
+- `TransactionConfiguration` for cluster-wide defaults that change every transaction's behavior at once (coming soon). In the meantime, see [Performing Transactions](../../gridgain8-development/transactions.md).
 
-The next tutorial in this learning path moves from atomic writes to compute. When the data is too large to pull to the client, the answer is to ship the code to the data (coming soon).
+The next tutorial in this learning path, [Compute Where the Data Lives: The Round-Trip Problem](colocated-compute.md), moves from atomic writes to compute. When the data is too large to pull to the client, the answer is to ship the code to the data.
 
 ### Related
 
 - [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md) covers the transaction API on a single-node cluster, including the `OPTIMISTIC + SERIALIZABLE` retry pattern that this tutorial extends.
-- [Understand Cache Distribution](../cache-centric-foundations/understand-cache-distribution.md) covers the partition layout and the Affinity API for inspecting placement. This tutorial reuses that cluster.
+- [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) covers the partition layout and the Affinity API for inspecting placement. This tutorial reuses that cluster.

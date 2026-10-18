@@ -494,6 +494,7 @@ Artist and Genre are independent entities with single-field primary keys. The ca
 The catalog chain links three tables through colocation columns. Each arrow represents the `colocateBy` relationship: the child table's rows are placed on the same partition as the parent.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
     Artist["<b>Artist</b><br/>PK: ArtistId"]
     Album["<b>Album</b><br/>PK: AlbumId, <i>ArtistId</i>"]
@@ -505,6 +506,7 @@ graph LR
     style Artist fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Album fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
     style Track fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
+    linkStyle default color:#111111
 ```
 
 The italicized column in each PK is the colocation column. Artist (green) is the chain root. Album and Track (teal) are colocated children. You are about to express these relationships as `@Id` fields and `colocateBy` annotations.
@@ -769,6 +771,7 @@ Four SORTED indexes, one per `@Index` annotation. Album has one index for the co
 The commerce colocation chain follows the same structure as the catalog chain, with a different root entity and different colocation columns:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
     Customer["<b>Customer</b><br/>PK: CustomerId"]
     Invoice["<b>Invoice</b><br/>PK: InvoiceId, <i>CustomerId</i>"]
@@ -780,6 +783,7 @@ graph LR
     style Customer fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Invoice fill:#E69875,stroke:#b15919,color:#2D353B
     style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
+    linkStyle default color:#111111
 ```
 
 Customer (green) is the chain root. Invoice and InvoiceLine (orange) are colocated children. The same annotation patterns apply: composite `@Id` for the colocation column, `colocateBy` for partition routing, `@Index` for join support.
@@ -1082,6 +1086,7 @@ An index speeds up the scan *within* each partition. It does not move data betwe
 The full Music Store schema has two colocation chains, two reference tables, and one cross-chain reference:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
     subgraph catalog ["Catalog Chain"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
@@ -1116,6 +1121,7 @@ graph LR
     style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
+    linkStyle default color:#111111
 ```
 
 Solid arrows are colocation relationships (data on the same partition). Dashed arrows are cross-chain references (data on different partitions, joins require network). The reference tables (pink) are replicated to every node, so their dashed arrows never cause data movement. The InvoiceLine-to-Track dashed arrow is the cross-chain join that the previous tutorial showed requiring Exchange operators.
@@ -1124,6 +1130,7 @@ Solid arrows are colocation relationships (data on the same partition). Dashed a
 <summary>Music Store schema reference: all tables, zones, colocation chains, and indexes</summary>
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
     subgraph catalog ["Catalog Chain &mdash; MusicStore zone (25 partitions, 2 replicas)"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
@@ -1173,6 +1180,7 @@ graph LR
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style Employee fill:#9CA5AD,stroke:#475258,color:#2D353B
+    linkStyle default color:#111111
 ```
 
 | Color | Role | Examples |

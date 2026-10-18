@@ -17,7 +17,7 @@ A traditional caching layer offers two patterns and neither fits. Pub/sub is fir
 
 ## Prerequisites
 
-- **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Cluster](../cache-centric-foundations/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
+- **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
 - **The Stock cache value class on the server's classpath.** The continuous query's filter and the initial ScanQuery deserialize cache values inside the server. Peer class loading covers closures (the filter factory, the filter itself), but binary deserialization of cache value classes uses a separate path. The fix is to mount the project jar in the server's `libs/user-libs/` directory once. Step 1 covers the one-time mount.
 - **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so the filter factory ships cleanly to the GridGain 8 server (Java 11).
 - **Maven 3.6** or later.
@@ -409,6 +409,7 @@ The factory takes the threshold in its constructor. The `create()` method runs o
 The architecture for the registered subscription:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     classDef client fill:#7fbbb3,stroke:#3a5158,color:#0d1418
     classDef server fill:#a7c080,stroke:#3a5158,color:#0d1418
@@ -432,6 +433,7 @@ flowchart LR
     class L client
     class E,F server
     class D filter
+    linkStyle default color:#111111
 ```
 
 The filter runs once per cache event on the server. Events that pass the predicate cross the network to the client, and the rest stop at the server before they reach the wire.

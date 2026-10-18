@@ -911,8 +911,8 @@ Beyond Key-Value and the Design for Data Locality path build directly on this me
 ### What's Next
 
 - [From Key-Value to SQL: The JOIN Problem](../beyond-key-value/from-keyvalue-to-sql.md) uses partitioning directly. JOIN correctness depends on putting related rows in the same partition, and the tutorial walks through the failure mode before showing the fix.
-- Design for Data Locality, a dedicated path for readers who will design a production schema, covers affinity keys, compute gravity, and the tradeoffs of partition count (coming soon).
-- A guide to partition count tuning, covering the 1024 default and when to deviate, lands alongside the Data Locality path (coming soon).
+- [Design for Data Locality](../data-locality/README.md), a dedicated path for readers who will design a production schema, covers affinity keys, compute gravity, and the tradeoffs of partition count.
+- [How to Choose a Partition Count for Your Workload](../../architecture/data-modeling/choose-partition-count.md) covers the 1024 default and when to deviate.
 
 ### Related
 

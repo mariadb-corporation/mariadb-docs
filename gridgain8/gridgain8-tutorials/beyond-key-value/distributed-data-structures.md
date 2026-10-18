@@ -857,11 +857,11 @@ Three adjacent topics belong in their own content:
 - **Queue capacity and bounded behavior**, including `put()` blocking on a full queue, `offer(timeout)` for bounded waits, and how to size capacity for backpressure.
 - **The other six primitives**, particularly `IgniteCountDownLatch` for fan-out coordination, `IgniteSemaphore` for bounded concurrency across nodes, and `IgniteAtomicSequence` for high-throughput ID generation.
 
-The official primitive reference covers these in depth: [Apache Ignite Data Structures](https://ignite.apache.org/docs/latest/data-structures/atomic-types).
+The official primitive reference covers these in depth: [Data Structures](../../gridgain8-development/data-structures/README.md).
 
 ## What's Next
 
-The next tutorial in the path turns the question around. Instead of asking the cluster for state through atomic reads or blocking takes, register a continuous query and let the cluster push state changes to the client as they happen. (Coming soon.)
+The next tutorial in the path, [Real-Time Event Processing: The Streaming Problem](continuous-queries-streaming.md), turns the question around. Instead of asking the cluster for state through atomic reads or blocking takes, register a continuous query and let the cluster push state changes to the client as they happen.
 
 ## Related
 

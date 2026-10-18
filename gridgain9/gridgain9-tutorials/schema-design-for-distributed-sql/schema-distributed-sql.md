@@ -259,8 +259,8 @@ Every chain has a root entity that anchors the hierarchy. **Artist** is the root
 ### Building Colocation Chains
 
 {% hint style="info" %}
-A *colocation chain* is a GridGain term for a hierarchy of parent-child tables that share a *shard key* lineage so they land on the same partition. 
-Other distributed databases call this interleaved tables, colocation groups, or simply parent-child sharding. 
+A *colocation chain* is a GridGain term for a hierarchy of parent-child tables that share a *shard key* lineage so they land on the same partition.
+Other distributed databases call this interleaved tables, colocation groups, or simply parent-child sharding.
 The concept is the same: related rows from different tables are placed together on one node so joins between them stay local.
 {% endhint %}
 
@@ -270,6 +270,7 @@ A colocation chain links each child table to its parent through a shared column:
 - **Commerce chain:** Invoice colocates by `CustomerId`, InvoiceLine colocates by `InvoiceId`. All invoices for the same customer share a partition. All line items for the same invoice share a partition with the invoice.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
     subgraph catalog ["Catalog Chain"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
@@ -304,6 +305,7 @@ graph LR
     style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
+    linkStyle default color:#111111
 ```
 
 Solid arrows are colocation relationships: data on the same partition, joins are local. Dashed arrows are cross-chain references: data on different partitions, joins move data across the network. The italicized column in each composite PK is the colocation column. Reference tables (pink) are replicated to every node, so their dashed arrows never cause data movement.
@@ -668,7 +670,7 @@ PLAYLISTTRACK | MUSICSTORE | PLAYLISTID
 
 So far, every query has touched a single table. Joins are where colocation pays off, because the planner can execute a join locally when both tables share a partition, or must shuffle data between nodes when they do not.
 
-### Colocated join: Artist to Album
+### Colocated Join: Artist to Album
 
 Artist and Album share the catalog colocation chain. A join filtered by `ArtistId` should execute within a single partition:
 
@@ -705,7 +707,7 @@ Exchange
 
 A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data. The planner accesses the Artist table differently between products (IndexScan on the primary key vs TableScan), but the routing and join strategy are the same.
 
-### Cross-chain join: Customer to Track
+### Cross-Chain Join: Customer to Track
 
 A query that joins across the commerce chain and catalog chain requires data movement:
 

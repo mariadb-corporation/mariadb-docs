@@ -1381,8 +1381,8 @@ The three techniques are not redundant. They probe different surfaces of the sam
 
 ### What's Next
 
-- Affinity-Aware Compute at Scale (coming soon) builds compute gravity on top of the local-scan pattern. Every server runs jobs against its own partition of the data, coordinating nothing cross-node.
-- When to Break Colocation (coming soon) teaches the inverse design decision: reference tables that belong in `REPLICATED` caches, fact-dimension star schemas, and `setDistributedJoins(true)` for the cases where colocation is not the right answer.
+- [Affinity-Aware Compute at Scale](affinity-aware-compute.md) builds compute gravity on top of the local-scan pattern. Every server runs jobs against its own partition of the data, coordinating nothing cross-node.
+- [When to Break Colocation](when-to-break-colocation.md) teaches the inverse design decision: reference tables that belong in `REPLICATED` caches, fact-dimension star schemas, and `setDistributedJoins(true)` for the cases where colocation is not the right answer.
 
 ### Related
 

@@ -999,9 +999,9 @@ Three mechanisms declare cache-to-cache colocation. All three produce identical 
 
 ### What's Next
 
-- Verify Colocation Is Working (coming soon) teaches the verification pattern that proves colocation is holding across a running cluster, including the system views and the diagnostic queries for catching silent breakage.
-- Affinity-Aware Compute at Scale (coming soon) uses colocation for compute gravity: running the job where the data already lives, without pulling bytes to the client.
-- When to Break Colocation (coming soon) teaches the inverse decision: reference tables that belong in `REPLICATED` caches and fact-dimension patterns.
+- [Verify Colocation Is Working](verify-colocation.md) teaches the verification pattern that proves colocation is holding across a running cluster, including the system views and the diagnostic queries for catching silent breakage.
+- [Affinity-Aware Compute at Scale](affinity-aware-compute.md) uses colocation for compute gravity: running the job where the data already lives, without pulling bytes to the client.
+- [When to Break Colocation](when-to-break-colocation.md) teaches the inverse decision: reference tables that belong in `REPLICATED` caches and fact-dimension patterns.
 
 ### Related
 

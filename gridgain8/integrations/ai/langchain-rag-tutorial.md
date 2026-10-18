@@ -57,7 +57,7 @@ GridGain serves as an ideal backend storage solution for LangChain applications,
    - Real-time access to conversation context
    - Support for multiple concurrent conversations
 
-## The Laptop Recommendation bot: A Real Example
+## The Laptop Recommendation Bot: A Real Example
 
 The [demonstration project](https://github.com/GridGain-Demos/gg8_langchain_demo) implements a sophisticated laptop recommendation chatbot that leverages GridGain's capabilities across multiple LangChain components. This system showcases how GridGain can serve as a unified backend for complex LLM applications.
 

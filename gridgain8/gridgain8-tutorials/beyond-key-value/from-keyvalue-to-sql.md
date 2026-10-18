@@ -1176,11 +1176,11 @@ The deeper reframing is that the cache is a distributed database with two access
 
 ### What's Next
 
-- `setDistributedJoins(true)` for the case where colocation is not possible (coming soon).
-- Secondary index strategies for high-cardinality columns and composite-index design (coming soon).
-- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration (coming soon).
+- `setDistributedJoins(true)` for the case where colocation is not possible, covered in [When to Break Colocation](../data-locality/when-to-break-colocation.md).
+- Secondary index strategies for high-cardinality columns and composite-index design (coming soon). In the meantime, see [Defining Indexes](../../gridgain8-development/sql/indexes.md).
+- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration (coming soon). In the meantime, see [SQL and Key-Value Usage](../../gridgain8-development/sql/sql-key-value-storage.md).
 
-The next tutorial in this learning path shifts from queries to writes. Cross-partition transactions solve the problem of atomically updating two keys that live on different nodes, a case single-shard `txStart()` does not cover (coming soon).
+The next tutorial in this learning path, [Atomic Operations Across Keys: The Transaction Problem](cross-partition-transactions.md), shifts from queries to writes. Cross-partition transactions solve the problem of atomically updating two keys that live on different nodes, a case single-shard `txStart()` does not cover.
 
 ### Related
 

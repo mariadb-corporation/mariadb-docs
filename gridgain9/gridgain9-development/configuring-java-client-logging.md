@@ -9,7 +9,7 @@ description: >-
 
 - **Java 11** or later
 - **A GridGain 9 thin client dependency** in your Maven or Gradle project
-- **A running cluster** for verification ([Start a cluster with Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md))
+- **A running cluster** for verification ([How to Start a Cluster With Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md))
 - **Framework-specific** (pick one):
   - **java.util.logging**: No additional dependencies (included in the JDK)
   - **Logback**: `slf4j-api` 2.0+ and `logback-classic` 1.5+
@@ -128,7 +128,7 @@ A `FINE: Connection established` message appears in the console output when the 
 
 Logback requires an adapter to bridge `System.Logger` to SLF4J. Add the dependencies, create the adapter and factory classes, and pass the factory to the client builder.
 
-### Add Dependencies
+### Add Logback Dependencies
 
 {% code title="pom.xml" %}
 ```xml
@@ -285,7 +285,7 @@ A `DEBUG ... TcpClientChannel - Connection established` message appears in the c
 
 The `log4j-jpl` module bridges `System.Logger` to Log4j2 automatically via `ServiceLoader`. No custom adapter or factory class is needed.
 
-### Add Dependencies
+### Add Log4j2 Dependencies
 
 {% code title="pom.xml" %}
 ```xml

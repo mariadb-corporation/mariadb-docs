@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Build a Spring Boot RESTful service backed by Apache Ignite, using Spring Data repositories, DTOs, a service layer, and a REST controller over the World database.
 ---
@@ -500,7 +501,7 @@ public class CityKey implements Serializable {
 
 Some observations about the POJO:
 
-- `COUNTRYCODE` field is annotated with `@AffinityKeyMapped`. This field is defined as the [affinity key](../../architecture/data-modeling/affinity-colocation.md#affinity-colocation) in the `City` table, and it must be annotated accordingly in the POJO class.
+- `COUNTRYCODE` field is annotated with `@AffinityKeyMapped`. This field is defined as the [affinity key](../../architecture/data-modeling/affinity-colocation.md) in the `City` table, and it must be annotated accordingly in the POJO class.
 - The names of the key fields are capitalized (`COUNTRYCODE` and `ID`). That is a workaround [for a limitation](https://issues.apache.org/jira/browse/IGNITE-6785) that existed when this tutorial was written.
 
 ### Data Transfer Objects
@@ -631,7 +632,7 @@ public interface CountryRepository extends IgniteRepository<Country, String> {
 }
 ```
 
-- This repository is associated with the `Country` table via the `@RepositoryConfig (cacheName = "Country")` annotation. The cache name is predefined in the `{ignite}/examples/sql/world.sql` script via the `CACHE_NAME=Country` parameter of the `CREATE TABLE Country` statement. Check [this documentation page](../../architecture/data-modeling/introduction.md#key-value-cache-vs-sql-table) to discover why the `cache` and `table` terms co-exist in Ignite.
+- This repository is associated with the `Country` table via the `@RepositoryConfig (cacheName = "Country")` annotation. The cache name is predefined in the `{ignite}/examples/sql/world.sql` script via the `CACHE_NAME=Country` parameter of the `CREATE TABLE Country` statement. Check [this documentation page](../../architecture/data-modeling/introduction.md#key-value-cache-vs.-sql-table) to discover why the `cache` and `table` terms co-exist in Ignite.
 - The repository implements a method that returns all countries that have a population equal to or greater than the requested value. The `Cache.Entry<String,Country>` object is used to retrieve a full key-value pair from Ignite. Here, `String` is the type of key (`Code` column, in the case of the `Country` table), and `Country` is the custom business objects that hold the fields of the value.
 
 Create a repository that is named `org.gridgain.demo.springdata.dao.CityRepository` and that is associated with the `City` table:

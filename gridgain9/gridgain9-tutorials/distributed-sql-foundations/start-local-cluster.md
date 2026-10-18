@@ -298,7 +298,7 @@ CREATE TABLE IF NOT EXISTS MediaType (
 ) ZONE MusicStoreReplicated;
 ```
 
-### Music Entities (partitioned zone, colocated)
+### Music Entities (Partitioned Zone, Colocated)
 
 In a distributed database, a JOIN between two partitioned tables is expensive by default. Each table partitions its rows independently by primary key, so the rows you need to join are scattered across different nodes. The cluster must shuffle data over the network to match them up. This is called a distributed join, and it gets slower as data volume and cluster size grow.
 
@@ -344,7 +344,7 @@ CREATE TABLE IF NOT EXISTS Track (
 
 The `COLOCATE BY` clause is GridGain-specific. It tells the cluster which column determines partition placement. Notice that Album's primary key is `(AlbumId, ArtistId)`, not just `AlbumId`. The colocation key (`ArtistId`) must be part of the primary key so the cluster can route rows to the correct partition.
 
-### Business Entities (partitioned zone, colocated)
+### Business Entities (Partitioned Zone, Colocated)
 
 Customer, Employee, Invoice, and InvoiceLine follow the same pattern. Customer is the root. Invoice colocates by `CustomerId`. InvoiceLine colocates by `InvoiceId`, which chains back to Customer through Invoice.
 
@@ -408,7 +408,7 @@ CREATE TABLE IF NOT EXISTS InvoiceLine (
 ) COLOCATE BY (InvoiceId) ZONE MusicStore;
 ```
 
-### Playlist Tables (partitioned zone, colocated)
+### Playlist Tables (Partitioned Zone, Colocated)
 
 ```sql
 CREATE TABLE IF NOT EXISTS Playlist (
@@ -550,7 +550,7 @@ SELECT COUNT(*) AS total_tracks FROM Track;
 
 The cluster has data. Run a few queries to see how the distribution zones and colocation affect query behavior.
 
-### Colocated join: Artist to Album to Track
+### Colocated Join: Artist to Album to Track
 
 This query joins three tables in the Artist colocation chain. Because Artist, Album, and Track are colocated in the `MusicStore` zone, the join executes locally on each node without shuffling data across the network.
 
@@ -582,7 +582,7 @@ LIMIT 5;
 
 The three-table join executes efficiently because the `COLOCATE BY` clauses placed related rows on the same node. Without colocation, this query would require the cluster to redistribute data across the network for each join.
 
-### Replicated Zone query: Genre Distribution
+### Replicated Zone Query: Genre Distribution
 
 Genre lives in the `MusicStoreReplicated` zone with 3 replicas (one per node). Every node has a complete copy, so this join between Track (partitioned) and Genre (replicated) resolves locally on each node.
 
@@ -623,7 +623,7 @@ LIMIT 10;
 
 Rock dominates the catalog at 1,297 tracks. The replicated zone strategy makes these reference-data joins fast regardless of which node handles the query.
 
-### Cross-chain aggregation: Revenue by Country
+### Cross-Chain Aggregation: Revenue by Country
 
 This query joins Customer and Invoice from the Customer colocation chain and aggregates revenue across countries.
 

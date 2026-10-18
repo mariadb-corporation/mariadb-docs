@@ -377,6 +377,6 @@ The cluster is already initialized with a different configuration. You cannot re
 ## Related
 
 - [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md)
-- [Manage Cluster Lifecycle with the REST API](manage-cluster-lifecycle-rest-api.md)
+- [How to Manage Cluster Lifecycle With the REST API](manage-cluster-lifecycle-rest-api.md)
 - [Using the CLI Tool](using-the-cli-tool.md)
 - [GridGain CLI Tool Reference](../reference/cli-tool.md)

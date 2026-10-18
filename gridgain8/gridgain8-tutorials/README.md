@@ -20,7 +20,7 @@ New to GridGain 8? Read [What Is GridGain?](../gridgain8-get-started/what-is-gri
 ## More Tutorials
 
 * [Management and Monitoring]({tools}/enterprise/control-center/tutorials/gridgain8-management-and-monitoring): a Control Center walkthrough covering storage and cluster health, alerts, tracing, and backups.
-* [Application Examples](application-examples/README.md): Spring Boot, Micronaut, Azure Functions, and JSON.
+* [Application Examples](application-examples/README.md): JSON in SQL.
 
 ## How-To Guides
 

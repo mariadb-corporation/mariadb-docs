@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Build a serverless Azure Function that uses an Apache Ignite cluster on AKS as an in-memory database and compute engine, via the Java thin client and REST API.
 ---

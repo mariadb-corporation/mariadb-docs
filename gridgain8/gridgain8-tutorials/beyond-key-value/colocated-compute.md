@@ -763,11 +763,11 @@ The deeper reframing is this. The cluster is not just storage. It is a Java runt
 
 Other surfaces this tutorial deferred:
 
-- **`ComputeTask` and `ComputeTaskAdapter`**, the task-based form of compute that supports failover and multi-stage workflows. The closure pattern you used (`IgniteCallable`) is sufficient for stateless one-shot work. Tasks are the right shape for jobs that need retry and partial-failure semantics (coming soon).
-- **Failover and retry semantics for compute**, including job timeouts, node failure handling, and split-brain considerations (coming soon).
-- **Custom load balancing SPIs** that pick which node receives a given closure when broadcast targeting is too coarse and affinity targeting does not fit (coming soon).
+- **`ComputeTask` and `ComputeTaskAdapter`**, the task-based form of compute that supports failover and multi-stage workflows. The closure pattern you used (`IgniteCallable`) is sufficient for stateless one-shot work. Tasks are the right shape for jobs that need retry and partial-failure semantics (coming soon). In the meantime, see [MapReduce API](../../gridgain8-development/distributed-computing/map-reduce.md).
+- **Failover and retry semantics for compute**, including job timeouts, node failure handling, and split-brain considerations (coming soon). In the meantime, see [Fault Tolerance](../../gridgain8-development/distributed-computing/fault-tolerance.md) and the [job failure handling](../../gridgain8-development/distributed-computing/map-reduce.md#handling-job-failures) in the MapReduce API.
+- **Custom load balancing SPIs** that pick which node receives a given closure when broadcast targeting is too coarse and affinity targeting does not fit (coming soon). In the meantime, see [Load Balancing](../../gridgain8-development/distributed-computing/load-balancing.md).
 
-The next tutorial in this learning path takes a different angle. After running queries and shipping compute, the question that has not been asked yet is what happens to the cache when the cluster restarts. Native persistence answers that (coming soon).
+The next tutorial in this learning path, [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md), takes a different angle. After running queries and shipping compute, the question that has not been asked yet is what happens to the cache when the cluster restarts. Native persistence answers that.
 
 ### Related
 

@@ -104,7 +104,7 @@ Rarely. The two narrow cases:
 
 More partitions also raises the per-partition bookkeeping on each node. Every partition carries a partition state, update counter, and index segment whether it holds one key or a million. At 1024 partitions and 10 nodes, the bookkeeping overhead is negligible. At 65,000 partitions and 100 nodes, it dominates.
 
-**Fewer partitions** means coarser rebalance and a higher risk of hot partitions. With 32 partitions on 3 nodes, a skewed key distribution concentrates traffic on one node. With 1024 partitions, the same skew spreads across many partitions before any single one heats up. How to Debug a Hot Partition (coming soon) handles the diagnostic when skew is the cause.
+**Fewer partitions** means coarser rebalance and a higher risk of hot partitions. With 32 partitions on 3 nodes, a skewed key distribution concentrates traffic on one node. With 1024 partitions, the same skew spreads across many partitions before any single one heats up. [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md) handles the diagnostic when skew is the cause.
 
 ## Set it in Code
 
@@ -139,4 +139,4 @@ int count = ignite.affinity("customers").partitions();
 
 - [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) introduces partitions, the `Affinity` API, and the relationship between partition count and node count.
 - [Verify Colocation Is Working](../../gridgain8-tutorials/data-locality/verify-colocation.md) teaches the per-partition verification techniques that confirm a partition-count choice produces an even distribution.
-- How to Debug a Hot Partition (coming soon) handles the case where the count is correct but a single partition takes disproportionate traffic because of key skew.
+- [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md) handles the case where the count is correct but a single partition takes disproportionate traffic because of key skew.

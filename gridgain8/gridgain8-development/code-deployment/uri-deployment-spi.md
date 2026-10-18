@@ -207,7 +207,7 @@ To build a JAR with the above structure:
 1. Build your project with the `mvn clean package` command.
 1. Put the generated JAR into `deployment_folder`.
 
-## Add the Ignite-urideploy Dependency
+## Add the `ignite-urideploy` Dependency
 
 The `ignite-urideploy` dependency is optional. This is why you need to add it explicitly, in one of the following ways:
 

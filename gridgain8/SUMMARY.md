@@ -245,7 +245,7 @@
     * [How to Configure NUMA-Aware Memory Allocation](tuning-and-troubleshooting/performance-tuning/numa-memory-allocation.md)
   * [Handling Large Objects](tuning-and-troubleshooting/handling-large-objects.md)
   * [Troubleshooting and Debugging](tuning-and-troubleshooting/troubleshooting.md)
-    * [How to Debug a hot Partition](tuning-and-troubleshooting/debug-hot-partition.md)
+    * [How to Debug a Hot Partition](tuning-and-troubleshooting/debug-hot-partition.md)
   * [Critical Failures Handling](tuning-and-troubleshooting/critical-failures-handling.md)
   * [Monitoring Rebalance Progress](tuning-and-troubleshooting/monitoring-rebalance.md)
   * [Capacity Planning](tuning-and-troubleshooting/capacity-planning.md)

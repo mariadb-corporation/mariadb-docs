@@ -3,7 +3,7 @@ description: >-
   Diagnose and fix a hot partition on GridGain 8. Three-step procedure identifies the partition, its owner, and the skew pattern.
 ---
 
-# How to Debug a hot Partition
+# How to Debug a Hot Partition
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Use this guide when your monitoring shows:
 
 If the symptom is traffic concentrated on a **single key** (rather than a partition full of many keys), that is a hot-key problem, not a hot-partition problem. The fixes in this guide do not help. For a read-heavy hot key on GridGain 8 Enterprise, a client-side near-cache absorbs the repeated reads. Otherwise, application-level caching is usually the right answer.
 
-## Diagnose the hot Partition
+## Diagnose the Hot Partition
 
 Run the three steps in order. Each step has a stop condition. If a step's output does not match the description, do not continue to the next step.
 
@@ -57,7 +57,7 @@ try (QueryCursor<List<?>> cur = ignite.cache(cacheName).query(qry)) {
 
 With 1024 partitions and 3 nodes, expect counts near 341, 341, 342. If the counts are uneven by more than a handful, the issue is rebalance state, a node filter on the affinity function, or an in-flight scale event. Stop. Let rebalance finish, or fix the topology, then re-check. Only continue to Step 2 when per-node primary counts are even.
 
-### Step 2: Find the hot Partition and its Owner
+### Step 2: Find the Hot Partition and Its Owner
 
 Broadcast a callable to every server. On each server, read the primary partitions owned by that server, call `localSizeLong` on each, and return a list of `(partitionId, entryCount)` pairs. Aggregate on the client.
 
@@ -269,7 +269,7 @@ CacheConfiguration<?, ?> cfg = new CacheConfiguration<>("invoices")
 
 {% hint style="info" %}
 
-`AffinityKeyMapper` was the older route for cache-side affinity overrides. It is deprecated in Apache Ignite 2.16.0. The JavaDoc recommends `@AffinityKeyMapped` or `CacheKeyConfiguration.setAffinityKeyFieldName(String)` in its place. New code should use `CacheKeyConfiguration`, and an existing mapper should migrate to it.
+`AffinityKeyMapper` was the older route for cache-side affinity overrides. It is deprecated. The JavaDoc recommends `@AffinityKeyMapped` or `CacheKeyConfiguration.setAffinityKeyFieldName(String)` in its place. New code should use `CacheKeyConfiguration`, and an existing mapper should migrate to it.
 
 {% endhint %}
 

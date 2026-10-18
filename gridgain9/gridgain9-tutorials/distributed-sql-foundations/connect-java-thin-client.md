@@ -685,7 +685,7 @@ Annotations define the schema in Java:
 
 Every data interaction follows the same three-level path: `client.tables()` returns `IgniteTables`, `.table("Favorite")` returns the physical `Table`, and from there you choose a **view**. A single `Table` offers four primary view types across two families: **RecordView** (each row is one object) and **KeyValueView** (each row split into key and value). Both families offer typed (POJO) and untyped (Tuple) variants.
 
-### One table, Multiple Access Patterns
+### One Table, Multiple Access Patterns
 
 You accessed the same favoriteId=2 record three ways: as a `Favorite` POJO through RecordView, as a key-value Tuple pair through KeyValueView, and as a joined SQL row with the track name resolved. All views read and write the same underlying data. Choose RecordView for type-safe business logic, KeyValueView for key-oriented access patterns, and SQL for queries that are easier to express relationally (joins, aggregations, filtering across tables).
 

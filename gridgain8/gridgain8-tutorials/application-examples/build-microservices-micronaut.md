@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Build a Micronaut microservice backed by an Apache Ignite in-memory database, then deploy the service and a two-node cluster in Docker.
 ---
