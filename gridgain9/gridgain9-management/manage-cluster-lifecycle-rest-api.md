@@ -79,8 +79,9 @@ curl -s http://localhost:10300/management/v1/node/version | jq .
 
 ```json
 {
-  "version": "latest GridGain 9 version",
-  "product": "GridGain"
+  "version": "<latest GridGain 9 version>",
+  "product": "GridGain",
+  "revision": "<revision>"
 }
 ```
 
@@ -206,12 +207,7 @@ Expected response:
     "node2",
     "node3"
   ],
-  "igniteVersion": {
-    "major": 3,
-    "minor": 1,
-    "maintenance": 0,
-    "patch": ""
-  },
+  "igniteVersion": "<latest GridGain 9 version>",
   "clusterTag": {
     "clusterName": "my-cluster",
     "clusterId": "..."

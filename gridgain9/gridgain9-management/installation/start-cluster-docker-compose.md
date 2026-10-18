@@ -221,7 +221,7 @@ Expected output:
 {
   "cmgNodes": ["node1", "node2", "node3"],
   "msNodes": ["node1", "node2", "node3"],
-  "igniteVersion": "latest GridGain 9 version",
+  "igniteVersion": "<latest GridGain 9 version>",
   "clusterTag": {
     "clusterName": "my-cluster",
     "clusterId": "..."

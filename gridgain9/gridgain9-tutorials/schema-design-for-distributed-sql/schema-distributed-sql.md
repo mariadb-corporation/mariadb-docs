@@ -11,9 +11,6 @@ In a single-node database, schema design is about data integrity. You normalize 
 
 A distributed database changes that equation. Every table is split into partitions spread across multiple nodes, and a JOIN is only local if the joined rows happen to be on the same node. When they are not, data moves across the network. If that sounds like sharding, it is. GridGain 9 hash-shards every table, and the design choices you make in DDL control which queries stay local and which pay the network cost. This tutorial walks through that decision process using the Music Store schema.
 
-{% hint style="info" %}
-{% endhint %}
-
 ## Prerequisites
 
 - **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)

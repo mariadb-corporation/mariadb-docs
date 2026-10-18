@@ -171,7 +171,7 @@ With the cluster running, you define how data is distributed across nodes. Start
 {% tabs %}
 {% tab title="Docker CLI: GridGain 9" %}
 
-Open the CLI inside a running node with `docker exec`. The CLI is bundled in the server image at `/opt/ignite3cli/bin/ignite3`:
+Open the CLI inside a running node with `docker exec`. The CLI is bundled in the server image at `/opt/gridgain9cli/bin/gridgain9`:
 
 ```bash
 docker exec -it gridgain9-node1 /opt/gridgain9cli/bin/gridgain9

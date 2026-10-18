@@ -11,9 +11,6 @@ In the previous tutorial, you designed the Music Store schema in SQL DDL. That i
 
 Both paths produce identical schemas. The difference is where the design decisions live and what you get in return. DDL integrates with your operations workflow: migration tools, DBA-managed scripts, language-independent deployments. Annotations integrate with your Java development workflow: schema decisions visible in your IDE, type-safe data access through the same classes that defined the tables, and refactoring safety when column names change.
 
-{% hint style="info" %}
-{% endhint %}
-
 ## Prerequisites
 
 - **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)

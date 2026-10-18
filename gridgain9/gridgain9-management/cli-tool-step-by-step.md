@@ -8,7 +8,7 @@ description: >-
 ## Prerequisites
 
 - A running 3-node cluster ([How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md))
-- The Ignite CLI installed on your machine. Download the standalone ZIP from the [Apache Ignite download page](https://ignite.apache.org/download.cgi), extract it, and add the `bin/` directory to your PATH. Alternatively, use the CLI bundled inside the server Docker image via `docker exec`.
+- The GridGain CLI installed on your machine. Install it as described in [Installing Using ZIP](installation/installing-using-zip.md) and add the `bin/` directory to your PATH. Alternatively, use the CLI bundled inside the server Docker image via `docker exec`.
 
 ## Overview
 
@@ -21,9 +21,6 @@ This guide walks you through the GridGain CLI from first connection to cluster i
 - Create and switch between CLI profiles.
 
 By the end, you have a working command-line workflow for the tasks that come up every day during development: loading schemas, verifying data, and checking that your cluster is healthy.
-
-{% hint style="info" %}
-{% endhint %}
 
 ## Learn the Two-port Model
 
@@ -67,7 +64,7 @@ gridgain9 cluster status --url http://localhost:10300
 ```
 
 ```
-[name: ignite3-reference-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
+[name: gridgain9-reference-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
 ```
 
 The process exits after the command completes and returns the exit code to the calling shell, which makes it suitable for scripts and CI/CD pipelines.
@@ -183,7 +180,7 @@ The CLI wraps the REST management API for common cluster operations. Every comma
 
 ```
 [node1]> cluster status
-[name: ignite3-reference-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
+[name: gridgain9-reference-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
 ```
 
 `cmgNodes` are the Cluster Management Group nodes that manage membership. `msNodes` are the Meta Storage nodes that hold cluster metadata. In a typical development cluster, both lists are the same.
@@ -224,7 +221,7 @@ curl -s http://localhost:10300/management/v1/cluster/topology/physical | python3
 
 ```
 [node1]> node version
-Apache Ignite version 3.2.0-SNAPSHOT
+GridGain version <latest GridGain 9 version>, revision <revision>
 ```
 
 The node info REST endpoint reveals the JDBC port, which is how the CLI auto-derives the JDBC URL after `connect`:
@@ -247,7 +244,7 @@ The default Unicode box-drawing tables are readable in a terminal but awkward to
 **`--plain`** switches to tab-separated values, which pipes cleanly into `awk`, `cut`, or spreadsheet tools:
 
 ```bash
-ignite3 sql --jdbc-url jdbc:ignite:thin://localhost:10800 --plain "SELECT 1 AS id, 'Alice' AS name"
+gridgain9 sql --jdbc-url jdbc:ignite:thin://localhost:10800 --plain "SELECT 1 AS id, 'Alice' AS name"
 ```
 
 ```
@@ -271,7 +268,7 @@ Create a profile for a staging cluster:
 
 ```
 [node1]> cli config profile create staging --copy-from default
-[node1]> cli config set ignite.cluster-endpoint-url http://staging-node:10300
+[node1]> cli config set ignite.cluster-endpoint-url=http://staging-node:10300
 ```
 
 Switch to it:
@@ -305,12 +302,12 @@ You typed a SQL statement directly at the `[node1]>` prompt. The main REPL only 
 </details>
 
 <details>
-<summary>Unexpected end of stream on http://localhost:10800/...</summary>
+<summary>Connection reset</summary>
 
 You pointed a REST command (`--url`) at the JDBC port. Port 10800 speaks the JDBC protocol, not HTTP. Switch to port 10300:
 
 ```bash
-ignite3 cluster status --url http://localhost:10300
+gridgain9 cluster status --url http://localhost:10300
 ```
 
 </details>
@@ -321,7 +318,7 @@ ignite3 cluster status --url http://localhost:10300
 The opposite problem: you pointed a SQL command (`--jdbc-url`) at the REST port. Port 10300 speaks HTTP, not the JDBC thin client protocol. Switch to port 10800:
 
 ```bash
-ignite3 sql --jdbc-url jdbc:ignite:thin://localhost:10800 "SELECT 1"
+gridgain9 sql --jdbc-url jdbc:ignite:thin://localhost:10800 "SELECT 1"
 ```
 
 </details>
