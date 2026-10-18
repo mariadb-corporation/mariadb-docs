@@ -19,7 +19,7 @@ A traditional caching layer offers two patterns and neither fits. Pub/sub is fir
 
 - **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Cluster](../cache-centric-foundations/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
 - **The Stock cache value class on the server's classpath.** The continuous query's filter and the initial ScanQuery deserialize cache values inside the server. Peer class loading covers closures (the filter factory, the filter itself), but binary deserialization of cache value classes uses a separate path. The fix is to mount the project jar in the server's `libs/user-libs/` directory once. Step 1 covers the one-time mount.
-- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so the filter factory ships cleanly to the Apache Ignite 2 server (Java 8) and the GridGain 8 server (Java 11).
+- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so the filter factory ships cleanly to the GridGain 8 server (Java 11).
 - **Maven 3.6** or later.
 - **Two terminal windows.** One runs the listener, the other runs the writer that drives the events.
 
@@ -30,26 +30,10 @@ This tutorial creates a fresh `continuous-events/` Maven project alongside any o
 
 If the single-node cluster is no longer running, start it before continuing.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose.yml up -d
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose.yml up -d
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 One server container in the `Up` state. The cluster is in-memory, so any prior data was discarded with the previous session. You reseed the Stock cache below.
 
@@ -70,85 +54,6 @@ A small Maven project with three runnable scenarios and a model class. `SeedStoc
 ## Define the Stock Cache and Seed Data
 
 Create the `continuous-events/` Maven project. The pom uses the same Java-8-bytecode target as the rest of the path so the host client and the cluster server agree on class file format.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-<details>
-<summary><code>continuous-events/pom.xml</code></summary>
-
-{% code title="continuous-events/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>continuous-events</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ignite.version>2.16.0</ignite.version>
-        <exec.mainClass>com.example.SeedStock</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-indexing</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.net=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.math=ALL-UNNAMED</argument>
-                        <argument>--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
-                        <argument>-Djava.net.preferIPv4Stack=true</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-DIGNITE_NO_ASCII=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-</details>
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 <details>
 <summary><code>continuous-events/pom.xml</code></summary>
@@ -229,11 +134,7 @@ Create the `continuous-events/` Maven project. The pom uses the same Java-8-byte
 
 </details>
 
-GG8 artifacts are not on Maven Central. The `<repositories>` block points Maven at the GridGain external Nexus.
-
-{% endtab %}
-
-{% endtabs %}
+GridGain 8 artifacts are not on Maven Central. The `<repositories>` block points Maven at the GridGain external Nexus.
 
 The `ignite-indexing` dependency is required because the `Stock` cache registers indexed types so any client can run SQL queries against it. The continuous query itself does not use SQL, but the cache's QueryEntity makes the cache productive for adjacent operational queries.
 
@@ -408,35 +309,6 @@ mvn -f continuous-events/pom.xml package -DskipTests
 
 Mount the jar in the cluster's `libs/user-libs/` directory, then restart the cluster so the server picks it up:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-mkdir -p cache-cluster/user-libs
-cp continuous-events/target/continuous-events-1.0-SNAPSHOT.jar cache-cluster/user-libs/
-```
-
-Add the volume mount to `cache-cluster/docker-compose.yml`. Under `volumes:`:
-
-{% code title="cache-cluster/docker-compose.yml" %}
-```yaml
-    volumes:
-      - ./ignite-config.xml:/config/ignite-config.xml:ro
-      - ./user-libs:/opt/ignite/apache-ignite/libs/user-libs:ro
-```
-{% endcode %}
-
-Restart the cluster:
-
-```bash
-docker compose -f cache-cluster/docker-compose.yml down
-docker compose -f cache-cluster/docker-compose.yml up -d
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 mkdir -p cache-cluster/user-libs
 cp continuous-events/target/continuous-events-1.0-SNAPSHOT.jar cache-cluster/user-libs/
@@ -459,10 +331,6 @@ Restart the cluster:
 docker compose -f cache-cluster/docker-compose.yml down
 docker compose -f cache-cluster/docker-compose.yml up -d
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 The mount is a one-time setup. When you rebuild the jar after editing classes, the new build lands at the same path, and the next cluster restart picks it up. Peer class loading covers the filter and filter factory closures, but the cache value class (`StockLevel`) needs to be on the server's classpath because the server deserializes the binary form to evaluate the predicate.
 
@@ -932,7 +800,7 @@ The deeper reframing matches the shape of every other tutorial in this path. The
 
 The Beyond Key-Value path closes here. You have now seen every place the cache is more than a cache: SQL on cache, atomic writes across keys, in-place compute, durable storage, coordination primitives, and event delivery. The reader who started the path looking for the cache's limits has now found them. The limits are configuration and licensing, not capability.
 
-Three adjacent topics for follow-up content. `ContinuousQueryWithTransformer` runs a transformation on the server before the event crosses the wire, so the listener receives a projection (one field, a derived value) instead of the full cache value. The JCache `CacheEntryListener` API registers directly on `cache.registerCacheEntryListener` with similar semantics. The Ignite-specific `ContinuousQuery` is the production form because it includes the remote filter factory, but JCache is portable across cache providers. Backup event queues add at-least-once delivery for failover safety. The single-node setup in this tutorial does not exercise them, but production deployments rely on them when a primary node fails.
+Three adjacent topics for follow-up content. `ContinuousQueryWithTransformer` runs a transformation on the server before the event crosses the wire, so the listener receives a projection (one field, a derived value) instead of the full cache value. The JCache `CacheEntryListener` API registers directly on `cache.registerCacheEntryListener` with similar semantics. The GridGain-specific `ContinuousQuery` is the production form because it includes the remote filter factory, but JCache is portable across cache providers. Backup event queues add at-least-once delivery for failover safety. The single-node setup in this tutorial does not exercise them, but production deployments rely on them when a primary node fails.
 
 For the next path, choose between Design for Data Locality for the design-driven treatment of affinity, or the Operations path for production deployment, monitoring, and security. Both build on the cache vocabulary you have completed.
 

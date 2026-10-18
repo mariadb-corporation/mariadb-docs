@@ -1,6 +1,6 @@
 ---
 description: >-
-  Set up a single-node Ignite 2 or GridGain 8 cluster with Docker Compose for cache-centric development and testing.
+  Set up a single-node GridGain 8 cluster with Docker Compose for cache-centric development and testing.
 ---
 
 # Start a Local Cache Development Cluster
@@ -9,11 +9,9 @@ description: >-
 
 Your application needs a fast caching layer. In this tutorial, you start a single-node cluster with Docker Compose and verify it is running. Every subsequent tutorial in the cache-centric Foundations path builds on this environment.
 
-The cache-centric architecture uses Apache Ignite 2 and GridGain 8. These products organize server nodes in a ring topology with no minimum node count.
+The cache-centric architecture is used by GridGain 8. It organizes server nodes in a ring topology with no minimum node count.
 
 A single server node is all you need to start developing. Later tutorials add nodes when you explore partition distribution and resilience.
-
-This tutorial works with both Apache Ignite 2 and GridGain 8 Enterprise. Select your product version in the tabs where setup differs.
 
 ## Prerequisites
 
@@ -22,15 +20,6 @@ This tutorial works with both Apache Ignite 2 and GridGain 8 Enterprise. Select 
 - **Port 47500** available on your machine (cluster discovery)
 - **Port 10800** available on your machine (client connections)
 - **2 GB of available RAM** for the server node
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-No additional setup required. The Apache Ignite 2 image is free and available on Docker Hub.
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 GridGain 8 Enterprise requires a trial license:
 
@@ -41,12 +30,8 @@ GridGain 8 Enterprise requires a trial license:
 
 The trial license is valid for 30 days. The 1.1 GB zip contains the full binary distribution, but only the license file is needed for Docker.
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="info" %}
-The Docker images for both Apache Ignite 2 and GridGain 8 are **amd64 only**. Docker Desktop runs them under Rosetta 2 emulation. Startup takes longer than native images, and JVM performance is reduced. This is an emulation artifact, not a product limitation.
+The GridGain 8 Docker images are **amd64 only**. Docker Desktop runs them under Rosetta 2 emulation. Startup takes longer than native images, and JVM performance is reduced. This is an emulation artifact, not a product limitation.
 {% endhint %}
 
 ## What You Will Learn
@@ -115,33 +100,6 @@ The `peerClassLoadingEnabled` flag has to match on every node in the cluster, se
 
 Now create the Docker Compose file. Save this as `cache-cluster/docker-compose.yml`:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="docker-compose.yml" %}
-```yaml
-name: ignite2
-
-services:
-  node1:
-    image: apacheignite/ignite:2.16.0
-    platform: linux/amd64
-    container_name: ignite2-node1
-    environment:
-      CONFIG_URI: /config/ignite-config.xml
-      JVM_OPTS: "-Xms1g -Xmx1g"
-    volumes:
-      - ./ignite-config.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47500:47500"
-      - "10800:10800"
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 {% code title="docker-compose.yml" %}
 ```yaml
 name: gridgain8
@@ -169,24 +127,7 @@ The additional volume mount maps your trial license into the container at the pa
 ls cache-cluster/gridgain-license.xml
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 Your project directory should now contain:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-cache-cluster/
-  docker-compose.yml
-  ignite-config.xml
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 ```text
 cache-cluster/
@@ -194,10 +135,6 @@ cache-cluster/
   ignite-config.xml
   gridgain-license.xml
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 {% hint style="success" %}
 **Checkpoint:** Your project directory contains the Docker Compose file and the XML configuration (plus the license file for GridGain 8).
@@ -213,27 +150,6 @@ docker compose -f cache-cluster/docker-compose.yml logs -f
 ```
 
 The node takes 10-30 seconds to start (longer on Apple Silicon due to emulation). Watch for the banner and the topology snapshot:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-[19:35:29]    __________  ________________
-[19:35:29]   /  _/ ___/ |/ /  _/_  __/ __/
-[19:35:29]  _/ // (7 7    // /  / / / _/
-[19:35:29] /___/\___/_/|_/___/ /_/ /x___/
-[19:35:29]
-[19:35:29] ver. 2.16.0#20231215-sha1:7bde6a42
-[19:35:29] 2023 Copyright(C) Apache Software Foundation
-...
-[19:35:31] Ignite node started OK (id=f022be07)
-[19:35:31] Topology snapshot [ver=1, locNode=f022be07, servers=1, clients=0,
-             state=ACTIVE, CPUs=8, offheap=3.5GB, heap=1.0GB]
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 ```text
 >>>    __________  ________________
@@ -251,10 +167,6 @@ The node takes 10-30 seconds to start (longer on Apple Silicon due to emulation)
              state=ACTIVE, CPUs=8, offheap=3.5GB, heap=1.0GB, ...]
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 The key line is the **topology snapshot**. It confirms:
 
 - `servers=1` means one server node is active
@@ -271,29 +183,6 @@ Press `Ctrl+C` to stop following the logs. The container continues running in th
 
 Run a cluster state check to confirm the node is accepting connections:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker exec ignite2-node1 /opt/ignite/apache-ignite/bin/control.sh --state
-```
-
-```text
-Control utility [ver. 2.16.0#20231215-sha1:7bde6a42]
-2023 Copyright(C) Apache Software Foundation
-User: root
---------------------------------------------------------------------------------
-Cluster  ID: ad7dddc4-1f48-4727-8ed7-56f05f152f86
-Cluster tag: vigilant_turing
---------------------------------------------------------------------------------
-Cluster is active
-Command [STATE] finished with code: 0
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker exec gridgain8-node1 /opt/gridgain/bin/control.sh --state
 ```
@@ -309,10 +198,6 @@ Cluster tag: reverent_bose
 Cluster is active
 Command [STATE] finished with code: 0
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 The output confirms `Cluster is active`. The cluster ID and tag are auto-generated and will differ on your machine.
 

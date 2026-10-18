@@ -207,4 +207,4 @@ See [Software Identification](software-identification.md) for details.
 ## See Also
 
 - [How to Start a Cluster With Docker Compose](start-cluster-docker-compose.md)
-- [Start Your Local Ignite 3 Development Cluster](../../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md)
+- [Start Your Local GridGain 9 Development Cluster](../../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md)

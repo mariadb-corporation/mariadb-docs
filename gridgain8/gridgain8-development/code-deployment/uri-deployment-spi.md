@@ -7,7 +7,7 @@ description: >-
 
 ## Prerequisites
 
-- A running **GridGain 8** or **Apache Ignite 2** cluster
+- A running **GridGain 8** cluster
 - A network folder accessible by all cluster nodes
 - **JDK 8** and **Maven** to build the deployment JAR
 

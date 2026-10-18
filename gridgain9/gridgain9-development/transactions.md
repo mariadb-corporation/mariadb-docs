@@ -286,4 +286,4 @@ Transaction label will be visible in:
 
 ## See Also
 
-- [Use Transactions in Ignite 3](../gridgain9-tutorials/distributed-sql-foundations/use-transactions.md)
+- [Use Transactions in GridGain 9](../gridgain9-tutorials/distributed-sql-foundations/use-transactions.md)

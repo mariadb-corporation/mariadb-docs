@@ -11,13 +11,11 @@ Not every question is a SQL aggregation. For custom risk scoring, batch enrichme
 
 This tutorial extends the [`sql-on-cache/`](from-keyvalue-to-sql.md) project. The Customer and Invoice caches stay loaded. You answer the same lifetime-spend question three ways: pull every entry to the client, broadcast a closure to every server, and target one customer's primary node. The numbers expose what each placement costs.
 
-The Java code is identical across Apache Ignite 2 and GridGain 8.
-
 ## Prerequisites
 
 - **Completion of [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md).** You have the `sql-on-cache/` Maven project on disk with `Customer`, `Invoice`, and `InvoiceKey` model classes and the `ConfigureCaches` and `SeedFromChinook` programs.
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in that compose pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode in this tutorial so closures are byte-compatible with the AI2 server JVM (Java 8) and the GG8 server JVM (Java 11).
+- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode in this tutorial so closures are byte-compatible with the GridGain 8 server JVM (Java 11).
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 
@@ -28,28 +26,11 @@ This tutorial does not introduce a fresh project. You add a new `compute/` packa
 
 The single-node cluster from the previous tutorial cannot run the work in this one. The round-trip story needs data on more than one node. Stop the single-node cluster if it is still running, start the three-node cluster from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md), and reseed.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose.yml down
-docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose.yml down
 docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Three server containers in the `Up` state. The cluster is in-memory, so the data does not survive the topology change. Rerun the seed step before running anything in this tutorial:
 
@@ -75,7 +56,7 @@ In this tutorial, you:
 
 ## Update the Project for Compute Closures
 
-The closures you will write in this tutorial run on the server JVM, not the client. The Apache Ignite 2.16.0 server image runs Java 8 (class file major version 52). The GridGain 8.9.32 server image runs Java 11 (class file major version 55). Java 8 bytecode is accepted by both. If you ship a closure compiled for Java 11 to the AI2 server, the server rejects it with `UnsupportedClassVersionError` at deploy time. Setting the project's bytecode target to 8 makes one set of class files work on every server you might run against.
+The closures you will write in this tutorial run on the server JVM, not the client. The GridGain 8.9.32 server image runs Java 11 (class file major version 55). Java 8 bytecode runs on it, and it also runs on servers that use an older JVM. If you ship a closure compiled for a newer Java version than the server JVM supports, the server rejects it with `UnsupportedClassVersionError` at deploy time. Setting the project's bytecode target to 8 makes one set of class files work on every server you might run against.
 
 Open `sql-on-cache/pom.xml` and change one line in `<properties>`:
 
@@ -293,7 +274,7 @@ The 49 ms wall time above is one representative run on a developer Mac with Dock
 
 The pull-to-client baseline brought every entry to the client. The first alternative reverses the direction. The client ships one closure to every server, each server runs the closure against its own primary partitions, and three small partial results return.
 
-Two classes handle this. The first is the closure itself: a serializable object that the Ignite runtime ships to each server and runs there. The second is the client-side driver that calls `compute.broadcast(callable)` and merges the per-node results.
+Two classes handle this. The first is the closure itself: a serializable object that the GridGain runtime ships to each server and runs there. The second is the client-side driver that calls `compute.broadcast(callable)` and merges the per-node results.
 
 Create `TopSpendCallable.java` in the `compute` package:
 
@@ -321,7 +302,7 @@ import org.apache.ignite.resources.IgniteInstanceResource;
  * given country whose data lives on this node.
  *
  * The country is captured in the constructor and shipped with the
- * closure. The Ignite field is injected on each executing server.
+ * closure. The GridGain field is injected on each executing server.
  *
  * Both cache views use withKeepBinary so the closure reads fields
  * off BinaryObject without instantiating Customer or InvoiceKey
@@ -386,9 +367,9 @@ public class TopSpendCallable implements IgniteCallable<Map<Integer, BigDecimal>
 ```
 {% endcode %}
 
-Three Ignite-specific elements are worth naming.
+Three GridGain-specific elements are worth naming.
 
-`IgniteCallable<R>` is the closure type. It extends `java.util.concurrent.Callable<R>` and adds nothing but the Ignite-specific marker. The server-side runtime invokes `call()` and returns the value. A Java lambda also works where capture and serialization are simple, but `TopSpendCallable` uses a named class because the closure needs the `@IgniteInstanceResource` field.
+`IgniteCallable<R>` is the closure type. It extends `java.util.concurrent.Callable<R>` and adds nothing but the GridGain-specific marker. The server-side runtime invokes `call()` and returns the value. A Java lambda also works where capture and serialization are simple, but `TopSpendCallable` uses a named class because the closure needs the `@IgniteInstanceResource` field.
 
 `@IgniteInstanceResource` marks a field for cluster injection. When the closure executes on a server, the cluster fills in the field with that server's local `Ignite` instance. The closure uses it to access the local cache views. The annotation lives on a `transient` field so Java serialization does not try to ship a never-set value with the closure.
 
@@ -542,7 +523,7 @@ The other two metrics are the durable ones. **Per-node partial maps returned** i
 
 {% hint style="info" %}
 
-Open `TopSpendCallable.java` and place the cursor on `IgniteCallable`. The IDE shows the interface declaration with a single method, `R call() throws Exception`. The Ignite-specific contract is just the marker that lets `IgniteCompute` ship and execute it. Everything else is JDK-shaped.
+Open `TopSpendCallable.java` and place the cursor on `IgniteCallable`. The IDE shows the interface declaration with a single method, `R call() throws Exception`. The GridGain-specific contract is just the marker that lets `IgniteCompute` ship and execute it. Everything else is JDK-shaped.
 
 {% endhint %}
 

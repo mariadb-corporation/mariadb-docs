@@ -15,8 +15,6 @@ The verification toolkit closes the gap. Three techniques, each reading a differ
 
 You build one Maven project with two reader-facing classes. `VerifyColocation` runs three verification acts against the annotation pair from the previous tutorial, and every invariant holds. `BrokenColocation` moves the `@AffinityKeyMapped` annotation to the wrong field and reruns the same three acts. The contract is still declared and the compile still succeeds, but the verification toolkit catches the bug three different ways.
 
-The Java code is identical across Apache Ignite 2 and GridGain 8. Product tabs appear only for Maven coordinates and the Docker image.
-
 ## Prerequisites
 
 - **Completion of [Design Keys for Colocation](design-keys-for-colocation.md).** You have read that tutorial and `Affinity.mapKeyToNode` is familiar. This tutorial builds its own `customers-verify` and `invoices-verify` caches, so the caches from the prior tutorial are not needed (each of the three mechanism programs destroyed its own caches at the end).
@@ -30,40 +28,11 @@ This tutorial builds a fresh Maven project called `verify-colocation/` alongside
 <details>
 <summary>Returning to these tutorials? Verify the 3-node cluster is running.</summary>
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 You want three server containers in the `Up` state. If the cluster is stopped, start it with `docker compose -f cache-cluster/docker-compose-3nodes.yml up -d` and wait for the topology snapshot to report `servers=3`.
-
-{% hint style="warning" %}
-
-Act 2 of this tutorial queries `SYS.CACHE_GROUPS` and `SYS.PARTITION_STATES`. The Apache Ignite 2 Docker image ships the SQL engine as an optional library that is not on the server classpath by default. Add `OPTION_LIBS=ignite-indexing` to each server's environment in `docker-compose-3nodes.yml` and restart the cluster. GridGain 8 bundles the SQL engine, so no compose change is needed there.
-
-```yaml
-# Inside each node definition in docker-compose-3nodes.yml (Apache Ignite 2 only)
-environment:
-  CONFIG_URI: /config/ignite-config.xml
-  JVM_OPTS: "-Xms1g -Xmx1g"
-  OPTION_LIBS: "ignite-indexing"
-```
-
-{% endhint %}
 
 </details>
 
@@ -93,83 +62,6 @@ verify-colocation/
 ```
 
 The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs so each act's output stands out:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="verify-colocation/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>verify-colocation</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.verify.VerifyColocation</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-indexing</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% hint style="info" %}
-
-The previous tutorials in this path used `ignite-core` alone. This tutorial is the first to issue SQL, so the SQL engine module is required on both the client classpath (the new Maven dependency) and the server classpath (see the `OPTION_LIBS` caution in the Prerequisites section above). GridGain 8 bundles the SQL engine into `gridgain-core`, so the GridGain 8 tab stays single-dependency.
-
-{% endhint %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="verify-colocation/pom.xml" %}
 ```xml
@@ -236,10 +128,6 @@ The previous tutorials in this path used `ignite-core` alone. This tutorial is t
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Create the two domain POJOs. Same shape as the previous tutorial. Both classes are used by `VerifyColocation` and `BrokenColocation`.
 
@@ -879,7 +767,7 @@ The system views describe the cluster. The cluster does not know the reader's in
 
 {% hint style="info" %}
 
-You can run the same queries without writing Java. Open a SQL shell against any node (`docker exec ignite2-node1 /opt/ignite/apache-ignite/bin/sqlline.sh -u jdbc:ignite:thin://127.0.0.1:10800` on Apache Ignite 2, or the matching `gridgain8-node1` path and `/opt/gridgain/` on GridGain 8). `SELECT CACHE_GROUP_NAME, PARTITIONS_COUNT, BACKUPS FROM SYS.CACHE_GROUPS;` returns the same data. The CLI query is a one-shot audit tool. The Java version belongs in the test suite, where it fails a build on regression.
+You can run the same queries without writing Java. Open a SQL shell against any node (using the `gridgain8-node1` container and the `sqlline.sh` script under `/opt/gridgain/`). `SELECT CACHE_GROUP_NAME, PARTITIONS_COUNT, BACKUPS FROM SYS.CACHE_GROUPS;` returns the same data. The CLI query is a one-shot audit tool. The Java version belongs in the test suite, where it fails a build on regression.
 
 {% endhint %}
 
@@ -943,7 +831,7 @@ private static void actThreeLocalScan(Ignite ignite, Labels labels) {
 
 /**
  * Runs on each server during the broadcast. @IgniteInstanceResource
- * injects the server-local Ignite handle so the callable can reach
+ * injects the server-local GridGain handle so the callable can reach
  * the caches without opening a client inside the server.
  */
 private static final class LocalScanTask implements IgniteCallable<NodeReport> {

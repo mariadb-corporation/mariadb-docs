@@ -13,11 +13,9 @@ A cross-cache read walks the network. A cross-cache join ships rows between node
 
 Colocation fixes this. You tell the cluster to hash each invoice by its customer ID instead of by the invoice's own key, so every invoice for customer 42 lands on the same partition as customer 42 itself. Reads, joins, and compute all stay local.
 
-Apache Ignite 2 and GridGain 8 expose three mechanisms for declaring this relationship. All three produce the same runtime placement. They differ on one dimension, the location of the declaration: on the key class, at the call site, or on the cache configuration. Each location fails differently when something goes wrong. Picking among them is a design decision about which failure mode your team can catch.
+GridGain 8 exposes three mechanisms for declaring this relationship. All three produce the same runtime placement. They differ on one dimension, the location of the declaration: on the key class, at the call site, or on the cache configuration. Each location fails differently when something goes wrong. Picking among them is a design decision about which failure mode your team can catch.
 
 You build three small programs in this tutorial, one per mechanism, against a Customer and Invoice schema. Each program creates two caches, puts three customers and three invoices per customer, and uses `Affinity.mapKeyToNode` to confirm every invoice lands on its customer's node. The comparison at the end turns the three mechanisms into a decision framework.
-
-The Java code is identical across Apache Ignite 2 and GridGain 8. Product tabs appear only for Maven coordinates and the Docker image.
 
 ## Prerequisites
 
@@ -32,26 +30,6 @@ This tutorial builds a fresh Maven project called `colocation-keys/` alongside `
 <details>
 <summary>Returning to these tutorials? Verify the 3-node cluster is running.</summary>
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X minutes
-ignite2-node2    Up X minutes
-ignite2-node3    Up X minutes
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -65,10 +43,6 @@ gridgain8-node2    Up X minutes
 gridgain8-node3    Up X minutes
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 If the cluster is not running, start it:
 
 ```bash
@@ -77,24 +51,9 @@ docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
 
 Wait a few seconds and confirm the topology reports three servers:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker logs ignite2-node1 2>&1 | grep "Topology snapshot" | tail -1
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker logs gridgain8-node1 2>&1 | grep "Topology snapshot" | tail -1
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 You want `servers=3` in the snapshot line.
 
@@ -127,72 +86,6 @@ colocation-keys/
 You create three of the files in this step. The other three, one per mechanism, come in the steps that follow.
 
 The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs so the program output stands out:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="colocation-keys/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>colocation-keys</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.colocation.AnnotationColocation</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="colocation-keys/pom.xml" %}
 ```xml
@@ -259,10 +152,6 @@ The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs s
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Create the two domain POJOs. They carry no affinity-related annotations because colocation is a key-side concern. The same Customer and Invoice value types work for all three mechanisms.
 
@@ -1092,7 +981,7 @@ The three mechanisms are not a ranking. They are three places to put the colocat
 
 {% hint style="info" %}
 
-You may see a fourth mechanism in older Apache Ignite 2 and GridGain 8 codebases: a custom `AffinityKeyMapper` implementation passed to `CacheConfiguration.setAffinityMapper(...)`. As of 2.16.0 this interface is deprecated. The Javadoc recommends replacing it with one of the three mechanisms above: `@AffinityKeyMapped`, the `AffinityKey<K>` wrapper, or `CacheKeyConfiguration.setAffinityKeyFieldName(String)`. New schemas should pick from those three.
+You may see a fourth mechanism in older GridGain 8 codebases: a custom `AffinityKeyMapper` implementation passed to `CacheConfiguration.setAffinityMapper(...)`. As of 2.16.0 this interface is deprecated. The Javadoc recommends replacing it with one of the three mechanisms above: `@AffinityKeyMapped`, the `AffinityKey<K>` wrapper, or `CacheKeyConfiguration.setAffinityKeyFieldName(String)`. New schemas should pick from those three.
 
 {% endhint %}
 

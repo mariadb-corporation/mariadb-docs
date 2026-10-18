@@ -1,6 +1,6 @@
 ---
 description: >-
-  Create tables, run queries, and use EXPLAIN to understand colocated query execution in Ignite SQL.
+  Create tables, run queries, and use EXPLAIN to understand colocated query execution in GridGain SQL.
 ---
 
 # Create Tables and Query Data With SQL
@@ -9,38 +9,20 @@ description: >-
 
 A three-table JOIN in a single-node database is straightforward. In a distributed cluster, the same JOIN might execute locally on each node or force a full data shuffle across the network. The difference depends on how you designed your schema. In this tutorial, you run both kinds of joins against the Music Store dataset from the [first tutorial](start-local-cluster.md), read the EXPLAIN plans, and see exactly where the data moves.
 
-This tutorial works with both Apache Ignite 3 and GridGain 9. SQL syntax is identical between the two products; select your product version in the tab where the CLI command differs.
-
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset loaded** from [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md)
-- Familiarity with the Ignite CLI. See [How to Work with the Ignite CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full reference.
+- **A running 3-node cluster with the Music Store dataset loaded** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
+- Familiarity with the GridGain CLI. See [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full reference.
 
 <details>
 <summary>Returning to these tutorials? Verify your environment.</summary>
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -53,41 +35,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -121,10 +68,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -140,26 +83,11 @@ Re-run the check above to verify 3503 tracks are loaded.
 
 If you are continuing directly from the previous tutorial, you are already at the `sql-cli>` prompt. Skip to Step 2.
 
-Otherwise, open the Ignite CLI inside a running node:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec -it ignite3-node1 /opt/ignite3cli/bin/ignite3
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
+Otherwise, open the GridGain CLI inside a running node:
 
 ```bash
 docker exec -it gridgain9-node1 /opt/gridgain9cli/bin/gridgain9
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 At the CLI prompt, connect to the cluster and enter the SQL sub-REPL:
 
@@ -219,7 +147,7 @@ SELECT NAME, ZONE, COLOCATION_KEY_INDEX FROM SYSTEM.TABLES WHERE NAME = 'BOOKMAR
 `SYSTEM.TABLES` is one of several system catalog views (alongside `SYSTEM.ZONES` and `SYSTEM.INDEXES`) that you can query like regular tables.
 
 {% hint style="warning" %}
-Ignite normalizes all SQL identifiers to uppercase. The table name is `BOOKMARK` in the catalog, not `Bookmark` as typed in the DDL. This applies everywhere: column names in query results, `SqlRow` accessor methods in Java, and system catalog filters. Use uppercase when referencing identifiers programmatically.
+GridGain normalizes all SQL identifiers to uppercase. The table name is `BOOKMARK` in the catalog, not `Bookmark` as typed in the DDL. This applies everywhere: column names in query results, `SqlRow` accessor methods in Java, and system catalog filters. Use uppercase when referencing identifiers programmatically.
 {% endhint %}
 
 {% hint style="success" %}
@@ -228,7 +156,7 @@ Ignite normalizes all SQL identifiers to uppercase. The table name is `BOOKMARK`
 
 ## Step 3: Insert, Update, and Delete Data
 
-The table exists but is empty. Populate it with a few rows to see how DML works in Ignite SQL:
+The table exists but is empty. Populate it with a few rows to see how DML works in GridGain SQL:
 
 ```sql
 INSERT INTO Bookmark (BookmarkId, TrackId, Label) VALUES (1, 3402, 'Best guitar solo');
@@ -423,7 +351,7 @@ FROM Track WHERE Name = 'Dazed And Confused';
 For 3,503 rows on a development cluster, this is fast enough. On a production dataset, you would create an index: `CREATE INDEX idx_track_name ON Track (Name);`
 
 {% hint style="info" %}
-Use `EXPLAIN` liberally throughout this tutorial. It is the primary tool for understanding how Ignite routes queries across the cluster.
+Use `EXPLAIN` liberally throughout this tutorial. It is the primary tool for understanding how GridGain routes queries across the cluster.
 {% endhint %}
 
 To disambiguate the two recordings, join to Album:
@@ -989,7 +917,7 @@ Throughout this tutorial, `EXPLAIN` revealed how the engine handles each type of
 - **Colocated joins** execute locally with no Exchange between the join inputs. Non-colocated joins shuffle data through Exchange operators below the join (Step 5).
 - **Distributed aggregation** uses a map-reduce pattern: `MapHashAggregate` computes locally, `ReduceHashAggregate` combines results across the Exchange (Step 6).
 
-Two other Ignite-specific behaviors to remember:
+Two other GridGain-specific behaviors to remember:
 
 - **System catalog views** (`SYSTEM.TABLES`, `SYSTEM.ZONES`, `SYSTEM.INDEXES`) expose cluster metadata as queryable tables.
 - **Uppercase normalization** applies to all SQL identifiers in the catalog and query results, regardless of the case used in DDL.
@@ -1010,7 +938,7 @@ Continue to [Connect with the Java Thin Client](connect-java-thin-client.md) to 
 
 ## Related
 
-- [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md) for the cluster setup and dataset loading this tutorial builds on
-- [How to Work with the Ignite CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full CLI reference: file loading, output formatting, cluster inspection
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) for the cluster setup and dataset loading this tutorial builds on
+- [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full CLI reference: file loading, output formatting, cluster inspection
 
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the Java thin client, Table API, and RecordView

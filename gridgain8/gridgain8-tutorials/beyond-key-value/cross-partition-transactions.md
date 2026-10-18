@@ -9,8 +9,6 @@ description: >-
 
 In a sharded cache, multi-key writes are only atomic when the keys live on the same shard. Cross-shard atomicity has historically meant application-layer work: key co-location, per-shard scripting, or compensation after partial failures. Each option pushes consistency work back into your code. You already covered `txStart`, `commit`, and the optimistic retry pattern on a single-node cluster. This tutorial puts that same API on a three-node cluster, shows how `OPTIMISTIC + REPEATABLE_READ` silently drops writes, and ends with the production retry pattern wrapped around any optimistic transaction.
 
-The code is identical between Apache Ignite 2 and GridGain 8. Only the Maven coordinates and Docker images differ, and tabs handle that divergence.
-
 ## Prerequisites
 
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand Cache Distribution](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in `cache-cluster/docker-compose-3nodes.yml` pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
@@ -26,26 +24,6 @@ This tutorial builds a fresh Maven project called `cross-partition-tx/`. It does
 
 Check that all three nodes are up:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-ignite2-node2    Up X hours
-ignite2-node3    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -58,10 +36,6 @@ gridgain8-node1   Up X hours
 gridgain8-node2   Up X hours
 gridgain8-node3   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 If a container is stopped, restart with `docker compose -f cache-cluster/docker-compose-3nodes.yml start`. If the cluster was destroyed, recreate it from the three-node compose in the cache distribution tutorial. The cache is in memory. Running `ConfigureAccountCache` after a restart recreates it.
 
@@ -78,79 +52,7 @@ In this tutorial, you:
 
 ## Configure a Transactional Account Cache
 
-Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `ignite-core` (or `gridgain-core`) and includes the `--add-opens` entries Java 11+ reflection requires. The thick client joins the cluster through the discovery seeds the host can reach (`127.0.0.1:47500`, `47501`, `47502`). The per-node `BasicAddressResolver` maps each container's hostname to `127.0.0.1` so the rest of the protocol routes through the loopback interface. `-Djava.net.preferIPv4Stack=true` skips the IPv6 join attempt that otherwise costs ten seconds on a fresh client.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="cross-partition-tx/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>cross-partition-tx</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>11</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.transactions.ConfigureAccountCache</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.math=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.net=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
-                        <argument>-Djava.net.preferIPv4Stack=true</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-DIGNITE_NO_ASCII=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `gridgain-core` and includes the `--add-opens` entries Java 11+ reflection requires. The thick client joins the cluster through the discovery seeds the host can reach (`127.0.0.1:47500`, `47501`, `47502`). The per-node `BasicAddressResolver` maps each container's hostname to `127.0.0.1` so the rest of the protocol routes through the loopback interface. `-Djava.net.preferIPv4Stack=true` skips the IPv6 join attempt that otherwise costs ten seconds on a fresh client.
 
 {% code title="cross-partition-tx/pom.xml" %}
 ```xml
@@ -223,10 +125,6 @@ Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `i
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 The `Account` model is a plain serializable POJO. The cluster stores the bytes and never deserializes the value server-side. Only the host JVM reads back what it wrote, so Java serialization is enough for this tutorial.
 
@@ -362,7 +260,7 @@ public class ConfigureAccountCache {
             System.out.println("backups:       " + current.getBackups());
         }
 
-        // Force clean shutdown so Ignite's background discovery threads
+        // Force clean shutdown so GridGain's background discovery threads
         // do not keep the JVM alive after the client closes.
         System.exit(0);
     }
@@ -577,7 +475,7 @@ OPTIMISTIC concurrency relies on commit-time validation. When the transaction tr
 
 That makes `OPTIMISTIC + REPEATABLE_READ` unsafe whenever a key is read and then written based on what was read. Two transactions reading the same pre-write value both write a value derived from it, and the second commit overwrites the first. No exception is thrown, so the lost transaction never surfaces to the application.
 
-This step proves the behavior with a deterministic interleave. tx1 reads, tx2 commits its own transfer inside tx1's window, then tx1 writes and commits with the values it read before tx2 ran. The lost-update outcome is the same shape a concurrent race between two contending transactions produces. The sequential interleave is the honest tradeoff: same outcome, deterministic across runs and across product versions, no timing assumptions baked into the code. Thick-client transactions bind to the current thread through thread-local state, so a single thread cannot hold two transactions open at once. The interleave runs on two threads inside one Ignite client. Two `CountDownLatch` instances enforce the order. tx1 releases the first latch after reading, which lets tx2 run a full transfer and commit. tx2 releases the second latch in a `finally` block, which lets tx1 wake up and write its own values.
+This step proves the behavior with a deterministic interleave. tx1 reads, tx2 commits its own transfer inside tx1's window, then tx1 writes and commits with the values it read before tx2 ran. The lost-update outcome is the same shape a concurrent race between two contending transactions produces. The sequential interleave is the honest tradeoff: same outcome, deterministic across runs, no timing assumptions baked into the code. Thick-client transactions bind to the current thread through thread-local state, so a single thread cannot hold two transactions open at once. The interleave runs on two threads inside one GridGain client. Two `CountDownLatch` instances enforce the order. tx1 releases the first latch after reading, which lets tx2 run a full transfer and commit. tx2 releases the second latch in a `finally` block, which lets tx1 wake up and write its own values.
 
 {% code title="cross-partition-tx/src/main/java/com/example/transactions/SilentDropDemo.java" %}
 ```java
@@ -612,18 +510,18 @@ import com.example.transactions.model.Account;
  * The interleave is sequential, not concurrent. Inside tx1's
  * read-write window, tx2 starts, transfers, and commits. Then tx1
  * writes and commits with stale data. The sequential interleave makes
- * the outcome deterministic across runs and across product versions,
+ * the outcome deterministic across runs,
  * with no timing assumptions baked into the test.
  *
  * Thick-client transactions bind to the current thread through
  * thread-local state, so a single thread cannot hold two transactions
- * open at once. The interleave runs on two threads inside one Ignite
+ * open at once. The interleave runs on two threads inside one GridGain
  * client. Two CountDownLatch instances enforce the order. tx1
  * releases the first latch after reading, which lets tx2 run a full
  * transfer and commit. tx2 releases the second latch in a finally
  * block, which lets tx1 wake up and write its own values.
  *
- * One Ignite client serves both threads because each thread has its
+ * One GridGain client serves both threads because each thread has its
  * own thread-local transaction state. Two clients on the same JVM
  * would also work but pay the discovery handshake twice and surface
  * two members in the cluster topology, which would obscure the
@@ -1079,7 +977,7 @@ Retries: 1, final result: committed
 Final balances: 1001=95.00, 1006=110.00
 ```
 
-The first scenario confirms that the conflict surfaces at `tx1.commit()` as `TransactionOptimisticException`, a typed subclass of `IgniteException`. The catch block matches the exact exception class, so other failure modes (timeout, deadlock, communication failure) propagate out untouched. The full message names the conflicting key. On Apache Ignite 2 it also includes a benign `BinaryInvalidTypeException` from the server's value-formatting path, so `firstLine` truncates at the first `[` to keep the trace readable. The contract is the type, not the text.
+The first scenario confirms that the conflict surfaces at `tx1.commit()` as `TransactionOptimisticException`, a typed subclass of `IgniteException`. The catch block matches the exact exception class, so other failure modes (timeout, deadlock, communication failure) propagate out untouched. The full message names the conflicting key. On GridGain 8 it also includes a benign `BinaryInvalidTypeException` from the server's value-formatting path, so `firstLine` truncates at the first `[` to keep the trace readable. The contract is the type, not the text.
 
 The second scenario wraps the same operations inside a retry loop. Attempt 0 hits the planted conflict and sleeps 10ms. Attempt 1 sees the post-tx2 state (1001 = 105.00) and commits its own transfer cleanly. The final balances match the arithmetic: tx2 added 5.00 to 1001, tx1 subtracted 10.00 from 1001 and added 10.00 to 1006, so 1001 ends at 95.00 and 1006 ends at 110.00.
 

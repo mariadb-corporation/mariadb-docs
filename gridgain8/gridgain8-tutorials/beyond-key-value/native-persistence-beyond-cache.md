@@ -15,7 +15,7 @@ Native persistence answers a recovery problem that snapshot-based stores cannot 
 
 Native persistence is page-level. Every write hits the Write-Ahead Log before the in-memory page changes, and periodic checkpoints flush dirty pages to disk. On restart, the cluster loads the latest checkpoint and replays the WAL forward. Recovery is WAL replay time, not snapshot interval.
 
-This is the only tutorial in the path that changes the cluster image. Persistence is configured at startup. The engine does not support flipping the flag on a running cluster. You build a parallel `cache-cluster-persistent/` and a parallel Maven project alongside the in-memory ones from the rest of the path. The Java code is identical across Apache Ignite 2 and GridGain 8.
+This is the only tutorial in the path that changes the cluster image. Persistence is configured at startup. The engine does not support flipping the flag on a running cluster. You build a parallel `cache-cluster-persistent/` and a parallel Maven project alongside the in-memory ones from the rest of the path.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ This is the only tutorial in the path that changes the cluster image. Persistenc
 - **Docker Compose 2.23** or later.
 - **Java 11** or later for the client runtime.
 - **Maven 3.6** or later.
-- **No other Apache Ignite 2 or GridGain 8 cluster running on ports 47500, 47100, or 10800.** This tutorial uses the same port assignment as the rest of the path. Stop any cluster on those ports before starting the one this tutorial creates.
+- **No other GridGain 8 cluster running on ports 47500, 47100, or 10800.** This tutorial uses the same port assignment as the rest of the path. Stop any cluster on those ports before starting the one this tutorial creates.
 
 This tutorial creates a fresh `cache-cluster-persistent/` directory and a fresh `native-persistence/` Maven project. The `cache-cluster/` and previous Maven projects from the path stay where they are. Nothing is modified.
 
@@ -37,7 +37,7 @@ This tutorial creates a fresh `cache-cluster-persistent/` directory and a fresh 
 
 ## What You Will Build
 
-A single-node persistent Ignite or GridGain cluster running in Docker, configured with the data region's `persistenceEnabled` flag turned on. A small Maven project with three programs: one to activate the cluster and report the baseline, one to seed 10 customer rows, and one to verify those rows survive a stop and start of the container.
+A single-node persistent GridGain cluster running in Docker, configured with the data region's `persistenceEnabled` flag turned on. A small Maven project with three programs: one to activate the cluster and report the baseline, one to seed 10 customer rows, and one to verify those rows survive a stop and start of the container.
 
 By the end, you will have stopped the cluster, started it again, and watched every entry the cache held before the stop come back without any reload from an external source.
 
@@ -46,46 +46,6 @@ By the end, you will have stopped the cluster, started it again, and watched eve
 The persistent cluster runs on the same image as the in-memory cluster from the path. The change is the configuration: a `dataStorageConfiguration` block that turns on `persistenceEnabled` for the default data region and points the WAL at a writable directory. The data region is the cluster's memory-and-disk topology unit. Caches reside in regions, and persistence is regional, not per-cache. One flag, one place, every cache that lands in this region inherits durability.
 
 Create a `cache-cluster-persistent/` directory in your working tree. The two files below ship inline in this tutorial. Copy each into the new directory.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-<details>
-<summary><code>cache-cluster-persistent/docker-compose.yml</code></summary>
-
-{% code title="docker-compose.yml" %}
-```yaml
-name: ignite2-persistent
-
-services:
-  node1:
-    image: apacheignite/ignite:2.16.0
-    platform: linux/amd64
-    container_name: ignite2-persistent-node1
-    hostname: node1
-    ports:
-      - "47500:47500"
-      - "47100:47100"
-      - "10800:10800"
-    volumes:
-      - ./ignite-config-persistent.xml:/config/ignite-config.xml:ro
-      - db:/opt/ignite/apache-ignite/work
-      - wal:/wal
-    environment:
-      CONFIG_URI: /config/ignite-config.xml
-      JVM_OPTS: "-Xms512m -Xmx1g"
-
-volumes:
-  db:
-  wal:
-```
-{% endcode %}
-
-</details>
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 <details>
 <summary><code>cache-cluster-persistent/docker-compose.yml</code></summary>
@@ -123,12 +83,6 @@ volumes:
 </details>
 
 The GridGain 8 compose pins `user: "0"` so the container can write to the named volumes. Without it the container's default user (`uid=10000`) cannot create the per-node directories the WAL writer needs. The compose also mounts the same enterprise license file the rest of the path uses. Native persistence is included in GridGain 8.9.32 Enterprise with the standard license, no per-feature configuration required.
-
-{% endtab %}
-
-{% endtabs %}
-
-The Spring config below is identical for both products.
 
 <details>
 <summary><code>cache-cluster-persistent/ignite-config-persistent.xml</code></summary>
@@ -204,24 +158,9 @@ GridGain 8 needs one more file. Copy the same `gridgain-license.xml` from the re
 
 Start the cluster.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
 ```bash
 docker compose -f cache-cluster-persistent/docker-compose.yml up -d
 ```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
-```bash
-docker compose -f cache-cluster-persistent/docker-compose.yml up -d
-```
-
-{% endtab %}
-
-{% endtabs %}
 
 Read the startup logs and confirm the persistent default region was declared.
 
@@ -229,7 +168,7 @@ Read the startup logs and confirm the persistent default region was declared.
 docker compose -f cache-cluster-persistent/docker-compose.yml logs node1 | grep -E "Data Regions|persistence|INACTIVE"
 ```
 
-Expected on Apache Ignite 2:
+Expected output:
 
 ```
 [INFO] Data Regions Started: 5
@@ -251,94 +190,6 @@ Create a fresh Maven project alongside `cache-cluster-persistent/`.
 
 <details>
 <summary><code>native-persistence/pom.xml</code></summary>
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>native-persistence</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ignite.version>2.16.0</ignite.version>
-        <exec.mainClass>com.example.PersistenceConfig</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-spring</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-slf4j</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.net=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.math=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.sql/java.sql=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.time=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.text=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.management/sun.management=ALL-UNNAMED</argument>
-                        <argument>--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -429,10 +280,6 @@ Create a fresh Maven project alongside `cache-cluster-persistent/`.
 {% endcode %}
 
 GridGain 8 artifacts are not on Maven Central. The `<repositories>` block points Maven at the GridGain external Nexus.
-
-{% endtab %}
-
-{% endtabs %}
 
 </details>
 
@@ -748,8 +595,8 @@ docker volume ls | grep persistent
 Expected output:
 
 ```
-local     ignite2-persistent_db
-local     ignite2-persistent_wal
+local     gridgain8-persistent_db
+local     gridgain8-persistent_wal
 ```
 
 Start the container again. The same image picks up the same files.
@@ -892,26 +739,10 @@ The cache survived. No reload from a database, no cache warm step. The cluster c
 
 Look at what is on disk. The next commands inspect the data and WAL directories from inside the container.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
-  ls -la /opt/ignite/apache-ignite/work/db/
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
   ls -la /opt/gridgain/work/db/
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Expected output:
 
@@ -924,26 +755,10 @@ drwxr-xr-x  node00-51ea4b16-5490-4beb-a543-f0ff4fdb11c5
 
 The `node00-<consistentId>/` directory is the per-node persistent state. Look inside it.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
-  sh -c 'ls -la /opt/ignite/apache-ignite/work/db/node00-*'
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
   sh -c 'ls -la /opt/gridgain/work/db/node00-*'
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Expected output:
 
@@ -959,26 +774,10 @@ drwxr-xr-x  metastorage
 
 `cache-Customer/` is the directory for the cache the seed program created. `cp/` is the checkpoint directory. The cluster writes a checkpoint binary every few minutes by default. `metastorage/` holds cluster-wide configuration. Inspect the cache directory.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
-  sh -c 'ls -la /opt/ignite/apache-ignite/work/db/node00-*/cache-Customer'
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster-persistent/docker-compose.yml exec node1 \
   sh -c 'ls -la /opt/gridgain/work/db/node00-*/cache-Customer'
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Expected output:
 

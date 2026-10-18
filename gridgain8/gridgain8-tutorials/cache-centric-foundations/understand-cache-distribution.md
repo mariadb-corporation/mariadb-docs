@@ -11,8 +11,6 @@ The cache API looks like a `ConcurrentMap`, and on a single-node cluster it beha
 
 You make the distribution visible here. You create a partitioned cache, seed it with 10,000 entries, and use the Affinity API to ask the cluster which node owns what. Then you scale from one node to three and watch entries redistribute without any code running. Scale to four and watch it happen again.
 
-This tutorial works with both Apache Ignite 2 and GridGain 8. The partition behavior is identical; the product tabs swap the Maven coordinates and Docker image.
-
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
@@ -28,24 +26,6 @@ The first step in this tutorial adds replacement compose files and per-node conf
 
 Check that the cluster container is up:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -56,10 +36,6 @@ Expected output:
 NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 If the container is stopped, restart it with `docker compose -f cache-cluster/docker-compose.yml start`. If the cluster was destroyed, bring it back with `docker compose -f cache-cluster/docker-compose.yml up -d`. The cache is in memory, so destroying the cluster discards any cache data. The program recreates and reseeds the cache on its next run.
 
@@ -79,70 +55,6 @@ In this tutorial, you:
 ## Create the Cache-Distribution Project
 
 Create a Maven project named `cache-distribution/`. It needs one source file and a `pom.xml` that targets Java 8 bytecode and suppresses the engine's startup logs so the program's output stands out.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="cache-distribution/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>cache-distribution</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.distribution.Distribution</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="cache-distribution/pom.xml" %}
 ```xml
@@ -208,13 +120,9 @@ Create a Maven project named `cache-distribution/`. It needs one source file and
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="info" %}
 
-Without the flag, the client logs its startup handshake, topology snapshots, and communication events at INFO level, which drowns the program's output. With it, Ignite prints a short summary banner and then stays quiet. Remove the flag if you need to diagnose a connection problem.
+Without the flag, the client logs its startup handshake, topology snapshots, and communication events at INFO level, which drowns the program's output. With it, GridGain prints a short summary banner and then stays quiet. Remove the flag if you need to diagnose a connection problem.
 
 {% endhint %}
 
@@ -399,35 +307,6 @@ The per-node configs differ in three places: a unique discovery port, a unique c
 <details>
 <summary><code>cache-cluster/docker-compose-1node.yml</code></summary>
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="docker-compose-1node.yml" %}
-```yaml
-name: ignite2
-
-services:
-  node1:
-    image: apacheignite/ignite:2.16.0
-    platform: linux/amd64
-    container_name: ignite2-node1
-    hostname: node1
-    environment:
-      CONFIG_URI: /config/ignite-config.xml
-      JVM_OPTS: "-Xms1g -Xmx1g"
-    volumes:
-      - ./ignite-config-node1.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47500:47500"
-      - "47100:47100"
-      - "10800:10800"
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 {% code title="docker-compose-1node.yml" %}
 ```yaml
 name: gridgain8
@@ -451,68 +330,10 @@ services:
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 </details>
 
 <details>
 <summary><code>cache-cluster/docker-compose-3nodes.yml</code></summary>
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="docker-compose-3nodes.yml" %}
-```yaml
-name: ignite2
-
-x-node-defaults: &node-defaults
-  image: apacheignite/ignite:2.16.0
-  platform: linux/amd64
-  environment:
-    CONFIG_URI: /config/ignite-config.xml
-    JVM_OPTS: "-Xms1g -Xmx1g"
-
-services:
-  node1:
-    <<: *node-defaults
-    container_name: ignite2-node1
-    hostname: node1
-    volumes:
-      - ./ignite-config-node1.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47500:47500"
-      - "47100:47100"
-      - "10800:10800"
-
-  node2:
-    <<: *node-defaults
-    container_name: ignite2-node2
-    hostname: node2
-    volumes:
-      - ./ignite-config-node2.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47501:47501"
-      - "47101:47101"
-      - "10801:10800"
-
-  node3:
-    <<: *node-defaults
-    container_name: ignite2-node3
-    hostname: node3
-    volumes:
-      - ./ignite-config-node3.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47502:47502"
-      - "47102:47102"
-      - "10802:10800"
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="docker-compose-3nodes.yml" %}
 ```yaml
@@ -564,81 +385,12 @@ services:
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 </details>
 
 <details>
 <summary><code>cache-cluster/docker-compose-4nodes.yml</code></summary>
 
 Identical to the three-node file with a fourth service appended. Docker Compose treats identical service definitions across files as the same running container, which is what makes the scale-up in the final step non-destructive.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="docker-compose-4nodes.yml" %}
-```yaml
-name: ignite2
-
-x-node-defaults: &node-defaults
-  image: apacheignite/ignite:2.16.0
-  platform: linux/amd64
-  environment:
-    CONFIG_URI: /config/ignite-config.xml
-    JVM_OPTS: "-Xms1g -Xmx1g"
-
-services:
-  node1:
-    <<: *node-defaults
-    container_name: ignite2-node1
-    hostname: node1
-    volumes:
-      - ./ignite-config-node1.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47500:47500"
-      - "47100:47100"
-      - "10800:10800"
-
-  node2:
-    <<: *node-defaults
-    container_name: ignite2-node2
-    hostname: node2
-    volumes:
-      - ./ignite-config-node2.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47501:47501"
-      - "47101:47101"
-      - "10801:10800"
-
-  node3:
-    <<: *node-defaults
-    container_name: ignite2-node3
-    hostname: node3
-    volumes:
-      - ./ignite-config-node3.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47502:47502"
-      - "47102:47102"
-      - "10802:10800"
-
-  node4:
-    <<: *node-defaults
-    container_name: ignite2-node4
-    hostname: node4
-    volumes:
-      - ./ignite-config-node4.xml:/config/ignite-config.xml:ro
-    ports:
-      - "47503:47503"
-      - "47103:47103"
-      - "10803:10800"
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="docker-compose-4nodes.yml" %}
 ```yaml
@@ -701,10 +453,6 @@ services:
       - "10803:10800"
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 </details>
 
@@ -950,26 +698,10 @@ Same pattern: discovery port `47503`, communication port `47103`, resolver key `
 
 Stop the cluster from the previous tutorials if it is still running, then start the single-node variant you just created:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose.yml down
 docker compose -f cache-cluster/docker-compose-1node.yml up -d
 ```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose.yml down
-docker compose -f cache-cluster/docker-compose-1node.yml up -d
-```
-
-{% endtab %}
-
-{% endtabs %}
 
 Run the program:
 
@@ -1021,49 +753,18 @@ Production clusters typically run with the default of 1024 partitions rather tha
 
 Stop the single-node cluster and bring up the three-node version. Each node exposes discovery and communication on a distinct host port so the thick client can reach all three.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose-1node.yml down
 docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
 ```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose-1node.yml down
-docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
-```
-
-{% endtab %}
-
-{% endtabs %}
 
 `down` destroys the single-node cluster and its in-memory cache. `up -d` starts three fresh nodes. The next program run finds an empty cache and reseeds.
 
 Wait for all three nodes to join. The cluster is ready when node1's logs show `servers=3`:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker logs ignite2-node1 2>&1 | grep "Topology snapshot" | tail -1
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker logs gridgain8-node1 2>&1 | grep "Topology snapshot" | tail -1
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Expected output (trimmed to the interesting fields):
 
@@ -1129,47 +830,17 @@ Key 42 is on partition 10 in every cluster, every time. The key-to-partition map
 
 Keep the three-node cluster running. Start the four-node variant alongside it:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose-4nodes.yml up -d
 ```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose-4nodes.yml up -d
-```
-
-{% endtab %}
-
-{% endtabs %}
 
 Docker Compose reconciles: the three running services match the four-node file exactly, so they stay up and only `node4` starts. The engine detects the topology change and begins rebalance.
 
 Confirm all four nodes are in the topology:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker logs ignite2-node1 2>&1 | grep "Topology snapshot" | tail -1
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker logs gridgain8-node1 2>&1 | grep "Topology snapshot" | tail -1
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Expected output:
 

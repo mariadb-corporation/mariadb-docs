@@ -11,11 +11,9 @@ The previous three tutorials colocated Customer and Invoice caches so every invo
 
 Reference tables are small and read-often: a country list, a genre catalog, a media-type lookup. Every analytical query joins against them, and none of them grow with the fact volume. Partitioning a 30-row Country table across 32 partitions and 3 nodes produces partitions that hold one row each and forces the SQL engine to shuffle rows across the network on every join. The cache mode that fits these tables is `CacheMode.REPLICATED`. Every node keeps a full copy, and every JOIN reads it locally.
 
-This tutorial builds three versions of the same star-schema report and runs the identical query against each. Version A puts every cache in `CacheMode.PARTITIONED` without colocation. Version B adds fact-fact colocation but keeps the dimensions partitioned. Version C moves the dimensions to `CacheMode.REPLICATED`. All three versions return correct results with `SqlFieldsQuery.setDistributedJoins(true)`. Version C runs 1.8x to 2.8x faster than Version A (the ratio depends on product) because the dimension tables no longer shuffle.
+This tutorial builds three versions of the same star-schema report and runs the identical query against each. Version A puts every cache in `CacheMode.PARTITIONED` without colocation. Version B adds fact-fact colocation but keeps the dimensions partitioned. Version C moves the dimensions to `CacheMode.REPLICATED`. All three versions return correct results with `SqlFieldsQuery.setDistributedJoins(true)`. Version C runs 1.8x to 2.8x faster than Version A because the dimension tables no longer shuffle.
 
 Star schema is a standard dimensional-modeling pattern: one fact table surrounded by small dimension tables, each joining on one foreign key. Readers who need a refresher can check the [Wikipedia article on star schema](https://en.wikipedia.org/wiki/Star_schema). This tutorial uses the pattern as a vehicle for the cache-mode decision rather than as a lesson in dimensional modeling.
-
-The Java code is identical across Apache Ignite 2 and GridGain 8. Product tabs cover only Maven coordinates and the Docker image.
 
 ## Prerequisites
 
@@ -30,24 +28,9 @@ This tutorial builds a fresh Maven project called `star-schema/` alongside `affi
 <details>
 <summary>Returning to the path? Verify the 3-node cluster is running.</summary>
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Three server containers in the `Up` state. If the cluster is stopped, start it with `docker compose -f cache-cluster/docker-compose-3nodes.yml up -d` and wait for `servers=3` in the topology snapshot.
 
@@ -83,77 +66,6 @@ star-schema/
 ```
 
 The `pom.xml` needs `ignite-indexing` in addition to `ignite-core`. The SQL engine lives in the indexing module, and this tutorial runs a four-table SQL query.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="star-schema/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>star-schema</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.star.ReportQuery</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-indexing</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="star-schema/pom.xml" %}
 ```xml
@@ -225,10 +137,6 @@ The `pom.xml` needs `ignite-indexing` in addition to `ignite-core`. The SQL engi
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 The client-side connection config matches the previous tutorials.
 
@@ -371,7 +279,7 @@ import org.apache.ignite.cache.affinity.AffinityKeyMapped;
 
 /**
  * Composite key for the Invoice cache in Versions B and C. customerId
- * carries the colocation contract. @AffinityKeyMapped tells Ignite to
+ * carries the colocation contract. @AffinityKeyMapped tells GridGain to
  * hash only on customerId when picking a partition, placing every
  * invoice on the same primary node as its customer.
  *
@@ -716,7 +624,7 @@ final class CacheConfigs {
         CacheConfiguration<K, V> c = new CacheConfiguration<>(name);
         c.setCacheMode(CacheMode.REPLICATED);
         // Backups are irrelevant for REPLICATED. Every node already
-        // has a full copy, and Ignite ignores this setting.
+        // has a full copy, and GridGain ignores this setting.
         c.setQueryEntities(Arrays.asList(entity));
         return c;
     }
@@ -1078,7 +986,7 @@ public class ReportQuery {
     }
 
     // "no flag" on any version of this multi-way join returns partial
-    // results on GridGain 8 8.9.32 and Apache Ignite 2 2.16.0. The
+    // results on GridGain 8.9.32. The
     // flag is required for correctness.
     private static String describe(Result r) {
         if ("no flag".equals(r.flag)) {
@@ -1116,78 +1024,7 @@ mvn -f star-schema/pom.xml exec:exec
 
 The first run pays startup costs for the DataStreamer client, so the first version's load is slower than the next two. Wall-clock times for the queries vary ±10% across back-to-back runs, but the ordering is stable.
 
-Expected output. Row totals are identical across products because the data generator is deterministic. Wall-clock times differ. Apache Ignite 2 runs the query faster than GridGain 8 on the same hardware. Version A's no-flag wrong-answer sums also differ between products because the SQL engine's partial-aggregation path is planner-dependent.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-=== Version A: all PARTITIONED, no colocation ===
-  Version A loaded: 10000 customers + 30000 invoices + 45 dimensions in 1032 ms
-  [A, no flag] returned 10 rows in 75 ms
-    Switzerland        Metal        $35094
-    Netherlands        Electronic   $33927
-    Brazil             Country      $31938
-    Chile              Hip-Hop      $30612
-    Poland             Hip-Hop      $30186
-    Argentina          Country      $29823
-    Italy              Rock         $29712
-    Sweden             Classical    $28993
-    Mexico             Metal        $28765
-    Germany            R&B          $28405
-  [A, flag on] returned 10 rows in 300 ms
-    United Kingdom     Jazz         $178479
-    Italy              Rock         $176791
-    Egypt              R&B          $175432
-    Argentina          Country      $174776
-    Poland             Hip-Hop      $173494
-    Sweden             Classical    $173458
-    Germany            R&B          $173222
-    Argentina          Electronic   $173056
-    Australia          Metal        $172986
-    Germany            Rock         $172456
-
-=== Version B: facts colocated, dimensions PARTITIONED ===
-  Version B loaded: 10000 customers + 30000 invoices + 45 dimensions in 965 ms
-  [B, flag on] returned 10 rows in 241 ms
-    United Kingdom     Jazz         $178479
-    Italy              Rock         $176791
-    Egypt              R&B          $175432
-    Argentina          Country      $174776
-    Poland             Hip-Hop      $173494
-    Sweden             Classical    $173458
-    Germany            R&B          $173222
-    Argentina          Electronic   $173056
-    Australia          Metal        $172986
-    Germany            Rock         $172456
-
-=== Version C: facts colocated, dimensions REPLICATED ===
-  Version C loaded: 10000 customers + 30000 invoices + 45 dimensions in 879 ms
-  [C, flag on] returned 10 rows in 163 ms
-    United Kingdom     Jazz         $178479
-    Italy              Rock         $176791
-    Egypt              R&B          $175432
-    Argentina          Country      $174776
-    Poland             Hip-Hop      $173494
-    Sweden             Classical    $173458
-    Germany            R&B          $173222
-    Argentina          Electronic   $173056
-    Australia          Metal        $172986
-    Germany            Rock         $172456
-
-=== Summary ===
-
-Version / flag            rows        time ms   top-10 $    note
-------------------------------------------------------------------------
-A (no flag)               10          75        363564      wrong answer: silent partial results
-A (flag on)               10          300       1744150     correct
-B (flag on)               10          241       1744150     correct
-C (flag on)               10          163       1744150     correct
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+Expected output. Row totals are identical across runs because the data generator is deterministic. Wall-clock times vary with the hardware. Version A's no-flag wrong-answer sums can also vary because the SQL engine's partial-aggregation path is planner-dependent.
 
 ```text
 === Version A: all PARTITIONED, no colocation ===
@@ -1253,12 +1090,8 @@ B (flag on)               10          9434      1744150     correct
 C (flag on)               10          3317      1744150     correct
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="success" %}
-**Checkpoint:** Four result rows in the summary. The correct top-10 sum is $1,744,150 on both products. Version A no-flag sums to roughly one-fifth to one-quarter of correct (about one-fifth on Apache Ignite 2 at $363,564 and about one-quarter on GridGain 8 at $430,674). Version C is the fastest correct run on both products: about 1.8x faster than Version A on Apache Ignite 2, and about 2.8x faster on GridGain 8.
+**Checkpoint:** Four result rows in the summary. The correct top-10 sum is $1,744,150. Version A no-flag sums to roughly one-quarter of correct (about $430,674 on GridGain 8). Version C is the fastest correct run: about 2.8x faster than Version A on GridGain 8.
 {% endhint %}
 
 ## Read the Three Versions
@@ -1269,11 +1102,11 @@ This is the same failure mode the earlier tutorials called out. PARTITIONED cach
 
 **Version A, flag on.** Same schema, correct answer. The flag tells the SQL engine to shuffle rows across the network so every JOIN sees the full dataset. Every fact-fact and fact-dimension pair gets a cross-node merge. The dominant cost is the fact-dimension shuffle. Four tables with 30,000 invoice rows, 10,000 customers, and tiny partitioned dimension tables all move over the network to satisfy the query planner. This is the slowest correct design.
 
-**Version B, flag on.** Invoice now colocates with Customer via `@AffinityKeyMapped`, so the fact-fact JOIN runs locally on each node instead of shuffling. The fact-dimension JOINs against partitioned Country, Genre, and MediaType caches still cross the network under the flag. The wall-clock improvement is modest on both products. The fact-fact JOIN was a small share of the total cost, and the fact-dimension shuffle remains the main cost.
+**Version B, flag on.** Invoice now colocates with Customer via `@AffinityKeyMapped`, so the fact-fact JOIN runs locally on each node instead of shuffling. The fact-dimension JOINs against partitioned Country, Genre, and MediaType caches still cross the network under the flag. The wall-clock improvement is modest. The fact-fact JOIN was a small share of the total cost, and the fact-dimension shuffle remains the main cost.
 
-**Version C, flag on.** The fact-fact JOIN is still colocated. The dimension caches are now REPLICATED, so every node has a full copy of Country, Genre, and MediaType. The fact-dimension JOINs read dimension rows from local memory, and no dimension row crosses the network. `setDistributedJoins(true)` is still set because the SQL engine requires it for correctness on this query shape, but the flag's cost drops because the dimension rows stopped moving. This is the fastest correct design on both products.
+**Version C, flag on.** The fact-fact JOIN is still colocated. The dimension caches are now REPLICATED, so every node has a full copy of Country, Genre, and MediaType. The fact-dimension JOINs read dimension rows from local memory, and no dimension row crosses the network. `setDistributedJoins(true)` is still set because the SQL engine requires it for correctness on this query shape, but the flag's cost drops because the dimension rows stopped moving. This is the fastest correct design.
 
-Both products tell the same qualitative story. Version A is the slowest correct run, Version C is the fastest, and the no-flag runs are wrong. The absolute speedup ratio differs by product. On Apache Ignite 2 the query is already cheap at this scale, and Version C runs about 1.8x faster than Version A. On GridGain 8 the base cost is higher, and Version C is about 2.8x faster. The REPLICATED design pays off more on the platform where the shuffle was more expensive.
+The results tell a clear story. Version A is the slowest correct run, Version C is the fastest, and the no-flag runs are wrong. On GridGain 8, Version C is about 2.8x faster than Version A. The REPLICATED design pays off when the shuffle is expensive.
 
 {% hint style="success" %}
 **Checkpoint:** Versions A (flag on), B (flag on), and C (flag on) return identical top-10 rows. Their wall-clock times differ because their schemas give the SQL engine different amounts of work to do.
@@ -1327,9 +1160,9 @@ The schema that results matches what a production cache-centric system looks lik
 
 ## Summary
 
-`CacheMode.REPLICATED` and `CacheMode.PARTITIONED` are both correct, for different tables. Facts go in PARTITIONED caches with colocation chains declared by `@AffinityKeyMapped` or an equivalent mechanism. Reference tables go in REPLICATED caches when they are small, written rarely, and joined often. The three-version experiment in this tutorial moves a schema through three designs and measures a 1.8x to 2.8x speedup between the naive partitioned-everywhere design and the partitioned-facts plus replicated-dimensions design, depending on whether the reader runs Apache Ignite 2 or GridGain 8.
+`CacheMode.REPLICATED` and `CacheMode.PARTITIONED` are both correct, for different tables. Facts go in PARTITIONED caches with colocation chains declared by `@AffinityKeyMapped` or an equivalent mechanism. Reference tables go in REPLICATED caches when they are small, written rarely, and joined often. The three-version experiment in this tutorial moves a schema through three designs and measures a 1.8x to 2.8x speedup between the naive partitioned-everywhere design and the partitioned-facts plus replicated-dimensions design, depending on whether the reader runs GridGain 8.
 
-`SqlFieldsQuery.setDistributedJoins(true)` is the correctness flag for multi-cache JOINs. On GridGain 8 8.9.32 and Apache Ignite 2 2.16.0, the flag is required whenever a query crosses two or more caches whose join keys do not all share an affinity chain. Without it, the query returns silent partial results. The no-flag Version A run in this tutorial returned top-10 revenue rows with totals at roughly one-fifth to one-quarter of correct, a failure mode that looks like a normal result unless the reader sums the numbers against a baseline.
+`SqlFieldsQuery.setDistributedJoins(true)` is the correctness flag for multi-cache JOINs. On GridGain 8.9.32, the flag is required whenever a query crosses two or more caches whose join keys do not all share an affinity chain. Without it, the query returns silent partial results. The no-flag Version A run in this tutorial returned top-10 revenue rows with totals at roughly one-fifth to one-quarter of correct, a failure mode that looks like a normal result unless the reader sums the numbers against a baseline.
 
 REPLICATED dimensions do not remove the need for the flag. They reduce its cost. Version C runs the same multi-table JOIN 1.8x to 2.8x faster than Version A because the dimension rows live on every node instead of shuffling across the network. The decision framework for REPLICATED is three questions: row count, write rate, access pattern. Tables at the small-and-stable end of all three belong in REPLICATED caches. Tables that fail any one of the three belong in PARTITIONED.
 

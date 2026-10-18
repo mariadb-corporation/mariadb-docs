@@ -1,6 +1,6 @@
 ---
 description: >-
-  Start a 3-node Apache Ignite 3 or GridGain 9 cluster for development using Docker Compose.
+  Start a 3-node GridGain 9 cluster for development using Docker Compose.
 ---
 
 # How to Start a Cluster With Docker Compose
@@ -18,84 +18,18 @@ description: >-
 
 This guide walks you through starting a 3-node development cluster on your local machine with Docker Compose. By the end, you will have a running cluster that accepts client connections on ports 10800-10802 and exposes a REST management API on ports 10300-10302.
 
-Both Apache Ignite 3 and GridGain 9 share the same distributed architecture and management interfaces. The Docker images, configuration paths, and license requirements differ between the two products, but the cluster lifecycle is the same: start nodes, initialize them into a cluster, then connect.
+GridGain 9 has a distributed architecture that you manage through the REST API and the CLI. The cluster lifecycle is: start nodes, initialize them into a cluster, then connect.
 
 You have two tools for managing the cluster once the containers are running:
 
 - **REST API** (port 10300) accepts HTTP requests for cluster initialization, health checks, and configuration. It is available as soon as a node starts, even before the cluster is initialized. Use this when you want scriptable, automatable management.
-- **CLI tool** is an interactive command-line shell that communicates with the cluster through the REST API. It is bundled inside the server image, so you access it via `docker exec` on any running node. Use it for interactive sessions, SQL queries, or one-off administration. For a deeper walkthrough, see [How to Work with the Ignite CLI](../cli-tool-step-by-step.md).
+- **CLI tool** is an interactive command-line shell that communicates with the cluster through the REST API. It is bundled inside the server image, so you access it via `docker exec` on any running node. Use it for interactive sessions, SQL queries, or one-off administration. For a deeper walkthrough, see [How to Work with the GridGain CLI](../cli-tool-step-by-step.md).
 
-Select your product version in the tabs below. Each step shows both management approaches where they differ.
+Each step shows both management approaches where they differ.
 
 ## Create a Docker Compose File
 
 Create a directory for your project and add a file named `docker-compose.yml` with the following content.
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="docker-compose.yml" %}
-```yaml
-name: ignite3
-
-x-ignite-def: &ignite-def
-  image: apacheignite/ignite:3.1.0
-  environment:
-    JVM_MAX_MEM: "4g"
-    JVM_MIN_MEM: "4g"
-  configs:
-    - source: node_config
-      target: /opt/ignite/etc/ignite-config.conf
-
-services:
-  node1:
-    <<: *ignite-def
-    container_name: ignite3-node1
-    command: --node-name node1
-    ports:
-      - "10300:10300"
-      - "10800:10800"
-
-  node2:
-    <<: *ignite-def
-    container_name: ignite3-node2
-    command: --node-name node2
-    ports:
-      - "10301:10300"
-      - "10801:10800"
-    depends_on:
-      - node1
-
-  node3:
-    <<: *ignite-def
-    container_name: ignite3-node3
-    command: --node-name node3
-    ports:
-      - "10302:10300"
-      - "10802:10800"
-    depends_on:
-      - node1
-      - node2
-
-configs:
-  node_config:
-    content: |
-      ignite {
-        network {
-          port: 3344
-          nodeFinder.netClusterNodes = ["node1:3344", "node2:3344", "node3:3344"]
-        }
-      }
-```
-{% endcode %}
-
-The YAML anchor (`x-ignite-def`) keeps the node definitions consistent. Each node exposes two ports: **10300** for the REST management API and **10800** for client connections (JDBC, ODBC, and thin client drivers). The Ignite CLI is bundled inside the server image, so you access it via `docker exec` on any running node.
-
-Port 3344 handles internal cluster communication between nodes. Docker's internal network routes this traffic, so you don't need to expose it to the host.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 Ensure your `gridgain-license.json` file (from the prerequisites) is in the same directory where you create `docker-compose.yml`.
 
@@ -154,13 +88,9 @@ configs:
 ```
 {% endcode %}
 
-The structure mirrors the Apache Ignite 3 compose file with two key differences: the image names use `gridgain/gridgain9`, and the node configuration mounts to `/opt/gridgain/etc/` instead of `/opt/ignite/etc/`. The GridGain CLI is bundled inside the server image at `/opt/gridgain9cli/bin/gridgain9`.
+The image names use `gridgain/gridgain9`, and the node configuration mounts to `/opt/gridgain/etc/`. The GridGain CLI is bundled inside the server image at `/opt/gridgain9cli/bin/gridgain9`.
 
 Port 3344 handles internal cluster communication between nodes. Docker's internal network routes this traffic, so you don't need to expose it to the host.
-
-{% endtab %}
-
-{% endtabs %}
 
 {% hint style="info" %}
 Reduce `JVM_MAX_MEM` and `JVM_MIN_MEM` to `1g` if your machine has less than 16 GB of RAM. Each node will use approximately 1 GB instead of 4 GB. Performance will be adequate for development and tutorial workloads.
@@ -168,28 +98,11 @@ Reduce `JVM_MAX_MEM` and `JVM_MIN_MEM` to `1g` if your machine has less than 16 
 
 ## Start the Cluster
 
-This command works for both Apache Ignite 3 and GridGain 9:
+Start the cluster:
 
 ```bash
 docker compose up -d
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-Expected output:
-
-```text
-[+] Running 4/4
- ✔ Network ignite3_default  Created
- ✔ Container ignite3-node1  Started
- ✔ Container ignite3-node2  Started
- ✔ Container ignite3-node3  Started
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 Expected output:
 
@@ -201,31 +114,11 @@ Expected output:
  ✔ Container gridgain9-node3  Started
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 The nodes need a few seconds to discover each other over port 3344 and form a physical topology. Verify all three containers are running:
 
 ```bash
 docker compose ps --format "table {{.Name}}\t{{.Image}}\t{{.Status}}"
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-Expected output:
-
-```text
-NAME            IMAGE                          STATUS
-ignite3-node1   apacheignite/ignite:3.1.0      Up 30 seconds
-ignite3-node2   apacheignite/ignite:3.1.0      Up 29 seconds
-ignite3-node3   apacheignite/ignite:3.1.0      Up 28 seconds
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 Expected output:
 
@@ -235,10 +128,6 @@ gridgain9-node1   gridgain/gridgain9:latest     Up 30 seconds
 gridgain9-node2   gridgain/gridgain9:latest     Up 29 seconds
 gridgain9-node3   gridgain/gridgain9:latest     Up 28 seconds
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 {% hint style="success" %}
 **Checkpoint:** All three containers show `Up` status. If any container shows `Restarting` or `Exited`, see [Troubleshooting](#troubleshooting).
@@ -251,24 +140,6 @@ At this point, the nodes are running and can see each other, but they are not ye
 Choose your preferred management tool below. Both accomplish the same result.
 
 {% tabs %}
-{% tab title="REST API: Apache Ignite 3" %}
-
-Send the initialization request to any node's REST endpoint. The REST API is available on all three nodes (ports 10300, 10301, 10302), but you only need to send the init request once.
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{
-    "metaStorageNodes": ["node1", "node2", "node3"],
-    "cmgNodes": ["node1", "node2", "node3"],
-    "clusterName": "my-cluster"
-  }'
-```
-
-A successful initialization returns HTTP 200 with an empty response body.
-
-{% endtab %}
-
 {% tab title="REST API: GridGain 9" %}
 
 Send the initialization request to any node's REST endpoint. The REST API is available on all three nodes (ports 10300, 10301, 10302), but you only need to send the init request once.
@@ -288,32 +159,6 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 ```
 
 A successful initialization returns HTTP 200 with an empty response body.
-
-{% endtab %}
-
-{% tab title="CLI: Apache Ignite 3" %}
-
-Open the CLI inside a running node with `docker exec`. The CLI is bundled in the server image.
-
-```bash
-docker exec -it ignite3-node1 /opt/ignite3cli/bin/ignite3
-```
-
-At the CLI prompt, connect to the local node and initialize:
-
-```text
-connect http://localhost:10300
-cluster init --name=my-cluster --metastorage-group=node1,node2,node3
-```
-
-Expected output:
-
-```text
-Connected to http://localhost:10300
-Cluster was initialized successfully
-```
-
-Type `exit;` to leave the CLI.
 
 {% endtab %}
 
@@ -361,37 +206,9 @@ Allow a few seconds for the nodes to elect a leader and synchronize metadata bef
 
 ## Verify Cluster Health
 
-Once the cluster is initialized, confirm that all three nodes joined successfully. This verification works the same way for both Apache Ignite 3 and GridGain 9.
+Once the cluster is initialized, confirm that all three nodes joined successfully.
 
 {% tabs %}
-{% tab title="REST API: Apache Ignite 3" %}
-
-```bash
-curl -s http://localhost:10300/management/v1/cluster/state | jq .
-```
-
-Expected output:
-
-```json
-{
-  "cmgNodes": ["node1", "node2", "node3"],
-  "msNodes": ["node1", "node2", "node3"],
-  "igniteVersion": "3.1.0",
-  "clusterTag": {
-    "clusterName": "my-cluster",
-    "clusterId": "..."
-  }
-}
-```
-
-Both `cmgNodes` (cluster management group) and `msNodes` (metastorage nodes) should list all three nodes. The `igniteVersion` field reflects the product version.
-
-{% hint style="success" %}
-**Checkpoint:** Both `cmgNodes` and `msNodes` list all three nodes, confirming the cluster is healthy and accepting client connections on port 10800.
-{% endhint %}
-
-{% endtab %}
-
 {% tab title="REST API: GridGain 9" %}
 
 ```bash
@@ -416,42 +233,6 @@ Both `cmgNodes` (cluster management group) and `msNodes` (metastorage nodes) sho
 
 {% hint style="success" %}
 **Checkpoint:** Both `cmgNodes` and `msNodes` list all three nodes, confirming the cluster is healthy and accepting client connections on port 10800.
-{% endhint %}
-
-{% endtab %}
-
-{% tab title="CLI: Apache Ignite 3" %}
-
-```bash
-docker exec -it ignite3-node1 /opt/ignite3cli/bin/ignite3
-```
-
-At the CLI prompt:
-
-```text
-connect http://localhost:10300
-cluster status
-```
-
-Expected output:
-
-```text
-Connected to http://localhost:10300
-[name: my-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
-```
-
-For a detailed node list, use:
-
-```text
-cluster topology physical
-```
-
-This lists all nodes with their names, addresses, and IDs.
-
-Type `exit;` to leave the CLI.
-
-{% hint style="success" %}
-**Checkpoint:** The `cluster status` command shows 3 nodes in active status. All nodes are in the CMG and MetaStorage groups.
 {% endhint %}
 
 {% endtab %}
@@ -496,7 +277,7 @@ Type `exit;` to leave the CLI.
 
 ## Stopping and Restarting
 
-All Docker Compose lifecycle commands work identically for both Apache Ignite 3 and GridGain 9.
+These are the Docker Compose lifecycle commands for the cluster.
 
 **Stop the cluster (preserves data):**
 
@@ -532,7 +313,7 @@ This also removes named volumes for a completely clean state.
 
 ## Troubleshooting
 
-These issues apply to both Apache Ignite 3 and GridGain 9 unless noted otherwise.
+These are the common issues and their fixes.
 
 <details>
 
@@ -662,11 +443,11 @@ Use the `--license=/opt/gridgain9cli/license.json` flag with the `cluster init` 
 
 </details>
 
-Your cluster is now accepting client connections on ports 10800-10802. You can connect with any Ignite thin client driver, JDBC (`jdbc:ignite:thin://localhost:10800`), or ODBC.
+Your cluster is now accepting client connections on ports 10800-10802. You can connect with any GridGain thin client driver, JDBC (`jdbc:ignite:thin://localhost:10800`), or ODBC.
 
 ## Related
 
 - [How to Manage Cluster Lifecycle with the REST API](../manage-cluster-lifecycle-rest-api.md) - Monitor startup, initialize, and verify cluster health using REST endpoints.
 
-- [Start Your Local Ignite 3 Development Cluster](../../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md) - Tutorial that walks through this setup with deeper context, loads the Music Store dataset, and introduces cluster concepts.
-- [How to Work with the Ignite CLI](../cli-tool-step-by-step.md) - Interactive SQL, cluster inspection, output formatting, and profiles.
+- [Start Your Local GridGain 9 Development Cluster](../../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md) - Tutorial that walks through this setup with deeper context, loads the Music Store dataset, and introduces cluster concepts.
+- [How to Work with the GridGain CLI](../cli-tool-step-by-step.md) - Interactive SQL, cluster inspection, output formatting, and profiles.

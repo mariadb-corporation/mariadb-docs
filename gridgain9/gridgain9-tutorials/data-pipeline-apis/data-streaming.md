@@ -13,11 +13,9 @@ The DataStreamer API replaces that one-at-a-time pattern with a streaming pipeli
 
 This tutorial builds a commerce data generator that streams Customer, Invoice, and InvoiceLine records into the Music Store tables. The DataStreamer pattern applies to any scenario where individual writes are too slow: bulk data migration, cache warming after restarts, ETL from legacy systems, event ingestion from Kafka, test fixture generation for CI pipelines, and audit trail storage.
 
-This tutorial works with both Apache Ignite 3 and GridGain 9. The DataStreamer API is identical across both products. Select your product version in the tabs where Maven coordinates differ.
-
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
 - **Completed** [Connect a Java Thin Client](../distributed-sql-foundations/connect-java-thin-client.md) (familiarity with `IgniteClient`, `RecordView`, and `Tuple`)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -27,26 +25,10 @@ This tutorial works with both Apache Ignite 3 and GridGain 9. The DataStreamer A
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -59,41 +41,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -127,10 +74,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -147,56 +90,6 @@ You will build a commerce data generator that streams over 1,000,000 records acr
 ## Set Up the Project
 
 Create a new directory called `data-streaming-demo` alongside your earlier tutorial projects. Add the following `pom.xml`:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>data-streaming-demo</artifactId>
-    <version>1.0.0</version>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.streaming.UpsertVsStream</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.4.1</version>
-                <configuration>
-                    <mainClass>${exec.mainClass}</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -248,10 +141,6 @@ Create a new directory called `data-streaming-demo` alongside your earlier tutor
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Create the source directory:
 
@@ -330,7 +219,7 @@ public class UpsertVsStream {
     };
 
     public static void main(String[] args) throws Exception {
-        // Suppress Ignite client partition-assignment logs
+        // Suppress GridGain client partition-assignment logs
         java.util.logging.LogManager.getLogManager().reset();
         java.util.logging.Logger.getLogger("org.apache.ignite")
             .setLevel(java.util.logging.Level.WARNING);
@@ -687,7 +576,7 @@ DataStreamer provides at-least-once delivery. If a page fails and the retry succ
 
 ## Stream Invoices With Parent-Child Order
 
-The Music Store schema has a foreign key chain: Customer -> Invoice -> InvoiceLine. When streaming related tables, the parent table must load before its children. If you stream Invoice records that reference a CustomerId before that customer exists, the records will still land (Ignite does not enforce foreign keys at write time), but your verification queries and application logic will encounter orphaned rows.
+The Music Store schema has a foreign key chain: Customer -> Invoice -> InvoiceLine. When streaming related tables, the parent table must load before its children. If you stream Invoice records that reference a CustomerId before that customer exists, the records will still land (GridGain does not enforce foreign keys at write time), but your verification queries and application logic will encounter orphaned rows.
 
 DataStreamer follows the same constraint: stream parents first, then children.
 
@@ -895,7 +784,7 @@ Top 5 customers by invoice count:
 
 The Zipf distribution produces a realistic spread: power buyers at the top with 50 invoices, casual buyers at the bottom with 1. Your specific customer names will differ (many customers tie at 50 invoices, and the tiebreaker depends on partition assignment), but the invoice count of 50 and the total of ~102,000 invoices are consistent across runs.
 
-The JOIN query proves that every Invoice references a valid Customer. If you reversed the streaming order (invoices before customers), the JOIN would still work (Ignite does not enforce foreign keys), but the data would be logically inconsistent until the parent table loaded.
+The JOIN query proves that every Invoice references a valid Customer. If you reversed the streaming order (invoices before customers), the JOIN would still work (GridGain does not enforce foreign keys), but the data would be logically inconsistent until the parent table loaded.
 
 {% hint style="success" %}
 **Checkpoint:** ~100,000 invoices streamed and verified via a Customer-Invoice JOIN. The top-5 query shows power buyers with 50 invoices.
@@ -1185,7 +1074,7 @@ Cross-table JOIN (Customer -> Invoice -> InvoiceLine -> Track):
 Over one million rows across three related tables, streamed in under 15 seconds. The individual `upsert()` approach would take over 12 minutes for the same data at ~1,400 rows/sec. The four-table JOIN confirms referential integrity: every InvoiceLine references a valid Invoice, every Invoice references a valid Customer, and every InvoiceLine references a valid Track from the original catalog.
 
 {% hint style="info" %}
-The JOIN results show randomly selected tracks from the Chinook catalog. The specific track names depend on partition assignment, which varies between Apache Ignite 3 and GridGain 9 and between cluster restarts. The row counts (15,000 customers, 156,222 invoices, 858,280 invoice lines) are identical on every run because the generator uses a fixed random seed.
+The JOIN results show randomly selected tracks from the Chinook catalog. The specific track names depend on partition assignment, which varies between cluster restarts. The row counts (15,000 customers, 156,222 invoices, 858,280 invoice lines) are identical on every run because the generator uses a fixed random seed.
 {% endhint %}
 
 {% hint style="success" %}
@@ -1361,7 +1250,7 @@ The reactive streams contract is a collaboration between two parties:
 Neither side overwhelms the other. The producer never buffers, never blocks, and never overflows. Kafka consumer frameworks, R2DBC drivers, and Project Reactor use the same contract.
 
 {% hint style="info" %}
-After building the `ProgressSubscription` below, use Find Usages on the `request()` method. The call comes from Ignite's internal `StreamerSubscriber`, not from your code. The DataStreamer controls the pace; your publisher responds to demand.
+After building the `ProgressSubscription` below, use Find Usages on the `request()` method. The call comes from GridGain's internal `StreamerSubscriber`, not from your code. The DataStreamer controls the pace; your publisher responds to demand.
 {% endhint %}
 
 Create `src/main/java/com/example/streaming/StreamingWithProgress.java`:
@@ -1668,7 +1557,7 @@ The patterns from this tutorial apply wherever individual writes are too slow:
 | Scenario | Pattern from this tutorial |
 |---|---|
 | **Bulk data migration** | Full pipeline: generate or read records, stream in parent-child order, verify with JOINs |
-| **Cache warming** | Stream hot data from a backing store into Ignite at startup using tuned DataStreamerOptions |
+| **Cache warming** | Stream hot data from a backing store into GridGain at startup using tuned DataStreamerOptions |
 | **ETL from legacy systems** | Load source data, transform to Tuples, stream via SubmissionPublisher |
 | **Event ingestion (Kafka, IoT)** | Custom Flow.Publisher with demand-based delivery to avoid blocking the consumer thread |
 | **CI test fixtures** | Fixed-seed generator for reproducible datasets at any scale |

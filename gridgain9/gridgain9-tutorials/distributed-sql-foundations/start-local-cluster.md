@@ -1,15 +1,13 @@
 ---
 description: >-
-  Set up a 3-node Ignite 3 cluster with Docker Compose and load the Music Store sample dataset.
+  Set up a 3-node GridGain 9 cluster with Docker Compose and load the Music Store sample dataset.
 ---
 
-# Start Your Local Ignite 3 Development Cluster
+# Start Your Local GridGain 9 Development Cluster
 
 ## Introduction
 
-Your application needs a local Ignite 3 cluster for development and testing. In this tutorial, you start a 3-node cluster with Docker Compose, create distribution zones and tables, and load the Music Store sample dataset. Every other tutorial in this section assumes you have completed this setup or have an equivalent environment running.
-
-This tutorial works with both Apache Ignite 3 and GridGain 9. Select your product version in the tabs where the commands differ.
+Your application needs a local GridGain 9 cluster for development and testing. In this tutorial, you start a 3-node cluster with Docker Compose, create distribution zones and tables, and load the Music Store sample dataset. Every other tutorial in this section assumes you have completed this setup or have an equivalent environment running.
 
 ## Prerequisites
 
@@ -24,7 +22,7 @@ If you just need the cluster running and don't need the guided walkthrough, foll
 
 ## What You Will Learn
 
-- How to start and initialize a multi-node Ignite 3 cluster
+- How to start and initialize a multi-node GridGain 9 cluster
 - How distribution zones control data replication and partitioning
 - How colocation keeps related data on the same node for local joins
 - How to load and verify a sample dataset with SQL
@@ -36,68 +34,6 @@ A running 3-node cluster with the Music Store sample dataset loaded and verified
 ## Step 1: Start a 3-Node Cluster
 
 Create a directory for your project and add a file named `docker-compose.yml` with the following content.
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="docker-compose.yml" %}
-```yaml
-name: ignite3
-
-x-ignite-def: &ignite-def
-  image: apacheignite/ignite:3.1.0
-  environment:
-    JVM_MAX_MEM: "4g"
-    JVM_MIN_MEM: "4g"
-  configs:
-    - source: node_config
-      target: /opt/ignite/etc/ignite-config.conf
-
-services:
-  node1:
-    <<: *ignite-def
-    container_name: ignite3-node1
-    command: --node-name node1
-    ports:
-      - "10300:10300"
-      - "10800:10800"
-
-  node2:
-    <<: *ignite-def
-    container_name: ignite3-node2
-    command: --node-name node2
-    ports:
-      - "10301:10300"
-      - "10801:10800"
-    depends_on:
-      - node1
-
-  node3:
-    <<: *ignite-def
-    container_name: ignite3-node3
-    command: --node-name node3
-    ports:
-      - "10302:10300"
-      - "10802:10800"
-    depends_on:
-      - node1
-      - node2
-
-configs:
-  node_config:
-    content: |
-      ignite {
-        network {
-          port: 3344
-          nodeFinder.netClusterNodes = ["node1:3344", "node2:3344", "node3:3344"]
-        }
-      }
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 Ensure your `gridgain-license.json` file (from the prerequisites) is in the same directory where you create `docker-compose.yml`.
 
@@ -156,11 +92,7 @@ configs:
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
-Each node exposes two ports: **10300** for the REST management API and **10800** for client connections (JDBC, ODBC, and thin client drivers). The Ignite CLI is bundled inside the server image, so you access it via `docker exec` on any running node. Port 3344 handles internal cluster communication over Docker's network.
+Each node exposes two ports: **10300** for the REST management API and **10800** for client connections (JDBC, ODBC, and thin client drivers). The GridGain CLI is bundled inside the server image, so you access it via `docker exec` on any running node. Port 3344 handles internal cluster communication over Docker's network.
 
 {% hint style="info" %}
 Reduce `JVM_MAX_MEM` and `JVM_MIN_MEM` to `1g` if your machine has less than 16 GB of RAM. Performance is adequate for development and tutorial workloads.
@@ -172,21 +104,6 @@ Start the cluster:
 docker compose up -d
 ```
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```text
-[+] Running 4/4
- ✔ Network ignite3_default  Created
- ✔ Container ignite3-node1  Started
- ✔ Container ignite3-node2  Started
- ✔ Container ignite3-node3  Started
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```text
 [+] Running 4/4
  ✔ Network gridgain9_default  Created
@@ -195,28 +112,7 @@ docker compose up -d
  ✔ Container gridgain9-node3  Started
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 The nodes need 30-60 seconds to discover each other over port 3344 and form a topology. Wait for the REST API to become available, then initialize the cluster. Initialization is a one-time step that elects a leader, designates which nodes store cluster metadata, and opens client connection ports (10800).
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{
-    "metaStorageNodes": ["node1", "node2", "node3"],
-    "cmgNodes": ["node1", "node2", "node3"],
-    "clusterName": "my-cluster"
-  }'
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 Load the license file into a shell variable. `jq -Rs` reads the file and encodes it as a JSON string with proper escaping:
 
@@ -231,10 +127,6 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
   -H "Content-Type: application/json" \
   -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":["node1","node2","node3"],"clusterName":"my-cluster","license":'"$LICENSE"'}'
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 A successful initialization returns HTTP 200 with an empty response body. Verify all three nodes joined:
 
@@ -264,24 +156,9 @@ Before moving on, download the sample data file you will load in Step 4. This fi
 
 If you plan to use the CLI via `docker exec` (the Docker CLI tab in the next steps), copy the file into the running node container so the CLI can access it:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker cp music-store-data.sql ignite3-node1:/tmp/music-store-data.sql
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker cp music-store-data.sql gridgain9-node1:/tmp/music-store-data.sql
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 {% hint style="success" %}
 **Checkpoint:** The cluster state response lists all three nodes in both `cmgNodes` and `msNodes`.
@@ -292,22 +169,6 @@ docker cp music-store-data.sql gridgain9-node1:/tmp/music-store-data.sql
 With the cluster running, you define how data is distributed across nodes. Start the CLI and connect to the cluster:
 
 {% tabs %}
-{% tab title="Docker CLI: Apache Ignite 3" %}
-
-Open the CLI inside a running node with `docker exec`. The CLI is bundled in the server image at `/opt/ignite3cli/bin/ignite3`:
-
-```bash
-docker exec -it ignite3-node1 /opt/ignite3cli/bin/ignite3
-```
-
-At the CLI prompt, connect. Inside the container, the REST API is on localhost:
-
-```text
-connect http://localhost:10300
-```
-
-{% endtab %}
-
 {% tab title="Docker CLI: GridGain 9" %}
 
 Open the CLI inside a running node with `docker exec`. The CLI is bundled in the server image at `/opt/ignite3cli/bin/ignite3`:
@@ -324,25 +185,9 @@ connect http://localhost:10300
 
 {% endtab %}
 
-{% tab title="Native CLI: Apache Ignite 3" %}
-
-If you installed the Ignite CLI on your host machine (see [How to Work with the Ignite CLI](../../gridgain9-management/cli-tool-step-by-step.md)), start it directly:
-
-```bash
-ignite3
-```
-
-Connect to the cluster through the mapped host port:
-
-```text
-connect http://localhost:10300
-```
-
-{% endtab %}
-
 {% tab title="Native CLI: GridGain 9" %}
 
-If you installed the Ignite CLI on your host machine (see [How to Work with the Ignite CLI](../../gridgain9-management/cli-tool-step-by-step.md)), start it directly:
+If you installed the GridGain CLI on your host machine (see [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md)), start it directly:
 
 ```bash
 gridgain9
@@ -497,7 +342,7 @@ CREATE TABLE IF NOT EXISTS Track (
 ) COLOCATE BY (AlbumId) ZONE MusicStore;
 ```
 
-The `COLOCATE BY` clause is Ignite-specific. It tells the cluster which column determines partition placement. Notice that Album's primary key is `(AlbumId, ArtistId)`, not just `AlbumId`. The colocation key (`ArtistId`) must be part of the primary key so the cluster can route rows to the correct partition.
+The `COLOCATE BY` clause is GridGain-specific. It tells the cluster which column determines partition placement. Notice that Album's primary key is `(AlbumId, ArtistId)`, not just `AlbumId`. The colocation key (`ArtistId`) must be part of the primary key so the cluster can route rows to the correct partition.
 
 ### Business Entities (partitioned zone, colocated)
 
@@ -824,7 +669,7 @@ Type `exit` to leave the SQL sub-REPL, then `exit` again to close the CLI.
 
 ## Summary
 
-You built a 3-node Ignite 3 development cluster and loaded the Music Store dataset: 11 tables, over 15,000 records, organized across 2 distribution zones with 3 colocation chains. Along the way, you encountered three core Ignite concepts:
+You built a 3-node GridGain 9 development cluster and loaded the Music Store dataset: 11 tables, over 15,000 records, organized across 2 distribution zones with 3 colocation chains. Along the way, you encountered three core GridGain concepts:
 
 - **Cluster initialization** designates metastorage nodes, elects a leader, and opens client ports. It is a one-time step comparable to bootstrapping a consensus group.
 - **Distribution zones** define per-table replication and partitioning policies. The `MusicStore` zone stores business data with 2 replicas for fault tolerance. The `MusicStoreReplicated` zone stores reference data with 3 replicas so every node has a complete copy.
@@ -834,9 +679,9 @@ This cluster and dataset are the foundation for every tutorial in this section. 
 
 ## Next Step
 
-Continue to [Create Tables and Query Data with SQL](query-music-store-sql.md) to explore the Music Store dataset you just loaded. You'll write queries against the 11 tables, use `EXPLAIN` to see how Ignite routes operations across the cluster, and learn how colocation affects join performance.
+Continue to [Create Tables and Query Data with SQL](query-music-store-sql.md) to explore the Music Store dataset you just loaded. You'll write queries against the 11 tables, use `EXPLAIN` to see how GridGain routes operations across the cluster, and learn how colocation affects join performance.
 
 ## Related
 
 - [How to Start a Cluster with Docker Compose](../../gridgain9-management/installation/start-cluster-docker-compose.md) for the full cluster lifecycle: stop, restart, destroy, troubleshooting
-- [How to Work with the Ignite CLI](../../gridgain9-management/cli-tool-step-by-step.md) for deeper coverage of the CLI tool
+- [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for deeper coverage of the CLI tool

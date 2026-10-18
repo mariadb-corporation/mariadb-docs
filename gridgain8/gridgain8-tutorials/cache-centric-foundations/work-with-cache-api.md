@@ -13,14 +13,12 @@ The central interface in the cache-centric architecture is `IgniteCache<K,V>`. I
 
 In this tutorial, you create a Maven project, connect a thick client to your single-node cluster, and perform individual and bulk cache operations using sample records from the Music Store dataset you work with throughout this learning path. The sample data is defined in the code, so no dataset loading is required. By the end, you will have a working Java application that stores and retrieves data from a distributed cache.
 
-This tutorial works with both Ignite 2 and GridGain 8. The Java API is identical across both products. Select your product version in the tabs where Maven coordinates and Docker container names differ.
-
-This tutorial labels itself "beginner" for Ignite. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
+This tutorial labels itself "beginner" for GridGain 8. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
 
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Java 11** (the GridGain 8 and Ignite 2 toolchains are tested against Java 11)
+- **Java 11** (the GridGain 8 toolchain is tested against Java 11)
 - **Maven 3.6** or later
 - **Comfort reading Spring bean XML.** The `ignite-config.xml` is Spring-formatted but you only edit a handful of properties.
 
@@ -28,24 +26,6 @@ This tutorial labels itself "beginner" for Ignite. The surrounding Java stack (M
 <summary>Returning to these tutorials? Verify your cluster is running.</summary>
 
 Check that the cluster container is up:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
@@ -57,10 +37,6 @@ Expected output:
 NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **If the container is stopped**, restart it from the directory containing your `docker-compose.yml`:
 
@@ -94,72 +70,6 @@ Create a project directory alongside your `cache-cluster` directory and add a `p
 ```bash
 mkdir -p cache-client/src/main/java/com/example
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-Create `cache-client/pom.xml`:
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>cache-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.CacheConnect</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 Create `cache-client/pom.xml`:
 
@@ -229,13 +139,9 @@ Create `cache-client/pom.xml`:
 
 GridGain 8 artifacts are published to GridGain's Nexus repository, not Maven Central. The `<repositories>` block tells Maven where to find the `gridgain-core` dependency.
 
-{% endtab %}
-
-{% endtabs %}
-
 The `ignite-core` module contains the thick client, the cache API, and the discovery layer. A single dependency is all you need to connect to the cluster and perform cache operations.
 
-The `--add-opens` flags in the exec plugin give the Ignite client reflective access to JDK internals. The thick client uses `sun.nio.ch` for direct memory buffers and `java.nio` for network I/O. Without these flags, Java 16+ blocks the access and the client fails to start.
+The `--add-opens` flags in the exec plugin give the GridGain client reflective access to JDK internals. The thick client uses `sun.nio.ch` for direct memory buffers and `java.nio` for network I/O. Without these flags, Java 16+ blocks the access and the client fails to start.
 
 The `exec.mainClass` property in `<properties>` lets you override the main class from the command line with `-Dexec.mainClass=com.example.OtherClass`. You use this to run different classes in later steps.
 
@@ -249,12 +155,12 @@ This project uses `exec:exec` (not `exec:java`). The `exec:exec` goal launches a
 
 ## Connect a Thick Client to the Cluster
 
-The Ignite thick client is a Java process that joins the cluster's discovery ring as a non-data member. It participates in the topology directly: it receives the partition map (the lookup table that maps each key's hash to a specific server node), routes operations to the node that owns the data, and can enable features like near-cache that keep frequently accessed data in the client's own memory.
+The GridGain thick client is a Java process that joins the cluster's discovery ring as a non-data member. It participates in the topology directly: it receives the partition map (the lookup table that maps each key's hash to a specific server node), routes operations to the node that owns the data, and can enable features like near-cache that keep frequently accessed data in the client's own memory.
 
 {% hint style="info" %}
-Ignite 2 and GridGain 8 also offer a thin client (`IgniteClient`), which connects over a lightweight TCP socket without joining the topology. The thick client is the standard choice for this generation because it supports the full API surface: compute, service grid, continuous queries, and near-cache. The thin client was added later and covers a narrower set of operations.
+GridGain 8 also offers a thin client (`IgniteClient`), which connects over a lightweight TCP socket without joining the topology. The thick client is the standard choice for this generation because it supports the full API surface: compute, service grid, continuous queries, and near-cache. The thin client was added later and covers a narrower set of operations.
 
-In GridGain 9, the thin client is the primary client API. In Ignite 2 and GridGain 8, the thick client fills that role.
+In GridGain 9, the thin client is the primary client API. In GridGain 8, the thick client fills that role.
 {% endhint %}
 
 Create `cache-client/src/main/java/com/example/CacheConnect.java`:
@@ -299,7 +205,7 @@ public class CacheConnect {
         // Production networks keep the defaults because transient pauses
         // are common; localhost Docker has neither.
         // Also lower metricsUpdateFrequency so the failure-detection
-        // timeouts remain above it (Ignite validates the relationship
+        // timeouts remain above it (GridGain validates the relationship
         // at start).
         cfg.setMetricsUpdateFrequency(1000);
         cfg.setFailureDetectionTimeout(1000);
@@ -318,7 +224,7 @@ public class CacheConnect {
             System.out.println("Cluster nodes: " + ignite.cluster().nodes().size());
         }
 
-        // Ignite's internal threads can delay JVM shutdown.
+        // GridGain's internal threads can delay JVM shutdown.
         // System.exit(0) ensures a clean exit after the client disconnects.
         System.exit(0);
     }
@@ -338,23 +244,7 @@ Compile and run:
 mvn -f cache-client/pom.xml compile exec:exec
 ```
 
-The Ignite client produces startup output before your application code runs. Most of it is informational. Look for the **topology snapshot** line:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-[11:37:46] Topology snapshot [ver=2, locNode=2ffe045c, servers=1, clients=1,
-             state=ACTIVE, CPUs=22, offheap=3.5GB, heap=7.0GB]
-
-Client connected to the cluster.
-Local node ID: 2ffe045c-b79b-41a9-9aeb-26ba432034bd
-Cluster nodes: 2
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+The GridGain client produces startup output before your application code runs. Most of it is informational. Look for the **topology snapshot** line:
 
 ```text
 INFO: Topology snapshot [ver=2, locNode=7381eb44, servers=1, clients=1,
@@ -367,16 +257,12 @@ Local node ID: 7381eb44-1703-4a14-90de-b045728d6146
 Cluster nodes: 2
 ```
 
-The GridGain 8 topology snapshot includes an `aliveNodes` array listing every node in the cluster with its ID, client/server role, and version. The important fields are the same as Apache Ignite 2: `servers=1, clients=1, state=ACTIVE`.
-
-{% endtab %}
-
-{% endtabs %}
+The GridGain 8 topology snapshot includes an `aliveNodes` array listing every node in the cluster with its ID, client/server role, and version. The important fields to look for are `servers=1, clients=1, state=ACTIVE`.
 
 The topology snapshot now shows `clients=1`. Your thick client has joined the ring. The "Cluster nodes: 2" count includes both the server node and your client node.
 
 {% hint style="info" %}
-The thick client prints performance suggestions, version checks, and configuration warnings on startup. These are safe to ignore. GridGain 8 is noticeably more verbose than Apache Ignite 2: it logs the full configuration, classpath, exchange timings, and connection details at INFO level by default. The key information is the same in both products. Scan past the noise and look for the topology snapshot line showing `servers=1, clients=1`.
+The thick client prints performance suggestions, version checks, and configuration warnings on startup. These are safe to ignore. GridGain 8 is verbose: it logs the full configuration, classpath, exchange timings, and connection details at INFO level by default. Scan past the noise and look for the topology snapshot line showing `servers=1, clients=1`.
 {% endhint %}
 
 {% hint style="info" %}
@@ -384,7 +270,7 @@ The thick client may take a few seconds to connect on the first run. The client 
 {% endhint %}
 
 {% hint style="warning" %}
-If you see `GridGain node cannot be in one cluster with Ignite node`, your Maven dependency does not match your running cluster. An `ignite-core` client (Apache Ignite 2) cannot join a GridGain 8 cluster, and a `gridgain-core` client cannot join an Apache Ignite 2 cluster. Verify that your `pom.xml` dependency matches the Docker image you started in the previous tutorial.
+If the client fails to join the cluster, your Maven dependency does not match your running cluster. Verify that your `pom.xml` dependency is the GridGain 8 `gridgain-core` artifact and matches the Docker image you started in the previous tutorial.
 {% endhint %}
 
 {% hint style="success" %}
@@ -489,7 +375,7 @@ Run it:
 mvn -f cache-client/pom.xml exec:exec -Dexec.mainClass=com.example.CacheCrud
 ```
 
-After the Ignite startup output, you see:
+After the GridGain startup output, you see:
 
 ```text
 === Individual Cache Operations ===
@@ -639,7 +525,7 @@ Retrieved 10 customers with getAll:
 Cache cleared.
 ```
 
-`putAll` takes a `Map<K,V>` and stores every entry on the cluster. This method comes from the `Map` interface, the same `putAll` that `HashMap` provides. `getAll` is an Ignite addition that retrieves multiple keys in a single cluster call and returns a `Map<K,V>` of the results. The `TreeMap` wrapper sorts the retrieved entries by key so the output is deterministic regardless of the order the server returns them.
+`putAll` takes a `Map<K,V>` and stores every entry on the cluster. This method comes from the `Map` interface, the same `putAll` that `HashMap` provides. `getAll` is a GridGain addition that retrieves multiple keys in a single cluster call and returns a `Map<K,V>` of the results. The `TreeMap` wrapper sorts the retrieved entries by key so the output is deterministic regardless of the order the server returns them.
 
 With a single server node, both calls go to the same node. In a multi-node cluster, the client partitions the batch by key hash and sends each subset to the owning node in parallel. The bulk methods handle the fan-out and collection transparently.
 

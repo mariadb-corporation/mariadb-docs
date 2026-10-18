@@ -9,42 +9,25 @@ description: >-
 
 In a single-node database, schema design is about data integrity. You normalize to reduce redundancy, add indexes to speed queries, and move on. Where data physically lives never matters because it all lives on one machine.
 
-A distributed database changes that equation. Every table is split into partitions spread across multiple nodes, and a JOIN is only local if the joined rows happen to be on the same node. When they are not, data moves across the network. If that sounds like sharding, it is. Both Apache Ignite 3 and GridGain 9 hash-shard every table, and the design choices you make in DDL control which queries stay local and which pay the network cost. This tutorial walks through that decision process using the Music Store schema.
+A distributed database changes that equation. Every table is split into partitions spread across multiple nodes, and a JOIN is only local if the joined rows happen to be on the same node. When they are not, data moves across the network. If that sounds like sharding, it is. GridGain 9 hash-shards every table, and the design choices you make in DDL control which queries stay local and which pay the network cost. This tutorial walks through that decision process using the Music Store schema.
 
 {% hint style="info" %}
-Apache Ignite 3 and GridGain 9 share the same distributed SQL engine. Everything in this tutorial (DDL syntax, system views, query plans) works identically on both products. Select your product version in the tabs where the CLI command differs.
 {% endhint %}
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
-- **Completed the Foundations path:** [Create Tables and Query Data with SQL](../distributed-sql-foundations/query-music-store-sql.md) and [Use Transactions in Ignite 3](../distributed-sql-foundations/use-transactions.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **Completed the Foundations path:** [Create Tables and Query Data with SQL](../distributed-sql-foundations/query-music-store-sql.md) and [Use Transactions in GridGain 9](../distributed-sql-foundations/use-transactions.md)
 
 <details>
 <summary>Returning to these tutorials? Verify your environment.</summary>
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -57,41 +40,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -125,10 +73,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -155,7 +99,7 @@ In a sharded database, the primary key takes on a second role: it controls which
 
 Primary key design is no longer just about uniqueness. It directly determines where data lives in the cluster, and that changes the rules for every operation:
 
-| Concept | Single-Node RDBMS | Distributed SQL (Ignite/GridGain) |
+| Concept | Single-Node RDBMS | Distributed SQL (GridGain) |
 |---|---|---|
 | Primary key | Uniqueness constraint | Uniqueness + partition routing |
 | JOIN | Always local (single disk) | Local only if data is colocated |
@@ -177,7 +121,7 @@ A sharded database splits each table into pieces (called *shards* or *partitions
 <details>
 <summary>Coming from another sharded database? Here is the terminology mapping.</summary>
 
-| Sharding concept | Ignite/GridGain term | DDL keyword |
+| Sharding concept | GridGain term | DDL keyword |
 |---|---|---|
 | Shard | Partition | `PARTITIONS` in `CREATE ZONE` |
 | Shard key | Colocation column | `COLOCATE BY` in `CREATE TABLE` |
@@ -315,7 +259,7 @@ Every chain has a root entity that anchors the hierarchy. **Artist** is the root
 ### Building Colocation Chains
 
 {% hint style="info" %}
-A *colocation chain* is an Ignite/GridGain term for a hierarchy of parent-child tables that share a *shard key* lineage so they land on the same partition. 
+A *colocation chain* is a GridGain term for a hierarchy of parent-child tables that share a *shard key* lineage so they land on the same partition. 
 Other distributed databases call this interleaved tables, colocation groups, or simply parent-child sharding. 
 The concept is the same: related rows from different tables are placed together on one node so joins between them stay local.
 {% endhint %}
@@ -384,26 +328,10 @@ Some tables are small, rarely updated, and joined by many queries. The Music Sto
 
 Query the system views to see how the Music Store schema implements these decisions:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE SCHEMA_NAME = 'PUBLIC' ORDER BY TABLE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE SCHEMA_NAME = 'PUBLIC' ORDER BY TABLE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME    | ZONE_NAME            | TABLE_COLOCATION_COLUMNS
@@ -443,26 +371,10 @@ This changes three tables in the Music Store:
 
 Query the system views to see the PK and colocation ordinals:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, COLUMN_NAME, PK_COLUMN_ORDINAL, COLOCATION_COLUMN_ORDINAL FROM SYSTEM.TABLE_COLUMNS WHERE TABLE_NAME IN ('ARTIST','ALBUM','TRACK','INVOICE') AND PK_COLUMN_ORDINAL IS NOT NULL ORDER BY TABLE_NAME, PK_COLUMN_ORDINAL;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, COLUMN_NAME, PK_COLUMN_ORDINAL, COLOCATION_COLUMN_ORDINAL FROM SYSTEM.TABLE_COLUMNS WHERE TABLE_NAME IN ('ARTIST','ALBUM','TRACK','INVOICE') AND PK_COLUMN_ORDINAL IS NOT NULL ORDER BY TABLE_NAME, PK_COLUMN_ORDINAL;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME | COLUMN_NAME | PK_COLUMN_ORDINAL | COLOCATION_COLUMN_ORDINAL
@@ -484,26 +396,10 @@ Look at the Album rows. `ALBUMID` has PK ordinal 0 (it is the first column in th
 
 Because the colocation column controls partition routing, different `WHERE` clauses produce fundamentally different query plans. Run all three variations to see this in practice:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5 AND ArtistId = 1;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5 AND ArtistId = 1;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 KeyValueGet
@@ -516,32 +412,6 @@ KeyValueGet
 A `KeyValueGet`: no partition scan, no table scan, just a direct read from the one partition that owns the row.
 
 Now query by the colocation column alone:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "EXPLAIN PLAN FOR SELECT * FROM Album WHERE ArtistId = 1;"
-```
-
-```text
-Exchange
-    distribution: single
-    est: (rows=116)
-  IndexScan
-      table: PUBLIC.ALBUM
-      index: IFK_ALBUMARTISTID
-      type: SORTED
-      predicate: =(ARTISTID, 1)
-      fieldNames: [ALBUMID, ARTISTID, TITLE]
-      collation: [ARTISTID ASC]
-      est: (rows=116)
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -559,34 +429,14 @@ Exchange
       est: (rows=1)
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
-Colocation column only. The query routes to the single partition that stores `ArtistId = 1`. Apache Ignite 3 uses an `IndexScan` on the `IFK_ALBUMARTISTID` secondary index to find matching rows within that partition, while GridGain 9 uses a `TableScan`. The planner makes different cost model choices between versions, but the routing behavior is the same: one partition, not all of them.
+Colocation column only. The query routes to the single partition that stores `ArtistId = 1`. GridGain 9 uses a `TableScan` within that partition. The routing behavior is what matters: one partition, not all of them.
 
 Now query by a non-colocation PK column:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT * FROM Album WHERE AlbumId = 5;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 Exchange
@@ -605,10 +455,10 @@ The contrast between the second and third queries is the core lesson. Both filte
 
 ### The Cost of Composite Keys
 
-Composite keys enable colocation, but they widen every reference. Track's PK becomes `(TrackId, AlbumId)` instead of `(TrackId)`, and InvoiceLine's becomes `(InvoiceLineId, InvoiceId)` instead of `(InvoiceLineId)`. Any table that references Album must carry both columns for a point lookup. The tradeoff is real, but it is not Ignite-specific. Every distributed SQL database pays this cost in some form. The benefit, colocated joins that execute locally without network hops, is what makes the wider keys worthwhile.
+Composite keys enable colocation, but they widen every reference. Track's PK becomes `(TrackId, AlbumId)` instead of `(TrackId)`, and InvoiceLine's becomes `(InvoiceLineId, InvoiceId)` instead of `(InvoiceLineId)`. Any table that references Album must carry both columns for a point lookup. The tradeoff is real, but it is not GridGain-specific. Every distributed SQL database pays this cost in some form. The benefit, colocated joins that execute locally without network hops, is what makes the wider keys worthwhile.
 
 {% hint style="success" %}
-**Checkpoint:** All three EXPLAIN plans execute without errors. The full PK query shows KeyValueGet. The colocation-column query routes to a single partition (IndexScan on Ignite 3, TableScan on GridGain 9). The non-colocation query shows TableScan across all partitions on both products.
+**Checkpoint:** All three EXPLAIN plans execute without errors. The full PK query shows KeyValueGet. The colocation-column query routes to a single partition (TableScan on GridGain 9). The non-colocation query shows TableScan across all partitions.
 {% endhint %}
 
 ## Distribution Zones
@@ -624,26 +474,10 @@ The Music Store uses two zones:
 
 Query the zone configuration:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS, IS_DEFAULT_ZONE FROM SYSTEM.ZONES ORDER BY ZONE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS, IS_DEFAULT_ZONE FROM SYSTEM.ZONES ORDER BY ZONE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 ZONE_NAME            | ZONE_PARTITIONS | ZONE_REPLICAS | IS_DEFAULT_ZONE
@@ -657,26 +491,10 @@ The `Default` zone (1 replica, 25 partitions) is pre-created by the cluster. The
 
 Now verify how partitions are distributed across nodes. This query aggregates partition state by node and zone:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') GROUP BY NODE_NAME, ZONE_NAME ORDER BY ZONE_NAME, NODE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') GROUP BY NODE_NAME, ZONE_NAME ORDER BY ZONE_NAME, NODE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 NODE_NAME | ZONE_NAME            | PARTITIONS | TOTAL_ROWS
@@ -828,26 +646,10 @@ CREATE TABLE IF NOT EXISTS PlaylistTrack (
 
 This is exactly how the Music Store schema defines these tables. Query `SYSTEM.TABLES` to confirm:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE TABLE_NAME IN ('PLAYLIST','PLAYLISTTRACK');"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE TABLE_NAME IN ('PLAYLIST','PLAYLISTTRACK');"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME    | ZONE_NAME  | TABLE_COLOCATION_COLUMNS
@@ -870,61 +672,10 @@ So far, every query has touched a single table. Joins are where colocation pays 
 
 Artist and Album share the catalog colocation chain. A join filtered by `ArtistId` should execute within a single partition:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "EXPLAIN PLAN FOR SELECT a.Name, al.Title FROM Artist a JOIN Album al ON a.ArtistId = al.ArtistId WHERE a.ArtistId = 1;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT a.Name, al.Title FROM Artist a JOIN Album al ON a.ArtistId = al.ArtistId WHERE a.ArtistId = 1;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```text
-Exchange
-    distribution: single
-    est: (rows=1)
-  Project
-      fieldNames: [NAME, TITLE]
-      est: (rows=1)
-    MergeJoin
-        predicate: =(ARTISTID$0, ARTISTID)
-        type: inner
-        est: (rows=1)
-      IndexScan
-          table: PUBLIC.ALBUM
-          index: IFK_ALBUMARTISTID
-          type: SORTED
-          collation: [ARTISTID ASC]
-          est: (rows=347)
-      Sort
-          collation: [ARTISTID ASC]
-          est: (rows=1)
-        IndexScan
-            table: PUBLIC.ARTIST
-            index: ARTIST_PK
-            type: HASH
-            predicate: =(ARTISTID, 1)
-            est: (rows=1)
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```text
 Exchange
@@ -952,84 +703,16 @@ Exchange
             est: (rows=1)
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data. The planner accesses the Artist table differently between products (IndexScan on the primary key vs TableScan), but the routing and join strategy are the same.
 
 ### Cross-chain join: Customer to Track
 
 A query that joins across the commerce chain and catalog chain requires data movement:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "EXPLAIN PLAN FOR SELECT c.FirstName, t.Name FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId JOIN Track t ON il.TrackId = t.TrackId WHERE c.CustomerId = 1;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "EXPLAIN PLAN FOR SELECT c.FirstName, t.Name FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId JOIN Track t ON il.TrackId = t.TrackId WHERE c.CustomerId = 1;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```text
-Project
-    fieldNames: [FIRSTNAME, NAME]
-    est: (rows=1232866)
-  MergeJoin
-      predicate: =(TRACKID$0, TRACKID)
-      est: (rows=1232866)
-    Exchange                          <-- data movement
-        distribution: single
-      Sort
-        TableScan
-            table: PUBLIC.TRACK
-            est: (rows=3503)
-    HashJoin
-        predicate: =(INVOICEID$0, INVOICEID)
-        est: (rows=2346)
-      Exchange                        <-- data movement
-          distribution: single
-        IndexScan
-            table: PUBLIC.INVOICELINE
-            index: IFK_INVOICELINETRACKID
-            est: (rows=2240)
-      MergeJoin
-          predicate: =(CUSTOMERID$0, CUSTOMERID)
-          est: (rows=7)
-        Exchange                      <-- data movement
-            distribution: single
-          IndexScan
-              table: PUBLIC.INVOICE
-              index: IFK_INVOICECUSTOMERID
-              est: (rows=412)
-        Exchange                      <-- data movement
-            distribution: single
-          Sort
-            IndexScan
-                table: PUBLIC.CUSTOMER
-                index: CUSTOMER_PK
-                predicate: =(CUSTOMERID, 1)
-                est: (rows=1)
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```text
 Project
@@ -1071,11 +754,7 @@ Project
                 est: (rows=1)
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
-Both plans show four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planners choose different join orders between products (Ignite 3 starts with Track, GridGain 9 starts with Customer), but the structural lesson is the same: crossing colocation chains forces data movement.
+Both plans show four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planner starts with Customer, and the structural lesson is clear: crossing colocation chains forces data movement.
 
 The Customer-to-Invoice join stays within the commerce chain. The InvoiceLine-to-Track join crosses into the catalog chain, which forces the planner to shuffle both tables to a common node.
 
@@ -1105,7 +784,7 @@ Download the commerce data generator and run it against your cluster. The genera
 java -jar commerce-data-generator.jar --customers 50000
 ```
 
-The JAR connects to `localhost:10800` by default. If your cluster uses a different address, add `--host node1:10800`. The generator reads existing TrackIds from the Chinook catalog, so the Music Store schema must be loaded first. The same JAR works with both Apache Ignite 3 and GridGain 9.
+The JAR connects to `localhost:10800` by default. If your cluster uses a different address, add `--host node1:10800`. The generator reads existing TrackIds from the Chinook catalog, so the Music Store schema must be loaded first.
 
 When it finishes, the cluster will contain approximately 50,000 customers, 518,000 invoices, and 2.85 million invoice lines alongside the existing Music Store catalog.
 
@@ -1115,26 +794,10 @@ This dataset simulates two years of customer activity for a music store. In a pr
 
 ### Verify the Partition Distribution at Scale
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME = 'MUSICSTORE' GROUP BY NODE_NAME, ZONE_NAME ORDER BY NODE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME = 'MUSICSTORE' GROUP BY NODE_NAME, ZONE_NAME ORDER BY NODE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 NODE_NAME | ZONE_NAME  | PARTITIONS | TOTAL_ROWS
@@ -1150,26 +813,10 @@ node3     | MUSICSTORE | 15         | 2060905
 
 All invoices for a specific customer, staying within the commerce colocation chain:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT c.FirstName, c.LastName, COUNT(i.InvoiceId) AS OrderCount, SUM(i.Total) AS TotalSpent FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId WHERE c.CustomerId = 1001 GROUP BY c.FirstName, c.LastName;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT c.FirstName, c.LastName, COUNT(i.InvoiceId) AS OrderCount, SUM(i.Total) AS TotalSpent FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId WHERE c.CustomerId = 1001 GROUP BY c.FirstName, c.LastName;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 FIRSTNAME | LASTNAME | ORDERCOUNT | TOTALSPENT
@@ -1183,26 +830,10 @@ Because Customer and Invoice are colocated by `CustomerId`, the entire join exec
 
 Top-selling tracks by artist across the entire commerce dataset. This joins InvoiceLine (commerce chain) through Track, Album, and Artist (catalog chain):
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT ar.Name AS Artist, t.Name AS Track, COUNT(*) AS TimesSold FROM InvoiceLine il JOIN Track t ON il.TrackId = t.TrackId JOIN Album al ON t.AlbumId = al.AlbumId JOIN Artist ar ON al.ArtistId = ar.ArtistId GROUP BY ar.Name, t.Name ORDER BY TimesSold DESC LIMIT 10;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT ar.Name AS Artist, t.Name AS Track, COUNT(*) AS TimesSold FROM InvoiceLine il JOIN Track t ON il.TrackId = t.TrackId JOIN Album al ON t.AlbumId = al.AlbumId JOIN Artist ar ON al.ArtistId = ar.ArtistId GROUP BY ar.Name, t.Name ORDER BY TimesSold DESC LIMIT 10;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 ARTIST       | TRACK                   | TIMESSOLD

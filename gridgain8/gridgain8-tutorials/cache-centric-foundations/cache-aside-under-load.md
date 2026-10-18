@@ -15,9 +15,7 @@ In this tutorial, you build a cache-aside implementation that reads from the `cu
 
 Cache-aside is mediation, not delegation. The cache does not know about the database and the database does not know about the cache. Application code checks one, falls through to the other, and writes the result back. Everything the cache does for consistency, staleness, and concurrency is controlled by that application code and the cache configuration you already set up in [Cache Sizing and Expiry](cache-sizing-and-expiry.md).
 
-This tutorial works with both Ignite 2 and GridGain 8. The Java API is identical. Select your product version in the tabs where Maven coordinates and Docker container names differ.
-
-This tutorial labels itself "beginner" for Ignite. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
+This tutorial labels itself "beginner" for GridGain. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
 
 You work from a companion repository that ships the Docker configurations and a pre-built workload simulator alongside the reference code you will write. Clone it once during setup and use it through the rest of the tutorial.
 
@@ -36,32 +34,14 @@ Clone the companion repository into your working directory:
 git clone https://github.com/maglietti/cache-aside.git
 ```
 
-The repository contains `docker/` (MariaDB, Ignite 2, and GridGain 8 compose files), `listen-harness/` (a multi-threaded driver that exercises the same cache-aside pattern you will write), and `workload-simulator/` (the traffic generator). You will start the database from it in Step 1 and build the listen harness from it in Step 8. The code you write in Steps 3-6 lives in your own `cache-client/` project; the harness keeps its own copy in a separate Java package (`com.example.listen`) so the jar builds and runs on its own.
+The repository contains `docker/` (MariaDB and GridGain 8 compose files), `listen-harness/` (a multi-threaded driver that exercises the same cache-aside pattern you will write), and `workload-simulator/` (the traffic generator). You will start the database from it in Step 1 and build the listen harness from it in Step 8. The code you write in Steps 3-6 lives in your own `cache-client/` project; the harness keeps its own copy in a separate Java package (`com.example.listen`) so the jar builds and runs on its own.
 
-If you completed [Start a Local Cache Development Cluster](start-local-cache-cluster.md), you can reuse your existing cache cluster. If you arrived here fresh, `docker/ignite2/` and `docker/gridgain8/` inside the clone start a single-node cluster in one command.
+If you completed [Start a Local Cache Development Cluster](start-local-cache-cluster.md), you can reuse your existing cache cluster. If you arrived here fresh, `docker/gridgain8/` inside the clone starts a single-node cluster in one command.
 
 <details>
 <summary>Returning to these tutorials? Verify your cluster is running.</summary>
 
 Check that the cluster container is up:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
@@ -74,10 +54,6 @@ NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 **If the container is stopped**, restart it:
 
 ```bash
@@ -86,26 +62,11 @@ docker compose -f cache-cluster/docker-compose.yml start
 
 **If the cluster was destroyed** (`docker compose down`), recreate it from your existing setup or from the companion repo's configs:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-aside/docker/ignite2/docker-compose.yml up -d
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-aside/docker/gridgain8/docker-compose.yml up -d
 ```
 
 The GridGain 8 compose file requires a trial license at `cache-aside/docker/gridgain8/gridgain-license.xml`. Follow the license steps in `cache-aside/docker/gridgain8/README.md` if you do not already have one.
-
-{% endtab %}
-
-{% endtabs %}
 
 The cluster runs in-memory. Destroying and recreating it starts with an empty cache.
 
@@ -123,7 +84,7 @@ In this tutorial, you:
 
 ## Start MariaDB With the Chinook Dataset
 
-The cache lives in the Ignite or GridGain container from the earlier tutorials. The source of truth is a MariaDB container loaded with the [Chinook sample database](https://github.com/lerocha/chinook-database), which models a digital media store: 59 customers, 412 invoices, 2,240 invoice lines, and 3,503 tracks. You run MariaDB alongside the cache in a separate Docker Compose project.
+The cache lives in the GridGain container from the earlier tutorials. The source of truth is a MariaDB container loaded with the [Chinook sample database](https://github.com/lerocha/chinook-database), which models a digital media store: 59 customers, 412 invoices, 2,240 invoice lines, and 3,503 tracks. You run MariaDB alongside the cache in a separate Docker Compose project.
 
 The companion repository you cloned in the prerequisites ships a ready-to-run MariaDB compose file with the Chinook dump already in the `init/` directory. Start the container:
 
@@ -193,13 +154,12 @@ working-directory/
 └── cache-aside/               ← companion repo, read-only for this tutorial
     ├── docker/
     │   ├── music-db/          ← started in Step 1
-    │   ├── ignite2/
     │   └── gridgain8/
     ├── listen-harness/        ← you built and run in Step 8
     └── workload-simulator/    ← you built and run in Step 7
 ```
 
-`cache-client/pom.xml` currently declares the Ignite 2 or GridGain 8 core dependency and an `exec-maven-plugin` block that runs Java 11 with the `--add-opens` flags the thick client needs on newer JDKs. Its seven classes live in package `com.example` and exercise the cache in isolation; none of them talk to an external database.
+`cache-client/pom.xml` currently declares the GridGain 8 core dependency and an `exec-maven-plugin` block that runs Java 11 with the `--add-opens` flags the thick client needs on newer JDKs. Its seven classes live in package `com.example` and exercise the cache in isolation; none of them talk to an external database.
 
 You make two edits to `cache-client/` in this step:
 
@@ -220,82 +180,6 @@ Then continue with the pom block below. You are creating `cache-client/pom.xml` 
 Step 4 walks through `LruEvictionPolicyFactory` and `ModifiedExpiryPolicy` without re-introducing those APIs. Both come from [Cache Sizing and Expiry](cache-sizing-and-expiry.md); skim that tutorial if the names are unfamiliar.
 
 </details>
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-Replace `cache-client/pom.xml` with the following:
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>cache-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.cacheaside.CacheClient</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>3.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 Replace `cache-client/pom.xml` with the following:
 
@@ -373,10 +257,6 @@ Replace `cache-client/pom.xml` with the following:
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 Create the new package directory:
 
 ```bash
@@ -399,7 +279,7 @@ Maven prints a `BUILD SUCCESS` line. No class files exist in the new package yet
 
 The cache stores Customer objects keyed by `CustomerId`. Each field maps one-to-one to a column in the MariaDB Customer table, which keeps the JDBC row-to-object translation straightforward.
 
-The cache stores values as bytes on the server so the thick client can fetch them back later. The Java object must implement `Serializable` (or use a custom marshaller) for that round-trip to work. A plain POJO with a no-argument constructor and standard getters and setters is enough; no Ignite annotations are needed because this tutorial does not run SQL queries against the cache.
+The cache stores values as bytes on the server so the thick client can fetch them back later. The Java object must implement `Serializable` (or use a custom marshaller) for that round-trip to work. A plain POJO with a no-argument constructor and standard getters and setters is enough; no GridGain annotations are needed because this tutorial does not run SQL queries against the cache.
 
 Create `cache-client/src/main/java/com/example/cacheaside/Customer.java`:
 
@@ -412,7 +292,7 @@ import java.io.Serializable;
 /**
  * A Chinook Customer row cached by CustomerId.
  *
- * Implements Serializable so the Ignite thick client can round-trip
+ * Implements Serializable so the GridGain thick client can round-trip
  * the object through the cluster. The cache holds values as bytes on
  * the server and deserialises them back into Customer instances when
  * the client reads them. Serializable is the round-trip contract;
@@ -521,7 +401,7 @@ Each line matches a decision from the previous tutorial:
 
 - **`setOnheapCacheEnabled(true)`** opts the cache in to the on-heap tier that LRU bounds. Without it, the cluster rejects the configuration.
 - **`LruEvictionPolicyFactory(1000)`** caps the on-heap tier at 1,000 entries. That is an order of magnitude larger than the 59-customer Chinook dataset, so every row stays hot for this tutorial.
-- **`setEagerTtl(true)`** keeps the TTL sweeper active on this cache. The flag is required on GridGain 8 (which defaults to lazy) and harmless on Ignite 2 (already eager).
+- **`setEagerTtl(true)`** keeps the TTL sweeper active on this cache. The flag is required on GridGain 8, which defaults to lazy TTL expiration.
 - **`ModifiedExpiryPolicy`** sets the entry lifetime to 60 seconds, starting the clock on every write or update. Sixty seconds is short enough to demonstrate TTL behaviour and long enough that the cache warms before the first refresh cycle.
 
 `IgniteCache<Integer, Customer>` parameterises the cache so `findById` accepts an `int` and returns a `Customer` without casts on either side of the call.
@@ -941,8 +821,8 @@ public class CacheClient {
         dsCfg.setMaximumPoolSize(4);
         dsCfg.setPoolName("cache-client");
 
-        // try-with-resources on both Ignite and the HikariCP pool
-        // shuts everything down on exit. Ignite spawns non-daemon
+        // try-with-resources on both GridGain and the HikariCP pool
+        // shuts everything down on exit. GridGain spawns non-daemon
         // threads; HikariCP owns TCP connections to MariaDB. Both
         // need explicit close() to avoid dangling resources.
         try (Ignite ignite = Ignition.start(cfg);
@@ -1057,7 +937,7 @@ public class CacheClient {
             cache.destroy();
         }
 
-        // Force JVM exit. Ignite clients spawn non-daemon threads
+        // Force JVM exit. GridGain clients spawn non-daemon threads
         // that would otherwise keep the process alive.
         System.exit(0);
     }
@@ -1177,7 +1057,7 @@ Eight threads hitting a cold cache at the same time are exactly the scenario the
 The class lives at `cache-aside/listen-harness/src/main/java/com/example/listen/ListenApp.java` in the companion repository. It is test-harness plumbing around the `CustomerRepository` the harness ships. You do not type it, but understanding its shape is useful:
 
 - **Arg parsing.** A small helper walks `args[]` looking for `--flag value` pairs. Defaults match what this tutorial uses (MariaDB on localhost, password `chinook`, 8 threads, 5-second metrics interval), so running the jar with no arguments does the right thing.
-- **Ignite client + HikariCP pool.** Same TcpDiscoverySpi and HikariCP pattern as your `CacheClient`, duplicated here instead of extracted so each entry point reads end-to-end on its own. The pool is sized to `threads + 2` so every worker can hold a connection during a cache miss.
+- **GridGain client + HikariCP pool.** Same TcpDiscoverySpi and HikariCP pattern as your `CacheClient`, duplicated here instead of extracted so each entry point reads end-to-end on its own. The pool is sized to `threads + 2` so every worker can hold a connection during a cache miss.
 - **Cache configuration.** Identical block to `CacheClient`. Both entry points see the same `customers` cache because the cluster addresses the cache by name.
 - **Worker loop.** Eight daemon threads each call `repo.findById(ThreadLocalRandom.current().nextInt(1, customerCount + 1))` in a while loop. The `CustomerRepository` instance is shared across all eight.
 - **Metrics reporter.** A single scheduled executor fires every 5 seconds, reads `repo.cacheHits()`, `repo.dbLoads()`, and `repo.waitedOnInFlight()`, and prints a row with the per-window throughput.
@@ -1276,9 +1156,9 @@ In the second terminal, send a Ctrl+C to the listen harness to stop it and print
   Serve rate:          100.0%
 ```
 
-Those numbers come from Apache Ignite 2.16.0 on a laptop-class machine. GridGain 8.9.32 Enterprise runs the same code path and reports the same `dbLoads` count (exactly 59 per TTL cycle) with a 100% serve rate.
+Those numbers come from GridGain 8.9.32 Enterprise on a laptop-class machine. The run reports a `dbLoads` count of exactly 59 per TTL cycle with a 100% serve rate.
 
-Sustained throughput varies more on GG8. The Enterprise thick client does additional background work (baseline topology management, distributed metastorage updates) that interleaves with the lookup loop, and on a developer machine the `lookups/s` column sometimes drops to zero for several seconds at a time while a background task holds a communication channel. Under these stalls the GG8 harness can complete a third as many cache hits as AI2 in the same wall-clock window. The cache-aside contract is unchanged; the `dbLoads` floor and the 100% serve rate hold on both products. Production JVM tuning (heap size, GC options, direct memory, higher `socketWriteTimeout`) smooths the stalls.
+Sustained throughput varies on GridGain 8. The Enterprise thick client does additional background work (baseline topology management, distributed metastorage updates) that interleaves with the lookup loop, and on a developer machine the `lookups/s` column sometimes drops to zero for several seconds at a time while a background task holds a communication channel. Under these stalls the harness completes fewer cache hits in the same wall-clock window. The cache-aside contract is unchanged; the `dbLoads` floor and the 100% serve rate hold. Production JVM tuning (heap size, GC options, direct memory, higher `socketWriteTimeout`) smooths the stalls.
 
 Two observations deserve a pause.
 
@@ -1350,7 +1230,7 @@ There are three ways to tighten the staleness window further, all of which are o
 
 - **Write-through**: the application writes to the cache and to the database in the same call, so updates never diverge. The cache becomes part of the write path.
 - **Write-behind**: the application writes to the cache and the cache asynchronously persists to the database.
-- **Ignite `CacheStore`**: binds the cache to the database through a factory so read-through and write-through become first-class configuration.
+- **GridGain `CacheStore`**: binds the cache to the database through a factory so read-through and write-through become first-class configuration.
 
 Each of those changes the consistency contract and the failure model. Cache-aside with a bounded TTL is the simplest pattern and the right default. The later patterns are covered in the Beyond Key-Value learning path when the tutorials need them.
 
@@ -1365,7 +1245,7 @@ You connected a cache to a source-of-truth database and measured what the cache 
 - `Customer.java` implements `Serializable` with thirteen fields that match the Chinook Customer schema. The cache round-trips the POJO by value.
 - `CustomerRepository.java` implements cache-aside with single-flight coalescing. The `ConcurrentHashMap<Integer, CompletableFuture<Customer>>` guarantees exactly one MariaDB query per unique key per miss event, even under eight concurrent readers.
 - `CacheClient.java` wires the configured `customers` cache to the repository and runs the cold-then-warm sequence that proves the pattern end-to-end.
-- The `cache-client/pom.xml` added the MariaDB JDBC driver next to the Ignite or GridGain dependency from the earlier tutorials.
+- The `cache-client/pom.xml` added the MariaDB JDBC driver next to the GridGain dependency from the earlier tutorials.
 
 The measured offload from the combined simulator-plus-listen-mode run was the headline: 2,497,904 cache hits, 14 threads that waited on another thread's in-flight load, 118 database queries, a 96.0% read reduction on MariaDB. The simulator's workload mix was unchanged, but MariaDB served 11% more queries in the same 60 seconds with faster p99 on every primary-key path. The 60-second `ModifiedExpiryPolicy` on the cache bounded the staleness window to one TTL, which is the price cache-aside pays for keeping the cache and the database ignorant of each other.
 

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Diagnose and fix a hot partition on Apache Ignite 2 or GridGain 8. Three-step procedure identifies the partition, its owner, and the skew pattern.
+  Diagnose and fix a hot partition on GridGain 8. Three-step procedure identifies the partition, its owner, and the skew pattern.
 ---
 
 # How to Debug a hot Partition
@@ -13,7 +13,7 @@ description: >-
 
 ## Overview
 
-This guide walks through diagnosing a hot partition on Apache Ignite 2 or GridGain 8, then applying the fix that matches the cause. By the end, you have the partition ID, the owning node, the skew pattern from a key sample, and a chosen fix from the six options below. The procedure uses thick-client APIs only: `SYS.PARTITION_STATES`, `IgniteCompute.broadcast`, `Affinity.primaryPartitions`, and a local `ScanQuery`.
+This guide walks through diagnosing a hot partition on GridGain 8, then applying the fix that matches the cause. By the end, you have the partition ID, the owning node, the skew pattern from a key sample, and a chosen fix from the six options below. The procedure uses thick-client APIs only: `SYS.PARTITION_STATES`, `IgniteCompute.broadcast`, `Affinity.primaryPartitions`, and a local `ScanQuery`.
 
 ## Symptoms: When to use This Guide
 
@@ -64,7 +64,7 @@ Broadcast a callable to every server. On each server, read the primary partition
 ```java
 public class HotPartitionCallable implements IgniteCallable<List<long[]>> {
 
-    // @IgniteInstanceResource injects the running server's local Ignite
+    // @IgniteInstanceResource injects the running server's local GridGain
     // instance into this field, so the callable reaches the local
     // affinity and cache APIs without constructing a new client.
     // The field is transient so closure serialization skips it.

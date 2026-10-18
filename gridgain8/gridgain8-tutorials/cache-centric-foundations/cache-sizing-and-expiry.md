@@ -17,14 +17,12 @@ This tutorial solves both. You add on-heap LRU eviction to bound the JVM-heap fo
 
 One distinction sets up everything that follows. A cache is not a `ConcurrentMap`. A `ConcurrentMap` grows forever and holds data until the application explicitly removes it. A cache is a bounded, ephemeral view over data that actively manages what it keeps. Eviction and expiry are not features bolted onto a Map. They separate a cache from a map that happens to live in memory.
 
-This tutorial works with both Ignite 2 and GridGain 8. The Java API is identical. Select your product version in the tabs where Maven coordinates and Docker container names differ.
-
-This tutorial labels itself "beginner" for Ignite. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
+This tutorial labels itself "beginner" for GridGain. The surrounding Java stack (Maven, JDBC, Spring XML) is assumed prior knowledge. If any of those is new, skim the linked primer before starting.
 
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Java 11** or later (the Ignite 2 and GridGain 8 toolchains are tested against Java 11 and exhibit peer-class-loading edge cases on newer JDKs)
+- **Java 11** or later (the GridGain 8 toolchain is tested against Java 11 and exhibits peer-class-loading edge cases on newer JDKs)
 - **Maven 3.6** or later
 - **JCache `ExpiryPolicy` terminology** will be introduced; no prior knowledge assumed.
 
@@ -32,24 +30,6 @@ This tutorial labels itself "beginner" for Ignite. The surrounding Java stack (M
 <summary>Returning to these tutorials? Verify your cluster is running.</summary>
 
 Check that the cluster container is up:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
@@ -61,10 +41,6 @@ Expected output:
 NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **If the container is stopped**, restart it from the directory containing your `docker-compose.yml`:
 
@@ -98,72 +74,6 @@ Create a project directory alongside your `cache-cluster` directory and add a `p
 ```bash
 mkdir -p cache-client/src/main/java/com/example
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-Create `cache-client/pom.xml`:
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>cache-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.UnboundedCache</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 Create `cache-client/pom.xml`:
 
@@ -233,14 +143,10 @@ Create `cache-client/pom.xml`:
 
 GridGain 8 artifacts are published to GridGain's Nexus repository, not Maven Central. The `<repositories>` block tells Maven where to find the `gridgain-core` dependency.
 
-{% endtab %}
-
-{% endtabs %}
-
 This `pom.xml` matches the one from [Work with the Cache API](work-with-cache-api.md). If you kept that project, you can continue using it; the four classes in this tutorial live in the same `com.example` package and the same `exec-maven-plugin` invocation runs them. The `exec.mainClass` property in `<properties>` is overridden on each `mvn exec:exec` call, so you switch between classes without editing the pom.
 
 {% hint style="info" %}
-Ignite 2.16.0 and GridGain 8.9.32 were released when Java 11 was the standard LTS. Peer class loading and lambda serialization paths inside these products are tested against Java 11. Newer JDKs compile and run the basic cache API, but event-subscription APIs that deploy classes across nodes (continuous queries, JCache entry listeners) exhibit deployment edge cases on Java 17 and later. This tutorial does not register such listeners, but pinning to Java 11 keeps your environment consistent with the products' tested toolchain.
+GridGain 8.9.32 was released when Java 11 was the standard LTS. Peer class loading and lambda serialization paths inside the product are tested against Java 11. Newer JDKs compile and run the basic cache API, but event-subscription APIs that deploy classes across nodes (continuous queries, JCache entry listeners) exhibit deployment edge cases on Java 17 and later. This tutorial does not register such listeners, but pinning to Java 11 keeps your environment consistent with the product's tested toolchain.
 {% endhint %}
 
 {% hint style="success" %}
@@ -320,7 +226,7 @@ Run it:
 mvn -f cache-client/pom.xml compile exec:exec
 ```
 
-After the Ignite startup output, you see:
+After the GridGain startup output, you see:
 
 ```text
 === Unbounded Cache ===
@@ -336,9 +242,9 @@ One thousand entries in, one thousand entries stored. A cache that keeps everyth
 
 ## Bound the On-Heap Tier With Eviction
 
-Eviction answers one question: when the cache is full, what do I discard? An eviction policy picks an entry at the moment a put would exceed the configured ceiling. LRU (least recently used) is the default choice for caching workloads because recency predicts future access. Ignite ships FIFO, sorted, and random policies as well, but LRU is the right starting point unless the access pattern gives you a better signal.
+Eviction answers one question: when the cache is full, what do I discard? An eviction policy picks an entry at the moment a put would exceed the configured ceiling. LRU (least recently used) is the default choice for caching workloads because recency predicts future access. GridGain ships FIFO, sorted, and random policies as well, but LRU is the right starting point unless the access pattern gives you a better signal.
 
-One piece of mental model before the code. Ignite stores cache data primarily off-heap, outside the JVM heap. The off-heap store avoids garbage-collection pressure and lets a single JVM hold many gigabytes of cached data. The on-heap tier is an optional bounded overlay for hot entries, and policy-based eviction operates on that overlay. Opt in with `setOnheapCacheEnabled(true)`. Without it, the cluster rejects the cache configuration with `IgniteCheckedException: Onheap cache must be enabled if eviction policy is configured`.
+One piece of mental model before the code. GridGain stores cache data primarily off-heap, outside the JVM heap. The off-heap store avoids garbage-collection pressure and lets a single JVM hold many gigabytes of cached data. The on-heap tier is an optional bounded overlay for hot entries, and policy-based eviction operates on that overlay. Opt in with `setOnheapCacheEnabled(true)`. Without it, the cluster rejects the cache configuration with `IgniteCheckedException: Onheap cache must be enabled if eviction policy is configured`.
 
 LRU therefore caps the on-heap tier, not the total cached data. That maps to what most production deployments need: a bound on the JVM heap footprint per cache. Bounding the off-heap region is a data-region configuration covered in a later tutorial.
 
@@ -362,7 +268,7 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 
 /**
  * Demonstrates bounding the cache's on-heap tier with
- * LruEvictionPolicy. Ignite 2 stores data primarily off-heap and
+ * LruEvictionPolicy. GridGain 8 stores data primarily off-heap and
  * optionally keeps a bounded on-heap copy of hot entries. The LRU
  * policy caps the on-heap tier at 100 entries. All 1,000 entries
  * remain in the off-heap primary store.
@@ -381,7 +287,7 @@ public class BoundedCache {
             CacheConfiguration<Integer, String> cacheCfg =
                 new CacheConfiguration<>("bounded");
 
-            // On-heap caching is opt-in because Ignite's primary storage
+            // On-heap caching is opt-in because GridGain's primary storage
             // is off-heap. Policy-based eviction tracks entries on the
             // JVM heap, so the on-heap tier must be enabled. Without
             // this, cache creation throws:
@@ -450,7 +356,7 @@ A few details to note:
 
 - **`LruEvictionPolicyFactory`** is the current idiom. The older `setEvictionPolicy(new LruEvictionPolicy(100))` setter is `@Deprecated` in favor of the factory form. Cache configuration is serialized across the cluster on node join, and a factory serializes cleanly where a pre-instantiated policy does not.
 - **Eviction is lazy**. LRU discards an entry only when a put would exceed the bound, not on a continuous background pass. The on-heap count sits at exactly 100 for the same reason: the policy keeps demoting one older entry per new put.
-- **Other eviction policies exist**. Ignite 2 ships `FifoEvictionPolicyFactory` (discard the oldest insertion), `SortedEvictionPolicyFactory` (discard by a custom comparator), and a random policy. LRU is the right starting point for most caching workloads; pick one of the others when your access pattern gives you a better signal than recency.
+- **Other eviction policies exist**. GridGain 8 ships `FifoEvictionPolicyFactory` (discard the oldest insertion), `SortedEvictionPolicyFactory` (discard by a custom comparator), and a random policy. LRU is the right starting point for most caching workloads; pick one of the others when your access pattern gives you a better signal than recency.
 
 {% hint style="info" %}
 This tutorial caps the on-heap tier. The off-heap region grows until it hits the data region's configured limit (default 20% of system memory), at which point off-heap page eviction kicks in using a page-based policy configured on the data region. For production sizing, both layers matter. On-heap policy bounds the JVM heap; off-heap data-region settings bound the total data footprint. A later tutorial covers off-heap region configuration.
@@ -464,7 +370,7 @@ This tutorial caps the on-heap tier. The off-heap region grows until it hits the
 
 Eviction keeps memory bounded. Expiry is about freshness: when does an entry become stale enough to stop trusting? The two controls answer different questions, and a single cache can configure both.
 
-`ExpiryPolicy` is a JCache (JSR-107) interface. Ignite honors it regardless of whether on-heap caching is enabled or an eviction policy is configured. The four built-in policies anchor lifetime to a different lifecycle event each:
+`ExpiryPolicy` is a JCache (JSR-107) interface. GridGain honors it regardless of whether on-heap caching is enabled or an eviction policy is configured. The four built-in policies anchor lifetime to a different lifecycle event each:
 
 - **`CreatedExpiryPolicy`**: entries expire N time units after the first put. Subsequent reads and updates do not reset the clock. Use when data has a fixed freshness window, such as an API response cache where the upstream response is only trustworthy for a known interval.
 - **`ModifiedExpiryPolicy`**: entries expire N time units after the last put. Use for a catalog with occasional updates: writes mean the value is fresh again.
@@ -513,8 +419,8 @@ public class ExpiringCache {
             CacheConfiguration<Integer, String> cacheCfg =
                 new CacheConfiguration<>("expiring");
 
-            // setEagerTtl(true) is the default on both Apache Ignite 2
-            // and GridGain 8. The call is explicit in this tutorial to
+            // setEagerTtl(true) is explicit because GridGain 8
+            // defaults to lazy TTL expiration. The call is explicit in this tutorial to
             // make the setting visible: a reader tuning expiry later
             // knows exactly where to change the policy. Setting it to
             // false disables the background ttl-cleanup-worker sweep;
@@ -634,7 +540,7 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
  * ConcurrentMap never does: entries leave without any application
  * call to remove. Production applications typically subscribe to
  * invalidation events through IgniteCache.registerCacheEntryListener
- * (JCache) or Ignite's continuous queries. Those APIs ship listener
+ * (JCache) or GridGain's continuous queries. Those APIs ship listener
  * classes to the server at runtime and require peer-class-loading
  * configuration beyond the scope of this tutorial.
  */
@@ -653,7 +559,7 @@ public class ManagedCache {
                 new CacheConfiguration<>("managed");
             cacheCfg.setOnheapCacheEnabled(true);
             // See ExpiringCache for why setEagerTtl(true) is explicit:
-            // AI2 defaults to eager, GG8 defaults to lazy.
+            // GridGain 8 defaults to lazy.
             cacheCfg.setEagerTtl(true);
             cacheCfg.setEvictionPolicyFactory(
                 new LruEvictionPolicyFactory<>(20));
@@ -739,7 +645,7 @@ A few things are worth noticing:
 - **The time column exposes the cadence**. Production monitoring that tracks cache size over time shows the same shape: the on-heap count flatlines at the LRU cap while writes are arriving, then both tiers decay once traffic subsides and TTL catches up.
 
 {% hint style="info" %}
-This step polls the cache to observe its state. Production applications typically subscribe to invalidation events directly. Three APIs cover that ground: JCache entry listeners (`cache.registerCacheEntryListener` with a `CacheEntryExpiredListener` implementation), Ignite continuous queries, and the Ignite remote events API. All three ship listener classes from the client to the server at runtime. That requires peer class loading or pre-deployed server jars, which is cluster-level configuration outside this tutorial's scope. Ignite's documentation on continuous queries and entry listeners is the next stop when you need event-driven invalidation in a real system.
+This step polls the cache to observe its state. Production applications typically subscribe to invalidation events directly. Three APIs cover that ground: JCache entry listeners (`cache.registerCacheEntryListener` with a `CacheEntryExpiredListener` implementation), GridGain continuous queries, and the GridGain remote events API. All three ship listener classes from the client to the server at runtime. That requires peer class loading or pre-deployed server jars, which is cluster-level configuration outside this tutorial's scope. GridGain's documentation on continuous queries and entry listeners is the next stop when you need event-driven invalidation in a real system.
 {% endhint %}
 
 {% hint style="success" %}
@@ -751,9 +657,9 @@ This step polls the cache to observe its state. Production applications typicall
 A cache is not a `ConcurrentMap`. It actively manages its contents under rules the application configures once and never touches again. You built four programs that make those rules visible:
 
 - `UnboundedCache` held every entry you wrote, which named the problem the rest of the tutorial solves.
-- `BoundedCache` bounded the on-heap tier with `LruEvictionPolicyFactory` and surfaced Ignite's two-tier storage model. LRU caps the JVM-heap footprint per cache. Bounding the off-heap region itself is a data-region configuration covered in a later tutorial.
+- `BoundedCache` bounded the on-heap tier with `LruEvictionPolicyFactory` and surfaced GridGain's two-tier storage model. LRU caps the JVM-heap footprint per cache. Bounding the off-heap region itself is a data-region configuration covered in a later tutorial.
 - `ExpiringCache` set a three-second entry lifetime with `CreatedExpiryPolicy`. The other three JCache policies cover update-based, access-based, and touched-based freshness windows.
-- `ManagedCache` combined both controls and watched the cache discard entries on its own. The two-tier snapshot loop is a diagnostic; production applications usually subscribe to invalidation events through JCache listeners or Ignite continuous queries.
+- `ManagedCache` combined both controls and watched the cache discard entries on its own. The two-tier snapshot loop is a diagnostic; production applications usually subscribe to invalidation events through JCache listeners or GridGain continuous queries.
 
 Those four programs map to the two failure modes of a naive cache. Eviction is the answer to unbounded memory growth: LRU discards the least recently used on-heap entry whenever a put would exceed the cap. Expiry is the answer to stale data, with four JCache policies that anchor entry lifetime to creation, modification, access, or either. Configured together, the two controls turn a distributed `ConcurrentMap` into something that behaves like a cache under real workloads.
 

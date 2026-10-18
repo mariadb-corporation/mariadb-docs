@@ -11,8 +11,6 @@ A customer support screen shows every invoice for a given customer. A monthly re
 
 Cache API lookups need keys you already have. The Cache API can push a single-cache predicate to the server with `ScanQuery` and `IgniteBiPredicate`, and `cache.iterator()` can return every entry for client-side filtering. Neither helps when the question is "invoices joined to their customers filtered by country and grouped by month." This tutorial teaches the same caches to answer the harder questions with SQL: you load the Chinook music-store dataset (59 customers, 412 invoices) into two caches, ask one concrete question three ways, and finish with a cross-cache JOIN whose EXPLAIN plan shows how colocation keeps the JOIN local.
 
-This tutorial works with both Apache Ignite 2 and GridGain 8. The SQL engine is H2 in the pinned versions, and every Java source file is identical between products. Pick your product version in the tabs where Maven coordinates or Docker images differ.
-
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md)
@@ -28,24 +26,6 @@ This tutorial builds a fresh Maven project called `sql-on-cache/`. It does not e
 
 Check that the cluster container is up:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -56,10 +36,6 @@ Expected output:
 NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 If the container is stopped, restart it:
 
@@ -87,80 +63,6 @@ In this tutorial, you:
 Three POJOs carry the schema: `Customer`, `Invoice`, and the composite `InvoiceKey`. Annotations on their fields tell the cache which columns exist, which ones are indexed, and which one drives partitioning.
 
 Create a Maven project called `sql-on-cache/`. The `pom.xml` adds two things the Foundations path did not need: the `ignite-indexing` dependency that brings the H2 SQL engine onto the classpath, and an extra `--add-opens` entry so the optimized marshaller can read `java.sql.Date`.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="sql-on-cache/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>sql-on-cache</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>11</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.sqlquery.ConfigureCaches</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-indexing</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.math=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.sql/java.sql=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 {% code title="sql-on-cache/pom.xml" %}
 ```xml
@@ -236,13 +138,9 @@ Create a Maven project called `sql-on-cache/`. The `pom.xml` adds two things the
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="info" %}
 
-`ignite-indexing` is new here. The Foundations path used only `ignite-core` (or `gridgain-core`) because none of those tutorials ran SQL. Without `ignite-indexing` on the classpath, the first call to `setIndexedTypes` fails with `ClassNotFoundException: org.apache.ignite.internal.processors.query.h2.IgniteH2Indexing`.
+`ignite-indexing` is new here. The Foundations path used only `gridgain-core` because none of those tutorials ran SQL. Without `ignite-indexing` on the classpath, the first call to `setIndexedTypes` fails with `ClassNotFoundException: org.apache.ignite.internal.processors.query.h2.IgniteH2Indexing`.
 
 The extra `--add-opens=java.sql/java.sql=ALL-UNNAMED` is also new. The optimized marshaller needs reflective access to `java.sql.Date` when an invoice's `invoiceDate` field serializes. Under Java 11 and later, the module system forbids that access unless the `java.sql` module is opened explicitly.
 
@@ -534,7 +432,7 @@ public class ConfigureCaches {
             System.out.println();
             System.out.println("Next: run SeedFromChinook to load 59 customers and 412 invoices.");
         }
-        // Ignite's background threads keep the JVM alive for a few seconds
+        // GridGain's background threads keep the JVM alive for a few seconds
         // after the client closes. System.exit forces a clean shutdown.
         System.exit(0);
     }
@@ -564,7 +462,7 @@ Two caches exist. Both have `QueryEntity` descriptions built from the POJO annot
 
 Now populate them. Run the curl from inside the `sql-on-cache/` directory so the SQL file lands next to the `pom.xml`. `SeedFromChinook` reads the file relative to the JVM's working directory, which is also `sql-on-cache/` when you run Maven from there.
 
-The file contains 59 Customer INSERTs and 412 Invoice INSERTs, trimmed from the full Chinook music-store schema to the columns this tutorial queries. The dates use H2's `parsedatetime()` function because the cached SQL engine is H2. The same file works on both products.
+The file contains 59 Customer INSERTs and 412 Invoice INSERTs, trimmed from the full Chinook music-store schema to the columns this tutorial queries. The dates use H2's `parsedatetime()` function because the cached SQL engine is H2.
 
 Create `SeedFromChinook.java` in the same package:
 
@@ -1238,7 +1136,7 @@ ORDER BY 3 DESC
 
 Five Brazilian customers ranked by lifetime spend. Luís Gonçalves at $39.62 leads by a narrow margin. The other four tie at $37.62 because their Chinook purchase histories are nearly identical.
 
-The EXPLAIN block shows two distinct SQL statements separated by the second `SELECT`. That structure is how distributed SQL executes on both products. The first statement is the **map phase** that runs locally on each partition. The second statement is the **reduce phase** that runs at a single coordinator to merge the partial results. Read each block separately.
+The EXPLAIN block shows two distinct SQL statements separated by the second `SELECT`. That structure is how distributed SQL executes. The first statement is the **map phase** that runs locally on each partition. The second statement is the **reduce phase** that runs at a single coordinator to merge the partial results. Read each block separately.
 
 **Map phase (runs on each partition):**
 
@@ -1258,7 +1156,7 @@ Some schemas cannot colocate. Order lines might need to be colocated with orders
 
 {% hint style="info" %}
 
-The pinned versions in this tutorial (Apache Ignite 2.16.0 and GridGain 8.9.32) run the H2 SQL engine. Apache Ignite 2.18.0 promoted the Calcite-based SQL engine to production alongside H2. Calcite has a cost-based optimizer, broader standard SQL compliance, and a different plan format. The SQL you wrote in this tutorial is unchanged under Calcite, though the plans differ and some edge-case behavior changes. When you upgrade to a release that ships Calcite, set the engine per-query with `SqlFieldsQuery.setQueryEngine("calcite")` or configure it as the cluster default.
+The pinned version in this tutorial (GridGain 8.9.32) runs the H2 SQL engine.
 
 {% endhint %}
 

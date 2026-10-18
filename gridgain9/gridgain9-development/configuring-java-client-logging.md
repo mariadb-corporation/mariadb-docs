@@ -1,6 +1,6 @@
 ---
 description: >-
-  Configure logging for the Ignite 3 Java thin client using java.util.logging, Logback, or Log4j2.
+  Configure logging for the GridGain 9 Java thin client using java.util.logging, Logback, or Log4j2.
 ---
 
 # How to Configure Logging for the Java Thin Client
@@ -8,29 +8,12 @@ description: >-
 ## Prerequisites
 
 - **Java 11** or later
-- **An Ignite 3 (GridGain 9) thin client dependency** in your Maven or Gradle project
+- **A GridGain 9 thin client dependency** in your Maven or Gradle project
 - **A running cluster** for verification ([Start a cluster with Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md))
 - **Framework-specific** (pick one):
   - **java.util.logging**: No additional dependencies (included in the JDK)
   - **Logback**: `slf4j-api` 2.0+ and `logback-classic` 1.5+
   - **Log4j2**: `log4j-api`, `log4j-core`, and `log4j-jpl` 2.24+
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="Maven dependency" %}
-```xml
-<dependency>
-    <groupId>org.apache.ignite</groupId>
-    <artifactId>ignite-client</artifactId>
-    <version>3.1.0</version>
-</dependency>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="Maven dependency" %}
 ```xml
@@ -58,13 +41,9 @@ GridGain 9 artifacts are hosted on the GridGain Nexus repository, not Maven Cent
 
 The group ID is `org.gridgain`, but the artifact name keeps the `ignite-` prefix. All Java packages remain `org.apache.ignite.*`.
 
-{% endtab %}
-
-{% endtabs %}
-
 ## Overview
 
-Configure diagnostic logging for the Ignite 3 (GridGain 9) Java thin client using java.util.logging (JUL), Logback with SLF4J, or Log4j2. The thin client uses `System.Logger` (Java 9+) and routes to JUL by default. Three framework sections follow: pick the one that matches your project and skip the others.
+Configure diagnostic logging for the GridGain 9 Java thin client using java.util.logging (JUL), Logback with SLF4J, or Log4j2. The thin client uses `System.Logger` (Java 9+) and routes to JUL by default. Three framework sections follow: pick the one that matches your project and skip the others.
 
 JUL uses different level names than Logback and Log4j2. The level mapping table below applies to all three configurations.
 
@@ -283,7 +262,7 @@ IgniteClient client = IgniteClient.builder()
 ```
 {% endcode %}
 
-`additivity="false"` on the Ignite logger prevents messages from propagating to the root logger. Without it, each client message appears twice.
+`additivity="false"` on the GridGain logger prevents messages from propagating to the root logger. Without it, each client message appears twice.
 
 ### Verify Logback Output
 
@@ -363,7 +342,7 @@ IgniteClient client = IgniteClient.builder()
 ```
 {% endcode %}
 
-The `status="WARN"` attribute on `<Configuration>` controls Log4j2's own internal logging. The Ignite client logger is set to `DEBUG` with `additivity="false"` to prevent duplicate output through the root logger.
+The `status="WARN"` attribute on `<Configuration>` controls Log4j2's own internal logging. The GridGain client logger is set to `DEBUG` with `additivity="false"` to prevent duplicate output through the root logger.
 
 ### Verify Log4j2 Output
 
@@ -468,7 +447,7 @@ java.util.logging.FileHandler.level = FINE
 
 The `%h` token resolves to the user home directory. The `%u` token adds a unique number to prevent file conflicts when multiple JVMs run simultaneously.
 
-**Logback/Log4j2:** Add a file appender to the Ignite logger in the configuration file and verify the log directory exists.
+**Logback/Log4j2:** Add a file appender to the GridGain logger in the configuration file and verify the log directory exists.
 
 </details>
 
@@ -478,7 +457,7 @@ The `%h` token resolves to the user home directory. The `%u` token adds a unique
 
 Each client log message appears twice in the console output.
 
-**Logback:** Set `additivity="false"` on the Ignite logger. Without this attribute, messages propagate to the root logger and appear from both the Ignite appender and the root appender.
+**Logback:** Set `additivity="false"` on the GridGain logger. Without this attribute, messages propagate to the root logger and appear from both the GridGain appender and the root appender.
 
 ```xml
 <logger name="org.apache.ignite.internal.client" level="DEBUG" additivity="false">

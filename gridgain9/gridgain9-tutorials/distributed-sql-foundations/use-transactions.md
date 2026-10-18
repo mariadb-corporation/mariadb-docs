@@ -3,19 +3,17 @@ description: >-
   Group multiple SQL operations into atomic units that either commit together or roll back. Master explicit, managed, and async transaction patterns in Java.
 ---
 
-# Use Transactions in Ignite 3
+# Use Transactions in GridGain 9
 
 ## Introduction
 
-Every operation in [Work with RecordView and KeyValueView](recordview-keyvalueview.md) passed `null` as the transaction parameter. That `null` tells Ignite to wrap each operation in its own auto-commit transaction: each write commits independently, and there is no coordination between them. When you need multiple operations to succeed or fail together (creating an invoice with its line items, transferring funds between accounts, updating inventory and confirming an order), you replace `null` with a named `Transaction` object.
+Every operation in [Work with RecordView and KeyValueView](recordview-keyvalueview.md) passed `null` as the transaction parameter. That `null` tells GridGain to wrap each operation in its own auto-commit transaction: each write commits independently, and there is no coordination between them. When you need multiple operations to succeed or fail together (creating an invoice with its line items, transferring funds between accounts, updating inventory and confirming an order), you replace `null` with a named `Transaction` object.
 
 This tutorial builds a music store invoice workflow that writes to two tables inside one atomic unit. You see the full explicit lifecycle (begin, multi-table writes, commit), verify atomicity by rolling back a partial invoice, then refactor to the `runInTransaction` pattern that handles commit, rollback, and retry automatically. A final step shows the same workflow non-blocking with `runInTransactionAsync`.
 
-This tutorial works with both Apache Ignite 3 and GridGain 9. The transaction API is identical; select your product version in the tabs where Maven coordinates differ.
-
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
 - **Completed** [Work with RecordView and KeyValueView](recordview-keyvalueview.md) (familiarity with `IgniteClient`, `IgniteSql`, and the Music Store schema)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -26,56 +24,6 @@ This tutorial works with both Apache Ignite 3 and GridGain 9. The transaction AP
 This tutorial extends the Maven project from [Work with RecordView and KeyValueView](recordview-keyvalueview.md). If you need to recreate that project, create a directory named `table-api-demo` with the following files.
 
 **`pom.xml`**
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>table-api-demo</artifactId>
-    <version>1.0.0</version>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.musicstore.CreateInvoice</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.4.1</version>
-                <configuration>
-                    <mainClass>${exec.mainClass}</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -127,10 +75,6 @@ This tutorial extends the Maven project from [Work with RecordView and KeyValueV
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 **Model classes.** Create these in `src/main/java/com/example/musicstore/model/`:
 
@@ -259,28 +203,12 @@ public class CustomerContact {
 
 After creating these files, verify the cluster is running:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
-**Expected result: 3503.** If you need to restore the cluster or reload the dataset, see the full restore instructions in [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md).
+**Expected result: 3503.** If you need to restore the cluster or reload the dataset, see the full restore instructions in [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md).
 
 </details>
 
@@ -311,30 +239,12 @@ All classes clean up their test data, so you can run them in any order.
 
 Before writing transactional code, verify the Invoice and InvoiceLine tables are loaded with the expected data. The Music Store dataset includes 412 invoices and 2,240 invoice line items. Your test classes use IDs starting at 10001, well above the existing dataset range.
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS invoice_count FROM Invoice;"
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS line_count FROM InvoiceLine;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS invoice_count FROM Invoice;"
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS line_count FROM InvoiceLine;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```
 ╔═══════════════╗
@@ -403,7 +313,7 @@ import java.util.logging.Logger;
 public class CreateInvoice {
 
     public static void main(String[] args) {
-        // Suppress Ignite's verbose client connection and protocol logs so the
+        // Suppress GridGain's verbose client connection and protocol logs so the
         // tutorial output, which demonstrates transaction behavior, is readable.
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
@@ -485,7 +395,7 @@ public class CreateInvoice {
             }
 
             // Verify after commit using an implicit transaction (null). The explicit
-            // cast is required for cross-version compatibility: a future Ignite
+            // cast is required for cross-version compatibility: a future GridGain
             // release adds a no-Transaction overload to IgniteSql, making bare
             // null ambiguous between the Transaction and String parameters.
             System.out.println("--- Verifying after commit");
@@ -507,7 +417,7 @@ public class CreateInvoice {
             System.err.println("!!! Fatal: " + e.getMessage());
         }
 
-        // Ignite maintains background threads for cluster communication.
+        // GridGain maintains background threads for cluster communication.
         // System.exit() forces shutdown; without it the JVM hangs after main() returns.
         System.exit(0);
     }
@@ -550,12 +460,12 @@ mvn compile exec:java -q
 
 **What the output shows:**
 
-The "Verifying within transaction" block demonstrates **read-your-own-writes**, a property of Ignite's SERIALIZABLE isolation. Your transaction can read its own uncommitted writes. The data is visible within `tx` even though no commit has happened. Other transactions running on the cluster at the same time cannot see invoice 10001 or its line items until the commit completes.
+The "Verifying within transaction" block demonstrates **read-your-own-writes**, a property of GridGain's SERIALIZABLE isolation. Your transaction can read its own uncommitted writes. The data is visible within `tx` even though no commit has happened. Other transactions running on the cluster at the same time cannot see invoice 10001 or its line items until the commit completes.
 
 The two verification queries are structurally identical but behave differently. The first executes within `tx` (uncommitted context) and the second executes with `(Transaction) null` (implicit auto-commit, reads only committed data).
 
 {% hint style="info" %}
-Ignite read-write transactions use **SERIALIZABLE isolation**. Locks are acquired on first access and held until commit or rollback. No other read-write transaction can modify the same rows while the lock is held. Read-only transactions use snapshot isolation instead. They see a consistent point-in-time view of the data without acquiring locks.
+GridGain read-write transactions use **SERIALIZABLE isolation**. Locks are acquired on first access and held until commit or rollback. No other read-write transaction can modify the same rows while the lock is held. Read-only transactions use snapshot isolation instead. They see a consistent point-in-time view of the data without acquiring locks.
 {% endhint %}
 
 {% hint style="info" %}
@@ -608,7 +518,7 @@ import java.util.logging.Logger;
 public class RollbackInvoice {
 
     public static void main(String[] args) {
-        // Suppress Ignite's verbose client connection and protocol logs so the
+        // Suppress GridGain's verbose client connection and protocol logs so the
         // tutorial output, which demonstrates rollback behavior, is readable.
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
@@ -625,7 +535,7 @@ public class RollbackInvoice {
             System.err.println("!!! Fatal: " + e.getMessage());
         }
 
-        // Ignite maintains background threads for cluster communication.
+        // GridGain maintains background threads for cluster communication.
         // System.exit() forces shutdown; without it the JVM hangs after main() returns.
         System.exit(0);
     }
@@ -730,9 +640,9 @@ mvn compile exec:java -Dexec.mainClass=com.example.musicstore.RollbackInvoice -q
 
 The invoice workflow works, but the `begin()` / `try` / `commit()` / `catch` / `rollback()` lifecycle code is boilerplate that every transactional workflow repeats. `runInTransaction` collapses all of it into a closure:
 
-- **Auto-commit:** Ignite commits the transaction when the closure returns normally
-- **Auto-rollback:** Ignite rolls back if the closure throws any exception
-- **Auto-retry:** Ignite retries the closure on transient failures (lock conflicts, timeouts, or primary replica changes) without any retry logic in your code
+- **Auto-commit:** GridGain commits the transaction when the closure returns normally
+- **Auto-rollback:** GridGain rolls back if the closure throws any exception
+- **Auto-retry:** GridGain retries the closure on transient failures (lock conflicts, timeouts, or primary replica changes) without any retry logic in your code
 
 The closure signature is `Function<Transaction, T>` rather than `Consumer<Transaction>` because real workflows need to return a value. In this case the workflow returns the new invoice ID, which the caller uses after the transaction commits.
 
@@ -763,7 +673,7 @@ import java.util.logging.Logger;
  * The same multi-table workflow as CreateInvoice, refactored into
  * runInTransaction(Function<Transaction, T>). The explicit begin, commit,
  * try/catch, and rollback calls from Step 1 are replaced by a closure that
- * Ignite manages automatically.
+ * GridGain manages automatically.
  *
  * Why Function<Transaction, T> instead of Consumer<Transaction>: the closure
  * must return the new InvoiceId so the caller can use it after commit.
@@ -771,9 +681,9 @@ import java.util.logging.Logger;
  * the return value of runInTransaction itself.
  *
  * Concepts demonstrated:
- *   - Auto-commit: Ignite commits the transaction when the closure returns normally.
- *   - Auto-rollback: Ignite rolls back if the closure throws any exception.
- *   - Auto-retry: Ignite retries the closure on transient failures (lock
+ *   - Auto-commit: GridGain commits the transaction when the closure returns normally.
+ *   - Auto-rollback: GridGain rolls back if the closure throws any exception.
+ *   - Auto-retry: GridGain retries the closure on transient failures (lock
  *     conflicts, timeouts, or primary replica changes) without the caller
  *     needing retry logic. The closure must be side-effect-free because it
  *     may execute more than once.
@@ -783,7 +693,7 @@ import java.util.logging.Logger;
 public class InvoiceWorkflow {
 
     public static void main(String[] args) {
-        // Suppress Ignite's verbose client connection and protocol logs so the
+        // Suppress GridGain's verbose client connection and protocol logs so the
         // tutorial output, which demonstrates the runInTransaction pattern, is readable.
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
@@ -827,14 +737,14 @@ public class InvoiceWorkflow {
                 System.out.printf(">>> Invoice 10004 created, total $%s%n", total);
 
                 // The return value becomes the result of runInTransaction after commit.
-                // Ignite commits the transaction automatically when this return executes.
+                // GridGain commits the transaction automatically when this return executes.
                 return 10004;
             });
 
             System.out.printf("<<< Transaction committed. New invoice ID: %d%n", newInvoiceId);
 
             // Verify after commit using an implicit transaction (null). The explicit
-            // cast is required for cross-version compatibility: a future Ignite
+            // cast is required for cross-version compatibility: a future GridGain
             // release adds a no-Transaction overload, making bare null ambiguous.
             System.out.println("--- Verifying after commit");
             try (ResultSet<SqlRow> rs = sql.execute((Transaction) null,
@@ -855,7 +765,7 @@ public class InvoiceWorkflow {
             System.err.println("!!! Fatal: " + e.getMessage());
         }
 
-        // Ignite maintains background threads for cluster communication.
+        // GridGain maintains background threads for cluster communication.
         // System.exit() forces shutdown; without it the JVM hangs after main() returns.
         System.exit(0);
     }
@@ -889,7 +799,7 @@ mvn compile exec:java -Dexec.mainClass=com.example.musicstore.InvoiceWorkflow -q
 **Checkpoint:** Transaction committed. Invoice 10004 persists with 3 lines and a total of $2.97.
 {% endhint %}
 
-The `runInTransaction` version eliminates `begin()`, the `try` / `catch(Exception e)` block, `tx.commit()`, and `tx.rollback()`. The workflow code (price lookups, line item inserts, header insert) is unchanged. Ignite manages the lifecycle; your code focuses on the business logic.
+The `runInTransaction` version eliminates `begin()`, the `try` / `catch(Exception e)` block, `tx.commit()`, and `tx.rollback()`. The workflow code (price lookups, line item inserts, header insert) is unchanged. GridGain manages the lifecycle; your code focuses on the business logic.
 
 ## Async Transactions
 
@@ -897,7 +807,7 @@ The `runInTransaction` version eliminates `begin()`, the `try` / `catch(Exceptio
 
 **When async transactions matter:** Services that handle many concurrent requests cannot afford one thread per transaction. A blocking call to `runInTransaction` occupies the calling thread for the entire round-trip to the cluster. `runInTransactionAsync` frees the calling thread immediately so it can handle other work while waiting for the commit.
 
-The workflow logic inside the closure is unchanged. The differences are structural. The operations are wrapped in `CompletableFuture.supplyAsync()` to lift synchronous SQL calls into a future, and post-commit work chains on with `thenAccept`. In a fully async service, you would replace `supplyAsync` with chained async Ignite operations using `thenCompose`.
+The workflow logic inside the closure is unchanged. The differences are structural. The operations are wrapped in `CompletableFuture.supplyAsync()` to lift synchronous SQL calls into a future, and post-commit work chains on with `thenAccept`. In a fully async service, you would replace `supplyAsync` with chained async GridGain operations using `thenCompose`.
 
 Create `AsyncInvoiceWorkflow.java`:
 
@@ -928,8 +838,8 @@ import java.util.logging.Logger;
  * The closure signature is Function<Transaction, CompletableFuture<T>>.
  * The closure must return a future that represents the async work. Here, the
  * work is wrapped in CompletableFuture.supplyAsync() to lift synchronous
- * Ignite SQL calls into a CompletableFuture. In a fully async service, you
- * would chain async Ignite operations with thenCompose instead.
+ * GridGain SQL calls into a CompletableFuture. In a fully async service, you
+ * would chain async GridGain operations with thenCompose instead.
  *
  * Why async matters: services that handle many concurrent requests cannot
  * afford one thread per transaction. Non-blocking transactions let one thread
@@ -940,7 +850,7 @@ import java.util.logging.Logger;
 public class AsyncInvoiceWorkflow {
 
     public static void main(String[] args) {
-        // Suppress Ignite's verbose client connection and protocol logs so the
+        // Suppress GridGain's verbose client connection and protocol logs so the
         // tutorial output, which demonstrates async transaction behavior, is readable.
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
@@ -960,7 +870,7 @@ public class AsyncInvoiceWorkflow {
                         // CompletableFuture so the closure satisfies the required
                         // Function<Transaction, CompletableFuture<T>> signature.
                         // In a fully async service, replace supplyAsync with chained
-                        // async Ignite operations using thenCompose.
+                        // async GridGain operations using thenCompose.
                         return CompletableFuture.supplyAsync(() -> {
                             BigDecimal total = BigDecimal.ZERO;
                             int[] trackIds = {1, 2, 3};
@@ -1032,7 +942,7 @@ public class AsyncInvoiceWorkflow {
             System.err.println("!!! Fatal: " + e.getMessage());
         }
 
-        // Ignite maintains background threads for cluster communication.
+        // GridGain maintains background threads for cluster communication.
         // System.exit() forces shutdown; without it the JVM hangs after main() returns.
         System.exit(0);
     }

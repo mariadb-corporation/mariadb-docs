@@ -11,15 +11,13 @@ In the previous tutorial, you connected a Java application to the cluster and us
 
 In a traditional architecture, you maintain a cache (Redis, Memcached) alongside your database and write invalidation logic to keep them synchronized. That synchronization is a source of bugs, staleness, and operational complexity.
 
-With Ignite, there is no separate cache. A `put` through KeyValueView writes to the same distributed storage that SQL queries read. There is nothing to invalidate.
+With GridGain, there is no separate cache. A `put` through KeyValueView writes to the same distributed storage that SQL queries read. There is nothing to invalidate.
 
 This tutorial starts with the API mechanics (operations, conditionals, bulk processing), moves to multi-column tables and partial POJO mapping, then pivots to the caching patterns that make this architecture practical.
 
-This tutorial works with both Apache Ignite 3 and GridGain 9. The Java API is identical; select your product version in the tabs where Maven coordinates differ.
-
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
 - **Completed** [Connect with the Java Thin Client](connect-java-thin-client.md) (familiarity with the thin client, Maven project setup, and RecordView basics)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -29,26 +27,10 @@ This tutorial works with both Apache Ignite 3 and GridGain 9. The Java API is id
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -61,41 +43,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -129,10 +76,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -150,65 +93,15 @@ Re-run the check above to verify 3503 tracks are loaded.
 
 A structured Java project with domain model classes and a series of exploration classes that exercise the full RecordView and KeyValueView operation set against the Music Store dataset. The `model` package holds 3 stable POJO classes that map to cluster tables. Each step creates a new Java class file in the main package, so your previous code stays in the project for reference. You end up with 8 exploration classes plus the 3 model classes.
 
-The progression starts with API mechanics on the 2-column Artist table. It then moves to partial POJO mapping on the 13-column Customer table. The final steps cover cache-aside patterns that show why Ignite's unified model eliminates the need for a separate caching layer. All write operations use Artist IDs above the existing dataset range and clean up after themselves.
+The progression starts with API mechanics on the 2-column Artist table. It then moves to partial POJO mapping on the 13-column Customer table. The final steps cover cache-aside patterns that show why GridGain's unified model eliminates the need for a separate caching layer. All write operations use Artist IDs above the existing dataset range and clean up after themselves.
 
 ## Set Up the Project
 
-Create a new project directory and set up a Maven project with the Ignite thin client dependency. The structure is the same as the previous tutorial.
+Create a new project directory and set up a Maven project with the GridGain thin client dependency. The structure is the same as the previous tutorial.
 
 ```bash
 mkdir table-api-demo && cd table-api-demo
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>table-api-demo</artifactId>
-    <version>1.0.0</version>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.musicstore.ConnectAndVerify</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.4.1</version>
-                <configuration>
-                    <mainClass>${exec.mainClass}</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -261,15 +154,11 @@ mkdir table-api-demo && cd table-api-demo
 ```
 {% endcode %}
 
-The group ID is `org.gridgain`, but the artifact name keeps the `ignite-` prefix. All Java packages remain `org.apache.ignite.*`. Your import statements and application code are identical between Apache Ignite 3 and GridGain 9.
+The group ID is `org.gridgain`, but the artifact name keeps the `ignite-` prefix. All Java packages remain `org.apache.ignite.*`.
 
 {% hint style="info" %}
 GridGain 9 artifacts are hosted on the GridGain Nexus repository, not Maven Central. The `<repositories>` block in the `pom.xml` above is required. Without it, Maven will fail with `Could not find artifact org.gridgain:ignite-client`.
 {% endhint %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Create the source directories:
 
@@ -284,7 +173,7 @@ package com.example.musicstore.model;
 /**
  * Domain model for the Music Store Artist table (2 columns).
  *
- * Ignite maps POJO fields to table columns by name (case-insensitive):
+ * GridGain maps POJO fields to table columns by name (case-insensitive):
  *   artistId  ->  ARTISTID  (primary key, INT32)
  *   name      ->  NAME      (STRING / VARCHAR)
  *
@@ -292,14 +181,14 @@ package com.example.musicstore.model;
  * exists in the cluster (created by the Music Store DDL in the start local cluster tutorial). Annotations
  * are only required when creating a table from code with the Catalog API.
  *
- * POJO requirements for Ignite table mapping:
- *   - No-arg constructor (Ignite calls this when deserializing rows from the cluster)
+ * POJO requirements for GridGain table mapping:
+ *   - No-arg constructor (GridGain calls this when deserializing rows from the cluster)
  *   - Getter/setter pair for each mapped field
  *   - Field names must match column names (case-insensitive)
  *   - Fields not present in the table are silently ignored
  *
  * For key-based lookups, only the primary key field needs a value.
- * new Artist(1, null) tells Ignite: find ARTISTID=1, fill in
+ * new Artist(1, null) tells GridGain: find ARTISTID=1, fill in
  * NAME from storage. The client hashes the key to determine which
  * cluster node owns that partition and routes the request directly.
  */
@@ -307,7 +196,7 @@ public class Artist {
     private Integer artistId;
     private String name;
 
-    /** Required: Ignite calls this when deserializing rows from the cluster. */
+    /** Required: GridGain calls this when deserializing rows from the cluster. */
     public Artist() {}
 
     /**
@@ -334,7 +223,7 @@ public class Artist {
 ```
 {% endcode %}
 
-The `model` package holds your domain classes. These are stable artifacts that don't change as you explore different API operations. The `Artist` class maps to the existing `Artist` table in the cluster. Field names match column names (case-insensitive), and the no-arg constructor is required for Ignite to deserialize rows from the cluster.
+The `model` package holds your domain classes. These are stable artifacts that don't change as you explore different API operations. The `Artist` class maps to the existing `Artist` table in the cluster. Field names match column names (case-insensitive), and the no-arg constructor is required for GridGain to deserialize rows from the cluster.
 
 Now create `ConnectAndVerify.java`:
 
@@ -354,7 +243,7 @@ import java.util.logging.Logger;
 public class ConnectAndVerify {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -371,13 +260,13 @@ public class ConnectAndVerify {
             RecordView<Artist> artists = artistTable.recordView(Artist.class);
 
             // Key-based read: only the primary key field needs a value.
-            // new Artist(1, null) tells Ignite: find ARTISTID=1, fill in NAME from storage.
+            // new Artist(1, null) tells GridGain: find ARTISTID=1, fill in NAME from storage.
             // The client hashes the key to route directly to the owning partition.
             Artist acdc = artists.get((Transaction) null, new Artist(1, null));
             System.out.println("Artist 1: " + acdc);
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -425,7 +314,7 @@ import java.util.logging.Logger;
 public class RecordViewOps {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -522,7 +411,7 @@ public class RecordViewOps {
             System.out.println("\nCleaned up test data.");
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -564,7 +453,7 @@ Three distinct write strategies emerged from that output:
 
 **`getAndDelete`** retrieves and removes a record in a single atomic operation. The returned `Artist` contains the data as it existed immediately before deletion. After the call, `get()` for the same key returns `null`. This is useful for queue-like patterns where you need the data one last time before removing it.
 
-All operations pass `(Transaction) null` for the transaction parameter. The explicit `(Transaction)` cast ensures the code compiles across all Ignite 3 and GridGain 9 versions. The `null` value means each operation runs in its own implicit transaction. Explicit transactions are covered in the next tutorial.
+All operations pass `(Transaction) null` for the transaction parameter. The explicit `(Transaction)` cast ensures the code compiles across all GridGain 9 versions. The `null` value means each operation runs in its own implicit transaction. Explicit transactions are covered in the next tutorial.
 
 {% hint style="success" %}
 **Checkpoint:** Each operation prints its result. insert returns false on duplicate, replace returns false on missing key, getAndDelete returns the record then null on re-read.
@@ -595,7 +484,7 @@ import java.util.logging.Logger;
 public class BulkOps {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -673,7 +562,7 @@ public class BulkOps {
                     + " test artists remain.");
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -737,7 +626,7 @@ import java.util.logging.Logger;
 public class KeyValueViewOps {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -834,7 +723,7 @@ public class KeyValueViewOps {
             System.out.println("\nFinal check - Artist 1: " + finalCheck);
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -916,7 +805,7 @@ import java.util.logging.Logger;
 public class CrossView {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -962,7 +851,7 @@ public class CrossView {
             System.out.println("Artist 1 still intact: " + acdc);
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -1005,7 +894,7 @@ package com.example.musicstore.model;
 /**
  * Full domain model for the Music Store Customer table (13 columns).
  *
- * Ignite maps all 13 fields to their corresponding table columns by name:
+ * GridGain maps all 13 fields to their corresponding table columns by name:
  *   customerId   -> CUSTOMERID   (primary key, INT32)
  *   firstName    -> FIRSTNAME    (STRING)
  *   lastName     -> LASTNAME     (STRING)
@@ -1039,12 +928,12 @@ public class Customer {
     private String email;
     private Integer supportRepId;
 
-    /** Required: Ignite calls this when deserializing rows from the cluster. */
+    /** Required: GridGain calls this when deserializing rows from the cluster. */
     public Customer() {}
 
     /**
      * Key-only constructor for lookups by primary key.
-     * Non-key fields are left null; Ignite fills them from storage.
+     * Non-key fields are left null; GridGain fills them from storage.
      */
     public Customer(Integer customerId) {
         this.customerId = customerId;
@@ -1098,7 +987,7 @@ package com.example.musicstore.model;
 /**
  * Partial value POJO: maps only 5 of the 12 non-key Customer columns.
  *
- * Ignite matches fields to table columns by name. Columns not represented
+ * GridGain matches fields to table columns by name. Columns not represented
  * in this POJO are silently ignored on reads and left unchanged on writes:
  *
  *   Mapped (5):    firstName, lastName, email, city, country
@@ -1121,7 +1010,7 @@ public class CustomerContact {
     private String city;
     private String country;
 
-    /** Required: Ignite calls this when deserializing rows from the cluster. */
+    /** Required: GridGain calls this when deserializing rows from the cluster. */
     public CustomerContact() {}
 
     public String getFirstName() { return firstName; }
@@ -1166,7 +1055,7 @@ import java.util.logging.Logger;
 public class PartialPojos {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -1198,7 +1087,7 @@ public class PartialPojos {
             System.out.println("KeyValueView (partial): " + contact1);
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -1221,7 +1110,7 @@ Both views return the same Customer 1 row, but the code structure reveals two di
 
 - **RecordView** uses a single `Customer` POJO with all 13 fields. `customerId` is part of the object. This is natural when your code works with complete customer records.
 
-- **KeyValueView** separates the key (`Integer` for CustomerId) from the value (`CustomerContact` POJO). The `CustomerContact` class maps only 5 of the 12 non-key columns: `firstName`, `lastName`, `email`, `city`, and `country`. Ignite matches POJO fields to table columns by name. Columns not represented in the POJO (`company`, `address`, `state`, `postalCode`, `phone`, `fax`, `supportRepId`) are simply not mapped.
+- **KeyValueView** separates the key (`Integer` for CustomerId) from the value (`CustomerContact` POJO). The `CustomerContact` class maps only 5 of the 12 non-key columns: `firstName`, `lastName`, `email`, `city`, and `country`. GridGain matches POJO fields to table columns by name. Columns not represented in the POJO (`company`, `address`, `state`, `postalCode`, `phone`, `fax`, `supportRepId`) are simply not mapped.
 
 This partial mapping is the key advantage of KeyValueView on wide tables. A service that only needs contact information defines a 5-field POJO instead of mapping all 13 columns. The smaller object reduces memory overhead per record and makes the code's intent explicit: this code path cares about contact data, not the full customer record.
 
@@ -1235,7 +1124,7 @@ You have been using KeyValueView as a table access API. Now look at it from a di
 
 In a traditional architecture, the cache-aside pattern works like this: check the cache (Redis), miss, query the database, write the result to the cache, serve the response. Two systems, two networks, and an invalidation strategy to keep them synchronized. Every write must update both the database and the cache, or stale data creeps in.
 
-With Ignite, the "cache" and the "database" are the same storage:
+With GridGain, the "cache" and the "database" are the same storage:
 
 - **`kvView.get()`** reads a row from distributed storage by primary key.
 - **`kvView.put()`** writes a row to that same distributed storage.
@@ -1262,7 +1151,7 @@ import java.util.logging.Logger;
 public class CacheAside {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -1341,7 +1230,7 @@ public class CacheAside {
             System.out.println("\nCleaned up test data.");
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -1417,7 +1306,7 @@ import java.util.logging.Logger;
 public class CachePatterns {
 
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -1485,7 +1374,7 @@ public class CachePatterns {
             System.out.println("\nFinal check - Artist 1: " + finalCheck);
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -1530,19 +1419,6 @@ In all three patterns, the data is authoritative. There is no stale cache to wor
 ## GridGain 9 Near-Cache
 
 The patterns in the previous two steps eliminate the need for a separate caching system. Every `get()` call still makes a network round-trip to the cluster. For hot data that your application reads thousands of times per second, that round-trip adds up.
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-Apache Ignite 3 provides the cache-aside patterns you used in the previous steps: `get`, `getAll`, `putIfAbsent`, and `contains` operate on the distributed system of record with no separate cache to manage. Every read is a network call to the cluster.
-
-For most applications, this is the right model. The network round-trip is measured in low milliseconds on a local cluster and single-digit milliseconds in a production data center. The consistency guarantee (every read returns the current value) is worth the round-trip.
-
-If your access pattern involves reading the same small set of keys at very high frequency (tens of thousands of reads per second on the same data), consider GridGain 9's near-cache feature, which adds client-side caching with configurable TTL on top of this same API.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 GridGain 9 adds `NearCacheOptions` to both RecordView and KeyValueView. The near-cache stores recently accessed records in the client JVM's memory. Repeated reads of the same key serve from local memory without a network round-trip.
 
@@ -1598,12 +1474,8 @@ RecordView<Artist> cachedView = artistTable.recordView(
 ```
 
 {% hint style="info" %}
-`NearCacheOptions` is a GridGain 9 feature. It is not available in Apache Ignite 3. The `TableViewOptions` overload requires `Mapper.of()` wrappers instead of bare `Class` parameters.
+`NearCacheOptions` is a GridGain 9 feature. The `TableViewOptions` overload requires `Mapper.of()` wrappers instead of bare `Class` parameters.
 {% endhint %}
-
-{% endtab %}
-
-{% endtabs %}
 
 ## Choose the Right View
 
@@ -1629,10 +1501,10 @@ You exercised the full RecordView and KeyValueView operation set across two Musi
 
 The caching steps revealed the architectural advantage: KeyValueView provides cache-like semantics (`get`, `put`, `putIfAbsent`, `contains`, `getAll`) backed directly by the system of record. There is no separate cache layer to synchronize, no invalidation logic to write, and no stale data to debug. A `putIfAbsent` through KeyValueView and a `SELECT` through SQL read from the same distributed storage. GridGain 9's near-cache adds client-side caching with TTL for hot read paths.
 
-All operations in this tutorial used implicit transactions (the `null` transaction parameter). The next tutorial, [Use Transactions in Ignite 3](use-transactions.md), introduces explicit transactions: grouping multiple operations into an atomic unit so they succeed or fail together.
+All operations in this tutorial used implicit transactions (the `null` transaction parameter). The next tutorial, [Use Transactions in GridGain 9](use-transactions.md), introduces explicit transactions: grouping multiple operations into an atomic unit so they succeed or fail together.
 
 ## Related
 
-- [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the thin client connection patterns and Table package hierarchy
 - [How to Configure Logging for the Java Thin Client](../../gridgain9-development/configuring-java-client-logging.md) for controlling log output in your application

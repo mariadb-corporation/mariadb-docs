@@ -7,17 +7,16 @@ description: >-
 
 ## Introduction
 
-In the previous tutorial, you designed the Music Store schema in SQL DDL. That is the universal path. Every Ignite and GridGain user, regardless of programming language, can create schemas with SQL. This tutorial adds a second path for Java developers. You define the same Music Store entities as annotated Java classes, and the annotation processor generates the exact DDL you wrote by hand.
+In the previous tutorial, you designed the Music Store schema in SQL DDL. That is the universal path. Every GridGain user, regardless of programming language, can create schemas with SQL. This tutorial adds a second path for Java developers. You define the same Music Store entities as annotated Java classes, and the annotation processor generates the exact DDL you wrote by hand.
 
 Both paths produce identical schemas. The difference is where the design decisions live and what you get in return. DDL integrates with your operations workflow: migration tools, DBA-managed scripts, language-independent deployments. Annotations integrate with your Java development workflow: schema decisions visible in your IDE, type-safe data access through the same classes that defined the tables, and refactoring safety when column names change.
 
 {% hint style="info" %}
-Apache Ignite 3 and GridGain 9 share the same annotation API. All Java code in this tutorial is identical on both products. Select your product version in the tabs for Maven coordinates and CLI commands.
 {% endhint %}
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
 - **Completed** [Design a Schema for Distributed SQL](schema-distributed-sql.md)
 - **Java 17+** and a Java IDE (IntelliJ IDEA, VS Code with Java extensions, or similar)
 
@@ -26,26 +25,10 @@ Apache Ignite 3 and GridGain 9 share the same annotation API. All Java code in t
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -58,41 +41,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -126,10 +74,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -146,41 +90,6 @@ You define the full Music Store schema as annotated Java classes and create all 
 ## Create the Project
 
 Create a new Maven project in your IDE named `music-store-schema`. Replace the generated `pom.xml` with the following:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>music-store-schema</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-</project>
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -218,10 +127,6 @@ Create a new Maven project in your IDE named `music-store-schema`. Replace the g
 </project>
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 The `ignite-client` dependency includes the annotation API (`org.apache.ignite.catalog.annotations`) and the catalog DSL that translates annotations into DDL. No additional dependencies are needed.
 
 Create two packages in `src/main/java`: `com.example.schema` for application classes and `com.example.schema.model` for entity classes. In IntelliJ, right-click `src/main/java` and select **New > Package**. In VS Code, right-click the `java` folder and create the directory path manually.
@@ -241,7 +146,7 @@ music-store-schema/
 ```
 
 {% hint style="success" %}
-**Checkpoint:** The project compiles with no errors. Your IDE resolves the Ignite/GridGain dependency and shows the `org.apache.ignite.catalog.annotations` package in the external libraries.
+**Checkpoint:** The project compiles with no errors. Your IDE resolves the GridGain dependency and shows the `org.apache.ignite.catalog.annotations` package in the external libraries.
 {% endhint %}
 
 ## Drop the Existing Schema
@@ -290,7 +195,7 @@ public class DropSchema {
     };
 
     public static void main(String[] args) {
-        // Suppress Ignite client internal logging
+        // Suppress GridGain client internal logging
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         System.out.println("=== Drop Music Store Schema ===\n");
@@ -355,30 +260,6 @@ Tables are dropped in reverse dependency order: leaves before parents, children 
 
 The same DDL operations work from the CLI. The catalog API has `createTable()` but no `dropTable()`, so SQL DDL is the standard mechanism for dropping tables and zones regardless of which tool you use.
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "DROP TABLE IF EXISTS PlaylistTrack;
-   DROP TABLE IF EXISTS Playlist;
-   DROP TABLE IF EXISTS InvoiceLine;
-   DROP TABLE IF EXISTS Invoice;
-   DROP TABLE IF EXISTS Track;
-   DROP TABLE IF EXISTS Album;
-   DROP TABLE IF EXISTS Customer;
-   DROP TABLE IF EXISTS Employee;
-   DROP TABLE IF EXISTS Genre;
-   DROP TABLE IF EXISTS MediaType;
-   DROP TABLE IF EXISTS Artist;
-   DROP ZONE IF EXISTS MusicStore;
-   DROP ZONE IF EXISTS MusicStoreReplicated;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "DROP TABLE IF EXISTS PlaylistTrack;
@@ -395,10 +276,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
    DROP ZONE IF EXISTS MusicStore;
    DROP ZONE IF EXISTS MusicStoreReplicated;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 </details>
 
@@ -592,26 +469,10 @@ public class CreateCatalogEntities {
 
 Run `CreateCatalogEntities`, then verify the zones from the CLI:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS FROM SYSTEM.ZONES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') ORDER BY ZONE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS FROM SYSTEM.ZONES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') ORDER BY ZONE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 ZONE_NAME            | ZONE_PARTITIONS | ZONE_REPLICAS
@@ -865,26 +726,10 @@ System.out.println("Created: Track");
 
 Then verify the composite PKs and colocation columns from the CLI:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, COLUMN_NAME, PK_COLUMN_ORDINAL, COLOCATION_COLUMN_ORDINAL FROM SYSTEM.TABLE_COLUMNS WHERE TABLE_NAME IN ('ALBUM','TRACK') AND PK_COLUMN_ORDINAL IS NOT NULL ORDER BY TABLE_NAME, PK_COLUMN_ORDINAL;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, COLUMN_NAME, PK_COLUMN_ORDINAL, COLOCATION_COLUMN_ORDINAL FROM SYSTEM.TABLE_COLUMNS WHERE TABLE_NAME IN ('ALBUM','TRACK') AND PK_COLUMN_ORDINAL IS NOT NULL ORDER BY TABLE_NAME, PK_COLUMN_ORDINAL;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME | COLUMN_NAME | PK_COLUMN_ORDINAL | COLOCATION_COLUMN_ORDINAL
@@ -899,26 +744,10 @@ The same PK and colocation ordinals from the previous tutorial. `ARTISTID` is PK
 
 Verify the indexes:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, INDEX_NAME, INDEX_TYPE, INDEX_COLUMNS FROM SYSTEM.INDEXES WHERE TABLE_NAME IN ('ALBUM','TRACK') AND INDEX_NAME LIKE 'IFK%' ORDER BY TABLE_NAME, INDEX_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, INDEX_NAME, INDEX_TYPE, INDEX_COLUMNS FROM SYSTEM.INDEXES WHERE TABLE_NAME IN ('ALBUM','TRACK') AND INDEX_NAME LIKE 'IFK%' ORDER BY TABLE_NAME, INDEX_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME | INDEX_NAME           | INDEX_TYPE | INDEX_COLUMNS
@@ -1806,26 +1635,10 @@ All 11 tables created from annotations.
 
 Verify independently from the CLI using the same queries from the previous tutorial:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE SCHEMA_NAME = 'PUBLIC' ORDER BY TABLE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE SCHEMA_NAME = 'PUBLIC' ORDER BY TABLE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 TABLE_NAME    | ZONE_NAME            | TABLE_COLOCATION_COLUMNS
@@ -1845,26 +1658,10 @@ TRACK         | MUSICSTORE           | ALBUMID
 
 This is the same query and the same output from the previous tutorial. The zone assignments and colocation columns are identical regardless of whether the tables were created via SQL DDL or Java annotations.
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS, IS_DEFAULT_ZONE FROM SYSTEM.ZONES ORDER BY ZONE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS, IS_DEFAULT_ZONE FROM SYSTEM.ZONES ORDER BY ZONE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 ZONE_NAME            | ZONE_PARTITIONS | ZONE_REPLICAS | IS_DEFAULT_ZONE
@@ -1908,51 +1705,18 @@ The annotation-created tables are structurally identical to the SQL-created ones
 
 * [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  --file /tmp/music-store-data.sql
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker cp music-store-data.sql gridgain9-node1:/tmp/
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   --file /tmp/music-store-data.sql
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 The data loader prints row counts per batch. When it finishes, verify the partition distribution:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') GROUP BY NODE_NAME, ZONE_NAME ORDER BY ZONE_NAME, NODE_NAME;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT NODE_NAME, ZONE_NAME, COUNT(*) AS PARTITIONS, SUM(ESTIMATED_ROWS) AS TOTAL_ROWS FROM SYSTEM.LOCAL_ZONE_PARTITION_STATES WHERE ZONE_NAME IN ('MUSICSTORE','MUSICSTOREREPLICATED') GROUP BY NODE_NAME, ZONE_NAME ORDER BY ZONE_NAME, NODE_NAME;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 NODE_NAME | ZONE_NAME            | PARTITIONS | TOTAL_ROWS
@@ -1973,26 +1737,10 @@ The partition distribution matches what you saw in the previous tutorial. MusicS
 
 Run a colocated commerce query to confirm the data is queryable:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT c.FirstName, c.LastName, COUNT(i.InvoiceId) AS OrderCount FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId WHERE c.CustomerId = 1 GROUP BY c.FirstName, c.LastName;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT c.FirstName, c.LastName, COUNT(i.InvoiceId) AS OrderCount FROM Customer c JOIN Invoice i ON c.CustomerId = i.CustomerId WHERE c.CustomerId = 1 GROUP BY c.FirstName, c.LastName;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```text
 FIRSTNAME | LASTNAME   | ORDERCOUNT

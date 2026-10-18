@@ -1,6 +1,6 @@
 ---
 description: >-
-  Survey the Ignite 3 Java thin client: connect with partition awareness, define schema from annotations, navigate the Table package, and access data through RecordView, KeyValueView, and SQL.
+  Survey the GridGain 9 Java thin client: connect with partition awareness, define schema from annotations, navigate the Table package, and access data through RecordView, KeyValueView, and SQL.
 ---
 
 # Connect With the Java Thin Client
@@ -9,7 +9,7 @@ description: >-
 
 You have a running cluster and a loaded dataset. In the first tutorial, you built the infrastructure with Docker and created 11 tables with SQL DDL. In the second, you explored the data through the SQL CLI. Now you connect a Java application and survey the API surface that the thin client provides.
 
-The Ignite 3 Java thin client exposes four API surfaces through a single connection:
+The GridGain 9 Java thin client exposes four API surfaces through a single connection:
 
 - **SQL** runs queries against tables in the cluster.
 - **Tables** provides typed object operations over rows.
@@ -23,11 +23,9 @@ You start with the connection and work through four actions:
 - **Read the same row through each view** to see what the variants offer.
 - **Close with a SQL query** that joins your new table with the existing Music Store catalog.
 
-This tutorial works with both Apache Ignite 3 and GridGain 9. The Java API is identical; select your product version in the tabs where Maven coordinates differ.
-
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
 - **Java 17** or later
 - **Maven 3.8** or later
 
@@ -36,26 +34,10 @@ This tutorial works with both Apache Ignite 3 and GridGain 9. The Java API is id
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -68,41 +50,6 @@ docker compose up -d
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
 **If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker compose up -d
-```
-
-Wait 10 seconds for the nodes to start, then initialize the cluster:
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{"metaStorageNodes":["node1","node2","node3"],"cmgNodes":[],"clusterName":"my-cluster"}'
-```
-
-Download the schema and data files:
-
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
-
-Copy the files into the container and load them:
-
-```bash
-docker cp music-store-schema.sql ignite3-node1:/tmp/
-docker cp music-store-data.sql ignite3-node1:/tmp/
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-schema.sql
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql --file /tmp/music-store-data.sql
-```
-
-The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 ```bash
 docker compose up -d
@@ -136,10 +83,6 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql --file /tmp/musi
 
 The schema loader prints "Updated 0 rows" for each DDL statement. The data loader prints row counts per batch. Both commands emit jline reflection warnings that are cosmetic and safe to ignore.
 
-{% endtab %}
-
-{% endtabs %}
-
 Re-run the check above to verify 3503 tracks are loaded.
 
 </details>
@@ -158,60 +101,11 @@ A Java application that connects to your 3-node cluster, creates a table from an
 
 ## Step 1: Create the Project
 
-Create a directory for the project and add a `pom.xml` with the Ignite thin client dependency:
+Create a directory for the project and add a `pom.xml` with the GridGain thin client dependency:
 
 ```bash
 mkdir java-client-demo && cd java-client-demo
 ```
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>java-client-demo</artifactId>
-    <version>1.0.0</version>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.4.1</version>
-                <configuration>
-                    <mainClass>com.example.musicstore.MusicStoreClient</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -263,15 +157,11 @@ mkdir java-client-demo && cd java-client-demo
 ```
 {% endcode %}
 
-The group ID is `org.gridgain`, but the artifact name keeps the `ignite-` prefix. All Java packages remain `org.apache.ignite.*`. Your import statements and application code are identical between Apache Ignite 3 and GridGain 9.
+The group ID is `org.gridgain`, but the artifact name keeps the `ignite-` prefix. All Java packages remain `org.apache.ignite.*`.
 
 {% hint style="info" %}
 GridGain 9 artifacts are hosted on the GridGain Nexus repository, not Maven Central. The `<repositories>` block in the `pom.xml` above is required. Without it, Maven will fail with `Could not find artifact org.gridgain:ignite-client`.
 {% endhint %}
-
-{% endtab %}
-
-{% endtabs %}
 
 The `ignite-client` dependency is the only one you need. It pulls in `ignite-api` (which contains the annotation classes and table interfaces) as a transitive dependency.
 
@@ -322,7 +212,7 @@ import java.util.logging.Logger;
 
 public class MusicStoreClient {
     public static void main(String[] args) {
-        // Suppress Ignite's internal partition-assignment log messages
+        // Suppress GridGain's internal partition-assignment log messages
         Logger.getLogger("org.apache.ignite").setLevel(Level.WARNING);
 
         // Connect to all three cluster nodes for partition awareness
@@ -351,7 +241,7 @@ public class MusicStoreClient {
             }
         }
 
-        // Force JVM exit so Maven does not wait for Ignite's background threads
+        // Force JVM exit so Maven does not wait for GridGain's background threads
         System.exit(0);
     }
 }
@@ -362,9 +252,9 @@ Key details in this code:
 
 - **`try-with-resources`** creates the client and closes it when the block exits. The inner `try` around `execute()` closes the `ResultSet`, which releases server-side cursor resources.
 - **`IgniteClient.builder().addresses(...)`** accepts multiple node addresses. The client connects to the first available node, discovers the full topology, and opens direct connections to every node. This is **partition awareness**: each operation routes directly to the node that owns the data. If a node fails, the client reconnects to the remaining nodes.
-- **`client.sql().execute((Transaction) null, ...)`** runs a SQL query. The explicit `(Transaction)` cast ensures the code compiles across all Ignite 3 and GridGain 9 versions. The `null` value means the query runs in its own implicit transaction. This is the same SQL API you used through the CLI in the previous tutorial.
+- **`client.sql().execute((Transaction) null, ...)`** runs a SQL query. The explicit `(Transaction)` cast ensures the code compiles across all GridGain 9 versions. The `null` value means the query runs in its own implicit transaction. This is the same SQL API you used through the CLI in the previous tutorial.
 
-`System.exit(0)` after the try block forces the JVM to shut down immediately. Without it, the Ignite client's background timer thread keeps the process alive for 15 seconds after the connection closes.
+`System.exit(0)` after the try block forces the JVM to shut down immediately. Without it, the GridGain client's background timer thread keeps the process alive for 15 seconds after the connection closes.
 
 Run the application:
 
@@ -662,7 +552,7 @@ Add the following code after the `System.out.println("RecordView lookup: ..."` l
 Three access patterns, one table:
 
 - **KeyValueView** splits each row into a **key** (the `@Id` columns) and a **value** (everything else). The `keyValueView()` call here returns the untyped `KeyValueView<Tuple, Tuple>`. A typed variant, `keyValueView(Key.class, Value.class)`, maps to POJOs instead. The next tutorial covers both.
-- **Tuple** is Ignite's dynamic column container. Write with `.set("favoriteId", 2)`. Read with typed accessors: `.intValue("trackId")`, `.stringValue("note")`. No POJO class required.
+- **Tuple** is GridGain's dynamic column container. Write with `.set("favoriteId", 2)`. Read with typed accessors: `.intValue("trackId")`, `.stringValue("note")`. No POJO class required.
 - **SQL JOIN** confirms that data written through RecordView appears immediately in SQL queries. It also confirms that tables in different zones (Favorite in Default, Track in MusicStore) join without additional configuration.
 
 Run the application:
@@ -760,7 +650,7 @@ The `Favorite` table is gone and all 11 Music Store tables remain intact.
 
 ## Summary
 
-You connected a Java application to the Ignite 3 cluster and exercised the thin client's four API surfaces. Here is a map of every API call you made, organized by the surface it belongs to.
+You connected a Java application to the GridGain 9 cluster and exercised the thin client's four API surfaces. Here is a map of every API call you made, organized by the surface it belongs to.
 
 ### DDL, DML, and Where SQL Fits
 
@@ -805,6 +695,6 @@ Continue to [Work with RecordView and KeyValueView](recordview-keyvalueview.md) 
 
 ## Related
 
-- [Start Your Local Ignite 3 Development Cluster](start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
 - [Create Tables and Query Data with SQL](query-music-store-sql.md) for the SQL patterns you saw through the CLI
 - [How to Configure Logging for the Java Thin Client](../../gridgain9-development/configuring-java-client-logging.md) for controlling log output in your application

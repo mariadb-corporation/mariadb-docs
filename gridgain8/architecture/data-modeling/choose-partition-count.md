@@ -1,6 +1,6 @@
 ---
 description: >-
-  Pick a partition count for a partitioned cache on Apache Ignite 2 or GridGain 8. Default is 1024.
+  Pick a partition count for a partitioned cache on GridGain 8. Default is 1024.
 ---
 
 # How to Choose a Partition Count for Your Workload
@@ -12,13 +12,13 @@ description: >-
 
 ## Overview
 
-This guide covers the three inputs that determine a partition count on Apache Ignite 2 and GridGain 8: the default (1024), the cache's expected row count, and the cluster's expected node count. By the end, you have a partition count for a new cache, a sizing check for an existing cache, and the formula that maps row count to a safe number.
+This guide covers the three inputs that determine a partition count on GridGain 8: the default (1024), the cache's expected row count, and the cluster's expected node count. By the end, you have a partition count for a new cache, a sizing check for an existing cache, and the formula that maps row count to a safe number.
 
 The partition count is fixed once the cache holds data. Changing it later requires destroying and recreating the cache.
 
 ## The Short Answer
 
-**Use 1024 unless you have a specific reason not to.** It is the documented default on Apache Ignite 2 and GridGain 8. It is correct for caches under ~250 million keys running on clusters of 3 to 30 nodes.
+**Use 1024 unless you have a specific reason not to.** It is the documented default on GridGain 8. It is correct for caches under ~250 million keys running on clusters of 3 to 30 nodes.
 
 ```java
 // The no-argument constructor already uses 1024. Pass it explicitly when

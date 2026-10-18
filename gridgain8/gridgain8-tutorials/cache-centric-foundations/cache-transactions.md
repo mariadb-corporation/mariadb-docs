@@ -15,8 +15,6 @@ You add a `customer-credits` cache that tracks store credit per customer. The ca
 
 The rest of the tutorial runs the scenario through failure modes and contention, closing on a single-key case that needs no transaction at all. Write-through with `CacheStore` is the other path to multi-key atomicity across a cache and a database; a later guide covers that pattern.
 
-This tutorial works with both Ignite 2 and GridGain 8. The transaction API is identical; pick your product version in the tabs where the Maven coordinates differ.
-
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
@@ -34,24 +32,6 @@ The last step of this tutorial uses `EntryProcessor`, which requires an addition
 
 Check that the cluster container is up:
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node1 --format "table {{.Names}}\t{{.Status}}"
-```
-
-Expected output:
-
-```text
-NAMES            STATUS
-ignite2-node1    Up X hours
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node1 --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -62,10 +42,6 @@ Expected output:
 NAMES             STATUS
 gridgain8-node1   Up X hours
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **If the container is stopped**, restart it:
 
@@ -99,20 +75,6 @@ Two modes exist:
 
 If you skip the setting and try to open a transaction on an `ATOMIC` cache anyway, the first cache operation inside the transaction throws.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-This has been the default behavior since 2.15.0, and since 2.16.0 it is finally forbidden. The `IGNITE_ALLOW_ATOMIC_OPS_IN_TX` system property that earlier versions exposed as an opt-out was removed in 2.16.0, so there is no flag to flip:
-
-```text
-Exception class: org.apache.ignite.IgniteException
-Exception message: Transaction spans operations on atomic cache (don't use atomic cache inside a transaction). Since 2.15.0 atomic operations inside transactions are not allowed by default. Since 2.16.0 atomic operations inside transactions are finally forbidden.
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 Since 8.9.0, atomic operations inside transactions are not allowed by default. The exception message names two escape hatches:
 
 ```text
@@ -122,10 +84,6 @@ Exception message: Transaction spans operations on atomic cache (don't use atomi
 
 Both escape hatches still exist on current GG8 builds. The `IGNITE_ALLOW_ATOMIC_OPS_IN_TX` system property flips the default cluster-wide, and `cache.withAllowAtomicOpsInTx()` opts in a single cache. Neither is recommended for tutorial code. They exist to ease migration of legacy applications that mix atomic operations into transactional blocks, and using them here would defeat the atomicity guarantee this tutorial is about to teach.
 
-{% endtab %}
-
-{% endtabs %}
-
 To use transactions, opt into `TRANSACTIONAL` mode explicitly on the cache configuration:
 
 ```java
@@ -134,70 +92,7 @@ cacheCfg.setAtomicityMode(CacheAtomicityMode.TRANSACTIONAL);
 
 The mode is part of the cache's initial configuration and cannot be changed later. Switching modes requires destroying the cache with `ignite.destroyCache("customer-credits")` and creating a fresh one with the new configuration. The decision is worth making deliberately: a TRANSACTIONAL cache pays a small coordination cost on every write in exchange for the ability to group writes, while an ATOMIC cache trades that cost for simpler semantics and higher throughput.
 
-Create a Maven project if you do not already have one, or add a `transactions` package to your existing `cache-client/` project. The `pom.xml` declares an Ignite 2 (or GridGain 8) `-core` dependency and targets Java 8 bytecode so classes shipped to the server in Step 6 load on the server's JVM:
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="cache-client/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>cache-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.transactions.ConfigureCache</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+Create a Maven project if you do not already have one, or add a `transactions` package to your existing `cache-client/` project. The `pom.xml` declares a GridGain 8 `-core` dependency and targets Java 8 bytecode so classes shipped to the server in Step 6 load on the server's JVM:
 
 {% code title="cache-client/pom.xml" %}
 ```xml
@@ -262,13 +157,9 @@ Create a Maven project if you do not already have one, or add a `transactions` p
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="info" %}
 
-The Ignite 2 and GridGain 8 Docker images run a Java 8 JVM on the server. The `CacheEntryProcessor` class in Step 6 ships from the client to the server through peer class loading. If the class is compiled with bytecode newer than Java 8, the server JVM halts with `UnsupportedClassVersionError` when the closure arrives. Setting `maven.compiler.release=8` caps both source APIs and bytecode output to Java 8.
+The GridGain 8 Docker images run a Java 8 JVM on the server. The `CacheEntryProcessor` class in Step 6 ships from the client to the server through peer class loading. If the class is compiled with bytecode newer than Java 8, the server JVM halts with `UnsupportedClassVersionError` when the closure arrives. Setting `maven.compiler.release=8` caps both source APIs and bytecode output to Java 8.
 
 {% endhint %}
 
@@ -312,7 +203,7 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 public class ConfigureCache {
     public static void main(String[] args) {
         // TcpDiscoverySpi is the default discovery mechanism for
-        // Ignite 2 and GridGain 8. It handles cluster membership,
+        // GridGain 8. It handles cluster membership,
         // topology changes, and failure detection via TCP-level
         // heartbeats and messaging. The VM IP finder is the
         // development-friendly choice: it takes a static list of
@@ -343,7 +234,7 @@ public class ConfigureCache {
         cfg.setPeerClassLoadingEnabled(true);
 
         // Ignition.start() blocks until the client finishes joining
-        // the topology. The returned Ignite instance is
+        // the topology. The returned GridGain instance is
         // AutoCloseable; the try-with-resources ensures a clean
         // disconnect even if an exception exits main.
         try (Ignite ignite = Ignition.start(cfg)) {
@@ -401,7 +292,7 @@ public class ConfigureCache {
             seed.put(1003, new BigDecimal("75.00"));
 
             // putAll on a TRANSACTIONAL cache runs as an implicit
-            // transaction: Ignite opens a transaction under the
+            // transaction: GridGain opens a transaction under the
             // hood, writes all three entries, and commits. Either
             // every entry lands or none of them do, even if the
             // JVM dies mid-call. This implicit-transaction wrapper
@@ -896,7 +787,7 @@ import org.apache.ignite.transactions.Transaction;
  * blocks on the first thread's key lock and does not make progress
  * until the first commits.
  *
- * Pessimistic concurrency in Ignite 2 works as follows:
+ * Pessimistic concurrency in GridGain 8 works as follows:
  *
  *   - A cache operation (get, put, remove, invoke) on a key is
  *     the first thing that acquires the key's primary-node lock.
@@ -1113,7 +1004,7 @@ The total wall time is ~1083ms, very close to the sum of both sleeps. The two tr
 
 The final balances are 75 and 75. Both transfers applied in full: 100 minus 10 minus 15 equals 75, and 50 plus 10 plus 15 equals 75. Total credit stays at 150. The invariant holds, and the cost is that contended transactions run one at a time.
 
-Microsecond timestamps keep the printed order consistent with the causality Ignite enforces. Millisecond resolution is too coarse. A commit and an unblocked read downstream of that commit often fall in the same millisecond, and the two print statements order themselves by output-buffer flush rather than by wall time. If you see a read of a post-commit value timestamped before the commit on a ms-resolution log, that is a logging artifact, not a consistency violation.
+Microsecond timestamps keep the printed order consistent with the causality GridGain enforces. Millisecond resolution is too coarse. A commit and an unblocked read downstream of that commit often fall in the same millisecond, and the two print statements order themselves by output-buffer flush rather than by wall time. If you see a read of a post-commit value timestamped before the commit on a ms-resolution log, that is a logging artifact, not a consistency violation.
 
 Pessimistic is the right choice when contention is common and the application can tolerate the serialized execution. If two transactions want the same keys, one waits. Nothing unusual happens; the waiting client holds a connection until its turn arrives. If waiting is not acceptable for your workload, optimistic concurrency trades waiting for retries.
 
@@ -1125,7 +1016,7 @@ Pessimistic is the right choice when contention is common and the application ca
 
 Pessimistic concurrency puts the cost of coordination on wait time. The second transaction sits on a lock until the first one commits. Safe, but contended keys process one transaction at a time.
 
-Optimistic concurrency trades waiting for the possibility of failure. Both transactions read in parallel without locks, work against their own in-transaction view, and race to commit. At commit, Ignite checks whether any key in the transaction's read set was modified by another transaction that already committed. If it was, the commit throws `TransactionOptimisticException` and the application decides what to do next.
+Optimistic concurrency trades waiting for the possibility of failure. Both transactions read in parallel without locks, work against their own in-transaction view, and race to commit. At commit, GridGain checks whether any key in the transaction's read set was modified by another transaction that already committed. If it was, the commit throws `TransactionOptimisticException` and the application decides what to do next.
 
 The sequence diagram below contrasts the two models on the same two-thread scenario you are about to run:
 
@@ -1155,7 +1046,7 @@ Three properties of the optimistic model matter for how you write the code:
 
 - **There is no waiting phase.** Both transactions proceed as fast as the network allows.
 - **One of them can fail.** The loser's commit throws and the transaction's writes are rolled back.
-- **The application owns the retry.** Ignite does not retry for you. Your code catches the exception, reads fresh values, and tries again.
+- **The application owns the retry.** GridGain does not retry for you. Your code catches the exception, reads fresh values, and tries again.
 
 Only `TransactionIsolation.SERIALIZABLE` turns on the commit-time validation. Without it, `OPTIMISTIC` does not detect conflicts at all, and contending transactions silently overwrite each other's writes. That is almost never what multi-key logic wants. This tutorial uses `SERIALIZABLE`.
 
@@ -1191,19 +1082,19 @@ import org.apache.ignite.transactions.TransactionOptimisticException;
  * other transaction. The losing thread retries with fresh reads
  * and succeeds on attempt 2.
  *
- * Optimistic concurrency in Ignite 2 works as follows:
+ * Optimistic concurrency in GridGain 8 works as follows:
  *
  *   - Reads do not acquire locks. Transactions proceed in parallel
  *     and do not know about each other during the read-and-modify
  *     phase.
- *   - At commit time, Ignite runs a validation step that compares
+ *   - At commit time, GridGain runs a validation step that compares
  *     the transaction's read set against the current committed
  *     state. If any key in the read set has been modified by
  *     another transaction since the read, validation fails.
  *   - Validation failure throws TransactionOptimisticException
  *     before the transaction commits any of its writes.
  *   - The application must catch the exception, re-read the
- *     affected keys, and try again. Ignite does not automatically
+ *     affected keys, and try again. GridGain does not automatically
  *     retry for you.
  *
  * Isolation level matters: SERIALIZABLE is the only isolation
@@ -1339,7 +1230,7 @@ public class OptimisticTransfers {
                 cache.put(fromId, fromBalance.subtract(amount));
                 cache.put(toId, toBalance.add(amount));
 
-                // Validation happens here. Ignite checks whether
+                // Validation happens here. GridGain checks whether
                 // any key this transaction read or wrote has been
                 // modified by another transaction that committed
                 // since our reads. If yes, this commit() throws
@@ -1447,7 +1338,7 @@ Not every atomic cache operation involves multiple keys. "Customer 1003 earns 25
 
 Two constraints apply:
 
-- **Serialization.** The processor class has to be `Serializable` because Ignite ships it across the network. `org.apache.ignite.cache.CacheEntryProcessor` is a subinterface that adds `Serializable` to the JSR-107 `EntryProcessor`.
+- **Serialization.** The processor class has to be `Serializable` because GridGain ships it across the network. `org.apache.ignite.cache.CacheEntryProcessor` is a subinterface that adds `Serializable` to the JSR-107 `EntryProcessor`.
 - **Server-side class loading.** The server node has to load the class. Peer class loading handles that when both client and server have the flag enabled and the class bytecode is compatible with the server's JVM.
 
 Confirm peer class loading is enabled on the cluster. The flag has to match on every node, so the client's `setPeerClassLoadingEnabled(true)` call in every class you have written so far has to pair with a matching server-side setting:
@@ -1501,10 +1392,10 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
  *     transaction would only work on TRANSACTIONAL.
  *
  * The JSR-107 specification defines EntryProcessor as a plain Java
- * interface with no Serializable constraint. Ignite adds
+ * interface with no Serializable constraint. GridGain adds
  * CacheEntryProcessor, a subinterface that extends Serializable, so
  * the closure can be shipped across the network. Always use
- * CacheEntryProcessor for Ignite cache.invoke() calls; a bare
+ * CacheEntryProcessor for GridGain cache.invoke() calls; a bare
  * EntryProcessor (without Serializable) throws during marshalling
  * when the cache tries to send it to the server.
  *
@@ -1521,7 +1412,7 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
  *     security reasons.
  *
  * Either way, the bytecode the server loads must be compatible
- * with the server's JVM. The Ignite 2 and GridGain 8 Docker images
+ * with the server's JVM. The GridGain 8 Docker images
  * run a Java 8 JVM, so the project's maven.compiler.release is set
  * to 8. Classes compiled with newer bytecode crash the server JVM
  * on load with UnsupportedClassVersionError.
@@ -1541,13 +1432,13 @@ public class EarnCredit {
      *     needed for serialization and would bloat the wire
      *     representation.
      *
-     *   - Serializable (via CacheEntryProcessor): Ignite ships the
+     *   - Serializable (via CacheEntryProcessor): GridGain ships the
      *     processor instance to the server as serialized bytes.
      *     Without Serializable, the cache throws
      *     BinaryObjectException during the put phase of invoke().
      *
      *   - Stateless: the class has no fields. EntryProcessor
-     *     documentation requires this because Ignite may invoke
+     *     documentation requires this because GridGain may invoke
      *     the same processor instance multiple times (for backup
      *     updates, for example), and a stateful processor would
      *     produce different results on the second call. Keeping
@@ -1567,7 +1458,7 @@ public class EarnCredit {
          *
          * @throws EntryProcessorException signals a business-level
          *         failure to the caller. Throwing any other
-         *         exception type works too; Ignite wraps it in an
+         *         exception type works too; GridGain wraps it in an
          *         EntryProcessorException before rethrowing on
          *         the client.
          */
@@ -1663,7 +1554,7 @@ public class EarnCredit {
 ```
 {% endcode %}
 
-`AddCredit` is a stateless, Serializable processor. It reads the entry's current value, adds the increment passed in the `args` varargs, writes the new value with `entry.setValue()`, and returns the new balance. Ignite ships the `AddCredit` class to the primary node for key 1003, runs it there, and returns the result.
+`AddCredit` is a stateless, Serializable processor. It reads the entry's current value, adds the increment passed in the `args` varargs, writes the new value with `entry.setValue()`, and returns the new balance. GridGain ships the `AddCredit` class to the primary node for key 1003, runs it there, and returns the result.
 
 Run it:
 

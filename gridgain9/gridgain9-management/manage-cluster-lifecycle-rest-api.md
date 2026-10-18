@@ -1,6 +1,6 @@
 ---
 description: >-
-  Monitor node startup, initialize a cluster, and verify health using REST endpoints on Apache Ignite 3 or GridGain 9.
+  Monitor node startup, initialize a cluster, and verify health using REST endpoints on GridGain 9.
 ---
 
 # How to Manage Cluster Lifecycle With the REST API
@@ -13,7 +13,7 @@ description: >-
 
 ## Overview
 
-Every Apache Ignite 3 and GridGain 9 node exposes a REST management API on port 10300. The API is available as soon as the node's HTTP server starts, before the cluster is initialized. This guide walks through each REST endpoint in the order you use them during startup: check node state, verify discovery, initialize the cluster, and confirm health. Both products share the same REST API paths and response formats. The differences are the license field in the GridGain 9 initialization request and the product name and version number in the version response.
+Every GridGain 9 node exposes a REST management API on port 10300. The API is available as soon as the node's HTTP server starts, before the cluster is initialized. This guide walks through each REST endpoint in the order you use them during startup: check node state, verify discovery, initialize the cluster, and confirm health. Both products share the same REST API paths and response formats. The differences are the license field in the GridGain 9 initialization request and the product name and version number in the version response.
 
 Use this guide when you need scriptable cluster management, want to diagnose startup issues, or are building automation around cluster lifecycle.
 
@@ -77,30 +77,12 @@ Check the product version:
 curl -s http://localhost:10300/management/v1/node/version | jq .
 ```
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```json
-{
-  "version": "3.1.0",
-  "product": "Apache Ignite"
-}
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```json
 {
   "version": "latest GridGain 9 version",
   "product": "GridGain"
 }
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ## Confirm Node Discovery
 
@@ -165,23 +147,6 @@ Wait until all expected nodes appear before proceeding. Node names are case-sens
 
 Cluster initialization is a one-time operation that creates the Cluster Management Group (CMG) and MetaStorage RAFT groups, assigns a cluster name, and opens the cluster for client connections. Send the request to any single node. It propagates to all discovered nodes.
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-curl -X POST http://localhost:10300/management/v1/cluster/init \
-  -H "Content-Type: application/json" \
-  -d '{
-    "metaStorageNodes": ["node1", "node2", "node3"],
-    "cmgNodes": ["node1", "node2", "node3"],
-    "clusterName": "my-cluster"
-  }'
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 GridGain 9 requires a license in the initialization request. Pass the license file content using command substitution:
 
 ```bash
@@ -195,10 +160,6 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
   }'
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 A successful initialization returns **HTTP 200 with an empty response body**. The endpoint blocks until the receiving node has fully joined the cluster, so the response itself confirms that at least one node has transitioned to `STARTED`.
 
 The request fields:
@@ -209,7 +170,7 @@ The request fields:
 | `cmgNodes` | No | Nodes hosting the CMG RAFT group. Defaults to `metaStorageNodes` if omitted. |
 | `clusterName` | Yes | Human-readable cluster name. Must not be blank. |
 | `clusterConfiguration` | No | Initial cluster configuration in HOCON format. |
-| `license` | GG9 only | License key content. Not applicable for Apache Ignite 3. |
+| `license` | Yes | License key content. |
 
 If you omit both `metaStorageNodes` and `cmgNodes`, the cluster auto-selects nodes: all nodes for clusters of 1-3, three nodes for clusters of 4, and five nodes for clusters of 5 or more. Nodes are selected alphabetically by name.
 
@@ -258,7 +219,7 @@ Expected response:
 }
 ```
 
-The `cmgNodes` field lists nodes hosting the Cluster Management Group and `msNodes` lists nodes hosting MetaStorage. Both should contain all three nodes for a standard 3-node development cluster. The `igniteVersion` field reflects the product version: Apache Ignite 3 reports `3.1.0` and GridGain 9 reports its own version (the latest GridGain 9 version).
+The `cmgNodes` field lists nodes hosting the Cluster Management Group and `msNodes` lists nodes hosting MetaStorage. Both should contain all three nodes for a standard 3-node development cluster. The `igniteVersion` field reflects the product version.
 
 Verify that each node has transitioned to `STARTED`:
 
@@ -277,7 +238,7 @@ Port 10302: STARTED
 ```
 
 {% hint style="info" %}
-On the latest GridGain 9 version and Apache Ignite 3.2.0+, health probe endpoints provide an additional readiness signal. Query `/health/readiness` for a 200 `UP` response after initialization, or 503 `DOWN` before. On older versions, these endpoints return 404. The node state endpoint is the reliable cross-version indicator.
+On the latest GridGain 9 version, health probe endpoints provide an additional readiness signal. Query `/health/readiness` for a 200 `UP` response after initialization, or 503 `DOWN` before. On older versions, these endpoints return 404. The node state endpoint is the reliable cross-version indicator.
 {% endhint %}
 
 {% hint style="success" %}

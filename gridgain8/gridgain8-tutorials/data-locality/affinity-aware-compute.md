@@ -13,8 +13,6 @@ Each pattern fits a different workload. Broadcast with local scan handles batch 
 
 Every technique relies on peer class loading. The closure classes live in your client JVM and the cluster has never seen them. At invoke time the client serializes the closure, ships the class bytes to the target server, and the server deserializes and runs the code. The cluster config from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) already has `peerClassLoadingEnabled=true` on every server. Without that setting, every closure in this tutorial fails at deserialization with `ClassNotFoundException`.
 
-The Java code is identical across Apache Ignite 2 and GridGain 8. Product tabs cover only Maven coordinates and the Docker image.
-
 ## Prerequisites
 
 - **Completion of [Verify Colocation Is Working](verify-colocation.md).** You have colocated Customer and Invoice caches with `@AffinityKeyMapped` on `customerId` and know how to prove the contract holds.
@@ -28,24 +26,9 @@ This tutorial builds a fresh Maven project called `affinity-compute/` alongside 
 <details>
 <summary>Returning to the path? Verify the 3-node cluster is running.</summary>
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Three server containers in the `Up` state. If the cluster is stopped, start it with `docker compose -f cache-cluster/docker-compose-3nodes.yml up -d` and wait for `servers=3` in the topology snapshot.
 
@@ -81,73 +64,7 @@ affinity-compute/
     └── ScaleExperiment.java
 ```
 
-The `pom.xml` targets Java 8 bytecode and suppresses Ignite's startup logs so each class's output stands out.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-{% code title="affinity-compute/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>affinity-compute</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.example.compute.BroadcastRevenue</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens</argument>
-                        <argument>java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+The `pom.xml` targets Java 8 bytecode and suppresses GridGain's startup logs so each class's output stands out.
 
 {% code title="affinity-compute/pom.xml" %}
 ```xml
@@ -214,10 +131,6 @@ The `pom.xml` targets Java 8 bytecode and suppresses Ignite's startup logs so ea
 </project>
 ```
 {% endcode %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Create the shared model classes. The shape matches the previous tutorials, with one addition: Customer gains a `country` field so the synthetic data has a second dimension a reader could aggregate on in a later experiment.
 
@@ -528,7 +441,7 @@ Loaded 1000 customers + 3000 invoices in 20137 ms
 Customer cache size: 1000, Invoice cache size: 3000
 ```
 
-The first load pays a fixed startup cost for the DataStreamer and the Ignite client. Subsequent loads against the running JVM take under two seconds.
+The first load pays a fixed startup cost for the DataStreamer and the GridGain client. Subsequent loads against the running JVM take under two seconds.
 
 {% hint style="success" %}
 **Checkpoint:** `DataLoader` reports `Loaded 1000 customers + 3000 invoices` and `Customer cache size: 1000, Invoice cache size: 3000`. The topology snapshot shows `servers=3, clients=1`.
@@ -607,7 +520,7 @@ public class BroadcastRevenue {
 
     /**
      * Runs on each server. @IgniteInstanceResource injects the local
-     * Ignite handle so the callable can reach the caches without the
+     * GridGain handle so the callable can reach the caches without the
      * client reopening a connection on the server side. topN is
      * captured as a final field. No client-JVM state leaks into the
      * serialized closure.
@@ -650,7 +563,7 @@ public class BroadcastRevenue {
             }
             all.sort(Comparator.comparing((CustomerRevenue cr) -> cr.total).reversed());
             // Return a new ArrayList. ArrayList$SubList does not
-            // round-trip through Ignite's binary marshaller on the way
+            // round-trip through GridGain's binary marshaller on the way
             // back to the client.
             return new ArrayList<>(all.subList(0, Math.min(topN, all.size())));
         }
@@ -691,35 +604,7 @@ mvn -f affinity-compute/pom.xml compile
 mvn -f affinity-compute/pom.xml exec:exec -Dexec.mainClass=com.example.compute.BroadcastRevenue
 ```
 
-Expected output. The top-10 customer IDs and revenues are deterministic and stable across products. Wall-clock varies by product and machine.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-Loaded 100000 customers + 300000 invoices in 21340 ms
-Customer cache size: 100000, Invoice cache size: 300000
-
-=== Act 1: Broadcast + local scan ===
-
-Reporting nodes: 3
-Merged top 10 across 100000 customers:
-  customer 97379     $2668
-  customer 49251     $2664
-  customer 95843     $2641
-  customer 47715     $2634
-  customer 87651     $2620
-  customer 72867     $2614
-  customer 10883     $2608
-  customer 95011     $2607
-  customer 9635      $2606
-  customer 92067     $2606
-Broadcast wall-clock: 179 ms
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+Expected output. The top-10 customer IDs and revenues are deterministic and stable. Wall-clock varies by product and machine.
 
 ```text
 Loaded 100000 customers + 300000 invoices in 14518 ms
@@ -741,10 +626,6 @@ Merged top 10 across 100000 customers:
   customer 92067     $2606
 Broadcast wall-clock: 983 ms
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 `Reporting nodes: 3` confirms the broadcast landed on every data node. The thick client is not a data node, so the callable does not run there. One compute invocation produced the result across 300,000 invoices. The wall-clock is dominated by per-node scan time, not by the network.
 
@@ -924,7 +805,7 @@ mvn -f affinity-compute/pom.xml compile
 mvn -f affinity-compute/pom.xml exec:exec -Dexec.mainClass=com.example.compute.AffinityCallPerCustomer
 ```
 
-Expected output. Your node label varies per run, but customer 47's name, country, and revenue are deterministic and stable across products.
+Expected output. Your node label varies per run, but customer 47's name, country, and revenue are deterministic and stable.
 
 ```text
 === Act 2: affinityCall per customer ===
@@ -1341,39 +1222,7 @@ mvn -f affinity-compute/pom.xml compile
 mvn -f affinity-compute/pom.xml exec:exec -Dexec.mainClass=com.example.compute.ScaleExperiment
 ```
 
-Expected output. Wall-clock varies by product, cluster, and run. Byte counts are derived from data shape and are identical across products.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```text
-=== Scale 1,000 customers + 3,000 invoices ===
-  A pull-to-client     : 37 ms  (~120,000 bytes to client)
-  B broadcast + scan   : 60 ms  (~960 bytes to client)
-  C partition-parallel : 353 ms  (~10,240 bytes to client)
-
-=== Scale 10,000 customers + 30,000 invoices ===
-  A pull-to-client     : 73 ms  (~1,200,000 bytes to client)
-  B broadcast + scan   : 26 ms  (~960 bytes to client)
-  C partition-parallel : 105 ms  (~10,240 bytes to client)
-
-=== Scale 100,000 customers + 300,000 invoices ===
-  A pull-to-client     : 354 ms  (~12,000,000 bytes to client)
-  B broadcast + scan   : 129 ms  (~960 bytes to client)
-  C partition-parallel : 173 ms  (~10,240 bytes to client)
-
-=== Scale experiment summary ===
-
-Customers   A: pull-to-client       B: broadcast            C: partition-parallel
--------------------------------------------------------------------------------
-     1,000        37 ms /  120,000 B        60 ms /      960 B       353 ms /   10,240 B
-    10,000        73 ms / 1,200,000 B        26 ms /      960 B       105 ms /   10,240 B
-   100,000       354 ms / 12,000,000 B       129 ms /      960 B       173 ms /   10,240 B
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
+Expected output. Wall-clock varies by cluster and run. Byte counts are derived from data shape and are identical across runs.
 
 ```text
 === Scale 1,000 customers + 3,000 invoices ===
@@ -1400,21 +1249,17 @@ Customers   A: pull-to-client       B: broadcast            C: partition-paralle
    100,000       806 ms / 12,000,000 B       396 ms /      960 B       256 ms /   10,240 B
 ```
 
-{% endtab %}
-
-{% endtabs %}
-
 Read the columns.
 
-**A (pull-to-client):** bytes grow 100x from 1k to 100k, climbing to 12 MB at 100,000 customers. Only Invoice rows cross the wire because the Customer cache stays on the servers. Wall-clock grows 10x on both products. On a loopback network the time grows less dramatically than the bytes because the network has abundant bandwidth. On a production network with real latency and shared bandwidth, the ratio tracks the byte ratio. The byte column predicts what a production network sees. The ms column reports what localhost did on this run.
+**A (pull-to-client):** bytes grow 100x from 1k to 100k, climbing to 12 MB at 100,000 customers. Only Invoice rows cross the wire because the Customer cache stays on the servers. Wall-clock grows 10x. On a loopback network the time grows less dramatically than the bytes because the network has abundant bandwidth. On a production network with real latency and shared bandwidth, the ratio tracks the byte ratio. The byte column predicts what a production network sees. The ms column reports what localhost did on this run.
 
 **B (broadcast + local scan):** bytes are flat at ~960 B because three nodes each return a ten-row list. Scan time grows with per-node data while return size stays fixed.
 
 **C (partition-parallel affinityCall):** bytes are flat at ~10,240 B because 32 partitions each return a ten-row list. Wall-clock scales with per-partition scan time plus the scheduling overhead of 32 jobs instead of 3.
 
-The interesting contrast is **B vs C at 100k**. On Apache Ignite 2, B (129 ms) beats C (173 ms). Three big jobs schedule more efficiently than 32 small ones on a 3-node cluster. On GridGain 8, C (256 ms) beats B (396 ms). Partition-parallelism pulls ahead when per-job scan time drops below the scheduling overhead ceiling. The ordering depends on product, cluster size, and data distribution. Broadcast is the safest default for batch aggregation. Partition-parallel wins when finer granularity matters, including streaming early results to the client, handling skewed partitions, or running a job that must run exactly once per partition for correctness.
+The interesting contrast is **B vs C at 100k**. On GridGain 8, C (256 ms) beats B (396 ms). Partition-parallelism pulls ahead when per-job scan time drops below the scheduling overhead ceiling. The ordering depends on cluster size and data distribution. Broadcast is the safest default for batch aggregation. Partition-parallel wins when finer granularity matters, including streaming early results to the client, handling skewed partitions, or running a job that must run exactly once per partition for correctness.
 
-Run the experiment three times and the wall-clock numbers move ±30%. The A-at-worst / B-and-C-under-A ordering holds across runs and products. The B-vs-C result is stable within a product but reverses between products.
+Run the experiment three times and the wall-clock numbers move ±30%. The A-at-worst / B-and-C-under-A ordering holds across runs.
 
 {% hint style="success" %}
 **Checkpoint:** The summary table shows A climbing from under 100 ms at 1k to several hundred ms and 16 MB at 100k. B and C both stay an order of magnitude below A's byte count at every scale.
@@ -1439,7 +1284,7 @@ Most readers reach for pull-to-client first by reflex. At 100,000 customers pull
 
 Three compute patterns cover the workload shapes that show up in production.
 
-**Broadcast with local scan for batch aggregation.** One job per server, each reading its primary partitions via `ScanQuery.setLocal(true)` and returning a per-node summary. The client merges one list per node. The full dataset never leaves the servers. Partition-parallel is the alternative when per-partition scan time drops below broadcast's per-node overhead. The measurements in this tutorial show partition-parallel winning on GridGain 8 at 100k and broadcast winning on Apache Ignite 2 at 100k on the same hardware.
+**Broadcast with local scan for batch aggregation.** One job per server, each reading its primary partitions via `ScanQuery.setLocal(true)` and returning a per-node summary. The client merges one list per node. The full dataset never leaves the servers. Partition-parallel is the alternative when per-partition scan time drops below broadcast's per-node overhead. The measurements in this tutorial show partition-parallel winning on GridGain 8 at 100k and broadcast winning on GridGain 8 at 100k on the same hardware.
 
 **`affinityCall` per key for service-time single-key queries.** One round-trip, one target node, one result. Use it whenever a service request names one customer, one order, or one account.
 

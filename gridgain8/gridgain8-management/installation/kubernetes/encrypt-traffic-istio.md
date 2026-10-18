@@ -9,13 +9,13 @@ description: >-
 
 - A running Kubernetes cluster with `kubectl` access. The commands below were tested on [kind](https://kind.sigs.k8s.io). They apply unchanged to managed Kubernetes (EKS, GKE, AKS); only the external load balancer in the optional gateway step differs by platform.
 - **istioctl** 1.20 or later ([install guide](https://istio.io/latest/docs/setup/getting-started/#download)).
-- **GridGain 8 only:** A GridGain Enterprise evaluation or commercial license file (`gridgain-license.xml`) from [gridgain.com/tryfree](https://www.gridgain.com/tryfree). Apache Ignite 2 needs no license.
+- **GridGain 8 only:** A GridGain Enterprise evaluation or commercial license file (`gridgain-license.xml`) from [gridgain.com/tryfree](https://www.gridgain.com/tryfree).
 
 ## Overview
 
 This guide encrypts every transport into and across a two-node cache cluster using an Istio service mesh: discovery and communication between nodes, thin-client connections, and external HTTP traffic. Istio wraps each connection in mutual TLS at the sidecar, so the cluster runs with no SSL configuration of its own and no keystores to manage.
 
-The procedure runs against both Apache Ignite 2 and GridGain 8 Enterprise. The two products share the same cache-centric ports and the same Kubernetes manifests. The only differences are the Docker image and the GridGain license, which appear in the deployment step. Every Istio resource is identical across both.
+The procedure runs against GridGain 8 Enterprise.
 
 Two notes on the environment. This guide uses Kubernetes rather than the standard local Docker setup because a service mesh is a Kubernetes construct. It uses two cache nodes rather than one because the value of the mesh is encrypting the traffic between nodes, which only exists once a second node joins.
 
@@ -75,134 +75,6 @@ ignite   Active   0s    istio-injection=enabled,kubernetes.io/metadata.name=igni
 
 Deploy a two-node cluster configured for Istio. The manifests below define three objects: a `ConfigMap` holding the node configuration, a headless `Service` for peer discovery, and a `StatefulSet` running two cache nodes. Two details in these manifests are what make Istio work with a stateful cache cluster, and both are called out after the code.
 
-Select your product. The manifests are identical except for the node image and, for GridGain 8, the license.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-Save the following as `ignite-cluster.yaml`:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ignite-config
-  namespace: ignite
-data:
-  ignite-config.xml: |
-    <?xml version="1.0" encoding="UTF-8"?>
-    <beans xmlns="http://www.springframework.org/schema/beans"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
-      <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
-        <property name="workDirectory" value="/ignite/work"/>
-        <property name="cacheConfiguration">
-          <list>
-            <bean class="org.apache.ignite.configuration.CacheConfiguration">
-              <property name="name" value="PERSON"/>
-              <property name="cacheMode" value="PARTITIONED"/>
-              <property name="backups" value="1"/>
-            </bean>
-          </list>
-        </property>
-        <property name="discoverySpi">
-          <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-            <property name="ipFinder">
-              <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
-                <property name="addresses">
-                  <list>
-                    <value>ignite-headless.ignite.svc.cluster.local</value>
-                  </list>
-                </property>
-              </bean>
-            </property>
-          </bean>
-        </property>
-      </bean>
-    </beans>
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ignite-headless
-  namespace: ignite
-spec:
-  clusterIP: None
-  publishNotReadyAddresses: true
-  ports:
-    - port: 10800
-      name: tcp-thinclient
-    - port: 47100
-      name: tcp-communication
-    - port: 47500
-      name: tcp-discovery
-  selector:
-    app: ignite
-    type: server
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: ignite
-  namespace: ignite
-spec:
-  replicas: 2
-  serviceName: ignite-headless
-  selector:
-    matchLabels:
-      app: ignite
-      type: server
-  template:
-    metadata:
-      labels:
-        app: ignite
-        type: server
-      annotations:
-        proxy.istio.io/config: |
-          holdApplicationUntilProxyStarts: true
-    spec:
-      terminationGracePeriodSeconds: 60
-      volumes:
-        - name: ignite-config
-          configMap:
-            name: ignite-config
-        - name: ignite-work
-          emptyDir: {}
-      containers:
-        - name: ignite-node
-          image: apacheignite/ignite:2.16.0
-          resources:
-            limits:
-              memory: 1536Mi
-              cpu: 1
-          env:
-            - name: IGNITE_QUIET
-              value: "false"
-            - name: OPTION_LIBS
-              value: ignite-rest-http
-            - name: CONFIG_URI
-              value: file:///ignite/config/ignite-config.xml
-            - name: JVM_OPTS
-              value: -Djava.net.preferIPv4Stack=true
-          ports:
-            - containerPort: 10800
-            - containerPort: 11211
-            - containerPort: 47100
-            - containerPort: 47500
-            - containerPort: 8080
-          volumeMounts:
-            - mountPath: /ignite/config
-              name: ignite-config
-            - mountPath: /ignite/work
-              name: ignite-work
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8 Enterprise" %}
-
 GridGain 8 Enterprise requires a license. Create a Secret from your license file first:
 
 ```bash
@@ -211,7 +83,7 @@ kubectl create secret generic gridgain-license \
   --from-file=gridgain-license.xml=./gridgain-license.xml
 ```
 
-Save the following as `ignite-cluster.yaml`. The node configuration adds the GridGain plugin pointing at the mounted license; everything else matches the Apache Ignite 2 manifests:
+Save the following as `ignite-cluster.yaml`. The node configuration adds the GridGain plugin pointing at the mounted license:
 
 ```yaml
 apiVersion: v1
@@ -342,10 +214,6 @@ spec:
             - mountPath: /ignite/work
               name: ignite-work
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Apply the manifests:
 

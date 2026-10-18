@@ -12,12 +12,12 @@ The entity classes from the previous tutorial carry two responsibilities: they d
 In this tutorial, you build a data access layer for the Music Store: nine service methods, each selecting its API based on key availability, operation shape, and safety requirements.
 
 {% hint style="info" %}
-Apache Ignite 3 and GridGain 9 share the same RecordView, KeyValueView, SQL, and transaction APIs. All Java code in this tutorial is identical on both products. Select your product version in the tabs for Maven coordinates and CLI commands. GridGain 9 adds near-cache for client-side caching, covered in a dedicated section at the end.
+GridGain 9 provides the RecordView, KeyValueView, SQL, and transaction APIs used in this tutorial, and adds near-cache for client-side caching, covered in a dedicated section at the end.
 {% endhint %}
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local Ignite 3 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
 - **Completed** [Implement Schema with Java Annotations](schema-java-annotations.md) (you need the entity classes and familiarity with composite primary keys)
 - **Java 17+** and a Java IDE (IntelliJ IDEA, VS Code with Java extensions, or similar)
 
@@ -26,26 +26,10 @@ Apache Ignite 3 and GridGain 9 share the same RecordView, KeyValueView, SQL, and
 
 Check that the cluster is running and the Music Store data is loaded:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-docker exec ignite3-node1 /opt/ignite3cli/bin/ignite3 sql \
-  "SELECT COUNT(*) AS tracks FROM Track;"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 **Expected result: 3503.** If the query succeeds, your environment is ready.
 
@@ -57,7 +41,7 @@ docker compose up -d
 
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
-**If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize. See [Start Your Local Ignite 3 Development Cluster](../distributed-sql-foundations/start-local-cluster.md) for the full setup process.
+**If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize. See [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md) for the full setup process.
 
 </details>
 
@@ -74,43 +58,6 @@ Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then 
 Create a new Maven project in your IDE. This is a separate project from the annotations tutorial. A fresh project avoids dependencies on any modifications you may have made, and the entity classes are portable because the annotations carry the schema definition with the class.
 
 Replace the generated `pom.xml` with the following:
-
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-{% code title="pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>music-store-access</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-client</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-    </dependencies>
-</project>
-```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
 
 {% code title="pom.xml" %}
 ```xml
@@ -153,10 +100,6 @@ Replace the generated `pom.xml` with the following:
 {% hint style="info" %}
 GridGain 9 artifacts are published to the GridGain external Nexus repository, not Maven Central. The `<repositories>` block is required for all GridGain 9 projects.
 {% endhint %}
-
-{% endtab %}
-
-{% endtabs %}
 
 Copy four entity classes from the annotations tutorial into a `model` package (`src/main/java/com/example/musicstore/model/`): `Artist`, `Album`, `Customer`, and `Invoice`. These are the tables the service class operates on through the programmatic APIs. SQL queries reference other tables (Track, InvoiceLine) by name without needing entity classes.
 
@@ -1375,15 +1318,6 @@ The **EXPLAIN plan** at the bottom confirms the routing for `findAlbumsByArtist`
 
 ## Near-Cache: Trading Consistency for Speed
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-Apache Ignite 3 does not include near-cache. All KeyValueView and RecordView reads go to the cluster on every call, guaranteeing strong consistency. Skip to the next step.
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 GridGain 9 adds client-side caching through `NearCacheOptions`. A near-cached KeyValueView stores recently accessed entries in the client JVM's heap. The first read for a key fetches from the cluster; subsequent reads for the same key return from local memory until the time-to-live (TTL) expires.
 
 The speed gain is real, but it comes with constraints that affect API selection.
@@ -1535,12 +1469,8 @@ The near-cache polling mode uses ContinuousQuery internally to receive change ev
 ContinuousQuery is also the change-capture primitive that powers the GG9 streaming stack: Kafka Connect source connectors stream table changes to Kafka topics. Data Center Replication copies data across clusters. Change Data Capture feeds changes to Apache Iceberg tables. All of these operate on the same tables and colocation chains you designed in the schema tutorials.
 {% endhint %}
 
-{% endtab %}
-
-{% endtabs %}
-
 {% hint style="success" %}
-**Checkpoint:** GridGain 9 users: NearCacheDemo shows sub-millisecond reads after the first fetch, staleness on cross-client writes, and an `UnsupportedOperationException` on transactional access. Apache Ignite 3 users: this step is informational only.
+**Checkpoint:** NearCacheDemo shows sub-millisecond reads after the first fetch, staleness on cross-client writes, and an `UnsupportedOperationException` on transactional access.
 {% endhint %}
 
 ## The Access Pattern Matrix

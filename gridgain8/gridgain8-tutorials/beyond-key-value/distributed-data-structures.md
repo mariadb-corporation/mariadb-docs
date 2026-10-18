@@ -11,12 +11,12 @@ So far in this path the cluster has acted as a data service. You stored entries,
 
 A team that needs cluster-wide coordination from a key-value cache pieces it together from a few sources. Counter increments and blocking queue pops typically come from the cache server itself. Distributed locks come from a separate library, with correctness tradeoffs the application is left to defend.
 
-Apache Ignite and GridGain expose three <dfn title="The API matches the contract of a java.util.concurrent type.">JUC-shaped</dfn> primitives on the `Ignite` interface. `IgniteAtomicLong` mirrors the JDK `AtomicLong` method surface (`get`, `incrementAndGet`, `compareAndSet`), with the difference that every node in the cluster sees the same value through the same coordination path. `IgniteLock` is a cluster-scoped `ReentrantLock`, and `IgniteQueue` is a cluster-scoped `BlockingQueue`. You build a small project with one runnable class per primitive and watch each one work across two clients.
+GridGain exposes three <dfn title="The API matches the contract of a java.util.concurrent type.">JUC-shaped</dfn> primitives on the `Ignite` interface. `IgniteAtomicLong` mirrors the JDK `AtomicLong` method surface (`get`, `incrementAndGet`, `compareAndSet`), with the difference that every node in the cluster sees the same value through the same coordination path. `IgniteLock` is a cluster-scoped `ReentrantLock`, and `IgniteQueue` is a cluster-scoped `BlockingQueue`. You build a small project with one runnable class per primitive and watch each one work across two clients.
 
 ## Prerequisites
 
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in that compose pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
-- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so closures and reflection paths work on both the AI2 server (Java 8) and the GG8 server (Java 11).
+- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so closures and reflection paths work on the GridGain 8 server (Java 11).
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 - **Two terminal windows.** The Lock and Queue scenarios run a second JVM in the second terminal.
@@ -28,26 +28,10 @@ This tutorial creates a fresh `distributed-primitives/` Maven project. The clust
 
 If the three-node cluster from the earlier tutorials is no longer running, start it before continuing.
 
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-```bash
-docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
-docker ps --filter name=ignite2-node --format "table {{.Names}}\t{{.Status}}"
-```
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
-
 ```bash
 docker compose -f cache-cluster/docker-compose-3nodes.yml up -d
 docker ps --filter name=gridgain8-node --format "table {{.Names}}\t{{.Status}}"
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 The output lists three server containers in the `Up` state. The cluster is in-memory, so any prior data was discarded with the previous session. The primitives this tutorial creates do not depend on existing data.
 
@@ -70,82 +54,6 @@ By the end, you run a counter that two clients share, watch two terminals conten
 ## Set up the Project
 
 Create the `distributed-primitives/` Maven project alongside any other project directories from earlier tutorials. The pom uses the same Java-8-bytecode target as the rest of the path so the host client and the cluster servers agree on class file format.
-
-{% tabs %}
-{% tab title="Apache Ignite 2" %}
-
-<details>
-<summary><code>distributed-primitives/pom.xml</code></summary>
-
-{% code title="distributed-primitives/pom.xml" %}
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>distributed-primitives</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <properties>
-        <maven.compiler.release>8</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ignite.version>2.16.0</ignite.version>
-        <exec.mainClass>com.example.AtomicLongDemo</exec.mainClass>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-core</artifactId>
-            <version>${ignite.version}</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.io=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.nio=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.net=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.lang.invoke=ALL-UNNAMED</argument>
-                        <argument>--add-opens=java.base/java.math=ALL-UNNAMED</argument>
-                        <argument>--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
-                        <argument>-Djava.net.preferIPv4Stack=true</argument>
-                        <argument>-DIGNITE_QUIET=true</argument>
-                        <argument>-DIGNITE_NO_ASCII=true</argument>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>${exec.mainClass}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
-{% endcode %}
-
-</details>
-
-{% endtab %}
-
-{% tab title="GridGain 8" %}
 
 <details>
 <summary><code>distributed-primitives/pom.xml</code></summary>
@@ -223,11 +131,7 @@ Create the `distributed-primitives/` Maven project alongside any other project d
 
 </details>
 
-GG8 artifacts are not on Maven Central. The `<repositories>` block points Maven at the GridGain external Nexus.
-
-{% endtab %}
-
-{% endtabs %}
+GridGain 8 artifacts are not on Maven Central. The `<repositories>` block points Maven at the GridGain external Nexus.
 
 Build the project once to confirm dependencies resolve and the empty source tree compiles:
 
@@ -235,7 +139,7 @@ Build the project once to confirm dependencies resolve and the empty source tree
 mvn -f distributed-primitives/pom.xml compile
 ```
 
-The first run downloads the Ignite or GridGain core jar; subsequent runs reuse the local cache.
+The first run downloads the GridGain core jar; subsequent runs reuse the local cache.
 
 {% hint style="success" %}
 **Checkpoint:** The `mvn compile` command finishes with `BUILD SUCCESS`. The `distributed-primitives/target/classes/` directory exists and is empty.
@@ -323,7 +227,7 @@ public class AtomicLongDemo {
             }
 
             // The same handle (counterA) sees the value B wrote from
-            // a separate Ignite instance.
+            // a separate GridGain instance.
             System.out.printf("[client A] %s read again: %d%n",
                 COUNTER_NAME, counterA.get());
         }
@@ -825,7 +729,7 @@ import org.apache.ignite.IgniteSet;
  * and QueueDemo: pass a name, optional initial state, and a
  * create-if-absent flag. Once the acquire-by-name pattern is clear
  * from the three runnable scenarios, every other primitive on the
- * Ignite interface uses the same call shape.
+ * GridGain interface uses the same call shape.
  *
  * The class compiles but is not run end-to-end. The bodies are
  * representative call sites, intentionally abstract. The product

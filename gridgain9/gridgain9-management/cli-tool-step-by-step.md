@@ -1,9 +1,9 @@
 ---
 description: >-
-  Connect to a cluster, execute SQL, and manage cluster state using the Ignite 3 command-line interface.
+  Connect to a cluster, execute SQL, and manage cluster state using the GridGain 9 command-line interface.
 ---
 
-# How to Work With the Ignite CLI
+# How to Work With the GridGain CLI
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ description: >-
 
 ## Overview
 
-This guide walks you through the Ignite CLI from first connection to cluster inspection. You will:
+This guide walks you through the GridGain CLI from first connection to cluster inspection. You will:
 
 - Connect to a running cluster from the REPL and in non-interactive mode.
 - Run SQL interactively and from files.
@@ -23,7 +23,6 @@ This guide walks you through the Ignite CLI from first connection to cluster ins
 By the end, you have a working command-line workflow for the tasks that come up every day during development: loading schemas, verifying data, and checking that your cluster is healthy.
 
 {% hint style="info" %}
-Both Apache Ignite 3 and GridGain 9 ship the same CLI with the same commands. The binary name and Docker image differ; select your product in the tabs where they diverge.
 {% endhint %}
 
 ## Learn the Two-port Model
@@ -45,24 +44,9 @@ The good news: after you `connect` to a node's REST port, the CLI discovers the 
 
 Start the CLI with no arguments:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-ignite3
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 gridgain9
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 The CLI shows a startup banner. If you have connected before, it offers to reconnect to the last node. Connect to the first node in your cluster:
 
@@ -78,24 +62,9 @@ The prompt changes from red `[disconnected]>` to green `[node1]>`. That node nam
 
 Pass the command directly to run it and exit:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-ignite3 cluster status --url http://localhost:10300
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 gridgain9 cluster status --url http://localhost:10300
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 ```
 [name: ignite3-reference-cluster, nodes: 3, status: active, cmgNodes: [node1, node2, node3], msNodes: [node1, node2, node3]]
@@ -155,7 +124,7 @@ For quick one-off queries, skip the SQL sub-REPL entirely. Pass the query as an 
 The result prints inline and you stay at the `[node1]>` prompt.
 
 {% hint style="info" %}
-The examples in this guide use built-in SQL expressions that work on any cluster. If you have loaded the Music Store dataset from [Start Your Local Ignite 3 Development Cluster](../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md), you can also query those tables directly (e.g., `sql "SELECT COUNT(*) FROM Artist"`).
+The examples in this guide use built-in SQL expressions that work on any cluster. If you have loaded the Music Store dataset from [Start Your Local GridGain 9 Development Cluster](../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md), you can also query those tables directly (e.g., `sql "SELECT COUNT(*) FROM Artist"`).
 {% endhint %}
 
 {% hint style="success" %}
@@ -172,24 +141,9 @@ Loading SQL from a file is how you set up schemas and seed data. From the main R
 
 Or non-interactively, which is the pattern most tutorials in the [GridGain 9 Tutorials](../gridgain9-tutorials/README.md) use:
 
-{% tabs %}
-{% tab title="Apache Ignite 3" %}
-
-```bash
-ignite3 sql --jdbc-url jdbc:ignite:thin://localhost:10800 --file /path/to/schema.sql
-```
-
-{% endtab %}
-
-{% tab title="GridGain 9" %}
-
 ```bash
 gridgain9 sql --jdbc-url jdbc:ignite:thin://localhost:10800 --file /path/to/schema.sql
 ```
-
-{% endtab %}
-
-{% endtabs %}
 
 Each statement in the file produces its own output line. A file that creates a table, inserts two rows, and queries them produces:
 

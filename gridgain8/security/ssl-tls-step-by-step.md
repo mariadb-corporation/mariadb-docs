@@ -396,7 +396,7 @@ This method can be used by cluster thick nodes and clients (that can use IgniteC
 - GridGain servers (Java, .Net, C++)
 - GridGain clients  (Java, .Net, C++)
 - Visor GUI in external mode
-- Ignite Jdbc Driver
+- GridGain Jdbc Driver
 
 Following sections describe how to configure SSL/TLS for thin clients (ODBC/JDBC) and HTTP connections (REST).
 
@@ -427,7 +427,7 @@ To use SSL/TLS for communication between your GridGain cluster and thin clients,
 
 ### Thin JDBC Client
 
-Ignite thin JDBC driver allows you to use secure socket communication to provide a secure connection between JDBC driver and GridGain node (includes the initial handshake).
+GridGain thin JDBC driver allows you to use secure socket communication to provide a secure connection between JDBC driver and GridGain node (includes the initial handshake).
 
 Here is an example of how to create a secure thin JDBC connection:
 
