@@ -252,6 +252,15 @@ Indicates if overwriting or removing existing values in the sink cache is enable
 - Default: `false`
 - Importance: medium
 
+`skipStore`
+
+Indicates if a configured cache store, if any, is bypassed when data is streamed into the sink cache. This setting takes effect only when `shallProcessUpdates` is `true`. If `shallProcessUpdates` is `false`, the sink connector does not write to the cache store.
+
+- Type: boolean
+- Default: `false`
+- Importance: medium
+- Introduced: GridGain 8.10.0
+
 `cacheFilter`
 
 Class name of a custom `java.util.function.Predicate<org.gridgain.kafka.CacheEntry>` implementation to filter data pushed to Ignite caches.
