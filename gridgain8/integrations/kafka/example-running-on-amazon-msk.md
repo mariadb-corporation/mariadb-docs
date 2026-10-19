@@ -13,7 +13,7 @@ description: >-
 
 ## Overview
 
-[GridGain]({gridgain9}/), derived from the open-source [Apache Ignite](https://ignite.apache.org/docs/latest/) platform, is a leading in-memory computing and data management platform.
+[GridGain](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/), derived from the open-source [Apache Ignite](https://ignite.apache.org/docs/latest/) platform, is a leading in-memory computing and data management platform.
 
 [Apache Kafka](https://kafka.apache.org/) is an open-source, distributed event streaming platform that can process and store large amounts of real-time data.
 

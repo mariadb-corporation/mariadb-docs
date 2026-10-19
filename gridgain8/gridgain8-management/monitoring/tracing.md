@@ -140,4 +140,4 @@ The commit operation, in turn, consists of two operations: prepare and finish. Y
 
 ## See Also
 
-- [Use Tracing to Resolve Performance Issues in GridGain]({tools}/enterprise/control-center/tutorials/gridgain8-management-and-monitoring/performance-tracing)
+- [Use Tracing to Resolve Performance Issues in GridGain](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/tutorials/gridgain8-management-and-monitoring/performance-tracing)

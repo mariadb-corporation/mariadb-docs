@@ -13,7 +13,7 @@ description: >-
 
 ## Overview
 
-Monitoring and alerting are essential parts of any production system. GridGain has its own management and diagnostics tools in [Control Center]({tools}/enterprise/control-center). However, if you want to monitor your entire application portfolio, you need a more generalized solution. One popular option is [New Relic](https://www.newrelic.com/), an "all-in-one observability platform" that provides "data for engineers to monitor, debug, and improve their entire stack."
+Monitoring and alerting are essential parts of any production system. GridGain has its own management and diagnostics tools in [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center). However, if you want to monitor your entire application portfolio, you need a more generalized solution. One popular option is [New Relic](https://www.newrelic.com/), an "all-in-one observability platform" that provides "data for engineers to monitor, debug, and improve their entire stack."
 
 This guide shows you how to export GridGain metrics and logs to New Relic. It uses the OpenTelemetry Java agent to extract metrics from GridGain and export them to New Relic, assuming a basic GridGain installation on bare metal or a VM. More sophisticated approaches may be available when deploying to Kubernetes.
 
