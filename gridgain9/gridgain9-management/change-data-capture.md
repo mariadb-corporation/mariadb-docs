@@ -352,7 +352,7 @@ To add a column to `dbo.ACCOUNTS` replicated by the source `mssql_source` into `
    cdc replication start --name mssql_to_gg9
    ```
    The replication resumes from its saved position on the second instance. Rows written since the stop arrive with the new column, which the sink drops until step 5.
-5. Add the column to the destination table. The sink keeps it from the next batch on; rows replicated before this step, and a batch that lands within the schema synchronization delay right after it (about half a second), do not get the column.
+5. Add the column to the destination table. The sink keeps it from the next batch on; rows replicated before this step do not get the column.
    ```sql
    ALTER TABLE PUBLIC.ACCOUNTS ADD COLUMN EMAIL VARCHAR;
    ```
