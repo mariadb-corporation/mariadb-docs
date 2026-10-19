@@ -352,7 +352,7 @@ To add a column to `dbo.ACCOUNTS` replicated by the source `mssql_source` into `
    cdc replication start --name mssql_to_gg9
    ```
    The replication resumes from its saved position on the second instance. Rows written since the stop arrive with the new column, which the sink drops until step 5.
-5. Add the column to the destination table. The sink keeps it from the next batch on; rows replicated before this step do not get the column.
+5. Add the column to the destination table. The sink keeps it from the next batch on; rows replicated before this step, and a batch that lands within the schema synchronization delay right after it (about half a second), do not get the column.
    ```sql
    ALTER TABLE PUBLIC.ACCOUNTS ADD COLUMN EMAIL VARCHAR;
    ```
@@ -373,4 +373,4 @@ To drop or retype a column, use the same hand-over: the second capture instance 
 - In `ALL` mode, the initial snapshot is not transactionally consistent with the start position for rows changed during the snapshot. Such rows converge when the incremental phase replays their changes.
 - A paused or unresponsive SQL Server is not detected until its connection returns.
 - Schema and DDL changes are not propagated; the destination table must exist with a compatible schema, and a schema change follows the capture-instance hand-over described above.
-- In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types.
+- In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types. Switch a replication to a non-default capture instance only after every node is upgraded as well: the saved position of such a replication names the instance, which older nodes cannot read; a replication on the default instance keeps the position format older nodes read.
