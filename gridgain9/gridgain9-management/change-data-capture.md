@@ -275,6 +275,7 @@ Source parameters:
 | reconnectBackoffMs | 1000 | Delay, in milliseconds, before the first reconnect attempt. The delay doubles after each consecutive failure. |
 | reconnectMaxBackoffMs | 60000 | Upper bound, in milliseconds, of the reconnect delay. It is at least `reconnectBackoffMs`. With the defaults, the source keeps trying for about 25 minutes. |
 | watermarkFlushIntervalMs | 60000 | How often, in milliseconds, an idle table still records its position, so that a table without changes does not look expired after the retention period. |
+| captureInstance.&lt;schema&gt;.&lt;table&gt; | `<schema>_<table>` | The capture instance to read for the table, for example `captureInstance.dbo.ACCOUNTS=dbo_ACCOUNTS_v2`. The table is matched ignoring case and must be one of the source's tables. Used for the two-instance hand-over of a [schema change](#schema-changes). |
 
 {% hint style="info" %}
 When the JDBC URL is built from `host`, `database`, and `port`, GridGain sets `encrypt=true;trustServerCertificate=true`. This encrypts the connection but does not validate the SQL Server certificate. To control the TLS behavior, pass an explicit `jdbcUrl` instead.
@@ -307,6 +308,9 @@ Sink parameters:
 | Parameter | Default | Description |
 |---|---|---|
 | targetTable | Source table name | Required in practice. Qualified name of the destination GridGain 9 table, which must differ from the source table's qualified name. If omitted, it defaults to the source table name and replication fails to start with a self-replication error. Use it to map the source table onto a differently named table, for example `dbo.ACCOUNTS` to `PUBLIC.ACCOUNTS`. |
+| unmappedFieldPolicy | `FAIL` | What happens to a source column the destination table does not have. `FAIL` refuses to start the replication. `IGNORE` drops the column from every row and keeps it once the destination table gains the column. A primary-key column is never dropped. The same policy governs the GridGain Kafka Connect sink. |
+
+When the replication starts, the sink compares the columns of the capture instance with the destination table and fails the start with a message naming every mismatch, rather than failing on the first row: a column the destination lacks (under `FAIL`), a primary key made of different columns, a type the destination column does not accept, a nullable source column going into a `NOT NULL` destination column, or a `NOT NULL` destination column the source does not deliver. Integer and floating-point source values are accepted by a wider destination column; a narrower one is a mismatch.
 
 ### Create and Start Replication
 
@@ -325,13 +329,38 @@ Both `NEW_DATA` and `ALL` modes are supported.
 
 ### Schema Changes
 
-The source reads the capture instance named `<schema>_<table>`, which is the SQL Server default name; a different name cannot be configured. SQL Server keeps a capture instance's column list fixed, so a schema change needs a new capture instance:
+SQL Server keeps a capture instance's column list fixed, so a schema change needs a new capture instance. SQL Server supports two capture instances per table for exactly this: the DBA creates the second instance while the first still captures, and the consumer moves from one to the other. The replication follows the same hand-over, so the source table keeps taking writes throughout and the destination table is changed when you are ready. The saved position survives the switch, because it is kept per replication and table.
 
-1. Stop the replication.
-2. Change the source table.
-3. Re-create the capture instance: run `sys.sp_cdc_disable_table` with `@capture_instance = N'<schema>_<table>'`, then `sys.sp_cdc_enable_table` with the default capture instance name.
-4. Apply the same change to the destination GridGain 9 table.
-5. Delete and recreate the replication. The saved position belongs to the old capture instance, so a resume fails with `GG-CDC-15`. Recreate it in `ALL` mode to copy the table again, or in `NEW_DATA` mode to continue from the current position without the changes made while it was stopped.
+To add a column to `dbo.ACCOUNTS` replicated by the source `mssql_source` into `PUBLIC.ACCOUNTS`:
+
+1. Create the sink with `unmappedFieldPolicy=IGNORE`, or update it to that value, so that the new column is dropped until the destination table has it. With the default `FAIL`, step 4 refuses to start the replication until step 5 is done; do step 5 first in that case.
+2. Change the source table and create the second capture instance. Both instances capture from here on; the replication keeps reading the first one.
+   ```sql
+   ALTER TABLE dbo.ACCOUNTS ADD EMAIL NVARCHAR(64) NULL;
+   EXEC sys.sp_cdc_enable_table @source_schema = N'dbo', @source_name = N'ACCOUNTS',
+       @role_name = NULL, @supports_net_changes = 0, @capture_instance = N'dbo_ACCOUNTS_v2';
+   GRANT SELECT ON cdc.fn_cdc_get_all_changes_dbo_ACCOUNTS_v2 TO replicator;
+   ```
+3. Wait until the replication has read the first instance past the second one's start: any change to the table after step 2, or one `watermarkFlushIntervalMs` on an idle table, is enough.
+4. Move the replication to the second instance. `cdc source update` takes the same arguments as `cdc source create`, plus the capture instance:
+   ```
+   cdc replication stop --name mssql_to_gg9
+   cdc source update --name mssql_source --type mssql --tables dbo.ACCOUNTS \
+     --parameters jdbcUrl="jdbc:sqlserver://localhost:1433;databaseName=testdb;encrypt=true;trustServerCertificate=true" \
+     --parameters user=replicator --parameters password=<password> \
+     --parameters captureInstance.dbo.ACCOUNTS=dbo_ACCOUNTS_v2
+   cdc replication start --name mssql_to_gg9
+   ```
+   The replication resumes from its saved position on the second instance. Rows written since the stop arrive with the new column, which the sink drops until step 5.
+5. Add the column to the destination table. The sink keeps it from the next batch on; rows replicated before this step do not get the column.
+   ```sql
+   ALTER TABLE PUBLIC.ACCOUNTS ADD COLUMN EMAIL VARCHAR;
+   ```
+6. Drop the first capture instance once nothing reads it: `EXEC sys.sp_cdc_disable_table @source_schema = N'dbo', @source_name = N'ACCOUNTS', @capture_instance = N'dbo_ACCOUNTS';`.
+
+If step 4 runs before the replication has read the first instance past the second one's start, the start fails with a message naming both instances and both positions: the changes in between exist on the first instance only. Set the parameter back to the first instance, start the replication, and switch again once its position has passed the start of the second instance. A switch to an instance SQL Server does not know fails naming the instance.
+
+To drop or retype a column, use the same hand-over: the second capture instance is created after the source table change, and the destination table is changed when the replication has moved. A dropped source column leaves the destination column `NULL` in later rows if it is nullable; a `NOT NULL` destination column the source no longer delivers fails the start.
 
 ### Limitations
 
@@ -343,5 +372,5 @@ The source reads the capture instance named `<schema>_<table>`, which is the SQL
 - The source checks only that the connection parameters are present when it is created. A wrong host, database or table shows up when the replication starts.
 - In `ALL` mode, the initial snapshot is not transactionally consistent with the start position for rows changed during the snapshot. Such rows converge when the incremental phase replays their changes.
 - A paused or unresponsive SQL Server is not detected until its connection returns.
-- Schema and DDL changes are not propagated; the destination table must exist with a compatible schema.
-- In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types.
+- Schema and DDL changes are not propagated; the destination table must exist with a compatible schema, and a schema change follows the capture-instance hand-over described above.
+- In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types. Switch a replication to a non-default capture instance only after every node is upgraded as well: the saved position of such a replication names the instance, which older nodes cannot read; a replication on the default instance keeps the position format older nodes read.
