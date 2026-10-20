@@ -85,14 +85,60 @@ Invalid Host header: evil.example.com
 INFO:     127.0.0.1:62229 - "POST /mcp HTTP/1.1" 421 Misdirected Request
 ```
 
+## Client Addresses Behind a Reverse Proxy
+
+The server knows a client by the IP address of the network connection that a request arrives on. It uses that address for:
+
+* the [binding of connections](#connections-belong-to-the-client-that-opened-them) on a single-user server
+* the throttle on [refused tokens](multi-tenant-mode.md#requests-without-a-valid-token) of a multi-tenant server
+* the limit on [sign-ins](oauth-authentication.md#the-sign-in) to the built-in authorization server, and its list of [allowed client networks](oauth-authentication.md#restrict-the-networks-clients-connect-from)
+* the address in the server's log lines
+
+Behind a reverse proxy, every request arrives from the proxy, so all clients have the same address. The limits then apply to all clients together: one client that sends wrong API keys gets every other client throttled as well, and 30 sign-ins per minute are shared by all users. The allowed client networks can only name the proxy, and the log shows the proxy's address for every request.
+
+To have the server see the clients' own addresses, name the proxy with `--trustedProxies`:
+
+```bash
+mariadb-shell -- mcp start-server --port=8080 --trustedProxies=127.0.0.1
+```
+
+The option takes a comma-separated list of IP addresses and networks, IPv4 or IPv6, for example `--trustedProxies=192.0.2.10,2001:db8::/64`. On every request from one of them, the server takes the client's address from the `X-Forwarded-For` header:
+
+* It reads the addresses in the header from right to left and skips each address that is itself a trusted proxy. The first address that isn't a trusted proxy is the client. Addresses further to the left are never used, because the client wrote them, and a client can write anything.
+* If every address in the header is a trusted proxy, the leftmost one is the client.
+* If the header is missing, or an entry isn't a plain IP address, such as `unknown` or an address with a port, the server keeps the proxy's address.
+* A request that doesn't come from a trusted proxy keeps its own address, whatever its headers say.
+
+The server reads no other header. `Forwarded`, `X-Real-IP` and `X-Forwarded-Proto` are ignored.
+
+The proxy must add the address that it received the request from to the end of `X-Forwarded-For`. For nginx:
+
+```nginx
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+```
+
+At startup, the server names the trusted proxies on standard error:
+
+```text
+2026-10-12T11:08:02+0200 [mcp] server: the client address is taken from X-Forwarded-For on requests from the trusted proxies 127.0.0.1/32
+```
+
+From then on, the server's `[mcp]` log lines show the clients' addresses. The access log lines of the HTTP server (`INFO: … "POST /mcp HTTP/1.1"`) keep showing the address of the proxy.
+
+{% hint style="warning" %}
+Name only the proxies themselves. Every process that can send requests from a trusted address can choose the address the server sees it as. The server refuses a network of every address, such as `0.0.0.0/0` or `::/0`.
+{% endhint %}
+
+If the server runs in a container, the proxy's requests arrive from an address of the container network, not from the proxy's address on the host. The server's access log shows that address on every request. See [Running in a Container](running-in-a-container.md#reverse-proxy).
+
 ## Connections Belong to the Client That Opened Them
 
 When an agent opens a configured connection with `db.connect`, it receives a connection ID, which it passes to the other `db` tools. Over HTTP, several clients can use the same server, so the server binds each connection to the client that opened it:
 
 * **The MCP session ID.** The server assigns this ID when a client initializes its MCP session, and only that client knows it. It keeps clients apart even when they share an IP address, as all local clients do.
-* **The IP address** of the network connection that the request arrived on. The server never takes the address from a header such as `X-Forwarded-For`, which a client could forge.
+* **The IP address** of the network connection that the request arrived on. The server takes the address from the `X-Forwarded-For` header only on requests from a proxy named with [`--trustedProxies`](#client-addresses-behind-a-reverse-proxy); on any other request the header could be forged.
 
-A request with a connection ID that doesn't match both is answered as if the ID didn't exist, so another client can't take over a connection by guessing its ID. Behind a reverse proxy, all clients share the proxy's address, and the MCP session ID keeps them apart.
+A request with a connection ID that doesn't match both is answered as if the ID didn't exist, so another client can't take over a connection by guessing its ID. Behind a reverse proxy that isn't named with `--trustedProxies`, all clients share the proxy's address, and the MCP session ID keeps them apart.
 
 On a [multi-tenant server](multi-tenant-mode.md), every request is authenticated, and the server binds a connection to these instead:
 
@@ -170,6 +216,7 @@ The server's log output contains neither passwords nor SQL statements, and it sh
 * Use `stdio` when the client can start a command.
 * To share a server among several people, use [multi-tenant mode](multi-tenant-mode.md) over HTTPS, and run the server under an operating system account of its own.
 * Keep an HTTP server on `127.0.0.1`. For remote clients, use an SSH port forward or an authenticating reverse proxy.
+* Behind a reverse proxy, name the proxy with [`--trustedProxies`](#client-addresses-behind-a-reverse-proxy), so that the per-address limits apply to each client and not to all of them together.
 * Create a dedicated account for each connection, with read-only access to production schemas and resource limits.
 * Allow only the project directories the agent works in.
 * Provide only the function groups the agent needs.

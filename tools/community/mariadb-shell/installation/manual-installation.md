@@ -75,7 +75,7 @@ Each package contains a single top-level directory, `mariadb-shell-<version>-<pl
 | Directory | Contents |
 | --- | --- |
 | `bin/` | The `mariadb-shell` executable, the `msh` alias (`msh.cmd` on Windows), and the credential store helpers (`mariadb-secret-store-*`). On Windows, also the required DLLs. |
-| `lib/` | Private libraries, the bundled Python runtime, and the built-in plugins. On Linux and macOS, client authentication plugins are in `lib/mariadb/plugins/`. |
+| `lib/` | Private libraries, the bundled Python runtime, and the built-in plugins. The client authentication plugins are in `lib/mariadb/plugins/`. |
 | `share/mariadb-shell/` | Data files, such as the sample prompt themes. |
 | `share/man/man1/` | The `mariadb-shell(1)` and `msh(1)` manual pages (Linux and macOS). |
 

@@ -5,7 +5,7 @@ description: >-
 
 # migrator Tools
 
-The `migrator.*` tools migrate a MySQL database to MariaDB with the MySQL-to-MariaDB migration tooling. These tools are optional and aren't included in the count of 28 tools.
+The `migrator.*` tools migrate a MySQL database to MariaDB with the MySQL-to-MariaDB migration tooling. These tools are optional and aren't included in the count of 40 tools.
 
 {% hint style="info" %}
 The `migrator.*` tools are registered only when the migration tooling is installed, on Linux and macOS. Install it with the following command, then restart the MCP server:
