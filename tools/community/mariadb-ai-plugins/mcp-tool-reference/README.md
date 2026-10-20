@@ -6,6 +6,13 @@ description: >-
 
 # MCP Tool Reference
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `mariadb-shell` MCP server provides 40 tools in four groups. A fifth, optional group is available when the migration tooling is installed.
 
 | Group | Tools | What they do |
@@ -43,3 +50,5 @@ A server in multi-tenant mode (the `--multiTenant` option of `mcp setup`, availa
 {% content-ref url="migrator-tools.md" %}
 [migrator-tools.md](migrator-tools.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

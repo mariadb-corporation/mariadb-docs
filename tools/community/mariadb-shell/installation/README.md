@@ -7,6 +7,13 @@ icon: download
 
 # Installation
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell is distributed as self-contained packages on the [GitHub releases page](https://github.com/mariadb-corporation/mariadb-shell/releases). Each package includes the Python runtime and the built-in plugins, so it has no other runtime dependencies. You don't need administrator privileges: by default, everything installs into your home directory.
 
 The installation scripts detect your platform, download the matching package, verify its SHA-256 checksum, and create the `mariadb-shell` and `msh` commands. If you prefer to control each step, download and unpack a package manually.
@@ -48,3 +55,5 @@ Install, upgrade, and remove MariaDB Shell with the `install.ps1` PowerShell scr
 Download a release package, verify it against `SHA256SUMS`, and unpack it yourself.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: GPLv2_</sub>

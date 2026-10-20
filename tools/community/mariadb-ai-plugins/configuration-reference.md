@@ -7,6 +7,13 @@ description: >-
 
 # Configuration Reference
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 ## Launcher Environment Variables
 
 The launcher scripts, `mariadb-mcp-launcher.sh` and `mariadb-mcp-launcher.cmd`, read these variables. The harness passes `MARIADB_SHELL_VERSION` from the plugin's MCP configuration; the others are unset unless you set them.
@@ -51,3 +58,5 @@ The launcher scripts, `mariadb-mcp-launcher.sh` and `mariadb-mcp-launcher.cmd`, 
 ## MCP Server Configuration
 
 The connections and allowed paths are set with `mariadb-shell -- mcp setup` and stored in the MariaDB Shell configuration directory. See [Configuring the MCP Server](configuring-the-mcp-server/README.md) and the [MCP server documentation](https://github.com/mariadb-corporation/mariadb-shell-plugins/blob/main/mcp_plugin/README.md#configuration-mcpsetup).
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -5,6 +5,13 @@ description: >-
 
 # migrator Tools
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `migrator.*` tools migrate a MySQL database to MariaDB with the MySQL-to-MariaDB migration tooling. These tools are optional and aren't included in the count of 40 tools.
 
 {% hint style="info" %}
@@ -73,3 +80,5 @@ Continues a failed run from its `state.json`.
 {% hint style="danger" %}
 The migration orchestrator is safe to resume. If `out` points at a directory that already holds a `state.json`, the run reports every step as `SKIPPED`, exits with status 0, and migrates nothing. Omit `out` for every new migration, pass it only to `migrator.resume`, and check that every step reports `DONE`.
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

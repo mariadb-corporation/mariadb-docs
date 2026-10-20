@@ -7,6 +7,13 @@ description: >-
 
 # Security and Session Handling
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MCP server gives an AI agent access to databases and files with your credentials. Several layers limit that access:
 
 | Layer | What it limits | Configured with |
@@ -109,7 +116,7 @@ The option takes a comma-separated list of IP addresses and networks, IPv4 or IP
 * If the header is missing, or an entry isn't a plain IP address, such as `unknown` or an address with a port, the server keeps the proxy's address.
 * A request that doesn't come from a trusted proxy keeps its own address, whatever its headers say.
 
-The server reads no other header. `Forwarded`, `X-Real-IP` and `X-Forwarded-Proto` are ignored.
+The server reads no other header. `Forwarded`, `X-Real-IP`, and `X-Forwarded-Proto` are ignored.
 
 The proxy must add the address that it received the request from to the end of `X-Forwarded-For`. For nginx:
 
@@ -126,7 +133,7 @@ At startup, the server names the trusted proxies on standard error:
 From then on, the server's `[mcp]` log lines show the clients' addresses. The access log lines of the HTTP server (`INFO: … "POST /mcp HTTP/1.1"`) keep showing the address of the proxy.
 
 {% hint style="warning" %}
-Name only the proxies themselves. Every process that can send requests from a trusted address can choose the address the server sees it as. The server refuses a network of every address, such as `0.0.0.0/0` or `::/0`.
+Name only the proxies themselves. Every process that can send requests from a trusted address can make the server see any client address it chooses. The server refuses a network of every address, such as `0.0.0.0/0` or `::/0`.
 {% endhint %}
 
 If the server runs in a container, the proxy's requests arrive from an address of the container network, not from the proxy's address on the host. The server's access log shows that address on every request. See [Running in a Container](running-in-a-container.md#reverse-proxy).
@@ -221,3 +228,5 @@ The server's log output contains neither passwords nor SQL statements, and it sh
 * Allow only the project directories the agent works in.
 * Provide only the function groups the agent needs.
 * Remove connections and directories that the agent no longer needs, and restart the server if the removal must take effect immediately.
+
+<sub>_This page is licensed: GPLv2_</sub>

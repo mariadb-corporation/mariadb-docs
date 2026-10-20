@@ -6,6 +6,13 @@ description: >-
 
 # Configuring the MCP Server
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 After installation, the MCP server has no access to any database or directory. You define the connections and directories it may use with MariaDB Shell. The configuration applies to all harnesses on the machine, so you only need to do it once:
 
 ```bash
@@ -109,3 +116,5 @@ For the complete option reference, see the [MCP server documentation](https://gi
 {% content-ref url="command-line-configuration.md" %}
 [command-line-configuration.md](command-line-configuration.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

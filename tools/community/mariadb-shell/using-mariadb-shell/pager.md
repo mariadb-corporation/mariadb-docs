@@ -7,6 +7,13 @@ description: >-
 
 # Pager
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A pager is a program, such as `less` or `more`, that shows long output one screen at a time. MariaDB Shell can send output to a pager so that a wide or long result doesn't scroll past. The pager is off by default and works only in interactive sessions.
 
 ## What Goes Through the Pager
@@ -96,3 +103,5 @@ Between the two calls, all text output except prompts goes to the pager in the `
 * Switching to SQL mode turns Python paging off, as if you had called `disable_pager()`.
 * `disable_pager()` doesn't change the `pager` option, so SQL results are still paged.
 * Both functions have no effect in batch mode.
+
+<sub>_This page is licensed: GPLv2_</sub>

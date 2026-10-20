@@ -7,6 +7,13 @@ icon: robot
 
 # MariaDB AI Plugins
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 ## MariaDB AI Plugins
 
 MariaDB AI Plugins are plugins for AI coding agents that help the agent work with MariaDB. They include skills, which are reference documents on MariaDB SQL, tools, and connectors, and the `mariadb-shell` MCP server, which connects the agent to your MariaDB servers.
@@ -194,3 +201,5 @@ License terms for the plugin code and the bundled skills.
 How to report bugs and security vulnerabilities.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: GPLv2_</sub>

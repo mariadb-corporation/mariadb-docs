@@ -7,6 +7,13 @@ description: >-
 
 # Autocompletion
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Press **Tab** at the prompt to complete the word under the cursor. If exactly one completion fits, the shell inserts it. If several fit, press **Tab** a second time to list them.
 
 Completion is available in interactive sessions only. It works in both modes and for shell commands:
@@ -89,3 +96,5 @@ Fetching global names, object names from `shop` for auto-completion... Press ^C 
 ```
 
 In Python mode, `\rehash` loads only the schema names.
+
+<sub>_This page is licensed: GPLv2_</sub>

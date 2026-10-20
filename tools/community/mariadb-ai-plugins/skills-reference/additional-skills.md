@@ -5,6 +5,13 @@ description: >-
 
 # Additional Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 These skills are maintained in the `additional-skills/` directory of the MariaDB AI Plugins repository rather than in the MariaDB documentation. Most of them describe workflows that use the tools of the MCP server.
 
 ## SQL Scripts
@@ -63,3 +70,4 @@ Skills for using MariaDB in Laravel applications. These skills are included in t
 | `mariadb-laravel-connector` | `dev` | Connect a Laravel (PHP) application to MariaDB: PDO requirements, the dedicated mariadb driver, version support and Docker/Sail setup. |
 | `mariadb-laravel-vector` | `dev` | MariaDB Vector in a Laravel (PHP) application: vector columns, VECTOR INDEX, the AsVector Eloquent cast and similarity search with the query builder. |
 
+<sub>_This page is licensed: GPLv2_</sub>

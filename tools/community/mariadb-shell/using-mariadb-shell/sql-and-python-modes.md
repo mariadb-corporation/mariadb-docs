@@ -7,6 +7,13 @@ description: >-
 
 # SQL and Python Modes
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell has two input modes. In SQL mode, everything you type goes to the server as SQL, much like the `mariadb` command-line client. In Python mode, you type Python code that runs in the shell's embedded Python interpreter, with global objects such as `session`, `util`, and `shell` ready to use. Shell commands such as `\use` or `\option` work in both.
 
 The prompt shows the active mode:
@@ -270,3 +277,5 @@ except Exception:
 ```
 
 To print a result in one of the shell's output formats from Python, use `shell.dump_rows()`. See [Output Formats](output-formats.md#formatting-results-in-python).
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -7,6 +7,13 @@ description: >-
 
 # SQL Script Creation and Execution
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 With MariaDB AI Plugins, you can ask a coding agent to write a SQL script that creates a database schema, and then to run the script on a MariaDB server and check the result. The agent writes the script with the help of the SQL skills, and runs and verifies it with the `db.*` and `sandbox.*` tools of the MCP server.
 
 This page describes the three steps of this workflow: creating the script, running it, and verifying the result.
@@ -130,3 +137,5 @@ Don't configure the connection with your personal MariaDB developer account, an 
 {% hint style="warning" %}
 A script that follows the `mariadb-schema-create-script` skill creates tables with `CREATE OR REPLACE TABLE`. If a table already exists, this statement drops it, including its data, and creates it again. Run create scripts on new schemas, sandboxes, or development servers only. To change an existing schema, use versioned upgrade scripts as described in [Versioned Schemas with Schema Management](versioned-schemas-with-schema-management.md).
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

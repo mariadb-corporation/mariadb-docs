@@ -6,6 +6,13 @@ description: >-
 
 # Linux and macOS
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `install.sh` script installs MariaDB Shell into your home directory from a GitHub release. It runs under any POSIX shell, including minimal container images that have no `bash`.
 
 ## Requirements
@@ -149,3 +156,5 @@ To also remove your history, settings, plugins, log file, and sandbox instances,
 | `could not download SHA256SUMS from the latest release` | The release does not exist or is a prerelease. Use `--pre-release` or set `MARIADB_SHELL_TAG`. |
 | `checksum mismatch` | The download is corrupt or incomplete. Run the script again. |
 | `this install needs jq or python3 to read the release listing` | Install `jq` or `python3`, which the script needs for `--pre-release`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

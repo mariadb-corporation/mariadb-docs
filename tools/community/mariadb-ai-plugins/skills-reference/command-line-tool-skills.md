@@ -5,6 +5,13 @@ description: >-
 
 # Command-Line Tool Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Each of these skills covers one MariaDB command-line program, with the options and behavior that differ from the corresponding MySQL program.
 
 | Skill | Plugins | What it covers |
@@ -13,3 +20,5 @@ Each of these skills covers one MariaDB command-line program, with the options a
 | `mariadb-import` | `dev` | MariaDB-specific behavior of the mariadb-import client — a command-line wrapper around LOAD DATA INFILE for bulk-loading text files. Covers the table-name-from-filename rule, TAB (not CSV) defaults, the --local vs server-side fork, --replace/--ignore, --columns vs --ignore-lines, --parallel and its --lock-tables interaction, and the locale-autodetected charset. |
 | `mariadb-client` | `dev` | MariaDB-specific behavior of the `mariadb` command-line client — batch mode auto-enables silent/tab output, `\G`/`\g` and client-side `DELIMITER` for stored-routine bodies, `--safe-updates` sets `max_join_size` (no `sql_` prefix) not `sql_max_join_size`, default charset auto-detects from locale rather than defaulting to latin1, and `mysql` is a kept symlink for the same binary. |
 | `mariadb-binlog` | `dev` | MariaDB-specific behavior of the `mariadb-binlog` utility — that decoded row events (`-v`/`-vv`) are commented pseudo-SQL riding alongside the still-executable base64 `BINLOG` blob (not a replacement for it), that `ANNOTATE_ROWS` original-SQL comments are a MariaDB-only event printed by default, that `--flashback` generates MariaDB-specific reverse/undo SQL for DML only, `--disable-log-bin` to avoid re-logging on replay, and that replay means piping into the `mariadb` client, never running the tool itself. |
+
+<sub>_This page is licensed: GPLv2_</sub>

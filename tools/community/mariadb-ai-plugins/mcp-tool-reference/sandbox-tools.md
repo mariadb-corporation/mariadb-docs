@@ -5,6 +5,13 @@ description: >-
 
 # sandbox Tools
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `sandbox.*` tools deploy and manage local MariaDB Server instances for development and testing. For an introduction, see [Sandbox Instances](../features/sandbox-instances.md).
 
 ## Overview
@@ -123,3 +130,5 @@ Returns the instance's server version.
 | `sandbox.deploy` doesn't return. | The sandbox directory isn't on the allowed-paths list. |
 | The deploy succeeds, but the connection is refused. | The password was blank. |
 | The deploy fails on TLS. | `ssl` is `True` and `openssl` isn't installed. |
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -6,6 +6,13 @@ description: >-
 
 # Basic Usage
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 You don't call skills or MCP tools yourself. Instead, you describe your task to the agent, and the agent decides which skills to read and which tools to use. The following examples show typical requests.
 
 ## With Skills Alone
@@ -97,3 +104,5 @@ For a list of commands, enter the following at the MariaDB Shell prompt:
 ```
 
 MariaDB Shell can also access the sandbox instances that the agent creates.
+
+<sub>_This page is licensed: GPLv2_</sub>

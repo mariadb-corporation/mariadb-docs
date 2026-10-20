@@ -7,6 +7,13 @@ description: >-
 
 # Developing a Schema
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 All development happens in one file, the development script `development/<schema>_next.sql`. It always contains the complete definition of the next version of the schema, not a list of changes: when a table gets a new column, you change its `CREATE TABLE` statement. The changes from one release to the next are written separately, in the update script that MSM creates when you prepare a release. See [Preparing Releases](preparing-releases.md).
 
 ## Edit the Development Script
@@ -148,3 +155,5 @@ Always write the slice. A `SOURCE` statement without one, or with `[:]`, isn't r
 ## Next Step
 
 When the development script has everything for the next version, prepare a release, as described in [Preparing Releases](preparing-releases.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

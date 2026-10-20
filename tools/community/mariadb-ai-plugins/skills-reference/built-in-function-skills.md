@@ -5,6 +5,13 @@ description: >-
 
 # Built-in Function Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Each of these skills covers a group of built-in functions, such as the string, date and time, or JSON functions.
 
 | Skill | Plugins | What it covers |
@@ -19,3 +26,5 @@ Each of these skills covers a group of built-in functions, such as the string, d
 | `mariadb-information-functions` | `dev`, `sql` | MariaDB information functions — session and server metadata: LAST_INSERT_ID, ROW_COUNT, FOUND_ROWS, DATABASE/SCHEMA, USER/CURRENT_USER/SESSION_USER/SYSTEM_USER, CURRENT_ROLE, VERSION, CONNECTION_ID, CHARSET, COLLATION, COERCIBILITY, BENCHMARK, DEFAULT, LAST_VALUE, ROWNUM, BINLOG_GTID_POS, DECODE_HISTOGRAM. |
 | `mariadb-vector-functions` | `dev`, `sql` | MariaDB vector functions — VEC_Distance, VEC_Distance_Euclidean, VEC_Distance_Cosine, VEC_FromText, VEC_ToText, and the VECTOR data type / MHNSW vector index context. |
 | `mariadb-encryption-functions` | `dev`, `sql` | MariaDB encryption, hashing, and compression functions — AES_ENCRYPT/AES_DECRYPT keyed off block_encryption_mode (default aes-128-ecb) with optional IV/mode since 11.2; SHA2/SHA1/MD5 checksums; KDF and RANDOM_BYTES for key derivation; COMPRESS/UNCOMPRESS/UNCOMPRESSED_LENGTH; PASSWORD/OLD_PASSWORD/ENCRYPT for auth hashing; ENCODE/DECODE (weak, not removed) vs DES_ENCRYPT/DES_DECRYPT (removed in 13.0). |
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -6,6 +6,13 @@ description: >-
 
 # Pi
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Pi has no plugin marketplace, so you install the MariaDB AI Plugins repository as a Pi package. The package contains an extension that registers the `mariadb-shell` MCP server with the built-in MCP support of Pi. This requires Pi 1.0 or later. Only the `dev` plugin is available for Pi.
 
 ## Install the Plugin
@@ -69,3 +76,5 @@ Registering the server with Pi doesn't configure which connections and directori
 {% hint style="warning" %}
 A project-local Pi package must be approved at run time with `--approve`. Without it, the package is configured but never loaded.
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -8,6 +8,13 @@ icon: robot
 
 # MCP Server
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell includes a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. MCP is an open protocol that lets AI agents, such as coding assistants, call tools that an external server provides. The MariaDB MCP server provides tools to connect to MariaDB servers, inspect schemas, run SQL, manage versioned schema projects, and deploy local sandbox instances.
 
 The MCP server runs inside MariaDB Shell, as the built-in `mcp` plugin. It uses the shell's own connection handling, [credential store](../connecting/credential-store.md), [sandbox](../sandbox-instances.md) functions, and SSH tunnels, and it brings its own Python runtime and libraries with the shell, so it needs no separate installation.
@@ -115,3 +122,5 @@ To show the built-in help, run `\? mcp` in Python mode, or `mariadb-shell -- mcp
 {% content-ref url="security-and-session-handling.md" %}
 [security-and-session-handling.md](security-and-session-handling.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

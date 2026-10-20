@@ -6,6 +6,13 @@ description: >-
 
 # SSH Tunnels
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Database servers are often not reachable from your workstation: they listen only on their loopback interface, or sit in a private network behind a bastion host. MariaDB Shell can open an SSH tunnel for such a connection itself, so you don't need to run `ssh -L` in another terminal.
 
 You can describe a tunnel in two ways:
@@ -204,3 +211,5 @@ Always include the user in `--ssh` and in the `ssh` key. Without it, these older
 | --- | --- | --- | --- |
 | `ssh.configFile` | string | empty | The default OpenSSH configuration file. If it is empty, `~/.ssh/config` is used. |
 | `ssh.bufferSize` | integer | `10240` | The buffer size for tunnel data transfer, in bytes. |
+
+<sub>_This page is licensed: GPLv2_</sub>

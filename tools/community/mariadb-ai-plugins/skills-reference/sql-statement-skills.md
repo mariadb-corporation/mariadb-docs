@@ -5,6 +5,13 @@ description: >-
 
 # SQL Statement Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Each of these skills covers one SQL statement, with the MariaDB-specific syntax and behavior that general SQL knowledge often gets wrong, for example the online DDL algorithms of `ALTER TABLE`, atomic `CREATE OR REPLACE`, and `RETURNING` in `INSERT`.
 
 | Skill | Plugins | What it covers |
@@ -40,3 +47,5 @@ Each of these skills covers one SQL statement, with the MariaDB-specific syntax 
 | `mariadb-show` | `dev`, `sql` | MariaDB-specific behavior of the SHOW statement family — replication SHOW forms are spelled BINLOG STATUS/REPLICA STATUS/REPLICA HOSTS (REPLICA is a lexer-level synonym for SLAVE) while the underlying status counters still say slave/master; bare SHOW <name> is generic sugar for any plugin-registered INFORMATION_SCHEMA table (userstat, Galera, query-response-time); SHOW EXPLAIN/SHOW ANALYZE inspect another connection's live plan; only a fixed subset of SHOW forms accept LIKE/WHERE. |
 | `mariadb-explain` | `dev`, `sql` | MariaDB-specific behavior of EXPLAIN and its relatives (ANALYZE, EXPLAIN FORMAT=JSON, SHOW EXPLAIN/ANALYZE FOR) — MariaDB has no `EXPLAIN ANALYZE`; it uses a standalone `ANALYZE <statement>` that actually executes the query (and, for UPDATE/DELETE/INSERT, actually writes); plain EXPLAIN never runs anything; only FORMAT=JSON/TRADITIONAL exist (no TREE); and EXPLAIN covers INSERT/REPLACE directly. |
 | `mariadb-prepare` | `dev`, `sql` | MariaDB-specific behavior of server-side prepared statements — PREPARE / EXECUTE / DEALLOCATE PREPARE and EXECUTE IMMEDIATE — covers the broad preparable-statement allow-list, EXECUTE..USING accepting arbitrary expressions (not just user variables), the stored-function/trigger ban on dynamic SQL, session-local statement lifetime, and EXECUTE IMMEDIATE's DEFAULT/IGNORE bind parameters. |
+
+<sub>_This page is licensed: GPLv2_</sub>

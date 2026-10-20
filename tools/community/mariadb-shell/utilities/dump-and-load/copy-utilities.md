@@ -7,6 +7,13 @@ description: >-
 
 # Copy Utilities
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The copy utilities run a dump and a load at the same time and connect them in memory. The source is the server of the global session; the target is a second server that you name with connection data. No files are written, and the target starts loading as soon as the first chunks are read from the source.
 
 | Function | Copies | Equivalent to |
@@ -221,3 +228,5 @@ The shell opens an SSH connection to `db2.example.com` and reaches the target se
 {% content-ref url="load-dump-utility.md" %}
 [load-dump-utility.md](load-dump-utility.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

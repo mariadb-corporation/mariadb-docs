@@ -7,6 +7,13 @@ description: >-
 
 # Adding Database Connections
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MCP server only connects to the databases that you add as connections with `mcp setup`. Each connection consists of a connection URI and a password. The URI tells MariaDB Shell how to reach the server and which account to sign in with; the password is stored separately in the MariaDB Shell secret store.
 
 This page describes how to add a connection, how to write the connection URI, and how to solve common errors when the setup can't connect.
@@ -174,3 +181,5 @@ The following table lists the most common errors. The numbers in parentheses at 
 | *'…' is not a valid connection URI.* | MariaDB Shell can't parse the URI, for example because of an unknown option, a character that must be encoded, or a port that isn't a number. | Check the option names against [Connection Options](#connection-options), and encode special characters as described in [Special Characters](#special-characters). |
 | *The connection URI carries a password.* | The URI passed with `--addConnection` contains a password, for example `mcp:secret@host`. | Remove the password from the URI and enter it at the prompt. |
 | *not a configured connection* | The agent used a URI that differs from the configured one, for example without its default schema or options. | Use the URI that `db.list_connections` reports. |
+
+<sub>_This page is licensed: GPLv2_</sub>

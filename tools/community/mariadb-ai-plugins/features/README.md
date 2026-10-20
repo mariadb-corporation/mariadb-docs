@@ -7,6 +7,13 @@ description: >-
 
 # Features
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 This section describes the main features of MariaDB AI Plugins in detail. For each feature, you'll find its requirements, the skills and MCP tools the agent uses, and a description of how the feature works and where its limits are.
 
 For a quick overview of what you can ask an agent, see [Basic Usage](../basic-usage.md). For the arguments of each tool, see the [MCP Tool Reference](../mcp-tool-reference/).
@@ -40,3 +47,5 @@ For a quick overview of what you can ask an agent, see [Basic Usage](../basic-us
 {% hint style="info" %}
 For step-by-step tutorials with example prompts, see the [MariaDB AI Plugins DevHub](https://ai-plugins.mariadb.org/tutorials/).
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

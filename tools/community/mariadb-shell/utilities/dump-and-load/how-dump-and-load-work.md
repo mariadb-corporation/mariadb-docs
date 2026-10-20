@@ -7,6 +7,13 @@ description: >-
 
 # How Dump and Load Work
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A dump takes a consistent snapshot of a running server and writes it as compressed data chunks plus metadata, on several threads at once. A load replays the dump on several threads and records each completed step, so that it can resume after an interruption. A copy connects a dump and a load directly, from one server to another.
 
 ## The Dump Pipeline
@@ -113,3 +120,5 @@ A chunk whose transaction is rolled back by a deadlock is retried from its start
 ## Copy
 
 `util.copy_instance()`, `util.copy_schemas()`, and `util.copy_tables()` run a dump on the source and a load on the target at the same time, connected in memory. No files are written, and the target begins loading as soon as the source begins dumping. In the output, `SRC:` lines come from the dump and `TGT:` lines from the load. Because the data is a live stream, a copy cannot retry a chunk after a deadlock or resume after an interruption; run it again with `dropExistingObjects` or `ignoreExistingObjects`. See [Copy Utilities](copy-utilities.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

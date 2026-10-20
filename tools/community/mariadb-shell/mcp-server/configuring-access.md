@@ -6,6 +6,13 @@ description: >-
 
 # Configuring Access
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A new MCP server has no access to any database or directory. You decide what it may use with `mcp setup`, which maintains two allow-lists:
 
 * **Connections**: the MariaDB servers and accounts that the server may open sessions with. The password of each connection is stored in the MariaDB Shell [credential store](../connecting/credential-store.md).
@@ -223,3 +230,5 @@ Add `--json` for machine-readable output.
 | *'…' is not an existing directory. It was not added.* | The directory doesn't exist. | Create the directory first. |
 | *mcp.setup must be run from an interactive shell session, or with options* | The setup was started without options and without a terminal. | Run it in a terminal, or pass options as described in [Automated Setup](automated-setup.md). |
 | *The authenticity of host '…' can't be established.* | The host key of an SSH host isn't in the known-hosts file. | Confirm the key when the setup asks, or connect once with `ssh`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

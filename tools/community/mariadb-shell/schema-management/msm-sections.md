@@ -7,6 +7,13 @@ description: >-
 
 # MSM Sections
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MSM scripts are plain SQL files divided into numbered sections. Each section starts with a banner:
 
 ```sql
@@ -162,3 +169,5 @@ SELECT * FROM `shop`.`msm_schema_version`;
 ## Helper Routines
 
 Sections 130 and 230 define stored procedures and functions that are needed only while the schema is created or upgraded, for example to move data between tables. Their names must start with `msm_`. Drop them again in sections 190 and 290 with `DROP … IF EXISTS`. The deployment script uses the `msm_` prefix as well: when it checks whether a schema is empty, it ignores routines whose names start with `msm_`.
+
+<sub>_This page is licensed: GPLv2_</sub>

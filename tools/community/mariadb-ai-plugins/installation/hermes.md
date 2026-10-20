@@ -6,6 +6,13 @@ description: >-
 
 # Hermes Agent
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Hermes Agent has no MariaDB plugin marketplace, so you install each plugin directly from its folder in the repository. Every plugin folder is a portable Agent Plugins v1 package with a root `plugin.json` and a `skills/` directory. The `dev` and `sql` plugins also contain a root `mcp.json` that declares the `mariadb-shell` MCP server. Hermes loads these packages without any additional code.
 
 | Variant | Folder | Hermes plugin name |
@@ -72,3 +79,5 @@ hermes plugins remove mariadb-dev
 ```
 
 Removing the plugin doesn't remove MariaDB Shell or its configuration in `~/.mariadb-shell`.
+
+<sub>_This page is licensed: GPLv2_</sub>

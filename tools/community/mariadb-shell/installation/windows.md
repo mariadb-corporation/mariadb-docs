@@ -6,6 +6,13 @@ description: >-
 
 # Windows
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `install.ps1` script installs MariaDB Shell for the current user from a GitHub release. It runs in Windows PowerShell 5.1 and in PowerShell 7, and does not require administrator privileges.
 
 ## Requirements
@@ -129,3 +136,5 @@ The script has no uninstall mode. To remove MariaDB Shell:
 | `could not download SHA256SUMS from the latest release` | The release does not exist or is a prerelease. Set `MARIADB_SHELL_PRERELEASE` or `MARIADB_SHELL_TAG`. |
 | `checksum mismatch` | The download is corrupt or incomplete. Run the script again. |
 | `LOCALAPPDATA is not set` | The default installation directory cannot be determined. Set `MARIADB_SHELL_PREFIX` or pass `-Prefix`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -7,6 +7,13 @@ icon: puzzle-piece
 
 # Extending MariaDB Shell
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell runs an embedded Python interpreter, and the same Python APIs that the built-in features use are open to you. With a few lines of Python you can add a report that `\show` and `\watch` display, a global object with documented functions, or a handler that answers an SQL statement the server doesn't know.
 
 The extension mechanisms build on each other:
@@ -52,3 +59,5 @@ The plugin directory layout, the plugin decorators, the built-in plugins, the `p
 How to intercept SQL statements by prefix and return custom results built with `shell.create_result()`.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: GPLv2_</sub>

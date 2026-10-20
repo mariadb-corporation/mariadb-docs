@@ -6,6 +6,13 @@ description: >-
 
 # Manual Installation
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Install MariaDB Shell manually when you cannot pipe a script from the internet into a shell, when you deploy to systems without internet access, or when you want to choose the installation directory and the package yourself.
 
 ## Choose a Package
@@ -121,3 +128,5 @@ mariadb-shell --version
 To upgrade, unpack the new version next to the old one and point the links (or your `PATH`) at the new `bin` directory. Remove old version directories when you no longer need them.
 
 To uninstall, delete the version directories and the links you created. Your configuration directory is separate from the installation; see [Files and Environment Variables](../files-and-environment-variables.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

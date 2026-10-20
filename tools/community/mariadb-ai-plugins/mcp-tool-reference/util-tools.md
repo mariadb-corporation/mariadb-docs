@@ -5,7 +5,14 @@ description: >-
 
 # util Tools
 
-The `util.*` tools run MariaDB Shell's dump, load, export, import, and copy utilities. Each utility runs as a background task, and the `util.get_task`, `util.list_tasks`, and `util.cancel_task` tools follow and stop the tasks.
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
+The `util.*` tools run MariaDB Shell's dump, load, export, import, and copy utilities. Each utility runs as a background task, and the `util.get_task`, `util.list_tasks`, and `util.cancel_task` tools track the tasks and stop them.
 
 {% hint style="info" %}
 The `util.*` tools are available in MariaDB Shell 26.10.2 and later.
@@ -34,7 +41,7 @@ The agent uses these tools instead of running `mariadb-dump` or piping its outpu
 
 ## Background Tasks
 
-The dump, load, export, import, and copy tools start the utility and return at once, with the following fields.
+The dump, load, export, import, and copy tools start the utility and return immediately, with the following fields:
 
 | Field | Description |
 | --- | --- |
@@ -43,7 +50,7 @@ The dump, load, export, import, and copy tools start the utility and return at o
 
 A task's status is `pending`, `running`, `completed`, `failed`, or `cancelled`. A finished task is kept for one hour, and the server keeps at most 100 finished tasks. A client can run at most four tasks at once, because a dump or load opens a session for each of its threads.
 
-Each task runs the utility in a MariaDB Shell process of its own. That process logs in with the URI and the stored password of the connection that `connection_id` names, and receives the password on standard input, not on its command line. The task doesn't use the connection itself, so the connection stays available for other tools while the task runs. The MCP server finds the shell binary that it runs in itself, or `mariadb-shell` on the `PATH`.
+Each task runs the utility in a MariaDB Shell process of its own. That process logs in with the URI and the stored password of the connection that `connection_id` names, and receives the password on standard input, not on its command line. The task doesn't use the connection itself, so the connection stays available for other tools while the task runs. The MCP server runs the task with the MariaDB Shell binary that it runs in itself or, failing that, with `mariadb-shell` on the `PATH`.
 
 When the MCP server ends, it stops the tasks that are still running.
 
@@ -51,7 +58,7 @@ When the MCP server ends, it stops the tasks that are still running.
 
 Each tool takes an `options` argument with the options of the shell utility, named in camelCase, for example `{"threads": 8, "ddlOnly": true}`. For the options of each utility, see the MariaDB Shell documentation.
 
-The tools set the following options themselves and refuse them in `options`.
+The tools set the following options themselves and refuse them in `options`:
 
 * `session`
 * `progressCallback`
@@ -185,7 +192,7 @@ Returns the state of a task.
 | --- | --- |
 | `task_id` | The task ID that a `util.*` tool returned. |
 | `since` | Optional. The `next_since` value of the previous call, to get only the messages printed after it. Default: `0`, which returns all the messages that are kept. |
-| `wait_ms` | Optional. The number of milliseconds to wait for a change before the tool returns, at most 30000. The tool returns early when a message arrives or the task finishes. Default: `0`, which returns at once. |
+| `wait_ms` | Optional. The number of milliseconds to wait for a change before the tool returns, at most 30000. The tool returns early when a message arrives or the task finishes. Default: `0`, which returns immediately. |
 
 Returns the following fields.
 
@@ -233,3 +240,5 @@ Returns the task's state, as `util.get_task` returns it, without `messages` and 
 | A tool refuses an option. | The option is one that the tool sets itself. See [Options and Paths](#options-and-paths). |
 | A load, import, or copy fails because of `local_infile`. | The server that the data goes into has `local_infile` disabled. |
 | A dump fails because the output directory isn't empty. | `output_url` names a directory that already holds files. Use a new directory. |
+
+<sub>_This page is licensed: GPLv2_</sub>

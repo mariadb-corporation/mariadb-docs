@@ -7,6 +7,13 @@ description: >-
 
 # Running in a Container
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MariaDB Shell container image runs a [multi-tenant](multi-tenant-mode.md) MCP server over streamable HTTP. Every request needs an API key or an OAuth2 access token, and each user has their own connections. This page shows how to run it with Docker Compose or Podman Compose, behind a reverse proxy that terminates TLS, in two setups:
 
 * [Without Keycloak](#setup-without-keycloak): users sign in with their MariaDB account, or use API keys.
@@ -25,9 +32,9 @@ The image is available for `linux/amd64` and `linux/arm64`, and is based on Debi
 | Volume | `/home/mcp`: the configuration, the users, and the [credential store](../connecting/credential-store.md) with the users' API keys and connection passwords |
 | Default command | `start-server` |
 
-On its first start, the container configures the server from [environment variables](#environment-variables) and then starts it. On later starts, it applies the variables again only if one of them changed, and prepares the Keycloak realm again only if the mode, the public URL or a `KEYCLOAK_*` variable changed. So a secret that is needed only for the first start, such as the Keycloak administrator password, can be removed afterwards. Removing a variable doesn't always undo its setting. A server taken out of `MCP_LOGIN_SERVERS` is removed, removing `MCP_REQUIRED_ROLE` clears the role, and the variables that `mcp start-server` reads (`MCP_TRUSTED_PROXIES`, `MCP_ALLOWED_HOSTS`, `MCP_MAX_CONNECTIONS` and `MCP_PORT`) apply on every start. What the others created stays: the user from `MCP_INITIAL_USER`, and the client, role grants and login theme in the Keycloak realm. Remove them with `mcp setup` or in the Keycloak administration console.
+On its first start, the container configures the server from [environment variables](#environment-variables) and then starts it. On later starts, it applies the variables again only if one of them changed, and prepares the Keycloak realm again only if the mode, the public URL, or a `KEYCLOAK_*` variable changed. So a secret that is needed only for the first start, such as the Keycloak administrator password, can be removed afterwards. Removing a variable doesn't always undo its setting. A server taken out of `MCP_LOGIN_SERVERS` is removed, removing `MCP_REQUIRED_ROLE` clears the role, and the variables that `mcp start-server` reads (`MCP_TRUSTED_PROXIES`, `MCP_ALLOWED_HOSTS`, `MCP_MAX_CONNECTIONS`, and `MCP_PORT`) apply on every start. What the others created stays: the user from `MCP_INITIAL_USER`, and the client, role grants, and login theme in the Keycloak realm. Remove them with `mcp setup` or in the Keycloak administration console.
 
-A program of the image, such as `sh`, runs as it is. Any other command runs `mariadb-shell` with its arguments. Use this to administer a running server:
+If the container's command names a program in the image, such as `sh`, the container runs that program. Any other command is passed to `mariadb-shell` as its arguments. Use this to administer a running server:
 
 ```bash
 docker compose exec mcp mariadb-shell -- mcp setup --show --allUsers
@@ -70,7 +77,7 @@ With Podman and other clients that don't resolve short names through Docker Hub,
 | `KEYCLOAK_LOGIN_THEME` | `keycloak` | A login theme to select for the realm, such as `mariadb-mcp`. See [Use the MariaDB Login Theme](oauth-authentication.md#use-the-mariadb-login-theme). |
 | `MCP_TRUSTED_PROXIES` | All | The addresses that the reverse proxy's requests arrive from. See [Reverse Proxy](#reverse-proxy). |
 | `MCP_ALLOWED_HOSTS` | All | Additional `Host` header values to accept. In `none` mode behind a reverse proxy, the proxy's host name, for example `mcp.example.com`. See [Host and Origin Validation](security-and-session-handling.md#host-and-origin-validation). |
-| `MCP_MAX_CONNECTIONS` | All | The most database connections that the server holds open, for all users together. Default: `64`. |
+| `MCP_MAX_CONNECTIONS` | All | The maximum number of database connections that the server holds open, for all users together. Default: `64`. |
 | `MCP_PORT` | All | The port in the container. Default: `8080`. |
 
 In `keycloak` mode, the first start runs [`mcp setup-keycloak-realm`](oauth-authentication.md#prepare-the-realm) with these values. Arguments after `start-server` in the container's command go to [`mcp start-server`](starting-the-mcp-server.md#options).
@@ -79,7 +86,7 @@ In `keycloak` mode, the first start runs [`mcp setup-keycloak-realm`](oauth-auth
 
 The server in the container serves plain HTTP and listens on all addresses of the container, so that the published port reaches it. Publish the port on the host's loopback address only, and let a reverse proxy on the host terminate TLS. At startup, the server warns that it listens without TLS; behind a proxy, that is expected.
 
-Pass everything to the container, not just `/mcp`: the OAuth2 metadata is under `/.well-known/`, and in `builtin` mode, the sign-in and token endpoints are at the root. Pass the original `Host` header on. In `builtin` and `keycloak` mode, the server accepts the host name of its public URL. In `none` mode, it has no public URL, so set `MCP_ALLOWED_HOSTS` to the host name, for example `mcp.example.com`. Don't buffer responses, because the streamable HTTP transport answers with server-sent events. For nginx:
+Pass everything to the container, not just `/mcp`: the OAuth2 metadata is under `/.well-known/`, and in `builtin` mode, the sign-in and token endpoints are at the root. Pass the original `Host` header on. In `builtin` and `keycloak` modes, the server accepts the host name of its public URL. In `none` mode, it has no public URL, so set `MCP_ALLOWED_HOSTS` to the host name, for example `mcp.example.com`. Don't buffer responses, because the streamable HTTP transport answers with server-sent events. For nginx:
 
 ```nginx
 server {
@@ -348,7 +355,7 @@ This setup runs Keycloak with its own MariaDB database next to the MCP server. O
     Keycloak issuer: https://kc.example.com/realms/mariadb.
     ```
 
-    Then empty `kc-admin-password`. The container starts without it, as long as the mode, the public URL and the `KEYCLOAK_*` variables stay the same.
+    Then empty `kc-admin-password`. The container starts without it, as long as the mode, the public URL, and the `KEYCLOAK_*` variables stay the same.
 7.  Give the users their connections. A user who signs in through Keycloak is linked to a user of the MCP server by their **verified** email address, or created at their first sign-in if they hold the realm role `mcp-user`, but without connections. Create the user beforehand with the email address of their Keycloak account, which must be marked as verified in Keycloak, and add their connections. The setup asks for each connection's password:
 
     ```bash
@@ -379,8 +386,10 @@ The MCP server reads the realm's keys from `KEYCLOAK_URL`, so the container must
 | *entrypoint-mcp-server: … belongs to uid …, and the container runs as uid …* | The volume was set up by another uid, and its files are private to that uid. | Run the container as the uid named, or give the volume's files to the container's uid. |
 | *entrypoint-mcp-server: KEYCLOAK_ADMIN_PASSWORD_FILE: cannot read … as uid 10001* | The password file isn't readable by the server's user in the container. | Make it readable by uid `10001`, as described in [Setup With Keycloak](#setup-with-keycloak). |
 | *entrypoint-mcp-server: MCP_OAUTH_MODE=… needs …* | A variable that the mode needs isn't set. The container stops before it changes anything, so the previous configuration stays in place. | Set the variable the message names. |
-| *entrypoint-mcp-server: preparing the Keycloak realm needs KEYCLOAK_ADMIN_PASSWORD or KEYCLOAK_ADMIN_PASSWORD_FILE* | The mode, the public URL or a `KEYCLOAK_*` variable changed since the realm was last prepared, or the realm was never prepared. The container stops before it changes anything. | Pass the administrator password for one start, then empty it again. |
+| *entrypoint-mcp-server: preparing the Keycloak realm needs KEYCLOAK_ADMIN_PASSWORD or KEYCLOAK_ADMIN_PASSWORD_FILE* | The mode, the public URL, or a `KEYCLOAK_*` variable changed since the realm was last prepared, or the realm was never prepared. The container stops before it changes anything. | Pass the administrator password for one start, then empty it again. |
 | *Keycloak has no login theme 'mariadb-mcp'* | The theme isn't mounted into the Keycloak container, or Keycloak was started before it was. | Mount the theme and restart Keycloak. |
 | A client receives `421 Misdirected Request`. | The client uses a host name other than the public URL's, for example the published port directly. In `none` mode, which has no public URL, the proxy's host name isn't in `MCP_ALLOWED_HOSTS`. | Use the public URL, or add the name with `MCP_ALLOWED_HOSTS`. |
-| The container restarts again and again, and the log shows that the server refused to start. | The server has no user, and the mode doesn't create users at their first sign-in. | Set `MCP_INITIAL_USER`, or use `builtin` or `keycloak` mode. |
+| The container keeps restarting, and the log shows that the server refused to start. | The server has no user, and the mode doesn't create users at their first sign-in. | Set `MCP_INITIAL_USER`, or use `builtin` or `keycloak` mode. |
 | The server's log lines show the same address for every client. | `MCP_TRUSTED_PROXIES` doesn't contain the address that the proxy's requests arrive from. | Compare it with the address in the access log. See [Reverse Proxy](#reverse-proxy). |
+
+<sub>_This page is licensed: GPLv2_</sub>

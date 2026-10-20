@@ -7,6 +7,13 @@ description: >-
 
 # Starting the MCP Server
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 `mcp start-server` starts the MCP server. It runs in the foreground until it is stopped, and serves the tools to one MCP client over standard input and output, or to any number of clients over HTTP:
 
 ```bash
@@ -187,3 +194,5 @@ For a `stdio` server, the MCP client captures standard error. Check the MCP log 
 | *--trustedProxies takes IP addresses and networks (such as 192.0.2.3 or 192.0.2.0/24); not: …* | An entry of `--trustedProxies` is a host name or misspelled. | Give the proxies' IP addresses or networks. |
 | *--trustedProxies cannot trust every address (…)* | `--trustedProxies` contains `0.0.0.0/0` or `::/0`. | Name the proxies themselves. |
 | *Give both --sslCertfile and --sslKeyfile to serve HTTPS, or neither.* | Only one of `--sslCertfile` and `--sslKeyfile` was given. | Pass both. |
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -6,6 +6,13 @@ description: >-
 
 # Migrating from MySQL
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB AI Plugins support a migration from MySQL to MariaDB in two ways. The skills describe the differences between MySQL and MariaDB that affect your SQL and application code, and the optional `migrator.*` tools migrate the database itself.
 
 ## Requirements
@@ -45,3 +52,5 @@ Omit `out` for every new run. A run pointed at the output directory of an earlie
 ## Verify the Result
 
 After the migration, the agent uses the `mariadb-migrator-verify` skill to check the result on the target server with the `db.*` tools. The checks include object counts by type, foreign keys, row counts, spot checks of values, and logins with each migrated account. To test the migration first, migrate into a [sandbox instance](sandbox-instances.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

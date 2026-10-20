@@ -7,6 +7,13 @@ description: >-
 
 # Editing and History
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MariaDB Shell prompt has Emacs-style line editing, a searchable command history, and a shortcut that opens the current statement in your text editor. These features are available in interactive sessions.
 
 ## Line-Editing Keys
@@ -161,3 +168,5 @@ The filter applies to SQL statements only: lines that you type in SQL mode, stat
 A `\connect` (or `\c`, `/connect`) line is saved without its password, in any mode: `\connect root:secret@localhost` is saved as `\connect root@localhost`, and `--password=secret` as `--password`, so running the entry again prompts for the password. A password in an `--ssh` URI is removed too, and the rest of a URI is kept as typed; an empty password, as in `root:@localhost`, isn't a secret and stays. A shell command line that the shell rejects, such as a `\connect` with an error in its options or a command with a misplaced quote, is kept only until the next command, as a filtered statement is.
 
 Python code isn't filtered: avoid literal passwords in Python lines, and use the credential store or `shell.prompt()` instead. See [Credential Store](../connecting/credential-store.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

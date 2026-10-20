@@ -7,6 +7,13 @@ description: >-
 
 # OAuth Authentication
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A [multi-tenant](multi-tenant-mode.md) MCP server authenticates every request. Besides API keys, it can accept OAuth2 access tokens, so that users sign in through their browser instead of handling a key, and so that their access ends when their sign-in ends. The server supports two OAuth2 modes:
 
 | Mode | Who signs users in | Who the database session runs as |
@@ -469,3 +476,5 @@ Clients are named by their client ID or by their name.
 | Keycloak refuses the client's registration with *Policy 'Trusted Hosts' rejected request*. | The realm doesn't allow anonymous dynamic registration from the client's host. | Trust the host in the realm's client registration policies, or configure the client with the `mariadb-mcp` client. |
 | *Keycloak has no login theme '…'* | `--loginTheme` names a theme that isn't installed on the Keycloak server, or Keycloak wasn't restarted after the installation. | Install the theme, restart Keycloak, and run the command again. The message lists the installed login themes. |
 | *Keycloak refused the administrator sign-in* | The administrator credentials or the administrator realm are wrong. | Check `--adminUser` and `--adminRealm`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

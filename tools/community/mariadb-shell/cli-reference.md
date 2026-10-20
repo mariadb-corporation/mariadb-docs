@@ -7,6 +7,13 @@ icon: terminal
 
 # CLI Reference
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 This page lists the command-line options of `mariadb-shell` 26.9.5. The short alias `msh` accepts the same options. For the options of your installed build, run `mariadb-shell --help`.
 
 ## Synopsis
@@ -231,3 +238,5 @@ See [Option Files and Login Paths](connecting/option-files-and-login-paths.md).
 
 * [Files and Environment Variables](files-and-environment-variables.md) lists the files and the `MARIADB_SHELL_*` environment variables that the shell uses.
 * [Configuration Options](customizing/configuration-options.md) describes the options that you set with `shell.options` and persist in the configuration file.
+
+<sub>_This page is licensed: GPLv2_</sub>
