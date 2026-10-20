@@ -246,7 +246,7 @@ Path to the Ignite configuration file. `$IGNITE_HOME/config/default-config.xml` 
 
 `shallProcessUpdates`
 
-Indicates if overwriting or removing existing values in the sink cache is enabled. Sink connector performs better if this flag is disabled. Because this configuration property maps to the data streamer's allowOverwrite setting. When set to `false`, new entries are written directly to sink cache, bypassing cache store.
+Indicates if overwriting or removing existing values in the sink cache is enabled. Sink connector performs better if this flag is disabled. This configuration property maps to the data streamer's allowOverwrite setting. When set to `false`, new entries are written directly to sink cache, bypassing cache store.
 
 - Type: boolean
 - Default: `false`
