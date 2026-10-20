@@ -18,16 +18,18 @@ The [ColumnStore Bulk Data API](columnstore-bulk-data-loading.md) enables the cr
 The MaxScale CDC Data Adapter has been deprecated.
 {% endhint %}
 
-The MaxScale CDC Data Adapter allows streaming change data events (binary log events) from MariaDB Master hosting non-columnstore engines (InnoDB, MyRocks, MyISAM) to MariaDB ColumnStore. In other words, replicate data from a MariaDB master server to MariaDB ColumnStore. It acts as a CDC Client for MaxScale and uses the events received from MaxScale as input to MariaDB ColumnStore Bulk Data API to push the data to MariaDB ColumnStore. [maxscale-cdc-adapter](../../../.gitbook/assets/maxscale-cdc-adapter.jpg)
+The MaxScale CDC Data Adapter allows streaming change data events (binary log events) from MariaDB Master hosting non-columnstore engines (InnoDB, MyRocks, MyISAM) to MariaDB ColumnStore. In other words, replicate data from a MariaDB master server to MariaDB ColumnStore. It acts as a CDC Client for MaxScale and uses the events received from MaxScale as input to MariaDB ColumnStore Bulk Data API to push the data to MariaDB ColumnStore.
 
-It registers with MariaDB MaxScale as a CDC Client using the [MaxScale CDC Connector API](https://mariadb.com/downloads/mariadb-ax/connector), receiving change data records from MariaDB MaxScale (that are converted from binlog events received from the Master on MariaDB TX) in a JSON format. Then, using the MariaDB ColumnStore bulk write SDK, it converts the JSON data into API calls and streams it to a MariaDB PM node. The adapter has options to insert all the events in the same schema as the source database table or insert each event with metadata as well as table data. The event meta data includes the event timestamp, the GTID, event sequence and event type (insert, update, delete).
+![MaxScale CDC Data Adapter](../../../.gitbook/assets/maxscale-cdc-adapter.jpg)
+
+It registers with MariaDB MaxScale as a CDC Client using the [MaxScale CDC Connector API](https://github.com/mariadb-corporation/maxscale-cdc-connector), receiving change data records from MariaDB MaxScale (that are converted from binlog events received from the Master on MariaDB TX) in a JSON format. Then, using the MariaDB ColumnStore bulk write SDK, it converts the JSON data into API calls and streams it to a MariaDB PM node. The adapter has options to insert all the events in the same schema as the source database table or insert each event with metadata as well as table data. The event meta data includes the event timestamp, the GTID, event sequence and event type (insert, update, delete).
 
 ### Installation
 
 #### Pre-requisite:
 
-* Download and install MaxScale CDC Connector API from [connector](https://mariadb.com/downloads/mariadb-ax/connector).
-* Download and install MariaDB ColumnStore bulk write SDK from columnstore-bulk-write-sdk.md.
+* Build and install the MaxScale CDC Connector API from the [MaxScale CDC Connector](https://github.com/mariadb-corporation/maxscale-cdc-connector) repository.
+* Build and install the MariaDB ColumnStore bulk write SDK from the [MariaDB ColumnStore API](https://github.com/mariadb-corporation/mariadb-columnstore-api) repository.
 
 #### CentOS 7
 
@@ -251,7 +253,7 @@ The following steps are necessary to install the ColumnStore Data adapter (bulk 
 
 1. Build the plugin from [source](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/master/kettle-columnstore-bulk-exporter-plugin) or download it from our [website](https://mariadb.com/downloads/mariadb-ax/data-adapters)
 2. Extract the archive mariadb-columnstore-kettle-bulk-exporter-plugin-\*.zip into your PDI installation directory $PDI-INSTALLATION/plugins.
-3. Copy [MariaDB's JDBC Client](https://mariadb.com/downloads/mariadb-ax/connector) mariadb-java-client-2.2.x.jar into PDI's lib directory $PDI-INSTALLATION/lib.
+3. Copy [MariaDB's JDBC Client]({connectors}/mariadb-connector-j/installing-mariadb-connectorj) mariadb-java-client-2.2.x.jar into PDI's lib directory $PDI-INSTALLATION/lib.
 4. Install the additional library dependencies
 
 #### Ubuntu dependencies
