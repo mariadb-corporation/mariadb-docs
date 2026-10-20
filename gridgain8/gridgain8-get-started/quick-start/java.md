@@ -170,7 +170,7 @@ Run HelloWorld.java. You will see 'Hello World!' and other environment details p
 From here, you may want to:
 
 - Read more about using GridGain
-- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster
+- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster
 
 ### Further Examples
 

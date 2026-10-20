@@ -76,7 +76,7 @@ Configuration options follow a hierarchy where environment variables override co
 
 ## MariaDB Enterprise nslcd Sidecar
 
-The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
+The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
 
 ### Configuration Requirements
 

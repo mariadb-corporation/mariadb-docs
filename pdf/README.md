@@ -56,7 +56,7 @@ spaces account for 90% of it.
 ## How it works
 
 ```
-SUMMARY.md ─▶ manifest ─▶ preprocess ─▶ pandoc (md→html) ─▶ Chrome --print-to-pdf ─▶ qpdf
+SUMMARY.md ─▶ manifest ─▶ preprocess ─▶ pandoc (md→html) ─▶ Chrome (Page.printToPDF) ─▶ qpdf
 ```
 
 1. **`SUMMARY.md` is the manifest.** It is GitBook's navigation tree, so it
@@ -78,7 +78,9 @@ SUMMARY.md ─▶ manifest ─▶ preprocess ─▶ pandoc (md→html) ─▶ Ch
 
 4. **Chrome prints it.** Not LaTeX: the corpus contains 118 pages with raw
    `<table>` markup and 111 with Mermaid diagrams, which a TeX engine cannot
-   render. Chrome also lets `pdf/style.css` own the layout.
+   render. Chrome also lets `pdf/style.css` own the layout. `build.py` drives
+   it over the DevTools protocol rather than with `--print-to-pdf` — see
+   *Driving Chrome* below.
 
 5. **`qpdf` repacks it losslessly** — see *Size* below.
 
@@ -284,23 +286,39 @@ with `--no-optimize`.
 `/Link` and `/Dest` — on `galera-cluster`, 3,575 links and 743 destinations all
 became zero — which destroys cross-reference navigation.
 
-## Chrome does not reliably exit
+## Driving Chrome
 
-Headless Chrome writes a complete, valid PDF and then *sometimes* keeps
-running — observed on `tools` and `mariadb-cloud`, where the finished file sat
-on disk while the process idled for tens of minutes. So `build.py` treats **the
-output file as the completion signal, not process exit**: it polls the PDF's
-size and terminates Chrome once that size has been stable for a few checks.
-Verified equivalent to letting Chrome exit on its own — same 611 pages, 3,859
-links and 1,397 destinations on `tools`, final page intact.
+`build.py` starts headless Chrome with `--remote-debugging-pipe` and talks the
+DevTools protocol to it over fds 3 and 4 (NUL-delimited JSON), so it needs
+nothing beyond the Python standard library. It loads the page, waits until
+`document.readyState` is `complete` and the page has set
+`window.__renderComplete` (after Mermaid has run), then calls
+`Page.printToPDF` with `transferMode: ReturnAsStream` and reads the PDF back in
+8 MB chunks.
 
-Two related traps:
+**Why not `--print-to-pdf`.** That flag returns the finished PDF in one piece,
+and Chrome 155's renderer dies on one that large. `release-notes` — about
+308 MB before `qpdf`, 6,528 pages — failed on every run with
+`V8 error: Empty MaybeLocal` (DOCS-6945), with 125 GB of RAM free, a 16 GB V8
+heap, or every script removed, while each half of the same HTML printed fine.
+Streamed, it prints in under two minutes. On `galera-cluster` the two routes
+give the same 266 pages, 981 external links, 718 internal links, 123 named
+destinations and 22,845 drawn paths; the bytes differ only in timestamps and
+generated IDs.
 
-- **`--virtual-time-budget` bounds nothing in wall-clock terms.** It advances a
-  virtual clock; it will not stop a hung render. `CHROME_TIMEOUT_S` is the only
-  real ceiling.
-- **Always pass `--user-data-dir`.** Without it Chrome shares the default
-  profile and can block on the singleton lock when another instance exists.
+Driving the session also retired two `--print-to-pdf` workarounds:
+
+- **Waiting for the page.** `--virtual-time-budget` only advanced a virtual
+  clock. The page now says when it is ready.
+- **Chrome not exiting.** Headless Chrome sometimes kept running for tens of
+  minutes after writing the PDF (seen on `tools` and `mariadb-cloud`), so the
+  old code watched the file stop growing. `build.py` now closes Chrome itself,
+  and kills it if it doesn't go.
+
+`CHROME_TIMEOUT_S` (30 minutes) bounds the whole render. On a renderer crash
+or a timeout the error carries Chrome's own `FATAL` line, not the dbus noise
+that fills the start of its stderr. Each render gets a private
+`--user-data-dir`, so it never blocks on another instance's singleton lock.
 
 A space that still fails is reported and skipped rather than aborting the run,
 matching `fail-fast: false` in the workflow — a full build is tens of minutes

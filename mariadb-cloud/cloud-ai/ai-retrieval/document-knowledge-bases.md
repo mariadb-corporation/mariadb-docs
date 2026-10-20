@@ -9,6 +9,8 @@ hidden: true
 
 <!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Open items are marked TODO. -->
 
+<!-- TODO: screenshots were recaptured on 2026-10-20 in the test environment. Recapture ai-retrieval-upload-processing.png and ai-retrieval-chunk-size-fields.png once the environment shows "Base" instead of "Basic" (MCDEV-1484, comment 1143338). -->
+
 # Document Knowledge Bases
 
 A document knowledge base indexes files so that applications can retrieve passages or generated answers from them. This page shows how to create one, add documents, test it, and call it from an application.
@@ -25,9 +27,9 @@ A document knowledge base indexes files so that applications can retrieve passag
 6. Optionally, open **Advanced Options** to change the models and the reranker.
 7. Select **Create Knowledge Base**.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-create-kb.png" alt="The Create Knowledge Base page with a document knowledge base, AWS in Frankfurt, an auto-provisioned vector store, and the Advanced Options expanded."><figcaption><p>The Create Knowledge Base page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-create-kb.png" alt="The Create Knowledge Base page with a document knowledge base, AWS in Frankfurt, an existing vector store service, and the Advanced Options expanded showing the embedding model, the generation model, and the reranker turned on."><figcaption><p>The Create Knowledge Base page</p></figcaption></figure>
 
-<!-- TODO: recapture this screenshot in the production environment. The model names in it can change. -->
+<!-- TODO: recapture this screenshot. It shows the reranker off, but the reranker is on by default in portal 4.13.13. The model names can also change. -->
 
 The knowledge base shows the status **Provisioning**, which usually takes a few minutes. When the status changes to **Ready**, you can add documents.
 
@@ -38,13 +40,11 @@ The knowledge base shows the status **Provisioning**, which usually takes a few 
 | Option | Description |
 | --- | --- |
 | Embedding Model | Converts text into the vectors that semantic search uses. |
-| LLM Model | The default model that generates answers for Retrieve & Generate requests. A request can select a different model. |
-| Reranker | Re-scores the retrieved chunks to improve their order, at the cost of slightly higher latency. It is off by default. When it is on, reranking applies to every retrieval. When it is off, a request can still turn it on. |
-
-<!-- TODO: confirm whether the reranker is a paid add-on (the portal tooltip says so) and whether it will be on by default at launch. -->
+| Generation Model | The default model that generates answers for Retrieve & Generate requests. A request can select a different model. |
+| Reranker | Re-scores the retrieved chunks with a reranking model, at the cost of slightly higher latency. It is on by default. When it is on, reranking applies to every retrieval. When it is off, a request can still turn it on. The reranker is billed per 1,000 queries. |
 
 {% hint style="warning" %}
-After you create a knowledge base, you can edit only its name and description. To use a different embedding model, LLM, or reranker setting, create a new knowledge base.
+After you create a knowledge base, you can edit only its name and description. To use a different embedding model, generation model, or reranker setting for all requests, create a new knowledge base. A single request can still select a different generation model or turn reranking on or off.
 {% endhint %}
 
 <!-- TODO: confirm in the Edit Knowledge Base dialog. The API accepts only name and description changes. -->
@@ -56,7 +56,7 @@ You can add documents in two ways. Upload files from your computer, or connect a
 ### Upload Files
 
 1. Open the knowledge base and select **Upload Documents**.
-2. Drag files into the dialog, or select **Browse Files**. You can add up to 5 files, and each file can be up to 50 MB.
+2. Drag files into the dialog, or select **Browse Files**. You can add up to 5 files of these types: PDF, DOCX, PPTX, MD, TXT, HTML, and JSON. Each file can be up to 50 MB.
 3. Select **Next**.
 4. Choose a **Parsing Strategy** and a **Chunking Strategy**. See [Parsing and Chunking Strategies](document-knowledge-bases.md#parsing-and-chunking-strategies).
 5. Select **Upload**.
@@ -72,7 +72,7 @@ The files appear in the **Documents** table. The **Status** column shows the sta
 | Queued | The document is waiting to be processed. |
 | Download | AI Retrieval is fetching the file. |
 | Ingested | The document is indexed. The **Chunks** column shows how many chunks it produced. |
-| Retrying | Processing met an error. A warning icon shows the error message. |
+| Retrying | Processing met an error, and AI Retrieval retries the document automatically. A warning icon shows the error message. |
 
 <!-- TODO: confirm the portal labels of the stages after Download, and the label of a document that fails. The ingestion service defines the stages queued, download, parse, chunk, cleanse, enrich_metadata, embed, and store. -->
 
@@ -109,7 +109,7 @@ For Google Cloud Storage, the dialog asks for a service account key in JSON form
 
 <!-- TODO: capture the Google Cloud Storage version of the dialog and the Processing step of the data source dialog, and document the permissions that a service account needs. -->
 
-AI Retrieval does not ingest the documents of a data source automatically. Select **Sync Now**, or **Sync** in the data source list, whenever you add files to the bucket. To review earlier syncs, select **View Sync History**.
+AI Retrieval does not ingest the documents of a data source automatically. Removing a file from the bucket does not remove its document from the knowledge base, so delete the document in the knowledge base. If you delete a document in the knowledge base while its file is still in the bucket, the next sync ingests the file again. Select **Sync Now**, or **Sync** in the data source list, whenever you add files to the bucket. To review earlier syncs, select **View Sync History**.
 
 ## Parsing and Chunking Strategies
 
@@ -117,8 +117,8 @@ A parsing strategy controls how AI Retrieval reads a file. A chunking strategy c
 
 | Parsing Strategy | Description |
 | --- | --- |
-| Layout-aware (default) | Extracts text and layout from complex digital documents. It captures headings, reading order, tables, and lists. |
-| Basic | Extracts plain text only. It also handles text-based formats such as Markdown, HTML, and JSON. |
+| Layout-aware (default) | Extracts layout and text from complex digital documents where the meaning depends on structure. Use it for PDF, DOCX, PPTX, and static HTML. |
+| Base | Extracts plain text only. Use it for TXT, Markdown, JSON, and digital DOCX or PDF files that contain linear prose. |
 
 | Chunking Strategy | Description |
 | --- | --- |
@@ -127,6 +127,12 @@ A parsing strategy controls how AI Retrieval reads a file. A chunking strategy c
 | Sentence-based | Splits text at sentence boundaries and keeps each sentence whole within a chunk. |
 | Recursive | Splits along paragraphs first, then sentences, then words, and keeps larger units intact until the size limit is reached. |
 | Semantic | Groups sentences into chunks by meaning, so that related content stays together. |
+
+Every strategy except Structure-aware shows a **Chunk size (tokens)** field. Fixed-sized and Sentence-based also show a **Chunk overlap (tokens)** field. The default chunk size is 350 tokens and the default overlap is 100 tokens. A chunk size must be at least 128 tokens, and an overlap must be smaller than the chunk size. Cohere embedding models accept chunk sizes up to 350 tokens. When the reranker is on, it reads only the first 512 tokens of each chunk, so the portal warns about larger chunk sizes.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-chunk-size-fields.png" alt="The Processing step of the Upload Files dialog with the Fixed-sized chunking strategy selected, showing the Chunk size (tokens) field with a default of 350 and the Chunk overlap (tokens) field with a default of 100."><figcaption><p>The chunk size and overlap fields</p></figcaption></figure>
+
+<!-- Source: skysql-ui-client ChunkingFields.vue and src/utils/chunking.ts @ 5356829b; ai-retrieval-cloud chunk_rules.py @ 5393bced. -->
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-chunking-strategies.png" alt="The chunking strategy list showing the Structure-aware, Fixed-sized, Sentence-based, Recursive, and Semantic options."><figcaption><p>The chunking strategies</p></figcaption></figure>
 
@@ -152,14 +158,18 @@ Open **Advanced Options** to change how a test runs.
 | Temperature | 0.3 | A value from 0 to 2. Lower values give more focused answers. |
 | Top P | 1 | A value from 0 to 1. The model considers only the most likely tokens whose probabilities add up to this value. |
 | Max Tokens | 8192 | A value from 64 to 8192. The maximum length of the generated answer. |
+| Reranker | Knowledge base setting | Reorders the retrieved chunks with a reranking model. The choice applies to this test only. |
+| Rerank Top K | Top K | A value from 1 to 50. The number of chunks to keep after reranking. It appears when the reranker is on. |
 
-The Retrieve & Generate tab also has an **LLM Model** list. Temperature, Top P, Max Tokens, and the model apply only to generated answers.
+The Retrieve & Generate tab also has a **Generation Model** list. Temperature, Top P, Max Tokens, and the model apply only to generated answers.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-test-options.png" alt="The Advanced Options of the Retrieve and Generate tab showing Top K, Retrieval Method, Documents, Temperature, Top P, and Max Tokens."><figcaption><p>Advanced Options of the Retrieve & Generate tab</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-test-options.png" alt="The Test Knowledge Base drawer on the Retrieve and Generate tab, showing the Generation Model list and the expanded Advanced Options: Top K Results, Retrieval Method, Documents, the Reranker toggle turned on, Rerank Top K, Temperature, and Top P."><figcaption><p>Advanced Options of the Retrieve & Generate tab</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-test-options-more.png" alt="The Test Knowledge Base drawer scrolled down to the end of the Advanced Options, showing Rerank Top K, Temperature, Top P, and Max Tokens, followed by the query box and the Test Query button."><figcaption><p>The remaining Advanced Options</p></figcaption></figure>
 
 ## Connect Your Application
 
-Applications call the knowledge base through a REST API and authenticate with an API key.
+Applications call the knowledge base through a REST API and authenticate with an API key. Send the key as a bearer token in the `Authorization` header, or in the `X-API-Key` header.
 
 ### Create an API Key
 
@@ -184,7 +194,7 @@ Select **Connect** on the knowledge base to see its endpoint and examples in cUR
 https://ENDPOINT/retrieval/v1/knowledgebases/KB_ID/retrieve-chunks
 ```
 
-<!-- TODO: replace ENDPOINT with the production host when it is known, and confirm that Authorization: Bearer is the supported header. -->
+<!-- TODO: replace ENDPOINT with the production host when it is known. -->
 
 | Endpoint | Result |
 | --- | --- |
@@ -222,35 +232,33 @@ The request body accepts these fields.
 | `max_tokens` | Generate | A value from 64 to 8192. The default is 8192. |
 | `enable_citations` | Generate | Returns citations. The default is `true`. |
 
-<!-- TODO: Vijay stated a top_k limit of 150 on 2026-10-02. The API schema and the portal use 100. Confirm before publishing. -->
-
 A `retrieve-chunks` response contains the `chunks` array. Each chunk has `chunk_id`, `document_id`, `chunk_text`, `chunk_index`, `score`, `document_name`, `file_name`, and `file_format`. The response also reports `total_chunks`, `retrieval_method`, and `reranking_enabled`.
 
 A generate response contains the `answer`, a `citations` array, `chunks_retrieved`, `chunks_used`, and `timings`. Each citation has a `citation_id` that matches a number such as `[1]` in the answer, the `chunk_id`, the `document_id`, the `document_name`, and a preview of the chunk text.
 
 The stream endpoint sends server-sent events. A `token` event carries part of the answer. The `final` event carries the complete answer and the citations. A `done` event ends the stream, and an `error` event reports a failure.
 
-If your organization uses up its daily request quota, the API returns HTTP status 429.
+If your organization exceeds a request limit, the API returns HTTP status 429.
 
-<!-- TODO: document the quota values after the product team confirms them. The product requirements list 2 requests per second, but the code enforces a daily quota per organization. -->
+See [Quotas](README.md#quotas) for the limits.
 
 ## Manage Documents
 
-Select the actions menu (⋮) in a document row to view its chunks or delete it. Select **Delete All Documents** to remove every document from the knowledge base. Use **Search by file name** to find a document.
+Select the actions menu (⋮) in a document row to view its chunks or delete it. Select **Delete All Documents** to remove every document from the knowledge base. Use **Search by file name** to find a document. The search covers only the documents on the current page.
 
 ## Troubleshooting
 
 ### A Document Stays Queued or Retrying
 
-A document can stay in **Queued** or **Retrying** for a long time. The warning icon next to **Retrying** shows the error message, which can read **Internal processing error**.
+A document can stay in **Queued** or **Retrying** for a long time. The warning icon next to **Retrying** shows the error message, which can read **Internal processing error**. AI Retrieval retries a failed document automatically, up to three times.
 
 * Check whether the content is already searchable. Run a query in the **Test** drawer. The status can lag behind the actual state.
-* Delete the document, and upload it again.
+* If the document does not reach **Ingested**, delete it and upload it again.
+* If you ingest many large documents from a bucket, give the sync time. A file that times out is retried once at the end of the sync, and you can run the sync again.
+* A vector store on a small Serverless instance can slow ingestion down.
 * Contact MariaDB Support if the problem continues.
 
-The **Retry** action in the actions menu is not available. Selecting it returns the error "Retry functionality is temporarily disabled while the ingestion pipeline is being stabilized."
-
-<!-- TODO: re-verify the Retry behavior before the launch. Retry returns HTTP 501 in the ingestion service as of 2026-10-08, and the automatic retry loop is disabled. -->
+<!-- TODO: re-verify the retry behavior before the launch. The retry sweep is on by default with 3 retries (ai-retrieval-cloud services/ingestion/config.py @ 5393bced). The Retry endpoints still return HTTP 501 and Egor said on 2026-10-14 that the ingestion jobs endpoints will be hidden. -->
 
 ### Test Connection Fails
 

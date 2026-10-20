@@ -58,7 +58,7 @@ Following are the options for first-time activation of persistent clusters.
 Because this operation is performed once, it's often convenient to activate a cluster manually. After making sure that all nodes have started and joined the cluster, an administrator can:
 
 - Run a [set-state control.sh command](../reference/cli-tool/README.md#set-state), or
-- Initiate activation via the [Control Center GUI](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/dashboard/my-cluster#activating-and-deactivating-cluster).
+- Initiate activation via the [Control Center GUI](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/gg8/dashboard/my-cluster#activating-and-deactivating-cluster).
 
 #### Automated with a Deployment or Orchestration Tool
 

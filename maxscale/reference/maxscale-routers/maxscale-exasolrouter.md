@@ -67,6 +67,7 @@ selected using the setting [preprocessor](#preprocessor).
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the Exasol ODBC connection string used to connect to the database.
 
 Specifies the Exasol connection string. The exact content depends on the
 contents of `odbc.ini` and `odbcinst.ini`.
@@ -97,6 +98,7 @@ properly unless the value is equivalent to UTF-8.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s
+* Description: Sets the login timeout for a connection, overriding `LOGINTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
 Defines the login timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeout
@@ -112,6 +114,7 @@ only affects sessions that are created after the change.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s
+* Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
 Defines the query timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
@@ -128,6 +131,7 @@ only affects sessions that are created after the change.
 * Dynamic: No
 * Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
 * Default: `internal`, if the distribution provides a new enough Python implementation, `disabled` if not.
+* Description: Determines how MariaDB SQL is transpiled for Exasol: internally with a Python script, externally by a preprocessor script in Exasol, or not at all.
 
 The values mean:
 
@@ -153,10 +157,8 @@ The values mean:
 
 The bundled `maria_preprocessor.py` is installed by the `maxscale-exasol`
 package. The latest version of the script is available from the
-[exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql)
-repository. That file is written as an Exasol
-`CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its
-first line before using it with `internal`. For example:
+[exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.py)
+repository and can be used with `internal` as it is. For example:
 ```
 preprocessor=internal:/path/to/maria_preprocessor.py
 ```
@@ -181,6 +183,7 @@ On all other platforms, specifying `internal` will cause a startup error.
 * Mandatory: No
 * Dynamic: No
 * Default: `<maxscale-libdir>/python3/site-packages`
+* Description: Specifies the directory that SQLGlot is loaded from when `preprocessor` is `internal`.
 
 The library from which [SQLGlot](https://sqlglot.com/sqlglot.html) is loaded,
 if the value of `preprocessor` is `internal`.
@@ -192,6 +195,7 @@ if the value of `preprocessor` is `internal`.
 * Dynamic: No
 * Values: `read_only`, `read_write`
 * Default: `read_only`
+* Description: Determines whether the Exasolrouter appears as read-only or read-write to other MaxScale components.
 
 Specifies how _ExasolRouter_ appears to other components of MaxScale.
 This is of relevance only if another service uses an Exasol router service
@@ -206,6 +210,7 @@ what kind of queries can be run through the router.
 * Mandatory: No
 * Dynamic: No
 * Default: 10s
+* Description: Sets how long an unused kill connection is kept alive after the last KILL command. A value of `0` closes it immediately after each use.
 
 The duration that an unused kill connection is kept alive after the
 last KILL command before it is automatically closed; a value of 0
@@ -217,6 +222,7 @@ closes it immediately after each use.
 * Mandatory: No
 * Dynamic: No
 * Default: true
+* Description: Determines whether the router quotes identifiers when converting a `COM_INIT_DB` packet to `OPEN SCHEMA`, and when transpiling internally with `preprocessor` set to `disabled`.
 
 Whether _ExasolRouter_ should quote identifiers. This applies always
 when a `COM_INIT_DB` packet is converted to an `OPEN SCHEMA ...`

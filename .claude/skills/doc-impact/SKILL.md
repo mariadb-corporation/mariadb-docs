@@ -1,7 +1,7 @@
 ---
 name: doc-impact
 description: Analyze a MariaDB source change for its documentation impact — the "explain" step before drafting. Given an MDEV ticket, a DOCS ticket, or a MariaDB/server PR/commit, it reads the actual code change, determines what is user-facing, whether docs are needed and which pages, and lists the claims to verify. Produces an analysis report; it does NOT edit docs (hand off to doc-from-ticket / /doc-ticket for that). Use when asked to "explain the doc impact of X", "what docs does MDEV-XXXXX need", "analyze this PR for documentation", or to triage whether a change needs docs.
-allowed-tools: Bash, Read, Grep, Glob, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Write, WebFetch, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active

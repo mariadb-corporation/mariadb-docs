@@ -172,6 +172,7 @@ filters=Rewrite
 * Mandatory: Yes
 * Dynamic: Yes
 * Default: No default value
+* Description: Specifies the file path to the template used by the filter.
 
 Path to the template file.
 
@@ -182,6 +183,7 @@ Path to the template file.
 * Dynamic: Yes
 * Default: Native
 * Values: `Native`, `ECMAScript`, `Posix`, `EPosix`, `Awk`, `Grep`, `EGrep`
+* Description: Overrides the template's default regex grammar, allowing it to be used with alternative regex engines such as `ECMAScript` or `Posix`.
 
 Default regex\_grammar for templates
 
@@ -191,6 +193,7 @@ Default regex\_grammar for templates
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Defines whether template matching is case-sensitive by default.
 
 Default case sensitivity for templates
 
@@ -200,6 +203,7 @@ Default case sensitivity for templates
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Allows logging of query replacements at the NOTICE level for monitoring and debugging.
 
 Log replacements at NOTICE level.
 
@@ -210,6 +214,7 @@ Log replacements at NOTICE level.
 * Type: string
 * Values: `Native`, `ECMAScript`, `Posix`, `EPosix`, `Awk`, `Grep`, `EGrep`
 * Default: From maxscale.cnf
+* Description: Defines the default tes such as `Native`, `ECMAScript`, and `POSIX`.
 
 Overrides the global regex\_grammar of a template.
 
@@ -217,6 +222,7 @@ Overrides the global regex\_grammar of a template.
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: From maxscale.cnf
+* Description: Overrides the global template configuration to specify whether pattern matching is case-sensitive.
 
 Overrides the global case sensitivity of a template.
 
@@ -224,6 +230,7 @@ Overrides the global case sensitivity of a template.
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: true
+* Description: Specifies whether whitespace differences between the template and SQL input should be ignored during matching.
 
 Ignore whitespace differences in the match template and input sql.
 
@@ -231,6 +238,7 @@ Ignore whitespace differences in the match template and input sql.
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
+* Description: Identifies whether to use subsequent templates on a query once the previous template has been matched and replaced.
 
 If a template matches and the replacement is done, continue to the next template and apply it to the result of the previous rewrite.
 
@@ -238,6 +246,7 @@ If a template matches and the replacement is done, continue to the next template
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
+* Description: Simulates replacements without affecting queries and logs any possible changes to the NOTICE level.
 
 Do not make the replacement, only log what would have been replaced (NOTICE level).
 

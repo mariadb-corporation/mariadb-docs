@@ -46,6 +46,7 @@ The QLA filter has one mandatory parameter, `filebase`, and a number of optional
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the base filename for session log files with unique session identifiers appended to create individual output files.
 
 The basename of the output file created for each session. A session index is added to the filename for each written session file. For unified log files,_.unified_ is appended.
 
@@ -59,6 +60,7 @@ filebase=/tmp/SqlQueryLog
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a regex pattern for queries ti include and process by the filter.
 
 Include queries that match the regex.
 
@@ -68,6 +70,7 @@ Include queries that match the regex.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern to exclude queries from matching and filtering.
 
 Exclude queries that match the regex.
 
@@ -78,6 +81,7 @@ Exclude queries that match the regex.
 * Dynamic: Yes
 * Values: `case`, `ignorecase`, `extended`
 * Default: `case`
+* Description: Defines the regex matching behavior (case sensitivity and extended syntax) for filter queries.
 
 The `extended` option enables PCRE2 extended regular expressions.
 
@@ -87,6 +91,7 @@ The `extended` option enables PCRE2 extended regular expressions.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Limits logging to sessions initiated by a specific username.
 
 Limit logging to sessions with this user.
 
@@ -96,6 +101,7 @@ Limit logging to sessions with this user.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Limits logging to sessions that originate from specific client source addresses.
 
 Limit logging to sessions with this client source address.
 
@@ -104,6 +110,7 @@ Limit logging to sessions with this client source address.
 * Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies a regex pattern to include queries only from specific users for logging.
 
 Only log queries from users that match this pattern. If the `user` parameter is used, the value of `user_match` is ignored.
 
@@ -118,6 +125,7 @@ user_match=/(^alice$)|(^bob$)/
 * Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern that prevent requests from specific users from being logged.
 
 Exclude all queries from users that match this pattern. If the `user` parameter is used, the value of `user_exclude` is ignored.
 
@@ -132,6 +140,7 @@ user_exclude=/(^alice$)|(^bob$)/
 * Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern to include only queries from specific client IP addresses or hosts from logging.
 
 Only log queries from hosts that match this pattern. If the `source` parameter is used, the value of `source_match` is ignored.
 
@@ -146,6 +155,7 @@ source_match=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 * Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern for excluding requests from specified client IP addresses or hosts from logging.
 
 Exclude all queries from hosts that match this pattern. If the `source` parameter is used, the value of `source_exclude` is ignored.
 
@@ -162,6 +172,7 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 * Dynamic: Yes
 * Values: `session`, `unified`, `stdout`, `kafka`
 * Default: `session`
+* Description: Defines the logging output type, such as per-session files, a unified log file, or standard output.
 
 The type of log file to use.
 
@@ -194,6 +205,7 @@ the client.
 * Dynamic: Yes
 * Values: `service`, `session`, `date`, `user`, `reply_time`, `total_reply_time`, `query`, `default_db`, `num_rows`, `reply_size`, `transaction`, `transaction_time`, `num_warnings`, `error_msg`
 * Default: `date, user, query`
+* Description: Specifies the fields, such as query details, user, timing, and execution metadata, that are present in each log entry.
 
 Type of data to log in the log files.
 
@@ -254,6 +266,7 @@ Starting with MaxScale 24.02, the `query` parameter now correctly logs the execu
 * Mandatory: No
 * Dynamic: Yes
 * Default: `milliseconds`
+* Description: Defines the time unit used for logging durations.
 
 The unit for logging a duration. The unit can be `milliseconds` or `microseconds`. The abbreviations `ms` for milliseconds and `us` for microseconds are also valid. This option is available as of MaxScale version 6.2.
 
@@ -263,6 +276,7 @@ The unit for logging a duration. The unit can be `milliseconds` or `microseconds
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Log queries in canonical format, replacing user-defined constants with placeholders to ensure consistent and secure output.
 
 When this option is true the canonical form of the query is logged. In the canonical form all user defined constants are replaced with question marks. This option is available as of MaxScale version 6.2.
 
@@ -272,6 +286,7 @@ When this option is true the canonical form of the query is logged. In the canon
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Manages whether log files are immediately flushed to disk after each write operation.
 
 Flush log files after every write.
 
@@ -281,6 +296,7 @@ Flush log files after every write.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Defines whether a new routing hint is added to existing ones or replaces them when applied to matching queries.
 
 ### `separator`
 
@@ -288,6 +304,7 @@ Flush log files after every write.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `","`
+* Description: Specifies the string used to separate fields within each log entry.
 
 Defines the separator string between elements of log entries. The value should be enclosed in quotes.
 
@@ -297,6 +314,7 @@ Defines the separator string between elements of log entries. The value should b
 * Mandatory: No
 * Dynamic: Yes
 * Default: `" "`
+* Description: Specifies the string that is used to substitute newline characters in logged queries so that the log output is consistent and readable.
 
 Default value is `" "` (one space). SQL-queries may include line breaks, which, if printed directly to the log, may break automatic parsing. This parameter defines what should be written in the place of a newline sequence (\r, \n or \r\n). If this is set as the empty string, then newlines are not replaced and printed as is to the output. The value should be enclosed in quotes.
 

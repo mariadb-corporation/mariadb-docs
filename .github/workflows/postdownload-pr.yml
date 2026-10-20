@@ -47,7 +47,7 @@ name: Check Post Download Pages in PR
 #   still runs, but its findings become a warning and a run-summary section addressed to the
 #   team, and the job passes. The register audit stays blocking: it concerns a file only the team
 #   edits. The cost is that a fork PR merged without anyone acting on the warning ships the gap;
-#   a post-merge sweep for that is a follow-up, not part of this gate.
+#   nightly-postdownload.yml is the post-merge sweep for that (DOCS-6882).
 
 on:
   pull_request:

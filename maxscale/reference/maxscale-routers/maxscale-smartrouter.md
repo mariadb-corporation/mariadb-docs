@@ -30,6 +30,7 @@ For details about the standard service parameters, refer to the [Configuration G
 * Type: target
 * Mandatory: Yes
 * Dynamic: No
+* Description: Identifies the primary target cluster to which all write operations are directed.
 
 One of the clusters must be designated as the **`master`**. All writes go to the primary cluster, which for all practical purposes should be a primary-replica ReadWriteSplit. This document does not go into details about setting up primary-replica clusters, but suffice to say, that when setting up the ColumnStore servers they should be configured to be replicas of a MariaDB server running an InnoDB engine. The ReadWriteSplit [documentation](maxscale-readwritesplit.md) has more on primary-replica setup.
 

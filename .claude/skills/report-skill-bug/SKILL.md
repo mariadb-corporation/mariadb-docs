@@ -1,7 +1,7 @@
 ---
 name: report-skill-bug
 description: Report a Claude Code skill in mariadb-docs that broke. Use when the user says "report a skill bug", "file a bug for <skill>", or "<skill> is broken" — or when a skill fails clearly mid-session and the user wants it logged. Files a DOCS Jira Task labeled claude-skill-bug via the MariaDB Jira connection and returns the ticket URL.
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__claude_ai_Atlassian_Rovo__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, mcp__claude_ai_Atlassian_MCP__createJiraIssue, mcp__claude_ai_Atlassian_MCP__atlassianUserInfo, mcp__claude_ai_Atlassian_MCP__executeRead, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__lookupJiraAccountId, mcp__claude_ai_Atlassian_Rovo__lookupJiraAccountId, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -77,6 +77,10 @@ createJiraIssue(   # tool prefix per the `jira` skill's connection table
 )
 ```
 
+On v2 the arguments differ (see the `jira` skill's mapping table): pass `issueType="Task"` and
+`assignee="<accountId>"`, drop `contentFormat` (markdown is the default), and resolve an owner's
+handle with `executeRead(name="lookupJiraAccountId", cloudId, inputs={"query": ...})`.
+
 > DOCS has **no Bug issue type** — file a **Task** and tag it with the **`claude-skill-bug`**
 > label so it's filterable. (No components on this project.)
 >
@@ -140,5 +144,6 @@ yet). No further commentary unless asked.
 
 - Don't open a browser, call `gh`, or use the clipboard — ticket creation is API-only.
 - Don't include secrets in the description.
-- Don't use the GridGain Rovo connection (`mcp__claude_ai_Atlassian_Rovo__*`) — this is MariaDB.
+- Don't pick a connection by its name. Use the one the `jira` skill's Setup check shows reaching
+  `mariadbcorp`; a connection that reaches another site (e.g. GridGain's) must never be written to.
 - Don't wrap the result in extra prose; the user wants the URL.

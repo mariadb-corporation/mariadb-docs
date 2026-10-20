@@ -531,6 +531,29 @@ asynchronously, so the cache can apply updates in a different order than you add
 
 To remove an entry, call `removeData()`, or pass a `null` value to `addData()`.
 
+### Flushing Buffered Data
+
+The streamer buffers entries and sends them to the cluster in batches. Closing the streamer flushes
+any remaining data. To flush buffered data explicitly before closing, use one of these methods:
+
+- `flush()` blocks until all data buffered at the time of the call has been sent to the cluster.
+- `flushAsync()` triggers the flush and returns an `IgniteClientFuture<Void>`. The caller is blocked
+  only while the flush is triggered; you can keep adding data before the future completes. The future
+  completes when all data buffered at the time of the call has been acknowledged by the cluster.
+- `tryFlush()` makes an attempt to send the remaining data and returns immediately without waiting.
+
+The streamer `timeout` applies to `flush()` but not to `flushAsync()`. To bound the wait for an
+asynchronous flush, pass a timeout when you get the result of the returned future.
+
+```java
+IgniteClientFuture<Void> fut = streamer.flushAsync();
+
+// Continue adding data while the flush runs.
+streamer.addData(3, "value3");
+
+fut.get(30, TimeUnit.SECONDS);
+```
+
 ### Data Streamer Parameters
 
 Set these parameters before the first `addData()` call:

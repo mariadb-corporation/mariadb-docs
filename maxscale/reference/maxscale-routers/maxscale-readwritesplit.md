@@ -43,6 +43,7 @@ All router parameters can be configured at runtime. Use`maxctrl alter service` t
 * Min: 0
 * Max: 255
 * Default: 255
+* Description: Limits the maximum number of replica connections a session can use simultaneously.
 
 `max_slave_connections` sets the maximum number of replicas a router session uses at any moment. The default is to use at most 255 replica connections per client connection. In older versions the default was to use all available replicas with no limit.
 
@@ -62,6 +63,7 @@ In this mode, the behavior of `master_failure_mode=fail_on_write` also changes s
 * Mandatory: No
 * Dynamic: Yes
 * Default: 255
+* Description: Specifies the initial number of replica connections a session creates for routing read queries.
 
 This parameter controls how many replica connections each new session starts with. The default value is 255 which is the same as the default value of`max_slave_connections`.
 
@@ -75,6 +77,7 @@ Setting this parameter to 1 allows faster connection creation and improved resou
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
+* Description: Sets the maximum allowed replication lag for replicas to be eligible for routing read queries.
 
 **NOTE** Up until 23.02, this parameter was called `max_slave_replication_lag`, which has been deprecated but still works as an alias for `max_replication_lag`.
 
@@ -97,6 +100,7 @@ Starting with MaxScale versions 23.08.7, 24.02.3 and 25.01.1, readwritesplit wil
 * Dynamic: Yes
 * Values: `master`, `all`
 * Default: `all`
+* Description: Controls which nodes handle SELECT statements using SQL user variables; defaults to all nodes.
 
 This parameter controls how `SELECT` statements that use SQL user variables are handled. Here is an example of such a query that uses it to return an increasing row number for a resultset:
 
@@ -128,6 +132,7 @@ SELECT @myid; -- Might return 1 or 0
 * Mandatory: No
 * Dynamic: Yes
 * Default: true (>= MaxScale 24.02), false(<= MaxScale 23.08)
+* Description: Controls whether a session can reconnect to a new primary server if the current one becomes unavailable.
 
 Allow the primary server to change mid-session. This feature requires that[`disable_sescmd_history`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history) is not used.
 
@@ -152,6 +157,7 @@ The recommended configuration is to use `master_reconnection=true` and`master_fa
 * Dynamic: Yes
 * Values: `least_current_operations`, `adaptive_routing`, `least_behind_master`, `least_router_connections`, `least_global_connections`
 * Default: `least_current_operations`
+* Description: Defines the criteria used to select replica servers for routing read queries and balancing load.
 
 This option controls how the readwritesplit router chooses the replicas it connects to and how the load balancing is done. The default behavior is to route read queries to the replica server with the lowest amount of ongoing queries i.e. `least_current_operations`.
 
@@ -189,6 +195,7 @@ Starting with MaxScale 23.08.1, the legacy uppercase values have been deprecated
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Determines whether the primary server can be used to handle read queries alongside replicas.
 
 Enables the primary server to be used for reads. This is a useful option to enable if you are using a small number of servers and wish to use the primary for reads as well and the load on it does not reduce the write throughput of the cluster.
 
@@ -205,6 +212,7 @@ master_accept_reads=true
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Ensures that all queries after a multi-statement query are routed to the primary to maintain session consistency.
 
 When a client executes a multi-statement query, it will be treated as if it were a DML statement and routed to the primary. If the option is enabled, all queries after a multi-statement query will be routed to the primary to guarantee a consistent session state.
 
@@ -223,6 +231,7 @@ strict_multi_stmt=true
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Ensures that queries following a stored procedure call are routed to the primary to maintain consistency.
 
 Similar to `strict_multi_stmt`, this option allows all queries after a CALL operation on a stored procedure to be routed to the primary.
 
@@ -234,6 +243,7 @@ All warnings and restrictions that apply to `strict_multi_stmt` also apply to`st
 * Mandatory: No
 * Dynamic: Yes
 * Default: true (>= MaxScale 24.02), false (<= MaxScale 23.08)
+* Description: Controls whether temporary tables block reconnections, ensuring they are not lost during primary node failovers.
 
 When `strict_tmp_tables` is disabled, all temporary tables are lost when a reconnection of the primary node occurs. This means that if a reconnection to the primary takes place, temporary tables might appear to disappear in the middle of a connection.
 
@@ -246,6 +256,7 @@ When `strict_tmp_tables` is enabled, reconnections are prevented as long as a te
 * Dynamic: Yes
 * Values: `fail_instantly`, `fail_on_write`, `error_on_write`
 * Default: `fail_on_write` (MaxScale 23.08: `fail_instantly`)
+* Description: Defines how the router handles primary server failure and client behavior during write operations.
 
 This option controls how the failure of a primary server is handled.
 
@@ -269,6 +280,7 @@ When configured with `fail_on_write` or `error_on_write`, sessions that are idle
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Determines whether failed autocommit read queries are retried on another replica.
 
 This option controls whether autocommit selects are retried in case of failure.
 
@@ -282,6 +294,7 @@ If a part of the result was already delivered to the client, the query will not 
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables retrying failed queries for a limited time before returning an error if no server becomes available.
 
 Retry queries over a period of time.
 
@@ -304,6 +317,7 @@ In older versions of MaxScale, duplicate execution of a statement can occur if t
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
+* Description: Specifies how long to wait before returning an error to the client when delayed retries are enabled.
 
 The duration to wait until an error is returned to the client when`delayed_retry` is enabled.
 
@@ -315,6 +329,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables replay of interrupted transactions, automatically retrying them on a replacement server if the current one fails.
 
 Replay interrupted transactions.
 
@@ -338,6 +353,7 @@ automatic failover with transparent transaction replay, see
 * Mandatory: No
 * Dynamic: Yes
 * Default: 1 MiB
+* Description: Sets the maximum transaction size (in bytes) that can be replayed; larger transactions are not replayed.
 
 The limit on transaction size for transaction replay in bytes. Any transaction that exceeds this limit will not be replayed. The default value is 1 MiB. This limit applies at a session level which means that the total peak memory consumption can be `transaction_replay_max_size` times the number of client connections.
 
@@ -351,6 +367,7 @@ The number of times that this limit has been exceeded is shown in`maxctrl show s
 * Mandatory: No
 * Dynamic: Yes
 * Default: 5
+* Description: Determines the maximum number of times a transaction will be retried during replay before failing.
 
 The upper limit on how many times a transaction replay is attempted before giving up.
 
@@ -362,6 +379,7 @@ A transaction replay failure can happen if the server where the transaction is b
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s (>= MaxScale 24.02), 0s (<= MaxScale 23.08)
+* Description: Sets the maximum duration for attempting transaction replay; set to `0` to disable.
 
 The time how long transactions are attempted for. To explicitly disable this feature, set the value to 0 seconds.
 
@@ -379,6 +397,7 @@ Without `transaction_replay_timeout` the time how long a transaction can be retr
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Automatically retries transactions that encounter a deadlock until they succeed or a checksum error occurs.
 
 Enable automatic retrying of transactions that end up in a deadlock.
 
@@ -390,6 +409,7 @@ If this feature is enabled and a transaction returns a deadlock error (e.g. `SQL
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Prevents replaying transactions that are about to commit to avoid duplicates; enabled by default.
 
 This parameter controls whether transaction that are about to commit are
 replayed. The default behavior is the safe behavior of transactions never being
@@ -446,6 +466,7 @@ retried. Thus `transaction_replay_safe_commit` again only affects how the
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Retries transactions that fail due to checksum mismatches during replay, subject to the set limits.
 
 Retry transactions that end in checksum mismatch.
 
@@ -458,6 +479,7 @@ When enabled, any replayed transactions that end with a checksum mismatch are re
 * Dynamic: Yes
 * Values: `full`, `result_only`, `no_insert_id`
 * Default: `full`
+* Description: Specifies the method for calculating transaction checksums to verify replayed transactions; `full` ensures complete consistency. 
 
 Selects which transaction checksum method is used to verify the result of the replayed transaction.
 
@@ -483,6 +505,7 @@ This feature has been moved into the [OptimisticTrx](../maxscale-filters/maxscal
 * Dynamic: Yes
 * Values: `none`, `local`, `global`, `fast`, `fast_global`, `universal`, `fast_universal`
 * Default: `none`
+* Description: Controls causal read behavior to ensure reads reflect prior writes despite replication lag.
 
 Enable causal reads.
 
@@ -618,6 +641,7 @@ Older versions of MaxScale attempted to retry the command on the current primary
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
+* Description: Defines how long to wait for replica synchronization when using causal reads before timing out.
 
 The timeout for the replica synchronization done by `causal_reads`.
 
@@ -629,6 +653,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables on-demand creation of backend connections instead of opening all connections at session start.
 
 Lazy connection creation causes connections to backend servers to be opened only when they are needed. This reduces the load that is placed on the backend servers when the client connections are short.
 
@@ -649,6 +674,7 @@ This feature has been moved into the [PsReuse](../maxscale-filters/maxscale-psre
 * Dynamic: Yes
 * Values: `none`, `soft`, `hard`
 * Default: `none`
+* Description: Defines how transactions are synchronized across replicas, with options for no synchronization, soft (non-blocking), or hard (blocking) synchronization.
 
 Synchronize transactions on one or more replicas.
 
@@ -675,6 +701,7 @@ In the `soft` mode, it is still beneficial to have semi-synchronous replication 
 * Min: 1
 * Max: 255
 * Default: 1
+* Description: Specifies the minimum number of backend servers required to understand a transaction before it is considered committed.
 
 The minimum number of backend servers to synchronize with.
 
@@ -692,6 +719,7 @@ If the value of `max_slave_connections` is lower than the value of `sync_transac
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
+* Description: Sets the maximum time a transaction waits for synchronization before returning or closing the connection.
 
 Timeout for the transaction synchronization. The timeout values can be given in milliseconds.
 
@@ -707,6 +735,7 @@ Unlike modifications to most readwritesplit settings that only affect new sessio
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
+* Description: Sets the maximum allowed transaction synchronization latency in soft mode before triggering synchronization.
 
 Upper limit of allowed synchronization lag. This setting only affects the `soft` mode of transaction synchronization. If `sync_transaction=hard` is used, this setting is ignored.
 

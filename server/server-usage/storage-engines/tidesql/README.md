@@ -8,7 +8,7 @@ description: >-
 # TideSQL
 
 {% hint style="info" %}
-TideSQL is a community contribution to MariaDB Server. It is a storage engine plugin built on the TidesDB library, which is developed and maintained upstream, outside MariaDB. TideSQL 5.2.0, which links TidesDB v10.2.1, ships at Beta maturity.
+TideSQL is a community contribution to MariaDB Server. It is a storage engine plugin built on the TidesDB library, which is developed and maintained upstream, outside MariaDB. TideSQL 5.2.1, which links TidesDB v10.2.1, ships at Beta maturity.
 {% endhint %}
 
 TideSQL stores a table's data in a TidesDB log-structured merge tree instead of InnoDB, reached through ordinary SQL. Moving a table from InnoDB to TidesDB is usually a change to the `ENGINE` clause and nothing more; see [TideSQL Limitations](tidesql-limitations.md) for the cases that need more care. The engine favors write throughput, keeps read cost bounded through background compaction, and provides transactions through the library's optimistic multi-version concurrency control, so readers proceed without blocking writers. Through standard SQL it offers primary keys, secondary indexes, foreign keys, auto-increment, virtual and stored generated columns, savepoints, TTL expiration, data-at-rest encryption, full-text, vector and spatial indexes, online DDL, partitioning, and online backup. In `SHOW ENGINES` the engine reports its name as `TidesDB`.

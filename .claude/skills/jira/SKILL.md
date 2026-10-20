@@ -1,9 +1,9 @@
 ---
 name: jira
 description: Work with the MariaDB DOCS Jira project. Shared plumbing for the /jira-start, /jira-create, /jira-resolve, /jira-close, /jira-comment, /jira-mine, and /jira-chase slash commands — fetch/transition/create DOCS tickets, manage the feature-branch workflow, and chase reviewers of tickets waiting in Review. Use when asked to start work on a DOCS ticket, file one, move one through the workflow, comment, list assigned tickets, or remind reviewers.
-allowed-tools: Bash, Read, Grep, Glob, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__claude_ai_Atlassian_Rovo__editJiraIssue, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getJiraIssueTypeMetaWithFields, mcp__claude_ai_Atlassian_Rovo__getJiraIssueTypeMetaWithFields, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
+allowed-tools: Bash, Read, Grep, Glob, mcp__claude_ai_Atlassian_MCP__getJiraIssue, mcp__claude_ai_Atlassian_MCP__executeRead, mcp__claude_ai_Atlassian_MCP__transitionJiraIssue, mcp__claude_ai_Atlassian_MCP__editJiraIssue, mcp__claude_ai_Atlassian_MCP__addOrEditJiraIssueComment, mcp__claude_ai_Atlassian_MCP__createJiraIssue, mcp__claude_ai_Atlassian_MCP__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_MCP__atlassianUserInfo, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_MCP__discover, mcp__claude_ai_Atlassian_MCP__executeWrite, mcp__atlassian-mariadb__getJiraIssue, mcp__claude_ai_Atlassian_Rovo__getJiraIssue, mcp__atlassian-mariadb__getTransitionsForJiraIssue, mcp__claude_ai_Atlassian_Rovo__getTransitionsForJiraIssue, mcp__atlassian-mariadb__transitionJiraIssue, mcp__claude_ai_Atlassian_Rovo__transitionJiraIssue, mcp__atlassian-mariadb__editJiraIssue, mcp__claude_ai_Atlassian_Rovo__editJiraIssue, mcp__atlassian-mariadb__addCommentToJiraIssue, mcp__claude_ai_Atlassian_Rovo__addCommentToJiraIssue, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__searchJiraIssuesUsingJql, mcp__claude_ai_Atlassian_Rovo__searchJiraIssuesUsingJql, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getJiraIssueTypeMetaWithFields, mcp__claude_ai_Atlassian_Rovo__getJiraIssueTypeMetaWithFields, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources, mcp__claude_ai_Slack__slack_search_users, mcp__claude_ai_Slack__slack_send_message, mcp__claude_ai_Slack__slack_send_message_draft
 owners: [igusev]
-last_verified: 2026-08-03
+last_verified: 2026-10-07
 status: active
 ---
 
@@ -18,28 +18,61 @@ each delegate here so the connection check, project config, and field/transition
 
 | Setting | Value |
 |---------|-------|
-| MCP server | **whichever Atlassian connection reaches `mariadbcorp`** — see below |
+| MCP server | The **first** connection that reaches `mariadbcorp`, tried in this order: **`claude.ai Atlassian MCP` (v2)**, then each v1 connection — see below |
 | cloudId | `164b0d33-ee39-4b4d-b1d5-e71a97376560` (site `mariadbcorp.atlassian.net`) |
 | Project key | `DOCS` (project id `10037`, **team-managed**) |
 | Issue types | **Task** (`10083`, default), Epic (`11292`), Subtask (`10280`) — no Bug/Improvement |
 | Priority | defaults to **Major** (`10003`) |
 
-> **A connection's name does not tell you which Atlassian account it reaches.** Two registrations
-> are in use across the team, and both point at the *same* endpoint
-> (`https://mcp.atlassian.com/v1/mcp`):
->
-> | Connection | Tool prefix |
-> |------------|-------------|
-> | `claude.ai Atlassian Rovo` — account-level, via claude.ai integrations | `mcp__claude_ai_Atlassian_Rovo__*` |
-> | `atlassian-mariadb` — added locally with `claude mcp add` | `mcp__atlassian-mariadb__*` |
->
-> Use whichever one the **Setup check** below shows reaching `mariadbcorp.atlassian.net`; if both
-> are connected and both reach it, either is fine. **Never pick by name alone.** On a machine whose
-> single account-level connection is authenticated to MariaDB, `atlassian-mariadb` does not exist,
-> and assuming it does is what breaks these commands.
->
-> Tool names are written **unprefixed** from here on (e.g. `getJiraIssue`) — prepend whichever
-> prefix from this table applies on your machine.
+### Which connection to use
+
+**Try the `claude.ai Atlassian MCP` connector (v2) first, then each v1 connection, and use the
+first one whose Setup check reaches `mariadbcorp`.** Having v2 is not enough: it can be added but
+not signed in (it then exposes only `authenticate` tools), or signed in to another account such as
+GridGain while a separate `atlassian-mariadb` v1 server reaches MariaDB. In both cases fall back to
+v1. All of them reach `mcp.atlassian.com`; the procedures below work on each, but several v2 tools
+are named differently (see the mapping table).
+
+| Connection | Generation | Tool prefix |
+|------------|------------|-------------|
+| `claude.ai Atlassian MCP` — account-level, via claude.ai integrations | **v2 (preferred)** | `mcp__claude_ai_Atlassian_MCP__*` |
+| `claude.ai Atlassian Rovo` — account-level, via claude.ai integrations | v1 | `mcp__claude_ai_Atlassian_Rovo__*` |
+| `atlassian-mariadb` — added locally with `claude mcp add` | v1 | `mcp__atlassian-mariadb__*` |
+
+> **A connection's name does not tell you which Atlassian account it reaches.** Use one the
+> **Setup check** below shows reaching `mariadbcorp.atlassian.net`. **Never pick by name alone.**
+> On a machine whose single account-level connection is authenticated to MariaDB,
+> `atlassian-mariadb` does not exist, and assuming it does is what breaks these commands.
+
+Tool names are written **unprefixed** from here on, using the **v1** names (e.g. `getJiraIssue`)
+— prepend the prefix for your connection, and on v2 translate with this table:
+
+| v1 call (as written below) | v2 equivalent |
+|----------------------------|---------------|
+| `getAccessibleAtlassianResources()` | same name; returns `resources[].products[]` with `access`, not OAuth scopes |
+| `atlassianUserInfo().account_id` | same name; returns only `accountId` |
+| `getJiraIssue(..., fields=[...])` | same name. Default view is compact: pass `view="evidence"` to get `issuelinks` and custom fields. Passing `fields` **replaces** the default field set. Custom fields come back under `fields.customFields` (e.g. `customFields.Sprint`, id `customfield_10021`). Comments come back only as a count. |
+| `getTransitionsForJiraIssue` | `executeRead(name="listJiraIssueTransitions", cloudId, inputs={"issueIdOrKey": ...})` |
+| `transitionJiraIssue(..., transition={"id": "<id>"})` | `transitionJiraIssue(..., transitionId="<id>")`; also takes `sprintId` / `assignToBacklog` in the same call |
+| `editJiraIssue(..., fields={...})` | same name and shape (the sprint edit `fields={"customfield_10021": <id>}` works) |
+| `addCommentToJiraIssue(..., commentBody, contentFormat="markdown")` | `addOrEditJiraIssueComment(..., commentBody)` — markdown is the default; for an @mention use `contentFormat="html"` and `<span data-type="mention" data-user-id="<accountId>">@Name</span>` |
+| `createJiraIssue(..., issueTypeName, assignee_account_id, contentFormat)` | `createJiraIssue(..., issueType, assignee, description)` — markdown is the default; extra fields go in `additional_fields` |
+| `searchJiraIssuesUsingJql` | same name; add `view="evidence"` for custom fields; `searchResultMode="count"` for a total |
+| `fields=["comment"]` on a search or issue fetch | `executeRead(name="listJiraIssueComments", cloudId, inputs={"issueIdOrKey": ..., "maxResults": N})` |
+| `getJiraIssueTypeMetaWithFields` | `executeRead(name="getJiraIssueTypeMetaWithFields", ...)` |
+| `getJiraIssueRemoteIssueLinks` | `executeRead(name="listJiraIssueRemoteIssueLinks", ...)` — drops the linked item's resolved flag, so check a `jira.mariadb.org` blocker's status separately |
+| `lookupJiraAccountId(cloudId, searchString)` | `executeRead(name="lookupJiraAccountId", cloudId, inputs={"query": ...})` |
+| *(none)* — find the active sprint id | `executeRead(name="listJiraBoardSprints", cloudId, inputs={"boardId": 30, "state": "active"})` |
+
+On v2, any operation not in the table is found with `discover("<verb> <object> jira")`, then run
+with `executeRead` / `executeWrite` / `executeDestructive` as the result says. Never guess an
+operation name.
+
+**Permissions.** This skill allowlists `discover`, `executeRead` and `executeWrite`. Each
+`/jira-*` command allowlists only the operations it uses, so an unmapped operation run from a
+command asks for permission once. **`executeDestructive` is on no allowlist on purpose:** it
+deletes or irreversibly changes data, so a permission prompt is expected, and that prompt is the
+user's confirmation.
 
 ### Workflow transitions (verified 2026-06-12)
 
@@ -74,14 +107,22 @@ output format is version-dependent and easy to misparse):
 getAccessibleAtlassianResources()
 ```
 
-Run it on whichever Atlassian connection you have (see the table above; if both exist, check the
-one you intend to use). The result **must** contain `mariadbcorp.atlassian.net` (cloudId
-`164b0d33-…`) carrying a `write:jira-work` scope. **That call — never the connection's name — is
-what establishes you are on the right instance.** If it errors (server not connected) or returns a
-result **without** `mariadbcorp`, stop. (`claude mcp list` is fine as an optional human diagnostic,
-but a parse of its output must never gate the work — only the resource call above does.)
+Run it on each connection in turn, in the order of the table above: v2 first, then each v1
+connection. **Use the first one** whose result contains `mariadbcorp.atlassian.net` (cloudId
+`164b0d33-…`) with Jira write access: a `jira` product with `access: "read-write"` on v2, or a
+`write:jira-work` scope on v1. **That call — never the connection's name — is what establishes
+you are on the right instance.** Move on to the next connection when this one:
 
-If it returns sites but none is `mariadbcorp` (e.g. only `ggsystems`), that connection is
+- does not exist on this machine,
+- exposes only `authenticate` tools (added but not signed in),
+- errors, or
+- returns a result **without** `mariadbcorp`.
+
+**Stop only when no connection reaches `mariadbcorp`.** (`claude mcp list` is fine as an optional
+human diagnostic, but a parse of its output must never gate the work — only the resource call
+above does.)
+
+If none reaches it but one returns other sites (e.g. only `ggsystems`), that connection is
 authenticated as the wrong account — tell the user:
 
 > The Atlassian MCP connection is authenticated as the wrong account. Re-authenticate it under
@@ -91,7 +132,7 @@ authenticated as the wrong account — tell the user:
 If no Atlassian connection exists at all, point the user at `dev-docs/cookbook-jira-workflow.md` ›
 *Connecting the MariaDB Jira*. Do not proceed with any Jira call until the resource check passes.
 
-Every Rovo call below takes `cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560"`.
+Every Atlassian call below takes `cloudId="164b0d33-ee39-4b4d-b1d5-e71a97376560"`.
 
 ---
 

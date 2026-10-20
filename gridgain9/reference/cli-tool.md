@@ -2855,7 +2855,7 @@ cdc source create --name=<name> --type=<type> --tables=<tables> [--parameters=<S
 | `‑‑type` | Option | Yes | Type of the CDC source. |
 | `‑‑tables` | Option | Yes | Comma-separated fully-qualified table names that will be parts of the source. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the source. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental source types, such as `mssql`. Required to create or update a source that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -2892,7 +2892,7 @@ cdc source update --name=<name> --type=<type> --tables=<tables> [--parameters=<S
 | `‑‑type` | Option | Yes | Type of the CDC source. |
 | `‑‑tables` | Option | Yes | Comma-separated fully-qualified table names that will be parts of the source. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the source. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental source types, such as `mssql`. Required to create or update a source that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental source types. Required to create or update a source that uses an experimental type. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |

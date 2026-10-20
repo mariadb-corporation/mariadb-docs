@@ -62,6 +62,7 @@ account         required        pam_unix.so
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables cleartext password authentication between the client and MaxScale when using PAM.
 
 If enabled, MaxScale communicates with the client as if using
 [mysql\_clear\_password](../../../server/reference/clientserver-protocol/1-connecting/connection.md#mysql_clear_password-plugin).
@@ -81,6 +82,7 @@ authenticator_options=pam_use_cleartext_plugin=1
 * Dynamic: No
 * Values: `password`, `password_2FA`, `suid`
 * Default: `suid`
+* Description: Defines the PAM authentication mode for client login.
 
 This setting defines the authentication mode used. The supported values are:
 
@@ -139,6 +141,7 @@ authentication implementation. `suid` mode supports two-factor authentication.
 * Dynamic: No
 * Values: `none`, `mariadb`
 * Default: `none`
+* Description: Manages the mapping of PAM-authenticated users to backend authentication.
 
 Defines backend authentication mapping, i.e. switch of authentication method between client-to-MaxScale and MaxScale-to-backend. Supported values:
 
@@ -170,6 +173,7 @@ Instead of using `pam_backend_mapping`, consider using the listener setting [use
 * Mandatory: No
 * Dynamic: No
 * Default: None
+* Description: Specifies a JSON file containing passwords for PAM-mapped users.
 
 Path to a json-text file with user passwords. Default value is empty, which disables the feature.
 

@@ -61,6 +61,7 @@ Conversely, if the `host` parameter is set to a plain IP address, it is assumed 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines the S3 access key used for authentication.
 
 The S3 access key used to perform all requests to it.
 
@@ -71,6 +72,7 @@ This must be either configured in the MaxScale configuration file or set with`SE
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
+* Description: Describes the S3 secret key that is used for verification.
 
 The S3 secret key used to perform all requests to it.
 
@@ -82,6 +84,7 @@ This must be either configured in the MaxScale configuration file or set with`SE
 * Mandatory: No
 * Dynamic: Yes
 * Default: `us-east-1`
+* Description: Defines the S3 region that contains the data.
 
 The S3 region where the data is located.
 
@@ -93,6 +96,7 @@ The value can be overridden with `SET @maxscale.ldi.s3_region='<region>'` before
 * Mandatory: No
 * Dynamic: Yes
 * Default: `s3.amazonaws.com`
+* Description: Specifies the S3 object storage host.
 
 The location of the S3 object storage. By default the original AWS S3 host is used. The corresponding value for Google Cloud Storage is`storage.googleapis.com`.
 
@@ -104,6 +108,7 @@ The value can be overridden with `SET @maxscale.ldi.s3_host='<host>'` before sta
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0
+* Description: Defines the port used to connect to the S3 object storage.
 
 The port on which the S3 object storage is listening. If unset or set to the value of 0, the default S3 port is used.
 
@@ -115,6 +120,7 @@ The value can be overridden with `SET @maxscale.ldi.s3_port=<port>` before start
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: TLS certificate verification is disabled for object storage when enabled.
 
 If set to true, TLS certificate verification for the object storage is skipped.
 
@@ -124,6 +130,7 @@ If set to true, TLS certificate verification for the object storage is skipped.
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables unencrypted HTTP communication with the object storage when set to true.
 
 If set to true, communication with the object storage is done unencrypted using HTTP instead of HTTPS.
 
@@ -134,6 +141,7 @@ If set to true, communication with the object storage is done unencrypted using 
 * Dynamic: Yes
 * Default: 0
 * Values: 0, 1, 2
+* Description: Specifies the protocol version used to communicate with object storage.
 
 Which protocol version to use. By default the protocol version is derived from the value of `host` but this automatic protocol version deduction will not always produce the correct result. For the legacy path-style requests used by older S3 storage buckets, the value must be set to 1. All new buckets use the protocol version 2.
 

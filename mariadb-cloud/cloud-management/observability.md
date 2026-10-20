@@ -2,7 +2,7 @@
 description: >-
   MariaDB Cloud Observability exposes runtime logs and metrics through APIs and
   integrations like Datadog and Splunk, requiring an API key and Database ID for
-  instrumentation and dashboard configuration.
+  instrumentation and dashboards.
 icon: telescope
 ---
 
