@@ -253,7 +253,7 @@ The following steps are necessary to install the ColumnStore Data adapter (bulk 
 
 1. Build the plugin from [source](https://github.com/mariadb-corporation/mariadb-columnstore-data-adapters/tree/master/kettle-columnstore-bulk-exporter-plugin) or download it from our [website](https://mariadb.com/downloads/mariadb-ax/data-adapters)
 2. Extract the archive mariadb-columnstore-kettle-bulk-exporter-plugin-\*.zip into your PDI installation directory $PDI-INSTALLATION/plugins.
-3. Copy [MariaDB's JDBC Client]({connectors}/mariadb-connector-j/installing-mariadb-connectorj) mariadb-java-client-2.2.x.jar into PDI's lib directory $PDI-INSTALLATION/lib.
+3. Copy [MariaDB's JDBC Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j/installing-mariadb-connectorj) mariadb-java-client-2.2.x.jar into PDI's lib directory $PDI-INSTALLATION/lib.
 4. Install the additional library dependencies
 
 #### Ubuntu dependencies
