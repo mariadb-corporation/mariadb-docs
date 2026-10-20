@@ -55,6 +55,10 @@ Alternatively, copy the connection token and perform the [Attaching the Cluster 
 
 ## Attaching the Cluster to Control Center
 
+{% hint style="info" %}
+With the default configuration, clusters attach to Control Center automatically and you don't need a token. Use the token only when `account.globalTeam.attachCluster` is set to `false`. For details, see [Global Team](../../profile/teams.md#global-team).
+{% endhint %}
+
 To attach the cluster to Control Center:
 
 1. Click the **+** icon on the Control Center toolbar.
