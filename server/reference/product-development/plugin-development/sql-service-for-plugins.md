@@ -1,8 +1,8 @@
 ---
 description: >-
-  The SQL service lets a plugin run SQL statements on the server that loaded
-  it, through a subset of the MariaDB C API, without opening a network
-  connection.
+  The SQL service lets a plugin run SQL statements through a subset of the
+  MariaDB C API, on the server that loaded it or over a client connection to
+  another server.
 ---
 
 # SQL Service for Plugins
@@ -13,9 +13,12 @@ This feature is available from MariaDB 10.7 (and from MariaDB 10.6.17 in the 10.
 
 ## Overview
 
-The SQL service is a [plugin service](../../plugins/api-plugin/api.md#sql_service_st) that lets a plugin execute SQL statements on the server that loaded it. The plugin uses the familiar MariaDB C API functions (`mysql_init()`, `mysql_real_query()`, `mysql_store_result()`, and so on), but its statements run inside the server, not over a client connection.
+The SQL service is a [plugin service](../../plugins/api-plugin/api.md#sql_service_st) that lets a plugin execute SQL statements on the server that loaded it. The plugin uses the familiar MariaDB C API functions (`mysql_init()`, `mysql_real_query()`, `mysql_store_result()`, and so on). It can open two kinds of connection:
 
-A typical use is a plugin that stores its own data in a table. For example, the [password\_reuse\_check plugin](../../plugins/password-validation-plugins/password-reuse-check-plugin.md) uses the SQL service to read and write its password history table.
+* A local connection, opened with `mysql_real_connect_local()`. Its statements run inside the server that loaded the plugin, not over a network connection. See [Connecting to the Local Server](#connecting-to-the-local-server).
+* A regular client connection to any server, with `mysql_real_connect()`. See [Connecting to Another Server](#connecting-to-another-server).
+
+A typical use is a plugin that stores its own data or settings in tables. See [Plugins That Use the SQL Service](#plugins-that-use-the-sql-service).
 
 The service is declared in `include/mysql/service_sql.h`, which `<mysql/plugin.h>` includes. In a dynamically loaded plugin, the C API function names are macros that call the server through the service, so the plugin does not link against a client library.
 
@@ -59,9 +62,15 @@ A local connection behaves differently from a client connection:
 * Otherwise, statements run in the thread of the connection that invoked the plugin.
 * Session variables that the plugin sets through the connection keep their values for later statements on the same connection.
 
+## Connecting to Another Server
+
+`mysql_real_connect()` opens a regular client connection to a server, as it does in the client library. The other functions of the service, such as `mysql_real_query()` and `mysql_store_result()`, then work on that connection as they do in a client application. Use `mysql_options()` and `mysql_ssl_set()` to configure the connection before connecting.
+
+The server already contains the client library code (it uses it for replication, for example), and the SQL service makes those functions available to plugins. A plugin can therefore act as a client of another server without linking against a client library.
+
 ## Binary Logging
 
-Statements that a plugin runs through the SQL service are not written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/README.md). To have them logged, run `SET SQL_LOG_BIN=1` through the connection first. The setting stays in effect for that connection until the plugin changes it.
+Statements that a plugin runs through a local connection are not written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/README.md). To have them logged, run `SET SQL_LOG_BIN=1` through the connection first. The setting stays in effect for that connection until the plugin changes it.
 
 {% hint style="info" %}
 Binary logging is disabled for the SQL service from MariaDB 10.7.5, and from MariaDB 10.6.17 in the 10.6 series. In MariaDB Enterprise Server, it is disabled from 10.6.11-6. In MariaDB Enterprise Server 10.6.8-4 and 10.6.9-5, statements run through the SQL service are written to the binary log.
@@ -114,6 +123,12 @@ end:
 ```
 
 The `INSERT` is not written to the binary log. The server source has a complete test plugin in `plugin/test_sql_service/`.
+
+## Plugins That Use the SQL Service
+
+* The [password\_reuse\_check plugin](../../plugins/password-validation-plugins/password-reuse-check-plugin.md) reads and writes its password history table.
+* The [Spider storage engine](../../../server-usage/storage-engines/spider/README.md) creates and upgrades its [system tables](../../system-tables/the-mysql-database-tables/spider-mysql-database-tables/README.md) when it is loaded.
+* [MariaDB Enterprise Audit](../../plugins/mariadb-enterprise-audit/README.md) reads its [audit filters](../../plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-filters.md) from the `mysql.server_audit_filters` and `mysql.server_audit_users` tables.
 
 ## See Also
 
