@@ -25,8 +25,7 @@ CREATE OR REPLACE TABLE tab (
    b VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD COLUMN c VARCHAR(50);
+ALTER TABLE tab ADD COLUMN c VARCHAR(50), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -38,8 +37,7 @@ CREATE OR REPLACE TABLE tab (
    b VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD COLUMN c VARCHAR(50) AFTER a;
+ALTER TABLE tab ADD COLUMN c VARCHAR(50) AFTER a, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -64,8 +62,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab DROP COLUMN c;
+ALTER TABLE tab DROP COLUMN c, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -92,8 +89,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) AFTER a;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) AFTER a, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -121,9 +117,8 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c INT;
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c INT, ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 But this succeeds because the original length of the column is less than 256 bytes, and the new length is still less than 256 bytes:
@@ -135,8 +130,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(100);
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(100), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -149,9 +143,8 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(255)
 ) CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(256);
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(256), ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 But this succeeds because the table has `ROW_FORMAT=REDUNDANT`:
@@ -163,8 +156,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(200)
 ) ROW_FORMAT=REDUNDANT;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(300), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -178,8 +170,7 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=DYNAMIC
   CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(300), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.003 sec)
 ```
 
@@ -193,8 +184,7 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=COMPRESSED
   CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(300), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.003 sec)
 ```
 
@@ -208,9 +198,8 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=DYNAMIC
   CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(300), ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Changing a Column to NULL
@@ -228,8 +217,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50) NOT NULL
 ) ROW_FORMAT=REDUNDANT;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NULL;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NULL, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -246,8 +234,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) ROW_FORMAT=REDUNDANT;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL, ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -269,8 +256,7 @@ CREATE OR REPLACE TABLE tab (
    c ENUM('red', 'green')
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'green', 'blue');
+ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'green', 'blue'), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.002 sec)
 ```
 
@@ -283,9 +269,8 @@ CREATE OR REPLACE TABLE tab (
    c ENUM('red', 'green')
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'blue', 'green');
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'blue', 'green'), ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Adding a New `SET` Option
@@ -306,8 +291,7 @@ CREATE OR REPLACE TABLE tab (
    c SET('red', 'green')
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c SET('red', 'green', 'blue');
+ALTER TABLE tab MODIFY COLUMN c SET('red', 'green', 'blue'), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.002 sec)
 ```
 
@@ -320,9 +304,8 @@ CREATE OR REPLACE TABLE tab (
    c SET('red', 'green')
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c SET('red', 'blue', 'green');
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c SET('red', 'blue', 'green'), ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Removing System Versioning from a Column
@@ -336,13 +319,12 @@ For example:
 ```sql
 CREATE OR REPLACE TABLE tab (
    a INT PRIMARY KEY,
-   b VARCHAR(50),
+   b VARCHAR(50) WITH SYSTEM VERSIONING,
    c VARCHAR(50) WITH SYSTEM VERSIONING
 );
 
 SET SESSION system_versioning_alter_history='KEEP';
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) WITHOUT SYSTEM VERSIONING;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) WITHOUT SYSTEM VERSIONING, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -365,8 +347,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ALTER COLUMN c SET DEFAULT 'NO value explicitly provided.';
+ALTER TABLE tab ALTER COLUMN c SET DEFAULT 'NO value explicitly provided.', ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.003 sec)
 ```
 
@@ -383,8 +364,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50) DEFAULT 'NO value explicitly provided.'
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ALTER COLUMN c DROP DEFAULT;
+ALTER TABLE tab ALTER COLUMN c DROP DEFAULT, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.002 sec)
 ```
 
@@ -403,8 +383,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab CHANGE COLUMN c str VARCHAR(50);
+ALTER TABLE tab CHANGE COLUMN c str VARCHAR(50), ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -417,9 +396,8 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab CHANGE COLUMN c num INT;
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab CHANGE COLUMN c num INT, ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 This applies to [ALTER TABLE ... CHANGE COLUMN](../../../../reference/sql-statements/data-definition/alter/alter-table/#change-column) for [InnoDB](../) tables.
@@ -440,8 +418,7 @@ CREATE OR REPLACE TABLE tab (
 );
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD PRIMARY KEY (a);
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -460,8 +437,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab DROP PRIMARY KEY;
+ALTER TABLE tab DROP PRIMARY KEY, ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Dropping a primary key is not allowed without also adding a new primary key. Try ALGORITHM=COPY
 ```
 
@@ -484,8 +460,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD INDEX b_index (b);
+ALTER TABLE tab ADD INDEX b_index (b), ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -498,8 +473,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-CREATE INDEX b_index ON tab (b);
+CREATE INDEX b_index ON tab (b) ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -516,12 +490,10 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.042 sec)
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -534,12 +506,10 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-CREATE FULLTEXT INDEX b_index ON tab (b);
+CREATE FULLTEXT INDEX b_index ON tab (b) ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.040 sec)
 
-SET SESSION alter_algorithm='INSTANT';
-CREATE FULLTEXT INDEX c_index ON tab (c);
+CREATE FULLTEXT INDEX c_index ON tab (c) ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -556,8 +526,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ADD SPATIAL INDEX c_index (c);
+ALTER TABLE tab ADD SPATIAL INDEX c_index (c), ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -570,8 +539,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='INSTANT';
-CREATE SPATIAL INDEX c_index ON tab (c);
+CREATE SPATIAL INDEX c_index ON tab (c) ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -595,8 +563,7 @@ CREATE OR REPLACE TABLE tab2 (
 );
 
 SET SESSION foreign_key_checks=OFF;
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a);
+ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a), ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: ADD INDEX. Try ALGORITHM=NOCOPY
 ```
 
@@ -624,8 +591,7 @@ CREATE OR REPLACE TABLE tab1 (
    FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab1 DROP FOREIGN KEY tab2_fk; 
+ALTER TABLE tab1 DROP FOREIGN KEY tab2_fk, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -648,8 +614,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab AUTO_INCREMENT=100;
+ALTER TABLE tab AUTO_INCREMENT=100, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.002 sec)
 ```
 
@@ -668,8 +633,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) ROW_FORMAT=DYNAMIC;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ROW_FORMAT=COMPRESSED;
+ALTER TABLE tab ROW_FORMAT=COMPRESSED, ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
 ```
 
@@ -689,8 +653,7 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=COMPRESSED
   KEY_BLOCK_SIZE=4;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab KEY_BLOCK_SIZE=2;
+ALTER TABLE tab KEY_BLOCK_SIZE=2, ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
 ```
 
@@ -765,8 +728,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) WITH SYSTEM VERSIONING;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab DROP SYSTEM VERSIONING;
+ALTER TABLE tab DROP SYSTEM VERSIONING, ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -788,8 +750,7 @@ CREATE OR REPLACE TABLE tab (
    CONSTRAINT b_not_empty CHECK (b != '')
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab DROP CONSTRAINT b_not_empty;
+ALTER TABLE tab DROP CONSTRAINT b_not_empty, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.002 sec)
 ```
 
@@ -808,8 +769,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -828,14 +788,17 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab ENGINE=InnoDB;
+ALTER TABLE tab ENGINE=InnoDB, ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
 This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) for [InnoDB](../) tables.
 
 ### `OPTIMIZE TABLE ...`
+
+{% hint style="info" %}
+`OPTIMIZE TABLE` has no `ALGORITHM` clause. In MariaDB 11.4 and earlier, it uses the algorithm set by the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable, as in the example below. From MariaDB 11.5, that variable is ignored ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655)), and `OPTIMIZE TABLE` always uses the default algorithm, so the statement below succeeds and rebuilds the table.
+{% endhint %}
 
 InnoDB does **not** support optimizing a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
 
@@ -886,8 +849,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab RENAME TO old_tab;
+ALTER TABLE tab RENAME TO old_tab, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.008 sec)
 ```
 
@@ -900,7 +862,6 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INSTANT';
 RENAME TABLE tab TO old_tab;
 Query OK, 0 rows affected (0.008 sec)
 ```
@@ -932,8 +893,7 @@ These operations require the following non-canonical changes to the storage form
 This non-canonical storage format has the potential to incur some performance or storage overhead for all subsequent DML operations. If you notice some issues like this and you want to normalize a table's storage format to avoid this problem, then you can do so by forcing a table rebuild by executing [ALTER TABLE ... FORCE](../../../../reference/sql-statements/data-definition/alter/alter-table/#force) with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`:
 
 ```sql
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.008 sec)
 ```
 
@@ -948,16 +908,14 @@ The effect of many of these bugs is that the table seems to _forget_ that its ta
 If you are concerned that a table may be affected by one of these bugs, then your best option would be to normalize the table structure. This can be done by rebuilding the table:
 
 ```sql
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.008 sec)
 ```
 
 If you are concerned about these bugs, and you want to perform an operation that supports the [INSTANT](innodb-online-ddl-overview.md#instant-algorithm) algorithm, but you want to avoid using that algorithm, then you can set the algorithm to [INPLACE](innodb-online-ddl-overview.md#inplace-algorithm) and add the `FORCE` keyword to the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement:
 
 ```sql
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD COLUMN c VARCHAR(50), FORCE;
+ALTER TABLE tab ADD COLUMN c VARCHAR(50), FORCE, ALGORITHM=INPLACE;
 ```
 
 #### Closed Bugs
