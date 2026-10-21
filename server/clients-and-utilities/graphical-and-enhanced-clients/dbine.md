@@ -10,7 +10,7 @@ description: >-
 DBine is third-party software, not developed or maintained by MariaDB and not included with MariaDB Server. MariaDB doesn't test, validate, or support it. Refer to its own documentation and license terms.
 {% endhint %}
 
-[DBine](https://dbine.com) is a free, open-source (MIT) desktop database manager by AddLayer, available for Windows, macOS, and Linux. It connects to local, self-hosted, and managed MariaDB servers, directly or through an SSH tunnel, and works with 130+ databases and cloud services in the same window.
+[DBine](https://dbine.com) is a free, open-source (Apache 2.0) desktop database manager by AddLayer, available for Windows, macOS, and Linux. It connects to local, self-hosted, and managed MariaDB servers, directly or through an SSH tunnel, and works with 130+ databases and cloud services in the same window.
 
 DBine provides the following for MariaDB:
 
