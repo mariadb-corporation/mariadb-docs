@@ -159,6 +159,10 @@ If the node executing a replication leaves the cluster, the replication is trans
 
 The transfer starts the replication from the last position saved by the previous node, so the changes between that position and the moment the node left are delivered again. Sinks apply changes by primary key, so the repeated delivery does not create duplicate rows.
 
+Failover needs the replication metadata to stay available while a node is down. GridGain 9 keeps it in system tables that the first CDC command creates, such as the first `cdc source create`, on the nodes that are in the cluster at that moment. Create the first CDC source, sink or replication after every node has joined the cluster.
+
+In a mixed-version cluster, create replications without `--execution-nodes` only after every node is upgraded. An older node treats an empty node list as having no eligible node and marks such a replication `FAILED` when the node running it leaves.
+
 #### Changing Execution Nodes
 
 The list of nodes allowed to run a replication can be changed without deleting the replication, for example when nodes are added to the cluster or come back under new names:
