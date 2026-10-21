@@ -136,6 +136,7 @@
     * [Upgrade](gridgain8-management/upgrade/README.md)
       * [Version Upgrade](gridgain8-management/upgrade/version-upgrade.md)
       * [Rolling Upgrades](gridgain8-management/upgrade/rolling-upgrades.md)
+      * [Upgrading from 8.9 to 8.10](gridgain8-management/upgrade/upgrade-from-8-9-to-8-10.md)
   * [Cluster Configuration](gridgain8-management/cluster-configuration/README.md)
     * [Understanding Configuration](gridgain8-management/cluster-configuration/understanding-configuration.md)
     * [Configuring Logging](gridgain8-management/cluster-configuration/logging.md)
