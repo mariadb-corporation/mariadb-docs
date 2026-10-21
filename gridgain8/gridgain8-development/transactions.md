@@ -309,6 +309,40 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
+## Transactions and Threads in .NET
+
+Available since 8.10. The .NET API stores the current transaction (`ITransactions.Tx`) in an `AsyncLocal` value, so it flows across `await` boundaries and into tasks started from inside the transaction block.
+
+{% tabs %}
+{% tab title="C#/.NET" %}
+An embedded (thick client) transaction is bound to the thread that started it. If a cache operation runs inside the transaction on a different thread, it throws `InvalidOperationException`. For example:
+
+```csharp
+using (var tx = ignite.GetTransactions().TxStart())
+{
+    cache.Put(1, 10);
+
+    // Throws InvalidOperationException: the task runs on a different thread.
+    Task.Run(() => cache.Put(1, 20)).GetAwaiter().GetResult();
+}
+```
+
+Run all operations of an embedded transaction on the thread that started it. In earlier versions, an operation on a different thread ran silently outside the transaction.
+
+To restore the earlier, thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before the application starts. The value is not case-sensitive. With the variable set, the current transaction does not flow to other threads or tasks.
+
+<!-- TODO: confirm against source -->
+{% endtab %}
+
+{% tab title="Java" %}
+unsupported
+{% endtab %}
+
+{% tab title="C++" %}
+unsupported
+{% endtab %}
+{% endtabs %}
+
 ## Concurrency Modes and Isolation Levels
 
 Caches with the `TRANSACTIONAL` atomicity mode support both `OPTIMISTIC` and `PESSIMISTIC` concurrency modes for transactions. Concurrency mode determines when an entry-level transaction lock is acquired: at the time of data access or during the prepare phase. Locking prevents concurrent access to an object. For example, when you attempt to update a ToDo list item with pessimistic locking, the server places a lock on the object until you either commit or rollback the transaction and no other transaction or operation is allowed to update the same entry. Regardless of the concurrency mode used in a transaction, there exists a moment in time when all entries enlisted in the transaction are locked before the commit.

@@ -246,6 +246,30 @@ await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 // flushed to the cluster without blocking the calling thread.
 ```
 
+### Using Transactions with async/await
+
+Available since 8.10. The thin client stores the current transaction (`ITransactionsClient.Tx`) per asynchronous flow instead of per thread. You can use `await` inside a transaction block, even when the continuation resumes on a different thread-pool thread. All asynchronous cache operations, such as `PutAsync`, `GetAsync`, `GetAllAsync`, and `RemoveAsync`, run inside the current transaction. `TransactionScope` works with asynchronous operations in the same way.
+
+```csharp
+await using (var tx = client.GetTransactions().TxStart())
+{
+    await cache.PutAsync(1, 10);
+    await cache.PutAsync(2, 20);
+
+    tx.Commit();
+}
+```
+
+The current transaction flows to any task started from inside the transaction block, for example with `Task.Run`, and that task can use the transaction. To prevent this for background work, start it inside `ExecutionContext.SuppressFlow()`.
+
+<!-- TODO: confirm against source -->
+
+{% hint style="info" %}
+In earlier versions, the current transaction was bound to the thread that started it. Operations that ran after an `await` on a different thread executed outside the transaction. To restore the thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before the application starts. The value is not case-sensitive.
+{% endhint %}
+
+<!-- TODO: confirm against source -->
+
 ### Closing a Transaction Asynchronously
 
 A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`. Use an `await using` block so that, if the transaction is disposed without being committed, the rollback is sent to the cluster without blocking the calling thread.
@@ -253,8 +277,8 @@ A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` i
 ```csharp
 await using (var tx = client.GetTransactions().TxStart())
 {
-    cache.Put(1, cache.Get(1) - 100);
-    cache.Put(2, cache.Get(2) + 100);
+    await cache.PutAsync(1, await cache.GetAsync(1) - 100);
+    await cache.PutAsync(2, await cache.GetAsync(2) + 100);
 
     tx.Commit();
 }
