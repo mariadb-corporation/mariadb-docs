@@ -414,13 +414,15 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=1` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+{% hint style="warning" %}
+Before MariaDB Community Server 10.6.26, 10.11.17, 11.4.11, 11.8.7, and 12.3.2, and MariaDB Enterprise Server 10.6.27-23, 11.4.12-9, and 11.8.8-5, InnoDB supported setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`. This changed because a crash during that operation could make crash recovery fail. See [MDEV-38079](https://jira.mariadb.org/browse/MDEV-38079).
+{% endhint %}
 
-InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
+InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`, neither from `0` to `1` nor from `1` to `0`. Any change to this value rebuilds the table, so use `INPLACE` instead. See [InnoDB Online DDL Operations with ALGORITHM=INPLACE: ALTER TABLE ... PAGE\_COMPRESSED=... and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md#alter-table-...-page_compressed-...-and-alter-table-...-page_compression_level).
 
-In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause is set to `INSTANT`.
+InnoDB supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
 
-See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... PAGE\_COMPRESSED=1 and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
+See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... PAGE\_COMPRESSED=1 and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-page_compressed-1-and-alter-table-...-page_compression_level) for more information.
 
 This applies to [ALTER TABLE ... PAGE\_COMPRESSED=...](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) and [ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) for [InnoDB](../) tables.
 

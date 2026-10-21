@@ -698,29 +698,19 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=1` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
+{% hint style="warning" %}
+Before MariaDB Community Server 10.6.26, 10.11.17, 11.4.11, 11.8.7, and 12.3.2, and MariaDB Enterprise Server 10.6.27-23, 11.4.12-9, and 11.8.8-5, InnoDB supported setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. This changed because a crash during that operation could make crash recovery fail. See [MDEV-38079](https://jira.mariadb.org/browse/MDEV-38079).
+{% endhint %}
 
-In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
+InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, neither from `0` to `1` nor from `1` to `0`. Any change to this value rebuilds the table, so use `INPLACE` instead. See [InnoDB Online DDL Operations with ALGORITHM=INPLACE: ALTER TABLE ... PAGE\_COMPRESSED=... and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md#alter-table-...-page_compressed-...-and-alter-table-...-page_compression_level).
+
+InnoDB supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
-See [MDEV-16328](https://jira.mariadb.org/browse/MDEV-16328) for more information.
+See [MDEV-16328](https://jira.mariadb.org/browse/MDEV-16328) and [MDEV-38079](https://jira.mariadb.org/browse/MDEV-38079) for more information.
 
 For example, this succeeds:
-
-```sql
-CREATE OR REPLACE TABLE tab (
-   a INT PRIMARY KEY,
-   b VARCHAR(50),
-   c VARCHAR(50)
-);
-
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab PAGE_COMPRESSED=1;
-Query OK, 0 rows affected (0.004 sec)
-```
-
-And this succeeds:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -730,8 +720,7 @@ CREATE OR REPLACE TABLE tab (
 ) PAGE_COMPRESSED=1
   PAGE_COMPRESSION_LEVEL=5;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab PAGE_COMPRESSION_LEVEL=4;
+ALTER TABLE tab PAGE_COMPRESSION_LEVEL=4, ALGORITHM=INSTANT;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -742,10 +731,22 @@ CREATE OR REPLACE TABLE tab (
    a INT PRIMARY KEY,
    b VARCHAR(50),
    c VARCHAR(50)
+);
+
+ALTER TABLE tab PAGE_COMPRESSED=1, ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
+```
+
+And this fails:
+
+```sql
+CREATE OR REPLACE TABLE tab (
+   a INT PRIMARY KEY,
+   b VARCHAR(50),
+   c VARCHAR(50)
 ) PAGE_COMPRESSED=1;
 
-SET SESSION alter_algorithm='INSTANT';
-ALTER TABLE tab PAGE_COMPRESSED=0;
+ALTER TABLE tab PAGE_COMPRESSED=0, ALGORITHM=INSTANT;
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
 ```
 
