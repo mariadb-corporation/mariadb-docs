@@ -299,6 +299,38 @@ cache.Put(1, val);
 var value = cache.Get(1);
 ```
 
+### Skipping Cache Store
+
+When [cache store](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/persistence/external-storage) is set up, cache operations always read from and write to that storage. In certain scenarios, you may need to bypass it instead. For this, use the `ICacheClient.WithSkipStore()` method to get a cache instance that bypasses cache store. Read-through and write-through are disabled for this instance.
+
+Available since 8.10.
+
+The example below shows how you can set it up:
+
+```csharp
+var cache = client.GetCache<int, string>("myCache");
+
+// Reads and writes go through the cache store.
+cache.Put(1, "1");
+
+var cacheSkipStore = cache.WithSkipStore();
+
+// The cache store is not updated.
+cacheSkipStore.Put(2, "2");
+
+// If key 3 exists only in the cache store, it is not loaded: TryGet returns false.
+var found = cacheSkipStore.TryGet(3, out _);
+```
+
+The original cache instance is not modified, so you can keep using both. You can combine `WithSkipStore()` with `WithKeepBinary()` and `WithExpiryPolicy()` methods.
+
+{% hint style="info" %}
+The server must support this feature. Otherwise, operations on a cache instance returned by `WithSkipStore()` throw `IgniteClientException`.
+{% endhint %}
+
+<!-- TODO: confirm against source - server version range that supports WithSkipStore (awaiting Pavel Tupitsyn) -->
+<!-- TODO: confirm against source - scope of WithSkipStore: continuous queries, transactions, SQL (awaiting Pavel Tupitsyn) -->
+
 ## Scan Queries
 
 Use a scan query to get a set of entries that satisfy a given condition.
