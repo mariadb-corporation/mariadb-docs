@@ -1,12 +1,12 @@
 ---
 description: >-
   Ways to install and deploy GridGain 9, from ZIP archives and packages to
-  Docker, Kubernetes, and cloud marketplace images.
+  Docker and Kubernetes.
 ---
 
 # Installation
 
-This section covers the available ways to install and deploy GridGain 9. Choose the method that fits your environment — ZIP archive, DEB or RPM package, Docker, Kubernetes, or a cloud marketplace image — and follow the corresponding guide.
+This section covers the available ways to install and deploy GridGain 9. Choose the method that fits your environment — ZIP archive, DEB or RPM package, Docker, or Kubernetes — and follow the corresponding guide.
 
 {% columns %}
 {% column %}
@@ -77,30 +77,6 @@ Deploy, configure, update, and uninstall a GridGain 9 cluster on Kubernetes usin
 
 {% column %}
 Understand the Software Identification (SWID) tags that GridGain 9 distributions ship, where they are located, and the fields they carry.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="aws/" %}
-[AWS](aws/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Deploy GridGain 9 on Amazon Web Services using the GridGain 9 AMI or the GridGain Terraform module.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="gcp/" %}
-[GCP](gcp/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Deploy GridGain 9 on Google Cloud Platform using the GridGain 9 GCP OS image or the GridGain Terraform module.
 {% endcolumn %}
 {% endcolumns %}
 
