@@ -3999,6 +3999,8 @@
       * [Error 4271: Cannot %s a table referenced in a foreign key constraint (%s)](reference/error-codes/mariadb-error-codes-4200-to-4299/e4271.md)
       * [Error 4272: Result was cut by %s) because of %s limit](reference/error-codes/mariadb-error-codes-4200-to-4299/e4272.md)
       * [Error 4273: Some values were cut while processing %s). Increase %s if you want to avoid the cut](reference/error-codes/mariadb-error-codes-4200-to-4299/e4273.md)
+      * [Error 4274: Invalid masked host '%s' for user '%s'](reference/error-codes/mariadb-error-codes-4200-to-4299/e4274.md)
+      * [Error 4275: '%s' entry '%s' ignored, the host is not a valid ip/netmask](reference/error-codes/mariadb-error-codes-4200-to-4299/e4275.md)
     * [MariaDB Error Codes 6000 to 6099](reference/error-codes/mariadb-error-codes-6000-to-6099/README.md)
       * [Error 6000: %s Black Box failed: %s](reference/error-codes/mariadb-error-codes-6000-to-6099/e6000.md)
       * [Error 6001: Before image of replicated record does not match the slave local record](reference/error-codes/mariadb-error-codes-6000-to-6099/e6001.md)
