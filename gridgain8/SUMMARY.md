@@ -269,6 +269,7 @@
     * [Installation](integrations/spark/installation.md)
     * [Testing with Spark-shell](integrations/spark/testing-with-spark-shell.md)
     * [Troubleshooting](integrations/spark/troubleshooting.md)
+  * [Spring Integration](integrations/spring.md)
   * [Geospatial SQL](integrations/geospatial-sql.md)
   * [AI Integration](integrations/ai/README.md)
     * [LangChain](integrations/ai/langchain.md)
