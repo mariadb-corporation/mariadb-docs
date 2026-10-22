@@ -86,8 +86,6 @@ The `ignite-ml` module is removed together with `ignite-ml-spark-model-parser`, 
 
 Switch to the Apache Ignite `ignite-ml-ext` extension (version 1.0.0, tested against GridGain 8.9 and 8.10) or to the standalone GridGain ML download.
 
-<!-- TODO Stanislav Usov (GG-51303): the text says ignite-ml-ext 1.0.0 is "tested against GridGain 8.9 and 8.10". The source is a GG-51303 comment of 2026-09-24 (Vyacheslav Blinov): the job GridGain8_Test_Extensions_ML is green on 8.10 master and 8.9-master. May the guide say "supported", or should it stay "tested against"? -->
-
 ### Local Store Support Removed
 
 This section applies if you use `@CacheLocalStore`, `CacheFileLocalStore`, or the `IGNITE_LOCAL_STORE_KEEPS_PRIMARY_ONLY` system property.
@@ -146,8 +144,6 @@ To switch a node to Lucene 10:
 Finish the upgrade to 8.10 on the Lucene 9 line first, and switch lines afterward on every node. Switching during the rolling upgrade would put two lines in one cluster.
 
 To go back to Lucene 9, reverse the steps: move the Lucene 10 folders back to `libs/optional`, and move `ignite-lucene-9` (and `gridgain-vector-query`, if you use it) back into `libs`. The Lucene index is held in memory and rebuilt from the cache data, so switching lines does not migrate or invalidate anything on disk.
-
-<!-- TODO Artem Egorov (GG-51314, still In Progress, no fix version; the changes are merged to master: gridgain 50e28e0ccbd #4229, ggprivate 5d3ce523f1c #2525): the switch to Lucene 10, the way back, and the default layout were run on 2026-10-22 on an Ultimate build of master and match this section (Lucene 9.10.0 and 10.4.0, vector query results unchanged). Please answer: (1) the README of ignite-lucene-10 says to remove libs/ignite-lucene-9 and later to "restore" it, without saying from where; the guide says to move the folder to libs/optional. Can the README be changed to say the same? (2) Please confirm the editions and folders for Community, Enterprise, and z/OS; only Ultimate was checked. -->
 
 ### Jetty 12 Is the Only REST Implementation
 

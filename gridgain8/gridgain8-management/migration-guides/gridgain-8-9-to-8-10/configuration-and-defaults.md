@@ -26,8 +26,6 @@ Neither limit exists in 8.9.x. A vector index that you built on 8.9 needs no mig
 
 For more information, see [Vector Search](../../../gridgain8-development/vector-search/README.md).
 
-<!-- TODO Alexander Pakhomov (GG-49541, GG-49668; the migration notes page names Ivan Zlenko and Alexander Pakhomov for the vector limits): please confirm two statements. (1) The thin-client k limit is read on the server nodes, as the text says. Source test ClientVectorQueryProtocolSelfTest (commit 8f2e8ca01ee) covers it; it was not run here. (2) The dimension limit "applies to indexes created after the property is set". This follows the javadoc of GRIDGAIN_VECTOR_MAX_DIMENSIONS and was not run. -->
-
 ## Startup Messages for Stale Properties
 
 This section applies if your configuration or startup scripts set Apache Ignite properties that GridGain does not support.
