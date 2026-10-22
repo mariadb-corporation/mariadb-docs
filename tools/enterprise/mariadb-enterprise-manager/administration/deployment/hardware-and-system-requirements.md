@@ -38,7 +38,8 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 
 | MariaDB Server Version | Supported OS (x86\_64, ARM64)                                                                           |
 | ---------------------- | ------------------------------------------------------------------------------------------------------- |
-| **10.6, 11.4, 11.8**   | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04, 26.04</p><p>Debian 11, 12, 13</p><p>SUSE Linux Enterprise Server (SLES) 15 SP7</p> |
+| **10.6, 11.4**         | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p><p>SUSE Linux Enterprise Server (SLES) 15 SP7</p> |
+| **11.8**               | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04, 26.04</p><p>Debian 11, 12, 13</p><p>SUSE Linux Enterprise Server (SLES) 15 SP7</p> |
 
 ### Supported Platforms for MariaDB MaxScale
 
