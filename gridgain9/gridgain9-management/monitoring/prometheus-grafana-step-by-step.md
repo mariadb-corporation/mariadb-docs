@@ -106,6 +106,8 @@ Once configured, Grafana starts receiving GridGain metrics from Prometheus. For 
 
 To help you quickly start collecting and visualizing GridGain metrics, we have prepared a pre-configured sample dashboard that you can import into Grafana. This dashboard provides a structured view of key cluster metrics, making it easier to monitor performance in real time.
 
+<!-- TODO (missing asset): Step 1 says "Download the sample dashboard JSON file", but there is no file or link, in this repository or in the devhub original (the GridGain 8 guide has the same gap). The GridGain-Demos/gridgain-observation repository holds only a New Relic dashboard. Provide the GridGain 9 dashboard JSON (and link it), or reword the step. Checked on GridGain 9.1.28 with Prometheus 3.1.0 and Grafana 11.5.0 over the Grafana HTTP API: admin/admin login, adding the Prometheus data source, querying GridGain metrics (for example ActiveCount, one series per node) and importing a dashboard all work. The UI screens and the original dashboard's panel queries were not checked. Delete this comment when resolved. -->
+
 1. Download the sample dashboard JSON file.
 2. Go to **Dashboards** → **Create Dashboard**, click **Import Dashboard**, and upload the file.
 

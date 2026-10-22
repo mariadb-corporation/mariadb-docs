@@ -6,8 +6,10 @@ description: >-
 
 # Build a Real-Time Transit Monitor
 
+<!-- TODO (not tested): This series was not run end to end on GridGain 9. It describes the companion repository maglietti/transit-monitor, which targets Apache Ignite 3.0.0 and needs a live GTFS realtime feed. Compiled against the GridGain 9.1.28 client, the repository fails in 13 places (SchemaSetupExample, MonitorService, ReportingService), all the same ambiguous `sql().execute(null, ...)` call. Fix the repository or point to a GridGain 9 fork, run it against a GridGain 9 cluster, then delete this comment. -->
+
 {% hint style="info" %}
-This tutorial uses Apache Ignite 3. The Java code works unchanged with GridGain 9. The Docker image, the Maven coordinates, and the `cluster init` command differ: in GridGain 9, `cluster init` requires a license (`--license <file>`). Use the GridGain 9 Docker image and Maven coordinates from [How to Start a Cluster with Docker Compose](../../../gridgain9-management/installation/start-cluster-docker-compose.md) if you are using GridGain.
+This tutorial uses Apache Ignite 3. The companion repository was written for Apache Ignite 3.0.0. Against the GridGain 9.1.28 client it compiles after one change: in the `sql().execute(null, ...)` calls (13 places in `SchemaSetupExample`, `MonitorService` and `ReportingService`), cast the null transaction, `execute((Transaction) null, ...)`, because `IgniteSql` also has an `execute(String, Object...)` overload that makes a bare `null` ambiguous. The Docker image, the Maven coordinates, and the `cluster init` command also differ: in GridGain 9, `cluster init` requires a license (`--license <file>`). Use the GridGain 9 Docker image and Maven coordinates from [How to Start a Cluster with Docker Compose](../../../gridgain9-management/installation/start-cluster-docker-compose.md) if you are using GridGain.
 {% endhint %}
 
 Transit data combines real-time streams, time-series storage, geospatial tracking, and complex queries, making it an ideal context for learning Ignite's distributed data capabilities. In this tutorial, you build a real-time transit monitoring system that exercises all of these patterns.

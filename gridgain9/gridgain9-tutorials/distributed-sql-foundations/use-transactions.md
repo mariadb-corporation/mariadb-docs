@@ -5,6 +5,8 @@ description: >-
 
 # Use Transactions in GridGain 9
 
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 ## Introduction
 
 Every operation in [Work with RecordView and KeyValueView](recordview-keyvalueview.md) passed `null` as the transaction parameter. That `null` tells GridGain to wrap each operation in its own auto-commit transaction: each write commits independently, and there is no coordination between them. When you need multiple operations to succeed or fail together (creating an invoice with its line items, transferring funds between accounts, updating inventory and confirming an order), you replace `null` with a named `Transaction` object.
@@ -469,7 +471,7 @@ GridGain read-write transactions use **SERIALIZABLE isolation**. Locks are acqui
 {% endhint %}
 
 {% hint style="info" %}
-The Invoice and InvoiceLine tables are colocated. The schema uses `CustomerId` as the colocation key for Invoice, and `InvoiceId` for InvoiceLine, placing related records on the same partition node. When a transaction writes to colocated rows, all lock acquisitions happen on the same node, eliminating network round-trips between nodes for each operation. The benefit is latency reduction at scale: fewer distributed coordination steps per transaction.
+The Customer and Invoice tables are a colocated pair. The schema uses `CustomerId` as the colocation key for Invoice, so an invoice lands in the same partition as its customer. InvoiceLine uses `InvoiceId` as its colocation key, which keeps all lines of one invoice in the same partition but does not place them with the Invoice row or the Customer row, because colocation does not chain through a middle table. When a transaction writes only rows that share a partition, such as all lines of one invoice, all lock acquisitions happen on the same node, eliminating network round-trips between nodes for each operation. The benefit is latency reduction at scale: fewer distributed coordination steps per transaction.
 {% endhint %}
 
 ## Roll Back a Partial Invoice

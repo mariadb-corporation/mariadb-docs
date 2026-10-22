@@ -5,6 +5,8 @@ description: >-
 
 # Choose the Right Data Access Pattern
 
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 ## Introduction
 
 The entity classes from the previous tutorial carry two responsibilities: they define the schema, and they map fields to columns at runtime. The `@Id` annotations that declared composite primary keys for colocation have a third effect that surfaces the moment your application makes its first data access call. Those annotations constrain which API calls are possible, which write operations are safe, and which consistency guarantees are available.
@@ -463,13 +465,13 @@ Run ExploreKeys. The first output is the most important:
 {% code title="ExploreKeys output" %}
 ```text
 --- Partial key: RecordView ---
-MarshallerException: Column 'ARTISTID' does not allow NULLs
+MarshallerException: Failed to serialize key tuple for table PUBLIC.ALBUM. Column 'ARTISTID' does not allow NULLs
 
 --- Full key: RecordView ---
 Album{albumId=5, artistId=3, title='Big Ones'}
 
 --- Partial key: KeyValueView ---
-MarshallerException: Missed key column: ARTISTID
+MarshallerException: Failed to serialize key tuple for table PUBLIC.ALBUM. Missed key column: ARTISTID
 
 --- Full key: KeyValueView ---
 ClientTuple [TITLE=Big Ones]
@@ -512,10 +514,12 @@ The EXPLAIN plans reveal what SQL does differently. These are the same three rou
 ```
 {% endcode %}
 
+The planner chooses between the secondary index and a table scan using table statistics. On a freshly loaded cluster, before statistics are collected, the `ArtistId` query can show a `TableScan` instead of the `IndexScan` above.
+
 Three queries on the same table produce three different routing strategies:
 
 1. **Full primary key**: the engine performs a direct `KeyValueGet` to the exact partition.
-2. **Colocation column only (ArtistId)**: the engine scans a single partition using the secondary index.
+2. **Colocation column only (ArtistId)**: the engine uses the secondary index on the colocation column. Because the colocation column is known, it can target the partition that holds the artist's albums.
 3. **Non-colocation column only (AlbumId)**: the engine scans all partitions because it cannot determine which node holds the data without the colocation column.
 
 SQL accepts any column combination in a WHERE clause. RecordView and KeyValueView require the full primary key. When your caller does not have the full key, SQL is the only option.
@@ -693,13 +697,14 @@ This step and the next add methods to `MusicStoreService.java` one at a time. Ad
 ```
 {% endcode %}
 
-**A dashboard shows the top-selling tracks across the entire catalog.** This query joins four tables across both colocation chains: InvoiceLine to Track to Album to Artist. No programmatic API supports joins. Add `getTopSellingTracks` as the last read method:
+**A dashboard shows the top-selling tracks across the entire catalog.** This query joins four tables that cross colocation boundaries: InvoiceLine to Track to Album to Artist. Each of the first three is colocated by a different column (InvoiceId, AlbumId, ArtistId), and only the Album-Artist pair is colocated with each other. No programmatic API supports joins. Add `getTopSellingTracks` as the last read method:
 
 {% code title="Add to MusicStoreService.java" %}
 ```java
-    // This join spans both colocation chains. EXPLAIN shows
-    // Exchange nodes where data moves from the commerce chain
-    // (InvoiceLine) to the catalog chain (Track, Album, Artist).
+    // This join crosses colocation boundaries. InvoiceLine (by InvoiceId),
+    // Track (by AlbumId), and Album (by ArtistId) are each colocated by a
+    // different column; only Album and Artist are a colocated pair.
+    // EXPLAIN shows Exchange nodes where data moves between them.
     public List<String> getTopSellingTracks(int limit) {
         List<String> results = new ArrayList<>();
         try (ResultSet<SqlRow> rs = sql.execute(
@@ -1300,7 +1305,7 @@ The `findAlbumsByArtist` and `getTopSellingTracks` results may appear in a diffe
 
 Walk through the output section by section:
 
-The **read methods** show the three API paths in action. `getArtistName` returns a single string through KeyValueView. `getAlbum` returns a full POJO through RecordView, requiring both key columns. `findAlbumsByArtist` and `findAlbumById` both use SQL, but the colocation column determines whether one partition or all partitions are scanned. `getTopSellingTracks` joins four tables across both colocation chains.
+The **read methods** show the three API paths in action. `getArtistName` returns a single string through KeyValueView. `getAlbum` returns a full POJO through RecordView, requiring both key columns. `findAlbumsByArtist` and `findAlbumById` both use SQL, but the colocation column determines whether one partition or all partitions are scanned. `getTopSellingTracks` joins four tables across colocation boundaries.
 
 The **updateAlbumTitle** result confirms cross-API visibility: the SQL UPDATE writes the new title, and the subsequent RecordView `get()` reads it back. All three APIs operate on the same underlying storage. A write through one API is immediately visible to reads through any other API.
 
@@ -1308,7 +1313,7 @@ The **createInvoice** output shows the safety distinction. The first `insert()` 
 
 The **createInvoiceWithBillingUpdate** result demonstrates an explicit transaction spanning two tables. The invoice insert and the customer address update either both commit or both roll back. The cleanup restores the original address so subsequent runs produce the same output.
 
-The **EXPLAIN plan** at the bottom confirms the routing for `findAlbumsByArtist`: an `IndexScan` on `IFK_ALBUMARTISTID` within a single partition. The `Exchange` node with `distribution: single` means the engine knew to route the query to exactly one partition based on the colocation column. The colocation decisions from the schema tutorial are visible in the query plan.
+The **EXPLAIN plan** at the bottom confirms the routing for `findAlbumsByArtist`: an `IndexScan` on `IFK_ALBUMARTISTID` within a single partition. The `Exchange` node with `distribution: single` is where the coordinator collects the rows. The `IndexScan` on `IFK_ALBUMARTISTID` with `predicate: =(ARTISTID, 1)` shows that the lookup uses the colocation column. The colocation decisions from the schema tutorial are visible in the query plan.
 
 **Open `MusicStoreService.java` in your IDE and use Find Usages on `sql.execute`.** Every SQL call exists because the caller either lacked the full primary key or because SQL was more efficient for the operation's shape (the single-column update). Now search for `albums.get` and `artistNames.get`. Every programmatic API call exists because the caller had the full key and needed either the complete entity or a single field.
 
@@ -1466,7 +1471,7 @@ Near-cache is not a faster version of KeyValueView. It is a different consistenc
 {% hint style="info" %}
 The near-cache polling mode uses ContinuousQuery internally to receive change events from the server. ContinuousQuery is a GridGain 9 feature that provides real-time change notifications with event filtering, column projection, and watermark-based exactly-once resumption.
 
-ContinuousQuery is also the change-capture primitive that powers the GG9 streaming stack: Kafka Connect source connectors stream table changes to Kafka topics. Data Center Replication copies data across clusters. Change Data Capture feeds changes to Apache Iceberg tables. All of these operate on the same tables and colocation chains you designed in the schema tutorials.
+ContinuousQuery is also the change-capture primitive that powers the GG9 streaming stack: Kafka Connect source connectors stream table changes to Kafka topics. Data Center Replication copies data across clusters. Change Data Capture feeds changes to Apache Iceberg tables. All of these operate on the same tables and colocation columns you designed in the schema tutorials.
 {% endhint %}
 
 {% hint style="success" %}
@@ -1483,7 +1488,7 @@ Nine methods, three APIs, and every choice was driven by the same three consider
 | Get album details (detail page) | Yes | Full entity (read) | Auto-commit | RecordView |
 | Find albums by artist (browse) | No (colocation col) | Query result | Auto-commit | SQL (single partition) |
 | Find album by ID (shared link) | No (non-coloc col) | Query result | Auto-commit | SQL (all partitions) |
-| Top-selling tracks (dashboard) | No (join) | Aggregation | Auto-commit | SQL (cross-chain) |
+| Top-selling tracks (dashboard) | No (join) | Aggregation | Auto-commit | SQL (crosses colocation boundaries) |
 | Update album title (editor fix) | Yes | One column (write) | Auto-commit | SQL |
 | Create invoice (order intake) | Yes | Full entity (write) | Create-only (dedup) | RecordView `insert` |
 | Invoice + billing update (checkout) | Yes | Two-table write | Explicit transaction | RecordView in tx |
@@ -1520,7 +1525,7 @@ The schema tutorial established that schema design is performance design: coloca
 
 At every call site, three considerations determine the API: key availability, operation shape, and safety requirements. The colocation decisions made during schema design set the boundaries: they determine which API paths are available, which operations are efficient, and which safety guarantees are practical.
 
-**What's next:** [Stream Data with the Data Streamer API](../data-pipeline-apis/data-streaming.md) covers the maximum-throughput write path. Data Streamer provides at-least-once delivery with automatic batching and backpressure, building on the same schema and colocation chains.
+**What's next:** [Stream Data with the Data Streamer API](../data-pipeline-apis/data-streaming.md) covers the maximum-throughput write path. Data Streamer provides at-least-once delivery with automatic batching and backpressure, building on the same schema and colocation columns.
 
 ## Related
 

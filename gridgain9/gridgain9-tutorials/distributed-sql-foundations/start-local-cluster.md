@@ -5,6 +5,7 @@ description: >-
 
 # Start Your Local GridGain 9 Development Cluster
 
+
 ## Introduction
 
 Your application needs a local GridGain 9 cluster for development and testing. In this tutorial, you start a 3-node cluster with Docker Compose, create distribution zones and tables, and load the Music Store sample dataset. Every other tutorial in this section assumes you have completed this setup or have an equivalent environment running.
@@ -24,12 +25,12 @@ If you just need the cluster running and don't need the guided walkthrough, foll
 
 - How to start and initialize a multi-node GridGain 9 cluster
 - How distribution zones control data replication and partitioning
-- How colocation keeps related data on the same node for local joins
+- How colocation keeps related rows of a table pair on the same node for local joins
 - How to load and verify a sample dataset with SQL
 
 ## What You Will Build
 
-A running 3-node cluster with the Music Store sample dataset loaded and verified. The dataset contains 11 tables organized across 2 distribution zones, with over 15,000 records covering artists, albums, tracks, customers, invoices, and playlists. Three colocation chains keep related data on the same node: Artist to Album to Track, Customer to Invoice to InvoiceLine, and Playlist to PlaylistTrack.
+A running 3-node cluster with the Music Store sample dataset loaded and verified. The dataset contains 11 tables organized across 2 distribution zones, with over 15,000 records covering artists, albums, tracks, customers, invoices, and playlists. Three colocated pairs keep related data on the same node: Artist with Album, Customer with Invoice, and Playlist with PlaylistTrack. Track and InvoiceLine are grouped by their parent key (AlbumId and InvoiceId), which keeps sibling rows together but does not place them with the parent table.
 
 ## Step 1: Start a 3-Node Cluster
 
@@ -98,6 +99,10 @@ Each node exposes two ports: **10300** for the REST management API and **10800**
 Reduce `JVM_MAX_MEM` and `JVM_MIN_MEM` to `1g` if your machine has less than 16 GB of RAM. Performance is adequate for development and tutorial workloads.
 {% endhint %}
 
+{% hint style="info" %}
+The compose file uses the `latest` tag. `docker compose up -d` does not refresh an image that is already on your machine, so if you pulled GridGain 9 before, run `docker compose pull` first to get the current release.
+{% endhint %}
+
 Start the cluster:
 
 ```bash
@@ -138,7 +143,7 @@ curl -s http://localhost:10300/management/v1/cluster/state | jq .
 {
   "cmgNodes": ["node1", "node2", "node3"],
   "msNodes": ["node1", "node2", "node3"],
-  "igniteVersion": "3.1.0",
+  "igniteVersion": "9.1.28",
   "clusterTag": {
     "clusterName": "my-cluster",
     "clusterId": "0d7e610e-7363-40a2-97d5-1fb1433b82a0"
@@ -245,26 +250,25 @@ Two replicas is sufficient for development. Size for your availability requireme
 Verify both zones were created by querying the system catalog:
 
 ```sql
-SELECT NAME, PARTITIONS, REPLICAS FROM SYSTEM.ZONES;
+SELECT ZONE_NAME, ZONE_PARTITIONS, ZONE_REPLICAS FROM SYSTEM.ZONES;
 ```
 
 ```text
-╔══════════════════════╤════════════╤══════════╗
-║ NAME                 │ PARTITIONS │ REPLICAS ║
-╠══════════════════════╪════════════╪══════════╣
-║ Default              │ 25         │ 1        ║
-╟──────────────────────┼────────────┼──────────╢
-║ MUSICSTORE           │ 25         │ 2        ║
-╟──────────────────────┼────────────┼──────────╢
-║ MUSICSTOREREPLICATED │ 25         │ 3        ║
-╚══════════════════════╧════════════╧══════════╝
+╔══════════════════════╤═════════════════╤═══════════════╗
+║ ZONE_NAME            │ ZONE_PARTITIONS │ ZONE_REPLICAS ║
+╠══════════════════════╪═════════════════╪═══════════════╣
+║ MUSICSTORE           │ 25              │ 2             ║
+╟──────────────────────┼─────────────────┼───────────────╢
+║ MUSICSTOREREPLICATED │ 25              │ 3             ║
+╚══════════════════════╧═════════════════╧═══════════════╝
 ```
 
-Three zones appear.
+Two zones appear.
 
-- **`Default`** ships with every cluster and uses 1 replica. Tables assigned to `Default` have no fault tolerance, so you create explicit zones with the replication policy your data requires.
 - **`MUSICSTORE`** has 2 replicas for partitioned business data.
 - **`MUSICSTOREREPLICATED`** has 3 replicas (one per node) for reference data that every node needs locally.
+
+GridGain also creates a zone named `Default` with 1 replica the first time you create a table without a `ZONE` clause, so it does not appear yet. Tables assigned to `Default` have no fault tolerance, so you create explicit zones with the replication policy your data requires.
 
 {% hint style="success" %}
 **Checkpoint:** The `SYSTEM.ZONES` query shows `MUSICSTORE` with 2 replicas and `MUSICSTOREREPLICATED` with 3 replicas.
@@ -306,13 +310,13 @@ Colocation eliminates this cost. When two tables share a colocation key, the clu
 
 The tradeoff: you choose the colocation key at table creation time, and it optimizes joins along one relationship. Joins on other columns still require network shuffling.
 
-Artist, Album, and Track form a colocation chain:
+A row's partition is decided only by hashing its own colocation columns. Two tables are a colocated pair when their colocation columns hold the same value for related rows. For the music tables, that works out as follows:
 
-- **`Artist`** is the root of the chain.
-- **`Album`** colocates by `ArtistId`, so all albums by the same artist live on the same node as that artist.
-- **`Track`** colocates by `AlbumId`, placing tracks on the same node as their album.
+- **`Artist`** is partitioned by its primary key, `ArtistId`.
+- **`Album`** colocates by `ArtistId`, so an album lands in the same partition as its artist. Artist and Album are a true colocated pair, and a join on `ArtistId` runs locally.
+- **`Track`** colocates by `AlbumId`, so all tracks of one album share a partition with each other. A track is not placed with its Album row, because Album is hashed by `ArtistId`, not `AlbumId`. Track is grouped by album, not colocated with Album or Artist.
 
-A query that joins Artist to Album to Track for a given artist executes entirely on one node.
+Colocation does not chain through a middle table. A query that joins Artist to Album runs locally, but adding Track to the join makes the cluster redistribute data between the two joins. The results are still correct, but data moves across the network.
 
 ```sql
 CREATE TABLE IF NOT EXISTS Artist (
@@ -346,7 +350,7 @@ The `COLOCATE BY` clause is GridGain-specific. It tells the cluster which column
 
 ### Business Entities (Partitioned Zone, Colocated)
 
-Customer, Employee, Invoice, and InvoiceLine follow the same pattern. Customer is the root. Invoice colocates by `CustomerId`. InvoiceLine colocates by `InvoiceId`, which chains back to Customer through Invoice.
+Customer, Employee, Invoice, and InvoiceLine follow the same pattern. Customer is partitioned by its primary key. Invoice colocates by `CustomerId`, so Customer and Invoice are a true colocated pair. InvoiceLine colocates by `InvoiceId`, which keeps all lines of one invoice together but does not place them with their Invoice row or with Customer. As with Track, colocation does not chain through Invoice.
 
 ```sql
 CREATE TABLE IF NOT EXISTS Customer (
@@ -429,38 +433,38 @@ Each `CREATE TABLE` statement returns `Updated 0 rows.` (DDL statements report z
 Verify all 11 tables and their colocation keys by querying the system catalog:
 
 ```sql
-SELECT NAME, ZONE, COLOCATION_KEY_INDEX FROM SYSTEM.TABLES ORDER BY NAME;
+SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES ORDER BY TABLE_NAME;
 ```
 
 ```text
-╔═══════════════╤══════════════════════╤══════════════════════╗
-║ NAME          │ ZONE                 │ COLOCATION_KEY_INDEX ║
-╠═══════════════╪══════════════════════╪══════════════════════╣
-║ ALBUM         │ MUSICSTORE           │ ARTISTID             ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ ARTIST        │ MUSICSTORE           │ ARTISTID             ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ CUSTOMER      │ MUSICSTORE           │ CUSTOMERID           ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ EMPLOYEE      │ MUSICSTORE           │ EMPLOYEEID           ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ GENRE         │ MUSICSTOREREPLICATED │ GENREID              ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ INVOICE       │ MUSICSTORE           │ CUSTOMERID           ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ INVOICELINE   │ MUSICSTORE           │ INVOICEID            ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ MEDIATYPE     │ MUSICSTOREREPLICATED │ MEDIATYPEID          ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ PLAYLIST      │ MUSICSTORE           │ PLAYLISTID           ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ PLAYLISTTRACK │ MUSICSTORE           │ PLAYLISTID           ║
-╟───────────────┼──────────────────────┼──────────────────────╢
-║ TRACK         │ MUSICSTORE           │ ALBUMID              ║
-╚═══════════════╧══════════════════════╧══════════════════════╝
+╔═══════════════╤══════════════════════╤══════════════════════════╗
+║ TABLE_NAME    │ ZONE_NAME            │ TABLE_COLOCATION_COLUMNS ║
+╠═══════════════╪══════════════════════╪══════════════════════════╣
+║ ALBUM         │ MUSICSTORE           │ ARTISTID                 ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ ARTIST        │ MUSICSTORE           │ ARTISTID                 ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ CUSTOMER      │ MUSICSTORE           │ CUSTOMERID               ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ EMPLOYEE      │ MUSICSTORE           │ EMPLOYEEID               ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ GENRE         │ MUSICSTOREREPLICATED │ GENREID                  ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ INVOICE       │ MUSICSTORE           │ CUSTOMERID               ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ INVOICELINE   │ MUSICSTORE           │ INVOICEID                ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ MEDIATYPE     │ MUSICSTOREREPLICATED │ MEDIATYPEID              ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ PLAYLIST      │ MUSICSTORE           │ PLAYLISTID               ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ PLAYLISTTRACK │ MUSICSTORE           │ PLAYLISTID               ║
+╟───────────────┼──────────────────────┼──────────────────────────╢
+║ TRACK         │ MUSICSTORE           │ ALBUMID                  ║
+╚═══════════════╧══════════════════════╧══════════════════════════╝
 ```
 
-The `COLOCATION_KEY_INDEX` column confirms the colocation chains:
+The `TABLE_COLOCATION_COLUMNS` column shows the column that decides which partition stores each row. It confirms these colocated pairs:
 
 - Artist and Album share `ARTISTID`, so they land on the same node.
 - Customer and Invoice share `CUSTOMERID`.
@@ -473,7 +477,7 @@ Tables without an explicit `COLOCATE BY` clause (Artist, Customer, Employee, Pla
 {% endhint %}
 
 {% hint style="success" %}
-**Checkpoint:** The query returns 11 rows. Colocation chains are visible: Artist and Album share `ARTISTID`, Customer and Invoice share `CUSTOMERID`, Playlist and PlaylistTrack share `PLAYLISTID`.
+**Checkpoint:** The query returns 11 rows. Colocated pairs are visible: Artist and Album share `ARTISTID`, Customer and Invoice share `CUSTOMERID`, Playlist and PlaylistTrack share `PLAYLISTID`.
 {% endhint %}
 
 ## Step 4: Load the Sample Data
@@ -550,9 +554,9 @@ SELECT COUNT(*) AS total_tracks FROM Track;
 
 The cluster has data. Run a few queries to see how the distribution zones and colocation affect query behavior.
 
-### Colocated Join: Artist to Album to Track
+### Three-Table Join: Artist to Album to Track
 
-This query joins three tables in the Artist colocation chain. Because Artist, Album, and Track are colocated in the `MusicStore` zone, the join executes locally on each node without shuffling data across the network.
+This query joins three tables in the `MusicStore` zone. Artist and Album are colocated by `ArtistId`, so that join is local. Track is grouped by `AlbumId`, a different column, so the cluster redistributes data before joining Track. The query returns correct results either way.
 
 ```sql
 SELECT a.Name AS Artist, al.Title AS Album, COUNT(t.TrackId) AS Tracks
@@ -580,7 +584,7 @@ LIMIT 5;
 ╚═══════════════╧════════════════╧════════╝
 ```
 
-The three-table join executes efficiently because the `COLOCATE BY` clauses placed related rows on the same node. Without colocation, this query would require the cluster to redistribute data across the network for each join.
+The Artist-to-Album join benefits from colocation because both tables are partitioned by `ArtistId`. The join to Track does not, because Track is partitioned by `AlbumId`, so the cluster moves data for that step. The next tutorial reads the `EXPLAIN` plans that show where the data moves.
 
 ### Replicated Zone Query: Genre Distribution
 
@@ -623,9 +627,9 @@ LIMIT 10;
 
 Rock dominates the catalog at 1,297 tracks. The replicated zone strategy makes these reference-data joins fast regardless of which node handles the query.
 
-### Cross-Chain Aggregation: Revenue by Country
+### Colocated Aggregation: Revenue by Country
 
-This query joins Customer and Invoice from the Customer colocation chain and aggregates revenue across countries.
+This query joins Customer and Invoice, a colocated pair, and aggregates revenue across countries.
 
 ```sql
 SELECT c.Country, COUNT(i.InvoiceId) AS Orders,
@@ -669,11 +673,11 @@ Type `exit` to leave the SQL sub-REPL, then `exit` again to close the CLI.
 
 ## Summary
 
-You built a 3-node GridGain 9 development cluster and loaded the Music Store dataset: 11 tables, over 15,000 records, organized across 2 distribution zones with 3 colocation chains. Along the way, you encountered three core GridGain concepts:
+You built a 3-node GridGain 9 development cluster and loaded the Music Store dataset: 11 tables, over 15,000 records, organized across 2 distribution zones with 3 colocated pairs. Along the way, you encountered three core GridGain concepts:
 
 - **Cluster initialization** designates metastorage nodes, elects a leader, and opens client ports. It is a one-time step comparable to bootstrapping a consensus group.
 - **Distribution zones** define per-table replication and partitioning policies. The `MusicStore` zone stores business data with 2 replicas for fault tolerance. The `MusicStoreReplicated` zone stores reference data with 3 replicas so every node has a complete copy.
-- **Colocation** places related tables on the same node by a shared key, enabling local joins without network round-trips. The Music Store colocates Artist to Album to Track by artist and album ID.
+- **Colocation** places related tables on the same node by a shared key, enabling local joins without network round-trips. The Music Store colocates Artist with Album by artist ID, Customer with Invoice by customer ID, and Playlist with PlaylistTrack by playlist ID. Colocation does not chain: Track and InvoiceLine are grouped by album and invoice ID but are not placed with their parent tables.
 
 This cluster and dataset are the foundation for every tutorial in this section. Keep it running as you continue to the next steps.
 

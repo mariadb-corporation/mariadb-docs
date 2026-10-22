@@ -49,14 +49,14 @@ The integration ships as a single artifact, `org.gridgain:gridgain-hibernate`, t
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-jdbc</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 
     <!-- GridGain Hibernate Integration (dialect + L2 region factory) -->
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>gridgain-hibernate</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 </dependencies>
 ```

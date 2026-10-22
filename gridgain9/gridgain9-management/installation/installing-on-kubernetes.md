@@ -371,7 +371,7 @@ kubectl apply -f service.yaml
              - name: GRIDGAIN_WORK_DIR
                value: /gg9-work
            # GridGains Docker image and it's version.
-           image: gridgain/gridgain9:9.1
+           image: gridgain/gridgain9:latest
            ports:
            - containerPort: 10300
            - containerPort: 10800
@@ -470,7 +470,7 @@ kubectl apply -f service.yaml
            command:
            - /bin/sh
            # Specify the Docker image with the GridGain 9 CLI and its version.
-           image: gridgain/gridgain9:9.1
+           image: gridgain/gridgain9:latest
            imagePullPolicy: IfNotPresent
            name: cluster-init
            resources: {}
@@ -650,7 +650,7 @@ To enable KEDA scaling for your cluster:
             #   fsGroup: 0
             containers:
               - name: recovery
-                image: gridgain/gridgain9:9.1.21
+                image: gridgain/gridgain9:9.1.28
                 command: ["/bin/bash", "/scripts/recovery.sh"]
                 volumeMounts:
                 - name: script-vol

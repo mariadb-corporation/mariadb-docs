@@ -98,6 +98,10 @@ Reduce `JVM_MAX_MEM` and `JVM_MIN_MEM` to `1g` if your machine has less than 16 
 
 ## Start the Cluster
 
+{% hint style="info" %}
+The compose file uses the `latest` tag. `docker compose up -d` does not refresh an image that is already on your machine, so if you pulled GridGain 9 before, run `docker compose pull` first to get the current release.
+{% endhint %}
+
 Start the cluster:
 
 ```bash

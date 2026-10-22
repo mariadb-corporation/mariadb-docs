@@ -49,7 +49,7 @@ The thin client provides the Table, Key-Value, SQL, Compute, Transactions, Catal
 <dependency>
     <groupId>org.gridgain</groupId>
     <artifactId>ignite-client</artifactId>
-    <version>9.1</version>
+    <version>9.1.28</version>
 </dependency>
 ```
 {% endtab %}

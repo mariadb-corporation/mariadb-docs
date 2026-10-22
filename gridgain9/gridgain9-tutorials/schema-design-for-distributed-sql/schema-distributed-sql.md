@@ -1,9 +1,10 @@
 ---
 description: >-
-  Analyze access patterns, build colocation chains, choose distribution zones, and verify your schema design with system views and EXPLAIN plans.
+  Analyze access patterns, design colocated table pairs, choose distribution zones, and verify your schema design with system views and EXPLAIN plans.
 ---
 
 # Design a Schema for Distributed SQL
+
 
 ## Introduction
 
@@ -79,7 +80,7 @@ Re-run the check above to verify 3503 tracks are loaded.
 You will work through a repeatable five-step process for designing a distributed SQL schema, apply it to the Music Store domain, then apply it independently to a new domain fragment. Along the way you will learn:
 
 - How sharding and colocation determine query performance in a distributed cluster
-- How to analyze a domain model and build colocation chains from access patterns
+- How to analyze a domain model and decide which tables to colocate from access patterns
 - How to choose between partitioned and replicated distribution zones
 - How to express these decisions in SQL DDL with `CREATE ZONE`, `COLOCATE BY`, and composite primary keys
 - How to verify your design using system views and EXPLAIN plans
@@ -100,13 +101,13 @@ Primary key design is no longer just about uniqueness. It directly determines wh
 |---|---|---|
 | Primary key | Uniqueness constraint | Uniqueness + partition routing |
 | JOIN | Always local (single disk) | Local only if data is colocated |
-| Foreign key | Enforced referential integrity | Not enforced; colocation replaces the FK role |
+| Foreign key | Enforced referential integrity | Not supported; colocation and application logic replace the FK role |
 | Table placement | All on one disk | Assigned to a distribution zone |
 | Replication | Backup for high availability | Active replicas; more replicas improve reads but slow writes |
 
 The critical row is **JOIN**. A join is local only when the joined rows land on the same node. When they do not, the database shuffles data across the network. Your RDBMS schema will not break if you move it to a distributed cluster. Every query still returns correct results. But without colocation, every join pays a network cost, and that cost grows linearly with data volume.
 
-Both products give you two separate mechanisms to control this. **Distribution zones** control *where* data lives: how many partitions, how many replicas, which storage engine. **`COLOCATE BY`** controls *which* data lives together: which rows from different tables share the same partition. Most distributed databases conflate these into a single mechanism. Keeping them separate is what makes the design process clear.
+GridGain 9 gives you two separate mechanisms to control this. **Distribution zones** control *where* data lives: how many partitions, how many replicas, which storage engine. **`COLOCATE BY`** controls *which* data lives together: which rows from different tables share the same partition. Most distributed databases conflate these into a single mechanism. Keeping them separate is what makes the design process clear.
 
 <details>
 <summary>New to sharding? Here is the short version.</summary>
@@ -132,28 +133,28 @@ A sharded database splits each table into pieces (called *shards* or *partitions
 Now that you understand what colocation does and why it matters, the next question is how to decide what gets colocated with what. Schema design for us starts with queries, not tables. The process for translating access patterns into a distributed schema has five steps:
 
 1. **Identify access patterns** to find which tables are queried together
-2. **Find root entities** that anchor each relationship chain
-3. **Build colocation chains** from root to leaf using shared columns
-4. **Accept cross-chain tradeoffs** where chains meet
+2. **Find root entities** that anchor each hot path
+3. **Build colocated pairs** by giving each child the parent's colocation column
+4. **Accept cross-boundary tradeoffs** where colocation stops
 5. **Identify reference data** that benefits from full replication
 
 The rest of this step walks through each one with the Music Store. Here is the data model you have been querying since the first tutorial:
 
 ```mermaid
 erDiagram
-    %% Catalog chain (left side)
+    %% Catalog tables (left side)
     Artist ||--o{ Album : ""
     Album ||--o{ Track : ""
     Genre ||--o{ Track : ""
     MediaType ||--o{ Track : ""
 
-    %% Commerce chain (right side)
+    %% Commerce tables (right side)
     Employee ||--o{ Customer : ""
     Customer ||--o{ Invoice : ""
     Invoice ||--o{ InvoiceLine : ""
     Track ||--o{ InvoiceLine : ""
 
-    %% Playlist chain
+    %% Playlist tables
     Playlist ||--o{ PlaylistTrack : ""
     Track ||--o{ PlaylistTrack : ""
 
@@ -237,7 +238,7 @@ erDiagram
     }
 ```
 
-The PK and FK markers show primary keys and foreign key references. In a single-node database, these relationships are enforced by the engine and every join is local. The five-step process below determines how to preserve join locality when these tables are distributed across a cluster.
+The PK and FK markers show primary keys and foreign key references. In a single-node database, these relationships are enforced by the engine and every join is local. The five-step process below determines which of these joins stay local when the tables are distributed across a cluster.
 
 ### Identifying Access Patterns
 
@@ -247,42 +248,43 @@ The question is not "what entities do I have?" but "how does my application acce
 
 **Purchase history:** "Show me a customer's invoices and line items." This traverses Customer to Invoice to InvoiceLine.
 
-Each of these paths defines a chain of tables that are frequently joined together. If every table in a chain lands on the same partition, those joins execute locally without touching the network. That is the goal of colocation.
+Each of these paths touches three tables that are frequently joined together. Colocation can keep some of those joins local, but as the next sections show, it does not keep all three levels of a path on one partition. Choosing which joins to keep local is the design decision.
 
 ### Finding the Root Entities
 
-Every chain has a root entity that anchors the hierarchy. **Artist** is the root of the catalog chain, and **Customer** is the root of the commerce chain. Every other table relates back to one of these roots through parent-child relationships.
+Every hot path has a root entity that anchors the hierarchy. **Artist** is the root of catalog browsing, and **Customer** is the root of purchase history. Every other table in the path relates back to one of these roots through parent-child relationships. Album and Invoice are also placed with their roots. Track and InvoiceLine are related to the root only logically, not by placement.
 
-### Building Colocation Chains
+### Building Colocated Pairs
 
 {% hint style="info" %}
-A *colocation chain* is a GridGain term for a hierarchy of parent-child tables that share a *shard key* lineage so they land on the same partition.
+Two tables are *colocated* when rows that share a value in their colocation columns always land on the same partition. A child table that colocates by its parent's colocation column forms a *colocated pair* with the parent.
 Other distributed databases call this interleaved tables, colocation groups, or simply parent-child sharding.
-The concept is the same: related rows from different tables are placed together on one node so joins between them stay local.
 {% endhint %}
 
-A colocation chain links each child table to its parent through a shared column:
+A row's partition is decided only by hashing **that row's own** colocation columns. It is not derived from where the parent row lives. That has two consequences:
 
-- **Catalog chain:** Album colocates by `ArtistId`, Track colocates by `AlbumId`. All albums for the same artist are stored on the same partition. All tracks for the same album are on the same partition as the album.
-- **Commerce chain:** Invoice colocates by `CustomerId`, InvoiceLine colocates by `InvoiceId`. All invoices for the same customer share a partition. All line items for the same invoice share a partition with the invoice.
+- **Colocated pairs.** If a child table colocates by the same column value that the parent uses to place its rows, parent and child rows with that value share a partition, and the join between them is local. Album colocates by `ArtistId`, and Artist is placed by `ArtistId`, so an artist and all of that artist's albums share a partition. Invoice colocates by `CustomerId`, and Customer is placed by `CustomerId`, so a customer and all of that customer's invoices share a partition. Playlist and PlaylistTrack form a pair on `PlaylistId` in the same way.
+- **Grouping without placement.** Track colocates by `AlbumId`. All tracks of one album share a partition with each other, and with any other table colocated by the same `AlbumId` value. But Album is placed by `ArtistId`, not `AlbumId`, so a Track is **not** placed with its Album row, and not with its Artist. In the same way, InvoiceLine colocates by `InvoiceId`, so all lines of one invoice are grouped together, but they are not placed with the Invoice row (placed by `CustomerId`) or the Customer.
+
+**Colocation does not chain through a middle table.** To place a grandchild with the root, the grandchild would need its own copy of the root's colocation column (for example, `ArtistId` in Track), and this schema does not have one.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
-    subgraph catalog ["Catalog Chain"]
+    subgraph catalog ["Catalog"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
         Album["<b>Album</b><br/>PK: AlbumId, <i>ArtistId</i>"]
         Track["<b>Track</b><br/>PK: TrackId, <i>AlbumId</i>"]
-        Artist -- "ArtistId" --> Album
-        Album -- "AlbumId" --> Track
+        Artist -- "ArtistId (colocated pair)" --> Album
+        Album -. "AlbumId (not colocated)" .-> Track
     end
 
-    subgraph commerce ["Commerce Chain"]
+    subgraph commerce ["Commerce"]
         Customer["<b>Customer</b><br/>PK: CustomerId"]
         Invoice["<b>Invoice</b><br/>PK: InvoiceId, <i>CustomerId</i>"]
         InvoiceLine["<b>InvoiceLine</b><br/>PK: InvoiceLineId, <i>InvoiceId</i>"]
-        Customer -- "CustomerId" --> Invoice
-        Invoice -- "InvoiceId" --> InvoiceLine
+        Customer -- "CustomerId (colocated pair)" --> Invoice
+        Invoice -. "InvoiceId (not colocated)" .-> InvoiceLine
     end
 
     subgraph reference ["Replicated (all nodes)"]
@@ -290,38 +292,38 @@ graph LR
         MediaType["<b>MediaType</b>"]
     end
 
-    InvoiceLine -. "TrackId (cross-chain)" .-> Track
+    InvoiceLine -. "TrackId (cross-boundary)" .-> Track
     Track -. "GenreId" .-> Genre
     Track -. "MediaTypeId" .-> MediaType
 
     style Artist fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Customer fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Album fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
-    style Track fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
+    style Track fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style Invoice fill:#E69875,stroke:#b15919,color:#2D353B
-    style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
+    style InvoiceLine fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
     linkStyle default color:#111111
 ```
 
-Solid arrows are colocation relationships: data on the same partition, joins are local. Dashed arrows are cross-chain references: data on different partitions, joins move data across the network. The italicized column in each composite PK is the colocation column. Reference tables (pink) are replicated to every node, so their dashed arrows never cause data movement.
+Solid arrows are colocated pairs: rows with the same colocation value share a partition, so the join is local. Dashed arrows are relationships where rows are not placed together: Album to Track and Invoice to InvoiceLine (the child is grouped by its own column, which its parent is not placed by), and the cross-boundary references from InvoiceLine to Track. Joins across a dashed arrow move data across the network. The italicized column in each composite PK is the colocation column. Reference tables (pink) are the exception: they are replicated to every node, so joins to them never cause data movement even though their arrows are dashed. Track and InvoiceLine are purple because they are only grouped, not placed with their parent rows.
 
 {% hint style="info" %}
 The colocation column (shard key) must be part of the primary key. This is a hard constraint, and it is the same constraint other sharded databases enforce. The next step explores what this means for your table definitions.
 {% endhint %}
 
-### Accepting Cross-chain Tradeoffs
+### Accepting Cross-boundary Tradeoffs
 
 A table can only colocate by one column.
 
-Track colocates by `AlbumId` (catalog chain) and InvoiceLine colocates by `InvoiceId` (commerce chain), so a query like "what genre does customer #1 buy most?" has to join across both chains. Because Track and InvoiceLine belong to different colocation hierarchies, they live on different partitions, and the database must move data between nodes to complete the join.
+Track colocates by `AlbumId` and InvoiceLine colocates by `InvoiceId`. Neither value is shared with the other table, so a query like "what genre does customer #1 buy most?" has to join across tables that are not placed together, and the database must move data between nodes to complete the join. The same is true one level up: joining Album to Track on `AlbumId` also moves data, because Track rows are placed by `AlbumId` while Album rows are placed by `ArtistId`.
 
-That is the fundamental tradeoff. You cannot colocate everything, so you pick the hot paths and optimize those. The Music Store optimizes for catalog browsing and purchase history. Cross-chain analytics still work, just at higher latency.
+That is the fundamental tradeoff. You cannot colocate everything, so you pick the hot paths and optimize those. The Music Store keeps Artist with Album and Customer with Invoice local, and groups tracks by album and invoice lines by invoice so that "all tracks of this album" and "all lines of this invoice" are single-partition lookups. Joins that cross those boundaries still work, just at higher latency.
 
 ### Identifying Reference Data
 
-Some tables are small, rarely updated, and joined by many queries. The Music Store has two: **Genre** (25 rows) and **MediaType** (5 rows). These are lookup tables. Rather than colocating them with one chain (which would not help queries from the other chain), replicate them so every node has a local copy. Any join with Genre or MediaType is always local, regardless of which chain initiated the query.
+Some tables are small, rarely updated, and joined by many queries. The Music Store has two: **Genre** (25 rows) and **MediaType** (5 rows). These are lookup tables. Rather than colocating them with one table (which would not help queries that start from another table), replicate them so every node has a local copy. Any join with Genre or MediaType is always local, regardless of which table initiated the query.
 
 ### Verifying Against the Cluster
 
@@ -348,10 +350,10 @@ PLAYLISTTRACK | MUSICSTORE           | PLAYLISTID
 TRACK         | MUSICSTORE           | ALBUMID
 ```
 
-`ZONE_NAME` shows which zone owns each table, and `TABLE_COLOCATION_COLUMNS` shows the column that determines partition assignment. Genre and MediaType are in `MUSICSTOREREPLICATED` (full replication), while everything else is in `MUSICSTORE` (partitioned). The colocation columns match the chains: Album uses `ARTISTID`, Invoice uses `CUSTOMERID`, Track uses `ALBUMID`.
+`ZONE_NAME` shows which zone owns each table, and `TABLE_COLOCATION_COLUMNS` shows the column that determines partition assignment. Genre and MediaType are in `MUSICSTOREREPLICATED` (full replication), while everything else is in `MUSICSTORE` (partitioned). The colocation columns match the design: Album uses `ARTISTID` (the same as Artist), Invoice uses `CUSTOMERID` (the same as Customer), and Track uses `ALBUMID`, which no other table in this schema uses for placement.
 
 {% hint style="success" %}
-**Checkpoint:** The SYSTEM.TABLES query returns 11 rows. Genre and MediaType show MUSICSTOREREPLICATED as their zone. All other tables show MUSICSTORE. The colocation columns match the access pattern chains described above.
+**Checkpoint:** The SYSTEM.TABLES query returns 11 rows. Genre and MediaType show MUSICSTOREREPLICATED as their zone. All other tables show MUSICSTORE. The colocation columns match the pairs and groupings described above.
 {% endhint %}
 
 ## Composite Primary Keys
@@ -448,7 +450,7 @@ Exchange
       est: (rows=1)
 ```
 
-Both products produce a `TableScan` here. The planner cannot route to a single partition because `AlbumId` alone does not identify one, so the scan fans out to every partition. There is no secondary index on `AlbumId` to help.
+GridGain 9 produces a `TableScan` here. The planner cannot route to a single partition because `AlbumId` alone does not identify one, so the scan fans out to every partition. There is no secondary index on `AlbumId` to help.
 
 The contrast between the second and third queries is the core lesson. Both filter by a single PK column, but the `ArtistId` query routes to one partition while the `AlbumId` query scans all of them. The difference is entirely determined by which column is the colocation column.
 
@@ -457,7 +459,7 @@ The contrast between the second and third queries is the core lesson. Both filte
 Composite keys enable colocation, but they widen every reference. Track's PK becomes `(TrackId, AlbumId)` instead of `(TrackId)`, and InvoiceLine's becomes `(InvoiceLineId, InvoiceId)` instead of `(InvoiceLineId)`. Any table that references Album must carry both columns for a point lookup. The tradeoff is real, but it is not GridGain-specific. Every distributed SQL database pays this cost in some form. The benefit, colocated joins that execute locally without network hops, is what makes the wider keys worthwhile.
 
 {% hint style="success" %}
-**Checkpoint:** All three EXPLAIN plans execute without errors. The full PK query shows KeyValueGet. The colocation-column query routes to a single partition (TableScan on GridGain 9). The non-colocation query shows TableScan across all partitions.
+**Checkpoint:** All three EXPLAIN plans execute without errors. The full PK query shows KeyValueGet. The colocation-column query routes to a single partition. The non-colocation query shows TableScan across all partitions.
 {% endhint %}
 
 ## Distribution Zones
@@ -481,12 +483,11 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```text
 ZONE_NAME            | ZONE_PARTITIONS | ZONE_REPLICAS | IS_DEFAULT_ZONE
 ---------------------+-----------------+---------------+----------------
-Default              | 25              | 1             | true
 MUSICSTORE           | 25              | 2             | false
 MUSICSTOREREPLICATED | 25              | 3             | false
 ```
 
-The `Default` zone (1 replica, 25 partitions) is pre-created by the cluster. The Music Store schema specifies zones explicitly on every table, so the default zone is unused. If you omit the `ZONE` clause from `CREATE TABLE`, the table goes into this default zone automatically.
+GridGain creates the `Default` zone (1 replica) the first time you create a table without a `ZONE` clause, so it does not appear in this list yet. The Music Store schema specifies zones explicitly on every table, so the default zone stays unused. If you omit the `ZONE` clause from `CREATE TABLE`, the table goes into the default zone automatically, and the zone then appears in `SYSTEM.ZONES`.
 
 Now verify how partitions are distributed across nodes. This query aggregates partition state by node and zone:
 
@@ -516,8 +517,8 @@ Partition counts per node and row estimates vary by cluster. The pattern is cons
 
 Use this framework when choosing between partitioned and replicated zones:
 
-- **Replicate when:** The table is small (hundreds of rows), rarely updated, and frequently joined by tables in multiple colocation chains. Genre and MediaType fit this profile.
-- **Partition when:** The table is large or growing, frequently updated, and has parent-child relationships that benefit from colocation. Artist, Album, Track, Customer, Invoice, InvoiceLine all fit this profile.
+- **Replicate when:** The table is small (hundreds of rows), rarely updated, and frequently joined by tables that colocate by different columns. Genre and MediaType fit this profile.
+- **Partition when:** The table is large or growing, frequently updated, and has relationships that benefit from colocation or grouping. Artist, Album, Track, Customer, Invoice, InvoiceLine all fit this profile.
 
 {% hint style="warning" %}
 Tables are permanently bound to their zone. You cannot move a table to a different zone after creation. If you need different replication or partitioning for a table, you must drop and recreate it. Choose your zone assignment carefully.
@@ -532,7 +533,7 @@ Walk through the DDL that creates the Music Store schema. Each clause maps to a 
 CREATE ZONE IF NOT EXISTS MusicStore
     WITH REPLICAS=2, PARTITIONS=25, STORAGE_PROFILES='default';
 
--- Root entity: Artist is the colocation anchor for the catalog chain
+-- Root entity: Artist is the colocation anchor for Album
 CREATE TABLE IF NOT EXISTS Artist (
     ArtistId INT NOT NULL,
     Name VARCHAR(120) NOT NULL,
@@ -552,7 +553,8 @@ CREATE TABLE IF NOT EXISTS Album (
 -- Secondary index: supports joins and lookups by ArtistId within a partition
 CREATE INDEX IF NOT EXISTS IFK_AlbumArtistId ON Album (ArtistId);
 
--- Grandchild: Track colocates by AlbumId
+-- Track colocates by AlbumId: all tracks of one album share a partition,
+-- but not with the Album row (Album is placed by ArtistId)
 CREATE TABLE IF NOT EXISTS Track (
     TrackId INT NOT NULL,
     AlbumId INT,
@@ -590,7 +592,7 @@ CREATE TABLE IF NOT EXISTS MediaType (
 Read the DDL clause by clause: `ZONE` picks the placement policy, `COLOCATE BY` declares the routing key, the composite PK ensures the routing key is available for lookups, and `REPLICAS` controls fault tolerance. Each line is a design decision expressed as SQL.
 
 {% hint style="warning" %}
-Without an explicit `COLOCATE BY`, the engine uses the entire primary key to choose which partition stores each row. For Album with PK `(AlbumId, ArtistId)`, that means two albums by the same artist can end up on different partitions because their `AlbumId` values differ. The colocation chain breaks: Artist and Album are no longer guaranteed to share a partition, and the join between them may cross the network.
+Without an explicit `COLOCATE BY`, the engine uses the entire primary key to choose which partition stores each row. For Album with PK `(AlbumId, ArtistId)`, that means two albums by the same artist can end up on different partitions because their `AlbumId` values differ. The colocated pair breaks: Artist and Album are no longer guaranteed to share a partition, and the join between them may cross the network.
 
 Adding `COLOCATE BY (ArtistId)` fixes this. It tells the engine to partition Album rows by `ArtistId` alone, ignoring `AlbumId`. Every album by Artist 1 lands on the same partition as the Artist 1 row, which is what makes the join local. Always specify `COLOCATE BY` on child tables.
 {% endhint %}
@@ -601,15 +603,15 @@ Adding `COLOCATE BY (ArtistId)` fixes this. It tells the engine to partition Alb
 
 ## Apply the Process
 
-The Music Store has a third relationship chain: Playlist and PlaylistTrack. Apply the five-step process to this domain fragment.
+The Music Store has a third relationship: Playlist and PlaylistTrack. Apply the five-step process to this domain fragment.
 
 **Step 1: Identify the access pattern.** "Show me all tracks in a playlist." This traverses Playlist to PlaylistTrack to Track.
 
 **Step 2: Find the root entity.** Playlist is the root.
 
-**Step 3: Build the colocation chain.** PlaylistTrack should colocate by `PlaylistId` so that all entries in a playlist are stored on the same partition as the playlist itself.
+**Step 3: Build the colocated pair.** PlaylistTrack should colocate by `PlaylistId` so that all entries in a playlist are stored on the same partition as the playlist itself.
 
-**Step 4: Accept cross-chain tradeoffs.** PlaylistTrack references Track, which belongs to the catalog chain (colocated by `AlbumId`). The join from PlaylistTrack to Track crosses chains. This is acceptable because the primary access pattern ("show me the tracks in this playlist") colocates the playlist with its membership list, and the track details can be fetched in a second query if needed.
+**Step 4: Accept cross-boundary tradeoffs.** PlaylistTrack references Track, which is placed by `AlbumId`. The join from PlaylistTrack to Track crosses a colocation boundary. This is acceptable because the primary access pattern ("show me the tracks in this playlist") colocates the playlist with its membership list, and the track details can be fetched in a second query if needed.
 
 **Step 5: Reference data?** No. Playlists are user-created and can grow to any size.
 
@@ -621,10 +623,10 @@ Now write the DDL. Before looking at the solution below, write the CREATE TABLE 
 - Does PlaylistTrack need a `COLOCATE BY` clause?
 
 <details>
-<summary>Solution: Playlist chain DDL</summary>
+<summary>Solution: Playlist pair DDL</summary>
 
 ```sql
--- Root entity: Playlist is the chain anchor
+-- Root entity: Playlist is the anchor of the pair
 -- Simple PK because PlaylistId is both the identity and the colocation column
 CREATE TABLE IF NOT EXISTS Playlist (
     PlaylistId INT NOT NULL,
@@ -640,7 +642,7 @@ CREATE TABLE IF NOT EXISTS PlaylistTrack (
     TrackId INT NOT NULL,
     PRIMARY KEY (PlaylistId, TrackId)
 ) COLOCATE BY (PlaylistId) ZONE MusicStore;
--- TrackId references the catalog chain, so PlaylistTrack-to-Track joins cross chains
+-- Track is placed by AlbumId, so PlaylistTrack-to-Track joins cross a colocation boundary
 ```
 
 This is exactly how the Music Store schema defines these tables. Query `SYSTEM.TABLES` to confirm:
@@ -660,16 +662,16 @@ PLAYLISTTRACK | MUSICSTORE | PLAYLISTID
 </details>
 
 {% hint style="success" %}
-**Checkpoint:** You wrote DDL for the Playlist chain that matches the existing schema: Playlist with a simple PK, PlaylistTrack with a composite PK and COLOCATE BY (PlaylistId), both in the MusicStore zone.
+**Checkpoint:** You wrote DDL for the Playlist pair that matches the existing schema: Playlist with a simple PK, PlaylistTrack with a composite PK and COLOCATE BY (PlaylistId), both in the MusicStore zone.
 {% endhint %}
 
-## Colocated vs Cross-Chain Joins
+## Colocated vs Cross-Boundary Joins
 
 So far, every query has touched a single table. Joins are where colocation pays off, because the planner can execute a join locally when both tables share a partition, or must shuffle data between nodes when they do not.
 
 ### Colocated Join: Artist to Album
 
-Artist and Album share the catalog colocation chain. A join filtered by `ArtistId` should execute within a single partition:
+Artist and Album form a colocated pair: both are placed by `ArtistId`. A join filtered by `ArtistId` should execute within a single partition:
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -702,11 +704,13 @@ Exchange
             est: (rows=1)
 ```
 
-A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data. The planner accesses the Artist table differently between products (IndexScan on the primary key vs TableScan), but the routing and join strategy are the same.
+A `MergeJoin` between `Album` (IndexScan on `IFK_ALBUMARTISTID`) and `Artist`. The single `Exchange` at the top collects results to the coordinator, but there is no Exchange between the join inputs. Both tables are colocated by `ArtistId`, so the join executes locally on one node without moving data.
 
-### Cross-Chain Join: Customer to Track
+The pair stops at two tables. If you extend the same query with `JOIN Track t ON al.AlbumId = t.AlbumId`, the plan gains an `Exchange` between the Artist-Album join and the Track join (its distribution is Track in the MUSICSTORE zone by `[ALBUMID]`), because Album rows are placed by `ArtistId` and Track rows by `AlbumId`. Colocation does not carry the Artist placement through Album to Track.
 
-A query that joins across the commerce chain and catalog chain requires data movement:
+### Cross-boundary Join: Customer to Track
+
+A query that joins Customer through Invoice and InvoiceLine to Track crosses colocation boundaries and requires data movement:
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -753,13 +757,13 @@ Project
                 est: (rows=1)
 ```
 
-Both plans show four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planner starts with Customer, and the structural lesson is clear: crossing colocation chains forces data movement.
+This plan shows four `Exchange` nodes (marked with arrows), each representing data moving between nodes. The planner joins Customer to the rest of the query rather than to Invoice first, so the local Customer-Invoice pair is not visible in this plan. The structural lesson is that joining tables that are not placed by the same column value forces data movement, and the InvoiceLine and Track inputs both need Exchanges for that reason.
 
-The Customer-to-Invoice join stays within the commerce chain. The InvoiceLine-to-Track join crosses into the catalog chain, which forces the planner to shuffle both tables to a common node.
+Of the tables in this query, only Customer and Invoice are a colocated pair (by `CustomerId`). InvoiceLine is grouped by `InvoiceId`, so it is not placed with its Invoice or Customer, and Track is grouped by `AlbumId`, so the InvoiceLine-to-Track join has no shared placement either. Colocation does not chain from Customer through Invoice to InvoiceLine, and the planner must shuffle data to complete these joins.
 
 Compare the two plans:
 
-| | Colocated (Artist-Album) | Cross-chain (Customer-Track) |
+| | Colocated (Artist-Album) | Cross-boundary (Customer-Track) |
 |---|---|---|
 | Exchange nodes | 1 (result collection only) | 4 (data movement) |
 | Join execution | Local on one node | Data shuffled between nodes |
@@ -768,14 +772,14 @@ Compare the two plans:
 At the Music Store's current scale, both queries return instantly, so the difference is academic. The next step loads production-volume data where it stops being academic.
 
 {% hint style="success" %}
-**Checkpoint:** The colocated EXPLAIN plan shows no Exchange operators between the join inputs. The cross-chain plan shows four Exchange operators, one for each table scan that must be shuffled to complete the join.
+**Checkpoint:** The colocated EXPLAIN plan shows no Exchange operators between the join inputs. The cross-boundary plan shows four Exchange operators, so data moves between nodes to complete the join.
 {% endhint %}
 
 ## Verify at Scale
 
-With 59 customers and 2,240 invoice lines, every query runs fast regardless of how the schema is designed. To see schema design decisions make a real difference, load a dataset that simulates production volume in the commerce chain.
+With 59 customers and 2,240 invoice lines, every query runs fast regardless of how the schema is designed. To see schema design decisions make a real difference, load a dataset that simulates production volume in the commerce tables.
 
-Download the commerce data generator and run it against your cluster. The generator uses the Data Streamer API to load 3.4 million rows in approximately 30 seconds:
+Download the commerce data generator and run it against your cluster. The generator uses the Data Streamer API to load 3.4 million rows in well under a minute (about 17 seconds in our test run):
 
 * [commerce-data-generator.jar](../../.gitbook/assets/commerce-data-generator.jar)
 
@@ -801,16 +805,16 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```text
 NODE_NAME | ZONE_NAME  | PARTITIONS | TOTAL_ROWS
 ----------+------------+------------+-----------
-node1     | MUSICSTORE | 18         | 2463124
-node2     | MUSICSTORE | 17         | 2339985
-node3     | MUSICSTORE | 15         | 2060905
+node1     | MUSICSTORE | 17         | 2336317
+node2     | MUSICSTORE | 17         | 2332161
+node3     | MUSICSTORE | 16         | 2195536
 ```
 
-3.4 million rows distributed across three nodes. The EXPLAIN plans for the Album table do not change at this scale (the Album table itself is the same size), but the commerce queries that join across millions of rows show the real impact of colocation. Run a colocated commerce query and a cross-chain aggregation side by side to see the timing difference.
+3.4 million rows distributed across three nodes. The EXPLAIN plans for the Album table do not change at this scale (the Album table itself is the same size), but the commerce queries that join across millions of rows show the real impact of colocation. Run a colocated commerce query and a cross-boundary aggregation side by side to see the timing difference.
 
 ### Colocated Commerce Query
 
-All invoices for a specific customer, staying within the commerce colocation chain:
+All invoices for a specific customer, joining only the colocated Customer-Invoice pair:
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -823,11 +827,11 @@ FIRSTNAME | LASTNAME | ORDERCOUNT | TOTALSPENT
 Raj       | Garcia   | 3          | 51.48
 ```
 
-Because Customer and Invoice are colocated by `CustomerId`, the entire join executes on a single partition without touching the network. On a 3-node cluster with 50,000 customers, expect this to return in roughly 3-4 seconds.
+Because Customer and Invoice are colocated by `CustomerId`, the entire join executes on a single partition without touching the network. On a 3-node cluster with 50,000 customers, this returned in about 35 ms in our test run (measured with the CLI's `--timed` flag).
 
-### Cross-chain Aggregation
+### Cross-boundary Aggregation
 
-Top-selling tracks by artist across the entire commerce dataset. This joins InvoiceLine (commerce chain) through Track, Album, and Artist (catalog chain):
+Top-selling tracks by artist across the entire commerce dataset. This joins InvoiceLine through Track, Album, and Artist. None of these joins is between colocated tables except Album to Artist:
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -835,26 +839,26 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
 ```
 
 ```text
-ARTIST       | TRACK                   | TIMESSOLD
--------------+-------------------------+----------
-Iron Maiden  | The Number Of The Beast | 4120
-Iron Maiden  | The Trooper             | 4060
-Iron Maiden  | Hallowed Be Thy Name    | 4055
-Iron Maiden  | 2 Minutes To Midnight   | 3964
-Iron Maiden  | The Evil That Men Do    | 3393
-Iron Maiden  | Iron Maiden             | 3258
-Iron Maiden  | Wrathchild              | 3240
-Iron Maiden  | Fear Of The Dark        | 3179
-Iron Maiden  | Heaven Can Wait         | 2548
-Led Zeppelin | I Can't Quit You Baby   | 2534
+ARTIST      | TRACK                     | TIMESSOLD
+------------+---------------------------+----------
+Iron Maiden | Hallowed Be Thy Name      | 4222
+Iron Maiden | The Trooper               | 4056
+Iron Maiden | The Number Of The Beast   | 4047
+Iron Maiden | 2 Minutes To Midnight     | 4037
+Iron Maiden | Fear Of The Dark          | 3363
+Iron Maiden | Wrathchild                | 3248
+Iron Maiden | Iron Maiden               | 3244
+Iron Maiden | The Evil That Men Do      | 3237
+Deep Purple | Smoke On The Water        | 2587
+Iron Maiden | Afraid To Shoot Strangers | 2526
 ```
 
 Nine of the top 10 tracks are Iron Maiden. The Chinook catalog has 213 Iron Maiden tracks (more than any other artist), and the generator's random invoice lines reference real TrackIds, so Iron Maiden songs appear in more invoices by sheer weight of catalog presence.
 
-More interesting than the results is the time it took. This query joins across both colocation chains: InvoiceLine (commerce) to Track to Album to Artist (catalog). The database shuffled 2.85 million InvoiceLine rows across the network to join them with the catalog tables. Expect roughly 7-8 seconds on a 3-node cluster, about twice the colocated commerce query. At 3.4 million rows the gap is noticeable. At production volumes (hundreds of millions of rows), it becomes the dominant factor in query latency, because cross-chain joins degrade linearly with data while colocated joins stay constant.
+More interesting than the results is the time it took. This query joins InvoiceLine to Track to Album to Artist, and every step except Album to Artist crosses a colocation boundary. The database shuffled 2.85 million InvoiceLine rows across the network to join them with the catalog tables. In our test run on a 3-node cluster this took about 1.2 seconds, more than 30 times the colocated commerce query. Absolute times depend on your hardware and the order of the rows the generator produces, so your top-10 list and timings will differ, but the gap between the two queries should be just as clear. At production volumes (hundreds of millions of rows), it becomes the dominant factor in query latency, because cross-boundary joins degrade linearly with data while colocated joins stay constant.
 
 {% hint style="success" %}
-**Checkpoint:** The partition distribution query shows over 2 million rows per node. The colocated commerce query returns in a few seconds. The cross-chain aggregation shows Iron Maiden dominating the results but takes noticeably longer.
+**Checkpoint:** The partition distribution query shows over 2 million rows per node. The colocated commerce query returns in tens of milliseconds. The cross-boundary aggregation shows Iron Maiden dominating the results but takes noticeably longer.
 {% endhint %}
 
 ## Common Anti-Patterns
@@ -864,7 +868,7 @@ Before designing your own schema, review these common mistakes:
 | Anti-Pattern | Why It Fails | Fix |
 |---|---|---|
 | Porting an RDBMS schema unchanged | No colocation. All joins cross the network. | Analyze access patterns and add `COLOCATE BY`. |
-| Simple PK on child tables | Cannot colocate without the parent's key in the PK. | Composite PK with the parent's key column. |
+| Simple PK on child tables | Cannot colocate by a column that is not in the PK. | Composite PK that includes the colocation column. |
 | Omitting `COLOCATE BY` | Defaults to all PK columns. Requires the full PK in `WHERE` for single-partition routing. | Always specify `COLOCATE BY` explicitly. |
 | One zone for everything | Reference data and transactional data have different replication needs. | Separate zones: partitioned for transactional, replicated for reference. |
 | Not verifying the design | Incorrect colocation is invisible until production load. | Query `SYSTEM.TABLES` and `SYSTEM.ZONES` after every schema change. |
@@ -875,12 +879,12 @@ Schema design in distributed SQL is performance design. The DDL you write decide
 
 The five-step process applies to any domain:
 1. **Identify access patterns** to find which tables are queried together
-2. **Find root entities** that anchor each relationship chain
-3. **Build colocation chains** from root to leaf using shared columns
-4. **Accept cross-chain tradeoffs** where colocation chains meet
+2. **Find root entities** that anchor each hot path
+3. **Build colocated pairs** by giving each child the parent's colocation column
+4. **Accept cross-boundary tradeoffs** where colocation stops
 5. **Identify reference data** that benefits from full replication
 
-Each of those decisions maps to a DDL clause: `CREATE ZONE` for placement and replication, `COLOCATE BY` for the routing key, and composite primary keys for partition assignment. System views let you verify the design after the fact, and the scale test showed the payoff: colocated queries stay on one partition while cross-chain queries pay for every row they shuffle across the network.
+Each of those decisions maps to a DDL clause: `CREATE ZONE` for placement and replication, `COLOCATE BY` for the routing key, and composite primary keys for partition assignment. System views let you verify the design after the fact, and the scale test showed the payoff: colocated queries stay on one partition while cross-boundary queries pay for every row they shuffle across the network.
 
 **What's next:**
 - [Implement Schema with Java Annotations](schema-java-annotations.md) expresses the same design as code, with compile-time validation and automatic DDL generation.

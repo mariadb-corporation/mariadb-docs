@@ -313,21 +313,26 @@ Download the Docker image:
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-docker pull gridgain/gridgain9:9.1
+docker pull gridgain/gridgain9:latest
 ```
 {% endtab %}
 
 {% tab title="Output" %}
 ```
-9.1.6: Pulling from gridgain/gridgain9
-3713021b0277: Pull complete
-fea31cb87980: Pull complete
-07f7cfe80ff6: Pull complete
-ab1fd3f4849e: Pull complete
-34896af28f87: Pull complete
-Digest: sha256:43ab9cfb8f58b66e4a5027d4ed529216963d0bcab3fa3fc6d5e2042fa3dd5a74
-Status: Downloaded newer image for gridgain/gridgain9:9.1.21
-docker.io/gridgain/gridgain9:9.1.21
+latest: Pulling from gridgain/gridgain9
+4f4fb700ef54: Pull complete
+364ae50e8bab: Pull complete
+ea77a86b76f9: Pull complete
+cb8fc96a1841: Pull complete
+64a19bebb3ef: Pull complete
+40139f999e68: Pull complete
+89cd2583c1f2: Pull complete
+0964c2aceb0c: Pull complete
+c49c709ad22e: Pull complete
+cfd1e69287bf: Pull complete
+Digest: sha256:68220c7a11e2ed45da5c700266cedeb82b153fa58ccc523862dec0f494f76de2
+Status: Downloaded newer image for gridgain/gridgain9:latest
+docker.io/gridgain/gridgain9:latest
 ```
 {% endtab %}
 {% endtabs %}

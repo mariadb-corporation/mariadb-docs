@@ -1,11 +1,11 @@
 ---
 description: >-
-  Design distributed schemas with colocation chains and distribution zones, express them as Java annotations, and choose the right data access API.
+  Design distributed schemas with colocated tables and distribution zones, express them as Java annotations, and choose the right data access API.
 ---
 
 # Schema Design for Distributed SQL
 
-In a distributed database, schema design is performance design. You analyze access patterns, build colocation chains, choose distribution zones, express the design as Java annotations, and pick the right API for each call site. Complete [Distributed SQL Foundations](../distributed-sql-foundations/README.md) first.
+In a distributed database, schema design is performance design. You analyze access patterns, choose colocation columns and distribution zones, express the design as Java annotations, and pick the right API for each call site. Complete [Distributed SQL Foundations](../distributed-sql-foundations/README.md) first.
 
 | Tutorial | Time | Level |
 | -------- | ---- | ----- |

@@ -31,16 +31,19 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ## Docker Image Variants
 
-GridGain 9 Docker images are available in several variants based on different JDK versions. The default image tag (`gridgain/gridgain9:9.1`) uses *JDK 25*. If you need a specific JDK version, use the corresponding tag suffix:
+GridGain 9 Docker images are available in several variants based on different JDK versions. The default image (`gridgain/gridgain9:latest`, or a version tag such as `gridgain/gridgain9:9.1.28`) uses *JDK 25*. If you need a specific JDK version, add the JDK suffix to the version tag:
 
 | Tag | JDK Version | Support Type |
 | --- | --- | --- |
-| `9.1` | JDK 25 (default) | LTS |
-| `9.1-openjdk21` | JDK 21 | LTS |
-| `9.1-openjdk17` | JDK 17 | LTS |
-| `9.1-openjdk26` | JDK 26 | STS |
+| `latest`, `9.1.28`, `9.1.28-openjdk25` | JDK 25 (default) | LTS |
+| `9.1.28-openjdk21` | JDK 21 | LTS |
+| `9.1.28-openjdk17` | JDK 17 | LTS |
+| `9.1.28-openjdk11` | JDK 11 | LTS |
+| `9.1.28-openjdk26-amd64`, `9.1.28-openjdk26-arm64` | JDK 26 | STS |
 
-The same variants are available for the CLI image (`gridgain/gridgain9-cli`).
+Use the current release number in place of `9.1.28`. The tags with an `-amd64` or `-arm64` suffix are the single-architecture images; the tags without a suffix work on both architectures, except JDK 26, which is published only as the two single-architecture tags.
+
+The same version and JDK tags are available for the CLI image (`gridgain/gridgain9-cli`).
 
 {% hint style="info" %}
 GridGain follows the JDK release cadence for short-term support (STS) versions: only the most recent STS image is built and shipped. When the next STS release becomes available, the previous STS image is retired. Long-term support (LTS) images are not affected by this policy.
@@ -51,7 +54,7 @@ GridGain follows the JDK release cadence for short-term support (STS) versions: 
 Run GridGain in a docker container using the `docker run` command. Docker will automatically pull the appropriate GridGain version:
 
 ```bash
-docker run -d -p 10300:10300 -p 10800:10800 -p 3344:3344 gridgain/gridgain9:9.1
+docker run -d -p 10300:10300 -p 10800:10800 -p 3344:3344 gridgain/gridgain9:latest
 ```
 
 {% hint style="info" %}
@@ -70,7 +73,7 @@ To configure JVM options such as heap size, garbage collection, or Java agents i
 docker run -d \
   -p 10300:10300 -p 10800:10800 -p 3344:3344 \
   -e GRIDGAIN9_EXTRA_JVM_ARGS="-Xms8g -Xmx8g -XX:+UseG1GC" \
-  gridgain/gridgain9:9.1
+  gridgain/gridgain9:latest
 ```
 
 ## Running a Cluster
@@ -85,7 +88,7 @@ You can use the docker-compose file to start an entire cluster in docker. You ca
 - Download the docker image:
 
   ```bash
-  docker pull gridgain/gridgain9:9.1
+  docker pull gridgain/gridgain9:latest
   ```
 - Run the docker compose command.
 
@@ -111,22 +114,22 @@ The CLI image includes:
 The CLI image can connect to GridGain 9 nodes running in the same Docker network:
 
 ```bash
-docker run --rm -it --network=gridgain9_default gridgain/gridgain9-cli:9.1
+docker run --rm -it --network=gridgain9_default gridgain/gridgain9-cli:latest
 ```
 
 This starts the CLI in interactive REPL mode. You can also run one-off commands:
 
 ```bash
 # Initialize a cluster
-docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:9.1 \
+docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:latest \
   cluster init --url http://node1:10300 --name my-cluster --metastorage-group node1,node2,node3
 
 # Check cluster status
-docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:9.1 \
+docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:latest \
   cluster status --url http://node1:10300
 
 # Run SQL query
-docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:9.1 \
+docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:latest \
   sql --url http://node1:10300 "SELECT * FROM my_table"
 ```
 
@@ -135,7 +138,7 @@ docker run --rm --network=gridgain9_default gridgain/gridgain9-cli:9.1 \
 To simplify CLI commands, you can set up a shell alias:
 
 ```bash
-alias gridgain-cli='docker run --rm -it --network=gridgain9_default gridgain/gridgain9-cli:9.1'
+alias gridgain-cli='docker run --rm -it --network=gridgain9_default gridgain/gridgain9-cli:latest'
 ```
 
 Then use it as:
@@ -150,7 +153,7 @@ You may need a license file to initialize the cluster. To provide it, mount the 
 ```bash
 docker run --rm -it --network=gridgain9_default \
   -v /opt/etc/license.json:/opt/gridgain9cli/license.json \
-  gridgain/gridgain9-cli:9.1
+  gridgain/gridgain9-cli:latest
 ```
 {% endhint %}
 
@@ -175,7 +178,7 @@ The server image is larger and includes components not needed for CLI operations
 - Start the container with the GridGain CLI tool on the same network:
 
   ```bash
-  docker run -it --network=gridgain-network gridgain/gridgain9:9.1 cli
+  docker run -it --network=gridgain-network gridgain/gridgain9:latest cli
   ```
 
 The CLI will be able to connect to the IP address of the node. If you are not sure what the address is, use the `container inspect` command to check it:

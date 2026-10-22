@@ -7,7 +7,7 @@ description: >-
 
 ## Introduction
 
-A three-table JOIN in a single-node database is straightforward. In a distributed cluster, the same JOIN might execute locally on each node or force a full data shuffle across the network. The difference depends on how you designed your schema. In this tutorial, you run both kinds of joins against the Music Store dataset from the [first tutorial](start-local-cluster.md), read the EXPLAIN plans, and see exactly where the data moves.
+A multi-table JOIN in a single-node database is straightforward. In a distributed cluster, the same JOIN might execute locally on each node or move data across the network. The difference depends on how you designed your schema: colocation applies only between tables that are partitioned by the same join key. In this tutorial, you run both kinds of joins against the Music Store dataset from the [first tutorial](start-local-cluster.md), read the EXPLAIN plans, and see exactly where the data moves.
 
 ## Prerequisites
 
@@ -133,15 +133,15 @@ Updated 0 rows.
 Verify the table exists:
 
 ```sql
-SELECT NAME, ZONE, COLOCATION_KEY_INDEX FROM SYSTEM.TABLES WHERE NAME = 'BOOKMARK';
+SELECT TABLE_NAME, ZONE_NAME, TABLE_COLOCATION_COLUMNS FROM SYSTEM.TABLES WHERE TABLE_NAME = 'BOOKMARK';
 ```
 
 ```text
-╔══════════╤════════════╤══════════════════════╗
-║ NAME     │ ZONE       │ COLOCATION_KEY_INDEX ║
-╠══════════╪════════════╪══════════════════════╣
-║ BOOKMARK │ MUSICSTORE │ BOOKMARKID           ║
-╚══════════╧════════════╧══════════════════════╝
+╔════════════╤════════════╤══════════════════════════╗
+║ TABLE_NAME │ ZONE_NAME  │ TABLE_COLOCATION_COLUMNS ║
+╠════════════╪════════════╪══════════════════════════╣
+║ BOOKMARK   │ MUSICSTORE │ BOOKMARKID               ║
+╚════════════╧════════════╧══════════════════════════╝
 ```
 
 `SYSTEM.TABLES` is one of several system catalog views (alongside `SYSTEM.ZONES` and `SYSTEM.INDEXES`) that you can query like regular tables.
@@ -256,42 +256,23 @@ EXPLAIN UPDATE Bookmark SET Label = 'changed' WHERE BookmarkId = 1;
 ```
 
 ```text
-╔═══════════════════════════════════════════════════════════════════════╗
-║ PLAN                                                                  ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║ Project                                                               ║
-║     fieldNames: [ROWCOUNT]                                            ║
-║     projection: [CAST($f0):BIGINT NOT NULL]                           ║
-║     est: (rows=1)                                                     ║
-║   ColocatedHashAggregate                                              ║
-║       fieldNames: [$f0]                                               ║
-║       group: []                                                       ║
-║       aggregation: [$SUM0(ROWCOUNT)]                                  ║
-║       est: (rows=1)                                                   ║
-║     Exchange                                                          ║
-║         distribution: single                                          ║
-║         est: (rows=1)                                                 ║
-║       TableModify                                                     ║
-║           table: PUBLIC.BOOKMARK                                      ║
-║           fieldNames: [ROWCOUNT]                                      ║
-║           type: UPDATE                                                ║
-║           est: (rows=1)                                               ║
-║         IndexScan                                                     ║
-║             table: PUBLIC.BOOKMARK                                    ║
-║             index: BOOKMARK_PK                                        ║
-║             type: HASH                                                ║
-║             predicate: =(BOOKMARKID, 1)                               ║
-║             searchBounds: [ExactBounds [bound=1]]                     ║
-║             fieldNames: [BOOKMARKID, TRACKID, LABEL, EXPR$0]          ║
-║             projection: [BOOKMARKID, TRACKID, LABEL, _UTF-8'changed'] ║
-║             est: (rows=1)                                             ║
-╚═══════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════╗
+║ PLAN                                                         ║
+╠══════════════════════════════════════════════════════════════╣
+║ KeyValueModify                                               ║
+║     table: PUBLIC.BOOKMARK                                   ║
+║     fieldNames: [ROWCOUNT]                                   ║
+║     sourceExpression: [BOOKMARKID, TRACKID, _UTF-8'changed'] ║
+║     type: UPDATE                                             ║
+║     key: [1]                                                 ║
+║     est: (rows=1)                                            ║
+╚══════════════════════════════════════════════════════════════╝
 ```
 
-Read from the bottom: `IndexScan` on `BOOKMARK_PK` uses the primary key hash index to locate the row directly. No `TableScan`, no scanning every partition. The `WHERE BookmarkId = 1` predicate routes the operation to the single node that owns that key. This is why primary key design matters in a distributed database: it determines which node handles the write.
+`KeyValueModify` with `key: [1]` writes the row directly by its primary key. There is no scan, no `Exchange`, and no other partition involved. The `WHERE BookmarkId = 1` predicate routes the operation to the single node that owns that key. This is why primary key design matters in a distributed database: it determines which node handles the write.
 
 {% hint style="success" %}
-**Checkpoint:** The Bookmark table contains 3 rows after the INSERT, UPDATE, and DELETE operations. The EXPLAIN on UPDATE shows an `IndexScan` on the primary key.
+**Checkpoint:** The Bookmark table contains 3 rows after the INSERT, UPDATE, and DELETE operations. The EXPLAIN on UPDATE shows a `KeyValueModify` by primary key.
 {% endhint %}
 
 ## Step 4: Query With Filters and Sorting
@@ -330,6 +311,10 @@ LIMIT 5;
 EXPLAIN SELECT TrackId, Name, Milliseconds
 FROM Track WHERE Name = 'Dazed And Confused';
 ```
+
+{% hint style="info" %}
+The `est` row counts in `EXPLAIN` output come from table statistics, which the cluster collects some time after a load. On a freshly loaded cluster you can see `est: (rows=1)` where the samples in this tutorial show real counts, and for larger queries the plan shape can differ until statistics are collected. The operators and what they tell you stay the same.
+{% endhint %}
 
 ```text
 ╔══════════════════════════════════════════════════════╗
@@ -374,7 +359,7 @@ ORDER BY t.Milliseconds DESC;
 ╚═════════╧════════════════════╧════════════════════════════════════╧══════════════╝
 ```
 
-Two live recordings from different albums. The join runs on the colocated `AlbumId` key, so it adds no network cost. For production workloads that filter by `Name` frequently, you would create an index: `CREATE INDEX idx_track_name ON Track (Name);`
+Two live recordings from different albums. Track is partitioned by `AlbumId`, but Album is partitioned by `ArtistId`, so this join is not a colocated join and the cluster may move data to match the rows. For production workloads that filter by `Name` frequently, you would create an index: `CREATE INDEX idx_track_name ON Track (Name);`
 
 Search for tracks by name using a pattern match:
 
@@ -448,7 +433,7 @@ The longest "tracks" are 49-88 minutes. These are TV show episodes stored alongs
 
 ## Step 5: Join Colocated Tables
 
-So far, `EXPLAIN` has shown two patterns: `IndexScan` for primary key lookups (Step 3) and `TableScan` for unindexed filters (Step 4). Joins introduce a third question: does the data need to move between nodes before the join can execute? The previous tutorial set up the Music Store tables with `COLOCATE BY` clauses to keep related rows on the same node. Join Artist, Album, and Track to see whether that worked:
+So far, `EXPLAIN` has shown two patterns: direct primary key access (`KeyValueModify`) for primary key operations (Step 3), and `TableScan` for unindexed filters (Step 4). Joins introduce a third question: does the data need to move between nodes before the join can execute? The previous tutorial set up the Music Store tables with `COLOCATE BY` clauses. Artist and Album are a colocated pair by `ArtistId`, but Track is colocated by a different column, `AlbumId`. Join Artist, Album, and Track to see what that means for the plan:
 
 ```sql
 SELECT a.Name AS Artist, al.Title AS Album, t.Name AS Track
@@ -497,9 +482,48 @@ This is a general property of distributed `ORDER BY ... LIMIT`: the result set i
 
 </details>
 
-All 114 Led Zeppelin tracks span 14 albums but live on the same node as the artist row because Album colocates by `ArtistId` and Track colocates by `AlbumId`. The three-table join executed locally with no network traffic.
+Led Zeppelin has 114 tracks across 14 albums. Album colocates by `ArtistId`, so each Led Zeppelin album sits in the same partition as the artist row. Track colocates by `AlbumId`, so all tracks of one album share a partition with each other, but a track is not placed with its Album row or its Artist row. Colocation is decided only by the columns a table hashes for its own rows, and it does not chain through a middle table. The query returns correct results, but the join to Track moves data between nodes.
 
-`EXPLAIN` shows the proof:
+Start with the colocated pair. This two-table join of Artist and Album uses the same filter:
+
+```sql
+EXPLAIN SELECT a.Name AS Artist, al.Title AS Album
+FROM Artist a
+JOIN Album al ON a.ArtistId = al.ArtistId
+WHERE a.Name = 'Led Zeppelin';
+```
+
+```text
+╔═════════════════════════════════════════════════════════╗
+║ PLAN                                                    ║
+╠═════════════════════════════════════════════════════════╣
+║ Exchange                                                ║
+║     distribution: single                                ║
+║     est: (rows=116)                                     ║
+║   Project                                               ║
+║       fieldNames: [ARTIST, ALBUM]                       ║
+║       projection: [NAME, TITLE]                         ║
+║       est: (rows=116)                                   ║
+║     HashJoin                                            ║
+║         predicate: =(ARTISTID$0, ARTISTID)              ║
+║         fieldNames: [ARTISTID, TITLE, ARTISTID$0, NAME] ║
+║         type: inner                                     ║
+║         est: (rows=116)                                 ║
+║       TableScan                                         ║
+║           table: PUBLIC.ALBUM                           ║
+║           fieldNames: [ARTISTID, TITLE]                 ║
+║           est: (rows=347)                               ║
+║       TableScan                                         ║
+║           table: PUBLIC.ARTIST                          ║
+║           predicate: =(NAME, _UTF-8'Led Zeppelin')      ║
+║           fieldNames: [ARTISTID, NAME]                  ║
+║           est: (rows=92)                                ║
+╚═════════════════════════════════════════════════════════╝
+```
+
+The only `Exchange` sits at the top of the plan, where the coordinator collects the final rows. No `Exchange` appears between the two `TableScan` inputs of the `HashJoin`, so Artist and Album join locally on each node. Both tables are colocated by `ArtistId`, which is the join key.
+
+Now add Track, which is colocated by `AlbumId`, a different column. `EXPLAIN` shows the difference:
 
 ```sql
 EXPLAIN SELECT a.Name AS Artist, al.Title AS Album, t.Name AS Track
@@ -519,6 +543,7 @@ LIMIT 10;
 ║     fetch: 10                                                                           ║
 ║     est: (rows=10)                                                                      ║
 ║   Exchange                                                                              ║
+║       collation: [ALBUM ASC, TRACK ASC]                                                 ║
 ║       distribution: single                                                              ║
 ║       est: (rows=10)                                                                    ║
 ║     Sort                                                                                ║
@@ -538,35 +563,35 @@ LIMIT 10;
 ║               table: PUBLIC.TRACK                                                       ║
 ║               fieldNames: [ALBUMID, NAME]                                               ║
 ║               est: (rows=3503)                                                          ║
-║           MergeJoin                                                                     ║
-║               predicate: =(ARTISTID$0, ARTISTID)                                        ║
-║               fieldNames: [ALBUMID, ARTISTID, TITLE, ARTISTID$0, NAME]                  ║
-║               type: inner                                                               ║
+║           Exchange                                                                      ║
+║               distribution: table PUBLIC.TRACK in zone MUSICSTORE by [ALBUMID]          ║
 ║               est: (rows=116)                                                           ║
-║             Sort                                                                        ║
-║                 collation: [ARTISTID ASC]                                               ║
-║                 est: (rows=347)                                                         ║
-║               TableScan                                                                 ║
-║                   table: PUBLIC.ALBUM                                                   ║
-║                   fieldNames: [ALBUMID, ARTISTID, TITLE]                                ║
+║             HashJoin                                                                    ║
+║                 predicate: =(ARTISTID$0, ARTISTID)                                      ║
+║                 fieldNames: [ALBUMID, ARTISTID, TITLE, ARTISTID$0, NAME]                ║
+║                 type: inner                                                             ║
+║                 est: (rows=116)                                                         ║
+║               Exchange                                                                  ║
+║                   distribution: single                                                  ║
 ║                   est: (rows=347)                                                       ║
-║             Sort                                                                        ║
-║                 collation: [ARTISTID ASC]                                               ║
-║                 est: (rows=92)                                                          ║
-║               TableScan                                                                 ║
-║                   table: PUBLIC.ARTIST                                                  ║
-║                   predicate: =(NAME, _UTF-8'Led Zeppelin')                              ║
-║                   fieldNames: [ARTISTID, NAME]                                          ║
+║                 TableScan                                                               ║
+║                     table: PUBLIC.ALBUM                                                 ║
+║                     fieldNames: [ALBUMID, ARTISTID, TITLE]                              ║
+║                     est: (rows=347)                                                     ║
+║               Exchange                                                                  ║
+║                   distribution: single                                                  ║
 ║                   est: (rows=92)                                                        ║
+║                 TableScan                                                               ║
+║                     table: PUBLIC.ARTIST                                                ║
+║                     predicate: =(NAME, _UTF-8'Led Zeppelin')                            ║
+║                     fieldNames: [ARTISTID, NAME]                                        ║
+║                     est: (rows=92)                                                      ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-Read the plan from bottom to top: three `TableScan` operators read from ARTIST, ALBUM, and TRACK; a `MergeJoin` combines Artist and Album; a `HashJoin` combines that result with Track.
+Read the plan from bottom to top. Two `TableScan` operators read ALBUM and ARTIST, and a `HashJoin` combines them on `ARTISTID`. An `Exchange` then redistributes the joined rows with `distribution: table PUBLIC.TRACK in zone MUSICSTORE by [ALBUMID]`, which sends each row to the partition that holds the matching Track rows. A second `HashJoin` combines that result with the Track `TableScan` on `ALBUMID`. The top `Exchange` collects the final rows on the coordinator. The `Exchange` operators with `distribution: single` above the ALBUM and ARTIST scans gather those rows on one node before the inner join. For this three-table query the planner picks a different strategy than for the two-table query, so you cannot read the locality of the Artist-Album pair from this plan alone. The `Exchange` by `[ALBUMID]` is the one that shows the colocation boundary.
 
 {% hint style="info" %}
-
-**MergeJoin** reads two pre-sorted inputs and zips them together. The planner chooses it when both inputs are already sorted on the join key (here, `ArtistId`). In production, this is the cheapest join strategy because it requires no extra memory and streams results incrementally.
-
 **HashJoin** builds an in-memory hash table from one input and probes it with the other. It handles unsorted inputs at the cost of memory proportional to the smaller input. Watch for HashJoin on large tables; it can cause memory pressure under high concurrency.
 
 **Exchange** is the network operator. It transfers rows between nodes. Every Exchange in a plan represents data moving across the network. Its position relative to join operators tells you whether the engine moved data *before* the join (expensive: shuffles raw rows) or *after* (cheap: collects final results).
@@ -574,9 +599,9 @@ Read the plan from bottom to top: three `TableScan` operators read from ARTIST, 
 For the full operator reference, see the [EXPLAIN operators reference](../../reference/sql/explain-operators-list.md).
 {% endhint %}
 
-In Step 4, the single-table plan had one `Exchange` that collected results. This plan also has one Exchange, sitting at the top above the joins. No Exchange appears between the join inputs, which means the joins execute locally on each partition. No data moved.
+In Step 4, the single-table plan had one `Exchange` that collected results. The two-table plan also has one Exchange, at the top, because Artist and Album are colocated by the join key. The three-table plan has more `Exchange` operators, including one between the Artist-Album join and the Track join that redistributes rows by `AlbumId`, because Track is partitioned by `AlbumId`, not `ArtistId`. Colocation helps the join it was designed for and does not extend to the next table.
 
-What happens when colocation does not apply? Track is colocated by `AlbumId` (in the Artist chain), and InvoiceLine is colocated by `InvoiceId` (in the Customer chain). Joining them by `TrackId` crosses colocation boundaries:
+What happens when colocation does not apply? Track is colocated by `AlbumId` and InvoiceLine is colocated by `InvoiceId`. Neither is placed by `TrackId`, so joining them by `TrackId` crosses colocation boundaries:
 
 ```sql
 EXPLAIN SELECT t.Name AS Track, il.UnitPrice, il.Quantity
@@ -624,21 +649,21 @@ The structure flipped. Two `Exchange` operators now appear below the `HashJoin`,
 
 On this 3-node dev cluster with 3,503 tracks, the shuffle completes in milliseconds. In production with millions of rows across dozens of nodes, the cost scales linearly with data volume and cluster size. A colocated join stays constant: each node joins its local data regardless of how many nodes the cluster has.
 
-The pattern: in the colocated plan, Exchange sits above the joins (collecting results). In the non-colocated plan, Exchanges sit below the join (moving data). Where Exchange appears relative to Join tells you whether a join scales with your cluster or fights it.
+The pattern: in the colocated two-table plan, Exchange sits above the join (collecting results). In the three-table and non-colocated plans, Exchanges sit below a join (moving data). Where Exchange appears relative to Join tells you whether a join scales with your cluster or fights it.
 
 {% hint style="info" %}
 
 **Exchange above Join** = colocated. Data stays local; only the final results travel across the network.
 
-**Exchange below Join** = non-colocated. Data must be shuffled across the network before the join can execute.
+**Exchange below Join** = usually non-colocated. Data must be shuffled across the network before the join can execute. As a rule of thumb only: the planner can also gather small inputs on one node, as the three-table plan above shows.
 
 In production, this distinction determines whether query cost scales with data volume or stays constant per node.
 {% endhint %}
 
-When you design your own schema, you choose which join paths to optimize with colocation. The Music Store chose Artist→Album→Track and Customer→Invoice→InvoiceLine. Those are the hot paths for catalog browsing and revenue analysis. Other joins (like Track to InvoiceLine) still work, but they pay the network cost. One colocation key per table, one optimized path.
+When you design your own schema, you choose which join paths to optimize with colocation. The Music Store colocates Artist with Album, Customer with Invoice, and Playlist with PlaylistTrack. Those pairs are the hot paths for catalog browsing and revenue analysis. Colocation does not chain, so adding a third table such as Track or InvoiceLine, or joining Track to InvoiceLine, still works but pays the network cost. One colocation key per table, one optimized pair.
 
 {% hint style="success" %}
-**Checkpoint:** The colocated EXPLAIN plan shows no Exchange operators between the join inputs. The non-colocated EXPLAIN plan shows Exchange operators below the HashJoin, one for each table.
+**Checkpoint:** The two-table EXPLAIN plan shows no Exchange operators between the join inputs. The three-table plan shows an Exchange by `ALBUMID` between the two joins, and the non-colocated EXPLAIN plan shows Exchange operators below the HashJoin, one for each table.
 {% endhint %}
 
 ## Step 6: Aggregate and Analyze
@@ -829,7 +854,7 @@ This is a map-reduce pattern: compute locally, combine centrally.
 This two-phase pattern means each node processes only its own partition, regardless of cluster size. See the [EXPLAIN operators reference](../../reference/sql/explain-operators-list.md) for the full list of aggregation operators.
 {% endhint %}
 
-Combine the Artist colocation chain with aggregation to rank the top 10 artists by catalog value:
+Combine the three-table join with aggregation to rank the top 10 artists by catalog value:
 
 ```sql
 SELECT a.Name AS Artist, COUNT(t.TrackId) AS Tracks,
@@ -912,9 +937,9 @@ The Music Store data remains intact for future tutorials. Type `exit;` to leave 
 
 Throughout this tutorial, `EXPLAIN` revealed how the engine handles each type of operation:
 
-- **Primary key operations** use `IndexScan` on the PK hash index to route directly to the owning node (Step 3).
+- **Primary key operations** use direct key access (`KeyValueModify` for writes) to route straight to the owning node (Step 3).
 - **Unindexed filters** produce a `TableScan` across every partition. Create indexes for columns you filter on frequently (Step 4).
-- **Colocated joins** execute locally with no Exchange between the join inputs. Non-colocated joins shuffle data through Exchange operators below the join (Step 5).
+- **Colocated joins** (tables partitioned by the same join key, such as Artist and Album) execute locally with no Exchange between the join inputs. Joins that add a table partitioned by a different column, such as Track, shuffle data through an Exchange below the join. Colocation does not chain through a middle table (Step 5).
 - **Distributed aggregation** uses a map-reduce pattern: `MapHashAggregate` computes locally, `ReduceHashAggregate` combines results across the Exchange (Step 6).
 
 Two other GridGain-specific behaviors to remember:
@@ -924,7 +949,7 @@ Two other GridGain-specific behaviors to remember:
 
 Data locality is the thread running through every plan you read in this tutorial:
 
-- **Colocated joins** execute on each node without crossing the network between join inputs.
+- **Colocated joins** between a true pair, such as Artist and Album, execute on each node without crossing the network between join inputs.
 - **Map-reduce aggregation** computes partial results locally, then combines them across the Exchange.
 - **Primary key operations** route directly to the node that owns the key.
 

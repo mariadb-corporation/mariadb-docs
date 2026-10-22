@@ -36,7 +36,7 @@ To use GridGain with Spring Boot, add the following dependencies to your `pom.xm
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>spring-boot-starter-ignite-client</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 </dependencies>
 ```

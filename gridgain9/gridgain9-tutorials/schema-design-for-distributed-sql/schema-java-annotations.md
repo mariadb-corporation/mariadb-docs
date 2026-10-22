@@ -1,9 +1,12 @@
 ---
 description: >-
-  Express distributed schema design decisions as Java annotations. Define entity classes, colocation chains, and distribution zones, then create the entire schema with a single API call.
+  Express distributed schema design decisions as Java annotations. Define entity classes, colocated table pairs, and distribution zones, then create the entire schema with a single API call.
 ---
 
 # Implement Schema With Java Annotations
+
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 
 ## Introduction
 
@@ -298,10 +301,11 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Root entity in the catalog colocation chain.
+ * Root entity of the catalog tables.
  *
  * ArtistId is both the primary key and the colocation column.
- * All albums by the same artist land on the same partition.
+ * Album also colocates by ArtistId, so an Artist row and the Album rows
+ * with the same ArtistId land on the same partition.
  */
 // @Table maps this class to a distributed table.
 // @Zone declares the distribution zone and triggers CREATE ZONE IF NOT EXISTS
@@ -358,7 +362,7 @@ The `@Column` annotation defaults to `nullable = true`. Primary key columns cann
 To see this yourself, temporarily remove `nullable = false` from Artist's `ArtistId` field and run `CreateSchema` later in the tutorial. The error message names the column and the constraint. This is a runtime check, not a compile-time check: the annotations compile regardless of the nullable value, but the catalog rejects the generated DDL. Make it a habit to always set `nullable = false` on `@Id` columns.
 {% endhint %}
 
-Genre is a reference table: 25 rows, rarely updated, joined by queries from both chains. In the previous tutorial, you placed it in the `MusicStoreReplicated` zone (3 replicas on a 3-node cluster, so every node has a full copy). The annotation expresses the same decision.
+Genre is a reference table: 25 rows, rarely updated, joined by queries from both the catalog and commerce tables. In the previous tutorial, you placed it in the `MusicStoreReplicated` zone (3 replicas on a 3-node cluster, so every node has a full copy). The annotation expresses the same decision.
 
 Create `Genre.java`:
 
@@ -375,7 +379,7 @@ import org.apache.ignite.catalog.annotations.Zone;
  * Reference data in the MusicStoreReplicated zone.
  *
  * 3 replicas on a 3-node cluster means every node has a full copy.
- * Joins with Genre are always local regardless of which chain
+ * Joins with Genre are always local regardless of which table
  * initiates the query.
  */
 // Different zone from Artist: MusicStoreReplicated with replicas = 3.
@@ -486,9 +490,14 @@ Two `createTable()` calls produced two zones and two tables. The `@Zone` annotat
 
 ## Express Colocation as Code
 
-Artist and Genre are independent entities with single-field primary keys. The catalog colocation chain (Album and Track) introduces composite keys, colocation declarations, and secondary indexes. These three concepts were separate DDL clauses in the previous tutorial.
+Artist and Genre are independent entities with single-field primary keys. The catalog tables (Album and Track) introduce composite keys, colocation declarations, and secondary indexes. These three concepts were separate DDL clauses in the previous tutorial.
 
-The catalog chain links three tables through colocation columns. Each arrow represents the `colocateBy` relationship: the child table's rows are placed on the same partition as the parent.
+The catalog tables declare colocation columns, but each table's partition is decided only by hashing its own colocation column. Colocation does not chain through a middle table. Two different things happen here:
+
+- **Colocated pair (Artist and Album):** Album declares `colocateBy: ArtistId`, the same column that is Artist's key. An Artist row and every Album row with the same `ArtistId` hash to the same partition, so `Artist JOIN Album` is local.
+- **Grouped only (Track):** Track declares `colocateBy: AlbumId`. All tracks of one album share a partition with each other, but a Track row is not placed with its Album row (Album is hashed by `ArtistId`) or with its Artist row. Joining Track to Album or Artist moves data. To place Track with Artist, Track would need its own `ArtistId` column to colocate by, which this schema does not have.
+
+In the diagram, a solid arrow is a colocated pair and a dashed arrow only groups the child rows by that column.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
@@ -498,15 +507,15 @@ graph LR
     Track["<b>Track</b><br/>PK: TrackId, <i>AlbumId</i>"]
 
     Artist -- "colocateBy: ArtistId" --> Album
-    Album -- "colocateBy: AlbumId" --> Track
+    Album -. "colocateBy: AlbumId (groups tracks, not placed with Album)" .-> Track
 
     style Artist fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Album fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
-    style Track fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
+    style Track fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     linkStyle default color:#111111
 ```
 
-The italicized column in each PK is the colocation column. Artist (green) is the chain root. Album and Track (teal) are colocated children. You are about to express these relationships as `@Id` fields and `colocateBy` annotations.
+The italicized column in each PK is the colocation column. Artist (green) is the root. Album (teal) is colocated with Artist. Track (purple) is only grouped by album. You are about to express these relationships as `@Id` fields and `colocateBy` annotations.
 
 Create `Album.java`:
 
@@ -522,7 +531,7 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Intermediate entity in the catalog colocation chain.
+ * Child entity in the catalog tables, colocated with Artist (a colocated pair).
  *
  * Colocates with Artist by ArtistId. All albums for the same artist
  * share a partition with the Artist row, making Artist-Album joins local.
@@ -586,7 +595,7 @@ Album introduces three concepts that were separate DDL clauses in the previous t
 
 The `@ColumnRef` annotation serves two roles on the same class:
 
-- **In `colocateBy`** it names the partition routing column that pairs each row with its parent.
+- **In `colocateBy`** it names the column whose hash decides which partition holds the row. For Album that is the same column Artist uses, so the two tables form a colocated pair.
 - **In `indexes`** it names the columns that make up a secondary index.
 
 The annotation-to-DDL mapping for Album shows all three new concepts:
@@ -599,7 +608,7 @@ The annotation-to-DDL mapping for Album shows all three new concepts:
 
 Compare these with the DDL you wrote in the previous tutorial. The composite PK, `COLOCATE BY`, zone assignment, and secondary index are the same clauses. You can verify what the annotations actually created by querying the system views from the CLI after running `CreateSchema` in a later step.
 
-Complete the catalog chain with Track. Create `Track.java`:
+Complete the catalog tables with Track. Create `Track.java`:
 
 {% code title="src/main/java/com/example/schema/model/Track.java" %}
 ```java
@@ -615,14 +624,16 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Leaf entity in the catalog colocation chain.
+ * Leaf entity in the catalog tables.
  *
- * Colocates with Album by AlbumId. The full chain
- * (Artist -> Album -> Track) lands on the same partition,
- * making three-table catalog joins local.
+ * Colocates by AlbumId: all tracks of one album share a partition with
+ * each other. Track rows are NOT placed with their Album row (Album is
+ * hashed by ArtistId) or with their Artist row. Colocation does not chain,
+ * so Artist -> Album -> Track joins are local only for the Artist-Album
+ * pair; adding Track to the join moves data.
  *
  * Multiple indexes support different query patterns:
- * - IFK_TrackAlbumId: joins within the catalog chain
+ * - IFK_TrackAlbumId: joins between Track and Album (not colocated)
  * - IFK_TrackGenreId: genre-based filtering (crosses to replicated zone)
  * - IFK_TrackMediaTypeId: media type filtering (crosses to replicated zone)
  */
@@ -647,8 +658,10 @@ public class Track {
     @Column(value = "TrackId", nullable = false)
     private Integer trackId;
 
-    // Colocation column for the catalog chain. Same pattern as Album.ArtistId:
-    // @Id because colocation columns must be part of the PK.
+    // Colocation column: groups all tracks of an album on one partition.
+    // Same declaration pattern as Album.ArtistId, but it does not place
+    // Track with the Album row. @Id because colocation columns must be
+    // part of the PK.
     @Id
     @Column(value = "AlbumId", nullable = false)
     private Integer albumId;
@@ -711,7 +724,7 @@ Track demonstrates three things beyond what Album covered:
 - **`BigDecimal` with precision and scale:** `@Column(precision = 10, scale = 2)` generates `DECIMAL(10,2)` for monetary values.
 - **Nullable vs non-nullable fields:** `GenreId`, `Composer`, and `Bytes` are nullable (default). `TrackId`, `AlbumId`, `Name`, `MediaTypeId`, `Milliseconds`, and `UnitPrice` are explicitly `nullable = false`.
 
-The two classes form the catalog colocation chain: Album (colocated by ArtistId) and Track (colocated by AlbumId). In the previous tutorial, you saw this chain as DDL clauses. Here it is expressed as `@Id` fields and `colocateBy` annotations across two Java classes.
+The two classes declare colocation differently: Album is colocated with Artist by ArtistId (a colocated pair), and Track is grouped by AlbumId (all tracks of one album share a partition, but not with the Album row). In the previous tutorial, you saw these declarations as DDL clauses. Here they are expressed as `@Id` fields and `colocateBy` annotations across two Java classes.
 
 Create both tables on the cluster to verify the colocation annotations. Add Album and Track to your creation class, or create a new one:
 
@@ -757,15 +770,15 @@ TRACK      | IFK_TRACKGENREID     | SORTED     | GENREID ASC
 TRACK      | IFK_TRACKMEDIATYPEID | SORTED     | MEDIATYPEID ASC
 ```
 
-Four SORTED indexes, one per `@Index` annotation. Album has one index for the colocation join. Track has three: one for the catalog chain join (`AlbumId`), two for cross-references to the replicated zone tables (`GenreId`, `MediaTypeId`).
+Four SORTED indexes, one per `@Index` annotation. Album has one index for the colocation join. Track has three: one for the Track-Album join (`AlbumId`), two for cross-references to the replicated zone tables (`GenreId`, `MediaTypeId`).
 
 {% hint style="success" %}
 **Checkpoint:** Album and Track are created on the cluster. The PK ordinals show composite keys with the colocation column at ordinal 1. The SYSTEM.INDEXES query shows all four secondary indexes generated from `@Index` annotations.
 {% endhint %}
 
-## Define the Commerce Chain
+## Define the Commerce Tables
 
-The commerce colocation chain follows the same structure as the catalog chain, with a different root entity and different colocation columns:
+The commerce tables follow the same structure as the catalog tables, with a different root entity and different colocation columns. Customer and Invoice form a colocated pair by `CustomerId`. InvoiceLine is grouped by `InvoiceId`: all lines of one invoice share a partition, but a line is not placed with its Invoice row (hashed by `CustomerId`) or its Customer row.
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
@@ -775,15 +788,15 @@ graph LR
     InvoiceLine["<b>InvoiceLine</b><br/>PK: InvoiceLineId, <i>InvoiceId</i>"]
 
     Customer -- "colocateBy: CustomerId" --> Invoice
-    Invoice -- "colocateBy: InvoiceId" --> InvoiceLine
+    Invoice -. "colocateBy: InvoiceId (groups lines, not placed with Invoice)" .-> InvoiceLine
 
     style Customer fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Invoice fill:#E69875,stroke:#b15919,color:#2D353B
-    style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
+    style InvoiceLine fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     linkStyle default color:#111111
 ```
 
-Customer (green) is the chain root. Invoice and InvoiceLine (orange) are colocated children. The same annotation patterns apply: composite `@Id` for the colocation column, `colocateBy` for partition routing, `@Index` for join support.
+Customer (green) is the root. Invoice (orange) is colocated with Customer. InvoiceLine (purple) is only grouped by invoice. The same annotation patterns apply: composite `@Id` for the colocation column, `colocateBy` for partition routing, `@Index` for join support.
 
 Create `Customer.java`:
 
@@ -799,10 +812,11 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Root entity in the commerce colocation chain.
+ * Root entity of the commerce tables.
  *
  * CustomerId is both the primary key and the colocation column.
- * All invoices for the same customer land on the same partition.
+ * All invoices for the same customer land on the same partition as the
+ * Customer row (a colocated pair).
  */
 @Table(
     zone = @Zone(value = "MusicStore", storageProfiles = "default",
@@ -912,7 +926,7 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Intermediate entity in the commerce colocation chain.
+ * Child entity in the commerce tables, colocated with Customer (a colocated pair).
  *
  * Colocates with Customer by CustomerId. All invoices for the same
  * customer share a partition, making Customer-Invoice joins local.
@@ -1005,18 +1019,19 @@ import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
 /**
- * Leaf entity in the commerce colocation chain.
+ * Leaf entity in the commerce tables.
  *
- * Colocates with Invoice by InvoiceId. The full commerce chain
- * (Customer -> Invoice -> InvoiceLine) lands on the same partition.
+ * Colocates by InvoiceId: all lines of one invoice share a partition with
+ * each other. InvoiceLine rows are NOT placed with their Invoice row
+ * (hashed by CustomerId) or their Customer row. Colocation does not chain.
  *
  * Two indexes serve different purposes:
- * - IFK_InvoiceLineInvoiceId: joins within the commerce chain
- * - IFK_InvoiceLineTrackId: joins to the catalog chain (cross-chain)
+ * - IFK_InvoiceLineInvoiceId: joins between InvoiceLine and Invoice (not colocated)
+ * - IFK_InvoiceLineTrackId: joins to Track in the catalog tables (a different colocation column, so the rows are not placed together)
  *
  * The TrackId index speeds up scans within each partition, but it does
  * not change colocation. Track lives on a different partition because
- * it belongs to the catalog chain. Cross-chain joins still move data.
+ * it is hashed by AlbumId, not by anything in InvoiceLine. These joins still move data.
  */
 @Table(
     zone = @Zone(value = "MusicStore", storageProfiles = "default",
@@ -1035,16 +1050,17 @@ public class InvoiceLine {
     @Column(value = "InvoiceLineId", nullable = false)
     private Integer invoiceLineId;
 
-    // Colocation column: links InvoiceLine to Invoice on the same partition.
-    // The full commerce chain (Customer -> Invoice -> InvoiceLine) is colocated.
+    // Colocation column: groups all lines of an invoice on one partition.
+    // It does not place InvoiceLine with the Invoice row, which is hashed
+    // by CustomerId. Colocation does not chain through Invoice.
     @Id
     @Column(value = "InvoiceId", nullable = false)
     private Integer invoiceId;
 
-    // TrackId references the catalog chain, not the commerce chain.
+    // TrackId references the catalog tables, which are hashed differently.
     // IFK_InvoiceLineTrackId indexes this field to speed within-partition scans,
     // but Track itself lives on a different partition. The index helps locally;
-    // the cross-chain join still moves data between nodes.
+    // the join still moves data between nodes.
     @Column(value = "TrackId", nullable = false)
     private Integer trackId;
 
@@ -1075,30 +1091,30 @@ InvoiceLine has two indexes that serve different purposes:
 
 | Index | Purpose | What it helps | What it does not change |
 |---|---|---|---|
-| `IFK_InvoiceLineInvoiceId` | Within-chain join support | Joins with Invoice (same partition, colocated) | - |
-| `IFK_InvoiceLineTrackId` | Cross-chain join support | Scans within each partition for TrackId matches | Colocation. Track lives on a different partition. |
+| `IFK_InvoiceLineInvoiceId` | Invoice join support | Scans within each partition for InvoiceId matches. InvoiceLine is not placed with its Invoice row, so the join still moves data. | Colocation. Invoice is hashed by CustomerId. |
+| `IFK_InvoiceLineTrackId` | Track join support | Scans within each partition for TrackId matches | Colocation. Track lives on a different partition. |
 
-An index speeds up the scan *within* each partition. It does not move data between partitions. The `IFK_InvoiceLineTrackId` index makes the scan faster on every node, and the cross-chain query from the previous tutorial still requires Exchange operators to shuffle data between nodes because Track and InvoiceLine are on different partitions. Indexes and colocation solve different problems.
+An index speeds up the scan *within* each partition. It does not move data between partitions. The `IFK_InvoiceLineTrackId` index makes the scan faster on every node, and the join to Track from the previous tutorial still requires Exchange operators to shuffle data between nodes because Track and InvoiceLine are on different partitions. Indexes and colocation solve different problems.
 
-The full Music Store schema has two colocation chains, two reference tables, and one cross-chain reference:
+The full Music Store schema has two colocated pairs with grouped-only tables, two reference tables, and references that cross colocation boundaries:
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
-    subgraph catalog ["Catalog Chain"]
+    subgraph catalog ["Catalog tables"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
         Album["<b>Album</b><br/>PK: AlbumId, <i>ArtistId</i>"]
         Track["<b>Track</b><br/>PK: TrackId, <i>AlbumId</i>"]
         Artist -- "ArtistId" --> Album
-        Album -- "AlbumId" --> Track
+        Album -. "AlbumId (grouping only)" .-> Track
     end
 
-    subgraph commerce ["Commerce Chain"]
+    subgraph commerce ["Commerce tables"]
         Customer["<b>Customer</b><br/>PK: CustomerId"]
         Invoice["<b>Invoice</b><br/>PK: InvoiceId, <i>CustomerId</i>"]
         InvoiceLine["<b>InvoiceLine</b><br/>PK: InvoiceLineId, <i>InvoiceId</i>"]
         Customer -- "CustomerId" --> Invoice
-        Invoice -- "InvoiceId" --> InvoiceLine
+        Invoice -. "InvoiceId (grouping only)" .-> InvoiceLine
     end
 
     subgraph reference ["Replicated (all nodes)"]
@@ -1106,43 +1122,43 @@ graph LR
         MediaType["<b>MediaType</b>"]
     end
 
-    InvoiceLine -. "TrackId (cross-chain)" .-> Track
+    InvoiceLine -. "TrackId (crosses colocation boundary)" .-> Track
     Track -. "GenreId" .-> Genre
     Track -. "MediaTypeId" .-> MediaType
 
     style Artist fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Customer fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Album fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
-    style Track fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
+    style Track fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style Invoice fill:#E69875,stroke:#b15919,color:#2D353B
-    style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
+    style InvoiceLine fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
     linkStyle default color:#111111
 ```
 
-Solid arrows are colocation relationships (data on the same partition). Dashed arrows are cross-chain references (data on different partitions, joins require network). The reference tables (pink) are replicated to every node, so their dashed arrows never cause data movement. The InvoiceLine-to-Track dashed arrow is the cross-chain join that the previous tutorial showed requiring Exchange operators.
+Solid arrows are colocated pairs (rows with the same key value on the same partition). Dashed arrows between a table and its grouped child (Album to Track, Invoice to InvoiceLine) only group the child rows by that column; the child is not placed with the parent row. Other dashed arrows are references across colocation boundaries (data on different partitions, joins require network). The reference tables (pink) are replicated to every node, so their dashed arrows never cause data movement. The InvoiceLine-to-Track dashed arrow is the join across colocation boundaries that the previous tutorial showed requiring Exchange operators.
 
 <details>
-<summary>Music Store schema reference: all tables, zones, colocation chains, and indexes</summary>
+<summary>Music Store schema reference: all tables, zones, colocation, and indexes</summary>
 
 ```mermaid
 %%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph LR
-    subgraph catalog ["Catalog Chain &mdash; MusicStore zone (25 partitions, 2 replicas)"]
+    subgraph catalog ["Catalog tables &mdash; MusicStore zone (25 partitions, 2 replicas)"]
         Artist["<b>Artist</b><br/>PK: ArtistId"]
         Album["<b>Album</b><br/>PK: AlbumId, <i>ArtistId</i><br/>Index: IFK_AlbumArtistId"]
         Track["<b>Track</b><br/>PK: TrackId, <i>AlbumId</i><br/>Indexes: IFK_TrackAlbumId,<br/>IFK_TrackGenreId, IFK_TrackMediaTypeId"]
         Artist -- "ArtistId" --> Album
-        Album -- "AlbumId" --> Track
+        Album -. "AlbumId (grouping only)" .-> Track
     end
 
-    subgraph commerce ["Commerce Chain &mdash; MusicStore zone (25 partitions, 2 replicas)"]
+    subgraph commerce ["Commerce tables &mdash; MusicStore zone (25 partitions, 2 replicas)"]
         Customer["<b>Customer</b><br/>PK: CustomerId<br/>Index: IFK_CustomerSupportRepId"]
         Invoice["<b>Invoice</b><br/>PK: InvoiceId, <i>CustomerId</i><br/>Index: IFK_InvoiceCustomerId"]
         InvoiceLine["<b>InvoiceLine</b><br/>PK: InvoiceLineId, <i>InvoiceId</i><br/>Indexes: IFK_InvoiceLineInvoiceId,<br/>IFK_InvoiceLineTrackId"]
         Customer -- "CustomerId" --> Invoice
-        Invoice -- "InvoiceId" --> InvoiceLine
+        Invoice -. "InvoiceId (grouping only)" .-> InvoiceLine
     end
 
     subgraph reference ["MusicStoreReplicated zone (25 partitions, 3 replicas)"]
@@ -1154,7 +1170,7 @@ graph LR
         Employee["<b>Employee</b><br/>PK: EmployeeId<br/>Index: IFK_EmployeeReportsTo"]
     end
 
-    subgraph playlist ["Playlist Chain &mdash; MusicStore zone"]
+    subgraph playlist ["Playlist tables &mdash; MusicStore zone"]
         Playlist["<b>Playlist</b><br/>PK: PlaylistId"]
         PlaylistTrack["<b>PlaylistTrack</b><br/>PK: <i>PlaylistId</i>, TrackId"]
         Playlist -- "PlaylistId" --> PlaylistTrack
@@ -1170,9 +1186,9 @@ graph LR
     style Customer fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Playlist fill:#A7C080,stroke:#6a780d,color:#2D353B
     style Album fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
-    style Track fill:#7FBBB3,stroke:#2e78a0,color:#2D353B
+    style Track fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style Invoice fill:#E69875,stroke:#b15919,color:#2D353B
-    style InvoiceLine fill:#E69875,stroke:#b15919,color:#2D353B
+    style InvoiceLine fill:#B8A9D9,stroke:#6c5aa0,color:#2D353B
     style PlaylistTrack fill:#DBBC7F,stroke:#916b0c,color:#2D353B
     style Genre fill:#D699B6,stroke:#bd3f95,color:#2D353B
     style MediaType fill:#D699B6,stroke:#bd3f95,color:#2D353B
@@ -1182,17 +1198,18 @@ graph LR
 
 | Color | Role | Examples |
 |---|---|---|
-| Green | Chain root (single PK, colocation anchor) | Artist, Customer, Playlist |
-| Teal | Catalog chain children (colocated with Artist) | Album, Track |
-| Orange | Commerce chain children (colocated with Customer) | Invoice, InvoiceLine |
-| Yellow | Playlist chain child (colocated with Playlist) | PlaylistTrack |
+| Green | Root (single PK, colocation anchor) | Artist, Customer, Playlist |
+| Teal | Album is colocated with Artist (a colocated pair). | Album |
+| Orange | Invoice is colocated with Customer (a colocated pair). | Invoice |
+| Purple | Grouped only: rows are grouped by their own column and are not placed with the parent row. | Track (by AlbumId), InvoiceLine (by InvoiceId) |
+| Yellow | Playlist child (colocated with Playlist) | PlaylistTrack |
 | Pink | Replicated reference data (every node has a copy) | Genre, MediaType |
-| Gray | Independent entity (not part of a colocation chain) | Employee |
+| Gray | Independent entity (not colocated with any other table) | Employee |
 
 | Arrow | Meaning |
 |---|---|
-| Solid | Colocation: rows share a partition. Joins are local. |
-| Dashed | Cross-chain or cross-zone reference: rows on different partitions. Joins move data. |
+| Solid | Colocated pair: rows with the same key value share a partition. Joins are local. |
+| Dashed | Grouping-only or cross-boundary reference: rows are on different partitions than the referenced rows. Joins move data, except joins to the replicated Genre and MediaType tables, which are local on every node. |
 
 </details>
 
@@ -1219,7 +1236,7 @@ Annotations cover the distributed-specific decisions: zones, colocation, composi
 
 ## Create the Schema From Annotations
 
-You have seven entity classes covering both colocation chains and the reference data zone. The Music Store has four more tables that apply the same patterns: a second reference table, an independent entity with a self-referencing hierarchy, and the playlist chain from the previous tutorial's exercise.
+You have seven entity classes covering the catalog tables, the commerce tables, and the reference data zone. The Music Store has four more tables that apply the same patterns: a second reference table, an independent entity with a self-referencing hierarchy, and the playlist tables from the previous tutorial's exercise.
 
 Create `MediaType.java` in the `com.example.schema.model` package. MediaType is the second reference table, using the same replicated zone as Genre:
 
@@ -1258,7 +1275,7 @@ public class MediaType {
 ```
 {% endcode %}
 
-Employee is the only Music Store entity that is not part of a colocation chain. It has a single PK and a self-referencing hierarchy through `ReportsTo`. Create `Employee.java`:
+Employee is the only Music Store entity that is not colocated with any other table. It has a single PK and a self-referencing hierarchy through `ReportsTo`. Create `Employee.java`:
 
 {% code title="src/main/java/com/example/schema/model/Employee.java" %}
 ```java
@@ -1273,7 +1290,7 @@ import org.apache.ignite.catalog.annotations.Index;
 import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
-// Not part of a colocation chain (no colocateBy). Employee is an
+// Not colocated with any other table (no colocateBy). Employee is an
 // independent entity in the MusicStore zone. The index on ReportsTo
 // supports manager hierarchy lookups (self-referencing relationship).
 @Table(
@@ -1369,7 +1386,7 @@ public class Employee {
 ```
 {% endcode %}
 
-Playlist and PlaylistTrack form the third colocation chain, the one you analyzed in the previous tutorial's exercise. Playlist is the root entity. Create `Playlist.java`:
+Playlist and PlaylistTrack form a third colocated pair, the one you analyzed in the previous tutorial's exercise. Playlist is the root entity. Create `Playlist.java`:
 
 {% code title="src/main/java/com/example/schema/model/Playlist.java" %}
 ```java
@@ -1380,8 +1397,9 @@ import org.apache.ignite.catalog.annotations.Id;
 import org.apache.ignite.catalog.annotations.Table;
 import org.apache.ignite.catalog.annotations.Zone;
 
-// Root of the playlist chain. Same single-key pattern as Artist and Customer.
-// PlaylistTrack colocates by PlaylistId to keep playlist membership local.
+// Root of the playlist tables. Same single-key pattern as Artist and Customer.
+// PlaylistTrack colocates by PlaylistId, so a Playlist row and its
+// PlaylistTrack rows share a partition (a colocated pair).
 @Table(
     zone = @Zone(value = "MusicStore", storageProfiles = "default",
                  partitions = 25, replicas = 2)
@@ -1420,7 +1438,7 @@ import org.apache.ignite.catalog.annotations.Zone;
 // Junction table: many-to-many between Playlist and Track.
 // Colocates by PlaylistId so "all tracks in playlist X" is a
 // single-partition query. The TrackId side crosses into the
-// catalog chain, same cross-chain pattern as InvoiceLine.TrackId.
+// catalog tables, a join that moves data, same as InvoiceLine.TrackId.
 @Table(
     zone = @Zone(value = "MusicStore", storageProfiles = "default",
                  partitions = 25, replicas = 2),
@@ -1493,9 +1511,10 @@ public class CreateSchema {
             // schema definition at creation time, POJO mapping at runtime.
             IgniteCatalog catalog = client.catalog();
 
-            // Catalog chain: Artist (root) -> Album -> Track
+            // Catalog tables: Artist (root), Album (colocated with Artist),
+            // Track (grouped by AlbumId; not placed with Album or Artist)
             // The first createTable() also creates the MusicStore zone from @Zone.
-            System.out.println("--- Catalog chain ---");
+            System.out.println("--- Catalog tables ---");
             Table artistTable = catalog.createTable(Artist.class);
             System.out.println("Created: Artist");
 
@@ -1516,9 +1535,9 @@ public class CreateSchema {
             Table mediaTypeTable = catalog.createTable(MediaType.class);
             System.out.println("Created: MediaType   (MusicStoreReplicated)");
 
-            // Commerce chain: Customer (root) -> Invoice -> InvoiceLine
-            // Same colocation pattern as the catalog chain, different root entity.
-            System.out.println("\n--- Commerce chain ---");
+            // Commerce tables: Customer (root), Invoice (colocated with Customer),
+            // InvoiceLine (grouped by InvoiceId). Same pattern as the catalog tables.
+            System.out.println("\n--- Commerce tables ---");
             Table customerTable = catalog.createTable(Customer.class);
             System.out.println("Created: Customer");
 
@@ -1593,7 +1612,7 @@ Run `CreateSchema`. The output shows each table created and verifies the schema 
 ```text
 === Create Music Store Schema ===
 
---- Catalog chain ---
+--- Catalog tables ---
 Created: Artist
 Created: Album       (colocateBy: ArtistId)
 Created: Track       (colocateBy: AlbumId)
@@ -1602,7 +1621,7 @@ Created: Track       (colocateBy: AlbumId)
 Created: Genre       (MusicStoreReplicated)
 Created: MediaType   (MusicStoreReplicated)
 
---- Commerce chain ---
+--- Commerce tables ---
 Created: Customer
 Created: Invoice     (colocateBy: CustomerId)
 Created: InvoiceLine (colocateBy: InvoiceId)
@@ -1682,7 +1701,7 @@ This has three practical consequences:
 - **`@Id` defines the key/value split.** The `@Id` fields you declared on each entity determine the key portion for `KeyValueView`. Album's composite PK `(AlbumId, ArtistId)` means `KeyValueView` needs both fields for a point lookup. The annotations drive the API contract.
 - **Refactoring safety.** Rename a field in the POJO and the compiler finds every reference across the application. With column names in strings, renaming means searching for string literals and hoping you found them all.
 
-Try this in your IDE: open `Album.java` and look at the `@Table` annotation. Without reading any DDL or querying any system view, you can see that Album colocates by `ArtistId`, lives in the `MusicStore` zone, and has a secondary index on `ArtistId`. Now use **Find Usages** (or **Search for Symbol**) on the string `"ArtistId"` across the model package. You find it in `Artist.java` as the `@Id` field (the colocation root) and in `Album.java` in both `colocateBy` and `indexes`. Track does not reference `ArtistId` at all because it colocates by `AlbumId` instead. The colocation chain Artist to Album to Track is navigable through your IDE's search without opening a DDL file.
+Try this in your IDE: open `Album.java` and look at the `@Table` annotation. Without reading any DDL or querying any system view, you can see that Album colocates by `ArtistId`, lives in the `MusicStore` zone, and has a secondary index on `ArtistId`. Now use **Find Usages** (or **Search for Symbol**) on the string `"ArtistId"` across the model package. You find it in `Artist.java` as the `@Id` field (the colocation root) and in `Album.java` in both `colocateBy` and `indexes`. Track does not reference `ArtistId` at all because it colocates by `AlbumId` instead. The Artist-Album colocated pair, and the separate AlbumId grouping for Track, are navigable through your IDE's search without opening a DDL file.
 
 When someone changes a colocation column or adds an index in a pull request, the change appears alongside the application code that depends on it.
 

@@ -5,6 +5,8 @@ description: >-
 
 # Connect With the Java Thin Client
 
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 ## Introduction
 
 You have a running cluster and a loaded dataset. In the first tutorial, you built the infrastructure with Docker and created 11 tables with SQL DDL. In the second, you explored the data through the SQL CLI. Now you connect a Java application and survey the API surface that the thin client provides.

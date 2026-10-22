@@ -116,7 +116,7 @@ Connect to the cluster. Connection events appear at `FINE` level on standard err
 ```text
 FINE: Connection established [remoteAddress=127.0.0.1/<unresolved>:10800]
 INFO: Partition assignment change notification received [remoteAddress=127.0.0.1/<unresolved>:10800]
-FINE: Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800]
+FINE: Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800, graceful=true, message=]
 ```
 
 {% hint style="success" %}
@@ -271,7 +271,7 @@ Connect to the cluster. Connection events appear at `DEBUG` level:
 ```text
 12:20:18.299 [nioEventLoopGroup-2-1] DEBUG o.a.i.i.client.TcpClientChannel - Connection established [remoteAddress=127.0.0.1/<unresolved>:10800]
 12:20:18.348 [nioEventLoopGroup-2-1] INFO  o.a.i.i.client.TcpClientChannel - Partition assignment change notification received [remoteAddress=127.0.0.1/<unresolved>:10800]
-12:20:18.352 [nioEventLoopGroup-2-1] DEBUG o.a.i.i.client.TcpClientChannel - Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800]
+12:20:18.352 [nioEventLoopGroup-2-1] DEBUG o.a.i.i.client.TcpClientChannel - Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800, graceful=true, message=]
 ```
 
 The abbreviated logger name `o.a.i.i.client.TcpClientChannel` corresponds to `org.apache.ignite.internal.client.TcpClientChannel`. The `%logger{36}` pattern shortens package segments to fit within 36 characters.
@@ -351,7 +351,7 @@ Connect to the cluster. Connection events appear at `DEBUG` level:
 ```text
 12:19:49.199 [nioEventLoopGroup-2-1] DEBUG org.apache.ignite.internal.client.TcpClientChannel - Connection established [remoteAddress=127.0.0.1/<unresolved>:10800]
 12:19:49.260 [nioEventLoopGroup-2-1] INFO  org.apache.ignite.internal.client.TcpClientChannel - Partition assignment change notification received [remoteAddress=127.0.0.1/<unresolved>:10800]
-12:19:49.265 [nioEventLoopGroup-2-1] DEBUG org.apache.ignite.internal.client.TcpClientChannel - Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800]
+12:19:49.265 [nioEventLoopGroup-2-1] DEBUG org.apache.ignite.internal.client.TcpClientChannel - Connection closed [remoteAddress=127.0.0.1/<unresolved>:10800, graceful=true, message=]
 ```
 
 The full class name `org.apache.ignite.internal.client.TcpClientChannel` appears because the name fits within the `%logger{36}` width limit. The output format matches the `PatternLayout` in `log4j2.xml`.

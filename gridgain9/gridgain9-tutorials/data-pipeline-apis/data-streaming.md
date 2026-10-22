@@ -5,6 +5,8 @@ description: >-
 
 # Stream Data With the Data Streamer API
 
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 ## Introduction
 
 Every write operation in the previous tutorials used individual `upsert()` calls or SQL `INSERT` statements. Each call is a network round-trip: the client sends one record, waits for the server to acknowledge it, then sends the next. At 59 customers and 2,240 invoice lines, this approach works fine. At 10,000 customers or 500,000 invoice lines, it becomes a bottleneck.
@@ -576,7 +578,7 @@ DataStreamer provides at-least-once delivery. If a page fails and the retry succ
 
 ## Stream Invoices With Parent-Child Order
 
-The Music Store schema has a foreign key chain: Customer -> Invoice -> InvoiceLine. When streaming related tables, the parent table must load before its children. If you stream Invoice records that reference a CustomerId before that customer exists, the records will still land (GridGain does not enforce foreign keys at write time), but your verification queries and application logic will encounter orphaned rows.
+The Music Store data has a logical parent-child order: Customer -> Invoice -> InvoiceLine. GridGain 9.1 SQL has no FOREIGN KEY constraints, so nothing enforces the relationship, and your application must load parents before children. If you stream Invoice records that reference a CustomerId before that customer exists, the records still land, but your verification queries and application logic will encounter orphaned rows.
 
 DataStreamer follows the same constraint: stream parents first, then children.
 
@@ -784,7 +786,7 @@ Top 5 customers by invoice count:
 
 The Zipf distribution produces a realistic spread: power buyers at the top with 50 invoices, casual buyers at the bottom with 1. Your specific customer names will differ (many customers tie at 50 invoices, and the tiebreaker depends on partition assignment), but the invoice count of 50 and the total of ~102,000 invoices are consistent across runs.
 
-The JOIN query proves that every Invoice references a valid Customer. If you reversed the streaming order (invoices before customers), the JOIN would still work (GridGain does not enforce foreign keys), but the data would be logically inconsistent until the parent table loaded.
+The JOIN query shows that every Invoice references a valid Customer. If you reversed the streaming order (invoices before customers), the JOIN would still work (GridGain has no foreign key constraints), but the data would be logically inconsistent until the parent table loaded.
 
 {% hint style="success" %}
 **Checkpoint:** ~100,000 invoices streamed and verified via a Customer-Invoice JOIN. The top-5 query shows power buyers with 50 invoices.
@@ -914,7 +916,7 @@ public class CommerceDataGenerator {
             System.out.printf("  InvoiceLine: %,d rows%n", lineCount2);
 
             // Cross-table JOIN: Customer -> Invoice -> InvoiceLine -> Track
-            // This proves referential integrity across all three streamed tables
+            // This shows the streamed tables reference each other consistently
             // and the existing Chinook catalog.
             System.out.println("\nCross-table JOIN (Customer -> Invoice -> InvoiceLine -> Track):");
             try (ResultSet<SqlRow> rs = sql.execute((Transaction) null,
@@ -1214,17 +1216,17 @@ Streaming 10,000 records, observing SubmissionPublisher lag...
   record      2  lag = 3
   record      3  lag = 4
   record      4  lag = 5
-  record  2,000  lag = 1
-  record  4,000  lag = 2
-  record  6,000  lag = 1
-  record  8,000  lag = 1
-  record  9,999  lag = 1
+  record  2,000  lag = 11
+  record  4,000  lag = 1
+  record  6,000  lag = 2
+  record  8,000  lag = 8
+  record  9,999  lag = 2
 
-Max lag observed: 164 (buffer capacity: 256)
+Max lag observed: 274 (buffer capacity: 256)
 Verified: 10,000 rows
 ```
 
-The DataStreamer's internal subscriber consumes items fast enough that the 256-item buffer never fills at this volume. The lag peaks early (while the subscriber initializes partition buffers) and settles near 1 for the rest of the run. No `submit()` calls blocked.
+The lag peaks above the buffer capacity during the run, which means the buffer filled and `submit()` blocked the producer thread until the DataStreamer freed space. `SubmissionPublisher` can report a lag slightly above its capacity when a call has blocked, so the peak (274 here, 288 in other runs) is a sign of backpressure at work, not an error. The lag at the sampled records is small because the subscriber catches up between bursts. Your numbers will differ from run to run.
 
 For batch jobs, migrations, and data generators, `SubmissionPublisher` is the right choice. It handles backpressure transparently: if the cluster slows down, the producer thread pauses automatically.
 

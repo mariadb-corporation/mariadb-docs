@@ -5,6 +5,8 @@ description: >-
 
 # Work With RecordView and KeyValueView
 
+<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build except `BulkOps` (it calls `Stream.toList()`, which needs Java 16). Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
+
 ## Introduction
 
 In the previous tutorial, you connected a Java application to the cluster and used RecordView and KeyValueView for basic reads and writes. You saw that both views access the same underlying data. Now you learn the full operation set and discover something more significant: KeyValueView gives you cache-like semantics backed directly by the system of record.
@@ -185,7 +187,9 @@ package com.example.musicstore.model;
  *   - No-arg constructor (GridGain calls this when deserializing rows from the cluster)
  *   - Getter/setter pair for each mapped field
  *   - Field names must match column names (case-insensitive)
- *   - Fields not present in the table are silently ignored
+ *   - Every field must map to a table column. A field with no matching
+ *     column makes the call fail with a MarshallerException
+ *     ("Fields [...] are not mapped to columns")
  *
  * For key-based lookups, only the primary key field needs a value.
  * new Artist(1, null) tells GridGain: find ARTISTID=1, fill in
@@ -988,7 +992,10 @@ package com.example.musicstore.model;
  * Partial value POJO: maps only 5 of the 12 non-key Customer columns.
  *
  * GridGain matches fields to table columns by name. Columns not represented
- * in this POJO are silently ignored on reads and left unchanged on writes:
+ * in this POJO are skipped on reads. On writes they are NOT preserved:
+ * a put or upsert sends a full row, so unmapped columns are set to their
+ * default value (NULL unless the column has a DEFAULT). Use a partial POJO
+ * for reads, or for writes only when the unmapped columns do not matter:
  *
  *   Mapped (5):    firstName, lastName, email, city, country
  *   Unmapped (7):  company, address, state, postalCode, phone, fax, supportRepId
@@ -1110,7 +1117,7 @@ Both views return the same Customer 1 row, but the code structure reveals two di
 
 - **RecordView** uses a single `Customer` POJO with all 13 fields. `customerId` is part of the object. This is natural when your code works with complete customer records.
 
-- **KeyValueView** separates the key (`Integer` for CustomerId) from the value (`CustomerContact` POJO). The `CustomerContact` class maps only 5 of the 12 non-key columns: `firstName`, `lastName`, `email`, `city`, and `country`. GridGain matches POJO fields to table columns by name. Columns not represented in the POJO (`company`, `address`, `state`, `postalCode`, `phone`, `fax`, `supportRepId`) are simply not mapped.
+- **KeyValueView** separates the key (`Integer` for CustomerId) from the value (`CustomerContact` POJO). The `CustomerContact` class maps only 5 of the 12 non-key columns: `firstName`, `lastName`, `email`, `city`, and `country`. GridGain matches POJO fields to table columns by name. Columns not represented in the POJO (`company`, `address`, `state`, `postalCode`, `phone`, `fax`, `supportRepId`) are skipped on reads. Do not use this partial POJO to write: a `put` sends a full row, so the unmapped columns are set to their defaults (NULL unless the column has a `DEFAULT`).
 
 This partial mapping is the key advantage of KeyValueView on wide tables. A service that only needs contact information defines a 5-field POJO instead of mapping all 13 columns. The smaller object reduces memory overhead per record and makes the code's intent explicit: this code path cares about contact data, not the full customer record.
 
@@ -1463,7 +1470,7 @@ Key configuration options:
 
 The defaults matter: a near-cache created without explicit TTL values expires entries after 5 seconds. The code example above sets `expireAfterAccess` to 10 seconds to keep hot entries longer.
 
-The near-cache is a read-through cache: when a key is not in the local cache, the `get()` call fetches from the cluster and populates the cache automatically. Writes through the same view update both the cluster and the local cache.
+The near-cache is a read-through cache: when a key is not in the local cache, the `get()` call fetches from the cluster and populates the cache automatically. Writes through the same view go to the cluster and invalidate the local entry, so the next read through the view fetches the new value. A view with a near-cache does not accept explicit transactions: passing a transaction throws `UnsupportedOperationException`.
 
 Near-cache also works on RecordView. The same `Mapper.of()` pattern applies:
 

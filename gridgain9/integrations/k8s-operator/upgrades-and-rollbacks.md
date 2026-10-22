@@ -47,7 +47,7 @@ To upgrade the GridGain version, change the `image.tag` field and apply the upda
 ```yaml
 spec:
   image:
-    tag: "9.1.21"
+    tag: "9.1.28"
   upgradeConfig:
     nodeTimeoutSeconds: 600
     clusterTimeoutSeconds: 1800
