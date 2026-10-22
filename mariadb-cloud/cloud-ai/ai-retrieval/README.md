@@ -156,4 +156,8 @@ When you exceed a request limit, the API returns HTTP status 429.
 [access-and-security.md](access-and-security.md)
 {% endcontent-ref %}
 
+{% content-ref url="usage-and-billing.md" %}
+[usage-and-billing.md](usage-and-billing.md)
+{% endcontent-ref %}
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
