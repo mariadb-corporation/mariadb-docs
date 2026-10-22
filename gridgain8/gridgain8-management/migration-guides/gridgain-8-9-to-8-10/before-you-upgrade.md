@@ -7,15 +7,6 @@ description: >-
 
 This page is the starting point for planning an upgrade from GridGain 8.9.x to GridGain 8.10. Use it to choose an upgrade path, find the changes that affect your deployment, and estimate the work involved.
 
-If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2](../apache-ignite-2x/README.md) instead.
-
-*On this page:*
-
-- [Choose Your Upgrade Path](#choose-your-upgrade-path) — rolling or offline, and what each requires
-- [Upgrade Constraints](#upgrade-constraints) — rules that shape the upgrade plan
-- [Which Pages Apply to You](#which-pages-apply-to-you) — what to read, by role
-- [Upgrade Scope and Effort](#upgrade-scope-and-effort) — who each change affects and how much effort it takes
-
 When you are ready to upgrade, follow the step-by-step [Upgrade Procedure](upgrade-procedure.md).
 
 ## Choose Your Upgrade Path
@@ -31,9 +22,7 @@ Which path fits depends on the current configuration of your 8.9 cluster:
 | --- | --- |
 | Every node has `rollingUpdatesEnabled=true` | Rolling upgrade, with no downtime. |
 | `rollingUpdatesEnabled` is not set, and you can schedule one full-cluster restart | Offline upgrade in that restart window. This is the simpler choice: you stop the cluster anyway, so there is no need to enable Rolling Upgrades first. |
-| `rollingUpdatesEnabled` is not set, and you want to use Rolling Upgrades | Restart the whole cluster once with the property set, then run the rolling upgrade. You cannot add the property one node at a time. |
-
-Either path can also use a snapshot restore into a new 8.10 cluster, which is useful when you move to new hosts or want to keep the old cluster untouched. See [Upgrade Without Rolling Upgrades](upgrade-procedure.md#upgrade-without-rolling-upgrades).
+| `rollingUpdatesEnabled` is not set, and you want to use Rolling Upgrades | Restart the whole cluster once with the property set, then run the rolling upgrade. See [Step 2](upgrade-procedure.md#step-2-restart-the-cluster). |
 
 ## Upgrade Constraints
 
@@ -41,7 +30,6 @@ Keep the following constraints in mind when you plan the upgrade:
 
 - *Java 17 or later is required.* Every server node, client application, and application that embeds GridGain must run on Java 17 or later. See [Java 17 or Later](platform-and-modules.md#java-17-or-later).
 - *A snapshot is your way back after `finish`.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. The way back is to restore a snapshot taken before the upgrade. See [Rollback](upgrade-procedure.md#rollback).
-- *Do not leave the cluster with mixed versions for long.* See [Rolling Upgrades](../../upgrade/rolling-upgrades.md) for the performance considerations.
 - *Caches without backups are unavailable during a rolling upgrade.* Partitions that live on a stopped node cannot be served. See [Application Behavior During a Rolling Upgrade](upgrade-procedure.md#application-behavior-during-a-rolling-upgrade).
 - *Some integrations have no 8.10 replacement.* Mesos deployments and applications that cluster HTTP sessions through GridGain stay on 8.9.x. See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations).
 
@@ -75,15 +63,16 @@ These changes affect application and client code.
 | What changes | Applies if | Effort | Details |
 | --- | --- | --- | --- |
 | Java 17 or later | Always, for every application that embeds GridGain, and for the thin client and JDBC driver | Mechanical | [Java 17 or Later](platform-and-modules.md#java-17-or-later) |
-| Spring 7 and Spring Data module rename | Your application embeds GridGain through Spring | Mechanical to Code | [Spring 7 Only](platform-and-modules.md#spring-7-only) |
-| Hibernate 7.4 | You use the Hibernate second-level cache | Code | [Hibernate 7 Only](platform-and-modules.md#hibernate-7-only) |
-| Gridify API → compute API | You use `@Gridify` | Code | [Gridify API Removed](platform-and-modules.md#gridify-api-removed) |
-| AWS module → `ignite-aws-ext` | You use the S3 checkpoint SPI or the S3, ELB, or ALB IP finders | Code | [AWS Module Removed](platform-and-modules.md#aws-module-removed) |
-| Machine learning module → extension | You use `ignite-ml` | Code | [Machine Learning Module Removed](platform-and-modules.md#machine-learning-module-removed) |
-| Local store → native persistence or `CacheStore` | You use `@CacheLocalStore` or `CacheFileLocalStore` | Redesign | [Local Store Support Removed](platform-and-modules.md#local-store-support-removed) |
+| Spring 7 and Spring Data module rename | Your application embeds GridGain through Spring | Mechanical to Code | [Spring 7 Required](platform-and-modules.md#spring-7-required) |
+| Hibernate 7.4 | You use the Hibernate second-level cache | Code | [Hibernate 7 Required](platform-and-modules.md#hibernate-7-required) |
+| Gridify API replaced by the compute API | You use `@Gridify` | Code | [Gridify API Removed](platform-and-modules.md#gridify-api-removed) |
+| AWS module replaced by `ignite-aws-ext` | You use the S3 checkpoint SPI or the S3, ELB, or ALB IP finders | Code | [AWS Module Removed](platform-and-modules.md#aws-module-removed) |
+| Machine learning module replaced by an extension | You use `ignite-ml` | Code | [Machine Learning Module Removed](platform-and-modules.md#machine-learning-module-removed) |
+| Local store replaced by native persistence or `CacheStore` | You use `@CacheLocalStore` or `CacheFileLocalStore` | Redesign | [Local Store Support Removed](platform-and-modules.md#local-store-support-removed) |
 | Cassandra store on DataStax driver 4 | You use the Cassandra store | Code | [Cassandra Store Uses the DataStax Driver 4](platform-and-modules.md#cassandra-store-uses-the-datastax-driver-4) |
 | Modules with no replacement | You use Mesos or Web Session Clustering | Redesign (stay on 8.9.x) | [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) |
 | Java thin client timeouts | A thin client operation runs longer than 60 seconds | Config-only | [Java Thin Client Timeouts Have Default Values](clients-and-drivers.md#java-thin-client-timeouts-have-default-values) |
+| Thin clients in a mixed-version cluster | Thin clients connect during a rolling upgrade, or 8.10 clients connect to 8.9 servers, and you use vector indexes or `withPartitionRecover()` | Config-only | [Thin Clients and Mixed Versions](clients-and-drivers.md#thin-clients-and-mixed-versions) |
 | .NET and C++ client changes | You use the .NET or C++ client | Mechanical to Code | [Client and Driver Changes](clients-and-drivers.md) |
 | REST scan queries with a filter class | You send `EXECUTE_SCAN_QUERY` with `className` | Config-only | [REST Scan Queries With a Filter Class](security-and-licensing.md#rest-scan-queries-with-a-filter-class) |
 | Thin client permission and filter checks | Thin clients call Java services or register continuous query remote filters | Config-only | [Thin Client Permission and Filter Checks](security-and-licensing.md#thin-client-permission-and-filter-checks) |

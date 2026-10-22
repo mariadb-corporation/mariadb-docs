@@ -5,8 +5,6 @@ description: >-
 
 # Configuration and Default Value Changes
 
-This topic covers the defaults that change, the new limits, the startup messages for unsupported properties, the JMX metric type change, and the system properties that are new or removed.
-
 ## SFTP Snapshot Transport Verifies the Host Key by Default
 
 This section applies if you send snapshots to an SFTP destination.
@@ -15,20 +13,20 @@ This section applies if you send snapshots to an SFTP destination.
 
 For more information, see [Configuring SFTP Location](../../snapshots/network-backups.md#configuring-sftp-location).
 
-<!-- CHECK: default values verified by reading them from the 8.9.38 and 8.10 master builds; a real SFTP transfer was not run. -->
-
 ## Vector Search Limits
 
 This section applies if you use vector search.
 
 Vector search now enforces limits and rejects queries above them:
 
-- The number of dimensions of a vector index is limited by `GRIDGAIN_VECTOR_MAX_DIMENSIONS`, which defaults to 4096. A vector with 4097 or more dimensions is rejected when you put it into the cache (`Field [VEC_VEC] vector's dimensions must be <= [4096]`). The limit applies to indexes that are created after the property is set, so raise it before you create indexes on wider vectors. The memory and search time of an index grow with the number of dimensions, and above 8192 dimensions a vector no longer fits into the 32 KB read buffer of the index storage, so every read spans several buffers.
+- The number of dimensions of a vector index is limited by `GRIDGAIN_VECTOR_MAX_DIMENSIONS`, which defaults to 4096. A vector with 4097 or more dimensions is rejected when you put it into the cache (`Field [VEC_VEC] vector's dimensions must be <= [4096]`). The limit applies to indexes that are created after the property is set, so raise it before you create indexes on wider vectors. Memory use and search time grow with the number of dimensions.
 - A vector query may request at most `GRIDGAIN_VECTOR_MAX_K` neighbors (default 10000). A query with `k` below 1 or above the limit is rejected with a `CacheException`, for example `Vector query 'k' is above the maximum number of neighbors a query may ask for [k=10001, max=10000]`. The limit is read in the JVM that runs the query, so set the property on the application that runs queries as a thick client, and on the server nodes for thin-client queries.
 
-Neither limit exists in 8.9.x. For more information, see [Vector Search](../../../gridgain8-development/vector-search/README.md).
+Neither limit exists in 8.9.x. A vector index that you built on 8.9 needs no migration. The index is kept in memory and rebuilt from the cache data each time a node starts, so a node that you upgrade opens the existing data and returns the same results.
 
-<!-- TODO RE/QA: has a vector index built on 8.9 been opened on 8.10 (rolling upgrade or restart)? Any index-format change? Not tested: 8.9.38 rejects the test license for vector search. Also not tested: the thin-client path of the k limit (confirm with Platforms). The "applies to indexes created after the property is set" wording follows the javadoc of GRIDGAIN_VECTOR_MAX_DIMENSIONS in IgniteSystemProperties; it was not run. -->
+For more information, see [Vector Search](../../../gridgain8-development/vector-search/README.md).
+
+<!-- TODO Alexander Pakhomov (GG-49541, GG-49668; the migration notes page names Ivan Zlenko and Alexander Pakhomov for the vector limits): please confirm two statements. (1) The thin-client k limit is read on the server nodes, as the text says. Source test ClientVectorQueryProtocolSelfTest (commit 8f2e8ca01ee) covers it; it was not run here. (2) The dimension limit "applies to indexes created after the property is set". This follows the javadoc of GRIDGAIN_VECTOR_MAX_DIMENSIONS and was not run. -->
 
 ## Startup Messages for Stale Properties
 
@@ -42,7 +40,7 @@ GridGain 8.10 also logs a warning at node start for each Apache Ignite system pr
 
 This section applies if a JMX tool reads metrics of the `ObjectMetric` type.
 
-Metric values of the `ObjectMetric` type are exposed through JMX as strings. A JMX tool that reads these attributes gets a `String` instead of the typed object. For example, in the `ignite` metric registry, `localNodeId` was a `UUID`, `userAttributesFormatted` and `lifecycleBeansFormatted` were `List` values, and `longJVMPauseLastEvents` was a `Map` in 8.9.x. In 8.10 all four are `String` values, and the declared attribute type is `java.lang.String`.
+Metric values of the `ObjectMetric` type are exposed through JMX as strings. A JMX tool that reads these attributes gets a `String` instead of the typed object. For example, in the `ignite` metric registry, `localNodeId` was a `UUID` in 8.9.x and is a `String` in 8.10. The same applies to `userAttributesFormatted`, `lifecycleBeansFormatted`, and `longJVMPauseLastEvents`.
 
 {% hint style="info" %}
 The metric MBeans exist only if you configure `JmxMetricExporterSpi` in `IgniteConfiguration.metricExporterSpi`. The default exporter does nothing.

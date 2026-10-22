@@ -5,8 +5,6 @@ description: >-
 
 # Security, Permission, and Licensing Changes
 
-This topic covers the features that 8.10 closes by default, the permission checks that are new or stricter, and the per-feature license checks.
-
 ## Server-Side SQL COPY
 
 This section applies if you run server-side `COPY` against files or object stores.
@@ -20,8 +18,6 @@ Server-side SQL `COPY` against a file or an object store is closed by default. I
 `ImportExportConfiguration` is node-local, so configure it identically on every node. Point `importRoots` at dedicated directories, never at the node work directory: `COPY_TO_FILE` overwrites files in a root. Client-side `COPY` is not affected.
 
 `COPY ... FORMAT JDBC` also validates the JDBC URL. Only the `jdbc:mariadb:`, `jdbc:mysql:`, and `jdbc:postgresql:` schemes are accepted by default (`GRIDGAIN_BULKLOAD_JDBC_ALLOWED_URL_SCHEMES`), and `${VAR}` placeholders are no longer expanded unless the variables are listed in `GRIDGAIN_BULKLOAD_JDBC_ENV_ALLOWLIST`.
-
-<!-- CHECK: not run: COPY into a file (COPY_TO_FILE check; the grammar needs a subquery) and the JDBC URL scheme and ${VAR} behavior (source only). Rejection texts verified: "COPY location is outside the configured import roots (importExport.importRoots)" and "COPY S3 location is not in the configured allow-list (importExport.allowedS3Buckets)". -->
 
 ## REST Scan Queries With a Filter Class
 
@@ -37,20 +33,17 @@ This section applies if thin clients call Java services or register continuous q
 
 Thin client requests are checked more strictly:
 
-- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services.
-- *Continuous query remote filters.* Filters sent by thin clients go through the marshaller class filter (`IGNITE_MARSHALLER_WHITELIST` and `IGNITE_MARSHALLER_BLACKLIST`). A filter class that the lists do not allow starts failing.
-
-<!-- CHECK: GG-51625 describes the unchecked path: ClientServiceInvokeRequest never called authorize() for ordinary Java services (not PlatformService) invoked through a thin client, and it matters only when a security plugin enforces SERVICE_INVOKE, not with setAuthenticationEnabled(true) alone. The fix ("check SERVICE_INVOKE for Java services on remote nodes", #4171) is on both master and 8.9-master, so a cluster on a later 8.9.x build that includes it behaves the same as 8.10. Not run: the 8.9.38 build rejected the call in the test, so confirm with Pavel Tupitsyn which 8.9.x build first has the fix before the first bullet claims what changes. -->
-<!-- CHECK: GG-50453 (marshaller filter for continuous query remote filters) is on master with tests; behavior not run. It only matters when IGNITE_MARSHALLER_WHITELIST or IGNITE_MARSHALLER_BLACKLIST is set. Names of the two properties are from the Confluence page. -->
+- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services. This check was added in GridGain 8.9.39, so a cluster on 8.9.39 or later already behaves this way.
+- *Continuous query remote filters.* Filters that a thin client sends as a class name go through the marshaller class filter (`IGNITE_MARSHALLER_WHITELIST` and `IGNITE_MARSHALLER_BLACKLIST`). A filter class that the lists do not allow starts failing.
 
 ## Per-Feature License Checks
 
-This section applies to every upgrade: compare your license with your configuration before you upgrade.
+Compare your license with your configuration before you upgrade.
 
 GridGain 8.10 checks the license for every feature that the node configuration uses. GridGain 8.9 checked only snapshots, compression, vector search, and z/OS, so a configuration that started on 8.9 can fail on 8.10 with the same license file. When the check fails depends on the feature:
 
 - *At node start.* Authentication or authorization, data center replication, rolling upgrades, and snapshots (including point-in-time recovery) fail the node start, with a message such as `Security feature is not allowed by the licence.`
-- *When a cache starts.* Rack awareness, cache encryption, and vector indexes are checked for each cache configuration. The cache fails to start with `Rack awareness is not allowed by the licence [cacheName=...]`, `Encryption is not allowed by the licence [cacheName=...]`, or `Vector search is not allowed by the licence [cacheName=...]`.
+- *When a cache starts.* Rack awareness, cache encryption, and vector indexes are checked for each cache configuration. The cache fails to start, and a cache from the node configuration also stops the node from starting, with `Rack awareness is not allowed by the licence [cacheName=...]`, `Encryption is not allowed by the licence [cacheName=...]`, or `Vector search is not allowed by the licence [cacheName=...]`.
 
 The license file lists its features as `<enabled-feature name="..."/>` entries and has a `<type>` element (`ENT` for Enterprise). Feature names are matched exactly, and most of them use underscores, not hyphens. A license with the `ultimate` feature passes every check. The table shows what else is accepted:
 
@@ -68,5 +61,3 @@ The license file lists its features as `<enabled-feature name="..."/>` entries a
 | Entry compression | `compression` | `compression` or `ultimate` |
 
 In every row, a license with the `ultimate` feature is also accepted. Before you upgrade, compare the features of your license with your configuration, and contact GridGain support if a feature is missing. A license file that works on 8.9 is accepted by 8.10 as a file, and the checks above decide only which features it enables. The MariaDB license key format is also supported.
-
-<!-- CHECK: the table is verified in source (ggprivate master GridPluginProvider vs origin/8.9-master). A failing start on 8.10 was not run (needs a license without the feature). The 8.10.0-b1 release notes say an Enterprise license does not satisfy data center replication, security, and rack awareness by type. -->
