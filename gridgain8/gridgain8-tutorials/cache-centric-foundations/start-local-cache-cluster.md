@@ -5,9 +5,9 @@ description: >-
 
 # Start a Local Cache Development Cluster
 
-<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
 
-<!-- TODO (release): the Docker Hub tags 8.10.0-b1 and 8.10.0-b2 are multi-architecture (amd64 and arm64), and 8.10.0-b2 ran natively on Apple Silicon without the `platform: linux/amd64` pin. This page keeps the amd64 wording and the pin as originally written. After the 8.10.0 release, check the architectures of the final tag and decide whether to drop the pin and the emulation notes here and in the other tutorials that use `platform: linux/amd64`. -->
+<!-- TODO (release): no official 8.10.0 image is published yet, so whether the `platform: linux/amd64` pin is still needed was not tested. This page keeps the amd64 wording and the pin as originally written. After the 8.10.0 release, check the architectures of the final tag and decide whether to drop the pin and the emulation notes here and in the other tutorials that use `platform: linux/amd64`. -->
 
 ## Introduction
 

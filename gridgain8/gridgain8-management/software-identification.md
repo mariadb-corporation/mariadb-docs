@@ -8,7 +8,7 @@ description: >-
 
 <!-- TODO (release): The field table still shows 8.9.33 as the example version; refresh it with an 8.10.0 SWID file after the release, then delete this comment. -->
 
-<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
 
 GridGain distributions include a Software Identification (SWID) tag — an ISO 19770-2 compliant XML artifact that uniquely identifies the product in software asset management (SAM) systems.
 
