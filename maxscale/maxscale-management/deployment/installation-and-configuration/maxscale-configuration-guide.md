@@ -1231,7 +1231,7 @@ This parameter is available from MaxScale 25.10.4. In MaxScale 26.10, its defaul
 
 The maximum number of aborted connection attempts that are tolerated before a host is temporarily blocked. A connection attempt counts as aborted when the handshake fails, or when the client disconnects before authentication completes without having failed authentication. Failed authentications are counted by `max_auth_errors_until_block` instead. The default value is 0, which disables this feature.
 
-This is similar to the [max\_connect\_errors]({server}/server-management/variables-and-modes/server-system-variables#max_connect_errors) system variable of MariaDB Server, with two differences:
+This is similar to the [max\_connect\_errors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connect_errors) system variable of MariaDB Server, with two differences:
 
 * MaxScale doesn't block the host until `FLUSH HOSTS` is run. It rejects connections from the host until no connection has been attempted from it for 60 seconds. Each attempt during the block restarts the 60 seconds.
 * The configured value is not a hard limit. The number of tolerated aborted attempts is between `max_connect_errors` and `threads * max_connect_errors`, where `threads` is the number of configured threads.
