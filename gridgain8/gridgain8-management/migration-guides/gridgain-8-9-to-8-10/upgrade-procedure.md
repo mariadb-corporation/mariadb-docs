@@ -49,7 +49,7 @@ None of the following requires downtime, except where noted.
 1. *Build the 8.10 `libs` folder.* Do not copy the `libs` folder of 8.9 into the 8.10 distribution.
    - If you run only the modules that ship in `libs` by default, use the 8.10 `libs` folder exactly as shipped.
    - Otherwise, compare your 8.9 `libs` and `libs/optional` folders with a fresh 8.9 distribution to list the modules you added or moved by hand. Copy only those that you use and that still exist in 8.10.
-   - A module that you enabled in 8.9 by moving it into `libs`, for example `control-center-agent` or `ignite-opencensus`, is not enabled in 8.10 until you do the same there.
+   - A module that you enabled in 8.9 by moving it into `libs`, for example `control-center-agent` or `ignite-opencensus`, is not enabled in 8.10 until you do the same there. The same applies to `control-center-agent` if you upgrade from 8.9.38 or earlier, where it was in `libs` by default.
 
    See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) and [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes).
 2. *Update applications and build files.* Apply the changes from your work list: Spring, Hibernate, removed modules, and client changes.
@@ -301,7 +301,7 @@ After `finish`, an 8.9 node cannot join the cluster any more. This section also 
 5. Restore the snapshot with the 8.9 `snapshot-utility.sh restore -id=<snapshot id>`. A successful restore prints `Restored: true`.
 6. Check the data: compare row counts with the values before the upgrade and run `control.sh --cache idle_verify`.
 
-Everything written after the snapshot is lost. Restore into a cluster with the same topology as the one that took the snapshot. A snapshot of 3 nodes restored into a cluster of 2 nodes is refused with `snapshot is broken ... Not enough partitions in current topology to complete restore operation` (error 5510), and nothing is restored.
+Everything written after the snapshot is lost. Restore into a cluster with the same topology as the one that took the snapshot, so that the data layout and the backups match the cluster that you validated before the upgrade.
 
 {% hint style="warning" %}
 Do not start 8.9 nodes on data that 8.10 nodes have written and treat it as a rollback. It is not a supported way back, and data written by 8.10 can use formats that 8.9 does not read.
