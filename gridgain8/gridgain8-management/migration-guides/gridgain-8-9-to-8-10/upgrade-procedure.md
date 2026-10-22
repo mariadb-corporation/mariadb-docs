@@ -9,7 +9,6 @@ This guide provides step-by-step instructions for upgrading a GridGain 8.9.x clu
 
 Before you start, read [What to Know Before Upgrading](before-you-upgrade.md). It helps you choose between a rolling and an offline upgrade and lists the changes that this guide refers to.
 
-<!-- TODO RE/SE: the procedure in "Upgrade With Rolling Upgrades" was run on a real 3-node persistent cluster twice (8.9.38 -> 8.10.127-SNAPSHOT master build): once on JDK 21, once with 8.9.38 on Java 11 and 8.10 on Java 17. Both worked. Prerequisite found by testing: the 8.9 cluster needs rollingUpdatesEnabled=true on ALL nodes, which needs one full cluster restart if it is not set. The official support statement for 8.9 -> 8.10 is not recorded. Confirm it before publishing. Also tested: Java 8 (with ignite-lucene-8) and Java 17 on 8.9.38, upgraded to 8.10 on Java 17; 1M and 2M rows with client load; revert before and after finish. Not tested: a multi-host cluster, other client types under load. -->
 <!-- TESTED: the upgrade was tested from Java 8, 11, 17, and 21 on 8.9 to Java 17 (and 21) on 8.10. Full-text queries on a Java 8 cluster with ignite-lucene-8 returned the same results before, during, and after the upgrade. Both the rolling path and the offline path were run; see the comments in the sections below. -->
 
 Work through the phases below in order:
