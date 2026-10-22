@@ -83,7 +83,7 @@ Replace the generated `pom.xml` with the following:
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-client</artifactId>
             <!-- Use the latest GridGain 9 version -->
-            <version>LATEST_GRIDGAIN_9_VERSION</version>
+            <version>9.1.28</version>
         </dependency>
     </dependencies>
 
@@ -1367,7 +1367,7 @@ public class NearCacheDemo {
             // cluster, subsequent gets serve from client JVM memory
             NearCacheOptions nearCache = NearCacheOptions.builder()
                 .maxEntries(500)
-                .expireAfterAccess(30_000)  // 30s TTL
+                .expireAfterAccess(30_000)  // evict 30s after the last access
                 .build();
             TableViewOptions options = TableViewOptions.builder()
                 .nearCacheOptions(nearCache)
@@ -1457,7 +1457,7 @@ Exception: Explicit transactions are not supported on views with Near Cache.
 Exact timing values vary by machine and network conditions. The pattern is what matters: standard KeyValueView shows consistent network latency on every call, while near-cached KeyValueView drops to 0-1ms after the first fetch.
 {% endhint %}
 
-The staleness result is the critical observation. The second `put` writes "Updated Artist" through the standard view, but the cached view still returns "Test Artist" from its local cache. The cache entry does not expire until the TTL fires (30 seconds in this configuration). Any other client that updates the same key is invisible to this view until the cache refreshes.
+The staleness result is the critical observation. The second `put` writes "Updated Artist" through the standard view, but the cached view still returns "Test Artist" from its local cache. The cache entry stays until one of the expiry settings fires: `expireAfterAccess` (30 seconds in this configuration) or `expireAfterUpdate` (5 seconds by default, because this example does not set it), whichever comes first. Any other client that updates the same key is invisible to this view until the cache refreshes.
 
 The transaction constraint is equally important. Passing a non-null `Transaction` to a near-cached view throws `UnsupportedOperationException`. If an operation needs transactional guarantees, it cannot use near-cache.
 

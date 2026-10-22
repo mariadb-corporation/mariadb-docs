@@ -137,7 +137,7 @@ mkdir java-client-demo && cd java-client-demo
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-client</artifactId>
             <!-- Use the latest GridGain 9 version -->
-            <version>LATEST_GRIDGAIN_9_VERSION</version>
+            <version>9.1.28</version>
         </dependency>
     </dependencies>
 
@@ -251,7 +251,7 @@ public class MusicStoreClient {
 Key details in this code:
 
 - **`try-with-resources`** creates the client and closes it when the block exits. The inner `try` around `execute()` closes the `ResultSet`, which releases server-side cursor resources.
-- **`IgniteClient.builder().addresses(...)`** accepts multiple node addresses. The client connects to the first available node, discovers the full topology, and opens direct connections to every node. This is **partition awareness**: each operation routes directly to the node that owns the data. If a node fails, the client reconnects to the remaining nodes.
+- **`IgniteClient.builder().addresses(...)`** accepts multiple node addresses. The client opens a connection to every address you configure (host names are re-resolved periodically), so list all node addresses. This is **partition awareness**: each operation routes directly to the node that owns the data, as long as that node is among the configured addresses. If a node fails, the client reconnects to the remaining nodes.
 - **`client.sql().execute((Transaction) null, ...)`** runs a SQL query. The explicit `(Transaction)` cast ensures the code compiles across all GridGain 9 versions. The `null` value means the query runs in its own implicit transaction. This is the same SQL API you used through the CLI in the previous tutorial.
 
 `System.exit(0)` after the try block forces the JVM to shut down immediately. Without it, the GridGain client's background timer thread keeps the process alive for 15 seconds after the connection closes.
@@ -389,7 +389,7 @@ public class MusicStoreClient {
 
 The `@Table` annotation transforms a Java class into a distributed table definition. Three annotations define the schema:
 
-- **`@Table("Favorite")`** names the table in the cluster catalog. Without a `@Zone` annotation, the table lands in the `Default` zone with a single replica. For development, this is fine. The Music Store tables you created in the first tutorial use an explicit `MusicStore` zone with 3 replicas, which is what you would use in production.
+- **`@Table("Favorite")`** names the table in the cluster catalog. Without a `@Zone` annotation, the table lands in the `Default` zone with a single replica. For development, this is fine. The Music Store tables you created in the first tutorial use an explicit `MusicStore` zone with 2 replicas, which is a reasonable starting point for production.
 - **`@Id`** marks the primary key. In a distributed system, the primary key determines **partition routing**: the cluster hashes this value to decide which node owns each row. When you look up favoriteId=2, the client routes directly to the node that owns that partition.
 - **`@Column`** maps a Java field to a table column. The SQL type is inferred from the Java type: `Integer` becomes `INT`, `String` becomes `VARCHAR`. The optional `length` parameter constrains the string size.
 

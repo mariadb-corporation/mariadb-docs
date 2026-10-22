@@ -7,7 +7,7 @@ description: >-
 
 ## Introduction
 
-In the previous tutorial, you designed the Music Store schema in SQL DDL. That is the universal path. Every GridGain user, regardless of programming language, can create schemas with SQL. This tutorial adds a second path for Java developers. You define the same Music Store entities as annotated Java classes, and the annotation processor generates the exact DDL you wrote by hand.
+In the previous tutorial, you designed the Music Store schema in SQL DDL. That is the universal path. Every GridGain user, regardless of programming language, can create schemas with SQL. This tutorial adds a second path for Java developers. You define the same Music Store entities as annotated Java classes, and the catalog API reads the annotations at runtime and generates the exact DDL you wrote by hand.
 
 Both paths produce identical schemas. The difference is where the design decisions live and what you get in return. DDL integrates with your operations workflow: migration tools, DBA-managed scripts, language-independent deployments. Annotations integrate with your Java development workflow: schema decisions visible in your IDE, type-safe data access through the same classes that defined the tables, and refactoring safety when column names change.
 
@@ -80,7 +80,7 @@ Re-run the check above to verify 3503 tracks are loaded.
 You define the full Music Store schema as annotated Java classes and create all tables from those annotations with a single API. Along the way you learn:
 
 - How six annotations (`@Table`, `@Zone`, `@Id`, `@Column`, `@ColumnRef`, `@Index`) express all distributed schema design decisions
-- How the annotation processor generates `CREATE ZONE`, `CREATE TABLE`, and `CREATE INDEX` DDL automatically
+- How the catalog API generates `CREATE ZONE`, `CREATE TABLE`, and `CREATE INDEX` DDL automatically
 - How annotations relate to the catalog: annotations create the schema, the catalog owns it at runtime
 - Which schema features annotations cannot express and how to supplement with SQL DDL
 
@@ -111,7 +111,7 @@ Create a new Maven project in your IDE named `music-store-schema`. Replace the g
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-client</artifactId>
             <!-- Use the latest GridGain 9 version -->
-            <version>LATEST_GRIDGAIN_9_VERSION</version>
+            <version>9.1.28</version>
         </dependency>
     </dependencies>
 
@@ -165,8 +165,8 @@ import org.apache.ignite.tx.Transaction;
 /**
  * Drops all Music Store tables and zones via SQL DDL.
  *
- * The catalog API has createTable() but no dropTable(). SQL DDL is the
- * standard mechanism for dropping tables and zones.
+ * The catalog API also has dropTable() and dropZone(). This class uses
+ * SQL DDL, which works the same way from the CLI.
  *
  * Tables are dropped in reverse dependency order (leaves first, roots last).
  * DROP TABLE cascades to indexes automatically, so no separate index drops
@@ -255,7 +255,7 @@ Tables are dropped in reverse dependency order: leaves before parents, children 
 <details>
 <summary>Prefer the CLI? Run these SQL statements instead.</summary>
 
-The same DDL operations work from the CLI. The catalog API has `createTable()` but no `dropTable()`, so SQL DDL is the standard mechanism for dropping tables and zones regardless of which tool you use.
+The same DDL operations work from the CLI. The catalog API also provides `dropTable()` and `dropZone()`. SQL DDL does the same and works regardless of which tool you use.
 
 ```bash
 docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
@@ -350,7 +350,7 @@ Four annotations define the entire table:
 | `@Id` | Marks ArtistId as the primary key | `PRIMARY KEY (ArtistId)` |
 | `@Column` | Maps each field to a column with type, nullability, and length constraints | `ArtistId INT NOT NULL`, `Name VARCHAR(120) NOT NULL` |
 
-The `@Zone` annotation on `@Table` does double duty. When the annotation processor runs, it generates a `CREATE ZONE IF NOT EXISTS` statement before the `CREATE TABLE`. Zone creation is automatic. You do not need to create zones separately the way you did with SQL DDL in the previous tutorial.
+The `@Zone` annotation on `@Table` does double duty. When `createTable()` runs, it generates a `CREATE ZONE IF NOT EXISTS` statement before the `CREATE TABLE`. Zone creation is automatic. You do not need to create zones separately the way you did with SQL DDL in the previous tutorial.
 
 {% hint style="warning" %}
 The `@Column` annotation defaults to `nullable = true`. Primary key columns cannot be nullable. Every field marked `@Id` that also has `@Column` must set `nullable = false` explicitly, or `createTable()` fails at runtime with: *Primary key cannot contain nullable column*.
@@ -379,7 +379,7 @@ import org.apache.ignite.catalog.annotations.Zone;
  * initiates the query.
  */
 // Different zone from Artist: MusicStoreReplicated with replicas = 3.
-// The annotation processor generates a separate CREATE ZONE for this zone.
+// createTable() generates a separate CREATE ZONE for this zone.
 @Table(
     zone = @Zone(value = "MusicStoreReplicated",
                  storageProfiles = "default",
@@ -412,7 +412,7 @@ public class Genre {
 ```
 {% endcode %}
 
-The only structural difference from Artist is the zone: `MusicStoreReplicated` with `replicas = 3`. The annotation processor generates a separate `CREATE ZONE IF NOT EXISTS MusicStoreReplicated` statement with its own configuration. Two Java classes, two zones, each with the replication strategy that matches its workload.
+The only structural difference from Artist is the zone: `MusicStoreReplicated` with `replicas = 3`. The catalog API generates a separate `CREATE ZONE IF NOT EXISTS MusicStoreReplicated` statement with its own configuration. Two Java classes, two zones, each with the replication strategy that matches its workload.
 
 Here is how each annotation maps to the DDL that `createTable()` generates and executes. The left column is what you wrote in the Java class; the right column is the equivalent SQL clause from the previous tutorial:
 
@@ -1211,13 +1211,9 @@ Not every SQL feature has an annotation equivalent. The gaps are in standard SQL
 | Colocation (`COLOCATE BY`) | Yes | Yes | - |
 | Distribution zones (full config) | Yes | Yes | - |
 | Secondary indexes | Yes | Yes | - |
-| Foreign keys | Yes | No | `ALTER TABLE ADD CONSTRAINT` after create |
-| CHECK constraints | Yes | No | `columnDefinition` escape hatch |
-| UNIQUE constraints | Yes | No | `columnDefinition` escape hatch |
 | Default values | Yes | No | `columnDefinition` escape hatch |
-| Generated columns | Yes | No | Supplement with `ALTER TABLE` |
 
-Annotations cover the distributed-specific decisions: zones, colocation, composite keys, indexes. For standard SQL constraints, supplement with DDL after creating the table from annotations.
+Annotations cover the distributed-specific decisions: zones, colocation, composite keys, indexes. GridGain 9.1 SQL has no foreign key, CHECK, or UNIQUE constraints and no generated columns, so there is nothing to supplement for those. Default values go through the `columnDefinition` escape hatch.
 
 `IgniteCatalog` also accepts `TableDefinition` builders for teams that prefer programmatic schema construction or need to generate schemas dynamically. Annotations and builders are two input paths into the same catalog system.
 
@@ -1697,7 +1693,7 @@ The annotations defined the schema, and the catalog now owns it. If a DBA alters
 
 Treat annotations as a deployment artifact and the catalog as the runtime source of truth. This is why the verification step matters: system views confirm what the catalog actually contains, regardless of how the tables were created.
 
-Note that `createTable()` does not use `IF NOT EXISTS` semantics. Running `CreateSchema` against a cluster that already has these tables produces an error. Run `DropSchema` first if you need to recreate the schema.
+Note that `createTable()` generates `CREATE TABLE IF NOT EXISTS`, so running `CreateSchema` against a cluster that already has these tables does nothing for them. It does not alter an existing table that differs from the annotations. Run `DropSchema` first if you need to recreate the schema.
 {% endhint %}
 
 {% hint style="success" %}
@@ -1774,7 +1770,7 @@ Six annotations express all distributed schema design decisions:
 - **`@ColumnRef`** references columns for colocation (`colocateBy`) and indexes
 - **`@Index`** declares secondary indexes for join and query support
 
-The annotation processor generates the same DDL you wrote by hand in the previous tutorial: CREATE ZONE, CREATE TABLE, CREATE INDEX. After creation, the catalog owns the schema. Features that annotations cannot express (foreign keys, CHECK constraints, default values) can be supplemented with SQL DDL after table creation.
+The catalog API generates the same DDL you wrote by hand in the previous tutorial: CREATE ZONE, CREATE TABLE, CREATE INDEX. After creation, the catalog owns the schema. Default values, which annotations cannot express directly, can be set with the `columnDefinition` escape hatch.
 
 Both paths produce identical schemas. The choice depends on your team's workflow. Annotations are the stronger choice when your team works in Java and uses `RecordView` or `KeyValueView` for data access, because the same class defines the schema and maps the data. DDL is the stronger choice for multi-language teams, DBA-managed schemas, or workflows that rely on migration tools like Flyway or Liquibase. Many teams use both: annotations for application-managed tables, DDL for shared infrastructure tables.
 

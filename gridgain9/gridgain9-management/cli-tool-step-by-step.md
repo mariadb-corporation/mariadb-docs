@@ -258,7 +258,7 @@ ID	NAME
 Query executed in 27ms (client-side).
 ```
 
-Both flags work in interactive and non-interactive modes. Combine them: `--plain --timed` gives you parseable output with timing.
+Both flags work in interactive and non-interactive modes. The line above is what a one-shot `sql` command prints. The interactive SQL shell prints its own timing line, for example `Query executed in 27 ms, 1 rows returned`. Combine them: `--plain --timed` gives you parseable output with timing.
 
 ## Configure CLI Profiles
 
@@ -283,7 +283,7 @@ Profiles store six categories of settings:
 - **JDBC URL** used for SQL execution.
 - **Authentication credentials** for clusters with security enabled.
 - **SSL configuration** for TLS-protected clusters.
-- **Output formatting preferences** such as `--plain` and `--timed` defaults.
+- **Output and display preferences** such as truncation, maximum column width, pager, color scheme, and syntax highlighting. The `--plain` and `--timed` flags apply to a single command and cannot be stored in a profile.
 - **SQL page size** controlling how many rows the CLI fetches per round trip.
 
 Run `cli config show` to see all settings in the active profile.

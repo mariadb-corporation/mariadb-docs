@@ -148,16 +148,18 @@ Wait until all expected nodes appear before proceeding. Node names are case-sens
 
 Cluster initialization is a one-time operation that creates the Cluster Management Group (CMG) and MetaStorage RAFT groups, assigns a cluster name, and opens the cluster for client connections. Send the request to any single node. It propagates to all discovered nodes.
 
-GridGain 9 requires a license in the initialization request. Pass the license file content using command substitution:
+GridGain 9 requires a license in the initialization request. The `license` field is a JSON string, so encode the license file with `jq -Rs`, which escapes the quotes and line breaks in the file. Pasting the raw file content into the request fails with `400 Invalid JSON`:
 
 ```bash
+LICENSE=$(jq -Rs . gridgain-license.json)
+
 curl -X POST http://localhost:10300/management/v1/cluster/init \
   -H "Content-Type: application/json" \
   -d '{
     "metaStorageNodes": ["node1", "node2", "node3"],
     "cmgNodes": ["node1", "node2", "node3"],
     "clusterName": "my-cluster",
-    "license": "'"$(cat gridgain-license.json)"'"
+    "license": '"$LICENSE"'
   }'
 ```
 
@@ -176,7 +178,7 @@ The request fields:
 If you omit both `metaStorageNodes` and `cmgNodes`, the cluster auto-selects nodes: all nodes for clusters of 1-3, three nodes for clusters of 4, and five nodes for clusters of 5 or more. Nodes are selected alphabetically by name.
 
 {% hint style="info" %}
-Initialization is idempotent. Calling the endpoint on an already-initialized cluster returns 200 OK. The CMG RAFT group applies only the first initialization; subsequent calls are safe no-ops.
+Initialization is idempotent for identical parameters. Calling the endpoint again on an already-initialized cluster with the same node lists and cluster name returns 200 OK, and the CMG RAFT group keeps the first initialization. A call with a different cluster name or different node lists is rejected (for example, `Init CMG request denied, reason: Cluster names do not match`).
 {% endhint %}
 
 {% hint style="success" %}
@@ -278,7 +280,7 @@ The REST server has not started yet. The HTTP server starts partway through the 
 <details>
 <summary>409 CONFLICT on cluster state or configuration endpoints</summary>
 
-The cluster has not been initialized. Before initialization, only a subset of endpoints are available (node state, node info, node version, physical topology, and cluster init). All other endpoints return `409 CONFLICT` with the message "Cluster is not initialized." Complete the initialization step first.
+The cluster has not been initialized. Before initialization, only a subset of endpoints are available (node state, node info, node version, physical topology, node configuration, cluster recovery, health probes, and cluster init). All other endpoints return `409 CONFLICT` with the message "Cluster is not initialized." Complete the initialization step first.
 
 </details>
 
@@ -313,7 +315,7 @@ The init endpoint blocks until the receiving node joins the cluster. If it hangs
 <details>
 <summary>GridGain 9: License error during initialization</summary>
 
-The `$(cat gridgain-license.json)` command substitution reads the file relative to your current working directory. Verify that `gridgain-license.json` exists in the directory where you are running curl (the same directory as `docker-compose.yml`). Check the file content with `cat gridgain-license.json` to confirm it contains valid JSON. Licenses expire; request a new one if yours has lapsed.
+The `jq -Rs . gridgain-license.json` command reads the file relative to your current working directory. Verify that `gridgain-license.json` exists in the directory where you are running curl (the same directory as `docker-compose.yml`). A `400 Invalid JSON` response means the license content was not encoded as a JSON string; encode it with `jq -Rs` as shown in the init step. Check the file content with `cat gridgain-license.json` to confirm it contains valid JSON. Licenses expire; request a new one if yours has lapsed.
 
 </details>
 

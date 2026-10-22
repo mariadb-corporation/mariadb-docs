@@ -371,10 +371,10 @@ The client creates loggers from fully qualified class names. Use these names in 
 | `org.apache.ignite.internal.client.ReliableChannel` | Failover decisions, retry attempts, channel selection |
 | `org.apache.ignite.internal.client.sql.ClientSql` | SQL query execution, partition awareness routing |
 | `org.apache.ignite.internal.client.table.ClientTable` | Table operations, schema version management |
-| `org.apache.ignite.internal.client.table.ClientDataStreamer` | Bulk data streaming, batch processing |
+| `org.apache.ignite.internal.streamer.StreamerSubscriber` | Bulk data streaming, batch processing (this category is outside the `org.apache.ignite.internal.client` parent) |
 | `org.apache.ignite.internal.client.ClientTimeoutWorker` | Operation timeout detection and handling |
 
-The parent category `org.apache.ignite.internal.client` controls all client logging with a single entry. Use the specific categories above to enable verbose logging for one component without increasing output from the others.
+The parent category `org.apache.ignite.internal.client` controls the client logging categories that start with that prefix with a single entry. Data streamer logging is configured separately, through the streamer category above. Use the specific categories above to enable verbose logging for one component without increasing output from the others.
 
 ## Production Recommendations
 

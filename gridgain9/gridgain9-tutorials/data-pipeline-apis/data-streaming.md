@@ -115,7 +115,7 @@ Create a new directory called `data-streaming-demo` alongside your earlier tutor
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-client</artifactId>
             <!-- Use the latest GridGain 9 version -->
-            <version>LATEST_GRIDGAIN_9_VERSION</version>
+            <version>9.1.28</version>
         </dependency>
     </dependencies>
 

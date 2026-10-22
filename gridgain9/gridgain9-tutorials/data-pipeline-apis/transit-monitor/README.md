@@ -7,7 +7,7 @@ description: >-
 # Build a Real-Time Transit Monitor
 
 {% hint style="info" %}
-This tutorial uses Apache Ignite 3. The same code and commands work identically with GridGain 9. Substitute the GridGain 9 Docker image and Maven coordinates from [How to Start a Cluster with Docker Compose](../../../gridgain9-management/installation/start-cluster-docker-compose.md) if you are using GridGain.
+This tutorial uses Apache Ignite 3. The Java code works unchanged with GridGain 9. The Docker image, the Maven coordinates, and the `cluster init` command differ: in GridGain 9, `cluster init` requires a license (`--license <file>`). Use the GridGain 9 Docker image and Maven coordinates from [How to Start a Cluster with Docker Compose](../../../gridgain9-management/installation/start-cluster-docker-compose.md) if you are using GridGain.
 {% endhint %}
 
 Transit data combines real-time streams, time-series storage, geospatial tracking, and complex queries, making it an ideal context for learning Ignite's distributed data capabilities. In this tutorial, you build a real-time transit monitoring system that exercises all of these patterns.

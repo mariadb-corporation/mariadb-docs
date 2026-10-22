@@ -56,7 +56,7 @@ This tutorial extends the Maven project from [Work with RecordView and KeyValueV
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-client</artifactId>
             <!-- Use the latest GridGain 9 version -->
-            <version>LATEST_GRIDGAIN_9_VERSION</version>
+            <version>9.1.28</version>
         </dependency>
     </dependencies>
 
@@ -395,9 +395,9 @@ public class CreateInvoice {
             }
 
             // Verify after commit using an implicit transaction (null). The explicit
-            // cast is required for cross-version compatibility: a future GridGain
-            // release adds a no-Transaction overload to IgniteSql, making bare
-            // null ambiguous between the Transaction and String parameters.
+            // cast is required: IgniteSql also has an execute(String, Object...)
+            // overload, which makes a bare null ambiguous between the
+            // Transaction and String parameters.
             System.out.println("--- Verifying after commit");
             try (ResultSet<SqlRow> rs = sql.execute((Transaction) null,
                     "SELECT i.InvoiceId, i.Total, COUNT(il.InvoiceLineId) AS LineCount " +
@@ -744,8 +744,8 @@ public class InvoiceWorkflow {
             System.out.printf("<<< Transaction committed. New invoice ID: %d%n", newInvoiceId);
 
             // Verify after commit using an implicit transaction (null). The explicit
-            // cast is required for cross-version compatibility: a future GridGain
-            // release adds a no-Transaction overload, making bare null ambiguous.
+            // cast is required because IgniteSql also has an execute(String, Object...)
+            // overload, which makes a bare null ambiguous.
             System.out.println("--- Verifying after commit");
             try (ResultSet<SqlRow> rs = sql.execute((Transaction) null,
                     "SELECT i.InvoiceId, i.Total, COUNT(il.InvoiceLineId) AS LineCount " +
@@ -911,7 +911,7 @@ public class AsyncInvoiceWorkflow {
                         System.out.printf("<<< Transaction committed. New invoice ID: %d%n", invoiceId);
 
                         System.out.println("--- Verifying after commit");
-                        // Explicit (Transaction) null cast for cross-version safety.
+                        // The explicit (Transaction) null cast is required (see above).
                         // See CreateInvoice for the full explanation.
                         try (ResultSet<SqlRow> rs = sql.execute((Transaction) null,
                                 "SELECT i.InvoiceId, i.Total, COUNT(il.InvoiceLineId) AS LineCount " +
