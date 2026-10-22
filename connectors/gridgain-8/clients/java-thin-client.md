@@ -178,6 +178,55 @@ for (int i = 0; i < 20; i++) {
 }
 ```
 
+## Client Atomic Long
+
+_Atomic long_ is a distributed counter. It supports atomic operations, such as increment-and-get and compare-and-set, on a value that the whole cluster sees. Use `IgniteClient.atomicLong()` to get an atomic long, or to create it if it does not exist:
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+ClientAtomicLong atomicLong = client.atomicLong(
+        "counterName", // Atomic long name.
+        0,             // Initial value. Ignored if the atomic long already exists.
+        true           // Create if it does not exist.
+);
+
+long value = atomicLong.incrementAndGet();
+```
+
+### Async Operations
+
+Starting with GridGain 8.10, every `ClientAtomicLong` operation has an async counterpart that returns an `IgniteClientFuture`. To get the atomic long itself asynchronously, use `IgniteClient.atomicLongAsync()`.
+
+| Synchronous method | Async method | Future result type |
+|---|---|---|
+| `get()` | `getAsync()` | `Long` |
+| `incrementAndGet()` | `incrementAndGetAsync()` | `Long` |
+| `getAndIncrement()` | `getAndIncrementAsync()` | `Long` |
+| `decrementAndGet()` | `decrementAndGetAsync()` | `Long` |
+| `getAndDecrement()` | `getAndDecrementAsync()` | `Long` |
+| `addAndGet(long)` | `addAndGetAsync(long)` | `Long` |
+| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long` |
+| `getAndSet(long)` | `getAndSetAsync(long)` | `Long` |
+| `compareAndSet(long, long)` | `compareAndSetAsync(long, long)` | `Boolean` |
+| `removed()` | `removedAsync()` | `Boolean` |
+| `close()` | `closeAsync()` | `Void` |
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+ClientAtomicLong atomicLong = client.atomicLongAsync("counterName", 0, true).get();
+
+IgniteClientFuture<Long> fut = atomicLong.incrementAndGetAsync();
+fut.thenAccept(val -> System.out.println("Incremented value: " + val)); // Non-blocking continuation.
+
+boolean removed = atomicLong.removedAsync().get(); // Blocking wait.
+```
+
+If the atomic long has been removed, synchronous operations throw a `ClientException`. Async operations complete exceptionally with the same `ClientException`, which `Future.get()` wraps in an `ExecutionException`.
+
+For general information about async methods, see [Async APIs](#async-apis).
+
 ## Partition Awareness
 
 {% include "../.gitbook/includes/gg8-partition-awareness.md" %}
