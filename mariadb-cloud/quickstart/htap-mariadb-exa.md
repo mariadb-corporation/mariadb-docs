@@ -9,7 +9,7 @@ MariaDB Exa adds **hybrid transactional/analytical processing (HTAP)** to MariaD
 {% hint style="warning" %}
 **Technical preview**
 
-HTAP using MariaDB Exa is not intended for production use. This feature is available on Power and PowerPlus tiers only.
+HTAP using MariaDB Exa is not intended for production use. This feature is available on Power and PowerPlus tiers only, and it is enabled per organization on request. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 {% endhint %}
 
 ## Architecture overview
@@ -109,28 +109,49 @@ Under heavy write load, the CDC pipeline can build a backlog. Lag is typically o
 
 The intelligent router is **not lag-aware** and does **not** guarantee read-your-own-writes between MariaDB and Exa. For immediate consistency on data you just wrote, use the **MariaDB transactional ports** (see [Connectivity and smart routing](htap-mariadb-exa.md#connectivity-and-smart-routing)).
 
+## Requesting access to MariaDB Exa
+
+MariaDB Exa is not self-service. It is enabled for your organization on request, and you can launch an Exa service only after the MariaDB Cloud team enables it.
+
+1. [Log in to the MariaDB Cloud portal](https://cloud.mariadb.com/).
+2. Click **Create New Service** and select **MariaDB Provisioned**.
+3. Under **Add-ons**, click the **Analytics (HTAP)** card. While Exa is not enabled for your organization, the card is labeled **On Request**.
+4. In the **Analytics (HTAP) Capability** dialog, click **Submit**. The portal confirms that your request was submitted and that the team will be in touch.
+
+Each user can submit one request. If you submit again, the portal shows *HTAP request already submitted for this organization*.
+
+On the Foundation tier, the **Analytics (HTAP)** card opens the tier upgrade dialog instead of the request dialog. Upgrade to Power or PowerPlus first.
+
 ## Launching a MariaDB Exa HTAP cluster
 
 ### Via MariaDB Cloud portal (UI)
 
+Exa must already be enabled for your organization. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
+
 1. [Log in to the MariaDB Cloud portal](https://cloud.mariadb.com/).
-2. Click **+ Launch New Service**.
-3. Ensure **Provisioned** (not Serverless) is selected.
-4. In the topology step, choose **MariaDB Server With Replicas**.
-5. Turn **on** **Launch Exa Analytics node (HTAP)**. The control is labeled **TECH PREVIEW** in the launch flow.
+2. Click **Create New Service** to open the **Provision Cloud Database** page.
+3. Select **MariaDB Provisioned**.
+4. Under **High Availability**, select **Semi-sync**. The **Analytics (HTAP)** add-on requires Semi-sync HA.
+5. Under **Add-ons**, select **Analytics (HTAP)**. The card is labeled **Tech Preview**.
 
-![MariaDB Cloud launch flow: Provisioned tab, MariaDB Server With Replicas selected, Launch Exa Analytics node (HTAP) toggle on](../.gitbook/assets/portal-launch-exa-htap-toggle.png)
+<figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache, both marked Tech Preview with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
 
-6. Under **Configuration**, select your cloud provider and region.
-7. Under **Sizing**, pick an instance size. **The cluster is homogeneous:** the OLTP **primary**, **replicas**, and the **Exa** node all use the **same** instance size you select. With Exa enabled, only **high-memory** instance types are shown—size RAM for both transactional load and your analytical working set.
-8. Review the **right-hand** cost summary: it reflects the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing.
-9. **Launch** and finish the wizard. Naming and remaining steps follow the standard flow. Provisioning usually takes about **5–10 minutes**.
+6. Select your cloud provider and region.
+7. Under **Instance Resources**, pick an instance size. The minimum size for the Exa node is **4 vCPU / 32 GB RAM**. **The cluster is homogeneous:** the OLTP **primary**, **replicas**, and the **Exa** node all use the **same** instance size you select. With Exa enabled, only **high-memory** instance types are shown—size RAM for both transactional load and your analytical working set.
+8. Review the cost estimate in the footer: it reflects the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing.
+9. Deploy the service. Naming and remaining steps follow the standard flow. Provisioning usually takes about **5–10 minutes**.
+
+For all options on this page, see [Launch Page](../cloud-usage/launch-page.md).
 
 ### Via MariaDB Cloud REST API
 
 For **API keys**, client IP **allow list**, checking service **`ready`** status, and fetching **credentials**, follow [Launch DB using the REST API](launch-db-using-the-rest-api.md). The [MariaDB Cloud REST API reference](../reference/rest-api-reference.md) and [API docs](https://apidocs.skysql.com/) cover the full request model.
 
-**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (same idea as **Launch Exa Analytics node (HTAP)** in the portal) on top of the replicated **es-replica** topology. The `architecture` field supports only `amd64` as value, any other input will result into your service failing to start. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing; use **high-memory** sizes when Exa is enabled, consistent with the portal.
+**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (the **Analytics (HTAP)** add-on in the portal) on top of the replicated **es-replica** topology. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing; use **high-memory** sizes when Exa is enabled, consistent with the portal.
+
+* **Access:** `"analytics": true` takes effect only when Exa is enabled for your organization. Otherwise the API ignores it and creates the service without the Exa node. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
+* **Architecture:** `architecture` must be `amd64`. The API rejects any other value with a validation error (HTTP 400).
+* **Tier:** the API rejects the request with a validation error (HTTP 400) for any tier other than `power` or `powerplus`.
 
 Example (adjust `tier`, `region`, `availability_zone`, `size`, `version` and add **`allow_list`** or other required keys per the launch guide):
 

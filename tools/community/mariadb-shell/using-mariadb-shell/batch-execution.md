@@ -7,6 +7,13 @@ description: >-
 
 # Batch Execution
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell runs scripts without a prompt as well as interactively. Use batch execution in cron jobs, deployment scripts, and CI pipelines, or anywhere you would otherwise run the `mariadb` client with a file.
 
 | Method | Example | Mode |
@@ -186,3 +193,5 @@ In interactive and `-i` sessions, the shell prints a welcome banner and connecti
 | --- | --- |
 | `--quiet-start` or `--quiet-start=1` | Omits the version and copyright banner, keeps the connection messages. |
 | `--quiet-start=2` | Omits everything except errors. |
+
+<sub>_This page is licensed: GPLv2_</sub>

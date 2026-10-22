@@ -8,7 +8,9 @@ hidden: true
 
 # GridGain 8 Clusters
 
-When Enterprise Manager is connected to GridGain Control Center, the **Databases** list shows every GridGain 8 cluster that Control Center monitors. GridGain 8 clusters are view-only in Enterprise Manager: you open them in Control Center to manage them. To set up the connection, see [Add a GridGain 8 Cluster](../administration/deployment/adding-databases/add-gridgain-8-cluster.md).
+When Enterprise Manager is connected to GridGain Control Center, the **Databases** list shows every GridGain 8 cluster that Control Center monitors. GridGain 8 clusters are view-only in Enterprise Manager: you open them in Control Center to manage them. To set up the connection, see [Add a GridGain 8 Cluster](../../administration/deployment/adding-databases/add-gridgain-8-cluster.md).
+
+For the columns and actions common to all databases, see [Database Fleet Overview](README.md).
 
 ## Control Center Indicator
 
@@ -57,12 +59,12 @@ A grey cluster with green nodes is deactivated. A grey cluster with red nodes is
 | Action                         | Where                                                   | What it does                                                                                                                                         |
 | ------------------------------ | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Manage GridGain**            | Cluster row menu (⋮)                                    | Opens the cluster's dashboard in Control Center. You are signed in with your Enterprise Manager account; no separate Control Center login is needed. |
-| **View monitoring dashboard**  | Cluster row menu (⋮), and the icon next to a node name  | Opens the [GridGain 8 dashboards](monitoring/dashboards/gridgain-8-cluster/) in Grafana for the cluster or the node. Appears once the cluster or node is reporting metrics. |
-| **Metrics configuration**      | Cluster row menu (⋮)                                    | Shows the values for configuring the cluster's metric exporter. Requires the `admin` role. See [Add a GridGain 8 Cluster](../administration/deployment/adding-databases/add-gridgain-8-cluster.md#send-cluster-metrics-to-enterprise-manager). |
+| **View monitoring dashboard**  | Cluster row menu (⋮), and the icon next to a node name  | Opens the [GridGain 8 dashboards](../monitoring/dashboards/gridgain-8-cluster/) in Grafana for the cluster or the node. Appears once the cluster or node is reporting metrics. |
+| **Metrics configuration**      | Cluster row menu (⋮)                                    | Shows the values for configuring the cluster's metric exporter. Requires the `admin` role. See [Add a GridGain 8 Cluster](../../administration/deployment/adding-databases/add-gridgain-8-cluster.md#send-cluster-metrics-to-enterprise-manager). |
 
 Node rows have no menu.
 
-GridGain 8 clusters don't appear in the connection list of the SQL [Workspace](workspace/), because they have no SQL endpoint that Enterprise Manager connects to.
+GridGain 8 clusters don't appear in the connection list of the SQL [Workspace](../workspace/), because they have no SQL endpoint that Enterprise Manager connects to.
 
 ## Control Center Access
 
@@ -74,6 +76,8 @@ Your access level in Control Center follows your Enterprise Manager role:
 | `viewer`, `basic`, `monitoring-admin`, and any other role | Regular user, without the **Administration** area     |
 
 Only the built-in `admin` role maps to Control Center administrator access. A custom role maps to regular access even when it has full permissions. A role change in Enterprise Manager takes effect the next time you sign in to Control Center.
+
+If Enterprise Manager and Control Center share an external identity provider and you sign in to Control Center directly rather than through **Manage GridGain**, Control Center takes your access level from the provider's `cc-role` claim instead. See [Use a Shared Identity Provider](../../administration/deployment/adding-databases/add-gridgain-8-cluster.md#use-a-shared-identity-provider).
 
 Your Control Center account is created the first time you select **Manage GridGain**.
 

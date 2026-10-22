@@ -216,6 +216,15 @@ Managing the row-level security setting and policies requires the `MANAGE_RLS` p
 described in [ALTER TABLE ... SET ROW LEVEL SECURITY](../reference/sql/ddl.md#alter-table-if-exists-table-set-row-level-security) (the per-table switch)
 and in the [policy commands](../reference/sql/access-control-functions.md#create-policy) (CREATE, ALTER, and DROP POLICY).
 
+GridGain resolves which table a policy command applies to:
+
+- `CREATE POLICY` names the table, and the privilege is checked against that table.
+- `ALTER POLICY` and `DROP POLICY` name only the policy. GridGain looks the policy up, finds the table it protects, and checks `MANAGE_RLS` on that table. If the policy does not exist, the check falls back to the schema.
+
+When `ALTER POLICY` or `DROP POLICY` is refused, the error names `MANAGE_RLS` on the schema rather than on the protected table. The message is broader than the privilege actually checked, on purpose: naming the table would tell a caller which table a policy protects, and whether that policy exists, without holding any privilege on it. The audit record keeps the real table.
+
+Granting `MANAGE_RLS` on the schema does clear the refusal, because a grant on a schema covers every table in it. Prefer granting `MANAGE_RLS` on the specific table, and use the [`SYSTEM.POLICIES` system view](../reference/monitoring/system-views.md#policies) to find which table a policy protects.
+
 ### Disabling Row-Level Security
 
 To turn row-level security off for a table:

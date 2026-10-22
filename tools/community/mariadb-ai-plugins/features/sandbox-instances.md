@@ -6,6 +6,13 @@ description: >-
 
 # Sandbox Instances
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MCP server can deploy MariaDB Server instances on your local machine for development and testing. These sandbox instances don't require Docker or another container runtime, and you don't need administrator rights to create them. A sandbox is useful when no database server is available, or when you want to test changes before you apply them to a production database.
 
 ## Deploy a Sandbox
@@ -65,3 +72,5 @@ A sandbox creates a `root@'%'` account and listens on all network interfaces. Us
 
 * A sandbox is deployed without TLS, so command-line clients may need `--skip-ssl`.
 * The connection that a sandbox registers is the only connection that the MCP server adds without your configuration. It points to the local sandbox instance only.
+
+<sub>_This page is licensed: GPLv2_</sub>

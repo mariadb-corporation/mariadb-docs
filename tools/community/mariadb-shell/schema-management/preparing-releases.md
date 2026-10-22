@@ -7,6 +7,13 @@ description: >-
 
 # Preparing Releases
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A release turns the current development script into a numbered version that you can deploy. It takes three steps, in this order:
 
 1. **Prepare the release** with `msm.prepare_release()`. MSM saves a snapshot of the development script under the version number and, from the second release on, creates an empty update script.
@@ -130,3 +137,5 @@ Released files are meant to stay unchanged once a release is deployed anywhere. 
 * To change the snapshot, correct the development script, set the development version back with `msm.set.development_version()`, and prepare the release again with `overwrite_existing`. Set `allow_to_stay_on_same_version` if `next_version` is the same as `version`.
 
 After a release is deployed, make corrections in a new release instead.
+
+<sub>_This page is licensed: GPLv2_</sub>

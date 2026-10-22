@@ -7,6 +7,13 @@ description: >-
 
 # Prompt
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MariaDB Shell prompt is built from a theme: a JSON file that arranges segments of text, such as the server vendor, the host and port, the default schema, and the current mode, each with its own colors. A typical prompt with the default theme looks like this:
 
 ```text
@@ -245,3 +252,5 @@ MARIADB_SHELL_PROMPT_THEME=./my-theme.json mariadb-shell root@localhost
 ```
 
 If the file isn't valid JSON, the shell prints `Error loading prompt theme` with the reason and uses its plain built-in prompt.
+
+<sub>_This page is licensed: GPLv2_</sub>

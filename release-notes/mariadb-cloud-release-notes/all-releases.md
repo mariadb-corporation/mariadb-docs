@@ -8,7 +8,7 @@ description: A list of all MariaDB Cloud releases, grouped by month
 
 | Version                                   | Release Date | Highlights                                     | Release Status |
 | ----------------------------------------- | ------------ | ---------------------------------------------- | -------------- |
-| [2026.10.12](mariadb-cloud-2026.10.12.md) | 2026-10-12   | BYOC self-service onboarding                   | Public Preview |
+| [2026.10.16](mariadb-cloud-2026.10.16.md) | 2026-10-16   | BYOC self-service onboarding                   | Stable (GA)    |
 | [2026.10.01](mariadb-cloud-2026.10.01.md) | 2026-10-01   | Query Result Cache                             | Tech Preview   |
 
 ## September 2026

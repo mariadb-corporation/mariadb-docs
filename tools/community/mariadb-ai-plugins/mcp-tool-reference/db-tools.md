@@ -5,6 +5,13 @@ description: >-
 
 # db Tools
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `db.*` tools open connections to configured MariaDB servers, describe their schemas, and run SQL.
 
 ## Overview
@@ -113,3 +120,5 @@ Closes a connection.
 | `connection_id` | A connection ID returned by `db.connect`. |
 
 Idle connections are closed automatically, but close a sandbox's connection before deleting the sandbox.
+
+<sub>_This page is licensed: GPLv2_</sub>

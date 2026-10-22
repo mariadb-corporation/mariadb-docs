@@ -6,6 +6,13 @@ description: >-
 
 # License
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell is free software, released under version 2 of the GNU General Public License (GPL-2.0). It is a fork of MySQL Shell and carries the copyrights of both projects:
 
 ```text
@@ -20,3 +27,5 @@ The license includes an additional permission to link MariaDB Shell with separat
 MariaDB Shell includes software developed by third parties, such as MariaDB Connector/C, the bundled Python runtime and Python packages, OpenSSL, libssh, libcurl, and compression libraries. These components keep their own licenses, which include the GNU LGPL, the MIT and BSD licenses, the Apache License 2.0, the Mozilla Public License 2.0, and the Python Software Foundation License.
 
 The full license text and all third-party notices are in the [`LICENSE`](https://github.com/mariadb-corporation/mariadb-shell/blob/main/LICENSE) file of the source repository.
+
+<sub>_This page is licensed: GPLv2_</sub>

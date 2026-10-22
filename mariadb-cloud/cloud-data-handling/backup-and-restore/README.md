@@ -88,10 +88,65 @@ BinaryLog Backup Examples
 
 
 * Automatic Nightly Backups: Automated nightly backups include a full backup of every database in the service to ensure that your MariaDB Cloud Database service is backed up regularly. Nightly backups are running for every MariaDB Cloud database by default.
-* Bring Your Own Bucket (BYOB): You can back up or restore data to/from your own bucket in either GCP or AWS. Sample GCP and AWS scripts can be found [here](restore-examples/restore-from-your-own-bucket.md).
+* Bring Your Own Bucket (BYOB): You can back up or restore data to/from your own bucket in either GCP or AWS. For the AWS permissions that your bucket requires, see [External S3 Buckets](./#external-s3-buckets). Sample GCP and AWS scripts can be found [here](restore-examples/restore-from-your-own-bucket.md).
 * Point-in-time Recovery: You can restore from a full or a logical backup and then use a binlog backup to restore to a point-in-time.
 * Secure Backup/Restores: Control backup/restore privileges by granting roles to users in MariaDB Cloud.
 * Other Backup API Examples: Various API scripts providing examples of listing backups, checking backup statuses, and working with backup schedules can be found [here](backup-examples/other-backup-api-examples.md).
+
+## External S3 Buckets
+
+Back up to your own Amazon S3 bucket (BYOB) with access keys that you supply when you create the backup schedule. The backup job uses these keys for every upload, inventory update, and restore.
+
+### Required AWS permissions
+
+Grant the IAM user that owns the access keys the following permissions:
+
+| Permission | Resource | Used for |
+| --- | --- | --- |
+| `s3:ListBucket` | The bucket | Checking the bucket before each backup, finding the backup inventory, and listing backups for restore. |
+| `s3:PutObject` | Objects in the bucket | Writing backup files, the backup inventory, and a small `.backup_manager` test object at the bucket path. |
+| `s3:GetObject` | Objects in the bucket | Reading the backup inventory and backup files for the backup list and for restores. |
+| `s3:AbortMultipartUpload` | Objects in the bucket | Cleaning up the incomplete parts of an upload that fails. Backup files are uploaded in multiple parts. |
+
+The following IAM policy grants these permissions. Replace `YOUR_BUCKET_NAME` with the name of your bucket:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListBackupBucket",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME"
+    },
+    {
+      "Sid": "ReadWriteBackupObjects",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject", "s3:AbortMultipartUpload"],
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+    }
+  ]
+}
+```
+
+{% hint style="warning" %}
+Removing any of these permissions, or adding a bucket policy that denies them, can cause scheduled external backups to fail or stop appearing in the backup list. Without `s3:GetObject`, MariaDB Cloud cannot read the backup inventory, so existing backups might not appear in the backup list even though the files are still in your bucket.
+{% endhint %}
+
+{% hint style="info" %}
+If you enter a path in the bucket URL, for example `s3://YOUR_BUCKET_NAME/backups`, MariaDB Cloud writes and reads only under that path. The `.backup_manager` test object, the `backup_manager/` inventory folder, and the backup folders all sit below it. You can limit the object permissions to that path.
+{% endhint %}
+
+{% hint style="info" %}
+MariaDB Cloud doesn't delete or expire backup files in your bucket. Configure an S3 lifecycle rule to manage storage in your bucket, including a rule that aborts incomplete multipart uploads.
+{% endhint %}
+
+### Limitations
+
+* **Server-side encryption headers:** MariaDB Cloud doesn't send the `x-amz-server-side-encryption` header when it uploads to your bucket. A bucket policy that denies `s3:PutObject` unless this header is present, for example one that requires `AES256`, causes backup uploads to fail. S3 already encrypts all new objects with SSE-S3 by default, with no request header required, so you don't need a policy that enforces the header.
+* **AWS KMS encryption:** If your bucket's default encryption uses an AWS KMS key (SSE-KMS), the IAM user also needs the `kms:GenerateDataKey` and `kms:Decrypt` permissions on that key. Without them, uploads and restores fail even when the S3 permissions are correct.
+* **IAM roles:** External S3 backups use IAM user access keys. Role-based access, such as cross-account role assumption, isn't supported.
 
 ## Restores
 

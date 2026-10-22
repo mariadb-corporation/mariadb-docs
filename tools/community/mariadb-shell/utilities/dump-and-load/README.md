@@ -7,6 +7,13 @@ icon: database
 
 # Dump and Load
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The dump and load utilities of MariaDB Shell take logical backups of a running MariaDB server, restore them, and copy databases from one server to another. A dump is a consistent snapshot of the whole server, of selected schemas, or of selected tables, written as compressed chunks in parallel to local disk or to cloud object storage. A load restores such a dump in parallel, completely or selectively, and resumes where it stopped if it is interrupted.
 
 The utilities are functions of the `util` global object. In Python mode you call them in snake case, such as `util.dump_instance()`, and pass options as a dictionary with camelCase keys, such as `{"threads": 8}`. You can also call them from the operating system shell through [command line integration](../../using-mariadb-shell/command-line-integration.md).
@@ -162,3 +169,5 @@ Writing dumps to and loading them from Amazon S3, S3-compatible storage, OCI Obj
 What the utilities do not do on MariaDB, how to prepare a target server, and known issues.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: GPLv2_</sub>

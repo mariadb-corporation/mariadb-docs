@@ -7,6 +7,13 @@ description: >-
 
 # OAuth Authentication
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A [multi-tenant](multi-tenant-mode.md) MCP server authenticates every request. Besides API keys, it can accept OAuth2 access tokens, so that users sign in through their browser instead of handling a key, and so that their access ends when their sign-in ends. The server supports two OAuth2 modes:
 
 | Mode | Who signs users in | Who the database session runs as |
@@ -119,6 +126,42 @@ The setup reads the realm's OpenID configuration to check the issuer. To save an
 
 The audience is a name, not an address that Keycloak contacts. A public URL on the loopback address, such as `http://127.0.0.1:8080/mcp` for a test server on your own machine, works with a remote Keycloak server.
 
+### Use the MariaDB Login Theme
+
+Keycloak shows its own sign-in pages. To give them the look of the MCP server's sign-in page, with the MariaDB logo, the joined user name and password fields, and light and dark color schemes, use the Keycloak login theme `mariadb-mcp`. It changes only how the pages look, and works with identity providers such as Google or Facebook, which appear as buttons below the fields.
+
+The theme ships with MariaDB Shell, in `lib/mariadb-shell/plugins/mcp_plugin/keycloak-theme/mariadb-mcp` below the installation directory. The folder `keycloak-theme` also has a `README.md` with notes on customizing the theme.
+
+1.  Install the theme on the Keycloak server. Keycloak loads themes from its `themes` directory at startup, so copy the `mariadb-mcp` folder there, or mount it into the Keycloak container:
+
+    ```yaml
+    services:
+      keycloak:
+        image: quay.io/keycloak/keycloak:26.8.0
+        volumes:
+          - ./keycloak-theme/mariadb-mcp:/opt/keycloak/themes/mariadb-mcp:ro
+    ```
+
+    Then restart Keycloak.
+2.  Select the theme for the realm with `--loginTheme`:
+
+    ```bash
+    mariadb-shell -- mcp setup-keycloak-realm --server=https://kc.example.com --realm=mariadb \
+      --adminUser=admin --loginTheme=mariadb-mcp
+    ```
+
+    ```text
+    Login theme of realm 'mariadb': mariadb-mcp.
+    ```
+
+    The command checks that Keycloak has the theme before it changes anything in the realm. Keycloak has no API to install a theme, so the command can't install it for you. Alternatively, select the theme in the admin console: **Realm settings** → **Themes** → **Login theme**.
+
+To see the result, open `https://kc.example.com/realms/mariadb/account/` in a private browser window. A browser that is still signed in to the realm skips the sign-in page.
+
+{% hint style="info" %}
+Keycloak keeps a compressed copy of each stylesheet of a theme in `data/tmp/kc-gzip-cache`, and a restart doesn't remove it. If you change a file under the theme's `resources` folder, delete the theme's copies with `rm -rf <keycloak>/data/tmp/kc-gzip-cache/*/login/mariadb-mcp`, or browsers keep receiving the previous version.
+{% endhint %}
+
 ### How the Server Checks a Keycloak Token
 
 For every request, the server:
@@ -188,7 +231,7 @@ When the user signs in:
 
 Every failed sign-in shows the same message, whatever the reason. After 5 failures for one account, or 30 from one address, within 15 minutes, the page refuses further attempts until that time has passed.
 
-Starting a sign-in is limited to 30 per address per minute. Further requests are answered with status `429 Too Many Requests` and a `Retry-After` header. Behind a reverse proxy, every browser shares the proxy's address, so many people signing in within the same minute can reach that limit; they retry after a minute.
+Starting a sign-in is limited to 30 per address per minute. Further requests are answered with status `429 Too Many Requests` and a `Retry-After` header. Behind a reverse proxy, every browser shares the proxy's address, so many people signing in within the same minute can reach that limit. Start the server with [`--trustedProxies`](security-and-session-handling.md#client-addresses-behind-a-reverse-proxy) to give each browser its own address again.
 
 ### Grants
 
@@ -268,7 +311,7 @@ To accept requests to the MCP endpoint and to the token, registration, and revoc
 mariadb-shell -- mcp setup-oauth --allowedClientNetworks=203.0.113.0/24,198.51.100.0/24
 ```
 
-The sign-in page isn't restricted, because users' browsers can be anywhere. The server compares the network address of the connection. Behind a reverse proxy, that is the proxy's address, so the list must contain the proxy.
+The sign-in page isn't restricted, because users' browsers can be anywhere. The server compares the network address of the connection. Behind a reverse proxy, that is the proxy's address, so the list must contain the proxy, unless the server is started with [`--trustedProxies`](security-and-session-handling.md#client-addresses-behind-a-reverse-proxy). Then the server compares the clients' own addresses, and the list names the clients' networks.
 
 ### The Signing Key
 
@@ -335,6 +378,12 @@ In Claude Code, register the server, then run `/mcp`, select the server, and cho
 
 ```bash
 claude mcp add --scope user --transport http mariadb https://mcp.example.com/mcp
+```
+
+Without a client ID, the client registers itself with the authorization server. The built-in authorization server accepts that. Keycloak refuses it by default, with its **Trusted Hosts** policy, so with Keycloak, give the client the ID of the client that [`mcp setup-keycloak-realm`](#prepare-the-realm) created:
+
+```bash
+claude mcp add --scope user --transport http --client-id mariadb-mcp mariadb https://mcp.example.com/mcp
 ```
 
 ## Revoking Access
@@ -408,6 +457,7 @@ Clients are named by their client ID or by their name.
 | `--directGrant` | Also allows the password grant on that client. For testing only. |
 | `--grantRealmRoleTo=<list>` | User names or email addresses to give the realm role `mcp-user`. |
 | `--configureServer=<bool>` | Also configures the MCP server for the realm. Default: on. |
+| `--loginTheme=<name>` | A login theme to select for the realm, such as `mariadb-mcp`. It must be installed on the Keycloak server. See [Use the MariaDB Login Theme](#use-the-mariadb-login-theme). |
 | `--nonInteractive` | Never prompts. A value that isn't given is an error. |
 
 ## Troubleshooting
@@ -422,6 +472,9 @@ Clients are named by their client ID or by their name.
 | The client receives `403 Forbidden` with `insufficient_scope`. | The token doesn't grant `mcp:db`. | Let the client request the scope. In Keycloak, add it as an optional client scope of the client. |
 | The sign-in page shows *Your account is not allowed to use this server.* | The account doesn't hold the required role, or new users aren't created automatically. | Grant the role, or add the account to a user with `mcp setup --addIdentity`. |
 | The sign-in page shows *Too many failed attempts. Try again later.* | Too many failed sign-ins for the account or from the address. | Wait 15 minutes. |
-| The browser receives `429 Too Many Requests` instead of the sign-in page. | More than 30 sign-ins were started from the address within a minute, for example behind a reverse proxy. | Retry after a minute. |
+| The browser receives `429 Too Many Requests` instead of the sign-in page. | More than 30 sign-ins were started from the address within a minute, for example behind a reverse proxy. | Retry after a minute. Behind a reverse proxy, start the server with [`--trustedProxies`](security-and-session-handling.md#client-addresses-behind-a-reverse-proxy). |
 | Keycloak refuses the client's registration with *Policy 'Trusted Hosts' rejected request*. | The realm doesn't allow anonymous dynamic registration from the client's host. | Trust the host in the realm's client registration policies, or configure the client with the `mariadb-mcp` client. |
+| *Keycloak has no login theme '…'* | `--loginTheme` names a theme that isn't installed on the Keycloak server, or Keycloak wasn't restarted after the installation. | Install the theme, restart Keycloak, and run the command again. The message lists the installed login themes. |
 | *Keycloak refused the administrator sign-in* | The administrator credentials or the administrator realm are wrong. | Check `--adminUser` and `--adminRealm`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

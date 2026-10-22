@@ -86,6 +86,10 @@ CREATE TABLE stock (
 
 The engine uses `MATCH SIMPLE` semantics. If any column of a composite referencing key is NULL, the row is accepted without a parent lookup, the same rule InnoDB applies. A single nullable referencing column that is NULL therefore never fails the check.
 
+## Concurrent Writers
+
+A child row and its parent row are different rows, so under snapshot isolation a transaction deleting a parent and one inserting a child of it write no common key, and each one's check reads a snapshot that cannot see the other's uncommitted write. InnoDB closes this with a shared lock the child check takes on the parent row. The engine is lock-free, so it records the same relationship in memory. A child write holds the referenced parent value shared, and a parent delete, or a change to a referenced key, holds it exclusive. Two child writes of the same parent coexist, and of any other pair the second is refused with a deadlock (ERROR 1213) for the application to retry. A parent removed, or a child added, after the transaction's snapshot is refused the same way, and the retry with a fresh snapshot then sees it and gets the ordinary foreign key error. A hold lasts until its transaction ends, and a rollback to a savepoint releases the holds taken after it. Under Galera a child write also certifies a reference to its parent row, so the same race between nodes is caught in certification, as described in [TideSQL Replication and High Availability](tidesql-replication-and-ha.md).
+
 ## Restrictions
 
 These constraint shapes are rejected at `CREATE TABLE` and `ALTER TABLE`:

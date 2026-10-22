@@ -5,6 +5,13 @@ description: >-
 
 # sandbox Tools
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `sandbox.*` tools deploy and manage local MariaDB Server instances for development and testing. For an introduction, see [Sandbox Instances](../features/sandbox-instances.md).
 
 ## Overview
@@ -19,8 +26,6 @@ The `sandbox.*` tools deploy and manage local MariaDB Server instances for devel
 | `sandbox.delete` | Removes an instance. |
 | `sandbox.vendor` | Returns the instance's vendor, `MariaDB` or `MySQL`. |
 | `sandbox.version` | Returns the instance's server version. |
-
-In MariaDB Shell releases later than 26.10.1, an instance can have a MariaDB REST Daemon, set up with `rest.configure_restd`. The daemon's deployment is in the instance's folder, and the daemon follows the instance: `sandbox.start` starts it, and `sandbox.stop`, `sandbox.kill`, and `sandbox.delete` stop it. See rest Tools.
 
 ## sandbox.list_available_versions
 
@@ -63,8 +68,6 @@ Restarts an existing instance with its data intact.
 | `mariadbd_path` | The `mariadbd` binary, or its installation directory. Required for a downloaded server. |
 | `timeout` | Seconds to wait for the instance to start. Default: `60`. |
 
-If the instance has a REST Daemon, it's started after the server. A daemon that doesn't start doesn't fail the call. The message says why, and `rest.start_restd` can try again.
-
 ## sandbox.stop
 
 Shuts an instance down gracefully.
@@ -75,8 +78,6 @@ Shuts an instance down gracefully.
 | `sandbox_dir` | The sandbox directory. Must be in an allowed path. Leave empty for the default sandbox location. |
 | `password` | The `root` password. Used on Windows to request the shutdown. |
 | `timeout` | Seconds to wait for the instance to stop. Default: `60`. |
-
-If the instance has a REST Daemon, it's stopped before the server.
 
 Can't stop an instance of a downloaded server, because it can't find the binary; use `sandbox.kill` for those.
 
@@ -89,7 +90,7 @@ Stops an instance forcefully.
 | `port` | The instance's port. |
 | `sandbox_dir` | The sandbox directory. Must be in an allowed path. Leave empty for the default sandbox location. |
 
-The fallback when `sandbox.stop` doesn't work. If the instance has a REST Daemon, it's stopped before the server.
+The fallback when `sandbox.stop` doesn't work.
 
 ## sandbox.delete
 
@@ -100,7 +101,7 @@ Removes an instance.
 | `port` | The instance's port. |
 | `sandbox_dir` | The sandbox directory. Must be in an allowed path. Leave empty for the default sandbox location. |
 
-Refuses a running instance. Stop or kill it first. If the instance has a REST Daemon, it's stopped, and its deployment is deleted with the instance's folder.
+Refuses a running instance. Stop or kill it first.
 
 ## sandbox.vendor
 
@@ -129,3 +130,5 @@ Returns the instance's server version.
 | `sandbox.deploy` doesn't return. | The sandbox directory isn't on the allowed-paths list. |
 | The deploy succeeds, but the connection is refused. | The password was blank. |
 | The deploy fails on TLS. | `ssl` is `True` and `openssl` isn't installed. |
+
+<sub>_This page is licensed: GPLv2_</sub>

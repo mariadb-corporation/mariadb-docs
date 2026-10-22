@@ -42,6 +42,7 @@ The tee filter requires a mandatory parameter to define the service to replicate
 * Mandatory: No
 * Dynamic: Yes
 * Default: none
+* Description: Specifies the branch target, which is the service or server where queries will be replicated.
 
 The target where the filter will duplicate all queries. The target can be either a service or a server. The duplicate connection that is created to this target will be referred to as the "branch target" in this document.
 
@@ -51,6 +52,7 @@ The target where the filter will duplicate all queries. The target can be either
 * Mandatory: No
 * Dynamic: Yes
 * Default: none
+* Description: Specifies the service for which queries are replicated; deprecated in favor of the target parameter.
 
 The service where the filter will duplicate all queries. This parameter is deprecated in favor of the `target` parameter and will be removed in a future release. Both `target` and `service` cannot be defined.
 
@@ -60,6 +62,7 @@ The service where the filter will duplicate all queries. This parameter is depre
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern to include only queries that match it for processing or filtering.
 
 What queries should be included.
 
@@ -73,6 +76,7 @@ match=/insert.*into.*order*/
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern to exclude queries from processing or matching.
 
 What queries should be excluded.
 
@@ -87,6 +91,7 @@ exclude=/select.*from.*t1/
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
+* Description: Determines how regular expressions are parsed, including case sensitivity and extended syntax.
 
 How regular expressions should be interpreted.
 
@@ -100,6 +105,7 @@ options=case,extended
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits query replication to sessions that start from a specific client IP address.
 
 The optional source parameter defines an address that is used to match against the address from which the client connection to MariaDB MaxScale originates. Only sessions that originate from this address will be replicated.
 
@@ -113,6 +119,7 @@ source=127.0.0.1
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Restricts query replication to sessions initiated by a specific username.
 
 The optional user parameter defines a user name that is used to match against the user from which the client connection to MariaDB MaxScale originates. Only sessions that are connected using this username are replicated.
 
@@ -126,6 +133,7 @@ user=john
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Allows synchronous routing, ensuring queries are executed on both the main and branch targets before continuing; branch failures close the client connection.
 
 Enable synchronous routing mode. When configured with `sync=true`, the filter will queue new queries until the response from both the main and the branch target has been received. This means that for `n` executed queries, `n - 1` queries are guaranteed to be synchronized. Adding one extra statement (e.g. `SELECT 1`) to a batch of statements guarantees that all previous SQL statements have been successfully executed on both targets.
 

@@ -184,7 +184,6 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
-| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |

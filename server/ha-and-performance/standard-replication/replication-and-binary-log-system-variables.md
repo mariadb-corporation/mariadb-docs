@@ -323,8 +323,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Command line: `--binlog-storage-engine=name`
 * Scope: Global
 * Dynamic: No (requires server restart)
-* Data type: `enum`
-* Default Value: None
+* Data type: `string`
+* Default Value: `''` (empty)
 
 #### `create_tmp_table_binlog_formats`
 
@@ -397,12 +397,13 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `innodb_binlog_state_interval`
 
-* Description: The interval (in bytes) between writing GTID state records into the binary log.
+* Description: The interval (in bytes) between writing GTID state records into the binary log. The value must be a power-of-two multiple of the binary log page size (16 KiB).
 * Command line: `--innodb-binlog-state-interval=#`
 * Scope: Global
-* Dynamic: Yes
+* Dynamic: No (requires server restart)
 * Data Type: `numeric`
 * Default Value: 2097152 (2MB)
+* Minimum Value: `32768`
 
 #### `log_bin`
 

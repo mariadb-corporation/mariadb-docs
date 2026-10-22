@@ -17,7 +17,6 @@ MariaDB Enterprise Server 10.6.21-17 was released on 19 Mar 2025.
 * ([MDEV-35478](https://jira.mariadb.org/browse/MDEV-35478)) Correction for table->space\_id in dict\_load\_tablespace() was mistakenly applied on an earlier branch
 * ([MDEV-35430](https://jira.mariadb.org/browse/MDEV-35430)) my\_snprintf fixes for 10.6+
 * ([MDEV-28526](https://jira.mariadb.org/browse/MDEV-28526)) Spider: remove conn\_kind member variables
-* (MENT-2145) Backport [MDEV-23729](https://jira.mariadb.org/browse/MDEV-23729) - INFORMATION\_SCHEMA Table info. about user locked due to max\_password\_errors
 * (MENT-2234) Starting with this release we generate a Software Builds of Materials(SBOM) JSON file provided in the downloads archive, which can be reached from the "All Files" link on the MariaDB Enterprise Server downloads page
 * ([MDEV-32576](https://jira.mariadb.org/browse/MDEV-32576)) InnoDB deadlock output query length increased to improve visibility of deadlocked statements.
 * (MENT-2200) Starting with this release we generate a Software Builds of Materials(SBOM) JSON file provided in the downloads archive, which can be reached from the "All Files" link on the MariaDB Enterprise Server downloads page

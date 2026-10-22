@@ -5,6 +5,13 @@ description: >-
 
 # Skills Reference
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A skill is a Markdown document with MariaDB-specific information that the agent reads when it's relevant to a request. Skills don't require a database connection or any configuration.
 
 ## How the Agent Uses Skills
@@ -28,3 +35,5 @@ The skills are verified against MariaDB 11.8 LTS.
 ## Skill Versions
 
 The skills are copied into each plugin when a release is built, so their content doesn't change between releases. Each plugin records the source repository, commit, and synchronization date of its skills in `skills/skills-source.json`.
+
+<sub>_This page is licensed: GPLv2_</sub>

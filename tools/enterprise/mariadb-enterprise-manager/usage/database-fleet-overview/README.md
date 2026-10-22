@@ -1,17 +1,17 @@
 ---
 description: >-
-  High-level dashboard providing an aggregated view of the entire database
-  fleet, highlighting overall health, critical alerts, and resource consumption
-  across multiple topologies.
+  The Databases list in Enterprise Manager: an aggregated view of all monitored
+  topologies with their health, type, metric age, and the actions available on
+  each database and node.
 ---
 
 # Database Fleet Overview
 
-The "fleet" dashboard is the central inventory for all your monitored database topologies. It provides a hierarchical, at-a-glance overview of the health, status, and configuration of your entire database environment.
+The **Databases** list is the central inventory for all your monitored database topologies. It provides a hierarchical, at-a-glance overview of the health, status, and configuration of your entire database environment.
 
-<figure><img src="../../../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
-## Understanding the Dashboard Columns
+## Understanding the Columns
 
 ### **NAME Column**
 
@@ -28,7 +28,7 @@ This column displays the logical names of your databases and the individual serv
 {% hint style="info" %}
 **Quick-Access Icons**
 
-This icon (<img src="../../../../../.gitbook/assets/image (55).png" alt="" data-size="line">) is a shortcut that takes you directly to the detailed Grafana monitoring dashboard for that specific node or topology.
+This icon (<img src="../../../../.gitbook/assets/image (55).png" alt="" data-size="line">) is a shortcut that takes you directly to the detailed Grafana monitoring dashboard for that specific node or topology.
 {% endhint %}
 
 ### **TYPE Column**
@@ -51,7 +51,7 @@ If the age is 5 minutes or greater, it indicates a problem. Verify that the `mem
 
 You can perform actions on your databases and nodes using the three-dot menu (⋮) on the far right of each row.
 
-<figure><img src="../../../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}

@@ -14,11 +14,11 @@ GridGain 8 clusters are view-only in Enterprise Manager. To manage a cluster, op
 
 ## Requirements
 
-<!-- DOCS-6280 TODO: link the Control Center installation and OpenID Connect pages once the Control Center docs are published in this space. -->
+<!-- DOCS-6280 TODO: link the Control Center installation page once the Control Center docs are published in this space. -->
 
 * Enterprise Manager 26.10 or later.
 * GridGain Control Center 2026.2 or later, installed on its own host, with your GridGain 8 clusters attached to it. For installation steps, see the GridGain Control Center installation documentation.
-* Control Center configured to use Enterprise Manager as its OpenID Connect provider, with the client secret you enter as the **SSO client secret** below.
+* Control Center configured to use Enterprise Manager as its OpenID Connect provider, with the client secret you enter as the **SSO client secret** below. For the Control Center settings, see [Enterprise Manager Integration](../../../../control-center/admin-guide/enterprise-manager-integration.md).
 
 ## Connect Enterprise Manager to Control Center
 
@@ -68,6 +68,16 @@ When the connection works, the **Databases** list shows a **Control Center** ind
 In the **Databases** list, click the three-dot menu (⋮) next to a GridGain 8 cluster and select **Manage GridGain**. Control Center opens the cluster's dashboard, and you are signed in with your Enterprise Manager account. You don't need a separate Control Center login.
 
 Your Control Center access level follows your Enterprise Manager role. Only the built-in `admin` role gets Control Center administrator access. Every other role, including a custom role with full permissions, gets regular access.
+
+## Use a Shared Identity Provider
+
+Enterprise Manager and Control Center can both sign users in through the same external OpenID Connect identity provider, so users sign in with their corporate identities. **Manage GridGain** single sign-on still works in this setup:
+
+1. Configure Enterprise Manager to use the identity provider. See [Configure OpenID Connect Identity Provider](../../user-management/configure-openid-connect-identity-provider.md). Enterprise Manager uses the provider's `email` claim as the username and its `account` claim as the role.
+2. Keep Control Center configured to use Enterprise Manager as its OpenID Connect provider. When a user selects **Manage GridGain**, Control Center signs them in through Enterprise Manager, which signs them in through the identity provider without another prompt.
+3. Optionally, register the same identity provider in Control Center as well, so that users can also sign in to Control Center directly. A user reaches the same Control Center account either way, matched by email.
+
+For the Control Center settings, including the setup where Control Center signs in through the identity provider directly, see [Enterprise Manager Integration](../../../../control-center/admin-guide/enterprise-manager-integration.md).
 
 ## Send Cluster Metrics to Enterprise Manager
 

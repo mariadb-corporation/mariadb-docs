@@ -6,6 +6,13 @@ description: >-
 
 # Manual Installation
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Install MariaDB Shell manually when you cannot pipe a script from the internet into a shell, when you deploy to systems without internet access, or when you want to choose the installation directory and the package yourself.
 
 ## Choose a Package
@@ -74,8 +81,8 @@ Each package contains a single top-level directory, `mariadb-shell-<version>-<pl
 
 | Directory | Contents |
 | --- | --- |
-| `bin/` | The `mariadb-shell` executable, the `msh` alias (`msh.cmd` on Windows), and the credential store helpers (`mariadb-secret-store-*`). On Windows, also the required DLLs. |
-| `lib/` | Private libraries, the bundled Python runtime, and the built-in plugins. On Linux and macOS, client authentication plugins are in `lib/mariadb/plugins/`. |
+| `bin/` | The `mariadb-shell` executable, the `msh` alias (`msh.cmd` on Windows), `mariadb-lsp`, the MariaDB SQL language server, and the credential store helpers (`mariadb-secret-store-*`). On Windows, also the required DLLs. |
+| `lib/` | Private libraries, the bundled Python runtime, and the built-in plugins. The client authentication plugins are in `lib/mariadb/plugins/`. |
 | `share/mariadb-shell/` | Data files, such as the sample prompt themes. |
 | `share/man/man1/` | The `mariadb-shell(1)` and `msh(1)` manual pages (Linux and macOS). |
 
@@ -91,6 +98,7 @@ tar -xzf mariadb-shell-26.9.5-linux-glibc2.34-x86-64bit.tar.gz -C ~/.local/share
 mv ~/.local/share/mariadb-shell/mariadb-shell-26.9.5-linux-glibc2.34-x86-64bit ~/.local/share/mariadb-shell/26.9.5
 ln -sfn ~/.local/share/mariadb-shell/26.9.5/bin/mariadb-shell ~/.local/bin/mariadb-shell
 ln -sfn ~/.local/share/mariadb-shell/26.9.5/bin/msh ~/.local/bin/msh
+ln -sfn ~/.local/share/mariadb-shell/26.9.5/bin/mariadb-lsp ~/.local/bin/mariadb-lsp
 ```
 
 Make sure that `~/.local/bin` is on your `PATH`. For a system-wide installation, unpack into a directory such as `/opt` and create the links in `/usr/local/bin` instead.
@@ -121,3 +129,5 @@ mariadb-shell --version
 To upgrade, unpack the new version next to the old one and point the links (or your `PATH`) at the new `bin` directory. Remove old version directories when you no longer need them.
 
 To uninstall, delete the version directories and the links you created. Your configuration directory is separate from the installation; see [Files and Environment Variables](../files-and-environment-variables.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

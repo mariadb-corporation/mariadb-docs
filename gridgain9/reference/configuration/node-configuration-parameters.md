@@ -508,7 +508,7 @@ The `hardPartitionsDataDriveUsageLimitBytes` and `hardPartitionsLogDriveUsageLim
 - **Only client writes are blocked.** When a limit is exceeded, the node rejects writes from clients, but internal system writes continue so that the cluster remains operational.
 - **Reserve headroom for free space reclaim.** The mechanisms that reclaim free disk space (for example, log storage compaction) themselves consume storage while running. Set the limit far enough below total drive capacity that reclaim has room to operate once the limit is hit; otherwise the node may be unable to free space.
 - **Enforcement is not instantaneous.** Each node checks its own disk usage once per second, so a few client writes can slip through after the limit is reached but before the next check. Pick a value slightly below your target so these extra writes do not eat into your reclaim headroom.
-- **Writes are blocked per partition.** A client write to a partition is rejected when either the partition's RAFT leader has hit its limit, or a majority of the partition's replicas have hit their limits: in either case the write cannot be committed. A single over-limit node holding only minority replicas does not, on its own, block writes to that partition.
+- **Writes are blocked per partition.** A client write to a partition is rejected when either the node that hosts the partition's primary replica has hit its limit, or so many of the partition's replicas have hit their limits that the remaining ones cannot form the [quorum](../../architecture/storage/distribution-zones.md#quorum-size): in either case the write cannot be committed. A single over-limit node does not, on its own, block writes to a partition.
 
 #### Soft Disk Usage Limits
 

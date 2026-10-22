@@ -60,7 +60,7 @@ You must link the agent on every server in the topology to Enterprise Manager. T
 
 For each server in the list (start with the MaxScale instance, then each MariaDB server):
 
-1.  Click the three-dot menu (⋮) and select **Metrics configuration**.
+1.  Click the three-dot menu (⋮) and select **Metrics configuration**. You need the `admin` role.
 
     <figure><img src="../../../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 2.  The UI will generate a unique setup command for that specific server with the username and password you provide. Copy the command.

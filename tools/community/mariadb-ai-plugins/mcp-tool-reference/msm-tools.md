@@ -5,6 +5,13 @@ description: >-
 
 # msm Tools
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `msm.*` tools manage database schemas with MariaDB Schema Management (MSM). With these tools, the agent creates and edits versioned schema projects, prepares releases, and generates and deploys the scripts that create or upgrade a schema. See [Versioned Schemas with Schema Management](../features/versioned-schemas-with-schema-management.md) for the workflow.
 
 ## Overview
@@ -162,3 +169,5 @@ The deployment script runs the target version's sections 150, 170, and 180 in fu
 {% hint style="warning" %}
 Don't grant privileges in section 270. On an upgrade, it runs before section 170, so a role that is new in the version doesn't exist yet, and the deployment fails with error 1133.
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

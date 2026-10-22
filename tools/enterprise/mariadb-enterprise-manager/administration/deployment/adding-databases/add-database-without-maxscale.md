@@ -92,7 +92,7 @@ To convert an existing standalone server into a topology of multiple servers: cl
 
 For each server added, link its agent:
 
-1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Metrics configuration**.
+1.  Find the server in the inventory list, click the three-dot menu (⋮), and select **Metrics configuration**. You need the `admin` role.
 
     <figure><img src="../../../../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 2.  Enter the credentials for the Local Agent User (`'monitor'@'localhost'`) to generate a setup command.

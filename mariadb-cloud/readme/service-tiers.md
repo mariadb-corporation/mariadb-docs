@@ -30,7 +30,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
 | AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
-| HTAP (MariaDB Exa) | Not available                             | Available (technical preview)             | Available (technical preview)                               |
+| HTAP (MariaDB Exa) | Not available                             | Available on request (technical preview)  | Available on request (technical preview)                    |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
 | Support            | Basic and Standard support                | Basic, Standard, and Remote DBA (RDBA) support | Basic, Standard, and Remote DBA (RDBA) support         |
 
@@ -78,14 +78,14 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 * **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
 * **[Bring Your Own Cloud (BYOC)](../quickstart/bring-your-own-cloud-byoc.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOC extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
 * **[MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md)** (PowerPlus) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
-* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database.
+* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database. Available on request; see [Requesting access to MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Uptime SLA** — see the [MariaDB Cloud Uptime SLA](../reference/uptime-sla.md) page for the performance standard, measurement details, exclusions, service credits, and customer obligations.
 * **[Support](../reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](../reference/clouddba.md) is available on Power and PowerPlus.
 
 {% hint style="warning" %}
 **Technical preview features**
 
-MariaDB Enterprise Cluster and HTAP using MariaDB Exa are currently available as technical previews, and BYOC is available in Public Preview. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOC is currently available on AWS, Google Cloud, and Microsoft Azure.
+MariaDB Enterprise Cluster and HTAP using MariaDB Exa are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
 {% endhint %}
 
 ## Selecting a Tier

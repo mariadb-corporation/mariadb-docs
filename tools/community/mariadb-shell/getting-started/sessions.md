@@ -6,6 +6,13 @@ description: >-
 
 # Sessions
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A session is a connection from MariaDB Shell to a server. All sessions use the classic MariaDB client/server protocol and are represented in Python by `ClassicSession` objects.
 
 ## The Global Session
@@ -148,3 +155,5 @@ finally:
 ```
 
 `run_sql()` returns a `ClassicResult` object. Use `fetch_one()` and `fetch_all()` to read rows, `get_column_names()` and `get_columns()` for metadata, `get_affected_items_count()` and `get_auto_increment_value()` after data changes, `get_warnings()` for warnings, and `next_result()` to move to the next result set of a multi-result statement. For the complete list, run `\? ClassicResult`. For more about processing results in Python, see [SQL and Python Modes](../using-mariadb-shell/sql-and-python-modes.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -7,6 +7,13 @@ description: >-
 
 # Database Accounts for the MCP Server
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MCP server connects to MariaDB with the account of each connection that you configure with `mcp setup`. Everything the agent does on a server, it does with the privileges of this account. This page explains why the MCP server needs its own account, and shows how to create one with limited privileges.
 
 ## Why the MCP Server Needs Its Own Account
@@ -97,3 +104,5 @@ mariadb-shell -- mcp setup --addConnection='mariadb://mcp@db.example.com:3306'
 ```
 
 The setup prompts for the password, verifies it, and stores it in the MariaDB Shell secret store. See [Configuring the MCP Server](README.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

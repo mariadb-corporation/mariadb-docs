@@ -7,6 +7,13 @@ icon: box-open
 
 # Sandbox Instances
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A sandbox is a complete, self-contained server instance on your own machine, created in a directory of its own and identified by its port. The `sandbox` global object deploys sandboxes and manages their life cycle, so you can get a disposable server for a test, a demo, or a dump-and-load trial in a few seconds and remove it without a trace afterward.
 
 The `sandbox` object is a built-in plugin of MariaDB Shell. It works with MariaDB Server and with MySQL Server: it uses the server binary that it finds, detects the vendor, and initializes the instance the way that vendor requires.
@@ -257,3 +264,5 @@ A failed operation prints the reason and returns a non-zero exit code:
 $ mariadb-shell -- sandbox deploy 80 --password=x
 ERROR: Error: Shell Error: Invalid 'port' value 80: it must be >= 1024 and <= 65535.
 ```
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -6,6 +6,13 @@ description: >-
 
 # Global Objects
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 When the shell starts in Python mode, or when you switch to it with `\py`, a set of global objects is ready for use without an import. To list them, run `\?`. For the members of an object, run `\? <object>` or call its `help()` method, for example `util.help()`.
 
 | Object | Purpose |
@@ -105,3 +112,5 @@ def table_count(schema):
         "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = ?",
         [schema]).fetch_one()[0]
 ```
+
+<sub>_This page is licensed: GPLv2_</sub>

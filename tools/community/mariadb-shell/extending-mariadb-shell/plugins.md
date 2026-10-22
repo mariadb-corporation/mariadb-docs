@@ -7,6 +7,13 @@ description: >-
 
 # Plugins
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A plugin is a directory of Python code that MariaDB Shell loads at startup. Plugins typically add global objects with documented functions, [reports](reports.md), or [SQL handlers](sql-handlers.md). The built-in `sandbox` and `plugins` globals and the `util.debug` functions are themselves plugins.
 
 ## Plugin Layout
@@ -256,3 +263,5 @@ A plugin runs with your operating system permissions and has access to every ses
 {% endhint %}
 
 The plugin manager considers a plugin installed when a global object with the plugin's name exists. To let it detect updates, give the plugin object a `version()` function that returns the version string.
+
+<sub>_This page is licensed: GPLv2_</sub>

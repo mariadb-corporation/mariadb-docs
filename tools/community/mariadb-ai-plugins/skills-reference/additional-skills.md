@@ -5,6 +5,13 @@ description: >-
 
 # Additional Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 These skills are maintained in the `additional-skills/` directory of the MariaDB AI Plugins repository rather than in the MariaDB documentation. Most of them describe workflows that use the tools of the MCP server.
 
 ## SQL Scripts
@@ -33,9 +40,9 @@ Skills for the project lifecycle of MariaDB Schema Management (MSM), which use t
 
 | Skill | Plugins | What it covers |
 | --- | --- | --- |
-| `mariadb-schema-management-create` | `dev` | Scaffold a MariaDB Schema Management (MSM) project and author the initial schema in the development folder — create the project with msm.create_project and write the first version's tables, objects and grants into the MSM sections of <schema>_next.sql. |
+| `mariadb-schema-management-create` | `dev` | Scaffold a MariaDB Schema Management (MSM) project and author the initial schema in the development folder — create the project with msm.create_project and write the first version's tables, objects and grants into the MSM sections of `<schema>_next.sql`. |
 | `mariadb-schema-management-deploy` | `dev` | Deploy a MariaDB Schema Management (MSM) schema version onto a live server with msm.deploy_schema — running the generated deployment script over an open db.connect connection to create the schema fresh or upgrade any prior released version to the target, optionally taking a backup first. |
-| `mariadb-schema-management-develop` | `dev` | Develop the next version of a MariaDB Schema Management (MSM) schema in development/<schema>_next.sql, and keep large scripts maintainable by breaking section bodies out into development/sections/ files linked with the SOURCE '<path>'[start:end]; statement. |
+| `mariadb-schema-management-develop` | `dev` | Develop the next version of a MariaDB Schema Management (MSM) schema in `development/<schema>_next.sql`, and keep large scripts maintainable by breaking section bodies out into development/sections/ files linked with the SOURCE `'<path>'[start:end];` statement. |
 | `mariadb-schema-management-release` | `dev` | Prepare a MariaDB Schema Management (MSM) version release — snapshot the development script with msm.prepare_release, FILL the generated previous→new update script (table changes and drops in section 240, revoked privileges in 270) with the actual migration, and only then generate the deployment script with msm.generate_deployment_script. |
 | `mariadb-schema-management` | `dev` | Overview of managing a MariaDB database schema across its whole lifecycle with the MariaDB Schema Management (MSM) plugin via the mariadb-shell MCP server — the versioned schema project, the MSM section model, and the create → develop → release → deploy workflow. |
 
@@ -50,8 +57,8 @@ Skills for migrating a MySQL database to MariaDB, which use the optional `migrat
 | `mariadb-migrator-modes` | `dev` | The MySQL-to-MariaDB migration modes and the gate each one brings — one_step (serial streaming), two_step (parallel, needs mariadb-mtk and only retries within a run), staged (dump to disk with a SHA-256 manifest, STAGED_PHASE dump_only/load_only across sessions, needs bash 4), binlog (replication, MySQL 8.0+ and no JSON columns), and why inplace/replace_slave are never picked. |
 | `mariadb-migrator-run` | `dev` | Execute a MySQL-to-MariaDB migration with migrator.plan, migrator.run and migrator.resume — always plan first, omit `out` on a new run so a stale state.json cannot report every step SKIPPED at exit 0, check a finished run three ways (succeeded, every step DONE, the data actually on the target), read report.json/run.log in the artifacts directory, and hold the source baseline instead of publishing an interim report. |
 | `mariadb-migrator-troubleshooting` | `dev` | The MySQL-to-MariaDB migrator's known defects and failure playbook — the bash 3.2 traps (unbound SRC_SSL_ARGS, exit 143 without pv, declare -A in staged mode), the SHOW PACKAGE STATUS 1064 that is a mariadb-dump age problem and not a MySQL 8.4 one, the root-user and existing-target-DB refusals, option-file contamination, and what every refusal message from set_config/plan/run/resume means and what to set. |
-| `mariadb-migrator-verify` | `dev` | Verify a finished MySQL-to-MariaDB migration on the target with the db.* tools and report it — object counts per type, foreign keys, row counts and value spot-checks (never a checksum unless asked), authenticating as each migrated account, the four things that vanish silently through MySQL's /*!80016*/ version gates (CHECK NOT ENFORCED, SRID, DEFAULT ENCRYPTION, utf8mb4_0900 collations), and the fixed markdown comparison table — one per database, real pipes, nothing added when every check comes back clean. |
-| `mariadb-migrator` | `dev` | Overview and entry point for migrating a MySQL database to MariaDB with the migrator.* tools of the mariadb-shell MCP server — what the tooling is, the two things you may never choose (unconfigured connections, passwords), the resume-safe trap that reports success while migrating nothing, the four tools, and the discover → mode → configure → run → verify workflow. |
+| `mariadb-migrator-verify` | `dev` | Verify a finished MySQL-to-MariaDB migration on the target with the db.\* tools and report it — object counts per type, foreign keys, row counts and value spot-checks (never a checksum unless asked), authenticating as each migrated account, the four things that vanish silently through MySQL's /\*!80016\*/ version gates (CHECK NOT ENFORCED, SRID, DEFAULT ENCRYPTION, utf8mb4_0900 collations), and the fixed markdown comparison table — one per database, real pipes, nothing added when every check comes back clean. |
+| `mariadb-migrator` | `dev` | Overview and entry point for migrating a MySQL database to MariaDB with the migrator.\* tools of the mariadb-shell MCP server — what the tooling is, the two things you may never choose (unconfigured connections, passwords), the resume-safe trap that reports success while migrating nothing, the four tools, and the discover → mode → configure → run → verify workflow. |
 
 ## Laravel
 
@@ -63,3 +70,4 @@ Skills for using MariaDB in Laravel applications. These skills are included in t
 | `mariadb-laravel-connector` | `dev` | Connect a Laravel (PHP) application to MariaDB: PDO requirements, the dedicated mariadb driver, version support and Docker/Sail setup. |
 | `mariadb-laravel-vector` | `dev` | MariaDB Vector in a Laravel (PHP) application: vector columns, VECTOR INDEX, the AsVector Eloquent cast and similarity search with the query builder. |
 
+<sub>_This page is licensed: GPLv2_</sub>
