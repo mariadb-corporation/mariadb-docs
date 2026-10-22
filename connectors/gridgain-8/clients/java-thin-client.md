@@ -178,6 +178,36 @@ for (int i = 0; i < 20; i++) {
 }
 ```
 
+### Async Operations
+
+Available since 8.10, the atomic sequence API has asynchronous counterparts that return an `IgniteClientFuture<T>`. See [Async APIs](#async-apis) for how async methods behave.
+
+| Blocking method | Async method | Future result |
+|---|---|---|
+| `IgniteClient.atomicSequence(...)` | `IgniteClient.atomicSequenceAsync(...)` | `ClientAtomicSequence`, or `null` if the sequence does not exist and `create` is `false` |
+| `incrementAndGet()` | `incrementAndGetAsync()` | `Long`, the value after the increment |
+| `getAndIncrement()` | `getAndIncrementAsync()` | `Long`, the value before the increment |
+| `addAndGet(long)` | `addAndGetAsync(long)` | `Long`, the value after the addition |
+| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long`, the value before the addition |
+| `removed()` | `removedAsync()` | `Boolean`, `true` if the sequence was removed |
+| `close()` | `closeAsync()` | `Void` |
+
+`atomicSequenceAsync` has the same two overloads as `atomicSequence`: with and without a `ClientAtomicConfiguration`.
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+client.atomicSequenceAsync("seqName", 0, true)
+        .thenCompose(seq -> seq.incrementAndGetAsync())
+        .thenAccept(val -> System.out.println("Next ID: " + val));
+```
+
+The following rules apply to async sequence operations:
+
+- The `l` argument of `addAndGetAsync` and `getAndAddAsync` must be greater than zero.
+- Update calls on the same `ClientAtomicSequence` instance are applied one after another, in the order in which they are made.
+- If the sequence has been removed, the returned future completes exceptionally with an `IgniteException` whose message starts with `Sequence was removed from cache`.
+
 ## Partition Awareness
 
 {% include "../.gitbook/includes/gg8-partition-awareness.md" %}
