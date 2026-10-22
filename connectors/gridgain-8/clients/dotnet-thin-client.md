@@ -248,21 +248,33 @@ await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 
 ### Closing a Transaction Asynchronously
 
-A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`. Use an `await using` block so that, if the transaction is disposed without being committed, the rollback is sent to the cluster without blocking the calling thread.
+A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`, and provides the `CommitAsync()` and `RollbackAsync()` methods. Use them together with an `await using` block to complete the transaction without blocking the calling thread.
 
 ```csharp
 await using (var tx = client.GetTransactions().TxStart())
 {
-    cache.Put(1, cache.Get(1) - 100);
-    cache.Put(2, cache.Get(2) + 100);
+    await cache.PutAsync(1, await cache.GetAsync(1) - 100);
+    await cache.PutAsync(2, await cache.GetAsync(2) + 100);
 
-    tx.Commit();
+    await tx.CommitAsync();
 }
-// Commit() is synchronous - the thin-client transaction has no async commit.
-// The benefit of "await using" is disposal: if the block exits without
-// Commit() (for example, on an exception), DisposeAsync rolls the
+// CommitAsync() sends the commit to the cluster without blocking the
+// calling thread. If the block exits without CommitAsync() or
+// RollbackAsync() (for example, on an exception), DisposeAsync rolls the
 // transaction back without blocking the calling thread.
 ```
+
+Once a transaction is committed or rolled back, calling `Commit`, `Rollback`, `CommitAsync`, or `RollbackAsync` on it again throws an `InvalidOperationException`.
+
+#### Using Async/Await Within a Transaction
+
+The thin client keeps track of the current transaction per asynchronous flow rather than per thread. The transaction therefore stays active across `await` points, even when the continuation resumes on a different thread, and every cache operation in the `await using` block above runs inside the transaction.
+
+{% hint style="info" %}
+To restore the previous behavior, where the current transaction is bound to the thread that started it, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true`. Consider this if your code starts background work from inside a transaction, for example with `Task.Run`: such work can see the current transaction when it is tracked per asynchronous flow.
+{% endhint %}
+<!-- TODO: confirm against source - "Available since 8.10": no release tag found containing GG-49603/GG-50267. -->
+<!-- TODO: confirm with the developer that IGNITE_TX_USE_THREAD_LOCAL may be published. -->
 
 ### Closing a Continuous Query Asynchronously
 
