@@ -34,12 +34,12 @@ How to use GridGain Enterprise/Ultimate Rolling Upgrades to upgrade a cluster ve
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrade-from-8-9-to-8-10.md" %}
-[Upgrading from 8.9 to 8.10](upgrade-from-8-9-to-8-10.md)
+{% content-ref url="../migration-guides/gridgain-8-9-to-8-10/README.md" %}
+[Upgrading from 8.9 to 8.10](../migration-guides/gridgain-8-9-to-8-10/README.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-What to change or check when moving from GridGain 8.9.x to 8.10, with the tested rolling upgrade, rollback, and offline procedures.
+How to upgrade from GridGain 8.9.x to 8.10: choosing a rolling or offline path, the step-by-step procedure with rollback, and the changes to review first.
 {% endcolumn %}
 {% endcolumns %}
