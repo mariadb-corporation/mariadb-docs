@@ -269,7 +269,7 @@ The upgrade is complete when data integrity, application functionality, and moni
 
 ## Troubleshooting
 
-These are the problems that come up most often during the upgrade. If you hit something not covered here, contact [GridGain Support](https://support.gridgain.com/). Problems with `Connection to cluster failed`, a refused `finish`, a restarted node missing from the status, and lost partitions are described where they occur: see [Step 5](#step-5-upgrade-the-nodes-one-at-a-time), [Step 6](#step-6-finish-the-rolling-upgrade), and [Application Behavior During a Rolling Upgrade](#application-behavior-during-a-rolling-upgrade).
+These are the problems that come up most often during the upgrade. If you hit something not covered here, contact [GridGain Support](https://mariadb.com/support/). Problems with `Connection to cluster failed`, a refused `finish`, a restarted node missing from the status, and lost partitions are described where they occur: see [Step 5](#step-5-upgrade-the-nodes-one-at-a-time), [Step 6](#step-6-finish-the-rolling-upgrade), and [Application Behavior During a Rolling Upgrade](#application-behavior-during-a-rolling-upgrade).
 
 | Message or symptom | Cause | Fix |
 | --- | --- | --- |
