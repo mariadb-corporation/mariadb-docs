@@ -89,6 +89,7 @@
     * [Quickstart](cloud-ai/ai-retrieval/quickstart.md)
     * [Document Knowledge Bases](cloud-ai/ai-retrieval/document-knowledge-bases.md)
     * [Parsing and Chunking](cloud-ai/ai-retrieval/parsing-and-chunking.md)
+    * [Supported Models, Formats, and Regions](cloud-ai/ai-retrieval/supported-models-formats-and-regions.md)
     * [Access and Security](cloud-ai/ai-retrieval/access-and-security.md)
   * [MariaDB Cloud MCP Server](cloud-ai/mcp-server.md)
 * [HA & DR](high-availability-dr/README.md)

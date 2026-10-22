@@ -86,7 +86,7 @@ Retrieve & Generate can stream the answer as it is generated.
 
 ## Requirements and Availability
 
-* Knowledge bases run on AWS.
+* Knowledge bases run on AWS. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-regions).
 * The vector store must be a MariaDB service in the same cloud and region as the knowledge base, running MariaDB 11.8 or later. You can select an existing service that meets this requirement or let MariaDB Cloud provision a new MariaDB Serverless instance.
 * Your role decides what you can do with knowledge bases. See [Access and Security](access-and-security.md#roles-and-permissions).
 * You need an API key to call the REST API from an application. See [Connect Your Application](document-knowledge-bases.md#connect-your-application).
@@ -95,17 +95,7 @@ Retrieve & Generate can stream the answer as it is generated.
 
 ## Supported Files and Limits
 
-The portal accepts these file types:
-
-| Format | Extension |
-| --- | --- |
-| Text | `.txt` |
-| Markdown | `.md` |
-| Web page | `.html` |
-| JSON | `.json` |
-| Microsoft Word | `.docx` |
-| PDF | `.pdf` |
-| Microsoft PowerPoint | `.pptx` |
+A document knowledge base accepts TXT, Markdown, HTML, JSON, Word (DOCX), PDF, and PowerPoint (PPTX) files. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-file-formats).
 
 When you upload files from your computer, you can select up to 5 files at a time, and each file can be up to 50 MB.
 
@@ -156,6 +146,10 @@ When you exceed a request limit, the API returns HTTP status 429.
 
 {% content-ref url="parsing-and-chunking.md" %}
 [parsing-and-chunking.md](parsing-and-chunking.md)
+{% endcontent-ref %}
+
+{% content-ref url="supported-models-formats-and-regions.md" %}
+[supported-models-formats-and-regions.md](supported-models-formats-and-regions.md)
 {% endcontent-ref %}
 
 {% content-ref url="access-and-security.md" %}
