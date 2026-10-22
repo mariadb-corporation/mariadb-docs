@@ -534,6 +534,46 @@ Register name: `io.communication`
 |SslEnabled|boolean|Indicates whether SSL is enabled.|
 |SslHandshakeDurationHistogram|histogram|Histogram of SSL handshake duration in milliseconds (metric is exported only if SSL is enabled).|
 
+### TCP Communication
+
+Register name: `communication.tcp`
+
+|Name|Type|Description|
+|---|---|---|
+|maxOutboundMessagesQueueSize|long|Maximum number of messages that were waiting to be sent to a remote node over the last time interval. The default interval is 60 seconds. See [Configuring Maximum-Value Metrics](../../gridgain8-management/monitoring/configuring-metrics.md#configuring-maximum-value-metrics).|
+
+A growing queue can point to a failed node or a network problem. To get a warning in the log when the outbound queue for a node exceeds a threshold, set the `IGNITE_TCP_COMM_MSG_QUEUE_WARN_SIZE` system property to the maximum acceptable queue size. The default value is `0`, which disables the warning. The warning is printed at most once every 30 seconds.
+
+### TCP Communication Connection Pool
+
+GridGain keeps a pool of TCP connections to each remote node. The pool is described by one shared register and one register per remote node.
+
+**Shared register**
+
+Register name: `communication.tcp.connectionPool`
+
+|Name|Type|Description|
+|---|---|---|
+|maxConnectionsCnt|integer|The maximum number of connections to a remote node. This is the value of `TcpCommunicationSpi.connectionsPerNode`.|
+|isPaired|boolean|Indicates whether paired connections are used (`TcpCommunicationSpi.usePairedConnections`).|
+|isAsync|boolean|Indicates whether connections put data in a queue instead of sending it immediately.|
+
+**Per-node registers**
+
+Register name: `communication.tcp.connectionPool.{node_id}`, where `{node_id}` is the ID of the remote node.
+
+The register is created when a connection to the node is first set up, and removed when the node leaves the cluster.
+
+|Name|Type|Description|
+|---|---|---|
+|consistentId|string|The consistent ID of the remote node.|
+|currentConnectionsCnt|integer|The number of current connections to the remote node.|
+|outboundMessagesQueueSize|integer|The overall number of messages waiting to be sent to the remote node.|
+|maxNetworkIdleTime|long|The maximum idle time of physical sending or receiving data, in milliseconds.|
+|avgConnectionLifetime|long|The average connection lifetime, in milliseconds.|
+|removedConnectionsCnt|long|The total number of removed connections.|
+|acquiringThreadsCnt|integer|The number of threads that are currently acquiring a connection.|
+
 ### Ignite Thin Client Connector
 
 Register name: `client.connector`
@@ -579,9 +619,12 @@ Register name: `io.discovery`
 |CoordinatorSince|long|Timestamp since which the local node became the coordinator (metric is exported only from server nodes).|
 |Coordinator|UUID|Coordinator ID (metric is exported only from server nodes).|
 |CurrentTopologyVersion|long|Current topology version.|
+|ClientRouterNodeId|string|ID of the server node that the local client node uses as its router (metric is exported only from client nodes).|
 |JoinedNodes|integer|Joined nodes count.|
 |LeftNodes|integer|Left nodes count.|
+|MaxMsgQueueSize|long|Maximum size of the discovery message queue over the last time interval (metric is exported only from server nodes). The default interval is 60 seconds. See [Configuring Maximum-Value Metrics](../../gridgain8-management/monitoring/configuring-metrics.md#configuring-maximum-value-metrics).|
 |MessageWorkerQueueSize|integer|Current message worker queue size.|
+|Next|UUID|ID of the next node in the discovery ring (metric is exported only from server nodes).|
 |PendingMessagesRegistered|integer|Pending registered messages count.|
 |RejectedSslConnectionsCount|integer|TCP discovery connections count that were rejected due to the SSL errors.|
 |SslEnabled|boolean|Indicates whether SSL is enabled.|
@@ -678,6 +721,46 @@ Register name: `defragmentation`
 |processedPartitions|integer|Number of partitions that have been processed during defragmentation.|
 |totalPartitions|integer|Total number of partitions to be defragmented.|
 |startTime|long|Timestamp when the current defragmentation process started.|
+
+### Snapshots
+
+{% hint style="info" %}
+Snapshot metrics are available in GridGain Ultimate Edition only.
+{% endhint %}
+
+GridGain keeps one register for each type of snapshot operation. Each register describes the last operation of that type requested on the local node.
+
+Register names: `snapshot` (create), `snapshot-restore`, `snapshot-check`.
+
+**Create (`snapshot`)**
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|ID of the last created snapshot requested on this node.|
+|OperationId|string|ID of the last create operation requested on this node.|
+|StartTime|long|Start time of the last create operation, in milliseconds.|
+|EndTime|long|Finish time of the last create operation, in milliseconds, or `-1` if it has not started or is still in progress.|
+|Error|string|Error message of the last create operation. Empty if it succeeded or none has finished yet.|
+|TotalPages|long|Total number of pages to write.|
+|BytesWritten|long|Bytes written by the last create operation.|
+|TotalBytesWrittenOnStorage|long|Total bytes actually written to the storage device (after compression).|
+|WriteThrottlingTime|long|Time the snapshot writer threads spent parked because of throttling, in milliseconds.|
+|PartitionsWritten|long|Number of distinct partitions written.|
+|FreeSpace|long|Free space on the file system of the snapshot working directory, in bytes.|
+
+**Restore (`snapshot-restore`) and check (`snapshot-check`)**
+
+Both registers contain the same metrics. The values refer to the last restore or check operation on this node, respectively.
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|ID of the snapshot that is being restored or checked.|
+|OperationId|string|ID of the last operation requested on this node.|
+|StartTime|long|Start time of the last operation, in milliseconds.|
+|EndTime|long|End time of the last operation, in milliseconds, or `-1` if it has not started or is still in progress.|
+|Error|string|Error message of the last operation. Empty if it succeeded.|
+|TotalPages|long|Total number of pages to restore or check, or `-1` if not known yet.|
+|ProcessedPages|long|Number of pages restored or checked so far.|
 
 ### Cluster
 
