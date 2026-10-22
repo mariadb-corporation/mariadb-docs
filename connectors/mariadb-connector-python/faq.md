@@ -366,4 +366,6 @@ Uncommitted pending transactions are rolled back automatically when the connecti
            connection.commit()
 ```
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}
