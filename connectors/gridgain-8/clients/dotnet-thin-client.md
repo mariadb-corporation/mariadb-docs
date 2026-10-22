@@ -238,10 +238,12 @@ The data streamer (`IDataStreamerClient`) buffers entries. When a buffer is full
 
 When this limit is exceeded, `Add()` and `Remove()` block the calling thread. To wait without blocking the thread, use the asynchronous counterparts, which return a `ValueTask`:
 
-- `AddAsync(key, value)` adds an entry to the streamer. When `value` is `null`, the cache entry is removed.
+- `AddAsync(key, value)` adds an entry to the streamer. When `value` is `null`, the cache entry is removed. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`.
 - `RemoveAsync(key)` adds a removal entry. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`. Otherwise, `RemoveAsync` throws an `IgniteClientException`.
 
 Both methods throw an `ObjectDisposedException` when the streamer is closed or disposed.
+
+In asynchronous methods, use `AddAsync` and `RemoveAsync` instead of `Add` and `Remove`, so that the calling thread is never blocked.
 
 ```csharp
 var options = new DataStreamerClientOptions { AllowOverwrite = true };
@@ -268,7 +270,7 @@ The thin-client data streamer (`IDataStreamerClient`) implements `IAsyncDisposab
 await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 {
     for (var i = 0; i < 1000; i++)
-        streamer.Add(i, i.ToString());
+        await streamer.AddAsync(i, i.ToString());
 }
 // DisposeAsync calls CloseAsync(cancel: false): the buffered entries are
 // flushed to the cluster without blocking the calling thread.
