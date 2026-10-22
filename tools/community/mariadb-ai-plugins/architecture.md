@@ -26,7 +26,7 @@ _A plugin is installed from GitHub (1 and 2), and downloads the native tools pac
 
 ### Coding Agent
 
-The coding agent, which this documentation calls the *harness*, is the AI tool you work with: Claude Code, Codex, OpenCode, Pi, or Hermes Agent. Each coding agent has its own way of installing and loading extensions, so there is a separate MariaDB plugin for each of them.
+The coding agent, which this documentation calls the _harness_, is the AI tool you work with: Claude Code, Codex, OpenCode, Pi, or Hermes Agent. Each coding agent has its own way of installing and loading extensions, so there is a separate MariaDB plugin for each of them.
 
 You install the plugin with the commands of your coding agent (1). In Claude Code, for example, you add the MariaDB marketplace and install the plugin with these commands:
 
@@ -65,7 +65,7 @@ At run time, the plugin works with the following components:
 | Part | What it is | Needs |
 | --- | --- | --- |
 | Skills | Markdown documents vendored into the plugin. The agent reads the ones whose description matches the request. | Nothing; they work offline on a fresh install. |
-| MCP server | 40 tools that talk to MariaDB Server, in four groups: `db.*`, `msm.*`, `sandbox.*`, and `util.*`, plus the optional `migrator.*` group. | A one-time `mcp setup`, and a server to talk to. |
+| MCP server | 43 tools in five groups: `db.*`, `msm.*`, `sandbox.*`, and `util.*` work with MariaDB Server, and `sql.*` checks SQL text without one. The optional `migrator.*` group comes on top. | A one-time `mcp setup`, and a server to talk to. |
 | MariaDB Shell | MariaDB's command-line shell. The MCP server runs inside it as a plugin. | Installed automatically on first use. |
 
 ## Why the MCP Server Runs Inside MariaDB Shell
@@ -92,6 +92,10 @@ The launcher then starts the binary as `mariadb-shell -- mcp start-server --tran
 {% endhint %}
 
 The launcher writes all of its messages to standard error, because standard output carries the MCP protocol.
+
+### The Language Server Launcher
+
+The `dev` and `sql` plugins for Claude Code, OpenCode, and Hermes Agent also ship `mariadb-lsp-launcher.sh` and `mariadb-lsp-launcher.cmd`, which start the [SQL language server](features/sql-language-server.md). This launcher never installs anything. It resolves MariaDB Shell in the same order as the MCP server's launcher and starts the `mariadb-lsp` binary installed next to it. When no suitable MariaDB Shell is installed yet, it waits until the MCP server's launcher has installed one, so a harness that starts both servers at the same time downloads MariaDB Shell only once.
 
 See [Configuration Reference](configuration-reference.md) for all launcher environment variables.
 
