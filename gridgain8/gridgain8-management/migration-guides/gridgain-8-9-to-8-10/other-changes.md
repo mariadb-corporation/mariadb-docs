@@ -38,7 +38,7 @@ GridGain 8.10 also adds the following features. You do not need them to upgrade,
 
 - *Vector search.* Similarity scores, filters and keys-only queries, per-index HNSW parameters, `int8` storage, binary quantization, a `PARTITIONED` vector index, and version 2 of the thin client vector protocol. See [Vector Search](../../../gridgain8-development/vector-search/README.md) and [Vector Search Limits](configuration-and-defaults.md#vector-search-limits).
 - *Apache Ignite thin clients.* Apache Ignite thin clients can connect to a GridGain server.
-- *Java thin client.* `DataStreamer`, asynchronous overloads of the cache operations, service awareness, and a method to create an SQL cache.
+- *Java thin client.* `DataStreamer`, asynchronous overloads of the cache operations, and service awareness.
 - *.NET.* More asynchronous API methods, to match the Java API.
 - *Compatibility with Apache Ignite 2.* The Apache Ignite snapshot API, CDC WAL records, and `keepBinary` in the REST API.
 - *Metrics.* A custom metrics API, a `snapshot` metric registry, and further metrics that Apache Ignite 2 has, so that JMX metrics match it more closely. Data center replication has new handshake and delay metrics. A role that registers custom metrics needs the new `CUSTOM_METRICS_MANAGE` system permission, for example `{system:['CUSTOM_METRICS_MANAGE']}` in the permission string.
