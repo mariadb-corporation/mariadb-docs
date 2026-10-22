@@ -158,6 +158,12 @@ This enables [server discovery](#automatic-server-node-discovery) as well.
 If the client is behind a NAT or a proxy, automatic server discovery may not work.
 In this case provide addresses of all server nodes in the client's connection configuration.
 
+When partition awareness is enabled and the client has two or more live connections, requests that cannot be routed by affinity are distributed across the live connections in round-robin order, instead of all going to a single node.
+Such requests include system operations and operations on caches or keys for which the client has no partition information.
+Available since 8.10.
+When partition awareness is disabled, or only one connection is live, the client sends these requests over a single default connection.
+Requests within a transaction use the transaction's connection.
+
 ## Using Key-Value API
 
 ### Getting Cache Instance
