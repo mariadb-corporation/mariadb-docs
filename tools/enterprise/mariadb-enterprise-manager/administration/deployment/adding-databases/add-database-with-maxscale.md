@@ -32,6 +32,11 @@ sudo dnf install -y mema-agent
 sudo apt install -y mema-agent
 ```
 
+```bash
+# For SLES
+sudo zypper install -y mema-agent
+```
+
 * Create a Local Agent user on each backend MariaDB Server:
 
 ```sql
