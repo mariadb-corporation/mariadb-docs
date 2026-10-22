@@ -6,6 +6,8 @@ description: >-
 
 # Build Microservices With Micronaut and Ignite
 
+<!-- TODO (rewrite): This page is still written for Apache Ignite 2.x (`org.apache.ignite:ignite-core:2.8.1`) and was not run on GridGain 8.10. Use `org.gridgain:ignite-core`, a GridGain image or distribution, Java 17, and `setAffinityAwarenessEnabled` instead of the deprecated `setPartitionAwarenessEnabled`. Retest once 8.10 is on Nexus and Maven is installed, then delete this comment. -->
+
 ## Introduction
 
 This tutorial walks you through the process of creating a simple Micronaut microservice that uses Apache Ignite as an in-memory database. The service provides information about the world's most populated cities by processing user HTTP requests and querying data from a distributed Ignite cluster. At the end of the tutorial, you deploy the microservice in Docker in your local environment. You can then easily launch the solution, with minimal changes, in a cloud environment.

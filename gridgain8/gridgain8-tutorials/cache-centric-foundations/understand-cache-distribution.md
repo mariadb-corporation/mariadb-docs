@@ -5,6 +5,8 @@ description: >-
 
 # Understand How Your Cache Is Distributed
 
+<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). The 8.10.0-b1/b2 images are multi-arch and ran natively on arm64. Decide after the 8.10.0 release whether to keep the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
+
 <!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
 
 ## Introduction

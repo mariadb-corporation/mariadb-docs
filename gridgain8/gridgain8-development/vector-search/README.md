@@ -10,7 +10,7 @@ GridGain can index vectors stored in a field and then search the cache based on 
 
 ## Requirements
 
-- GridGain must be running on Java 11 or later.
+- GridGain must be running on Java 17 or later (the GridGain 8.10 minimum).
 - GridGain license must provide access to vector search feature.
 - Vector search can only be implemented for [REPLICATED](../../architecture/data-modeling/data-partitioning.md#replicated) caches.
 - Vectors for the field must be acquired by using a separate model, as no model is provided with GridGain.

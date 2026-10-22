@@ -5,6 +5,8 @@ description: >-
 
 # How to Manage Cluster Lifecycle With the REST API
 
+<!-- TODO (not tested): The statement that a MariaDB-issued license token (JWT) is accepted comes from the 9.1.28 source (LicenseWithSignature.parseLicense, JwtLicenseParser, CLI and REST validation) and from a run with a fake token, which was routed to the JWT verifier and rejected as untrusted. A genuine token was not available. Try a real token with `cluster init --license` and the REST init request, then delete this comment. -->
+
 ## Prerequisites
 
 - A running 3-node cluster from [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md)
@@ -148,7 +150,7 @@ Wait until all expected nodes appear before proceeding. Node names are case-sens
 
 Cluster initialization is a one-time operation that creates the Cluster Management Group (CMG) and MetaStorage RAFT groups, assigns a cluster name, and opens the cluster for client connections. Send the request to any single node. It propagates to all discovered nodes.
 
-GridGain 9 requires a license in the initialization request. The `license` field is a JSON string, so encode the license file with `jq -Rs`, which escapes the quotes and line breaks in the file. Pasting the raw file content into the request fails with `400 Invalid JSON`:
+GridGain 9 requires a license in the initialization request. The `license` field is a JSON string, so encode the license file with `jq -Rs`, which escapes the quotes and line breaks in the file. Pasting the raw file content into the request fails with `400 Invalid JSON`. A license token (a single line of text issued by MariaDB) is accepted in the same field and is encoded the same way:
 
 ```bash
 LICENSE=$(jq -Rs . gridgain-license.json)

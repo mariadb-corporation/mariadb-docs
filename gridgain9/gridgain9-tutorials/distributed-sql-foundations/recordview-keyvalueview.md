@@ -5,8 +5,6 @@ description: >-
 
 # Work With RecordView and KeyValueView
 
-<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build except `BulkOps` (it calls `Stream.toList()`, which needs Java 16). Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
-
 ## Introduction
 
 In the previous tutorial, you connected a Java application to the cluster and used RecordView and KeyValueView for basic reads and writes. You saw that both views access the same underlying data. Now you learn the full operation set and discover something more significant: KeyValueView gives you cache-like semantics backed directly by the system of record.

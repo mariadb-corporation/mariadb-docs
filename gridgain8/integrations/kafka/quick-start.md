@@ -5,6 +5,8 @@ description: >-
 
 # Kafka Connector Quick Start
 
+<!-- TODO (decision): Keep the `ignite-slf4j` step on the server nodes? The page was rewritten from the connector README, which does not mention slf4j; the step was kept because it could not be disproved. Test the quick start on a Kafka cluster without it, then delete this comment. -->
+
 ## Kafka Connect Ecosystem
 
 There are different types of nodes in a distributed Kafka Connect ecosystem. This Kafka documentation uses the following terminology to refer to specific type of a cluster node:

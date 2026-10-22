@@ -6,6 +6,8 @@ description: >-
 
 # Installing on Kubernetes
 
+<!-- TODO (not tested): This page was not run on GridGain 9.1.28 (no Kubernetes cluster was available); only the image tag in the recovery-job example was updated to 9.1.28. Run the Helm/manifests steps on a cluster and check the samples, then delete this comment. -->
+
 You can install GridGain 9 and run a GridGain cluster on Kubernetes cluster. This section describes all the necessary steps, as well as provides the configurations and manifests that you can copy and paste into your environment.
 
 {% hint style="info" %}

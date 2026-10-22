@@ -5,6 +5,8 @@ description: >-
 
 # How to Start a Cluster With Docker Compose
 
+<!-- TODO (not tested): The statement that a MariaDB-issued license token (JWT) is accepted comes from the 9.1.28 source (LicenseWithSignature.parseLicense, JwtLicenseParser, CLI and REST validation) and from a run with a fake token, which was routed to the JWT verifier and rejected as untrusted. A genuine token was not available. Try a real token with `cluster init --license` and the REST init request, then delete this comment. -->
+
 ## Prerequisites
 
 - **Docker** 20.10 or later
@@ -12,7 +14,7 @@ description: >-
 - **curl** and [**jq**](https://jqlang.github.io/jq/download/) for verifying cluster health
 - **Ports 10300-10302 and 10800-10802** available on your machine
 - **12 GB of available RAM** for three cluster nodes (4 GB minimum; see the memory note in Step 1)
-- **GridGain 9 only:** A GridGain 9 license file. If you are interested in trying out GridGain 9, contact our support. Save the license file as `gridgain-license.json` in your project directory alongside `docker-compose.yml`.
+- **GridGain 9 only:** A GridGain 9 license file. If you are interested in trying out GridGain 9, contact our support. Save the license file as `gridgain-license.json` in your project directory alongside `docker-compose.yml`. The license can be either a JSON license file or a license token issued by MariaDB (a single line of text in JWT format). `cluster init --license`, `license update` and the REST init request accept both; a token issued for GridGain 8 is rejected. The examples below use a file named `gridgain-license.json`; if you have a token, substitute the name of the file you saved it in.
 
 ## Overview
 
@@ -415,7 +417,7 @@ Verify that `gridgain-license.json` exists in the same directory as `docker-comp
 ls -la gridgain-license.json
 ```
 
-Verify the file contains valid JSON:
+Verify the file contains valid JSON (this check applies to a JSON license file; a license token is a single line of text, not JSON):
 
 ```bash
 cat gridgain-license.json | jq .

@@ -99,8 +99,6 @@ This helps if the root cause of this exception is not clear as the dump provides
 In order to capture detailed information about GC related activities, make sure you have the settings below configured
 in the JVM settings of your cluster nodes:
 
-{% tabs %}
-{% tab title="Java 11 and later" %}
 ```bash
 -XX:+ScavengeBeforeFullGC
 -XX:+PrintFlagsFinal
@@ -108,25 +106,10 @@ in the JVM settings of your cluster nodes:
 -Xlog:gc*,safepoint:/path/to/gc/logs/gc.log:time,uptime,level,tags:filecount=10,filesize=10M
 -Xlog:gc+ergo*=trace
 ```
-{% endtab %}
-
-{% tab title="Java 8" %}
-```bash
--XX:+PrintGCDetails
--XX:+PrintGCTimeStamps
--XX:+PrintGCDateStamps
--XX:+UseGCLogFileRotation
--XX:NumberOfGCLogFiles=10
--XX:GCLogFileSize=100M
--Xloggc:/path/to/gc/logs/gc.log
--XX:+PrintAdaptiveSizePolicy
-```
-{% endtab %}
-{% endtabs %}
 
 Replace `/path/to/gc/logs/` with an actual path on your file system.
 
-For the G1 collector, the `-Xlog:gc+ergo*=trace` option (the `-XX:+PrintAdaptiveSizePolicy` option on Java 8) provides many additional details that are purposefully not included in the basic GC log settings. Newer JDKs, such as Java 21, reject `-XX:+PrintAdaptiveSizePolicy`, and the JVM does not start.
+For the G1 collector, the `-Xlog:gc+ergo*=trace` option provides many additional details that are purposefully not included in the basic GC log settings. Newer JDKs, such as Java 21, reject `-XX:+PrintAdaptiveSizePolicy`, and the JVM does not start.
 
 ### Performance Analysis with Flight Recorder
 

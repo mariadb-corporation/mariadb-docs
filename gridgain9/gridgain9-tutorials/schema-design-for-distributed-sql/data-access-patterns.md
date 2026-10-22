@@ -5,8 +5,6 @@ description: >-
 
 # Choose the Right Data Access Pattern
 
-<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
-
 ## Introduction
 
 The entity classes from the previous tutorial carry two responsibilities: they define the schema, and they map fields to columns at runtime. The `@Id` annotations that declared composite primary keys for colocation have a third effect that surfaces the moment your application makes its first data access call. Those annotations constrain which API calls are possible, which write operations are safe, and which consistency guarantees are available.

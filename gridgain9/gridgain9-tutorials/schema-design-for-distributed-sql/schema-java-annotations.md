@@ -5,8 +5,6 @@ description: >-
 
 # Implement Schema With Java Annotations
 
-<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
-
 
 ## Introduction
 

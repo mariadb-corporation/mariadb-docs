@@ -22,7 +22,7 @@ If you are getting started with Ignite or GridGain, we recommend attending [an u
 
 {% include "../../.gitbook/includes/gg8-prereqs.md" %}
 
-See [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later) for the JVM flags that GridGain needs on Java 17 and later.
+See [Running GridGain on Java 17 or later](#running-gridgain-on-java-17-or-later) for the JVM flags that GridGain needs on Java 17 and later.
 
 ### (Optional) Open Ports
 
@@ -183,6 +183,6 @@ From here, you may want to:
 
 {% include "../../.gitbook/includes/gg8-exampleprojects.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain on Java 17 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}

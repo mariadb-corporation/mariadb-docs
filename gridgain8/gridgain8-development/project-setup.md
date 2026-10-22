@@ -10,7 +10,7 @@ description: >-
 
 {% include "../.gitbook/includes/gg8-prereqs.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain on Java 17 or Later
 
 {% include "../.gitbook/includes/gg8-java9.md" %}
 
@@ -223,9 +223,9 @@ The following modules are available:
 |ignite-kafka | GridGain Kafka Streamer provides capability to stream data from Kafka to GridGain caches.|
 |ignite-kubernetes | GridGain Kubernetes module provides a TCP Discovery IP Finder that uses a dedicated Kubernetes service for IP addresses lookup of GridGain pods containerized by Kubernetes.|
 |ignite-log4j2 |Support for Log4j2|
-|ignite-lucene-8 |Lucene 8 library. Required for running GridGain on Java 8.|
-|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 11 and 17.|
+|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Included in the `libs` directory, so it is enabled by default.|
 |ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later.|
+|ignite-lucene-10-java22 |Lucene 10 library built on the Java 22 foreign memory API. Provides full text and vector search on Java 22 and later.|
 |ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
 |ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|
 |ignite-osgi-karaf | This module contains a feature repository to facilitate installing GridGain into an Apache Karaf container.|

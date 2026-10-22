@@ -6,6 +6,8 @@ description: >-
 
 # Build a RESTful Web Service With Spring Boot and Ignite
 
+<!-- TODO (rewrite): This page is still written for Apache Ignite 2.x and was not run on GridGain 8.10. Swap to `org.gridgain:ignite-core` and `ignite-indexing`, use `ignite-spring-data` (package `org.apache.ignite.springdata.repository.*`, no `springdata22`), pick a Spring Boot version that matches the Spring 7 / Spring Data 4.1 used by the 8.10 modules, use Java 17, drop the H2 pin, and check `world.sql` in the GridGain 8 distribution. Retest once 8.10 is on Nexus and Maven is installed, then delete this comment. -->
+
 ## Introduction
 
 This tutorial walks you through the process of creating a RESTful web service that uses Apache Ignite as a high-performance, in-memory database. The service is a Spring Boot application with an embedded Apache Tomcat instance that interacts with an Apache Ignite cluster via Spring Data repository abstraction.

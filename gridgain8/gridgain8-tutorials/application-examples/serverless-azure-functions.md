@@ -6,6 +6,8 @@ description: >-
 
 # Serverless Computing With Ignite and Azure Functions
 
+<!-- TODO (rewrite): This is the largest rewrite. The page is written for Apache Ignite 2.8 and Java 8; the 8.10 client needs Java 17, and the statement that Azure Functions supports only Java 8 (here and in the build steps) is third-party and unchecked. Needs an Azure subscription and AKS to retest. Delete this comment when done. -->
+
 ## Introduction
 
 This tutorial walks you through the process of creating an application that makes use of serverless and in-memory computing. Serverless computing is a new way of cloud-native application development and hosting, while in-memory computing is a software and data-processing technique that stores data sets in memory across a cluster of interconnected nodes. With serverless computing, you can focus on application logic creation, letting a cloud vendor provide, manage, and scale the needed infrastructure. In contrast, with in-memory computing, you can process your data 100-1000x faster than with disk-based databases.

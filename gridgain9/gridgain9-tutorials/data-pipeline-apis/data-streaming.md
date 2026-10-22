@@ -5,8 +5,6 @@ description: >-
 
 # Stream Data With the Data Streamer API
 
-<!-- TODO (low): The "Java 17 or later" prerequisite is the tutorial's own choice. The GridGain 9.1.28 client is built for Java 11. Compiled with `javac --release 11`, the samples on this page build without errors. Decide whether to keep "Java 17" (one prerequisite for the whole tutorial series) or say "Java 11 or later" on the pages whose samples allow it, then delete this comment. -->
-
 ## Introduction
 
 Every write operation in the previous tutorials used individual `upsert()` calls or SQL `INSERT` statements. Each call is a network round-trip: the client sends one record, waits for the server to acknowledge it, then sends the next. At 59 customers and 2,240 invoice lines, this approach works fine. At 10,000 customers or 500,000 invoice lines, it becomes a bottleneck.

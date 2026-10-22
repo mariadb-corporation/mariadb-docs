@@ -6,6 +6,8 @@ description: >-
 
 # Upgrades and Rollbacks
 
+<!-- TODO (not tested): This page was not run (no Kubernetes cluster was available); only the sample image.tag was updated to 9.1.28. Run an upgrade and a rollback with the operator and check the samples, then delete this comment. -->
+
 {% hint style="warning" %}
 Upgrading GridGain through kubernetes operator is an experimental feature.
 {% endhint %}
