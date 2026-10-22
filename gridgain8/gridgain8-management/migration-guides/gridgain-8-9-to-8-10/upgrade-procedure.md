@@ -311,4 +311,3 @@ Do not start 8.9 nodes on data that 8.10 nodes have written and treat it as a ro
 
 Keep the snapshot and the 8.9 distribution until the upgrade has been validated in production.
 
-<!-- TODO Pavel Tupitsyn (GG-52701): both bullets above were run on 2026-10-22 in a mixed cluster (8.9.39 node and a node of the master build with the fix). Service with interceptors: refused with "Failed to deploy service with interceptors: not all nodes in the cluster support service call interceptors, try again once the rolling upgrade is complete". Baseline: `control.sh --baseline scale_up_auto_adjust enable timeout 1000 --yes` fails with a wrapped NullPointerException from VisorBaselineTask on the 8.9 node, not with a clear message. Is that expected? If it is, the guide says only that the commands fail. -->
