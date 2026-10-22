@@ -9,13 +9,18 @@ description: >-
 
 The following still work and are deprecated:
 
-- `TRANSACTIONAL_SNAPSHOT` atomicity mode. Use `TRANSACTIONAL` or `ATOMIC`. Also deprecated in 8.9.38.
-- `DataStorageConfiguration.setSystemRegionInitialSize()` and `setSystemRegionMaxSize()`. Use `SystemDataRegionConfiguration`.
-- `IgniteConfiguration.setDefaultQueryTimeout()` and `getDefaultQueryTimeout()`. Use `SqlConfiguration`.
-- `ClientConfiguration.setTimeout()`. Use `setHandshakeTimeout()` and `setRequestTimeout()`.
-- `ClientConfiguration.setPartitionAwarenessEnabled()`. Use `setAffinityAwarenessEnabled()`.
-- .NET `IgniteClientConfiguration.SocketTimeout`. Use `HandshakeTimeout` and `RequestTimeout`.
-- The rebalance settings of `ClientCacheConfiguration`.
+| Deprecated | Use instead |
+|---|---|
+| `TRANSACTIONAL_SNAPSHOT` atomicity mode | `TRANSACTIONAL` or `ATOMIC` |
+| `DataStorageConfiguration.setSystemRegionInitialSize()` and `setSystemRegionMaxSize()` | `SystemDataRegionConfiguration` |
+| `IgniteConfiguration.setDefaultQueryTimeout()` and `getDefaultQueryTimeout()` | `SqlConfiguration` |
+| `ClientConfiguration.setTimeout()` | `setHandshakeTimeout()` and `setRequestTimeout()` |
+| `ClientConfiguration.setPartitionAwarenessEnabled()` | `setAffinityAwarenessEnabled()` |
+| .NET `IgniteClientConfiguration.SocketTimeout` | `HandshakeTimeout` and `RequestTimeout` |
+| `ClientCacheConfiguration` rebalance batch size, batches prefetch count, throttle, and timeout (`getRebalanceBatchSize()`, `getRebalanceBatchesPrefetchCount()`, `getRebalanceThrottle()`, `getRebalanceTimeout()`, and the matching setters) | The same properties in `IgniteConfiguration` |
+| `ClientCacheConfiguration.getRebalanceDelay()` and `setRebalanceDelay()` | The baseline topology feature. These methods will be removed in a later release. |
+| `ClientCacheConfiguration.getDefaultLockTimeout()` and `setDefaultLockTimeout()` | None. The property has no effect. |
+| `ignite-web` module (Web Session Clustering: `WebSessionFilter`, `ServletStartup`, `ServletContextListenerStartup`) | None. The module still ships in `libs/optional` in 8.10 and will be removed in a later release. If you cluster HTTP sessions through GridGain, plan to move off it. |
 
 ## Data Center Replication
 

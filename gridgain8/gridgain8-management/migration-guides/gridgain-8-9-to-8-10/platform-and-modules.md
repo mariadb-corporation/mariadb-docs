@@ -31,14 +31,12 @@ The following modules are removed in GridGain 8.10. Take the action in the *What
 | `ignite-ssh` | Contact GridGain Support if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). | Not deprecated |
 | `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). | 8.9.39 |
 | `ignite-mesos` | None. Mesos deployments stay on 8.9.x. | 8.9.39 |
-| `ignite-web` (Web Session Clustering: `WebSessionFilter`, `ServletStartup`, `ServletContextListenerStartup`) | None. Applications that cluster HTTP sessions through GridGain stay on 8.9.x. | Not deprecated |
 | `ignite-ml`, `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, `ignite-ml-mleap-model-parser` | The Apache Ignite `ignite-ml-ext` extension or the standalone GridGain ML download. See [Machine Learning Module Removed](#machine-learning-module-removed). | 8.9.38 |
 | `gridgain-diagnostic`, `gridgain-tools`, `gridgain-yardstick` (Enterprise and Ultimate) | None. | Not deprecated |
 | Local store support (`@CacheLocalStore`, `CacheFileLocalStore`) | Native persistence or a regular `CacheStore`. See [Local Store Support Removed](#local-store-support-removed). | `IGNITE_LOCAL_STORE_KEEPS_PRIMARY_ONLY` and `CacheFileLocalStore` in 8.9.39 |
 
 The following modules are not removed in 8.10 and still ship in `libs/optional`: `ignite-cassandra-store`, `ignite-cassandra-serializers`, `ignite-kubernetes`, `ignite-zookeeper`, `ignite-gce`, `ignite-jta`, `ignite-yarn`, `ignite-compress`, and `ignite-direct-io`.
 
-<!-- TODO Dmitry Baranov (GG-51845, In Progress, no commit yet; checked against master on 2026-10-22): the row says ignite-web is removed in 8.10. If GG-51845 does not land before this guide is published, remove the row. It still needs Support/Product sign-off and a deprecation cycle. Also: GG-52208 (open, a customer request to keep ignite-web on WebLogic 15) says the module was "marked for removal in 8.10 and deprecated in 8.9", but 8.9-master has no @Deprecated. Which is correct? -->
 
 ### Gridify API Removed
 
@@ -50,7 +48,7 @@ The Gridify API is removed from `ignite-core`, together with the `ignite-aop` mo
 
 This section applies if you start remote nodes with `IgniteCluster.startNodes()` or `startNodesAsync()`.
 
-The `ignite-ssh` module is removed and no longer ships in `libs/optional`. The `org.gridgain:ignite-ssh` artifact is no longer published. `IgniteCluster.startNodes()` and `startNodesAsync()` remain in the API, but they need an SSH implementation on the node classpath. Without one, `startNodes()` throws an `IgniteCheckedException` with the message `Failed to create Ignite component (consider adding ignite-ssh module to classpath)`.
+The `ignite-ssh` module is removed and no longer ships in `libs/optional`. The `org.gridgain:ignite-ssh` artifact is no longer published. `IgniteCluster.startNodes()` and `startNodesAsync()` remain in the API, but they need an SSH implementation on the node classpath. Without one, `startNodes()` throws an `IgniteException` with the message `Failed to create Ignite component (consider adding ignite-ssh module to classpath)`.
 
 Contact GridGain Support before you upgrade.
 
@@ -183,7 +181,7 @@ You build the 8.10 `libs` folder from the new distribution.
 - *Integrations move out of the server packages.* The Oracle GoldenGate integrations and the Kafka Connect connector no longer ship in the server package and are not in an `integration` folder. Get them from the integrations download, Maven, or Confluent Hub. `gridgain-kafka-connect` is shipped only as its own artifact.
 - *Maven-only modules.* `ignite-hibernate-7.4` and `ignite-spring-data` are published to Maven only and are no longer in `libs/optional`. If you copy these jars into `libs`, take them from Maven.
 - *OpenCensus.* `ignite-opencensus` moves from `libs` to `libs/optional`. To keep OpenCensus tracing, move the `ignite-opencensus` folder back into `libs`.
-- *Control Center agent.* `control-center-agent` moves from `libs` to `libs/optional`. A node started from the 8.10 distribution does not load the agent, and does not connect to Control Center, until you move the `control-center-agent` folder into `libs`.
+- *Control Center agent.* `control-center-agent` is in `libs/optional` in 8.10. In GridGain 8.9.38 and earlier it was in `libs`, so a node of those versions loaded it by default. In 8.9.39 it already ships in `libs/optional`. A node started from the 8.10 distribution does not load the agent, and does not connect to Control Center, until you move the `control-center-agent` folder into `libs`.
 - *Spring Data commons.* `ignite-spring-data-commons` is no longer in `libs/optional`. Like `ignite-spring-data` in the previous bullet, it is published to Maven only. Take the commons dependency from Maven if you copied it.
 - *Bulk load.* `gridgain-bulkload` stays in `libs/optional` of the server packages, with a much smaller set of dependencies. Reading from S3 still works. The Snowflake JDBC driver (`snowflake-jdbc`) is no longer bundled. If you added `jdbc:snowflake:` to `GRIDGAIN_BULKLOAD_JDBC_ALLOWED_URL_SCHEMES` or `SnowflakeCatalog` to `importExport.allowedIcebergClasses`, put a Snowflake JDBC driver next to the module yourself. Both are closed by default (see [Server-Side SQL COPY](security-and-licensing.md#server-side-sql-copy)).
 - *No evaluation license archives.* The Enterprise, Ultimate, and z/OS evaluation-license archives are no longer built.

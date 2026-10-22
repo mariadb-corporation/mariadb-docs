@@ -32,7 +32,17 @@ This section applies if your configuration or startup scripts set Apache Ignite 
 
 An unknown property in the Spring XML configuration still fails node startup, as it did in 8.9.x, but the message is now short and names the bean and the property, for example `Configuration property IgniteConfiguration.noSuchProperty does not exist`.
 
-GridGain 8.10 also logs a warning at node start for each Apache Ignite system property or environment variable that GridGain does not support. The list is fixed: the Calcite SQL engine (`IGNITE_CALCITE_*`), `IGNITE_SNAPSHOT_SEQUENTIAL_WRITE`, the performance statistics properties (`IGNITE_PERF_STAT_*`), `IGNITE_ALLOW_MIXED_CACHE_GROUPS`, `IGNITE_ENABLE_OBJECT_INPUT_FILTER_AUTOCONFIGURATION`, `IGNITE_USE_BINARY_ARRAYS`, and `IGNITE_SQL_FORCE_LAZY_RESULT_SET`. The warning names the property and the reason and links to the Apache Ignite migration guide. The node starts normally. Remove these properties from your startup scripts.
+GridGain 8.10 also logs a warning at node start for each Apache Ignite system property or environment variable in the following table. Only these exact names are checked, and the list is fixed. The warning names the property and the reason, and links to the Apache Ignite migration guide. The node starts normally. Remove these properties from your startup scripts.
+
+| Property | Reason |
+| --- | --- |
+| `IGNITE_CALCITE_EXEC_IN_BUFFER_SIZE`, `IGNITE_CALCITE_EXEC_IO_BATCH_CNT`, `IGNITE_CALCITE_EXEC_IO_BATCH_SIZE`, `IGNITE_CALCITE_EXEC_MODIFY_BATCH_SIZE`, `IGNITE_CALCITE_REL_JSON_PRETTY_PRINT` | The GridGain SQL engine is H2-based. The Calcite engine is not available. |
+| `IGNITE_SNAPSHOT_SEQUENTIAL_WRITE` | The GridGain snapshot subsystem differs from Apache Ignite. |
+| `IGNITE_PERF_STAT_BUFFER_SIZE`, `IGNITE_PERF_STAT_CACHED_STRINGS_THRESHOLD`, `IGNITE_PERF_STAT_FILE_MAX_SIZE`, `IGNITE_PERF_STAT_FLUSH_SIZE` | The performance statistics subsystem is not implemented. Use GridGain metrics. |
+| `IGNITE_ALLOW_MIXED_CACHE_GROUPS` | Mixed cache groups are not available. |
+| `IGNITE_ENABLE_OBJECT_INPUT_FILTER_AUTOCONFIGURATION` | Object input filter auto-configuration is not available. |
+| `IGNITE_USE_BINARY_ARRAYS` | Typed binary arrays are not available. |
+| `IGNITE_SQL_FORCE_LAZY_RESULT_SET` | Not available in the H2-based SQL engine. |
 
 ## JMX Object Metrics Are Strings
 

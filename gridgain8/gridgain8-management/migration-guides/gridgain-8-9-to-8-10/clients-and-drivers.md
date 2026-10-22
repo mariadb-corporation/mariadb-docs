@@ -29,7 +29,7 @@ A Java thin client transaction now starts lazily. `txStart()` no longer sends `T
 
 - *Errors surface at the first operation.* An error that used to surface at `txStart()` now surfaces at the first cache operation. If the start fails, the transaction stays unusable until you close it: further operations fail with `Transaction failed to start, but was not explicitly closed`, `commit()` fails with `Transaction failed to start. It is now closed`, and a new `txStart()` on the same thread is refused until you close the failed transaction. Use try-with-resources so that the transaction is always closed.
 - *A transaction without cache operations never reaches the server.* `commit()`, `rollback()`, and `close()` on it succeed and send nothing.
-- *`txId()` and `clientChannel()` are not available before the first cache operation.* Both fail with `The transaction was never started`. In 8.9.x they worked right after `txStart()`.
+- *`txId()` and `clientChannel()` are not available before the first cache operation.* These two methods are on the internal transaction class, not on the public `ClientTransaction` interface, so only code that casts to it is affected. Both fail with `The transaction was never started`. In 8.9.x they worked right after `txStart()`.
 
 With `affinityAwarenessEnabled` set to `true` (the default is `false`), the start request goes to a node chosen by the first operation. Otherwise it goes to the default connection, as in 8.9.x.
 

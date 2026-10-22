@@ -31,7 +31,7 @@ Keep the following constraints in mind when you plan the upgrade:
 - *Java 17 or later is required.* Every server node, client application, and application that embeds GridGain must run on Java 17 or later. See [Java 17 or Later](platform-and-modules.md#java-17-or-later).
 - *A snapshot is your way back after `finish`.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. The way back is to restore a snapshot taken before the upgrade. See [Rollback](upgrade-procedure.md#rollback).
 - *Caches without backups are unavailable during a rolling upgrade.* Partitions that live on a stopped node cannot be served. See [Application Behavior During a Rolling Upgrade](upgrade-procedure.md#application-behavior-during-a-rolling-upgrade).
-- *Some integrations have no 8.10 replacement.* Mesos deployments and applications that cluster HTTP sessions through GridGain stay on 8.9.x. See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations).
+- *Some integrations have no 8.10 replacement.* Mesos deployments stay on 8.9.x. See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations).
 
 ## Which Pages Apply to You
 
@@ -70,7 +70,7 @@ These changes affect application and client code.
 | Machine learning module replaced by an extension | You use `ignite-ml` | Code | [Machine Learning Module Removed](platform-and-modules.md#machine-learning-module-removed) |
 | Local store replaced by native persistence or `CacheStore` | You use `@CacheLocalStore` or `CacheFileLocalStore` | Redesign | [Local Store Support Removed](platform-and-modules.md#local-store-support-removed) |
 | Cassandra store on DataStax driver 4 | You use the Cassandra store | Code | [Cassandra Store Uses the DataStax Driver 4](platform-and-modules.md#cassandra-store-uses-the-datastax-driver-4) |
-| Modules with no replacement | You use Mesos or Web Session Clustering | Redesign (stay on 8.9.x) | [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) |
+| Modules with no replacement | You use Mesos | Redesign (stay on 8.9.x) | [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) |
 | Java thin client timeouts | A thin client operation runs longer than 60 seconds | Config-only | [Java Thin Client Timeouts Have Default Values](clients-and-drivers.md#java-thin-client-timeouts-have-default-values) |
 | Thin clients in a mixed-version cluster | Thin clients connect during a rolling upgrade, or 8.10 clients connect to 8.9 servers, and you use vector indexes or `withPartitionRecover()` | Config-only | [Thin Clients and Mixed Versions](clients-and-drivers.md#thin-clients-and-mixed-versions) |
 | .NET and C++ client changes | You use the .NET or C++ client | Mechanical to Code | [Client and Driver Changes](clients-and-drivers.md) |
@@ -95,4 +95,4 @@ These changes affect cluster configuration, deployment, and operational tooling.
 | Server-side SQL `COPY` | You use `COPY` against files or object stores | Config-only | [Server-Side SQL COPY](security-and-licensing.md#server-side-sql-copy) |
 | Vector search limits | You use vectors with more than 4096 dimensions, or request more than 10000 neighbors | Config-only | [Vector Search Limits](configuration-and-defaults.md#vector-search-limits) |
 | Stale system properties | Your startup scripts set an Apache Ignite property that GridGain does not support | Config-only | [Startup Messages for Stale Properties](configuration-and-defaults.md#startup-messages-for-stale-properties) |
-| Control Center agent and OpenCensus | You enabled `control-center-agent` or `ignite-opencensus` by moving the folder into `libs` | Mechanical | [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes) |
+| Control Center agent and OpenCensus | Your 8.9 node loads `control-center-agent` (in `libs` by default up to 8.9.38) or `ignite-opencensus` (in `libs` by default) | Mechanical | [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes) |
