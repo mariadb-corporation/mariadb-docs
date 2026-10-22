@@ -276,7 +276,7 @@
     * [Feast](integrations/ai/feast.md)
     * [MCP Server](integrations/ai/mcp-server/README.md)
       * [Installing MCP Server](integrations/ai/mcp-server/installation.md)
-      * [Connecting an Assistant](integrations/ai/mcp-server/agent-hosts.md)
+      * [Connecting an MCP Host](integrations/ai/mcp-server/agent-hosts.md)
       * [Configuring MCP Server](integrations/ai/mcp-server/configuration.md)
       * [Tools and Resources](integrations/ai/mcp-server/tools-and-resources.md)
       * [Security](integrations/ai/mcp-server/security.md)

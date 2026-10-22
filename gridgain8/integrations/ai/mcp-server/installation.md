@@ -1,65 +1,62 @@
 ---
 description: >-
-  Install GridGain MCP Server from the ZIP download package or run it as a container image, and run it by hand for a first test.
+  Install GridGain MCP Server from the ZIP download package or run it as a container image, and run it manually for a first test.
 ---
 
 # Installing MCP Server
 
-GridGain MCP Server is a separate download. You do not install it into a GridGain node.
-You can run it from the download package or as a container image.
+{% hint style="warning" %}
+MCP Server is available only with GridGain Ultimate Edition.
+{% endhint %}
 
-You do not start the server yourself in everyday use.
-Your assistant starts it when needed and stops it when the session ends.
-The commands on this page show how to run the server by hand, which is useful for the first test.
+GridGain MCP Server is a separate download, available from the [GridGain download page](https://www.gridgain.com/resources/download).
+The GridGain Ultimate Edition package also contains the server as a single JAR file in its `mcp` folder.
+
+{% hint style="info" %}
+You do not install the server into a GridGain node, and you do not run it manually in everyday use.
+Your assistant starts the server when needed and stops it when the session ends.
+{% endhint %}
 
 ## Installing From the Download Package
 
-The package is a ZIP archive named `gridgain-mcp-<version>.zip`.
-It requires Java 17 or later.
+After you download the archive, unpack it and start the server:
 
-1. Unpack the archive.
-2. Check the contents of the unpacked folder:
+```shell
+java -jar gridgain-mcp-<version>.jar
+```
 
-   | Item | Description |
-   | ---- | ----------- |
-   | `gridgain-mcp-<version>.jar` | The server. It needs the `libs` folder next to it. |
-   | `libs/` | The libraries that the server loads. Keep this folder next to the JAR file. If you move the JAR file, move this folder with it. |
-   | `standalone/gridgain-mcp-<version>.jar` | The same server as a single JAR file. It does not need the `libs` folder, so you can copy it anywhere. |
-   | `licenses/` | The license notices of the third-party libraries. |
-   | `gridgain-eula.txt` | The license agreement that governs the download. |
-   | `swidtag/` | The software identification tag for asset management tools. |
+The server then waits for requests from an assistant on standard input and does not do anything on its own.
 
-3. Start the server:
+To check that the server can reach your cluster, use the [connection check](operations.md#checking-the-connection) operation.
 
-   ```shell
-   java -jar gridgain-mcp-<version>.jar
-   ```
-
-The server waits for requests from an assistant on standard input and does not print anything on its own.
-Press `Ctrl+C` to stop it.
-To check that the server can reach your cluster, use the [connection check](operations.md#checking-the-connection) instead.
+By default, the server writes the audit log to `~/.gridgain8/mcp/logs/audit.log` in your home folder.
 
 {% hint style="info" %}
-If you start the JAR file without its `libs` folder, the server fails with `NoClassDefFoundError`. Use the single JAR from the `standalone` folder if you want to keep one file.
+The `gridgain-mcp-<version>.jar` file needs the `libs` folder next to it. If you move the JAR file, move the folder with it.
+To keep one file, use `standalone/gridgain-mcp-<version>.jar`, which does not need the `libs` folder.
 {% endhint %}
 
 ## Installing as a Container Image
 
-The image name is `gridgain/mcp`. One image tag works on both `linux/amd64` and `linux/arm64`.
+To run the server in Docker, get the `gridgain/mcp` image. The image works on both the `linux/amd64` and `linux/arm64` platforms.
+
+The following command starts the server:
 
 ```shell
 docker run -i --rm gridgain/mcp:<version>
 ```
 
-Use both options:
+Make sure to use both options:
 
 - `-i` keeps standard input open. The server talks to the assistant through it, and without it the server stops at once.
 - `--rm` removes the container when the session ends.
 
-The image does not publish any ports, and the server runs as a non-root user (user ID 10000).
-Everything you put after the image name goes to the server as its own arguments.
+Unlike the JAR file, the container prints a warning to standard error at once if no volume is mounted for the audit log.
+See [Keeping the Audit Log](#keeping-the-audit-log).
 
-You set the server through environment variables, as described in [Configuring MCP Server](configuration.md).
+The image does not publish any ports by default, and the server runs as user ID 10000, not as root.
+
+You configure the server through environment variables, as described in [Configuring MCP Server](configuration.md).
 With Docker, pass them with the `-e` option.
 
 ### Reaching the Cluster From a Container
@@ -72,7 +69,7 @@ Set `GRIDGAIN_HOST` to the address of your cluster. If the cluster runs on the s
 
 ### Using Certificates
 
-The server opens its trust store and key store files, so they must be available inside the container:
+The server opens its own trust store and key store files, so they must be available inside the container:
 
 - Mount the folder with the stores as read-only.
 - Make the files readable by user ID 10000.
@@ -81,15 +78,15 @@ The server opens its trust store and key store files, so they must be available 
 ### Keeping the Audit Log
 
 In the container image, the server writes the [audit log](operations.md#audit-log) under `/opt/gridgain-mcp/.gridgain8/mcp/logs`.
-When you run the JAR file, the log is in your home folder by default, as described in [Operating MCP Server](operations.md#audit-log).
-Without a volume, you lose the log when you remove the container.
-To keep it, mount a folder from your machine at this path.
-The folder must belong to user ID 10000 and be closed to the group and to other users, such as mode `0700`.
+Without a volume, you lose the log when you remove the container. To keep it, mount a folder from your machine at this path.
+
+The folder must belong to the user that the container runs as, and be closed to the group and to other users, such as mode `0700`.
+This user is user ID 10000, unless you choose another one with `docker run --user`.
 Otherwise, the server does not start.
 
-If no volume is mounted, the container prints a warning to standard error and starts anyway.
-
 ### Example
+
+The following command connects the server to a cluster over TLS and mounts folders for the certificates and the audit log:
 
 ```shell
 docker run -i --rm \
@@ -104,7 +101,7 @@ docker run -i --rm \
   gridgain/mcp:<version>
 ```
 
-The `-e` options without a value, such as `-e GRIDGAIN_PASSWORD`, take the value from the environment of the `docker` command.
+An `-e` option without a value, such as `-e GRIDGAIN_PASSWORD`, takes the value from the environment of the `docker` command.
 This keeps passwords out of the command line.
 
 ## Next Steps
