@@ -1588,10 +1588,10 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
   Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
-* Dynamic: Yes, (except when globally set to `0` or `-1`)
+* Dynamic: Yes, unless the server was started with `max_user_connections=0`. Then `SET GLOBAL` fails with error 1290.
 * Data Type: `numeric`
 * Default Value: `0`
-* Range: `-1` to `4294967295`
+* Range: `-1` to `2147483647`
 
 #### `max_write_lock_count`
 
