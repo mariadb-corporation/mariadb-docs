@@ -5,6 +5,8 @@ description: >-
 
 # LangChain Integration
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 GridGain provides support for a LangChain integration. In this extension, a set of storage adapters that allow LangChain components to efficiently use GridGain as a backend for various data storage needs is provided.
 
 ## Features

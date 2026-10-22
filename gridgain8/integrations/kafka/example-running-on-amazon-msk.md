@@ -5,6 +5,8 @@ description: >-
 
 # How to run the GridGain Kafka Connector on Amazon MSK
 
+<!-- TODO (not tested): The Amazon MSK example (rewritten from the connector README; needs an MSK cluster) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
+
 ## Prerequisites
 
 - An AWS account with access to the [AWS Management Console](https://aws.amazon.com/console/)

@@ -5,6 +5,8 @@ description: >-
 
 # How to Build a Low-Code RAG Application With GridGain and Langflow
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 ## Prerequisites
 
 - A running **GridGain 8** cluster with vector search enabled

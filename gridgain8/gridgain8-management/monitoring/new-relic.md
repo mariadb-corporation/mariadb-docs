@@ -5,6 +5,8 @@ description: >-
 
 # How to Monitor GridGain Clusters With New Relic
 
+<!-- TODO (not tested): The New Relic integration (needs a New Relic account) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
+
 ## Prerequisites
 
 - A running **GridGain 8** cluster on bare metal or a VM

@@ -5,6 +5,8 @@ description: >-
 
 # Feast Stores
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 The GridGain Feast integration provides a way of using GridGain as online store for Feast, providing high-performance, in-memory data storage and retrieval for feature serving.
 
 ## Features

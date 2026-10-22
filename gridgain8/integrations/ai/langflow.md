@@ -5,6 +5,8 @@ description: >-
 
 # Langflow Integration
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 <!-- TODO (decision): The page says the version is based on Langflow 1.4.2 but the download is langflow-1.1.13.gridgain.3.zip. This cannot be settled from the product source; ask the Langflow component owner which is right, then delete this comment. -->
 
 GridGain provides Langflow components that can be used to supercharge your AI workflow with full power of GridGain. This version is based on Langflow 1.4.2 and can be used to start working with GridGain vector store components before they are available in the official Langflow release.

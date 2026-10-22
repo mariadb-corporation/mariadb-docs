@@ -5,6 +5,8 @@ description: >-
 
 # Kafka Connector Quick Start
 
+<!-- TODO (not tested): The Kafka quick start (rewritten from the connector README; needs a Kafka cluster) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
+
 <!-- TODO (decision): Keep the `ignite-slf4j` step on the server nodes? The page was rewritten from the connector README, which does not mention slf4j; the step was kept because it could not be disproved. Test the quick start on a Kafka cluster without it, then delete this comment. -->
 
 ## Kafka Connect Ecosystem

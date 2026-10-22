@@ -5,6 +5,8 @@ description: >-
 
 # How to Debug a Hot Partition
 
+<!-- TODO (not tested): The sample numbers on this page was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
+
 ## Prerequisites
 
 - **Familiarity with partitioned caches and affinity.** [Understand How Your Cache Is Distributed](../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) covers partitions and owners. [Design Keys for Colocation](../gridgain8-tutorials/data-locality/design-keys-for-colocation.md) covers the three affinity mechanisms.
