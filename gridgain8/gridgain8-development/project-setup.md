@@ -233,7 +233,7 @@ The following modules are available:
 |ignite-rest-http | GridGain REST-HTTP starts a Jetty-based server within a node that can be used to execute tasks and/or cache commands in grid using HTTP-based [RESTful APIs](../reference/rest-api/README.md).|
 |ignite-schedule | This  module provides functionality for scheduling jobs locally using UNIX cron-based syntax.|
 |ignite-slf4j | Support for [SLF4J logging framework](../gridgain8-management/cluster-configuration/logging.md#using-slf4j).|
-|ignite-spring-data_2.2 | GridGain Spring Data provides an integration with the Spring Data framework. The `_2.2` suffix in the module name is historical and is kept so that existing dependency coordinates continue to work.|
+|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data framework. In GridGain 8.9 and earlier, this module was named `ignite-spring-data_2.2`.|
 |ignite-urideploy | GridGain URI Deploy module provides capabilities to deploy tasks from different sources such as File System, HTTP, or even Email.|
 |ignite-web | GridGain Web allows you to start nodes inside any web container based on servlet and servlet context listener. In addition, this module provides capabilities to cache web sessions in a GridGain cache.|
 |ignite-zookeeper | GridGain ZooKeeper provides a TCP Discovery IP Finder that uses a ZooKeeper directory to discover other GridGain nodes.|

@@ -5,6 +5,8 @@ description: >-
 
 # How to Monitor GridGain 8 With Prometheus and Grafana
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Prerequisites
 
 - A **GridGain 8** project you can launch from Java code
@@ -17,7 +19,7 @@ GridGain supports a wide range of integrations and tools that can be used to mon
 
 This guide uses the following program versions:
 
-- GridGain Enterprise Edition 8.9.1
+- GridGain 8.10
 - Grafana OSS 10.3.1
 - Prometheus server 2.49.1
 
@@ -45,8 +47,8 @@ First, you need to configure GridGain to use a Prometheus exporter and create an
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-compiler-plugin</artifactId>
                   <configuration>
-                      <source>8</source>
-                      <target>8</target>
+                      <source>17</source>
+                      <target>17</target>
                   </configuration>
               </plugin>
           </plugins>
@@ -55,14 +57,14 @@ First, you need to configure GridGain to use a Prometheus exporter and create an
       <repositories>
           <repository>
               <id>GridGain External Repository</id>
-              <url>http://www.gridgainsystems.com/nexus/content/repositories/external</url>
+              <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
           </repository>
       </repositories>
 
       <properties>
-          <maven.compiler.source>8</maven.compiler.source>
-          <maven.compiler.target>8</maven.compiler.target>
-          <ignite.version>8.9.1</ignite.version>
+          <maven.compiler.source>17</maven.compiler.source>
+          <maven.compiler.target>17</maven.compiler.target>
+          <ignite.version>8.10.0</ignite.version>
           <prometheus.version>0.16.0</prometheus.version>
           <opencensus.version>0.31.1</opencensus.version>
       </properties>
@@ -110,7 +112,7 @@ First, you need to configure GridGain to use a Prometheus exporter and create an
   You use the following versions:
 
   - The latest version of Prometheus from the [maven repository](https://mvnrepository.com/artifact/io.prometheus/simpleclient_httpserver). It is recommended to update it to the latest version if it is available.
-  - The OpenCensus version included in GridGain 8.9.1. The included OpenCensus library is updated regularly and can be different for different GridGain versions. You can check the version of the library for your version in the `{IGNITE_HOME}/libs/ignite-opencensus` folder. The `opencensus-impl-X.XX.X` file denotes the version you should use in the configuration.
+  - The OpenCensus version included in GridGain 8.10. The included OpenCensus library is updated regularly and can be different for different GridGain versions. You can check the version of the library for your version in the `{IGNITE_HOME}/libs/optional/ignite-opencensus` folder. The `opencensus-impl-X.XX.X` file denotes the version you should use in the configuration.
 
 - Enable exporting of data. You can do it by configuring `OpenCensusMetricExporterSpi` in your configuration or from Java code:
 

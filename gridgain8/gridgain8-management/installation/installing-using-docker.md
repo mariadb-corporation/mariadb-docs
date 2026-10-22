@@ -209,17 +209,12 @@ To enable specific [modules](../../gridgain8-development/project-setup.md#enabli
 
 ```shell
 docker run -d \
-  -e "OPTION_LIBS=ignite-rest-http,ignite-aws" \
+  -e "OPTION_LIBS=ignite-rest-http,ignite-opencensus" \
   -e LICENCE_URL=http://myserver/license.xml \
   gridgain/enterprise
 ```
 
-By default, GridGain Docker image starts with the following modules enabled:
-
-- ignite-log4j,
-- ignite-spring,
-- ignite-indexing,
-- ignite-opencensus.
+The `ignite-spring` and `ignite-indexing` modules are always on the classpath. All other modules, including `ignite-opencensus`, are in `libs/optional` and are enabled only through `OPTION_LIBS`.
 
 ## Environment Variables
 
@@ -227,15 +222,15 @@ The following parameters can be passed as environment variables in the docker co
 
 | Parameter Name | Description | Default |
 |---|---|---|
-| `CONFIG_URI` | URL to the GridGain configuration file (can also be relative to the META-INF folder on the class path). The downloaded configuration file is saved to `./ignite-config.xml` | N/A |
-| `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) that will be enabled for the node. | ignite-log4j, ignite-spring, ignite-indexing |
-| `JVM_OPTS` | JVM arguments passed to the GridGain instance. | N/A |
+| `CONFIG_URI` | URL to the GridGain configuration file (can also be relative to the META-INF folder on the class path). | N/A |
+| `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) from `libs/optional` that will be enabled for the node. | N/A |
+| `JVM_OPTS` | JVM arguments passed to the GridGain instance. Setting this variable replaces the default. | `-Xms1g -Xmx1g -server -XX:MaxMetaspaceSize=256m` |
 | `EXTERNAL_LIBS` | A list of URL's to external libraries. Refer to [Deploying User Libraries](#deploying-user-libraries). | N/A |
 | `LICENCE_URL` | URL to the license file. A license is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |
 
 ## Software Identification
 
-The GridGain Docker image includes a SWID tag. It is located at `/opt/gridgain/swid/gridgain.swidtag` inside the Docker container.
+The GridGain Docker image includes a SWID tag. It is located in `/usr/share/swidtag/` and in `/opt/gridgain/swidtag/` inside the Docker container, in a file named `com.gridgain.gridgain-<edition>_<version>.swidtag`.
 
 See [Software Identification](../software-identification.md) for details.
 

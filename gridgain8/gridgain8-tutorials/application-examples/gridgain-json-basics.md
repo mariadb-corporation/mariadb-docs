@@ -28,7 +28,7 @@ The sample JSON data for this tutorial are as follows:
 - [The Blue Planet TV show](https://api.tvmaze.com/singlesearch/shows?q=the%20blue%20planet&embed=episodes)
 - [Planet Earth TV Show](https://api.tvmaze.com/singlesearch/shows?q=planet%20earth&embed=episodes)
 
-The datasets are relatively large (~15 Kb minified), with many data rows. You may want to tune the node memory defaults (for example, in `/bin/ignite`).
+The datasets are relatively large (~15 Kb minified), with many data rows. You may want to tune the node memory defaults (for example, in `bin/ignite.sh`).
 
 ## Populate the Database
 
@@ -36,7 +36,7 @@ The datasets are relatively large (~15 Kb minified), with many data rows. You ma
 1. Connect to the node using the embedded sqlline:
 
    ```bash
-   /bin/sqlline.sh --verbose=true -u jdbc:ignite:thin://127.0.0.1:10800
+   ./bin/sqlline.sh --verbose=true -u jdbc:ignite:thin://127.0.0.1:10800
    ```
 
 1. Create a table to hold the JSON data.
@@ -186,6 +186,10 @@ DROP TABLE IF EXISTS shows;
 ## Automation
 
 Flattening using `UPDATE` is good for this tutorial. To automate this, you can add `CacheInterceptor` to your `CacheConfiguration`:
+
+{% hint style="warning" %}
+The snippet calls `JsonFunctions`, which is in an `internal` package. It is not a supported public API and can change between versions. For production code, parse the JSON with a JSON library in the interceptor instead.
+{% endhint %}
 
 ```java
 import org.apache.ignite.Ignition;

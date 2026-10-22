@@ -1,6 +1,6 @@
 ---
 description: >-
-  Enable and configure the GridGain 8 REST API — the ignite-rest-http module, Jetty configuration, the Jetty 12 module for Java 17, and REST security.
+  Enable and configure the GridGain 8 REST API — the ignite-rest-http module, Jetty configuration, HTTPS, and REST security.
 ---
 
 # Using the REST API
@@ -10,12 +10,7 @@ If you use the binary distribution, copy the `ignite-rest-http` module from `IGN
 See [Enabling modules](project-setup.md#enabling-modules) for details.
 
 {% hint style="info" %}
-GridGain ships two REST-HTTP modules, and a node's classpath must contain **exactly one** of them:
-
-- `ignite-rest-http` — the default module, built on Jetty 9.4.
-- `ignite-rest-http-jetty-12` — an optional module built on Jetty 12 that requires Java 17 or later. It provides the same HTTP REST server. See [Jetty 12 REST Module (Java 17)](#jetty-12-rest-module-java-17).
-
-Both modules define the same `GridJettyRestProtocol` class. If both are present in `IGNITE_HOME/libs`, two copies end up on the classpath and the node fails to start. Before you enable the Jetty 12 module, remove `ignite-rest-http` from `libs` if it is already there.
+In GridGain 8.10 and later, `ignite-rest-http` is built on Jetty 12 and requires Java 17. In GridGain 8.9 and earlier, the module was built on Jetty 9.4. If you have a custom `jetty.xml` file from one of those versions, see the "Upgrading a jetty.xml File From 8.9 or Earlier" section below.
 {% endhint %}
 
 Explicit configuration is not required; the connector starts up automatically and listens on port `8080`. You can check if it works with curl:
@@ -68,10 +63,17 @@ private static class JettyServerFactory implements Factory<Server> {
 
         URL cfgUrl = U.resolveIgniteUrl(JETTY_CFG_PATH);
 
-        XmlConfiguration cfg;
+        // The closeable factory releases the resource when the block exits, so
+        // configure() must run inside the block: it reads the resource.
+        try (ResourceFactory.Closeable resFactory = ResourceFactory.closeable()) {
+            XmlConfiguration cfg = new XmlConfiguration(resFactory.newResource(cfgUrl));
 
-        try {
-            cfg = new XmlConfiguration(Resource.newResource(cfgUrl));
+            try {
+                return (Server)cfg.configure();
+            }
+            catch (Exception e) {
+                throw new IgniteException("Failed to start Jetty HTTP server.", e);
+            }
         }
         catch (FileNotFoundException e) {
             throw new IgniteSpiException("Failed to find configuration file: " + cfgUrl, e);
@@ -82,15 +84,11 @@ private static class JettyServerFactory implements Factory<Server> {
         catch (IOException e) {
             throw new IgniteSpiException("Failed to load configuration file: " + cfgUrl, e);
         }
+        catch (IgniteException e) {
+            throw e;
+        }
         catch (Exception e) {
             throw new IgniteSpiException("Failed to start HTTP server with configuration file: " + cfgUrl, e);
-        }
-
-        try {
-            return (Server)cfg.configure();
-        }
-        catch (Exception e) {
-            throw new IgniteException("Failed to start Jetty HTTP server.", e);
         }
     }
 }
@@ -133,7 +131,7 @@ Path to this configuration should be set to `ConnectorConfiguration.setJettyPath
 <?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
-    <Arg name="threadpool">
+    <Arg name="threadPool">
         <!-- Default queued blocking thread pool -->
         <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
             <Set name="minThreads">20</Set>
@@ -170,36 +168,13 @@ Path to this configuration should be set to `ConnectorConfiguration.setJettyPath
             </New>
         </Arg>
     </Call>
-    <Set name="handler">
-        <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-            <Set name="handlers">
-                <Array type="org.eclipse.jetty.server.Handler">
-                    <Item>
-                        <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
-                    </Item>
-                </Array>
-            </Set>
-        </New>
-    </Set>
     <Set name="stopAtShutdown">false</Set>
 </Configure>
 ```
 
-## Jetty 12 REST Module (Java 17)
+## Upgrading a jetty.xml File From 8.9 or Earlier
 
-`ignite-rest-http-jetty-12` is an optional module that provides the same HTTP REST server as the default `ignite-rest-http` module, but runs on Jetty 12 and requires Java 17 or later. Use it when your deployment runs on Java 17 or later and you want the REST connector on the Jetty 12 line.
-
-To enable the module in a standalone node, move the `optional/ignite-rest-http-jetty-12` folder into the `IGNITE_HOME/libs` folder before you run the `ignite.{sh|bat}` script. See [Enabling modules](project-setup.md#enabling-modules) for details.
-
-{% hint style="warning" %}
-Enable exactly one of `ignite-rest-http` and `ignite-rest-http-jetty-12`. Both modules define the same `GridJettyRestProtocol` class, so having both in `libs` puts two copies on the classpath and the node fails to start. If `ignite-rest-http` is already in `libs`, remove it before enabling the Jetty 12 module.
-{% endhint %}
-
-The connector is configured the same way as the default module: the `ConnectorConfiguration` properties described in [Configuration](#configuration) — including `setJettyPath(String)` and `setJettyServerFactory(Factory)` — behave identically.
-
-### Migrating a jetty.xml File to Jetty 12
-
-A `jetty.xml` file written for the default Jetty 9.4 module does not load on Jetty 12. If you pass a custom configuration file with `setJettyPath(String)`, apply the following changes for the Jetty 12 module. The default module (`ignite-rest-http`) is unaffected — keep your existing file there.
+A `jetty.xml` file written for GridGain 8.9 or earlier (Jetty 9.4) does not load in GridGain 8.10 and later, which use Jetty 12. If you pass a custom configuration file with `setJettyPath(String)`, apply the following changes.
 
 - **Rename the server thread-pool argument.** The `Server` constructor parameter was renamed from `threadpool` (Jetty 9.4) to `threadPool` (Jetty 12). A named `<Arg name="threadpool">` no longer matches the constructor and makes the whole constructor unmatchable. Rename it, or drop the name to use a positional argument:
 
@@ -213,9 +188,9 @@ A `jetty.xml` file written for the default Jetty 9.4 module does not load on Jet
 
 The `<!DOCTYPE ...>` declaration needs no change: Jetty 12 maps the old Jetty 9 public and system identifiers to its current DTD.
 
-### Configuring HTTPS on Jetty 12
+## Configuring HTTPS
 
-On the Jetty 12 module, the SSL connector uses `org.eclipse.jetty.util.ssl.SslContextFactory$Server`. A minimal HTTPS connector looks as follows:
+The SSL connector uses `org.eclipse.jetty.util.ssl.SslContextFactory$Server`. A minimal HTTPS connector looks as follows:
 
 ```xml
 <New id="httpsCfg" class="org.eclipse.jetty.server.HttpConfiguration">

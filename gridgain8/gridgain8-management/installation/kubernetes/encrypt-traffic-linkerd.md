@@ -5,6 +5,8 @@ description: >-
 
 # How to Encrypt Inter-Node Cluster Traffic With Linkerd on Kubernetes
 
+<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Prerequisites
 
 - A running Kubernetes cluster with `kubectl` access. The commands below were tested on [kind](https://kind.sigs.k8s.io). They apply unchanged to managed Kubernetes (EKS, GKE, AKS).
@@ -192,7 +194,7 @@ spec:
           emptyDir: {}
       containers:
         - name: ignite-node
-          image: gridgain/enterprise:8.9.33-openjdk17-slim
+          image: gridgain/enterprise:8.10.0-openjdk17-slim
           resources:
             limits:
               memory: 1536Mi
@@ -230,7 +232,7 @@ kubectl apply -f ignite-cluster.yaml
 The two annotations on the pod template are what enable mesh encryption:
 
 - **`linkerd.io/inject: enabled`** adds a `linkerd-proxy` sidecar to each pod. The proxy transparently wraps outbound connections in mTLS and unwraps inbound ones.
-- **`config.linkerd.io/opaque-ports: "10800,47100,47500"`** marks the cache ports as opaque. Linkerd runs HTTP protocol detection on every connection by default. The discovery and communication SPIs are server-first binary protocols where neither side sends identifiable bytes, so detection stalls for ten seconds, past the cache's own handshake timeout, and the cluster fails to form. Marking these ports opaque skips detection while keeping mTLS. Port 11211 stays out of the list because Linkerd handles its HTTP traffic natively.
+- **`config.linkerd.io/opaque-ports: "10800,47100,47500"`** marks the cache ports as opaque. Linkerd runs HTTP protocol detection on every connection by default. The discovery and communication SPIs are server-first binary protocols where neither side sends identifiable bytes, so detection stalls for ten seconds, past the cache's own handshake timeout, and the cluster fails to form. Marking these ports opaque skips detection while keeping mTLS. Port 8080, the HTTP REST port, stays out of the list because Linkerd handles HTTP traffic natively. Port 11211 is the legacy binary REST port, not an HTTP port.
 
 Wait for both pods to report `2/2` containers (the cache node plus the proxy):
 

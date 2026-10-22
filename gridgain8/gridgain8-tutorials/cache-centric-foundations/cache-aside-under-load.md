@@ -5,6 +5,8 @@ description: >-
 
 # Cache-Aside Under Load
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 Your relational database works. It serves correct results, enforces constraints, and survives restarts. Under growing load, customer lookups start queuing behind invoice writes, p99 latency climbs, and the operations team asks for a plan.
@@ -23,7 +25,7 @@ You work from a companion repository that ships the Docker configurations and a 
 
 - **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
 - **Eviction and expiry vocabulary** from [Cache Sizing and Expiry](cache-sizing-and-expiry.md)
-- **Java 11** or later
+- **Java 17** or later
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 - **JDBC and connection-pool (HikariCP) familiarity.** The tutorial writes a JDBC `SELECT` and wraps it in a HikariCP `DataSource`. If you have never touched JDBC, read the [Oracle JDBC Basics tutorial](https://docs.oracle.com/javase/tutorial/jdbc/basics/) first.
@@ -159,7 +161,7 @@ working-directory/
     └── workload-simulator/    ← you built and run in Step 7
 ```
 
-`cache-client/pom.xml` currently declares the GridGain 8 core dependency and an `exec-maven-plugin` block that runs Java 11 with the `--add-opens` flags the thick client needs on newer JDKs. Its seven classes live in package `com.example` and exercise the cache in isolation; none of them talk to an external database.
+`cache-client/pom.xml` currently declares the GridGain 8 core dependency and an `exec-maven-plugin` block that runs the program with the `--add-opens` flags the thick client needs on Java 17. Its seven classes live in package `com.example` and exercise the cache in isolation; none of them talk to an external database.
 
 You make two edits to `cache-client/` in this step:
 
@@ -197,8 +199,8 @@ Replace `cache-client/pom.xml` with the following:
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.cacheaside.CacheClient</exec.mainClass>
     </properties>
@@ -207,7 +209,7 @@ Replace `cache-client/pom.xml` with the following:
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -239,6 +241,8 @@ Replace `cache-client/pom.xml` with the following:
                     <arguments>
                         <argument>--add-opens</argument>
                         <argument>java.base/java.nio=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.io=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
                         <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
@@ -401,7 +405,7 @@ Each line matches a decision from the previous tutorial:
 
 - **`setOnheapCacheEnabled(true)`** opts the cache in to the on-heap tier that LRU bounds. Without it, the cluster rejects the configuration.
 - **`LruEvictionPolicyFactory(1000)`** caps the on-heap tier at 1,000 entries. That is an order of magnitude larger than the 59-customer Chinook dataset, so every row stays hot for this tutorial.
-- **`setEagerTtl(true)`** keeps the TTL sweeper active on this cache. The flag is required on GridGain 8, which defaults to lazy TTL expiration.
+- **`setEagerTtl(true)`** keeps the TTL sweeper active on this cache. Eager TTL is the default on GridGain 8. The call is explicit to make the setting visible.
 - **`ModifiedExpiryPolicy`** sets the entry lifetime to 60 seconds, starting the clock on every write or update. Sixty seconds is short enough to demonstrate TTL behaviour and long enough that the cache warms before the first refresh cycle.
 
 `IgniteCache<Integer, Customer>` parameterises the cache so `findById` accepts an `int` and returns a `Customer` without casts on either side of the call.
@@ -1092,6 +1096,7 @@ Open a second terminal alongside the one running the simulator. Start the listen
 
 ```bash
 java --add-opens java.base/java.nio=ALL-UNNAMED \
+     --add-opens java.base/java.io=ALL-UNNAMED \
      --add-opens java.base/sun.nio.ch=ALL-UNNAMED \
      --add-opens java.base/java.lang=ALL-UNNAMED \
      --add-opens java.base/java.util=ALL-UNNAMED \
@@ -1156,7 +1161,7 @@ In the second terminal, send a Ctrl+C to the listen harness to stop it and print
   Serve rate:          100.0%
 ```
 
-Those numbers come from GridGain 8.9.32 Enterprise on a laptop-class machine. The run reports a `dbLoads` count of exactly 59 per TTL cycle with a 100% serve rate.
+Those numbers come from the latest GridGain 8 Enterprise version on a laptop-class machine. The run reports a `dbLoads` count of exactly 59 per TTL cycle with a 100% serve rate.
 
 Sustained throughput varies on GridGain 8. The Enterprise thick client does additional background work (baseline topology management, distributed metastorage updates) that interleaves with the lookup loop, and on a developer machine the `lookups/s` column sometimes drops to zero for several seconds at a time while a background task holds a communication channel. Under these stalls the harness completes fewer cache hits in the same wall-clock window. The cache-aside contract is unchanged; the `dbLoads` floor and the 100% serve rate hold. Production JVM tuning (heap size, GC options, direct memory, higher `socketWriteTimeout`) smooths the stalls.
 

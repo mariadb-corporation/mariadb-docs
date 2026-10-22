@@ -9,7 +9,7 @@ description: >-
 
 - A **GridGain 8** cluster
 - **OpenSSL** 1.1.1
-- **JDK 11** (OpenJDK)
+- **JDK 17** (OpenJDK)
 - The Java **keytool** utility
 
 ## Overview
@@ -24,18 +24,17 @@ This example uses the following applications:
 
 | Item | Version |
 | --- | --- |
-| GridGain | 8.7.X |
+| GridGain | 8.10.X |
 | Security Protocol Version | TLSv1.2 |
 | OpenSSL | 1.1.1 |
-| JDK | openjdk version 11 |
+| JDK | openjdk version 17 |
 
-The following algorithms may be supported https://docs.oracle.com/en/java/javase/11/docs/specs/security/standard-names.html#sslcontext-algorithms. However, you should check the JAVA release documentation for your implementation to see if these algorithms are supported. By default, JAVA 11 supports the following protocols:
+The following algorithms may be supported https://docs.oracle.com/en/java/javase/17/docs/specs/security/standard-names.html#sslcontext-algorithms. However, you should check the JAVA release documentation for your implementation to see if these algorithms are supported. By default, JAVA 17 enables the following protocols:
 
-- TLSv1
-- TLSv1.1
 - TLSv1.2
+- TLSv1.3
 
-For this example, assume that by default GridGain supports only these three protocols when started with JAVA 11.
+TLSv1 and TLSv1.1 are disabled by the default JDK security policy. For this example, the connections use TLSv1.2.
 
 To obtain an SSL certificate from a certificate authority (CA), you need to generate a certificate signing request (CSR). A CSR consists mainly of the public key of a key pair and some additional information. Both of these components are inserted into the certificate when it is signed.
 
@@ -77,9 +76,9 @@ Create a certificate authority to sign certificates for GridGain nodes keys by u
 
    The following options are used here:
 
-   - `-x509` - `-req` will create self-signed certificate
-   - `-days 365` - certificate will be valid for 365 days
-   - `-signkey` - shows which key will be used
+   - `-req` - the input is a CSR
+   - `-signkey` - the key that signs the certificate, which makes it self-signed
+   - `-trustout` - marks the output as a trusted certificate
    - `-in` - which CSR will be used
    - `-out` - path to the generated certificate
 
@@ -132,7 +131,7 @@ Create a certificate authority to sign certificates for GridGain nodes keys by u
    Now you are ready to configure SSL in the GridGain cluster. Make sure that you have all the following files:
 
    ```
-   ca.conf  ca.csr  ca.key  ca.pem  index.txt  serial  trust.jks
+   ca.cnf  ca.csr  ca.key  ca.pem  index.txt  serial  trust.jks
    ```
 
 5. Use the following script to generate the certificates for your GridGain cluster:
@@ -146,10 +145,10 @@ Create a certificate authority to sign certificates for GridGain nodes keys by u
    PASS=qwerty
 
    # Server.
-   SERVER_DN="CN=localhost,OU=ID,O=GG,L=Hursley,S=Hants,C=GB"
+   SERVER_DN="CN=localhost,OU=ID,O=GG,L=Hursley,ST=Hants,C=GB"
 
    # Client.
-   CLIENT_DN="CN=client.com,OU=Qs,O=GG,L=WEWe,S=Asda,C=GB"
+   CLIENT_DN="CN=client.com,OU=Qs,O=GG,L=WEWe,ST=Asda,C=GB"
 
    # Cleanup.
    rm -vf node.*
@@ -395,7 +394,6 @@ This method can be used by cluster thick nodes and clients (that can use IgniteC
 
 - GridGain servers (Java, .Net, C++)
 - GridGain clients  (Java, .Net, C++)
-- Visor GUI in external mode
 - GridGain Jdbc Driver
 
 Following sections describe how to configure SSL/TLS for thin clients (ODBC/JDBC) and HTTP connections (REST).
@@ -525,7 +523,7 @@ REST can also use a secured connection to cluster. In this case, you will need t
 2. Generate the private key and certificate for REST:
 
    ```
-   openssl genrsa -des3 -passout pass:${PASS} -out rest.key 1024
+   openssl genrsa -des3 -passout pass:${PASS} -out rest.key 2048
    openssl req -new -passin pass:${PASS} -key rest.key -config rest.conf -out rest.csr
    openssl x509 -req -days 365 -in rest.csr -CA ca.pem -CAkey ca.key -set_serial 01 -extensions req_ext -extfile rest.conf -out rest.crt
    openssl pkcs12 -export -in rest.crt -inkey rest.key -passin pass:${PASS} -certfile rest.crt -out rest.p12 -passout pass:${PASS}
@@ -535,12 +533,6 @@ REST can also use a secured connection to cluster. In this case, you will need t
 3. Prepare the Jetty configuration file for HTTPS support:
 
    ```xml
-   openssl genrsa -des3 -passout pass:${PASS} -out rest.key 1024
-   openssl req -new -passin pass:${PASS} -key rest.key -config rest.conf -out rest.csr
-   openssl x509 -req -days 365 -in rest.csr -CA ca.pem -CAkey ca.key -set_serial 01 -extensions req_ext -extfile rest.conf -out rest.crt
-   openssl pkcs12 -export -in rest.crt -inkey rest.key -passin pass:${PASS} -certfile rest.crt -out rest.p12 -passout pass:${PASS}
-   keytool -importkeystore -srckeystore rest.p12 -srcstoretype PKCS12 -destkeystore rest.jks -deststoretype JKS -noprompt -srcstorepass ${PASS} -deststorepass ${PASS}
-
    <?xml version="1.0" encoding="UTF-8"?>
    <!--
    Copyright (C) GridGain Systems. All Rights Reserved.
@@ -620,17 +612,6 @@ REST can also use a secured connection to cluster. In this case, you will need t
                </New>
            </Arg>
        </Call>
-       <Set name="handler">
-           <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-               <Set name="handlers">
-                   <Array type="org.eclipse.jetty.server.Handler">
-                       <Item>
-                           <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection" />
-                       </Item>
-                   </Array>
-               </Set>
-           </New>
-       </Set>
        <Set name="stopAtShutdown">false</Set>
    </Configure>
    ```
@@ -657,6 +638,10 @@ REST can also use a secured connection to cluster. In this case, you will need t
    </property>
    ```
 
+   {% hint style="info" %}
+   `sslClientAuth` on `ConnectorConfiguration` does not make the Jetty server require a client certificate. To require one for REST requests, add `<Set name="needClientAuth">true</Set>` to the `sslContextFactory` bean in `jetty.xml`. Without a client certificate, the TLS handshake then fails.
+   {% endhint %}
+
 6. After configuring the HTTPS Jetty web server, you can run the following REST command in your browser:
 
    ```
@@ -666,7 +651,7 @@ REST can also use a secured connection to cluster. In this case, you will need t
    If you see an output similar to the one below, then HTTPS was configured correctly.
 
    ```
-   {"successStatus":0,"error":null,"sessionToken":null,"response":"8.7.X"}
+   {"successStatus":0,"error":null,"sessionToken":null,"response":"8.10.X"}
    ```
 
 ## Related

@@ -5,11 +5,14 @@ description: >-
 
 # How to Export Data to Apache Iceberg on AWS
 
+<!-- TODO (hold): in 8.10 builds, `libs/optional/gridgain-bulkload` carries no `slf4j-api` and the base `libs/` has none either (it is only in `libs/optional/ignite-slf4j`). With only `gridgain-bulkload` enabled, an Iceberg COPY that passes the new `ImportExportConfiguration` check fails with `NoClassDefFoundError: org/slf4j/LoggerFactory`. With `ignite-slf4j` also enabled it proceeds to the AWS credential lookup. The module pom says the release supplies `slf4j-api` from the base `libs/`, so this may be a packaging bug. Decide: if the packaging stays as it is, add the `ignite-slf4j` module to the prerequisites; if it is fixed, check the final distribution and delete this comment. The guide has not been run against real AWS. -->
+
 ## Prerequisites
 
 - An [enabled](../gridgain8-development/project-setup.md#enabling-modules) `gridgain-bulkload` module.
 - An up and running [GridGain node](../gridgain8-get-started/what-is-gridgain.md).
 - A valid [AWS account](https://aws.amazon.com/account/).
+- GridGain 8.10 or later, with server-side S3 and Iceberg `COPY` allowed in the node configuration (see [Allow COPY to Use S3 and Iceberg](#allow-copy-to-use-s3-and-iceberg)).
 - Brief knowledge of the [COPY command](../reference/sql/operational-commands.md#copy-into).
 
 ## Overview
@@ -45,7 +48,7 @@ This guide uses AWS's `us-east-1` region for all services.
 
 {% hint style="info" %}
 
-Apache Iceberg's [GlueCatalog](https://iceberg.apache.org/javadoc/latest/org/apache/iceberg/aws/glue/GlueCatalog.html) class requires that names match the `[a-z0-9_]` pattern (lowercase alphanumeric with underscores, names are dot-separated; for example, `db_name.table_name`). It can be disabled by setting the `glue.skip-name-validation` property to `true`. If you skip the database name and table name validations, there is no guarantee that all downstream systems would [support the names](https://iceberg.apache.org/docs/latest/aws/#skip-name-validation).
+Apache Iceberg's [GlueCatalog](https://iceberg.apache.org/javadoc/latest/org/apache/iceberg/aws/glue/GlueCatalog.html) class requires that names match the `[a-z0-9_]` pattern (lowercase alphanumeric with underscores, names are dot-separated; for example, `db_name.table_name`). Apache Iceberg can skip this check with the `glue.skip-name-validation` property, but the GridGain `COPY` command does not accept that property: it rejects any Iceberg property that is not on its list of supported properties with `Unsupported COPY property for Iceberg`. Use database and table names that match the pattern.
 
 {% endhint %}
 
@@ -54,6 +57,41 @@ Apache Iceberg's [GlueCatalog](https://iceberg.apache.org/javadoc/latest/org/apa
 After you have finished with the guide, don't forget to destroy the environment you had created.
 
 {% endhint %}
+
+## Allow COPY to Use S3 and Iceberg
+
+In GridGain 8.10 and later, server-side `COPY` to and from object stores such as S3 is closed by default. Without the configuration below, the export command in this guide fails with `Server-side file/object-store COPY is disabled on this node`. Allow it in the `GridGainConfiguration` plugin configuration of every node, using an `ImportExportConfiguration`:
+
+```xml
+<bean class="org.apache.ignite.configuration.IgniteConfiguration">
+    <property name="pluginConfigurations">
+        <bean class="org.gridgain.grid.configuration.GridGainConfiguration">
+            <property name="importExportConfiguration">
+                <bean class="org.gridgain.grid.configuration.ImportExportConfiguration">
+                    <property name="fileAccessEnabled" value="true"/>
+                    <property name="allowedS3Buckets">
+                        <list>
+                            <value>iceberg-warehouse-1</value>
+                        </list>
+                    </property>
+                    <property name="allowedIcebergClasses">
+                        <list>
+                            <value>org.apache.iceberg.aws.glue.GlueCatalog</value>
+                            <value>org.apache.iceberg.aws.s3.S3FileIO</value>
+                        </list>
+                    </property>
+                </bean>
+            </property>
+        </bean>
+    </property>
+</bean>
+```
+
+- `fileAccessEnabled` is the master switch. It is `false` by default.
+- `allowedS3Buckets` lists the buckets (or `bucket/key-prefix` entries) that `COPY` may read from and write to.
+- `allowedIcebergClasses` lists the classes that the `catalog-impl`, `io-impl`, and `client.factory` properties may name. An empty list forbids Iceberg `COPY`.
+
+The configuration is node-local and is not distributed over discovery, so set it identically on every node. Otherwise, `COPY` succeeds or fails depending on which node your client connects to. The user that runs `COPY` also needs the `COPY_FROM_FILE` or `COPY_TO_FILE` security permission when security is enabled.
 
 ## Create the Table
 
@@ -85,7 +123,7 @@ PROPERTIES(
     'table-identifier'='gridgain_glue_iceberg.cities',
     'io-impl'='org.apache.iceberg.aws.s3.S3FileIO',
     'catalog-impl'='org.apache.iceberg.aws.glue.GlueCatalog',
-    's3.client-region'='eu-east-1',
+    's3.client-region'='us-east-1',
     's3.access-key-id'='YOUR_ACCESS_KEY',
     's3.secret-access-key'='YOUR_SECRET_KEY'
 );
@@ -97,7 +135,7 @@ AWS-specific properties:
 - The AWS Client credentials [can be defined as](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html):
   - Bulk export properties `s3.access-key-id`, `s3.secret-access-key`, and `s3.session-token`.
   - Environment variables `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN`.
-  - Java system properties `aws.accessKeyId`, `aws.secretKey`, and `aws.sessionToken`.
+  - Java system properties `aws.accessKeyId`, `aws.secretAccessKey`, and `aws.sessionToken`.
 
 ## Examine the Export Results
 
@@ -135,7 +173,7 @@ To import an Apache Iceberg table from AWS Glue (Amazon S3) to GridGain.
        'table-identifier'='gridgain_glue_iceberg.cities',
        'io-impl'='org.apache.iceberg.aws.s3.S3FileIO',
        'catalog-impl'='org.apache.iceberg.aws.glue.GlueCatalog',
-       's3.client-region'='eu-central-1',
+       's3.client-region'='us-east-1',
        's3.access-key-id'='YOUR_ACCESS_KEY',
        's3.secret-access-key'='YOUR_SECRET_KEY'
    );

@@ -5,6 +5,8 @@ description: >-
 
 # From Key-Value to SQL: The JOIN Problem
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 A customer support screen shows every invoice for a given customer. A monthly report pulls all orders billed from Brazil. Each screen starts with something you know (a customer ID, a country name) and returns records whose keys you do not know.
@@ -15,7 +17,7 @@ Cache API lookups need keys you already have. The Cache API can push a single-ca
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](../cache-centric-foundations/work-with-cache-api.md)
-- **Java 11 or later** for the client runtime
+- **Java 17 or later** for the client runtime
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -74,7 +76,7 @@ Create a Maven project called `sql-on-cache/`. The `pom.xml` adds two things the
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.sqlquery.ConfigureCaches</exec.mainClass>
     </properties>
@@ -90,12 +92,12 @@ Create a Maven project called `sql-on-cache/`. The `pom.xml` adds two things the
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-indexing</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -140,9 +142,9 @@ Create a Maven project called `sql-on-cache/`. The `pom.xml` adds two things the
 
 {% hint style="info" %}
 
-`ignite-indexing` is new here. The Foundations path used only `gridgain-core` because none of those tutorials ran SQL. Without `ignite-indexing` on the classpath, the first call to `setIndexedTypes` fails with `ClassNotFoundException: org.apache.ignite.internal.processors.query.h2.IgniteH2Indexing`.
+`ignite-indexing` is new here. The Foundations path used only `gridgain-core` because none of those tutorials ran SQL. Without `ignite-indexing` on the classpath, the first call to `setIndexedTypes` logs a warning, and the first SQL query fails with `CacheException: Failed to execute query. Add module 'ignite-indexing' to the classpath of all Ignite nodes.`
 
-The extra `--add-opens=java.sql/java.sql=ALL-UNNAMED` is also new. The optimized marshaller needs reflective access to `java.sql.Date` when an invoice's `invoiceDate` field serializes. Under Java 11 and later, the module system forbids that access unless the `java.sql` module is opened explicitly.
+The extra `--add-opens=java.sql/java.sql=ALL-UNNAMED` is also new. The optimized marshaller needs reflective access to `java.sql.Date` when an invoice's `invoiceDate` field serializes. Under Java 17, the module system forbids that access unless the `java.sql` module is opened explicitly.
 
 {% endhint %}
 
@@ -460,7 +462,11 @@ Next: run SeedFromChinook to load 59 customers and 412 invoices.
 
 Two caches exist. Both have `QueryEntity` descriptions built from the POJO annotations. Both are ready to accept SQL.
 
-Now populate them. Run the curl from inside the `sql-on-cache/` directory so the SQL file lands next to the `pom.xml`. `SeedFromChinook` reads the file relative to the JVM's working directory, which is also `sql-on-cache/` when you run Maven from there.
+Now populate them. Download the dataset file into the `sql-on-cache/` directory so it sits next to the `pom.xml`:
+
+- [chinook-customers-invoices.sql](../../.gitbook/assets/chinook-customers-invoices.sql)
+
+`SeedFromChinook` reads the file relative to the JVM's working directory, which is also `sql-on-cache/` when you run Maven from there.
 
 The file contains 59 Customer INSERTs and 412 Invoice INSERTs, trimmed from the full Chinook music-store schema to the columns this tutorial queries. The dates use H2's `parsedatetime()` function because the cached SQL engine is H2.
 
@@ -713,17 +719,19 @@ Expected output:
 
 ```text
 === Client-side filter: invoices for customer 17 ===
-  InvoiceKey{invoiceId=232, customerId=17} -> Invoice{invoiceDate=2011-10-20, billingCountry='USA', total=1.98}
-  InvoiceKey{invoiceId=14, customerId=17} -> Invoice{invoiceDate=2009-03-03, billingCountry='USA', total=1.98}
-  InvoiceKey{invoiceId=59, customerId=17} -> Invoice{invoiceDate=2009-09-07, billingCountry='USA', total=5.94}
-  InvoiceKey{invoiceId=111, customerId=17} -> Invoice{invoiceDate=2010-04-28, billingCountry='USA', total=0.99}
-  InvoiceKey{invoiceId=37, customerId=17} -> Invoice{invoiceDate=2009-06-05, billingCountry='USA', total=3.96}
-  InvoiceKey{invoiceId=243, customerId=17} -> Invoice{invoiceDate=2011-11-30, billingCountry='USA', total=13.86}
-  InvoiceKey{invoiceId=298, customerId=17} -> Invoice{invoiceDate=2012-07-30, billingCountry='USA', total=10.91}
+  InvoiceKey{invoiceId=232, customerId=17} -> Invoice{invoiceDate=2011-10-21, billingCountry='USA', total=1.98}
+  InvoiceKey{invoiceId=14, customerId=17} -> Invoice{invoiceDate=2009-03-04, billingCountry='USA', total=1.98}
+  InvoiceKey{invoiceId=59, customerId=17} -> Invoice{invoiceDate=2009-09-08, billingCountry='USA', total=5.94}
+  InvoiceKey{invoiceId=111, customerId=17} -> Invoice{invoiceDate=2010-04-29, billingCountry='USA', total=0.99}
+  InvoiceKey{invoiceId=37, customerId=17} -> Invoice{invoiceDate=2009-06-06, billingCountry='USA', total=3.96}
+  InvoiceKey{invoiceId=243, customerId=17} -> Invoice{invoiceDate=2011-12-01, billingCountry='USA', total=13.86}
+  InvoiceKey{invoiceId=298, customerId=17} -> Invoice{invoiceDate=2012-07-31, billingCountry='USA', total=10.91}
 
 Scanned 412 entries, matched 7.
 The client pulled every invoice across the wire and threw 405 of them away.
 ```
+
+The invoice dates match the `parsedatetime` values in the dataset file. A client JVM in a time zone behind the server's can show them one day earlier, because `java.sql.Date` prints in the client's zone.
 
 Customer 17 has seven invoices, all from the USA. The scanned-count line makes the cost visible: 412 entries crossed the wire, 405 were thrown away. Scale that ratio to millions of entries and the JVM runs out of heap before the scan finishes.
 
@@ -890,13 +898,13 @@ Expected output:
 
 ```text
 === Query 1: invoices for customer 17 ===
-  invoiceId=14, date=2009-03-03, total=1.98
-  invoiceId=37, date=2009-06-05, total=3.96
-  invoiceId=59, date=2009-09-07, total=5.94
-  invoiceId=111, date=2010-04-28, total=0.99
-  invoiceId=232, date=2011-10-20, total=1.98
-  invoiceId=243, date=2011-11-30, total=13.86
-  invoiceId=298, date=2012-07-30, total=10.91
+  invoiceId=14, date=2009-03-04, total=1.98
+  invoiceId=37, date=2009-06-06, total=3.96
+  invoiceId=59, date=2009-09-08, total=5.94
+  invoiceId=111, date=2010-04-29, total=0.99
+  invoiceId=232, date=2011-10-21, total=1.98
+  invoiceId=243, date=2011-12-01, total=13.86
+  invoiceId=298, date=2012-07-31, total=10.91
 
 === Query 2: Brazilian invoices over $3.00 ===
   invoiceId=68, customerId=11, country=Brazil, total=13.86
@@ -933,7 +941,7 @@ Expected output:
 
 {% hint style="info" %}
 
-Type `new SqlFieldsQuery("SELECT 1").` and let the IDE show the builder methods. Beyond `setArgs` (used here) the list includes `setSchema`, `setLazy`, `setDistributedJoins`, `setPageSize`, and `setTimeout`. Most tutorials use a small subset. The two you are most likely to reach for next are `setPageSize(int)` for large result sets and `setTimeout(long, TimeUnit)` for long-running analytical queries.
+Type `new SqlFieldsQuery("SELECT 1").` and let the IDE show the builder methods. Beyond `setArgs` (used here) the list includes `setSchema`, `setLazy`, `setDistributedJoins`, `setPageSize`, and `setTimeout`. Most tutorials use a small subset. The two you are most likely to reach for next are `setPageSize(int)` for large result sets and `setTimeout(int, TimeUnit)` for long-running analytical queries.
 
 {% endhint %}
 
@@ -1114,12 +1122,10 @@ SELECT
     "C__Z0"."LASTNAME" AS "__C0_1",
     SUM("I__Z1"."TOTAL") AS "__C0_2",
     "C__Z0"."_KEY" AS "__C0_3"
-FROM "Customer"."CUSTOMER" "C__Z0"
-    /* Customer.CUSTOMER.__SCAN_ */
-    /* WHERE C__Z0.COUNTRY = ?1
-    */
-INNER JOIN "Invoice"."INVOICE" "I__Z1"
-    /* Invoice.INVOICEKEY_CUSTOMERID_IDX: CUSTOMERID = C__Z0._KEY */
+FROM "Invoice"."INVOICE" "I__Z1"
+    /* Invoice.INVOICE.__SCAN_ */
+INNER JOIN "Customer"."CUSTOMER" "C__Z0"
+    /* Customer._key_PK: _KEY = I__Z1.CUSTOMERID */
     ON 1=1
 WHERE ("C__Z0"."COUNTRY" = ?1)
     AND ("C__Z0"."_KEY" = "I__Z1"."CUSTOMERID")
@@ -1140,9 +1146,9 @@ The EXPLAIN block shows two distinct SQL statements separated by the second `SEL
 
 **Map phase (runs on each partition):**
 
-- `FROM "Customer"."CUSTOMER" "C__Z0"` scans the local Customer partition with the comment `/* Customer.CUSTOMER.__SCAN_ */` and the predicate `WHERE C__Z0.COUNTRY = ?1`. The scan is a full read of the partition because `country` has no index. In a workload with many customers per country, adding `@QuerySqlField(index = true)` on `Customer.country` would turn this into an index scan.
-- `INNER JOIN "Invoice"."INVOICE" "I__Z1"` with the comment `/* Invoice.INVOICEKEY_CUSTOMERID_IDX: CUSTOMERID = C__Z0._KEY */` probes the `INVOICEKEY_CUSTOMERID_IDX` index. That index is the one `@QuerySqlField(index = true)` on `InvoiceKey.customerId` created. Its name follows the pattern `{KeyClassName}_{fieldName}_IDX`.
-- The critical absence is anything saying "distributed" or "broadcast." The JOIN runs on each partition against the partition's local Customer and Invoice rows. No data moves between partitions.
+- `FROM "Invoice"."INVOICE" "I__Z1"` scans the local Invoice partition with the comment `/* Invoice.INVOICE.__SCAN_ */`. The scan is a full read of the partition. This plan does not use the `INVOICEKEY_CUSTOMERID_IDX` index.
+- `INNER JOIN "Customer"."CUSTOMER" "C__Z0"` with the comment `/* Customer._key_PK: _KEY = I__Z1.CUSTOMERID */` looks up each invoice's customer in the Customer primary-key index. The lookup column is `_KEY`, the cache key, and it matches the invoice's affinity field `customerId`. That match is what makes the lookup local: the customer row sits in the same partition as the invoice. The `COUNTRY = ?1` predicate is applied to the rows the lookup returns.
+- The critical absence is anything saying "distributed" or "broadcast." The JOIN runs on each partition against the partition's local Invoice and Customer rows. No data moves between partitions.
 
 **Reduce phase (runs at the coordinator):**
 
@@ -1156,7 +1162,7 @@ Some schemas cannot colocate. Order lines might need to be colocated with orders
 
 {% hint style="info" %}
 
-The pinned version in this tutorial (GridGain 8.9.32) runs the H2 SQL engine.
+The latest GridGain 8 version runs the H2 SQL engine.
 
 {% endhint %}
 
@@ -1170,7 +1176,7 @@ You added two annotations and two new calls to a cache you already knew how to u
 
 **The shape of the question selects the interface.** Lookups by a known key keep using `cache.get` at in-memory speed. Any predicate on a non-key field, any aggregation, any filter composition, and any JOIN uses `SqlFieldsQuery`. Both views exist on the same cache, over the same data. The choice is not a storage strategy. It is a query strategy made per call site.
 
-**Colocation is a schema-design decision, not a runtime one.** A JOIN between two caches returns the same rows whether colocation is declared or not, but the cost model differs by orders of magnitude. `@AffinityKeyMapped` on the right key turns the JOIN into a local per-partition operation that scales with the number of partitions rather than the size of the data moved between them. Make the colocation decision when you define the cache, not when the query gets slow.
+**Colocation is a schema-design decision, not a runtime one.** Without colocation, a JOIN between two caches returns incomplete results unless you enable `setDistributedJoins(true)`, and with the flag on the cost differs by orders of magnitude because rows move between nodes. `@AffinityKeyMapped` on the right key turns the JOIN into a local per-partition operation that scales with the number of partitions rather than the size of the data moved between them. Make the colocation decision when you define the cache, not when the query gets slow.
 
 The deeper reframing is that the cache is a distributed database with two access surfaces. Key-value access handles single-key hot paths at in-memory speed. Everything else, filters, aggregations, JOINs, uses `SqlFieldsQuery` against the same data. One annotation on the POJO and one `setIndexedTypes` call replace the need for a separate query database alongside the cache.
 

@@ -5,6 +5,8 @@ description: >-
 
 # Use Transactions With the Cache API
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 The cache from [Cache-Aside Under Load](cache-aside-under-load.md) cannot carry multi-key transactions. Each entry arrived from the database at its own moment, so the cache never held a consistent snapshot that a transaction could protect.
@@ -19,7 +21,7 @@ The rest of the tutorial runs the scenario through failure modes and contention,
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
-- **Java 11 or later for the client runtime.** The Maven project in Step 2 compiles to Java 8 bytecode because Step 6 ships a class to the server, whose JVM is Java 8. The client JVM that runs your tests can be any modern Java 11+ version; the bytecode target is a separate setting from the runtime.
+- **Java 17 or later for the client runtime.** The Maven project in Step 2 compiles to Java 17 bytecode, the same version the server JVM runs. Step 6 ships a class to the server, and the server rejects bytecode newer than its own JVM.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -92,7 +94,7 @@ cacheCfg.setAtomicityMode(CacheAtomicityMode.TRANSACTIONAL);
 
 The mode is part of the cache's initial configuration and cannot be changed later. Switching modes requires destroying the cache with `ignite.destroyCache("customer-credits")` and creating a fresh one with the new configuration. The decision is worth making deliberately: a TRANSACTIONAL cache pays a small coordination cost on every write in exchange for the ability to group writes, while an ATOMIC cache trades that cost for simpler semantics and higher throughput.
 
-Create a Maven project if you do not already have one, or add a `transactions` package to your existing `cache-client/` project. The `pom.xml` declares a GridGain 8 `-core` dependency and targets Java 8 bytecode so classes shipped to the server in Step 6 load on the server's JVM:
+Create a Maven project if you do not already have one, or add a `transactions` package to your existing `cache-client/` project. The `pom.xml` declares a GridGain 8 `-core` dependency and targets Java 17 bytecode so classes shipped to the server in Step 6 load on the server's JVM:
 
 {% code title="cache-client/pom.xml" %}
 ```xml
@@ -104,7 +106,7 @@ Create a Maven project if you do not already have one, or add a `transactions` p
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.transactions.ConfigureCache</exec.mainClass>
     </properties>
@@ -120,7 +122,7 @@ Create a Maven project if you do not already have one, or add a `transactions` p
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -159,7 +161,7 @@ Create a Maven project if you do not already have one, or add a `transactions` p
 
 {% hint style="info" %}
 
-The GridGain 8 Docker images run a Java 8 JVM on the server. The `CacheEntryProcessor` class in Step 6 ships from the client to the server through peer class loading. If the class is compiled with bytecode newer than Java 8, the server JVM halts with `UnsupportedClassVersionError` when the closure arrives. Setting `maven.compiler.release=8` caps both source APIs and bytecode output to Java 8.
+The GridGain 8 Docker images run a Java 17 JVM on the server. The `CacheEntryProcessor` class in Step 6 ships from the client to the server through peer class loading. If the class is compiled with bytecode newer than the server JVM supports, the server JVM halts with `UnsupportedClassVersionError` when the closure arrives. Setting `maven.compiler.release=17` matches the bytecode to the server.
 
 {% endhint %}
 
@@ -1413,8 +1415,8 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
  *
  * Either way, the bytecode the server loads must be compatible
  * with the server's JVM. The GridGain 8 Docker images
- * run a Java 8 JVM, so the project's maven.compiler.release is set
- * to 8. Classes compiled with newer bytecode crash the server JVM
+ * run a Java 17 JVM, so the project's maven.compiler.release is set
+ * to 17. Classes compiled with newer bytecode crash the server JVM
  * on load with UnsupportedClassVersionError.
  *
  * Prerequisite: run ConfigureCache first.

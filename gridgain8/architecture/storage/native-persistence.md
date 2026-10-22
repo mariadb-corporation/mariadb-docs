@@ -51,7 +51,7 @@ The following example shows how to enable persistent storage for the default dat
                     <property name="persistenceEnabled" value="true"/>
                 </bean>
             </property>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>
@@ -173,7 +173,7 @@ You can change the location of data files by modifying the `storagePath` propert
                 </bean>
             </property>
             <property name="storagePath" value="/opt/storage"/>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>
@@ -385,7 +385,7 @@ You can change the size of the WAL segment files in the data storage configurati
                 </bean>
             </property>
             <property name="storagePath" value="/opt/storage"/>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>

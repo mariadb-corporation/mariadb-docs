@@ -24,7 +24,7 @@ Use this guide when your monitoring shows:
 - A rebalance after a scale-up event did not even out the load.
 - A partitioned cache shows a memory footprint on one node that is many times the per-node average.
 
-If the symptom is traffic concentrated on a **single key** (rather than a partition full of many keys), that is a hot-key problem, not a hot-partition problem. The fixes in this guide do not help. For a read-heavy hot key on GridGain 8 Enterprise, a client-side near-cache absorbs the repeated reads. Otherwise, application-level caching is usually the right answer.
+If the symptom is traffic concentrated on a **single key** (rather than a partition full of many keys), that is a hot-key problem, not a hot-partition problem. The fixes in this guide do not help. For a read-heavy hot key, a client-side near cache absorbs the repeated reads. Otherwise, application-level caching is usually the right answer.
 
 ## Diagnose the Hot Partition
 
@@ -297,9 +297,9 @@ CacheConfiguration<?, ?> cfg = new CacheConfiguration<>("genres")
 
 **Tradeoff:** every write hits every node. Works for small, read-mostly tables (country, genre, media type). Does not work for anything that grows with the business.
 
-### Fix 6: Near-Cache (GridGain 8 Enterprise)
+### Fix 6: Near Cache
 
-For a read-heavy hot key, a client-side near-cache absorbs the repeated reads. The feature is GridGain 8 Enterprise. See the GridGain 8 documentation for configuration.
+For a read-heavy hot key, a client-side near cache absorbs the repeated reads. See [Near Caches](../gridgain8-development/near-caches.md) for configuration.
 
 ## Cause-to-fix Mapping
 

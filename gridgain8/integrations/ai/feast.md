@@ -23,10 +23,10 @@ Both implementations provide similar functionality but are tailored to their res
 
 ## Prerequisites
 
-The following is required to use LangChain integration:
+The following is required to use the Feast integration:
 
-- GridGain 8.9.17 or later with an appropriate license is required to use vector store.
-- Python 3.11.7 or later is required to use the LangChain extension.
+- A running GridGain 8 cluster with an appropriate license, which the GridGain online store connects to.
+- A Python version supported by the `feast-gridgain` package.
 
 ## Installation
 

@@ -5,6 +5,8 @@ description: >-
 
 # Beyond Cache: The Persistence Problem
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 In [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md), MariaDB held the truth and the cache absorbed read pressure. Production ran two systems, and the cache could be wiped at any moment without losing data.
@@ -21,7 +23,7 @@ This is the only tutorial in the path that changes the cluster image. Persistenc
 
 - **Completion of [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md).** That tutorial established the cache-as-accelerator architecture this tutorial inverts.
 - **Docker Compose 2.23** or later.
-- **Java 11** or later for the client runtime.
+- **Java 17** or later for the client runtime.
 - **Maven 3.6** or later.
 - **No other GridGain 8 cluster running on ports 47500, 47100, or 10800.** This tutorial uses the same port assignment as the rest of the path. Stop any cluster on those ports before starting the one this tutorial creates.
 
@@ -56,7 +58,7 @@ name: gridgain8-persistent
 
 services:
   node1:
-    image: gridgain/enterprise:8.9.32
+    image: gridgain/enterprise:8.10.0
     platform: linux/amd64
     container_name: gridgain8-persistent-node1
     hostname: node1
@@ -82,7 +84,7 @@ volumes:
 
 </details>
 
-The GridGain 8 compose pins `user: "0"` so the container can write to the named volumes. Without it the container's default user (`uid=10000`) cannot create the per-node directories the WAL writer needs. The compose also mounts the same enterprise license file the rest of the path uses. Native persistence is included in GridGain 8.9.32 Enterprise with the standard license, no per-feature configuration required.
+The GridGain 8 compose pins `user: "0"` so the container can write to the named volumes. Without it the container's default user (`uid=10000`) cannot create the per-node directories the WAL writer needs. The compose also mounts the same enterprise license file the rest of the path uses. Native persistence is included in GridGain 8 Enterprise with the standard license, no per-feature configuration required.
 
 <details>
 <summary><code>cache-cluster-persistent/ignite-config-persistent.xml</code></summary>
@@ -205,9 +207,9 @@ Create a fresh Maven project alongside `cache-cluster-persistent/`.
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gridgain.version>8.9.32</gridgain.version>
+        <gridgain.version>8.10.0</gridgain.version>
         <exec.mainClass>com.example.PersistenceConfig</exec.mainClass>
     </properties>
 
@@ -480,9 +482,10 @@ import java.util.Collections;
  * The cache API is the same as it was in the in-memory tutorials.
  * Persistence is invisible at the application level. The calls to
  * cache.put look identical to a non-persistent cache. The behavior
- * change happens below the API surface. Each put hits the WAL
- * synchronously before the in-memory page is updated, so the entry
- * is durable the moment put returns.
+ * change happens below the API surface. Each put is written to the
+ * WAL before the in-memory page is updated. With the default WAL
+ * mode (LOG_ONLY) the entry survives a process crash once put returns;
+ * surviving an OS crash or power loss needs the FSYNC mode.
  *
  * Run order matters: PersistenceConfig must run first to activate
  * the cluster. The check at the top of main turns the dependency
@@ -839,7 +842,7 @@ drwxr-xr-x  .
 drwxr-xr-x  ..
 ```
 
-The archive fills only when the active WAL rotates. With 10 customer puts the active segment never filled, so nothing rotated. On a busy cluster the archive grows and the cluster trims it according to `walArchiveMaxSize`.
+The archive fills only when the active WAL rotates. With 10 customer puts the active segment never filled, so nothing rotated. On a busy cluster the archive grows and the cluster trims it according to `maxWalArchiveSize`.
 
 The diagram below shows the lifecycle these files participate in: every write hits the WAL, periodic checkpoints flush dirty pages to disk, and on restart the cluster loads the latest checkpoint and replays the WAL forward from that point.
 
@@ -867,7 +870,7 @@ sequenceDiagram
 
 ## Going Further: Multi-Node Persistence
 
-Single-node persistence proves the durability story cleanly. Multi-node persistence introduces a second concern. The baseline expects every node it activated with. If a baseline node is missing on restart, the cluster does not auto-activate. The operator either waits for the missing node to rejoin, removes it from the baseline manually, or enables auto-adjust mode (`cluster().baselineAutoAdjustEnabled(true)`) so the cluster reshapes the baseline as nodes join and leave.
+Single-node persistence proves the durability story cleanly. Multi-node persistence introduces a second concern. The baseline expects every node it activated with. If a baseline node is missing on restart, the cluster does not auto-activate. The operator either waits for the missing node to rejoin, removes it from the baseline manually, or enables auto-adjust mode (`cluster().baselineAutoAdjustEnabled(AutoAdjustMode.SCALE_UP, true)` for scale-up only; the single-argument `baselineAutoAdjustEnabled(boolean)` is deprecated) so the cluster reshapes the baseline as nodes join and leave.
 
 Multi-node persistence deserves its own guide. Until that guide ships, the official docs cover the failure modes in detail at [Baseline Topology](../../architecture/baseline-topology.md).
 
@@ -885,7 +888,7 @@ Three topics belong in adjacent content, each its own guide:
 
 - **Multi-node baseline mechanics**, including auto-adjust and recovery from missing baseline nodes.
 - **Data region sizing** and `setMaxSize` tuning.
-- **Snapshot APIs** (`Ignite.snapshot()`) for point-in-time backups, useful when the recovery model needs a coarser granularity than WAL replay.
+- **Snapshot APIs** (the GridGain snapshot facade, `ignite.plugin(GridGain.PLUGIN_NAME).snapshot()`) for point-in-time backups, useful when the recovery model needs a coarser granularity than WAL replay.
 
 Stop the cluster cleanly when finished:
 

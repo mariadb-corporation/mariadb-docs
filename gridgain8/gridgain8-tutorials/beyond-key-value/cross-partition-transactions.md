@@ -5,6 +5,8 @@ description: >-
 
 # Atomic Operations Across Keys: The Transaction Problem
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 In a sharded cache, multi-key writes are only atomic when the keys live on the same shard. Cross-shard atomicity has historically meant application-layer work: key co-location, per-shard scripting, or compensation after partial failures. Each option pushes consistency work back into your code. You already covered `txStart`, `commit`, and the optimistic retry pattern on a single-node cluster. This tutorial puts that same API on a three-node cluster, shows how `OPTIMISTIC + REPEATABLE_READ` silently drops writes, and ends with the production retry pattern wrapped around any optimistic transaction.
@@ -13,7 +15,7 @@ In a sharded cache, multi-key writes are only atomic when the keys live on the s
 
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in `cache-cluster/docker-compose-3nodes.yml` pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
 - **Transaction API familiarity** from [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md)
-- **Java 11 or later** for the client runtime
+- **Java 17 or later** for the client runtime
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -52,7 +54,7 @@ In this tutorial, you:
 
 ## Configure a Transactional Account Cache
 
-Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `gridgain-core` and includes the `--add-opens` entries Java 11+ reflection requires. The thick client joins the cluster through the discovery seeds the host can reach (`127.0.0.1:47500`, `47501`, `47502`). The per-node `BasicAddressResolver` maps each container's hostname to `127.0.0.1` so the rest of the protocol routes through the loopback interface. `-Djava.net.preferIPv4Stack=true` skips the IPv6 join attempt that otherwise costs ten seconds on a fresh client.
+Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `gridgain-core` and includes the `--add-opens` entries Java 17 reflection requires. The thick client joins the cluster through the discovery seeds the host can reach (`127.0.0.1:47500`, `47501`, `47502`). The per-node `BasicAddressResolver` maps each container's hostname to `127.0.0.1` so the rest of the protocol routes through the loopback interface. `-Djava.net.preferIPv4Stack=true` skips the IPv6 join attempt that otherwise costs ten seconds on a fresh client.
 
 {% code title="cross-partition-tx/pom.xml" %}
 ```xml
@@ -64,7 +66,7 @@ Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `g
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.transactions.ConfigureAccountCache</exec.mainClass>
     </properties>
@@ -80,7 +82,7 @@ Create a Maven project called `cross-partition-tx/`. The `pom.xml` depends on `g
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -195,7 +197,7 @@ import com.example.transactions.model.Account;
  *
  * The cache is TRANSACTIONAL with one backup per partition.
  * TRANSACTIONAL is the opt-in for txStart. ATOMIC caches throw
- * IllegalStateException when used inside a transaction. backups=1
+ * IgniteException when used inside a transaction. backups=1
  * means every primary partition has a replica on a second node, so a
  * single-node failure does not lose uncommitted writes.
  *

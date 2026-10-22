@@ -5,6 +5,8 @@ description: >-
 
 # Distributed Primitives: The Coordination Problem
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 So far in this path the cluster has acted as a data service. You stored entries, queried them, ran compute against them, and learned how to make the storage durable. This tutorial shifts the cluster's role to a coordination service that the application talks to instead of a coordination library.
@@ -16,7 +18,7 @@ GridGain exposes three <dfn title="The API matches the contract of a java.util.c
 ## Prerequisites
 
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in that compose pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
-- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so closures and reflection paths work on the GridGain 8 server (Java 11).
+- **Java 17** or later for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 - **Two terminal windows.** The Lock and Queue scenarios run a second JVM in the second terminal.
@@ -53,7 +55,7 @@ By the end, you run a counter that two clients share, watch two terminals conten
 
 ## Set up the Project
 
-Create the `distributed-primitives/` Maven project alongside any other project directories from earlier tutorials. The pom uses the same Java-8-bytecode target as the rest of the path so the host client and the cluster servers agree on class file format.
+Create the `distributed-primitives/` Maven project alongside any other project directories from earlier tutorials. The pom uses the same Java 17 bytecode target as the rest of the path so the host client and the cluster servers agree on class file format.
 
 <details>
 <summary><code>distributed-primitives/pom.xml</code></summary>
@@ -72,9 +74,9 @@ Create the `distributed-primitives/` Maven project alongside any other project d
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gridgain.version>8.9.32</gridgain.version>
+        <gridgain.version>8.10.0</gridgain.version>
         <exec.mainClass>com.example.AtomicLongDemo</exec.mainClass>
     </properties>
 
@@ -720,6 +722,7 @@ import org.apache.ignite.IgniteAtomicStamped;
 import org.apache.ignite.IgniteCountDownLatch;
 import org.apache.ignite.IgniteSemaphore;
 import org.apache.ignite.IgniteSet;
+import org.apache.ignite.configuration.CollectionConfiguration;
 
 /**
  * Reference catalog for the cluster-wide primitives this tutorial
@@ -819,9 +822,10 @@ public class OtherPrimitives {
     public IgniteSet<String> setExample(Ignite ignite) {
         // set(name, cfg). The CollectionConfiguration argument is
         // shared with IgniteQueue and controls cache mode, capacity,
-        // backups. Set cfg.setBackups(1) to match the rest of this
-        // tutorial's data-structures cache group.
-        return ignite.set("active-sessions", null);
+        // backups. Passing null does not create the set (the call
+        // returns null), so pass a configuration with one backup to
+        // match the rest of this tutorial's data-structures cache group.
+        return ignite.set("active-sessions", new CollectionConfiguration().setBackups(1));
     }
 }
 ```
@@ -866,4 +870,4 @@ The next tutorial in the path, [Real-Time Event Processing: The Streaming Proble
 ## Related
 
 - [Compute Where the Data Lives](colocated-compute.md) is the previous shift in the cluster's role: from storage to in-place computation. Coordination primitives often pair with compute, for example a worker that uses `IgniteSemaphore` to bound concurrent calls into a downstream system.
-- [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md) makes the cluster a durable store. Combined with this tutorial, the cluster is a durable coordination service. Locks and queues survive cluster restart when persistence is enabled on the data region the primitive's backing cache lands in.
+- [Beyond Cache: The Persistence Problem](native-persistence-beyond-cache.md) makes the cluster a durable store. Combined with this tutorial, the cluster is a durable coordination service. Queues, sets, and atomics survive a cluster restart when persistence is enabled on the data region the primitive's backing cache lands in. Locks, semaphores, and count-down latches live in a volatile data region and do not survive.

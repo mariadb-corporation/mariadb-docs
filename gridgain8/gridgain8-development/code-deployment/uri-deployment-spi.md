@@ -5,11 +5,13 @@ description: >-
 
 # How to Deploy Code With UriDeploymentSpi
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Prerequisites
 
 - A running **GridGain 8** cluster
 - A network folder accessible by all cluster nodes
-- **JDK 8** and **Maven** to build the deployment JAR
+- **JDK 17** and **Maven** to build the deployment JAR
 
 ## Overview
 
@@ -55,7 +57,7 @@ You need to prepare two folders:
 
 You are advised to use a network folder which all nodes can access inside `uriList`. It will help avoid the situation where different nodes have different versions of the classes.
 
-Note the `freq=2000` parameter. Its value, in milliseconds, defines how often the location will be checked for new classes. You can set this parameter to a low value to avoid delay in class loading. The default is `UriDeploymentFileScanner.DFLT_SCAN_FREQ`.
+Note the `freq=2000` parameter. Its value, in milliseconds, defines how often the location will be checked for new classes. You can set this parameter to a low value to avoid delay in class loading. The default is 5000 ms for the `file:` scanner and 300000 ms for the HTTP scanner (`http:` and `https:`).
 
 Out of the box, this SPI supports the following protocols:
 
@@ -70,7 +72,7 @@ Out of the box, this SPI supports the following protocols:
 - You must prepare JAR files that contain all the related classes together (constructor parameters, classes used in compute tasks and services, etc.).
 - Each JAR file must contain the `ignite.xml` file that lists the names of all the deployed classes. Otherwise, only compute tasks will be deployed.
 - All nodes should use the same URI location to avoid delays when updating the scannable files.
-- To enable redeployment, you need to set `-DIGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLED=true`.
+- Service redeployment relies on the event-driven service processor, which is enabled by default. Set `-DIGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLED=false` only if you want to turn it off, and note that redeployment then does not work.
 - You cannot have the same class in the JVM classpath and in UriDeploymentSPI. In such a case, the JVM one will be used because Java does not allow multiple versions of the same class.
 
 ## Prepare the JAR File
@@ -117,14 +119,14 @@ To build a JAR with the above structure:
        <repositories>
            <repository>
                <id>GridGain External Repository</id>
-               <url>http://www.gridgainsystems.com/nexus/content/repositories/external</url>
+               <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
            </repository>
        </repositories>
 
        <properties>
-           <maven.compiler.source>8</maven.compiler.source>
-           <maven.compiler.target>8</maven.compiler.target>
-           <ignite.version>8.8.30</ignite.version>
+           <maven.compiler.source>17</maven.compiler.source>
+           <maven.compiler.target>17</maven.compiler.target>
+           <ignite.version>8.10.0</ignite.version>
        </properties>
 
        <build>
@@ -166,7 +168,7 @@ To build a JAR with the above structure:
    </project>
    ```
 
-1. Inside the Maven resources folder, create the `META_INF/ignite.xml` file with the following content:
+1. Inside the Maven resources folder, create the `META-INF/ignite.xml` file with the following content:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -214,7 +216,7 @@ The `ignite-urideploy` dependency is optional. This is why you need to add it ex
 1. If you run the node from the binaries, copy the `ignite-urideploy` dependency from optional libraries:
 
    ```bash
-   cp -R $IGNITE-HOME/libs/optional/ignite-urideploy $IGNITE-HOME/libs/ignite-urideploy
+   cp -R $IGNITE_HOME/libs/optional/ignite-urideploy $IGNITE_HOME/libs/ignite-urideploy
    ```
 
 1. If you use Maven, add the `ignite-urideploy` dependency to pom.xml:
@@ -276,7 +278,7 @@ Compute tasks can be loaded by name. See example of this compute task in the [sa
 
 ### Services
 
-Having set `-DIGNITE_EVENT_DRIVEN_SERVICE_PROCESSOR_ENABLED=true`, you can deploy services in two ways:
+You can deploy services in two ways:
 
 1. From the compute task called by name:
 

@@ -5,6 +5,8 @@ description: >-
 
 # Cache Sizing and Expiry
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 "There are only two hard things in computer science: cache invalidation and naming things" (attributed to Phil Karlton, a principal engineer at Netscape in the 1990s). This tutorial takes on the first one.
@@ -22,7 +24,7 @@ This tutorial labels itself "beginner" for GridGain. The surrounding Java stack 
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Java 11** or later (the GridGain 8 toolchain is tested against Java 11 and exhibits peer-class-loading edge cases on newer JDKs)
+- **Java 17** or later
 - **Maven 3.6** or later
 - **JCache `ExpiryPolicy` terminology** will be introduced; no prior knowledge assumed.
 
@@ -91,8 +93,8 @@ Create `cache-client/pom.xml`:
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.UnboundedCache</exec.mainClass>
     </properties>
@@ -101,7 +103,7 @@ Create `cache-client/pom.xml`:
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -124,6 +126,8 @@ Create `cache-client/pom.xml`:
                         <argument>--add-opens</argument>
                         <argument>java.base/java.nio=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
+                        <argument>java.base/java.io=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
                         <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
                         <argument>java.base/java.lang=ALL-UNNAMED</argument>
@@ -144,10 +148,6 @@ Create `cache-client/pom.xml`:
 GridGain 8 artifacts are published to GridGain's Nexus repository, not Maven Central. The `<repositories>` block tells Maven where to find the `gridgain-core` dependency.
 
 This `pom.xml` matches the one from [Work with the Cache API](work-with-cache-api.md). If you kept that project, you can continue using it; the four classes in this tutorial live in the same `com.example` package and the same `exec-maven-plugin` invocation runs them. The `exec.mainClass` property in `<properties>` is overridden on each `mvn exec:exec` call, so you switch between classes without editing the pom.
-
-{% hint style="info" %}
-GridGain 8.9.32 was released when Java 11 was the standard LTS. Peer class loading and lambda serialization paths inside the product are tested against Java 11. Newer JDKs compile and run the basic cache API, but event-subscription APIs that deploy classes across nodes (continuous queries, JCache entry listeners) exhibit deployment edge cases on Java 17 and later. This tutorial does not register such listeners, but pinning to Java 11 keeps your environment consistent with the product's tested toolchain.
-{% endhint %}
 
 {% hint style="success" %}
 **Checkpoint:** The `pom.xml` is in `cache-client/` and `mvn compile` succeeds with no errors.
@@ -187,6 +187,9 @@ public class UnboundedCache {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
 
         try (Ignite ignite = Ignition.start(cfg)) {
             // A default cache configuration has no eviction policy.
@@ -242,7 +245,7 @@ One thousand entries in, one thousand entries stored. A cache that keeps everyth
 
 ## Bound the On-Heap Tier With Eviction
 
-Eviction answers one question: when the cache is full, what do I discard? An eviction policy picks an entry at the moment a put would exceed the configured ceiling. LRU (least recently used) is the default choice for caching workloads because recency predicts future access. GridGain ships FIFO, sorted, and random policies as well, but LRU is the right starting point unless the access pattern gives you a better signal.
+Eviction answers one question: when the cache is full, what do I discard? An eviction policy picks an entry at the moment a put would exceed the configured ceiling. LRU (least recently used) is the default choice for caching workloads because recency predicts future access. GridGain ships FIFO and sorted policies as well, but LRU is the right starting point unless the access pattern gives you a better signal.
 
 One piece of mental model before the code. GridGain stores cache data primarily off-heap, outside the JVM heap. The off-heap store avoids garbage-collection pressure and lets a single JVM hold many gigabytes of cached data. The on-heap tier is an optional bounded overlay for hot entries, and policy-based eviction operates on that overlay. Opt in with `setOnheapCacheEnabled(true)`. Without it, the cluster rejects the cache configuration with `IgniteCheckedException: Onheap cache must be enabled if eviction policy is configured`.
 
@@ -282,6 +285,9 @@ public class BoundedCache {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
 
         try (Ignite ignite = Ignition.start(cfg)) {
             CacheConfiguration<Integer, String> cacheCfg =
@@ -354,12 +360,12 @@ Three distinct counts tell the story. `cache.size()` without arguments reports 1
 
 A few details to note:
 
-- **`LruEvictionPolicyFactory`** is the current idiom. The older `setEvictionPolicy(new LruEvictionPolicy(100))` setter is `@Deprecated` in favor of the factory form. Cache configuration is serialized across the cluster on node join, and a factory serializes cleanly where a pre-instantiated policy does not.
+- **`LruEvictionPolicyFactory`** is the current idiom. The older `setEvictionPolicy(new LruEvictionPolicy(100))` setter is `@Deprecated` in favor of the factory form.
 - **Eviction is lazy**. LRU discards an entry only when a put would exceed the bound, not on a continuous background pass. The on-heap count sits at exactly 100 for the same reason: the policy keeps demoting one older entry per new put.
-- **Other eviction policies exist**. GridGain 8 ships `FifoEvictionPolicyFactory` (discard the oldest insertion), `SortedEvictionPolicyFactory` (discard by a custom comparator), and a random policy. LRU is the right starting point for most caching workloads; pick one of the others when your access pattern gives you a better signal than recency.
+- **Other eviction policies exist**. GridGain 8 ships `FifoEvictionPolicyFactory` (discard the oldest insertion) and `SortedEvictionPolicyFactory` (discard by a custom comparator). LRU is the right starting point for most caching workloads; pick one of the others when your access pattern gives you a better signal than recency.
 
 {% hint style="info" %}
-This tutorial caps the on-heap tier. The off-heap region grows until it hits the data region's configured limit (default 20% of system memory), at which point off-heap page eviction kicks in using a page-based policy configured on the data region. For production sizing, both layers matter. On-heap policy bounds the JVM heap; off-heap data-region settings bound the total data footprint. A later tutorial covers off-heap region configuration.
+This tutorial caps the on-heap tier. The off-heap region grows until it hits the data region's configured limit (default 20% of system memory), at which point the node throws `IgniteOutOfMemoryException` unless you set `pageEvictionMode` on the region (`RANDOM_LRU` or `RANDOM_2_LRU`), which makes it evict pages. For production sizing, both layers matter. On-heap policy bounds the JVM heap; off-heap data-region settings bound the total data footprint. A later tutorial covers off-heap region configuration.
 {% endhint %}
 
 {% hint style="success" %}
@@ -401,7 +407,7 @@ import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 
 /**
  * Demonstrates entry lifetime with CreatedExpiryPolicy. Entries
- * live for three seconds after they are first put. A four-second
+ * live for three seconds after they are first put. A six-second
  * sleep leaves the cache empty. The server's background TTL
  * cleanup thread sweeps expired entries every 500ms.
  */
@@ -414,14 +420,16 @@ public class ExpiringCache {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
 
         try (Ignite ignite = Ignition.start(cfg)) {
             CacheConfiguration<Integer, String> cacheCfg =
                 new CacheConfiguration<>("expiring");
 
-            // setEagerTtl(true) is explicit because GridGain 8
-            // defaults to lazy TTL expiration. The call is explicit in this tutorial to
-            // make the setting visible: a reader tuning expiry later
+            // setEagerTtl(true) is the default. The call is explicit in this
+            // tutorial to make the setting visible: a reader tuning expiry later
             // knows exactly where to change the policy. Setting it to
             // false disables the background ttl-cleanup-worker sweep;
             // expired entries then leave the cache only when a later
@@ -455,9 +463,9 @@ public class ExpiringCache {
 
             System.out.println("Immediately after loading 10 entries: size="
                 + cache.size());
-            System.out.println("Sleeping 4 seconds past the 3-second TTL...");
+            System.out.println("Sleeping 6 seconds (the TTL is 3 seconds)...");
 
-            TimeUnit.SECONDS.sleep(4);
+            TimeUnit.SECONDS.sleep(6);
 
             System.out.println("After sleep: size=" + cache.size());
             System.out.println(
@@ -481,12 +489,12 @@ mvn -f cache-client/pom.xml exec:exec -Dexec.mainClass=com.example.ExpiringCache
 ```text
 === Expiring Cache (CreatedExpiryPolicy, 3s) ===
 Immediately after loading 10 entries: size=10
-Sleeping 4 seconds past the 3-second TTL...
+Sleeping 6 seconds (the TTL is 3 seconds)...
 After sleep: size=0
 Entries expired on the server's TTL cleanup sweep.
 ```
 
-The count drops to zero with no application call to remove anything. Expiry fires eagerly. Each server node runs a background worker (`ttl-cleanup-worker`) every 500ms that scans for expired entries and removes them. The four-second sleep is long enough for every entry's three-second TTL to elapse and for the sweep to catch them.
+The count drops to zero with no application call to remove anything. Expiry fires eagerly. Each server node runs a background worker (`ttl-cleanup-worker`) every 500ms that scans for expired entries and removes them. The six-second sleep leaves margin for every entry's three-second TTL to elapse and for the sweep to catch them. A shorter sleep can still show a few entries, because the sweep does not run at the exact moment an entry expires.
 
 Three follow-on details worth surfacing:
 
@@ -495,7 +503,7 @@ Three follow-on details worth surfacing:
 - **Expiry removes from every tier**. Unlike on-heap eviction, which demotes an entry out of the hot tier while leaving it in off-heap, expiry removes the entry from on-heap and off-heap together. That is why `cache.size()` drops to zero and stays there.
 
 {% hint style="success" %}
-**Checkpoint:** The count reads `size=10` immediately after the load and `size=0` after the four-second sleep. Entries left the cache with no application call.
+**Checkpoint:** The count reads `size=10` immediately after the load and `size=0` after the six-second sleep. Entries left the cache with no application call.
 {% endhint %}
 
 ## Watch the Cache Manage Itself
@@ -553,13 +561,15 @@ public class ManagedCache {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
 
         try (Ignite ignite = Ignition.start(cfg)) {
             CacheConfiguration<Integer, String> cacheCfg =
                 new CacheConfiguration<>("managed");
             cacheCfg.setOnheapCacheEnabled(true);
-            // See ExpiringCache for why setEagerTtl(true) is explicit:
-            // GridGain 8 defaults to lazy.
+            // See ExpiringCache for why setEagerTtl(true) is explicit.
             cacheCfg.setEagerTtl(true);
             cacheCfg.setEvictionPolicyFactory(
                 new LruEvictionPolicyFactory<>(20));

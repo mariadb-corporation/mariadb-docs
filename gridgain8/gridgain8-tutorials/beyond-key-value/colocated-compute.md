@@ -15,7 +15,7 @@ This tutorial extends the [`sql-on-cache/`](from-keyvalue-to-sql.md) project. Th
 
 - **Completion of [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md).** You have the `sql-on-cache/` Maven project on disk with `Customer`, `Invoice`, and `InvoiceKey` model classes and the `ConfigureCaches` and `SeedFromChinook` programs.
 - **A running three-node cluster** using `cache-cluster/docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). The per-node configs in that compose pin discovery and communication ports and register a `BasicAddressResolver` so a host JVM thick client can reach each container through the loopback address. Peer class loading is enabled on every server.
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode in this tutorial so closures are byte-compatible with the GridGain 8 server JVM (Java 11).
+- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 
@@ -56,22 +56,9 @@ In this tutorial, you:
 
 ## Update the Project for Compute Closures
 
-The closures you will write in this tutorial run on the server JVM, not the client. The GridGain 8.9.32 server image runs Java 11 (class file major version 55). Java 8 bytecode runs on it, and it also runs on servers that use an older JVM. If you ship a closure compiled for a newer Java version than the server JVM supports, the server rejects it with `UnsupportedClassVersionError` at deploy time. Setting the project's bytecode target to 8 makes one set of class files work on every server you might run against.
+The closures you will write in this tutorial run on the server JVM, not the client. The GridGain 8 server image runs Java 17 (class file major version 61), and the project already compiles with `maven.compiler.release` set to 17, so the class files load on the server. If you ship a closure compiled for a newer Java version than the server JVM supports, the server rejects it with `UnsupportedClassVersionError` at deploy time.
 
-Open `sql-on-cache/pom.xml` and change one line in `<properties>`:
-
-{% code title="sql-on-cache/pom.xml" %}
-```diff
-     <properties>
--        <maven.compiler.release>11</maven.compiler.release>
-+        <maven.compiler.release>8</maven.compiler.release>
-         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-         <exec.mainClass>com.example.sqlquery.ConfigureCaches</exec.mainClass>
-     </properties>
-```
-{% endcode %}
-
-The optimized marshaller used during compute also needs reflective access to `java.net.InetSocketAddress`. Add one more `--add-opens` argument to the exec plugin's `<arguments>` block, alongside the others already declared in the project:
+The optimized marshaller used during compute also needs reflective access to `java.net.InetSocketAddress`. Open `sql-on-cache/pom.xml` and add one more `--add-opens` argument to the exec plugin's `<arguments>` block, alongside the others already declared in the project:
 
 {% code title="sql-on-cache/pom.xml" %}
 ```diff
@@ -90,10 +77,10 @@ Recompile to confirm the project still builds:
 mvn -f sql-on-cache/pom.xml clean compile
 ```
 
-A `BUILD SUCCESS` line. The model classes and the seeder and query classes are now compiled to Java 8 bytecode.
+A `BUILD SUCCESS` line. The model classes and the seeder and query classes are now compiled.
 
 {% hint style="success" %}
-**Checkpoint:** The `pom.xml` has `<maven.compiler.release>8</maven.compiler.release>`, the `--add-opens java.base/java.net=ALL-UNNAMED` argument is present, and `mvn compile` finishes without errors.
+**Checkpoint:** The `--add-opens java.base/java.net=ALL-UNNAMED` argument is present, and `mvn compile` finishes without errors.
 {% endhint %}
 
 ## The Pull-to-Client Baseline

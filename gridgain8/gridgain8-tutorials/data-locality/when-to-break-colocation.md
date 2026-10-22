@@ -5,6 +5,10 @@ description: >-
 
 # When to Break Colocation
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
+<!-- TODO (hold): the explanation that Version B and Version C run the fact-to-fact JOIN locally because of `@AffinityKeyMapped` is not proven. The query joins on `i.customerId = c.id`, and `id` is a value column. The SQL engine treats a join as collocated only on the affinity column (`_KEY` for Customer), so with `setDistributedJoins(true)` the planner cannot show this join as collocated. The B-versus-A speed-up may come from something else. Places to fix: the Javadoc for Version A and B in `CacheConfigs`, the comment in `ReportQuery`, the "Version B, flag on" paragraph, and the Version C statement that the flag is "required for correctness" (nothing in source requires it when the facts are physically colocated and the dimensions are REPLICATED). To resolve: run EXPLAIN for B and C with and without the flag, test the join on `c._key`, re-measure, rewrite the claims and the numbers, then delete this comment. -->
+
 ## Introduction
 
 The previous three tutorials colocated Customer and Invoice caches so every invoice lands on the same primary node as its customer. That design is correct for fact tables that share a join key. It is wrong for the reference data the same query needs to enrich the result.
@@ -19,7 +23,7 @@ Star schema is a standard dimensional-modeling pattern: one fact table surrounde
 
 - **Completion of [Affinity-Aware Compute at Scale](affinity-aware-compute.md).** You have declared colocation with `@AffinityKeyMapped`, verified it with runtime checks, and computed against it. You have a working 3-node cluster.
 - **A running 3-node cluster** from the previous tutorials. No configuration change is required.
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode to match the server JVM.
+- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 
@@ -79,7 +83,7 @@ The `pom.xml` needs `ignite-indexing` in addition to `ignite-core`. The SQL engi
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.star.ReportQuery</exec.mainClass>
     </properties>
@@ -95,12 +99,12 @@ The `pom.xml` needs `ignite-indexing` in addition to `ignite-core`. The SQL engi
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>ignite-indexing</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -986,7 +990,7 @@ public class ReportQuery {
     }
 
     // "no flag" on any version of this multi-way join returns partial
-    // results on GridGain 8.9.32. The
+    // results on the latest GridGain 8 version. The
     // flag is required for correctness.
     private static String describe(Result r) {
         if ("no flag".equals(r.flag)) {
@@ -1160,9 +1164,9 @@ The schema that results matches what a production cache-centric system looks lik
 
 ## Summary
 
-`CacheMode.REPLICATED` and `CacheMode.PARTITIONED` are both correct, for different tables. Facts go in PARTITIONED caches with colocation chains declared by `@AffinityKeyMapped` or an equivalent mechanism. Reference tables go in REPLICATED caches when they are small, written rarely, and joined often. The three-version experiment in this tutorial moves a schema through three designs and measures a 1.8x to 2.8x speedup between the naive partitioned-everywhere design and the partitioned-facts plus replicated-dimensions design, depending on whether the reader runs GridGain 8.
+`CacheMode.REPLICATED` and `CacheMode.PARTITIONED` are both correct, for different tables. Facts go in PARTITIONED caches with colocation chains declared by `@AffinityKeyMapped` or an equivalent mechanism. Reference tables go in REPLICATED caches when they are small, written rarely, and joined often. The three-version experiment in this tutorial moves a schema through three designs and measures a 1.8x to 2.8x speedup between the naive partitioned-everywhere design and the partitioned-facts plus replicated-dimensions design, depending on the run.
 
-`SqlFieldsQuery.setDistributedJoins(true)` is the correctness flag for multi-cache JOINs. On GridGain 8.9.32, the flag is required whenever a query crosses two or more caches whose join keys do not all share an affinity chain. Without it, the query returns silent partial results. The no-flag Version A run in this tutorial returned top-10 revenue rows with totals at roughly one-fifth to one-quarter of correct, a failure mode that looks like a normal result unless the reader sums the numbers against a baseline.
+`SqlFieldsQuery.setDistributedJoins(true)` is the correctness flag for multi-cache JOINs. On the latest GridGain 8 version, the flag is required whenever a query crosses two or more caches whose join keys do not all share an affinity chain. Without it, the query returns silent partial results. The no-flag Version A run in this tutorial returned top-10 revenue rows with totals at roughly one-fifth to one-quarter of correct, a failure mode that looks like a normal result unless the reader sums the numbers against a baseline.
 
 REPLICATED dimensions do not remove the need for the flag. They reduce its cost. Version C runs the same multi-table JOIN 1.8x to 2.8x faster than Version A because the dimension rows live on every node instead of shuffling across the network. The decision framework for REPLICATED is three questions: row count, write rate, access pattern. Tables at the small-and-stable end of all three belong in REPLICATED caches. Tables that fail any one of the three belong in PARTITIONED.
 

@@ -5,6 +5,8 @@ description: >-
 
 # Design Keys for Colocation
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 A partitioned cache distributes entries across nodes by hashing the key. That behavior works for lookups, but a production schema needs more control. When a customer has a hundred invoices, the cluster has no reason to keep them together. Invoice keys hash independently of the customer's key, so the invoices land on whichever nodes their hashes pick.
@@ -21,7 +23,7 @@ You build three small programs in this tutorial, one per mechanism, against a Cu
 
 - **A running 3-node cluster** from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). Use the `docker-compose-3nodes.yml` file from that tutorial.
 - **Familiarity with the Affinity API.** This tutorial uses `ignite.affinity(cacheName).mapKeyToNode(key)` as the confirmation tool without reintroducing it.
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode to match the server JVM.
+- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -85,7 +87,7 @@ colocation-keys/
 
 You create three of the files in this step. The other three, one per mechanism, come in the steps that follow.
 
-The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs so the program output stands out:
+The `pom.xml` targets Java 17 bytecode and suppresses the engine's startup logs so the program output stands out:
 
 {% code title="colocation-keys/pom.xml" %}
 ```xml
@@ -99,7 +101,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs s
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.colocation.AnnotationColocation</exec.mainClass>
     </properties>
@@ -115,7 +117,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs s
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -489,8 +491,8 @@ public class AnnotationColocation {
      * serialVersionUID (stable identity for the serialization format),
      * equals and hashCode over every identifying field (the cache uses
      * them for key uniqueness), and at most one @AffinityKeyMapped
-     * field (the annotation is unique per class; a second one is a
-     * configuration error that the engine rejects).
+     * field (use the annotation on one field only; the engine does not
+     * reject a second one, it uses the first annotated field it finds).
      */
     public static class InvoiceKey implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -981,7 +983,7 @@ The three mechanisms are not a ranking. They are three places to put the colocat
 
 {% hint style="info" %}
 
-You may see a fourth mechanism in older GridGain 8 codebases: a custom `AffinityKeyMapper` implementation passed to `CacheConfiguration.setAffinityMapper(...)`. As of 2.16.0 this interface is deprecated. The Javadoc recommends replacing it with one of the three mechanisms above: `@AffinityKeyMapped`, the `AffinityKey<K>` wrapper, or `CacheKeyConfiguration.setAffinityKeyFieldName(String)`. New schemas should pick from those three.
+You may see a fourth mechanism in older GridGain 8 codebases: a custom `AffinityKeyMapper` implementation passed to `CacheConfiguration.setAffinityMapper(...)`. This interface is deprecated. The Javadoc recommends `@AffinityKeyMapped` or `CacheKeyConfiguration.setAffinityKeyFieldName(String)` instead. The `AffinityKey<K>` wrapper is a third option, though the Javadoc does not name it. New schemas should pick from those three.
 
 {% endhint %}
 

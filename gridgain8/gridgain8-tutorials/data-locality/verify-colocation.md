@@ -5,6 +5,8 @@ description: >-
 
 # Verify Colocation Is Working
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 Colocation has no compile-time guard and no runtime exception. The previous tutorial gave you three mechanisms that declare a parent-child colocation contract. All three mechanisms compile and produce working code, and none of them throws when the contract is wrong.
@@ -19,7 +21,7 @@ You build one Maven project with two reader-facing classes. `VerifyColocation` r
 
 - **Completion of [Design Keys for Colocation](design-keys-for-colocation.md).** You have read that tutorial and `Affinity.mapKeyToNode` is familiar. This tutorial builds its own `customers-verify` and `invoices-verify` caches, so the caches from the prior tutorial are not needed (each of the three mechanism programs destroyed its own caches at the end).
 - **A running 3-node cluster** using `docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md).
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode to match the server JVM.
+- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -61,7 +63,7 @@ verify-colocation/
     └── BrokenColocation.java
 ```
 
-The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs so each act's output stands out:
+The `pom.xml` targets Java 17 bytecode and suppresses the engine's startup logs so each act's output stands out:
 
 {% code title="verify-colocation/pom.xml" %}
 ```xml
@@ -75,7 +77,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs s
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.verify.VerifyColocation</exec.mainClass>
     </properties>
@@ -91,7 +93,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses the engine's startup logs s
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -227,9 +229,9 @@ public class InvoiceKey implements Serializable {
 
     private Integer invoiceId;
 
-    // customerId is the affinity key. A second @AffinityKeyMapped on
-    // any other field would be a configuration error the engine
-    // rejects at cache-create time.
+    // customerId is the affinity key. Annotate one field only: the
+    // engine does not reject a second @AffinityKeyMapped, it uses the
+    // first annotated field it finds and ignores the rest.
     @AffinityKeyMapped
     private Integer customerId;
 
@@ -779,7 +781,7 @@ You can run the same queries without writing Java. Open a SQL shell against any 
 
 The third technique is what production does. A colocated JOIN or a colocated compute job runs on each server, reads that server's primary-owned data, and joins against other caches whose keys hash to the same node. If an invoice's customer lives on a different node, the join misses the row or returns a stale one.
 
-You model that pattern with a scan. `ScanQuery.setLocal(true)` restricts a scan to the entries primary-owned by the node running the query. Only the thick client supports this flag, because a thin client cannot pin a query to a specific server. You broadcast a callable to every server, each callable scans its own customers and invoices, and each returns orphan invoices whose customer is not local.
+You model that pattern with a scan. `ScanQuery.setLocal(true)` restricts a scan to the entries primary-owned by the node running the query. A thin client also accepts the flag, but it runs the scan on the one node the client is connected to, so it cannot sweep every server. You broadcast a callable to every server, each callable scans its own customers and invoices, and each returns orphan invoices whose customer is not local.
 
 The broadcast is a diagnostic-tool preview of compute gravity from the next tutorial in this path. Every server independently verifies that the data it owns is consistent with the contract.
 
@@ -792,7 +794,7 @@ Add `actThreeLocalScan`, the `LocalScanTask` callable, and the `NodeReport` reco
  *
  * Broadcasts a callable to every server. Each server scans its own
  * primary-owned customers and invoices using ScanQuery.setLocal,
- * which is a thick-client-only API that the thin client rejects.
+ * which restricts the scan to the partitions the server owns.
  * For each local invoice, the server checks whether that invoice's
  * customer is also local. An invoice whose customer lives elsewhere
  * is an orphan, and orphan count is the JOIN-correctness defect
@@ -935,7 +937,7 @@ Notice node3: zero customers and zero invoices. Three customers spread across 32
 
 {% hint style="info" %}
 
-`ScanQuery.setLocal(true)` is a thick-client-only API. The thin client cannot pin a query to a specific server because it does not participate in the cluster's peer-to-peer transport. It talks to one node over a socket. Attempting the call against a thin client raises `IgniteClientException: Scan query flag setLocal is not supported by thin client`. A verification routine that uses local scans has to run from a thick client or as a compute broadcast target, both of which this code demonstrates.
+`ScanQuery.setLocal(true)` reads only the partitions that the node running the query owns. A thin client accepts the flag, but it talks to a single node over a socket, so the scan covers only that node's primary partitions. To sweep every server, run the scan from a compute broadcast target, as this code does, so that each server scans its own data.
 
 {% endhint %}
 
@@ -1363,7 +1365,7 @@ The three techniques look at the same cluster through three different lenses. Pi
 
 **System views** tell you the cluster is alive and both caches are distributed. They do not read intent. Two caches with unrelated affinity contracts can produce identical partition distributions. Use them to confirm operations are healthy and to collect the CACHE_GROUP_ID values you need to correlate to partition-level data. Do not use them to prove colocation.
 
-**Local scan broadcast** is the closest mirror of what a colocated JOIN does at runtime. The thick-client-only `setLocal(true)` flag pins each server's scan to its own primary partitions. The callable has to handle binary keys and values because domain classes do not live on the server classpath. `withKeepBinary` plus `BinaryObject.field` reads composite key fields without a Java class. Use it as a pre-deploy smoke test, and use it on a production sample when diagnosing a wrong-answer JOIN in the wild.
+**Local scan broadcast** is the closest mirror of what a colocated JOIN does at runtime. The `setLocal(true)` flag pins each server's scan to its own primary partitions. The callable has to handle binary keys and values because domain classes do not live on the server classpath. `withKeepBinary` plus `BinaryObject.field` reads composite key fields without a Java class. Use it as a pre-deploy smoke test, and use it on a production sample when diagnosing a wrong-answer JOIN in the wild.
 
 Ship all three. Each catches a category of failure the others miss, and the cost of running them compounds the other way. If one technique regresses, the others still hold the line.
 
@@ -1375,7 +1377,7 @@ Colocation fails silently because the cache has no path to reject an incorrect c
 
 **System views describe what the cluster is running.** `SYS.CACHE_GROUPS` gives you partition count, backups, and cache mode per group, while `SYS.PARTITION_STATES` gives you the partition-to-node map with an `IS_PRIMARY` flag. Together they answer "is the cluster healthy and correctly provisioned?" They cannot answer "are these two caches colocated correctly?"
 
-**Local scan broadcasts verify what the JOIN sees.** `ScanQuery.setLocal(true)` is thick-client only and reads one node's primary partitions. Broadcast the scan to every server, have each server check its own data against the contract, and count orphans. An orphan count of zero is the only safe number to ship.
+**Local scan broadcasts verify what the JOIN sees.** `ScanQuery.setLocal(true)` reads one node's primary partitions. Broadcast the scan to every server, have each server check its own data against the contract, and count orphans. An orphan count of zero is the only safe number to ship.
 
 The three techniques are not redundant. They probe different surfaces of the same cluster and fail in different ways. A production-grade verification story runs all three. The runtime API fails fast on wiring bugs, the system views confirm operational health, and the local scan catches the residual case where a wiring bug passes review but the data itself is inconsistent.
 

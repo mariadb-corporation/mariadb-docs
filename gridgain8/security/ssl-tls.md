@@ -230,7 +230,7 @@ To enable client certificate validation, use the following Jetty `SslContextFact
 
 {% code title="XML" %}
 ```xml
-<New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+<New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory$Server">
     <Set name="keyStorePath">server.p12</Set>
     <Set name="keyStorePassword">123456</Set>
     <Set name="keyStoreType">PKCS12</Set>
@@ -326,12 +326,12 @@ To change the certificate in this case:
 |`keyAlgorithm`|The key manager algorithm that will be used to create a key manager.|`SunX509`|
 |`keyStoreFilePath`|The path to the key store file. This is a mandatory parameter since the SSL context can not be initialized without a key manager.|`N/A`|
 |`keyStorePassword`|The key store password.|`N/A`|
-|`keyStoreType`|The key store type.|`PKCS12`|
+|`keyStoreType`|The key store type.|`JKS`, or the value of the `javax.net.ssl.keyStoreType` system property|
 |`needClientAuth`|Whether the connecting clients are required to have a trusted SSL/TLS certificate.|`true`|
 |`protocol`|The protocol for secure transport. [Supported algorithms](https://docs.oracle.com/en/java/javase/11/docs/specs/security/standard-names.html#sslcontext-algorithms).|`TLS`|
 |`trustStoreFilePath`|The path to the trust store file.|`N/A`|
 |`trustStorePassword`|The trust store password.|`N/A`|
-|`trustStoreType`|The trust store type.|`PKCS12`|
+|`trustStoreType`|The trust store type.|`JKS`, or the value of the `javax.net.ssl.keyStoreType` system property|
 |`trustManagers`|A list of pre-configured trust managers.|`N/A`|
 
 ## See Also

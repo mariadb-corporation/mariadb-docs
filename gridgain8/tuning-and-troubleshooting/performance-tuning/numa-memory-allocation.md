@@ -76,6 +76,10 @@ To enable NUMA-aware allocation for a specific data region, adjust the `memoryAl
 1. Locate the `DataRegionConfiguration` section.
 1. Set the `memoryAllocator` property to one of the NUMA allocation strategies (see strategy descriptions below).
 
+{% hint style="info" %}
+`memoryAllocator` also exists on `DataStorageConfiguration`, where it sets the default allocator for all data regions. The snippets below show it as a storage-wide default or in a region configuration. A region-level setting takes precedence for that region.
+{% endhint %}
+
 ### Simple Allocation Strategy
 
 This strategy is the best for attaching a data region to a specific NUMA node.

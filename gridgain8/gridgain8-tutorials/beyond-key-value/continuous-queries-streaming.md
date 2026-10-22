@@ -5,6 +5,8 @@ description: >-
 
 # Real-Time Event Processing: The Streaming Problem
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 Every tutorial in this path so far runs on requests from your code. You query the cache with SQL, run ACID transactions across keys, dispatch compute to where the data lives, make storage durable, and reach for cluster-wide coordination primitives. Each operation starts when the application calls in.
@@ -19,7 +21,7 @@ A traditional caching layer offers two patterns and neither fits. Pub/sub is fir
 
 - **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
 - **The Stock cache value class on the server's classpath.** The continuous query's filter and the initial ScanQuery deserialize cache values inside the server. Peer class loading covers closures (the filter factory, the filter itself), but binary deserialization of cache value classes uses a separate path. The fix is to mount the project jar in the server's `libs/user-libs/` directory once. Step 1 covers the one-time mount.
-- **Java 11** or later for the client runtime. The Maven project compiles to Java 8 bytecode so the filter factory ships cleanly to the GridGain 8 server (Java 11).
+- **Java 17** or later for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
 - **Maven 3.6** or later.
 - **Two terminal windows.** One runs the listener, the other runs the writer that drives the events.
 
@@ -53,7 +55,7 @@ A small Maven project with three runnable scenarios and a model class. `SeedStoc
 
 ## Define the Stock Cache and Seed Data
 
-Create the `continuous-events/` Maven project. The pom uses the same Java-8-bytecode target as the rest of the path so the host client and the cluster server agree on class file format.
+Create the `continuous-events/` Maven project. The pom uses the same Java 17 bytecode target as the rest of the path so the host client and the cluster server agree on class file format.
 
 <details>
 <summary><code>continuous-events/pom.xml</code></summary>
@@ -72,9 +74,9 @@ Create the `continuous-events/` Maven project. The pom uses the same Java-8-byte
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gridgain.version>8.9.32</gridgain.version>
+        <gridgain.version>8.10.0</gridgain.version>
         <exec.mainClass>com.example.SeedStock</exec.mainClass>
     </properties>
 

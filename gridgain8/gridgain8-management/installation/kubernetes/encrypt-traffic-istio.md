@@ -5,6 +5,8 @@ description: >-
 
 # How to Encrypt Cluster Traffic With Istio mTLS on Kubernetes
 
+<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Prerequisites
 
 - A running Kubernetes cluster with `kubectl` access. The commands below were tested on [kind](https://kind.sigs.k8s.io). They apply unchanged to managed Kubernetes (EKS, GKE, AKS); only the external load balancer in the optional gateway step differs by platform.
@@ -186,7 +188,7 @@ spec:
           emptyDir: {}
       containers:
         - name: ignite-node
-          image: gridgain/enterprise:8.9.33-openjdk17-slim
+          image: gridgain/enterprise:8.10.0-openjdk17-slim
           resources:
             limits:
               memory: 1536Mi

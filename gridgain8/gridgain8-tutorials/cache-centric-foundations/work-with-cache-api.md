@@ -5,6 +5,8 @@ description: >-
 
 # Work With the Cache API
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 Your cluster is running. Now you connect a Java application and store data in it.
@@ -18,7 +20,7 @@ This tutorial labels itself "beginner" for GridGain 8. The surrounding Java stac
 ## Prerequisites
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Java 11** (the GridGain 8 toolchain is tested against Java 11)
+- **Java 17** or later
 - **Maven 3.6** or later
 - **Comfort reading Spring bean XML.** The `ignite-config.xml` is Spring-formatted but you only edit a handful of properties.
 
@@ -87,8 +89,8 @@ Create `cache-client/pom.xml`:
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.CacheConnect</exec.mainClass>
     </properties>
@@ -97,7 +99,7 @@ Create `cache-client/pom.xml`:
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -120,6 +122,8 @@ Create `cache-client/pom.xml`:
                         <argument>--add-opens</argument>
                         <argument>java.base/java.nio=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
+                        <argument>java.base/java.io=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
                         <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
                         <argument>--add-opens</argument>
                         <argument>java.base/java.lang=ALL-UNNAMED</argument>
@@ -139,9 +143,9 @@ Create `cache-client/pom.xml`:
 
 GridGain 8 artifacts are published to GridGain's Nexus repository, not Maven Central. The `<repositories>` block tells Maven where to find the `gridgain-core` dependency.
 
-The `ignite-core` module contains the thick client, the cache API, and the discovery layer. A single dependency is all you need to connect to the cluster and perform cache operations.
+The `gridgain-core` artifact contains the thick client, the cache API, and the discovery layer. A single dependency is all you need to connect to the cluster and perform cache operations.
 
-The `--add-opens` flags in the exec plugin give the GridGain client reflective access to JDK internals. The thick client uses `sun.nio.ch` for direct memory buffers and `java.nio` for network I/O. Without these flags, Java 16+ blocks the access and the client fails to start.
+The `--add-opens` flags in the exec plugin give the GridGain client reflective access to JDK internals. The thick client uses `sun.nio.ch` for direct memory buffers and `java.nio` for network I/O, and `java.io` for object serialization. Without these flags, Java 16+ blocks the access and the client fails to start.
 
 The `exec.mainClass` property in `<properties>` lets you override the main class from the command line with `-Dexec.mainClass=com.example.OtherClass`. You use this to run different classes in later steps.
 
@@ -196,6 +200,9 @@ public class CacheConnect {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
 
         // Lower both failure-detection timeouts so the client fails fast
         // during the tutorial. Defaults on a client JVM are 10 seconds for
@@ -204,9 +211,9 @@ public class CacheConnect {
         // scope, used by the server to decide whether a client is dead).
         // Production networks keep the defaults because transient pauses
         // are common; localhost Docker has neither.
-        // Also lower metricsUpdateFrequency so the failure-detection
-        // timeouts remain above it (GridGain validates the relationship
-        // at start).
+        // Also lower metricsUpdateFrequency. GridGain refuses to start
+        // if clientFailureDetectionTimeout is below it and only logs a
+        // warning for failureDetectionTimeout.
         cfg.setMetricsUpdateFrequency(1000);
         cfg.setFailureDetectionTimeout(1000);
         cfg.setClientFailureDetectionTimeout(1000);
@@ -249,8 +256,8 @@ The GridGain client produces startup output before your application code runs. M
 ```text
 INFO: Topology snapshot [ver=2, locNode=7381eb44, servers=1, clients=1,
   state=ACTIVE, CPUs=22, offheap=3.5GB, heap=7.0GB,
-  aliveNodes=[TcpDiscoveryNode [id=7381eb44-..., isClient=true, ver=8.9.32#...],
-  TcpDiscoveryNode [id=6b54894d-..., isClient=false, ver=8.9.32#...]]]
+  aliveNodes=[TcpDiscoveryNode [id=7381eb44-..., isClient=true, ver=8.10.0#...],
+  TcpDiscoveryNode [id=6b54894d-..., isClient=false, ver=8.10.0#...]]]
 
 Client connected to the cluster.
 Local node ID: 7381eb44-1703-4a14-90de-b045728d6146
@@ -313,6 +320,9 @@ public class CacheCrud {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
         cfg.setMetricsUpdateFrequency(1000);
         cfg.setFailureDetectionTimeout(1000);
         cfg.setClientFailureDetectionTimeout(1000);
@@ -438,6 +448,9 @@ public class CacheBulk {
         IgniteConfiguration cfg = new IgniteConfiguration();
         cfg.setDiscoverySpi(disco);
         cfg.setClientMode(true);
+        // The flag must match the server's peerClassLoadingEnabled
+        // setting (true in the ignite-config.xml you created earlier).
+        cfg.setPeerClassLoadingEnabled(true);
         cfg.setMetricsUpdateFrequency(1000);
         cfg.setFailureDetectionTimeout(1000);
         cfg.setClientFailureDetectionTimeout(1000);

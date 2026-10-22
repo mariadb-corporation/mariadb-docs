@@ -65,10 +65,10 @@ Partition count is fixed at cache creation. Changing it later requires creating 
 | 10M to 100M | 1024 (default) | 100K keys per partition at the top end, still inside the guidance |
 | 100M to 250M | 1024 | 250K keys per partition at the top, the upper edge of safe |
 | 250M to 1B | 1024-4096 | Formula: `ceil(keys / 250_000)` rounded to power of 2; the top of the band leaves headroom for growth |
-| 1B to 10B | 4096-32768 | Formula applies; verify memory overhead at your node count and choose toward the top of the band for growth headroom |
-| Over 10B | 32768-65000 | Approaching the configured maximum of 65,000 |
+| 1B to 8B | 4096-32768 | Formula applies; verify memory overhead at your node count and choose toward the top of the band for growth headroom |
+| Over 8B | 40000-65000 | The formula gives 40,000 at 10B keys. The configured maximum is 65,000 |
 
-The formula (`keys / 250,000`) and the 65,000 cap come directly from the source. Cluster-size multipliers apply on top. If you run 100+ nodes, pick the higher end of the row-count band.
+The `keys / 250,000` figure is a guideline in the `RendezvousAffinityFunction` Javadoc, not a check in code. The 65,000 cap is enforced: the affinity function rejects a larger partition count. Cluster-size multipliers apply on top. If you run 100+ nodes, pick the higher end of the row-count band.
 
 ## When to Accept the Default
 

@@ -5,19 +5,21 @@ description: >-
 
 # Affinity-Aware Compute at Scale
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 Pulling a distributed dataset to the client to compute on it does not scale. At 100,000 customers with three invoices each, the client fetches roughly 12 MB of invoice rows to produce a ten-row top-10. Running the same aggregation on the servers that own the rows returns under 1 KB. This tutorial builds three compute patterns that do that, then measures them against pull-to-client at 1,000, 10,000, and 100,000 customers.
 
-Each pattern fits a different workload. Broadcast with local scan handles batch aggregation by running one job per server against its primary partitions. The client merges three per-node top-N lists. `affinityCall` per key handles service-time lookups by sending one job to the customer's primary owner. The Collection-overload `affinityCall` adds a scheduler-enforced contract that the target node owns the key in every named cache. That contract matters when two caches' affinity configurations drift apart.
+Each pattern fits a different workload. Broadcast with local scan handles batch aggregation by running one job per server against its primary partitions. The client merges three per-node top-N lists. `affinityCall` per key handles service-time lookups by sending one job to the customer's primary owner. The Collection-overload `affinityCall` maps the key with the first named cache and reserves that partition in the other named caches. That matters when a job reads several caches that are colocated by design.
 
-Every technique relies on peer class loading. The closure classes live in your client JVM and the cluster has never seen them. At invoke time the client serializes the closure, ships the class bytes to the target server, and the server deserializes and runs the code. The cluster config from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) already has `peerClassLoadingEnabled=true` on every server. Without that setting, every closure in this tutorial fails at deserialization with `ClassNotFoundException`.
+Every technique relies on peer class loading. The closure classes live in your client JVM and the cluster has never seen them. At invoke time the client serializes the closure, ships the class bytes to the target server, and the server deserializes and runs the code. The cluster config from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) already has `peerClassLoadingEnabled=true` on every server. The flag must be the same on every node, clients included: a client with `true` cannot join servers with `false`, and the join fails with `Remote node has peer class loading enabled flag different from local`. If the flag is off on the whole cluster, every closure in this tutorial fails at deserialization with `ClassNotFoundException`.
 
 ## Prerequisites
 
 - **Completion of [Verify Colocation Is Working](verify-colocation.md).** You have colocated Customer and Invoice caches with `@AffinityKeyMapped` on `customerId` and know how to prove the contract holds.
 - **A running 3-node cluster** using `docker-compose-3nodes.yml` from [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md). Every server must have `peerClassLoadingEnabled=true`.
-- **Java 11 or later** for the client runtime. The Maven project compiles to Java 8 bytecode to match the server JVM.
+- **Java 17 or later** for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later.
 - **Docker Compose 2.23** or later.
 
@@ -64,7 +66,7 @@ affinity-compute/
     └── ScaleExperiment.java
 ```
 
-The `pom.xml` targets Java 8 bytecode and suppresses GridGain's startup logs so each class's output stands out.
+The `pom.xml` targets Java 17 bytecode and suppresses GridGain's startup logs so each class's output stands out.
 
 {% code title="affinity-compute/pom.xml" %}
 ```xml
@@ -78,7 +80,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses GridGain's startup logs so 
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.compute.BroadcastRevenue</exec.mainClass>
     </properties>
@@ -94,7 +96,7 @@ The `pom.xml` targets Java 8 bytecode and suppresses GridGain's startup logs so 
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -631,7 +633,7 @@ Broadcast wall-clock: 983 ms
 
 {% hint style="info" %}
 
-`PerNodeTopN` and `CustomerRevenue` are defined in the client JVM. Neither class exists on the server classpath. At broadcast time the client serializes a `PerNodeTopN` instance and ships the class bytes with it. Each server deserializes, caches the class for subsequent calls, and runs the closure. If any server has `peerClassLoadingEnabled=false`, the deserialization throws `ClassNotFoundException: com.example.compute.BroadcastRevenue$PerNodeTopN`. Turn the setting on in the cluster config and restart the affected server. No application code changes.
+`PerNodeTopN` and `CustomerRevenue` are defined in the client JVM. Neither class exists on the server classpath. At broadcast time the client serializes a `PerNodeTopN` instance and ships the class bytes with it. Each server deserializes, caches the class for subsequent calls, and runs the closure. If peer class loading is off on the whole cluster, the deserialization throws `ClassNotFoundException: com.example.compute.BroadcastRevenue$PerNodeTopN`. A single server with a different setting does not get that far: the client cannot join a cluster whose flag differs from its own. Turn the setting on in the cluster config and restart the servers. No application code changes.
 
 {% endhint %}
 
@@ -642,7 +644,7 @@ Every field the closure captures has to be `Serializable`. A closure that captur
 {% endhint %}
 
 {% hint style="success" %}
-**Checkpoint:** `BroadcastRevenue` reports `Reporting nodes: 3` and prints a top-10 list with ten customer IDs. The wall-clock is under 250 ms on a warm cluster.
+**Checkpoint:** `BroadcastRevenue` reports `Reporting nodes: 3` and prints a top-10 list with ten customer IDs. The wall-clock is around one second (983 ms in the sample output) and varies with hardware.
 {% endhint %}
 
 ## Act 2: AffinityCall per Customer
@@ -827,7 +829,7 @@ The `Primary owner` line reports what the client's affinity function computes be
 
 {% hint style="warning" %}
 
-`affinityCall("customers-compte", customerId, callable)` (note the typo) looks the same as the working call. The scheduler cannot find a node that owns the key in a cache that does not exist. The result is `ClusterGroupEmptyException`, not a friendly "no such cache" error. Use cache-name constants like `CacheConfigs.CUSTOMERS`. Hard-coded strings will regress on rename without a compile-time signal.
+`affinityCall("customers-compte", customerId, callable)` (note the typo) looks the same as the working call. The cluster cannot map a key in a cache that does not exist. The result is an `IgniteException` with the message `Failed to get cache affinity (cache was not started yet or cache was already stopped)` and the cache name, not a friendly "no such cache" error. Use cache-name constants like `CacheConfigs.CUSTOMERS`. Hard-coded strings will regress on rename without a compile-time signal.
 
 {% endhint %}
 
@@ -839,7 +841,7 @@ The `Primary owner` line reports what the client's affinity function computes be
 
 Act 2 targeted one customer on one cache. The closure read from both caches and got the right answer because both caches use the same `RendezvousAffinityFunction` with the same partition count, so `customerId` values land on the same node in both caches. The scheduler does not enforce that symmetry. It falls out of the two caches being configured identically.
 
-The `IgniteCompute.affinityCall(Collection<String> cacheNames, Object affKey, IgniteCallable)` overload declares the multi-cache constraint in code. The scheduler must find a node that owns the key in every named cache. On caches that drift apart (different affinity functions, different node filters, partition count renegotiations mid-migration), the single-cache form picks a target that owns the key in one cache. The Collection overload rejects that target.
+The `IgniteCompute.affinityCall(Collection<String> cacheNames, Object affKey, IgniteCallable)` overload declares the multi-cache constraint in code. It maps the key to a partition using the first cache in the collection, sends the job to the primary node of that partition, and reserves the same partition in the other named caches while the job runs. It does not search for a node that owns the key in every cache. Use it for caches that are colocated by design, with the same affinity function and partition count.
 
 The closure body is the same as Act 2. Only the call site changes:
 
@@ -856,7 +858,8 @@ import org.apache.ignite.Ignition;
  * Act 3: cross-cache affinityCall.
  *
  * IgniteCompute.affinityCall(Collection<String>, affKey, callable)
- * lands the closure on a node that owns affKey in every named cache.
+ * maps affKey with the first named cache and reserves that partition
+ * in the other named caches.
  * Same closure body as Act 2 (reused via SumOneCustomerPublic). The
  * Collection overload declares the multi-cache colocation contract
  * in code.
@@ -930,7 +933,7 @@ Cross-cache affinityCall wall-clock: 76 ms
 
 The result matches Act 2. On caches that share an affinity function, the single-cache form and the Collection overload pick the same target, so both produce the same answer.
 
-The difference shows up when a cache drifts. If one cache changes its partition count, adds a node filter, or swaps in a custom `AffinityFunction`, the Collection overload still places the job on a node that owns the key in every named cache. The single-cache form silently lands on a node that owns the key in only the named cache. The closure either gets the wrong answer or pays a cross-node read for the other cache.
+The difference shows up when a cache drifts. If one cache changes its partition count, adds a node filter, or swaps in a custom `AffinityFunction`, the Collection overload does not detect it. It still maps the key with the first cache only, so the closure either gets the wrong answer or pays a cross-node read for the other cache. The overload is a contract for caches that are colocated by design. Check the colocation, as the previous tutorial shows, instead of relying on the call to enforce it.
 
 {% hint style="danger" %}
 
@@ -1077,7 +1080,8 @@ public class ScaleExperiment {
 
     // Approach C: one affinityCall per partition. The (Collection,
     // partId, IgniteCallable) overload sends the closure to the
-    // primary owner of partId in every named cache. Submitting 32 of
+    // primary owner of partId in the first named cache and reserves
+    // the partition in the others. Submitting 32 of
     // them in parallel spreads the work finer than broadcast.
     private static long timePartitionParallel(Ignite ignite) {
         long t0 = System.currentTimeMillis();
@@ -1262,7 +1266,7 @@ The interesting contrast is **B vs C at 100k**. On GridGain 8, C (256 ms) beats 
 Run the experiment three times and the wall-clock numbers move ±30%. The A-at-worst / B-and-C-under-A ordering holds across runs.
 
 {% hint style="success" %}
-**Checkpoint:** The summary table shows A climbing from under 100 ms at 1k to several hundred ms and 16 MB at 100k. B and C both stay an order of magnitude below A's byte count at every scale.
+**Checkpoint:** The summary table shows A climbing from under 100 ms at 1k to several hundred ms and 12 MB at 100k. B and C both stay an order of magnitude below A's byte count at every scale.
 {% endhint %}
 
 ## Which Technique Answers Which Workload
@@ -1273,26 +1277,26 @@ Each technique ships the code to a different unit of the cluster: the whole clus
 |---|---|---|
 | Full-dataset aggregation ("top 10 customers by revenue") | `IgniteCompute.broadcast(callable)` + `ScanQuery.setLocal(true)` | Per-node list, merge client-side |
 | Single-key service query ("what is customer 47's revenue?") | `IgniteCompute.affinityCall(cacheName, key, callable)` | One result, one round-trip |
-| Single-key cross-cache read ("everything for customer 47 across these three caches") | `IgniteCompute.affinityCall(Collection<String>, key, callable)` | One result; scheduler enforces multi-cache contract |
+| Single-key cross-cache read ("everything for customer 47 across these three caches") | `IgniteCompute.affinityCall(Collection<String>, key, callable)` | One result; the partition is reserved in every named cache |
 | Per-partition batch ("one job per partition, stream as they finish") | `IgniteCompute.affinityCallAsync(Collection<String>, partId, callable)` | One result per partition |
 
-Two constraints apply to all four. The closure class ships to the servers via peer class loading, so every server in the cluster must have `peerClassLoadingEnabled=true`. A single server with the setting off breaks every compute call on the cluster with `ClassNotFoundException`. Closures also serialize every field they capture. A non-serializable field throws `NotSerializableException` at submission. Inject the server-side `Ignite` handle with `@IgniteInstanceResource` instead of handing it through the closure's constructor.
+Two constraints apply to all four. The closure class ships to the servers via peer class loading, so every node in the cluster, clients included, must have the same `peerClassLoadingEnabled` value, and it must be `true`. A node whose value differs cannot join the cluster, and with the setting off everywhere every compute call fails with `ClassNotFoundException`. Closures also serialize every field they capture. A non-serializable field throws `NotSerializableException` at submission. Inject the server-side `Ignite` handle with `@IgniteInstanceResource` instead of handing it through the closure's constructor.
 
-Most readers reach for pull-to-client first by reflex. At 100,000 customers pull-to-client moves 16 MB of row data to produce a ten-line result. Broadcast moves 960 B for the same result. The byte ratio crosses four orders of magnitude and grows with N.
+Most readers reach for pull-to-client first by reflex. At 100,000 customers pull-to-client moves 12 MB of row data to produce a ten-line result. Broadcast moves 960 B for the same result. The byte ratio crosses four orders of magnitude and grows with N.
 
 ## Summary
 
 Three compute patterns cover the workload shapes that show up in production.
 
-**Broadcast with local scan for batch aggregation.** One job per server, each reading its primary partitions via `ScanQuery.setLocal(true)` and returning a per-node summary. The client merges one list per node. The full dataset never leaves the servers. Partition-parallel is the alternative when per-partition scan time drops below broadcast's per-node overhead. The measurements in this tutorial show partition-parallel winning on GridGain 8 at 100k and broadcast winning on GridGain 8 at 100k on the same hardware.
+**Broadcast with local scan for batch aggregation.** One job per server, each reading its primary partitions via `ScanQuery.setLocal(true)` and returning a per-node summary. The client merges one list per node. The full dataset never leaves the servers. Partition-parallel is the alternative when per-partition scan time drops below broadcast's per-node overhead. The measurements in this tutorial show broadcast ahead at 10,000 customers and partition-parallel ahead at 100,000, on the same hardware.
 
 **`affinityCall` per key for service-time single-key queries.** One round-trip, one target node, one result. Use it whenever a service request names one customer, one order, or one account.
 
-**The Collection-overload `affinityCall` for multi-cache reads.** The scheduler refuses any target that does not own the key in every named cache. On caches that share an affinity function the single-cache and Collection forms pick the same node. The guarantee covers the case where cache configurations later drift apart.
+**The Collection-overload `affinityCall` for multi-cache reads.** The key is mapped with the first named cache, and the same partition is reserved in the other named caches while the job runs. On caches that share an affinity function the single-cache and Collection forms pick the same node. The call does not detect caches whose configurations later drift apart, so verify the colocation.
 
-Shared plumbing. Peer class loading ships your closure class bytes to the servers at invoke time. `@IgniteInstanceResource` injects the server's local `Ignite` handle into the closure. Three failure modes recur: `ClassNotFoundException` (peer class loading disabled), `NotSerializableException` (closure captures non-serializable state), and `ClusterGroupEmptyException` (target cache does not exist).
+Shared plumbing. Peer class loading ships your closure class bytes to the servers at invoke time. `@IgniteInstanceResource` injects the server's local `Ignite` handle into the closure. Three failure modes recur: `ClassNotFoundException` (peer class loading disabled), `NotSerializableException` (closure captures non-serializable state), and `IgniteException` (target cache does not exist).
 
-At 100,000 customers the pull-to-client approach moves 12 MB to answer a ten-row question. Broadcast moves under 1 KB. Both return the same top-10 in under half a second on a warm cluster. On a production network the wall-clock gap widens with the byte ratio. Affinity-aware compute runs the closure on the node that owns the key, so the row data stays on that node.
+At 100,000 customers the pull-to-client approach moves 12 MB to answer a ten-row question. Broadcast moves under 1 KB. In the sample run, pull-to-client takes 806 ms and broadcast 396 ms for the same top-10. On a production network the wall-clock gap widens with the byte ratio. Affinity-aware compute runs the closure on the node that owns the key, so the row data stays on that node.
 
 ### What's Next
 

@@ -124,8 +124,8 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
 
 ## Step 7: Configure the GridGain Kafka Connector
 
-1. Download the GridGain Enterprise Edition or Ultimate Edition package:
-2. [Extract the package and prepare it](quick-start.md#step-1-prepare-connector-package).
+1. Install the GridGain Kafka Connector component from Confluent Hub, as described in [Step 1 of the quick start](quick-start.md#step-1-prepare-connector-package).
+2. If your cluster runs GridGain Ultimate, add the Ultimate jars to the component, as described in the same step.
 3. Create two Connector Property files: `gridgain-kafka-connect-source.properties` and `gridgain-kafka-connect-sink.properties`.
    - Example Source Properties:
 
@@ -153,8 +153,8 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
    2. Run the following commands:
 
       ```bash
-      $KAFKA_HOME/bin/connect-distributed.sh \
-          $KAFKA_HOME/config/connect-distributed.properties \
+      $KAFKA_HOME/bin/connect-standalone.sh \
+          $KAFKA_HOME/config/connect-standalone.properties \
           gridgain-kafka-connect-source.properties \
           gridgain-kafka-connect-sink.properties
       ```

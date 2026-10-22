@@ -304,7 +304,7 @@ public void configureAffinityKeyWithCacheKeyConfiguration() {
     personCfg.setBackups(1);
 
     // Configure the affinity key
-    personCfg.setKeyConfiguration(new CacheKeyConfiguration("Person", "companyId"));
+    personCfg.setKeyConfiguration(new CacheKeyConfiguration(PersonKey.class.getName(), "companyId"));
 
     CacheConfiguration<String, Company> companyCfg = new CacheConfiguration<String, Company>("companies");
     companyCfg.setBackups(1);
@@ -334,8 +334,8 @@ var personCfg = new CacheConfiguration("persons")
     {
         new CacheKeyConfiguration
         {
-            TypeName = nameof(Person),
-            AffinityKeyFieldName = nameof(Person.CompanyId)
+            TypeName = nameof(PersonKey),
+            AffinityKeyFieldName = nameof(PersonKey.CompanyId)
         } 
     }
 };

@@ -5,6 +5,10 @@ description: >-
 
 # Start a Local Cache Development Cluster
 
+<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
+<!-- TODO (release): the Docker Hub tags 8.10.0-b1 and 8.10.0-b2 are multi-architecture (amd64 and arm64), and 8.10.0-b2 ran natively on Apple Silicon without the `platform: linux/amd64` pin. This page keeps the amd64 wording and the pin as originally written. After the 8.10.0 release, check the architectures of the final tag and decide whether to drop the pin and the emulation notes here and in the other tutorials that use `platform: linux/amd64`. -->
+
 ## Introduction
 
 Your application needs a fast caching layer. In this tutorial, you start a single-node cluster with Docker Compose and verify it is running. Every subsequent tutorial in the cache-centric Foundations path builds on this environment.
@@ -24,7 +28,7 @@ A single server node is all you need to start developing. Later tutorials add no
 GridGain 8 Enterprise requires a trial license:
 
 1. Go to [gridgain.com/tryfree](https://www.gridgain.com/tryfree) and request an Enterprise trial download
-2. Check your email for a download link to `gridgain-enterprise-8.9.32.zip`
+2. Check your email for a download link to `gridgain-enterprise-8.10.0.zip`
 3. Download and extract the zip file
 4. Copy `gridgain-license.xml` from the top level of the extracted directory into your project directory (you create this directory in Step 1)
 
@@ -106,7 +110,7 @@ name: gridgain8
 
 services:
   node1:
-    image: gridgain/enterprise:8.9.32
+    image: gridgain/enterprise:8.10.0
     platform: linux/amd64
     container_name: gridgain8-node1
     environment:
@@ -157,14 +161,13 @@ The node takes 10-30 seconds to start (longer on Apple Silicon due to emulation)
 >>>  _/ // (7 7    // /  / / / _/
 >>> /___/\___/_/|_/___/ /_/ /___/
 >>>
->>> Ignite ver. 8.9.32#20260403-sha1:308dda1e
+>>> ver. 8.10.0#...
 >>> 2026 Copyright(C) GridGain Systems, Inc. and Contributors
 ...
-[19:47:09] License successfully loaded from file: file:/opt/gridgain/gridgain-license.xml
-[19:47:09] Licensed to [your name] on 04/15/2026. For evaluation purposes.
+[2026-10-22T13:37:02.862][INFO][main][GridEntLicenseProcessor] License successfully loaded from file: file:/opt/gridgain/gridgain-license.xml
+[2026-10-22T13:37:02.862][INFO][main][GridEntLicenseProcessor] License [ID=..., type=ENT]
 ...
-[19:47:10] Topology snapshot [ver=1, locNode=62f5be3e, servers=1, clients=0,
-             state=ACTIVE, CPUs=8, offheap=3.5GB, heap=1.0GB, ...]
+[2026-10-22T13:37:03.375][INFO][main][GridDiscoveryManager] Topology snapshot [ver=1, locNode=38d4ef2b, servers=1, clients=0, state=ACTIVE, CPUs=10, offheap=1.5GB, heap=1.0GB, ...]
 ```
 
 The key line is the **topology snapshot**. It confirms:
@@ -188,15 +191,20 @@ docker exec gridgain8-node1 /opt/gridgain/bin/control.sh --state
 ```
 
 ```text
-Control utility [ver. 8.9.32#20260403-sha1:308dda1e]
+Control utility [ver. 8.10.0#...]
 2026 Copyright(C) GridGain Systems, Inc. and Contributors
 User: gridgain
+Time: 2026-10-22T13:38:06.958
+Command [STATE] started
+Arguments: --state
 --------------------------------------------------------------------------------
-Cluster  ID: ae905e66-bc7a-4e18-b184-cb5ee4bed613
-Cluster tag: reverent_bose
+Cluster  ID: aedbd25b-247d-43f9-b585-c08c519dd53b
+Cluster tag: strange_kepler
 --------------------------------------------------------------------------------
 Cluster is active
 Command [STATE] finished with code: 0
+Control utility has completed execution at: 2026-10-22T13:38:07.051
+Execution time: 92 ms
 ```
 
 The output confirms `Cluster is active`. The cluster ID and tag are auto-generated and will differ on your machine.

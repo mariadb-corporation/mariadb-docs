@@ -5,6 +5,8 @@ description: >-
 
 # Understand How Your Cache Is Distributed
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the Docker Hub tag with the plain version 8.10.0 does not exist yet (only 8.10.0-b1 and 8.10.0-b2, in the form 8.10.0-b2-openjdk17, are published); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 ## Introduction
 
 The cache API looks like a `ConcurrentMap`, and on a single-node cluster it behaves like one. It is not one. Entries are distributed across nodes by a hash of the key, each partition has a primary and, with `backups=1`, a backup on a different node. The partition layout shifts when the topology changes. A one-node development cluster hides every detail.
@@ -15,7 +17,7 @@ You make the distribution visible here. You create a partitioned cache, seed it 
 
 - **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
 - **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
-- **Java 11 or later for the client runtime.** The Maven project compiles to Java 8 bytecode to match the server JVM.
+- **Java 17 or later for the client runtime.** The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
@@ -54,7 +56,7 @@ In this tutorial, you:
 
 ## Create the Cache-Distribution Project
 
-Create a Maven project named `cache-distribution/`. It needs one source file and a `pom.xml` that targets Java 8 bytecode and suppresses the engine's startup logs so the program's output stands out.
+Create a Maven project named `cache-distribution/`. It needs one source file and a `pom.xml` that targets Java 17 bytecode and suppresses the engine's startup logs so the program's output stands out.
 
 {% code title="cache-distribution/pom.xml" %}
 ```xml
@@ -66,7 +68,7 @@ Create a Maven project named `cache-distribution/`. It needs one source file and
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>com.example.distribution.Distribution</exec.mainClass>
     </properties>
@@ -82,7 +84,7 @@ Create a Maven project named `cache-distribution/`. It needs one source file and
         <dependency>
             <groupId>org.gridgain</groupId>
             <artifactId>gridgain-core</artifactId>
-            <version>8.9.32</version>
+            <version>8.10.0</version>
         </dependency>
     </dependencies>
 
@@ -313,7 +315,7 @@ name: gridgain8
 
 services:
   node1:
-    image: gridgain/enterprise:8.9.32
+    image: gridgain/enterprise:8.10.0
     platform: linux/amd64
     container_name: gridgain8-node1
     hostname: node1
@@ -340,7 +342,7 @@ services:
 name: gridgain8
 
 x-node-defaults: &node-defaults
-  image: gridgain/enterprise:8.9.32
+  image: gridgain/enterprise:8.10.0
   platform: linux/amd64
   environment:
     CONFIG_URI: /config/ignite-config.xml
@@ -397,7 +399,7 @@ Identical to the three-node file with a fourth service appended. Docker Compose 
 name: gridgain8
 
 x-node-defaults: &node-defaults
-  image: gridgain/enterprise:8.9.32
+  image: gridgain/enterprise:8.10.0
   platform: linux/amd64
   environment:
     CONFIG_URI: /config/ignite-config.xml
