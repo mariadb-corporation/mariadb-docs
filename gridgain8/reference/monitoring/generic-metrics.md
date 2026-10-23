@@ -666,6 +666,60 @@ Register name: `io.datastorage`
 |WalTotalSize|long|Total size in bytes for storage wal files.|
 |WalWritingRate|long|Average number of bytes per second written during the last time interval.|
 
+### Snapshots
+
+Snapshot metrics. Each register describes the last operation of its type started on the local node. The registers appear when the cluster is activated, and the metrics keep their final values after the operation finishes. Until an operation of that type runs, `SnapshotId`, `StartTime`, `EndTime`, and `TotalPages` report `-1`.
+
+{% hint style="info" %}
+Starting with GridGain 8.10, the snapshot metrics are available as generic metrics. `SnapshotMetricsMXBean` is deprecated; use the [JMX exporter](#jmx) to expose the registers as JMX beans.
+{% endhint %}
+
+#### Snapshot Creation
+
+Register name: `snapshot`
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|The ID of the last created snapshot requested on this node.|
+|OperationId|string|The ID of the last create snapshot operation requested on this node.|
+|StartTime|long|The start time, in milliseconds, of the last create snapshot operation requested on this node.|
+|EndTime|long|The finish time, in milliseconds, of the last create snapshot operation on this node, or `-1` if not started yet or still in progress.|
+|Error|string|The error message of the last create snapshot operation on this node. Empty if the operation succeeded or none has finished yet.|
+|TotalPages|long|The total number of pages to write for the last create snapshot operation on this node.|
+|BytesWritten|long|The number of bytes written for the last create snapshot operation on this node.|
+|TotalBytesWrittenOnStorage|long|The total number of bytes actually written to the storage device (after compression) for the last create snapshot operation.|
+|WriteThrottlingTime|long|The time, in milliseconds, that the snapshot writer threads spent parked due to throttling during the last create snapshot operation.|
+|PartitionsWritten|long|The number of distinct partitions written by the last create snapshot operation on this node.|
+|FreeSpace|long|The free space, in bytes, on the filesystem of the snapshot working directory.|
+
+#### Snapshot Restore
+
+Register name: `snapshot-restore`
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|The ID of the snapshot being restored by the last restore operation on this node.|
+|OperationId|string|The ID of the last restore operation requested on this node.|
+|StartTime|long|The start time, in milliseconds, of the last restore operation on this node.|
+|EndTime|long|The end time, in milliseconds, of the last restore operation on this node, or `-1` if not started yet or still in progress.|
+|Error|string|The error message of the last restore operation on this node. Empty if the operation succeeded.|
+|TotalPages|long|The total number of pages to restore for the last restore operation on this node, or `-1` if not known yet.|
+|ProcessedPages|long|The number of pages restored so far by the last restore operation on this node.|
+
+#### Snapshot Check
+
+Register name: `snapshot-check`
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|The ID of the snapshot being checked by the last check operation on this node.|
+|OperationId|string|The ID of the last check operation requested on this node.|
+|StartTime|long|The start time, in milliseconds, of the last check operation on this node.|
+|EndTime|long|The end time, in milliseconds, of the last check operation on this node, or `-1` if not started yet or still in progress.|
+|Error|string|The error message of the last check operation on this node. Empty if the operation succeeded.|
+|TotalPages|long|The total number of pages to check for the last check operation on this node, or `-1` if not known yet.|
+|ProcessedPages|long|The number of pages checked so far by the last check operation on this node.|
+
 ### Defragmentation
 
 Defragmentation monitoring and management metrics.
