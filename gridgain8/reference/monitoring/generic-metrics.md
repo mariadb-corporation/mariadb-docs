@@ -467,7 +467,9 @@ Register name: `io.statistics.cacheGroups.{group_name}`
 |LOGICAL_READS|long|Number of logical reads|
 |PHYSICAL_READS|long|Number of physical reads|
 |grpId|integer|Group id|
+|insertedBytes|long|Number of bytes inserted into the store.|
 |name|string|Name of the index|
+|removedBytes|long|Number of bytes removed from the store.|
 |startTime|long|Statistics collect start time|
 
 ### Sorted Indexes
@@ -599,6 +601,7 @@ Register name: `io.dataregion.{data_region_name}`
 |DirtyPages|long|Number of pages in memory not yet synchronized with persistent storage.|
 |EmptyDataPages|long|Calculates empty data pages count for region. It counts only totally free pages that can be reused (e. g. pages that are contained in reuse bucket of free list).|
 |EvictionRate|long|Eviction rate (pages per second).|
+|EvictionsStarted|boolean|True if page eviction was triggered due to data region memory pressure.|
 |LargeEntriesPagesCount|long|Count of pages that fully occupied by large entries that go beyond page size|
 |OffHeapSize|long|Offheap size in bytes.|
 |OffheapUsedSize|long|Offheap used size in bytes.|
@@ -771,6 +774,43 @@ Register name: `dr.receiver.dc<ID>.<cacheName>`
 |BytesSent|long|Number of entries waiting to be stored in cache.|Node|
 |AverageBatchAckTime|double|Average time in milliseconds between sending batch to receiver cache nodes and successfully storing it.|Node|
 
+### Receiver Trace Metrics
+
+Register name: `dr.receiver.trace.dc<ID>.<cacheName>`
+
+These metrics show how long replicated updates take to reach the receiving data center, and whether the clocks of the source and receiving data centers disagree. The sender records the time of each update when the update happens, and sends the times of the oldest and newest update with each batch. The receiver hub compares these times with its own clock when the batch arrives.
+
+The receiver hub creates the register when the first batch for the data center and cache arrives, and removes it when the receiver hub stops.
+
+|Attribute|Type|Description|Scope|
+|---|---|---|---|
+|Batches|long|Number of batches received from remote DC <dcID> for this cache.|Node|
+|BatchesWithTrace|long|Number of batches that carried update times and were used for the delay metrics.|Node|
+|DelayFloorLast|long|Receive time minus the time of the newest update in the last batch, in milliseconds. This is the lower bound of the replication delay.|Node|
+|DelayFloorMin|long|Smallest `DelayFloor` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayFloorMax|long|Largest `DelayFloor` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayFloorNegatives|long|Number of batches with a negative `DelayFloor` value.|Node|
+|DelayFloorHistogram|histogram|Distribution of the non-negative `DelayFloor` values, in milliseconds.|Node|
+|DelayCeilingLast|long|Receive time minus the time of the oldest update in the last batch, in milliseconds. This is the upper bound of the replication delay.|Node|
+|DelayCeilingMin|long|Smallest `DelayCeiling` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayCeilingMax|long|Largest `DelayCeiling` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayCeilingNegatives|long|Number of batches with a negative `DelayCeiling` value.|Node|
+|DelayCeilingHistogram|histogram|Distribution of the non-negative `DelayCeiling` values, in milliseconds.|Node|
+|LegacyBatchesOnV2Session|long|Number of batches without update times received over a connection that supports them. Expected to grow during a rolling upgrade and while batches stored by the sender before the upgrade are sent. A steady increase after that indicates a problem.|Node|
+|V2BatchesOnV1Session|long|Number of batches with update times received over a connection that does not support them. The update times are ignored and the data is applied. Expected to stay at `0`.|Node|
+
+The difference between `DelayCeiling` and `DelayFloor` shows how long a batch waited in the sender store.
+
+A negative delay means that the clock of the source data center is ahead of the receiver's clock by at least that amount. Negative values are counted in the `*Negatives` metrics and reported by the `*Min` and `*Last` metrics, but are not added to the histograms, so the histograms show delay only.
+
+The histograms use the following bucket bounds, in milliseconds: 1, 2, 4, 8, 16, 25, 50, 75, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 25000, and 60000. Histograms are available in the JMX exporter only. For more information, see [Histograms](#histograms).
+
+Keep in mind the following when you read these metrics:
+
+- The metrics use a cached system clock. Even when the data center clocks are synchronized, `DelayFloor` can show negative values of up to about 10 ms, so clock skew below about 10 ms cannot be measured.
+- Update times are recorded for incremental replication only. Batches sent during a full state transfer, or when incremental data center replication is disabled, carry no update times. These batches are counted in `Batches` but not in `BatchesWithTrace`.
+- Update times are exchanged only when both data centers support them. Batches from a data center that runs an older GridGain version are counted in `Batches` only.
+
 ### Sender Metrics
 
 Register name: `dr.sender.dc<ID>.<cacheName>`
@@ -822,3 +862,40 @@ Examples of the metric names if the bounds are [10,100]:
 - histogram_0_10 - less than 10
 - histogram_10_100 - between 10 and 100
 - histogram_100_inf - more than 100
+
+Histogram metrics exported as JSON strings look like this:
+
+```json
+{
+  "bounds":
+    [1,2,4,8,16,25,50,75,100,250,500,750,1000,3000,5000,10000,25000,60000],
+  "values":
+    [
+      {"fromExclusive":0,"toInclusive":1,"value":0},
+      {"fromExclusive":1,"toInclusive":2,"value":0},
+      {"fromExclusive":2,"toInclusive":4,"value":0},
+      {"fromExclusive":4,"toInclusive":8,"value":0},
+      {"fromExclusive":8,"toInclusive":16,"value":0},
+      {"fromExclusive":16,"toInclusive":25,"value":0},
+      {"fromExclusive":25,"toInclusive":50,"value":0},
+      {"fromExclusive":50,"toInclusive":75,"value":2},
+      {"fromExclusive":75,"toInclusive":100,"value":0},
+      {"fromExclusive":100,"toInclusive":250,"value":0},
+      {"fromExclusive":250,"toInclusive":500,"value":0},
+      {"fromExclusive":500,"toInclusive":750,"value":0},
+      {"fromExclusive":750,"toInclusive":1000,"value":0},
+      {"fromExclusive":1000,"toInclusive":3000,"value":1},
+      {"fromExclusive":3000,"toInclusive":5000,"value":0},
+      {"fromExclusive":5000,"toInclusive":10000,"value":0},
+      {"fromExclusive":10000,"toInclusive":25000,"value":0},
+      {"fromExclusive":25000,"toInclusive":60000,"value":0},
+      {"fromExclusive":60000,"value":0}
+    ]
+}
+```
+
+In the histogram, `bounds` is metadata, separate from the actual time values, and it is used to separate the spectrum of data values into buckets. For example, in the histogram above, the `bounds` field shows 18 values. The first bucket always starts with `0`, so in our example, the first bucket is `0 - 1` with the `1` being inclusive.
+
+The last bucket always includes infinity, so in our example the final bucket is `60000 and higher`. Any value higher than 60000 is put into that bucket.
+
+If a value for the histogram above is `1500` milliseconds, it falls into the `1000 - 3000` bucket and increments the `value` for that bucket (`"value":1`).

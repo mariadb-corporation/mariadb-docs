@@ -19,3 +19,17 @@ Visit [this page](https://docs.openshift.com/container-platform/latest/cli_refer
 ## OpenShift Configuration
 
 The namespace, service, cluster role, ConfigMap, and node configuration file are the same for every Kubernetes deployment. Follow the [Generic Kubernetes Instruction](generic-configuration.md#kubernetes-configuration) to create these resources.
+
+On OpenShift, use the `oc` command-line tool instead of `kubectl`, and create a project instead of a namespace. Run the following commands in place of the `kubectl` commands in the generic instruction:
+
+```shell
+oc new-project gridgain
+oc create -f service.yaml
+oc create sa gridgain -n gridgain
+oc create -f cluster-role.yaml
+oc create configmap gridgain-config -n gridgain --from-file=node-configuration.xml
+oc create configmap gridgain-license -n gridgain --from-file=gridgain-license.xml
+oc create -f statefulset.yaml
+```
+
+Replace `kubectl` with `oc` in the remaining commands as well, for example `oc get pods -n gridgain`.

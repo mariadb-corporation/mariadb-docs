@@ -44,7 +44,7 @@ public static class MyCounterProcessor extends AbstractProcessor {
 
 Here is the GridGain equivalent code example, which behaves identically to the above Coherence EntryProcessor example:
 
-**GridGain (Java 8)**
+**GridGain**
 
 {% code title="Java" %}
 ```java

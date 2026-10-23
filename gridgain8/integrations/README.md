@@ -15,6 +15,8 @@ You can combine GridGain 8 with third-party solutions to improve performance or 
 - [Data Lake Accelerator](data-lake-accelerator/README.md) — load and synchronize data between GridGain and a data lake.
 - [GridGain for Spark](spark/README.md) — share GridGain data with Apache Spark through IgniteContext, IgniteRDD, and GridGain DataFrames.
 - [Geospatial SQL Capabilities](geospatial-sql.md) — query and index geometry data types with spatial SQL.
+- [Hibernate Second-Level Cache](hibernate-l2-cache.md) — use GridGain as the second-level cache of Hibernate ORM 7.4.
+- [Cassandra Cache Store](cassandra-store.md) — use Apache Cassandra as the external storage for a GridGain cache.
 - [AI Integration](ai/README.md) — use GridGain as a vector store and feature store with LangChain, Langflow, and Feast.
 - [Apache Ignite Extensions](apache-ignite-extensions.md) — streaming extension modules from Apache Ignite that work with GridGain.
 
@@ -80,6 +82,30 @@ Query and index geometry data types such as points, lines, and polygons in GridG
 
 {% columns %}
 {% column %}
+{% content-ref url="hibernate-l2-cache.md" %}
+[Hibernate Second-Level Cache](hibernate-l2-cache.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Use GridGain 8 as the second-level cache of Hibernate ORM 7.4 — region mapping, concurrency strategies, and configuration properties.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cassandra-store.md" %}
+[Cassandra Cache Store](cassandra-store.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Use Apache Cassandra as the external storage for a GridGain 8 cache — persistence settings, data source properties, and upgrading from 8.9.x.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="ai/" %}
 [AI Integration](ai/)
 {% endcontent-ref %}
@@ -108,6 +134,6 @@ GridGain is compatible with Apache Ignite integrations. Below is a list of popul
 
 - [Spring](https://ignite.apache.org/docs/latest/extensions-and-integrations/spring/spring-boot)
 - [Spark](https://ignite.apache.org/docs/latest/extensions-and-integrations/ignite-for-spark/overview)
-- [Hibernate L2 Cache](https://ignite.apache.org/docs/latest/extensions-and-integrations/hibernate-l2-cache)
+- [Hibernate L2 Cache](hibernate-l2-cache.md)
 - [MyBatis L2 Cache](https://ignite.apache.org/docs/latest/extensions-and-integrations/mybatis-l2-cache)
-- [Cassandra](https://ignite.apache.org/docs/latest/extensions-and-integrations/cassandra/overview)
+- [Cassandra](cassandra-store.md)
