@@ -624,6 +624,45 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 
 Refer to the main [cluster groups](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/cluster-groups) documentation page for more details on the capability.
 
+## Managing Cluster State and WAL
+
+The `ClientCluster` interface, available through `IgniteClient.cluster()`, lets you read and change the cluster state and control write-ahead logging (WAL) for a cache. Each operation has a synchronous method and an asynchronous counterpart.
+
+| Operation | Synchronous | Asynchronous (since 8.10) |
+|---|---|---|
+| Get the cluster state | `state()` returns `ClusterState` | `stateAsync()` returns `IgniteClientFuture<ClusterState>` |
+| Change the cluster state | `state(ClusterState)` | `stateAsync(ClusterState)` returns `IgniteClientFuture<Void>` |
+| Disable WAL for a cache | `disableWal(String)` returns `boolean` | `disableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Enable WAL for a cache | `enableWal(String)` returns `boolean` | `enableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Check whether WAL is enabled | `isWalEnabled(String)` returns `boolean` | `isWalEnabledAsync(String)` returns `IgniteClientFuture<Boolean>` |
+
+The `ClusterState` values are `INACTIVE`, `ACTIVE`, and `ACTIVE_READ_ONLY`.
+
+{% hint style="warning" %}
+Deactivating the cluster clears in-memory caches that are not backed by persistence, including the system caches.
+{% endhint %}
+
+`disableWal` and `enableWal` return `true` if the call changed the WAL state, and `false` if WAL was already in the requested state. WAL state can be changed only for persistent caches.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ClientCluster cluster = client.cluster();
+
+    // Synchronous
+    cluster.state(ClusterState.ACTIVE);
+    boolean disabled = cluster.disableWal("myCache");
+
+    // Asynchronous
+    cluster.stateAsync(ClusterState.ACTIVE_READ_ONLY).get();
+    boolean enabled = cluster.enableWalAsync("myCache").get();
+    boolean walOn = cluster.isWalEnabledAsync("myCache").get();
+}
+```
+
+A WAL operation on a cache that does not exist fails with a `ClientException`: the synchronous methods throw it, and the future returned by an asynchronous method fails with it. If the server does not support the Cluster API, the operation fails with `ClientFeatureNotSupportedByServerException`.
+
+For more information about asynchronous methods, see [Async APIs](#async-apis).
+
 ## Executing Compute Tasks
 
 The Java thin client supports basic [compute capabilities](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/distributed-computing)
