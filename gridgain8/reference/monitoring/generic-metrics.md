@@ -727,7 +727,11 @@ Register name: `defragmentation`
 Snapshot metrics are available in GridGain Ultimate Edition only.
 {% endhint %}
 
-GridGain keeps one register for each type of snapshot operation. Each register describes the last operation of that type requested on the local node.
+GridGain keeps one register for each type of snapshot operation. Each register describes the last operation of that type requested on the local node. The registers appear when the cluster is activated, and the metrics keep their final values after the operation finishes. Until an operation of that type runs, `SnapshotId`, `StartTime`, `EndTime`, and `TotalPages` report `-1`.
+
+{% hint style="info" %}
+Starting with GridGain 8.10, the snapshot metrics are available as generic metrics. `SnapshotMetricsMXBean` is deprecated; use the [JMX exporter](#jmx) to expose the registers as JMX beans.
+{% endhint %}
 
 Register names: `snapshot` (create), `snapshot-restore`, `snapshot-check`.
 
