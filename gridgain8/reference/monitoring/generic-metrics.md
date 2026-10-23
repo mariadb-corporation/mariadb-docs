@@ -534,6 +534,32 @@ Register name: `io.communication`
 |SslEnabled|boolean|Indicates whether SSL is enabled.|
 |SslHandshakeDurationHistogram|histogram|Histogram of SSL handshake duration in milliseconds (metric is exported only if SSL is enabled).|
 
+### Communication Connection Pool
+
+GridGain nodes communicate over a pool of TCP connections to each remote node. The pool is described by one shared register and one register for each remote node the local node has connected to.
+
+Shared register name: `communication.tcp.connectionPool`
+
+|Name|Type|Description|
+|---|---|---|
+|maxConnectionsCnt|integer|The maximum number of connections to a remote node.|
+|isPaired|boolean|Indicates whether paired connections are used.|
+|isAsync|boolean|Indicates that connections are asynchronous: they put data in a queue instead of sending it immediately. Always `true`.|
+
+Per-node register name: `communication.tcp.connectionPool.{remote_node_id}`
+
+`{remote_node_id}` is the ID of the remote node. GridGain creates the register when the first connection to that node is established. It removes the register when the node leaves the cluster.
+
+|Name|Type|Description|
+|---|---|---|
+|consistentId|string|The consistent ID of the remote node.|
+|currentConnectionsCnt|integer|The number of current connections to the remote node.|
+|outboundMessagesQueueSize|integer|The total number of messages pending to be sent to the remote node, across all connections to it. For the total across all remote nodes, see `OutboundMessagesQueueSize` in [Communication IO](#communication-io).|
+|acquiringThreadsCnt|integer|The number of threads that are currently acquiring a connection to the remote node.|
+|avgConnectionLifetime|long|The average lifetime of the connections to the remote node, in milliseconds.|
+|maxNetworkIdleTime|long|The maximum idle time of the physical sending or receiving of data, in milliseconds. The value is the highest idle time observed since the register was created; it does not decrease.|
+|removedConnectionsCnt|long|The total number of connections to the remote node that have been removed.|
+
 ### Ignite Thin Client Connector
 
 Register name: `client.connector`
