@@ -8,7 +8,7 @@ description: >-
 
 This page is the starting point for planning a migration from Apache Ignite 2.18 to GridGain 8.10 Ultimate. Use it to identify the changes relevant to your deployment and estimate the work involved.
 
-GridGain 8 forked from Apache Ignite around version 2.7. The two products remain largely compatible, so most APIs, configuration, on-disk formats, and application code carry over unchanged. GridGain 8.10 reads Apache Ignite 2.18 persistence, including its write-ahead log, and accepts Apache Ignite 2.18 Java thin clients. It also supports the Apache Ignite 2 snapshot, metrics, service-interceptor, and thin-client-listener APIs. Plan the migration around what still differs: the Java 17 and Spring 7 baseline, the license, the defaults, and the removed features.
+GridGain 8 forked from Apache Ignite around version 2.7. The two products remain largely compatible, so most APIs, configuration, on-disk formats, and application code carry over unchanged. GridGain 8.10 reads Apache Ignite 2.18 persistence, including its write-ahead log, and accepts Apache Ignite 2.x thin clients and JDBC and ODBC drivers. It also supports the Apache Ignite 2 snapshot, metrics, service-interceptor, and thin-client-listener APIs. Plan the migration around what still differs: the Java 17 and Spring 7 baseline, the license, the defaults, and the removed features.
 
 Most migration work falls into three areas: cluster cutover, configuration changes, and feature replacement. The sections below explain each area and help you determine which changes apply to your deployment.
 
@@ -63,8 +63,8 @@ This is the high-level picture of what works, what does not, and what needs atte
 | Java runtime | Higher floor | GridGain 8.10 requires Java 17 or later (Apache Ignite 2.18: Java 11). |
 | Inter-node protocols (Discovery, Communication) | Incompatible | Ignite and GridGain server nodes cannot coexist in one cluster, so a full cutover is required. |
 | Thick clients (join the topology) | Incompatible | Clients must be rebuilt against GridGain and updated before connecting. |
-| Java thin client | Compatible | An Apache Ignite 2.18 Java thin client connects to a GridGain 8.10 server and runs cache, SQL, and cluster-state operations. Rebuild it anyway to pick up GridGain's timeout defaults. |
-| JDBC and ODBC | Driver replacement recommended | The Apache Ignite 2.18 JDBC driver and ODBC driver connect to GridGain 8.10; `queryEngine=calcite` is rejected. |
+| Java, .NET, C++, Python, and Node.js thin clients; JDBC and ODBC drivers | Compatible | A GridGain 8.10 server accepts these Apache Ignite clients as they are. Rebuild them anyway to pick up GridGain's defaults, such as the thin-client timeouts. `queryEngine=calcite` is rejected. See [Clients](apis-and-clients.md#clients) for the tested versions. |
+| PHP thin client | Not supported | Use the GridGain PHP client. It may appear to connect because the protocols share common roots, but its behavior beyond basic operations is not verified. |
 | Persistent data | Compatible, one-way | GridGain can start on Ignite's [Native Persistence](../../../architecture/storage/native-persistence.md), including after a non-graceful shutdown (the WAL is replayed) and when CDC was enabled. A graceful, deactivated shutdown is still the recommended path. Once GridGain writes, Ignite can no longer read it. |
 | In-memory data | Not carried over | Data in non-persistent regions does not survive the full-cluster cutover. Reload it the way you reload after any restart: `CacheStore` loading or your data-loading jobs. |
 | Configuration | Mostly compatible | Some defaults differ, some properties don't exist in GridGain, and GridGain validates more strictly. |

@@ -26,16 +26,21 @@ These Apache Ignite clients connect to a GridGain 8.10 server without a rebuild:
 
 | Client | Works against GridGain 8.10 | Notes |
 |---|---|---|
-| Apache Ignite 2.18 Java thin client | Yes | Cache operations, SQL, and cluster state work. Features that exist only in Apache Ignite (transaction-aware queries, all-affinity-mappings, cache storages, DC-aware routing, data-replication operations) are not offered, and the client falls back. |
-| Apache Ignite 2.18 JDBC thin driver | Yes, with limits | Queries, DML, and `queryEngine=h2` work. `queryEngine=calcite` is rejected: `Handshake failed ... Query engine not supported: 'calcite'. Only H2 is supported.` |
-| Apache Ignite 2.18 ODBC driver | Yes | The unmodified Apache Ignite 2.18 driver connects through `unixODBC` and runs queries. |
-| Apache Ignite 2.18 C++ thin client | Yes | Connect and cache put/get work. |
-| Apache Ignite 2.18 .NET thin client (`Apache.Ignite` 2.18.0) | Yes | Connect, cache put/get, SQL, and cluster state work. |
+| Apache Ignite Java thin client (2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, and cluster state work. Features that exist only in Apache Ignite (transaction-aware queries, all-affinity-mappings, cache storages, DC-aware routing, data-replication operations) are not offered, and the client falls back. |
+| Apache Ignite JDBC thin driver (2.16.0, 2.17.0, 2.18.0) | Yes, with limits | Queries, DML, and `queryEngine=h2` work. `queryEngine=calcite` is rejected: `Handshake failed ... Query engine not supported: 'calcite'. Only H2 is supported.` The `local` property is ignored: the query runs on the whole cluster and the server logs a warning. The transaction parameters of the connection are ignored. |
+| Apache Ignite ODBC driver (2.18.0) | Yes | The unmodified Apache Ignite 2.18 driver connects through `unixODBC` with its default settings and runs queries. Any query engine other than `h2` is rejected with `Unsupported SQL query engine`. |
+| Apache Ignite C++ thin client (2.18.0) | Yes | Cache operations, SQL, transactions, compute, continuous queries, and partition awareness work. |
+| Apache Ignite .NET thin client (`Apache.Ignite` 2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, LINQ, transactions, compute, services, continuous queries, and cluster state work. Service call context is not available. |
 | Apache Ignite 2.18 .NET thick client | No | Does not join the cluster. |
-| `pyignite` 0.6.1 (Python) | Yes | Connect, cache put/get, and SQL work. |
-| `apache-ignite-client` 1.0.0 (Node.js) | Yes | Connect, cache put/get, and cache listing work. |
+| `pyignite` 0.6.1 (Python) | Yes | Everything the client offers works: cache operations, SQL, scan queries, transactions, partition awareness, and authentication. |
+| `apache-ignite-client` 1.0.0 (Node.js) | Yes | Cache operations, SQL, scan queries, binary objects, partition awareness, and authentication work. |
+| Apache Ignite PHP client | Not verified | Use the GridGain PHP client. |
 | Apache Ignite 2.18 `control.sh` | No | Fails against a GridGain node (`Compute grid functionality is disabled for thin clients`, `Channel is closed`). Use the `control.sh` of the GridGain distribution. |
 | Thick clients and server nodes | No | GridGain rejects Apache Ignite nodes with `GridGain node cannot be in one cluster with Ignite node`. |
+
+Verified versions: 2.16.0–2.18.0 for the Java thin client, the .NET thin client, and the JDBC driver. See the table for the others. Apache Ignite clients work with the features that both products support, so GridGain-specific features need a GridGain client.
+
+The reverse direction is not supported: do not connect GridGain clients to an Apache Ignite cluster. The two products assign some thin client feature IDs differently, and this direction has no compatibility layer.
 
 Test any mixed arrangement on staging before you rely on it in production.
 
@@ -44,7 +49,7 @@ For each client application:
 1. Switch the dependency to the GridGain artifact. See [Build Coordinates](artifacts-and-modules.md#build-coordinates).
 2. Recompile.
 3. Fix what breaks, using the per-language changes below.
-4. Re-test the application against the staging GridGain cluster. A rebuilt thick client cannot join the production Ignite cluster, so do not connect it there.
+4. Re-test the application against the staging GridGain cluster. A rebuilt thick client cannot join the production Ignite cluster, and GridGain thin clients are not supported against it, so do not connect either there.
 
 GridGain 8 keeps Ignite's client APIs and adds to them, so most client code compiles and runs unchanged after steps 1 and 2. These are the per-language exceptions you may hit in step 3:
 

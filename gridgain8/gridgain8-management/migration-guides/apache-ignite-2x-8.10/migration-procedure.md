@@ -34,7 +34,7 @@ The procedure covers clusters that use [Native Persistence](../../../architectur
 
 ## Which Phases Apply to You
 
-Everything migrates together in one cutover, because Ignite and GridGain server nodes and clients cannot mix. Which phases you work through depends on your role:
+Everything migrates together in one cutover, because Ignite and GridGain server nodes cannot mix, and GridGain clients are not supported against an Apache Ignite cluster. Which phases you work through depends on your role:
 
 - *You administer the cluster* — you install, configure, and run the server nodes. All five phases are required.
 - *You develop a client application* that connects to a cluster someone else administers. Your main work is in [Check Compatibility](#check-compatibility) and [Prepare Configuration and Code](#prepare-configuration-and-code): rebuild the application against GridGain artifacts and re-test it. You are also needed during the [cutover](#perform-the-cutover), where you stop the application, reconnect the rebuilt version, and take part in the smoke test, and in [Verify and Stabilize](#verify-and-stabilize), where you run the application workload. The rebuilt application must not connect to the production cluster before the cutover, so coordinate the switch with the cluster administrators.
@@ -86,7 +86,7 @@ Begin with *Update artifacts* (step 1). Once the GridGain libraries are in place
 - *Feature replacements take the most time.* Data Center Replication, enterprise snapshots, and enterprise security usually require their own implementation and validation work. Start them early and test each one in staging.
 - *Choose the binary field-sort value early* (persistent clusters). `IGNITE_BINARY_SORT_OBJECT_FIELDS` affects the on-disk and on-wire layout, so fix it before loading staging data, use it consistently, and carry the same value into the cutover (step 6).
 - *Validate with realistic workloads.* Production-scale datasets and query patterns expose H2 optimizer and type-coercion differences and SQL memory-quota issues that small staging datasets hide.
-- *Do not connect updated clients to production.* GridGain clients are incompatible with an Apache Ignite cluster, so keep rebuilt clients on staging until you reconnect them during the cutover (step 10).
+- *Do not connect updated clients to production.* GridGain clients are not supported against an Apache Ignite cluster, so keep rebuilt clients on staging until you reconnect them during the cutover (step 10).
 
 ### When Is Preparation Complete?
 
@@ -260,7 +260,7 @@ After the cutover, caches and tables in non-persistent regions that you created 
 
 ### 10. Reconnect Updated Clients
 
-Bring up the clients you rebuilt against GridGain artifacts and connect them to the GridGain cluster.
+Bring up the clients you rebuilt against GridGain artifacts and connect them to the GridGain cluster. Apache Ignite clients that [work against GridGain 8.10](apis-and-clients.md#clients) can reconnect unchanged.
 
 ### 11. Run an End-to-End Smoke Test
 
@@ -343,7 +343,7 @@ The node stops during startup with `License file URL is not provided and cannot 
 
 An Apache Ignite 2.18 JDBC driver fails with `Handshake failed ... Query engine not supported: 'calcite'` if the URL sets `queryEngine=calcite`; an Apache Ignite `control.sh` fails with `Compute grid functionality is disabled for thin clients` or `Channel is closed`.
 
-**Cause:** `queryEngine=calcite` is not available in GridGain, and the Apache Ignite `control.sh` is not supported against a GridGain 8.10 node. The Java thin client, the JDBC driver (with the H2 engine), and the ODBC driver connect.
+**Cause:** `queryEngine=calcite` is not available in GridGain, and the Apache Ignite `control.sh` is not supported against a GridGain 8.10 node. The Java, .NET, C++, Python, and Node.js thin clients, the JDBC driver (with the H2 engine), and the ODBC driver connect.
 
 **Fix:** Use the GridGain JDBC driver and the `control.sh` and `sqlline` of the GridGain distribution.
 
