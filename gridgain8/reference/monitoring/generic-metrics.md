@@ -546,7 +546,7 @@ A growing queue can point to a failed node or a network problem. To get a warnin
 
 ### TCP Communication Connection Pool
 
-GridGain keeps a pool of TCP connections to each remote node. The pool is described by one shared register and one register per remote node.
+GridGain keeps a pool of TCP connections to each remote node. The pool is described by one shared register, which contains common parameters, and one register containing the values ​​of local metrics of a specific pool of a cluster node.
 
 Register name: `communication.tcp.connectionPool`
 
