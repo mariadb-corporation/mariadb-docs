@@ -16,7 +16,7 @@ Make sure that Control Center supports the [specific GridGain 9 version](../../R
 You can attach as many clusters as your license supports.
 
 {% hint style="info" %}
-To attach a GridGain 8 cluster, follow [this instruction](connect-gridgain-cluster.md). To attach an Apache Ignite cluster, follow [this instruction](connect-ignite-cluster.md).
+To attach a GridGain 8 cluster, follow [this instruction](connect-gridgain-cluster.md).
 {% endhint %}
 
 ## Start the Cluster

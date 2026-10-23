@@ -7,7 +7,7 @@ hidden: true
 
 # Queries Screen for GridGain 8 Clusters
 
-The **Queries** screen allows you to execute SQL queries against the GridGain 8 (Apache Ignite 2) cluster and view results. You can also view running queries and query statistics.
+The **Queries** screen allows you to execute SQL queries against the GridGain 8 cluster and view results. You can also view running queries and query statistics.
 
 ![](../../../../.gitbook/assets/cc-gg8-queries_screen.png)
 
