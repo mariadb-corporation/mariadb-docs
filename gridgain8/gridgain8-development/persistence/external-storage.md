@@ -487,4 +487,6 @@ Even though GridGain supports distributed transactions, it doesn't make your NoS
 
 ### Cassandra Integration
 
-GridGain provides an out-of-the-box implementation of `CacheStore` that enables you to use Apache Cassandra as a persistent storage. This implementation utilizes Cassandra's [asynchronous queries](http://www.datastax.com/dev/blog/java-driver-async-queries) to provide high performance batch operations such as `loadAll()`, `writeAll()` and `deleteAll()`, and automatically creates all necessary tables and namespaces in Cassandra.
+GridGain provides an out-of-the-box implementation of `CacheStore` that enables you to use Apache Cassandra as a persistent storage. This implementation uses asynchronous Cassandra queries to provide high performance batch operations such as `loadAll()`, `writeAll()` and `deleteAll()`, and automatically creates all necessary tables and keyspaces in Cassandra.
+
+For more information, see [Cassandra Cache Store](../../integrations/cassandra-store.md).

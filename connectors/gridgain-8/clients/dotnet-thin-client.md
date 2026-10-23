@@ -8,8 +8,9 @@ description: >-
 
 ## Prerequisites
 
-- Supported runtimes: .NET 4.0+, .NET Core 2.0+
-- Supported OS: Windows, Linux, macOS (any OS supported by .NET Core 2.0+)
+- Supported runtimes: any runtime that implements .NET Standard 2.0, such as .NET Framework 4.6.1+, .NET Core 2.0+, and .NET 5+
+- Target frameworks: `netstandard2.0`, `net8.0`, `net10.0`
+- Supported OS: Windows, Linux, macOS (any OS supported by .NET)
 
 ## Installation
 

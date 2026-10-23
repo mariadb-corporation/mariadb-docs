@@ -41,7 +41,7 @@ GridGain 8 keeps Ignite's client APIs and adds to them, so most client code comp
 
 **JDBC**: The driver class, URL prefix, and port are unchanged. The `local`, `queryEngine`, and `transaction*` connection properties are not available.
 
-**ODBC**: The driver name, DSN, and library are unchanged. The `query_engine` property is not available.
+**ODBC**: The driver name, DSN, and library are unchanged. The `query_engine` property is not available. You can also keep the Apache Ignite ODBC driver, for version 2.13 or later with its default settings. Only H2 `query_engine` is supported.
 
 **REST**: The HTTP command set is compatible, request/response details may differ. Review and adapt your REST *clients* rather than rewriting commands. The changes to account for:
 

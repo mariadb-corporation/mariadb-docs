@@ -1,7 +1,7 @@
 ---
 description: >-
-  Cloud-based IP finders for GridGain node discovery, including Apache jclouds,
-  Amazon S3, Amazon ELB, and Google Cloud Storage.
+  Cloud-based IP finders for GridGain node discovery, including Amazon S3,
+  Amazon ELB, and Google Cloud Storage.
 ---
 
 # Discovery in the Cloud
@@ -21,7 +21,6 @@ static IPs virtually unusable in such environments.
 To mitigate the constantly changing IP addresses problem, GridGain
 supports a number of IP finders designed to work in the cloud:
 
-* Apache jclouds IP Finder (deprecated)
 * Amazon S3 IP Finder
 * Amazon ELB IP Finder
 * Google Cloud Storage IP Finder
@@ -29,92 +28,6 @@ supports a number of IP finders designed to work in the cloud:
 {% hint style="info" %}
 Cloud-based IP Finders allow you to create your configuration once and reuse it for all instances.
 {% endhint %}
-
-## Apache jclouds IP Finder
-
-{% hint style="warning" %}
-The `ignite-cloud` module is deprecated and will be removed in a future release. Use [Amazon S3 IP Finder](#amazon-s3-ip-finder), [Amazon ELB Based Discovery](#amazon-elb-based-discovery), or [Google Compute Discovery](#google-compute-discovery) instead.
-{% endhint %}
-
-To mitigate the constantly changing IP addresses problem, GridGain supports
-automatic node discovery by utilizing Apache jclouds multi-cloud toolkit
-via `TcpDiscoveryCloudIpFinder`. For information about Apache jclouds
-please refer to [jclouds.apache.org](https://jclouds.apache.org).
-
-The IP finder forms nodes addresses by getting the private and public IP
-addresses of all virtual machines running on the cloud and adding a port
-number to them. The port is the one that is set with either
-`TcpDiscoverySpi.setLocalPort(int)` or `TcpDiscoverySpi.DFLT_PORT`. This
-way all the nodes can try to connect to any formed IP address and
-initiate automatic node discovery.
-
-Refer to [Apache jclouds providers section](https://jclouds.apache.org/reference/providers/#compute) to get the list of supported cloud platforms.
-
-{% hint style="warning" %}
-All virtual machines must start GridGain instances on the same port, otherwise they will not be able to discover each other using this IP finder.
-{% endhint %}
-
-Here is an example of how to configure Apache jclouds based IP finder:
-
-{% tabs %}
-{% tab title="XML" %}
-```xml
-<bean class="org.apache.ignite.configuration.IgniteConfiguration">
-  <property name="discoverySpi">
-    <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-      <property name="ipFinder">
-        <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.cloud.TcpDiscoveryCloudIpFinder">
-            <!-- Configuration for Google Compute Engine. -->
-            <property name="provider" value="google-compute-engine"/>
-            <property name="identity" value="YOUR_SERVICE_ACCOUNT_EMAIL"/>
-            <property name="credentialPath" value="PATH_YOUR_PEM_FILE"/>
-            <property name="zones">
-            <list>
-                <value>us-central1-a</value>
-                <value>asia-east1-a</value>
-            </list>
-            </property>
-        </bean>
-      </property>
-    </bean>
-  </property>
-</bean>
-```
-{% endtab %}
-
-{% tab title="Java" %}
-```java
-TcpDiscoverySpi spi = new TcpDiscoverySpi();
-
-TcpDiscoveryCloudIpFinder ipFinder = new TcpDiscoveryCloudIpFinder();
-
-// Configuration for AWS EC2.
-ipFinder.setProvider("aws-ec2");
-ipFinder.setIdentity("yourAccountId");
-ipFinder.setCredential("yourAccountKey");
-ipFinder.setRegions(Collections.singletonList("us-east-1"));
-ipFinder.setZones(Arrays.asList("us-east-1b", "us-east-1e"));
-
-spi.setIpFinder(ipFinder);
-
-IgniteConfiguration cfg = new IgniteConfiguration();
-
-// Override default discovery SPI.
-cfg.setDiscoverySpi(spi);
-
-// Start a node.
-Ignition.start(cfg);
-```
-{% endtab %}
-
-{% tab title="C#/.NET" %}
-unsupported
-{% endtab %}
-
-{% tab title="C++" %}
-unsupported
-{% endtab %}
-{% endtabs %}
 
 ## Amazon S3 IP Finder
 
