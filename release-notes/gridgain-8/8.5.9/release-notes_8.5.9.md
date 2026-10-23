@@ -129,7 +129,7 @@ Enable Snapshot Security via the `GG_SNAPSHOT_SECURITY_LEVEL` system property.
 
 ## Related Information
 
-[Customer Support](https://support.gridgain.com/)
+[Customer Support](https://www.gridgain.com/services/support)
 
 ### We Value Your Feedback
 

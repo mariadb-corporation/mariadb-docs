@@ -164,7 +164,7 @@ $ curl http://localhost:8080/ignite?cmd=clustername
 
 ## Related Information
 
-[Customer Support](https://support.gridgain.com/)
+[Customer Support](https://www.gridgain.com/services/support)
 
 ### We Value Your Feedback
 

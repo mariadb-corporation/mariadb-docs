@@ -101,7 +101,7 @@ If you are on a version that is not listed, contact GridGain for the information
 
 ## Related Information
 
-[Customer Support](https://support.gridgain.com/)
+[Customer Support](https://www.gridgain.com/services/support)
 
 ### We Value Your Feedback
 
