@@ -1476,6 +1476,8 @@
       * [MariaDB 5.1.38 Changelog](community-server/changelogs/changelogs-mariadb-51-series/mariadb-5138-changelog.md)
 * [MaxScale Release Notes](maxscale/README.md)
   * [All Releases](maxscale/all-releases.md)
+  * [MariaDB MaxScale 26.10 Release Notes](maxscale/26.10/README.md)
+    * [What's New in MariaDB MaxScale 26.10](maxscale/26.10/whats-new.md)
   * [MariaDB MaxScale 25.10 Release Notes](maxscale/25.10/README.md)
     * [MaxScale 25.10.4 Release Notes](maxscale/25.10/25.10.4.md)
     * [MaxScale 25.10.3 Release Notes](maxscale/25.10/25.10.3.md)
