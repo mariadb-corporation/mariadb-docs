@@ -68,8 +68,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) ROW_FORMAT=REDUNDANT;
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL, ALGORITHM=NOCOPY;
 ERROR 1845 (0A000): ALGORITHM=NOCOPY is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -131,8 +130,7 @@ CREATE OR REPLACE TABLE tab (
 );
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ADD PRIMARY KEY (a);
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=NOCOPY;
 ERROR 1845 (0A000): ALGORITHM=NOCOPY is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -151,8 +149,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab DROP PRIMARY KEY;
+ALTER TABLE tab DROP PRIMARY KEY, ALGORITHM=NOCOPY;
 ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Dropping a primary key is not allowed without also adding a new primary key. Try ALGORITHM=COPY
 ```
 
@@ -177,8 +174,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ADD INDEX b_index (b);
+ALTER TABLE tab ADD INDEX b_index (b), ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.009 sec)
 ```
 
@@ -191,8 +187,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-CREATE INDEX b_index ON tab (b);
+CREATE INDEX b_index ON tab (b) ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.009 sec)
 ```
 
@@ -216,12 +211,10 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.043 sec)
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.017 sec)
 ```
 
@@ -234,12 +227,10 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-CREATE FULLTEXT INDEX b_index ON tab (b);
+CREATE FULLTEXT INDEX b_index ON tab (b) ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.048 sec)
 
-SET SESSION alter_algorithm='NOCOPY';
-CREATE FULLTEXT INDEX c_index ON tab (c);
+CREATE FULLTEXT INDEX c_index ON tab (c) ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.016 sec)
 ```
 
@@ -253,12 +244,10 @@ CREATE OR REPLACE TABLE tab (
    d VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.041 sec)
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ADD FULLTEXT INDEX d_index (d);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ADD FULLTEXT INDEX d_index (d), ALGORITHM=NOCOPY;
 ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: InnoDB presently supports one FULLTEXT index creation at a time. Try ALGORITHM=COPY
 ```
 
@@ -277,8 +266,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ADD SPATIAL INDEX c_index (c);
+ALTER TABLE tab ADD SPATIAL INDEX c_index (c), ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -291,8 +279,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-CREATE SPATIAL INDEX c_index ON tab (c);
+CREATE SPATIAL INDEX c_index ON tab (c) ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -325,8 +312,7 @@ CREATE OR REPLACE TABLE tab2 (
    b VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a);
+ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a), ALGORITHM=NOCOPY;
 ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY
 ```
 
@@ -346,8 +332,7 @@ CREATE OR REPLACE TABLE tab2 (
 );
 
 SET SESSION foreign_key_checks=OFF;
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a);
+ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a), ALGORITHM=NOCOPY;
 Query OK, 0 rows affected (0.011 sec)
 ```
 
@@ -384,8 +369,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) ROW_FORMAT=DYNAMIC;
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ROW_FORMAT=COMPRESSED;
+ALTER TABLE tab ROW_FORMAT=COMPRESSED, ALGORITHM=NOCOPY;
 ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
 ```
 
@@ -405,8 +389,7 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=COMPRESSED
   KEY_BLOCK_SIZE=4;
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab KEY_BLOCK_SIZE=2;
+ALTER TABLE tab KEY_BLOCK_SIZE=2, ALGORITHM=NOCOPY;
 ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Changing table options requires the table to be rebuilt. Try ALGORITHM=INPLACE
 ```
 
@@ -414,13 +397,15 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=1` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+{% hint style="warning" %}
+Before MariaDB Community Server 10.6.26, 10.11.17, 11.4.11, 11.8.7, and 12.3.2, and MariaDB Enterprise Server 10.6.27-23, 11.4.12-9, and 11.8.8-5, InnoDB supported setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`. This changed because a crash during that operation could make crash recovery fail. See [MDEV-38079](https://jira.mariadb.org/browse/MDEV-38079).
+{% endhint %}
 
-InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
+InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`, neither from `0` to `1` nor from `1` to `0`. Any change to this value rebuilds the table, so use `INPLACE` instead. See [InnoDB Online DDL Operations with ALGORITHM=INPLACE: ALTER TABLE ... PAGE\_COMPRESSED=... and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md#alter-table-...-page_compressed-...-and-alter-table-...-page_compression_level).
 
-In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause is set to `INSTANT`.
+InnoDB supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
 
-See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... PAGE\_COMPRESSED=1 and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
+See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... PAGE\_COMPRESSED=1 and ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#alter-table-...-page_compressed-1-and-alter-table-...-page_compression_level) for more information.
 
 This applies to [ALTER TABLE ... PAGE\_COMPRESSED=...](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) and [ALTER TABLE ... PAGE\_COMPRESSION\_LEVEL=...](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) for [InnoDB](../) tables.
 
@@ -437,8 +422,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) WITH SYSTEM VERSIONING;
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab DROP SYSTEM VERSIONING;
+ALTER TABLE tab DROP SYSTEM VERSIONING, ALGORITHM=NOCOPY;
 ERROR 1845 (0A000): ALGORITHM=NOCOPY is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -465,8 +449,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=NOCOPY;
 ERROR 1845 (0A000): ALGORITHM=NOCOPY is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
@@ -485,14 +468,17 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='NOCOPY';
-ALTER TABLE tab ENGINE=InnoDB;
+ALTER TABLE tab ENGINE=InnoDB, ALGORITHM=NOCOPY;
 ERROR 1845 (0A000): ALGORITHM=NOCOPY is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
 This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) for [InnoDB](../) tables.
 
 ### `OPTIMIZE TABLE ...`
+
+{% hint style="info" %}
+`OPTIMIZE TABLE` has no `ALGORITHM` clause. In MariaDB 11.4 and earlier, it uses the algorithm set by the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable, as in the example below. From MariaDB 11.5, that variable is ignored ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655)), and `OPTIMIZE TABLE` always uses the default algorithm, so the statement below succeeds and rebuilds the table.
+{% endhint %}
 
 InnoDB does **not** support optimizing a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
 
