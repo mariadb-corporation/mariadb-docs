@@ -131,6 +131,14 @@ From GridGain 8.10:
 {% endhint %}
 
 The `ignite-aws` module is removed. To use the S3 IP finder, add the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`) and its dependencies to the classpath of every node, including thick clients. The classes keep their `org.apache.ignite.*` package names, so the configuration examples below do not change. Without the extension, a configuration that references `TcpDiscoveryS3IpFinder` fails with `ClassNotFoundException`.
+
+If you upgrade from 8.9.x and use `AwsKmsEncryptionService`, read the upgrade notes in the 8.9.x tab first.
+
+{% hint style="warning" %}
+Version 1.0.0 of `ignite-aws-ext` depends on older third-party libraries than `ignite-aws`, and some of them have known vulnerabilities. Check the extension's dependencies against your security policy before you use it.
+
+The KMS support in the extension works only with AWS Encryption SDK 1.x. With AWS Encryption SDK 2.x, it fails with `NoSuchMethodError`.
+{% endhint %}
 {% endtab %}
 
 {% tab title="8.9.x" %}
@@ -141,12 +149,14 @@ In GridGain 8.9.x:
 The S3 IP finder is part of the `ignite-aws` module, which is in the `libs/optional` folder of the distribution. [Enable the module](../../gridgain8-development/project-setup.md#enabling-modules) before you use the IP finder. In a Maven project, add the `org.gridgain:ignite-aws` dependency.
 
 Starting with GridGain 8.9.39, the module is deprecated. Its replacement is the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`). If you switch, do not use both modules on the same node: remove `ignite-aws` first (the `libs/ignite-aws` folder of a standalone node, or the `ignite-aws` dependency of a Maven project), and then add `ignite-aws-ext`. If both are on the classpath, two jars define the same classes, and the classpath order decides which one is loaded.
-{% endtab %}
-{% endtabs %}
 
 {% hint style="warning" %}
-If you use `AwsKmsEncryptionService`, switching to `ignite-aws-ext` is not a rolling upgrade. The extension reads only the data that it encrypted itself, so nodes that use the two modules cannot read each other's entries in the S3 bucket. Switch all nodes at the same time, including thick clients, and set a new `keyPrefix` on the IP finder. The extension also has only `setRegion(Region)` and no `setRegion(String)`, so a Spring XML file that passes the region as a string must use a `RegionUtils.getRegion` factory bean instead.
+This applies only if you use `AwsKmsEncryptionService`. The S3 IP finder without KMS has no such restriction.
+
+If you switch from `ignite-aws` to `ignite-aws-ext`, for example when you upgrade to 8.10, the switch is not a rolling upgrade. The extension reads only the data that it encrypted itself, so nodes that use the two modules cannot read each other's entries in the S3 bucket. Switch all nodes at the same time, including thick clients, and set a new `keyPrefix` on the IP finder. The extension also has only `setRegion(Region)` and no `setRegion(String)`, so a Spring XML file that passes the region as a string must use a `RegionUtils.getRegion` factory bean instead.
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 Here is an example of how to configure Amazon S3 based IP finder:
 

@@ -199,7 +199,7 @@ Make sure that the IP finder configuration of at least one node contains the loc
 
 You can use the [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
 
-The 'ignite-aws' module is already enabled.
+The `ignite-aws` module is removed in GridGain 8.10, so add the Apache `ignite-aws-ext` extension to the node first. Refer to [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) for details.
 
 Go to the [Amazon S3 Management Console](https://s3.console.aws.amazon.com/s3/home) and create a simple bucket with default settings. Our bucket is named 'gg-ip-finder-bucket':
 

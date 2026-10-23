@@ -209,7 +209,7 @@ To enable specific [modules](../../gridgain8-development/project-setup.md#enabli
 
 ```shell
 docker run -d \
-  -e "OPTION_LIBS=ignite-rest-http,ignite-indexing" \
+  -e "OPTION_LIBS=ignite-rest-http,ignite-kubernetes" \
   -e LICENCE_URL=http://myserver/license.xml \
   gridgain/enterprise
 ```
