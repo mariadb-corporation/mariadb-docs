@@ -924,6 +924,17 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 * Description: Default debug log with flush after write.
 
+#### `--debug-gdb`
+
+* Command line: `--debug-gdb`, `--skip-debug-gdb`
+* Description: Set up signals for running the server under a debugger such as `gdb`. It has these effects:
+  * On Linux and other Unix-like systems, `SIGINT` (for example, Ctrl+C in the terminal) shuts down the server. By default, the server ignores `SIGINT`.
+  * The server writes no core file on a crash, even if [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) is set. This holds regardless of the order of the options.
+  * On Windows, the server does not install its own handler for unhandled exceptions, so a crash goes to the debugger or to Windows Error Reporting.
+* It does not change [--stack-trace](#stack-trace): a crash still prints a stack trace to the error log unless you also set `--skip-stack-trace`.
+* `--skip-debug-gdb` (or `--disable-debug-gdb`) turns the option off, which is the default. This is only useful to override an earlier `--debug-gdb`, for example one in an option file.
+* Default: `OFF`
+
 #### `--debug-no-sync`
 
 * Description: `debug-no-sync[=#]`Disables system sync calls. Only for running tests or debugging!
@@ -934,7 +945,10 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 #### `--gdb`
 
-* Description: Set up signals usable for debugging.
+* Command line: `--gdb`
+* Description: Deprecated alias for [--debug-gdb](#debug-gdb). Use `--debug-gdb` instead.
+  * `--disable-gdb` and `--skip-gdb` are not separate options. They are `--gdb` with the [--disable-\*](#disable) or [--skip-\*](#skip) prefix, and turn the option off, which is the default.
+  * From MariaDB 11.5, any use of the name, including `--disable-gdb` and `--skip-gdb`, makes the server print this warning at startup: `--gdb is deprecated and will be removed in a future release. Please use --debug-gdb instead.`
 
 #### `--silent-startup`
 
@@ -1112,7 +1126,12 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--stack-trace`
 
 * Command line: `--stack-trace`, `--skip-stack-trace`
-* Description: Print a stack trace on failure. Enabled by default, disable with `-skip-stack-trace`.
+* Description: Print a stack trace to the [error log](../server-monitoring-logs/error-log.md) when the server crashes. On Linux and other Unix-like systems, the server installs a handler for the fatal signals `SIGSEGV`, `SIGABRT`, `SIGBUS`, `SIGILL`, and `SIGFPE`. On a crash, the handler writes a crash report (`got signal ...`, the server version, and, if available, the current query), followed by the stack trace.
+* With `--skip-stack-trace`, the result depends on [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file):
+  * If `core_file` is off, the server installs no handler. A crash ends the server with the operating system's default action and writes nothing to the error log.
+  * If `core_file` is on, the server still writes the crash report and a core file, but no stack trace.
+* For how to get a complete stack trace with symbols, see [How to Produce a Full Stack Trace for mariadbd](../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md).
+* Default: `ON`
 
 #### `--symbolic-links`
 
