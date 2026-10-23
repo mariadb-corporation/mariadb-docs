@@ -47,12 +47,12 @@ Keep in mind these constraints before migrating your cluster:
 
 - *One-way upgrade.* Once GridGain writes to the persistence directory, Apache Ignite can no longer read it.
 - *CDC must be off at the last write.* GridGain can start on Ignite's persistence only if Change Data Capture was disabled when the data was last written. Stop all CDC processes and disable CDC before the final checkpoint and shutdown.
-- *Full cutover, no mixed topology.* Ignite and GridGain server nodes cannot coexist in one cluster, and clients are not cross-compatible.
+- *Full cutover, no mixed topology.* Ignite and GridGain server nodes cannot coexist in one cluster, and most clients are not cross-compatible. The exception is the Apache Ignite Java and .NET thin clients and JDBC driver, which a GridGain 8.10 server accepts.
 - *In-memory data is not carried over.* Data in non-persistent regions does not survive the cutover. Plan to reload it from its original sources, as after any cluster restart. See [Persistent and In-Memory Clusters](migration-procedure.md).
-- *Planned downtime is required.* The whole cluster stops, converts, and restarts as GridGain; all clients are updated before reconnecting.
+- *Planned downtime is required.* The whole cluster stops, converts, and restarts as GridGain; all clients except the Apache Ignite thin clients and JDBC driver are updated before reconnecting.
 - *No in-place rollback* after the first GridGain write. Rollback is possible only by restoring a pre-cutover backup.
 
-These constraints mean that all server nodes and clients must be upgraded together. Take a full backup before the first GridGain start and keep the Ignite distribution archived until the migration is confirmed stable.
+These constraints mean that all server nodes and the clients that need rebuilding must be upgraded together. Take a full backup before the first GridGain start and keep the Ignite distribution archived until the migration is confirmed stable.
 
 ## Compatibility Summary
 
@@ -62,7 +62,8 @@ This is the high-level picture of what works, what does not, and what needs atte
 |---|---|---|
 | Inter-node protocols (Discovery, Communication) | Incompatible | Ignite and GridGain server nodes cannot coexist in one cluster, so a full cutover is required. |
 | Thick clients (join the topology) | Incompatible | Clients must be rebuilt against GridGain and updated before connecting. |
-| Thin client, JDBC, ODBC protocols | Incompatible | Update all clients before connecting. They may appear to connect because the protocols share common roots, but fail on anything beyond basic operations. |
+| Java and .NET thin clients, JDBC driver (Apache Ignite 2.16.0–2.18.0) | Compatible with GridGain 8.10 | A GridGain 8.10 server accepts these clients as they are. See [Apache Ignite Thin Clients and JDBC Driver](apis-and-clients.md#apache-ignite-thin-clients-and-jdbc-driver). |
+| Other thin clients (C++, Python, Node.js, PHP), ODBC | Incompatible | Update these clients before connecting. They may appear to connect because the protocols share common roots, but fail on anything beyond basic operations. |
 | Persistent data | Compatible, one-way | GridGain can start on Ignite's [Native Persistence](../../../architecture/storage/native-persistence.md) if conditions are met (clean shutdown, CDC disabled, consistent binary field-sort setting). Once GridGain writes, Ignite can no longer read it. |
 | In-memory data | Not carried over | Data in non-persistent regions does not survive the full-cluster cutover. Reload it the way you reload after any restart: `CacheStore` loading or your data-loading jobs. |
 | Configuration | Mostly compatible | Some defaults differ, some properties don't exist in GridGain, and GridGain validates more strictly. |

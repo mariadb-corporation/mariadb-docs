@@ -73,6 +73,23 @@ Refer to the documentation of the specific client for more information.
 All thin clients support authentication in the cluster side. Authentication is [configured in the cluster](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/security/authentication) configuration, and the client simply provide user credentials.
 Refer to the documentation of the specific client for more information.
 
+### Using Apache Ignite Clients
+
+Starting with 8.10, a GridGain server also accepts connections from these Apache Ignite 2.x clients:
+
+- Java thin client
+- .NET thin client
+- JDBC thin driver
+
+This lets existing applications keep working while you migrate from Apache Ignite to GridGain (see the Apache Ignite 2.x migration guide). No server configuration is needed: the server detects an Apache Ignite client from its handshake and translates the protocol features in both directions. GridGain clients are not affected.
+
+GridGain tests the 2.16.0, 2.17.0, and 2.18.0 versions of these clients. Apache Ignite thick clients and the C++, Python, Node.js, PHP, and ODBC clients are not supported. Use the GridGain version of these clients.
+
+An Apache Ignite client can use only the features that both products have. Features that exist only in GridGain are not available to it. In addition:
+
+- The Java and .NET clients cannot configure a custom affinity function when they create a cache.
+- The JDBC driver ignores the `local` connection property: queries still run on the whole cluster, and the server logs a warning. The `queryEngine` property accepts only `h2`, and the transaction parameters of the connection are ignored.
+
 ## Cluster Configuration
 
 Thin client connection parameters are controlled by the client connector configuration.

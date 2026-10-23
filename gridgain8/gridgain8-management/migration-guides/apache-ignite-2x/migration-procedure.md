@@ -34,7 +34,7 @@ The procedure covers clusters that use [Native Persistence](../../../architectur
 
 ## Which Phases Apply to You
 
-Everything migrates together in one cutover, because Ignite and GridGain server nodes and clients cannot mix. Which phases you work through depends on your role:
+Everything migrates together in one cutover, because Ignite and GridGain server nodes cannot mix, and most clients cannot connect across products (Apache Ignite Java and .NET thin clients and JDBC drivers can connect to a GridGain 8.10 server). Which phases you work through depends on your role:
 
 - *You administer the cluster* — you install, configure, and run the server nodes. All five phases are required.
 - *You develop a client application* that connects to a cluster someone else administers. Your main work is in [Check Compatibility](#check-compatibility) and [Prepare Configuration and Code](#prepare-configuration-and-code): rebuild the application against GridGain artifacts and re-test it. You are also needed during the [cutover](#perform-the-cutover), where you stop the application, reconnect the rebuilt version, and take part in the smoke test, and in [Verify and Stabilize](#verify-and-stabilize), where you run the application workload. The rebuilt application must not connect to the production cluster before the cutover, so coordinate the switch with the cluster administrators.
@@ -240,7 +240,7 @@ If you copied data out before the cutover because it had no external source to r
 
 ### 10. Reconnect Updated Clients
 
-Bring up the clients you rebuilt against GridGain artifacts and connect them to the GridGain cluster.
+Bring up the clients you rebuilt against GridGain artifacts and connect them to the GridGain cluster. Apache Ignite Java and .NET thin clients and JDBC drivers (2.16.0–2.18.0) can reconnect unchanged; see [Apache Ignite Thin Clients and JDBC Driver](apis-and-clients.md#apache-ignite-thin-clients-and-jdbc-driver).
 
 ### 11. Run an End-to-End Smoke Test
 

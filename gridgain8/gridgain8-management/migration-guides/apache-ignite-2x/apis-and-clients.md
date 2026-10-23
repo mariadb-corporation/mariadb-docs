@@ -20,7 +20,20 @@ These changes apply to every deployment that runs SQL queries.
 
 ## Clients
 
-This section applies to every migration: all clients, in every language, must be rebuilt against GridGain artifacts before they can connect.
+This section applies to every migration. Rebuild every client against GridGain artifacts before it connects, except the Apache Ignite thin clients and JDBC driver described in [the next section](#apache-ignite-thin-clients-and-jdbc-driver), which a GridGain 8.10 server accepts as they are.
+
+### Apache Ignite Thin Clients and JDBC Driver
+
+Starting with 8.10, a GridGain server accepts the Apache Ignite 2.x Java thin client, .NET thin client, and JDBC thin driver. GridGain tests versions 2.16.0, 2.17.0, and 2.18.0. You can therefore reconnect these applications to the GridGain cluster without rebuilding them, and rebuild them later. No server configuration is needed: the server detects an Apache Ignite client from its handshake and translates the protocol features in both directions. GridGain clients are not affected.
+
+Thick clients and the C++, Python, Node.js, PHP, and ODBC clients are not covered. Rebuild them against GridGain.
+
+An Apache Ignite client can use only the features that both products have, so GridGain-only features are not available to it. In addition:
+
+- The Java and .NET thin clients cannot configure a custom affinity function when they create a cache.
+- The JDBC driver ignores the `local` connection property: queries run on the whole cluster, and the server logs a warning. The `queryEngine` property accepts only `h2`, and the transaction parameters of the connection are ignored.
+
+The reverse is not true: GridGain clients still cannot connect to an Apache Ignite cluster.
 
 For each client application:
 
