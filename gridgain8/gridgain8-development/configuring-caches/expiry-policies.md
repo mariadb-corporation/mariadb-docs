@@ -15,14 +15,13 @@ Depending on the memory configuration, the expiration policies remove entries fr
 * **In-Memory Mode** (data is stored solely in RAM): expired entries are purged from RAM.
 * **In-Memory + Native persistence**: expired entries are removed from both memory and disk. Note that expiry policies  remove entries from the partition files on disk without freeing up space. The space is reused to write subsequent entries.
 * **In-Memory + External Storage**: expired entries are removed from memory only (in GridGain) and left untouched in the external storage (RDBMS, NoSQL, and other databases).
-* **In-Memory + Swap**: expired entries are removed from both RAM and swap files.
 
 To set up an expiration policy, you can use any of the standard implementations of `javax.cache.expiry.ExpiryPolicy` or implement your own.
 
 Unless [Eager TTL](#eager-ttl) is enabled, expired entries are made unavailable, but are not physically removed until they are touched by an operation, or an operation overwrites the entry in the cache.
 
 {% hint style="info" %}
-SQL SELECT operations to not reset expiration policy timeout. Entries only touched by SELECT operations may be removed due to TTL. Use the `cache.touch()` method to reset the timeout.
+SQL SELECT operations do not reset expiration policy timeout. Entries only touched by SELECT operations may be removed due to TTL. Use the `cache.touch()` method to reset the timeout.
 {% endhint %}
 
 ## Configuration
@@ -117,6 +116,7 @@ Eager TTL can be enabled or disabled via the `CacheConfiguration.eagerTtl` prope
 ```java
 CacheConfiguration<Integer, String> cfg = new CacheConfiguration<Integer, String>();
 cfg.setName("myCache");
+cfg.setEagerTtl(true);
 ```
 {% endtab %}
 
@@ -176,3 +176,7 @@ These methods have the following limitations:
 
 - Touch operations are only supported for [Atomic caches](atomicity-modes.md).
 - Touch operation is guaranteed to omit loading the entry into memory for in-memory clusters only.
+
+## See Also
+
+- [Cache Sizing and Expiry](../../gridgain8-tutorials/cache-centric-foundations/cache-sizing-and-expiry.md)

@@ -27,7 +27,7 @@ In some environments, the cluster may encounter a memory issue with an especiall
 - Use [Java Metrics](../reference/monitoring/jmx-metrics.md) to keep track of memory usage on the node.
 - Increase the amount of direct memory by setting the `MaxDirectMemorySize` JVM parameter. Specific memory requirement heavily depends on the amount of clients and the load performed by them.
 
-If the metrics show that you are running low on memory, use the `maxConnectionCnt` thin client [configuration parameter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client) to limit the number of .
+If the metrics show that you are running low on memory, use the `thinClientProperty.maxConnectionsPerNode` cluster property (or the `maxConnectionsPerNode` attribute of the `ClientProcessorMXBean`) to limit the number of thin client, JDBC, and ODBC connections per node.
 
 ## Cluster Does Not Start After Field Type Changes
 
@@ -70,7 +70,7 @@ columns or remove existing ones at run time.
 
 ## Saving WAL Data to Disk on Corruption
 
-The normal way to deal with data corruption is to use [maintenance mode](../gridgain8-management/maintenance-mode.md) to resolve the corruption issue and return to normal operation. Sometimes it may lead to data  being lost, for example when the index file is restored to a state not accounting for WAL. You can enable the  `IGNITE_DUMP_PERSISTENCE_FILES_ON_DATA_CORRUPTION` system property to save all stored data to the `{GRIDGAIN_HOME}/db/dump` folder when corruption is detected.
+The normal way to deal with data corruption is to use [maintenance mode](../gridgain8-management/maintenance-mode.md) to resolve the corruption issue and return to normal operation. Sometimes it may lead to data  being lost, for example when the index file is restored to a state not accounting for WAL. You can enable the  `IGNITE_DUMP_PERSISTENCE_FILES_ON_DATA_CORRUPTION` system property to save all stored data to the `db/dump/<consistentId>` folder in the node work directory when corruption is detected.
 
 {% hint style="warning" %}
 This property will create a copy of all wal files written since the last [checkpoint](../architecture/storage/native-persistence.md#checkpointing) plus related partition files. Make sure you have sufficient space on the drive to create a data dump before enabling the property.
@@ -99,39 +99,17 @@ This helps if the root cause of this exception is not clear as the dump provides
 In order to capture detailed information about GC related activities, make sure you have the settings below configured
 in the JVM settings of your cluster nodes:
 
-{% tabs %}
-{% tab title="Java 11" %}
 ```bash
 -XX:+ScavengeBeforeFullGC
 -XX:+PrintFlagsFinal
 -XX:+UnlockDiagnosticVMOptions
 -Xlog:gc*,safepoint:/path/to/gc/logs/gc.log:time,uptime,level,tags:filecount=10,filesize=10M
+-Xlog:gc+ergo*=trace
 ```
-{% endtab %}
-
-{% tab title="Java 8" %}
-```bash
--XX:+PrintGCDetails
--XX:+PrintGCTimeStamps
--XX:+PrintGCDateStamps
--XX:+UseGCLogFileRotation
--XX:NumberOfGCLogFiles=10
--XX:GCLogFileSize=100M
--Xloggc:/path/to/gc/logs/gc.log
-```
-{% endtab %}
-{% endtabs %}
 
 Replace `/path/to/gc/logs/` with an actual path on your file system.
 
-In addition, for G1 collector set the property below. It provides many additional details that are
-purposefully not included in the `-XX:+PrintGCDetails` setting:
-
-{% code title="Shell" %}
-```bash
--XX:+PrintAdaptiveSizePolicy
-```
-{% endcode %}
+For the G1 collector, the `-Xlog:gc+ergo*=trace` option provides many additional details that are purposefully not included in the basic GC log settings. Newer JDKs, such as Java 21, reject `-XX:+PrintAdaptiveSizePolicy`, and the JVM does not start.
 
 ### Performance Analysis with Flight Recorder
 
@@ -141,7 +119,6 @@ following settings:
 
 {% code title="Shell" %}
 ```bash
--XX:+FlightRecorder
 -XX:+UnlockDiagnosticVMOptions
 -XX:+DebugNonSafepoints
 ```
@@ -257,3 +234,7 @@ The example below shows the correct way to configure a consistent ID for reintro
     </property>
 </bean>
 ```
+
+## See Also
+
+- [How to Debug a Hot Partition](debug-hot-partition.md)

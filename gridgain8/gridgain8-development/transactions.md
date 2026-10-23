@@ -629,7 +629,7 @@ Since a transaction is not rolled back until the deadlock detection procedure is
 
 Note that if there are too few iterations, you may get an incomplete deadlock-report.
 
-The number of transaction deadlocks detected on a node is exported as the `tx.txDeadlocks` metric
+Starting with GridGain 8.10, the number of transaction deadlocks detected on a node is exported as the `tx.txDeadlocks` metric
 (see [Transactions](../reference/monitoring/generic-metrics.md#transactions)) and
 can be read at run time through the transaction metrics API:
 
@@ -686,7 +686,7 @@ A transaction might fail with the following exceptions:
 | Exception | Description | Solution|
 |---|---|---|
 | `CacheException` caused by `TransactionTimeoutException` | `TransactionTimeoutException` is generated if the transaction times out.  | To solve this exception, increase the timeout or make the transaction shorter.|
-| `CacheException` caused by `TransactionTimeoutException`, which is caused by `TransactionDeadlockException` | This exception is thrown if the optimistic transaction fails for some reason. In most cases, this exception occurs when the data the transaction was trying to update was changed concurrently.   | Rerun the transaction.|
+| `CacheException` caused by `TransactionTimeoutException`, which is caused by `TransactionDeadlockException` | A deadlock was detected between transactions. See [Deadlock Detection](#deadlock-detection). | Acquire the keys in the same order in all transactions, or use `OPTIMISTIC` `SERIALIZABLE` transactions, and then rerun the transaction.|
 | `TransactionOptimisticException` | This exception is thrown if the optimistic transaction fails for some reason. In most of the scenarios, this exception occurs when the data the transaction was trying to update was changed concurrently. | Rerun the transaction.|
 |`TransactionRollbackException` | This exception occurs when a transaction is rolled back (automatically or manually). In this case, the data is consistent. | Since the data is in a consistent state, you can retry the transaction.|
 | `TransactionHeuristicException` | An unlikely exception that happens due to an unexpected internal or communication issue. The exception exists to report problematic scenarios that were not foreseen by the transactional subsystem and were not handled by it properly. | The data might not stay consistent if the exception occurs. Reload the data and report to Ignite development community.|
@@ -862,3 +862,8 @@ unsupported
 Refer to the [Monitoring Transactions](../reference/monitoring/jmx-metrics.md#monitoring-transactions) section for the list of metrics that expose some transaction-related information.
 
 You can also use the [control script](../reference/cli-tool/README.md#transaction-management) to get information about, or cancel, specific transactions being executed in the cluster.
+
+## See Also
+
+- [Use Transactions With the Cache API](../gridgain8-tutorials/cache-centric-foundations/cache-transactions.md)
+- [Atomic Operations Across Keys: The Transaction Problem](../gridgain8-tutorials/beyond-key-value/cross-partition-transactions.md)

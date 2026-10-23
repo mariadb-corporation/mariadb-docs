@@ -5,6 +5,8 @@ description: >-
 
 # LangChain Integration
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 GridGain provides support for a LangChain integration. In this extension, a set of storage adapters that allow LangChain components to efficiently use GridGain as a backend for various data storage needs is provided.
 
 ## Features
@@ -290,4 +292,4 @@ The GridGainVectorStore allows you to store text data along with their vector em
 
 GridGain provides a comprehensive, real-world example of how to use this package. The tutorial includes a demonstration project that showcases the integration of GridGain with LangChain, using the custom `langchain-gridgain` package and provides examples of how to use GridGain as a backend for various LangChain components, focusing on a laptop recommendation system.
 
-The tutorial is available in the [Retrieval-Augmented Generation with GridGain and LangChain](https://www.gridgain.com/docs/tutorials/vector/langchain) section.
+The tutorial is available in the [How to Build Retrieval-Augmented Generation With GridGain and LangChain](langchain-rag-tutorial.md) page.

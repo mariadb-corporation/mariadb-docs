@@ -14,7 +14,7 @@ You can extend this guide to any number of nodes.
 This guide is applicable to [Apache Ignite](https://apacheignite.readme.io) as well.
 {% endhint %}
 
-We will use two `t2.micro` instances, GridGain, and Java 8.
+We will use two `t2.micro` instances, GridGain, and Java 17.
 
 ## Prerequisites
 
@@ -96,8 +96,10 @@ $ ssh -i privatekey.pem ec2-user2@54.175.137.126
 If java is not already installed, install it using the package manager of the instance.
 
 ```shell
-$ sudo yum install java-1.8.0-openjdk.x86_64
+$ sudo yum install java-17-amazon-corretto-headless
 ```
+
+<!-- TODO (not tested): The package name above is the Amazon Linux one for Java 17 (GridGain 8.10 needs Java 17 or later; the page said java-1.8.0-openjdk). It was not run on an EC2 instance. Adjust it if the instances use another distribution, then delete this comment. -->
 
 Upload a GridGain distribution package into the instance. Run the following command from you local machine:
 

@@ -44,3 +44,15 @@ Introduction to GridGain as an in-memory computing platform: what you can do wit
 Install GridGain, start a node, and run your first application in your preferred language — Java, .NET, C++, Python, Node.js, PHP, SQL, or REST.
 {% endcolumn %}
 {% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../gridgain8-tutorials/" %}
+[Tutorials](../gridgain8-tutorials/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Hands-on, step-by-step tutorials that take you from a local cache cluster to colocated compute, persistence, and application examples.
+{% endcolumn %}
+{% endcolumns %}

@@ -304,7 +304,7 @@ public void configureAffinityKeyWithCacheKeyConfiguration() {
     personCfg.setBackups(1);
 
     // Configure the affinity key
-    personCfg.setKeyConfiguration(new CacheKeyConfiguration("Person", "companyId"));
+    personCfg.setKeyConfiguration(new CacheKeyConfiguration(PersonKey.class.getName(), "companyId"));
 
     CacheConfiguration<String, Company> companyCfg = new CacheConfiguration<String, Company>("companies");
     companyCfg.setBackups(1);
@@ -334,8 +334,8 @@ var personCfg = new CacheConfiguration("persons")
     {
         new CacheKeyConfiguration
         {
-            TypeName = nameof(Person),
-            AffinityKeyFieldName = nameof(Person.CompanyId)
+            TypeName = nameof(PersonKey),
+            AffinityKeyFieldName = nameof(PersonKey.CompanyId)
         } 
     }
 };
@@ -420,3 +420,10 @@ p1 = personCache.Get(new AffinityKey(1, companyId));
 unsupported
 {% endtab %}
 {% endtabs %}
+
+## See Also
+
+- [Design for Data Locality](../../gridgain8-tutorials/data-locality/README.md)
+- [Design Keys for Colocation](../../gridgain8-tutorials/data-locality/design-keys-for-colocation.md)
+- [Verify Colocation Is Working](../../gridgain8-tutorials/data-locality/verify-colocation.md)
+- [When to Break Colocation](../../gridgain8-tutorials/data-locality/when-to-break-colocation.md)

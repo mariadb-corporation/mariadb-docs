@@ -1230,3 +1230,8 @@ var partitionDistribution = table!.PartitionDistribution;
 {% endtabs %}
 
 For more details on data partitioning, see the following [article](../architecture/storage/data-partitioning.md).
+
+## See Also
+
+- [Work With RecordView and KeyValueView](../gridgain9-tutorials/distributed-sql-foundations/recordview-keyvalueview.md)
+- [Choose the Right Data Access Pattern](../gridgain9-tutorials/schema-design-for-distributed-sql/data-access-patterns.md)

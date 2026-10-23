@@ -17,3 +17,7 @@ GridGain 9 SQL engine has the following advantages:
 - **Standard-Adherent SQL**: GridGain 9 SQL closely adheres to modern SQL standard;
 - **Improved optimization algorithms**: SQL in GridGain 9 optimizes queries by repeatedly applying planner rules to a relational expression;
 - **High overall performance**: GridGain 9 offers high levels of execution flexibility, as well as high efficiency in terms of both memory and CPU consumption.
+
+## See Also
+
+- [Create Tables and Query Data With SQL](../../gridgain9-tutorials/distributed-sql-foundations/query-music-store-sql.md)

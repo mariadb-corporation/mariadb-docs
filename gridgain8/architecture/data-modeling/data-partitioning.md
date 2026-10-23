@@ -125,3 +125,9 @@ Refer to the [Data Rebalancing](../rebalancing/data-rebalancing.md) page for det
 ## Partition Loss Policy
 
 It may happen that throughout the cluster’s lifecycle, some of the data partitions are lost due to the failure of some primary node and backup nodes that held a copy of the partitions. Such a situation leads to a partial data loss and needs to be addressed according to your use case. For detailed information about partition loss policies, see [Partition Loss Policy](../rebalancing/partition-loss-policy.md).
+
+## See Also
+
+- [How to Choose a Partition Count for Your Workload](choose-partition-count.md)
+- [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md)
+- [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md)

@@ -6,6 +6,8 @@ description: >-
 
 # GridGain Quick Start Guide for Java
 
+<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+
 This chapter explains system requirements for running GridGain, how to install GridGain, start a cluster and run a simple Hello World example.
 
 Since GridGain is built on top of Apache Ignite, GridGain reuses Ignite's system properties, environment properties, startup scripts, etc. wherever possible.
@@ -20,7 +22,7 @@ If you are getting started with Ignite or GridGain, we recommend attending [an u
 
 {% include "../../.gitbook/includes/gg8-prereqs.md" %}
 
-If you use Java version 11 or later, [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later) for details.
+See [Running GridGain on Java 17 or later](#running-gridgain-on-java-17-or-later) for the JVM flags that GridGain needs on Java 17 and later.
 
 ### (Optional) Open Ports
 
@@ -52,7 +54,7 @@ Create a new Maven project with your favorite IDE and add the following dependen
 
 ```xml
 <properties>
-    <gridgain.version>8.10</gridgain.version>
+    <gridgain.version>8.10.0</gridgain.version>
 </properties>
 
 <repositories>
@@ -143,7 +145,7 @@ public class HelloWorld {
 {% hint style="info" %}
 Don't forget to add imports for HelloWorld.java. It should be trivial as long as Maven solves all of the dependencies.
 
-Plus, you might need to add these settings to your pom.xml if the IDE keeps using Java compiler from a version earlier than 1.8:
+Plus, you might need to add these settings to your pom.xml if the IDE keeps using a Java compiler from a version earlier than 17:
 
 ```xml
 <build>
@@ -152,8 +154,8 @@ Plus, you might need to add these settings to your pom.xml if the IDE keeps usin
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>17</source>
+                <target>17</target>
             </configuration>
         </plugin>
     </plugins>
@@ -165,17 +167,22 @@ Plus, you might need to add these settings to your pom.xml if the IDE keeps usin
 
 Run HelloWorld.java. You will see 'Hello World!' and other environment details printed on all the server nodes.
 
+{% hint style="warning" %}
+`HelloWorld` sets `peerClassLoadingEnabled` to `true`, and this value must match on every node. The default node configuration and `example-ignite.xml` leave peer class loading off, so a server started with them rejects the client with `Remote node has peer class loading enabled flag different from local`. Start the servers with `peerClassLoadingEnabled` set to `true`, for example in your own configuration file.
+{% endhint %}
+
 ## Next Steps
 
 From here, you may want to:
 
 - Read more about using GridGain
+- Work through the [GridGain 8 Tutorials](../../gridgain8-tutorials/README.md) for hands-on, step-by-step practice
 - Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster
 
 ### Further Examples
 
 {% include "../../.gitbook/includes/gg8-exampleprojects.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain on Java 17 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}

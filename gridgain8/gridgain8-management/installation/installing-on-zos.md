@@ -10,7 +10,9 @@ This section explains system requirements for running GridGain, how to install G
 
 ## Prerequisites
 
-- Java 8+, tested with IBM J9 VM.
+- Java 17 or later.
+
+<!-- TODO (check): This line said "Java 8+, tested with IBM J9 VM". GridGain 8.10 needs Java 17 or later on every platform (source: requireJavaVersion [17,), bin/include/jvmdefaults.sh). Which IBM JVM was tested for 8.10 on z/OS is not known; add it back once confirmed, then delete this comment. -->
 
 ## Installation
 

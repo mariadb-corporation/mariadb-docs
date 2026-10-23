@@ -9,7 +9,7 @@ description: >-
 A continuous query is a query that monitors data modifications occurring in a cache.
 Once a continuous query is started, you get notified of all the data changes that fall into your query filter.
 
-All update events are propagated to the [local listener](#local-listener), which must be registered in the query.
+All update events are propagated to the [local listener](#local-listener).
 Continuous query implementation guarantees exactly once delivery of an event to the local listener.
 
 You can also specify a remote filter to narrow down the range of entries that are monitored for updates.
@@ -25,7 +25,7 @@ Continuous queries have a number of [functional limitations](../architecture/mvc
 When you modify a cache (insert, update, or delete an entry), an event is sent to the continuous query's local listener so that your application can react accordingly. This event is sent regardless of how the modification is made, including [data center replication](../gridgain8-management/data-center-replication/introduction.md).
 The local listener is executed on the node that initiated the query.
 
-Note that the continuous query throws an exception if started without a local listener.
+Note that the continuous query throws an exception if none of a local listener, a remote filter, or a remote filter factory is specified.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -157,7 +157,7 @@ qry.setLocalListener(new CacheEntryUpdatedListener<Integer, String>() {
 });
 ```
 
-To make the above operation safe, you can use the [@IgniteAsynCallback annotation](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/lang/IgniteAsyncCallback.html): 
+To make the above operation safe, you can use the [@IgniteAsyncCallback annotation](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/lang/IgniteAsyncCallback.html): 
 
 ```java
 @IgniteAsyncCallback
@@ -166,7 +166,7 @@ private static class CacheEntryCopier implements CacheEntryUpdatedListener<Integ
    @IgniteInstanceResource
    private Ignite ignite;
 
-   @Override public void onUpdated(CacheEntryEvent<? extends Integer, ? extends String> e) throws CacheEntryListenerException {
+   @Override public void onUpdated(Iterable<CacheEntryEvent<? extends Integer, ? extends String>> evts) throws CacheEntryListenerException {
       for (CacheEntryEvent<? extends Integer, ? extends String> e : evts) {
          // This cache operation is safe because the listener has the Ignite @IgniteAsyncCallback annotation:
          ignite.cache("other").put(e.getKey(), e.getValue());      
@@ -193,7 +193,7 @@ ContinuousQuery<Integer, String> query = new ContinuousQuery<>();
 // The query will return entries for the keys greater than 10.
 query.setInitialQuery(new ScanQuery<>((k, v) -> k > 10));
 
-//mandatory local listener
+//local listener (at least one of a local listener, a remote filter, or a remote filter factory is required)
 query.setLocalListener(events -> {
 });
 
@@ -578,3 +578,7 @@ Continuous queries ensure the exactly-once semantic for the delivery of events t
 Both primary and backup nodes maintain an update queue that holds events that are processed by continuous queries  on the server side but yet to be delivered to the clients. Suppose a primary node crashes or the cluster topology changes for any reason. In that case, every backup node flushes the content of its update queue to the client, making sure that every event is delivered to the client's local listener.
 
 GridGain manages a special per-partition update counter that helps to avoid duplicate notifications. Once an entry in some partition is updated, a counter for this partition is incremented on both primary and backup nodes. The value of this counter is also sent along with the event notification to the client. Thus, the client can skip already-processed events. Once the client confirms that an event is received, the primary and backup nodes remove the record for this event from their backup queues.
+
+## See Also
+
+- [Real-Time Event Processing: The Streaming Problem](../gridgain8-tutorials/beyond-key-value/continuous-queries-streaming.md)

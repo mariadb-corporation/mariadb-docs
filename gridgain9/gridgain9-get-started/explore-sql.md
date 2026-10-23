@@ -78,7 +78,7 @@ Now we will connect to our running cluster using GridGain command-line interface
 In your terminal, run:
 
 ```bash
-docker run --rm -it --network=gridgain9_default -v ./sql/:/opt/gridgain/downloads -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.1 cli
+docker run --rm -it --network=gridgain9_default -v ./sql/:/opt/gridgain/downloads -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:latest cli
 ```
 
 This starts an interactive CLI container connected to the same Docker network as our cluster and mounts a volume containing the sql files for the Chinook Database. When prompted, refuse the connection to the default node and connect to node1 by entering:
@@ -1031,3 +1031,7 @@ GridGain's SQL capabilities make it a powerful platform for building distributed
 Remember that GridGain is not just a SQL database—it's a comprehensive distributed computing platform with capabilities beyond what we've covered here. As you become more comfortable with GridGain SQL, you may want to explore other features such as compute grid, machine learning, and stream processing.
 
 Happy querying!
+
+## See Also
+
+- [Create Tables and Query Data With SQL](../gridgain9-tutorials/distributed-sql-foundations/query-music-store-sql.md)

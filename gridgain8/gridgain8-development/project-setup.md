@@ -10,7 +10,7 @@ description: >-
 
 {% include "../.gitbook/includes/gg8-prereqs.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain on Java 17 or Later
 
 {% include "../.gitbook/includes/gg8-java9.md" %}
 
@@ -223,9 +223,9 @@ The following modules are available:
 |ignite-kafka | GridGain Kafka Streamer provides capability to stream data from Kafka to GridGain caches.|
 |ignite-kubernetes | GridGain Kubernetes module provides a TCP Discovery IP Finder that uses a dedicated Kubernetes service for IP addresses lookup of GridGain pods containerized by Kubernetes.|
 |ignite-log4j2 |Support for Log4j2|
-|ignite-lucene-8 |Lucene 8 library. Required for running GridGain on Java 8.|
-|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 11 and 17.|
+|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Included in the `libs` directory, so it is enabled by default.|
 |ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later.|
+|ignite-lucene-10-java22 |Lucene 10 library built on the Java 22 foreign memory API. Provides full text and vector search on Java 22 and later.|
 |ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
 |ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|
 |ignite-osgi-karaf | This module contains a feature repository to facilitate installing GridGain into an Apache Karaf container.|
@@ -233,7 +233,7 @@ The following modules are available:
 |ignite-rest-http | GridGain REST-HTTP starts a Jetty-based server within a node that can be used to execute tasks and/or cache commands in grid using HTTP-based [RESTful APIs](../reference/rest-api/README.md).|
 |ignite-schedule | This  module provides functionality for scheduling jobs locally using UNIX cron-based syntax.|
 |ignite-slf4j | Support for [SLF4J logging framework](../gridgain8-management/cluster-configuration/logging.md#using-slf4j).|
-|ignite-spring-data_2.2 | GridGain Spring Data provides an integration with the Spring Data framework. The `_2.2` suffix in the module name is historical and is kept so that existing dependency coordinates continue to work.|
+|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data framework. In GridGain 8.9 and earlier, this module was named `ignite-spring-data_2.2`.|
 |ignite-urideploy | GridGain URI Deploy module provides capabilities to deploy tasks from different sources such as File System, HTTP, or even Email.|
 |ignite-web | GridGain Web allows you to start nodes inside any web container based on servlet and servlet context listener. In addition, this module provides capabilities to cache web sessions in a GridGain cache.|
 |ignite-zookeeper | GridGain ZooKeeper provides a TCP Discovery IP Finder that uses a ZooKeeper directory to discover other GridGain nodes.|

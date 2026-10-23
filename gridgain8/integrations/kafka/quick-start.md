@@ -5,6 +5,10 @@ description: >-
 
 # Kafka Connector Quick Start
 
+<!-- TODO (not tested): The Kafka quick start (rewritten from the connector README; needs a Kafka cluster) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
+
+<!-- TODO (decision): Keep the `ignite-slf4j` step on the server nodes? The page was rewritten from the connector README, which does not mention slf4j; the step was kept because it could not be disproved. Test the quick start on a Kafka cluster without it, then delete this comment. -->
+
 ## Kafka Connect Ecosystem
 
 There are different types of nodes in a distributed Kafka Connect ecosystem. This Kafka documentation uses the following terminology to refer to specific type of a cluster node:
@@ -25,42 +29,47 @@ Kafka Connector installation require 3 steps:
 
 ### Step 1: Prepare Connector Package
 
-Kafka Connector is part of GridGain Enterprise or GridGain Ultimate version 8.8.x. The connector is located in the `integration/gridgain-kafka-connect` directory in the GridGain installation directory.
+The GridGain Kafka Connector is part of GridGain Enterprise and Ultimate editions. It ships as its own Confluent Hub component, `gridgain/gridgain-kafka-connect`, and is not bundled with the GridGain server package. Use the component version that matches your GridGain cluster version.
 
-Pull missing connector dependencies into the package:
+Install the component with the Confluent Hub client:
 
 ```bash
-cd $IGNITE_HOME/integration/gridgain-kafka-connect
-./copy-dependencies.sh
+confluent-hub install gridgain/gridgain-kafka-connect:<version>
 ```
+
+Alternatively, download the component archive from the [Confluent Hub listing](https://www.confluent.io/hub/gridgain/gridgain-kafka-connect) and unzip it under a directory on your Kafka Connect workers' `plugin.path`, then restart the workers.
+
+If your cluster runs GridGain Ultimate, the component carries only the Enterprise jars. Copy the `libs/gridgain-ultimate/*.jar` files from the GridGain server package into the component's `lib/` directory on every Kafka Connect worker.
 
 ### Step 2: Register GridGain Connector with Kafka
 
 For every Kafka Connect Worker:
 
-1. Copy connector package directory to where you want Kafka Connectors to be located.
-2. Edit Kafka Connect Worker configuration (`$KAFKA_HOME/config/connect-standalone.properties` for single-worker Kafka Connect cluster or `$KAFKA_HOME/config/connect-distributed.properties` for multiple node Kafka Connect cluster) to register the connector on the plugin path (replace `CONNECTORS_PATH` with directory where you copied the connector package):
+1. Install the connector component as described in Step 1.
+2. Edit Kafka Connect Worker configuration (`$KAFKA_HOME/config/connect-standalone.properties` for single-worker Kafka Connect cluster or `$KAFKA_HOME/config/connect-distributed.properties` for multiple node Kafka Connect cluster) to register the connector on the plugin path (replace `CONNECTORS_PATH` with the directory that contains the connector component folder):
 
    {% code title="connect-standalone.properties" %}
    ```
-   plugin.path=CONNECTORS_PATH/gridgain-kafka-connect
+   plugin.path=CONNECTORS_PATH
    ```
    {% endcode %}
 
 ### Step 3: Register GridGain Connector with GridGain
 
-On every GridGain server node copy the following JARs into the `$IGNITE_HOME/libs` directory:
+This step is needed only for a source connector with `failoverPolicy=BACKLOG`. That connector deploys its backlog service as a cluster singleton, so the connector classes must be on the classpath of every GridGain server node. Other failover policies need nothing on the server nodes.
 
-- `gridgain-kafka-connect-{gg-version}.jar` (located on GridGain nodes in the `$IGNITE_HOME/integration/gridgain-kafka-connect/lib` directory)
-- `connect-api-{kafka-version}.jar` and `kafka-clients-{kafka-version}.jar`, located on Kafka
-- Connect workers in the `$KAFKA_HOME/libs` directory (or a later version, if you choose to use it)
-- Copy the `ignite-slf4j` module from `libs/optional` to `libs`
-- If Kafka Connect runs on JDK 17 or later, the following JVM properties must be added to your Kafka Connect configuration:
+On every GridGain server node copy the following JARs into the `$IGNITE_HOME/libs` directory, then restart the node:
 
-  ```bash
-    --add-opens=java.base/java.nio=ALL-UNNAMED
-    --add-opens=java.base/java.util=ALL-UNNAMED
-  ```
+- `gridgain-kafka-connect-{gg-version}.jar` (located in the `lib` directory of the connector component)
+- `connect-api-{kafka-version}.jar` and `kafka-clients-{kafka-version}.jar`, located on Kafka Connect workers in the `$KAFKA_HOME/libs` directory (or a later version, if you choose to use it). The component does not carry them, because the Connect runtime provides them on the workers.
+- The `ignite-slf4j` module, copied from `libs/optional` to `libs`
+
+If Kafka Connect runs on JDK 17 or later, the following JVM properties must be added to your Kafka Connect configuration:
+
+```bash
+  --add-opens=java.base/java.nio=ALL-UNNAMED
+  --add-opens=java.base/java.util=ALL-UNNAMED
+```
 
 ## GridGain Kafka Connector Configuration
 
@@ -123,3 +132,7 @@ $KAFKA_HOME/bin/connect-standalone.sh \
 ## Managing Kafka Connectors
 
 Each Kafka worker exposes REST API to manage Kafka Connectors (available on port `8083` by default). See [Kafka Connect REST Interface](https://docs.confluent.io/current/connect/references/restapi.html) for information on how to create, remove, pause, and resume connectors as well as see the status of the connectors and tasks.
+
+## See Also
+
+- [How to run the GridGain Kafka Connector on Amazon MSK](example-running-on-amazon-msk.md)

@@ -54,3 +54,7 @@ In this case, GridGain will try to colocate these tables together for storage.
 {% hint style="info" %}
 The `COLOCATE BY` clause of colocated table (`Person` table in the example above) must contain the same set of columns and in the same order as the `PRIMARY KEY` clause of the main table (Company table in the example above) to colocate the data.
 {% endhint %}
+
+## See Also
+
+- [Design a Schema for Distributed SQL](../gridgain9-tutorials/schema-design-for-distributed-sql/schema-distributed-sql.md)

@@ -23,3 +23,7 @@ For the OpenAPI specification, connector configuration, using HTTP tools, and ru
 Authenticate GridGain 9 REST API requests using Basic authentication or token-based JWT Bearer authentication, and revoke issued tokens.
 {% endcolumn %}
 {% endcolumns %}
+
+## See Also
+
+- [How to Manage Cluster Lifecycle With the REST API](../../gridgain9-management/manage-cluster-lifecycle-rest-api.md)

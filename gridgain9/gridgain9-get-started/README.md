@@ -17,7 +17,7 @@ This section walks you through the essentials of working with GridGain 9, from s
 {% endcolumn %}
 
 {% column %}
-Download, install, and start GridGain 9, then run SQL queries against the cluster using the CLI tool.
+Install and start GridGain 9, then run SQL queries against the cluster using the CLI tool.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -90,5 +90,17 @@ Configure GridGain 9 secondary columnar storage to run analytical queries alongs
 
 {% column %}
 How to start and manage a GridGain 9 cluster from a Java project using embedded mode.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../gridgain9-tutorials/" %}
+[Tutorials](../gridgain9-tutorials/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Hands-on tutorials that take you from a local cluster to SQL, the Java thin client, transactions, schema design, and data streaming.
 {% endcolumn %}
 {% endcolumns %}
