@@ -259,7 +259,7 @@ await using (var streamer = client.GetDataStreamer<int, string>("myCache", optio
 ```
 
 {% hint style="info" %}
-`AddAsync` and `RemoveAsync` are available starting with GridGain 8.10.0-b1.
+`AddAsync` and `RemoveAsync` are available starting with GridGain 8.10.0.
 {% endhint %}
 
 ### Closing a Data Streamer Asynchronously
