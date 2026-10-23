@@ -12,13 +12,13 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 
 ## Row Event Processing
 
-The row events come as groups. Each group starts with a `GTID` event which is
-followed by one or more `TABLE_MAP` events. Each row event refers to a
-`TABLE_MAP` event by its table ID. The last row of a statement has the
-`STMT_END_F` flag set and after processing that row, the table maps are no
-longer referred to. The next statement always rewrites the table map events and
-they are never reused across statements. The table IDs are not stable and they
-should not be used to identify a table.
+Row events are written in event groups. A group starts with a [GTID_EVENT](gtid_event.md) and ends with an [XID_EVENT](xid_event.md) or a `COMMIT` [QUERY_EVENT](query_event.md). A group can contain several statements. Each statement that is logged in row format is written as follows:
+
+1. An [ANNOTATE_ROWS_EVENT](annotate_rows_event.md) with the text of the statement, if `binlog_annotate_row_events` is `ON` (the default).
+2. A [TABLE_MAP_EVENT](table_map_event.md) for each table that the statement can change, including tables changed only by triggers. Some of these tables might have no row events.
+3. One or more row events. Each row event refers to a table map by its table ID. The last row event of the statement has the `STMT_END_F` flag (`0x0001`) set.
+
+After the event with `STMT_END_F`, the statement's table maps are no longer used. The next statement writes its own table maps, so table maps are never reused across statements. The server assigns a table ID when it loads the table's definition, so the same table can get a different ID later. Don't use the table ID to identify a table across statements. Use the database and table names in the table map instead.
 
 ## Event types
 
