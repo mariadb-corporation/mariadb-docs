@@ -10,7 +10,7 @@ description: >-
 
 {% include "../.gitbook/includes/gg8-prereqs.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain with Java 17 or Later
 
 {% include "../.gitbook/includes/gg8-java9.md" %}
 
@@ -182,12 +182,12 @@ There are several ways you can change the default work directory:
 GridGain ships with a number of modules that provide various functionality. You can enable modules one by one, as required.
 
 All modules are included in the binary distribution, but by default they are disabled (except for `ignite-core`, `ignite-spring`, `ignite-indexing`, and `ignite-opencensus`).
-Modules can be found in the `lib/optional` directory of the distribution package (each module is located in a separate sub-directory).
+Modules can be found in the `libs/optional` directory of the distribution package (each module is located in a separate sub-directory).
 
 Depending on how you use GridGain, you can enable modules using one of the following methods:
 
-- If you use the binary distribution, move the `lib/optional/{module-dir}` to the `lib` directory before starting the node.
-- Add libraries from `lib/optional/{module-dir}` to the classpath of your application.
+- If you use the binary distribution, move the `libs/optional/{module-dir}` to the `libs` directory before starting the node.
+- Add libraries from `libs/optional/{module-dir}` to the classpath of your application.
 - Add a module as a Maven dependency to your project.
 
   ```xml
@@ -206,26 +206,20 @@ The following modules are available:
 |gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
 |gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
 |gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|
-|ignite-aop | GridGain AOP module provides capability to turn any Java method to a distributed closure by adding @Gridify annotation to it.|
-|ignite-aws | *Deprecated in 8.9.39 and removed in 8.10.* Cluster discovery on AWS S3 and ELB, the S3 checkpoint SPI, and the AWS KMS encryption service. Use the Apache `ignite-aws-ext` extension instead. Refer to [Amazon S3 IP Finder](../gridgain8-management/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) and [Amazon ELB Based Discovery](../gridgain8-management/clustering/discovery-in-the-cloud.md#amazon-elb-based-discovery) for details.|
+|ignite-aws |Cluster discovery on AWS S3. Refer to [Amazon S3 IP Finder](../gridgain8-management/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) for details.|
 |ignite-cassandra-serializers | The GridGain Cassandra Serializers module provides additional serializers to store objects as BLOBs in Cassandra. The module could be used as in conjunction with the GridGain Cassandra Store module.|
-|ignite-cassandra-store | GridGain Cassandra Store provides a CacheStore implementation backed by the  Cassandra database.|
-|ignite-cloud | *Deprecated.* GridGain Cloud provides Apache jclouds implementations of the IP finder for TCP discovery. This module is deprecated and will be removed in a future release. Use one of the other IP finders described in [Discovery in the Cloud](../gridgain8-management/clustering/discovery-in-the-cloud.md) instead.|
+|ignite-cassandra-store | GridGain Cassandra Store provides a CacheStore implementation backed by the Cassandra database. See [Cassandra Cache Store](../integrations/cassandra-store.md) for details.|
 |ignite-direct-io | GridGain Direct IO is a plugin that provides a page store with the ability to write and read cache partitions in O_DIRECT mode.|
 |ignite-gce | GridGain GCE provides Google Cloud Storage based implementations of IP finder for TCP discovery.|
-|ignite-hibernate-core | *Deprecated.* Shared classes for the GridGain Hibernate L2 cache integration. The Hibernate integration modules are deprecated and will be removed in a future release.|
-|ignite-hibernate_4.2 | *Deprecated.* GridGain Hibernate provides a Hibernate L2 cache implementation based on GridGain In-Memory Data Grid. This module is deprecated and will be removed in a future release. Use the `ignite-hibernate-7.4` module instead.|
-|ignite-hibernate_5.1 | *Deprecated.* GridGain Hibernate provides a Hibernate L2 cache implementation based on GridGain In-Memory Data Grid. This module is deprecated and will be removed in a future release. Use the `ignite-hibernate-7.4` module instead.|
-|ignite-hibernate-7.4 | GridGain Hibernate 7.4 module provides a Hibernate L2 (second-level) cache implementation based on the GridGain In-Memory Data Grid for Hibernate ORM 7.4. Supports `READ_ONLY`, `READ_WRITE`, and `NONSTRICT_READ_WRITE` concurrency strategies.|
+|ignite-hibernate-7.4 | GridGain Hibernate 7.4 module provides a Hibernate L2 (second-level) cache implementation based on the GridGain In-Memory Data Grid for Hibernate ORM 7.4. Supports `READ_ONLY`, `READ_WRITE`, and `NONSTRICT_READ_WRITE` concurrency strategies. Add this module to your application as a Maven dependency. See [Hibernate Second-Level Cache](../integrations/hibernate-l2-cache.md) for details.|
 |ignite-indexing | [SQL querying and indexing](sql/indexes.md)|
 |ignite-jcl |Support for the Jakarta Common Logging (JCL) framework.|
 |ignite-jta |Integration of GridGain transactions with JTA.|
 |ignite-kafka | GridGain Kafka Streamer provides capability to stream data from Kafka to GridGain caches.|
 |ignite-kubernetes | GridGain Kubernetes module provides a TCP Discovery IP Finder that uses a dedicated Kubernetes service for IP addresses lookup of GridGain pods containerized by Kubernetes.|
 |ignite-log4j2 |Support for Log4j2|
-|ignite-lucene-8 |Lucene 8 library. Required for running GridGain on Java 8.|
-|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 11 and 17.|
-|ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later.|
+|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Enabled by default: the binary distribution ships it in the `libs` directory.|
+|ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later. Disabled by default: the binary distribution ships it in the `libs/optional` directory. It replaces `ignite-lucene-9` on a node. On Java 22 and later, you can use `ignite-lucene-10-java22` instead. See [Choosing a Lucene Line](vector-search/README.md#choosing-a-lucene-line).|
 |ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
 |ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|
 |ignite-osgi-karaf | This module contains a feature repository to facilitate installing GridGain into an Apache Karaf container.|
@@ -233,7 +227,7 @@ The following modules are available:
 |ignite-rest-http | GridGain REST-HTTP starts a Jetty-based server within a node that can be used to execute tasks and/or cache commands in grid using HTTP-based [RESTful APIs](../reference/rest-api/README.md).|
 |ignite-schedule | This  module provides functionality for scheduling jobs locally using UNIX cron-based syntax.|
 |ignite-slf4j | Support for [SLF4J logging framework](../gridgain8-management/cluster-configuration/logging.md#using-slf4j).|
-|ignite-spring-data_2.2 | GridGain Spring Data provides an integration with the Spring Data framework. The `_2.2` suffix in the module name is historical and is kept so that existing dependency coordinates continue to work.|
+|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data 4 framework. The repository API is in the `org.apache.ignite.springdata` package. The module was previously named `ignite-spring-data_2.2`. When upgrading from GridGain 8.9.x, change the Maven `artifactId` to `ignite-spring-data` and replace `org.apache.ignite.springdata22` with `org.apache.ignite.springdata` in your imports.|
 |ignite-urideploy | GridGain URI Deploy module provides capabilities to deploy tasks from different sources such as File System, HTTP, or even Email.|
 |ignite-web | GridGain Web allows you to start nodes inside any web container based on servlet and servlet context listener. In addition, this module provides capabilities to cache web sessions in a GridGain cache.|
 |ignite-zookeeper | GridGain ZooKeeper provides a TCP Discovery IP Finder that uses a ZooKeeper directory to discover other GridGain nodes.|

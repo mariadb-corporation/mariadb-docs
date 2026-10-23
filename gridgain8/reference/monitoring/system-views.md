@@ -97,6 +97,35 @@ The BASELINE_NODE_ATTRIBUTES view exposes node attributes fixed at a moment when
 |WRITE_BEHIND_FLUSH_THREAD_COUNT|int|Number of threads that will perform cache flushing.|
 |WRITE_SYNCHRONIZATION_MODE|string|Gets write synchronization mode.|
 
+## CACHE_EXPLICIT_LOCKS
+
+This view exposes explicit locks acquired on the current node. These are locks the
+node has requested, which may be hosted on a different node.
+
+|Column|Data Type|Description|
+|---|---|---|
+|CACHE_ID|int|Cache ID.|
+|KEY|string|The locked cache key.|
+|THREAD_ID|long|ID of the thread that holds the lock.|
+|XID|UUID|Transaction identifier.|
+
+## CACHE_LOCKS
+
+This view exposes held and queued cache key locks hosted on the current node,
+including both explicit locks and transactional locks.
+
+|Column|Data Type|Description|
+|---|---|---|
+|CACHE_ID|int|Cache ID.|
+|KEY|string|The locked cache key.|
+|NODE_ID|UUID|ID of the node that holds or requests the lock.|
+|ORIGINATING_NODE_ID|UUID|ID of the node the lock originated from.|
+|IS_OWNER|boolean|True if the lock is currently owned (held); false if it is queued.|
+|IS_TX|boolean|True if the lock belongs to a transaction.|
+|FLAGS|short|Bitmask of all enabled lock flags.|
+|XID|UUID|Transaction identifier.|
+|ORIGINATING_XID|UUID|Originating transaction identifier.|
+
 ## CONFIGURATION
 
 The CONFIGURATION view contains the configuration properties of node.
@@ -298,6 +327,8 @@ This view exposes cache group's I/O statistics.
 |CACHE_GROUP_NAME|string|Cache group name.|
 |PHYSICAL_READS|int|Number of physical reads from the node start or last reset (available through JMX IoStatisticsMetricsMXBean).|
 |LOGICAL_READS|int|Number of logical reads from the node start or last reset (available through JMX IoStatisticsMetricsMXBean).|
+|INSERTED_BYTES|long|Number of bytes inserted into the cache group's store.|
+|REMOVED_BYTES|long|Number of bytes removed from the cache group's store.|
 
 ## METRICS
 
@@ -467,6 +498,7 @@ This view exposes information about currently running transactions.
 |ORIGINATING_NODE_ID|UUID|The node the transaction started from.|
 |STATE|string|Current transaction status.|
 |XID|UUID|Unique transaction identifier.|
+|ORIGINATING_XID|UUID|Near (originating) transaction identifier.|
 |LABEL|string|Transaction label.|
 |START_TIME|long|Start time of the transaction.|
 |ISOLATION|string|Isolation level.|
@@ -866,6 +898,48 @@ The STATISTICS_PARTITION_DATA view contains information about [SQL statistics](.
 |NODEID|UUID|ID of the node the service runs on.|
 |SERVICEID|UUID|Service ID.|
 |SERVICESCOUNT|INTEGER|Total number of service instances.|
+
+## SNAPSHOT
+
+{% hint style="info" %}
+The SNAPSHOT view is available only with GridGain Ultimate Edition.
+{% endhint %}
+
+The SNAPSHOT view exposes the [snapshots](../../gridgain8-management/snapshots/snapshots-and-recovery.md) stored locally on the node.
+The view is node-specific: each node reports only the snapshots it holds, and the view is empty on client nodes and while the cluster is inactive.
+To get a cluster-wide picture, query the view on every baseline node.
+
+You can filter the view by the `ID` column. The filter is pushed down, so `WHERE ID = <id>` reads only the requested snapshot.
+
+|Column|Data Type|Description|
+|---|---|---|
+|ID|long|Snapshot ID.|
+|CONSISTENT_ID|string|Consistent ID of the node that holds this copy of the snapshot metadata.|
+|BASELINE_NODES|string|Comma-separated consistent IDs of the baseline nodes covered by the snapshot. Empty if the snapshot carries no baseline topology.|
+|CACHE_GROUPS|string|Comma-separated names of the cache groups included in the snapshot.|
+|SNAPSHOT_RECORD_SEGMENT|long|Index of the WAL segment that holds this node's snapshot record. Empty if the node wrote no WAL pointer for the snapshot.|
+|TYPE|string|Snapshot type: `FULL` or `INCREMENTAL`.|
+|SNAPSHOT_TIME|date|Snapshot creation time.|
+|BASE_SNAPSHOT_IDS|string|Comma-separated IDs of the snapshots this snapshot builds upon. Empty for a full snapshot.|
+|INITIATOR_NODE_ID|UUID|ID of the node that initiated the snapshot operation.|
+|MESSAGE|string|Message supplied by the user when the snapshot was created.|
+|TOTAL_SIZE|long|Snapshot size in bytes. Empty for snapshots created by versions that did not record the size.|
+|DATA_SIZE|long|Snapshot size in bytes, excluding indexes. Empty for snapshots created by versions that did not record the size.|
+|COMPRESSION|string|Compression option the snapshot was created with.|
+|COMPRESSION_LEVEL|int|Compression level the snapshot was created with.|
+|EXCHANGELESS|boolean|True if the snapshot was created without a partition map exchange.|
+|ENCRYPTED|boolean|True if the snapshot data is encrypted.|
+
+## PLUGINS
+
+This view exposes information about configured and loaded plugins.
+
+|Column|Data Type|Description|
+|---|---|---|
+|NAME|string|Plugin name.|
+|VERSION|string|Plugin version.|
+|CLASS_NAME|string|Fully qualified plugin class name.|
+|INFO|string|Additional plugin information, as a comma-separated list of key=value pairs.|
 
 ## Examples
 

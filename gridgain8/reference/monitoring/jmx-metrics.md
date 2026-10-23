@@ -156,6 +156,7 @@ group=DataRegionMetrics,name=<Data Region name>
 |Attribute|Type|Description|Scope|
 |---|---|---|---|
 |PagesFillFactor|float|The average size of data in pages as a ratio of the page size. When Native persistence is enabled, this metric is applicable only to the persistent storage (i.e. pages on disk).|Node|
+|LargeEntriesPagesPercentage|float|The percentage of pages that are fully occupied by large entries that go beyond the page size. Large entries are split into fragments so that each fragment fits into a single page.|Node|
 |TotalUsedPages|long|The number of data pages that are currently in use. When Native persistence is enabled, this metric is applicable only to the persistent storage (i.e. pages on disk).|Node|
 |PhysicalMemoryPages|long|The number of the allocated pages in RAM.|Node|
 |PhysicalMemorySize|long|The size of the allocated space in RAM in bytes.|Node|

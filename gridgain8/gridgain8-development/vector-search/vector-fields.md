@@ -28,9 +28,9 @@ public class Article {
         // No-op.
     }
 
-    public Article(String contentVector, float[] contentVec) {
+    public Article(String content, float[] contentVector) {
+        this.content = content;
         this.contentVector = contentVector;
-        this.vec = contentVec;
     }
 }
 ```

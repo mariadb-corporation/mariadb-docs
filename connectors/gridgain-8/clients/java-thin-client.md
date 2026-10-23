@@ -141,7 +141,7 @@ You can configure two independent timeouts:
 - **Handshake timeout** — the maximum time to establish a connection to a server node, including protocol negotiation. Set it with `ClientConfiguration.setHandshakeTimeout(int)`.
 - **Request timeout** — the maximum time to wait for a response to an individual operation on an established connection. Set it with `ClientConfiguration.setRequestTimeout(int)`.
 
-Both values are in milliseconds, and `0` (the default) means no timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
+Both values are in milliseconds. By default, the handshake timeout is `10000` (10 seconds) and the request timeout is `60000` (60 seconds). A value of `0` is interpreted as an infinite timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration()
@@ -700,6 +700,38 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 ```
 
 The deployed service can be implemented using Java or .NET.
+
+### Passing a Service Call Context
+
+{% hint style="warning" %}
+This API is experimental and may change in future releases.
+{% endhint %}
+
+You can pass a [service call context](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/services/services#service-call-context) with every call to a service method.
+The service reads the context attributes through its injected `ServiceContext`.
+To pass a call context, get the service proxy with one of the following `ClientServices` methods:
+
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx)`
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx, long timeout)`
+
+Create the call context with `ServiceCallContext.builder()`.
+Custom implementations of the `ServiceCallContext` interface are not supported.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ServiceCallContext callCtx = ServiceCallContext.builder()
+        .put("user", "John")
+        .build();
+
+    MyService svc = client.services().serviceProxy("MyService", MyService.class, callCtx);
+
+    // Every call made through this proxy passes the call context to the service.
+    svc.myServiceMethod();
+}
+```
+
+The server nodes must support passing the service call context from thin clients.
+Otherwise, the service call fails with `ClientFeatureNotSupportedByServerException`.
 
 ## Handling Exceptions
 

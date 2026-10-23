@@ -43,6 +43,8 @@ control.bat --defragmentation schedule --nodes <consistentIds> [--caches <cacheN
 {% endtab %}
 {% endtabs %}
 
+Index defragmentation requires extra space, roughly the size of the largest cache group. If there is not enough free disk space, add the `--rebuild-indexes` option. With this option, the index partition of each defragmented cache group is deleted instead of defragmented, and the node rebuilds the indexes after the node leaves maintenance mode. Until the rebuild finishes, queries against the affected caches use scans instead of indexes. For details, see [Control Script](../reference/cli-tool/README.md#defragmentation-schedule).
+
 After the manual restart, the node with the requested defragmentation enters a special mode called maintenance mode. The node in maintenance mode doesn't join the rest of the cluster but remains isolated until defragmentation is completed (or canceled by explicit user request). After that, the user has to restart the node one more time: it will exit maintenance mode and return to normal operations (joining the cluster and starting to serve regular workload).
 
 {% hint style="info" %}

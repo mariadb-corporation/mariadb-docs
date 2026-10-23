@@ -266,6 +266,7 @@ The connection parameters that can be specified in the `DrSenderConnectionConfig
 | `receiverAddresses` | A list of endpoints in the replica cluster this node will connect to. The nodes in the replica must be configured to listen on the specified ports. See [Receiver Nodes](#receiver-nodes). |
 | `localOutboundAddress` | The network interface to use for cross-cluster communication. |
 | `loadBalancingMode` | The load balancing policy that is used to distribute batches across the nodes in the replica cluster if more than one address is configured. Possible values include:<br>- `DR_RANDOM` — Default. Random load balancing policy.<br>- `DR_ROUND_ROBIN` — Round-robin load balancing policy. |
+| `ignoredDataCenterIds` | A list of data center IDs whose updates are not relayed through this connection. Each value is a data center ID between 1 and 31. By default, no data center IDs are ignored.<br><br>Use this parameter in topologies of three or more data centers to suppress redundant relayed updates. You do not need it for two-cluster active-active replication. See [Preventing Replication Loops](#preventing-replication-loops). |
 
 #### Receiver Nodes
 
@@ -919,6 +920,84 @@ To clear caches on the receiver node, do one of the following:
 - Destroy the cache and restore it from a recent snapshot.
 
 Only after the receiver cache has been cleared, you should initiate FST to restore a consistent state with the sender cache.
+
+## Preventing Replication Loops
+
+In active-active replication, each cluster both sends and receives updates. This raises a natural question: when two clusters replicate to each other, does an update travel back and forth between them endlessly?
+
+GridGain prevents such loops automatically, and no configuration is required. Every cache entry carries the ID of the data center where the update originated. A cluster never replicates an entry back to the data center that the entry came from. This protection applies to both incremental replication (the default) and classic replication.
+
+### Two-Cluster Active-Active
+
+For active-active replication between two clusters, you do not need any extra configuration to prevent loops.
+
+Consider clusters A and B that replicate to each other. When A sends an update to B, the entry is tagged with A's data center ID. B applies the update, and the entry keeps A's ID. When B replicates its own data back toward A, it skips every entry that originated in A. The update is not sent back.
+
+The same rule applies to a full state transfer (FST). If you run an FST from cluster A to cluster B, the transferred entries keep their original data center IDs. B does not echo A-originated entries back to A, even when `ignoredDataCenterIds` is not configured.
+
+{% hint style="info" %}
+A full state transfer always sends the complete cache state to the target cluster, regardless of any configured `ignoredDataCenterIds`. The ignore list controls which received entries a cluster relays onward. It does not limit the contents of the transfer itself.
+{% endhint %}
+
+### Three or More Data Centers
+
+Infinite loops are prevented automatically in any topology. However, when several clusters replicate to each other over multiple paths, a cluster relays the updates it receives from one data center to the others. The same update is then delivered more than once: directly from its origin, and again through an intermediate cluster. These relayed updates are called _transitive_ updates. They do not corrupt data, because conflict resolution discards the duplicates, but they add network and processing load.
+
+For example, in a full mesh of data centers A, B, and C, where every cluster connects to every other cluster, an update made in A reaches C both directly from A and relayed through B.
+
+You have two ways to suppress redundant transitive updates:
+
+- Set `ignoredDataCenterIds` on a specific sender connection to stop that connection from relaying updates that originated in a given data center. Use this fine-grained option when some relay paths are wanted and others are not.
+- Enable the `GG_DR_DISABLE_TRANSITIVE_UPDATES` property to stop a cluster from relaying any updates it receives from other clusters. Use this cluster-wide option when no relaying is wanted at all. For details, see [Avoiding Multipath Updates](#avoiding-multipath-updates).
+
+The following example configures a sender connection to data center 3 so that it does not relay updates that originated in data center 1:
+
+{% tabs %}
+{% tab title="XML" %}
+```xml
+<property name="connectionConfiguration">
+    <bean class="org.gridgain.grid.dr.DrSenderConnectionConfiguration">
+        <!-- The ID of the destination cluster. -->
+        <property name="dataCenterId" value="3"/>
+
+        <!-- Do not relay updates that originated in data center 1. -->
+        <property name="ignoredDataCenterIds">
+            <array>
+                <value>1</value>
+            </array>
+        </property>
+
+        <!-- Addresses of the destination cluster's receiver nodes. -->
+        <property name="receiverAddresses">
+            <list>
+                <value>172.25.4.200:50001</value>
+            </list>
+        </property>
+    </bean>
+</property>
+```
+{% endtab %}
+{% tab title="Java" %}
+```java
+DrSenderConnectionConfiguration connectionCfg = new DrSenderConnectionConfiguration();
+
+// The ID of the destination cluster.
+connectionCfg.setDataCenterId((byte)3);
+
+// Do not relay updates that originated in data center 1.
+connectionCfg.setIgnoredDataCenterIds((byte)1);
+
+connectionCfg.setReceiverAddresses("172.25.4.200:50001");
+```
+{% endtab %}
+{% tab title="C++" %}
+unsupported
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+A sender connection never relays an update back to the data center the update originated from. You do not need to list the destination data center in `ignoredDataCenterIds`.
+{% endhint %}
 
 ## Avoiding Multipath Updates
 
