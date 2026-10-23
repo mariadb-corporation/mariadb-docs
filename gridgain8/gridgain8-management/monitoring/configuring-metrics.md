@@ -357,6 +357,12 @@ org.apache:group="Persistent Store",name=DataStorageMetrics
 |---|---|
 | EnableMetrics | Enable persistent data storage metrics. |
 
+## Configuring Maximum-Value Metrics
+
+Some metrics, such as `communication.tcp.maxOutboundMessagesQueueSize` and `io.discovery.MaxMsgQueueSize`, report the maximum value observed over a time interval. The default interval is 60 seconds.
+
+To change the interval, call the `configureMaxValueMetric(name, timeInterval)` operation of the `MetricsMxBean` MBean, where `name` is the full metric name and `timeInterval` is the new interval in milliseconds. The value must be positive. The change applies to all nodes in the cluster.
+
 ## Disabling Index Operation Metrics
 
 GridGain collects [index operation metrics](../../reference/monitoring/generic-metrics.md#index-operations) for every SQL secondary index.
