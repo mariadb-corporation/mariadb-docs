@@ -29,9 +29,9 @@ Use the widgets to view the relevant cluster information:
 
 To view details of the cluster health (status), in the **Cluster Health** widget, click the **View Details** link. The **Cluster Health Details** dialog shows what specific problems, if any, are observed in the cluster.
 
-![Cluster health details GridGain 8 and Apache Ignite](../../../../.gitbook/assets/cc-gg8-health_widget_ok_gg8.png)
+![Cluster health details GridGain 8](../../../../.gitbook/assets/cc-gg8-health_widget_ok_gg8.png)
 
-The following health checks are available for GridGain 8 and Apache Ignite 2 clusters:
+The following health checks are available for GridGain 8 clusters:
 
 | Check | Condition | Description |
 |---|---|---|
@@ -43,7 +43,7 @@ The following health checks are available for GridGain 8 and Apache Ignite 2 clu
 
 Failed health checks are highlighted by severity: red for errors and yellow for warnings. Each item describes the issue and, when applicable, includes a button to investigate or resolve it.
 
-![Cluster health details for an unhealthy GridGain 8 and Apache Ignite cluster](../../../../.gitbook/assets/cc-gg8-health_widget_error_gg8.png)
+![Cluster health details for an unhealthy GridGain 8 cluster](../../../../.gitbook/assets/cc-gg8-health_widget_error_gg8.png)
 
 ### Viewing Cluster Nodes
 
@@ -211,7 +211,6 @@ If your current cluster is inactive, you can activate it by clicking the **Activ
 
 To attach a cluster, click **+** on the top toolbar, then follow the procedure that corresponds to your cluster:
 
-- [Apache Ignite](../../getting-started/connect/connect-ignite-cluster.md)
 - [GridGain 8](../../getting-started/connect/connect-gridgain-cluster.md)
 - [GridGain 9](../../getting-started/connect/connect-gridgain9-cluster.md)
 

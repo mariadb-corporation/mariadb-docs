@@ -7,7 +7,7 @@ hidden: true
 
 # Contact Us
 
-GridGain Control Center is a tool that helps you manage local installations for Apache Ignite and GridGain. Our support team will help you resolve issues with the GridGain portal, billing, or account access.
+GridGain Control Center is a tool that helps you manage local installations of GridGain. Our support team will help you resolve issues with the GridGain portal, billing, or account access.
 
 Contact us at [support.cloud@gridgain.com](mailto:support.cloud@gridgain.com?subject=GridGain%20Control%20Center%20Issue).
 

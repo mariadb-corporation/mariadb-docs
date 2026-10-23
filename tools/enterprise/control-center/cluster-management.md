@@ -23,7 +23,7 @@ The following information is available on the cluster list:
 | Status | Indicates whether the cluster is connected to and reachable by Control Center, and reflects its current lifecycle state. See [Cluster Statuses](#cluster-statuses). |
 | Nodes, total | The total number of nodes. |
 | Nodes type | Shows the number of nodes included in the Cluster Management Group (CMG) and the number of nodes included in the Metastorage Group (MS). |
-| Edition | The product edition that the cluster uses (either GridGain edition or Apache Ignite). |
+| Edition | The product edition that the cluster uses. |
 | Version | The version of the product. |
 | Secure | Indicates whether the cluster is secured by authentication. |
 
@@ -39,7 +39,7 @@ The following information is available on the cluster list:
 | Status | Indicates whether the cluster is connected to and reachable by Control Center, and reflects its current lifecycle state. See [Cluster Statuses](#cluster-statuses). |
 | Nodes, total | The total number of nodes. |
 | Nodes type | The number of client and server nodes. |
-| Edition | The product edition that the cluster uses (either GridGain edition or Apache Ignite). |
+| Edition | The product edition that the cluster uses. |
 | Version | The version of the product. |
 | Secure | Indicates whether the cluster is secured by authentication. |
 
@@ -85,9 +85,8 @@ When a cluster connects to Control Center, it prints an auto-generated token to 
 To add a cluster:
 
 1. Click **ATTACH CLUSTER**.
-2. If you attach Apache Ignite, make sure to switch to Apache Ignite in the wizard.
-3. Paste the token into the dialog and click **OK**.
-4. The wizard will confirm that the cluster was found and attached.
+2. Paste the token into the dialog and click **OK**.
+3. The wizard will confirm that the cluster was found and attached.
 
 If your cluster is protected by authentication, you will be asked to enter the username and password.
 
