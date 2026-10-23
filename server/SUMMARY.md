@@ -807,6 +807,7 @@
     * [dbForge Query Builder](clients-and-utilities/graphical-and-enhanced-clients/dbforge-query-builder-for-mysql-mariadb.md)
     * [dbForge Schema Compare](clients-and-utilities/graphical-and-enhanced-clients/dbforge-schema-compare-for-mariadb-mysql.md)
     * [dbForge Studio](clients-and-utilities/graphical-and-enhanced-clients/dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md)
+    * [DBine](clients-and-utilities/graphical-and-enhanced-clients/dbine.md)
     * [DbSchema](clients-and-utilities/graphical-and-enhanced-clients/dbschema.md)
     * [DbVisualizer](clients-and-utilities/graphical-and-enhanced-clients/dbvisualizer.md)
     * [DeZign for Databases](clients-and-utilities/graphical-and-enhanced-clients/dezign-for-databases.md)

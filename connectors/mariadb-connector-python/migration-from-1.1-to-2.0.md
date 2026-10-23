@@ -460,4 +460,6 @@ Both versions support:
 
 The `mariadb.connect()` API with keyword arguments remains largely backward compatible. Most 1.1 code will work with minimal changes after removing deprecated parameters.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

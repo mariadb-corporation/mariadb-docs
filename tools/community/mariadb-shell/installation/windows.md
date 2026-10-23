@@ -30,12 +30,12 @@ irm https://github.com/mariadb-corporation/mariadb-shell/raw/main/install.ps1 | 
 
 The script performs these steps:
 
-1. Detects the CPU architecture. On a 32-bit PowerShell process running on 64-bit Windows, it detects the architecture of the machine, not of the process.
+1. Detects the CPU architecture of the machine, not of the PowerShell process. A 32-bit PowerShell on 64-bit Windows, or an x64 PowerShell that runs emulated on ARM64 Windows, still gets the package for the machine.
 2. Downloads the `SHA256SUMS` file of the release and uses it as the list of available packages.
 3. Selects the Windows package for your architecture.
 4. Downloads the package and compares its SHA-256 checksum with the value in `SHA256SUMS`. The script stops if the checksums don't match.
 5. Unpacks the package into `%LOCALAPPDATA%\Programs\mariadb-shell\<version>`, for example `%LOCALAPPDATA%\Programs\mariadb-shell\26.9.5`.
-6. Writes two command files, `mariadb-shell.cmd` and `msh.cmd`, into `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. Both start the installed version's `mariadb-shell.exe`. They use paths relative to their own location, so you can move the whole installation directory. If the package includes `mariadb-lsp.exe`, the MariaDB SQL language server, the script also writes `mariadb-lsp.cmd`, which starts it. If it does not, the script removes a `mariadb-lsp.cmd` that an earlier installation wrote.
+6. Writes two command files, `mariadb-shell.cmd` and `msh.cmd`, into `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. Both start the installed version's `mariadb-shell.exe`. When the command directory is the `bin` directory of the installation directory, as it is by default, they use paths relative to their own location, so you can move the whole installation directory. A command directory elsewhere, set with `-BinDir` or `MARIADB_SHELL_BINDIR`, gets command files with absolute paths. Such a path starts with `%LOCALAPPDATA%` or `%USERPROFILE%` when the installation directory is below one of them, so a user name with non-ASCII characters works. Any other part of the path must be plain ASCII, or the script stops before it downloads anything. If the package includes `mariadb-lsp.exe`, the MariaDB SQL language server, the script also writes `mariadb-lsp.cmd`, which starts it. If it does not, the script removes a `mariadb-lsp.cmd` that an earlier installation wrote.
 7. Removes older versions, keeping the new version and one previous version. See [Upgrade and Roll Back](#upgrade-and-roll-back).
 
 {% hint style="info" %}
