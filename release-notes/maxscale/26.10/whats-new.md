@@ -23,7 +23,7 @@ Review these changes before upgrading. They can change behavior without any conf
 
 ### Replication SSL in MariaDB Monitor and Galera Monitor (MXS-3577)
 
-`replication_master_ssl` is no longer a plain boolean. It accepts `auto`, `on` and `off` (booleans are still accepted) and defaults to `auto`. The setting exists in both [MariaDB Monitor]({maxscale}/reference/maxscale-monitors/mariadb-monitor) and [Galera Monitor]({maxscale}/reference/maxscale-monitors/galera-monitor) and can be changed at runtime.
+`replication_master_ssl` is no longer a plain boolean. It accepts `auto`, `on` and `off` (booleans are still accepted) and defaults to `auto`. The setting exists in both [MariaDB Monitor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/mariadb-monitor) and [Galera Monitor](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-monitors/galera-monitor) and can be changed at runtime.
 
 With `auto`, redirecting an existing replication connection leaves `MASTER_SSL` unset, so the server keeps its value. When a connection is created or moved, the monitor uses the `Master_SSL_Allowed` value it saw on the previous connection. If nothing is known, it chooses from the SSL policy of the target server: `require` gives on, `disable` gives off. `on` and `off` always write `MASTER_SSL=1` or `0`. `MASTER_SSL_VERIFY_SERVER_CERT` is carried over when a connection is created and its previous value is known.
 
@@ -37,7 +37,7 @@ Galera Monitor also removes replication connections from Joined non-primary node
 
 ### Smoother Switchovers With readwritesplit (MXS-5555)
 
-At the start of a switchover, MariaDB Monitor marks the old primary as demoting. [readwritesplit]({maxscale}/reference/maxscale-routers/maxscale-readwritesplit) then refuses new connections to it and lets transactions that are already open finish. The monitor waits until the open transaction count of the old primary reaches zero, or until one third of the time left in `switchover_timeout` has passed, and then continues the demotion. `switchover_wait_for_trx` controls this behavior (default `true`, dynamic). The wait applies to any demotion that uses the shared demote step, not only to switchover.
+At the start of a switchover, MariaDB Monitor marks the old primary as demoting. [readwritesplit](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit) then refuses new connections to it and lets transactions that are already open finish. The monitor waits until the open transaction count of the old primary reaches zero, or until one third of the time left in `switchover_timeout` has passed, and then continues the demotion. `switchover_wait_for_trx` controls this behavior (default `true`, dynamic). The wait applies to any demotion that uses the shared demote step, not only to switchover.
 
 ### Healing a Truncated Primary (MXS-6765)
 
@@ -61,7 +61,7 @@ Service diagnostics show `sync_transaction_throttle_duration` and `sync_transact
 
 ### Forced Maintenance and Drain (MXS-6513, MXS-6514)
 
-The `force` option of `set server` ([server resource]({maxscale}/reference/maxscale-rest-api/maxscale-server-resource)) (`maxctrl --force`, REST `force=yes`) overrides the monitor's refusal to put a primary (MariaDB Monitor), or a master that is being drained (Galera Monitor), into maintenance or drain. Forced maintenance still closes all connections to the server. Forced drain only skips the check.
+The `force` option of `set server` ([server resource](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-server-resource)) (`maxctrl --force`, REST `force=yes`) overrides the monitor's refusal to put a primary (MariaDB Monitor), or a master that is being drained (Galera Monitor), into maintenance or drain. Forced maintenance still closes all connections to the server. Forced drain only skips the check.
 
 When a server is set to drain, sessions release idle backend connections to it. readwritesplit closes connections to a draining server once no response is pending and no transaction is active, instead of waiting for the client to disconnect. Replica selection treats a draining server as unsuitable.
 
@@ -83,7 +83,7 @@ MariaDB Monitor now reads `Master_SSL_Verify_Server_Cert`, `Replicate_Ignore_Ser
 
 ### Encrypted and Unencrypted Connections (MXS-5594, MXS-6383)
 
-The `ssl` setting of listeners and servers (see the [configuration guide]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide)) is now an enum: `disable`, `allow` and `require`. The default is `allow`. The values `true` (`require`) and `false` (`disable`) are still accepted. The setting can be changed at runtime.
+The `ssl` setting of listeners and servers (see the [configuration guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide)) is now an enum: `disable`, `allow` and `require`. The default is `allow`. The values `true` (`require`) and `false` (`disable`) are still accepted. The setting can be changed at runtime.
 
 * On a listener, `allow` accepts both TLS and plain text clients. `require` forces TLS for every client. With `require_secure_transport=true`, a TCP listener must use `ssl=require`.
 * On a server, `allow` uses TLS when the backend supports it and falls back to an unencrypted connection when it does not. `require` fails the connection if the server has no TLS. With `require_secure_transport=true`, servers defined by address are forced to `ssl=require`.
@@ -104,11 +104,11 @@ Client connects and disconnects are logged as the `session_start` and `session_s
 
 ### Time Zone in Log Timestamps (MXS-6550)
 
-[`log_timestamp_format`]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide) accepts `default`, `iso_8601` and `datetime` (default `default`, dynamic). `default` now means ISO 8601 with the local UTC offset, for example `2026-10-13T12:00:00+03:00`. `datetime` restores the old `YYYY-MM-DD HH:MM:SS` format. After an upgrade, MaxScale warns at startup if the first lines of the existing `maxscale.log` still have the old format, unless the format is set explicitly. `ms_timestamp` still adds milliseconds.
+[`log_timestamp_format`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide) accepts `default`, `iso_8601` and `datetime` (default `default`, dynamic). `default` now means ISO 8601 with the local UTC offset, for example `2026-10-13T12:00:00+03:00`. `datetime` restores the old `YYYY-MM-DD HH:MM:SS` format. After an upgrade, MaxScale warns at startup if the first lines of the existing `maxscale.log` still have the old format, unless the format is set explicitly. `ms_timestamp` still adds milliseconds.
 
 ### Exporting Logs Through OpenTelemetry (MXS-6294)
 
-With [`telemetry`]({maxscale}/reference/maxscale-telemetry) enabled and `telemetry_signals` including `logs`, every log message that passes the log level filter is also sent as an OTLP/HTTP log record. The record carries the severity mapped from the syslog priority and, when present, the session, module and scope as attributes.
+With [`telemetry`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-telemetry) enabled and `telemetry_signals` including `logs`, every log message that passes the log level filter is also sent as an OTLP/HTTP log record. The record carries the severity mapped from the syslog priority and, when present, the session, module and scope as attributes.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
@@ -123,7 +123,7 @@ With [`telemetry`]({maxscale}/reference/maxscale-telemetry) enabled and `telemet
 
 ### Query Statistics (MXS-5768, MXS-6237)
 
-For every canonical SQL statement and backend server, MaxScale tracks a latency distribution with approximate quantiles (2 percent error, 1 ms to 24 hours). The [REST endpoint]({maxscale}/reference/maxscale-rest-api/maxscale-maxscale-resource) `/maxscale/query_classifier/cache` returns the count, total duration and average duration. It also returns `duration_moving` (the last five minutes) and `duration_cumulative` (the whole run), each with the count, sum, mean and the 25th, 50th, 75th, 90th, 95th and 99th percentiles, with a per-target breakdown. The data is also exported as the telemetry metric `maxscale.query.latency`. [`maxctrl show query_statistics`]({maxscale}/reference/maxscale-maxctrl) displays it. Set `statistics=false` (default `true`, dynamic) to turn the tracking off.
+For every canonical SQL statement and backend server, MaxScale tracks a latency distribution with approximate quantiles (2 percent error, 1 ms to 24 hours). The [REST endpoint](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-maxscale-resource) `/maxscale/query_classifier/cache` returns the count, total duration and average duration. It also returns `duration_moving` (the last five minutes) and `duration_cumulative` (the whole run), each with the count, sum, mean and the 25th, 50th, 75th, 90th, 95th and 99th percentiles, with a per-target breakdown. The data is also exported as the telemetry metric `maxscale.query.latency`. [`maxctrl show query_statistics`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxctrl) displays it. Set `statistics=false` (default `true`, dynamic) to turn the tracking off.
 
 The endpoint accepts `sort=hits|duration|last_used` (default `hits`), `top=N` (default 20) and `match=REGEX`, which filters on the canonical statement. An invalid `sort` value or regular expression returns HTTP 400. The maxctrl commands expose only `--top`.
 
@@ -134,7 +134,7 @@ The endpoint accepts `sort=hits|duration|last_used` (default `hits`), `top=N` (d
 
 ### Worker Assignment (MXS-6153)
 
-[`worker_assignment=local`]({maxscale}/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide) (default) keeps a new client connection on the worker thread that accepted it. `roundrobin` gives each accepted connection to the next worker in turn. The setting can be changed at runtime.
+[`worker_assignment=local`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide) (default) keeps a new client connection on the worker thread that accepted it. `roundrobin` gives each accepted connection to the next worker in turn. The setting can be changed at runtime.
 
 ## Exasol and GridGain
 
@@ -149,7 +149,7 @@ The new `gridgainrouter` module presents a GridGain cluster to MariaDB clients. 
 
 ### Exasol and GridGain Router Settings (MXS-7630, MXS-6025, MXS-6623)
 
-The [Exasol router]({maxscale}/reference/maxscale-routers/maxscale-exasolrouter), GridGain router and the Exasol CDC in [binlogrouter]({maxscale}/reference/maxscale-routers/maxscale-binlogrouter) now share setting names, and the routers share one ODBC implementation. In the routers, the values of `UID`, `USER`, `USERNAME`, `PWD`, `PASSWORD` and `PASSWD` in `odbc_connection_string` are masked in output and logs.
+The [Exasol router](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-exasolrouter), GridGain router and the Exasol CDC in [binlogrouter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-binlogrouter) now share setting names, and the routers share one ODBC implementation. In the routers, the values of `UID`, `USER`, `USERNAME`, `PWD`, `PASSWORD` and `PASSWD` in `odbc_connection_string` are masked in output and logs.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
@@ -205,13 +205,13 @@ The default of `odbc_create_table_from_sql` changed from `true` to `false`. The 
 
 With `causal_reads=local`, SmartRouter tracks the GTID of the last write the session made on the master. The position of an Exasol target is polled by the Exasol router from the table `maxscale_cdc.gtid_current_pos` every `gtid_poll_interval`, and SmartRouter rechecks the cached position every 20 ms while a query waits. GridGain has no GTID source, so causal reads cannot be satisfied for it.
 
-For `COM_QUERY` statements that are not writes and are not inside a transaction, [SmartRouter]({maxscale}/reference/maxscale-routers/maxscale-smartrouter) honors routing hints. `route to master` sends the query to the first cluster, and `route to server NAME` sends it to the target of that name. The measurement step is skipped, and other hint types are ignored.
+For `COM_QUERY` statements that are not writes and are not inside a transaction, [SmartRouter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-smartrouter) honors routing hints. `route to master` sends the query to the first cluster, and `route to server NAME` sends it to the target of that name. The measurement step is skipped, and other hint types are ignored.
 
 ## Filters, GUI and Platform
 
 ### Kafka Support in the Query Log Filter (MXS-5999)
 
-The `log_type` setting of [qlafilter]({maxscale}/reference/maxscale-filters/maxscale-query-log-all-filter) accepts the new value `kafka`, which can be combined with `session`, `unified` and `stdout`. Each logged query entry (the same text as in the unified log) is produced to `kafka_topic` on the servers in `kafka_bootstrap_servers`. The message key is the session id and the timestamp is the time the query was received. Producer errors are logged and do not affect the query. The shared `kafka_ssl*` and `kafka_sasl*` settings apply.
+The `log_type` setting of [qlafilter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-filters/maxscale-query-log-all-filter) accepts the new value `kafka`, which can be combined with `session`, `unified` and `stdout`. Each logged query entry (the same text as in the unified log) is produced to `kafka_topic` on the servers in `kafka_bootstrap_servers`. The message key is the session id and the timestamp is the time the query was received. Producer errors are logged and do not affect the query. The shared `kafka_ssl*` and `kafka_sasl*` settings apply.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
@@ -228,7 +228,7 @@ The `log_type` setting of [qlafilter]({maxscale}/reference/maxscale-filters/maxs
 
 ### Automatic Download of the MariaDB ODBC Driver (MXS-6000)
 
-The admin-only [REST endpoint]({maxscale}/reference/maxscale-rest-api/maxscale-sql-resource) `POST /v1/sql/odbc/drivers/install` downloads the MariaDB ODBC driver into the `drivers` directory under the data directory. The JSON body has `type` (`mariadb`), an optional `version` (default latest, minimum 3.2.9) and optional `arch`, `os_type` and `os_version`, which are detected from the system when omitted. Only one installation can run at a time, and installing a version that is already installed is an error. `GET /v1/sql/odbc/drivers` lists the downloaded drivers. At startup, if drivers have been downloaded, MaxScale checks for a newer version and logs a notice.
+The admin-only [REST endpoint](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-sql-resource) `POST /v1/sql/odbc/drivers/install` downloads the MariaDB ODBC driver into the `drivers` directory under the data directory. The JSON body has `type` (`mariadb`), an optional `version` (default latest, minimum 3.2.9) and optional `arch`, `os_type` and `os_version`, which are detected from the system when omitted. Only one installation can run at a time, and installing a version that is already installed is an error. `GET /v1/sql/odbc/drivers` lists the downloaded drivers. At startup, if drivers have been downloaded, MaxScale checks for a newer version and logs a notice.
 
 ### Packaging (MXS-7571, MXS-6090, MXS-7574)
 
