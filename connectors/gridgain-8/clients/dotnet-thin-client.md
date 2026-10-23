@@ -248,7 +248,7 @@ await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 
 ### Closing a Transaction Asynchronously
 
-A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`, and provides the `CommitAsync()` and `RollbackAsync()` methods. Use them together with an `await using` block to complete the transaction without blocking the calling thread. `CommitAsync()` and `RollbackAsync()` are available since 8.10.
+A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`, and provides the `CommitAsync()` and `RollbackAsync()` methods. Use them together with an `await using` block to complete the transaction without blocking the calling thread. `CommitAsync()` and `RollbackAsync()` are available since 8.10.0.
 
 ```csharp
 await using (var tx = client.GetTransactions().TxStart())
@@ -268,7 +268,7 @@ Once a transaction is committed or rolled back, calling `Commit`, `Rollback`, `C
 
 #### Using Async/Await Within a Transaction
 
-The thin client keeps track of the current transaction per asynchronous flow (`AsyncLocal`) rather than per thread. The transaction therefore stays active across `await` points, even when the continuation resumes on a different thread, and every cache operation in the `await using` block above runs inside the transaction. This behavior is available since 8.10.
+The thin client keeps track of the current transaction per asynchronous flow (`AsyncLocal`) rather than per thread. The transaction therefore stays active across `await` points, even when the continuation resumes on a different thread, and every cache operation in the `await using` block above runs inside the transaction. This behavior is available since 8.10.0.
 
 {% hint style="info" %}
 To restore the previous behavior, where the current transaction is bound to the thread that started it, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true`. Consider this if your code starts background work from inside a transaction, for example with `Task.Run`: such work can see the current transaction when it is tracked per asynchronous flow.
