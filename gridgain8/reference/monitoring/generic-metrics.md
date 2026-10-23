@@ -556,8 +556,6 @@ Register name: `communication.tcp.connectionPool`
 |isPaired|boolean|Indicates whether paired connections are used (`TcpCommunicationSpi.usePairedConnections`).|
 |isAsync|boolean|Indicates whether connections put data in a queue instead of sending it immediately.|
 
-**Per-node registers**
-
 Register name: `communication.tcp.connectionPool.{node_id}`, where `{node_id}` is the ID of the remote node.
 
 The register is created when a connection to the node is first set up, and removed when the node leaves the cluster.
