@@ -548,8 +548,6 @@ A growing queue can point to a failed node or a network problem. To get a warnin
 
 GridGain keeps a pool of TCP connections to each remote node. The pool is described by one shared register and one register per remote node.
 
-**Shared register**
-
 Register name: `communication.tcp.connectionPool`
 
 |Name|Type|Description|
