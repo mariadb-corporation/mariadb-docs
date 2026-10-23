@@ -85,10 +85,7 @@ This lets existing applications keep working while you migrate from Apache Ignit
 
 GridGain tests the 2.16.0, 2.17.0, and 2.18.0 versions of these clients. Apache Ignite thick clients and the C++, Python, Node.js, PHP, and ODBC clients are not supported. Use the GridGain version of these clients.
 
-An Apache Ignite client can use only the features that both products have. Features that exist only in GridGain are not available to it. In addition:
-
-- The Java and .NET clients cannot configure a custom affinity function when they create a cache.
-- The JDBC driver ignores the `local` connection property: queries still run on the whole cluster, and the server logs a warning. The `queryEngine` property accepts only `h2`, and the transaction parameters of the connection are ignored.
+An Apache Ignite client works with the features that both products support. GridGain-specific features are available through GridGain clients. In addition, the JDBC driver ignores the `local` connection property: queries still run on the whole cluster, and the server logs a warning. The `queryEngine` property accepts only `h2`, and the transaction parameters of the connection are ignored.
 
 ## Cluster Configuration
 
