@@ -97,6 +97,18 @@ Implementation guide specifically for developers creating logic to intercept and
 
 {% columns %}
 {% column %}
+{% content-ref url="sql-service-for-plugins.md" %}
+[sql-service-for-plugins.md](sql-service-for-plugins.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains the SQL service, which lets a plugin run SQL statements on the server that loaded it through a subset of the MariaDB C API.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="storage-engines-storage-engine-development/" %}
 [storage-engines-storage-engine-development](storage-engines-storage-engine-development/)
 {% endcontent-ref %}
