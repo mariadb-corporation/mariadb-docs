@@ -10,6 +10,16 @@ A `ROWS_EVENT_V1` is written for row-based replication if data is inserted, dele
 
 A `ROWS_EVENT` (version 2) is written for row based replication if data is inserted, deleted or updated. MariaDB Server doesn't send version 2 row events.
 
+## Row Event Processing
+
+The row events come as groups. Each group starts with a `GTID` event which is
+followed by one or more `TABLE_MAP` events. Each row event refers to a
+`TABLE_MAP` event by its table ID. The last row of a statement has the
+`STMT_END_F` flag set and after processing that row, the table maps are no
+longer referred to. The next statement always rewrites the table map events and
+they are never reused across statements. The table IDs are not stable and they
+should not be used to identify a table.
+
 ## Event types
 
 | Event                               | Details                                      |
