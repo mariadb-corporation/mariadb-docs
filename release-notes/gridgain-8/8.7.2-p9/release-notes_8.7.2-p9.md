@@ -45,7 +45,7 @@ See the [Rolling Upgrades](https://docs.gridgain.com/docs/rolling-upgrades) page
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
+[Customer Support](https://support.gridgain.com/)
 
 ### We Value Your Feedback
 

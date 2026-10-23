@@ -56,7 +56,7 @@ The public interface of `DrSenderStore` has been changed compared to version 8.7
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
+[Customer Support](https://support.gridgain.com/)
 
 ### We Value Your Feedback
 

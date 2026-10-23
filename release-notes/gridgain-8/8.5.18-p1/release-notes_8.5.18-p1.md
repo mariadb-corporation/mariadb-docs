@@ -71,7 +71,7 @@ Below is a list of versions that are compatible with the current version. You ca
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
+[Customer Support](https://support.gridgain.com/)
 
 ### We Value Your Feedback
 

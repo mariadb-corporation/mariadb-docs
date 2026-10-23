@@ -52,7 +52,7 @@ We don't recommend configuring caches with ATOMIC and TRANSACTIONAL atomicity mo
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
+[Customer Support](https://support.gridgain.com/)
 
 ### We Value Your Feedback
 

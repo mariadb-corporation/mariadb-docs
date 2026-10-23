@@ -182,7 +182,7 @@ perform automated upgrades and for details about version compatibility.
 
 ## Related Information
 
-[Customer Support](https://gridgain.freshdesk.com/support/login)
+[Customer Support](https://support.gridgain.com/)
 
 ### We Value Your Feedback
 
