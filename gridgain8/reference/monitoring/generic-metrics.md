@@ -556,7 +556,7 @@ Register name: `communication.tcp.connectionPool`
 |---|---|---|
 |maxConnectionsCnt|integer|The maximum number of connections to a remote node. This is the value of `TcpCommunicationSpi.connectionsPerNode`.|
 |isPaired|boolean|Indicates whether paired connections are used (`TcpCommunicationSpi.usePairedConnections`).|
-|isAsync|boolean|Indicates whether connections put data in a queue instead of sending it immediately. Always `true`.|
+|isAsync|boolean|Indicates whether connections put data in a queue instead of sending it immediately.|
 
 Register name: `communication.tcp.connectionPool.{node_id}`, where `{node_id}` is the ID of the remote node.
 
