@@ -206,7 +206,6 @@ The following modules are available:
 |gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
 |gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
 |gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|
-|ignite-aws |Cluster discovery on AWS S3. Refer to [Amazon S3 IP Finder](../gridgain8-management/clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) for details.|
 |ignite-cassandra-serializers | The GridGain Cassandra Serializers module provides additional serializers to store objects as BLOBs in Cassandra. The module could be used as in conjunction with the GridGain Cassandra Store module.|
 |ignite-cassandra-store | GridGain Cassandra Store provides a CacheStore implementation backed by the Cassandra database. See [Cassandra Cache Store](../integrations/cassandra-store.md) for details.|
 |ignite-direct-io | GridGain Direct IO is a plugin that provides a page store with the ability to write and read cache partitions in O_DIRECT mode.|
