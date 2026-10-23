@@ -1,8 +1,8 @@
 ---
 description: >-
   Integrate GridGain 8 with third-party systems and frameworks, including Apache
-  Kafka, Oracle GoldenGate, the Data Lake Accelerator, Apache Spark, geospatial
-  SQL, and AI frameworks.
+  Kafka, Oracle GoldenGate, the Data Lake Accelerator, Apache Spark, Spring,
+  geospatial SQL, and AI frameworks.
 icon: wrench
 ---
 
@@ -14,6 +14,7 @@ You can combine GridGain 8 with third-party solutions to improve performance or 
 - [Oracle GoldenGate](oracle-goldengate/README.md) — replicate data into GridGain with the GridGain GoldenGate handler.
 - [Data Lake Accelerator](data-lake-accelerator/README.md) — load and synchronize data between GridGain and a data lake.
 - [GridGain for Spark](spark/README.md) — share GridGain data with Apache Spark through IgniteContext, IgniteRDD, and GridGain DataFrames.
+- [Spring Integration](spring.md) — start nodes from Spring, use GridGain as a Spring cache, and manage transactions with Spring Framework 7.
 - [Geospatial SQL Capabilities](geospatial-sql.md) — query and index geometry data types with spatial SQL.
 - [Hibernate Second-Level Cache](hibernate-l2-cache.md) — use GridGain as the second-level cache of Hibernate ORM 7.4.
 - [Cassandra Cache Store](cassandra-store.md) — use Apache Cassandra as the external storage for a GridGain cache.
@@ -65,6 +66,18 @@ Load and synchronize data between GridGain 8 and a data lake using Hive, Spark, 
 
 {% column %}
 Share GridGain 8 data with Apache Spark through IgniteContext and IgniteRDD, use GridGain DataFrames, and test with the Spark shell.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="spring.md" %}
+[Spring Integration](spring.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Use GridGain 8 with Spring Framework 7 — start nodes from a Spring application context, use GridGain as a Spring cache, and manage transactions with Spring.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -132,7 +145,6 @@ Streaming extension modules from the Apache Ignite Extensions project that can b
 
 GridGain is compatible with Apache Ignite integrations. Below is a list of popular integrations you can use in your projects:
 
-- [Spring](https://ignite.apache.org/docs/latest/extensions-and-integrations/spring/spring-boot)
 - [Spark](https://ignite.apache.org/docs/latest/extensions-and-integrations/ignite-for-spark/overview)
 - [Hibernate L2 Cache](hibernate-l2-cache.md)
 - [MyBatis L2 Cache](https://ignite.apache.org/docs/latest/extensions-and-integrations/mybatis-l2-cache)

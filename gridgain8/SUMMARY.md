@@ -266,6 +266,7 @@
     * [Installation](integrations/spark/installation.md)
     * [Testing with Spark-shell](integrations/spark/testing-with-spark-shell.md)
     * [Troubleshooting](integrations/spark/troubleshooting.md)
+  * [Spring Integration](integrations/spring.md)
   * [Geospatial SQL](integrations/geospatial-sql.md)
   * [Hibernate Second-Level Cache](integrations/hibernate-l2-cache.md)
   * [Cassandra Cache Store](integrations/cassandra-store.md)
