@@ -9,7 +9,7 @@ description: >-
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}
 
 {% hint style="info" %}
-This view is available from MariaDB 11.4.
+This view is available from MariaDB 11.4, and from MariaDB Enterprise Server 10.6.16-11.
 {% endhint %}
 
 ## Description

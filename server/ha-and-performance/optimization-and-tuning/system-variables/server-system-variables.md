@@ -1916,7 +1916,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `reorder_outer_joins` - see [reorder\_outer\_joins](../query-optimizations/reorder_outer_joins.md) ([MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements))
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
-  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0))
+  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), MariaDB Enterprise Server 10.6.15-10)
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
   * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `split_materialized={on|off}`
