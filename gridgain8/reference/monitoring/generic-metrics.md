@@ -566,8 +566,8 @@ The register is created when a connection to the node is first set up, and remov
 |---|---|---|
 |consistentId|string|The consistent ID of the remote node.|
 |currentConnectionsCnt|integer|The number of current connections to the remote node.|
-|outboundMessagesQueueSize|integer|The overall number of messages waiting to be sent to the remote node.|
-|maxNetworkIdleTime|long|The maximum idle time of physical sending or receiving data, in milliseconds.|
+|outboundMessagesQueueSize|integer|The overall number of messages waiting to be sent to the remote node, across all connections to it.|
+|maxNetworkIdleTime|long|The maximum idle time of physical sending or receiving data, in milliseconds. The value is the highest idle time observed since the register was created; it does not decrease.|
 |avgConnectionLifetime|long|The average connection lifetime, in milliseconds.|
 |removedConnectionsCnt|long|The total number of removed connections.|
 |acquiringThreadsCnt|integer|The number of threads that are currently acquiring a connection.|
