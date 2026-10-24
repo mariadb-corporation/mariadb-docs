@@ -207,7 +207,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-The Java thin client provides the same method on `ClientCache`:
+The thin clients provide the same method: `ClientCache.withPartitionRecover()` in the Java thin client and `ICacheClient.WithPartitionRecover()` in the .NET thin client (available starting with GridGain 8.10.0-b2):
 
 {% tabs %}
 {% tab title="Java" %}
@@ -218,7 +218,12 @@ Integer value = cache.withPartitionRecover().get(3);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cache = client.GetCache<int, int>("myCache");
+
+// Does not throw if key 3 is in a lost partition; TryGet returns false instead.
+var found = cache.WithPartitionRecover().TryGet(3, out var value);
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported

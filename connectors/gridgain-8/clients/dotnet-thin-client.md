@@ -300,6 +300,31 @@ cache.Put(1, val);
 var value = cache.Get(1);
 ```
 
+### Bypassing Partition Loss Protection
+
+Under the `READ_WRITE_SAFE` and `READ_ONLY_SAFE` partition loss policies, a read of a key that belongs to a lost partition throws an exception. To get a cache view that ignores partition loss protection, call `ICacheClient.WithPartitionRecover()`. Reads of keys in lost partitions through this view do not throw an exception: `TryGet` returns `false`, and `Get` throws a `KeyNotFoundException`, as it does for any missing key.
+
+```csharp
+var cache = client.GetCache<int, int>("myCache");
+
+// Without WithPartitionRecover(), cache.Get(3) throws IgniteClientException
+// if key 3 is in a lost partition.
+var found = cache.WithPartitionRecover().TryGet(3, out var value);
+```
+
+{% hint style="info" %}
+`WithPartitionRecover()` is available starting with GridGain 8.10.0-b2.
+{% endhint %}
+
+The method returns a cache view and does not modify the original one, so you can keep using both. You can combine `WithPartitionRecover()` with the `WithKeepBinary()`, `WithExpiryPolicy()`, and `WithSkipStore()` methods.
+
+The server must run GridGain 8.10.0 or later. If the server does not support this feature, the operation throws an `IgniteClientException`.
+
+The view affects reads only. Writes behave as they do without the view:
+
+* Under `READ_ONLY_SAFE` and `READ_ONLY_ALL`, all writes fail for all keys with the message "cache is moved to a read-only state".
+* Under `READ_WRITE_SAFE`, writes to keys in lost partitions fail. Writes to other keys succeed.
+
 ## Scan Queries
 
 Use a scan query to get a set of entries that satisfy a given condition.
