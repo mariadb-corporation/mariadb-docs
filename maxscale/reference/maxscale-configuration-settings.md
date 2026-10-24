@@ -2556,7 +2556,7 @@ description: >-
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
-* Description: Determines how regular expressions are parsed, including case sensitivity and extended syntax.
+* Description: Does nothing and is deprecated, do not use.
 
 [**service**](maxscale-filters/maxscale-tee-filter.md#service)
 
