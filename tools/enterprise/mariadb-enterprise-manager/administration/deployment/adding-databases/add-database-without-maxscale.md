@@ -32,6 +32,11 @@ sudo dnf install -y mema-agent
 sudo apt install -y mema-agent
 ```
 
+```bash
+# For SLES
+sudo zypper install -y mema-agent
+```
+
 2. Create the Enterprise Manager user (allows the Enterprise Manager server to connect remotely):
 
 ```sql
