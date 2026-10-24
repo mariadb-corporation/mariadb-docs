@@ -327,11 +327,9 @@ using (var tx = ignite.GetTransactions().TxStart())
 }
 ```
 
-Run all operations of an embedded transaction on the thread that started it. In earlier versions, an operation on a different thread ran silently outside the transaction.
+Run all cache operations of an embedded transaction on the thread that started it. In earlier versions, an operation on a different thread ran silently outside the transaction.
 
 To restore the earlier, thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before the application starts. The value is not case-sensitive. With the variable set, the current transaction does not flow to other threads or tasks.
-
-<!-- TODO: confirm against source -->
 {% endtab %}
 
 {% tab title="Java" %}

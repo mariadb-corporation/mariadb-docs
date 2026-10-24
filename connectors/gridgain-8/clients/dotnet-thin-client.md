@@ -260,15 +260,11 @@ await using (var tx = client.GetTransactions().TxStart())
 }
 ```
 
-The current transaction flows to any task started from inside the transaction block, for example with `Task.Run`, and that task can use the transaction. To prevent this for background work, start it inside `ExecutionContext.SuppressFlow()`.
-
-<!-- TODO: confirm against source -->
+The current transaction flows to any task started from inside the transaction block, for example with `Task.Run`, and that task can use the transaction.
 
 {% hint style="info" %}
-In earlier versions, the current transaction was bound to the thread that started it. Operations that ran after an `await` on a different thread executed outside the transaction. To restore the thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before the application starts. The value is not case-sensitive.
+In earlier versions, the current transaction was bound to the thread that started it. Operations that ran after an `await` on a different thread executed outside the transaction. To restore the thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before you start the client. The value is not case-sensitive.
 {% endhint %}
-
-<!-- TODO: confirm against source -->
 
 ### Closing a Transaction Asynchronously
 
