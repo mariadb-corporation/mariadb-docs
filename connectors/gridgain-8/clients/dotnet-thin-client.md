@@ -233,6 +233,36 @@ var value = await cache.GetAsync(1);
 Console.WriteLine(value); // Hello, World!
 ```
 
+### Adding Entries to a Data Streamer Asynchronously
+
+The data streamer (`IDataStreamerClient`) buffers entries. When a buffer is full, it is scheduled for a background flush. The number of flush operations that can be active per node is limited by `DataStreamerClientOptions.PerNodeParallelOperations`.
+
+When this limit is exceeded, `Add()` and `Remove()` block the calling thread. To wait without blocking the thread, use the asynchronous counterparts, which return a `ValueTask`:
+
+- `AddAsync(key, value)` adds an entry to the streamer. When `value` is `null`, the cache entry is removed. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`.
+- `RemoveAsync(key)` adds a removal entry. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`. Otherwise, `RemoveAsync` throws an `IgniteClientException`.
+
+Both methods throw an `ObjectDisposedException` when the streamer is closed or disposed.
+
+In asynchronous methods, use `AddAsync` and `RemoveAsync` instead of `Add` and `Remove`, so that the calling thread is never blocked.
+
+```csharp
+var options = new DataStreamerClientOptions { AllowOverwrite = true };
+
+await using (var streamer = client.GetDataStreamer<int, string>("myCache", options))
+{
+    for (var i = 0; i < 1000; i++)
+        await streamer.AddAsync(i, i.ToString());
+
+    // Adds a removal entry for key 2000.
+    await streamer.RemoveAsync(2000);
+}
+```
+
+{% hint style="info" %}
+`AddAsync` and `RemoveAsync` are available starting with GridGain 8.10.0.
+{% endhint %}
+
 ### Closing a Data Streamer Asynchronously
 
 The thin-client data streamer (`IDataStreamerClient`) implements `IAsyncDisposable` in addition to `IDisposable`. Use an `await using` block to dispose of the streamer asynchronously: the buffered entries are flushed to the cluster without blocking the calling thread.
@@ -241,7 +271,7 @@ The thin-client data streamer (`IDataStreamerClient`) implements `IAsyncDisposab
 await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 {
     for (var i = 0; i < 1000; i++)
-        streamer.Add(i, i.ToString());
+        await streamer.AddAsync(i, i.ToString());
 }
 // DisposeAsync calls CloseAsync(cancel: false): the buffered entries are
 // flushed to the cluster without blocking the calling thread.
