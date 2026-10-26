@@ -1,21 +1,26 @@
 ---
 description: >-
-  Compare the MariaDB MCP servers by where they run and what they expose, and
+  Compare the MariaDB MCP servers by where they run and who they are for, and
   choose the one that fits your deployment.
 icon: scale-balanced
 ---
 
 # Choose an MCP Server
 
-{% hint style="info" %}
-Placeholder page for the navigation prototype. The comparison is not written yet.
-{% endhint %}
+An MCP server lets an AI agent work with your databases through the Model Context Protocol. MariaDB has four. The right one depends on where your databases run and who uses the agent.
 
-MariaDB offers four MCP servers. This page will compare them so that a reader can choose one:
+## MariaDB Enterprise MCP Server
 
-* **MariaDB Enterprise MCP Server.** Part of MariaDB Enterprise Platform.
-* **MariaDB Cloud MCP Server.** Manages and queries MariaDB Cloud databases.
-* **The open-source MCP server.** The `MariaDB/mcp` project on GitHub.
-* **The `mariadb-shell` MCP server.** Installed by the MariaDB AI plugins for coding agents.
+MariaDB Enterprise MCP Server is a single, hardened endpoint between AI agents and your MariaDB data. Platform engineering and DBA teams deploy and manage it in their own environment. It is for organizations that put AI agents into production and need central control over how those agents reach the data. See [MariaDB Enterprise MCP Server]({tools}/enterprise/mariadb-enterprise-mcp-server).
 
-The comparison will cover where each server runs, which databases it reaches, how it authenticates, and which tools it exposes to an agent.
+## MariaDB Cloud MCP Server
+
+MariaDB Cloud MCP Server lets AI tools such as Cursor, Claude Desktop, and Visual Studio Code Copilot launch MariaDB Cloud serverless databases and run SQL on them. You clone it from the [`skysqlinc/skysql-mcp`](https://github.com/skysqlinc/skysql-mcp) repository and run it with a MariaDB Cloud API key. It is for developers whose databases run in MariaDB Cloud. See [MariaDB Cloud MCP Server]({mariadb-cloud}/cloud-ai/mcp-server).
+
+## MariaDB Shell MCP Server
+
+MariaDB Shell includes an MCP server, and the MariaDB AI plugins start it for coding agents such as Claude Code, Codex, OpenCode, and Pi. A client starts it on your machine and talks to it over standard input and output, or it connects to a server that you run over HTTP. To share one server among several users, multi-tenant mode signs each user in with an API key or OAuth2, and it can run in a container. The MCP server is a preview feature. See [MCP Server]({tools}/community/mariadb-shell/mcp-server).
+
+## Open-Source MariaDB MCP Server
+
+The [`MariaDB/mcp`](https://github.com/MariaDB/mcp) project on GitHub is an open-source MCP server that you host yourself. Its repository has the source and the setup steps.
