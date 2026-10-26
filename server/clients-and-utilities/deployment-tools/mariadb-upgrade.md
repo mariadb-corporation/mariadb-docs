@@ -124,6 +124,23 @@ mariadb-upgrade --verbose --verbose other-options
 Because this check relies on the version recorded in `mysql_upgrade_info`, restoring a `mariadb-dump` (`mysqldump`) backup taken from an older server version can leave the restored system tables out of date while the file still shows the current version. In that case, `mariadb-upgrade` reports that no upgrade is needed, so run it with the `--force` option to upgrade the restored tables.
 {% endhint %}
 
+## Connecting to the Server
+
+`mariadb-upgrade` connects to the running server like any other client. Unless you give `--user`, it connects as `root`, not as the current operating system user. It reads connection options from the `[client]`, `[client-server]`, `[client-mariadb]`, `[mysql_upgrade]`, and `[mariadb-upgrade]` option groups.
+
+* If `root@localhost` authenticates with the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) plugin, which is the default on new installations, run `mariadb-upgrade` as the operating system `root` user. This also gives it write access to the data directory.
+
+  ```bash
+  sudo mariadb-upgrade
+  ```
+* If the account has a password, give `--password` without a value, and `mariadb-upgrade` prompts for it:
+
+  ```bash
+  mariadb-upgrade --user=root --password
+  ```
+
+  To avoid the prompt, put `user` and `password` in the `[mariadb-upgrade]` group of an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md).
+
 ## Options
 
 `mariadb-upgrade` supports the following options:
@@ -174,7 +191,7 @@ Connect to MariaDB on the given _host_.
 
 #### -p, --password=_password_
 
-_Password_ to use when connecting to server. If password is not given, it's solicited on the command line (which should be considered insecure). You can use an option file to avoid giving the password on the command line.
+_Password_ to use when connecting to the server. If you give `--password` without a value, `mariadb-upgrade` prompts for it. A password given on the command line should be considered insecure. You can use an option file to avoid giving the password on the command line.
 
 #### -P, --port=_port-number_
 
@@ -238,7 +255,7 @@ Only upgrade the system tables in the mysql database. Tables in other databases 
 
 #### -u, --user=name
 
-User for login if not current user.
+User for login. The default is `root`, not the current operating system user. See [Connecting to the Server](#connecting-to-the-server).
 
 #### -v, --verbose
 

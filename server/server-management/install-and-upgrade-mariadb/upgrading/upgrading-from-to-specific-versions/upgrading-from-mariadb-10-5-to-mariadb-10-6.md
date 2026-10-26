@@ -31,9 +31,11 @@ The suggested upgrade procedure is:
    3. On SLES, OpenSUSE, and other similar Linux distributions, see [Installing MariaDB Packages with ZYpp](../../installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp) for more information.
 5. Make any desired changes to configuration options in [option files](../../configuring-mariadb/configuring-mariadb-with-option-files.md), such as `my.cnf`. This includes removing any options that are no longer supported.
 6. [Start MariaDB](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
-7. Run [mariadb-upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md), to:
+7. Run [mariadb-upgrade](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) to:
    1. Ensure that the system tables in the [mysql](../../../../reference/system-tables/the-mysql-database-tables/) database are fully compatible with the new version.
-   2. Perform a very quick check of all tables and marks them as compatible with the new version of MariaDB.
+   2. Perform a very quick check of all tables and mark them as compatible with the new version of MariaDB.
+
+   `mariadb-upgrade` connects as `root` by default. If `root@localhost` uses [unix\_socket](../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication, the default on new installations, run `sudo mariadb-upgrade`. If the account has a password, run `mariadb-upgrade --user=root --password` and enter it at the prompt. See [Connecting to the Server](../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md#connecting-to-the-server).
 
 ### Incompatible Changes Between 10.5 and 10.6
 
