@@ -29,11 +29,10 @@ Both strategies read digital documents only. AI Retrieval cannot parse scanned d
 
 Which strategy to choose:
 
-* Keep **Layout-aware** when a document has tables, a heading structure, or a page layout that carries meaning. It is the strategy that the **Structure-aware** chunking strategy builds on.
+* Keep **Layout-aware** when a document has tables, a heading structure, or a page layout that carries meaning. Use it with the **Structure-aware** chunking strategy, which relies on the document structure that Layout-aware parsing extracts.
 * Choose **Base** for files that are plain text already. It does not add anything for a text or Markdown file.
 
-<!-- TODO: confirm that Layout-aware parsing is billed at a different rate than Base and say so on the billing page. The metering code separates the two. -->
-<!-- TODO: ask Vijay whether Structure-aware chunking works with Base parsing or falls back to the Recursive strategy. The chunker falls back to Recursive on an error (hierarchical/chunker.py), but the combination is not tested in the code that I read. -->
+<!-- Billing: Layout-aware parsing consumes 48 MCUs per 1,000 pages and Base 6; see usage-and-billing.md. -->
 
 ## Choose a Chunking Strategy
 
@@ -50,6 +49,10 @@ Which strategy to choose:
 Which strategy to choose:
 
 * Start with **Structure-aware**. It needs no tuning, and tables and code stay in one piece.
+
+{% hint style="info" %}
+Use **Structure-aware** chunking with **Layout-aware** parsing. With **Base** parsing, Structure-aware chunking has no document structure to follow and falls back to the **Recursive** strategy.
+{% endhint %}
 * Choose **Recursive** for prose that is organized in paragraphs, such as articles and manuals, when you want a size limit that you control.
 * Choose **Sentence-based** when a chunk should never end in the middle of a sentence.
 * Choose **Fixed-sized** when you need chunks of a predictable size.
@@ -70,13 +73,13 @@ Guidance:
 
 * A small chunk matches a question more precisely but carries less context. A large chunk carries more context but can mix several topics, which makes it match less precisely.
 * The overlap repeats the end of one chunk at the start of the next. A larger overlap keeps a sentence that falls on a boundary readable in both chunks, but it creates more chunks to store and to embed.
-* When the reranker is on, it reads only the first 512 tokens of each chunk. The portal warns you about larger chunk sizes.
+* Chunk size has no upper limit other than the limit of the embedding model.
+* When the reranker is on, it reads only the first 512 tokens of each chunk and ignores the rest, so a larger chunk is ranked on its beginning only. Keep the chunk size at 512 tokens or below when you use the reranker. The portal warns you about larger chunk sizes.
 
 <!-- Source: skysql-ui-client ChunkingFields.vue and src/utils/chunking.ts @ 5356829b; ai-retrieval-cloud chunk_rules.py @ 5393bced; chunking/registry.py and parsers/registry.py @ a66a013d. -->
 
-<!-- TODO: Egor does not know whether chunk size has an upper limit other than the embedding model limit. Ask Vijay. Do not block on it. -->
 
-<!-- TODO: the "Which strategy to choose" lists are guidance derived from the option descriptions and the code. Ask Vijay to review them. -->
+<!-- Vijay reviewed the strategy guidance, the chunk size limits, and the Structure-aware fallback on 2026-10-22 (DOCS-6592 comment 1144074). -->
 
 <!-- TODO: confirm that changing the strategies applies only to documents that you ingest afterwards, and say so. -->
 

@@ -762,6 +762,41 @@ The specific OpenID configuration required depends on the OpenID provider.
 
 OpenID Authentication is only used by Control Center to work with the cluster. A different authentication method must also be configured for managing authentication on the GridGain cluster.
 
+The authenticator reads the user's role from a claim of the access token and maps that role to a set of permissions. It collects the claims in two ways, which you can use separately or together:
+
+* By sending a UserInfo request to the identity provider. The access token is sent as a bearer token in the `Authorization` header, and the provider returns the claims about the user.
+* By validating the access token locally as a signed JWT. The signing keys are downloaded from the JWK set endpoint of the provider and cached, so the cluster does not call the provider on every authentication.
+
+Validate the token locally when your identity provider cannot add a custom role claim to the UserInfo response.
+For example, Microsoft Entra ID exposes Microsoft Graph as its only UserInfo endpoint and does not let you customize the response,
+so a custom claim reaches the access token but never the UserInfo response.
+
+If you configure both sources, the token is validated against the JWK set first, and then the claims from the UserInfo response are applied on top of the token claims.
+
+If the role claim holds a list of roles, the first role that has a permission mapping is used.
+To give a user a different role in a specific cluster, add a `<claim-name>-<cluster-id>` claim, for example `gg-role-b70bad57-6a6e-4e4e-9d10-1d1f2f4c04a9`.
+It takes precedence over the `<claim-name>` claim.
+
+Set the same endpoints, claim name, and permission mapping on every server node. Otherwise, the nodes do not start.
+
+### OpenIdAuthenticator Properties
+
+`OpenIdAuthenticator` supports the following properties:
+
+| Property | Description | Default |
+|---|---|---|
+|`userInfoUrl`|The UserInfo endpoint that returns the verified identity claims for the Control Center user's request. Set at least one of `userInfoUrl`, `jwkSetUrl`, or `wellKnownUrl`.|`N/A`|
+|`jwkSetUrl`|The JWK set endpoint that publishes the keys used to validate the Control Center user's request. Set at least one of `userInfoUrl`, `jwkSetUrl`, or `wellKnownUrl`.|`N/A`|
+|`wellKnownUrl`|The URL of the OpenID Connect provider metadata to take the JWK set endpoint and the expected token issuer. Set at least one of `userInfoUrl`, `jwkSetUrl`, or `wellKnownUrl`.|`N/A`|
+|`issuer`|The expected token issuer. A token with a different `iss` claim is rejected. Set it only together with `jwkSetUrl`.|`N/A`|
+|`audience`|The expected token audience. A token that is not issued for this audience is rejected. Applies to local validation only.|`N/A`|
+|`jwsAlgorithms`|The accepted token signature algorithms. A token signed with any other algorithm is rejected. Applies to local validation only.|`RS256`|
+|`jwkSetTimeout`|The connect and read timeout of the JWK set and provider metadata requests, in milliseconds. `0` means no timeout.|`5000`|
+|`claimName`|The name of the claim that holds the role.|`gg-role`|
+|`permissionsJson`|The mapping of a role name to permissions, in JSON form. This property is mandatory. Refer to the [Authorization and Permissions](authorization-permissions.md) for the full list of supported permissions.|`N/A`|
+
+### Getting the Role from the UserInfo Endpoint
+
 The example below sets up the cluster for working with [PingOne](https://admin.pingone.com/) OpenID Connect provider with `gg-role` set to `claimName`:
 
 {% tabs %}
@@ -858,6 +893,69 @@ Not supported.
 Not supported.
 {% endtab %}
 {% endtabs %}
+
+### Validating Control Center user's requests by claim in access token
+
+In the example below, the cluster validates the access token as a signed JWT instead of sending a UserInfo request.
+The JWK set endpoint and the expected issuer come from the provider metadata, and a token is accepted only if it is issued for the `gridgain-cluster` audience.
+Use this authenticator in place of the `OpenIdAuthenticator` bean of the previous example:
+
+{% tabs %}
+{% tab title="XML" %}
+```xml
+<bean class="org.gridgain.grid.security.oidc.OpenIdAuthenticator">
+    <!-- The JWK set endpoint and the expected issuer are taken from the provider metadata. -->
+    <property name="wellKnownUrl" value="[issuer.url]/.well-known/openid-configuration"/>
+    <property name="audience" value="gridgain-cluster"/>
+    <!-- Set claim name explicitly. If not specified, claim name is set to gg-role. -->
+    <property name="claimName" value="gg-role"/>
+    <property name="permissionsJson">
+        <map>
+            <entry key="admin" value="{defaultAllow:true}"/>
+            <entry key="read" value="{defaultAllow:false,{cache:'*',permissions:[CACHE_READ]}}"/>
+        </map>
+    </property>
+</bean>
+```
+{% endtab %}
+
+{% tab title="Java" %}
+```java
+OpenIdAuthenticator openIdAuth = new OpenIdAuthenticator();
+
+// The JWK set endpoint and the expected issuer are taken from the provider metadata.
+openIdAuth.setWellKnownUrl("https://auth.example.com/.well-known/openid-configuration");
+openIdAuth.setAudience("gridgain-cluster");
+openIdAuth.setPermissionsJson(F.asMap("admin", "{defaultAllow:true}"));
+```
+{% endtab %}
+
+{% tab title=".NET/C#" %}
+Not supported.
+{% endtab %}
+
+{% tab title="C++" %}
+Not supported.
+{% endtab %}
+{% endtabs %}
+
+To point the cluster at the JWK set endpoint directly, set `jwkSetUrl` instead of `wellKnownUrl`. In that case the `iss` claim of the token is not verified:
+
+```xml
+<property name="jwkSetUrl" value="[issuer.url]/jwks"/>
+```
+
+The signing keys are loaded on demand and cached, and they are kept for a while if the JWK set endpoint becomes unavailable, so a short outage of the identity provider does not block authentication.
+
+Local validation checks the token signature, the expiration time, the audience when it is set, and the issuer. The token must also carry the `sub` and `exp` claims.
+
+{% hint style="info" %}
+Because the cluster does not call the identity provider on every authentication, a revoked token or a withdrawn role takes effect only after the token expires.
+{% endhint %}
+
+{% hint style="warning" %}
+While `jwkSetUrl` or `wellKnownUrl` is set, server nodes that run a version without access token validation cannot join the cluster. Configure the authenticator the same way on all server nodes in the cluster after the upgrade.
+{% endhint %}
 
 ## LDAP and AD Authentication
 
