@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="Semantic search: your application turns the search phrase into a vector with an embedding model, then sends one SQL query to MariaDB Server. The query walks the vector index on the product_embeddings table, joins the products table for names, and returns the two nearest products with their distances.">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="Semantic search: your application calls an embedding model, from a provider or running locally, to turn the search phrase into a vector, then sends one SQL query to MariaDB Server. The query walks the vector index on the product_embeddings table, joins the products table for names, and returns the two nearest products with their distances.">
 <defs>
   <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
   <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
@@ -24,7 +24,7 @@
 <line class="ln" x1="135" y1="94" x2="135" y2="124" marker-end="url(#a)"/>
 <rect class="box" x="20" y="126" width="230" height="58" rx="6"/>
 <text class="t" x="135" y="150" text-anchor="middle">Embedding model</text>
-<text class="sm mut" x="135" y="170" text-anchor="middle">in your app or AI framework</text>
+<text class="sm mut" x="135" y="170" text-anchor="middle">from a provider or running locally</text>
 <rect class="accbox" x="20" y="222" width="230" height="62" rx="6"/>
 <text class="t acct" x="135" y="244" text-anchor="middle">Nearest products</text>
 <text class="mono sm" x="40" y="264">Desk lamp</text><text class="mono sm" x="230" y="264" text-anchor="end">0.007</text>

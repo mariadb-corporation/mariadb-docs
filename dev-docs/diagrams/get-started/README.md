@@ -1,0 +1,3 @@
+# Get Started diagrams
+
+Edit the diagram in `build.py` (AI, Analytics, Operations, Platform) or `proposals.py` (Get Started orientation, AI Tools agent setup), then run `python3 -I build.py` and `python3 -I proposals.py`. Each script writes a light and a dark SVG into `ia-prototype-nav/get-started/.gitbook/assets/` or `ia-prototype-nav/ai-tools/.gitbook/assets/`, so update the page's alt text and caption to match.

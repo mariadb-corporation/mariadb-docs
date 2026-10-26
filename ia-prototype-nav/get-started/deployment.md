@@ -11,7 +11,16 @@ The shop works on your laptop. The `shop.products` table answers the Python quer
 
 Before you pick a machine, decide how much of that work you want. Every option runs the same MariaDB Server underneath, so the `products` table, your SQL, and your Python code move with you if you change your mind later. What changes is who handles the layers below your schema.
 
-<figure><picture><source srcset=".gitbook/assets/deployment-who-runs-what-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/deployment-who-runs-what-light.svg" alt="Who runs what. With MariaDB Server, you handle everything from your schema to the hardware. With MariaDB Enterprise Platform, you still run the database, with MariaDB support behind settings, upgrades, backups, and failover. With MariaDB Cloud, the service handles upgrades, backups, failover, and hardware, you and the service share settings, and your schema and application stay yours."></picture><figcaption><p>The top row never changes hands, so the choice is only about the operations work under your schema.</p></figcaption></figure>
+| Who runs what | MariaDB Server | MariaDB Platform | MariaDB Cloud |
+| --- | --- | --- | --- |
+| Your schema, SQL, and app | You | You | You |
+| Server settings and tuning | You | You, with support | You and the service |
+| Upgrades and patches | You | You, with support | The service, in a weekly maintenance window |
+| Backups | You | You, with support | The service |
+| Failover | You | You, with support | The service, with replicas |
+| Hardware and OS | You | You | The service |
+
+The top row never changes hands, so the choice is only about the operations work under your schema.
 
 A team that already runs Linux servers often starts with MariaDB Community Server and owns every row of the left column. MariaDB Enterprise Platform keeps the same work in your hands, with MariaDB support to call when an upgrade or a failover goes wrong. And when nobody on the team wants the pager, MariaDB Cloud takes backups and hardware off your plate, applies upgrades in a weekly maintenance window, and fails over for you when the service runs with replicas.
 
