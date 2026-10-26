@@ -20,7 +20,7 @@ together in order to provide shared resources like RAM and CPU to your applicati
 
 ## Prerequisites
 
-When launching a GridGain.NET node, [.NET SDK 8 or later](https://dotnet.microsoft.com/download/dotnet) and [Java 8 or later](http://www.oracle.com/technetwork/java/javase/downloads/index.html) are required.
+When launching a GridGain.NET node, [.NET SDK 8 or later](https://dotnet.microsoft.com/download/dotnet) and [Java 17 or later](http://www.oracle.com/technetwork/java/javase/downloads/index.html) are required.
 
 {% hint style="info" %}
 .NET 8 is only required to run a GridGain.NET node using the provided binary (`Apache.Ignite.Executable` on macOS and Linux, `Apache.Ignite.exe` on Windows). When using Ignite as a library in your own code, the minimum requirement is `netstandard2.0`, which is implemented by .NET Core 2.0+ and .NET Framework 4.6.1+

@@ -46,6 +46,77 @@ In .NET, implement the [`IService`](https://www.gridgain.com/sdk/gridgain8/lates
 which declares the same three methods as `Init()`, `Execute()`, and `Cancel()`.
 Each method receives an `IServiceContext` object that exposes the service name, the execution ID, and the cancellation flag.
 
+### Injecting the Service Context
+
+In Java, a service gets its `ServiceContext` through the `@ServiceContextResource` annotation (`org.apache.ignite.resources.ServiceContextResource`).
+Put the annotation on a `ServiceContext` field or on a setter method of the service implementation.
+GridGain injects the context before it calls the `init()` method.
+
+The service context exposes the service name, the execution ID, the cancellation flag, and the context of the current service call:
+
+{% tabs %}
+{% tab title="Java" %}
+```java
+public class MyServiceImpl implements MyService {
+    @ServiceContextResource
+    private ServiceContext ctx;
+
+    @Override public void execute() {
+        // Loop until the service is cancelled.
+        while (!ctx.isCancelled()) {
+            // Do something.
+        }
+    }
+
+    @Override public String hello(String msg) {
+        // Read an attribute that the caller passed in the service call context.
+        String user = ctx.currentCallContext() == null ? null : ctx.currentCallContext().attribute("user");
+
+        return msg + " " + user;
+    }
+}
+```
+{% endtab %}
+
+{% tab title="C#/.NET" %}
+unsupported
+{% endtab %}
+
+{% tab title="C++" %}
+unsupported
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+The `init(ServiceContext)`, `execute(ServiceContext)`, and `cancel(ServiceContext)` methods are deprecated. Implement `init()`, `execute()`, and `cancel()` and inject the context with `@ServiceContextResource` instead.
+{% endhint %}
+
+#### Service Call Context
+
+{% hint style="warning" %}
+This API is experimental and may change in future releases.
+{% endhint %}
+
+A caller can pass a set of attributes to a service method in a *service call context*.
+Build the context with `ServiceCallContext.builder()`, and pass it when you get the service proxy.
+The `put()` method of the builder accepts a `String` or a `byte[]` value.
+
+```java
+ServiceCallContext callCtx = ServiceCallContext.builder()
+    .put("user", "John")
+    .build();
+
+MyService svc = ignite.services().serviceProxy("myService", MyService.class, false, callCtx);
+
+svc.hello("Hello");
+```
+
+Inside the service, `ServiceContext.currentCallContext()` returns the call context of the method call that the current thread executes.
+Read the attributes with the `attribute(name)` and `binaryAttribute(name)` methods.
+If the caller did not pass a call context, `currentCallContext()` returns `null`.
+
+The Java thin client can also pass a call context to a service. See [Executing Ignite Services](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/java-thin-client#executing-ignite-services).
+
 ## Deploying Services
 
 You can deploy your service either programmatically at runtime, or by providing a service configuration as part of the node configuration.

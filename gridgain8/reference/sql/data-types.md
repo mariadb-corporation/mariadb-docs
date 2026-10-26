@@ -174,11 +174,11 @@ Mapped to:
 
 ## GEOMETRY
 
-Possible values: A spatial geometry type, based on the `com.vividsolutions.jts` library. Normally represented in a textual format using the WKT (well-known text) format.
+Possible values: A spatial geometry type, based on the `org.locationtech.jts` library (JTS Topology Suite). Normally represented in a textual format using the WKT (well-known text) format.
 
 Mapped to:
 
-- Java/JDBC: Types from the `com.vividsolutions.jts` package.
+- Java/JDBC: Types from the `org.locationtech.jts.geom` package.
 - .NET/C#: N/A
 - C/C++: N/A
 - ODBC: N/A

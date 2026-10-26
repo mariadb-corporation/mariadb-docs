@@ -3031,7 +3031,7 @@ cdc sink create --name=<name> --type=<type> [--parameters=<String=Object>] [--ex
 | `‑‑name` | Option | Yes | Name of the CDC sink. |
 | `‑‑type` | Option | Yes | Type of the CDC sink. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the sink. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental sink types, such as `gridgain_9`. Required to create or update a sink that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental sink types. Required to create or update a sink that uses an experimental type. No sink type currently requires it. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -3067,7 +3067,7 @@ cdc sink update --name=<name> --type=<type> [--parameters=<String=Object>] [--ex
 | `‑‑name` | Option | Yes | Name of the CDC sink. |
 | `‑‑type` | Option | Yes | Type of the CDC sink. |
 | `‑‑parameters` | Option | No | Comma-separated key-value pairs of parameters for the sink. For example: 'param1=value1, param2=value2'. If not set, then default parameters will be used. |
-| `‑‑experimental` | Flag | No | Enables experimental sink types, such as `gridgain_9`. Required to create or update a sink that uses an experimental type. |
+| `‑‑experimental` | Flag | No | Enables experimental sink types. Required to create or update a sink that uses an experimental type. No sink type currently requires it. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -3171,7 +3171,7 @@ cdc replication create --name=<name> --sink=<sinkName> --source=<sourceName> [--
 | `‑‑sink` | Option | Yes | Name of the CDC sink to use for replication. If not set, then the first sink will be used. |
 | `‑‑source` | Option | Yes | Name of the CDC source to use for replication. If not set, then the first source will be used. |
 | `‑‑mode` | Option | No | Replication mode. Possible values: 'ALL', 'NEW_DATA'. If not set, then 'ALL' mode will be used. |
-| `‑‑execution‑nodes` | Option | No | Names of nodes (comma-separated list) that will host the CDC replication. If not set, then a random node will be used. |
+| `‑‑execution‑nodes` | Option | No | Names of nodes (comma-separated list) allowed to host the CDC replication. If not set, the replication can run on any node and fails over to any live node. |
 | `‑‑url` | Option | No | URL of cluster endpoint. |
 | `‑‑profile` | Option | No | Local CLI profile name. |
 | `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
@@ -3185,6 +3185,41 @@ cdc replication create --name=myreplication --sink=mysink --source=mysource --mo
 {% code title="Output" %}
 ```
 Replication myreplication created.
+```
+{% endcode %}
+
+---
+
+### cdc replication update
+
+Changes the nodes allowed to run a CDC replication. A running replication keeps running where it is; the new list applies at the next start or failover.
+
+**Syntax**
+
+```
+cdc replication update --name=<name> (--execution-nodes=<executionNodes> | --any-node) [--url=<clusterUrl>] [--profile=<profileName>] [--verbose]
+```
+
+**Parameters**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `‑‑name` | Option | Yes | Name of the CDC replication. |
+| `‑‑execution‑nodes` | Option | One of | Names of nodes (comma-separated list) allowed to host the CDC replication. |
+| `‑‑any‑node` | Flag | One of | Allow the replication to run on any node of the cluster. |
+| `‑‑url` | Option | No | URL of cluster endpoint. |
+| `‑‑profile` | Option | No | Local CLI profile name. |
+| `‑‑verbose` | Flag | No | Show additional information: logs, REST calls. |
+
+**Example**
+
+```bash
+cdc replication update --name=myreplication --execution-nodes=node2,node3
+```
+
+{% code title="Output" %}
+```
+Replication myreplication updated.
 ```
 {% endcode %}
 

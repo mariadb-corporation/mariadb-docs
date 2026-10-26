@@ -9,7 +9,7 @@ hidden: true
 
 <!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Open items are marked TODO. -->
 
-<!-- TODO: screenshots were recaptured on 2026-10-20 in the test environment. Recapture ai-retrieval-upload-processing.png and ai-retrieval-chunk-size-fields.png once the environment shows "Base" instead of "Basic" (MCDEV-1484, comment 1143338). -->
+<!-- TODO: screenshots were recaptured on 2026-10-20 in the test environment. Recapture ai-retrieval-upload-processing.png (used here and in parsing-and-chunking.md) and ai-retrieval-chunk-size-fields.png (parsing-and-chunking.md) once the environment shows "Base" instead of "Basic" (MCDEV-1484, comment 1143338). -->
 
 # Document Knowledge Bases
 
@@ -58,7 +58,7 @@ You can add documents in two ways. Upload files from your computer, or connect a
 1. Open the knowledge base and select **Upload Documents**.
 2. Drag files into the dialog, or select **Browse Files**. You can add up to 5 files of these types: PDF, DOCX, PPTX, MD, TXT, HTML, and JSON. Each file can be up to 50 MB.
 3. Select **Next**.
-4. Choose a **Parsing Strategy** and a **Chunking Strategy**. See [Parsing and Chunking Strategies](document-knowledge-bases.md#parsing-and-chunking-strategies).
+4. Choose a **Parsing Strategy** and a **Chunking Strategy**. See [Parsing and Chunking](parsing-and-chunking.md).
 5. Select **Upload**.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-upload-files.png" alt="The Upload Files dialog on the Files step, listing three selected files."><figcaption><p>The Files step of the Upload Files dialog</p></figcaption></figure>
@@ -77,6 +77,14 @@ The files appear in the **Documents** table. The **Status** column shows the sta
 <!-- TODO: confirm the portal labels of the stages after Download, and the label of a document that fails. The ingestion service defines the stages queued, download, parse, chunk, cleanse, enrich_metadata, embed, and store. -->
 
 The status can lag behind the actual state of a document. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
+
+### Monitor Ingestion
+
+The **Documents** table shows the status of each document, and the **Chunks** column shows how many chunks it produced. For a data source, select **View Sync History** to see each sync.
+
+To monitor ingestion from an application, register a webhook with the ingestion API. AI Retrieval then notifies your endpoint when a document is ingested and when an ingestion job completes or fails.
+
+<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. TODO: link the webhook section of the API reference (Swagger) once it is published, and confirm that webhooks are public in the preview, because Egor said the ingestion job endpoints will be hidden. -->
 
 ### Connect a Storage Bucket
 
@@ -113,28 +121,7 @@ AI Retrieval does not ingest the documents of a data source automatically. Remov
 
 ## Parsing and Chunking Strategies
 
-A parsing strategy controls how AI Retrieval reads a file. A chunking strategy controls how it splits the text for indexing. The strategy that you choose affects how well retrieval finds the right passage.
-
-| Parsing Strategy | Description |
-| --- | --- |
-| Layout-aware (default) | Extracts layout and text from complex digital documents where the meaning depends on structure. Use it for PDF, DOCX, PPTX, and static HTML. |
-| Base | Extracts plain text only. Use it for TXT, Markdown, JSON, and digital DOCX or PDF files that contain linear prose. |
-
-| Chunking Strategy | Description |
-| --- | --- |
-| Structure-aware (default) | Keeps tables, code blocks, and formulas as their own chunks and preserves the section context of each chunk. |
-| Fixed-sized | Splits text into chunks of the token size that you set. |
-| Sentence-based | Splits text at sentence boundaries and keeps each sentence whole within a chunk. |
-| Recursive | Splits along paragraphs first, then sentences, then words, and keeps larger units intact until the size limit is reached. |
-| Semantic | Groups sentences into chunks by meaning, so that related content stays together. |
-
-Every strategy except Structure-aware shows a **Chunk size (tokens)** field. Fixed-sized and Sentence-based also show a **Chunk overlap (tokens)** field. The default chunk size is 350 tokens and the default overlap is 100 tokens. A chunk size must be at least 128 tokens, and an overlap must be smaller than the chunk size. Cohere embedding models accept chunk sizes up to 350 tokens. When the reranker is on, it reads only the first 512 tokens of each chunk, so the portal warns about larger chunk sizes.
-
-<figure><img src="../../.gitbook/assets/ai-retrieval-chunk-size-fields.png" alt="The Processing step of the Upload Files dialog with the Fixed-sized chunking strategy selected, showing the Chunk size (tokens) field with a default of 350 and the Chunk overlap (tokens) field with a default of 100."><figcaption><p>The chunk size and overlap fields</p></figcaption></figure>
-
-<!-- Source: skysql-ui-client ChunkingFields.vue and src/utils/chunking.ts @ 5356829b; ai-retrieval-cloud chunk_rules.py @ 5393bced. -->
-
-<figure><img src="../../.gitbook/assets/ai-retrieval-chunking-strategies.png" alt="The chunking strategy list showing the Structure-aware, Fixed-sized, Sentence-based, Recursive, and Semantic options."><figcaption><p>The chunking strategies</p></figcaption></figure>
+A parsing strategy controls how AI Retrieval reads a file. A chunking strategy controls how it splits the text for indexing. The defaults are **Layout-aware** parsing and **Structure-aware** chunking. For the options, the chunk size and overlap fields, and guidance on choosing, see [Parsing and Chunking](parsing-and-chunking.md).
 
 ## Test a Knowledge Base
 

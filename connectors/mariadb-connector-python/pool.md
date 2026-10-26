@@ -70,4 +70,6 @@ Returns the size of the connection pool.
 
 Returns the name of the connection pool.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

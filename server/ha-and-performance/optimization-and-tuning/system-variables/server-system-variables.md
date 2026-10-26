@@ -551,6 +551,16 @@ The suffix can be upper or lower-case.
 * Default Value: `4`
 * Range: `0` to `30`
 
+#### `drop_before_create_or_replace`
+
+* Description: If set, [CREATE OR REPLACE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace) drops the existing table before creating the new one. If not set, the existing table is temporarily renamed and renamed back if the create fails.
+* Command line: `--drop-before-create-or-replace[={0|1}]`
+* Scope: Session
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+* Introduced: MariaDB 13.2
+
 #### `encrypt_tmp_disk_tables`
 
 * Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/README.md) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
@@ -1588,10 +1598,10 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
   Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
-* Dynamic: Yes, (except when globally set to `0` or `-1`)
+* Dynamic: Yes, unless the server was started with `max_user_connections=0`. Then `SET GLOBAL` fails with error 1290.
 * Data Type: `numeric`
 * Default Value: `0`
-* Range: `-1` to `4294967295`
+* Range: `-1` to `2147483647`
 
 #### `max_write_lock_count`
 

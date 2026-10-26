@@ -54,6 +54,24 @@ mcp_servers:
     args: []
 ```
 
+## Register the Language Server
+
+A Hermes plugin can't register a language server. To use the MariaDB SQL language server for `.sql` files, add it to the Hermes `config.yaml` file. The language server requires MariaDB Shell 26.10.3 or later. See [SQL Language Server](../features/sql-language-server.md). The following example is for the `dev` plugin:
+
+```yaml
+lsp:
+  warmup_timeout: 240
+  servers:
+    mariadb:
+      command: ["~/.hermes/plugins/mariadb-dev/scripts/mariadb-lsp-launcher.sh"]
+      extensions: [".sql"]
+      language_id: "sql"
+```
+
+On native Windows, the `command` is the `mariadb-lsp-launcher.cmd` script of the installed plugin.
+
+The `warmup_timeout` setting gives the language server time to start the first time, when it waits for the MCP server's launcher to install MariaDB Shell. Without it, Hermes waits five seconds and then skips the language server for the rest of the session. Hermes runs language servers only in git repositories, and custom ones only in trusted workspaces: the worktree that you start Hermes in, and the directories listed under `lsp.trusted_workspaces`.
+
 ## Verify the Installation
 
 To check that the plugin is installed and enabled, run:

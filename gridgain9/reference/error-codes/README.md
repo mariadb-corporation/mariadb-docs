@@ -358,7 +358,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-SECONDARY_STORAGE-1` | Failure during sending message to the secondary storage. | Check network connectivity between primary and secondary storage nodes. Verify that the secondary storage nodes are accessible and running. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-2` | Failure while trying to start secondary storage replication manager. | Check secondary zone configuration. Ensure that nodes of the secondary zones are available in the cluster. Check logs for resource allocation issues. |
-| `IGN-SECONDARY_STORAGE-3` | Failed to initialize secondary storage bridge. | Check network connectivity. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-4` | Failed to get secondary storage. | Retry the operation after verifying storage availability. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-5` | Failed to write data into secondary storage. | Check available disk space. Verify write permissions for the storage location. Check network connectivity. Retry the write operation. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-6` | Failed to read data from secondary storage. | Check read permissions for the storage location. Verify network connectivity. Check data integrity. Ensure secondary storage is operational. |

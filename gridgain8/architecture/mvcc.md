@@ -7,7 +7,8 @@ description: >-
 # Multiversion Concurrency Control
 
 {% hint style="warning" %}
-MVCC support is in beta and is not recommended for production use.
+The `TRANSACTIONAL_SNAPSHOT` atomicity mode, which enables MVCC, is deprecated.
+It remains in beta and is not recommended for production use.
 {% endhint %}
 
 ## Overview

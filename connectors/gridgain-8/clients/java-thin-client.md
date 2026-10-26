@@ -141,7 +141,7 @@ You can configure two independent timeouts:
 - **Handshake timeout** — the maximum time to establish a connection to a server node, including protocol negotiation. Set it with `ClientConfiguration.setHandshakeTimeout(int)`.
 - **Request timeout** — the maximum time to wait for a response to an individual operation on an established connection. Set it with `ClientConfiguration.setRequestTimeout(int)`.
 
-Both values are in milliseconds, and `0` (the default) means no timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
+Both values are in milliseconds. By default, the handshake timeout is `10000` (10 seconds) and the request timeout is `60000` (60 seconds). A value of `0` is interpreted as an infinite timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration()
@@ -189,6 +189,8 @@ The partition awareness functionality helps avoid an additional network hop in t
 - Bulk key operations, like getAll(), which group the requested keys by their primary node and send each group directly to the owning node in a single request.
 
 - ScanQuery and IndexQuery accept a partition number as a parameter with which the query is routed to a server node that stores the requested data. Refer to [Executing Scan Queries](#executing-scan-queries) and [Executing Index Queries](https://ignite.apache.org/docs/latest/key-value-api/using-cache-queries#executing-index-queries) sections for more information.
+
+- Service invocation. Starting with GridGain 8.10, the client routes service calls to a node that runs an instance of the service. See [Service Awareness](#service-awareness).
 
 The following code sample illustrates how to use the partition awareness feature with the java thin client.
 
@@ -700,6 +702,55 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 ```
 
 The deployed service can be implemented using Java or .NET.
+
+### Service Awareness
+
+Starting with GridGain 8.10, when [partition awareness](#partition-awareness) is enabled, the client sends each service call directly to a node that runs an instance of the service.
+If several nodes run the service, the client picks one of them at random for each call.
+Without service awareness, the client sends the call to the node it is connected to, and that node forwards the call to a node that runs the service.
+
+The client requests the list of nodes that run each service the first time you call it, and caches the list.
+When you call the service again, the client refreshes the list in the background if the cluster topology has changed or the list is older than 10 seconds.
+Until the client receives the list, it sends the call the standard way.
+If the client has no connection to the chosen node, it sends the call the standard way too.
+If the connection to the chosen node fails, the client applies the retry policy from `ClientConfiguration` and, when the policy allows a retry, sends the call the standard way.
+If a request for the list fails, the client logs an error and keeps using the last known list.
+
+Partition awareness is disabled by default.
+To use service awareness, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. No other configuration is required.
+The server nodes must support the feature. If they do not, the client sends service calls the standard way.
+
+### Passing a Service Call Context
+
+{% hint style="warning" %}
+This API is experimental and may change in future releases.
+{% endhint %}
+
+You can pass a [service call context](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/services/services#service-call-context) with every call to a service method.
+The service reads the context attributes through its injected `ServiceContext`.
+To pass a call context, get the service proxy with one of the following `ClientServices` methods:
+
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx)`
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx, long timeout)`
+
+Create the call context with `ServiceCallContext.builder()`.
+Custom implementations of the `ServiceCallContext` interface are not supported.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ServiceCallContext callCtx = ServiceCallContext.builder()
+        .put("user", "John")
+        .build();
+
+    MyService svc = client.services().serviceProxy("MyService", MyService.class, callCtx);
+
+    // Every call made through this proxy passes the call context to the service.
+    svc.myServiceMethod();
+}
+```
+
+The server nodes must support passing the service call context from thin clients.
+Otherwise, the service call fails with `ClientFeatureNotSupportedByServerException`.
 
 ## Handling Exceptions
 
