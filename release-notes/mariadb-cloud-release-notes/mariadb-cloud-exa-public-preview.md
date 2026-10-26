@@ -9,8 +9,8 @@ hidden: true
 
 <!-- DRAFT for DOCS-6500 (epic MCDEV-3354, fixVersion MariaDB Cloud Oct. 2026). HIDDEN until release is confirmed.
 Reveal checklist: set date -> rename to mariadb-cloud-YYYY.MM.DD.md -> update SUMMARY + README content-ref -> drop hidden: true -> expand {alias} links (direct-main commit).
-Open items before reveal: (1) release date: Oct 30 if UAT passes and no more delays (Allen, 2026-10-20), not confirmed; (2) access model: request-only or open to all, to be decided after a week of UAT fixes;
-(3) 50 MB transaction limit is a new setting stated in Slack only (not yet in source); recheck at release; (4) drop limitations fixed before release (MCDEV-5338/5403/5412/5387). Monitoring tab confirmed in the release (Allen, 2026-10-20). Evidence: research/DOCS-6500.md -->
+Open items before reveal: (1) release date: Allen (Jira comment, 2026-10-26) says "this wednesday to friday", so Oct 28-30; set the exact day when confirmed; (2) access model: Allen (2026-10-26) says request-only, "private preview now", so the request wording stays; stage label "Public Preview" (epic MCDEV-3354 name) vs "private preview" is still to be settled, MCDEV-5430 moves the offering to public preview;
+(3) 50 MB transaction limit is a new setting stated in Slack only (not yet in source); recheck at release; (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (5387 and 5412 added); Jira shows MCDEV-5412 as Ready for Production, ask Allen/Kalin whether it ships. MCDEV-5403 (CDC loses rows on Exasol restart) is not listed yet, not covered by Allen's answer. Monitoring tab confirmed in the release (Allen, 2026-10-20). Evidence: research/DOCS-6500.md -->
 
 # MariaDB Cloud YYYY.MM.DD Release Notes: MariaDB Exa
 
@@ -53,6 +53,8 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * The Exa port (3311) is not read-only. It accepts write statements, but they are not supported and can break replication. Do not send writes to port 3311.
 * The `pymysql` client cannot run queries on port 3311. Use the MariaDB Connector/Python or another MariaDB connector.
 * A single transaction larger than about 50 MB can exhaust the memory of the CDC pod and stop replication to Exa until it is recovered.
+* On port 3311, `DATETIME` (without fractional seconds) and `TIMESTAMP` values come back padded with NUL bytes. `DATETIME(6)` and `DATE` values are not affected, and neither are queries on port 3306. To get clean text, use `TO_CHAR()` or `CAST(<column> AS VARCHAR(40))`.
+* On Azure, when you create a service through the REST API, set the Exa storage `volume_type` explicitly, for example `StandardSSD_LRS`. If you omit it, the Exa disk takes the MariaDB disk type, which the Exa node can't use, and the Exasol pod fails to start. The Cloud Portal sets a supported type for you.
 * The portal does not show replication failures between MariaDB and Exa.
 * You cannot turn off Exa on its own on an existing service.
 
