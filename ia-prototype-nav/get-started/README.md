@@ -25,7 +25,7 @@ MariaDB gives your applications and agents one durable place for their data: a s
 
 <figure><picture><source srcset=".gitbook/assets/get-started-orientation-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/get-started-orientation-light.svg" alt="Orientation. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it."></picture><figcaption><p>Your code and your agent talk to the same server, wherever it runs.</p></figcaption></figure>
 
-Pick a tab to get a server running, either with your coding agent or by hand.
+Pick a tab to get a server running, either with your coding agent or by hand. The Get Started pages follow the Docker tab, and each other tab says what changes for you.
 
 {% tabs %}
 {% tab title="Agent prompt" %}
@@ -56,6 +56,8 @@ Set up MariaDB for this project.
 ```
 
 The first run downloads the `mariadb-shell` client and a MariaDB server binary, about 80 MB in total, and the sandbox runs natively, so you don't need Docker. The `--pre` flag installs the MariaDB Connector/Python 2.0 release candidate, which needs no C library, so it suits a sandbox. Step 3 below uses the GA release for application code. The sandbox doesn't include the `mariadb` command-line client, so install it from the Linux tab or your package manager. Using Codex, Pi, Hermes Agent, or OpenCode? The [MariaDB AI plugins README](https://github.com/mariadb/ai-plugins) has the install steps for each.
+
+The prompt creates the `shop` database with ten products of its own, so skip step 2 below, and use port `3310` and the password `sandbox` in step 3.
 {% endtab %}
 
 {% tab title="Docker" %}
@@ -64,10 +66,14 @@ docker run -d --name mariadb -p 3306:3306 \
   -e MARIADB_ROOT_PASSWORD=changeme \
   mariadb:lts
 
+until docker exec mariadb healthcheck.sh --connect >/dev/null 2>&1; do
+  sleep 2
+done
+
 docker exec -it mariadb mariadb -uroot -pchangeme
 ```
 
-This runs the [official MariaDB image](https://hub.docker.com/_/mariadb) from Docker Hub. For volumes, configuration, and the other environment variables, see [Installing and Using MariaDB via Docker]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker).
+This runs the [official MariaDB image](https://hub.docker.com/_/mariadb) from Docker Hub. On first start, the container spends a few seconds creating its data directory, so the `until` loop waits for the image's `healthcheck.sh` script to report that the server accepts connections. For volumes, configuration, and the other environment variables, see [Installing and Using MariaDB via Docker]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker).
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -83,6 +89,8 @@ sudo mariadb
 ```
 
 Your distribution's package might be a few releases behind. To get the current release, [add the MariaDB package repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) first.
+
+A package install gives `root` no password. The `root` account signs in through Unix socket authentication, so open the client with `sudo mariadb`, and run the step 3 script after the [Server](readme/community-server.md) page creates the `shop_app` account.
 {% endtab %}
 
 {% tab title="Cloud" %}
@@ -97,6 +105,8 @@ mariadb --host <host> --port <port> \
 ```
 
 The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall]({mariadb-cloud}/security/configuring-firewall) covers the allowlist.
+
+In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](readme/cloud.md) page shows the full script.
 {% endtab %}
 
 {% tab title="Kubernetes" %}
@@ -115,6 +125,8 @@ helm install mariadb-enterprise-operator \
 ```
 
 The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images from `docker.mariadb.com` with your Customer Download Token, which the `mariadb-enterprise` secret holds. The `values.yaml` file names that secret under `imagePullSecrets`. See [Install the operator with Helm]({tools}/enterprise/mariadb-enterprise-operator/installation/helm).
+
+The operator alone runs no database yet. Before step 2, create a `MariaDB` resource as the Kubernetes tab on the [Deployment](deployment.md) page shows.
 {% endtab %}
 {% endtabs %}
 
@@ -126,7 +138,7 @@ Three steps take you from a running server to rows coming back in Python.
 {% step %}
 ### Run MariaDB Server
 
-Use any tab above. Each one gives you MariaDB Server on a port you can reach. Deciding where to run it in production? [Deployment](deployment.md) walks through the options.
+Use the Docker tab above to follow along page by page, or another tab with the change it notes. Deciding where to run it in production? [Deployment](deployment.md) walks through the options.
 {% endstep %}
 
 {% step %}
@@ -135,7 +147,7 @@ Use any tab above. Each one gives you MariaDB Server on a port you can reach. De
 Open the `mariadb` client and run:
 
 ```sql
-CREATE DATABASE shop;
+CREATE DATABASE IF NOT EXISTS shop;
 
 CREATE TABLE shop.products (
   id    INT PRIMARY KEY AUTO_INCREMENT,

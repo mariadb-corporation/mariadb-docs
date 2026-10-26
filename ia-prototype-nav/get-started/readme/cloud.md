@@ -39,7 +39,7 @@ mariadb --host <host> --port <port> \
 At the prompt, create the same `shop` database and `products` table you made on your own server:
 
 ```sql
-CREATE DATABASE shop;
+CREATE DATABASE IF NOT EXISTS shop;
 
 CREATE TABLE shop.products (
   id    INT PRIMARY KEY AUTO_INCREMENT,

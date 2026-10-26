@@ -7,7 +7,7 @@ icon: robot
 
 # AI
 
-A customer opens the shop and types "something to light my desk" into the search box. The search runs the query that every shop starts with, a `LIKE` match on the product name:
+The shop sells the three products from the landing page: a desk lamp, a standing desk, and a notebook. A customer opens the shop and types "something to light my desk" into the search box. The search runs the query that every shop starts with, a `LIKE` match on the product name:
 
 ```sql
 SELECT name FROM shop.products WHERE name LIKE '%light%';
@@ -43,7 +43,7 @@ The indexed column must be `NOT NULL`, and a table can have only one vector inde
 {% step %}
 ### Insert the Vectors
 
-The `VEC_FromText` function turns a JSON array of numbers into a vector value. Every row needs the same number of dimensions as the column, which is four here so the numbers stay readable. A real embedding model produces hundreds or thousands, for example `VECTOR(768)`, and your application code writes them.
+The `VEC_FromText` function turns a JSON array of numbers into a vector value. Every row needs the same number of dimensions as the column, which is four here so the numbers stay readable. A real embedding model produces hundreds or thousands, for example `VECTOR(768)`, and your application code writes them. The ids 1 to 3 are the desk lamp, the standing desk, and the notebook from [step 2 on the landing page](README.md#create-some-data).
 
 ```sql
 INSERT INTO shop.product_embeddings (product_id, embedding) VALUES

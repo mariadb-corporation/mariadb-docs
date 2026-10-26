@@ -17,7 +17,7 @@ The order itself raises two more problems. The sale has to record the order and 
 {% step %}
 ### Use a Connection Pool
 
-A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
+A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. The examples connect as the `shop_app` account from the [Server](readme/community-server.md) page. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -29,8 +29,8 @@ pool = mariadb.ConnectionPool(
     pool_size=5,
     host="127.0.0.1",
     port=3306,
-    user="root",
-    password="changeme",
+    user="shop_app",
+    password="app-password",
     database="shop",
 )
 
@@ -49,8 +49,8 @@ const mariadb = require('mariadb');
 const pool = mariadb.createPool({
   host: '127.0.0.1',
   port: 3306,
-  user: 'root',
-  password: 'changeme',
+  user: 'shop_app',
+  password: 'app-password',
   database: 'shop',
   connectionLimit: 5
 });
@@ -74,7 +74,7 @@ main();
 {% tab title="Java" %}
 ```java
 try (MariaDbPoolDataSource pool = new MariaDbPoolDataSource(
-        "jdbc:mariadb://127.0.0.1:3306/shop?user=root&password=changeme&maxPoolSize=5")) {
+        "jdbc:mariadb://127.0.0.1:3306/shop?user=shop_app&password=app-password&maxPoolSize=5")) {
     try (Connection conn = pool.getConnection();
          Statement stmt = conn.createStatement();
          ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM products")) {
@@ -92,7 +92,7 @@ The [ConnectionPool reference]({connectors}/mariadb-connector-python/pool) lists
 {% step %}
 ### Write Inside a Transaction
 
-The shop needs somewhere to record sales and a number to count down. In the `mariadb` client, add a `stock` column to the `products` table, give the standing desk five units, and create an `orders` table:
+The shop needs somewhere to record sales and a number to count down. The `shop_app` account can only change rows, so open the `mariadb` client as `root`, as on the landing page, to add a `stock` column to the `products` table, give the standing desk five units, and create an `orders` table:
 
 ```sql
 ALTER TABLE shop.products ADD COLUMN stock INT NOT NULL DEFAULT 0;
@@ -156,7 +156,7 @@ The `orders` table generates the order number with `AUTO_INCREMENT`, so your cod
 {% endstep %}
 {% endstepper %}
 
-The customer sees order 1 on the confirmation page, the standing desk drops from five units to four, and the connection goes back to the pool for the next checkout.
+The customer sees the new order number on the confirmation page, the standing desk's stock drops by one with each order, and the connection goes back to the pool for the next checkout.
 
 {% hint style="info" %}
 MariaDB Connector/Python 2.0, now a release candidate, moves pooling into an optional package: `pip install --pre 'mariadb[pool]'`, then `mariadb.create_pool()`. The [1.1 to 2.0 migration guide]({connectors}/mariadb-connector-python/migration-from-1.1-to-2.0) maps each change.

@@ -30,13 +30,22 @@ So far the Python script connects as `root`, which can drop every database on th
 ```sql
 CREATE DATABASE IF NOT EXISTS shop;
 
-CREATE USER 'shop_app'@'localhost' IDENTIFIED BY 'app-password';
-GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shop_app'@'localhost';
+CREATE USER 'shop_app'@'%' IDENTIFIED BY 'app-password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shop_app'@'%';
 
-SHOW GRANTS FOR 'shop_app'@'localhost';
+SHOW GRANTS FOR 'shop_app'@'%';
 ```
 
-An account in MariaDB is a user name plus a host, so `'shop_app'@'localhost'` only gets in from the server machine itself. When the app runs on another host or outside a Docker container, put that host's name or address after the `@` instead. Point the Python script at the new account, and a bug in the app can no longer drop a table. The [GRANT]({server}/reference/sql-statements/account-management-sql-statements/grant) reference lists every privilege you can give.
+An account in MariaDB is a user name plus a host, and the `%` wildcard matches any host. The wildcard matters under Docker: the script's connection reaches the container through Docker's network, so the server sees it arrive from the network's gateway address, not from `localhost`. On a server you run yourself, narrow the host to the machine the app runs on, as the [Deployment](../deployment.md) page does.
+
+Point the Python script at the new account by changing two lines:
+
+```python
+    user="shop_app",
+    password="app-password",
+```
+
+The script prints the same two products, and a bug in the app can no longer drop a table. The [GRANT]({server}/reference/sql-statements/account-management-sql-statements/grant) reference lists every privilege you can give.
 
 ## Change a Server Setting
 
@@ -47,7 +56,7 @@ Server behavior lives in system variables, such as the `max_connections` variabl
 max_connections = 300
 ```
 
-Restart the server so it reads the file again, then check the value from the `mariadb` client.
+On a Linux install, restart the server so it reads the file again, then check the value from the `mariadb` client. The hint below covers Docker.
 
 ```bash
 sudo systemctl restart mariadb
@@ -60,7 +69,14 @@ SHOW VARIABLES LIKE 'max_connections';
 [Configuring MariaDB with Option Files]({server}/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) explains which files the server reads and in what order.
 
 {% hint style="info" %}
-Running the official Docker image? Put your `.cnf` file in a host directory and mount it at `/etc/mysql/conf.d` when you start the container. The [MariaDB Container Cheat Sheet]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-container-cheat-sheet) has the full command.
+Following along in Docker? The image reads option files from `/etc/mysql/conf.d` inside the container. Save the `[mariadb]` section above as `shop.cnf` on your machine, copy it in, and restart the container instead:
+
+```bash
+docker cp shop.cnf mariadb:/etc/mysql/conf.d/shop.cnf
+docker restart mariadb
+```
+
+The file lives in the container, so it's gone if you remove the container. For a long-lived setup, keep the file in a host directory and mount it at `/etc/mysql/conf.d`, as the [MariaDB Container Cheat Sheet]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-container-cheat-sheet) shows.
 {% endhint %}
 
 With the app on its own account and the connection limit in an option file, the server is ready for the next table the shop needs.

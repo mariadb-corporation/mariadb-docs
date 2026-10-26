@@ -67,17 +67,17 @@ Packages from the MariaDB repository use capitalized names (`MariaDB-server`), u
 The official image already carries the server, so you skip the repository setup. One `docker run` command starts MariaDB Server and creates the `shop` database and its application user:
 
 ```bash
-docker run --detach --name mariadb \
-  --publish 3306:3306 \
+docker run --detach --name shop-db \
+  --publish 3307:3306 \
   --env MARIADB_ROOT_PASSWORD=changeme \
   --env MARIADB_DATABASE=shop \
-  --env MARIADB_USER=app \
+  --env MARIADB_USER=shop_app \
   --env MARIADB_PASSWORD=app-secret \
   --volume mariadb-data:/var/lib/mysql \
   mariadb:lts
 ```
 
-The `mariadb-data` volume keeps the data directory when you replace the container, so an image upgrade doesn't take the `products` table with it. On first start, the image gives the `app` user full privileges on the `shop` database. [Docker Official Image Environment Variables]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables) lists the rest.
+The container gets its own name, `shop-db`, and host port 3307, so it can run next to the `mariadb` container from the landing page. On a host of its own, publish port 3306 instead. The `mariadb-data` volume keeps the data directory when you replace the container, so an image upgrade doesn't take the `products` table with it. On first start, the image gives the `shop_app` user full privileges on the `shop` database. [Docker Official Image Environment Variables]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables) lists the rest.
 {% endtab %}
 
 {% tab title="Kubernetes" %}
@@ -109,7 +109,7 @@ spec:
     key: password
   imagePullSecrets:
     - name: mariadb-enterprise
-  username: app
+  username: shop_app
   passwordSecretKeyRef:
     name: mariadb
     key: password
@@ -136,13 +136,13 @@ sudo mariadb-secure-installation
 The shop code should never connect as root, because a bug in a checkout query would then have the power to drop every table. Connect with `sudo mariadb` and create an account that can only read and write rows in the `shop` database, and only from the subnet your application servers use:
 
 ```sql
-CREATE USER 'app'@'10.0.0.%' IDENTIFIED BY 'app-secret';
-GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'app'@'10.0.0.%';
+CREATE USER 'shop_app'@'10.0.0.%' IDENTIFIED BY 'app-secret';
+GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shop_app'@'10.0.0.%';
 ```
 
-The Docker and Kubernetes tabs already created the `app` user with full rights on the `shop` database, so there you narrow its privileges if you need to. [CREATE USER]({server}/reference/sql-statements/account-management-sql-statements/create-user) and [GRANT]({server}/reference/sql-statements/account-management-sql-statements/grant) cover host patterns, roles, and TLS requirements.
+The Docker and Kubernetes tabs already created the `shop_app` user with full rights on the `shop` database, so there you narrow its privileges if you need to. [CREATE USER]({server}/reference/sql-statements/account-management-sql-statements/create-user) and [GRANT]({server}/reference/sql-statements/account-management-sql-statements/grant) cover host patterns, roles, and TLS requirements.
 
-Point the Python code at the new host as the `app` user, and the shop is ready for its first real customer.
+Point the Python code at the new host as the `shop_app` user, and the shop is ready for its first real customer.
 
 ## Keep Going
 
