@@ -97,6 +97,19 @@ jobs:
             echo "\`doc-gates\` status below is this repo's content gates on the synced pages."
           } > "$RUNNER_TEMP/pr-body.md"
 
+      # The script moves each product's "synced" commit to the upstream head on every run, even
+      # when no page changed (an upstream commit outside docs-ref/content/). A PR with only that
+      # pin change has nothing for doc-gates to scan, so it fails as "could not run" (#1354).
+      # Keep the old pins then: with no diff left, no PR is opened, and an open one is closed.
+      - name: Drop a pin-only change
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain --untracked-files=all -- \
+                tools/community tools/README.md tools/SUMMARY.md tools/.gitbook/assets)" ]; then
+            git checkout -- .github/community-tools.json
+            echo "No synced page or image changed; keeping the old pins, so no PR."
+          fi
+
       - name: Open a pull request if the docs changed
         id: cpr
         uses: peter-evans/create-pull-request@v8

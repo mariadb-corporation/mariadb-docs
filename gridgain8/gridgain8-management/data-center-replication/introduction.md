@@ -23,7 +23,7 @@ GridGain supports _active-passive_ and _active-active_ modes for replication.
 
 In the active-passive mode, only one cluster (the master) interacts with the user application, and the other cluster (the replica) stores data purely for redundancy and failover purposes.
 
-In the active-active mode, both clusters handle user requests independently and propagate changes to each other. In this mode, care must be taken to resolve conflicts between updates that happen on the same cache entry in both clusters. For more information on how to resolve conflicts, refer to the [Conflict Resolution](configuring-replication.md#conflict-resolution) section.
+In the active-active mode, both clusters handle user requests independently and propagate changes to each other. In this mode, care must be taken to resolve conflicts between updates that happen on the same cache entry in both clusters. For more information on how to resolve conflicts, refer to the [Conflict Resolution](configuring-replication.md#conflict-resolution) section. GridGain prevents replication loops automatically, so updates are not echoed back to the cluster they came from. For details, see [Preventing Replication Loops](configuring-replication.md#preventing-replication-loops).
 
 ## How Data Replication Works
 

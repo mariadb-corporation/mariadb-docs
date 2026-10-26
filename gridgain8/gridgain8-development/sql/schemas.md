@@ -83,7 +83,7 @@ jdbc:ignite:thin://127.0.0.1/MY_SCHEMA
 
 ## Cache and Schema Names
 
-When you create a cache with [queryable fields](sql-api.md#configuring-queryable-fields), you can manipulate the cached data using the [SQL API](sql-api.md). In SQL terms, each such cache corresponds to a separate schema whose name equals the name of the cache.
+When you create a cache with [queryable fields](sql-api.md#configuring-queryable-fields), you can manipulate the cached data using the [SQL API](sql-api.md). In SQL terms, each such cache corresponds to a separate schema whose name equals the name of the cache. Any [custom SQL functions](custom-sql-func.md) registered on the cache belong to that schema.
 
 Similarly, when you create a table via a DDL statement, you can access it as a key-value cache via GridGain's supported programming interfaces. The name of the corresponding cache can be specified by providing the `CACHE_NAME` parameter in the `WITH` part of the `CREATE TABLE` statement.
 

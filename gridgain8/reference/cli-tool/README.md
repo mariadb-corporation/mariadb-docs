@@ -2623,14 +2623,14 @@ Use this command to schedule the disk defragmentation:
 {% tabs %}
 {% tab title="Linux/Unix" %}
 ```shell
-control.sh --defragmentation schedule --nodes <consistentId0,...,consistentIdN,> [--caches <cache1,cache2,...,cacheN>]
+control.sh --defragmentation schedule --nodes <consistentId0,...,consistentIdN,> [--caches <cache1,cache2,...,cacheN>] [--rebuild-indexes]
 
 ```
 {% endtab %}
 
 {% tab title="Windows" %}
 ```shell
-control.bat --defragmentation schedule --nodes <consistentId0,...,consistentIdN,> [--caches <cache1,cache2,...,cacheN>]
+control.bat --defragmentation schedule --nodes <consistentId0,...,consistentIdN,> [--caches <cache1,cache2,...,cacheN>] [--rebuild-indexes]
 
 ```
 {% endtab %}
@@ -2640,8 +2640,9 @@ The command arguments are as follows.
 
 |Argument|Description|
 |---|---|
-|--nodes|A comma-separate list of nodes to undergo defragmentation.|
-|--caches|Optional; a comma-separated list pf caches to undergo defragmentation.|
+|--nodes|A comma-separated list of nodes to undergo defragmentation.|
+|--caches|Optional; a comma-separated list of caches to undergo defragmentation.|
+|--rebuild-indexes|Optional; deletes the index partition of each defragmented cache group instead of defragmenting it. The node rebuilds the indexes in the background after the next start.|
 
 ### defragmentation cancel
 

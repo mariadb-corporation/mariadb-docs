@@ -55,8 +55,7 @@ so if you have x86 AND x64 JDK installed, it will work in any mode.
 
 The `126 ERROR_MOD_NOT_FOUND` code can occur due to missing dependencies:
 
-- JDK 8 requires Microsoft Visual C++ 2010 Redistributable Package
-- Later JDK versions require Microsoft Visual C++ 2015 Redistributable Package or later
+- JDK 17 and later require Microsoft Visual C++ 2015 Redistributable Package or later
 
 ### Java class is not found
 
