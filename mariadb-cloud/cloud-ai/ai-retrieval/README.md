@@ -28,9 +28,8 @@ AI Retrieval is in Public Preview. Behavior and limits can change before general
 | Document knowledge base | Files such as PDF, Word, PowerPoint, Markdown, and HTML documents | You ask a question in natural language and receive the most relevant passages, or a generated answer. |
 | Database knowledge base | Tables of an existing MariaDB service | You ask a question in natural language and receive the rows that answer it, or a generated answer. |
 
-The pages in this section describe the document knowledge base in detail.
+For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and [Database Knowledge Bases](database-knowledge-bases.md).
 
-<!-- TODO: write the database knowledge base page. Vijay confirmed on 2026-10-13 that it is in scope. Egor (2026-10-14): ask Ryan Killea for the source. -->
 
 ## How It Works
 
@@ -145,6 +144,10 @@ AI Retrieval also limits the MCUs that an organization can consume each month. S
 
 {% content-ref url="document-knowledge-bases.md" %}
 [document-knowledge-bases.md](document-knowledge-bases.md)
+{% endcontent-ref %}
+
+{% content-ref url="database-knowledge-bases.md" %}
+[database-knowledge-bases.md](database-knowledge-bases.md)
 {% endcontent-ref %}
 
 {% content-ref url="parsing-and-chunking.md" %}
