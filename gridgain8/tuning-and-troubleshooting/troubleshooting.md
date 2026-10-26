@@ -87,7 +87,7 @@ The type of an existing field cannot be changed. If you must reuse the field nam
 Removing metadata cannot be undone. If you remove the wrong type, the stored data cannot be read until you restore the metadata folders from the backup.
 {% endhint %}
 
-As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on all nodes, including thick clients. The cluster then merges metadata by field name only, as in earlier versions. While any node has this property set to `false`, the whole cluster merges by field name. The property does not repair metadata that is already inconsistent.
+As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes (this requires a node restart).  While any node has this property set to `false`, the whole cluster merges by field name, as in earlier versions. 
 
 ## Saving WAL Data to Disk on Corruption
 
