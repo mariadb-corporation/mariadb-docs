@@ -159,6 +159,8 @@ This enables [server discovery](#automatic-server-node-discovery) as well.
 If the client is behind a NAT or a proxy, automatic server discovery may not work.
 In this case provide addresses of all server nodes in the client's connection configuration.
 
+Since 8.10.0, when partition awareness is enabled, the client sends requests that cannot be routed by key to all live connections in turn (round-robin).
+
 ## Using Key-Value API
 
 ### Getting Cache Instance
