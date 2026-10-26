@@ -24,11 +24,11 @@ Before you dump anything, ask the MySQL source which tables use features that Ma
 ```sql
 -- Columns that use the MySQL JSON type
 SELECT table_schema, table_name FROM information_schema.COLUMNS
-WHERE data_type = "JSON";
+WHERE data_type = 'JSON';
 
 -- Tables with MySQL encryption or compression options
 SELECT table_schema, table_name, create_options FROM information_schema.TABLES
-WHERE create_options LIKE "%ENCRYPT%" OR create_options LIKE "%COMP%";
+WHERE create_options LIKE '%ENCRYPTION=%' OR create_options LIKE '%COMPRESSION=%';
 ```
 
 If the second query returns rows, remove those options with `ALTER TABLE` before you dump, and turn them back on with MariaDB syntax afterward. The [MySQL to MariaDB compatibility matrix]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix) lists the other differences, including authentication plugins and SQL syntax.
@@ -45,6 +45,8 @@ mysqldump --user=root --password --databases shop \
   --triggers --hex-blob \
   | mariadb --host=new_server_ip --user=root --password
 ```
+
+Both tools ask for a password at the same time, so the two prompts can overlap and swallow your input. To avoid that, put the MariaDB password in a `[client-mariadb]` section of the `~/.my.cnf` file on the source host, which the `mariadb` client reads and `mysqldump` ignores, and drop `--password` from the `mariadb` side. Most installs also allow `root` to log in only from `localhost`, so on the `mariadb` side use an account that can connect from the source host and create databases.
 
 The `--single-transaction` option takes a consistent InnoDB snapshot, so checkout keeps writing on MySQL while the dump runs. The `--hex-blob` option keeps binary columns intact. A piped load can't resume if the connection drops, so when the database is large, write the dump to a file first. The [MySQL to MariaDB migration guide]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide) covers the file method, server settings for big imports, and how to port users and privileges.
 {% endstep %}

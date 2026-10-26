@@ -21,7 +21,7 @@ Run these steps on a test server before the Friday that needs them. A restore yo
 {% step %}
 ### Take a Backup
 
-The `mariadb-backup` tool connects to MariaDB Server as a user of its own, so create that user with the privileges the tool needs. Then point the tool at an empty target directory, which it creates if the directory doesn't exist yet.
+The `mariadb-backup` tool connects to MariaDB Server as a user of its own, so create that user with the privileges the tool needs. Then point the tool at an empty target directory. The tool creates the directory itself, but its parent directory must already exist. Run the tool with `sudo`, because it reads the data files that belong to the `mysql` user.
 
 ```sql
 CREATE USER 'mariadb-backup'@'localhost' IDENTIFIED BY 'mypassword';
@@ -29,7 +29,9 @@ GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR ON *.* TO 'mariadb-backup'@'l
 ```
 
 ```bash
-mariadb-backup --backup \
+sudo mkdir -p /var/mariadb
+
+sudo mariadb-backup --backup \
    --target-dir=/var/mariadb/backup/ \
    --user=mariadb-backup --password=mypassword
 ```
@@ -43,7 +45,7 @@ The [mariadb-backup overview]({server}/server-usage/backup-and-restore/mariadb-b
 The tool copied the data files at slightly different moments while the shop kept taking writes, so the prepare step makes them consistent first. Then stop the server, move the damaged data directory (`/var/lib/mysql` by default) out of the way, copy the backup in, and give the files to the `mysql` user that MariaDB Server runs as.
 
 ```bash
-mariadb-backup --prepare --target-dir=/var/mariadb/backup/
+sudo mariadb-backup --prepare --target-dir=/var/mariadb/backup/
 
 sudo systemctl stop mariadb
 sudo mv /var/lib/mysql /var/lib/mysql.old

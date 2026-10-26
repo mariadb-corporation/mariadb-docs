@@ -62,7 +62,7 @@ async function main() {
     const rows = await conn.query('SELECT COUNT(*) AS n FROM products');
     console.log(rows[0].n);
   } finally {
-    if (conn) conn.end();
+    if (conn) await conn.release();
     await pool.end();
   }
 }
@@ -159,7 +159,7 @@ The `orders` table generates the order number with `AUTO_INCREMENT`, so your cod
 The customer sees order 1 on the confirmation page, the standing desk drops from five units to four, and the connection goes back to the pool for the next checkout.
 
 {% hint style="info" %}
-MariaDB Connector/Python 2.0, now a release candidate, moves pooling into an optional package: `pip install --pre mariadb[pool]`, then `mariadb.create_pool()`. The [1.1 to 2.0 migration guide]({connectors}/mariadb-connector-python/migration-from-1.1-to-2.0) maps each change.
+MariaDB Connector/Python 2.0, now a release candidate, moves pooling into an optional package: `pip install --pre 'mariadb[pool]'`, then `mariadb.create_pool()`. The [1.1 to 2.0 migration guide]({connectors}/mariadb-connector-python/migration-from-1.1-to-2.0) maps each change.
 {% endhint %}
 
 ## Connect From Your Language

@@ -17,7 +17,7 @@ MaxScale runs two modules that do the work. The `mariadbmon` monitor checks ever
 
 ## Put MaxScale in Front
 
-The steps below build the first node of that diagram on Debian or Ubuntu: one MariaDB Enterprise Server with MaxScale in front of it. On RHEL, Rocky Linux, or AlmaLinux, use `dnf install` in place of `apt install`. The replicas come later, without a change to the application.
+The steps below build the first node of that diagram on Debian or Ubuntu: one MariaDB Enterprise Server with MaxScale in front of it. On RHEL, Rocky Linux, or AlmaLinux, the package names differ: run `sudo dnf install MariaDB-server MariaDB-backup` in place of the two `apt` commands, then `sudo systemctl enable --now mariadb`, because the RPM packages don't start the server. The replicas come later, without a change to the application.
 
 {% stepper %}
 {% step %}
@@ -48,7 +48,7 @@ CREATE USER 'maxscale' IDENTIFIED BY 'maxscale_passwd';
 GRANT ALL PRIVILEGES ON *.* TO 'maxscale';
 ```
 
-The broad grant keeps the test setup short. Now describe the deployment in the `/etc/maxscale.cnf` file. It names the server, attaches the `mariadbmon` monitor to it, builds a `readwritesplit` service on that monitor, and opens a listener on port 4006 for the application:
+The broad grant keeps the test setup short. Now replace the contents of the `/etc/maxscale.cnf` file with a description of the deployment. The packaged file already defines example sections, and duplicate section names stop MaxScale from starting. The new file names the server, attaches the `mariadbmon` monitor to it, builds a `readwritesplit` service on that monitor, and opens a listener on port 4006 for the application:
 
 ```ini
 [server1]
