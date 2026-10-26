@@ -73,17 +73,16 @@ You can limit the size of the binlog by setting the [max\_binlog\_total\_size](.
 
 By default, all changes to data or data structure are logged. This behavior can be changed by starting the server with the `--binlog-ignore-db=database_name` or `--binlog-do-db=database_name` [options](../../starting-and-stopping-mariadb/mariadbd-options.md).
 
-`--binlog-ignore-db=database_name` specified a database to ignore for logging purposes, while `--binlog-do-db=database_name` will not log any statements unless they apply to the specified database.
+`--binlog-ignore-db=database_name` specifies a database to ignore for logging purposes, while `--binlog-do-db=database_name` doesn't log any changes unless they apply to the specified database. If `--binlog-do-db` is set, `--binlog-ignore-db` is ignored.
 
 Neither option accepts comma-delimited lists of multiple databases as an option, since a database name can contain a comma. To apply to multiple databases, use the option multiple times.
 
-`--binlog-ignore-db=database_name` behaves differently depending on whether statement-based or row-based logging is used. For statement-based logging, the server will not log any statement where the _default database_ is database\_name. The default database is set with the [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md) statement.
+Which database the server checks depends on the format that a change is logged in, not on the [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) setting alone:
 
-Similarly, `--binlog-do-db=database_name` also behaves differently depending on whether statement-based or row-based logging is used.
+* **Row events.** For data changes logged in row format, the server checks the database of each table that is changed, irrespective of the current database.
+* **Statement events.** For statements logged in statement format, the server checks the _default database_, which is set with the [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md) statement. The database of the tables that the statement changes isn't considered. If no default database is selected, the statement is logged when `--binlog-ignore-db` is set, and isn't logged when `--binlog-do-db` is set.
 
-For statement-based logging, the server will only log statement where the _default database_ is database\_name. The default database is set with the [USE](../../../reference/sql-statements/administrative-sql-statements/use-database.md) statement.
-
-For row-based logging, the server will log any updates to any tables in the named database/s, irrespective of the current database.
+DDL statements, such as [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) or [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), are always logged in statement format, even when `binlog_format=ROW`. So they're always filtered by the default database. With `binlog_format=MIXED`, each statement is filtered according to the format it's logged in.
 
 ### Examples of Selective Logging
 
@@ -104,6 +103,20 @@ UPDATE employees.details SET bonus=bonus*1.2;
 ```
 
 This is again because statement-based logging examines the default database, in this case, `customers`. Since `customers` is not specified in the do list, the statement is not logged. If row-based logging is used, the example is logged as updates are written to the tables in the `employees` database.
+
+DDL statements follow the default database in every format. With `--binlog-ignore-db=employees` and `binlog_format=ROW`, the following statement _is_ logged, because the default database is `customers`:
+
+```sql
+USE customers;
+CREATE TABLE employees.reviews (id INT);
+```
+
+The following statement _is not_ logged, even though it creates a table in the `customers` database, because the default database is `employees`:
+
+```sql
+USE employees;
+CREATE TABLE customers.orders (id INT);
+```
 
 ## Effects of Full Disk Errors on Binary Logging
 
