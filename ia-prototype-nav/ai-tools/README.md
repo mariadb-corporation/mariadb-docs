@@ -38,23 +38,28 @@ codex plugin add dev@mariadb
 ```bash
 pi install git:github.com/mariadb/ai-plugins
 ```
+
+The package needs Pi 1.0 or later.
 {% endtab %}
 
 {% tab title="Hermes Agent" %}
 ```bash
 hermes plugins install mariadb/ai-plugins#hermes/dev-plugin --enable
+hermes plugins install mariadb/ai-plugins#hermes/guard-plugin --enable
 ```
+
+The second package stops the agent from using the MariaDB command-line clients for work that the MCP tools do.
 {% endtab %}
 {% endtabs %}
 
-The `mariadb-shell` MCP server starts out allowed to reach nothing. Before the agent works against your own databases, run `mariadb-shell -- mcp setup` once per machine to choose the connections and folders it may use. Add the docs MCP server too, so the agent reads current MariaDB syntax instead of guessing from older training data:
+The `mariadb-shell` MCP server starts out allowed to reach nothing. Before the agent works against your own databases, run `mariadb-shell -- mcp setup` once per machine to choose the connections and folders it may use. The plugin installs `mariadb-shell` in `~/.local/bin` the first time it starts the MCP server, so let the agent run once before you run the setup. Add the docs MCP server too, so the agent reads current MariaDB syntax instead of guessing from older training data:
 
 ```bash
 claude mcp add --transport http mariadb-docs \
   https://mariadb.com/docs/~gitbook/mcp
 ```
 
-[AI Plugins and Skills](ai-plugins-and-skills.md) covers the three plugin variants and what each one installs, and the [plugin repository](https://github.com/mariadb/ai-plugins) has setup steps for OpenCode.
+[Plugin Variants]({tools}/community/mariadb-ai-plugins/plugin-variants) covers the three plugin variants and what each one installs, and [Installation]({tools}/community/mariadb-ai-plugins/installation) has setup steps for OpenCode.
 
 ## Give Agents Access to Live Data
 
@@ -63,16 +68,16 @@ A coding agent on your laptop can do almost anything to a sandbox. An agent that
 | MCP server | Where it runs | Use it for |
 | --- | --- | --- |
 | `mariadb-shell` MCP server | On your machine, started by the MariaDB AI plugins | Development with a coding agent, including sandbox servers |
-| Open-source MCP server | Wherever you host it, from the `MariaDB/mcp` project | SQL and vector search against your own MariaDB servers |
+| Open-source MCP server | Wherever you host it, from the [`MariaDB/mcp`](https://github.com/MariaDB/mcp) project | SQL and vector search against your own MariaDB servers |
 | MariaDB Enterprise MCP Server | Your infrastructure, as part of MariaDB Enterprise Platform | One governed endpoint for production agents, with authentication and access control |
-| MariaDB Cloud MCP Server | Alongside MariaDB Cloud | Launching and querying MariaDB Cloud databases from tools such as Cursor and Claude Desktop |
+| MariaDB Cloud MCP Server | Your machine, cloned from the [`skysqlinc/skysql-mcp`](https://github.com/skysqlinc/skysql-mcp) repository and run with a MariaDB Cloud API key | Launching and querying MariaDB Cloud databases from tools such as Cursor and Claude Desktop |
 
 [Choose an MCP Server](choose-an-mcp-server.md) compares them in more detail.
 
 ## Retrieve and Generate
 
-Retrieval-augmented generation (RAG) answers a question by first finding the right passages in your own data, then handing them to a language model. MariaDB AI RAG runs that whole pipeline on your infrastructure, from parsing and chunking documents to hybrid search and the generated answer. If your application already uses LangChain, LangChain MariaDB lets it keep its vectors and chat history in MariaDB instead of a separate store.
+Retrieval-augmented generation (RAG) answers a question by first finding the right passages in your own data, then handing them to a language model. MariaDB AI RAG runs that pipeline on your infrastructure, from parsing and chunking documents to hybrid search. For the embeddings and the generated answer, it calls the embedding model and language model you configure: Gemini by default, or a provider such as OpenAI or Ollama. If your application already uses LangChain, LangChain MariaDB lets it keep its vectors and chat history in MariaDB instead of a separate store.
 
 ## Keep Going
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI Plugins and Skills</strong></td><td>What the <code>dev</code>, <code>sql</code>, and <code>contributor</code> plugins install, and which agents they support.</td><td><a href="ai-plugins-and-skills.md">ai-plugins-and-skills.md</a></td></tr><tr><td><strong>Choose an MCP Server</strong></td><td>Compare the four MariaDB MCP servers by where they run and what they expose.</td><td><a href="choose-an-mcp-server.md">choose-an-mcp-server.md</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give production agents one authenticated, governed endpoint to your databases.</td><td><a href="mariadb-enterprise-mcp-server/README.md">mariadb-enterprise-mcp-server</a></td></tr><tr><td><strong>MariaDB Cloud MCP Server</strong></td><td>Launch and query MariaDB Cloud databases from your AI tools.</td><td><a href="{mariadb-cloud}/cloud-ai/mcp-server">mcp-server</a></td></tr><tr><td><strong>MariaDB AI RAG</strong></td><td>Run document ingestion, embedding, hybrid search, and answer generation on your own infrastructure.</td><td><a href="mariadb-ai-rag/README.md">mariadb-ai-rag</a></td></tr><tr><td><strong>LangChain MariaDB</strong></td><td>Use MariaDB as the vector store and chat history store for a LangChain application.</td><td><a href="langchain-mariadb/README.md">langchain-mariadb</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB AI Plugins</strong></td><td>What the <code>dev</code>, <code>sql</code>, and <code>contributor</code> plugins install, and which agents they support.</td><td><a href="{tools}/community/mariadb-ai-plugins">mariadb-ai-plugins</a></td></tr><tr><td><strong>Choose an MCP Server</strong></td><td>Compare the four MariaDB MCP servers by where they run and what they expose.</td><td><a href="choose-an-mcp-server.md">choose-an-mcp-server.md</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give production agents one authenticated, governed endpoint to your databases.</td><td><a href="{tools}/enterprise/mariadb-enterprise-mcp-server">mariadb-enterprise-mcp-server</a></td></tr><tr><td><strong>MariaDB Cloud MCP Server</strong></td><td>Launch and query MariaDB Cloud databases from your AI tools.</td><td><a href="{mariadb-cloud}/cloud-ai/mcp-server">mcp-server</a></td></tr><tr><td><strong>MariaDB AI RAG</strong></td><td>Run document ingestion, embedding, hybrid search, and answer generation on your own infrastructure.</td><td><a href="{tools}/enterprise/mariadb-ai-rag">mariadb-ai-rag</a></td></tr><tr><td><strong>LangChain MariaDB</strong></td><td>Use MariaDB as the vector store and chat history store for a LangChain application.</td><td><a href="{connectors}/other/langchain-mariadb">langchain-mariadb</a></td></tr></tbody></table>
