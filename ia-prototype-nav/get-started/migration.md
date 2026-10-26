@@ -1,7 +1,7 @@
 ---
 title: Migration
 description: >-
-  Move from MySQL to open MariaDB by rehearsing on a copy first, with guides for PostgreSQL, Oracle, SQL Server, and MariaDB Cloud.
+  Move from MySQL to MariaDB by rehearsing on a copy first, with guides for PostgreSQL, Oracle, SQL Server, and MariaDB Cloud.
 icon: arrow-right-arrow-left
 ---
 
@@ -61,7 +61,7 @@ SELECT COUNT(*) FROM shop.products;
 CHECKSUM TABLE shop.products;
 ```
 
-Row counts must match exactly. A checksum can differ on a table with date and time columns even when the data is the same, because the two servers can store those rows in different formats, so compare those tables row by row. [`CHECKSUM TABLE`]({server}/reference/sql-statements/table-statements/checksum-table) explains what changes the value.
+Row counts must match exactly. A checksum can differ even when the data is the same, because the value depends on the table definition and row format, and a MySQL `JSON` column, for example, arrives as `LONGTEXT`. When a checksum differs, compare that table row by row. [`CHECKSUM TABLE`]({server}/reference/sql-statements/table-statements/checksum-table) explains what changes the value.
 
 When the numbers agree, refresh the optimizer statistics on MariaDB with the `mariadb-check` tool. The MariaDB optimizer plans queries differently from the MySQL one, and it needs fresh statistics to pick good plans for the shop's queries.
 
@@ -73,7 +73,7 @@ mariadb-check -u root -p --analyze --all-databases
 
 ## Cut Over
 
-After the rehearsal, you know the dump time, and you know that the copy matches. If the shop can close for that long, repeat the same three steps against the production server and point the application at MariaDB. If it can't close at all, load the copy, then configure MariaDB as a replica of MySQL so that it keeps receiving every new order until you switch the connection string. [Migration from MySQL to MariaDB Galera Cluster using replication]({server}/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-using-replication) walks through that setup.
+After the rehearsal, you know the dump time, and you know that the copy matches. If the shop can close for that long, repeat the same three steps against the production server and point the application at MariaDB. If it can't close at all, load the copy, then configure MariaDB as a replica of MySQL so that it keeps receiving every new order until you switch the connection string. MariaDB can replicate from a MySQL 5.7 or 8.0 primary. From MySQL 8.0, set two binary log options on MySQL, `binlog-row-value-options=""` and `binlog_transaction_compression=0`, and change any `JSON` columns to `TEXT` first. [Replication Compatibility Between MariaDB and MySQL]({release-notes}/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql) lists the version requirements and every condition.
 
 ## Keep Going
 

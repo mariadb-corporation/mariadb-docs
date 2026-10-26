@@ -36,7 +36,7 @@ sudo mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-The [mariadb-backup overview]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) lists the privileges for older versions and for options such as `--galera-info`.
+The [mariadb-backup overview]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) lists the extra privileges that some options need, such as `--galera-info`.
 {% endstep %}
 
 {% step %}
@@ -76,7 +76,7 @@ The shop is back, with everything up to last night's backup. Orders placed after
 
 ## Add a Replica
 
-A replica, a second server that keeps its own copy of the data, covers both the outage and the lost orders. It applies each change from the primary server's binary log, usually within seconds, so a failed disk on the primary costs only the changes the replica hadn't applied yet, not a day of orders. MariaDB MaxScale sits between the application and the servers and spreads read queries across both, which is also where the shop starts getting faster. With [automatic failover]({maxscale}/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor) turned on in its monitor, MaxScale also promotes the replica when the primary fails. The [MariaDB Platform](readme/enterprise-platform.md) page shows how these pieces fit together.
+A replica, a second server that keeps its own copy of the data, covers both the outage and the lost orders. It applies each change from the primary server's binary log, usually within seconds, so a failed disk on the primary costs only the changes the replica hadn't received yet, not a day of orders. MariaDB MaxScale sits between the application and the servers, sends writes to the primary, and sends reads to the replica, which is also where the shop starts getting faster. With [automatic failover]({maxscale}/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor) turned on in its monitor, MaxScale also promotes the replica when the primary fails. The [MariaDB Platform](readme/enterprise-platform.md) page shows how these pieces fit together.
 
 ## Keep Going
 

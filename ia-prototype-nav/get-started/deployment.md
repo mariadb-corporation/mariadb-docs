@@ -13,7 +13,7 @@ Before you pick a machine, decide how much of that work you want. Every option r
 
 <figure><picture><source srcset=".gitbook/assets/deployment-who-runs-what-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/deployment-who-runs-what-light.svg" alt="Who runs what. With MariaDB Server, you handle everything from your schema to the hardware. With MariaDB Enterprise Platform, you still run the database, with MariaDB support behind settings, upgrades, backups, and failover. With MariaDB Cloud, the service handles upgrades, backups, failover, and hardware, you and the service share settings, and your schema and application stay yours."></picture><figcaption><p>The top row never changes hands, so the choice is only about the operations work under your schema.</p></figcaption></figure>
 
-A team that already runs Linux servers often starts with MariaDB Community Server and owns every row of the left column. MariaDB Enterprise Platform keeps the same work in your hands, with MariaDB support to call when an upgrade or a failover goes wrong. And when nobody on the team wants the pager, MariaDB Cloud takes backups and hardware off your plate, applies upgrades in a maintenance window you schedule, and fails over for you when the service runs with replicas.
+A team that already runs Linux servers often starts with MariaDB Community Server and owns every row of the left column. MariaDB Enterprise Platform keeps the same work in your hands, with MariaDB support to call when an upgrade or a failover goes wrong. And when nobody on the team wants the pager, MariaDB Cloud takes backups and hardware off your plate, applies upgrades in a weekly maintenance window, and fails over for you when the service runs with replicas.
 
 <table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>MariaDB Community Server</strong></td><td>Run the open source server yourself, on hardware or cloud instances you already operate.</td><td><a href="readme/community-server.md">community-server.md</a></td></tr><tr><td><strong>MariaDB Enterprise Platform</strong></td><td>Run MariaDB Enterprise Server with MaxScale, clustering, and analytics, tested together and backed by a support contract.</td><td><a href="readme/enterprise-platform.md">enterprise-platform.md</a></td></tr><tr><td><strong>MariaDB Cloud</strong></td><td>Hand hardware, upgrades, backups, and failover to the managed service and keep your attention on the shop.</td><td><a href="readme/cloud.md">cloud.md</a></td></tr></tbody></table>
 
@@ -40,7 +40,7 @@ sudo apt install mariadb-server mariadb-client mariadb-backup
 sudo systemctl status mariadb
 ```
 
-The package starts the `mariadb` service during the install, so the status check only confirms that it's running. To stay on one release series, run the setup script with `--mariadb-server-version="mariadb-11.8"`. [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) lists the checksums and every script option.
+The package starts the `mariadb` service during the install, so the status check only confirms that it's running. By default, the script sets up the newest stable series, currently MariaDB 13.0, a rolling release. The `mariadb:lts` Docker image runs the 12.3 long-term release instead. To stay on 12.3, run the setup script with `--mariadb-server-version="mariadb-12.3"`. [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) lists the checksums and every script option.
 {% endtab %}
 
 {% tab title="RHEL family" %}
@@ -60,7 +60,7 @@ sudo dnf install MariaDB-server MariaDB-client MariaDB-backup
 sudo systemctl enable --now mariadb
 ```
 
-Packages from the MariaDB repository use capitalized names (`MariaDB-server`), unlike the distribution's own `mariadb-server` package. To stay on one release series, run the setup script with `--mariadb-server-version="mariadb-11.8"`. [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) lists the checksums and every script option.
+Packages from the MariaDB repository use capitalized names (`MariaDB-server`), unlike the distribution's own `mariadb-server` package. By default, the script sets up the newest stable series, currently MariaDB 13.0, a rolling release. The `mariadb:lts` Docker image runs the 12.3 long-term release instead. To stay on 12.3, run the setup script with `--mariadb-server-version="mariadb-12.3"`. [MariaDB Package Repository Setup and Usage]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) lists the checksums and every script option.
 {% endtab %}
 
 {% tab title="Docker" %}
@@ -77,7 +77,7 @@ docker run --detach --name shop-db \
   mariadb:lts
 ```
 
-The container gets its own name, `shop-db`, and host port 3307, so it can run next to the `mariadb` container from the landing page. On a host of its own, publish port 3306 instead. The `mariadb-data` volume keeps the data directory when you replace the container, so an image upgrade doesn't take the `products` table with it. On first start, the image gives the `shop_app` user full privileges on the `shop` database. [Docker Official Image Environment Variables]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables) lists the rest.
+The container gets its own name, `shop-db`, and host port 3307, so it can run next to the `mariadb` container from the landing page. The `lts` tag follows the newest long-term release, currently MariaDB 12.3. On a host of its own, publish port 3306 instead. The `mariadb-data` volume keeps the data directory when you replace the container, so an image upgrade doesn't take the `products` table with it. On first start, the image gives the `shop_app` user full privileges on the `shop` database. [Docker Official Image Environment Variables]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables) lists the rest.
 {% endtab %}
 
 {% tab title="Kubernetes" %}
@@ -127,7 +127,7 @@ spec:
 
 ## Secure the Server
 
-A fresh package install trusts too much. The `mariadb-secure-installation` script asks you to set a root password, then removes root accounts reachable from other hosts, anonymous users, and the `test` database:
+The `mariadb-secure-installation` script offers to set a root password and to remove root accounts reachable from other hosts, anonymous users, and the `test` database. Debian and Ubuntu packages already ship without the anonymous users and the `test` database, so there the script mostly confirms that the install is clean:
 
 ```bash
 sudo mariadb-secure-installation

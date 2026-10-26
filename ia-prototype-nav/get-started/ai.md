@@ -15,11 +15,11 @@ SELECT name FROM shop.products WHERE name LIKE '%light%';
 
 It returns an empty set. The shop sells exactly what the customer wants, but the product is called "Desk lamp", and the word "light" appears nowhere in it. Keyword matching compares letters, so it can't see that a lamp is a light.
 
-Semantic search compares meanings instead. An embedding model, which is an AI model that turns text into a list of numbers called a vector, places "something to light my desk" and "Desk lamp" close together because they mean similar things. MariaDB Server stores those vectors in the same database as the `products` table and finds the nearest ones in SQL.
+Semantic search compares meanings instead. An embedding model, which is an AI model that turns text into a list of numbers called a vector, places "something to light my desk" and "Desk lamp" close together because they mean similar things. MariaDB doesn't include an embedding model. Your application calls one, from a provider or running locally, and MariaDB Server stores the vectors in the same database as the `products` table and finds the nearest ones in SQL.
 
 <figure><picture><source srcset=".gitbook/assets/ai-semantic-search-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/ai-semantic-search-light.svg" alt="Semantic search: your application turns the search phrase into a vector with an embedding model, then sends one SQL query to MariaDB Server. The query walks the vector index on the product_embeddings table, joins the products table for names, and returns the two nearest products with their distances."></picture><figcaption><p>The embedding model runs in your application, so the database only ever compares numbers, and one query returns both the matches and their names.</p></figcaption></figure>
 
-Vector search is built into MariaDB Community Server from 11.7 and MariaDB Enterprise Server from 11.4.5-3, so there's no plugin or extension to install.
+Vector search is built into MariaDB Community Server, introduced in 11.7 and generally available from the 11.8 long-term release, and into MariaDB Enterprise Server from 11.4.5-3, so there's no plugin or extension to install.
 
 ## Add Semantic Search
 
@@ -86,7 +86,7 @@ The customer who typed "something to light my desk" now sees the desk lamp first
 
 ## Build With a Coding Agent
 
-The steps above use made-up vectors. Wiring in a real embedding model, backfilling every product, and keeping the vectors current when a description changes is application code, and a coding agent can write most of it with you if it knows MariaDB.
+The steps above use made-up vectors. Wiring in a real embedding model, backfilling every product, and keeping the vectors current when a description changes is application code. MariaDB doesn't include a coding agent, but the one you already use can write most of that code with you if it knows MariaDB.
 
 The [MariaDB AI plugins](https://github.com/mariadb/ai-plugins) give Claude Code, Codex, Pi, Hermes Agent, and OpenCode a set of MariaDB skills, including one for vectors, plus a local sandbox server where the agent can try its SQL before you run it. Add the docs MCP server from the [landing page](README.md#keep-your-agent-in-the-docs) as well, so the agent reads the current `VECTOR` syntax instead of guessing from older training data. Ask it to add an embedding column for product descriptions, and it can check its own work against the reference. [AI Tools]({ai-tools}) covers both kinds of agent work: coding agents that build with you, and production agents that reach live data over MCP.
 

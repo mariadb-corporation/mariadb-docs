@@ -1,13 +1,13 @@
 ---
 title: Server
 description: >-
-  MariaDB Community Server runs transactions, JSON, and vector search behind one SQL surface. Tour the open source core of MariaDB Enterprise Platform and MariaDB Cloud.
+  MariaDB Community Server runs transactions, JSON, and vector search behind one SQL surface. Tour the open source edition of MariaDB Server, from storage engines to option files.
 icon: database
 ---
 
 # Server
 
-The shop runs. The `shop.products` table answers queries from Python, and before you build orders, carts, and reports on top of it, you want to know the machine you're standing on. That machine is MariaDB Community Server, the open source database that also sits at the core of MariaDB Enterprise Platform and MariaDB Cloud. Everything you learn about it here carries over to both.
+The shop runs. The `shop.products` table answers queries from Python, and before you build orders, carts, and reports on top of it, you want to know the machine you're standing on. That machine is MariaDB Community Server, the open source edition of MariaDB Server. MariaDB Enterprise Platform is built on MariaDB Enterprise Server instead, and MariaDB Cloud runs Community Server on its Foundation tier and Enterprise Server on its Power and PowerPlus tiers. The accounts, privileges, and option files on this page work the same way in both editions.
 
 The tour has three stops. Open the `mariadb` command-line client against the server from the landing page and follow along.
 
@@ -49,7 +49,7 @@ The script prints the same two products, and a bug in the app can no longer drop
 
 ## Change a Server Setting
 
-Server behavior lives in system variables, such as the `max_connections` variable, which caps how many clients can connect at once. Its default is 151, and a busy sale with several app workers can use that up. You could run `SET GLOBAL max_connections = 300;`, but the server forgets that value at the next restart, because it reads its startup settings from option files such as `/etc/my.cnf`. Add a `[mariadb]` section there instead.
+Server behavior lives in system variables, such as the `max_connections` variable, which caps how many clients can connect at once. Its default is 151, and a busy sale with several app workers can use that up. You could run `SET GLOBAL max_connections = 300;`, but the server forgets that value at the next restart, because it reads its startup settings from option files. On RHEL and its relatives, add a `[mariadb]` section to `/etc/my.cnf` or a file in `/etc/my.cnf.d/`. On Debian and Ubuntu, add it to a file in `/etc/mysql/mariadb.conf.d/`, such as `99-shop.cnf`.
 
 ```ini
 [mariadb]

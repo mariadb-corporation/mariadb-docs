@@ -1,7 +1,7 @@
 ---
 title: Cloud
 description: >-
-  Run the same open MariaDB Server as a managed service. Launch MariaDB Cloud, connect over TLS, and keep your schema, SQL, and code.
+  Run MariaDB Server as a managed service. Launch MariaDB Cloud, connect over TLS, and keep your schema, SQL, and code.
 icon: cloud
 ---
 
@@ -9,7 +9,7 @@ icon: cloud
 
 The shop runs on a MariaDB Community Server that you installed yourself, and lately the server takes more of your week than the shop does. A security release lands, so you patch. Somebody asks whether last night's backup restores, so you test it. The disk alert pages you on a Saturday. None of that work ships a feature.
 
-MariaDB Cloud takes those jobs off your list. It runs MariaDB Server on AWS, Google Cloud, or Azure, handles the hardware and backups, and applies patches in a weekly maintenance window you choose. A service launched with replicas also fails over to a replica on its own. [Deployment](../deployment.md) compares who runs what across all three ways to run MariaDB. A Serverless service is ready in seconds and needs no sizing. Because it's the same MariaDB Server, the `shop.products` table and the Python script come along with two changes: a cloud host and TLS.
+MariaDB Cloud takes those jobs off your list. It runs MariaDB Server on AWS, Google Cloud, or Azure, handles the hardware and backups, and applies patches in a weekly maintenance window. A service launched with replicas also fails over to a replica on its own. [Deployment](../deployment.md) compares who runs what across all three ways to run MariaDB. A Serverless service is ready in seconds and needs no sizing. Because it's the same MariaDB Server, the `shop.products` table and the Python script come along. Only the connection changes: a new host, port, user, and password, and TLS.
 
 ## Connect to MariaDB Cloud
 
@@ -17,7 +17,7 @@ MariaDB Cloud takes those jobs off your list. It runs MariaDB Server on AWS, Goo
 {% step %}
 ### Launch a Service
 
-Sign in at [cloud.mariadb.com](https://cloud.mariadb.com), click **+ Launch New Service**, and pick **MariaDB Serverless Single Node** with a cloud provider and a region near your customers. Every service starts behind a firewall that refuses all connections, so add your laptop's public IP address under **Manage**, then **Security Access**. If you don't know the address, ask for it:
+Sign in at [cloud.mariadb.com](https://cloud.mariadb.com), click **+ Launch New Service**, and pick **MariaDB Serverless Single Node** with a cloud provider and the Serverless region nearest your customers. Serverless runs in two regions on each provider, as [Region Choices]({mariadb-cloud}/reference/region-choices) lists. Every service starts behind a firewall that refuses all connections, so add your laptop's public IP address under **Manage**, then **Security Access**. If you don't know the address, ask for it:
 
 ```bash
 curl -sS checkip.amazonaws.com
@@ -59,7 +59,7 @@ INSERT INTO shop.products (name, price) VALUES
 {% step %}
 ### Connect From Python
 
-The Python script changes in two places. The `host` and `port` values come from the **Connect** dialog, and `ssl_verify_cert=True` turns on the certificate check, because MariaDB Connector/Python 1.1 leaves it off until you ask for it.
+The Python script changes in two ways. The `host`, `port`, `user`, and `password` values come from the **Connect** dialog, and `ssl_verify_cert=True` turns on the certificate check, because MariaDB Connector/Python 1.1 leaves it off until you ask for it.
 
 ```python
 import mariadb

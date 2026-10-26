@@ -152,7 +152,7 @@ The `orders` table generates the order number with `AUTO_INCREMENT`, so your cod
     print(f"Order {order_id} placed at {created_at}")
 ```
 
-`RETURNING` accepts any expression a `SELECT` list can, and `DELETE` supports it too, so a cancelled order can hand back the row it removed. See [INSERT...RETURNING]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) and [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete).
+`RETURNING` accepts the expressions a `SELECT` list can, except aggregate functions such as `COUNT()`, and `DELETE` supports it too, so a cancelled order can hand back the row it removed. See [INSERT...RETURNING]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) and [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete).
 {% endstep %}
 {% endstepper %}
 
