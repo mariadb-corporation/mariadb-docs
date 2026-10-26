@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="What the agent prompt sets up. You install the MariaDB AI plugins into Claude Code. The plugins add MariaDB skills and the mariadb-shell MCP server. The agent uses the sandbox tools to start a local MariaDB Server on port 3310 with no Docker, creates the shop database and products table with the db tools, and writes a Python script that queries it. The docs MCP server lets the agent read current MariaDB documentation.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #1d2a33; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #5b6b75; } .acct { fill: #0E6488; }
+  .box { fill: #eef3f6; stroke: #b8c6ce; } .plain { fill: none; stroke: #b8c6ce; }
+  .accbox { fill: #dcecf3; stroke: #0E6488; } .frame { fill: none; stroke: #5b6b75; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #1d2a33; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #0E6488; stroke-width: 2; } .mut-ln { stroke: #5b6b75; }
+  .fillacc { fill: #0E6488; } .fillsoft { fill: #dcecf3; } .fillpanel { fill: #eef3f6; }
+  .halo { paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #ffffff; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #1d2a33; } .mkacc { fill: #0E6488; }
+</style>
+
+<rect class="box" x="20" y="110" width="160" height="72" rx="6"/>
+<text class="t" x="100" y="140" text-anchor="middle">You</text>
+<text class="xs mut" x="100" y="160" text-anchor="middle">paste one prompt</text>
+<line class="ln" x1="180" y1="146" x2="218" y2="146" marker-end="url(#a)"/>
+
+<rect class="frame" x="220" y="20" width="250" height="262" rx="8"/>
+<text class="t" x="345" y="42" text-anchor="middle">Claude Code</text>
+<text class="xs mut" x="345" y="58" text-anchor="middle">with the MariaDB AI plugins</text>
+<rect class="plain" x="236" y="72" width="218" height="40" rx="4"/>
+<text class="sm" x="345" y="91" text-anchor="middle">MariaDB skills</text>
+<text class="xs mut" x="345" y="105" text-anchor="middle">SQL and connector know-how</text>
+<rect class="box" x="236" y="122" width="218" height="96" rx="6"/>
+<text class="t" x="345" y="142" text-anchor="middle">mariadb-shell MCP server</text>
+<text class="mono xs" x="252" y="166">sandbox.deploy</text>
+<text class="xs mut" x="438" y="166" text-anchor="end">start a server</text>
+<text class="mono xs" x="252" y="186">db.execute_sql</text>
+<text class="xs mut" x="438" y="186" text-anchor="end">create the table</text>
+<text class="mono xs" x="252" y="206">db.connect</text>
+<text class="xs mut" x="438" y="206" text-anchor="end">open a session</text>
+<rect class="plain" x="236" y="228" width="218" height="40" rx="4"/>
+<text class="sm" x="345" y="247" text-anchor="middle">Docs MCP server</text>
+<text class="xs mut" x="345" y="261" text-anchor="middle">current MariaDB syntax</text>
+
+<rect class="accbox" x="530" y="40" width="210" height="110" rx="8"/>
+<text class="t acct" x="635" y="66" text-anchor="middle">Sandbox MariaDB Server</text>
+<text class="xs" x="635" y="86" text-anchor="middle">native binary, no Docker</text>
+<text class="mono xs" x="635" y="106" text-anchor="middle">localhost:3310</text>
+<text class="mono xs acct" x="635" y="130" text-anchor="middle">shop.products</text>
+<rect class="box" x="530" y="186" width="210" height="80" rx="6"/>
+<text class="t" x="635" y="212" text-anchor="middle">Your project</text>
+<text class="sm" x="635" y="234" text-anchor="middle">a Python script</text>
+<text class="xs mut" x="635" y="252" text-anchor="middle">MariaDB Connector/Python</text>
+
+<line class="ln acc" x1="454" y1="166" x2="528" y2="100" marker-end="url(#ac)"/>
+<text class="xs acct halo" x="492" y="122" text-anchor="middle">SQL</text>
+<line class="ln" x1="470" y1="226" x2="528" y2="226" marker-end="url(#a)"/>
+<text class="xs halo" x="499" y="218" text-anchor="middle">writes</text>
+<path class="ln dash" d="M635,186 V152" marker-end="url(#a)"/>
+<text class="xs mut" x="644" y="174">queries</text>
+
+</svg>
