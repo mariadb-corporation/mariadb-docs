@@ -297,17 +297,43 @@ After `finish`, an 8.9 node cannot join the cluster any more. This section also 
 1. Stop all nodes.
 2. Remove the data of the nodes. If you set `storagePath`, `walPath`, and `walArchivePath`, remove the folders they point to. The `db` folder of the work directory then holds only small binary metadata, and it can stay. If you did not set them, remove the `db` folder of the work directory. Keep the snapshot folder.
 3. Start the nodes from the 8.9 distribution, with the 8.9 configuration. It must still have a `snapshotConfiguration` whose `snapshotsPath` points at the folder that holds your snapshots. Activate the cluster with `control.sh --set-state ACTIVE --yes`.
-4. Find the snapshot ID. Run the 8.9 `snapshot-utility.sh list`, and choose the snapshot that you took before the upgrade: its `PRODUCT VERSIONS` shows 8.9.x. Do not choose a snapshot whose `PRODUCT VERSIONS` shows 8.10.x. It holds data that 8.10 wrote, which 8.9 does not support.
+4. Find the snapshot ID. Run the 8.9 `snapshot-utility.sh list`, and choose the snapshot that you took before the upgrade: its `PRODUCT VERSIONS` shows 8.9.x. Do not choose a snapshot whose `PRODUCT VERSIONS` shows 8.10.x. It was taken after the upgrade, so it does not hold the state that you validated on 8.9.
 5. Restore the snapshot with the 8.9 `snapshot-utility.sh restore -id=<snapshot id>`. A successful restore prints `Restored: true`.
 6. Check the data: compare row counts with the values before the upgrade and run `control.sh --cache idle_verify`.
 
 Everything written after the snapshot is lost. Restore into a cluster with the same topology as the one that took the snapshot, so that the data layout and the backups match the cluster that you validated before the upgrade.
 
 {% hint style="warning" %}
-Do not start 8.9 nodes on data that 8.10 nodes have written and treat it as a rollback. It is not a supported way back, and data written by 8.10 can use formats that 8.9 does not read.
+Do not start 8.9 nodes on data that 8.10 nodes have written and treat it as a rollback. It is not a supported way back, because data written by 8.10 may use formats that 8.9 does not read. For example, an 8.9 node does not start if the data has a `PARTITIONED` cache with a vector index. GridGain 8.9 supports a vector index only on a `REPLICATED` cache, and the node stops with `Failed to create vector index. Only REPLICATED cache mode is supported.`
 {% endhint %}
 
-<!-- TODO SE (Vladimir Pligin, Aleksandr Polovtsev) and RE: is starting 8.9 on data written by 8.10 unsupported, and is any downgrade path other than the snapshot supported? The guide says it is unsupported and recommends the snapshot. Technically it worked (2026-10-22): after finish, 3 nodes were killed under transactional load and started on 8.9.39; the WAL written by 8.10 was replayed, balances were intact, idle_verify was clean. Not tested: PITR, a revert with several GB to rebalance. -->
+<!-- TODO: decide the support position for a downgrade after the rolling upgrade is finished with `control.sh --rolling-upgrade finish --yes`. 
+
+Tested 2026-10-26 on 8.9.39 and 8.10.0, 3 nodes with persistence, rolling upgrade, finish, then writes on 8.10.0.
+- Clean stop of the whole cluster, then start on 8.9.39 on the same data: works. Data, idle_verify, and validate_indexes are clean. kill -9 under load also worked (2026-10-22).
+- One 8.9 node joining a running 8.10 cluster after finish: rejected ("rejected due to disabled Rolling Upgrade"). Only a whole-cluster downgrade works.
+- Rebalance: a table of 5M rows (about 3 GB, 1 backup) written on 8.10 while one node was down, then all nodes started on 8.9.39. The stale node received 1.2 GB (1.78M entries, 20 s of transfer); counts and sums are identical, and idle_verify and validate_indexes are clean. A smaller run (150 MB) also worked.
+- Full and incremental snapshots taken on 8.10 (with `snapshot-utility.sh` and with `control.sh --snapshot create`), restored with the 8.9.39 snapshot-utility: works, data identical. Step 4 no longer says that 8.9 does not support such a snapshot; it says the snapshot was taken after the upgrade.
+- PITR restore -to=<time> on 8.9.39 over a WAL archive written by 8.10: works, exact row count. PITR is a distributed property: set it with `control.sh --property set --name pointInTimeRecoveryEnabled --val true`.
+- Binary objects and SQL types written on 8.9 before the upgrade and on 8.10 after finish (schema changes by the binary builder, nested objects, enums, collections, maps, BigDecimal, UUID, Timestamp, values of up to about 900 KB, a SQL table with 14 column types, 6 indexes, ALTER TABLE ADD COLUMN, updates and deletes), then a whole-cluster start on 8.9.39: 1980 binary objects, 120 large-value checks, and 12 SQL result sets are identical to 8.10, and idle_verify and validate_indexes are clean.
+- Source diff of 8.9.39 against gridgain-8.10.0 (gridgain core): no new or removed page, metastorage, or WAL format classes except the two CDC record classes that 8.10 only reads. The page and metastorage diffs are line wrapping only. Binary metadata gets only a runtime feature flag, not a new stored format.
+- 8.10-only features, written on 8.10, then a whole-cluster start on 8.9.39:
+  - A PARTITIONED cache with a vector index: 8.9.39 does NOT start. Each node logs "Failed to create vector index. Only REPLICATED cache mode is supported." and stops. This is the one case found where 8.10 data blocks an 8.9 start.
+  - REPLICATED vector caches with the 8.10 index options (HNSW parameters, INT8 quantization, segments, query threads): works. 8.9 rebuilds the index in memory at start, SQL counts match, and vector queries return the same nearest neighbors (ranks 3 to 5 can differ, as the search is approximate).
+  - Baseline scale-up and scale-down auto-adjust settings: 8.9 starts and ignores them. `control.sh --baseline` on 8.9 shows the old single setting ("auto adjustment disabled: softTimeout=300000"), so the 8.10 settings do not carry back.
+  - BINARY vector quantization: the 8.10 node itself needs the Lucene 10 vector modules and fails to start with the default Lucene 9 module. This is an 8.10 setup limit, not a downgrade result.
+- DCR, 8.10 and 8.9.39:
+  - 8.10 primary, 8.9 standby: full state transfer, live changes, backlog after pause/resume (incremental and file-store modes), and failover to the standby all work. The rollback hazard in other-changes.md applies only when an 8.9 sender reads a store written by 8.10.
+  - 8.9 sender, 8.10 receiver (failback direction): full state transfer works. It overwrites the rows that the sender has and keeps the extra rows that the receiver already holds.
+  - Two nodes per data center (8.10 and 8.9.39), including a receiver node restart: works.
+  - Bidirectional replication works for different keys. If both sides update the same key at the same time, the values swap. This also happens with both sides on the same version, so it is not a downgrade issue.
+  - SSL between an 8.10 sender and an 8.9.39 receiver: works, and a sender without SSL is rejected. The SSL settings are on `DrSenderConfiguration` and `DrReceiverConfiguration`.
+- Hazard: if the cluster was activated with a node missing, start the up-to-date nodes first. Otherwise they fail with "BaselineTopology of joining node is not compatible ... Branching history".
+Questions left:
+1. For 8.10 now: can the guide document starting 8.9.39 on data written by 8.10.0 after `control.sh --rolling-upgrade finish` as a supported rollback?
+2. For later releases: if yes, does that commitment stay in following releases?
+3. Restoring an 8.10 snapshot on 8.9, PITR on 8.9.39, and DCR failback to an 8.9 data center worked in tests. Can the guide document any of them as supported?
+4. Downgrade check: a PARTITIONED vector index stops 8.9.39 from starting (tested). Are there other 8.10 features that do the same? -->
 
 Keep the snapshot and the 8.9 distribution until the upgrade has been validated in production.
 
