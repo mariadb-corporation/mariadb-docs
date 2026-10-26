@@ -198,19 +198,22 @@ long value = atomicLong.incrementAndGet();
 
 Starting with GridGain 8.10, every `ClientAtomicLong` operation has an async counterpart that returns an `IgniteClientFuture`. To get the atomic long itself asynchronously, use `IgniteClient.atomicLongAsync()`.
 
-| Synchronous method | Async method | Future result type |
+| Blocking method | Async method | Future result |
 |---|---|---|
-| `get()` | `getAsync()` | `Long` |
-| `incrementAndGet()` | `incrementAndGetAsync()` | `Long` |
-| `getAndIncrement()` | `getAndIncrementAsync()` | `Long` |
-| `decrementAndGet()` | `decrementAndGetAsync()` | `Long` |
-| `getAndDecrement()` | `getAndDecrementAsync()` | `Long` |
-| `addAndGet(long)` | `addAndGetAsync(long)` | `Long` |
-| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long` |
-| `getAndSet(long)` | `getAndSetAsync(long)` | `Long` |
-| `compareAndSet(long, long)` | `compareAndSetAsync(long, long)` | `Boolean` |
-| `removed()` | `removedAsync()` | `Boolean` |
-| `close()` | `closeAsync()` | `Void` |
+| `IgniteClient.atomicLong(...)` | `IgniteClient.atomicLongAsync(...)` | `ClientAtomicLong`, or `null` if the atomic long does not exist and `create` is `false` |
+| `get()` | `getAsync()` | `Long`, the current value |
+| `incrementAndGet()` | `incrementAndGetAsync()` | `Long`, the value after the increment |
+| `getAndIncrement()` | `getAndIncrementAsync()` | `Long`, the value before the increment |
+| `decrementAndGet()` | `decrementAndGetAsync()` | `Long`, the value after the decrement |
+| `getAndDecrement()` | `getAndDecrementAsync()` | `Long`, the value before the decrement |
+| `addAndGet(long)` | `addAndGetAsync(long)` | `Long`, the value after the addition |
+| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long`, the value before the addition |
+| `getAndSet(long)` | `getAndSetAsync(long)` | `Long`, the value before the new value is set |
+| `compareAndSet(long, long)` | `compareAndSetAsync(long, long)` | `Boolean`, `true` if the current value equaled the expected value and was replaced |
+| `removed()` | `removedAsync()` | `Boolean`, `true` if the atomic long was removed |
+| `close()` | `closeAsync()` | `Void` (removes the atomic long) |
+
+`atomicLongAsync` has the same two overloads as `atomicLong`: with and without a `ClientAtomicConfiguration`.
 
 ```java
 IgniteClient client = Ignition.startClient(...);
