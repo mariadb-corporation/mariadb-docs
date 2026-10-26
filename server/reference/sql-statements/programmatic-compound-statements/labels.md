@@ -14,7 +14,7 @@ label: <construct>
 [label]
 ```
 
-Labels are MariaDB [identifiers](../../sql-structure/sql-language-structure/identifier-names.md) which can be used to identify a [BEGIN ... END](begin-end.md) construct or a loop. They have a maximum length of 16 characters and can be quoted with backticks (i.e.., \`\`\`).
+Labels are MariaDB [identifiers](../../sql-structure/sql-language-structure/identifier-names.md) which can be used to identify a [BEGIN ... END](begin-end.md) construct or a loop. Unlike other identifiers, they have no fixed maximum length. They can be quoted with backticks (`` ` ``).
 
 Labels have a start part and an end part. The start part must precede the portion of code it refers to, must be followed by a colon (`:`) and can be on the same or different line. The end part is optional and adds nothing, but can make the code more readable. If used, the end part must precede the construct's delimiter (`;`). Constructs identified by a label can be nested. Each construct can be identified by only one label.
 
