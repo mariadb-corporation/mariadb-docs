@@ -12,7 +12,7 @@ The `unix_socket` authentication plugin allows the user to use operating system 
 
 The `unix_socket` authentication plugin works by calling the [getsockopt](https://man7.org/linux/man-pages/man7/socket.7.html) system call with the `SO_PEERCRED` socket option, which allows it to retrieve the `uid` of the process that is connected to the socket. It is then able to get the user name associated with that `uid`. Once it has the user name, it will authenticate the connecting user as the MariaDB account that has the same user name.
 
-The `unix_socket` authentication plugin is not suited to multiple Unix users accessing a single MariaDB user account.
+Before MariaDB 11.6, the `unix_socket` authentication plugin is not suited to multiple Unix users accessing a single MariaDB user account. From MariaDB 11.6, you can map several Unix users to one account.
 
 ## Security
 
