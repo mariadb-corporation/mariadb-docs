@@ -97,7 +97,9 @@ The sync stops without a PR if the source needs fixing first:
   it, so you can preview it as a PR, and nothing is published until that PR is merged.
 
 `synced` is written by the script: for each product, the source commit it copied last and the
-images it copied. Don't edit it by hand.
+images it copied. Don't edit it by hand. When no synced page or image changed, the workflow
+keeps the old commits and opens no PR. So the recorded commit is the last one that changed the
+docs, not the last one checked, and upstream commits outside `docs-ref/content/` never cause a PR.
 
 **Adding a product** (for example the MariaDB REST Service, from `mariadb-shell`'s
 `docs-ref/content/community/mariadb-rest-service/`): add an entry to `products`, then add its

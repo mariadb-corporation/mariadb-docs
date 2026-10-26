@@ -13,7 +13,7 @@ description: >-
 {% endcolumn %}
 
 {% column %}
-Harden a GridGain 8 cluster by preventing SQL injection with parameterized queries and switching to Spring 6.
+Harden a GridGain 8 cluster by preventing SQL injection with parameterized queries.
 {% endcolumn %}
 {% endcolumns %}
 

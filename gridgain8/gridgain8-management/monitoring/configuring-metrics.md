@@ -157,6 +157,23 @@ group=<Cache_Name>,name="org.apache.ignite.internal.processors.cache.CacheLocalM
 group=<Cache_Name>,name="org.apache.ignite.internal.processors.cache.CacheClusterMetricsMXBeanImpl"
 ```
 
+The more common and useful beans and metrics are:
+
+- [CacheMetricsMXBean](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/mxbean/CacheMetricsMXBean.html):
+  - CacheGets (total number of requests to the cache)
+  - AverageGetTime (mean time to execute gets)
+  - AverageTxCommitTime (mean time to execute a transaction commit)
+- [CacheGroupMetricsMXBean](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/mxbean/CacheGroupMetricsMXBean.html):
+  - LocalNodeMovingPartitionsCount (count of partitions where state = MOVING for this cache group located on this node)
+  - ClusterMovingPartitionsCount (count of partitions where state = MOVING for this cache group in the entire cluster)
+  - ClusterOwningPartitionsCount (count of partitions where state = OWNING for this cache group in the entire cluster)
+
+You can access cache metrics via the `CacheMetricsMXBean` interface. You can connect to the bean from any JMX-compliant tool or API. If you need to work with the bean from your application, use `IgniteCache.mxBean()` or `IgniteCache.localMxBean()` to get a bean reference.
+
+Use the `enableStatistics()` and `disableStatistics()` methods exposed by the bean to start and stop collecting cache metrics, and `clear()` to reset the counters.
+
+For a complete list of metrics available, refer to the [CacheMetricsMXBean](https://www.gridgain.com/sdk/latest/javadoc/org/apache/ignite/mxbean/CacheMetricsMXBean.html) javadoc.
+
 ## Disabling Data Region Metrics
 
 Data region metrics expose information about data regions, including memory and storage size of the region.
@@ -339,6 +356,12 @@ org.apache:group="Persistent Store",name=DataStorageMetrics
 | Operation | Description |
 |---|---|
 | EnableMetrics | Enable persistent data storage metrics. |
+
+## Configuring Maximum-Value Metrics
+
+Some metrics, such as `communication.tcp.maxOutboundMessagesQueueSize` and `io.discovery.MaxMsgQueueSize`, report the maximum value observed over a time interval. The default interval is 60 seconds.
+
+To change the interval, call the `configureMaxValueMetric(name, timeInterval)` operation of the `MetricsMxBean` MBean, where `name` is the full metric name and `timeInterval` is the new interval in milliseconds. The value must be positive. The change applies to all nodes in the cluster.
 
 ## Disabling Index Operation Metrics
 

@@ -6,11 +6,7 @@ description: >-
 
 # Data Center Replication from GridGain 8
 
-{% hint style="info" %}
-This feature is available only as part of GridGain 8 Enterprise and Ultimate editions.
-{% endhint %}
-
-In certain environments, downtime associated with migrating data between GridGain versions is not acceptable. For these scenarios, GridGain provides a one-way data migration tool based on [GridGain 8 Data Center Replication](https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction). From the GridGain 8 source cluster's perspective, the GridGain 9 cluster appears as another GridGain 8 data center.
+In certain environments, downtime associated with migrating data between GridGain versions is not acceptable. For these scenarios, there is a one-way data migration tool based on [GridGain 8 Data Center Replication](https://www.gridgain.com/docs/latest/administrators-guide/data-center-replication/introduction). From the GridGain 8 source cluster's perspective, the GridGain 9 cluster appears as another GridGain 8 data center.
 
 After replication is complete, a brief pause is required to stop writes, flush the replication backlog, and switch traffic to GridGain 9. As such, this is a "near-zero downtime" migration, not a seamless one. A brief maintenance window is required during the final cutover to ensure data consistency.
 
@@ -41,7 +37,7 @@ Before starting replication, complete the following:
    ```bash
    gridgain9 cluster init --name <cluster-name> --metastorage-group <node-name> --license <path-to-license> --url http://localhost:10300
    ```
-5. Contact GridGain [support](https://support.gridgain.com) to enable data center replication for any existing caches you plan to replicate.
+5. Contact GridGain [support](https://mariadb.com/support/) to enable data center replication for any existing caches you plan to replicate.
 
 ## Type Mapping
 
@@ -245,6 +241,69 @@ When migrating data from GridGain 8 to GridGain 9, it is required to set the `ti
 {% endhint %}
 
 For additional information on configuring and running the DR connector tool, see [DR Connector](dcr-connector.md).
+
+### Capacity Planning
+
+Data between a GridGain 8 sender and the DR connector is transferred in _batches_. After a sender sends a batch, it waits for an acknowledgment from the DR connector.
+
+A single batch can contain multiple entries from one cache (`max=2048`), and have a `1 MB` soft upper size limit for regular replication traffic and `8 MB` for Full State Transfer. A batch is closed as soon as any of these limits is reached, or after a configurable time interval if neither limit is reached. A sender keeps sending batches until `100` unacknowledged batches accumulate for a given target data center (both regular and FST batches are counted, across all replicated caches).
+
+The example below shows how to configure these limits in the sender configuration:
+
+```xml
+<bean class="org.gridgain.grid.configuration.GridGainConfiguration">
+    <property name="dataCenterId" value="<source-datacenterId>"/>
+
+    <!-- Soft limit of regular batch size -->
+    <property name="batchSendSizeBytes" value="#{1L * 1024 * 1024}"/>
+    <!-- Soft limit of FST batch size -->
+    <property name="stateTransferBatchSendSizeBytes" value="#{8L * 1024 * 1024}"/>
+
+    <property name="drSenderConfiguration">
+        <bean class="org.gridgain.grid.configuration.DrSenderConfiguration">
+            <!-- Limit of unacknowledged (in-flight) batches -->
+            <property name="maxQueueSize" value="100"/>
+
+            <property name="connectionConfiguration">
+                ...
+            </property>
+            ...
+        </bean>
+    </property>
+</bean>
+```
+
+To account the worst case scenario (100 in-flight FST batches at maximum density, when the batch size has reached 8 MB and the number of entries is also close to its maximum value), you need to allocate approximately 4 times more memory on the connector:
+
+```
+connector_heap_live_set ~= FST_batch_size * max_queue_size * 4 ~= 8 MB * 100 * 4 ~= 3200 MB
+```
+
+Then, add another 25% for cluster needs:
+
+```
+connector_heap_live_set ~= FST_batch_size * max_queue_size * 4 ~= 8 MB * 100 * 4 ~= 3200 MB * 1.25 ~= 4 GB
+```
+
+To pass this value to the connector JVM parameters, you can use the `EXTRA_JVM_ARGS` Java variable:
+
+```bash
+EXTRA_JVM_ARGS="${EXTRA_JVM_ARGS} -Xms4g -Xmx4g -XX:G1HeapRegionSize=32m"
+```
+
+{% hint style="info" %}
+`4g` is the JVM heap only. The system the connector runs on must have at least `1 GB` more memory than is allocated for the heap.
+{% endhint %}
+
+If there are several senders, the connector must be ready to accept that many times the load and to have that many times more memory available. You can also start several instances of the connector itself, in which case the heap size for each one can be calculated with the following formula:
+
+```
+connector_heap = min_connector_heap * senders_count / max(1, connectors_count - 1)
+```
+
+Keep in mind that during normal operation the number of unacknowledged (in-flight) batches is usually several times lower than the limit of `100`, and therefore memory consumption should be significantly lower than the calculated limit of `4 GB`. If you see that connector consumption is approaching the limits, it is a sign that either the amount of traffic from GridGain 8 is too high for a single connector instance, or the GridGain 9 cluster is overloaded (there may be significant concurrent write load from other sources).
+
+The simplest way to reduce the load on the connector is to lower the maximum number of in-flight batches on the senders (see the `maxQueueSize` property in the snippet above).
 
 ## Starting Replication
 

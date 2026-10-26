@@ -81,7 +81,14 @@ Ticket cache: FILE:/tmp/krb5cc_0
 
 On Windows, the GSSAPI implementation is SSPI. The Java 8 native implementation has many limitations ([see java ticket](https://bugs.openjdk.org/browse/JDK-6722928)).
 
-The driver contains 2 different implementations:
+**Connector/J 4.0 and later** use the standard Java GSS-API (JGSS), with two credential sources chosen by the JDK system property `sun.security.jgss.native`, which the connector never sets itself:
+
+* `-Dsun.security.jgss.native=true` (recommended): JGSS delegates to the operating-system GSS-API, SSPI on Windows, `libgssapi_krb5` on Linux, and GSS.framework on macOS. The credentials are those of the operating-system session (the logged-on Windows user, or the `kinit` credential cache), which permits single sign-on without any third-party library or JAAS configuration. The JDK reads this property once, at the first GSS-API use, so it must be set on the command line or before any Kerberos operation.
+* Property not set: the pure-Java Kerberos implementation is used, through JAAS, as described in the next section.
+
+The Waffle-based Windows native implementation and its `waffle-jna` dependency are removed in Connector/J 4.0.
+
+**Connector/J 3.x** contains 2 different implementations:
 
 * A Java standard implementation will use JAAS to allow Java to access TGT.
 * A windows native implementation based on [Waffle](https://github.com/Waffle/waffle)
@@ -119,9 +126,9 @@ HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\Kerberos\Parameters
 
 * The Kinit command must have been executed previously to the connection.
 
-### Windows native java implementation
+### Windows native java implementation (Connector/J 3.x)
 
-Implementation is based on [Waffle](https://github.com/Waffle/waffle) that supports Windows SSPI based on [JNA](https://github.com/java-native-access/jna).
+Implementation is based on [Waffle](https://github.com/Waffle/waffle) that supports Windows SSPI based on [JNA](https://github.com/java-native-access/jna). This implementation is removed in Connector/J 4.0, which relies on `-Dsun.security.jgss.native=true` instead.
 
 If waffle-jna (and dependencies) is in the classpath, the native implementation will automatically be used.\
 (This permit to avoid any specific problem with admin right, registry, kinit ...)

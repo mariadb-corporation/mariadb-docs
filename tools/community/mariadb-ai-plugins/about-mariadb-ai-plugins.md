@@ -13,7 +13,7 @@ description: >-
   GitBook editor is overwritten by the next sync.
 -->
 
-MariaDB AI Plugins extend AI coding agents with knowledge about MariaDB and with access to MariaDB databases. You install a plugin through the plugin system of your coding agent. In this documentation, the coding agent is called the *harness*.
+MariaDB AI Plugins extend AI coding agents with knowledge about MariaDB and with access to MariaDB databases. You install a plugin through the plugin system of your coding agent. In this documentation, the coding agent is called the _harness_.
 
 ## What a Plugin Provides
 

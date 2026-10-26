@@ -38,7 +38,7 @@ The script performs these steps:
 3. Selects the package that matches your architecture and has the highest platform version that is not newer than yours. For example, a package built for glibc 2.34 is selected on a system with glibc 2.39.
 4. Downloads the package and compares its SHA-256 checksum with the value in `SHA256SUMS`. The script stops if the checksums don't match.
 5. Unpacks the package into `~/.local/share/mariadb-shell/<version>`, for example `~/.local/share/mariadb-shell/26.9.5`.
-6. Creates the symbolic links `~/.local/bin/mariadb-shell` and `~/.local/bin/msh`, which point to the installed version.
+6. Creates the symbolic links `~/.local/bin/mariadb-shell` and `~/.local/bin/msh`, which point to the installed version. If the package includes `mariadb-lsp`, the MariaDB SQL language server, it also creates `~/.local/bin/mariadb-lsp`. If it does not, the script removes a `mariadb-lsp` link that an earlier installation created.
 7. Removes older versions, keeping the new version and one previous version. See [Upgrade and Roll Back](#upgrade-and-roll-back).
 
 A successful run ends with output similar to the following:
@@ -53,6 +53,7 @@ A successful run ends with output similar to the following:
 ==> Installed /home/dba/.local/share/mariadb-shell/26.9.5/bin/mariadb-shell   Ver 26.9.5 ...
 ==> Binary: /home/dba/.local/bin/mariadb-shell -> /home/dba/.local/share/mariadb-shell/26.9.5/bin/mariadb-shell
 ==>         /home/dba/.local/bin/msh -> /home/dba/.local/share/mariadb-shell/26.9.5/bin/msh
+==>         /home/dba/.local/bin/mariadb-lsp -> /home/dba/.local/share/mariadb-shell/26.9.5/bin/mariadb-lsp
 ```
 
 {% hint style="info" %}
@@ -99,7 +100,7 @@ The script reads the following environment variables:
 | --- | --- | --- |
 | `MARIADB_SHELL_TAG` | Newest release | Release tag to install, for example `v26.9.5`. |
 | `MARIADB_SHELL_PREFIX` | `~/.local/share/mariadb-shell` | Directory that holds the unpacked versions. |
-| `MARIADB_SHELL_BINDIR` | `~/.local/bin` | Directory where the `mariadb-shell` and `msh` links are created. |
+| `MARIADB_SHELL_BINDIR` | `~/.local/bin` | Directory where the `mariadb-shell`, `msh` and `mariadb-lsp` links are created. |
 | `MARIADB_SHELL_REPO` | `mariadb-corporation/mariadb-shell` | GitHub repository, in `owner/repo` form, to install from. It must be public. |
 
 The script accepts these options:
@@ -118,7 +119,7 @@ curl -fsSL https://github.com/mariadb-corporation/mariadb-shell/raw/main/install
 
 ## Upgrade and Roll Back
 
-To upgrade, run the installation command again. The script installs the new version next to the existing ones and points the `mariadb-shell` and `msh` links at it. Running the command for a version that is already installed replaces that version's files.
+To upgrade, run the installation command again. The script installs the new version next to the existing ones and points the `mariadb-shell`, `msh` and `mariadb-lsp` links at it. Running the command for a version that is already installed replaces that version's files.
 
 After each installation, the script keeps only two versions in the prefix directory: the version it installed and the highest of the other versions. It removes only directories whose names consist of digits and dots, and leaves any other files in the prefix directory alone.
 
@@ -127,6 +128,7 @@ To roll back to the previous version, point the links at it:
 ```sh
 ln -sfn ~/.local/share/mariadb-shell/26.9.4/bin/mariadb-shell ~/.local/bin/mariadb-shell
 ln -sfn ~/.local/share/mariadb-shell/26.9.4/bin/msh ~/.local/bin/msh
+ln -sfn ~/.local/share/mariadb-shell/26.9.4/bin/mariadb-lsp ~/.local/bin/mariadb-lsp
 ```
 
 Alternatively, reinstall the earlier release with `MARIADB_SHELL_TAG`.
@@ -138,7 +140,7 @@ Upgrading does not change your configuration directory, `~/.mariadb-shell`.
 The script has no uninstall mode. To remove MariaDB Shell, delete the links and the installation directory:
 
 ```sh
-rm -f ~/.local/bin/mariadb-shell ~/.local/bin/msh
+rm -f ~/.local/bin/mariadb-shell ~/.local/bin/msh ~/.local/bin/mariadb-lsp
 rm -rf ~/.local/share/mariadb-shell
 ```
 

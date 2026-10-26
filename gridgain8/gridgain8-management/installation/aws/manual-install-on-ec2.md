@@ -14,7 +14,7 @@ You can extend this guide to any number of nodes.
 This guide is applicable to [Apache Ignite](https://apacheignite.readme.io) as well.
 {% endhint %}
 
-We will use two `t2.micro` instances, GridGain, and Java 8.
+We will use two `t2.micro` instances, GridGain, and Java 17.
 
 ## Prerequisites
 
@@ -96,7 +96,7 @@ $ ssh -i privatekey.pem ec2-user2@54.175.137.126
 If java is not already installed, install it using the package manager of the instance.
 
 ```shell
-$ sudo yum install java-1.8.0-openjdk.x86_64
+$ sudo yum install java-17-amazon-corretto-headless
 ```
 
 Upload a GridGain distribution package into the instance. Run the following command from you local machine:
@@ -190,11 +190,29 @@ After starting the second node, you should see the following message in the cons
 
 You can use the [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder) to configure automatic discovery of nodes.
 
-Enable the 'ignite-aws' module:
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From GridGain 8.10:
+{% endhint %}
+
+The `ignite-aws` module is removed. Add the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`) and its dependencies to `gridgain-enterprise-8.10/libs/` on every node.
+{% endtab %}
+
+{% tab title="8.9.x" %}
+{% hint style="info" %}
+In GridGain 8.9.x:
+{% endhint %}
+
+Enable the 'ignite-aws' module by copying it from `libs/optional` to `libs`:
 
 ```shell
-$ cp -r gridgain-enterprise-8.10/libs/optional/ignite-aws/ gridgain-enterprise-8.10/libs/
+$ cp -r gridgain-enterprise-<version>/libs/optional/ignite-aws/ gridgain-enterprise-<version>/libs/
 ```
+
+Starting with GridGain 8.9.39, the module is deprecated. For the replacement, see [Amazon S3 IP Finder](../../clustering/discovery-in-the-cloud.md#amazon-s3-ip-finder).
+{% endtab %}
+{% endtabs %}
 
 Go to the [Amazon S3 Management Console](https://s3.console.aws.amazon.com/s3/home) and create a simple bucket with default settings. Our bucket is named 'gg-ip-finder-bucket':
 

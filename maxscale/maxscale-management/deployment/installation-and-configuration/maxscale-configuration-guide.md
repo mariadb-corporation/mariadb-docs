@@ -1259,20 +1259,16 @@ All runtime configuration changes are persisted in generated configuration files
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0` from 26.10.0, `10` until 25.10
 * Description: Maximum number of authentication failures before temporarily blocking a host.
 
-The maximum number of authentication failures that are tolerated before a host is temporarily blocked. After a host is blocked, connections from it are rejected for 60 seconds. To disable this feature, set the value to 0.
+{% hint style="info" %}
+In MaxScale 26.10, the default changes to `0`, which disables this feature. Hosts are blocked by [max\_connect\_errors](maxscale-configuration-guide.md#max_connect_errors) instead.
+{% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
-By default, this feature is disabled.
-{% endtab %}
+The maximum number of authentication failures that are tolerated before a host is temporarily blocked.
 
-{% tab title="< 26.10" %}
-The default value is `10`.
-{% endtab %}
-{% endtabs %}
+The block applies to the whole host, not to the user whose authentication failed. Every client that connects from that host is rejected, including applications that use other accounts. After a host is blocked, connections from it are rejected until no connection has been attempted from it for 60 seconds. Each attempt during the block restarts the 60 seconds. A successful authentication from the host resets its failure count.
 
 Note that the configured value is not a hard limit. The number of tolerated failures is between `max_auth_errors_until_block` and `threads * max_auth_errors_until_block` where `max_auth_errors_until_block` is the configured value of this parameter and `threads` is the number of configured threads.
 
@@ -1281,22 +1277,21 @@ Note that the configured value is not a hard limit. The number of tolerated fail
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `100`
+* Default: `100` from 26.10.0, `0` until 25.10.
+* Description: Maximum number of aborted connection attempts before temporarily blocking a host.
 
-Maximum number of connection attempt errors before the host is blocked for 60 seconds. After a host is blocked, connections from it are rejected for 60 seconds. To disable this feature, set the value to 0.
+{% hint style="info" %}
+This parameter is available from MaxScale 25.10.4. In MaxScale 26.10, its default changes to `100`, and it replaces [max\_auth\_errors\_until\_block](maxscale-configuration-guide.md#max_auth_errors_until_block) as the default way of blocking hosts.
+{% endhint %}
 
-This setting is similar to the `max_connect_errors` feature in the MariaDB server.
-This parameter was added in MaxScale 25.10.
+The maximum number of aborted connection attempts that are tolerated before a host is temporarily blocked. A connection attempt counts as aborted when the handshake fails, or when the client disconnects before authentication completes without having failed authentication. Failed authentications are counted by `max_auth_errors_until_block` instead. The default value is 0, which disables this feature.
 
-{% tabs %}
-{% tab title="Current" %}
-The default value is `100`.
-{% endtab %}
+This is similar to the [max\_connect\_errors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#max_connect_errors) system variable of MariaDB Server, with two differences:
 
-{% tab title="< 26.10" %}
-The default value is `0`, which disables the feature.
-{% endtab %}
-{% endtabs %}
+* MaxScale doesn't block the host until `FLUSH HOSTS` is run. It rejects connections from the host until no connection has been attempted from it for 60 seconds. Each attempt during the block restarts the 60 seconds.
+* The configured value is not a hard limit. The number of tolerated aborted attempts is between `max_connect_errors` and `threads * max_connect_errors`, where `threads` is the number of configured threads.
+
+A successful authentication from the host resets its count.
 
 #### `debug`
 

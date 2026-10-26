@@ -467,7 +467,9 @@ Register name: `io.statistics.cacheGroups.{group_name}`
 |LOGICAL_READS|long|Number of logical reads|
 |PHYSICAL_READS|long|Number of physical reads|
 |grpId|integer|Group id|
+|insertedBytes|long|Number of bytes inserted into the store.|
 |name|string|Name of the index|
+|removedBytes|long|Number of bytes removed from the store.|
 |startTime|long|Statistics collect start time|
 
 ### Sorted Indexes
@@ -534,6 +536,42 @@ Register name: `io.communication`
 |SslEnabled|boolean|Indicates whether SSL is enabled.|
 |SslHandshakeDurationHistogram|histogram|Histogram of SSL handshake duration in milliseconds (metric is exported only if SSL is enabled).|
 
+### TCP Communication
+
+Register name: `communication.tcp`
+
+|Name|Type|Description|
+|---|---|---|
+|maxOutboundMessagesQueueSize|long|Maximum number of messages that were waiting to be sent to a remote node over the last time interval. The default interval is 60 seconds. See [Configuring Maximum-Value Metrics](../../gridgain8-management/monitoring/configuring-metrics.md#configuring-maximum-value-metrics).|
+
+A growing queue can point to a failed node or a network problem. To get a warning in the log when the outbound queue for a node exceeds a threshold, set the `IGNITE_TCP_COMM_MSG_QUEUE_WARN_SIZE` system property to the maximum acceptable queue size. The default value is `0`, which disables the warning. The warning is printed at most once every 30 seconds.
+
+### TCP Communication Connection Pool
+
+GridGain keeps a pool of TCP connections to each remote node. The pool is described by one shared register, which contains common parameters, and one register containing the values ​​of local metrics of a specific pool of a cluster node.
+
+Register name: `communication.tcp.connectionPool`
+
+|Name|Type|Description|
+|---|---|---|
+|maxConnectionsCnt|integer|The maximum number of connections to a remote node. This is the value of `TcpCommunicationSpi.connectionsPerNode`.|
+|isPaired|boolean|Indicates whether paired connections are used (`TcpCommunicationSpi.usePairedConnections`).|
+|isAsync|boolean|Indicates whether connections put data in a queue instead of sending it immediately.|
+
+Register name: `communication.tcp.connectionPool.{node_id}`, where `{node_id}` is the ID of the remote node.
+
+The register is created when a connection to the node is first set up, and removed when the node leaves the cluster.
+
+|Name|Type|Description|
+|---|---|---|
+|consistentId|string|The consistent ID of the remote node.|
+|currentConnectionsCnt|integer|The number of current connections to the remote node.|
+|outboundMessagesQueueSize|integer|The overall number of messages waiting to be sent to the remote node, across all connections to it.|
+|maxNetworkIdleTime|long|The maximum idle time of physical sending or receiving data, in milliseconds. The value is the highest idle time observed since the register was created; it does not decrease.|
+|avgConnectionLifetime|long|The average connection lifetime, in milliseconds.|
+|removedConnectionsCnt|long|The total number of removed connections.|
+|acquiringThreadsCnt|integer|The number of threads that are currently acquiring a connection.|
+
 ### Ignite Thin Client Connector
 
 Register name: `client.connector`
@@ -579,9 +617,12 @@ Register name: `io.discovery`
 |CoordinatorSince|long|Timestamp since which the local node became the coordinator (metric is exported only from server nodes).|
 |Coordinator|UUID|Coordinator ID (metric is exported only from server nodes).|
 |CurrentTopologyVersion|long|Current topology version.|
+|ClientRouterNodeId|string|ID of the server node that the local client node uses as its router (metric is exported only from client nodes).|
 |JoinedNodes|integer|Joined nodes count.|
 |LeftNodes|integer|Left nodes count.|
+|MaxMsgQueueSize|long|Maximum size of the discovery message queue over the last time interval (metric is exported only from server nodes). The default interval is 60 seconds. See [Configuring Maximum-Value Metrics](../../gridgain8-management/monitoring/configuring-metrics.md#configuring-maximum-value-metrics).|
 |MessageWorkerQueueSize|integer|Current message worker queue size.|
+|Next|UUID|ID of the next node in the discovery ring (metric is exported only from server nodes).|
 |PendingMessagesRegistered|integer|Pending registered messages count.|
 |RejectedSslConnectionsCount|integer|TCP discovery connections count that were rejected due to the SSL errors.|
 |SslEnabled|boolean|Indicates whether SSL is enabled.|
@@ -599,6 +640,7 @@ Register name: `io.dataregion.{data_region_name}`
 |DirtyPages|long|Number of pages in memory not yet synchronized with persistent storage.|
 |EmptyDataPages|long|Calculates empty data pages count for region. It counts only totally free pages that can be reused (e. g. pages that are contained in reuse bucket of free list).|
 |EvictionRate|long|Eviction rate (pages per second).|
+|EvictionsStarted|boolean|True if page eviction was triggered due to data region memory pressure.|
 |LargeEntriesPagesCount|long|Count of pages that fully occupied by large entries that go beyond page size|
 |OffHeapSize|long|Offheap size in bytes.|
 |OffheapUsedSize|long|Offheap used size in bytes.|
@@ -678,6 +720,50 @@ Register name: `defragmentation`
 |processedPartitions|integer|Number of partitions that have been processed during defragmentation.|
 |totalPartitions|integer|Total number of partitions to be defragmented.|
 |startTime|long|Timestamp when the current defragmentation process started.|
+
+### Snapshots
+
+{% hint style="info" %}
+Snapshot metrics are available in GridGain Ultimate Edition only.
+{% endhint %}
+
+GridGain keeps one register for each type of snapshot operation. Each register describes the last operation of that type requested on the local node. The registers appear when the cluster is activated, and the metrics keep their final values after the operation finishes. Until an operation of that type runs, `SnapshotId`, `StartTime`, `EndTime`, and `TotalPages` report `-1`.
+
+{% hint style="info" %}
+Starting with GridGain 8.10, the snapshot metrics are available as generic metrics. `SnapshotMetricsMXBean` is deprecated; use the [JMX exporter](#jmx) to expose the registers as JMX beans.
+{% endhint %}
+
+Register names: `snapshot` (create), `snapshot-restore`, `snapshot-check`.
+
+**Create (`snapshot`)**
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|ID of the last created snapshot requested on this node.|
+|OperationId|string|ID of the last create operation requested on this node.|
+|StartTime|long|Start time of the last create operation, in milliseconds.|
+|EndTime|long|Finish time of the last create operation, in milliseconds, or `-1` if it has not started or is still in progress.|
+|Error|string|Error message of the last create operation. Empty if it succeeded or none has finished yet.|
+|TotalPages|long|Total number of pages to write.|
+|BytesWritten|long|Bytes written by the last create operation.|
+|TotalBytesWrittenOnStorage|long|Total bytes actually written to the storage device (after compression).|
+|WriteThrottlingTime|long|Time the snapshot writer threads spent parked because of throttling, in milliseconds.|
+|PartitionsWritten|long|Number of distinct partitions written.|
+|FreeSpace|long|Free space on the file system of the snapshot working directory, in bytes.|
+
+**Restore (`snapshot-restore`) and check (`snapshot-check`)**
+
+Both registers contain the same metrics. The values refer to the last restore or check operation on this node, respectively.
+
+|Name|Type|Description|
+|---|---|---|
+|SnapshotId|long|ID of the snapshot that is being restored or checked.|
+|OperationId|string|ID of the last operation requested on this node.|
+|StartTime|long|Start time of the last operation, in milliseconds.|
+|EndTime|long|End time of the last operation, in milliseconds, or `-1` if it has not started or is still in progress.|
+|Error|string|Error message of the last operation. Empty if it succeeded.|
+|TotalPages|long|Total number of pages to restore or check, or `-1` if not known yet.|
+|ProcessedPages|long|Number of pages restored or checked so far.|
 
 ### Cluster
 
@@ -771,6 +857,43 @@ Register name: `dr.receiver.dc<ID>.<cacheName>`
 |BytesSent|long|Number of entries waiting to be stored in cache.|Node|
 |AverageBatchAckTime|double|Average time in milliseconds between sending batch to receiver cache nodes and successfully storing it.|Node|
 
+### Receiver Trace Metrics
+
+Register name: `dr.receiver.trace.dc<ID>.<cacheName>`
+
+These metrics show how long replicated updates take to reach the receiving data center, and whether the clocks of the source and receiving data centers disagree. The sender records the time of each update when the update happens, and sends the times of the oldest and newest update with each batch. The receiver hub compares these times with its own clock when the batch arrives.
+
+The receiver hub creates the register when the first batch for the data center and cache arrives, and removes it when the receiver hub stops.
+
+|Attribute|Type|Description|Scope|
+|---|---|---|---|
+|Batches|long|Number of batches received from remote DC <dcID> for this cache.|Node|
+|BatchesWithTrace|long|Number of batches that carried update times and were used for the delay metrics.|Node|
+|DelayFloorLast|long|Receive time minus the time of the newest update in the last batch, in milliseconds. This is the lower bound of the replication delay.|Node|
+|DelayFloorMin|long|Smallest `DelayFloor` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayFloorMax|long|Largest `DelayFloor` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayFloorNegatives|long|Number of batches with a negative `DelayFloor` value.|Node|
+|DelayFloorHistogram|histogram|Distribution of the non-negative `DelayFloor` values, in milliseconds.|Node|
+|DelayCeilingLast|long|Receive time minus the time of the oldest update in the last batch, in milliseconds. This is the upper bound of the replication delay.|Node|
+|DelayCeilingMin|long|Smallest `DelayCeiling` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayCeilingMax|long|Largest `DelayCeiling` value observed, in milliseconds. `0` until a batch is observed.|Node|
+|DelayCeilingNegatives|long|Number of batches with a negative `DelayCeiling` value.|Node|
+|DelayCeilingHistogram|histogram|Distribution of the non-negative `DelayCeiling` values, in milliseconds.|Node|
+|LegacyBatchesOnV2Session|long|Number of batches without update times received over a connection that supports them. Expected to grow during a rolling upgrade and while batches stored by the sender before the upgrade are sent. A steady increase after that indicates a problem.|Node|
+|V2BatchesOnV1Session|long|Number of batches with update times received over a connection that does not support them. The update times are ignored and the data is applied. Expected to stay at `0`.|Node|
+
+The difference between `DelayCeiling` and `DelayFloor` shows how long a batch waited in the sender store.
+
+A negative delay means that the clock of the source data center is ahead of the receiver's clock by at least that amount. Negative values are counted in the `*Negatives` metrics and reported by the `*Min` and `*Last` metrics, but are not added to the histograms, so the histograms show delay only.
+
+The histograms use the following bucket bounds, in milliseconds: 1, 2, 4, 8, 16, 25, 50, 75, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 25000, and 60000. Histograms are available in the JMX exporter only. For more information, see [Histograms](#histograms).
+
+Keep in mind the following when you read these metrics:
+
+- The metrics use a cached system clock. Even when the data center clocks are synchronized, `DelayFloor` can show negative values of up to about 10 ms, so clock skew below about 10 ms cannot be measured.
+- Update times are recorded for incremental replication only. Batches sent during a full state transfer, or when incremental data center replication is disabled, carry no update times. These batches are counted in `Batches` but not in `BatchesWithTrace`.
+- Update times are exchanged only when both data centers support them. Batches from a data center that runs an older GridGain version are counted in `Batches` only.
+
 ### Sender Metrics
 
 Register name: `dr.sender.dc<ID>.<cacheName>`
@@ -822,3 +945,40 @@ Examples of the metric names if the bounds are [10,100]:
 - histogram_0_10 - less than 10
 - histogram_10_100 - between 10 and 100
 - histogram_100_inf - more than 100
+
+Histogram metrics exported as JSON strings look like this:
+
+```json
+{
+  "bounds":
+    [1,2,4,8,16,25,50,75,100,250,500,750,1000,3000,5000,10000,25000,60000],
+  "values":
+    [
+      {"fromExclusive":0,"toInclusive":1,"value":0},
+      {"fromExclusive":1,"toInclusive":2,"value":0},
+      {"fromExclusive":2,"toInclusive":4,"value":0},
+      {"fromExclusive":4,"toInclusive":8,"value":0},
+      {"fromExclusive":8,"toInclusive":16,"value":0},
+      {"fromExclusive":16,"toInclusive":25,"value":0},
+      {"fromExclusive":25,"toInclusive":50,"value":0},
+      {"fromExclusive":50,"toInclusive":75,"value":2},
+      {"fromExclusive":75,"toInclusive":100,"value":0},
+      {"fromExclusive":100,"toInclusive":250,"value":0},
+      {"fromExclusive":250,"toInclusive":500,"value":0},
+      {"fromExclusive":500,"toInclusive":750,"value":0},
+      {"fromExclusive":750,"toInclusive":1000,"value":0},
+      {"fromExclusive":1000,"toInclusive":3000,"value":1},
+      {"fromExclusive":3000,"toInclusive":5000,"value":0},
+      {"fromExclusive":5000,"toInclusive":10000,"value":0},
+      {"fromExclusive":10000,"toInclusive":25000,"value":0},
+      {"fromExclusive":25000,"toInclusive":60000,"value":0},
+      {"fromExclusive":60000,"value":0}
+    ]
+}
+```
+
+In the histogram, `bounds` is metadata, separate from the actual time values, and it is used to separate the spectrum of data values into buckets. For example, in the histogram above, the `bounds` field shows 18 values. The first bucket always starts with `0`, so in our example, the first bucket is `0 - 1` with the `1` being inclusive.
+
+The last bucket always includes infinity, so in our example the final bucket is `60000 and higher`. Any value higher than 60000 is put into that bucket.
+
+If a value for the histogram above is `1500` milliseconds, it falls into the `1000 - 3000` bucket and increments the `value` for that bucket (`"value":1`).

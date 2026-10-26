@@ -170,11 +170,11 @@ The tunnel controls how the agent reaches the server, not what it can do there. 
 
 | Message | Cause | Solution |
 | --- | --- | --- |
-| *The authenticity of host '…' can't be established.* | The host key of the SSH host isn't in the known-hosts file. | Add the connection with `mcp setup` and confirm the key, or connect once with `ssh`. |
-| *Invalid fingerprint detected.* | The host key of the SSH host has changed. | Verify the new key with your administrator, then remove the old entry with `ssh-keygen -R`. |
-| *Authentication error opening SSH tunnel* or *Access denied* | The SSH host didn't accept any of the keys, or the key needs a passphrase. | Check `ssh-user` and `ssh-identity-file`, or load the key into the SSH agent. |
-| *Interactive auth mode is disabled when in disabled wizards mode.* | The SSH host only offers keyboard-interactive authentication. | Configure public key authentication for the tunnel user. |
-| *The connection option '…' requires an SSH tunnel.* | An `ssh-*` option is used on a URI without `+ssh`. | Use the `mariadb+ssh://` scheme. |
-| *not a configured connection* | The agent used a URI that differs from the configured one, for example `mariadb://` instead of `mariadb+ssh://`. | Use the URI that `db.list_connections` reports. |
+| _The authenticity of host '…' can't be established._ | The host key of the SSH host isn't in the known-hosts file. | Add the connection with `mcp setup` and confirm the key, or connect once with `ssh`. |
+| _Invalid fingerprint detected._ | The host key of the SSH host has changed. | Verify the new key with your administrator, then remove the old entry with `ssh-keygen -R`. |
+| _Authentication error opening SSH tunnel_ or _Access denied_ | The SSH host didn't accept any of the keys, or the key needs a passphrase. | Check `ssh-user` and `ssh-identity-file`, or load the key into the SSH agent. |
+| _Interactive auth mode is disabled when in disabled wizards mode._ | The SSH host only offers keyboard-interactive authentication. | Configure public key authentication for the tunnel user. |
+| _The connection option '…' requires an SSH tunnel._ | An `ssh-*` option is used on a URI without `+ssh`. | Use the `mariadb+ssh://` scheme. |
+| _not a configured connection_ | The agent used a URI that differs from the configured one, for example `mariadb://` instead of `mariadb+ssh://`. | Use the URI that `db.list_connections` reports. |
 
 <sub>_This page is licensed: GPLv2_</sub>

@@ -171,6 +171,8 @@ GridGain rejects authentication attempts with an empty username or an empty pass
 |`url`| The URL of the LDAP server. Supported URL schemes: `ldap`, `ldaps`.|
 |`bindDn`| The DN of the service account GridGain binds as to search for the authenticating user. If empty, GridGain performs the search over an anonymous connection. Empty by default.|
 |`bindCredentials`| The password of the service account defined by `bindDn`. Required when `bindDn` is set: a simple bind with an empty password is an unauthenticated bind, which would leave the search connection anonymous instead of authenticated as the service account. Ignored when `bindDn` is empty. Empty by default.|
+|`connectTimeoutMillis`| How long a bind may spend establishing the connection to the LDAP server, in milliseconds. Bounds a server that drops packets instead of refusing the connection, which an untimed connect would wait on indefinitely. Must be at least `1`; `0` means no timeout and is rejected. Default value: `5000`.|
+|`readTimeoutMillis`| How long a bind or a search may wait for the LDAP server to answer once connected, in milliseconds. Bounds a server that accepts the connection and then stops responding, which the connect timeout does not cover. Increase this value if legitimate logins against a slow directory or a large group search are being cut off. Must be at least `1`; `0` means no timeout and is rejected. Default value: `10000`.|
 |`userSearch`| Configuration of the user search. GridGain searches for the authenticated user in the specified container.|
 |`userSearch.dn`|The DN of the container to search for users.|
 |`userSearch.scope`|The scope of the search. Possible values: `SUB_TREE`, `ONE_LEVEL`, `BASE`. Default value: `SUB_TREE`.|
@@ -184,6 +186,10 @@ GridGain rejects authentication attempts with an empty username or an empty pass
 |`roleMapping`|A list of mappings of LDAP groups to GridGain roles. Groups without a mapping are mapped to roles with matching names.|
 |`roleMapping.groupName`|The name of the LDAP group to map. When groups are resolved through `groupSearch`, the group name is the value of the `cn` attribute of the group entry.|
 |`roleMapping.roles`|The list of GridGain roles assigned to users in the group.|
+
+{% hint style="info" %}
+The timeouts above bound every connection the provider opens — the search bind, the user re-bind, and the group search. LDAP binds run on a shared authentication executor, so an unresponsive directory left without timeouts can stall authentication across the node, including basic authentication. Keep both timeouts set; do not disable them.
+{% endhint %}
 
 When security is enabled, GridGain rejects a configuration update that sets `bindDn` while leaving `bindCredentials` empty.
 A node whose stored configuration already pairs a `bindDn` with empty `bindCredentials` still starts, and further updates to

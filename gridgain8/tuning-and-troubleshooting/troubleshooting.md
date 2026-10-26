@@ -99,28 +99,14 @@ This helps if the root cause of this exception is not clear as the dump provides
 In order to capture detailed information about GC related activities, make sure you have the settings below configured
 in the JVM settings of your cluster nodes:
 
-{% tabs %}
-{% tab title="Java 11" %}
+{% code title="Shell" %}
 ```bash
 -XX:+ScavengeBeforeFullGC
 -XX:+PrintFlagsFinal
 -XX:+UnlockDiagnosticVMOptions
 -Xlog:gc*,safepoint:/path/to/gc/logs/gc.log:time,uptime,level,tags:filecount=10,filesize=10M
 ```
-{% endtab %}
-
-{% tab title="Java 8" %}
-```bash
--XX:+PrintGCDetails
--XX:+PrintGCTimeStamps
--XX:+PrintGCDateStamps
--XX:+UseGCLogFileRotation
--XX:NumberOfGCLogFiles=10
--XX:GCLogFileSize=100M
--Xloggc:/path/to/gc/logs/gc.log
-```
-{% endtab %}
-{% endtabs %}
+{% endcode %}
 
 Replace `/path/to/gc/logs/` with an actual path on your file system.
 

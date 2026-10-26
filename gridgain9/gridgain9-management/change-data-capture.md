@@ -27,7 +27,7 @@ Command arguments:
 | Property | Default | Description |
 |---|---|---|
 | name |  | The name the CDC source. This name will be used to reference it. |
-| type |  | Data source type. Supported values: `gridgain`, `mssql`. |
+| type |  | Data source type. Supported values: `gridgain`, `mariadb`, `mssql`. |
 | tables |  | Comma-separated list of tables that will be replicated. |
 | parameters |  | Optional additional parameters. The following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
 | experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. |
@@ -65,10 +65,10 @@ Command parameters:
 | Property | Default | Description |
 |---|---|---|
 | name |  | The name the CDC sink. This name will be used to reference it. |
-| type |  | Data sink type. Supported values: `iceberg`; `gridgain_9` (experimental, requires `--experimental`). |
+| type |  | Data sink type. Supported values: `iceberg`; `gridgain_9`. |
 | parameters |  | Optional additional parameters. Specific list of parameters depends on the type of the data sink. For Iceberg data sink, [Iceberg](https://iceberg.apache.org/docs/latest/configuration/#table-properties) configuration properties are supported. |
 | create-table-if-not-exists | true | Optional. If `true`, missing tables are automatically created in the sink before replication starts. Has no effect for the `gridgain_9` sink, which requires the destination table to already exist. |
-| experimental | false | Optional. Enables experimental sink types, such as `gridgain_9`. Creating or updating a sink with an experimental type fails unless this flag is set. |
+| experimental | false | Optional. Enables experimental sink types. Creating or updating a sink with an experimental type fails unless this flag is set. No sink type currently requires it. |
 
 Below is an example of a CDC data sink:
 
@@ -78,7 +78,7 @@ cdc sink create --name iceberg_sink --type iceberg --parameters "catalog.type"="
 
 ### Updating CDC Sink
 
-You can update the CDC sink when the relevant replication is not running by using the `cdc sink update` command. The command uses the same arguments as the `cdc sink create` command, including `--experimental`: updating a sink that uses an experimental type, such as `gridgain_9`, also requires the `--experimental` flag. For example:
+You can update the CDC sink when the relevant replication is not running by using the `cdc sink update` command. The command uses the same arguments as the `cdc sink create` command, including `--experimental`: updating a sink that uses an experimental type also requires the `--experimental` flag. For example:
 
 ```
 cdc sink update --name iceberg_sink --type iceberg --parameters "catalog.type"="iceberg"
@@ -112,10 +112,10 @@ Command parameters:
 | source |  | Data source to use in replication. |
 | sink |  | Data sink to use in replication. |
 | send-existing-data |  | Determines if historic data will be transferred. Possible values:<br>- `ALL` - all existing data will be replicated first, then updates will be transferred.<br>- `NEW_DATA` - only new data will be transferred. Previously existing data will remain in the source. |
-| execution-nodes |  | The list of nodes that will be used to run replication. If not specified, the node the command is executed on is used. |
+| execution-nodes | any node | The list of nodes allowed to run the replication. If not specified, the replication can run on any node of the cluster and fails over to any live node. The list can be changed later with `cdc replication update`. |
 
 {% hint style="info" %}
-A `gridgain` source supports only `NEW_DATA` mode. `ALL` mode, which first replicates existing data and then switches to new changes, is available only for external sources such as `mssql`. Starting a replication that uses a `gridgain` source in `ALL` mode fails.
+A `gridgain` source supports only `NEW_DATA` mode. `ALL` mode, which first replicates existing data and then switches to new changes, is available only for external sources such as `mariadb` and `mssql`. Starting a replication that uses a `gridgain` source in `ALL` mode fails.
 {% endhint %}
 
 ### Starting Replication
@@ -150,7 +150,33 @@ cdc replication status --name gg_to_iceberg
 
 ### Replication Failover
 
-If at any point the node executing replication leaves the cluster, the replication process will automatically be transferred to a different node from the list specified in the `execution-nodes` parameter. If none of the specified nodes are available in the cluster, replication will fail.
+A replication runs on one node at a time. The `cdc replication status` command reports that node (`running on <node>`), and `cdc replication list` returns it as `runningOnNode`.
+
+If the node executing a replication leaves the cluster, the replication is transferred to another node and resumes from the last saved position:
+
+- When the replication was created without `--execution-nodes`, any live node of the cluster is a candidate. The remaining nodes agree on the new node without coordination, so each replication moves to exactly one node, and different replications spread across the cluster.
+- When `--execution-nodes` names specific nodes, the new node is chosen from the live nodes in that list. If none of them is in the cluster, the replication becomes `FAILED` and is restarted when one of the listed nodes joins the cluster again.
+
+The transfer starts the replication from the last position saved by the previous node, so the changes between that position and the moment the node left are delivered again. Sinks apply changes by primary key, so the repeated delivery does not create duplicate rows.
+
+#### Changing Execution Nodes
+
+The list of nodes allowed to run a replication can be changed without deleting the replication, for example when nodes are added to the cluster or come back under new names:
+
+```
+cdc replication update --name gg_to_iceberg --execution-nodes node2,node3
+cdc replication update --name gg_to_iceberg --any-node
+```
+
+A running replication keeps running where it is. The new list applies the next time the replication is started or fails over.
+
+#### Node Restart
+
+When a node that runs a replication is restarted, the replication is picked up by another node as described above. If no other node takes it over before the node is back, for example after a restart of the whole cluster, the restarted node resumes its own replications of `mariadb` and `mssql` sources from the last saved position. A `gridgain` source replication in that situation must be started again with `cdc replication start`.
+
+The resume position must still be available in the source. For a `mssql` source it must be within the SQL Server CDC retention period of the capture instance, which is 3 days by default (`sys.sp_cdc_change_job` with `@job_type = 'cleanup'`, `@retention` in minutes). A replication whose position has been cleaned up becomes `FAILED` and has to be deleted and created again.
+
+A SQL Server capture instance has no position until it captures its first change. If a `mssql` replication is restarted before the source table has had any captured change since CDC was enabled on it, there is no saved position to resume from, and the replication continues from the current position of the database.
 
 ### Stopping Replication
 
@@ -214,10 +240,6 @@ cdc replication start --name gg_to_iceberg
 ```
 
 ## Replicating from Microsoft SQL Server
-
-{% hint style="warning" %}
-The GridGain 9 CDC sink (`gridgain_9`) used in this section is an experimental feature. It may change significantly in later releases. The Microsoft SQL Server CDC source (`mssql`) is not experimental.
-{% endhint %}
 
 This section describes how to replicate changes from a Microsoft SQL Server database into GridGain 9 tables. SQL Server acts as the CDC source, and a GridGain 9 sink lands the changes in local tables: inserts and updates are applied as upserts, and deletes remove the corresponding rows.
 
@@ -296,10 +318,8 @@ The `gridgain_9` sink does not create the destination table. The `--create-table
 Set `targetTable` to the qualified name of the destination table. It must differ from the source table's qualified name. If `targetTable` is omitted, it defaults to the source table name, and replication fails to start with a self-replication error.
 {% endhint %}
 
-Because the `gridgain_9` sink type is experimental, you must pass the `--experimental` flag. Without it, the command is rejected with `GRIDGAIN_9 sink is experimental; pass the --experimental flag to enable it.`
-
 ```
-cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ACCOUNTS --experimental
+cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ACCOUNTS
 ```
 
 Sink parameters:
@@ -345,3 +365,96 @@ The source reads the capture instance named `<schema>_<table>`, which is the SQL
 - A paused or unresponsive SQL Server is not detected until its connection returns.
 - Schema and DDL changes are not propagated; the destination table must exist with a compatible schema.
 - In a mixed-version cluster, create `mssql` sources and `gridgain_9` sinks only after every node is upgraded. Older nodes cannot read the new source and sink types.
+
+## Replicating from MariaDB
+
+This section describes how to replicate changes from MariaDB tables into GridGain 9 tables. MariaDB acts as the CDC source: GridGain reads the row-based binary log, optionally after a consistent initial snapshot, and a GridGain 9 sink applies the changes to local tables. Inserts and updates are applied as upserts, and deletes remove the corresponding rows.
+
+### Supported Configurations
+
+| Area | Supported |
+|---|---|
+| MariaDB server | Validated with MariaDB 11.4.4. Other server versions are not validated. |
+| Tables | InnoDB tables with a primary key. |
+| Column types | Signed `INT` and `VARCHAR` with the `utf8mb3` or `utf8mb4` character set. Create the matching GridGain 9 columns as `INT` and `VARCHAR`. A table with any other column type, including unsigned integers, cannot be replicated. |
+| Replication modes | `NEW_DATA` and `ALL`. |
+| Delivery | At least once. After a failure, the last batch can be applied again; because changes are applied as upserts and deletes, the target table converges. |
+
+### Prerequisites
+
+Configure MariaDB with a row-based binary log and restart the server:
+
+```ini
+[mariadb]
+server_id=1
+log_bin=mysql-bin
+binlog_format=ROW
+binlog_row_image=FULL
+binlog_expire_logs_seconds=604800
+```
+
+Keep binary logs longer than the longest planned outage of the replication plus its lag. If MariaDB purges the binary log file that holds the saved position, the replication fails and must be recreated.
+
+Create an account for GridGain. `RELOAD` is needed only for the short global read lock that makes an `ALL` snapshot consistent with the start of streaming. `REPLICATION CLIENT` is accepted instead of `BINLOG MONITOR`.
+
+```sql
+CREATE USER 'gg_cdc'@'%' IDENTIFIED BY '<password>';
+GRANT SELECT, RELOAD, REPLICATION SLAVE, BINLOG MONITOR ON *.* TO 'gg_cdc'@'%';
+```
+
+Creating a source does not connect to MariaDB, and starting a replication does not check these prerequisites. Before starting a replication, run `cdc source status --name <source_name>`: it checks the parameters, the connection, `binlog_format`, `binlog_row_image`, the account privileges, and the storage engine, column types and character sets of every table, and explains how to fix each failed check.
+
+### Create the MariaDB Source
+
+```
+cdc source create --name mariadb_source --type mariadb --tables sales.orders \
+  --parameters host=db.example.com --parameters database=sales \
+  --parameters user=gg_cdc --parameters password=<password>
+```
+
+Specify each table as `<database>.<table>`. If the database part is omitted, the `database` parameter is used.
+
+Source parameters:
+
+| Parameter | Default | Description |
+|---|---|---|
+| host | localhost | MariaDB host. The binary log is always read from `host` and `port`. |
+| port | 3306 | MariaDB port. |
+| database |  | Required. Default database for tables listed without a database name. |
+| user |  | Required. MariaDB account with the privileges listed above. |
+| password |  | Required. Password of the MariaDB account. |
+| jdbcUrl |  | Optional JDBC URL for metadata and snapshot reads, for example to set TLS options. It does not change the binary log connection. |
+| batchSize | 1000 | Maximum number of rows in a batch. A single MariaDB transaction that changes more rows than this fails the replication; raise the value for larger transactions. |
+| reconnectAttempts | 30 | Number of reconnect attempts after the binary log connection drops. When they are exhausted, the replication fails. |
+| reconnectBackoffMs | 1000 | Initial delay between reconnect attempts, in milliseconds. The delay doubles after each attempt. |
+| reconnectMaxBackoffMs | 60000 | Maximum delay between reconnect attempts, in milliseconds. |
+| serverId | Random value between 1000000 and 3999999999 | Replica server ID used for the binary log connection. Each replicated table uses its own connection with the next consecutive ID. The IDs must not clash with other replicas of the same MariaDB server. |
+
+{% hint style="info" %}
+The `password` is stored in plain text as part of the source definition; treat source definitions as sensitive.
+{% endhint %}
+
+### Create the Sink and Start Replication
+
+Create a `gridgain_9` sink as described in [Create the GridGain 9 Sink](#create-the-gridgain-9-sink), then create and start the replication:
+
+```
+cdc sink create --name gg9_sink --type gridgain_9 --parameters targetTable=PUBLIC.ORDERS
+cdc replication create --name mariadb_to_gg9 --source mariadb_source --sink gg9_sink --mode ALL
+cdc replication start --name mariadb_to_gg9
+```
+
+In `ALL` mode, GridGain holds a global read lock only while it starts a repeatable-read transaction and records the binary log position, then scans the table in primary key order without the lock, and streams changes from the recorded position. Changes committed during the scan are therefore neither lost nor missed. In `NEW_DATA` mode, streaming starts at the current binary log position.
+
+### Recovery
+
+GridGain saves the binary log position after the sink applies each batch. After a lost connection, a MariaDB restart, or a GridGain node restart, the replication resumes from the last saved position, so changes made while it was stopped are replicated. If an `ALL` snapshot is interrupted, it is restarted, and changes are replayed from the position of the first snapshot attempt. Rolled-back transactions are not replicated.
+
+The replication never skips to the current binary log position. If the saved file has been purged, the replication fails; restore the binary logs or recreate the replication.
+
+### Limitations
+
+- Schema and DDL changes are not propagated. Do not change the schema of a replicated table while its replication is running.
+- Recovery uses binary log file positions of the original MariaDB server. GTID-based failover to another server is not supported.
+- Each replicated table uses its own binary log connection.
+- In a mixed-version cluster, create `mariadb` sources only after every node is upgraded. Older nodes cannot read the new source type.

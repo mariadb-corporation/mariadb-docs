@@ -15,7 +15,7 @@ This skill covers the **delta between standard SQL `CREATE TABLE` and MariaDB's*
 
 | If the agent writes / suggests… | …prefer the MariaDB form |
 |---|---|
-| `DROP TABLE x; CREATE TABLE x …` | `CREATE OR REPLACE TABLE x …` (atomic equivalent, no window where the table is missing) |
+| `DROP TABLE x; CREATE TABLE x …` | `CREATE OR REPLACE TABLE x …` (from 13.2 atomic by default: the old table is kept under a backup name until the new one exists, so there is no window where the table is missing; before 13.2, or when the old table is dropped first, there is) |
 | `CHARSET = utf8` | `CHARSET = utf8mb4` — `utf8` is an alias for the legacy 3-byte form (`utf8mb3`) and cannot store 4-byte characters (most emoji, some CJK) |
 | Manual `created_at` / `updated_at` audit columns | `CREATE TABLE … WITH SYSTEM VERSIONING` — see the `mariadb-system-versioned-tables` skill |
 | `ROW_FORMAT = COMPRESSED` for "modern" disk savings | That's the older InnoDB compressed row format. For new tables on modern InnoDB/Aria, prefer `PAGE_COMPRESSED = 1` plus optional `PAGE_COMPRESSION_LEVEL = N` |
@@ -30,9 +30,9 @@ This skill covers the **delta between standard SQL `CREATE TABLE` and MariaDB's*
 CREATE OR REPLACE TABLE t (id INT PRIMARY KEY);
 ```
 
-- Atomic equivalent of `DROP TABLE IF EXISTS t; CREATE TABLE t …`.
+- From 13.2, atomic by default: the old table is renamed to a temporary backup and restored if the `CREATE` fails. Before 13.2, and when the old table is dropped first (`drop_before_create_or_replace=ON`, `TEMPORARY` tables, views, engines with expensive rename such as S3, replicas), it is equivalent to `DROP TABLE IF EXISTS t; CREATE TABLE t …`.
 - Cannot be combined with `IF NOT EXISTS`.
-- Crash-safe but **not fully atomic** in the strict sense — recovery picks one side cleanly, but observers mid-statement may see the table missing. Plain `CREATE TABLE` *is* fully atomic (since 10.6.1).
+- Before 13.2, and when the old table is dropped first, it is crash-safe but **not fully atomic** in the strict sense — recovery picks one side cleanly, but observers mid-statement may see the table missing. Plain `CREATE TABLE` *is* fully atomic (since 10.6.1).
 
 ## Temporal Tables — `PERIOD FOR …`
 
@@ -116,7 +116,7 @@ Keywords `INDEX` and `KEY` are interchangeable in MariaDB.
 ## Atomic DDL
 
 - Plain `CREATE TABLE` is **atomic** since 10.6.1 — crash recovery either has the table fully created or not at all.
-- `CREATE OR REPLACE TABLE` is **crash-safe but not fully atomic** — see above.
+- `CREATE OR REPLACE TABLE` is **atomic by default from 13.2**: if the `CREATE` fails or the server crashes, the old table is restored. The old table is still dropped first when `drop_before_create_or_replace` is `ON`, for `TEMPORARY` tables, views, engines with expensive rename (S3), and on replicas. Before 13.2 it is **crash-safe but not atomic**.
 - All DDL still triggers an implicit commit; there is no way to roll back a `CREATE TABLE` from inside a transaction.
 
 ## See Also

@@ -158,6 +158,18 @@ How GridGain 9 storage profiles bind a storage engine and its configuration to d
 
 {% columns %}
 {% column %}
+{% content-ref url="capacity-planning.md" %}
+[Capacity Planning](capacity-planning.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to estimate the disk space a GridGain 9 cluster needs for table data, secondary indexes, system data, and the RAFT log, with a worked example.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="low-watermark-and-gc.md" %}
 [Low Watermark and Garbage Collection](low-watermark-and-gc.md)
 {% endcontent-ref %}
