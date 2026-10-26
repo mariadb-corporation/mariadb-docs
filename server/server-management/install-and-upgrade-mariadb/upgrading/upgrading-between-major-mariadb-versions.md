@@ -37,7 +37,7 @@ Note that rpms don't support upgrading between major versions, only minor like 1
 
 * Upgrade MariaDB binaries and libraries, preferably without starting MariaDB.
 * If the MariaDB server process, [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md) was not started as part of the upgrade, start it by executing `mariadbd --skip-grant-tables`. This may produce some warnings about some system tables not being up to date, but you can ignore these for now as [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) will fix that.
-* Run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)
+* Run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md). If you started the server with `--skip-grant-tables`, it needs no credentials. Otherwise it connects as `root` by default, so run `sudo mariadb-upgrade` if `root@localhost` uses `unix_socket` authentication, or `mariadb-upgrade --user=root --password` if it has a password. See [Connecting to the Server](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md#connecting-to-the-server).
 * Restart MariaDB server.
 
 ## Work Done by mariadb-upgrade
