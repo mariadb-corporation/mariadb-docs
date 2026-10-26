@@ -23,6 +23,8 @@ Current charges, prior billing date, and next invoice date are shown.
 
 Usage information can be shown by service or by resource.
 
+For services with MariaDB Exa enabled, the Exa node compute, Exa storage, IOPS, and throughput are metered separately from the MariaDB resources.
+
 Click the resource name or service name to expand the view.
 
 <figure><img src="../.gitbook/assets/billing-history.png" alt=""><figcaption></figcaption></figure>

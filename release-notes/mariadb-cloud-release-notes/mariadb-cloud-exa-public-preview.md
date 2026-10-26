@@ -32,7 +32,7 @@ MariaDB Exa adds an analytics engine (powered by Exasol) to MariaDB Provisioned 
 * **Separate storage:** set the Exa storage size, IOPS, and throughput independently of MariaDB storage. If you do not specify them, the MariaDB volume settings are used.
 * **Scaling:** on a running service, use **Manage** → **Scale Exa nodes vertically** to change the Exa node size, and **Manage** → **Scale Exa storage** to change its size, IOPS, or throughput. The same operations are available through the REST API (`/services/{id}/analytics-node-pool` and `/services/{id}/analytics-storage`).
 * **Exa details and cost:** the service page shows the Exa node size and storage, and includes the Exa node in the cost estimate.
-* **Monitoring:** the service's **Monitoring** view includes an **Exasol** tab with memory, database storage, compression ratio, SQL statements per minute, and concurrent queries panels. The Exasol node also appears in Topology Status.
+* **Monitoring:** the service's monitoring includes an **Exasol** dashboard with memory, recommended database RAM, CPU usage, memory usage, database storage, compression ratio, SQL statements per minute, and concurrent queries panels. The Exasol node also appears in Topology Status.
 * **Alerts:** new service-level alerts fire when Exasol memory is below 10% of the raw data size, when the index size exceeds the instance memory, or when the recommended database RAM exceeds twice the instance memory, each sustained for 30 minutes.
 * **Logs:** the portal log viewer includes an **Exasol Log** type.
 * **Billing:** Exa compute, storage, IOPS, and throughput are metered separately from MariaDB.
