@@ -14,8 +14,6 @@ To move a custom `GridSecurityProcessor` or Ignite built-in authentication to Gr
 
 Most authorization permissions remain unchanged. Before you start GridGain 8.10, check your configuration for the nine Apache Ignite 2.x permission names that GridGain 8 no longer defines, and replace or remove them using the [table below](#permissions-that-changed).
 
-When it loads permissions from the JSON-based security providers (ACL/passcode, certificate, and JAAS), GridGain 8.10 ignores seven of the nine names with a warning. Ignoring a permission is not the same as migrating it. The role silently loses the grant, so you still have to add the replacement.
-
 Three differences require attention. They stem from fine-grained authorization permissions that Apache Ignite 2.18 defines but GridGain 8 does not:
 
 * Nine fine-grained permissions are not part of GridGain 8's permission set. Replace or remove them. See [Permissions that changed](#permissions-that-changed).

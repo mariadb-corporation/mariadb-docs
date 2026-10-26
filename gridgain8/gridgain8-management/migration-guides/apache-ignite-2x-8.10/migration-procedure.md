@@ -6,7 +6,7 @@ description: >-
 
 # Migrating From Apache Ignite 2 to GridGain 8.10
 
-This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the [GridGain 8.10 Ultimate release](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/8.10/release-notes_8.10). The procedure covers the cluster and its data, client applications and operational tooling.
+This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the GridGain 8.10 Ultimate release. The procedure covers the cluster and its data, client applications and operational tooling.
 
 Before you start, read [What to Know Before Migrating](before-you-migrate.md). It covers the compatibility model, the features you need to migrate, and the artifact, configuration, and SQL changes this guide refers to.
 
@@ -57,7 +57,7 @@ Most migration work is conditional: each area below may or may not apply to your
 
 1. *Review the features to replace.* CDC, snapshots, Metrics API, Read Repair, and the other features that work differently or are absent in GridGain. Each entry in [Features to Replace](features-to-replace.md) starts with whether it applies to you.
 2. *Review the configuration changes.* Changed defaults, removed properties, stricter validation, and the binary field-sort setting. See [Configuration and Validation Changes](configuration.md).
-3. *Review the client changes.* All clients are rebuilt; record the per-language changes for Java, .NET, C++, Python, JDBC, ODBC, and REST. See [Clients](apis-and-clients.md#clients).
+3. *Review the client changes.* All clients are rebuilt; record the per-language changes for Java, .NET, C++, Python, Node.js, JDBC, ODBC, and REST. See [Clients](apis-and-clients.md#clients).
 4. *Review the SQL changes.* The engine change to H2 and the SQL memory quotas. See [SQL Changes](apis-and-clients.md#sql-changes).
 5. *Review the deployment and artifact changes.* Distribution, build coordinates, Docker, modules and extensions. See [Artifacts and Deployment](artifacts-and-modules.md).
 6. *Review the monitoring and CLI changes.* Logs, metrics, system views, events, and the scripts and automation that call `control.sh` and `ignite.sh`. See [Monitoring and CLI Changes](operations.md).
@@ -77,7 +77,7 @@ Do all of this on a separate staging GridGain cluster while your Apache Ignite c
 3. *Replace big features.* For each big feature on your task list, implement and test the GridGain equivalent now. These are the highest-effort changes. See [Features to Replace](features-to-replace.md).
 4. *Update clients and SQL.* Recompile clients against GridGain artifacts, remove Calcite configuration, and re-test every query on the H2 engine. Decide your SQL memory-quota policy (keep the GridGain default, tune it, or set `sqlGlobalMemoryQuota=0`) and test the choice with production-scale queries. See [SQL changes](apis-and-clients.md#sql-changes).
 5. *Update operational scripts.* Adjust automation that calls `control.sh` and `ignite.sh` for removed or renamed commands and the changed restart mechanism. See [CLI changes](operations.md).
-6. *Check the binary field-sort setting.* _Persistent only._ See [Binary object field ordering](configuration.md). If the source uses the default, skip the related cutover step.
+6. *Check the binary field-sort setting.* _Persistent only._ See [Binary object field ordering](configuration.md#binary-object-field-ordering). If the source uses the default, skip the related cutover step.
 
 Begin with *Update artifacts* (step 1). Once the GridGain libraries are in place, work through feature replacement, configuration changes, and SQL validation (steps 2–5), revisiting them as staging tests uncover issues.
 
@@ -104,7 +104,7 @@ You will go through several rounds to get there. It is normal at this stage for 
 
 If you cannot finish a replacement, use a temporary workaround or drop the feature. Test that decision on staging too. Once GridGain writes to persisted data, you cannot roll back.
 
-A clean run on staging shows that your changes work. It does not show that staging behaves like production. If staging has less data, fewer kinds of queries, or different client versions, a passing test can still hide problems. Make staging match production before you trust the results.
+A clean run on staging shows that your changes work, but not that staging behaves like production. If staging has less data, fewer kinds of queries, or different client versions, a passing test can still hide problems. Make staging match production before you trust the results.
 
 ## Perform the Cutover
 
@@ -134,7 +134,7 @@ $IGNITE_HOME/bin/control.sh --state                         # expect: Cluster st
 Stop the nodes gracefully, in any order, and wait for each process to exit (the log ends with `Ignite node stopped OK`). The order does not matter because the cluster is already deactivated (persistent) or its data is not being kept (in-memory). On a persistent cluster, the graceful stop lets the final checkpoint complete cleanly.
 
 {% hint style="info" %}
-A graceful, deactivated shutdown is the recommended starting point, but GridGain 8.10 does not require it. GridGain 8.10 can start on the persistence of an Apache Ignite 2.18 node that was terminated with `kill -9` mid-workload. It replays the write-ahead log (`Applying lost cache updates since last checkpoint record`) and returns every committed row, and `idle_verify` is clean. If you have to migrate after a crash, back up the directory first.
+A graceful, deactivated shutdown is the recommended path. If a node was stopped abruptly, for example with `kill -9` or a power loss, GridGain 8.10 can still start on its persistence, including when CDC was enabled. On startup it replays the write-ahead log (the log shows `Applying lost cache updates since last checkpoint record`). [Back up the persistence directory](#4-back-up-the-persistence-directory-persistent-only) before you start GridGain, because the migration is one-way. After the first start, compare row counts with your pre-crash values and run `control.sh --cache idle_verify` (see [Verify and Stabilize](#verify-and-stabilize)).
 {% endhint %}
 
 ### 4. Back Up the Persistence Directory (Persistent Only)
@@ -165,7 +165,7 @@ Because each GridGain node reuses the same `consistentId` and persistence direct
 
 ### 6. Match the Field-Sort Setting (Persistent Only)
 
-If the source explicitly set `IGNITE_BINARY_SORT_OBJECT_FIELDS`, pass the same value as `-DIGNITE_BINARY_SORT_OBJECT_FIELDS=<source-value>` on every GridGain node and client. Otherwise, leave it unset. See [Binary object field ordering](configuration.md).
+If the source explicitly set `IGNITE_BINARY_SORT_OBJECT_FIELDS`, pass the same value as `-DIGNITE_BINARY_SORT_OBJECT_FIELDS=<source-value>` on every GridGain node and client. Otherwise, leave it unset. See [Binary object field ordering](configuration.md#binary-object-field-ordering).
 
 ### 7. Start GridGain
 
@@ -179,9 +179,9 @@ GridGain 8.10 logs to the console and to `work/log` at INFO level by default; ad
 
 On an in-memory cluster, the nodes start with fresh storage and the cluster is active as soon as they join. Continue to step 8.
 
-On a persistent cluster, start one node first, confirm the recovery lines below in its log, and then start the rest. The cluster reports `INACTIVE` until every baseline node has joined (`control.sh --state` prints `Cluster is inactive` with one and two nodes up, and every node logs `Cluster state was changed from INACTIVE to ACTIVE` when the third joins); if it stays that way, see [Problem: The cluster stays INACTIVE after the start](#problem-the-cluster-stays-inactive-after-the-start).
+On a persistent cluster, start one node first, confirm the recovery lines below in its log, and then start the rest. The cluster reports `INACTIVE` until every baseline node has joined. When the last one joins, every node logs `Cluster state was changed from INACTIVE to ACTIVE`. If the cluster stays inactive, see [Problem: The cluster stays INACTIVE after the start](#problem-the-cluster-stays-inactive-after-the-start).
 
-The log must show GridGain restoring your data — this confirms it opened the migrated persistence rather than creating fresh storage. Output is trimmed here; cache names, counts, and IDs differ on your cluster:
+The log must show GridGain restoring your data. This confirms that it opened the migrated persistence rather than creating fresh storage. Output is trimmed here; cache names, counts, and IDs differ on your cluster:
 
 ```text
 License successfully loaded from file: ...
@@ -217,7 +217,7 @@ $GRIDGAIN_HOME/bin/control.sh --baseline                    # expect every node 
 
 Use the `control.sh` of the GridGain distribution. The Apache Ignite 2.18 `control.sh` cannot talk to a GridGain node.
 
-`--state` and `--cache list` confirm the cluster is up with your caches. On an in-memory cluster, activation is automatic and `--set-state ACTIVE` is a harmless confirmation; the caches are empty until the next step, so check the state and the cache list and skip the row-count checks below. Output is trimmed here; note that GridGain's `--state` output format differs from Apache Ignite's `Cluster state: ACTIVE`, so update any scripts that parse it:
+`--state` and `--cache list` confirm that the cluster is up with your caches. On an in-memory cluster, activation is automatic and `--set-state ACTIVE` is a harmless confirmation. The caches are empty until the next step, so check the state and the cache list and skip the row-count checks below. Output is trimmed here:
 
 ```text
 Cluster is active
@@ -323,7 +323,7 @@ Startup fails while reading the existing data.
 
 **Fix:** Restore the pre-cutover backup, bring the Ignite cluster back, deactivate it cleanly, and redo the cutover. Match `IGNITE_BINARY_SORT_OBJECT_FIELDS` to the source value (step 6), and remove unknown configuration properties.
 
-### Problem: Do I Have to Activate Manually?
+### Problem: The Cluster Is Already ACTIVE Before You Activate It
 
 The cluster is already `ACTIVE` before you run `--set-state ACTIVE`.
 
@@ -339,7 +339,7 @@ The node stops during startup with `License file URL is not provided and cannot 
 
 **Fix:** Supply a valid license (see [Prerequisites](#prerequisites)). Because the node stops before it touches the data, the persistence directory is unchanged; fix the license and start again.
 
-### Problem: A Client Fails With "Handshake failed" or "Unsupported version"
+### Problem: A Client Fails With "Handshake failed"
 
 An Apache Ignite 2.18 JDBC driver fails with `Handshake failed ... Query engine not supported: 'calcite'` if the URL sets `queryEngine=calcite`; an Apache Ignite `control.sh` fails with `Compute grid functionality is disabled for thin clients` or `Channel is closed`.
 
@@ -359,7 +359,7 @@ Counts and column queries (including `SELECT *`) work, but selecting the `_VAL` 
 
 **Cause:** `keepBinary` defaults to `false`, so selecting `_KEY` or `_VAL` deserializes the whole object into its Java class, and application classes are not on the `sqlline` classpath. Primitive keys and values are unaffected, as are declared columns, which are extracted on the server.
 
-**Fix:** Verify data through the declared columns. To select the object itself, add `keepBinary=true` to the JDBC URL; it is returned in binary form, rendered as an opaque numeric value rather than field values. If you instead fix it by adding your classes to the classpath, note that `sqlline` takes JVM options from `SQL_JVM_OPTS`, not `JVM_OPTS`.
+**Fix:** Verify data through the declared columns. To select the object itself, add `keepBinary=true` to the JDBC URL; it is returned in binary form, rendered as an opaque numeric value rather than field values. If you instead fix it by adding your classes to the classpath, pass the `sqlline` JVM options in `SQL_JVM_OPTS`, not `JVM_OPTS`.
 
 ### Problem: sqlline Output Looks Truncated or Columns Are Missing
 
@@ -381,7 +381,7 @@ Queries error out or behave differently after the cutover.
 
 On an in-memory cluster, rollback is a restart on the old version: stop GridGain, start the archived Apache Ignite distribution with the original configuration, reconnect the original clients, and reload the data as after any restart.
 
-On a persistent cluster, rollback is possible only by restoring the backup you took during the cutover onto the archived Ignite binaries. There is no in-place path once GridGain has written. Apache Ignite 2.18 starts on the restored pre-cutover backup, activates automatically, and returns the original row counts, even if GridGain wrote new rows after the cutover:
+On a persistent cluster, rollback is possible only by restoring the backup you took during the cutover onto the archived Ignite binaries. There is no in-place path once GridGain has written. Restoring the backup returns the cluster to its pre-cutover state, and rows that GridGain wrote after the cutover are lost:
 
 1. Stop the GridGain cluster.
 2. Restore the pre-cutover backup to a clean work directory.

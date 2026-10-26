@@ -114,7 +114,7 @@ The remaining defaults are not server-side configuration and must be set where t
 - *Thin-client timeouts (client code).* Apache Ignite waits indefinitely by default. GridGain 8.10 gives up after 10 s on handshake and 60 s per request, so long-running thin-client operations (large scans, bulk loads) can start failing with timeouts. Set `setHandshakeTimeout` and `setRequestTimeout` explicitly (`0` is infinite).
 - *Discovery (environment-specific).* Ignite defaults to multicast discovery. If your cluster relied on it, configure a `TcpDiscoveryMulticastIpFinder` or supply the static address list; GridGain defaults to `TcpDiscoveryVmIpFinder`.
 
-Several of these defaults change behavior in ways that pass functional tests and surface only later: under load, on large data, or during a network event. The ones most likely to catch you out:
+Several of these defaults change behavior in ways that pass functional tests and surface only later: under load, on large data, or during a network event. The ones that most often cause problems:
 
 **Partition/affinity awareness (clients)**: Ignite enables it and GridGain disables it, so thin clients no longer route each request to the node that owns the key and every operation takes an extra network hop. This passes functional tests but shows up as a latency and throughput regression under load. Re-enable it unless you have a reason not to. Java thin client service awareness (Apache Ignite 2.17 and later, also in GridGain 8.10) follows the same setting. With the GridGain default, a service call is not sent straight to a node that hosts the service.
 
@@ -138,7 +138,7 @@ Several of these defaults change behavior in ways that pass functional tests and
 
 The discovery IP finder is the one changed default with no server-side template entry, because the value you need is environment-specific. Pick one of the following and set it explicitly on `TcpDiscoverySpi`.
 
-*Recommended: static address list.* This is the best practice in every environment and is required in the cloud, where multicast is typically unavailable. List your actual server addresses. The port range per host covers multiple nodes and port autoincrement:
+*Recommended: static address list.* This option is required in the cloud, where multicast is typically unavailable. List your actual server addresses. The port range per host covers multiple nodes and port autoincrement:
 
 ```xml
 <property name="discoverySpi">

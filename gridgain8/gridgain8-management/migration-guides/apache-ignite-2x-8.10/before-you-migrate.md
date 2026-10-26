@@ -8,7 +8,9 @@ description: >-
 
 This page is the starting point for planning a migration from Apache Ignite 2.18 to GridGain 8.10 Ultimate. Use it to identify the changes relevant to your deployment and estimate the work involved.
 
-GridGain 8 forked from Apache Ignite around version 2.7. The two products remain largely compatible, so most APIs, configuration, on-disk formats, and application code carry over unchanged. GridGain 8.10 reads Apache Ignite 2.18 persistence, including its write-ahead log, and accepts Apache Ignite 2.x thin clients and JDBC and ODBC drivers. It also supports the Apache Ignite 2 snapshot, metrics, service-interceptor, and thin-client-listener APIs. Plan the migration around what still differs: the Java 17 and Spring 7 baseline, the license, the defaults, and the removed features.
+GridGain 8 forked from Apache Ignite around version 2.7. The two products remain largely compatible, so most APIs, configuration, on-disk formats, and application code carry over unchanged.
+
+GridGain 8.10 reads Apache Ignite 2.18 persistence, including its write-ahead log, and accepts Apache Ignite 2.x thin clients and JDBC and ODBC drivers. It also supports the Apache Ignite 2 snapshot, metrics, service-interceptor, and thin-client-listener APIs. Plan the migration around what still differs: the Java 17 and Spring 7 baseline, the license, the defaults, and the removed features.
 
 Most migration work falls into three areas: cluster cutover, configuration changes, and feature replacement. The sections below explain each area and help you determine which changes apply to your deployment.
 
@@ -63,8 +65,8 @@ This is the high-level picture of what works, what does not, and what needs atte
 | Java runtime | Higher floor | GridGain 8.10 requires Java 17 or later (Apache Ignite 2.18: Java 11). |
 | Inter-node protocols (Discovery, Communication) | Incompatible | Ignite and GridGain server nodes cannot coexist in one cluster, so a full cutover is required. |
 | Thick clients (join the topology) | Incompatible | Clients must be rebuilt against GridGain and updated before connecting. |
-| Java, .NET, C++, Python, and Node.js thin clients; JDBC and ODBC drivers | Compatible | A GridGain 8.10 server accepts these Apache Ignite clients as they are. Rebuild them anyway to pick up GridGain's defaults, such as the thin-client timeouts. `queryEngine=calcite` is rejected. See [Clients](apis-and-clients.md#clients) for the tested versions. |
-| PHP thin client | Not supported | Use the GridGain PHP client. It may appear to connect because the protocols share common roots, but its behavior beyond basic operations is not verified. |
+| Java, .NET, C++, Python, and Node.js thin clients; JDBC and ODBC drivers | Compatible | A GridGain 8.10 server accepts these Apache Ignite clients as they are. Rebuild them anyway to pick up GridGain's defaults, such as the thin-client timeouts. `queryEngine=calcite` is rejected. See [Clients](apis-and-clients.md#clients) for the client versions. |
+| PHP thin client | Not supported | Use the GridGain PHP client. It may appear to connect because the protocols share common roots, but GridGain does not support it. |
 | Persistent data | Compatible, one-way | GridGain can start on Ignite's [Native Persistence](../../../architecture/storage/native-persistence.md), including after a non-graceful shutdown (the WAL is replayed) and when CDC was enabled. A graceful, deactivated shutdown is still the recommended path. Once GridGain writes, Ignite can no longer read it. |
 | In-memory data | Not carried over | Data in non-persistent regions does not survive the full-cluster cutover. Reload it the way you reload after any restart: `CacheStore` loading or your data-loading jobs. |
 | Configuration | Mostly compatible | Some defaults differ, some properties don't exist in GridGain, and GridGain validates more strictly. |
@@ -107,9 +109,9 @@ These changes affect application and client code.
 | Rebuild and update all clients | Always | Mechanical and Code | [Clients](apis-and-clients.md#clients) |
 | Calcite SQL engine → H2 | You set `queryEngine=calcite` | Code + re-test queries | [SQL Changes](apis-and-clients.md#sql-changes) |
 | CDC → Data Center Replication or Kafka Connect | You run Change Data Capture | Redesign | [Features to Replace](features-to-replace.md) |
-| Snapshots → GridGain snapshots | You script or automate Ignite snapshots | Redesign | [Features to Replace](features-to-replace.md) |
+| Snapshots → GridGain snapshots | You script or automate Ignite snapshots | Code | [Features to Replace](features-to-replace.md) |
 | Security plugins → GridGain security | You use a custom `GridSecurityProcessor` or built-in authentication | Redesign | [Features to Replace](features-to-replace.md) |
-| Custom plugins and SPIs | You maintain custom SPI or plugin implementations | Code and Redesign | [Plugins and Custom SPIs](apis-and-clients.md) |
+| Custom plugins and SPIs | You maintain custom SPI or plugin implementations | Code and Redesign | [Plugins and Custom SPIs](apis-and-clients.md#plugins-and-custom-spis) |
 | Other feature replacements (Read Repair, transaction-aware queries, Cache Dump, multi-disk storage, disk page compression, Performance Statistics) | You use the specific feature | Code | [Features to Replace](features-to-replace.md) |
 | Java 17 and Spring 7 baseline | Always | Mechanical to Code | [Java](apis-and-clients.md#clients) |
 
@@ -122,7 +124,7 @@ These changes affect cluster configuration, deployment, and operational tooling.
 | License and Java 17 on every host | Always | Config-only | [Distribution](artifacts-and-modules.md#distribution) |
 | Changed configuration defaults | Always | Config-only | [Changed Defaults](configuration.md#changed-defaults) |
 | Removed configuration properties | You configured CDC, snapshots, Calcite, or multi-disk storage | Config-only | [Removed Configuration Properties](configuration.md#removed-configuration-properties) |
-| Binary object field-sort property | You set `IGNITE_BINARY_SORT_OBJECT_FIELDS` | Config-only | [Binary Object Field Ordering](configuration.md) |
+| Binary object field-sort property | You set `IGNITE_BINARY_SORT_OBJECT_FIELDS` | Config-only | [Binary Object Field Ordering](configuration.md#binary-object-field-ordering) |
 | Security permissions → remap to the GridGain 8 set | Your security policy grants fine-grained admin permissions that GridGain 8 no longer recognizes (`ADMIN_CLUSTER_STATE`, `ADMIN_KILL`, `ADMIN_USER_ACCESS`, and similar) | Mechanical | [Security Authorization Changes](security-authorization.md) |
 | CLI and script changes | You have operational scripts or automation | Code | [CLI Changes](operations.md) |
 | Monitoring (logs, metrics, system views, events) | You have monitoring or log-parsing tooling | Code | [Monitoring](operations.md#monitoring) |

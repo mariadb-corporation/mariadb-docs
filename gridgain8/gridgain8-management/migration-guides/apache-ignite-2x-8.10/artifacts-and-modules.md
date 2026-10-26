@@ -14,7 +14,13 @@ It covers the GridGain distribution, the build coordinates to update for each la
 
 GridGain ships as a ZIP archive, a Docker image, cloud images for AWS, Azure, and Google Compute, a Kubernetes operator, and RPM/DEB packages. Download links and per-format instructions are in [Installing and Starting GridGain](../../installation/README.md).
 
-*Java version.* GridGain 8.10 requires Java 17 or later and supports Java 17, 21, and 25. The start scripts refuse to run on an older JVM. Apache Ignite 2.18 also runs on Java 11, so if your Ignite nodes run on Java 11, upgrade the JVM on every host and in every container image as part of the migration. GridGain 8.10 also ships Spring 7.0.9, where Apache Ignite 2.18 ships Spring 5.3.39. The `--add-opens` and `--add-exports` JVM flags that `ignite.sh` sets are a superset of Apache Ignite's. If you start nodes without the script, copy the list from `bin/include/jvmdefaults.sh` of the GridGain distribution. For the complete platform requirements, see [Installing and Starting GridGain](../../installation/README.md).
+The Java and platform requirements differ from Apache Ignite 2.18:
+
+- *Java version.* GridGain 8.10 requires Java 17 or later and supports Java 17, 21, and 25. The start scripts refuse to run on an older JVM. Apache Ignite 2.18 also runs on Java 11, so if your Ignite nodes run on Java 11, upgrade the JVM on every host and in every container image as part of the migration.
+- *Spring.* GridGain 8.10 ships Spring 7.0.9, where Apache Ignite 2.18 ships Spring 5.3.39.
+- *JVM flags.* The `--add-opens` and `--add-exports` flags that `ignite.sh` sets are a superset of Apache Ignite's. If you start nodes without the script, copy the list from `bin/include/jvmdefaults.sh` of the GridGain distribution.
+
+For the complete platform requirements, see [Installing and Starting GridGain](../../installation/README.md).
 
 GridGain Ultimate Edition is licensed software, and the 8.10 distribution does *not* include a license file. A node without a license fails to start with `License file URL is not provided and cannot be determined`. GridGain looks for the license in this order:
 
@@ -22,7 +28,12 @@ GridGain Ultimate Edition is licensed software, and the 8.10 distribution does *
 2. `GridGainConfiguration.setLicenseUrl(...)` (a filesystem path, an HTTP/FTP URL, or a `ConfigMap` if using Kubernetes).
 3. A `gridgain-license.xml` file in `IGNITE_HOME` (the install root).
 
-GridGain accepts a MariaDB-issued JSON Web Token (JWT) license as well as the XML format. It rejects a license that has expired or is outside its maintenance period at start, and rechecks the license daily. Unless the license enables soft mode, a node that detects a violation at runtime stops after about a minute. Monitor the expiry warning, which is logged within 90 days of expiry. If you set `JVM_OPTS` yourself to pass `-DlicenseUrl`, include the heap and other options, because `ignite.sh` applies its defaults only when `JVM_OPTS` is empty.
+GridGain checks the license as follows:
+
+- *Formats.* GridGain accepts a MariaDB-issued JSON Web Token (JWT) license as well as the XML format.
+- *At start.* It rejects a license that has expired or is outside its maintenance period.
+- *At runtime.* It rechecks the license daily. Unless the license enables soft mode, a node that detects a violation stops after about a minute. Monitor the expiry warning, which is logged within 90 days of expiry.
+- *`JVM_OPTS`.* If you set `JVM_OPTS` yourself to pass `-DlicenseUrl`, include the heap and other options, because `ignite.sh` applies its defaults only when `JVM_OPTS` is empty.
 
 ## Build Coordinates
 

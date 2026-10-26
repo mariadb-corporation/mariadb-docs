@@ -27,18 +27,17 @@ These Apache Ignite clients connect to a GridGain 8.10 server without a rebuild:
 | Client | Works against GridGain 8.10 | Notes |
 |---|---|---|
 | Apache Ignite Java thin client (2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, and cluster state work. Features that exist only in Apache Ignite (transaction-aware queries, all-affinity-mappings, cache storages, DC-aware routing, data-replication operations, forced cluster deactivation, the SQL query initiator ID) are not offered, and the client falls back. |
-| Apache Ignite JDBC thin driver (2.16.0, 2.17.0, 2.18.0) | Yes, with limits | Queries, DML, and `queryEngine=h2` work. `queryEngine=calcite` is rejected: `Handshake failed ... Query engine not supported: 'calcite'. Only H2 is supported.` The `local` property is ignored: the query runs on the whole cluster and the server logs a warning. The transaction parameters of the connection are ignored. |
+| Apache Ignite JDBC thin driver (2.16.0, 2.17.0, 2.18.0) | Yes, with limits | Queries and DML work with `queryEngine=h2`. `queryEngine=calcite` is rejected, and the `local` and transaction properties are ignored. See JDBC below. |
 | Apache Ignite ODBC driver (2.18.0) | Yes | The unmodified Apache Ignite 2.18 driver connects through `unixODBC` with its default settings and runs queries. Any query engine other than `h2` is rejected with `Unsupported SQL query engine`. |
 | Apache Ignite C++ thin client (2.18.0) | Yes | Cache operations, SQL, transactions, compute, continuous queries, and partition awareness work. |
 | Apache Ignite .NET thin client (`Apache.Ignite` 2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, LINQ, transactions, compute, services, continuous queries, and cluster state work. Service call context is not available. |
-| Apache Ignite 2.18 .NET thick client | No | Does not join the cluster. |
-| `pyignite` 0.6.1 (Python) | Yes | Everything the client offers works: cache operations, SQL, scan queries, transactions, partition awareness, and authentication. |
+| `pyignite` 0.6.1 (Python) | Yes | All client operations work: cache operations, SQL, scan queries, transactions, partition awareness, and authentication. |
 | `apache-ignite-client` 1.0.0 (Node.js) | Yes | Cache operations, SQL, scan queries, binary objects, partition awareness, and authentication work. |
-| Apache Ignite PHP client | Not verified | Use the GridGain PHP client. |
+| Apache Ignite PHP client | Not supported | Use the GridGain PHP client. |
 | Apache Ignite 2.18 `control.sh` | No | Fails against a GridGain node (`Compute grid functionality is disabled for thin clients`, `Channel is closed`). Use the `control.sh` of the GridGain distribution. |
-| Thick clients and server nodes | No | GridGain rejects Apache Ignite nodes with `GridGain node cannot be in one cluster with Ignite node`. |
+| Thick clients (including the .NET thick client) and server nodes | No | GridGain rejects Apache Ignite nodes with `GridGain node cannot be in one cluster with Ignite node`. |
 
-Verified versions: 2.16.0–2.18.0 for the Java thin client, the .NET thin client, and the JDBC driver. See the table for the others. Apache Ignite clients work with the features that both products support, so GridGain-specific features need a GridGain client.
+The table lists the client versions that work with GridGain 8.10. Apache Ignite clients work with the features that both products support, so GridGain-specific features need a GridGain client.
 
 The reverse direction is not supported: do not connect GridGain clients to an Apache Ignite cluster. The two products assign some thin client feature IDs differently, and this direction has no compatibility layer.
 
@@ -64,11 +63,11 @@ GridGain 8 keeps Ignite's client APIs and adds to them, so most client code comp
 
 **C++**: Namespaces, headers, and library names are unchanged. GridGain 8.10 builds with CMake only (no autotools) and compiles as C++14, where Apache Ignite 2.18 uses C++98. The shared libraries are versioned `8.10.0.x` (for example, `libignite-thin-client.so.8.10.0.7066`) instead of `2.18.0.x`, so update any loader or packaging that matches the version. To build only the thin client and the ODBC driver, configure CMake with `-DWITH_CORE=OFF -DWITH_THIN_CLIENT=ON -DWITH_ODBC=ON`. The default configuration also builds the core (JNI) module, which needs a JDK. A few method names change on the thick and thin clients (for example, `GetCapasityForSize` becomes `GetCapacityForSize`).
 
-**Python**: The package is renamed from `pyignite` to `pygridgain`, and so are the client modules. The async `timeout` parameter is removed from `AioCache` methods. Install a 1.x release (1.6.0 at the time of writing, Python 3.7 or later). The 9.x releases of `pygridgain` are the GridGain 9 client and do not work with GridGain 8.
+**Python**: The package is renamed from `pyignite` to `pygridgain`, and so are the client modules. The async `timeout` parameter is removed from `AioCache` methods. Install a 1.x release (1.6.0, Python 3.7 or later). The 9.x releases of `pygridgain` are the GridGain 9 client and do not work with GridGain 8.
 
-**Node.js**: The package is renamed from `apache-ignite-client` to `@gridgain/thin-client` (1.2.0 at the time of writing); the API and file layout are unchanged.
+**Node.js**: The package is renamed from `apache-ignite-client` to `@gridgain/thin-client` (1.2.0); the API and file layout are unchanged.
 
-**JDBC**: The driver class, URL prefix, and port are unchanged. The `local`, `queryEngine=calcite`, and tx-aware `transaction*` properties are not available. The Apache Ignite 2.18 driver connects to GridGain 8.10 (see the table above). Replace it with the GridGain driver, which also adds the `queryMaxMemory`, `binaryConfigurationFactory`, `useLowerCaseForBinaryTypes`, and `useSimpleNamesForBinaryTypes` properties.
+**JDBC**: The driver class, URL prefix, and port are unchanged. The `local`, `queryEngine=calcite`, and tx-aware `transaction*` properties are not available. The Apache Ignite 2.18 driver connects to GridGain 8.10, with these limits: a connection that sets `queryEngine=calcite` fails with `Handshake failed ... Query engine not supported: 'calcite'. Only H2 is supported.`, and the driver ignores `local` and the transaction parameters. A `local` query runs on the whole cluster, and the server logs a warning. Replace the driver with the GridGain driver, which also adds the `queryMaxMemory`, `binaryConfigurationFactory`, `useLowerCaseForBinaryTypes`, and `useSimpleNamesForBinaryTypes` properties.
 
 Metadata and error details also differ, which matters to BI tools, ORMs, and code that parses errors:
 
