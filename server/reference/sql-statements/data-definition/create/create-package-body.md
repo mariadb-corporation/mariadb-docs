@@ -124,6 +124,8 @@ A package body provides implementations of the package public routines and can o
 * forward declarations for private routines
 * an executable initialization section
 
+If the `OR REPLACE` clause is used and the package body exists, it is replaced. Existing privileges on the package body are kept, unlike with [DROP PACKAGE BODY](../drop/drop-package-body.md) followed by `CREATE PACKAGE BODY`. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+
 > Starting with MariaDB 13.0.1, package bodies can define `RECORD` and `REF CURSOR` types that can be used as:
 >
 > * Parameters (IN, OUT, INOUT) for procedures and functions defined in the package
