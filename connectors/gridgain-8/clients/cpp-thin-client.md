@@ -10,8 +10,8 @@ description: >-
 
 ## Prerequisites
 
-- C++ compiler: MS Visual C++ (10.0 and up), g++ (4.4.0 and up)
-- Visual Studio 2010 or newer
+- C++ compiler with C++14 support (for example, MS Visual C++ or g++)
+- On Windows: Visual Studio with C++14 support
 
 ## Installation
 

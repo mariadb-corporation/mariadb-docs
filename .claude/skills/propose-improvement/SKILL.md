@@ -1,7 +1,7 @@
 ---
 name: propose-improvement
 description: File an agent-tooling proposal for mariadb-docs. Use when the user says "propose an improvement", "propose a new skill", "draft a skill proposal", or "file a proposal". Asks whether it's a new Claude Code skill or a broader change, files a DOCS Jira Task (labeled claude-skill), and interviews the proposer to write the proposal MD (dev-docs/skill-proposals/ for skills, dev-docs/agent-improvements/ for everything else). The skill is the scribe; the proposer is the source. Does not open the PR.
-allowed-tools: Bash, Read, Write, Glob, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Write, Glob, mcp__claude_ai_Atlassian_MCP__createJiraIssue, mcp__claude_ai_Atlassian_MCP__atlassianUserInfo, mcp__claude_ai_Atlassian_MCP__getAccessibleAtlassianResources, mcp__atlassian-mariadb__createJiraIssue, mcp__claude_ai_Atlassian_Rovo__createJiraIssue, mcp__atlassian-mariadb__atlassianUserInfo, mcp__claude_ai_Atlassian_Rovo__atlassianUserInfo, mcp__atlassian-mariadb__getAccessibleAtlassianResources, mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -105,6 +105,9 @@ createJiraIssue(   # tool prefix per the `jira` skill's connection table
   additional_fields={"labels": ["claude-skill"]}
 )
 ```
+
+On v2 the arguments differ (see the `jira` skill's mapping table): pass `issueType="Task"` and
+`assignee="<accountId>"`, and drop `contentFormat` (markdown is the default).
 
 > **Visibility — assign it.** Like `claude-skill-bug`, the `claude-skill` label has no watcher or
 > board filter yet, so an unassigned ticket may reach no one. Assign the proposer (current user)

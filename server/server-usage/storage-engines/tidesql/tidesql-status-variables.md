@@ -19,13 +19,13 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 
 #### `Tidesdb_version`
 
-* Description: TideSQL plugin version string, for example `5.2.0`.
+* Description: TideSQL plugin version string, for example `5.2.1`.
 * Scope: Global
 * Data Type: `string`
 
 #### `Tidesdb_version_hex`
 
-* Description: Plugin version as an integer, for example `328192` for `0x50200`.
+* Description: Plugin version as an integer, for example `328193` for `0x50201`.
 * Scope: Global
 * Data Type: `numeric`
 

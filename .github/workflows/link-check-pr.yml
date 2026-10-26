@@ -113,6 +113,15 @@ jobs:
           # (403), lists.apache.org (mailing-list archive, 302), and
           # www.javatpoint.com (times out from the runners).
           #
+          # DOCS-6926 adds openai.com, synced in with the MariaDB AI Plugins docs
+          # (the Codex link on about-mariadb-ai-plugins.md). It answered the Actions
+          # runners with 403 on the gate run of the first sync (2026-10-15) while
+          # serving 200 to a browser, and to lychee from a developer machine, so a
+          # local run PASSES while CI fails. The page is synced from
+          # mariadb-corporation/ai-plugins, so the link can't be changed here
+          # anyway. The pattern also covers subdomains such as help.openai.com,
+          # which answers a non-browser client with 403 too.
+          #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
           # lychee as arguments. Document new excludes up here.
@@ -220,7 +229,7 @@ jobs:
           #
           #
           # DOCS-6415 (2026-09-14): medium.com, cited twice from
-          # tools/control-center/admin-guide/configuration.md as further reading on
+          # tools/enterprise/control-center/admin-guide/configuration.md as further reading on
           # Active Directory configuration. Medium serves 403 to automated clients
           # across the board -- same class as docs.oracle.com and access.redhat.com
           # above -- while both posts load normally in a browser. Nothing to
@@ -382,6 +391,7 @@ jobs:
             --exclude 'www\.tableau\.com'
             --exclude 'lists\.apache\.org'
             --exclude 'www\.javatpoint\.com'
+            --exclude 'openai\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

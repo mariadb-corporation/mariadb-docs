@@ -1,7 +1,7 @@
 ---
 description: >-
   Harden a GridGain 8 cluster by preventing SQL injection with parameterized
-  queries and switching to Spring 6.
+  queries.
 ---
 
 # Cluster Hardening
@@ -34,24 +34,3 @@ stmt.setInt(3, 25);
 
 stmt.execute();
 ```
-
-## Switching to Spring 6
-
-GridGain uses Spring 5 by default. This version has known vulnerabilities, however is supported for backwards compatibility. If your cluster is running Java 17 or later, you can switch to a more secure and up-to-date Spring 6.
-
-### Local Installation
-
-When running GridGain as a local installation, you need to enable the optional Spring 6 module:
-
-- Delete or move the `{GRIDGAIN_HOME}/libs/ignite-spring` directory.
-- Copy the [ignite-spring6 directory](../gridgain8-development/project-setup.md#enabling-modules) from the `{GRIDGAIN_HOME}/libs/optional` directory to `{GRIDGAIN_HOME}/libs`. Do not rename it.
-
-When you next start GridGain, it will automatically use Spring 6.
-
-{% hint style="warning" %}
-Make sure only one Spring module is in the `/libs` directory. If multiple Spring versions are there, a random one will be chosen leading to unexpected behavior.
-{% endhint %}
-
-### Docker Installation
-
-To use Spring 6 in Docker, select the image with the `-spring6` postfix. This image will have Spring 6 enabled by default.

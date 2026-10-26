@@ -28,6 +28,7 @@ For more details about the standard service parameters, refer to the [Configurat
 * Dynamic: Yes
 * Values: `master`, `slave`, `synced`, `running`
 * Default: `running`
+* Description: Specifies which server roles are eligible for connections when establishing new router sessions.
 
 **`router_options`** can contain a comma separated list of valid server roles. These roles are used as the valid types of servers the router will form connections to when new sessions are created.
 
@@ -57,6 +58,7 @@ When a connection is being created and the candidate server is being chosen, the
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Determines whether read queries are routed to the primary server when selecting servers.
 
 This option can be used to prevent queries from being sent to the current primary. If `router_options` does not contain `master`, the readconnroute instance is usually meant for reading. Setting `master_accept_reads=false` excludes the primary from server selection (and thus from receiving reads).
 
@@ -70,6 +72,7 @@ By default `master_accept_reads=true`.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0s
+* Description: Sets the maximum allowed replication lag for a server to be used for routing.
 
 The maximum acceptable replication lag. The value is in seconds. The default value is `0s`, which means that the lag is ignored.
 

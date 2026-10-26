@@ -20,7 +20,7 @@ If you are getting started with Ignite or GridGain, we recommend attending [an u
 
 {% include "../../.gitbook/includes/gg8-prereqs.md" %}
 
-If you use Java version 11 or later, [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later) for details.
+GridGain requires Java 17 or later. See [Running GridGain with Java 17 or Later](#running-gridgain-with-java-17-or-later) for the JVM parameters it needs.
 
 ### (Optional) Open Ports
 
@@ -143,7 +143,7 @@ public class HelloWorld {
 {% hint style="info" %}
 Don't forget to add imports for HelloWorld.java. It should be trivial as long as Maven solves all of the dependencies.
 
-Plus, you might need to add these settings to your pom.xml if the IDE keeps using Java compiler from a version earlier than 1.8:
+Plus, you might need to add these settings to your pom.xml if the IDE keeps using a Java compiler from a version earlier than 17:
 
 ```xml
 <build>
@@ -152,8 +152,8 @@ Plus, you might need to add these settings to your pom.xml if the IDE keeps usin
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>17</source>
+                <target>17</target>
             </configuration>
         </plugin>
     </plugins>
@@ -170,12 +170,12 @@ Run HelloWorld.java. You will see 'Hello World!' and other environment details p
 From here, you may want to:
 
 - Read more about using GridGain
-- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster
+- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster
 
 ### Further Examples
 
 {% include "../../.gitbook/includes/gg8-exampleprojects.md" %}
 
-## Running GridGain with Java 11 or Later
+## Running GridGain with Java 17 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}

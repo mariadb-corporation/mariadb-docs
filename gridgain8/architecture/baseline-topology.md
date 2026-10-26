@@ -183,7 +183,17 @@ cluster.baselineAutoAdjustTimeout(AutoAdjustMode.SCALE_DOWN, 300_000);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+ICluster cluster = ignite.GetCluster();
+
+// Enable scale-up autoadjustment with a 30-second timeout.
+cluster.SetBaselineAutoAdjustEnabledFlag(AutoAdjustMode.ScaleUp, true);
+cluster.SetBaselineAutoAdjustTimeout(AutoAdjustMode.ScaleUp, 30000);
+
+// Enable scale-down autoadjustment with a 5-minute timeout.
+cluster.SetBaselineAutoAdjustEnabledFlag(AutoAdjustMode.ScaleDown, true);
+cluster.SetBaselineAutoAdjustTimeout(AutoAdjustMode.ScaleDown, 300000);
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
@@ -196,4 +206,4 @@ You can use the following tools to monitor and/or manage the baseline topology:
 
 - [Control Script](../reference/cli-tool/README.md)
 - [JMX Beans](../reference/monitoring/jmx-metrics.md#monitoring-topology)
-- [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/dashboard/my-cluster)
+- [Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/gg8/dashboard/my-cluster)

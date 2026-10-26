@@ -1,0 +1,220 @@
+name: Announce MariaDB Cloud release notes
+
+# Posts each newly published MariaDB Cloud release note to #mariadb-product-releases, the
+# company-wide channel where PMs announce releases (DOCS-6936, requested by Adam Luciano, who
+# posted the first three by hand on 2026-10-01). One message per note: the H1 in bold (it names
+# the feature), the note's own `description:`, and the live link.
+#
+# "Newly published" is decided by .github/scripts/cloud_release_announce.py, whose header
+# explains why it is not "newly added": Cloud release notes are merged hidden and unhidden when
+# the release ships, often in a later push and often from the GitBook app. A GitBook-app commit
+# reaches main as a normal push, so it triggers this workflow like any other.
+#
+# It runs per push rather than nightly because the post is the announcement: a release made
+# public in the morning should not reach the company the next day.
+#
+# WHAT IT DOES NOT DO
+#   - Remember what it announced. Nothing is stored; a note announces on the push that publishes
+#     it. So a note that is hidden again and later unhidden is announced twice, and re-running a
+#     failed run re-posts any note that run already posted before it failed.
+#   - Post before the page is live. Each URL must answer 200 first. A note unhidden in place is
+#     already served (GitBook serves hidden pages by direct URL), so that wait is immediate; a
+#     brand-new note waits for the GitBook sync, up to WAIT_MINUTES, then the run fails rather
+#     than post a dead link.
+#
+# The webhook is SLACK_PRODUCT_RELEASES_WEBHOOK_URL. Failures are reported to
+# #docs-notifications via NOTIFICATIONS_WEBHOOK_URL, like every other workflow here; the
+# company channel only ever receives announcements.
+#
+# workflow_dispatch replays any range as a dry run (the default), which prints the messages to
+# the run summary and posts nothing. `before` and `after` must be full SHAs or branch names --
+# GitHub does not serve fetches by abbreviated SHA.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'release-notes/mariadb-cloud-release-notes/**'
+      # Adding an existing page to the navigation publishes it too.
+      - 'release-notes/SUMMARY.md'
+  workflow_dispatch:
+    inputs:
+      before:
+        description: 'Commit before the range (full SHA or branch name)'
+        required: true
+        type: string
+      after:
+        description: 'Commit at the end of the range (full SHA or branch name)'
+        required: true
+        default: main
+        type: string
+      post:
+        description: 'Really post to #mariadb-product-releases (otherwise a dry run)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+# Queued, never cancelled: two quick pushes must both announce what they published.
+concurrency:
+  group: announce-cloud-release-notes
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
+    runs-on: ubuntu-latest
+    # The live-URL wait is the long part (WAIT_MINUTES); the rest takes seconds.
+    timeout-minutes: 40
+    env:
+      WAIT_MINUTES: '30'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Resolve the range
+        id: range
+        env:
+          # Via env, never interpolated into the script (DOCS-6361).
+          EVENT: ${{ github.event_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_AFTER: ${{ github.sha }}
+          IN_BEFORE: ${{ inputs.before }}
+          IN_AFTER: ${{ inputs.after }}
+          IN_POST: ${{ inputs.post }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT" == push ]]; then
+            before=$PUSH_BEFORE after=$PUSH_AFTER post=true
+          else
+            before=$IN_BEFORE after=$IN_AFTER post=$IN_POST
+          fi
+          # A push that creates the branch has no "before". main always exists, so this only
+          # guards against an unexpected payload; announcing every note ever published would be
+          # the wrong default.
+          if [[ "$before" =~ ^0+$ ]]; then
+            echo "::error::No previous commit for this push ($before); refusing to guess a range."
+            exit 1
+          fi
+          # Shallow fetch of just the two ends, into refs of their own so a SHA and a branch name
+          # resolve the same way. The script reads both with `git show`, which needs the two
+          # commits but not the history between them.
+          git fetch --no-tags --depth=1 origin \
+            "+$before:refs/announce/before" "+$after:refs/announce/after"
+          before=$(git rev-parse refs/announce/before)
+          after=$(git rev-parse refs/announce/after)
+          {
+            echo "before=$before"
+            echo "after=$after"
+            echo "post=$post"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Find newly published release notes
+        id: find
+        env:
+          BEFORE: ${{ steps.range.outputs.before }}
+          AFTER: ${{ steps.range.outputs.after }}
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/cloud_release_announce.py "$BEFORE" "$AFTER" > notes.json
+          count=$(jq 'length' notes.json)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Build the Slack messages
+        if: steps.find.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          # jq builds each payload, so quotes and backslashes cannot break the JSON. Slack reads
+          # `text` as mrkdwn, where `<`, `>` and `&` are markup, and the title and description
+          # can be edited by anyone with GitBook access -- so they are escaped. The link text is
+          # the URL without its scheme, as in the 2026-10-01 post.
+          mkdir -p payloads
+          jq -c '.[]' notes.json | nl -nrz -w3 | while read -r i note; do
+            jq -n --argjson n "$note" '
+              def esc: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+              def collapse: gsub("\\s+"; " ");
+              { text: ("*" + ($n.title | collapse | esc) + "*\n"
+                       + ($n.description | collapse | esc) + "\n"
+                       + "<" + $n.url + "|" + ($n.url | sub("^https://"; "")) + ">"),
+                unfurl_links: false }' > "payloads/$i.json"
+            jq -e . "payloads/$i.json" > /dev/null
+          done
+
+      - name: Wait until every page is live
+        if: steps.find.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          deadline=$(( $(date +%s) + WAIT_MINUTES * 60 ))
+          jq -r '.[].url' notes.json | while read -r url; do
+            until [[ "$(curl -s -o /dev/null -w '%{http_code}' -L "$url")" == 200 ]]; do
+              if (( $(date +%s) >= deadline )); then
+                echo "::error::$url did not answer 200 within $WAIT_MINUTES minutes; nothing was posted."
+                exit 1
+              fi
+              sleep 30
+            done
+            echo "Live: $url"
+          done
+
+      - name: Post to #mariadb-product-releases
+        if: steps.find.outputs.count != '0' && steps.range.outputs.post == 'true'
+        env:
+          WEBHOOK: ${{ secrets.SLACK_PRODUCT_RELEASES_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$WEBHOOK" ]]; then
+            echo "::error::SLACK_PRODUCT_RELEASES_WEBHOOK_URL is not set."
+            exit 1
+          fi
+          # curl rather than slackapi/slack-github-action because the number of messages varies.
+          # --fail-with-body turns a revoked webhook, an archived channel or a 429 into a red run
+          # with Slack's reason in the log, the job errors: true does for the action elsewhere.
+          for p in payloads/*.json; do
+            curl -sS --fail-with-body -X POST -H 'Content-Type: application/json' \
+              --data @"$p" "$WEBHOOK"
+            echo
+          done
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          BEFORE: ${{ steps.range.outputs.before }}
+          AFTER: ${{ steps.range.outputs.after }}
+          POST: ${{ steps.range.outputs.post }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## MariaDB Cloud release-note announcements"
+            echo
+            echo "Range: \`${BEFORE:-?}\`..\`${AFTER:-?}\`, posting: ${POST:-?}"
+            echo
+            if [[ ! -s notes.json ]]; then
+              echo "No result -- an earlier step failed."
+            elif [[ "$(jq 'length' notes.json)" == 0 ]]; then
+              echo "No release note was published in this range."
+            else
+              # Fenced: the text comes from page content, and this summary renders GFM.
+              for p in payloads/*.json; do
+                echo '````text'
+                jq -r '.text' "$p"
+                echo '````'
+              done
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Notify #docs-notifications on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v3.0.5
+        with:
+          webhook: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "❌ *Cloud release-note announcement failed* -- check whether it posted to #mariadb-product-releases before re-running.\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          errors: true

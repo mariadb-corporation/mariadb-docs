@@ -119,6 +119,7 @@ The masking filter has one mandatory parameter - `rules`.
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Determines the path to the file containing masking rules.
 
 Specifies the path of the file where the masking rules are stored. A relative path is interpreted relative to the _module configuration directory_ of MariaDB MaxScale. The default module configuration directory is\_/etc/maxscale.modules.d\_.
 
@@ -133,6 +134,7 @@ rules=/path/to/rules-file
 * Dynamic: Yes
 * Values: `never`, `always`
 * Default: `never`
+* Description: Controls whether a column with an unsupported type is matched by a masking rule and whether a warning is logged.
 
 With this optional parameter the masking filter can be instructed to log a warning if a masking rule matches a column that is not of one of the allowed types.
 
@@ -147,6 +149,7 @@ warn_type_mismatch=always
 * Dynamic: Yes
 * Values: `ignore`, `abort`
 * Default: `abort`
+* Description: Controls how payloads larger than 16MB are managed by the masking filter.
 
 This optional parameter specifies how the masking filter should treat payloads larger than `16MB`, that is, payloads that are delivered in multiple MySQL protocol packets.
 
@@ -164,6 +167,7 @@ large_payload=ignore
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether queries using functions on masked columns are rejected.
 
 This optional parameter specifies how the masking filter should behave if a column that should be masked, is used in conjunction with some function. As the masking filter works _only_ on the basis of the information in the returned result-set, if the name of a column is not present in the result-set, then the masking filter cannot mask a value. This means that the masking filter basically can be bypassed with a query like:
 
@@ -183,6 +187,7 @@ prevent_function_usage=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Determines whether statements that cannot be fully parsed are rejected.
 
 This optional parameter specifies how the masking filter should behave in case any of `prevent_function_usage`, `check_user_variables`,`check_unions` or `check_subqueries` is true and it encounters a statement that cannot be fully parsed,
 
@@ -200,6 +205,7 @@ Note that if this parameter is set to false, then `prevent_function_usage`,`chec
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages if functions' string parameters are managed as fields for masking.
 
 This optional parameter specifies how the masking filter should treat strings used as arguments to functions. If true, they will be handled as fields, which will cause fields to be masked even if `ANSI_QUOTES` has been enabled and `"` is used instead of backtick.
 
@@ -213,6 +219,7 @@ treat_string_arg_as_field=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether user variables are applied to user variables.
 
 This optional parameter specifies how the masking filter should behave with respect to user variables. If true, then a statement like
 
@@ -232,6 +239,7 @@ check_user_variables=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Controls whether masking rules are applied to the UNION queries.
 
 This optional parameter specifies how the masking filter should behave with respect to UNIONs. If true, then a statement like
 
@@ -251,6 +259,7 @@ check_unions=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether masking rules are applied to subqueries.
 
 This optional parameter specifies how the masking filter should behave with respect to subqueries. If true, then a statement like
 

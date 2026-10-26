@@ -34,7 +34,7 @@ For provisioned services, select a high-availability mode:
 
 ## Add-ons
 
-* **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA.
+* **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA. Available on request: the card is labeled **On Request** until the MariaDB Cloud team enables it for your organization. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Query Result Cache** — adds an in-memory query result cache alongside your transactional workload. See [Query Result Cache](../quickstart/query-cache-gridgain-8.md).
 
 Both add-ons are currently available as a _Tech Preview_.

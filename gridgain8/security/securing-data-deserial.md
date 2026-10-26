@@ -87,3 +87,13 @@ When the `IGNITE_MARSHALLER_BLACKLIST` system property is used, an attempt to de
 Exception in thread "main" javax.cache.CacheException: class org.apache.ignite.IgniteCheckedException: Deserialization of class ignite.myexamples.model.SomeOtherFile is disallowed.
 ```
 {% endcode %}
+
+## Thin Client Continuous Query Filters
+
+The whitelist and blacklist also apply to remote filters of continuous queries started from thin clients. A thin client can pass a remote filter by class name, for example with `FactoryBuilder.factoryOf(MyFilter.class)` in the Java thin client, or as a Java filter from the .NET and C++ thin clients. In this case, the server node checks the class name against `IGNITE_MARSHALLER_WHITELIST` and `IGNITE_MARSHALLER_BLACKLIST` before it loads the class. A filter class passed by name must implement `javax.cache.event.CacheEntryEventFilter`.
+
+If the class is not allowed, the continuous query fails with a security error: `Deserialization of class <class name> is disallowed.`
+
+{% hint style="info" %}
+In GridGain 8.9.x, filter classes passed by name were not checked. If you use `IGNITE_MARSHALLER_WHITELIST`, add the remote filter classes of your thin client continuous queries to the whitelist before upgrading.
+{% endhint %}

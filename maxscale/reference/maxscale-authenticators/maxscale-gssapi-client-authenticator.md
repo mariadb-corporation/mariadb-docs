@@ -38,6 +38,7 @@ The principal name should be the same as on the MariaDB servers.
 * Mandatory: No
 * Dynamic: No
 * Default: `mariadb/localhost.localdomain`
+* Description: Defines the service principal name used in GSSAPI authentication.
 
 The service principal name to send to the client. This parameter is a string parameter which is used by the client to request the token.
 
@@ -49,6 +50,7 @@ This parameter _must_ be the same as the principal name that the backend MariaDB
 * Mandatory: No
 * Dynamic: No
 * Default: Kerberos Default
+* Description: Specifies the location of the GSSAPI authentication-related Kerberos keytab file.
 
 Keytab file location. This should be an absolute path to the file containing the keytab. If not defined, Kerberos will search from a default location, usually `/etc/krb5.keytab`. This path is set to an environment variable. This means that multiple listeners with GSSAPIAuth overrides each other. If using multiple GSSAPI authenticators, either do not set this option or use the same value for all listeners.
 

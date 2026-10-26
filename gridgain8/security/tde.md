@@ -21,7 +21,7 @@ If you enable cache/table encryption, the cluster will generate a key (called _c
 
 The master key must be specified via the configuration in every server node. One way to ensure you are using the same key is to copy the JKS file from one node to the other nodes. In an attempt to enable TDE, the node with a different key will not be able to join the cluster.
 
-The GridGain cluster supports a single Encryption SPI implementation that is `KeystoreEncryptionSPI`, which uses the running JVM's default keystore format. On JDK 8 (or earlier), the default is JKS, while on JDK 9 and later it defaults to PKCS12. You can also explicitly set the `keystore.type` system property by using the `-Dkeystore.type`. It supports `AES/CBC/PKCS5Padding` for encrypting WAL records and `AES/CBC/NoPadding` for encrypting data pages on disk.
+The GridGain cluster supports a single Encryption SPI implementation that is `KeystoreEncryptionSPI`, which uses the running JVM's default keystore format. On Java 17 and later, the default keystore format is PKCS12. You can also explicitly set the `keystore.type` system property by using the `-Dkeystore.type`. It supports `AES/CBC/PKCS5Padding` for encrypting WAL records and `AES/CBC/NoPadding` for encrypting data pages on disk.
 
 ## Master Key Generation Example
 

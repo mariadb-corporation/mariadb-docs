@@ -34,6 +34,7 @@ The Comment filter requires one mandatory parameter to be defined.
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the comment injected before statements.
 
 A parameter that contains the comment injected before the statements. There is also defined variable $IP that can be used to comment the IP address of the client in the injected comment. Variables must be written in all caps.
 

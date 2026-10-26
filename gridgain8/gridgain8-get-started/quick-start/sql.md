@@ -132,7 +132,7 @@ Easy!
 
 ## Using Control Center to Run Queries
 
-For larger clusters and more complex datasets, you can [execute SQL queries directly in GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/gg8/queries/querying).
+For larger clusters and more complex datasets, you can [execute SQL queries directly in GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/gg8/queries/querying).
 
 ## Next Steps
 
@@ -140,4 +140,4 @@ From here, you may want to:
 
 - Read more about using GridGain and [SQL](../../gridgain8-development/sql/sql-introduction.md)
 - Read more about using [sqlline](../../gridgain8-development/tools/sqlline.md)
-- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center) to monitor your cluster
+- Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster

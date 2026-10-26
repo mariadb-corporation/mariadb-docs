@@ -56,6 +56,9 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `GG-CDC-11` | CDC replication not found. | Verify that the replication ID or name is correct. Check that replication has been configured. List active replications to confirm its presence. Configure replication if necessary. |
 | `GG-CDC-12` | CDC replication already exists. | Use a different replication ID or name, or drop the existing replication before creating a new one with the same identifier. Verify replication naming conventions. |
 | `GG-CDC-13` | CDC is disabled. | Enable CDC in the cluster configuration. Update node configuration to enable CDC. Restart nodes with CDC enabled. Verify that CDC is enabled at both the cluster and node levels. |
+| `GG-CDC-14` | CDC source start error: the source cannot read a table at all. For example, the table has no primary key, the capture instance does not capture every primary-key column, a captured column has a type the source cannot map, or the login lacks a required permission. | Read the exception message: it names the table and the cause. Fix the table, the capture instance or the permissions, then start the replication again. |
+| `GG-CDC-15` | CDC source watermark expired: the saved position of a replication is older than the oldest change the source still retains. For SQL Server, the CDC cleanup retention discarded the changes, or the capture instance was re-created. | The changes in between are lost. Delete and recreate the replication: in `ALL` mode it starts from a fresh snapshot, in `NEW_DATA` mode from the current position. Increase the source retention if replications stay stopped for long. |
+| `GG-CDC-16` | CDC source error while streaming changes, after the source started. For example, a permanent SQL error, or the reconnect attempts are used up. | Read the exception message and the node logs. Fix the cause (connectivity, permissions, capture instance), then start the replication again. |
 
 ## Client Exceptions
 
@@ -355,7 +358,6 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `IGN-SECONDARY_STORAGE-1` | Failure during sending message to the secondary storage. | Check network connectivity between primary and secondary storage nodes. Verify that the secondary storage nodes are accessible and running. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-2` | Failure while trying to start secondary storage replication manager. | Check secondary zone configuration. Ensure that nodes of the secondary zones are available in the cluster. Check logs for resource allocation issues. |
-| `IGN-SECONDARY_STORAGE-3` | Failed to initialize secondary storage bridge. | Check network connectivity. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-4` | Failed to get secondary storage. | Retry the operation after verifying storage availability. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-5` | Failed to write data into secondary storage. | Check available disk space. Verify write permissions for the storage location. Check network connectivity. Retry the write operation. Check cluster logs for communication errors. |
 | `IGN-SECONDARY_STORAGE-6` | Failed to read data from secondary storage. | Check read permissions for the storage location. Verify network connectivity. Check data integrity. Ensure secondary storage is operational. |

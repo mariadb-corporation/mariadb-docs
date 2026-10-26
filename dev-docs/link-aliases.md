@@ -43,14 +43,17 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
-| `{tools}` | Enterprise Tools (alias keeps the `tools` slug) |
+| `{tools}` | Tools (Enterprise and Community tools; alias keeps the `tools` slug) |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
 
 ## Rules for agents
 
 - **Use an alias for any cross-space link.** Use a relative `.md` path for links within the
-  same space.
+  same space. **One exception:** the Community Tools pages synced from product repos
+  (`tools/community/mariadb-ai-plugins/`, `tools/community/mariadb-shell/`) use absolute
+  `https://mariadb.com/docs/…` URLs, because they must match their source. See
+  [the sync cookbook](cookbook-community-tools-sync.md).
 - **Never expand an alias by hand**, and never rewrite an already-expanded
   `app.gitbook.com` URL back into the source. The Action owns that transform.
 - **Aliases don't resolve in a local editor, the GitHub UI, or the GitHub app** — that's

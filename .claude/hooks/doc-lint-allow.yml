@@ -51,6 +51,8 @@
 orphan:
 
 shrink:
+  - path: gridgain8/gridgain8-management/installation/aws/README.md
+    reason: "AMI and Terraform child pages removed (GG-51429), remaining children still listed — DOCS-6980"
   - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
     reason: "three pre-10.5 version tabs removed, current text kept — DOCS-6750"
   - path: server/reference/system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md
@@ -67,8 +69,10 @@ shrink:
     reason: "configuration structure and CLI update prose moved to gridgain9-management/cluster-configuration.md; the page now lists only the parameter references — DOCS-6896"
   - path: gridgain9/security/README.md
     reason: "seven child cards regrouped under two sub-hubs (authentication-and-authorization/, encryption-and-transport/), which list all seven, matching SUMMARY.md — DOCS-6896"
-  - path: tools/mariadb-enterprise-manager/administration/deployment/adding-databases/README.md
+  - path: tools/enterprise/mariadb-enterprise-manager/administration/deployment/adding-databases/README.md
     reason: "split into without-MaxScale, with-MaxScale and GridGain 8 subpages; the hub links all three — DOCS-6280"
+  - path: release-notes/.gitbook/includes/backports-10.6.19-15.md
+    reason: "JSON_ARRAY_INTERSECT, JSON_OBJECT_TO_ARRAY, JSON_OBJECT_FILTER_KEYS and JSON_KEY_VALUE removed; MENT-1897/1896 were never merged into ES 10.6 (confirmed by the assignee) — DOCS-6932"
 
 # Both entries are the August 2026 Connector/C round (DOCS-6732). Each version
 # was built only as part of a Server release, so mariadb.com offers no download

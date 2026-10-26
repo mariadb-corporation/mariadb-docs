@@ -246,11 +246,20 @@ Path to the Ignite configuration file. `$IGNITE_HOME/config/default-config.xml` 
 
 `shallProcessUpdates`
 
-Indicates if overwriting or removing existing values in the sink cache is enabled. Sink connector performs better if this flag is disabled.
+Indicates if overwriting or removing existing values in the sink cache is enabled. Sink connector performs better if this flag is disabled. This configuration property maps to the data streamer's allowOverwrite setting. When set to `false`, new entries are written directly to sink cache, bypassing cache store.
 
 - Type: boolean
 - Default: `false`
 - Importance: medium
+
+`skipStore`
+
+Indicates if a configured cache store, if any, is bypassed when data is streamed into the sink cache. Applies only when `shallProcessUpdates` is `true`. Otherwise, data is written to the sink cache, but never to the cache store.
+
+- Type: boolean
+- Default: `false`
+- Importance: medium
+- Introduced: GridGain 8.10.0
 
 `cacheFilter`
 

@@ -466,3 +466,21 @@ jobs:
               echo '````'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # Unit tests for the Python helpers under .github/scripts/ (test_*.py), starting with
+  # cloud_release_announce.py (DOCS-6936). That script decides what gets posted to a
+  # company-wide channel, on pushes to main only, so a PR is the one place a regression in it
+  # can be caught before it posts -- or fails to post -- for real.
+  scripts-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run the .github/scripts unit tests
+        run: |
+          set -euo pipefail
+          # The tests build their own git repositories under TMPDIR; they need a git identity
+          # for nothing but those throwaway commits, which they set themselves.
+          python3 -m unittest discover -v -s .github/scripts -p 'test_*.py'

@@ -3,7 +3,6 @@ description: >-
   Bring Your Own Cloud (BYOC) deploys MariaDB Cloud's data plane in your own
   AWS, GCP, or Azure account while the control plane (Portal, API, monitoring)
   stays in MariaDB Cloud.
-hidden: true
 ---
 
 # Bring Your Own Cloud (BYOC)
@@ -93,7 +92,7 @@ flowchart LR
 1. Account Linking: You authorize MariaDB Cloud to access your specific cloud subscription via a secure IAM role or Service Principal with least-privilege permissions.
 2. Resource Provisioning: When you create a service, MariaDB Cloud orchestrates the deployment of Virtual Machines, Storage, and Networking directly into your account.
 3. Management: MariaDB Cloud monitors health, performs backups, and applies patches automatically, just like a standard managed service.
-4. Connectivity: Your applications connect to the database locally within your cloud network (VPC/VNet), ensuring low latency and high security without exposing data to the public internet.
+4. Connectivity: Your applications connect to the database from your own cloud network (VPC/VNet). When you create a Provisioned service on the Power or PowerPlus tier, private connectivity (AWS PrivateLink, Azure Private Link, or Google Cloud Private Service Connect) is selected by default. You can choose an IP allowlist instead.
 
 
 
@@ -111,13 +110,12 @@ BYOC is designed for enterprise organizations with specific regulatory or infras
 BYOC is an enterprise-grade feature with specific commercial and technical prerequisites:
 
 * Service Tier: Your organization must be on the Power or PowerPlus tier.
+* Billing: Your organization must have an active billing account with a payment card or invoice billing.
 * Support Plan: You must have Standard Support with the Remote DBA add-on enabled.
 * Contract: Available to customers with annual contracts or minimum spend commitments.
 * Approval: MariaDB must enable BYOC for your organization. See [Get started](#get-started).
 
-{% hint style="info" %}
-BYOC is in Public Preview and is available on Amazon Web Services, Google Cloud, and Microsoft Azure. Features and behavior may change before general availability.
-{% endhint %}
+BYOC is generally available on Amazon Web Services, Google Cloud, and Microsoft Azure.
 
 ### BYOC Pricing and Billing
 
@@ -180,13 +178,15 @@ BYOC is enabled for each organization. To start, request access, link your cloud
 4. Under **Account details**, enter the details for your provider. See the table that follows these steps. Optionally, enter an **Account label** to help identify the account when you link several.
 5. Under **Regions**, select the regions to enable. The list matches the regions offered on standard MariaDB Cloud. For AWS, also choose a **Stack Region**, as described in the table.
 6. Select **Link account**. The portal shows the values to use with the template, such as your organization ID. Each value has a copy button.
-7. Select **Open console**. For AWS and Azure, this opens your cloud's folder in the public [mariadb-byoc-onboarding](https://github.com/mariadb-corporation/mariadb-byoc-onboarding) repository on GitHub. For Google Cloud, it opens Cloud Shell. Then deploy the template in your own cloud account, as described in the table.
+7. Select **Open console**, and deploy the template in your own cloud account. For AWS, it opens the CloudFormation quick-create page. For Azure, it opens the Azure portal custom deployment page. For Google Cloud, it opens Cloud Shell. See the table that follows these steps.
 
 | Cloud | Account details you enter | What you run |
 | ----- | ------------------------- | ------------ |
-| Amazon Web Services | The 12-digit AWS account ID. The **Stack Region** is only where the setup stack runs, and it defaults to Northern Virginia (`us-east-1`). | Deploy the CloudFormation template from the repository with the AWS CLI or the AWS console. The repository also has a Terraform module with the same resources. Enter the `OrchestrationAccountId` and `OrgId` values that the portal shows as the template parameters. You need permission to create IAM roles and policies, for example the `AdministratorAccess` policy. |
+| Amazon Web Services | The 12-digit AWS account ID. The **Stack Region** is only where the setup stack runs, and it defaults to Northern Virginia (`us-east-1`). | **Open console** opens the AWS CloudFormation quick-create page in your stack region, with the template, the stack name, and the `OrchestrationAccountId` and `OrgId` parameters filled in. Review the stack, acknowledge that it creates IAM resources, and create it. You need permission to create IAM roles and policies, for example the `AdministratorAccess` policy. |
 | Google Cloud | The project ID. Use the project ID, not the project number. | **Open console** opens Cloud Shell with a guided tutorial that runs Terraform in your project. The tutorial asks for `project_id`, `allowed_regions`, `orchestration_project_id`, and `org_id`. The portal shows these values so that you can copy them. The tutorial takes about 20 minutes. You need the Owner role on the project, or the narrower set of roles that the repository lists. |
-| Microsoft Azure | The tenant ID and the subscription ID. | First, create the MariaDB Cloud service principal in your tenant by using Azure Cloud Shell or the Azure CLI (commands follow the table). Then deploy the ARM template from the repository with the Azure CLI, the Azure portal, or PowerShell. The template parameters are `organizationId`, `regions`, and `servicePrincipalObjectId`, which is the object ID that the second command returns. You need the Owner or User Access Administrator role at the subscription level. |
+| Microsoft Azure | The tenant ID and the subscription ID. | First, create the MariaDB Cloud service principal in your tenant by using Azure Cloud Shell or the Azure CLI (commands follow the table). Then **Open console** opens the Azure portal custom deployment page with the ARM template loaded. Azure can't fill in the parameters for you, so enter `organizationId`, `regions`, and `servicePrincipalObjectId` yourself. Use the object ID that the second command returns for `servicePrincipalObjectId`. You need the Owner or User Access Administrator role at the subscription level. |
+
+The template files and their READMEs are in the public [mariadb-byoc-onboarding](https://github.com/mariadb-corporation/mariadb-byoc-onboarding) repository.
 
 The form is the same for every cloud except the account details and the template. The following figures show Google Cloud and Azure.
 
@@ -200,8 +200,6 @@ For Azure, replace `<service_principal_id>` with the MariaDB Cloud service princ
 az ad sp create --id <service_principal_id>
 az ad sp show --id <service_principal_id> --query id -o tsv
 ```
-
-<!-- TODO: MCDEV-5268 (open, 2026-10-12) reports an incorrect servicePrincipalObjectId in the Azure onboarding account. Re-check the Azure parameter and where the portal shows the service principal ID before relying on the Azure row. -->
 
 The template creates only the orchestration resources that MariaDB Cloud needs: an IAM role or service principal with scoped permissions. It does not grant access to your database data.
 
@@ -232,5 +230,6 @@ The **BYOC** menu at the top of the page shows how many accounts are linked. Sel
 
 * You can link one account for each cloud.
 * BYOC supports Provisioned services only. Serverless is not available with BYOC.
+* An organization can't run BYOC services and regular MariaDB-managed services side by side. After you link an account, the Create Service page offers only the clouds that have a ready linked account.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

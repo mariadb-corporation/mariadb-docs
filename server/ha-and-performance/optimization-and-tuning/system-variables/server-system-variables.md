@@ -1010,7 +1010,7 @@ The suffix can be upper or lower-case.
   * This is set with `--large-pages` or disabled with `--skip-large-pages`.
   * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
   * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. The implementation supports multiple page sizes (see `Hugepagesize` in `/proc/meminfo` for the default) using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
-    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
+    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
     * To determine how many huge pages are free, issue this command:\
@@ -1598,10 +1598,10 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
   Maximum simultaneous connections permitted for each user account. When set to `0`, there is no per user limit. Setting it to `-1` stops users without the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege, from connecting to the server. The session variable is always read-only, and only privileged users can modify user limits. The session variable defaults to the global `max_user_connections` variable, unless the user's specific [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) resource option is non-zero. When both global variable and the user resource option are set, the user's [MAX\_USER\_CONNECTIONS](../../../reference/sql-statements/account-management-sql-statements/create-user.md#resource-limit-options) is used. Note: This variable does not affect users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or the [CONNECTION ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#connection-admin) privilege.
 * Command line: `--max-user-connections=#`
 * Scope: Global, Session
-* Dynamic: Yes, (except when globally set to `0` or `-1`)
+* Dynamic: Yes, unless the server was started with `max_user_connections=0`. Then `SET GLOBAL` fails with error 1290.
 * Data Type: `numeric`
 * Default Value: `0`
-* Range: `-1` to `4294967295`
+* Range: `-1` to `2147483647`
 
 #### `max_write_lock_count`
 
@@ -1978,6 +1978,15 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `numeric`
 * Default Value: `4`
 * Range: `1` to `5`
+
+#### `path`
+
+* Description: Comma-separated list of schemas that MariaDB searches, in order, when it resolves the names of stored routines and packages. See [SET PATH](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-path.md). `CURRENT_SCHEMA` in the list stands for the default schema of the session.
+* Command line: No
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `string`
+* Default Value: the current schema only (`CURRENT_SCHEMA`)
 
 #### `pid_file`
 

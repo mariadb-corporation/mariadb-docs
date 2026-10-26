@@ -284,12 +284,12 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-61081](https://www.cve.org/CVERecord?id=CVE-2026-61081) | 2.7                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-85745](https://www.cve.org/CVERecord?id=CVE-2026-85745) | 4.3                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-85746](https://www.cve.org/CVERecord?id=CVE-2026-85746) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
-| [CVE-2026-85748](https://www.cve.org/CVERecord?id=CVE-2026-85748) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-85985](https://www.cve.org/CVERecord?id=CVE-2026-85985) | 5.4                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047) | 7.7                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380) | 8.8                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-102523](https://www.cve.org/CVERecord?id=CVE-2026-102523) | 8.0                    | [11.8.9-6](11.8.9-6.md)        |
+| [CVE-2026-107814](https://www.cve.org/CVERecord?id=CVE-2026-107814) | 8.4                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815) | 8.5                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816) | 6.4                    | [11.8.9-6](11.8.9-6.md)        |
 | [CVE-2026-107817](https://www.cve.org/CVERecord?id=CVE-2026-107817) | 4.4                    | [11.8.9-6](11.8.9-6.md)        |

@@ -38,7 +38,7 @@ Using ZooKeeper Discovery for large-scale GridGain deployments, including config
 {% endcolumn %}
 
 {% column %}
-Cloud-based IP finders for GridGain node discovery, including Apache jclouds, Amazon S3, Amazon ELB, and Google Cloud Storage.
+Cloud-based IP finders for GridGain node discovery, including Amazon S3, Amazon ELB, and Google Cloud Storage.
 {% endcolumn %}
 {% endcolumns %}
 

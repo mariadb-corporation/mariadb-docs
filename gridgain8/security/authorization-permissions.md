@@ -141,6 +141,10 @@ GridGain supports the following permissions:
 - SERVICE_INVOKE - service invocation
 - SERVICE_CANCEL - service cancellation
 
+{% hint style="info" %}
+Thin client calls to Java services require `SERVICE_INVOKE`, including calls to services deployed only on nodes other than the one the client is connected to. In GridGain 8.9.x, thin client calls to services on other nodes were not checked. When upgrading, grant `SERVICE_INVOKE` for the services your thin clients call; otherwise the calls fail with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`.
+{% endhint %}
+
 **System permissions:**
 
 - JOIN_AS_SERVER - node joining the cluster as server
@@ -161,6 +165,7 @@ GridGain supports the following permissions:
 - REFRESH_STATISTICS - refreshing SQL statistics
 - CHANGE_STATISTICS - running SQL analysis and dropping SQL statistics
 - CHANGE_SNAPSHOT_SECURITY_LEVEL - changing the security level applied to snapshot operations
+- CUSTOM_METRICS_MANAGE - obtaining, creating, and removing [custom metric](../gridgain8-management/monitoring/custom-metrics.md) registries, and registering and removing metrics in them
 
 **Tracing permissions:**
 
