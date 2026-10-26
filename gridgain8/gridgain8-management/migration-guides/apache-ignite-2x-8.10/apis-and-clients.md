@@ -26,7 +26,7 @@ These Apache Ignite clients connect to a GridGain 8.10 server without a rebuild:
 
 | Client | Works against GridGain 8.10 | Notes |
 |---|---|---|
-| Apache Ignite Java thin client (2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, and cluster state work. Features that exist only in Apache Ignite (transaction-aware queries, all-affinity-mappings, cache storages, DC-aware routing, data-replication operations) are not offered, and the client falls back. |
+| Apache Ignite Java thin client (2.16.0, 2.17.0, 2.18.0) | Yes | Cache operations, SQL, and cluster state work. Features that exist only in Apache Ignite (transaction-aware queries, all-affinity-mappings, cache storages, DC-aware routing, data-replication operations, forced cluster deactivation, the SQL query initiator ID) are not offered, and the client falls back. |
 | Apache Ignite JDBC thin driver (2.16.0, 2.17.0, 2.18.0) | Yes, with limits | Queries, DML, and `queryEngine=h2` work. `queryEngine=calcite` is rejected: `Handshake failed ... Query engine not supported: 'calcite'. Only H2 is supported.` The `local` property is ignored: the query runs on the whole cluster and the server logs a warning. The transaction parameters of the connection are ignored. |
 | Apache Ignite ODBC driver (2.18.0) | Yes | The unmodified Apache Ignite 2.18 driver connects through `unixODBC` with its default settings and runs queries. Any query engine other than `h2` is rejected with `Unsupported SQL query engine`. |
 | Apache Ignite C++ thin client (2.18.0) | Yes | Cache operations, SQL, transactions, compute, continuous queries, and partition awareness work. |
@@ -41,8 +41,6 @@ These Apache Ignite clients connect to a GridGain 8.10 server without a rebuild:
 Verified versions: 2.16.0–2.18.0 for the Java thin client, the .NET thin client, and the JDBC driver. See the table for the others. Apache Ignite clients work with the features that both products support, so GridGain-specific features need a GridGain client.
 
 The reverse direction is not supported: do not connect GridGain clients to an Apache Ignite cluster. The two products assign some thin client feature IDs differently, and this direction has no compatibility layer.
-
-Test any mixed arrangement on staging before you rely on it in production.
 
 For each client application:
 
@@ -77,8 +75,11 @@ Metadata and error details also differ, which matters to BI tools, ORMs, and cod
 - `DatabaseMetaData.getIndexInfo` returns only the indexes you created. Apache Ignite also returns the primary-key index rows (`_key_PK`) and the `_KEY` column rows.
 - `DatabaseMetaData.getColumns` reports `COLUMN_SIZE` as the type's precision (10 for `INT`, 2147483647 for `VARCHAR` without a length). Apache Ignite reports 0 where no precision is set.
 - A single-row `INSERT` of an existing key fails with `Duplicate key during INSERT [key=..., table=...]`. Apache Ignite reports `Failed to INSERT some keys because they are already in cache [keys=[...]]`. A multi-row `INSERT` fails with SQLSTATE `23000` in GridGain and `50000` in Apache Ignite. Match on neither the message text nor the SQLSTATE.
+- The `SYS` schema lacks some Apache Ignite system views, so queries that name them fail. See *System views* in [Monitoring](operations.md#monitoring).
 
 **ODBC**: The driver name, DSN, and library are unchanged. The `query_engine` property is not available.
+
+Dates and times differ. GridGain converts `DATE`, `TIME`, and `TIMESTAMP` values between GMT and the time zone of the server JVM, and Apache Ignite does not. If your Apache Ignite cluster ran in a time zone other than GMT, the stored values read shifted by the offset after migration. This applies to both the Apache Ignite and the GridGain ODBC driver.
 
 **REST**: The HTTP command set is compatible, but request and response details differ. Adapt your REST *clients* to the changes below. You do not need to rewrite commands.
 
