@@ -297,7 +297,7 @@ The migration is complete when data integrity, application functionality, perfor
 
 ## Troubleshooting
 
-These are the problems that come up most often during this migration. If you hit something not covered here, contact your GridGain Account Executive or [GridGain Support](https://support.gridgain.com/).
+These are the problems that come up most often during this migration. If you hit something not covered here, contact your GridGain Account Executive or [MariaDB Support](https://mariadb.com/support/).
 
 ### Problem: GridGain Starts, but the Data Is Gone
 
