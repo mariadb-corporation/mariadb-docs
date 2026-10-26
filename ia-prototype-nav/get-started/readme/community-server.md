@@ -13,7 +13,7 @@ The tour has three stops. Open the `mariadb` command-line client against the ser
 
 ## Look Around
 
-Start by asking the server what it is and what it holds. The answers come back in a few lines, and they tell you more than a version number.
+Start by asking the server what it is and what it holds. The answers come back in a few lines, and they tell you more than a version number. In the `mariadb` command-line client, run:
 
 ```sql
 SELECT VERSION();
@@ -38,7 +38,7 @@ SHOW GRANTS FOR 'shop_app'@'%';
 
 An account in MariaDB is a user name plus a host, and the `%` wildcard matches any host. The wildcard matters under Docker: the script's connection reaches the container through Docker's network, so the server sees it arrive from the network's gateway address, not from `localhost`. On a server you run yourself, narrow the host to the machine the app runs on, as the [Deployment](../deployment.md) page does.
 
-Point the Python script at the new account by changing two lines:
+This example uses Python. MariaDB has [connectors]({connectors}) for Node.js, Java, C#, C++, and more, and each one signs in with the same account. Point the Python script at the new account by changing two lines:
 
 ```python
     user="shop_app",
@@ -49,27 +49,18 @@ The script prints the same two products, and a bug in the app can no longer drop
 
 ## Change a Server Setting
 
-Server behavior lives in system variables, such as the `max_connections` variable, which caps how many clients can connect at once. Its default is 151, and a busy sale with several app workers can use that up. You could run `SET GLOBAL max_connections = 300;`, but the server forgets that value at the next restart, because it reads its startup settings from option files. On RHEL and its relatives, add a `[mariadb]` section to `/etc/my.cnf` or a file in `/etc/my.cnf.d/`. On Debian and Ubuntu, add it to a file in `/etc/mysql/mariadb.conf.d/`, such as `99-shop.cnf`.
+Server behavior lives in system variables, such as the `max_connections` variable, which caps how many clients can connect at once. Its default is 151, and a busy sale with several app workers can use that up. You could run `SET GLOBAL max_connections = 300;`, but the server forgets that value at the next restart, because it reads its startup settings from option files. Put this `[mariadb]` section in an option file, then restart the server so it reads the file again.
 
 ```ini
 [mariadb]
 max_connections = 300
 ```
 
-On a Linux install, restart the server so it reads the file again, then check the value from the `mariadb` client. The hint below covers Docker.
+Where the file goes and how you restart depend on how you installed the server. Pick your tab.
 
-```bash
-sudo systemctl restart mariadb
-```
-
-```sql
-SHOW VARIABLES LIKE 'max_connections';
-```
-
-[Configuring MariaDB with Option Files]({server}/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) explains which files the server reads and in what order.
-
-{% hint style="info" %}
-Following along in Docker? The image reads option files from `/etc/mysql/conf.d` inside the container. Save the `[mariadb]` section above as `shop.cnf` on your machine, copy it in, and restart the container instead:
+{% tabs %}
+{% tab title="Docker" %}
+The image reads option files from `/etc/mysql/conf.d` inside the container. Save the section above as `shop.cnf` on your machine, copy it in, and restart the container:
 
 ```bash
 docker cp shop.cnf mariadb:/etc/mysql/conf.d/shop.cnf
@@ -77,7 +68,43 @@ docker restart mariadb
 ```
 
 The file lives in the container, so it's gone if you remove the container. For a long-lived setup, keep the file in a host directory and mount it at `/etc/mysql/conf.d`, as the [MariaDB Container Cheat Sheet]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-container-cheat-sheet) shows.
-{% endhint %}
+{% endtab %}
+
+{% tab title="Linux" %}
+On RHEL and its relatives, add the section to `/etc/my.cnf` or a file in `/etc/my.cnf.d/`. On Debian and Ubuntu, add it to a file in `/etc/mysql/mariadb.conf.d/`, such as `99-shop.cnf`. Then restart the server:
+
+```bash
+sudo systemctl restart mariadb
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+The MSI installer creates a `my.ini` file in the `data` folder of the install directory. Add the section to that file, then restart the `MariaDB` service, the installer's default service name, from a command prompt that runs as Administrator:
+
+```powershell
+net stop MariaDB
+net start MariaDB
+```
+
+You can also restart the service from the Services app.
+{% endtab %}
+
+{% tab title="macOS" %}
+Homebrew's MariaDB reads `/opt/homebrew/etc/my.cnf` on Apple silicon and `/usr/local/etc/my.cnf` on Intel-based Macs. Add the section to that file, then restart the server:
+
+```bash
+brew services restart mariadb
+```
+{% endtab %}
+{% endtabs %}
+
+Check the value from the `mariadb` client:
+
+```sql
+SHOW VARIABLES LIKE 'max_connections';
+```
+
+[Configuring MariaDB with Option Files]({server}/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) explains which files the server reads and in what order.
 
 With the app on its own account and the connection limit in an option file, the server is ready for the next table the shop needs.
 

@@ -15,6 +15,10 @@ The `mariadb-backup` tool copies the data files while MariaDB Server keeps runni
 
 ## Back Up and Restore
 
+{% hint style="info" %}
+These steps need MariaDB Server installed on a Linux host, as the Linux tab on the landing page installs it. The restore stops the server with `systemctl` and replaces its data directory, `/var/lib/mysql`, while the server is down. In the Docker container from the landing page, the server is the container's main process, so there is no `systemctl` service, and stopping the server stops the container with it.
+{% endhint %}
+
 Run these steps on a test server before the Friday that needs them. A restore you have practiced once takes minutes. A restore you are reading about for the first time during an outage takes much longer.
 
 {% stepper %}

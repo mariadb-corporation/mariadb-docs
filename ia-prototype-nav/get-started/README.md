@@ -25,7 +25,13 @@ MariaDB gives your applications and agents one durable place for their data: a s
 
 <figure><picture><source srcset=".gitbook/assets/get-started-orientation-dark.svg" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/get-started-orientation-light.svg" alt="Orientation. Your application connects through a MariaDB connector, and your coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it."></picture><figcaption><p>Your code and your agent talk to the same server, wherever it runs.</p></figcaption></figure>
 
-Pick a tab to get a server running, either with your coding agent or by hand. The Get Started pages follow the Docker tab, and each other tab says what changes for you.
+The Get Started pages follow one small online shop. It starts as a single `products` table that an application queries, and it grows into an application account, backups, a replica, and a weekly sales report. The pages are written for the developer who builds that shop, so each step is SQL or code that you run yourself. The people who keep the shop online and the people who report on its sales use the same server, and their part of the story has pages of its own.
+
+{% hint style="info" %}
+**Run databases for a team?** As a database administrator, start with [Deployment](deployment.md) to choose where the server runs, then go to [Operations](operations.md) to back it up, restore it, and add a replica. **Report on the data?** As an analyst, go to [Analytics](analytics.md), which moves the shop's sales history into a columnar table and joins it to the live tables in one query.
+{% endhint %}
+
+Pick a tab to get a server running, either with your coding agent or by hand. The Get Started pages follow the Docker tab, and each other tab says what changes for you. On Windows or macOS without Docker, install MariaDB Server with the [Windows MSI package]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows) or with [Homebrew on macOS]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew), then continue at step 2.
 
 {% tabs %}
 {% tab title="Agent prompt" %}
@@ -166,6 +172,8 @@ INSERT INTO shop.products (name, price) VALUES
 
 {% step %}
 ### Query It From Python
+
+This example uses Python. MariaDB has connectors for Node.js, Java, C#, C++, and more, listed under [Connect From Your Language](#connect-from-your-language).
 
 Install MariaDB Connector/Python:
 

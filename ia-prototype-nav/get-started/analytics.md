@@ -16,7 +16,7 @@ The tables aren't the problem. Their layout is. InnoDB, the default storage engi
 MariaDB ColumnStore stores each column on its own, so a report reads only the columns it names. Because every table in MariaDB Server chooses its own storage engine, the sales history can move to ColumnStore while products and orders stay on InnoDB, all in the same `shop` database. ColumnStore is open source and ships with MariaDB Community Server and MariaDB Enterprise Server.
 
 {% hint style="info" %}
-To follow along, you need a server with ColumnStore installed. On MariaDB Community Server, install the `mariadb-plugin-columnstore` package (`MariaDB-columnstore-engine` on RHEL) from the MariaDB repository. For MariaDB Enterprise Server, the [single-node install guide]({analytics}/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage) walks through the setup.
+To follow along, you need a server with ColumnStore installed, because both the `ENGINE=ColumnStore` tables and the `cpimport` loader come from it. The official Docker image from the landing page doesn't include ColumnStore, so use a Linux host for this page. On MariaDB Community Server, install the `mariadb-plugin-columnstore` package (`MariaDB-columnstore-engine` on RHEL) from the MariaDB repository. For MariaDB Enterprise Server, the [single-node install guide]({analytics}/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage) walks through the setup.
 {% endhint %}
 
 ## Move Sales to ColumnStore
