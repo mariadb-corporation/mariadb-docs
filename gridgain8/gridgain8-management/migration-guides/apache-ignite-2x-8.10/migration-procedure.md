@@ -139,10 +139,12 @@ A graceful, deactivated shutdown is the recommended path. If a node was stopped 
 
 ### 4. Back Up the Persistence Directory (Persistent Only)
 
-Copy the whole work directory, including `db/`, `db/binary_meta/`, `db/marshaller/`, and the WAL (`db/wal/`, and `db/wal/archive/`). Also archive the Ignite binary distribution and its configuration so you can rebuild the pre-migration cluster if needed.
+Back up every node: each node has its own persistence directory, and the backup is only complete when it covers all of them. For each node, copy the whole work directory, including `db/`, `db/binary_meta/`, `db/marshaller/`, and the WAL (`db/wal/`, and `db/wal/archive/`). Also archive the Ignite binary distribution and its configuration so you can rebuild the pre-migration cluster if needed.
+
+Run the following on each host, once per node. Replace the work directory with the node's `workDirectory` if you set one, and give each archive a unique name, such as one per node:
 
 ```shell
-tar czf ignite-pds-backup-PRECUTOVER.tgz $IGNITE_HOME/work/db
+tar czf ignite-pds-backup-PRECUTOVER-<node-name>.tgz -C $IGNITE_HOME/work db
 ```
 
 {% hint style="danger" %}
@@ -217,6 +219,10 @@ $GRIDGAIN_HOME/bin/control.sh --baseline                    # expect every node 
 
 Use the `control.sh` of the GridGain distribution. The Apache Ignite 2.18 `control.sh` cannot talk to a GridGain node.
 
+{% hint style="info" %}
+The GridGain `control.sh` connects to port `11211` by default. If a GridGain node and an Apache Ignite node run on the same host, for example a staging cluster next to production, the default can reach the Ignite node and the command is refused. Pass `--host` and `--port` with the connector port of the GridGain node you want.
+{% endhint %}
+
 `--state` and `--cache list` confirm that the cluster is up with your caches. On an in-memory cluster, activation is automatic and `--set-state ACTIVE` is a harmless confirmation. The caches are empty until the next step, so check the state and the cache list and skip the row-count checks below. Output is trimmed here:
 
 ```text
@@ -241,6 +247,10 @@ _Persistent only:_ spot-check row counts with `sqlline` and confirm they match t
 ```
 
 Use the `sqlline` of the GridGain distribution.
+
+{% hint style="info" %}
+Record the pre-cutover values on Apache Ignite and compare like for like, including the result of any join. Unless distributed joins are enabled, both products run joins between partitioned tables on each node's local data, so a join can return fewer rows than the tables hold. The migration does not change that result. Do not treat a low join count as data loss; use the per-cache `cacheSize` values and `COUNT(*)` on single tables to judge completeness.
+{% endhint %}
 
 {% hint style="info" %}
 These checks need nothing special, including `SELECT *`. Only selecting the hidden `_VAL` or `_KEY` system column can fail on a missing application class; if you need that, add `keepBinary=true` to the JDBC URL (see [Problem: sqlline fails to deserialize values](#problem-sqlline-fails-to-deserialize-values)).
