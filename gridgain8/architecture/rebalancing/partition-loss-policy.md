@@ -207,7 +207,7 @@ unsupported
 {% endtab %}
 {% endtabs %}
 
-The thin clients provide the same method: `ClientCache.withPartitionRecover()` in the Java thin client and `ICacheClient.WithPartitionRecover()` in the .NET thin client (available starting with GridGain 8.10.0-b2):
+The thin clients provide the same method: `ClientCache.withPartitionRecover()` in the Java thin client and `ICacheClient.WithPartitionRecover()` in the .NET thin client (available starting with GridGain 8.10.0):
 
 {% tabs %}
 {% tab title="Java" %}

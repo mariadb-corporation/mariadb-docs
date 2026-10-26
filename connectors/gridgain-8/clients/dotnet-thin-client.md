@@ -312,7 +312,7 @@ var found = cache.WithPartitionRecover().TryGet(3, out var value);
 ```
 
 {% hint style="info" %}
-`WithPartitionRecover()` is available starting with GridGain 8.10.0-b2.
+`WithPartitionRecover()` is available starting with GridGain 8.10.0.
 {% endhint %}
 
 The method returns a cache view and does not modify the original one, so you can keep using both. You can combine `WithPartitionRecover()` with the `WithKeepBinary()`, `WithExpiryPolicy()`, and `WithSkipStore()` methods.
