@@ -84,7 +84,7 @@ Dates and times differ. GridGain converts `DATE`, `TIME`, and `TIMESTAMP` values
 
 | Area | What changes | What to do |
 |---|---|---|
-| Commands | GridGain adds `datastorage`, `drain`, `cachelist`, `cachedistribution`, `supply-status`, `probe`, and the distributed-property commands `getproperty`, `setproperty`, `listproperties`. | No change to existing calls. |
+| Commands | GridGain adds `datastorage`, `drain`, `cachelist`, `cachedistribution`, `supply-status`, and the distributed-property commands `getproperty`, `setproperty`, `listproperties`. | No change to existing calls. |
 | `keepBinary` | Both products support it. | No change. |
 | Scan queries with `className` | A `className` filter is rejected unless the class is listed in the `IGNITE_REST_SCAN_QUERY_FILTER_CLASSES` system property. The list holds exact class names, is empty by default, and must be identical on every REST node. The error reads `Failed to create instance (class is not allowed as a scan query filter, add it to the IGNITE_REST_SCAN_QUERY_FILTER_CLASSES system property to allow it) [clsName=...]`. Apache Ignite 2.18 only checks that the class implements the predicate interface. | If your clients pass a scan filter class, list it on all nodes. |
 | Timestamps | Apache Ignite emits the full `java.sql.Timestamp.toString()` value with sub-second precision (`"2026-10-21 11:22:33.456789"`); GridGain renders a localized (`Locale.US`) string that drops sub-second precision (`"Oct 21, 2026, 11:22:33 AM"`). `DATE` values are the same (`"2026-10-21"`). | Update parsers that expect the Ignite timestamp format. |
