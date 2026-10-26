@@ -2893,7 +2893,7 @@
 * [MCP Server Release Notes](mcp-server-release-notes/README.md)
   * [MariaDB MCP Server 1.0.0 Release Notes](mcp-server-release-notes/mariadb-mcp-server-1.0.0-release-notes.md)
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
-  * [MariaDB Cloud Release Notes: MariaDB Exa Public Preview](mariadb-cloud-release-notes/mariadb-cloud-exa-public-preview.md)
+  * [MariaDB Cloud Release Notes: MariaDB Exa Technical Preview](mariadb-cloud-release-notes/mariadb-cloud-exa-public-preview.md)
   * [MariaDB Cloud 2026.10.16 Release Notes: BYOC Onboarding](mariadb-cloud-release-notes/mariadb-cloud-2026.10.16.md)
   * [MariaDB Cloud 2026.10.01 Release Notes: Query Result Cache](mariadb-cloud-release-notes/mariadb-cloud-2026.10.01.md)
   * [MariaDB Cloud 2026.09.30 Release Notes: Serverless](mariadb-cloud-release-notes/mariadb-cloud-2026.09.30.md)

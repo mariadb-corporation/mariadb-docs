@@ -1,6 +1,6 @@
 ---
 description: >-
-  MariaDB Cloud YYYY.MM.DD is a Public Preview release. It adds independent
+  MariaDB Cloud YYYY.MM.DD is a Technical Preview release. It adds independent
   sizing, scaling, monitoring, and logs for MariaDB Exa on MariaDB Provisioned
   services.
 icon: rocket-launch
@@ -9,21 +9,21 @@ hidden: true
 
 <!-- DRAFT for DOCS-6500 (epic MCDEV-3354, fixVersion MariaDB Cloud Oct. 2026). HIDDEN until release is confirmed.
 Reveal checklist: set date -> rename to mariadb-cloud-YYYY.MM.DD.md -> update SUMMARY + README content-ref -> drop hidden: true -> expand {alias} links (direct-main commit).
-Open items before reveal: (1) release date: Allen (Jira comment, 2026-10-26) says "this wednesday to friday", so Oct 28-30; set the exact day when confirmed; (2) access model: Allen (2026-10-26) says request-only, "private preview now", so the request wording stays; stage label "Public Preview" (epic MCDEV-3354 name) vs "private preview" is still to be settled, MCDEV-5430 moves the offering to public preview;
-(3) 50 MB transaction limit is a new setting stated in Slack only (not yet in source); recheck at release; (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (5387 and 5412 added); Jira shows MCDEV-5412 as Ready for Production, ask Allen/Kalin whether it ships. MCDEV-5403 (CDC loses rows on Exasol restart) is not listed yet, not covered by Allen's answer. Monitoring tab confirmed in the release (Allen, 2026-10-20). Evidence: research/DOCS-6500.md -->
+Open items before reveal: (1) release date: Allen (Jira, 2026-10-26) says Wed-Fri, Oct 28-30; wait for the update in #mariadb-exa-in-the-cloud-ga-mcdev-3354, then set the exact day; (2) stage and access (user, 2026-10-26): Technical Preview, available only on request (epic MCDEV-3354 is named PP; MCDEV-5430 would open it later);
+(3) 50 MB transaction limit: treat as final (user, 2026-10-26); (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (Jira shows MCDEV-5412 Ready for Production, but Allen's comment wins); MCDEV-5403 (CDC loses rows on Exasol restart) is not listed; (5) BYOC: undecided (Kalin asked product on 2026-10-26 whether to offer Exa on BYOA/BYOC because of the shared Exasol license), so nothing about BYOC is written. Monitoring is an Exasol dashboard (UI dashboard title "Exasol"). Evidence: research/DOCS-6500.md -->
 
 # MariaDB Cloud YYYY.MM.DD Release Notes: MariaDB Exa
 
 **Release Date:** DD Month 2026
 
-Release YYYY.MM.DD is a Public Preview release.
+Release YYYY.MM.DD is a Technical Preview release.
 
 ## New Features
 
-### MariaDB Exa (Public Preview)
+### MariaDB Exa (Technical Preview)
 
 {% hint style="info" %}
-MariaDB Exa is a **Public Preview**. Features and behavior may change before general availability.
+MariaDB Exa is a **Technical Preview**, available on request. Features and behavior may change before general availability.
 {% endhint %}
 
 MariaDB Exa adds an analytics engine (powered by Exasol) to MariaDB Provisioned services. MaxScale replicates changes from MariaDB Server to Exasol and routes analytical queries to it. This release adds independent control over the Exa node and its storage, and portal support for monitoring and logs.
