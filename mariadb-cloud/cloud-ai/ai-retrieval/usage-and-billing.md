@@ -19,7 +19,13 @@ AI Retrieval measures usage in MariaDB Compute Units (MCUs), the same unit that 
 * **The vector store.** A document knowledge base stores its chunks in a MariaDB service. You pay for that service as for any other service, including its compute and storage.
 * **AI Retrieval operations.** Parsing, embedding, reranking, generating answers, and the other operations in the tables below consume MCUs.
 
-<!-- TODO: say how the MCUs of the operations appear on the invoice and in the portal billing page. Egor did not cover it. Also say whether a free tier applies (the product requirements say 100 MCUs per month; MCDEV-5410 enforces it). -->
+<!-- TODO: say how the MCUs of the operations appear on the invoice and in the portal billing page. Egor did not cover it. -->
+
+## Monthly MCU Limit
+
+Each organization has a monthly limit on the MCUs that AI Retrieval operations consume. The default limit is 100 MCUs per month. When the organization reaches its limit, AI Retrieval rejects new uploads, data source syncs, and retrieval and generation requests with HTTP status 403 and the error `ERR_MCU_LIMIT_REACHED` until the next month starts. Files of a sync that are over the limit are not ingested. To raise the limit, contact MariaDB support.
+
+<!-- Source: ai-retrieval-cloud packages/metering limits.py and config.py @ f9bd8c0e (MCDEV-5410, MCDEV-5494, MCDEV-5507: default 100, per-org override, 403 ERR_MCU_LIMIT_REACHED; enforced on upload, data source sync, retrieval, and generation). TODO: the limit is off by default in the code (metering_limit_enabled); confirm it is on at launch, whether the 100 MCUs are a free tier that applies to every organization or a spend cap for card-billed organizations (Naman, 2026-09-02; Egor's layout document mentions a 4,000 MCU cap), whether customers can see their usage (GET /usage/mcu, MCDEV-5507), and who can raise the limit. -->
 
 ## Document Knowledge Bases
 
