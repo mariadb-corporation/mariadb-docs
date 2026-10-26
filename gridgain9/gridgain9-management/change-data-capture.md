@@ -275,7 +275,7 @@ Source parameters:
 | reconnectBackoffMs | 1000 | Delay, in milliseconds, before the first reconnect attempt. The delay doubles after each consecutive failure. |
 | reconnectMaxBackoffMs | 60000 | Upper bound, in milliseconds, of the reconnect delay. It is at least `reconnectBackoffMs`. With the defaults, the source keeps trying for about 25 minutes. |
 | watermarkFlushIntervalMs | 60000 | How often, in milliseconds, an idle table still records its position, so that a table without changes does not look expired after the retention period. |
-| captureInstance.&lt;schema&gt;.&lt;table&gt; | `<schema>_<table>` | The capture instance to read for the table, for example `captureInstance.dbo.ACCOUNTS=dbo_ACCOUNTS_v2`. The table is matched ignoring case and must be one of the source's tables. Used for the two-instance hand-over of a [schema change](#schema-changes). |
+| captureInstance.&lt;schema&gt;.&lt;table&gt; | `<schema>_<table>` | The capture instance to read for the table, for example `captureInstance.dbo.ACCOUNTS=dbo_ACCOUNTS_v2`. The table must be one of the source's tables: the one named exactly, or, when no table has that exact name, the one table that matches ignoring case. Used for the two-instance hand-over of a [schema change](#schema-changes). |
 
 {% hint style="info" %}
 When the JDBC URL is built from `host`, `database`, and `port`, GridGain sets `encrypt=true;trustServerCertificate=true`. This encrypts the connection but does not validate the SQL Server certificate. To control the TLS behavior, pass an explicit `jdbcUrl` instead.
