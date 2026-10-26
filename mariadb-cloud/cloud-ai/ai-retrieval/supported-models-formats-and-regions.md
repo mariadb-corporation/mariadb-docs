@@ -25,7 +25,7 @@ The create form lists the embedding models that are available in the region that
 | Amazon Bedrock | Cohere Embed 3 English, Cohere Embed 3 Multilingual, Cohere Embed 4 | In the region of the knowledge base. Traffic does not leave the region. |
 | Google | Gemini Embedding 2 | Outside your cloud. AI Retrieval calls the public Google endpoint over the internet. |
 
-AI Retrieval calls Amazon Bedrock embedding models only through endpoints in the region of the knowledge base, and the form shows only the models that have one. Cohere Embed 3 English and Cohere Embed 3 Multilingual have regional endpoints in every region that AI Retrieval supports. Cohere Embed 4 has a regional endpoint only in `us-east-1`, so it is available only there.
+AI Retrieval calls Amazon Bedrock embedding models only through endpoints in the region of the knowledge base, and the form shows only the models that have one. Cohere Embed 3 English and Cohere Embed 3 Multilingual have regional endpoints in every region that AI Retrieval supports. Cohere Embed 4 has a regional endpoint only in `us-east-1`, so it is available only there. For the regions of each Cohere model, see [Cohere models](https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html#model-regions-cohere) in the Amazon Bedrock documentation.
 
 <!-- TODO: confirm the model list in the create form of each region. Egor's statements are from the call of 2026-10-22; the list is from the test environment of 2026-10-20 in eu-central-1. -->
 
@@ -33,7 +33,7 @@ AI Retrieval calls Amazon Bedrock embedding models only through endpoints in the
 
 Anthropic Claude models on Amazon Bedrock do not have endpoints in a single region. AI Retrieval calls them through a geographic endpoint of the area of the knowledge base, such as the United States or Europe, and through a global endpoint where no geographic endpoint is available. A generation request can therefore be processed in another region of the same geography, or outside it.
 
-For the models and areas that Amazon Bedrock offers, see [Supported Regions and models for inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html) and [Geographic cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/geo-cross-region-inference.html) in the Amazon Bedrock documentation.
+For the regions and endpoint types of each Claude model, see [Anthropic models](https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html#model-regions-anthropic) in the Amazon Bedrock documentation. For how geographic and global endpoints work, see [Supported Regions and models for inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html) and [Geographic cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/geo-cross-region-inference.html) in the Amazon Bedrock documentation.
 
 <!-- TODO: list the generation models of the Generation Model list (the test environment shows Claude Sonnet 5; Egor's layout document also names Claude Opus 5 and Gemini 3.8 Flash) and say which endpoint type each one uses. Egor does not want a table of regions per model. -->
 
