@@ -37,8 +37,8 @@ With two arguments, `string_format` describes how `string_subject` is written. T
 | `B` | Blank flag. Accepted in the format. |
 | `EEEE` | Scientific notation, such as `1.5E+03`. Group separators can't be used with `EEEE`. |
 | `S` | A sign, at the start or the end of the format. The string must have an explicit `+` or `-` in that position. |
-| `MI` | A trailing sign, at the end of the format. The string ends with `-` for a negative value, or with a space for a positive one. |
-| `PR` | A negative value in angle brackets, at the end of the format: `<1234.50>`. A positive value is enclosed in spaces instead. |
+| `MI` | A trailing sign, at the end of the format. The string ends with `-` for a negative value. |
+| `PR` | A negative value in angle brackets, at the end of the format: `<1234.50>`. |
 | `FM` | Format flag. Accepted at the start of the format. |
 
 Without `S`, `MI`, or `PR`, a fixed-point format does not accept a sign, so `TO_NUMBER('-1234.50', '9999.99')` returns `NULL`.
@@ -117,24 +117,6 @@ SELECT TO_NUMBER('<$1,234.50>', '$9,999.99PR');
 +-----------------------------------------+
 |                                 -1234.5 |
 +-----------------------------------------+
-```
-
-With `MI` and `PR`, a positive value needs the space that takes the place of the sign or the brackets:
-
-```sql
-SELECT TO_NUMBER(' 1234.50 ', '9999.99PR');
-+-------------------------------------+
-| TO_NUMBER(' 1234.50 ', '9999.99PR') |
-+-------------------------------------+
-|                              1234.5 |
-+-------------------------------------+
-
-SELECT TO_NUMBER('1234.50', '9999.99PR');
-+-----------------------------------+
-| TO_NUMBER('1234.50', '9999.99PR') |
-+-----------------------------------+
-|                              NULL |
-+-----------------------------------+
 ```
 
 ### Hexadecimal and Scientific Notation
