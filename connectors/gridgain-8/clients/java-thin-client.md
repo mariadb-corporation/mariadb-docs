@@ -884,6 +884,8 @@ Available since 8.10.0. `ClientIgniteSet` has an async counterpart for each of i
 
 The element and collection arguments must not be `null`. If you pass an empty collection to `addAllAsync()`, `containsAllAsync()`, or `removeAllAsync()`, the future completes with `false`.
 
+If you pass an empty collection to `retainAllAsync()`, the method removes all elements from the set. The future completes with `true` if the set contained elements and `false` if it was already empty.
+
 ```java
 IgniteClientFuture<ClientIgniteSet<String>> setFut =
     client.setAsync("mySet", new ClientCollectionConfiguration());
