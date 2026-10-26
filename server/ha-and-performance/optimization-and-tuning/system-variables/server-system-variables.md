@@ -155,7 +155,7 @@ The suffix can be upper or lower-case.
 
 #### `automatic_sp_privileges`
 
-* Description: When set to 1, the default, when a stored routine is created, the creator is automatically granted permission to [ALTER](../../../server-usage/stored-routines/stored-procedures/alter-procedure.md) (which includes dropping) and to EXECUTE the routine. If set to 0, the creator is not automatically granted these privileges.
+* Description: When set to 1, the default, when a stored routine is created, the creator is automatically granted permission to [ALTER](../../../server-usage/stored-routines/stored-procedures/alter-procedure.md) (which includes dropping) and to EXECUTE the routine. When set to 1, dropping a stored routine also revokes all privileges on it, from all accounts. If set to 0, the creator is not automatically granted these privileges, and dropping a routine leaves privileges on it in place. [CREATE OR REPLACE](../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines) keeps existing privileges in either case.
 * Command line: `--automatic-sp-privileges`, `--skip-automatic-sp-privileges`
 * Scope: Global
 * Dynamic: Yes
