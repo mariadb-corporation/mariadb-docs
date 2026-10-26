@@ -190,6 +190,8 @@ The partition awareness functionality helps avoid an additional network hop in t
 
 - ScanQuery and IndexQuery accept a partition number as a parameter with which the query is routed to a server node that stores the requested data. Refer to [Executing Scan Queries](#executing-scan-queries) and [Executing Index Queries](https://ignite.apache.org/docs/latest/key-value-api/using-cache-queries#executing-index-queries) sections for more information.
 
+- Service invocation. Starting with GridGain 8.10, the client routes service calls to a node that runs an instance of the service. See [Service Awareness](#service-awareness).
+
 The following code sample illustrates how to use the partition awareness feature with the java thin client.
 
 ```java
@@ -700,6 +702,23 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 ```
 
 The deployed service can be implemented using Java or .NET.
+
+### Service Awareness
+
+Starting with GridGain 8.10, when [partition awareness](#partition-awareness) is enabled, the client sends each service call directly to a node that runs an instance of the service.
+If several nodes run the service, the client picks one of them at random for each call.
+Without service awareness, the client sends the call to the node it is connected to, and that node forwards the call to a node that runs the service.
+
+The client requests the list of nodes that run each service the first time you call it, and caches the list.
+When you call the service again, the client refreshes the list in the background if the cluster topology has changed or the list is older than 10 seconds.
+Until the client receives the list, it sends the call the standard way.
+If the client has no connection to the chosen node, it sends the call the standard way too.
+If the connection to the chosen node fails, the client applies the retry policy from `ClientConfiguration` and, when the policy allows a retry, sends the call the standard way.
+If a request for the list fails, the client logs an error and keeps using the last known list.
+
+Partition awareness is disabled by default.
+To use service awareness, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. No other configuration is required.
+The server nodes must support the feature. If they do not, the client sends service calls the standard way.
 
 ### Passing a Service Call Context
 
