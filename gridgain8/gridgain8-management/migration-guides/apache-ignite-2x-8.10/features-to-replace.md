@@ -12,7 +12,7 @@ Each feature below works differently in GridGain 8.10 or has no direct equivalen
 
 GridGain 8.10 supports the following Apache Ignite 2.18 APIs, so you only recompile: service call interceptors (`ServiceCallInterceptor`, `ServiceCallContext`) in Java, `Ignite.metrics()` and the `MetricRegistry` API, thin-client lifecycle listeners (`ClientLifecycleEventListener`), and the Apache Ignite 2 snapshot API through a compatibility layer (see Snapshots). Custom metric registries need the `CUSTOM_METRICS_MANAGE` permission. The .NET thick client has no service interceptors.
 
-**CDC (Change Data Capture)**: Applies if you run CDC: `ignite-cdc.sh`, a `CdcConsumer`, or the built-in streamers. GridGain has no CDC and no CDC tooling, but it starts on persistence that Apache Ignite wrote with CDC enabled. Remove `cdcEnabled`, `cdcWalPath`, and `cdcWalDirectoryMaxSize` from the configuration, because the node does not start with them. The replacement depends on your consumer:
+**CDC (Change Data Capture)**: Applies if you run CDC: `ignite-cdc.sh`, a `CdcConsumer`, or the built-in streamers. GridGain has no CDC feature or tooling, but it can still start on persistence that Apache Ignite wrote with CDC enabled. Remove `cdcEnabled`, `cdcWalPath`, and `cdcWalDirectoryMaxSize` from the configuration, because the node does not start with them. The replacement depends on your consumer:
 
 - Ignite-to-Ignite replication: [Data Center Replication](../../data-center-replication/introduction.md) (DCR).
 - Ignite-to-Kafka: the GridGain Kafka Connect source connector.

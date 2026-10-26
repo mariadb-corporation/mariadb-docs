@@ -49,7 +49,7 @@ The [Migration Procedure](migration-procedure.md) expands these into a pre-cutov
 Take these constraints into account before you migrate your cluster:
 
 - *One-way upgrade.* Once GridGain writes to the persistence directory, Apache Ignite can no longer read it.
-- *CDC does not exist in GridGain.* GridGain 8.10 starts on persistence that Apache Ignite wrote with CDC enabled, and it leaves the `wal/cdc` directory alone. Stop the `ignite-cdc.sh` processes before the cutover, remove the CDC properties from the configuration, and plan the replacement (see [Features to Replace](features-to-replace.md)).
+- *GridGain has no CDC feature or tooling.* GridGain 8.10 can still start on persistence that Apache Ignite wrote with CDC enabled, and it leaves the `wal/cdc` directory alone. Stop the `ignite-cdc.sh` processes before the cutover, remove the CDC properties from the configuration, and plan the replacement (see [Features to Replace](features-to-replace.md)).
 - *Full cutover, no mixed topology.* Ignite and GridGain server nodes cannot coexist in one cluster, and thick clients are not cross-compatible, so all clients are updated before they reconnect.
 - *In-memory data is not carried over.* Data in non-persistent regions does not survive the cutover. Plan to reload it from its original sources, as after any cluster restart. See [Persistent and In-Memory Clusters](migration-procedure.md).
 - *No in-place rollback* after the first GridGain write. Rollback is possible only by restoring a pre-cutover backup.

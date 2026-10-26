@@ -118,7 +118,7 @@ The cutover has three parts:
 
 ### 1. Stop Running Applications
 
-Drain and stop all application clients and CDC processes (`ignite-cdc.sh` and any `CdcConsumer`). GridGain has no CDC, so nothing consumes the CDC directory after the cutover.
+Drain and stop all application clients and CDC processes (`ignite-cdc.sh` and any `CdcConsumer`). GridGain has no CDC feature or tooling, so nothing consumes the CDC directory after the cutover.
 
 ### 2. Deactivate the Cluster (Persistent Only)
 
