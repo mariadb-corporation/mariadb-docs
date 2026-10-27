@@ -5,17 +5,15 @@ description: >-
 
 # Configuration and Default Value Changes
 
+GridGain 8.10 changes the SFTP host key default and adds vector search limits. It also changes startup messages, JMX metric types, and system properties.
+
 ## SFTP Snapshot Transport Verifies the Host Key by Default
 
-This section applies if you send snapshots to an SFTP destination.
-
-`SftpConfiguration.strictHostKeyChecking` now defaults to `true`. In 8.9.x it defaulted to `false`. Before the first snapshot transfer to an SFTP destination, add the server to the OpenSSH-format known hosts file, or set `strictHostKeyChecking` to `false` explicitly. Otherwise transfers fail. The file is the one that `knownHostsPath` points at. If `knownHostsPath` is not set, GridGain uses `~/.ssh/known_hosts` of the account that runs the node.
+`SftpConfiguration.strictHostKeyChecking` now defaults to `true`. In 8.9.x it defaulted to `false`. Before the first snapshot transfer to an SFTP destination, add the server to the OpenSSH-format known hosts file, or set `strictHostKeyChecking` to `false`. Otherwise transfers fail. The file is the one that `knownHostsPath` points at. If `knownHostsPath` is not set, the file is `~/.ssh/known_hosts` of the account that runs the node.
 
 For more information, see [Configuring SFTP Location](../../snapshots/network-backups.md#configuring-sftp-location).
 
 ## Vector Search Limits
-
-This section applies if you use vector search.
 
 Vector search now enforces limits and rejects queries above them:
 
@@ -28,7 +26,7 @@ For more information, see [Vector Search](../../../gridgain8-development/vector-
 
 ## Startup Messages for Stale Properties
 
-This section applies if your configuration or startup scripts set Apache Ignite properties that GridGain does not support.
+This section applies if your configuration or startup scripts set unsupported Apache Ignite properties.
 
 An unknown property in the Spring XML configuration still fails node startup, as it did in 8.9.x, but the message is now short and names the bean and the property, for example `Configuration property IgniteConfiguration.noSuchProperty does not exist`.
 
@@ -45,8 +43,6 @@ GridGain 8.10 also logs a warning at node start for each Apache Ignite system pr
 | `IGNITE_SQL_FORCE_LAZY_RESULT_SET` | Not available in the H2-based SQL engine. |
 
 ## JMX Object Metrics Are Strings
-
-This section applies if a JMX tool reads metrics of the `ObjectMetric` type.
 
 Metric values of the `ObjectMetric` type are exposed through JMX as strings. A JMX tool that reads these attributes gets a `String` instead of the typed object. For example, in the `ignite` metric registry, `localNodeId` was a `UUID` in 8.9.x and is a `String` in 8.10. The same applies to `userAttributesFormatted`, `lifecycleBeansFormatted`, and `longJVMPauseLastEvents`.
 

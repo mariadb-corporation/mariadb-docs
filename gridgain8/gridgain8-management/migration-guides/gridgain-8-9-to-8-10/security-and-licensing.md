@@ -5,9 +5,9 @@ description: >-
 
 # Security, Permission, and Licensing Changes
 
-## Server-Side SQL COPY
+Several features that were open in 8.9 are closed by default in 8.10, and the license is checked for every feature that your configuration uses.
 
-This section applies if you run server-side `COPY` against files or object stores.
+## Server-Side SQL COPY
 
 Server-side SQL `COPY` against a file or an object store is closed by default. In 8.9.x the statement read any file that the node process could read, and 8.10 rejects it with `Server-side file/object-store COPY is disabled on this node` until you configure it. To use it after the upgrade:
 
@@ -15,7 +15,7 @@ Server-side SQL `COPY` against a file or an object store is closed by default. I
 2. Fill the allow-lists on that block: `importRoots` for local directories, `allowedS3Buckets` and `allowedS3Endpoints` for S3, and `allowedCatalogUris` for Iceberg catalogs. An empty list forbids the access.
 3. Grant the new `COPY_FROM_FILE` and `COPY_TO_FILE` [permissions](../../../security/authorization-permissions.md) to the roles that run server-side `COPY`. They are system permissions, for example `{system:['COPY_FROM_FILE']}` in the permission string. In 8.9.x the statement needed no permission beyond the cache permissions. In 8.10 a role without `COPY_FROM_FILE` fails with `Authorization failed [perm=COPY_FROM_FILE, name=null, ...]`.
 
-`ImportExportConfiguration` is node-local, so configure it identically on every node. Point `importRoots` at dedicated directories, never at the node work directory: `COPY_TO_FILE` overwrites files in a root. Client-side `COPY` is not affected.
+`ImportExportConfiguration` is node-local, so configure it identically on every node. Do not point `importRoots` at the node work directory. `COPY_TO_FILE` overwrites files in a root, so use dedicated directories. Client-side `COPY` is not affected.
 
 `COPY ... FORMAT JDBC` also validates the JDBC URL. Only the `jdbc:mariadb:`, `jdbc:mysql:`, and `jdbc:postgresql:` schemes are accepted by default (`GRIDGAIN_BULKLOAD_JDBC_ALLOWED_URL_SCHEMES`), and `${VAR}` placeholders are no longer expanded unless the variables are listed in `GRIDGAIN_BULKLOAD_JDBC_ENV_ALLOWLIST`.
 
@@ -33,7 +33,7 @@ This section applies if thin clients call Java services or register continuous q
 
 Thin client requests are checked more strictly:
 
-- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services. This check was added in GridGain 8.9.39, so a cluster on 8.9.39 already behaves this way.
+- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service_name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services. This check was added in GridGain 8.9.39, so a cluster on 8.9.39 already behaves this way.
 - *Continuous query remote filters.* Filters that a thin client sends as a class name go through the marshaller class filter (`IGNITE_MARSHALLER_WHITELIST` and `IGNITE_MARSHALLER_BLACKLIST`). A filter class that the lists do not allow starts failing.
 
 ## Per-Feature License Checks
@@ -60,4 +60,4 @@ The license file lists its features as `<enabled-feature name="..."/>` entries a
 | Point-in-time recovery | `point_in_time_recovery` | `ultimate` |
 | Entry compression | `compression` | `compression` or `ultimate` |
 
-In every row, a license with the `ultimate` feature is also accepted. Before you upgrade, compare the features of your license with your configuration, and contact GridGain support if a feature is missing. A license file that works on 8.9 is accepted by 8.10 as a file, and the checks above decide only which features it enables. The MariaDB license key format is also supported.
+In every row, a license with the `ultimate` feature is also accepted. Before you upgrade, compare the features of your license with your configuration, and contact [GridGain Support](https://mariadb.com/support/) if a feature is missing. A license file that works on 8.9 is accepted by 8.10 as a file, and the checks above decide only which features it enables.

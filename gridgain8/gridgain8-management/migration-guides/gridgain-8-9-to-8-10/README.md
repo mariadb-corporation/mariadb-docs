@@ -12,7 +12,7 @@ If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2
 {% columns %}
 {% column %}
 {% content-ref url="upgrade-procedure.md" %}
-[Upgrade Procedure](upgrade-procedure.md)
+[Upgrading a Cluster from GridGain 8.9 to 8.10](upgrade-procedure.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -36,7 +36,7 @@ Planning reference: the choice between a rolling and an offline upgrade, upgrade
 {% columns %}
 {% column %}
 {% content-ref url="platform-and-modules.md" %}
-[Platform, Modules, and Packaging](platform-and-modules.md)
+[Platform, Modules, and Packaging Changes](platform-and-modules.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
