@@ -141,7 +141,7 @@ Exa must already be enabled for your organization. See [Requesting access to Mar
 6. Select your cloud provider and region.
 7. Under **Instance Resources**, pick the instance size for the MariaDB nodes. In the **Exa** group, pick the Exa node size and storage capacity separately. The minimum size for the Exa node is **4 vCPU / 32 GB RAM**. Size the Exa node RAM for your analytical working set, and the MariaDB nodes for your transactional load.
 8. Under **Advanced Options**, set the **MariaDB Exa Storage Type** and, where the provider supports it, the Exa IOPS and throughput. If you don't set them, Exa uses the MariaDB volume settings. You can't change the Exa storage type after the service is created.
-9. Review the cost estimate in the footer: it includes the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing. Exa compute, storage, IOPS, and throughput are metered separately from MariaDB. See [Billing](../cloud-usage/billing.md).
+9. Review the cost estimate in the footer: it includes the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing. Exa compute, storage, IOPS, and throughput are metered separately from MariaDB. On BYOC services, MariaDB Cloud bills only the Exa compute, and your cloud provider bills the Exa storage. See [Billing](../cloud-usage/billing.md).
 10. Deploy the service. Naming and remaining steps follow the standard flow. Provisioning usually takes about **5–10 minutes**.
 
 For all options on this page, see [Launch Page](../cloud-usage/launch-page.md).

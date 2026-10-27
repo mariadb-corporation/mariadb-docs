@@ -35,7 +35,7 @@ MariaDB Exa adds an analytics engine (powered by Exasol) to MariaDB Provisioned 
 * **Monitoring:** the service's monitoring includes an **Exasol** dashboard with memory, recommended database RAM, CPU usage, memory usage, database storage, compression ratio, SQL statements per minute, and concurrent queries panels. The Exasol node also appears in Topology Status.
 * **Alerts:** new service-level alerts fire when Exasol memory is below 10% of the raw data size, when the index size exceeds the instance memory, or when the recommended database RAM exceeds twice the instance memory, each sustained for 30 minutes.
 * **Logs:** the portal log viewer includes an **Exasol Log** type.
-* **Billing:** Exa compute, storage, IOPS, and throughput are metered separately from MariaDB.
+* **Billing:** Exa compute, storage, IOPS, and throughput are metered separately from MariaDB. On BYOC services, MariaDB Cloud bills only the Exa compute, and your cloud provider bills the Exa storage.
 
 For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/htap-mariadb-exa).
 
