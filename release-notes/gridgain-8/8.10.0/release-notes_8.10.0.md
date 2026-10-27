@@ -47,8 +47,8 @@ The following modules are removed in 8.10.0:
 | `ignite-spring-data_2.2` | `ignite-spring-data`, built against Spring Data 4.1. See [Spring Data Module Renamed](#spring-data-module-renamed). |  |
 | `ignite-rest-http` on Jetty 9.4, and the optional `ignite-rest-http-jetty-12` module | `ignite-rest-http`, which now runs on Jetty 12. See [REST HTTP Module Runs on Jetty 12](#rest-http-module-runs-on-jetty-12). | 8.9.39 |
 | `ignite-lucene-8` | `ignite-lucene-9`, which stays the default, or the Lucene 10 line | Not deprecated in the 8.9.x line |
-| `ignite-aop`, and the Gridify API in `ignite-core` | The [compute API]({gridgain8}/gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing) | 8.9.37 |
-| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder]({gridgain8}/gridgain8-management/cluster-configuration/clustering/discovery-in-the-cloud) | 8.9.37 |
+| `ignite-aop`, and the Gridify API in `ignite-core` | The compute API | 8.9.37 |
+| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another IP finder | 8.9.37 |
 | `ignite-aws` (S3 checkpoint service provider interface (SPI), S3, ELB, and ALB IP finders) | The Apache Ignite `ignite-aws-ext` extension | 8.9.39 |
 | `ignite-ssh` | The Apache Ignite `ignite-ssh-ext` extension | Not deprecated in the 8.9.x line |
 | `ignite-ml`, and the Spark, XGBoost, and MLeap model parsers | The Apache Ignite `ignite-ml-ext` extension | 8.9.38 |
@@ -117,7 +117,7 @@ A configuration that does not set `ConnectorConfiguration.setJettyPath()` needs 
 - Rename the `threadpool` argument of the `Server` constructor to `threadPool`, or remove the name and pass the argument by position.
 - Remove the `<Set name="handler">` block that uses `HandlerCollection` or `HandlerList`. Both classes were removed in Jetty 12, and GridGain installs its own REST handler.
 
-The Jetty 12 module supports XML configuration and HTTPS, including mutual TLS. For details and an HTTPS example, see [Jetty 12 REST Module]({gridgain8}/gridgain8-development/accessing-data/rest-api#jetty-12-rest-module-java-17).
+The Jetty 12 module supports XML configuration and HTTPS, including mutual TLS.
 
 ### Cassandra Store Uses the DataStax Driver 4
 
@@ -149,19 +149,19 @@ The Lucene 9 line, with `ignite-lucene-9` enabled in `libs`, remains the default
 - `ignite-lucene-10` - Java 21 or later.
 - `ignite-lucene-10-java22` - Java 22 or later. Adds the no-copy vector scorer, which is opt-in even on a supported JDK.
 
+For vector search, newer lines give higher performance: Lucene 10 is faster than Lucene 9, and a newer Java version is faster than an older one. The best performance comes from the `ignite-lucene-10-java22` line on Java 22 or later with the no-copy vector scorer enabled.
+
 A node runs exactly one Lucene line. The two carry the same class names, so they cannot share a classpath. To switch a node to Lucene 10, stop the node and remove `libs/ignite-lucene-9`. Move exactly one of the Lucene 10 module folders from `libs/optional` to `libs`. For vector search, also replace `libs/gridgain-vector-query` with `libs/optional/gridgain-vector-query-lucene-10`. Then start the node. In Docker images, set the `LUCENE_LINE` environment variable to `10` or `10-java22` instead.
 
 Use the same line on every node. A cluster running both answers one vector query with different recall depending on which node serves it.
 
 Switching lines does not migrate or invalidate anything on disk. A GridGain Lucene index is held in memory and rebuilt from cache data.
 
-For more information, see [Vector Search]({gridgain8}/gridgain8-development/accessing-data/vector-search).
-
 ### Gridify API Removed
 
 The Gridify API is removed from `ignite-core`, together with the `ignite-aop` module. This covers the `org.apache.ignite.compute.gridify` package, including the `@Gridify`, `@GridifySetToSet`, and `@GridifySetToValue` annotations and their AOP aspects.
 
-Replace Gridify usage with the [compute API]({gridgain8}/gridgain8-development/distributed-computing-and-services/distributed-computing/distributed-computing). The API was deprecated in 8.9.37.
+Replace Gridify usage with the compute API. The API was deprecated in 8.9.37.
 
 ### SSH Support Moves to an Apache Ignite Extension
 
@@ -171,7 +171,7 @@ If you use `startNodes()`, add `ignite-ssh-ext` to the node classpath. GridGain 
 
 ### Cloud and AWS IP Finders Removed
 
-The `ignite-cloud` module, including `TcpDiscoveryCloudIpFinder`, is removed. It was deprecated in 8.9.37. Use the JDBC, static, or Kubernetes [IP finders]({gridgain8}/gridgain8-management/cluster-configuration/clustering/discovery-in-the-cloud) instead.
+The `ignite-cloud` module, including `TcpDiscoveryCloudIpFinder`, is removed. It was deprecated in 8.9.37. Use the JDBC, static, or Kubernetes IP finders instead.
 
 The `ignite-aws` module is removed, together with the S3 checkpoint SPI, the S3, ELB, and ALB IP finders, and the S3 IP finder encryption services. It was deprecated in 8.9.39. Add the Apache Ignite `ignite-aws-ext` extension to the classpath instead.
 
@@ -205,16 +205,12 @@ The `strictHostKeyChecking` property of `SftpConfiguration` now defaults to `tru
 
 Before the first snapshot transfer to an SSH File Transfer Protocol (SFTP) destination, either populate the known hosts file that `knownHostsPath` points at, or set `strictHostKeyChecking` to `false` explicitly. Otherwise, transfers fail.
 
-For more information, see [Configuring SFTP Location]({gridgain8}/gridgain8-management/backup-and-replication/snapshots/network-backups#configuring-sftp-location).
-
 ### Vector Search Limits
 
 Vector search now enforces limits that reject queries instead of accepting them:
 
 - The maximum number of vector dimensions defaults to 4096. Raise the `GRIDGAIN_VECTOR_MAX_DIMENSIONS` property if you index wider vectors. It applies to indexes created after it is set.
 - A single vector query may ask for at most 10,000 neighbors, set by `GRIDGAIN_VECTOR_MAX_K`. A query above the limit, or with a neighbor count that is not positive, is rejected.
-
-For more information, see [Vector Search]({gridgain8}/gridgain8-development/accessing-data/vector-search).
 
 ### Java Thin Client Timeouts Have Default Values
 
@@ -273,7 +269,7 @@ The file and object-store side of server-side SQL `COPY` is secure by default in
 
 1. Enable the feature. Set `fileAccessEnabled` to `true` on the new `ImportExportConfiguration` block of the per-node GridGain plugin configuration. It defaults to `false`, and an absent `GridGainConfiguration` or an absent block is treated as fully closed.
 2. Populate the allow-lists. Every allow-list on that block starts empty, and an empty list forbids the corresponding access: `importRoots` for local directories, `allowedS3Buckets` and `allowedS3Endpoints` for S3, `allowedCatalogUris` for Iceberg catalogs, and `allowedIcebergClasses` for Iceberg catalog implementation classes.
-3. Grant the new `COPY_FROM_FILE` and `COPY_TO_FILE` [security permissions]({gridgain8}/security/authentication-and-authorization/authorization-permissions) to every role that runs server-side `COPY`.
+3. Grant the new `COPY_FROM_FILE` and `COPY_TO_FILE` security permissions to every role that runs server-side `COPY`.
 
 `ImportExportConfiguration` is node-local. It is never distributed over discovery, so a `COPY` can succeed or fail depending on which node the client connected to. Configure it identically on every node.
 
@@ -282,8 +278,6 @@ Point `importRoots` at dedicated directories, never at the node work directory: 
 {% hint style="warning" %}
 This affects every existing `COPY FROM` and `COPY TO` statement that reads or writes a file or an object store. Those statements stop working on 8.10 until the configuration above is in place. Client-side `COPY` is unaffected.
 {% endhint %}
-
-For more information about the command, see [Operational Commands]({gridgain8}/reference/sql/operational-commands).
 
 ### COPY ... FORMAT JDBC Restrictions
 
@@ -324,7 +318,7 @@ A MariaDB license key can enable soft mode. With soft mode, a license violation 
 
 ### Custom Metrics Permission
 
-The new `CUSTOM_METRICS_MANAGE` [permission]({gridgain8}/security/authentication-and-authorization/authorization-permissions) is required to create and remove custom metric registries when security is enabled. See [Custom Metrics](#custom-metrics).
+The new `CUSTOM_METRICS_MANAGE` permission is required to create and remove custom metric registries when security is enabled. See [Custom Metrics](#custom-metrics).
 
 ### License Terms
 
@@ -340,7 +334,7 @@ The following configuration is deprecated but still works. Migrate at your conve
 | `ClientConfiguration.getTimeout()` and `setTimeout()` | `getHandshakeTimeout()` and `getRequestTimeout()`, `setHandshakeTimeout()` and `setRequestTimeout()` |
 | `ClientConfiguration.isPartitionAwarenessEnabled()` and `setPartitionAwarenessEnabled()` | `isAffinityAwarenessEnabled()` and `setAffinityAwarenessEnabled()` |
 | `ClientCacheConfiguration.getRebalanceBatchSize()`, `getRebalanceBatchesPrefetchCount()`, `getRebalanceThrottle()`, `getRebalanceTimeout()`, and their setters | The equivalent `IgniteConfiguration` properties |
-| `ClientCacheConfiguration.getRebalanceDelay()` and `setRebalanceDelay()` | [Baseline topology]({gridgain8}/architecture/cluster/baseline-topology) |
+| `ClientCacheConfiguration.getRebalanceDelay()` and `setRebalanceDelay()` | Baseline topology |
 | `ClientCacheConfiguration.getDefaultLockTimeout()` and `setDefaultLockTimeout()` | None - the property has no effect |
 
 When `getTimeout()` is used with differing handshake and request timeouts, a warning is written to the log.
@@ -351,11 +345,11 @@ When `getTimeout()` is used with differing handshake and request timeouts, a war
 
 ### GridGain MCP Server
 
-GridGain 8.10 introduces the [GridGain MCP server]({gridgain8}/integrations/ai/mcp-server), which lets AI agents and assistants that support MCP discover a cluster and run read-only SQL queries against it. The server ships as its own download and as a container image. It supports TLS, mutual TLS, and authentication, limits the rate of tool calls, and writes a local audit log of tool calls with rotation and expiry.
+GridGain 8.10 introduces the GridGain MCP server, which lets AI agents and assistants that support MCP discover a cluster and run read-only SQL queries against it. The server ships as its own download and as a container image. It supports TLS, mutual TLS, and authentication, limits the rate of tool calls, and writes a local audit log of tool calls with rotation and expiry.
 
 ### MariaDB Cache Store
 
-The new `MariaDBCacheStoreFactory` creates a cache store backed by a MariaDB database, with the MariaDB dialect applied automatically. It supports write-behind. For more information, see [External Storage]({gridgain8}/gridgain8-development/caches-and-memory/persistence/external-storage).
+The new `MariaDBCacheStoreFactory` creates a cache store backed by a MariaDB database, with the MariaDB dialect applied automatically. It supports write-behind.
 
 ### Importing a Database Schema
 
@@ -386,10 +380,9 @@ Data center replication sender monitoring is also extended: `DrSenderInMetrics` 
 - Vectors can be stored as `int8`, with a configurable segment target, query thread count, and deleted-vector budget.
 - Binary quantization is supported, node-wide through `GRIDGAIN_VECTOR_BINARY_QUANTIZATION` or per index. A per-index storage choice always wins over the node-wide property, and either only applies to indexes built after it is set.
 - On Java 22 or later, the `ignite-lucene-10-java22` line can score vectors directly in off-heap memory instead of copying them to the heap.
+- Vector search performance improves with newer Lucene and Java versions. Lucene 10 on Java 22 or later gives the best performance.
 - Lucene 10 vector query caching has configurable segment-size thresholds.
 - The thin client vector protocol moves to version 2. Thin clients can set the search beam width, request similarity scores, omit values from result rows, and pass a field filter and an oversample factor.
-
-For more information, see [Vector Search]({gridgain8}/gridgain8-development/accessing-data/vector-search).
 
 ### Java Thin Client
 
@@ -432,8 +425,6 @@ The ODBC driver supports protocol version 2.13.0. When `PROTOCOL_VERSION` is not
 - The REST API accepts a `keepBinary` query parameter.
 - The JSON permission parser tolerates `SecurityPermission` names that exist only in Apache Ignite.
 
-For more information, see [Artifacts and Modules]({gridgain8}/gridgain8-management/migration-guides/apache-ignite-2x/artifacts-and-modules).
-
 ### Core API
 
 Service call interceptors, the `@ServiceContextResource` annotation, `BinaryObject.size()`, `SystemDataRegionConfiguration`, and a set of Apache Ignite source-compatibility alias methods are added.
@@ -447,13 +438,9 @@ Baseline auto-adjust now takes separate timeouts for scale-up and scale-down eve
 - `BaselineAutoAdjustMXBean` exposes per-direction enablement, timeouts, time-until-adjust, and task state.
 - The .NET `ICluster` API takes the same `AutoAdjustMode`.
 
-For more information, see [Baseline Topology]({gridgain8}/architecture/cluster/baseline-topology).
-
 ### Control Script and REST
 
 No REST command and no control script command was removed or renamed in this release. The control script adds the `--system-view` command, the Apache Ignite 2 compatible `--snapshot` commands, and the baseline auto-adjust scale-up and scale-down options.
-
-For more information, see [Control Script]({gridgain8}/reference/cli-tool) and [REST API]({gridgain8}/gridgain8-development/accessing-data/rest-api).
 
 ### Metrics and System Views
 
@@ -685,22 +672,6 @@ GridGain 8.9.31 fixes an issue in which the `WHERE` conditions could be incorrec
 Starting with GridGain 8.9.31, the query optimizer correctly prevents `WHERE` conditions from being pushed down into the right branch of `LEFT OUTER JOIN`, ensuring that queries return the correct results according to SQL standards.
 
 If your environment expects incorrect results, you set the new `DIGNITE_FORCE_PUSHDOWN_CONDITIONS_TO_LEFT_JOIN` system property to `true` on each node in your cluster. Review all affected queries and update them as needed before removing this property.
-
-#### Java 8 Support in GridGain 8.9.18 and Later
-
-Starting GridGain 8.9.18, GridGain uses Lucene 9 by default. As Lucene 9 requires Java 11, it will be impossible to run GridGain on Java 8 with default configuration.
-
-We recommend switching to Java 11 or later before updating to GridGain 8.9.18 or later.
-
-To continue using Java 8, replace the `{GRIDGAIN_HOME}/libs/ignite-lucene-9` folder with `{GRIDGAIN_HOME}/libs/optional/ignite-lucene-8`.
-
-#### Unsupported Features When Using Java 8 in GridGain 8.9.17
-
-In GridGain 8.9.17, full text search is not supported when GridGain is running on Java 8. The new vector search feature requires using Java 11.
-
-Additionally, GridGain 8.9.16 or earlier automatically created full text indexes for caches with string values, which may cause issues for working with the cache while using Java 8. To avoid this behavior, set the `sql.disableCreateLuceneIndexForStringValueType` property to `true`. If such index is already built for a cache with persistence, contact our support team for assistance with removing it.
-
-We recommend switching to Java 11 or later before updating to GridGain 8.9.17 if you plan to use these features.
 
 #### Changed Permissions for Control Center Agent in GridGain 8.9.4 and Later
 
