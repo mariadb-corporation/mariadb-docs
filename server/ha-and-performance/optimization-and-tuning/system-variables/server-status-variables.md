@@ -1320,7 +1320,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Feature_xml`
 
-* Description: Number of times XML functions ([EXTRACTVALUE()](../../../reference/sql-functions/string-functions/extractvalue.md) and [UPDATEXML()](../../../reference/sql-functions/string-functions/updatexml.md)) were used.
+* Description: Number of times XML functions ([EXTRACTVALUE()](../../../reference/sql-functions/special-functions/xml-functions/extractvalue.md) and [UPDATEXML()](../../../reference/sql-functions/special-functions/xml-functions/updatexml.md)) were used.
 * Scope: Global, Session
 * Data Type: `numeric`
 
