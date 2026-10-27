@@ -21,19 +21,19 @@ This section applies if your application or configuration uses one of the module
 
 The following modules are removed in GridGain 8.10. Take the action in the *What to use instead* column, or stay on GridGain 8.9.x.
 
-| Removed | What to use instead | Deprecated in 8.9.x |
-| --- | --- | --- |
-| `ignite-hibernate-4.2`, `ignite-hibernate-5.1`, `ignite-hibernate-5.3`, `ignite-hibernate-core` | `ignite-hibernate-7.4`. See [Hibernate 7 Required](#hibernate-7-required). | 8.9.35 |
-| `ignite-spring-6` | `ignite-spring` on Spring 7. See [Spring 7 Required](#spring-7-required). | Not deprecated |
-| `ignite-lucene-8` | `ignite-lucene-9`, or the Lucene 10 line in `libs/optional`. See [Lucene](#lucene). | Not deprecated |
-| `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). | 8.9.37 |
-| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../clustering/discovery-in-the-cloud.md). | 8.9.37 |
-| `ignite-ssh` | [Contact GridGain Support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). | Not deprecated |
-| `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). | 8.9.39 |
-| `ignite-mesos` | None. Mesos deployments stay on 8.9.x. | 8.9.39 |
-| `ignite-ml`, `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, `ignite-ml-mleap-model-parser` | The Apache Ignite `ignite-ml-ext` extension or the standalone GridGain ML download. See [Machine Learning Module Removed](#machine-learning-module-removed). | 8.9.38 |
-| `gridgain-diagnostic`, `gridgain-tools`, `gridgain-yardstick` (Enterprise and Ultimate) | None. | Not deprecated |
-| Local store support (`@CacheLocalStore`, `CacheFileLocalStore`) | Native persistence or a regular `CacheStore`. See [Local Store Support Removed](#local-store-support-removed). | `IGNITE_LOCAL_STORE_KEEPS_PRIMARY_ONLY` and `CacheFileLocalStore` in 8.9.39 |
+| Removed | What to use instead |
+| --- | --- |
+| `ignite-hibernate-4.2`, `ignite-hibernate-5.1`, `ignite-hibernate-5.3`, `ignite-hibernate-core` | `ignite-hibernate-7.4`. See [Hibernate 7 Required](#hibernate-7-required). |
+| `ignite-spring-6` | `ignite-spring` on Spring 7. See [Spring 7 Required](#spring-7-required). |
+| `ignite-lucene-8` | `ignite-lucene-9`, or the Lucene 10 line in `libs/optional`. See [Lucene](#lucene). |
+| `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). |
+| `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../clustering/discovery-in-the-cloud.md). |
+| `ignite-ssh` | [Contact GridGain Support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). |
+| `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). |
+| `ignite-mesos` | None. Mesos deployments stay on 8.9.x. |
+| `ignite-ml`, `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, `ignite-ml-mleap-model-parser` | The Apache Ignite `ignite-ml-ext` extension or the standalone GridGain ML download. See [Machine Learning Module Removed](#machine-learning-module-removed). |
+| `gridgain-diagnostic`, `gridgain-tools`, `gridgain-yardstick` (Enterprise and Ultimate) | None. |
+| Local store support (`@CacheLocalStore`, `CacheFileLocalStore`) | Native persistence or a regular `CacheStore`. See [Local Store Support Removed](#local-store-support-removed). |
 
 The following modules are not removed in 8.10 and still ship in `libs/optional`: `ignite-cassandra-store`, `ignite-cassandra-serializers`, `ignite-kubernetes`, `ignite-zookeeper`, `ignite-gce`, `ignite-jta`, `ignite-yarn`, `ignite-compress`, `ignite-direct-io`, and `ignite-web`.
 
@@ -80,7 +80,7 @@ The extension is not a drop-in replacement:
 
 This section applies if you use `ignite-ml` or one of its model parsers.
 
-The `ignite-ml` module is removed together with `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, and `ignite-ml-mleap-model-parser`. The module was deprecated in 8.9.38: every public type in `org.apache.ignite.ml.**` carries `@Deprecated`.
+The `ignite-ml` module is removed together with `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, and `ignite-ml-mleap-model-parser`. In 8.9.39, every public type in `org.apache.ignite.ml.**` carries `@Deprecated`.
 
 Switch to the Apache Ignite `ignite-ml-ext` extension (version 1.0.0, tested against GridGain 8.9 and 8.10) or to the standalone GridGain ML download.
 
@@ -147,7 +147,7 @@ To go back to Lucene 9, reverse the steps: move the Lucene 10 folders back to `l
 
 This section applies if you use a custom Jetty XML file with the REST connector.
 
-The `ignite-rest-http` module now runs on Jetty 12 (12.0.40) and requires Java 17. The Jetty 9.4 module is removed, and so is the separate `ignite-rest-http-jetty-12` module that GridGain 8.9.x shipped as an option. The module keeps the `ignite-rest-http` artifact name, so dependency declarations do not change.
+The `ignite-rest-http` module now runs on Jetty 12 (12.0.40) and requires Java 17. The Jetty 9.4 module is removed, and so is the separate `ignite-rest-http-jetty-12` module that GridGain 8.9.39 shipped as an option. The module keeps the `ignite-rest-http` artifact name, so dependency declarations do not change.
 
 A configuration that does not set `ConnectorConfiguration.setJettyPath(...)` needs no changes. A custom Jetty XML file written for Jetty 9.4 does not load on Jetty 12, and the node fails to start with `Failed to start Jetty HTTP server` and `IllegalStateException: No matching constructor class org.eclipse.jetty.server.Server`. Migrate it as follows:
 

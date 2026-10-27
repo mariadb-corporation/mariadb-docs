@@ -33,7 +33,7 @@ This section applies if thin clients call Java services or register continuous q
 
 Thin client requests are checked more strictly:
 
-- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services. This check was added in GridGain 8.9.39, so a cluster on 8.9.39 or later already behaves this way.
+- *Service calls.* `SERVICE_INVOKE` is checked for thin client calls to Java services, including services that run on a node other than the one the client is connected to. A role without it fails with `Authorization failed [perm=SERVICE_INVOKE, name=<service name>]`. Grant `SERVICE_INVOKE` to the roles whose thin clients call services. This check was added in GridGain 8.9.39, so a cluster on 8.9.39 already behaves this way.
 - *Continuous query remote filters.* Filters that a thin client sends as a class name go through the marshaller class filter (`IGNITE_MARSHALLER_WHITELIST` and `IGNITE_MARSHALLER_BLACKLIST`). A filter class that the lists do not allow starts failing.
 
 ## Per-Feature License Checks

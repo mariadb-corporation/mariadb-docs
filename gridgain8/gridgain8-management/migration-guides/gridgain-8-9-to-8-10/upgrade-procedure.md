@@ -1,11 +1,11 @@
 ---
 description: >-
-  Step-by-step procedure for upgrading a GridGain 8.9.x cluster to 8.10 with Rolling Upgrades or offline, with verification, troubleshooting, and a recovery path back to 8.9.
+  Step-by-step procedure for upgrading a GridGain 8.9.39 cluster to 8.10 with Rolling Upgrades or offline, with verification, troubleshooting, and a recovery path back to 8.9.
 ---
 
 # Upgrading a Cluster from GridGain 8.9 to 8.10
 
-This guide describes how to upgrade a GridGain 8.9.x cluster to GridGain 8.10, and how to check that the upgrade worked.
+This guide describes how to upgrade a GridGain 8.9.39 cluster to GridGain 8.10, and how to check that the upgrade worked.
 
 Before you start, read [What to Know Before Upgrading](before-you-upgrade.md). It helps you choose between a rolling and an offline upgrade and lists the changes that this guide refers to.
 
@@ -17,6 +17,7 @@ GridGain does not support a downgrade from 8.10 to 8.9. If you need to go back t
 
 Confirm all of the following before you start:
 
+- The cluster runs GridGain 8.9.39. If it runs an earlier 8.9.x release, the behavior can differ in places. Read the [release notes]({release-notes}/gridgain-8) for the releases between your version and 8.9.39 first.
 - Java 17 or later is installed on every server host. You can keep running the 8.9 nodes on their current Java version until you restart them. Each node switches to Java 17 when you restart it from the 8.10 distribution, so set `JAVA_HOME` for the 8.10 scripts before you start the node.
 - A valid GridGain license is installed, and it enables every feature that your configuration uses. See [Per-Feature License Checks](security-and-licensing.md#per-feature-license-checks).
 - You chose an [upgrade path](before-you-upgrade.md#choose-your-upgrade-path) and scheduled a downtime window if the path needs one.
@@ -253,7 +254,7 @@ While the upgrade is in progress, the cluster stays available. Clients that are 
 - *Applications must reconnect and repeat the failed operation.* A JDBC connection that was open on a stopped node fails with `Failed to handle JDBC request because node is stopping`, and you must open a new one. Give the driver more than one address (for example `jdbc:ignite:thin://host1:10800,host2:10800,host3:10800`), so that a new connection does not go to the node that is down. The Java thin client reconnects and retries by itself.
 - *Caches without backups are unavailable for the partitions on the stopped node.* A cache with `backups=0` (the default) fails with `CacheInvalidStateException`, and the errors continue after the node returns until you reset the lost partitions. The log of the nodes shows which cache is affected: `Detected lost partitions [grp=SQL_PUBLIC_NB, parts=[...]]`. Configure at least one backup for the caches that must stay available, or plan a maintenance window for the others.
 - *With native persistence, the data is not lost.* After the node is back, run `control.sh --cache reset_lost_partitions <cache name>` (or `--all`), and the cache works again. You can reset the caches once, after the last node is back. The cache of an SQL table is named `SQL_<SCHEMA>_<TABLE>`, for example `SQL_PUBLIC_NB`, unless you set `CACHE_NAME` when you created the table.
-- *Two features stay off while an 8.9 node is in the cluster.* A service with call interceptors is refused (`not all nodes in the cluster support service call interceptors`), and the separate scale-up and scale-down baseline auto-adjust commands (`control.sh --baseline scale_up_auto_adjust` and `scale_down_auto_adjust`) fail. Both start working when the last 8.9 node is replaced. GridGain 8.9.38 and 8.9.39 nodes advertise these two features without implementing them, and 8.10 does not rely on that advertisement.
+- *Two features stay off while an 8.9 node is in the cluster.* A service with call interceptors is refused (`not all nodes in the cluster support service call interceptors`), and the separate scale-up and scale-down baseline auto-adjust commands (`control.sh --baseline scale_up_auto_adjust` and `scale_down_auto_adjust`) fail. Both start working when the last 8.9 node is replaced. GridGain 8.9.39 nodes advertise these two features without implementing them, and 8.10 does not rely on that advertisement.
 
 Each node needs time to stop, join, and rebalance. Only the data that changed while the node was down is moved.
 
@@ -315,7 +316,7 @@ The supported way back depends on when you decide:
 Restoring a backup replaces all data in the cluster with the data from the moment of the backup. Everything written after the backup is lost, including the data that 8.10 wrote. Move the current data aside instead of deleting it if you may need it.
 {% endhint %}
 
-If you use data center replication, read [Upgrade and Recovery to 8.9](other-changes.md#upgrade-and-recovery-to-89) before you recover.
+If you use data center replication, read [Upgrade and Recovery to 8.9](other-changes.md#upgrade-and-recovery-to-8.9) before you recover.
 
 The backup that you can restore depends on your edition:
 

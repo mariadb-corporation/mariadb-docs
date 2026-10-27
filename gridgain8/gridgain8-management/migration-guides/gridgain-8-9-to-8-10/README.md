@@ -1,11 +1,11 @@
 ---
 description: >-
-  How to upgrade a GridGain 8.9.x cluster or application to 8.10, with links to the planning page, the step-by-step procedure, and the reference pages for each change.
+  How to upgrade a GridGain 8.9.39 cluster or application to 8.10, with links to the planning page, the step-by-step procedure, and the reference pages for each change.
 ---
 
 # Upgrading from GridGain 8.9 to 8.10
 
-This guide describes how to upgrade a GridGain 8.9.x cluster and its applications to GridGain 8.10. GridGain 8.10 raises the Java baseline to Java 17, removes several modules and integrations, moves key dependencies to current versions, and changes a small number of defaults.
+This guide describes how to upgrade a GridGain 8.9.39 cluster and its applications to GridGain 8.10. GridGain 8.10 raises the Java baseline to Java 17, removes several modules and integrations, moves key dependencies to current versions, and changes a small number of defaults.
 
 If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2](../apache-ignite-2x/README.md) instead.
 

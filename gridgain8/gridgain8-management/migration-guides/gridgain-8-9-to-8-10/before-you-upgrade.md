@@ -5,7 +5,7 @@ description: >-
 
 # What to Know Before Upgrading to GridGain 8.10
 
-This page is the starting point for planning an upgrade from GridGain 8.9.x to GridGain 8.10. Use it to choose an upgrade path, find the changes that affect your deployment, and estimate the work involved.
+This page is the starting point for planning an upgrade from GridGain 8.9.39 to GridGain 8.10. Use it to choose an upgrade path, find the changes that affect your deployment, and estimate the work involved.
 
 When you are ready to upgrade, follow the step-by-step [Upgrade Procedure](upgrade-procedure.md).
 
