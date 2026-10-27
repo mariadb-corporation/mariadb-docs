@@ -86,7 +86,7 @@ try (MariaDbPoolDataSource pool = new MariaDbPoolDataSource(
 {% endtab %}
 {% endtabs %}
 
-The [ConnectionPool reference]({connectors}/mariadb-connector-python/pool) lists the pool options, including `pool_reset_connection` and `pool_validation_interval`.
+The [ConnectionPool reference]({connectors}/mariadb-connector-python/api/pool) lists the pool options, including `pool_reset_connection` and `pool_validation_interval`.
 {% endstep %}
 
 {% step %}
