@@ -2879,6 +2879,8 @@
   * [All Releases](enterprise-operator/all-releases.md)
 * [Enterprise Manager Release Notes](enterprise-manager/README.md)
   * [All Releases](enterprise-manager/all-releases.md)
+  * [MariaDB Enterprise Manager 26.10 Release Notes](enterprise-manager/26.10/README.md)
+    * [MariaDB Enterprise Manager 26.10.0 Release Notes](enterprise-manager/26.10/26.10.0.md)
   * [MariaDB Enterprise Manager 26.07 Release Notes](enterprise-manager/26.07/README.md)
     * [MariaDB Enterprise Manager 26.07.1 Release Notes](enterprise-manager/26.07/25.10.1.md)
     * [MariaDB Enterprise Manager 26.07.0 Release Notes](enterprise-manager/26.07/26.07.0.md)
