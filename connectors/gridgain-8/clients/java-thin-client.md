@@ -733,6 +733,49 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 
 The deployed service can be implemented using Java or .NET.
 
+### Getting Service Descriptors
+
+To get metadata about services that are deployed in the cluster, use the following `ClientServices` methods:
+
+- `serviceDescriptors()` returns a `Collection<ClientServiceDescriptor>` that describes all deployed services.
+- `serviceDescriptor(name)` returns the `ClientServiceDescriptor` of the service with the given name.
+- `serviceDescriptorsAsync()` and `serviceDescriptorAsync(name)` are the asynchronous counterparts. Both return an `IgniteClientFuture`. Available since 8.10.
+
+Each `ClientServiceDescriptor` provides the following information:
+
+| Method | Description |
+|--------|-------------|
+| `name()` | Service name. |
+| `serviceClass()` | Name of the service class. |
+| `totalCount()` | Total number of deployed instances. |
+| `maxPerNodeCount()` | Maximum number of instances per node. |
+| `cacheName()` | Cache name used for key-to-node affinity calculation. Set only for services deployed as key-affinity services, otherwise `null`. |
+| `originNodeId()` | ID of the node that initiated the deployment. |
+| `platformType()` | Platform the service is implemented in: `JAVA` or `DOTNET`. |
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    // Getting descriptors of all deployed services.
+    Collection<ClientServiceDescriptor> descs =
+        client.services().serviceDescriptors();
+
+    // Getting the descriptor of a single service.
+    ClientServiceDescriptor desc =
+        client.services().serviceDescriptor("MyService");
+
+    // Asynchronous variant.
+    IgniteClientFuture<ClientServiceDescriptor> fut =
+        client.services().serviceDescriptorAsync("MyService");
+
+    fut.thenAccept(d -> System.out.println(d.serviceClass()));
+}
+```
+
+The `name` parameter must not be `null` or empty. If the server does not support this operation, the call fails with `ClientFeatureNotSupportedByServerException`.
+
+If no service with the given name is deployed, the call fails with a `ClientException`. For `serviceDescriptorAsync(name)`, the returned future completes exceptionally.
+
+
 ### Service Awareness
 
 Starting with GridGain 8.10, when [partition awareness](#partition-awareness) is enabled, the client sends each service call directly to a node that runs an instance of the service.
