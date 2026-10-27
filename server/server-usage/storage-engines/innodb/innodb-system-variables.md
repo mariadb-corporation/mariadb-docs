@@ -24,7 +24,8 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_flushing`
 
-* Description: If set to `1`, the default, the server will dynamically adjust the flush rate of dirty pages in the [InnoDB buffer pool](innodb-buffer-pool.md). This assists to reduce brief bursts of I/O activity. If set to `0`, adaptive flushing will only take place when the limit specified by [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) is reached.
+* Description: If set to `1`, the default, the page cleaner adjusts the rate at which it flushes dirty pages from the [InnoDB buffer pool](innodb-buffer-pool.md) to how quickly the workload generates redo log and dirty pages. This helps avoid bursts of I/O activity. If set to `0`, flushing still starts under the same conditions, including when the [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) low-water mark is reached, but the page cleaner writes a fixed [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) pages per second. Setting it to `0` does not disable flushing.
+  * See [Adaptive Flushing](innodb-page-flushing.md#adaptive-flushing) for more information.
 * Command line: `--innodb-adaptive-flushing={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -33,7 +34,8 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_flushing_lwm`
 
-* Description: Adaptive flushing is enabled when this low water mark percentage of the [InnoDB redo log](innodb-redo-log.md) capacity is reached. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled.
+* Description: Low-water mark, as a percentage of the [InnoDB redo log](innodb-redo-log.md) capacity. When the checkpoint age exceeds it, the page cleaner starts flushing dirty pages to advance the checkpoint. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled.
+  * See [InnoDB Page Flushing](innodb-page-flushing.md#innodb_adaptive_flushing_lwm) for more information.
 * Command line: `--innodb-adaptive-flushing-lwm=#`
 * Scope: Global
 * Dynamic: Yes

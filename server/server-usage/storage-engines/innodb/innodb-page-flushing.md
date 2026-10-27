@@ -6,7 +6,14 @@ description: >-
 
 # InnoDB Page Flushing
 
-InnoDB uses a single `buf_flush_page_cleaner` thread to flush dirty pages—modified pages that have not yet been written to data files—from the [InnoDB buffer pool](innodb-buffer-pool.md) to disk. This thread handles page flushing regardless of the number of buffer pool instances. These dirty pages are flushed using a least-recently used (LRU) algorithm, which manages memory efficiently by prioritizing the eviction of older, less frequently accessed pages.
+InnoDB uses a single `buf_flush_page_cleaner` thread to flush dirty pages—modified pages that have not yet been written to data files—from the [InnoDB buffer pool](innodb-buffer-pool.md) to disk. The page cleaner writes pages in two ways:
+
+* **Checkpoint flushing** writes the pages with the oldest changes first, so that the [checkpoint](innodb-redo-log.md#checkpoints) can advance and the [redo log](innodb-redo-log.md) space they occupy can be reused. The settings on this page control mainly this kind of flushing.
+* **LRU flushing** writes and evicts the least recently used pages when the buffer pool needs free pages.
+
+The page cleaner works in cycles of about one second. It stays idle until one of the conditions described below makes flushing necessary.
+
+## When Flushing Starts
 
 ### innodb\_max\_dirty\_pages\_pct
 
@@ -21,6 +28,30 @@ To make flushing more eager and ensure more consistent background I/O, you can s
 
 `SET GLOBAL innodb_max_dirty_pages_pct_lwm=0.001;`
 {% endhint %}
+
+### innodb\_adaptive\_flushing\_lwm
+
+The [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) variable sets a low-water mark for the [redo log](innodb-redo-log.md), as a percentage of its capacity (default `10`). When the [checkpoint age](innodb-redo-log.md#determining-the-checkpoint-age), the amount of redo log written since the last checkpoint, exceeds this percentage, the page cleaner starts flushing to advance the checkpoint, even if the dirty page percentage is below both limits above. This applies whether [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is `ON` or `OFF`.
+
+## Adaptive Flushing
+
+Adaptive flushing decides how many pages the page cleaner writes in each cycle once flushing has started. It is controlled by the [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) variable.
+
+* With `innodb_adaptive_flushing=ON` (the default), the page cleaner adjusts the number of pages it writes to how quickly the workload creates redo log and dirty pages. It weighs [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) scaled by how close the redo log or the dirty page percentage is to its limit, the average number of pages written in recent cycles, and the number of pages that must be written to keep up with the rate of redo log writes. The result never exceeds [innodb\_io\_capacity\_max](innodb-system-variables.md#innodb_io_capacity_max). The [innodb\_flushing\_avg\_loops](innodb-system-variables.md#innodb_flushing_avg_loops) variable sets how many cycles the averages cover, so a higher value makes the flushing rate change more smoothly.
+* With `innodb_adaptive_flushing=OFF`, flushing still starts under the same conditions, including the [innodb\_adaptive\_flushing\_lwm](#innodb_adaptive_flushing_lwm) low-water mark, but the page cleaner writes a fixed `innodb_io_capacity` pages per cycle. `OFF` therefore does not turn flushing off; it only makes the rate fixed.
+
+When the redo log is about to run out of space, InnoDB writes pages faster than adaptive flushing would, regardless of this setting. See [Scope of Throttling](#scope-of-throttling) for how [innodb\_flush\_sync](innodb-system-variables.md#innodb_flush_sync) affects this.
+
+To see how many pages each kind of flushing has written, enable the `buffer_flush_adaptive_total_pages` and `buffer_flush_background_total_pages` counters in the [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) table, which are disabled by default:
+
+```sql
+SET GLOBAL innodb_monitor_enable = 'buffer_flush_adaptive_total_pages';
+SET GLOBAL innodb_monitor_enable = 'buffer_flush_background_total_pages';
+
+SELECT name, count FROM information_schema.INNODB_METRICS
+  WHERE name IN ('buffer_flush_adaptive_total_pages',
+                 'buffer_flush_background_total_pages');
+```
 
 ## Configuring the InnoDB I/O Capacity
 
