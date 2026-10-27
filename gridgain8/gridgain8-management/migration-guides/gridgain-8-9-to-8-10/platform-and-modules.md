@@ -162,7 +162,7 @@ For HTTPS and mutual TLS, use `org.eclipse.jetty.util.ssl.SslContextFactory$Serv
 
 This section applies if you use the Cassandra store.
 
-The Cassandra store moves from DataStax Java driver 3.2 to 4.17 (`com.datastax.oss.driver.*`) and from `cassandra-all` 3.11 to 5.0.8. Cassandra 2.1 or later is required, and Cassandra 3 clusters must be upgraded 3 → 4 → 5.
+The Cassandra store moves from DataStax Java driver 3.2 to 4.17 (`com.datastax.oss.driver.*`). Cassandra 2.1 or later is required: native protocol v1 and v2 are no longer supported, and `DataSource.setProtocolVersion()` accepts versions 3 to 6.
 
 The `DataSource` configuration API changed:
 
