@@ -1,4 +1,4 @@
-﻿{
+{
   "__inputs": [
     {
       "name": "DS_PROMETHEUS",
@@ -133,7 +133,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "min(DaysToLicenseExpiration)",
+          "expr": "min(DaysToLicenseExpiration{instance=~\"$instance\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -201,13 +201,17 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sum(SessionsActive)",
+          "expr": "sum(SessionsActive{instance=~\"$instance\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false
+          "useBackend": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
         }
       ],
       "title": "Sessions Active",
@@ -269,13 +273,17 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sum(TransactionsActive)",
+          "expr": "sum(TransactionsActive{instance=~\"$instance\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false
+          "useBackend": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
         }
       ],
       "title": "Transactions active",
@@ -337,13 +345,17 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sum(CursorsActive)",
+          "expr": "sum(CursorsActive{instance=~\"$instance\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false
+          "useBackend": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
         }
       ],
       "title": "Cursors active",
@@ -405,13 +417,17 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sum(BrokenPartitionCount)",
+          "expr": "sum(BrokenPartitionCount{instance=~\"$instance\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false
+          "useBackend": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          }
         }
       ],
       "title": "Broken Partitions Count",
@@ -517,13 +533,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LoadAverage",
+              "expr": "LoadAverage{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             }
           ],
           "title": "Load avg",
@@ -615,13 +635,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalNodes",
+              "expr": "TotalNodes{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             }
           ],
           "title": "Clusters - Nodes",
@@ -692,7 +716,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 93
           },
           "id": 20,
           "options": {
@@ -713,13 +737,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "increase(gc_CollectionTime[$__rate_interval])",
+              "expr": "increase(gc_CollectionTime{instance=~\"$instance\"}[$__rate_interval])",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             }
           ],
           "title": "gc collection time",
@@ -790,7 +818,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 93
           },
           "id": 17,
           "options": {
@@ -811,13 +839,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "RequestsActive",
+              "expr": "RequestsActive{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -826,7 +858,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "RequestsFailed",
+              "expr": "RequestsFailed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -842,7 +874,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "RequestsProcessed",
+              "expr": "RequestsProcessed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -920,7 +952,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 101
           },
           "id": 8,
           "options": {
@@ -941,13 +973,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SessionsAccepted",
+              "expr": "SessionsAccepted{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -956,7 +992,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SessionsActive",
+              "expr": "SessionsActive{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -972,7 +1008,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SessionsRejected",
+              "expr": "SessionsRejected{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -988,7 +1024,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SessionsRejectedTimeout",
+              "expr": "SessionsRejectedTimeout{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1004,7 +1040,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SessionsRejectedTls",
+              "expr": "SessionsRejectedTls{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1020,7 +1056,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ConnectionsInitiated",
+              "expr": "ConnectionsInitiated{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1094,7 +1130,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 101
           },
           "id": 29,
           "options": {
@@ -1115,13 +1151,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ClockSkewExceedingMaxClockSkew_bucket",
+              "expr": "ClockSkewExceedingMaxClockSkew_bucket{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -1130,7 +1170,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ClockSkewExceedingMaxClockSkew_count",
+              "expr": "ClockSkewExceedingMaxClockSkew_count{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1146,7 +1186,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ClockSkewExceedingMaxClockSkew_sum",
+              "expr": "ClockSkewExceedingMaxClockSkew_sum{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1224,7 +1264,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 41
+            "y": 109
           },
           "id": 3,
           "options": {
@@ -1245,13 +1285,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "BytesReceived",
+              "expr": "BytesReceived{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -1260,7 +1304,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "BytesSent",
+              "expr": "BytesSent{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1338,7 +1382,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 41
+            "y": 109
           },
           "id": 31,
           "options": {
@@ -1363,7 +1407,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "AcceptedLeases",
+              "expr": "AcceptedLeases{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1379,7 +1423,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LeaseNegotiations",
+              "expr": "LeaseNegotiations{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1395,7 +1439,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ReplicationGroups",
+              "expr": "ReplicationGroups{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1473,7 +1517,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 117
           },
           "id": 51,
           "options": {
@@ -1493,10 +1537,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "messageRecipientNotFound",
+              "expr": "messageRecipientNotFound{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -1504,7 +1552,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "messageHandlingFailures",
+              "expr": "messageHandlingFailures{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1516,7 +1564,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "invokeTimeouts",
+              "expr": "invokeTimeouts{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1528,7 +1576,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "slowResponses",
+              "expr": "slowResponses{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1603,7 +1651,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 117
           },
           "id": 30,
           "options": {
@@ -1624,13 +1672,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "IdempotentCacheSize",
+              "expr": "IdempotentCacheSize{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -1639,7 +1691,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SafeTimeLag",
+              "expr": "SafeTimeLag{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1693,7 +1745,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 125
           },
           "id": 54,
           "options": {
@@ -1707,7 +1759,11 @@
               "expr": "InitialVersion",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -1840,7 +1896,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 633
+            "y": 6
           },
           "id": 19,
           "options": {
@@ -1865,7 +1921,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TransactionsActive",
+              "expr": "TransactionsActive{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -1880,7 +1936,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "PendingWriteIntents",
+              "expr": "PendingWriteIntents{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1892,7 +1948,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RwCommits",
+              "expr": "RwCommits{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1904,7 +1960,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoCommits",
+              "expr": "RoCommits{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1916,7 +1972,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RwRollbacks",
+              "expr": "RwRollbacks{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1928,7 +1984,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoRollbacks",
+              "expr": "RoRollbacks{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1940,7 +1996,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RwDuration_bucket",
+              "expr": "RwDuration_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1952,7 +2008,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RwDuration_count",
+              "expr": "RwDuration_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1964,7 +2020,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RwDuration_sum",
+              "expr": "RwDuration_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1976,7 +2032,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoDuration_bucket",
+              "expr": "RoDuration_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -1988,7 +2044,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoDuration_count",
+              "expr": "RoDuration_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -2000,39 +2056,9 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoDuration_sum",
+              "expr": "RoDuration_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
-              "range": true,
-              "refId": "L"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "",
-              "instant": false,
-              "range": true,
-              "refId": "M"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "",
-              "instant": false,
-              "range": true,
-              "refId": "N"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "expr": "",
-              "instant": false,
               "range": true,
               "refId": "O"
             }
@@ -2105,7 +2131,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 633
+            "y": 6
           },
           "id": 18,
           "options": {
@@ -2126,13 +2152,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "StatementLimit",
+              "expr": "StatementLimit{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -2141,7 +2171,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CursorsActive",
+              "expr": "CursorsActive{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2157,7 +2187,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "OpenCursors",
+              "expr": "OpenCursors{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2235,7 +2265,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 641
+            "y": 94
           },
           "id": 34,
           "options": {
@@ -2256,13 +2286,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "MarkedForVacuumTransactionMetaCount",
+              "expr": "MarkedForVacuumTransactionMetaCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -2271,7 +2305,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SkippedForFurtherProcessingUnfinishedTransactionCount",
+              "expr": "SkippedForFurtherProcessingUnfinishedTransactionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2287,7 +2321,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "VacuumizedPersistentTransactionMetaCount",
+              "expr": "VacuumizedPersistentTransactionMetaCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2303,7 +2337,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "VacuumizedVolatileTxnMetaCount",
+              "expr": "VacuumizedVolatileTxnMetaCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2381,7 +2415,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 641
+            "y": 94
           },
           "id": 24,
           "options": {
@@ -2400,24 +2434,13 @@
           "pluginVersion": "12.4.0",
           "targets": [
             {
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "expr": "DetailedExpirationMetrics",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            },
-            {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalDeletedExpiredRowsCount",
+              "expr": "TotalDeletedExpiredRowsCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2495,7 +2518,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 649
+            "y": 102
           },
           "id": 28,
           "options": {
@@ -2516,13 +2539,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "OpenedFilesCount",
+              "expr": "OpenedFilesCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -2531,7 +2558,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "DataLimit",
+              "expr": "DataLimit{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2547,7 +2574,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "MaxDiskUsage",
+              "expr": "MaxDiskUsage{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2563,7 +2590,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "DiskUsage",
+              "expr": "DiskUsage{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2579,7 +2606,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "OffloadedActiveQueries",
+              "expr": "OffloadedActiveQueries{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2595,7 +2622,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalOffloadedQueries",
+              "expr": "TotalOffloadedQueries{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2611,7 +2638,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalBytesRead",
+              "expr": "TotalBytesRead{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2627,7 +2654,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalBytesWritten",
+              "expr": "TotalBytesWritten{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2643,7 +2670,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalWriteOperationsCount",
+              "expr": "TotalWriteOperationsCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2659,7 +2686,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TotalReadOperationsCount",
+              "expr": "TotalReadOperationsCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2737,7 +2764,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 649
+            "y": 102
           },
           "id": 41,
           "options": {
@@ -2757,10 +2784,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "Hits",
+              "expr": "Hits{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -2768,7 +2799,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "Misses",
+              "expr": "Misses{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -2843,7 +2874,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 657
+            "y": 110
           },
           "id": 16,
           "options": {
@@ -2864,13 +2895,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "Hits",
+              "expr": "Hits{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -2879,7 +2914,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "Limit",
+              "expr": "Limit{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2895,7 +2930,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "Misses",
+              "expr": "Misses{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -2973,7 +3008,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 657
+            "y": 110
           },
           "id": 47,
           "options": {
@@ -2993,10 +3028,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "TotalIndexesBuilding",
+              "expr": "TotalIndexesBuilding{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3004,7 +3043,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IndexesReadingStorage",
+              "expr": "IndexesReadingStorage{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3016,7 +3055,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IndexesWaitingForTransactions",
+              "expr": "IndexesWaitingForTransactions{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3028,7 +3067,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "TransactionsWaitingFor",
+              "expr": "TransactionsWaitingFor{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3040,7 +3079,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IndexesWaitingForReplica",
+              "expr": "IndexesWaitingForReplica{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3115,7 +3154,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 665
+            "y": 118
           },
           "id": 49,
           "options": {
@@ -3135,10 +3174,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "RwReads",
+              "expr": "RwReads{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3146,7 +3189,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RoReads",
+              "expr": "RoReads{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3158,7 +3201,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "Writes",
+              "expr": "Writes{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3233,7 +3276,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 665
+            "y": 118
           },
           "id": 48,
           "options": {
@@ -3253,23 +3296,151 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "LocalUnrebalancedPartitionsCount",
+              "expr": "LocalUnrebalancedPartitionsCount{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
+            }
+          ],
+          "title": "Zones",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 126
+          },
+          "id": 59,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.4.0",
+          "targets": [
+            {
+              "editorMode": "builder",
+              "expr": "Current{instance=~\"$instance\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "",
+              "editorMode": "builder",
+              "expr": "SinceLastUpdateMillis{instance=~\"$instance\"}",
               "instant": false,
+              "legendFormat": "__auto",
               "range": true,
               "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "BlockingLockCount{instance=~\"$instance\"}",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "BlockingLockLagMillis{instance=~\"$instance\"}",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "D"
             }
           ],
-          "title": "Zones",
+          "title": "Low Watermark",
           "type": "timeseries"
         }
       ],
@@ -3351,7 +3522,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 242
+            "y": 7
           },
           "id": 6,
           "options": {
@@ -3372,13 +3543,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "EntriesObserved",
+              "expr": "EntriesObserved{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3387,7 +3562,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "EntriesSent",
+              "expr": "EntriesSent{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3465,7 +3640,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 242
+            "y": 7
           },
           "id": 46,
           "options": {
@@ -3488,7 +3663,11 @@
               "expr": "ReplicationLag",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             }
           ],
           "title": "Replication Lag",
@@ -3573,7 +3752,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 67
+            "y": 8
           },
           "id": 35,
           "options": {
@@ -3594,13 +3773,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpTotalPages",
+              "expr": "CpTotalPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3609,7 +3792,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpEvictedPages",
+              "expr": "CpEvictedPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3625,7 +3808,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpSyncedPages",
+              "expr": "CpSyncedPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3641,7 +3824,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpWrittenPages",
+              "expr": "CpWrittenPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3657,7 +3840,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpWriteSpeed",
+              "expr": "CpWriteSpeed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3673,7 +3856,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastEstimatedSpeedForMarkAll",
+              "expr": "LastEstimatedSpeedForMarkAll{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3689,7 +3872,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "MarkDirtySpeed",
+              "expr": "MarkDirtySpeed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3767,7 +3950,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 67
+            "y": 8
           },
           "id": 37,
           "options": {
@@ -3787,10 +3970,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "ReadLockAcquisitionTime_sum",
+              "expr": "ReadLockAcquisitionTime_sum{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3798,7 +3985,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockAcquisitionTime_bucket",
+              "expr": "ReadLockAcquisitionTime_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3810,7 +3997,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockAcquisitionTime_count",
+              "expr": "ReadLockAcquisitionTime_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3822,7 +4009,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockHoldTime_bucket",
+              "expr": "ReadLockHoldTime_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3834,7 +4021,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockHoldTime_count",
+              "expr": "ReadLockHoldTime_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3846,7 +4033,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockHoldTime_sum",
+              "expr": "ReadLockHoldTime_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3858,7 +4045,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadLockWaitingThreads",
+              "expr": "ReadLockWaitingThreads{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -3933,7 +4120,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 75
+            "y": 40
           },
           "id": 25,
           "options": {
@@ -3954,13 +4141,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpTotalPages",
+              "expr": "CpTotalPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -3969,7 +4160,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpEvictedPages",
+              "expr": "CpEvictedPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -3985,7 +4176,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpWrittenPages",
+              "expr": "CpWrittenPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4001,7 +4192,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpSyncedPages",
+              "expr": "CpSyncedPages{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4017,7 +4208,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "PagesRead",
+              "expr": "PagesRead{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4033,7 +4224,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "PagesWritten",
+              "expr": "PagesWritten{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4111,7 +4302,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 75
+            "y": 40
           },
           "id": 15,
           "options": {
@@ -4132,13 +4323,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "BrokenPartitionCount",
+              "expr": "BrokenPartitionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4147,7 +4342,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "HealthyPartitionCount",
+              "expr": "HealthyPartitionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4163,7 +4358,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "InitializingPartitionCount",
+              "expr": "InitializingPartitionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4179,7 +4374,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "InstallingSnapshotPartitionCount",
+              "expr": "InstallingSnapshotPartitionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4195,7 +4390,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "UnavailablePartitionCount",
+              "expr": "UnavailablePartitionCount{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4273,7 +4468,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 83
+            "y": 48
           },
           "id": 26,
           "options": {
@@ -4294,13 +4489,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "MarkDirtySpeed",
+              "expr": "MarkDirtySpeed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4309,7 +4508,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CpWriteSpeed",
+              "expr": "CpWriteSpeed{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4325,7 +4524,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastEstimatedSpeedForMarkAll",
+              "expr": "LastEstimatedSpeedForMarkAll{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4341,7 +4540,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "SpeedBasedThrottlingPercentage",
+              "expr": "SpeedBasedThrottlingPercentage{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4357,7 +4556,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "ThrottleParkTime",
+              "expr": "ThrottleParkTime{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4435,7 +4634,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 83
+            "y": 48
           },
           "id": 36,
           "options": {
@@ -4456,13 +4655,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointBeforeLockDuration",
+              "expr": "LastCheckpointBeforeLockDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4471,7 +4674,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointFsyncDuration",
+              "expr": "LastCheckpointFsyncDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4487,7 +4690,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointLockHoldDuration",
+              "expr": "LastCheckpointLockHoldDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4503,7 +4706,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointLockWaitDuration",
+              "expr": "LastCheckpointLockWaitDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4519,7 +4722,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointPagesWriteDuration",
+              "expr": "LastCheckpointPagesWriteDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4535,7 +4738,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointReplicatorLogSyncDuration",
+              "expr": "LastCheckpointReplicatorLogSyncDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4551,7 +4754,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointSplitAndSortPagesDuration",
+              "expr": "LastCheckpointSplitAndSortPagesDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4567,7 +4770,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointTotalPagesNumber",
+              "expr": "LastCheckpointTotalPagesNumber{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4583,7 +4786,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "LastCheckpointWaitPageReplacementDuration",
+              "expr": "LastCheckpointWaitPageReplacementDuration{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4661,7 +4864,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 91
+            "y": 56
           },
           "id": 50,
           "options": {
@@ -4681,10 +4884,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "CmgLogStorageSize",
+              "expr": "CmgLogStorageSize{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4692,7 +4899,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "MetastorageLogStorageSize",
+              "expr": "MetastorageLogStorageSize{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -4704,7 +4911,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "PartitionsLogStorageSize",
+              "expr": "PartitionsLogStorageSize{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -4716,7 +4923,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "TotalLogStorageSize",
+              "expr": "TotalLogStorageSize{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -4785,38 +4992,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "{__name__=\"CurrDirtyRatio\", instance=\"Node2\", job=\"03bad18c-f2d1-48b8-8e91-5742fe9408ae\"}"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": false,
-                      "tooltip": true,
-                      "viz": true
-                    }
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 91
+            "y": 56
           },
           "id": 27,
           "options": {
@@ -4837,13 +5019,17 @@
             {
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "CurrDirtyRatio",
+              "expr": "CurrDirtyRatio{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "useBackend": false
+              "useBackend": false,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4852,7 +5038,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "TargetDirtyRatio",
+              "expr": "TargetDirtyRatio{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4868,7 +5054,7 @@
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "WriteVsFsyncCoefficient",
+              "expr": "WriteVsFsyncCoefficient{instance=~\"$instance\"}",
               "fullMetaSearch": false,
               "includeNullMetadata": true,
               "instant": false,
@@ -4946,7 +5132,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 99
+            "y": 64
           },
           "id": 52,
           "options": {
@@ -4966,10 +5152,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "TotalBytesRead",
+              "expr": "TotalBytesRead{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -4977,7 +5167,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "TotalBytesWritten",
+              "expr": "TotalBytesWritten{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -4989,7 +5179,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadsTime_bucket",
+              "expr": "ReadsTime_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5001,7 +5191,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadsTime_count",
+              "expr": "ReadsTime_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5013,7 +5203,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ReadsTime_sum",
+              "expr": "ReadsTime_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5025,7 +5215,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "WritesTime_bucket",
+              "expr": "WritesTime_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5037,7 +5227,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "WritesTime_count",
+              "expr": "WritesTime_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5049,7 +5239,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "WritesTime_sum",
+              "expr": "WritesTime_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5124,7 +5314,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 99
+            "y": 64
           },
           "id": 53,
           "options": {
@@ -5144,10 +5334,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "TotalEmptySize",
+              "expr": "TotalEmptySize{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -5155,7 +5349,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "TotalDataSize",
+              "expr": "TotalDataSize{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5167,7 +5361,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "PagesFillFactor",
+              "expr": "PagesFillFactor{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5242,7 +5436,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 107
+            "y": 72
           },
           "id": 55,
           "options": {
@@ -5262,10 +5456,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "RunConsistentlyDuration_bucket",
+              "expr": "RunConsistentlyDuration_bucket{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -5273,7 +5471,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RunConsistentlyDuration_count",
+              "expr": "RunConsistentlyDuration_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5285,7 +5483,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "RunConsistentlyDuration_sum",
+              "expr": "RunConsistentlyDuration_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5374,7 +5572,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 116
+            "y": 9
           },
           "id": 40,
           "options": {
@@ -5394,10 +5592,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Batch_bucket",
+              "expr": "fsmcaller_disruptor_Batch_bucket{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -5405,7 +5607,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Batch_count",
+              "expr": "fsmcaller_disruptor_Batch_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5417,7 +5619,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Batch_sum",
+              "expr": "fsmcaller_disruptor_Batch_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5429,7 +5631,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Stripes_bucket",
+              "expr": "fsmcaller_disruptor_Stripes_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5441,7 +5643,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Stripes_count",
+              "expr": "fsmcaller_disruptor_Stripes_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5453,7 +5655,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "fsmcaller_disruptor_Stripes_sum",
+              "expr": "fsmcaller_disruptor_Stripes_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5465,7 +5667,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Batch_bucket",
+              "expr": "logmanager_disruptor_Batch_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5477,7 +5679,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Batch_count",
+              "expr": "logmanager_disruptor_Batch_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5489,7 +5691,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Batch_sum",
+              "expr": "logmanager_disruptor_Batch_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5501,7 +5703,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Stripes_bucket",
+              "expr": "logmanager_disruptor_Stripes_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5513,7 +5715,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Stripes_count",
+              "expr": "logmanager_disruptor_Stripes_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5525,7 +5727,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "logmanager_disruptor_Stripes_sum",
+              "expr": "logmanager_disruptor_Stripes_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5537,7 +5739,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Batch_bucket",
+              "expr": "nodeimpl_disruptor_Batch_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5549,7 +5751,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Batch_count",
+              "expr": "nodeimpl_disruptor_Batch_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5561,7 +5763,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Batch_sum",
+              "expr": "nodeimpl_disruptor_Batch_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5573,7 +5775,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Stripes_bucket",
+              "expr": "nodeimpl_disruptor_Stripes_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5585,7 +5787,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Stripes_count",
+              "expr": "nodeimpl_disruptor_Stripes_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5597,7 +5799,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "nodeimpl_disruptor_Stripes_sum",
+              "expr": "nodeimpl_disruptor_Stripes_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5609,7 +5811,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Batch_bucket",
+              "expr": "readonlyservice_disruptor_Batch_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5621,7 +5823,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Batch_count",
+              "expr": "readonlyservice_disruptor_Batch_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5633,7 +5835,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Batch_sum",
+              "expr": "readonlyservice_disruptor_Batch_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5645,7 +5847,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Stripes_bucket",
+              "expr": "readonlyservice_disruptor_Stripes_bucket{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5657,7 +5859,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Stripes_count",
+              "expr": "readonlyservice_disruptor_Stripes_count{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5669,7 +5871,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "readonlyservice_disruptor_Stripes_sum",
+              "expr": "readonlyservice_disruptor_Stripes_sum{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5681,7 +5883,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "groups_localLeadersCount",
+              "expr": "groups_localLeadersCount{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5756,7 +5958,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 116
+            "y": 9
           },
           "id": 38,
           "options": {
@@ -5776,10 +5978,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "IncomingSnapshots",
+              "expr": "IncomingSnapshots{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -5787,7 +5993,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsLoadingMeta",
+              "expr": "IncomingSnapshotsLoadingMeta{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5799,7 +6005,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsLoadingMvData",
+              "expr": "IncomingSnapshotsLoadingMvData{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5811,7 +6017,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsLoadingTxMeta",
+              "expr": "IncomingSnapshotsLoadingTxMeta{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5823,7 +6029,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsPreparingIndexForBuild",
+              "expr": "IncomingSnapshotsPreparingIndexForBuild{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5835,7 +6041,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsPreparingStorages",
+              "expr": "IncomingSnapshotsPreparingStorages{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5847,7 +6053,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IncomingSnapshotsWaitingCatalog",
+              "expr": "IncomingSnapshotsWaitingCatalog{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5859,7 +6065,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "OutgoingSnapshots",
+              "expr": "OutgoingSnapshots{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -5934,7 +6140,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 124
+            "y": 25
           },
           "id": 56,
           "options": {
@@ -5954,10 +6160,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "PartitionsLogStorageSpilloutSize",
+              "expr": "PartitionsLogStorageSpilloutSize{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             }
           ],
           "title": "RAFT Log Storage",
@@ -6062,10 +6272,14 @@
           "targets": [
             {
               "editorMode": "builder",
-              "expr": "ConcurrencyLevel",
+              "expr": "ConcurrencyLevel{instance=~\"$instance\"}",
               "legendFormat": "__auto",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              }
             },
             {
               "datasource": {
@@ -6073,7 +6287,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "ActiveCount",
+              "expr": "ActiveCount{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -6085,7 +6299,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "IdleCount",
+              "expr": "IdleCount{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -6097,7 +6311,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "QueueSize",
+              "expr": "QueueSize{instance=~\"$instance\"}",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
@@ -6113,20 +6327,42 @@
     }
   ],
   "preload": false,
-  "refresh": "30s",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(LoadAverage,instance)",
+        "includeAll": true,
+        "label": "instance",
+        "name": "instance",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(LoadAverage,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "regexApplyTo": "value",
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "GridGain 9",
   "uid": "fe6hij34czxfkf",
-  "version": 91,
+  "version": 99,
   "weekStart": ""
 }

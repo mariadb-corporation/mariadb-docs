@@ -9,7 +9,7 @@ description: >-
 
 ## Prerequisites
 
-- **GridGain 9.1.23** or later
+- **GridGain 9.1.28** or later
 - [**Grafana OSS**](https://grafana.com/docs/grafana/latest/setup-grafana/) 12.4.0
 - [**Prometheus**](https://prometheus.io/download/) server 3.1.0
 
@@ -108,9 +108,7 @@ Once configured, Grafana starts receiving GridGain metrics from Prometheus. For 
 
 To help you quickly start collecting and visualizing GridGain metrics, we have prepared a pre-configured sample dashboard that you can import into Grafana. This dashboard provides a structured view of key cluster metrics, making it easier to monitor performance in real time.
 
-<!-- TODO (update): The sample dashboard gg9_dashboard_9.1.23.json (.gitbook/assets) was built for GridGain 9.1.23; the current release is 9.1.28. The developer has been asked for an updated dashboard. When it arrives, replace the file, update the file name and link here, and update the GridGain version in the Prerequisites. Checked on 9.1.28: the 9.1.23 dashboard imports and its panels return data, but 9 of its 182 metric references (rolling upgrade, DCR, detailed expiration) only show data when those features are active. Then delete this comment. -->
-
-1. Download the [sample dashboard JSON file](../../.gitbook/assets/gg9_dashboard_9.1.23.json).
+1. Download the [sample dashboard JSON file](../../.gitbook/assets/gg9_dashboard_9.1.28.json).
 2. Go to **Dashboards** → **Create Dashboard**, click **Import Dashboard**, and upload the file. When Grafana asks for the Prometheus data source, select the one you added earlier.
 
    ![Import dashboard in Grafana](../../.gitbook/assets/guides/monitor-gridgain9-prometheus-grafana/import_dashboard.png)
