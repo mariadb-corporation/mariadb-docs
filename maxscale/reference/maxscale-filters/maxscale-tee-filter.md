@@ -56,7 +56,7 @@ The target where the filter will duplicate all queries. The target can be either
 This parameter is deprecated and will be removed in a future release. This parameter can always be replaced with the `target` parameter.
 {% endhint %}
 
-The service where the filter will duplicate all queries. Both `target` and `service` cannot be defined.
+The service where the filter will duplicate all queries. You can't define both `target` and `service`.
 
 ### `match`
 
@@ -93,9 +93,9 @@ exclude=/select.*from.*t1/
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
-* Description: Does nothing and is deprecated, do not use.
+* Description: Deprecated and has no effect. Do not use.
 
-This option does nothing and has been deprecated ([MXS-7684](https://jira.mariadb.org/browse/MXS-7684))
+This option does nothing and has been deprecated ([MXS-7684](https://jira.mariadb.org/browse/MXS-7684)).
 
 ### `source`
 
