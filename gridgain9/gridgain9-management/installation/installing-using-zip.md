@@ -22,7 +22,7 @@ The information about versioning and lifecycle of GridGain 9 is available on the
 
 ## GridGain Package Structure
 
-GridGain provides 2 archives for the distribution. If you do not have them, [contact our support](https://support.gridgain.com).
+GridGain provides 2 archives for the distribution. If you do not have them, [contact our support](https://mariadb.com/support).
 
 - `gridgain9-db-9.1` - this archive contains everything related to the GridGain database, and when unpacked,  the folder where data will be stored by default. You start GridGain nodes from this folder.
 - `gridgain9-cli-9.1` - this archive contains the [GridGain CLI tool](../../reference/cli-tool.md). This tool is the main way of interacting with GridGain clusters and nodes.

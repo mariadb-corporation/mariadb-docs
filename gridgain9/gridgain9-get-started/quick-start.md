@@ -14,7 +14,7 @@ If you are more comfortable with running the database from Java code, you can tr
 
 ## Prerequisites
 
-GridGain provides the database and CLI archives (`gridgain9-db-<version>.zip` and `gridgain9-cli-<version>.zip`). If you do not have them yet, or if you are interested in trying out GridGain 9, [contact our support](https://support.gridgain.com).
+GridGain provides the database and CLI archives (`gridgain9-db-<version>.zip` and `gridgain9-cli-<version>.zip`). If you do not have them yet, or if you are interested in trying out GridGain 9, [contact our support](https://mariadb.com/support).
 
 ## Install GridGain
 

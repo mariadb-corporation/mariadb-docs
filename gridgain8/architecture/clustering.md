@@ -69,7 +69,7 @@ If a cluster is started with an automation tool such as Ansible, you can program
 A common way to run GridGain is to have GridGain nodes embedded into application processes, such as Spring Boot applications. In such cases, you may want to automate activation in the applications themselves. After an application starts and joins the rest of the cluster, the application checks the topology. If the topology is as expected (i.e., includes the correct number of nodes), the application triggers the activation via `ignite.cluster().state(ACTIVE)`.
 
 {% hint style="info" %}
-It is not recommended to attempt activating clusters form within application on your own. Should the need arise, we suggest that you contact [GridGain Customer Support](https://www.gridgain.com/contact).
+It is not recommended to attempt activating clusters form within application on your own. Should the need arise, we suggest that you contact [GridGain Customer Support](https://mariadb.com/support).
 {% endhint %}
 
 One way to check when a node has joined the cluster is via `LifecycleBean`. This approach requires extra care because an incorrect implementation may lead to disastrous results. Each node makes a decision to activate separately. Therefore, if the status verification logic is flawed, the cluster will be activated at a wrong time, causing issues. It is recommended to activate with a centralized orchestrator or manually whenever possible.
