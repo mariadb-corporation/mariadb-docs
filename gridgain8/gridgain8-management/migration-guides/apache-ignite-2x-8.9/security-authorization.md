@@ -21,7 +21,7 @@ Three differences require attention. They stem from fine-grained authorization p
 * User management no longer uses a grantable permission; it follows a fixed rule. See [User management](#user-management).
 
 {% hint style="warning" %}
-GridGain 8 accepts only its own predefined permission names. If a permission set names `ADMIN_CLUSTER_STATE`, `ADMIN_CLUSTER_NODE_START`, `ADMIN_CLUSTER_NODE_STOP`, `ADMIN_KILL`, `ADMIN_USER_ACCESS`, `SQL_VIEW_CREATE`, or `SQL_VIEW_DROP`, GridGain ignores that permission and prints a warning to the console output. The operations it allowed are not granted. Any other unknown name, including `ADMIN_SNAPSHOT` and `ADMIN_ROLLING_UPGRADE`, makes GridGain reject the security configuration, and the node fails to start. With JAAS authentication, the affected user cannot authenticate instead. This behavior applies to permission sets configured as strings. *Replace or remove all nine permissions below before you start the cluster.*
+GridGain 8 accepts only its own predefined permission names. If your configuration names any retired Apache Ignite permission (or any unknown name), GridGain rejects the security configuration, and the node fails to start. *Replace or remove all nine permissions below before you start the cluster.*
 {% endhint %}
 
 ## Permissions That Changed
@@ -72,5 +72,5 @@ Most deployments configure security through files and never touch code. If you a
 2. Replace or remove them per [Permissions that changed](#permissions-that-changed): cluster, node, snapshot, and rolling-upgrade admin → `ADMIN_OPS`; SQL kill → `KILL_QUERY`; user management and SQL views → remove.
 3. Move user administration to the default `ignite` user and drop `ADMIN_USER_ACCESS`.
 4. Review any role that now requires the broader `ADMIN_OPS`, and confirm that is acceptable under least privilege.
-5. Start a secured node. If it fails to start because of an unknown permission, or prints a warning about an ignored Apache Ignite 2.x permission, remove or remap that permission and start the node again.
+5. Start a secured node. If GridGain reports an unknown permission, remove or remap the offending Ignite 2.x permission before retrying.
 6. Test each migrated role end to end: cluster activate/deactivate, baseline change, node stop, SQL `KILL QUERY`, and user create/drop.

@@ -174,20 +174,14 @@ GridGain 8 removes two kinds of properties, and they fail in opposite ways.
 - Snapshots and service interceptors: all related properties
 
 {% hint style="info" %}
-An unknown XML or bean property fails startup with a message naming the offending property, for example `Configuration property CacheConfiguration.<name> does not exist`. Use it to find and remove the leftover Ignite-only property in your configuration.
+An unknown XML or bean property fails startup with a Spring bean error that names the offending property, for example `NotWritablePropertyException: Invalid property 'diskPageCompression' of bean class [org.apache.ignite.configuration.CacheConfiguration]: Bean property 'diskPageCompression' is not writable`. Use the named property to find and remove the leftover Ignite-only setting in your configuration.
 {% endhint %}
 
 *System properties* (`IGNITE_*`, set as JVM `-D` arguments or environment variables) behave the opposite way: an unrecognized one does not block startup and is simply ignored, so a setting you relied on can stop taking effect with no failure. Audit your `-D` flags and environment against the [unsupported system properties](#unsupported-system-properties) below.
 
 ### Unsupported System Properties
 
-A number of Apache Ignite `IGNITE_*` system properties have no effect in GridGain. If you set one, whether as a JVM `-D` argument or an environment variable, GridGain ignores it and logs a throttled warning at node startup:
-
-```text
-Property IGNITE_USE_BINARY_ARRAYS is not supported in GridGain. See https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/migration-guides/apache-ignite-2x/configuration.
-```
-
-Remove the following properties from your startup configuration when migrating:
+A number of Apache Ignite `IGNITE_*` system properties have no effect in GridGain. If you set one, whether as a JVM `-D` argument or an environment variable, GridGain silently ignores it: startup is not blocked and no warning is logged, so a setting you relied on can stop taking effect with no visible sign. Remove the following properties from your startup configuration when migrating:
 
 | Property | Reason it is unsupported | GridGain alternative |
 |---|---|---|
@@ -195,6 +189,7 @@ Remove the following properties from your startup configuration when migrating:
 | `IGNITE_SNAPSHOT_SEQUENTIAL_WRITE` | The GridGain snapshot subsystem differs from Apache Ignite. | Use [GridGain snapshots](../../snapshots/snapshots-and-recovery.md). |
 | `IGNITE_PERF_STAT_BUFFER_SIZE`<br>`IGNITE_PERF_STAT_CACHED_STRINGS_THRESHOLD`<br>`IGNITE_PERF_STAT_FILE_MAX_SIZE`<br>`IGNITE_PERF_STAT_FLUSH_SIZE` | The Performance Statistics subsystem is not implemented in GridGain. | Use [GridGain metrics and monitoring](../../monitoring/intro.md). |
 | `IGNITE_ALLOW_MIXED_CACHE_GROUPS` | Mixed cache groups are not available in GridGain. |  |
+| `IGNITE_BPLUS_TREE_DISABLE_METRICS` | B+ tree metrics toggling is not available in GridGain. |  |
 | `IGNITE_ENABLE_OBJECT_INPUT_FILTER_AUTOCONFIGURATION` | Object input filter auto-configuration is not available in GridGain. |  |
 | `IGNITE_USE_BINARY_ARRAYS` | Typed binary arrays are not available in GridGain. | Confirm it was not enabled on the Apache Ignite source before migrating data; an explicitly enabled binary-array format changes the on-disk and on-wire layout. |
 | `IGNITE_SQL_FORCE_LAZY_RESULT_SET` | Not available in the GridGain H2-based SQL engine. | Enable lazy execution per query with `SqlFieldsQuery.setLazy(true)` or the JDBC thin `lazy` connection parameter. See [Lazy SQL Queries](../../../tuning-and-troubleshooting/performance-tuning/sql-tuning.md#lazy-sql-queries). |

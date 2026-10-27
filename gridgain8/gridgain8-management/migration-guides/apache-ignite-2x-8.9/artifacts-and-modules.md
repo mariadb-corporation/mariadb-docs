@@ -14,7 +14,7 @@ It covers the GridGain distribution, the build coordinates to update for each la
 
 GridGain ships as a ZIP archive, a Docker image, cloud images for AWS, Azure, and Google Compute, a Kubernetes operator, and RPM/DEB packages. Download links and per-format instructions are in [Installing and Starting GridGain](../../installation/README.md).
 
-Check the supported Java versions before you migrate. GridGain 8.10 requires Java 17 or later and supports Java 17, 21, and 25. If your Apache Ignite cluster runs on an earlier Java version, upgrade the JVM as part of the migration. For the complete platform requirements, see [Installing and Starting GridGain](../../installation/README.md).
+Check the supported Java versions before you migrate. GridGain 8.9 runs on Java 8, 11, or 17. Starting with 8.9.17, full-text search and vector search require JDK 11 or later, so Java 8 does not carry the full feature set forward. For the complete platform requirements, see [Installing and Starting GridGain](../../installation/README.md).
 
 GridGain Ultimate Edition is licensed software, so it includes a `gridgain-license.xml` file at the install root. Replace this file with the production license issued by GridGain, or point to a custom location with `GridGainConfiguration.setLicenseUrl(...)` (a filesystem path, an HTTP/FTP URL, or a `ConfigMap` if using Kubernetes). Ultimate features will not start with a missing or expired license.
 

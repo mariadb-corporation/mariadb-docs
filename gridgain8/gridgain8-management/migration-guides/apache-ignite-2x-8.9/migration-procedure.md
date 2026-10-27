@@ -1,12 +1,12 @@
 ---
 description: >-
   Step-by-step procedure for migrating a cluster, its data, clients, and tooling
-  from Apache Ignite 2.18 to GridGain 8.10, with cutover, verification, and rollback.
+  from Apache Ignite 2.18 to GridGain 8.9.35, with cutover, verification, and rollback.
 ---
 
 # Migrating from Apache Ignite 2 to GridGain 8
 
-This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the [GridGain 8.10 Ultimate release](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/8.10/release-notes_8.10). The procedure covers the cluster and its data, client applications and operational tooling.
+This guide provides step-by-step instructions for migrating from Apache Ignite 2.18 to the GridGain 8 Ultimate. The procedure covers the cluster and its data, client applications and operational tooling.
 
 Before you start, read [What to Know Before Migrating](before-you-migrate.md). It covers the compatibility model, the features you need to migrate, and the artifact, configuration, and SQL changes this guide refers to.
 
@@ -134,10 +134,11 @@ Stop the nodes gracefully, in any order, and wait for each process to exit. The 
 
 ### 4. Back Up the Persistence Directory (Persistent Only)
 
-Copy the whole work directory, including `db/`, `db/binary_meta/`, `db/marshaller/`, and the WAL. Also archive the Ignite binary distribution and its configuration so you can rebuild the pre-migration cluster if needed.
+Back up the node's entire work directory, set by `workDirectory` or `IGNITE_WORK_DIR` and defaulting to `$IGNITE_HOME/work`. It holds the persistence data (`db/`, including `db/binary_meta/` and `db/marshaller/`) and the WAL. A cluster that relocates the WAL with `walPath` or `walArchivePath` keeps it outside the work directory, so those locations are part of the backup as well. Archive the Ignite binary distribution and its configuration alongside the backup, so you can rebuild the pre-migration cluster if needed.
 
 ```shell
-tar czf ignite-pds-backup-PRECUTOVER.tgz $IGNITE_HOME/work/db
+# Replace the path below with your node's actual work directory if workDirectory is customized.
+tar czf ignite-pds-backup-PRECUTOVER.tgz "$IGNITE_HOME/work/db"
 ```
 
 {% hint style="danger" %}
@@ -180,6 +181,10 @@ Started cache in recovery mode [name=ProductCache, ...]
 Finished restoring partition state for local groups [groupsProcessed=4, ...]
 ```
 
+{% hint style="info" %}
+You may see the `Finished restoring partition state for local groups` log message more than once. This is expected. The first occurrence may report `groupsProcessed=0` because it runs before the caches are opened. The entry that confirms successful partition state restoration is the one logged after the caches enter recovery mode, with a non-zero `groupsProcessed` value (for example, `groupsProcessed=4`).
+{% endhint %}
+
 After all nodes have joined, each node finishes with:
 
 ```text
@@ -211,7 +216,11 @@ Cluster is active
 
 The `cacheSize` values give you a first row-count check before you query anything.
 
-_Persistent only:_ spot-check row counts with `sqlline` and confirm they match the pre-cutover values:
+_Persistent only:_ spot-check row counts with `sqlline` and confirm they match the pre-cutover values. `sqlline` prompts for a username and password even when authentication is disabled; the `-n` and `-p` options in the command below supply placeholder values so it connects without a prompt.
+
+```shell
+$GRIDGAIN_HOME/bin/sqlline.sh -u "jdbc:ignite:thin://127.0.0.1/" -n ignite -p ignite
+```
 
 ```sql
 0: jdbc:ignite:thin://127.0.0.1/> SELECT COUNT(*) FROM Customer;

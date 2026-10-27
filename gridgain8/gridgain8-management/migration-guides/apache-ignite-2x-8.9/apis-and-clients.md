@@ -31,7 +31,7 @@ For each client application:
 
 GridGain 8 keeps Ignite's client APIs and adds to them, so most client code compiles and runs unchanged after steps 1–2. The per-language exceptions you may hit in step 3:
 
-**Java**: A few renames and removals: `withReadRepair(...)`, `Ignite.metrics()`, and partition awareness: `setPartitionAwarenessEnabled` becomes `setAffinityAwarenessEnabled`, and its default changes to `false`. `Ignite.snapshot()` has a replacement: `IgniteSnapshots.of(ignite)` returns an Apache Ignite 2 compatible snapshot view backed by GridGain snapshots.
+**Java**: A few renames and removals: `withReadRepair(...)`, `Ignite.snapshot()`, `Ignite.metrics()`, and partition awareness: `setPartitionAwarenessEnabled` becomes `setAffinityAwarenessEnabled`, and its default changes to `false`.
 
 **.NET**: Some thick-client types are absent, such as the compute task session and service interceptors. Thin-client operations are otherwise identical, and namespaces are unchanged.
 
@@ -41,13 +41,13 @@ GridGain 8 keeps Ignite's client APIs and adds to them, so most client code comp
 
 **JDBC**: The driver class, URL prefix, and port are unchanged. The `local`, `queryEngine`, and `transaction*` connection properties are not available.
 
-**ODBC**: The driver name, DSN, and library are unchanged. The `query_engine` property is not available. You can also keep the Apache Ignite ODBC driver, for version 2.13 or later with its default settings. Only H2 `query_engine` is supported.
+**ODBC**: The driver name, DSN, and library are unchanged. The `query_engine` property is not available.
 
 **REST**: The HTTP command set is compatible, request/response details may differ. Review and adapt your REST *clients* rather than rewriting commands. The changes to account for:
 
 | Area | What changes | What to do |
 |---|---|---|
-| Commands | GridGain adds `datastorage` (data-storage metrics). The distributed-property commands `getproperty`, `setproperty`, and `listproperties` are not in 8.9.x (added in 8.10). | No change to existing calls. Don't depend on the property commands on 8.9.x. |
+| Commands | GridGain adds `datastorage` (data-storage metrics) and the distributed-property commands `getproperty`, `setproperty`, and `listproperties`. | No change to existing calls. |
 | Request parameters | The `keepBinary` query parameter, which tells Ignite to return cache values in binary form, is not supported in GridGain and is silently ignored. | Don't rely on `keepBinary`; cache values come back in GridGain's default representation. |
 | Timestamps | Ignite emits the full `java.sql.Timestamp.toString()` value with sub-second precision; GridGain renders a localized (`Locale.US`) date-time string that drops sub-second precision. | Update parsers that expect the Ignite timestamp format. |
 | Complex types | Binary/complex cache values and SQL-metadata responses are serialized by GridGain's own object mapper and convert differently. | Re-validate code that parses complex values or metadata responses. |

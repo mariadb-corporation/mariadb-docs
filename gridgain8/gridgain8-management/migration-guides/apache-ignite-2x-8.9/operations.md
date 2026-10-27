@@ -27,7 +27,8 @@ These `control.sh` commands, subcommands, and arguments changed:
 
 | Category | Command or item | Change and what to do |
 |---|---|---|
-| Removed command | `--cdc` | Not supported. Use [Data Center Replication](../../data-center-replication/introduction.md) instead. |
+| Removed command | `--snapshot` | Use [`snapshot-utility.sh`](../../snapshots/snapshots-management-tool.md). |
+|  | `--cdc` | Not supported. Use [Data Center Replication](../../data-center-replication/introduction.md) instead. |
 |  | `--consistency` | Use `--cache partition_reconciliation`. |
 |  | `--system-view` | Use the `SYS` schema or JMX. |
 |  | `--performance-statistics` | Not supported. Use JMX metrics or an external APM. |
@@ -37,7 +38,6 @@ These `control.sh` commands, subcommands, and arguments changed:
 |  | `idle_verify_dump` | Renamed. Call `idle_verify --dump` instead. |
 | Argument | `--ssl-factory` | Not available. |
 |  | `--enable-experimental` | Set the `IGNITE_ENABLE_EXPERIMENTAL_COMMAND` system property instead. |
-| Changed command | `--snapshot` | An Apache Ignite 2 compatibility layer over GridGain snapshots, supporting the `create`, `cancel`, `restore`, and `status` actions. For the native tool, use [`snapshot-utility.sh`](../../snapshots/snapshots-management-tool.md). |
 | Changed output | `--state` | Prints `Cluster is active`, `Cluster is inactive`, or `Cluster is active (read-only)` instead of Ignite's `Cluster state: ACTIVE` format. Update scripts that parse the output. |
 
 ### ignite.sh
