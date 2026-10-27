@@ -78,6 +78,14 @@ The files appear in the **Documents** table. The **Status** column shows the sta
 
 The status can lag behind the actual state of a document. See [Troubleshooting](document-knowledge-bases.md#troubleshooting).
 
+### Monitor Ingestion
+
+The **Documents** table shows the status of each document, and the **Chunks** column shows how many chunks it produced. For a data source, select **View Sync History** to see each sync.
+
+To monitor ingestion from an application, register a webhook with the ingestion API. AI Retrieval then notifies your endpoint when a document is ingested and when an ingestion job completes or fails.
+
+<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. TODO: link the webhook section of the API reference (Swagger) once it is published, and confirm that webhooks are public in the preview, because Egor said the ingestion job endpoints will be hidden. -->
+
 ### Connect a Storage Bucket
 
 A data source connects a bucket to the knowledge base. AI Retrieval reads the documents in the bucket when you sync the data source.
@@ -250,6 +258,6 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 
 ### A Document Produces No Text
 
-AI Retrieval cannot parse scanned documents. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
+Scanned documents are not supported yet. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -141,7 +141,7 @@ You can configure two independent timeouts:
 - **Handshake timeout** — the maximum time to establish a connection to a server node, including protocol negotiation. Set it with `ClientConfiguration.setHandshakeTimeout(int)`.
 - **Request timeout** — the maximum time to wait for a response to an individual operation on an established connection. Set it with `ClientConfiguration.setRequestTimeout(int)`.
 
-Both values are in milliseconds, and `0` (the default) means no timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
+Both values are in milliseconds. By default, the handshake timeout is `10000` (10 seconds) and the request timeout is `60000` (60 seconds). A value of `0` is interpreted as an infinite timeout. Setting them separately lets you allow a longer window to connect while keeping a tighter bound on each operation.
 
 ```java
 ClientConfiguration cfg = new ClientConfiguration()
@@ -178,6 +178,36 @@ for (int i = 0; i < 20; i++) {
 }
 ```
 
+### Async Operations
+
+Available since 8.10, the atomic sequence API has asynchronous counterparts that return an `IgniteClientFuture<T>`. See [Async APIs](#async-apis) for how async methods behave.
+
+| Blocking method | Async method | Future result |
+|---|---|---|
+| `IgniteClient.atomicSequence(...)` | `IgniteClient.atomicSequenceAsync(...)` | `ClientAtomicSequence`, or `null` if the sequence does not exist and `create` is `false` |
+| `incrementAndGet()` | `incrementAndGetAsync()` | `Long`, the value after the increment |
+| `getAndIncrement()` | `getAndIncrementAsync()` | `Long`, the value before the increment |
+| `addAndGet(long)` | `addAndGetAsync(long)` | `Long`, the value after the addition |
+| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long`, the value before the addition |
+| `removed()` | `removedAsync()` | `Boolean`, `true` if the sequence was removed |
+| `close()` | `closeAsync()` | `Void` |
+
+`atomicSequenceAsync` has the same two overloads as `atomicSequence`: with and without a `ClientAtomicConfiguration`.
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+client.atomicSequenceAsync("seqName", 0, true)
+        .thenCompose(seq -> seq.incrementAndGetAsync())
+        .thenAccept(val -> System.out.println("Next ID: " + val));
+```
+
+The following rules apply to async sequence operations:
+
+- The `l` argument of `addAndGetAsync` and `getAndAddAsync` must be greater than zero.
+- Update calls on the same `ClientAtomicSequence` instance are applied one after another, in the order in which they are made.
+- If the sequence has been removed, the returned future completes exceptionally with an `IgniteException` whose message starts with `Sequence was removed from cache`.
+
 ## Client Atomic Long
 
 _Atomic long_ is a distributed counter. It supports atomic operations, such as increment-and-get and compare-and-set, on a value that the whole cluster sees. Use `IgniteClient.atomicLong()` to get an atomic long, or to create it if it does not exist:
@@ -196,7 +226,7 @@ long value = atomicLong.incrementAndGet();
 
 ### Async Operations
 
-Starting with GridGain 8.10, every `ClientAtomicLong` operation has an async counterpart that returns an `IgniteClientFuture`. To get the atomic long itself asynchronously, use `IgniteClient.atomicLongAsync()`.
+Available since 8.10.0, every `ClientAtomicLong` operation has an async counterpart that returns an `IgniteClientFuture<T>`. See [Async APIs](#async-apis) for how async methods behave.
 
 | Blocking method | Async method | Future result |
 |---|---|---|
@@ -226,9 +256,7 @@ fut.thenAccept(val -> System.out.println("Incremented value: " + val)); // Non-b
 boolean removed = atomicLong.removedAsync().get(); // Blocking wait.
 ```
 
-If the atomic long has been removed, synchronous operations throw a `ClientException`. Async operations complete exceptionally with the same `ClientException`, which `Future.get()` wraps in an `ExecutionException`.
-
-For general information about async methods, see [Async APIs](#async-apis).
+If the atomic long has been removed, operations that read or change its value, such as `get()` and `incrementAndGet()`, throw a `ClientException`. The async equivalents complete exceptionally with the same `ClientException`, which `Future.get()` wraps in an `ExecutionException`.
 
 ## Partition Awareness
 
@@ -241,6 +269,8 @@ The partition awareness functionality helps avoid an additional network hop in t
 - Bulk key operations, like getAll(), which group the requested keys by their primary node and send each group directly to the owning node in a single request.
 
 - ScanQuery and IndexQuery accept a partition number as a parameter with which the query is routed to a server node that stores the requested data. Refer to [Executing Scan Queries](#executing-scan-queries) and [Executing Index Queries](https://ignite.apache.org/docs/latest/key-value-api/using-cache-queries#executing-index-queries) sections for more information.
+
+- Service invocation. Starting with GridGain 8.10, the client routes service calls to a node that runs an instance of the service. See [Service Awareness](#service-awareness).
 
 The following code sample illustrates how to use the partition awareness feature with the java thin client.
 
@@ -676,6 +706,45 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 
 Refer to the main [cluster groups](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/cluster-groups) documentation page for more details on the capability.
 
+## Managing Cluster State and WAL
+
+The `ClientCluster` interface, available through `IgniteClient.cluster()`, lets you read and change the cluster state and control write-ahead logging (WAL) for a cache. Each operation has a synchronous method and an asynchronous counterpart.
+
+| Operation | Synchronous | Asynchronous (since 8.10) |
+|---|---|---|
+| Get the cluster state | `state()` returns `ClusterState` | `stateAsync()` returns `IgniteClientFuture<ClusterState>` |
+| Change the cluster state | `state(ClusterState)` | `stateAsync(ClusterState)` returns `IgniteClientFuture<Void>` |
+| Disable WAL for a cache | `disableWal(String)` returns `boolean` | `disableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Enable WAL for a cache | `enableWal(String)` returns `boolean` | `enableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Check whether WAL is enabled | `isWalEnabled(String)` returns `boolean` | `isWalEnabledAsync(String)` returns `IgniteClientFuture<Boolean>` |
+
+The `ClusterState` values are `INACTIVE`, `ACTIVE`, and `ACTIVE_READ_ONLY`.
+
+{% hint style="warning" %}
+Deactivating the cluster clears in-memory caches that are not backed by persistence, including the system caches.
+{% endhint %}
+
+`disableWal` and `enableWal` return `true` if the call changed the WAL state, and `false` if WAL was already in the requested state. WAL state can be changed only for persistent caches.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ClientCluster cluster = client.cluster();
+
+    // Synchronous
+    cluster.state(ClusterState.ACTIVE);
+    boolean disabled = cluster.disableWal("myCache");
+
+    // Asynchronous
+    cluster.stateAsync(ClusterState.ACTIVE_READ_ONLY).get();
+    boolean enabled = cluster.enableWalAsync("myCache").get();
+    boolean walOn = cluster.isWalEnabledAsync("myCache").get();
+}
+```
+
+A WAL operation on a cache that does not exist fails with a `ClientException`: the synchronous methods throw it, and the future returned by an asynchronous method fails with it. If the server does not support the Cluster API, the operation fails with `ClientFeatureNotSupportedByServerException`.
+
+For more information about asynchronous methods, see [Async APIs](#async-apis).
+
 ## Executing Compute Tasks
 
 The Java thin client supports basic [compute capabilities](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/distributed-computing)
@@ -752,6 +821,98 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 ```
 
 The deployed service can be implemented using Java or .NET.
+
+### Getting Service Descriptors
+
+To get metadata about services that are deployed in the cluster, use the following `ClientServices` methods:
+
+- `serviceDescriptors()` returns a `Collection<ClientServiceDescriptor>` that describes all deployed services.
+- `serviceDescriptor(name)` returns the `ClientServiceDescriptor` of the service with the given name.
+- `serviceDescriptorsAsync()` and `serviceDescriptorAsync(name)` are the asynchronous counterparts. Both return an `IgniteClientFuture`. Available since 8.10.
+
+Each `ClientServiceDescriptor` provides the following information:
+
+| Method | Description |
+|--------|-------------|
+| `name()` | Service name. |
+| `serviceClass()` | Name of the service class. |
+| `totalCount()` | Total number of deployed instances. |
+| `maxPerNodeCount()` | Maximum number of instances per node. |
+| `cacheName()` | Cache name used for key-to-node affinity calculation. Set only for services deployed as key-affinity services, otherwise `null`. |
+| `originNodeId()` | ID of the node that initiated the deployment. |
+| `platformType()` | Platform the service is implemented in: `JAVA` or `DOTNET`. |
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    // Getting descriptors of all deployed services.
+    Collection<ClientServiceDescriptor> descs =
+        client.services().serviceDescriptors();
+
+    // Getting the descriptor of a single service.
+    ClientServiceDescriptor desc =
+        client.services().serviceDescriptor("MyService");
+
+    // Asynchronous variant.
+    IgniteClientFuture<ClientServiceDescriptor> fut =
+        client.services().serviceDescriptorAsync("MyService");
+
+    fut.thenAccept(d -> System.out.println(d.serviceClass()));
+}
+```
+
+The `name` parameter must not be `null` or empty. If the server does not support this operation, the call fails with `ClientFeatureNotSupportedByServerException`.
+
+If no service with the given name is deployed, the call fails with a `ClientException`. For `serviceDescriptorAsync(name)`, the returned future completes exceptionally.
+
+
+### Service Awareness
+
+Starting with GridGain 8.10, when [partition awareness](#partition-awareness) is enabled, the client sends each service call directly to a node that runs an instance of the service.
+If several nodes run the service, the client picks one of them at random for each call.
+Without service awareness, the client sends the call to the node it is connected to, and that node forwards the call to a node that runs the service.
+
+The client requests the list of nodes that run each service the first time you call it, and caches the list.
+When you call the service again, the client refreshes the list in the background if the cluster topology has changed or the list is older than 10 seconds.
+Until the client receives the list, it sends the call the standard way.
+If the client has no connection to the chosen node, it sends the call the standard way too.
+If the connection to the chosen node fails, the client applies the retry policy from `ClientConfiguration` and, when the policy allows a retry, sends the call the standard way.
+If a request for the list fails, the client logs an error and keeps using the last known list.
+
+Partition awareness is disabled by default.
+To use service awareness, call `ClientConfiguration.setAffinityAwarenessEnabled(true)`. No other configuration is required.
+The server nodes must support the feature. If they do not, the client sends service calls the standard way.
+
+### Passing a Service Call Context
+
+{% hint style="warning" %}
+This API is experimental and may change in future releases.
+{% endhint %}
+
+You can pass a [service call context](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/services/services#service-call-context) with every call to a service method.
+The service reads the context attributes through its injected `ServiceContext`.
+To pass a call context, get the service proxy with one of the following `ClientServices` methods:
+
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx)`
+- `serviceProxy(String name, Class<? super T> svcItf, ServiceCallContext callCtx, long timeout)`
+
+Create the call context with `ServiceCallContext.builder()`.
+Custom implementations of the `ServiceCallContext` interface are not supported.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ServiceCallContext callCtx = ServiceCallContext.builder()
+        .put("user", "John")
+        .build();
+
+    MyService svc = client.services().serviceProxy("MyService", MyService.class, callCtx);
+
+    // Every call made through this proxy passes the call context to the service.
+    svc.myServiceMethod();
+}
+```
+
+The server nodes must support passing the service call context from thin clients.
+Otherwise, the service call fails with `ClientFeatureNotSupportedByServerException`.
 
 ## Handling Exceptions
 
@@ -911,6 +1072,40 @@ getFut.thenAccept(val -> System.out.println(val)); // Non-blocking continuation.
 - Async methods do not block the calling thread;
 - Async methods return `IgniteClientFuture<T>`, which is a combination of `Future<T>` and `CompletionStage<T>`;
 - Async continuations are executed using `ClientConfiguration.AsyncContinuationExecutor`, which defaults to `ForkJoinPool#commonPool()`. For example, `cache.getAsync(1).thenAccept(val -> System.out.println(val))` executes the `println` call using a thread from the `commonPool`.
+
+### Distributed Set Async Methods
+
+Available since 8.10.0. `ClientIgniteSet` has an async counterpart for each of its network operations. Each async method returns an `IgniteClientFuture`.
+
+| Synchronous | Asynchronous | Future result |
+|-------------|--------------|---------------|
+| `IgniteClient.set(name, cfg)` | `IgniteClient.setAsync(name, cfg)` | `ClientIgniteSet<T>`, or `null` if the set does not exist and `cfg` is `null` |
+| `add(o)` | `addAsync(o)` | `true` if the set did not already contain the element |
+| `addAll(c)` | `addAllAsync(c)` | `true` if the set changed |
+| `contains(o)` | `containsAsync(o)` | `true` if the set contains the element |
+| `containsAll(c)` | `containsAllAsync(c)` | `true` if the set contains all the elements |
+| `remove(o)` | `removeAsync(o)` | `true` if the set contained the element |
+| `removeAll(c)` | `removeAllAsync(c)` | `true` if the set changed |
+| `retainAll(c)` | `retainAllAsync(c)` | `true` if the set changed |
+| `size()` | `sizeAsync()` | Number of elements |
+| `isEmpty()` | `isEmptyAsync()` | `true` if the set has no elements |
+| `clear()` | `clearAsync()` | `Void` |
+| `removed()` | `removedAsync()` | `true` if the set was removed |
+| `close()` | `closeAsync()` | `Void`; removes the set |
+
+`iterator()` has no async counterpart.
+
+The element and collection arguments must not be `null`. If you pass an empty collection to `addAllAsync()`, `containsAllAsync()`, or `removeAllAsync()`, the future completes with `false`.
+
+If you pass an empty collection to `retainAllAsync()`, the method removes all elements from the set. The future completes with `true` if the set contained elements and `false` if it was already empty.
+
+```java
+IgniteClientFuture<ClientIgniteSet<String>> setFut =
+    client.setAsync("mySet", new ClientCollectionConfiguration());
+
+setFut.thenCompose(set -> set.addAsync("hello"))
+    .thenAccept(added -> System.out.println("Added: " + added));
+```
 
 ## Data Center Replication
 

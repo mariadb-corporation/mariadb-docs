@@ -18,7 +18,7 @@ See the description of each policy in the next section.
 For pure in-memory caches, when a partition is lost, the data from the partition cannot be recovered unless you load it into the cluster again.
 For persistent caches, the data is not physically lost, because it has been persisted to disk.
 When the nodes that failed or disconnected return to the cluster (after a restart), the data is loaded from the disk.
-In this case, you need to reset the state of the lost partitions in order to continue to use the data. See [Handling Partition Loss](#handling-partition-loss).
+In this case, you need to reset the state of the lost partitions to continue to use the data. See [Handling Partition Loss](#handling-partition-loss).
 
 ## Configuring Partition Loss Policy
 
@@ -57,7 +57,12 @@ cacheCfg.setPartitionLossPolicy(PartitionLossPolicy.READ_ONLY_SAFE);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cacheCfg = new CacheConfiguration("myCache")
+{
+    PartitionLossPolicy = PartitionLossPolicy.ReadOnlySafe
+};
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
@@ -94,7 +99,31 @@ ignite.events().localListen(locLsnr, EventType.EVT_CACHE_REBALANCE_PART_DATA_LOS
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+class PartitionLossListener : IEventListener<CacheRebalancingEvent>
+{
+    public bool Invoke(CacheRebalancingEvent evt)
+    {
+        Console.WriteLine("Partition lost [partition=" + evt.Partition +
+                          ", node=" + evt.DiscoveryNode + "]");
+
+        return true; // Continue listening.
+    }
+}
+
+public static void ListenToPartitionLoss()
+{
+    var cfg = new IgniteConfiguration
+    {
+        IncludedEventTypes = new[] { EventType.CacheRebalancePartDataLost }
+    };
+
+    var ignite = Ignition.Start(cfg);
+
+    ignite.GetEvents().LocalListen(new PartitionLossListener(),
+        EventType.CacheRebalancePartDataLost);
+}
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
@@ -106,7 +135,7 @@ See [Cache Rebalancing Events](../../gridgain8-development/events/events.md#cach
 ## Handling Partition Loss
 
 If data is not physically lost, you can return the nodes that left the cluster and reset the state of the lost partitions so that you can continue to work with the data.
-You can reset the state of lost partition by calling `Ignite.resetLostPartitions(cacheNames)` for specific caches or via the control script.
+You can reset the state of lost partition by calling `Ignite.resetLostPartitions(cacheNames)` (`IIgnite.ResetLostPartitions(cacheNames)` in .NET) for specific caches or via the control script.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -115,7 +144,9 @@ ignite.resetLostPartitions(Arrays.asList("myCache"));
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+ignite.ResetLostPartitions("myCache");
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
@@ -129,7 +160,7 @@ control.sh --cache reset_lost_partitions cache_name
 ```
 
 If you don't reset lost partitions, read and write operations (depending on the policy configured for the cache) from the lost partitions will throw a `CacheException`.
-You can check if the exception is due to the state of the partitions by analyzing its root cause, like so:
+You can check if the exception is due to the state of the partitions like so. In Java, analyze the exception's root cause. In .NET, check the exception message.
 
 {% tabs %}
 {% tab title="Java" %}
@@ -149,14 +180,33 @@ try {
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cache = ignite.GetCache<int, int>("myCache");
+
+try
+{
+    var value = cache.Get(3);
+    Console.WriteLine(value);
+}
+catch (CacheException e)
+{
+    if (e.Message.Contains("CacheInvalidStateException"))
+    {
+        Console.WriteLine(e.Message);
+    }
+    else
+    {
+        Console.WriteLine(e);
+    }
+}
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
 {% endtab %}
 {% endtabs %}
 
-You can get the list of lost partitions for a cache via `IgniteCache.lostPartitions()`.
+You can get the list of lost partitions for a cache via `IgniteCache.lostPartitions()` (`ICache.GetLostPartitions()` in .NET).
 
 {% tabs %}
 {% tab title="Java" %}
@@ -167,7 +217,11 @@ cache.lostPartitions();
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cache = ignite.GetCache<int, string>("myCache");
+
+ICollection<int> lostPartitions = cache.GetLostPartitions();
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
@@ -183,7 +237,7 @@ If you would rather have such reads return an empty result instead, call `withPa
 to get a cache view that ignores partition loss protection.
 
 Reads through that view do not throw an exception.
-A key that belongs to a lost partition returns `null`.
+A key that belongs to a lost partition returns `null` (in .NET, `TryGet` returns `false`).
 Keys in the surviving partitions return their values normally.
 Write operations are not affected.
 
@@ -200,14 +254,19 @@ Integer value = cache.withPartitionRecover().get(3);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cache = ignite.GetCache<int, int>("myCache");
+
+// Does not throw if key 3 is in a lost partition; TryGet returns false instead.
+var found = cache.WithPartitionRecover().TryGet(3, out var value);
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported
 {% endtab %}
 {% endtabs %}
 
-The Java thin client provides the same method on `ClientCache`:
+The thin clients provide the same method: `ClientCache.withPartitionRecover()` in the Java thin client and `ICacheClient.WithPartitionRecover()` in the .NET thin client (available starting with GridGain 8.10.0):
 
 {% tabs %}
 {% tab title="Java" %}
@@ -218,7 +277,12 @@ Integer value = cache.withPartitionRecover().get(3);
 ```
 {% endtab %}
 {% tab title="C#/.NET" %}
-unsupported
+```csharp
+var cache = client.GetCache<int, int>("myCache");
+
+// Does not throw if key 3 is in a lost partition; TryGet returns false instead.
+var found = cache.WithPartitionRecover().TryGet(3, out var value);
+```
 {% endtab %}
 {% tab title="C++" %}
 unsupported

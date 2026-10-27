@@ -48,6 +48,18 @@ Read GridGain data region and data storage metrics programmatically, and calcula
 
 {% columns %}
 {% column %}
+{% content-ref url="custom-metrics.md" %}
+[Custom Metrics](custom-metrics.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to register your own metrics in custom registries with the IgniteMetrics API, and the permissions and limitations that apply to them.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="tracing.md" %}
 [Tracing](tracing.md)
 {% endcontent-ref %}

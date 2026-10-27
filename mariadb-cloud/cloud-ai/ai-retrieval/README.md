@@ -28,9 +28,8 @@ AI Retrieval is in Public Preview. Behavior and limits can change before general
 | Document knowledge base | Files such as PDF, Word, PowerPoint, Markdown, and HTML documents | You ask a question in natural language and receive the most relevant passages, or a generated answer. |
 | Database knowledge base | Tables of an existing MariaDB service | You ask a question in natural language and receive the rows that answer it, or a generated answer. |
 
-The pages in this section describe the document knowledge base in detail.
+For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and [Database Knowledge Bases](database-knowledge-bases.md).
 
-<!-- TODO: write the database knowledge base page. Vijay confirmed on 2026-10-13 that it is in scope. Egor (2026-10-14): ask Ryan Killea for the source. -->
 
 ## How It Works
 
@@ -86,7 +85,7 @@ Retrieve & Generate can stream the answer as it is generated.
 
 ## Requirements and Availability
 
-* Knowledge bases run on AWS.
+* Knowledge bases run on AWS. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-regions).
 * The vector store must be a MariaDB service in the same cloud and region as the knowledge base, running MariaDB 11.8 or later. You can select an existing service that meets this requirement or let MariaDB Cloud provision a new MariaDB Serverless instance.
 * Your role decides what you can do with knowledge bases. See [Access and Security](access-and-security.md#roles-and-permissions).
 * You need an API key to call the REST API from an application. See [Connect Your Application](document-knowledge-bases.md#connect-your-application).
@@ -95,21 +94,9 @@ Retrieve & Generate can stream the answer as it is generated.
 
 ## Supported Files and Limits
 
-The portal accepts these file types:
+A document knowledge base accepts TXT, Markdown, HTML, JSON, Word (DOCX), PDF, and PowerPoint (PPTX) files. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-file-formats-for-document-knowledge-bases).
 
-| Format | Extension |
-| --- | --- |
-| Text | `.txt` |
-| Markdown | `.md` |
-| Web page | `.html` |
-| JSON | `.json` |
-| Microsoft Word | `.docx` |
-| PDF | `.pdf` |
-| Microsoft PowerPoint | `.pptx` |
-
-When you upload files from your computer, you can select up to 5 files at a time, and each file can be up to 50 MB.
-
-AI Retrieval cannot parse scanned documents, which are PDFs that contain only images of pages. It uses OCR only to detect the layout of a document, not to read scanned pages. Password-protected PDFs are not supported. Documents must be in English.
+Scanned documents, which are PDFs that contain only images of pages, and password-protected PDFs are not supported yet. Documents must be in English.
 
 <!-- TODO: English only and no password-protected PDFs come from Egor (2026-10-14, MCDEV-5201) and Slack, not from code. -->
 
@@ -119,15 +106,18 @@ AI Retrieval applies these default quotas.
 
 | Quota | Default | Scope |
 | --- | --- | --- |
-| Requests per second to `retrieve-chunks` | 2 | Each user |
-| Requests per second to `retrieve-chunks-and-generate`, including streaming | 2 | Each user |
+| Requests per second to `retrieve-chunks` | 2 | Each organization in a region |
+| Requests per second to `retrieve-chunks-and-generate`, including streaming | 2 | Each organization in a region |
+| Requests per second to list the chunks of a knowledge base | 2 | Each organization in a region |
 | Document size | 50 MB | Each document |
 | Concurrent ingestion jobs | 5 | Each organization in a region |
 | Concurrent data source syncs | 5 | Each organization in a region |
 
-When you exceed a request limit, the API returns HTTP status 429.
+All users of an organization share the request limits. When you exceed a request limit, the API returns HTTP status 429 with the error `ERR_RATE_LIMITED`. The response says how many seconds to wait in the `Retry-After` header. To raise a quota, contact MariaDB support and quote the quota ID from the error message.
 
-<!-- TODO: confirm with Vijay or Ryan that support can change these limits and whether the daily request quotas per organization still apply. Source: ai-retrieval-cloud packages/quotas catalog and cp_catalog_seed.json @ 5393bced; Egor, 2026-10-14: "Quotas as PRD but per user". Egor's layout document also lists 5 database knowledge bases per organization; verify. -->
+AI Retrieval also limits the MCUs that an organization can consume each month. See [Usage and Billing](usage-and-billing.md#monthly-mcu-limit).
+
+<!-- Source: skysql-microservices ai-service migrations 21 and 23 @ ca4d8483d (QPS quotas per organization since 2026-10-23; Egor's "per user" of 2026-10-14 is outdated) and ai-retrieval-cloud apigw/plugins/skysql_quota/plugin.go @ f9bd8c0e (429 text). TODO: wait for Karan Siddhpura's answers (DOCS-6592 comment 1144039) before unhiding; this table moves to the Service Quotas page. -->
 
 ## Known Limitations
 
@@ -154,12 +144,24 @@ When you exceed a request limit, the API returns HTTP status 429.
 [document-knowledge-bases.md](document-knowledge-bases.md)
 {% endcontent-ref %}
 
+{% content-ref url="database-knowledge-bases.md" %}
+[database-knowledge-bases.md](database-knowledge-bases.md)
+{% endcontent-ref %}
+
 {% content-ref url="parsing-and-chunking.md" %}
 [parsing-and-chunking.md](parsing-and-chunking.md)
 {% endcontent-ref %}
 
+{% content-ref url="supported-models-formats-and-regions.md" %}
+[supported-models-formats-and-regions.md](supported-models-formats-and-regions.md)
+{% endcontent-ref %}
+
 {% content-ref url="access-and-security.md" %}
 [access-and-security.md](access-and-security.md)
+{% endcontent-ref %}
+
+{% content-ref url="usage-and-billing.md" %}
+[usage-and-billing.md](usage-and-billing.md)
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

@@ -59,6 +59,8 @@ For **serverless** services, set the MCU thresholds. One MCU (MariaDB Compute Un
 
 Set the storage capacity and, if needed, enable storage auto-scaling.
 
+If you selected the **Analytics (HTAP)** add-on, **Instance Resources** also has an **Exa** group. Choose the Exa node size (minimum 4 vCPU / 32 GB RAM) and the Exa storage capacity there, separately from the MariaDB nodes. Under **Advanced Options**, you can also set the **MariaDB Exa Storage Type**. The cost estimate includes the Exa node. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md).
+
 ## Secure connectivity
 
 Choose how the service accepts connections:
