@@ -436,7 +436,7 @@ The suffix can be upper or lower-case.
 
 #### `debug_mutex_deadlock_detector`
 
-* Description: Enable checking of wrong mutex usage, such as mutexes locked in an order that can lead to a deadlock. Only available when the server is built with `SAFE_MUTEX`, which debug builds (built with `-DCMAKE_BUILD_TYPE=Debug`) enable by default.
+* Description: Enables checking for wrong mutex usage, such as mutexes locked in an inconsistent order. Available only in a server built with safe mutexes, which debug builds (`-DCMAKE_BUILD_TYPE=Debug`) use on all platforms except Windows.
 * Command line: `--debug-mutex-deadlock-detector[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -446,7 +446,7 @@ The suffix can be upper or lower-case.
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thread-alarm=#`
+* Command line: `--debug-no-thread-alarm[={0|1}]`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -455,7 +455,7 @@ The suffix can be upper or lower-case.
 
 #### `debug_sync`
 
-* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). MariaDB needs to be configured with -DENABLE\_DEBUG\_SYNC=1 for this variable to be available.
+* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). Available in debug builds only (`-DCMAKE_BUILD_TYPE=Debug`).
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `string`
