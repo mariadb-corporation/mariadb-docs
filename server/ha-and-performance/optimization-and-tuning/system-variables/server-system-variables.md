@@ -424,10 +424,29 @@ The suffix can be upper or lower-case.
   * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
+#### `debug_binlog_fsync_sleep`
+
+* Description: Extra time, in microseconds, to sleep after each `fsync()` on the [binary log](../../../server-management/server-monitoring-logs/binary-log/), for debugging. `0` disables it. Available in debug builds only (`-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
+#### `debug_mutex_deadlock_detector`
+
+* Description: Enables checking for wrong mutex usage, such as mutexes locked in an inconsistent order. Available only in a server built with safe mutexes, which debug builds (`-DCMAKE_BUILD_TYPE=Debug`) use on all platforms except Windows.
+* Command line: `--debug-mutex-deadlock-detector`, `--skip-debug-mutex-deadlock-detector`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thead-alarm=#`
+* Command line: `--debug-no-thread-alarm`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -436,7 +455,7 @@ The suffix can be upper or lower-case.
 
 #### `debug_sync`
 
-* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). MariaDB needs to be configured with -DENABLE\_DEBUG\_SYNC=1 for this variable to be available.
+* Description: Used in debugging to show the interface to the [Debug Sync facility](../../../clients-and-utilities/testing-tools/mariadb-test/the-debug-sync-facility.md). Available in debug builds only (`-DCMAKE_BUILD_TYPE=Debug`).
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `string`
