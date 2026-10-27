@@ -21,6 +21,8 @@ MariaDB Enterprise Server containers are primarily configured using [environment
 * `MARIADB_DATABASE`: If provided, the container creates this database on startup if it does not already exist.
 * `MARIADB_USER` and `MARIADB_PASSWORD`: These must be used together to create a non-root user account with the specified credentials.
 * `MARIADB_ROOT_HOST`: Defines the host from which the `root` user is allowed to connect, defaulting to `%` (any host).
+* `MARIADB_ROOT_TLS_CLIENT_AUTH`: When set to a true value (`1`, `true`, `yes` or `on`, case-insensitive), the `root` user is created with an X.509 `REQUIRE` clause and no password, so it authenticates with a TLS client certificate. The option alone satisfies the requirement to specify a root password option. It is used together with `MARIADB_ROOT_TLS_SUBJECT` and `MARIADB_ROOT_TLS_ISSUER`, see [environment variables](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#environment-variables) for details.
+* `MARIADB_ROOT_TLS_SUBJECT` and `MARIADB_ROOT_TLS_ISSUER`: The certificate subject and/or issuer the `root` user must present, in OpenSSL one-line format (for example, `/CN=root`). Only used when `MARIADB_ROOT_TLS_CLIENT_AUTH` is enabled. If neither is set, the account is created with `REQUIRE X509`.
 * `MARIADB_UNIX_SOCKET_AUTHENTICATION`: When set to `1`, this enables Unix socket-based authentication for the root user, allowing passwordless access when connecting locally.
 * `MARIADB_INITDB_SKIP_TZINFO`: Setting this to any non-empty value prevents the automatic loading of timezone data into the system tables.
 * `SKIP_INIT_WSREP_OFF`: When set, the temporary server used during initialization is allowed to start with Galera Cluster replication (`wsrep`) enabled.

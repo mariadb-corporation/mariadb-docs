@@ -82,6 +82,7 @@ MariaDB Enterprise Kubernetes Operator provides stable Long-Term Support (LTS) v
 | Version | Supported Kubernetes Versions | Description                                              |
 | ------- | ----------------------------- | -------------------------------------------------------- |
 | `25.10` | `>=1.32.0-0 <= 1.34.0-0`      | LTS 25.10. It was tested to work up to kubernetes v1.34. |
+| `26.10` | `>=1.32.0-0 <= 1.36.0-0`      | LTS 26.10. It was tested to work up to kubernetes v1.36. |
 
 If you instead wish to install a specific LTS release, you can do:
 
@@ -119,6 +120,28 @@ helm install mariadb-enterprise-operator \
   --set currentNamespaceOnly=true \
   mariadb-enterprise-operator/mariadb-enterprise-operator
 ```
+
+## FIPS mode
+
+To run the operator in [FIPS 140-3 mode](../security/fips.md), set `fips.enabled`. The chart injects `GODEBUG=fips140=on` into the operator:
+
+```sh
+helm install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator \
+  -f values.yaml \
+  --set fips.enabled=true
+```
+
+Set `fips.strict` as well to inject `GODEBUG=fips140=only` instead. Strict mode requires [TLS client certificate authentication](../security/tls-client-authentication.md) in your `MariaDB` resources and does not support multi-cluster.
+
+## MaxScale license
+
+MaxScale Enterprise 26.10 and later requires a license key. To avoid configuring it in every `MaxScale` resource, create a Secret named `enterprise-license-key` with a `license` key in the operator namespace, which is the default value of `config.enterpriseLicenseKeyRef`:
+
+```sh
+kubectl create secret generic enterprise-license-key --from-literal=license=<key>
+```
+
+Use `-n <namespace>` to create it in the namespace where the operator is installed. Set `config.enterpriseLicenseKeyRef.name` and `config.enterpriseLicenseKeyRef.key` to use a different Secret. Refer to the [MaxScale documentation](../topologies/maxscale.md#licensing) for further details.
 
 ## Updates
 
@@ -249,13 +272,15 @@ helm uninstall mariadb-enterprise-operator-crds
 | certController.tolerations | list | `[]` | Tolerations to add to cert-controller container |
 | certController.topologySpreadConstraints | list | `[]` | topologySpreadConstraints to add to cert-controller container |
 | clusterName | string | `"cluster.local"` | Cluster DNS name |
-| config.exporterImage | string | `"mariadb/mariadb-prometheus-exporter-ubi:1.1.1"` | Default MariaDB exporter image |
-| config.exporterMaxscaleImage | string | `"mariadb/maxscale-prometheus-exporter-ubi:1.1.1"` | Default MaxScale exporter image |
+| config.enterpriseLicenseKeyRef.key | string | `"license"` | Key of the Secret holding the default Enterprise license key. |
+| config.enterpriseLicenseKeyRef.name | string | `"enterprise-license-key"` | Name of the Secret holding the default Enterprise license key. It is used as the license for MaxScale instances whose version requires one and that do not define `spec.licenseSecretKeyRef` themselves. If the Secret does not exist, the operator does not inject a default license. |
+| config.exporterImage | object | `{"repository":"mariadb/mariadb-prometheus-exporter-ubi","tag":"1.2.1"}` | Default MariaDB exporter image |
+| config.exporterMaxscaleImage | object | `{"repository":"mariadb/maxscale-prometheus-exporter-ubi","tag":"1.2.1"}` | Default MaxScale exporter image |
 | config.galeraLibPath | string | `"/usr/lib64/galera/libgalera_enterprise_smm.so"` | Galera Enterprise library path to be used with Galera |
-| config.mariadbDefaultVersion | string | `"11.8"` | Default MariaDB Enterprise version to be used when unable to infer it via image tag |
-| config.mariadbImage | string | `"docker.mariadb.com/enterprise-server:11.8.5-2"` | Default MariaDB Enterprise image |
+| config.mariadbDefaultVersion | string | `"12.3"` | Default MariaDB Enterprise version to be used when unable to infer it via image tag |
+| config.mariadbImage | object | `{"repository":"docker.mariadb.com/enterprise-server","tag":"12.3.3-0"}` | Default MariaDB Enterprise image |
 | config.mariadbImageName | string | `"docker.mariadb.com/enterprise-server"` | Default MariaDB Enterprise image name |
-| config.maxscaleImage | string | `"docker.mariadb.com/maxscale:25.10.1"` | Default MaxScale Enterprise image |
+| config.maxscaleImage | object | `{"repository":"docker.mariadb.com/maxscale","tag":"26.10.0"}` | Default MaxScale Enterprise image |
 | crds | object | `{"enabled":false}` | CRDs |
 | crds.enabled | bool | `false` | Whether the helm chart should create and update the CRDs. It is false by default, which implies that the CRDs must be managed independently with the mariadb-enterprise-operator-crds helm chart. **WARNING** This should only be set to true during the initial deployment. If this chart manages the CRDs and is later uninstalled, all MariaDB instances will be DELETED. |
 | currentNamespaceOnly | bool | `false` | Whether the operator should watch CRDs only in its own namespace or not. |
@@ -264,6 +289,8 @@ helm uninstall mariadb-enterprise-operator-crds
 | extraEnvFrom | list | `[]` | Extra environment variables from preexiting ConfigMap / Secret objects used by the controller using envFrom |
 | extraVolumeMounts | list | `[]` | Extra volumes to mount to the container. |
 | extraVolumes | list | `[]` | Extra volumes to pass to pod. |
+| fips.enabled | bool | `false` | Enable FIPS 140-3 mode for the operator by injecting `GODEBUG=fips140=on`. The image must be built with a FIPS-capable Go Cryptographic Module (`GOFIPS140`). |
+| fips.strict | bool | `false` | Enable strict FIPS 140-3 mode by injecting `GODEBUG=fips140=only` instead of `fips140=on`, which additionally panics on all non-FIPS-approved cryptographic algorithms. Requires `fips.enabled`. |
 | fullnameOverride | string | `""` |  |
 | ha.enabled | bool | `false` | Enable high availability of the controller. If you enable it we recommend to set `affinity` and `pdb` |
 | ha.replicas | int | `3` | Number of replicas |

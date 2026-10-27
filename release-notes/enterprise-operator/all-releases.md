@@ -8,6 +8,7 @@ description: A list of all MariaDB Enterprise Kubernetes Operator releases
 
 | Version           | Release Date | Release Status |
 | ----------------- | ------------ | -------------- |
+| [26.10](26.10/)   | 2026-11-03   | Stable (GA)    |
 | [26.06](26.06/)   | 2026-06-30   | Stable (GA)    |
 | [26.03](26.03/)   | 2026-03-11   | Stable (GA)    |
 | [25.10](25.10/)   | 2025-10-22   | Stable (GA)    |

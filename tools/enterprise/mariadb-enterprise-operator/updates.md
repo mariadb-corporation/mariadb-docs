@@ -124,6 +124,26 @@ The operator will not perform updates on the `StatefulSet` whenever this update 
 * Progressive fleet upgrades: If you're managing large fleets of databases, you likely prefer to roll out updates progressively rather than simultaneously across all instances.
 * Operator upgrades: When upgrading the operator, changes to the `StatefulSet` or the `Pod` template may occur from one version to another, which could trigger a rolling update of your `MariaDB` instances.
 
+## Major version upgrades
+
+When the `image` crosses a major version of MariaDB Enterprise Server (for example, from `11.8` to `12.3`), the system schema must be migrated with `mariadb-upgrade`. Set `updateStrategy.mariadbAutoUpgradeEnabled` to `true` **before** changing the `image`, so that the official image entrypoint runs `mariadb-upgrade` when the `Pods` start:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+spec:
+  # [...]
+  image: docker.mariadb.com/enterprise-server:12.3.3-0
+  updateStrategy:
+    type: ReplicasFirstPrimaryLast
+    mariadbAutoUpgradeEnabled: true
+  # [...]
+```
+
+It defaults to `false`. Under the hood it sets `MARIADB_AUTO_UPGRADE=true` in the `mariadb` container, which can be overridden with `spec.env`.
+
 ## Data-plane updates
 
 Highly available topologies rely on [data-plane containers](topologies/data-plane.md) that run alongside MariaDB to enable the remote management of the database instances. These containers use the `mariadb-enterprise-operator` image, which can be automatically updated by the operator based on its image version:
