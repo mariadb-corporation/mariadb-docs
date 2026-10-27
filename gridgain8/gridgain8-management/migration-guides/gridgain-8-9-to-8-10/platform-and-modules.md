@@ -28,7 +28,7 @@ The following modules are removed in GridGain 8.10. Take the action in the *What
 | `ignite-lucene-8` | `ignite-lucene-9`, or the Lucene 10 line in `libs/optional`. See [Lucene](#lucene). | Not deprecated |
 | `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). | 8.9.37 |
 | `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../clustering/discovery-in-the-cloud.md). | 8.9.37 |
-| `ignite-ssh` | Contact GridGain Support if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). | Not deprecated |
+| `ignite-ssh` | [Contact GridGain Support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). | Not deprecated |
 | `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). | 8.9.39 |
 | `ignite-mesos` | None. Mesos deployments stay on 8.9.x. | 8.9.39 |
 | `ignite-ml`, `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, `ignite-ml-mleap-model-parser` | The Apache Ignite `ignite-ml-ext` extension or the standalone GridGain ML download. See [Machine Learning Module Removed](#machine-learning-module-removed). | 8.9.38 |
@@ -50,7 +50,7 @@ This section applies if you start remote nodes with `IgniteCluster.startNodes()`
 
 The `ignite-ssh` module is removed and no longer ships in `libs/optional`. The `org.gridgain:ignite-ssh` artifact is no longer published. `IgniteCluster.startNodes()` and `startNodesAsync()` remain in the API, but they need an SSH implementation on the node classpath. Without one, `startNodes()` throws an `IgniteException` with the message `Failed to create Ignite component (consider adding ignite-ssh module to classpath)`.
 
-Contact GridGain Support before you upgrade.
+[Contact GridGain Support](https://mariadb.com/support/) before you upgrade.
 
 ### AWS Module Removed
 

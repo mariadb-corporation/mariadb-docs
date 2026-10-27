@@ -90,7 +90,7 @@ These changes affect cluster configuration, deployment, and operational tooling.
 | Per-feature license checks | Always: compare your license with your configuration | Config-only | [Per-Feature License Checks](security-and-licensing.md#per-feature-license-checks) |
 | Jetty 12 | You use a custom `jetty.xml` for the REST connector | Config-only | [Jetty 12 Is the Only REST Implementation](platform-and-modules.md#jetty-12-is-the-only-rest-implementation) |
 | Lucene lines | You run `ignite-lucene-8`, or want to use Lucene 10 | Mechanical | [Lucene](platform-and-modules.md#lucene) |
-| `ignite-ssh` module removed | You start remote nodes with `startNodes()` | Contact GridGain Support | [SSH Module Removed](platform-and-modules.md#ssh-module-removed) |
+| `ignite-ssh` module removed | You start remote nodes with `startNodes()` | [Contact GridGain Support](https://mariadb.com/support/) | [SSH Module Removed](platform-and-modules.md#ssh-module-removed) |
 | SFTP host key verification | You send snapshots to an SFTP destination | Config-only | [SFTP Snapshot Transport Verifies the Host Key by Default](configuration-and-defaults.md#sftp-snapshot-transport-verifies-the-host-key-by-default) |
 | Server-side SQL `COPY` | You use `COPY` against files or object stores | Config-only | [Server-Side SQL COPY](security-and-licensing.md#server-side-sql-copy) |
 | Vector search limits | You use vectors with more than 4096 dimensions, or request more than 10000 neighbors | Config-only | [Vector Search Limits](configuration-and-defaults.md#vector-search-limits) |
