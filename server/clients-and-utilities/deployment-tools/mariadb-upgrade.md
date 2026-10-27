@@ -14,7 +14,7 @@ Previously, the client was called `mysql_upgrade`. It can still be accessed unde
 
 ## Overview
 
-You should run `mariadb-upgrade` after upgrading from one major MariaDB release to another, such as from MariaDB 10.11 to MariaDB 11.4. You also have to use `mariadb-upgrade` after migrating to MariaDB from MySQL. It's also safe to run `mariadb-upgrade` for minor upgrades, as, if there are no incompatibilities, nothing is changed.
+You should run `mariadb-upgrade` after upgrading from one major MariaDB release to another, such as from MariaDB 10.11 to MariaDB 11.4. You also have to use `mariadb-upgrade` after migrating to MariaDB from MySQL. It's also safe to run `mariadb-upgrade` for minor upgrades, as, if there are no incompatibilities, nothing is changed. Run it, too, after restoring a backup taken on an older MariaDB version into a newer one, particularly if the server warns about the structure of tables in the `mysql` database.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -24,7 +24,7 @@ From MariaDB 10.7.2 / 10.6.6:
 
 `mariadb-upgrade` needs to be run as a user with write access to the data directory.
 
-Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file.
+Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mariadb_upgrade_info` (`datadir/mysql_upgrade_info` before MariaDB 11.0), so that the tool can write the current MariaDB version into the file.
 {% endtab %}
 
 {% tab title="< 10.7.2 / 10.6.6" %}
@@ -118,10 +118,10 @@ If you have a problem with `mariadb-upgrade`, try running it in very verbose mod
 mariadb-upgrade --verbose --verbose other-options
 ```
 
-`mariadb-upgrade` also saves the MariaDB version number in a file named `mysql_upgrade_info` in the [data directory](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). This is used to quickly check whether all tables have been checked for this release so that table-checking can be skipped. For this reason,`mariadb-upgrade` needs to be run as a user with write access to the data directory. To ignore this file and perform the check regardless, use the `--force` option.
+`mariadb-upgrade` also saves the MariaDB version number in a file named `mariadb_upgrade_info` (`mysql_upgrade_info` before MariaDB 11.0) in the [data directory](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). This is used to quickly check whether all tables have been checked for this release so that table-checking can be skipped. For this reason,`mariadb-upgrade` needs to be run as a user with write access to the data directory. To ignore this file and perform the check regardless, use the `--force` option.
 
 {% hint style="warning" %}
-Because this check relies on the version recorded in `mysql_upgrade_info`, restoring a `mariadb-dump` (`mysqldump`) backup taken from an older server version can leave the restored system tables out of date while the file still shows the current version. In that case, `mariadb-upgrade` reports that no upgrade is needed, so run it with the `--force` option to upgrade the restored tables.
+Because this check relies on the version recorded in `mariadb_upgrade_info`, restoring a `mariadb-dump` (`mysqldump`) backup taken from an older server version can leave the restored system tables out of date while the file still shows the current version. In that case, `mariadb-upgrade` reports that no upgrade is needed, so run it with the `--force` option to upgrade the restored tables.
 {% endhint %}
 
 ## Connecting to the Server
@@ -139,7 +139,7 @@ Because this check relies on the version recorded in `mysql_upgrade_info`, resto
   mariadb-upgrade --user=root --password
   ```
 
-  To avoid the prompt, put `user` and `password` in the `[mariadb-upgrade]` group of an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md).
+  To avoid the prompt, put `user` and `password` in the `[mariadb-upgrade]` group of an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). The password is stored there in plain text, so make the file readable only by the operating system user that runs `mariadb-upgrade` (for example, with `chmod 600`), and remove the password once the upgrade is done.
 
 ## Options
 
