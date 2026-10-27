@@ -48,6 +48,10 @@ None of the following requires downtime, except where noted.
    - Otherwise, compare your 8.9 `libs` and `libs/optional` folders with a fresh 8.9 distribution to list the modules you added or moved by hand. Copy only those that you use and that still exist in 8.10.
    - A module that you enabled in 8.9 by moving it into `libs`, for example `ignite-opencensus`, is not enabled in 8.10 until you do the same there.
    - `control-center-agent` is in `libs/optional`. If you use it, move it into `libs`, and use Control Center 2026.2.
+   - These steps describe a ZIP installation. For other deployments:
+     - Docker: `ignite-opencensus` is no longer enabled by default. If your configuration uses `OpenCensusTracingSpi` or `OpenCensusMetricExporterSpi`, add it to `OPTION_LIBS`, or the node fails at startup with `ClassNotFoundException`. See [Enabling Modules](../../installation/installing-using-docker.md#enabling-modules).
+     - Kubernetes: with the [GridGain Operator](../../installation/operator/overview.md), set `option_libs`, and check its value if you rely on a module that is no longer on the classpath by default. See [option_libs](../../installation/operator/operator-configuration.md#option_libs). For a manual deployment, see [Creating Pod Configuration](../../installation/kubernetes/generic-configuration.md#creating-pod-configuration).
+     - Maven or an embedded node: there is no `libs/optional` folder to move. See [Using Maven](../../../gridgain8-development/project-setup.md#using-maven) and [Enabling Modules](../../../gridgain8-development/project-setup.md#enabling-modules).
 
    See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) and [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes).
 2. *Update applications and build files.* Apply the changes from your work list: Spring, Hibernate, removed modules, and client changes.
