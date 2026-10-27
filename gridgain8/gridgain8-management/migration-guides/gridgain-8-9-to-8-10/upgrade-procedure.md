@@ -46,7 +46,7 @@ None of the following requires downtime, except where noted.
    - If you run only the modules that ship in `libs` by default, use the 8.10 `libs` folder exactly as shipped.
    - Otherwise, compare your 8.9 `libs` and `libs/optional` folders with a fresh 8.9 distribution to list the modules you added or moved by hand. Copy only those that you use and that still exist in 8.10.
    - A module that you enabled in 8.9 by moving it into `libs`, for example `ignite-opencensus`, is not enabled in 8.10 until you do the same there.
-   - `control-center-agent` is in `libs/optional`. If you use it, move it into `libs`.
+   - `control-center-agent` is in `libs/optional`. If you use it, move it into `libs`, and use Control Center 2026.2.
 
    See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) and [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes).
 2. *Update applications and build files.* Apply the changes from your work list: Spring, Hibernate, removed modules, and client changes.
@@ -281,7 +281,7 @@ With the cluster running on 8.10, confirm it is healthy before you consider the 
 1. *Check the cluster and the data.* Run `control.sh --baseline` and compare the node list with your baseline. The output starts with `Cluster state: active` and lists every node as `ONLINE`. Run a query from a client, compare row counts with the values before the upgrade, and run `control.sh --cache idle_verify`. A healthy run ends with `idle_verify check has finished, no conflicts have been found.`
 2. *Reset lost partitions.* If you have caches without backups, look for `Detected lost partitions` in the node logs and reset them as described in [Application Behavior During a Rolling Upgrade](#application-behavior-during-a-rolling-upgrade).
 3. *Run the real workload.* Run your regression suite or production workload end to end and confirm it passes.
-4. *Reconnect monitoring and tooling.* Confirm that the nodes connect to Control Center (the agent must be in `libs`), check the node logs for license errors, and update tooling that reads JMX object metrics.
+4. *Reconnect monitoring and tooling.* Confirm that the nodes connect to Control Center 2026.2 (the agent must be in `libs`), check the node logs for license errors, and update tooling that reads JMX object metrics.
 5. *Re-establish backups.* On Ultimate Edition, take a first snapshot on 8.10 and confirm it completes. On Enterprise Edition, plan your regular backups of the persistence folders.
 6. *Optional: switch to Lucene 10.* If you plan to use it, switch every node after the upgrade is finished. See [Lucene](platform-and-modules.md#lucene).
 
