@@ -2556,7 +2556,7 @@ description: >-
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
-* Description: Does nothing and is deprecated, do not use.
+* Description: Deprecated and has no effect. Do not use.
 
 [**service**](maxscale-filters/maxscale-tee-filter.md#service)
 
