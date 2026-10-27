@@ -39,10 +39,14 @@ Control Center stores non-sensitive data from the cluster. If Control Center is 
 
 ### Cluster and Control Center Connection
 
-Cluster authenticates Control Center via HTTPS only. As long as Control Center’s certificate is valid, the cluster grants it non-sensitive access with no additional authorization. Note that:
+The cluster authenticates Control Center by its certificate only when the Control Center URI uses `https://`. As long as Control Center’s certificate is valid, the cluster grants it non-sensitive access with no additional authorization. Note that:
 
 - It is assumed that the Control Center’s URI is known to the cluster. The cluster chose to connect to that specific URI and had checked that the URI matched the certificate.
 - Most non-sensitive access is carried out via push from the cluster to Control Center. This means that clusters control what is sent.
+
+{% hint style="warning" %}
+The cluster also accepts an `http://` Control Center URI, and the default URI is `http://localhost:3000`. With an `http://` URI, the cluster does not authenticate Control Center, and the data it sends is not encrypted. Use an `https://` URI outside local testing.
+{% endhint %}
 
 By default, Control Center does not authenticate the cluster on the first connection.
 
