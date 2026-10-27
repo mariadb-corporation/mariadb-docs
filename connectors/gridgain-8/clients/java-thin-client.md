@@ -656,6 +656,45 @@ try (IgniteClient client = Ignition.startClient(clientCfg)) {
 
 Refer to the main [cluster groups](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/cluster-groups) documentation page for more details on the capability.
 
+## Managing Cluster State and WAL
+
+The `ClientCluster` interface, available through `IgniteClient.cluster()`, lets you read and change the cluster state and control write-ahead logging (WAL) for a cache. Each operation has a synchronous method and an asynchronous counterpart.
+
+| Operation | Synchronous | Asynchronous (since 8.10) |
+|---|---|---|
+| Get the cluster state | `state()` returns `ClusterState` | `stateAsync()` returns `IgniteClientFuture<ClusterState>` |
+| Change the cluster state | `state(ClusterState)` | `stateAsync(ClusterState)` returns `IgniteClientFuture<Void>` |
+| Disable WAL for a cache | `disableWal(String)` returns `boolean` | `disableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Enable WAL for a cache | `enableWal(String)` returns `boolean` | `enableWalAsync(String)` returns `IgniteClientFuture<Boolean>` |
+| Check whether WAL is enabled | `isWalEnabled(String)` returns `boolean` | `isWalEnabledAsync(String)` returns `IgniteClientFuture<Boolean>` |
+
+The `ClusterState` values are `INACTIVE`, `ACTIVE`, and `ACTIVE_READ_ONLY`.
+
+{% hint style="warning" %}
+Deactivating the cluster clears in-memory caches that are not backed by persistence, including the system caches.
+{% endhint %}
+
+`disableWal` and `enableWal` return `true` if the call changed the WAL state, and `false` if WAL was already in the requested state. WAL state can be changed only for persistent caches.
+
+```java
+try (IgniteClient client = Ignition.startClient(clientCfg)) {
+    ClientCluster cluster = client.cluster();
+
+    // Synchronous
+    cluster.state(ClusterState.ACTIVE);
+    boolean disabled = cluster.disableWal("myCache");
+
+    // Asynchronous
+    cluster.stateAsync(ClusterState.ACTIVE_READ_ONLY).get();
+    boolean enabled = cluster.enableWalAsync("myCache").get();
+    boolean walOn = cluster.isWalEnabledAsync("myCache").get();
+}
+```
+
+A WAL operation on a cache that does not exist fails with a `ClientException`: the synchronous methods throw it, and the future returned by an asynchronous method fails with it. If the server does not support the Cluster API, the operation fails with `ClientFeatureNotSupportedByServerException`.
+
+For more information about asynchronous methods, see [Async APIs](#async-apis).
+
 ## Executing Compute Tasks
 
 The Java thin client supports basic [compute capabilities](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/distributed-computing/distributed-computing)
@@ -983,6 +1022,40 @@ getFut.thenAccept(val -> System.out.println(val)); // Non-blocking continuation.
 - Async methods do not block the calling thread;
 - Async methods return `IgniteClientFuture<T>`, which is a combination of `Future<T>` and `CompletionStage<T>`;
 - Async continuations are executed using `ClientConfiguration.AsyncContinuationExecutor`, which defaults to `ForkJoinPool#commonPool()`. For example, `cache.getAsync(1).thenAccept(val -> System.out.println(val))` executes the `println` call using a thread from the `commonPool`.
+
+### Distributed Set Async Methods
+
+Available since 8.10.0. `ClientIgniteSet` has an async counterpart for each of its network operations. Each async method returns an `IgniteClientFuture`.
+
+| Synchronous | Asynchronous | Future result |
+|-------------|--------------|---------------|
+| `IgniteClient.set(name, cfg)` | `IgniteClient.setAsync(name, cfg)` | `ClientIgniteSet<T>`, or `null` if the set does not exist and `cfg` is `null` |
+| `add(o)` | `addAsync(o)` | `true` if the set did not already contain the element |
+| `addAll(c)` | `addAllAsync(c)` | `true` if the set changed |
+| `contains(o)` | `containsAsync(o)` | `true` if the set contains the element |
+| `containsAll(c)` | `containsAllAsync(c)` | `true` if the set contains all the elements |
+| `remove(o)` | `removeAsync(o)` | `true` if the set contained the element |
+| `removeAll(c)` | `removeAllAsync(c)` | `true` if the set changed |
+| `retainAll(c)` | `retainAllAsync(c)` | `true` if the set changed |
+| `size()` | `sizeAsync()` | Number of elements |
+| `isEmpty()` | `isEmptyAsync()` | `true` if the set has no elements |
+| `clear()` | `clearAsync()` | `Void` |
+| `removed()` | `removedAsync()` | `true` if the set was removed |
+| `close()` | `closeAsync()` | `Void`; removes the set |
+
+`iterator()` has no async counterpart.
+
+The element and collection arguments must not be `null`. If you pass an empty collection to `addAllAsync()`, `containsAllAsync()`, or `removeAllAsync()`, the future completes with `false`.
+
+If you pass an empty collection to `retainAllAsync()`, the method removes all elements from the set. The future completes with `true` if the set contained elements and `false` if it was already empty.
+
+```java
+IgniteClientFuture<ClientIgniteSet<String>> setFut =
+    client.setAsync("mySet", new ClientCollectionConfiguration());
+
+setFut.thenCompose(set -> set.addAsync("hello"))
+    .thenAccept(added -> System.out.println("Added: " + added));
+```
 
 ## Data Center Replication
 
