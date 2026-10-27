@@ -984,6 +984,40 @@ getFut.thenAccept(val -> System.out.println(val)); // Non-blocking continuation.
 - Async methods return `IgniteClientFuture<T>`, which is a combination of `Future<T>` and `CompletionStage<T>`;
 - Async continuations are executed using `ClientConfiguration.AsyncContinuationExecutor`, which defaults to `ForkJoinPool#commonPool()`. For example, `cache.getAsync(1).thenAccept(val -> System.out.println(val))` executes the `println` call using a thread from the `commonPool`.
 
+### Distributed Set Async Methods
+
+Available since 8.10.0. `ClientIgniteSet` has an async counterpart for each of its network operations. Each async method returns an `IgniteClientFuture`.
+
+| Synchronous | Asynchronous | Future result |
+|-------------|--------------|---------------|
+| `IgniteClient.set(name, cfg)` | `IgniteClient.setAsync(name, cfg)` | `ClientIgniteSet<T>`, or `null` if the set does not exist and `cfg` is `null` |
+| `add(o)` | `addAsync(o)` | `true` if the set did not already contain the element |
+| `addAll(c)` | `addAllAsync(c)` | `true` if the set changed |
+| `contains(o)` | `containsAsync(o)` | `true` if the set contains the element |
+| `containsAll(c)` | `containsAllAsync(c)` | `true` if the set contains all the elements |
+| `remove(o)` | `removeAsync(o)` | `true` if the set contained the element |
+| `removeAll(c)` | `removeAllAsync(c)` | `true` if the set changed |
+| `retainAll(c)` | `retainAllAsync(c)` | `true` if the set changed |
+| `size()` | `sizeAsync()` | Number of elements |
+| `isEmpty()` | `isEmptyAsync()` | `true` if the set has no elements |
+| `clear()` | `clearAsync()` | `Void` |
+| `removed()` | `removedAsync()` | `true` if the set was removed |
+| `close()` | `closeAsync()` | `Void`; removes the set |
+
+`iterator()` has no async counterpart.
+
+The element and collection arguments must not be `null`. If you pass an empty collection to `addAllAsync()`, `containsAllAsync()`, or `removeAllAsync()`, the future completes with `false`.
+
+If you pass an empty collection to `retainAllAsync()`, the method removes all elements from the set. The future completes with `true` if the set contained elements and `false` if it was already empty.
+
+```java
+IgniteClientFuture<ClientIgniteSet<String>> setFut =
+    client.setAsync("mySet", new ClientCollectionConfiguration());
+
+setFut.thenCompose(set -> set.addAsync("hello"))
+    .thenAccept(added -> System.out.println("Added: " + added));
+```
+
 ## Data Center Replication
 
 ### Sender Groups
