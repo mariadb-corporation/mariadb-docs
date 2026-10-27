@@ -43,7 +43,7 @@ The right path depends on your 8.9 cluster:
 ## Upgrade Constraints
 
 - *Java 17 or later is required.* Every server node, client application, and application that embeds GridGain must run on it. See [Java 17 or Later](platform-and-modules.md#java-17-or-later).
-- *Downgrade is not supported.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. Back up the 8.9 data first: take a full snapshot on Ultimate Edition, or copy `storagePath`, `walPath`, and `walArchivePath` of every node on Enterprise Edition. After the upgrade, restoring that backup is the only way to recover 8.9, and everything written after the backup is lost. See [Recovery Path](upgrade-procedure.md#recovery-path).
+- *Downgrade is not supported.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. Back up the 8.9 data first. On Ultimate Edition, take a full snapshot. On Enterprise Edition, which has no snapshots, copy the `db` folder of every node, and also the folders that `storagePath`, `walPath`, and `walArchivePath` point to if you set them. After the upgrade, restoring that backup is the only way to recover 8.9, and everything written after the backup is lost. See [Recovery Path](upgrade-procedure.md#recovery-path).
 - *Caches without backups are unavailable during a rolling upgrade.* Partitions on a stopped node cannot be served. See [Application Behavior During a Rolling Upgrade](upgrade-procedure.md#application-behavior-during-a-rolling-upgrade).
 - *Some integrations have no 8.10 replacement.* Mesos deployments stay on 8.9.x. See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations).
 
