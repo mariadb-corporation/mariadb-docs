@@ -35,7 +35,7 @@ The following modules are removed in GridGain 8.10. Take the action in the *What
 | `gridgain-diagnostic`, `gridgain-tools`, `gridgain-yardstick` (Enterprise and Ultimate) | None. | Not deprecated |
 | Local store support (`@CacheLocalStore`, `CacheFileLocalStore`) | Native persistence or a regular `CacheStore`. See [Local Store Support Removed](#local-store-support-removed). | `IGNITE_LOCAL_STORE_KEEPS_PRIMARY_ONLY` and `CacheFileLocalStore` in 8.9.39 |
 
-The following modules are not removed in 8.10 and still ship in `libs/optional`: `ignite-cassandra-store`, `ignite-cassandra-serializers`, `ignite-kubernetes`, `ignite-zookeeper`, `ignite-gce`, `ignite-jta`, `ignite-yarn`, `ignite-compress`, and `ignite-direct-io`.
+The following modules are not removed in 8.10 and still ship in `libs/optional`: `ignite-cassandra-store`, `ignite-cassandra-serializers`, `ignite-kubernetes`, `ignite-zookeeper`, `ignite-gce`, `ignite-jta`, `ignite-yarn`, `ignite-compress`, `ignite-direct-io`, and `ignite-web`.
 
 
 ### Gridify API Removed
