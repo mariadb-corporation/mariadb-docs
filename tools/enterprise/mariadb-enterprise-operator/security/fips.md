@@ -27,6 +27,22 @@ helm install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-ent
 
 This will inject the required environment variable into the operator's Pod to enable FIPS mode.
 
+Alternatively, the Helm chart provides dedicated values that inject `GODEBUG` for you:
+
+```yaml
+fips:
+  enabled: true
+```
+
+| Value | Default | Description |
+|-------|---------|-------------|
+| `fips.enabled` | `false` | Enable FIPS 140-3 mode by injecting `GODEBUG=fips140=on` into the operator. The operator image must be built with a FIPS-capable Go Cryptographic Module (`GOFIPS140`). |
+| `fips.strict` | `false` | Inject `GODEBUG=fips140=only` instead of `fips140=on`, which additionally panics on any non-FIPS-approved cryptographic algorithm. Requires `fips.enabled`. |
+
+{% hint style="warning" %}
+Strict mode (`fips.strict: true`) cannot use password-based authentication, so every `MariaDB` must use [TLS client certificate authentication](tls-client-authentication.md). It does not support [multi-cluster](../topologies/multi-cluster.md) either. Upstream Go does not recommend `fips140=only` for general production use, see the [Go FIPS 140-3 documentation](https://go.dev/doc/security/fips140#the-fips140-godebug-option).
+{% endhint %}
+
 ### OpenShift
 
 If you have deployed the operator on OpenShift, you need to edit the `Subscription` for the MariaDB Enterprise Operator to inject the environment variable. After deploying the operator, edit the subscription and add the `config` section to the spec:
@@ -124,6 +140,10 @@ The MariaDB Enterprise Operator utilizes the `mysql_native_password` authenticat
 
 - **Encryption in Transit**: Enable TLS for all database connections. The Operator configures the underlying clients to use NIST-approved cryptography (e.g., NIST-approved elliptic curves) for TLS, so the authentication exchange is wrapped within a TLS tunnel.
 - **Encryption at Rest**: By configuring encryption at rest with an approved elliptic curve, passwords will be stored using NIST-approved cryptography.
+
+{% hint style="info" %}
+Under strict FIPS mode (`GODEBUG=fips140=only`), password-based authentication cannot be used, as the initial handshake evaluates SHA-1. Use [TLS client certificate authentication](tls-client-authentication.md) instead.
+{% endhint %}
 
 ## Limitations
 

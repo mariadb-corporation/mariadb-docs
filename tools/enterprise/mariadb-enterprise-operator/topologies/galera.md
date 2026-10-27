@@ -76,6 +76,14 @@ A list of the available options can be found in the [MariaDB documentation](http
 
 If you have a Kubernetes cluster running with IPv6, the operator will automatically detect the IPv6 addresses of your `Pods` and it will configure several [wsrep provider](#wsrep-provider) options to ensure that the Galera protocol runs smoothly with IPv6.
 
+## State transfers and probes
+
+When a `Pod` joins the cluster without a valid state, Galera performs a State Snapshot Transfer (SST): the joiner's data directory is streamed from a donor. On large datasets this takes a long time, and while it runs `mysqld` doesn't accept connections, so the regular health checks can't succeed.
+
+To avoid the kubelet restarting the joiner mid transfer, and therefore restarting the SST from scratch, the liveness probe returns a successful response whenever an SST is in progress in that `Pod`. This is detected via the state files that the SST scripts write to the data directory, which are local to the `Pod` and remain available even when the Kubernetes API is unreachable.
+
+The readiness probe is unaffected: a `Pod` receiving an SST stays not ready, and therefore out of the `Services`, until it reaches the `Synced` state.
+
 
 ## Galera cluster recovery
 
