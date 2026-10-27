@@ -115,7 +115,7 @@ On a service with the **Analytics (HTAP)** add-on, the **MANAGE** menu has two m
 * **Scale Exa nodes vertically:** select a different Exa node size.
 * **Scale Exa storage:** change the Exa storage size, IOPS, or throughput.
 
-You can't change the Exa storage type, and you can't reduce the Exa storage size. See [Scaling MariaDB Exa](../quickstart/htap-mariadb-exa.md#scaling-mariadb-exa) for the REST API calls.
+When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa. You can't change the Exa storage type, and you can't reduce the Exa storage size. See [Scaling MariaDB Exa](../quickstart/htap-mariadb-exa.md#scaling-mariadb-exa) for the REST API calls.
 
 ## Delete a Service
 

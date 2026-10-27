@@ -122,6 +122,8 @@ Each user can submit one request. If you submit again, the portal shows *HTAP re
 
 On the Foundation tier, the **Analytics (HTAP)** card opens the tier upgrade dialog instead of the request dialog. Upgrade to Power or PowerPlus first.
 
+During the technical preview, MariaDB Exa is also available on request for [Bring Your Own Cloud (BYOC)](bring-your-own-cloud-byoc.md) services.
+
 ## Launching a MariaDB Exa HTAP cluster
 
 ### Via MariaDB Cloud portal (UI)
@@ -189,6 +191,10 @@ After the service is **ready**, use the service response (or the same steps as t
 ## Scaling MariaDB Exa
 
 You scale the Exa node and its storage separately from the MariaDB nodes.
+
+{% hint style="warning" %}
+When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+{% endhint %}
 
 * **Exa node size:** in the portal, open the service, then click **Manage** → **Scale Exa nodes vertically** and select another size. Through the REST API, send `POST /provisioning/v1/services/{service_id}/analytics-node-pool` with the new `size`.
 * **Exa storage:** in the portal, click **Manage** → **Scale Exa storage** and change the size, IOPS, or throughput. Through the REST API, send `PATCH /provisioning/v1/services/{service_id}/analytics-storage` with `size`, `iops`, or `throughput`. The request returns an error if the service has no Exa volume, and it returns HTTP 425 while the storage is in a cooldown period after a recent change.
@@ -265,14 +271,9 @@ Deep Dive: For a full list of supported SQL functions, detailed data type mappin
 * On port 3311, `DATETIME` (without fractional seconds) and `TIMESTAMP` values come back padded with NUL bytes. `DATETIME(6)` and `DATE` values are not affected, and neither are queries on port 3306. To get clean text, use `TO_CHAR()` or `CAST(<column> AS VARCHAR(40))`.
 * The portal does not show replication failures between MariaDB and Exa.
 * You can't turn off Exa on its own on an existing service.
+* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
 
 **SQL dialect** The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
-
-**DDL replication**\
-`RENAME TABLE` and `DROP DATABASE` are **not** replicated through the CDC currently; you may need **manual** steps to keep MariaDB and Exa aligned after such DDL.
-
-**Case sensitivity**\
-MariaDB Exa may use **case-insensitive** identifier matching by default; **result column labels** can still appear in **uppercase** even when the query uses mixed or lowercase names.
 
 **Deterministic aggregates**\
 For functions such as `GROUP_CONCAT`, add an explicit **`ORDER BY`** inside the aggregate (where supported) so ordering is stable if different engines evaluate the plan differently.

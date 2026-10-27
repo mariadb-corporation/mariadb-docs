@@ -10,7 +10,7 @@ hidden: true
 <!-- DRAFT for DOCS-6500 (epic MCDEV-3354, fixVersion MariaDB Cloud Oct. 2026). HIDDEN until release is confirmed.
 Reveal checklist: set date -> rename to mariadb-cloud-YYYY.MM.DD.md -> update SUMMARY + README content-ref -> drop hidden: true -> expand {alias} links (direct-main commit).
 Open items before reveal: (1) release date: Allen (Jira, 2026-10-26) says Wed-Fri, Oct 28-30; wait for the update in #mariadb-exa-in-the-cloud-ga-mcdev-3354, then set the exact day; (2) stage and access (user, 2026-10-26): Technical Preview, available only on request (epic MCDEV-3354 is named PP; MCDEV-5430 would open it later);
-(3) 50 MB transaction limit: treat as final (user, 2026-10-26); (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (Jira shows MCDEV-5412 Ready for Production, but Allen's comment wins); MCDEV-5403 (CDC loses rows on Exasol restart) is not listed; (5) BYOC: undecided (Kalin asked product on 2026-10-26 whether to offer Exa on BYOA/BYOC because of the shared Exasol license), so nothing about BYOC is written. Monitoring is an Exasol dashboard (UI dashboard title "Exasol"). Evidence: research/DOCS-6500.md -->
+(3) 50 MB transaction limit: treat as final (user, 2026-10-26); (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (Jira shows MCDEV-5412 Ready for Production, but Allen's comment wins); MCDEV-5403 (CDC loses rows on Exasol restart) is not listed; (5) BYOC: offered in the TP (Allen, Kalin's thread 2026-10-26: "we've been offering it for BYOC so far"; a 6-month TP license was applied on Test and Prod), so soft wording only; MCDEV-5523 (BYOC storage pricing) open. (6) Allen (Jira 2026-10-26): removed the DDL replication and case-sensitivity limitations from the HTAP page (resolved) and added the stop-or-pause-writes warning for Exa scaling. Monitoring is an Exasol dashboard (UI dashboard title "Exasol"). Evidence: research/DOCS-6500.md -->
 
 # MariaDB Cloud YYYY.MM.DD Release Notes: MariaDB Exa
 
@@ -45,6 +45,7 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * Requires the **Power** or **PowerPlus** service tier.
 * Available on `amd64` (Intel/AMD) only.
 * Exa is enabled per organization. In the Cloud Portal, request access from the **MariaDB Exa** option when you launch a service.
+* During the Technical Preview, Exa is also available on request for Bring Your Own Cloud (BYOC) services.
 
 ## Limitations
 
@@ -57,5 +58,6 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * On Azure, when you create a service through the REST API, set the Exa storage `volume_type` explicitly, for example `StandardSSD_LRS`. If you omit it, the Exa disk takes the MariaDB disk type, which the Exa node can't use, and the Exasol pod fails to start. The Cloud Portal sets a supported type for you.
 * The portal does not show replication failures between MariaDB and Exa.
 * You cannot turn off Exa on its own on an existing service.
+* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
