@@ -46,7 +46,7 @@ None of the following requires downtime, except where noted.
    - If you run only the modules that ship in `libs` by default, use the 8.10 `libs` folder exactly as shipped.
    - Otherwise, compare your 8.9 `libs` and `libs/optional` folders with a fresh 8.9 distribution to list the modules you added or moved by hand. Copy only those that you use and that still exist in 8.10.
    - A module that you enabled in 8.9 by moving it into `libs`, for example `ignite-opencensus`, is not enabled in 8.10 until you do the same there.
-   - `control-center-agent` is in `libs/optional` in 8.10 (and in 8.9.39). If you use it, move it into `libs`. Nodes on 8.9.38 or earlier load it by default, so they need this step too.
+   - `control-center-agent` is in `libs/optional`. If you use it, move it into `libs`.
 
    See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations) and [Distribution and Packaging Changes](platform-and-modules.md#distribution-and-packaging-changes).
 2. *Update applications and build files.* Apply the changes from your work list: Spring, Hibernate, removed modules, and client changes.
