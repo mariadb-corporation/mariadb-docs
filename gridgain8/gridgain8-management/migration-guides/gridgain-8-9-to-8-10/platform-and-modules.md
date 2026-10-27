@@ -169,6 +169,7 @@ The `DataSource` configuration API changed:
 - `setLocalDataCenter()` is required when you specify explicit contact points and no custom load balancing policy.
 - Policies are configured by class: `setLoadBalancingPolicyClass()`, `setReconnectionPolicyClass()`, `setRetryPolicyClass()`, `setAddressTranslatorClass()`, and `setSpeculativeExecutionPolicyClass()` replace the former instance-based setters.
 - `setPoolingOptions()`, `setSocketOptions()`, and `setNettyOptions()` are removed. Use `setConfigFile()` and a driver configuration file.
+- `setCollectMetrix()` and `setJmxReporting()` are removed. Driver 4 collects metrics only when you enable them in the driver configuration file.
 - `setSslOptions()` is replaced by `setSslEngineFactory()`.
 - `user` and `password` are mutually exclusive with `credentials`. Set one or the other.
 
