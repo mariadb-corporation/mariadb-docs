@@ -69,6 +69,10 @@ spec:
   mariaDbRef:
     name: mariadb-galera
 
+  licenseSecretKeyRef:
+    name: maxscale-license
+    key: license
+
   services:
     - name: rw-router
       router: readwritesplit
@@ -90,7 +94,7 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.224
 ```
 
-As you can see, the [MaxScale resources](maxscale.md#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR.
+As you can see, the [MaxScale resources](maxscale.md#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR. The `spec.licenseSecretKeyRef` field is optional, see the [Licensing](maxscale.md#licensing) section.
 
 The previous example configured a `MaxScale` for a Galera cluster, but you may also configure `MaxScale` with a `MariaDB` that uses replication. It is important to note that the monitor module is automatically inferred by the operator based on the `MariaDB` reference you provided, however, its parameters are specific to each monitor module:
 
@@ -339,6 +343,54 @@ Both this global configuration and the resources created by the operator using t
 
 Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-configuration-settings) for more details about the supported parameters.
 
+## Licensing
+
+Starting with MaxScale 26.10, MaxScale Enterprise requires a license key (`license_key`) to start.
+
+To avoid configuring a license on every `MaxScale` resource, the operator supports a single default Enterprise license, configured at the operator level via the `config.enterpriseLicenseKeyRef` Helm value (defaults to a Secret named `enterprise-license-key` with a `license` key, in the operator's own namespace).
+
+The license is resolved in the following order:
+
+1. The Secret referenced by `spec.licenseSecretKeyRef`, which always takes precedence.
+2. The operator-level default.
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-galera
+spec:
+  mariaDbRef:
+    name: mariadb-galera
+  licenseSecretKeyRef:
+    name: maxscale-license
+    key: license
+```
+
+Licensing is enforced by the operator: when the image version of a `MaxScale` requires a license and none can be resolved from the operator-level default, the operator emits a `MaxScaleLicenseNotFound` Event and **fails reconciliation** (the `Ready` condition is set to `False`) instead of letting MaxScale start without one. If `spec.licenseSecretKeyRef` is set but its Secret or key cannot be found, reconciliation also fails and the error is reported in the `Ready` condition.
+
+{% hint style="info" %}
+Only MaxScale images that require a license, currently 26.10 and later, are licensed by the operator. For older images, such as 25.10.x, and for images whose version cannot be determined from the tag (custom images or digest references), the operator neither injects the default license nor fails when it is missing, so set `spec.licenseSecretKeyRef` explicitly if the MaxScale version requires one.
+{% endhint %}
+
+{% hint style="info" %}
+The default license Secret must live in a namespace the operator watches. This is always the case for cluster-wide installs and for `currentNamespaceOnly` installs, but if the operator is restricted to a fixed set of namespaces that does not include its own (via `WATCH_NAMESPACE`), the default is not resolved and `spec.licenseSecretKeyRef` must be set on each `MaxScale` instead.
+{% endhint %}
+
+### License rotation
+
+The resolved license key is embedded in the static `maxscale.cnf` (`license_key=...`), the same file that carries the rest of the global configuration. Because of that, **rotating the license key (via the default Secret or `spec.licenseSecretKeyRef`) changes the config hash and triggers a rolling restart of the MaxScale Pods**, following `spec.updateStrategy`, just like any other change to `spec.config.params`.
+
+{% hint style="warning" %}
+The operator only watches the Secret referenced by `spec.licenseSecretKeyRef`, and only when it carries the `enterprise.mariadb.com/watch` label. The default license Secret is not watched: after rotating it, the change is only picked up on the next reconciliation of each `MaxScale`.
+
+To get the rotation picked up immediately, reference the license via `spec.licenseSecretKeyRef` and label the Secret:
+
+```bash
+kubectl label secret maxscale-license enterprise.mariadb.com/watch=""
+```
+{% endhint %}
+
 ## Authentication
 
 MaxScale requires authentication with different levels of permissions for the following components/actors:
@@ -515,6 +567,10 @@ kubectl scale maxscale maxscale-galera --replicas 3
 ```
 
 Or even configuring an `HorizontalPodAutoscaler` to do the job automatically.
+
+{% hint style="info" %}
+After updating the operator from a version prior to `26.6.7`, every existing `MaxScale` receives one monitor `PATCH`, because the monitor spec hash (`status.monitorSpec`) now also covers `spec.servers`. As a consequence, `mariadbmon` re-acquires its cooperative monitoring locks and automatic failover is paused for about 5 monitor ticks. This does not trigger a switchover or a rolling update.
+{% endhint %}
 
 ## Suspend resources
 
