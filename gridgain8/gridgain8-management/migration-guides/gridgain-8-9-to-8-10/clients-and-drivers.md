@@ -42,11 +42,11 @@ This section applies if you use the .NET or C++ client.
 
 ## Thin Clients and Mixed Versions
 
-This section applies if thin clients connect to a cluster during a rolling upgrade, or if 8.10 clients connect to 8.9 servers.
+This section applies if thin clients connect to a cluster during a rolling upgrade, or if 8.10 clients connect to 8.9 servers, or 8.9 clients connect to 8.10 servers.
 
-GridGain 8.9.38 and 8.9.39 tell their peers that they support three thin client features that they do not implement: the partition recover flag of cache operations (`withPartitionRecover()`), the HNSW build parameters of a vector index, and the vector index storage (quantization). In 8.10 these features have new feature IDs (45, 46, and 47), and IDs 37, 38, and 39 are reserved, so an 8.10 server or client no longer assumes that an 8.9 peer supports them. Without this change, an 8.10 Java thin client and an 8.9.38 or 8.9.39 server break each other when a cache configuration that has a vector index is sent or read: `getOrCreateCache(cfg)` fails with `Channel is closed`, and `getConfiguration()` fails with `BufferUnderflowException`.
+GridGain 8.9.39 tells its peers that it supports three thin client features that it does not implement: the partition recover flag of cache operations (`withPartitionRecover()`), the HNSW build parameters of a vector index, and the vector index storage (quantization). GridGain 8.10 no longer assumes that an 8.9 peer supports these features, so an 8.10 client or server treats them as unavailable on 8.9.
 
-- *Use an 8.10 build that has the change.* Builds that were made before the change still use IDs 38 and 39, and have the failure above against 8.9.38 and 8.9.39.
 - *Features that an 8.9 server lacks are refused by the client.* The thin client protocol version is the same in 8.9 and 8.10, and new capabilities are negotiated with feature flags, so a client built with the 8.10 libraries connects to an 8.9 server. From an 8.10 client, `withPartitionRecover()` on an 8.9 server fails with `ClientFeatureNotSupportedByServerException: Feature CACHE_WITH_PARTITION_RECOVER is not supported by the server`, and a vector index with HNSW build parameters or quantization is refused in the same way. Upgrade the servers first, or do not use these features until the whole cluster runs 8.10.
+- *8.9 clients work with 8.10 servers.* The 8.9 thin clients (Java, .NET, and C++), the JDBC driver, and the ODBC driver connect to an 8.10 server.
 
 
