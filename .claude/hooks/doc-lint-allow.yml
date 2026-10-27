@@ -51,8 +51,10 @@
 orphan:
 
 shrink:
-  - path: gridgain8/gridgain8-management/installation/aws/README.md
+  - path: gridgain-8/gridgain8-management/installation/aws/README.md
     reason: "AMI and Terraform child pages removed (GG-51429), remaining children still listed — DOCS-6980"
+  - path: server/reference/plugins/api-plugin/api.md
+    reason: "generated; since MDBF-1224 the members live on the group pages and api.md only indexes the groups — DOCS-6988"
   - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
     reason: "three pre-10.5 version tabs removed, current text kept — DOCS-6750"
   - path: server/reference/system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md
@@ -63,11 +65,11 @@ shrink:
     reason: "5.5-10.1 sections and a flowchart of pre-10.6 behavior replaced by a short list of what 10.6+ does — DOCS-6755"
   - path: server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/README.md
     reason: "cards for the six deleted pre-10.6 upgrade guides removed; the remaining cards are kept — DOCS-6755"
-  - path: gridgain8/reference/error-codes/README.md
+  - path: gridgain-8/reference/error-codes/README.md
     reason: "Critical Failures Handling moved verbatim to tuning-and-troubleshooting/critical-failures-handling.md; a hint links to it — DOCS-6896"
-  - path: gridgain9/reference/configuration/README.md
+  - path: gridgain-9/reference/configuration/README.md
     reason: "configuration structure and CLI update prose moved to gridgain9-management/cluster-configuration.md; the page now lists only the parameter references — DOCS-6896"
-  - path: gridgain9/security/README.md
+  - path: gridgain-9/security/README.md
     reason: "seven child cards regrouped under two sub-hubs (authentication-and-authorization/, encryption-and-transport/), which list all seven, matching SUMMARY.md — DOCS-6896"
   - path: tools/enterprise/mariadb-enterprise-manager/administration/deployment/adding-databases/README.md
     reason: "split into without-MaxScale, with-MaxScale and GridGain 8 subpages; the hub links all three — DOCS-6280"

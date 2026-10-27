@@ -159,6 +159,8 @@ This enables [server discovery](#automatic-server-node-discovery) as well.
 If the client is behind a NAT or a proxy, automatic server discovery may not work.
 In this case provide addresses of all server nodes in the client's connection configuration.
 
+Since 8.10.0, when partition awareness is enabled, the client sends requests that cannot be routed by key to all live connections in turn (round-robin).
+
 ## Using Key-Value API
 
 ### Getting Cache Instance
@@ -233,6 +235,36 @@ var value = await cache.GetAsync(1);
 Console.WriteLine(value); // Hello, World!
 ```
 
+### Adding Entries to a Data Streamer Asynchronously
+
+The data streamer (`IDataStreamerClient`) buffers entries. When a buffer is full, it is scheduled for a background flush. The number of flush operations that can be active per node is limited by `DataStreamerClientOptions.PerNodeParallelOperations`.
+
+When this limit is exceeded, `Add()` and `Remove()` block the calling thread. To wait without blocking the thread, use the asynchronous counterparts, which return a `ValueTask`:
+
+- `AddAsync(key, value)` adds an entry to the streamer. When `value` is `null`, the cache entry is removed. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`.
+- `RemoveAsync(key)` adds a removal entry. Removal requires `DataStreamerClientOptions.AllowOverwrite` to be `true`. Otherwise, `RemoveAsync` throws an `IgniteClientException`.
+
+Both methods throw an `ObjectDisposedException` when the streamer is closed or disposed.
+
+In asynchronous methods, use `AddAsync` and `RemoveAsync` instead of `Add` and `Remove`, so that the calling thread is never blocked.
+
+```csharp
+var options = new DataStreamerClientOptions { AllowOverwrite = true };
+
+await using (var streamer = client.GetDataStreamer<int, string>("myCache", options))
+{
+    for (var i = 0; i < 1000; i++)
+        await streamer.AddAsync(i, i.ToString());
+
+    // Adds a removal entry for key 2000.
+    await streamer.RemoveAsync(2000);
+}
+```
+
+{% hint style="info" %}
+`AddAsync` and `RemoveAsync` are available starting with GridGain 8.10.0.
+{% endhint %}
+
 ### Closing a Data Streamer Asynchronously
 
 The thin-client data streamer (`IDataStreamerClient`) implements `IAsyncDisposable` in addition to `IDisposable`. Use an `await using` block to dispose of the streamer asynchronously: the buffered entries are flushed to the cluster without blocking the calling thread.
@@ -241,29 +273,59 @@ The thin-client data streamer (`IDataStreamerClient`) implements `IAsyncDisposab
 await using (var streamer = client.GetDataStreamer<int, string>("myCache"))
 {
     for (var i = 0; i < 1000; i++)
-        streamer.Add(i, i.ToString());
+        await streamer.AddAsync(i, i.ToString());
 }
 // DisposeAsync calls CloseAsync(cancel: false): the buffered entries are
 // flushed to the cluster without blocking the calling thread.
 ```
 
-### Closing a Transaction Asynchronously
+### Using Transactions with async/await
 
-A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`. Use an `await using` block so that, if the transaction is disposed without being committed, the rollback is sent to the cluster without blocking the calling thread.
+Available since 8.10. The thin client stores the current transaction (`ITransactionsClient.Tx`) per asynchronous flow instead of per thread. You can use `await` inside a transaction block, even when the continuation resumes on a different thread-pool thread. All asynchronous cache operations, such as `PutAsync`, `GetAsync`, `GetAllAsync`, and `RemoveAsync`, run inside the current transaction. `TransactionScope` works with asynchronous operations in the same way.
 
 ```csharp
 await using (var tx = client.GetTransactions().TxStart())
 {
-    cache.Put(1, cache.Get(1) - 100);
-    cache.Put(2, cache.Get(2) + 100);
+    await cache.PutAsync(1, 10);
+    await cache.PutAsync(2, 20);
 
     tx.Commit();
 }
-// Commit() is synchronous - the thin-client transaction has no async commit.
-// The benefit of "await using" is disposal: if the block exits without
-// Commit() (for example, on an exception), DisposeAsync rolls the
+```
+
+The current transaction flows to any task started from inside the transaction block, for example with `Task.Run`, and that task can use the transaction.
+
+{% hint style="info" %}
+In earlier versions, the current transaction was bound to the thread that started it. Operations that ran after an `await` on a different thread executed outside the transaction. To restore the thread-bound behavior, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true` before you start the client. The value is not case-sensitive.
+{% endhint %}
+
+### Closing a Transaction Asynchronously
+
+A thin-client transaction (`ITransactionClient`) implements `IAsyncDisposable` in addition to `IDisposable`, and provides the `CommitAsync()` and `RollbackAsync()` methods. Use them together with an `await using` block to complete the transaction without blocking the calling thread. `CommitAsync()` and `RollbackAsync()` are available since 8.10.0.
+
+```csharp
+await using (var tx = client.GetTransactions().TxStart())
+{
+    await cache.PutAsync(1, await cache.GetAsync(1) - 100);
+    await cache.PutAsync(2, await cache.GetAsync(2) + 100);
+
+    await tx.CommitAsync();
+}
+// CommitAsync() sends the commit to the cluster without blocking the
+// calling thread. If the block exits without CommitAsync() or
+// RollbackAsync() (for example, on an exception), DisposeAsync rolls the
 // transaction back without blocking the calling thread.
 ```
+
+Once a transaction is committed or rolled back, calling `Commit`, `Rollback`, `CommitAsync`, or `RollbackAsync` on it again throws an `InvalidOperationException`.
+
+#### Using Async/Await Within a Transaction
+
+The thin client keeps track of the current transaction per asynchronous flow (`AsyncLocal`) rather than per thread. The transaction therefore stays active across `await` points, even when the continuation resumes on a different thread, and every cache operation in the `await using` block above runs inside the transaction. This behavior is available since 8.10.0.
+
+{% hint style="info" %}
+To restore the previous behavior, where the current transaction is bound to the thread that started it, set the `IGNITE_TX_USE_THREAD_LOCAL` environment variable to `true`. Consider this if your code starts background work from inside a transaction, for example with `Task.Run`: such work can see the current transaction when it is tracked per asynchronous flow.
+{% endhint %}
 
 ### Closing a Continuous Query Asynchronously
 
@@ -299,6 +361,61 @@ cache.Put(1, val);
 
 var value = cache.Get(1);
 ```
+
+### Bypassing Partition Loss Protection
+
+Under the `READ_WRITE_SAFE` and `READ_ONLY_SAFE` partition loss policies, a read of a key that belongs to a lost partition throws an exception. To get a cache view that ignores partition loss protection, call `ICacheClient.WithPartitionRecover()`. Reads of keys in lost partitions through this view do not throw an exception: `TryGet` returns `false`, and `Get` throws a `KeyNotFoundException`, as it does for any missing key.
+
+```csharp
+var cache = client.GetCache<int, int>("myCache");
+
+// Without WithPartitionRecover(), cache.Get(3) throws IgniteClientException
+// if key 3 is in a lost partition.
+var found = cache.WithPartitionRecover().TryGet(3, out var value);
+```
+
+{% hint style="info" %}
+`WithPartitionRecover()` is available starting with GridGain 8.10.0.
+{% endhint %}
+
+The method returns a cache view and does not modify the original one, so you can keep using both. You can combine `WithPartitionRecover()` with the `WithKeepBinary()`, `WithExpiryPolicy()`, and `WithSkipStore()` methods.
+
+The server must run GridGain 8.10.0 or later. If the server does not support this feature, the operation throws an `IgniteClientException`.
+
+The view affects reads only. Writes behave as they do without the view:
+
+* Under `READ_ONLY_SAFE` and `READ_ONLY_ALL`, all writes fail for all keys with the message "cache is moved to a read-only state".
+* Under `READ_WRITE_SAFE`, writes to keys in lost partitions fail. Writes to other keys succeed.
+
+
+### Skipping Cache Store
+
+When [cache store](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/persistence/external-storage) is set up, cache operations always read from and write to that storage. In certain scenarios, you may need to bypass it instead. For this, use the `ICacheClient.WithSkipStore()` method to get a cache instance that bypasses cache store. Read-through and write-through are disabled for this instance.
+
+Available since 8.10.0.
+
+The example below shows how you can set it up:
+
+```csharp
+var cache = client.GetCache<int, string>("myCache");
+
+// Reads and writes go through the cache store.
+cache.Put(1, "1");
+
+var cacheSkipStore = cache.WithSkipStore();
+
+// The cache store is not updated.
+cacheSkipStore.Put(2, "2");
+
+// If key 3 exists only in the cache store, it is not loaded: TryGet returns false.
+var found = cacheSkipStore.TryGet(3, out _);
+```
+
+The original cache instance is not modified, so you can keep using both. You can combine `WithSkipStore()` with `WithKeepBinary()` and `WithExpiryPolicy()` methods.
+
+{% hint style="info" %}
+The server must support this feature. Otherwise, operations on a cache instance returned by `WithSkipStore()` throw `IgniteClientException`.
+{% endhint %}
 
 ## Scan Queries
 

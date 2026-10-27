@@ -31,6 +31,14 @@ change that breaks this assumption shows up as a skip rather than as a
 plausible-looking wrong link. Links that already resolve are never touched, and
 neither is any cross-page link.
 
+One exception, from MDBF-1224 (DOCS-6988): a struct with two fields of the same
+name. `sql_service_st` has two `length` fields; moxygen links them as
+`#length-1` and `#length-2`, GitBook publishes `#length` and `#length-1`. The
+second link is dead and has two candidates, and the first resolves -- to the
+wrong field. When the section holds as many links of that name as headings,
+they are paired in document order (the attribute table lists the fields in the
+order of their headings), and all of them are rewritten, the live one too.
+
 An unresolved fragment is reported on stderr and left as it was, but does NOT
 fail the step: blocking the whole daily sync -- frontmatter, SUMMARY.md, the
 pull request -- over an in-page navigation nit would be out of proportion, and
@@ -89,34 +97,61 @@ def section_bounds(page, fragcheck, line_no):
     return start, end
 
 
+def pair_by_order(links, line_no, frag, want, in_section, fragcheck, start, end):
+    """[(line_no, frag, anchor)] for a section whose repeated name can't resolve.
+
+    When a struct has two fields of the same name, the links in its attribute
+    table and the field headings below come in the same order, so the k-th link
+    belongs to the k-th heading. Only used when the counts match; every link of
+    that name in the section is paired, because a link whose suffix happens to
+    resolve may resolve to the wrong field (`#length-1` asked for the first
+    `length` of `sql_service_st`, which GitBook publishes as `#length`).
+    """
+    same = [(n, t[1:]) for t, n in links
+            if t.startswith('#') and start < n < end and
+            fragcheck.gitbook_slug(SUFFIX.sub('', t[1:])) == want]
+    if len(same) != len(in_section) or (line_no, frag) not in same:
+        return None
+    return [(n, f, in_section[k][2]) for k, (n, f) in enumerate(same)]
+
+
 def fix_page(page, fragcheck):
     """Returns (rewrites, unresolved) for one page, rewriting it in place."""
     anchors = published_anchors(page, fragcheck)
     live = {anchor for _, _, anchor in anchors}
     lines = page.read_text().split('\n')
+    links = fragcheck.links_of(page)
 
-    rewrites, unresolved = [], []
-    for target, line_no in fragcheck.links_of(page):
+    rewrites, unresolved, paired = [], [], set()
+    for target, line_no in links:
         if not target.startswith('#'):
             continue                      # cross-page; not this defect
         frag = target[1:]
-        if frag in live:
+        if frag in live or (line_no, frag) in paired:
             continue                      # already resolves; leave it alone
         want = fragcheck.gitbook_slug(SUFFIX.sub('', frag))
         matches = [a for a in anchors if a[1] == want]
         start, end = section_bounds(page, fragcheck, line_no)
         in_section = [a for a in matches if start < a[0] < end]
         candidates = in_section or matches
-        if len(candidates) != 1:
-            unresolved.append((line_no, frag, len(candidates)))
-            continue
-        anchor = candidates[0][2]
-        old, new = f']({target})', f'](#{anchor})'
-        if old not in lines[line_no - 1]:
-            unresolved.append((line_no, frag, -1))
-            continue
-        lines[line_no - 1] = lines[line_no - 1].replace(old, new)
-        rewrites.append((line_no, frag, anchor))
+        if len(candidates) == 1:
+            todo = [(line_no, frag, candidates[0][2])]
+        else:
+            todo = pair_by_order(links, line_no, frag, want, in_section,
+                                 fragcheck, start, end)
+            if todo is None:
+                unresolved.append((line_no, frag, len(candidates)))
+                continue
+        for n, f, anchor in todo:
+            paired.add((n, f))
+            if f == anchor:
+                continue
+            old, new = f'](#{f})', f'](#{anchor})'
+            if old not in lines[n - 1]:
+                unresolved.append((n, f, -1))
+                continue
+            lines[n - 1] = lines[n - 1].replace(old, new, 1)
+            rewrites.append((n, f, anchor))
 
     if rewrites:
         page.write_text('\n'.join(lines))

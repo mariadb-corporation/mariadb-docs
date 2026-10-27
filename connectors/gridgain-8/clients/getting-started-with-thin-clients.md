@@ -46,6 +46,7 @@ The following table outlines features supported by each client.
 | Compute | Yes | Yes | Yes | No | No | No |
 | Continuous Queries | Yes | Yes | Yes | No | No | No |
 | Service Invocation | Yes | Yes | No | No | No | No |
+| Service Awareness | Yes | No | No | No | No | No |
 | Server Discovery | Yes | Yes | No | No | No | No |
 | Server Discovery in Kubernetes | Yes | No | No | No | No | No |
 | Data Streaming | No | Yes | No | No | No | No |

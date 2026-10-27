@@ -68,6 +68,27 @@ new field with a different name to your object model and removing the old one. T
 supported. At the same time, the `ALTER TABLE` command can be used to add new
 columns or remove existing ones at run time.
 
+## Field Type Conflict Between Field Names That Differ in Case
+
+Every binary field has a field ID that is calculated from the field name. The default ID mapper ignores case, so the `data` and `DATA` field names have the same field ID. Starting with GridGain 8.10, binary metadata is merged by field ID. The cluster rejects a field whose name differs from an existing field name only in case, if it has a different type. You may see one of the following errors:
+
+- `BinaryObjectException: Wrong value has been set [typeName=..., fieldId=..., existingFieldName=data, fieldName=DATA, fieldType=String, assignedValueType=Timestamp]` when a binary object is built.
+- `BinaryObjectException: Type '...' with typeId ... has a different/incorrect type for field 'DATA', which has the same field ID (...) as field 'data'. Expected 'String' but 'Timestamp' was provided.` when the metadata is updated, for example by an SQL `INSERT` or `UPDATE`.
+- `IgniteSQLException: Cannot add column 'EXTRA' of type 'Timestamp': binary type '...' already has field 'extra' of type 'String' with the same field ID.` when an `ALTER TABLE ... ADD COLUMN` statement runs.
+
+The error message names both fields and their types. To fix the issue, change the data model:
+
+- Use one spelling of the field name everywhere: in the POJO, the binary object builder, `QueryEntity`, and SQL.
+- Give the new field a name that differs by more than case, or the same type as the existing field.
+
+The type of an existing field cannot be changed. If you must reuse the field name with another type, back up the binary metadata folder of every node (`<work dir>/db/binary_meta/<node folder>` by default). Then delete the data that uses the old field type and remove the type metadata with the `--meta remove` command [described above](#cluster-does-not-start-after-field-type-changes). Use the `typeId` from the error message.
+
+{% hint style="warning" %}
+Removing metadata cannot be undone. If you remove the wrong type, the stored data cannot be read until you restore the metadata folders from the backup.
+{% endhint %}
+
+As a temporary workaround, you can set the `IGNITE_BINARY_METADATA_MERGE_BY_FIELD_ID_FEATURE` system property to `false` on one of the cluster nodes (this requires a node restart).  While any node has this property set to `false`, the whole cluster merges by field name, as in earlier versions. 
+
 ## Saving WAL Data to Disk on Corruption
 
 The normal way to deal with data corruption is to use [maintenance mode](../gridgain8-management/maintenance-mode.md) to resolve the corruption issue and return to normal operation. Sometimes it may lead to data  being lost, for example when the index file is restored to a state not accounting for WAL. You can enable the  `IGNITE_DUMP_PERSISTENCE_FILES_ON_DATA_CORRUPTION` system property to save all stored data to the `{GRIDGAIN_HOME}/db/dump` folder when corruption is detected.

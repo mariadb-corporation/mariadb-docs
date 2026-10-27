@@ -28,15 +28,15 @@ graph TD
     accDescr {
         Two groups are drawn. Access & Routing holds Application Clients, Port
         3310 and Maxscale. Storage & Analytics holds MariaDB Primary + replicas
-        (Binlog Source), CDC using Debezium (Async) and MariaDB Exa (in memory
+        (Binlog Source), MaxScale CDC (Async) and MariaDB Exa (in memory
         columnar). Application Clients and Port 3310 are joined by a line with no
         direction. An arrow leads from Port 3310 to Maxscale, whose text reads:
         All writes to Primary; OLTP reads load balance to MariaDB cluster; All
         Analytical queries goto MariaDB Exa. Two arrows lead from Maxscale: Writes
         & OLTP Reads to MariaDB Primary + replicas, and Analytical Queries to
         MariaDB Exa. In the second group, an arrow leads from MariaDB Primary +
-        replicas to CDC using Debezium, and an arrow labelled CDC Feed (Async)
-        leads from CDC using Debezium to MariaDB Exa.
+        replicas to MaxScale CDC, and an arrow labelled CDC Feed (Async)
+        leads from MaxScale CDC to MariaDB Exa.
     }
     %% Row 1: Access & Routing
     subgraph Routing_Layer [Access & Routing]
@@ -50,7 +50,7 @@ graph TD
         DB_Primary["<b>MariaDB Primary + replicas</b><br/>(Binlog Source)"]
         
         %% CDC Flow (Middle of Row 2)
-        DB_Primary ==> CDC("<b>CDC using Debezium</b><br/>(Async)")
+        DB_Primary ==> CDC("<b>MaxScale CDC</b><br/>(Async)")
         
         CDC == "CDC Feed (Async)" ==> EXA["<b>MariaDB Exa</b><br/>in memory columnar"]
     end
@@ -87,9 +87,9 @@ The **OLTP** (online transactional processing) engine. All write operations and 
 
 A high-performance, in-memory **columnar** database for **OLAP** (online analytical processing) workloads.
 
-#### **Debezium CDC**
+#### **MaxScale CDC**
 
-An out-of-band, asynchronous pipeline that reads MariaDB binary logs and streams changes into the MariaDB Exa side of the topology.
+An out-of-band, asynchronous pipeline that reads MariaDB binary logs through MaxScale and streams changes into the MariaDB Exa side of the topology. It runs in its own pod next to the Exasol node.
 
 ### Data propagation and consistency
 
@@ -99,7 +99,7 @@ All writes (`INSERT`, `UPDATE`, `DELETE`) go to the MariaDB **primary** on **por
 
 #### **Asynchronous replication**
 
-Data reaches Exa through the binary log and Debezium CDC. That path is **out of band** and **asynchronous** relative to the transactional database.
+Data reaches Exa through the binary log and MaxScale CDC. That path is **out of band** and **asynchronous** relative to the transactional database.
 
 #### **Replication lag**
 
@@ -122,6 +122,8 @@ Each user can submit one request. If you submit again, the portal shows *HTAP re
 
 On the Foundation tier, the **Analytics (HTAP)** card opens the tier upgrade dialog instead of the request dialog. Upgrade to Power or PowerPlus first.
 
+During the technical preview, MariaDB Exa is also available on request for [Bring Your Own Cloud (BYOC)](bring-your-own-cloud-byoc.md) services.
+
 ## Launching a MariaDB Exa HTAP cluster
 
 ### Via MariaDB Cloud portal (UI)
@@ -137,9 +139,10 @@ Exa must already be enabled for your organization. See [Requesting access to Mar
 <figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache, both marked Tech Preview with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
 
 6. Select your cloud provider and region.
-7. Under **Instance Resources**, pick an instance size. The minimum size for the Exa node is **4 vCPU / 32 GB RAM**. **The cluster is homogeneous:** the OLTP **primary**, **replicas**, and the **Exa** node all use the **same** instance size you select. With Exa enabled, only **high-memory** instance types are shown—size RAM for both transactional load and your analytical working set.
-8. Review the cost estimate in the footer: it reflects the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing.
-9. Deploy the service. Naming and remaining steps follow the standard flow. Provisioning usually takes about **5–10 minutes**.
+7. Under **Instance Resources**, pick the instance size for the MariaDB nodes. In the **Exa** group, pick the Exa node size and storage capacity separately. The minimum size for the Exa node is **4 vCPU / 32 GB RAM**. Size the Exa node RAM for your analytical working set, and the MariaDB nodes for your transactional load.
+8. Under **Advanced Options**, set the **MariaDB Exa Storage Type** and, where the provider supports it, the Exa IOPS and throughput. If you don't set them, Exa uses the MariaDB volume settings. You can't change the Exa storage type after the service is created.
+9. Review the cost estimate in the footer: it includes the Exa node. **CDC is included** in the service; there is **no** separate charge for CDC processing. Exa compute, storage, IOPS, and throughput are metered separately from MariaDB. On BYOC services, MariaDB Cloud bills only the Exa compute, and your cloud provider bills the Exa storage. See [Billing](../cloud-usage/billing.md).
+10. Deploy the service. Naming and remaining steps follow the standard flow. Provisioning usually takes about **5–10 minutes**.
 
 For all options on this page, see [Launch Page](../cloud-usage/launch-page.md).
 
@@ -147,11 +150,13 @@ For all options on this page, see [Launch Page](../cloud-usage/launch-page.md).
 
 For **API keys**, client IP **allow list**, checking service **`ready`** status, and fetching **credentials**, follow [Launch DB using the REST API](launch-db-using-the-rest-api.md). The [MariaDB Cloud REST API reference](../reference/rest-api-reference.md) and [API docs](https://apidocs.skysql.com/) cover the full request model.
 
-**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (the **Analytics (HTAP)** add-on in the portal) on top of the replicated **es-replica** topology. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing; use **high-memory** sizes when Exa is enabled, consistent with the portal.
+**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (the **Analytics (HTAP)** add-on in the portal) on top of the replicated **es-replica** topology. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing.
 
 * **Access:** `"analytics": true` takes effect only when Exa is enabled for your organization. Otherwise the API ignores it and creates the service without the Exa node. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Architecture:** `architecture` must be `amd64`. The API rejects any other value with a validation error (HTTP 400).
 * **Tier:** the API rejects the request with a validation error (HTTP 400) for any tier other than `power` or `powerplus`.
+* **Exa node size:** set `analytics_node_pool` with a `size` (for example `sky-4x32`) and `nodes` set to `1`. The minimum Exa size is 4 vCPU / 32 GB RAM. Each service has one Exasol node.
+* **Exa storage:** set `analytics_storage_volume` with `size` (GB) and, where the provider supports it, `volume_type`, `iops`, and `throughput`. If you omit it, Exa uses the MariaDB volume configuration.
 
 Example (adjust `tier`, `region`, `availability_zone`, `size`, `version` and add **`allow_list`** or other required keys per the launch guide):
 
@@ -177,7 +182,30 @@ curl --location 'https://api.skysql.com/provisioning/v1/services' \
 }'
 ```
 
+{% hint style="warning" %}
+On Azure, set `volume_type` in `analytics_storage_volume` explicitly, for example `StandardSSD_LRS`. If you omit it, the Exa disk takes the MariaDB disk type, which the Exa node can't use, and the Exasol pod fails to start.
+{% endhint %}
+
 After the service is **ready**, use the service response (or the same steps as the quickstart) for hostnames and ports, and map them to [Connectivity and smart routing](htap-mariadb-exa.md#connectivity-and-smart-routing) (**3306** / **3307** / **3310** / **3311**).
+
+## Scaling MariaDB Exa
+
+You scale the Exa node and its storage separately from the MariaDB nodes.
+
+{% hint style="warning" %}
+When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+{% endhint %}
+
+* **Exa node size:** in the portal, open the service, then click **Manage** → **Scale Exa nodes vertically** and select another size. Through the REST API, send `POST /provisioning/v1/services/{service_id}/analytics-node-pool` with the new `size`.
+* **Exa storage:** in the portal, click **Manage** → **Scale Exa storage** and change the size, IOPS, or throughput. Through the REST API, send `PATCH /provisioning/v1/services/{service_id}/analytics-storage` with `size`, `iops`, or `throughput`. The request returns an error if the service has no Exa volume, and it returns HTTP 425 while the storage is in a cooldown period after a recent change.
+
+You can't change the Exa storage type, and you can't reduce the Exa storage size.
+
+## Monitoring, alerts, and logs
+
+* **Monitoring:** the service's monitoring includes an **Exasol** dashboard for the Exa node. See [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md#mariadb-exa-exasol).
+* **Alerts:** MariaDB Cloud raises service-level alerts for Exasol memory pressure. See [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md#mariadb-exa-alerts).
+* **Logs:** the portal log viewer offers an **Exasol Log** type.
 
 ## Connectivity and smart routing
 
@@ -233,13 +261,19 @@ If the application must **immediately** see data just written (for example, righ
 Deep Dive: For a full list of supported SQL functions, detailed data type mappings, and logic differences, see our [Limitations & Compatibility Reference](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-exa/limitations) page.&#x20;
 {% endhint %}
 
+**Service limits**
+
+* Each service has one Exasol node. Multi-node Exasol and node-count selection are not available.
+* The Exa storage type can't be changed, and Exa storage can't be reduced.
+* Port **3311** is not read-only. It accepts write statements, but they are not supported and can break replication. Do not send writes to port 3311.
+* The `pymysql` client can't run queries on port 3311. Use MariaDB Connector/Python or another MariaDB connector.
+* A single transaction larger than about 50 MB can exhaust the memory of the CDC pod and stop replication to Exa until it is recovered.
+* On port 3311, `DATETIME` (without fractional seconds) and `TIMESTAMP` values come back padded with NUL bytes. `DATETIME(6)` and `DATE` values are not affected, and neither are queries on port 3306. To get clean text, use `TO_CHAR()` or `CAST(<column> AS VARCHAR(40))`.
+* The portal does not show replication failures between MariaDB and Exa.
+* You can't turn off Exa on its own on an existing service.
+* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+
 **SQL dialect** The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
-
-**DDL replication**\
-`RENAME TABLE` and `DROP DATABASE` are **not** replicated through the CDC currently; you may need **manual** steps to keep MariaDB and Exa aligned after such DDL.
-
-**Case sensitivity**\
-MariaDB Exa may use **case-insensitive** identifier matching by default; **result column labels** can still appear in **uppercase** even when the query uses mixed or lowercase names.
 
 **Deterministic aggregates**\
 For functions such as `GROUP_CONCAT`, add an explicit **`ORDER BY`** inside the aggregate (where supported) so ordering is stable if different engines evaluate the plan differently.

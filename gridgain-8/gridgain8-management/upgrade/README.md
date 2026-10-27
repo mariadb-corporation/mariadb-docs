@@ -31,3 +31,15 @@ The basic GridGain version upgrade process, including upgrading nodes safely wit
 How to use GridGain Enterprise/Ultimate Rolling Upgrades to upgrade a cluster version without downtime, including the process, monitoring, guidelines, and the Java API.
 {% endcolumn %}
 {% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../migration-guides/gridgain-8-9-to-8-10/README.md" %}
+[Upgrading from 8.9 to 8.10](../migration-guides/gridgain-8-9-to-8-10/README.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to upgrade from GridGain 8.9.x to 8.10: choosing a rolling or offline path, the step-by-step procedure with rollback, and the changes to review first.
+{% endcolumn %}
+{% endcolumns %}
