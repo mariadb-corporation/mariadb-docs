@@ -164,7 +164,12 @@ Stop all nodes before you copy. Do not copy the folders of running nodes, and do
 If you stopped the whole cluster in [step 2](#step-2-restart-the-cluster), take the copy in that window, before you start the nodes again. Otherwise, stop the cluster for it now:
 
 1. Deactivate the cluster with `control.sh --set-state INACTIVE --yes`, and stop all nodes.
-2. On every node, copy the folders that `storagePath`, `walPath`, and `walArchivePath` point to, to a location outside the work directory. If you do not set these properties, copy the `db` folder of the work directory instead. Keep the copy of each node apart from the copies of the others, and note which node it came from. Keep the node configuration and the consistent ID as well.
+2. On every node, copy these to a location outside the work directory:
+   - The `db` folder of the work directory. Always copy it, even if you set all three paths below. It holds the binary metadata, and the data cannot be read without it.
+   - The folders that `storagePath`, `walPath`, and `walArchivePath` point to, if you set them.
+   - The node configuration and the consistent ID.
+
+   Keep the copy of each node separate from the others, and note which node it came from.
 3. Start the nodes again with the 8.9 distribution and the configuration from [step 1](#step-1-configure-rolling-upgrades). With native persistence, the cluster activates with the old baseline when every baseline node is back. Check it with `control.sh --baseline`.
 
 ### Step 4: Start the Rolling Upgrade
@@ -327,7 +332,7 @@ The backup that you can restore depends on your edition:
 | Edition | Backup you take before the upgrade | Recovery |
 | --- | --- | --- |
 | Ultimate | A full snapshot with `snapshot-utility.sh` | Restore the snapshot into an 8.9 cluster: [Recover From a Snapshot](#recover-from-a-snapshot). |
-| Enterprise | A copy of `storagePath`, `walPath`, and `walArchivePath` of every node | Put the copies back and start 8.9: [Recover From a Copy of the Persistence Folders](#recover-from-a-copy-of-the-persistence-folders). |
+| Enterprise | A copy of the `db` folder, and of `storagePath`, `walPath`, and `walArchivePath` if you set them, of every node | Put the copies back and start 8.9: [Recover From a Copy of the Persistence Folders](#recover-from-a-copy-of-the-persistence-folders). |
 
 ### Before Finish
 
@@ -355,7 +360,7 @@ Ultimate Edition only. Use the full snapshot that you took before the upgrade:
 Enterprise Edition only. Use the copies that you took before the upgrade, as described in [Step 3](#enterprise-edition-copy-the-persistence-folders). To recover the 8.9 state, restore the copies and start the cluster on 8.9:
 
 1. Stop all nodes.
-2. On every node, move the current `storagePath`, `walPath`, and `walArchivePath` folders aside, or the `db` folder if you did not set them. Remove them instead if you do not need the 8.10 data. Copy the backup of that same node back to the same paths.
+2. On every node, move the current `db` folder, and the `storagePath`, `walPath`, and `walArchivePath` folders if you set them, aside. Remove them instead if you do not need the 8.10 data. Copy the backup of that same node back to the same paths.
 3. Start the nodes from the 8.9 distribution, with the 8.9 configuration and the same consistent IDs. When every baseline node is back, the cluster activates with the old baseline.
 4. Check the data. Run `control.sh --baseline`, compare row counts with the values before the upgrade, and run `control.sh --cache idle_verify`.
 
