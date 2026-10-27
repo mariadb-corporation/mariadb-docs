@@ -17,7 +17,7 @@ If you are migrating from Apache Ignite 2.x, see [Migrating from Apache Ignite 2
 {% endcolumn %}
 
 {% column %}
-Step-by-step procedure for upgrading a cluster with Rolling Upgrades or offline, with verification, troubleshooting, and rollback.
+Step-by-step procedure for upgrading a cluster with Rolling Upgrades or offline, with verification, troubleshooting, and a recovery path back to 8.9.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -20,16 +20,16 @@ Which path fits depends on the current configuration of your 8.9 cluster:
 
 | Your 8.9 cluster | Path |
 | --- | --- |
-| Every node has `rollingUpdatesEnabled=true` | Rolling upgrade, with no downtime. |
+| Every node has `rollingUpdatesEnabled=true` | Rolling upgrade. No downtime for the upgrade itself. On Enterprise Edition, the backup needs a short stop of the whole cluster: see [Step 3](upgrade-procedure.md#step-3-back-up-the-data). |
 | `rollingUpdatesEnabled` is not set, and you can schedule one full-cluster restart | Offline upgrade in that restart window. This is the simpler choice: you stop the cluster anyway, so there is no need to enable Rolling Upgrades first. |
 | `rollingUpdatesEnabled` is not set, and you want to use Rolling Upgrades | Restart the whole cluster once with the property set, then run the rolling upgrade. See [Step 2](upgrade-procedure.md#step-2-restart-the-cluster). |
 
 ## Upgrade Constraints
 
-Keep the following constraints in mind when you plan the upgrade:
+Plan the upgrade with these constraints in mind:
 
 - *Java 17 or later is required.* Every server node, client application, and application that embeds GridGain must run on Java 17 or later. See [Java 17 or Later](platform-and-modules.md#java-17-or-later).
-- *A snapshot is your way back after `finish`.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. The way back is to restore a snapshot taken before the upgrade. See [Rollback](upgrade-procedure.md#rollback).
+- *Downgrade is not supported.* An 8.9 node cannot join the cluster after the rolling upgrade is finished. GridGain recommends backing up the 8.9 data before you upgrade: a full snapshot on Ultimate Edition, or a copy of `storagePath`, `walPath`, and `walArchivePath` of every node on Enterprise Edition. To go back to 8.9 after the upgrade is finished, you restore that backup, and everything written after the backup is lost. See [Recovery Path](upgrade-procedure.md#recovery-path).
 - *Caches without backups are unavailable during a rolling upgrade.* Partitions that live on a stopped node cannot be served. See [Application Behavior During a Rolling Upgrade](upgrade-procedure.md#application-behavior-during-a-rolling-upgrade).
 - *Some integrations have no 8.10 replacement.* Mesos deployments stay on 8.9.x. See [Removed Modules and Integrations](platform-and-modules.md#removed-modules-and-integrations).
 
