@@ -937,7 +937,7 @@ ALTER TABLE tab ENGINE=InnoDB, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.022 sec)
 ```
 
-This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) for [InnoDB](../) tables.
+This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#engine) for [InnoDB](../) tables.
 
 ### `OPTIMIZE TABLE ...`
 

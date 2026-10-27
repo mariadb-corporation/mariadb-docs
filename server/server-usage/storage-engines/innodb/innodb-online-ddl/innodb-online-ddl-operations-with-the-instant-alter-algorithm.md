@@ -792,7 +792,7 @@ ALTER TABLE tab ENGINE=InnoDB, ALGORITHM=INSTANT;
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
 ```
 
-This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) for [InnoDB](../) tables.
+This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#engine) for [InnoDB](../) tables.
 
 ### `OPTIMIZE TABLE ...`
 
