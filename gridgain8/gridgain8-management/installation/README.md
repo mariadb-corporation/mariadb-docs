@@ -14,9 +14,9 @@ Since GridGain is built on top of Apache Ignite, GridGain reuses Ignite's system
 
 {% include "../../.gitbook/includes/gg8-prereqs.md" %}
 
-If you use Java version 11 or later, see [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later) for details.
+GridGain requires Java 17 or later. See [Running GridGain with Java 17 or Later](#running-gridgain-with-java-17-or-later) for the JVM parameters it needs.
 
-## Running GridGain with Java 11 or Later
+## Running GridGain with Java 17 or Later
 
 {% include "../../.gitbook/includes/gg8-java9.md" %}
 
@@ -74,7 +74,7 @@ $ bin\ignite.bat examples\config\example-ignite.xml
 {% endtabs %}
 
 {% hint style="info" %}
-If you pass a custom configuration file, and you are using Java 11 or higher, you may want to include some extra parameters. See [Running GridGain with Java 11 or later](#running-gridgain-with-java-11-or-later).
+If you pass a custom configuration file, you may want to include some extra parameters. See [Running GridGain with Java 17 or Later](#running-gridgain-with-java-17-or-later).
 {% endhint %}
 
 {% hint style="info" %}
@@ -146,19 +146,7 @@ System requirements, installation steps, configuration, and startup guidance for
 {% endcolumn %}
 
 {% column %}
-Options for deploying GridGain on Amazon Web Services, including prebuilt AMIs, manual EC2 installation, Terraform, and multi-availability-zone setups.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="azure/" %}
-[Microsoft Azure](azure/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Options for deploying GridGain on Microsoft Azure.
+Options for deploying GridGain on Amazon Web Services, including manual EC2 installation and multi-availability-zone setups.
 {% endcolumn %}
 {% endcolumns %}
 

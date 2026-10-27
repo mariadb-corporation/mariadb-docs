@@ -1,7 +1,7 @@
 ---
 description: >-
-  Cloud-based IP finders for GridGain node discovery, including Apache jclouds,
-  Amazon S3, Amazon ELB, and Google Cloud Storage.
+  Cloud-based IP finders for GridGain node discovery, including Amazon S3,
+  Amazon ELB, and Google Cloud Storage.
 ---
 
 # Discovery in the Cloud
@@ -21,7 +21,6 @@ static IPs virtually unusable in such environments.
 To mitigate the constantly changing IP addresses problem, GridGain
 supports a number of IP finders designed to work in the cloud:
 
-* Apache jclouds IP Finder (deprecated)
 * Amazon S3 IP Finder
 * Amazon ELB IP Finder
 * Google Cloud Storage IP Finder
@@ -29,92 +28,6 @@ supports a number of IP finders designed to work in the cloud:
 {% hint style="info" %}
 Cloud-based IP Finders allow you to create your configuration once and reuse it for all instances.
 {% endhint %}
-
-## Apache jclouds IP Finder
-
-{% hint style="warning" %}
-The `ignite-cloud` module is deprecated and will be removed in a future release. Use [Amazon S3 IP Finder](#amazon-s3-ip-finder), [Amazon ELB Based Discovery](#amazon-elb-based-discovery), or [Google Compute Discovery](#google-compute-discovery) instead.
-{% endhint %}
-
-To mitigate the constantly changing IP addresses problem, GridGain supports
-automatic node discovery by utilizing Apache jclouds multi-cloud toolkit
-via `TcpDiscoveryCloudIpFinder`. For information about Apache jclouds
-please refer to [jclouds.apache.org](https://jclouds.apache.org).
-
-The IP finder forms nodes addresses by getting the private and public IP
-addresses of all virtual machines running on the cloud and adding a port
-number to them. The port is the one that is set with either
-`TcpDiscoverySpi.setLocalPort(int)` or `TcpDiscoverySpi.DFLT_PORT`. This
-way all the nodes can try to connect to any formed IP address and
-initiate automatic node discovery.
-
-Refer to [Apache jclouds providers section](https://jclouds.apache.org/reference/providers/#compute) to get the list of supported cloud platforms.
-
-{% hint style="warning" %}
-All virtual machines must start GridGain instances on the same port, otherwise they will not be able to discover each other using this IP finder.
-{% endhint %}
-
-Here is an example of how to configure Apache jclouds based IP finder:
-
-{% tabs %}
-{% tab title="XML" %}
-```xml
-<bean class="org.apache.ignite.configuration.IgniteConfiguration">
-  <property name="discoverySpi">
-    <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-      <property name="ipFinder">
-        <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.cloud.TcpDiscoveryCloudIpFinder">
-            <!-- Configuration for Google Compute Engine. -->
-            <property name="provider" value="google-compute-engine"/>
-            <property name="identity" value="YOUR_SERVICE_ACCOUNT_EMAIL"/>
-            <property name="credentialPath" value="PATH_YOUR_PEM_FILE"/>
-            <property name="zones">
-            <list>
-                <value>us-central1-a</value>
-                <value>asia-east1-a</value>
-            </list>
-            </property>
-        </bean>
-      </property>
-    </bean>
-  </property>
-</bean>
-```
-{% endtab %}
-
-{% tab title="Java" %}
-```java
-TcpDiscoverySpi spi = new TcpDiscoverySpi();
-
-TcpDiscoveryCloudIpFinder ipFinder = new TcpDiscoveryCloudIpFinder();
-
-// Configuration for AWS EC2.
-ipFinder.setProvider("aws-ec2");
-ipFinder.setIdentity("yourAccountId");
-ipFinder.setCredential("yourAccountKey");
-ipFinder.setRegions(Collections.singletonList("us-east-1"));
-ipFinder.setZones(Arrays.asList("us-east-1b", "us-east-1e"));
-
-spi.setIpFinder(ipFinder);
-
-IgniteConfiguration cfg = new IgniteConfiguration();
-
-// Override default discovery SPI.
-cfg.setDiscoverySpi(spi);
-
-// Start a node.
-Ignition.start(cfg);
-```
-{% endtab %}
-
-{% tab title="C#/.NET" %}
-unsupported
-{% endtab %}
-
-{% tab title="C++" %}
-unsupported
-{% endtab %}
-{% endtabs %}
 
 ## Amazon S3 IP Finder
 
@@ -124,9 +37,39 @@ to connect to any of the IP addresses stored in S3 and initiate
 automatic node discovery. To use S3 based automatic node discovery,
 you need to configure the TcpDiscoveryS3IpFinder type of ipFinder.
 
-{% hint style="warning" %}
-You must [enable the 'ignite-aws' module](../../gridgain8-development/project-setup.md#enabling-modules).
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From GridGain 8.10:
 {% endhint %}
+
+The `ignite-aws` module is removed. To use the S3 IP finder, add the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`) and its dependencies to the classpath of every node, including thick clients. The classes keep their `org.apache.ignite.*` package names, so the configuration examples below do not change. Without the extension, a configuration that references `TcpDiscoveryS3IpFinder` fails with `ClassNotFoundException`.
+
+If you upgrade from 8.9.x and use `AwsKmsEncryptionService`, read the upgrade notes in the 8.9.x tab first.
+
+{% hint style="warning" %}
+Version 1.0.0 of `ignite-aws-ext` depends on older third-party libraries than `ignite-aws`, and some of them have known vulnerabilities. Check the extension's dependencies against your security policy before you use it.
+
+The KMS support in the extension works only with AWS Encryption SDK 1.x. With AWS Encryption SDK 2.x, it fails with `NoSuchMethodError`.
+{% endhint %}
+{% endtab %}
+
+{% tab title="8.9.x" %}
+{% hint style="info" %}
+In GridGain 8.9.x:
+{% endhint %}
+
+The S3 IP finder is part of the `ignite-aws` module, which is in the `libs/optional` folder of the distribution. [Enable the module](../../gridgain8-development/project-setup.md#enabling-modules) before you use the IP finder. In a Maven project, add the `org.gridgain:ignite-aws` dependency.
+
+Starting with GridGain 8.9.39, the module is deprecated. Its replacement is the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`). If you switch, do not use both modules on the same node: remove `ignite-aws` first (the `libs/ignite-aws` folder of a standalone node, or the `ignite-aws` dependency of a Maven project), and then add `ignite-aws-ext`. If both are on the classpath, two jars define the same classes, and the classpath order decides which one is loaded.
+
+{% hint style="warning" %}
+This applies only if you use `AwsKmsEncryptionService`. The S3 IP finder without KMS has no such restriction.
+
+If you switch from `ignite-aws` to `ignite-aws-ext`, for example when you upgrade to 8.10, the switch is not a rolling upgrade. The extension reads only the data that it encrypted itself, so nodes that use the two modules cannot read each other's entries in the S3 bucket. Switch all nodes at the same time, including thick clients, and set a new `keyPrefix` on the IP finder. The extension also has only `setRegion(Region)` and no `setRegion(String)`, so a Spring XML file that passes the region as a string must use a `RegionUtils.getRegion` factory bean instead.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 Here is an example of how to configure Amazon S3 based IP finder:
 
@@ -256,9 +199,23 @@ Unlike in [Amazon S3 IP Finder](#amazon-s3-ip-finder), only `basic` option is av
 To use ELB based automatic node discovery, you need to configure the
 `TcpDiscoveryElbIpFinder` type of `ipFinder`.
 
-{% hint style="warning" %}
-You must [enable the 'ignite-aws' module](../../gridgain8-development/project-setup.md#enabling-modules).
+{% tabs %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From GridGain 8.10:
 {% endhint %}
+
+The `ignite-aws` module is removed. Add the Apache `ignite-aws-ext` extension (`org.apache.ignite:ignite-aws-ext`) to the classpath of every node. See [Amazon S3 IP Finder](#amazon-s3-ip-finder).
+{% endtab %}
+
+{% tab title="8.9.x" %}
+{% hint style="info" %}
+In GridGain 8.9.x:
+{% endhint %}
+
+The ELB IP finder is part of the `ignite-aws` module. [Enable the module](../../gridgain8-development/project-setup.md#enabling-modules) before you use it. Starting with GridGain 8.9.39, the module is deprecated. For the replacement, see [Amazon S3 IP Finder](#amazon-s3-ip-finder).
+{% endtab %}
+{% endtabs %}
 
 Here is an example of how to configure Amazon ELB based IP finder:
 

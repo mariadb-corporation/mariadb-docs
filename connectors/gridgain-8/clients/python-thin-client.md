@@ -486,7 +486,7 @@ If the cache has the vector index, use the vector from your model in the query:
 
 ```python
 query_vector = # Get from your model
-cursor = cache.vector(type_name=Article.type_name, field='vector_field', clause_vector=query_vector, k=1)
+cursor = cache.vector(type_name=Article.type_name, field='vector_field', clause_vector=query_vector, k=1, threshold=0)
 ```
 
 ## Executing SQL Statements

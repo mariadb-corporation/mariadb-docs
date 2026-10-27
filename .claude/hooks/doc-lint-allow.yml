@@ -51,6 +51,8 @@
 orphan:
 
 shrink:
+  - path: gridgain8/gridgain8-management/installation/aws/README.md
+    reason: "AMI and Terraform child pages removed (GG-51429), remaining children still listed — DOCS-6980"
   - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
     reason: "three pre-10.5 version tabs removed, current text kept — DOCS-6750"
   - path: server/reference/system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md
