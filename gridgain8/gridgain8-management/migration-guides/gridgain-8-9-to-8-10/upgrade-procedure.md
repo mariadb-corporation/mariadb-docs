@@ -17,7 +17,7 @@ A downgrade from 8.10 to 8.9 is not supported. To recover 8.9, see the [Recovery
 
 Confirm all of the following before you start:
 
-- The cluster runs GridGain 8.9.39. If it runs an earlier 8.9.x release, the behavior can differ in places. Read the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/README.md) for the releases between your version and 8.9.39 first.
+- The cluster runs GridGain 8.9.39 or an earlier version listed in [Supported Starting Versions](before-you-upgrade.md#supported-starting-versions). Behavior can differ in places between releases. See the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/README.md) for the releases between your version and 8.9.39 first.
 - Java 17 or later is installed on every server host. You can keep running the 8.9 nodes on their current Java version until you restart them. Each node switches to Java 17 when you restart it from the 8.10 distribution, so set `JAVA_HOME` for the 8.10 scripts before you start the node.
 - A valid GridGain license is installed, and it enables every feature that your configuration uses. See [Per-Feature License Checks](security-and-licensing.md#per-feature-license-checks).
 - You chose an [upgrade path](before-you-upgrade.md#choose-your-upgrade-path) and scheduled a downtime window if the path needs one.

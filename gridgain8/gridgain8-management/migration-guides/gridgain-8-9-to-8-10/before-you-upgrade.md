@@ -8,7 +8,23 @@ description: >-
 Read this page before you upgrade a cluster from GridGain 8.9.39 to 8.10. It helps you choose an upgrade path, find the changes that affect you, and estimate the work. When you are ready, follow the [Upgrade Procedure](upgrade-procedure.md).
 
 {% hint style="info" %}
-This guide uses 8.9.39 for the required starting version, 8.9.x for behavior across the 8.9 line, and 8.9 for a cluster or node that you work with.
+This guide uses 8.9.39 for the primary starting version, 8.9.x for behavior across the 8.9 line, and 8.9 for a cluster or node that you work with.
+{% endhint %}
+
+## Supported Starting Versions
+
+You can upgrade to 8.10 from the following 8.9.x releases.
+
+<details>
+
+<summary>Show supported releases</summary>
+
+`8.9.0`, `8.9.1`, `8.9.5`, `8.9.8`, `8.9.9`, `8.9.12`, `8.9.13`, `8.9.14`, `8.9.14-p2`, `8.9.15`, `8.9.16`, `8.9.16-p1`, `8.9.16-p2`, `8.9.16-p3`, `8.9.17`, `8.9.17-p1`, `8.9.18`, `8.9.19`, `8.9.20`, `8.9.20-p1`, `8.9.20-p2`, `8.9.21`, `8.9.22`, `8.9.22-p1`, `8.9.22-p2`, `8.9.23`, `8.9.23-p1`, `8.9.24`, `8.9.25`, `8.9.26`, `8.9.27`, `8.9.28`, `8.9.29`, `8.9.30`, `8.9.31`, `8.9.32`, `8.9.33`, `8.9.33-p1`, `8.9.34`, `8.9.35`, `8.9.36`, `8.9.37`, `8.9.38`, `8.9.39`
+
+</details>
+
+{% hint style="info" %}
+If your cluster runs a release that is not listed, contact [GridGain Support](https://mariadb.com/support/) before you upgrade. Behavior can differ in places between releases. See the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/README.md) for the releases between your version and 8.9.39 first.
 {% endhint %}
 
 ## Choose Your Upgrade Path
@@ -47,7 +63,7 @@ The tables list each change, when it applies to you, and the effort it needs. If
 - *Config-only.* Set, remove, or restore a configuration property. No code changes.
 - *Code.* A contained code change, such as a renamed API call.
 - *Redesign.* Adopt a different system or API. Expect design work and retesting.
-- *Contact Support.* No documented replacement exists. Contact GridGain Support before you upgrade.
+- *Contact Support.* No documented replacement exists. Contact [GridGain Support](https://mariadb.com/support/) before you upgrade.
 
 A range such as *Mechanical to Code* means that the effort depends on what you use.
 
