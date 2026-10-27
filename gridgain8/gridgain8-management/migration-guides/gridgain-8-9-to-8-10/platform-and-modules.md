@@ -123,8 +123,8 @@ The 8.10 package ships two Lucene lines. The Lucene 9 line (Lucene 9.10.0) is ac
 
 | Folder in `libs/optional` | Requires | Editions |
 | --- | --- | --- |
-| `ignite-lucene-10` | JDK 21 or later | Community, Enterprise, Ultimate |
-| `ignite-lucene-10-java22` | JDK 22 or later. Adds an opt-in scorer that reads vectors from off-heap memory. See the `README.txt` in the folder for the JVM options. | Community, Enterprise, Ultimate |
+| `ignite-lucene-10` | JDK 21 or later | Enterprise, Ultimate |
+| `ignite-lucene-10-java22` | JDK 22 or later. Adds an opt-in scorer that reads vectors from off-heap memory. See the `README.txt` in the folder for the JVM options. | Enterprise, Ultimate |
 | `gridgain-vector-query-lucene-10` | The Lucene 10 line. Pairs with it only. | Enterprise, Ultimate |
 
 The z/OS package does not ship the Lucene 10 line.
