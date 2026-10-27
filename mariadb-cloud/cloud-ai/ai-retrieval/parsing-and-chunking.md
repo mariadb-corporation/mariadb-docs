@@ -25,7 +25,7 @@ You choose a parsing strategy and a chunking strategy in the **Processing** step
 | Layout-aware (default) | Extracts the layout and the text of complex digital documents, where the meaning depends on the structure. | PDF, DOCX, PPTX, and static HTML files with headings, tables, lists, or several columns. |
 | Base | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
 
-Both strategies read digital documents only. AI Retrieval cannot parse scanned documents, which are PDFs that contain only images of pages. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
+Both strategies read digital documents only. Scanned documents, which are PDFs that contain only images of pages, are not supported yet. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
 
 Which strategy to choose:
 

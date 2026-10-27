@@ -258,6 +258,6 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 
 ### A Document Produces No Text
 
-AI Retrieval cannot parse scanned documents. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
+Scanned documents are not supported yet. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

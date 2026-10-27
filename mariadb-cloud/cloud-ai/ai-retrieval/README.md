@@ -94,11 +94,9 @@ Retrieve & Generate can stream the answer as it is generated.
 
 ## Supported Files and Limits
 
-A document knowledge base accepts TXT, Markdown, HTML, JSON, Word (DOCX), PDF, and PowerPoint (PPTX) files. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-file-formats).
+A document knowledge base accepts TXT, Markdown, HTML, JSON, Word (DOCX), PDF, and PowerPoint (PPTX) files. See [Supported Models, Formats, and Regions](supported-models-formats-and-regions.md#supported-file-formats-for-document-knowledge-bases).
 
-When you upload files from your computer, you can select up to 5 files at a time, and each file can be up to 50 MB.
-
-AI Retrieval cannot parse scanned documents, which are PDFs that contain only images of pages. It uses OCR only to detect the layout of a document, not to read scanned pages. Password-protected PDFs are not supported. Documents must be in English.
+Scanned documents, which are PDFs that contain only images of pages, and password-protected PDFs are not supported yet. Documents must be in English.
 
 <!-- TODO: English only and no password-protected PDFs come from Egor (2026-10-14, MCDEV-5201) and Slack, not from code. -->
 

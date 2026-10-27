@@ -54,10 +54,11 @@ Generation consumption per 1 million tokens:
 | --- | --- | --- |
 | Claude Sonnet 5 | 26.67 | 133.33 |
 | Claude Opus 5 | 66.67 | 333.33 |
+| Claude Fable 5.1 | 133.33 | 666.67 |
 | Gemini 3.8 Flash | 20.00 | 100.00 |
 
 <!-- TODO: the rows come from the AI Retrieval pricing sheet that Egor shared (tabs Pricing overview, Embedding, Generate), as MCU columns only. Do not copy any dollar column, margin, or competitor figure. Verify the numbers with Egor before unhiding. -->
-<!-- TODO: the Generate tab also lists Claude Fable 5.1 and Kimi K2.5. Add the rows for the models that the Generation Model list offers. Ask Egor which ones ship. -->
+<!-- Egor, 2026-10-26: add Claude Fable 5.1 (pricing sheet Generate tab: 133.33 / 666.67 MCUs per 1M input / output tokens). Kimi K2.5 has no MCU rate in the sheet and is not listed. -->
 <!-- TODO: confirm that the Layout-aware figure of 48 MCUs per 1,000 pages is for digital documents and that scanned documents (80) are out of scope, because AI Retrieval does not parse scanned documents. Egor said on 2026-10-22 not to include scanned or image parsing. -->
 <!-- The units match the Price per component slide of the October release deck, which Egor showed on 2026-10-22: embedding and generation per 1M tokens (marked as varying with the model), parsing per 1K pages, reranking per 1K queries, semantic map per operation, Retrieve rows per query. Egor said to enter 0 for Retrieve chunks. Whether the query embedding is included is not stated. -->
 
