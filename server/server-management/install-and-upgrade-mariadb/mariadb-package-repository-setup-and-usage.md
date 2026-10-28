@@ -210,6 +210,8 @@ The **MariaDB Enterprise Tools** repository contains additional tools for use wi
 
 By default, the script configures the latest version of the Enterprise Tools repository. In most cases, you should not change this. However, the option exists to configure a different version. To do so use the `--mariadb-enterprise-tools-version` option. To skip this repository, use the `--skip-enterprise-tools` option.
 
+The script configures the Enterprise Tools repository on RHEL 8, 9, and 10 and compatible distributions, on the supported Debian and Ubuntu releases, and on SLES 15. It doesn't configure it on SLES 12 or SLES 16, for which the repository has no packages. Versions of the script before 2026-10-22 don't configure it on any SLES release.
+
 ### The MariaDB Enterprise Unsupported Repository
 
 In addition to its default repositories, the `mariadb_es_repo_setup` script can configure a **MariaDB Enterprise Server Unsupported** repository. This repository contains unsupported storage engines and other supplemental packages, such as the CONNECT storage engine.
@@ -637,6 +639,7 @@ For the list of changes made in each version, see the changelogs:
 
 | Version    | sha256sum                                                          |
 | ---------- | ------------------------------------------------------------------ |
+| 2026-10-22 | `830743a98763b408a10f1010a978c2d1d3e480af20933d0735628e9691cf5b27` |
 | 2026-09-15 | `36cbeab52419d36dec10f1eee0ca0b8b7526dd4391d8855178c47fc5859386f4` |
 | 2026-06-30 | `f1baa2eb7af306bc17ede4659e207348f23851b47391415b6e4358a51ac45f28` |
 | 2026-04-30 | `704beacaf236155a69eec63b06987007ba612c7f665dd76cfb384b68fccff8af` |

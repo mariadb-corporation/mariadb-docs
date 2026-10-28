@@ -7,6 +7,13 @@ icon: terminal
 
 # MariaDB Shell
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell is a client for MariaDB Server that combines an interactive SQL console with a Python scripting environment. Besides running queries, it backs up, restores, and copies databases in parallel, connects through SSH tunnels, deploys local sandbox servers, and lets you automate and extend all of this in Python.
 
 ```text
@@ -209,3 +216,5 @@ Background on how parts of MariaDB Shell work, such as the credential helpers.
 The license that MariaDB Shell is distributed under.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is licensed: GPLv2_</sub>

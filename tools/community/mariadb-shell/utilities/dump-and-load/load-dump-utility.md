@@ -6,6 +6,13 @@ description: >-
 
 # Load Dump Utility
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 `util.load_dump()` loads a dump created by [`util.dump_instance()`, `util.dump_schemas()` or `util.dump_tables()`](dump-utilities.md) into the server of the global session. It loads table data in parallel, records every completed step so that an interrupted load can resume, and can load the whole dump or only part of it, into the original schema or a renamed one.
 
 For the load pipeline and how chunks are scheduled, see [How Dump and Load Work](how-dump-and-load-work.md).
@@ -352,3 +359,5 @@ mariadb-shell root@localhost:3306 -- util load-dump /backups/shop-world \
 {% content-ref url="mariadb-specific-features.md" %}
 [mariadb-specific-features.md](mariadb-specific-features.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

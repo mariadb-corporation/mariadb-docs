@@ -6,6 +6,13 @@ description: >-
 
 # Compressed Connections
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Protocol compression reduces the amount of data that travels between MariaDB Shell and the server, at the cost of CPU time on both ends. It pays off on slow or metered network links, and for large result sets or bulk transfers. On a fast local network, it usually slows things down.
 
 Compression is off by default.
@@ -70,3 +77,5 @@ MariaDB Shell also accepts the `compression-algorithms` and `compression-level` 
 * `compression-level` doesn't change the compression level.
 
 The one check that still applies is a conflict: `compression=REQUIRED` together with `compression-algorithms=uncompressed` is rejected.
+
+<sub>_This page is licensed: GPLv2_</sub>

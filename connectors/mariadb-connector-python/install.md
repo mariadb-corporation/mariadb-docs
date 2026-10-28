@@ -51,8 +51,6 @@ Version 1.1:
 - Does not support pure Python or binary wheels
 - Connection pooling is included by default
 
-For version 1.1 documentation, see the [1.1 branch documentation](https://mariadb-corporation.github.io/mariadb-connector-python/).
-
 ### Installing Version 2.0 (Release Candidate)
 
 {% hint style="info" %}
@@ -211,5 +209,7 @@ You can configure the connection parameters by using the following environment v
 * TEST_DB_DATABASE (default ‘testp’)
 * TEST_DB_HOST (default ‘localhost’)
 * TEST_DB_PORT (default 3306)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

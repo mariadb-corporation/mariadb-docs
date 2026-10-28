@@ -7,6 +7,13 @@ description: >-
 
 # Adding Database Connections
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The MCP server only connects to the databases that you add as connections with `mcp setup`. Each connection consists of a connection URI and a password. The URI tells MariaDB Shell how to reach the server and which account to sign in with; the password is stored separately in the MariaDB Shell secret store.
 
 This page describes how to add a connection, how to write the connection URI, and how to solve common errors when the setup can't connect.
@@ -162,15 +169,17 @@ The following table lists the most common errors. The numbers in parentheses at 
 
 | Error | Cause | Solution |
 | --- | --- | --- |
-| *MySQL Error (1045): Access denied for user '…'@'…' (using password: YES)* | The password is wrong, the account doesn't exist, or no account of that name may connect from your host. | Check the user name and enter the password again. Check which host the account is defined for, for example with `SELECT user, host FROM mysql.user`. |
-| *MySQL Error (1130): Host '…' is not allowed to connect to this MariaDB server* | No account on the server may connect from your host. | Create the account for your host or network, as described in [Database Accounts for the MCP Server](database-accounts-for-the-mcp-server.md). |
-| *MySQL Error (1044): Access denied for user '…'@'…' to database '…'* | The URI names a default schema that doesn't exist, or that the account has no privileges on. | Check the schema name, grant the account privileges on it, or leave the schema out of the URI. |
-| *MySQL Error (4151): Access denied, this account is locked* | The account is locked. | Unlock it with `ALTER USER … ACCOUNT UNLOCK`. |
-| *MySQL Error (1820): You must SET PASSWORD before executing this statement* | The password of the account has expired. | Set a new password for the account, then add the connection with the new password. |
-| *MySQL Error (1226): User '…' has exceeded the 'max_user_connections' resource* | The account already has as many sessions open as its `MAX_USER_CONNECTIONS` limit allows. | Close other sessions of the account, or raise the limit. |
-| *MySQL Error (2002): Can't connect to server on '…'* | No server is listening on the host and port, or a firewall blocks the connection. A timeout also produces this error. | Check the host name, the port, and that the server is running. If the server is only reachable through an SSH host, use a [tunnel](tunnel-database-connections-via-ssh.md). |
-| *MySQL Error (2002): Can't connect to local server through socket '…'* | The socket file doesn't exist, or the server isn't running. | Check the path of the socket file, for example with `SELECT @@socket` on the server. |
-| *MySQL Error (2005): Unknown server host '…'* | The host name can't be resolved. | Check the spelling of the host name, and that your machine can resolve it. |
-| *'…' is not a valid connection URI.* | MariaDB Shell can't parse the URI, for example because of an unknown option, a character that must be encoded, or a port that isn't a number. | Check the option names against [Connection Options](#connection-options), and encode special characters as described in [Special Characters](#special-characters). |
-| *The connection URI carries a password.* | The URI passed with `--addConnection` contains a password, for example `mcp:secret@host`. | Remove the password from the URI and enter it at the prompt. |
-| *not a configured connection* | The agent used a URI that differs from the configured one, for example without its default schema or options. | Use the URI that `db.list_connections` reports. |
+| _MySQL Error (1045): Access denied for user '…'@'…' (using password: YES)_ | The password is wrong, the account doesn't exist, or no account of that name may connect from your host. | Check the user name and enter the password again. Check which host the account is defined for, for example with `SELECT user, host FROM mysql.user`. |
+| _MySQL Error (1130): Host '…' is not allowed to connect to this MariaDB server_ | No account on the server may connect from your host. | Create the account for your host or network, as described in [Database Accounts for the MCP Server](database-accounts-for-the-mcp-server.md). |
+| _MySQL Error (1044): Access denied for user '…'@'…' to database '…'_ | The URI names a default schema that doesn't exist, or that the account has no privileges on. | Check the schema name, grant the account privileges on it, or leave the schema out of the URI. |
+| _MySQL Error (4151): Access denied, this account is locked_ | The account is locked. | Unlock it with `ALTER USER … ACCOUNT UNLOCK`. |
+| _MySQL Error (1820): You must SET PASSWORD before executing this statement_ | The password of the account has expired. | Set a new password for the account, then add the connection with the new password. |
+| _MySQL Error (1226): User '…' has exceeded the 'max_user_connections' resource_ | The account already has as many sessions open as its `MAX_USER_CONNECTIONS` limit allows. | Close other sessions of the account, or raise the limit. |
+| _MySQL Error (2002): Can't connect to server on '…'_ | No server is listening on the host and port, or a firewall blocks the connection. A timeout also produces this error. | Check the host name, the port, and that the server is running. If the server is only reachable through an SSH host, use a [tunnel](tunnel-database-connections-via-ssh.md). |
+| _MySQL Error (2002): Can't connect to local server through socket '…'_ | The socket file doesn't exist, or the server isn't running. | Check the path of the socket file, for example with `SELECT @@socket` on the server. |
+| _MySQL Error (2005): Unknown server host '…'_ | The host name can't be resolved. | Check the spelling of the host name, and that your machine can resolve it. |
+| _'…' is not a valid connection URI._ | MariaDB Shell can't parse the URI, for example because of an unknown option, a character that must be encoded, or a port that isn't a number. | Check the option names against [Connection Options](#connection-options), and encode special characters as described in [Special Characters](#special-characters). |
+| _The connection URI carries a password._ | The URI passed with `--addConnection` contains a password, for example `mcp:secret@host`. | Remove the password from the URI and enter it at the prompt. |
+| _not a configured connection_ | The agent used a URI that differs from the configured one, for example without its default schema or options. | Use the URI that `db.list_connections` reports. |
+
+<sub>_This page is licensed: GPLv2_</sub>

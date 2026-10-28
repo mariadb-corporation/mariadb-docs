@@ -252,7 +252,6 @@
   * [Async/Await Support](mariadb-connector-python/async-usage.md)
   * [Connection Pooling](mariadb-connector-python/pooling.md)
   * [Migration Guide: 1.1 to 2.0](mariadb-connector-python/migration-from-1.1-to-2.0.md)
-  * [Application Development](mariadb-connector-python/application-development.md)
   * [API Reference](mariadb-connector-python/api.md)
     * [The MariaDB Connector/Python module](mariadb-connector-python/module.md)
     * [The connection class](mariadb-connector-python/connection.md)

@@ -26,7 +26,7 @@ Connecting to a server that doesn't support TLS with the TLS option set, an exce
 
 ### TLS Protocol Version Selection
 
-The MariaDB Java driver by default uses Java's default supported protocols. If the servers are MariaDB, consider adding the TLSv1.2 protocol. This can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
+Since Connector/J 4.0, the driver enables TLSv1.3 and TLSv1.2 by default, whatever the JSSE defaults of the running JVM. Connector/J 3.x uses Java's default supported protocols. The protocol list can be set using the "enabledSslProtocolSuites" option (example: enabledSslProtocolSuites=TLSv1.2, TLSv1.3).
 
 In addition to the protocol, the driver relies on the Java default cipher list. The Java default enabled ciphers are [listed here](https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SupportedCipherSuites). JAVA allows cipher suites to be removed/excluded from use in the security policy using the Java system property "jdk.tls.disabledAlgorithms." The specific list of ciphers to be used can be set using the "enabledSslCipherSuites" driver option (example: "enabledSSLCipherSuites=TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CBC\_SHA256,...")
 
@@ -44,10 +44,15 @@ GRANT ALL ON db_name.* TO 'myUser'@'%' REQUIRE SSL;
 Since version 3 of the connector, TLS is enabled with the client-side setting option "sslMode."\
 The following values are supported:
 
-* Disable: Do not use SSL/TLS (default)
-* Trust: Only use SSL/TLS for encryption. Do not perform certificate or hostname verification.
+* disable: Do not use SSL/TLS (default in Connector/J 3.x)
+* trust: Only use SSL/TLS for encryption. Do not perform certificate or hostname verification.
 * verify-ca: Use SSL/TLS for encryption and perform certificate verification, but do not perform hostname verification.
-* verify-full:Use SSL/TLS for encryption, certificate verification, and hostname verification. This is the standard TLS behavior. Aliases "true"/"1" are possible like "sslMode=true."
+* verify-full: Use SSL/TLS for encryption, certificate verification, and hostname verification. This is the standard TLS behavior, and the default since Connector/J 4.0. Aliases "true"/"1" are possible like "sslMode=true."
+* allow: `verify-full` when the server announces TLS, no encryption otherwise. This is a migration mode for a mix of servers with and without TLS behind one connection string: the choice is made from the capability flags the server sends in clear, so an active attacker can downgrade the connection. Replace it with `verify-full` once every server has TLS. Available since Connector/J 3.5.11 and 4.0.
+
+{% hint style="warning" %}
+Since Connector/J 4.0, TLS is enabled by default: `sslMode` defaults to `verify-full`. To connect without TLS, set `sslMode=disable` explicitly. The legacy `useSsl=false` option still disables TLS.
+{% endhint %}
 
 {% hint style="info" %}
 Before connector 3 version, other options were used in order to use TLS:
@@ -128,8 +133,10 @@ try (Connection con = DriverManager.getConnection("jdbc:mariadb://localhost/myDb
 
 ### Zero-configuration TLS encryption
 
-In MariaDB Server 11.4, TLS configuration is simpler than before. When connecting with MariaDB Connector/J 3.4 or later, you can enable SSL encryption by setting `sslMode=verify-full`—no other SSL parameters are needed.\
+In MariaDB Server 11.4, TLS configuration is simpler than before. When connecting with MariaDB Connector/J 3.4 or later, you can enable SSL encryption by setting `sslMode=verify-full`—no other SSL parameters are needed. With Connector/J 4.0 or later, `verify-full` is the default, so no option at all is needed.\
 During the TLS handshake, the server provides its certificate, and the client confirms the server’s identity using the certificate fingerprint along with password hashing. For this verification to succeed, the password must not be empty.
+
+Since Connector/J 4.0, the `deferCertificateValidation` option (default `true`) controls this behavior. When a certificate cannot be validated against the trust store, the driver defers the identity validation to authentication as described above. Set `deferCertificateValidation=false` to reject such a certificate at the TLS handshake instead, so that only certificates validated against the trust store are accepted.
 
 ## Mutual (2-way) authentication
 

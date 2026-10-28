@@ -161,6 +161,7 @@ The settings that control change data capture from MariaDB to Exasol are documen
 * Mandatory: No
 * Dynamic: No
 * Default: `/var/lib/maxscale/binlogs`
+* Description: Shows the directory where binary log files are stored.
 
 Directory where binary log files are stored.
 
@@ -170,6 +171,7 @@ Directory where binary log files are stored.
 * Mandatory: Yes
 * Default: No
 * Dynamic: No
+* Description: Specifies the directory where files are archived when `expiration_mode` is set to `archive`. 
 
 Mandatory if `expiration_mode=archive`
 
@@ -187,6 +189,7 @@ The directory must exist when MaxScale starts.
 * Mandatory: No
 * Dynamic: No
 * Default: `1234`
+* Description: Mentions the server ID used by MaxScale for replication and serving binary logs to replicas.
 
 The server ID that MaxScale uses when connecting to the primary and when serving binary logs to the replicas.
 
@@ -196,6 +199,7 @@ The server ID that MaxScale uses when connecting to the primary and when serving
 * Mandatory: No
 * Dynamic: No
 * Default: `10s`
+* Description: Sets the network connection and read timeout for the primary server connection.
 
 Network connection and read timeout for the connection to the primary.
 
@@ -205,6 +209,7 @@ Network connection and read timeout for the connection to the primary.
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Selects a primary server for replication automatically from a list of servers that are monitored and have Master status.
 
 Automatically select the primary server to replicate from.
 
@@ -222,6 +227,7 @@ The GTID the replication will start from, will be based on the latest replicated
 * Dynamic: No
 * Values: `purge`, `archive`
 * Default: `purge`
+* Description: Indicates whether expired logs are automatically deleted or archived.
 
 Choose whether expired logs should be purged or archived.
 
@@ -231,6 +237,7 @@ Choose whether expired logs should be purged or archived.
 * Mandatory: No
 * Dynamic: No
 * Default: `0s`
+* Description: Sets the duration after which binary log files expire and are eligible for purge or archiving.
 
 Duration after which a binary log file expires, i.e. becomes eligible for purge or archive. This is similar to the server system variable.
 
@@ -246,6 +253,7 @@ The duration is measured from the last modification of the log file. Files are p
 * Mandatory: No
 * Dynamic: No
 * Default: `2`
+* Description: Determines the minimum number of binary log files to keep during automatic purging.
 
 The minimum number of log files the automatic purge keeps. At least one file is always kept.
 
@@ -256,6 +264,7 @@ The minimum number of log files the automatic purge keeps. At least one file is 
 * Dynamic: No
 * Values: `none`, `zstandard`
 * Default: `none`
+* Description: Defines the compression algorithm to use for archived files.
 
 ### `number_of_noncompressed_files`
 
@@ -263,6 +272,7 @@ The minimum number of log files the automatic purge keeps. At least one file is 
 * Mandatory: No
 * Dynamic: No
 * Default: `2`
+* Description: Specifies the minimum number of binary log files to keep up uncompressed.
 
 The minimum number of log files that are not compressed. At least one file is not compressed.
 
@@ -272,6 +282,7 @@ The minimum number of log files that are not compressed. At least one file is no
 * Mandatory: No
 * Dynamic: No
 * Default: false
+* Description: When enabled, only DDL events (CREATE, ALTER, DROP) are logged, excluding data changes.
 
 When enabled, only DDL events are written to the binary logs. This means that`CREATE`, `ALTER` and `DROP` events are written but `INSERT`, `UPDATE` and`DELETE` events are not.
 
@@ -283,6 +294,7 @@ This mode can be used to keep a record of all the schema changes that occur on a
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the encryption key ID used to encrypt binary logs, requiring a configured key manager.
 
 Encryption key ID used to encrypt the binary logs. If configured, an [Encryption Key Manager](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) must also be configured and it must contain the key with the given ID. If the encryption key manager supports versioning, new binary logs will be encrypted using the latest encryption key. Old binlogs will remain encrypted with older key versions and remain readable as long as the key versions used to encrypt them are available.
 
@@ -297,6 +309,7 @@ Re-encryption of binlogs using another encryption key is not possible. However, 
 * Dynamic: No
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
 * Default: `AES_GCM`
+* Description: Defines the AES encryption mode used for securing data, such as GCM, CBC, or CTR.
 
 The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are supported.
 
@@ -315,6 +328,7 @@ Possible values are:
 * Mandatory: No
 * Default: false
 * Dynamic: Yes
+* Description: Enables semi-synchronous replication from a MariaDB server by sending acknowledgements for received events.
 
 Enable [semi-synchronous](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md) replication when replicating from a MariaDB server. If enabled, the binlogrouter will send acknowledgment for each received event. Note that the [rpl\_semi\_sync\_master\_enabled](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_enabled) parameter must be enabled in the MariaDB server where the replication is done from for the semi-synchronous replication to take place.
 

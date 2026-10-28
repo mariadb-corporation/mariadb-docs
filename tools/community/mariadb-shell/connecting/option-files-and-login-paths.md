@@ -6,6 +6,13 @@ description: >-
 
 # Option Files and Login Paths
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Like the other MariaDB clients, MariaDB Shell reads default options from `my.cnf`-style option files when it starts. You can keep the connection settings that you use every day, such as the user, the socket, or the TLS files, in an option file instead of typing them each time.
 
 ## Files
@@ -125,3 +132,5 @@ The file `~/.mylogin.cnf` has a different role in MariaDB Shell: on Linux, it is
 {% hint style="warning" %}
 The passwords in `~/.mylogin.cnf` are obfuscated, not encrypted: anyone who can read the file can recover them. Keep the file readable only by you.
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>

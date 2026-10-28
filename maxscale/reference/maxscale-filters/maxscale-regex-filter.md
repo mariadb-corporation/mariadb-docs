@@ -42,6 +42,7 @@ The Regex filter has two mandatory parameters: _match_ and _replace_.
 * Type: [regex](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the regex pattern in SQL statements that filter should identify and replace.
 
 Defines the text in the SQL statements that is replaced.
 
@@ -57,6 +58,7 @@ options=case
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
+* Description: Determines how the match regex pattern is compiled, including case sensitivity and extended syntax.
 
 The _options_-parameter affects how the patterns are compiled as [usual](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
 
@@ -65,6 +67,7 @@ The _options_-parameter affects how the patterns are compiled as [usual](../../m
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the string that will replace SQL query parts that `match` the specific pattern.
 
 This is the text that should replace the part of the SQL-query matching the pattern defined in _match_.
 
@@ -78,6 +81,7 @@ replace=ENGINE =
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Restricts the match-and-replace filter to client connections originating from a specified address.
 
 The optional source parameter defines an address that is used to match against the address from which the client connection to MariaDB MaxScale originates. Only sessions that originate from this address will have the match and replacement applied to them.
 
@@ -91,6 +95,7 @@ source=127.0.0.1
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits the match-and-replace filter to sessions initiated by a specific username.
 
 The optional user parameter defines a username that is used to match against the user from which the client connection to MariaDB MaxScale originates. Only sessions that are connected using this username will have the match and replacement applied to them.
 
@@ -104,6 +109,7 @@ user=john
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Identifies a file where all queries, matched and unmatched, are logged, mainly for diagnostic purposes.
 
 The optional log\_file parameter defines a log file in which the filter writes all queries that are not matched and matching queries with their replacement queries. All sessions will log to this file so this should only be used for diagnostic purposes.
 
@@ -117,6 +123,7 @@ log_file=/tmp/regexfilter.log
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Allows runtime logging of matched and unmatched queries with replacements at the info level for diagnostic purposes.
 
 The optional log\_trace parameter toggles the logging of non-matching and matching queries with their replacements into the log file on the _info_ level. This is the preferred method of diagnosing the matching of queries since the log level can be changed at runtime. For more details about logging levels and session specific logging, please read the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#global-settings).
 

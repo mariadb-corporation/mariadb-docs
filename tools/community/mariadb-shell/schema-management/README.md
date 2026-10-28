@@ -8,6 +8,13 @@ icon: code-branch
 
 # Schema Management
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Schema Management (MSM) manages one database schema as a project on disk. You write the full definition of the schema in a single development script, release it under version numbers, and deploy each release with a generated script that creates the schema on a new server or upgrades it from any earlier release on an existing one.
 
 MSM is included with MariaDB Shell as the built-in `msm` plugin. It works with plain SQL files that you keep in version control, and it needs a database server only for the deployment.
@@ -128,3 +135,5 @@ Set the option for the current session with `shell.options.useWizards = False`, 
 {% content-ref url="function-reference.md" %}
 [function-reference.md](function-reference.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

@@ -6,6 +6,13 @@ description: >-
 
 # Windows
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `install.ps1` script installs MariaDB Shell for the current user from a GitHub release. It runs in Windows PowerShell 5.1 and in PowerShell 7, and does not require administrator privileges.
 
 ## Requirements
@@ -23,12 +30,12 @@ irm https://github.com/mariadb-corporation/mariadb-shell/raw/main/install.ps1 | 
 
 The script performs these steps:
 
-1. Detects the CPU architecture. On a 32-bit PowerShell process running on 64-bit Windows, it detects the architecture of the machine, not of the process.
+1. Detects the CPU architecture of the machine, not of the PowerShell process. A 32-bit PowerShell on 64-bit Windows, or an x64 PowerShell that runs emulated on ARM64 Windows, still gets the package for the machine.
 2. Downloads the `SHA256SUMS` file of the release and uses it as the list of available packages.
 3. Selects the Windows package for your architecture.
 4. Downloads the package and compares its SHA-256 checksum with the value in `SHA256SUMS`. The script stops if the checksums don't match.
 5. Unpacks the package into `%LOCALAPPDATA%\Programs\mariadb-shell\<version>`, for example `%LOCALAPPDATA%\Programs\mariadb-shell\26.9.5`.
-6. Writes two command files, `mariadb-shell.cmd` and `msh.cmd`, into `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. Both start the installed version's `mariadb-shell.exe`. They use paths relative to their own location, so you can move the whole installation directory.
+6. Writes two command files, `mariadb-shell.cmd` and `msh.cmd`, into `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. Both start the installed version's `mariadb-shell.exe`. When the command directory is the `bin` directory of the installation directory, as it is by default, they use paths relative to their own location, so you can move the whole installation directory. A command directory elsewhere, set with `-BinDir` or `MARIADB_SHELL_BINDIR`, gets command files with absolute paths. Such a path starts with `%LOCALAPPDATA%` or `%USERPROFILE%` when the installation directory is below one of them, so a user name with non-ASCII characters works. Any other part of the path must be plain ASCII, or the script stops before it downloads anything. If the package includes `mariadb-lsp.exe`, the MariaDB SQL language server, the script also writes `mariadb-lsp.cmd`, which starts it. If it does not, the script removes a `mariadb-lsp.cmd` that an earlier installation wrote.
 7. Removes older versions, keeping the new version and one previous version. See [Upgrade and Roll Back](#upgrade-and-roll-back).
 
 {% hint style="info" %}
@@ -92,18 +99,18 @@ mariadb-shell --version
 | `-PreRelease` | `MARIADB_SHELL_PRERELEASE` | Off | Install the newest release, including prereleases. |
 | `-AddToPath` | `MARIADB_SHELL_ADDTOPATH` | Off | Add the command directory to the user `PATH`. |
 | `-Prefix` | `MARIADB_SHELL_PREFIX` | `%LOCALAPPDATA%\Programs\mariadb-shell` | Directory that holds the unpacked versions. |
-| `-BinDir` | `MARIADB_SHELL_BINDIR` | `<prefix>\bin` | Directory where `mariadb-shell.cmd` and `msh.cmd` are written. |
+| `-BinDir` | `MARIADB_SHELL_BINDIR` | `<prefix>\bin` | Directory where `mariadb-shell.cmd`, `msh.cmd` and `mariadb-lsp.cmd` are written. |
 | `-Repo` | `MARIADB_SHELL_REPO` | `mariadb-corporation/mariadb-shell` | GitHub repository, in `owner/repo` form, to install from. It must be public. |
 
 A parameter takes precedence over its environment variable. For the switch variables `MARIADB_SHELL_PRERELEASE` and `MARIADB_SHELL_ADDTOPATH`, any non-empty value turns the setting on.
 
 ## Upgrade and Roll Back
 
-To upgrade, run the installation command again. The script installs the new version next to the existing ones and rewrites `mariadb-shell.cmd` and `msh.cmd` to start it.
+To upgrade, run the installation command again. The script installs the new version next to the existing ones and rewrites `mariadb-shell.cmd`, `msh.cmd` and `mariadb-lsp.cmd` to start it.
 
 After each installation, the script keeps only two versions in the prefix directory: the version it installed and the highest of the other versions. It removes only directories whose names consist of digits and dots.
 
-To roll back, reinstall the earlier release with `MARIADB_SHELL_TAG`. Alternatively, edit the two `.cmd` files and change the version in the path they start.
+To roll back, reinstall the earlier release with `MARIADB_SHELL_TAG`. Alternatively, edit the `.cmd` files and change the version in the path they start.
 
 Upgrading does not change your configuration directory, `%AppData%\MariaDB\mariadb-shell`.
 
@@ -129,3 +136,5 @@ The script has no uninstall mode. To remove MariaDB Shell:
 | `could not download SHA256SUMS from the latest release` | The release does not exist or is a prerelease. Set `MARIADB_SHELL_PRERELEASE` or `MARIADB_SHELL_TAG`. |
 | `checksum mismatch` | The download is corrupt or incomplete. Run the script again. |
 | `LOCALAPPDATA is not set` | The default installation directory cannot be determined. Set `MARIADB_SHELL_PREFIX` or pass `-Prefix`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

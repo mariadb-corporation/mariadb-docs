@@ -97,6 +97,11 @@ jobs:
           test -f "$dest_dir/page-index.md"
           test ! -e "$dest_dir/README.md"
           mv "$dest_dir/page-index.md" "$dest_dir/README.md"
+          # Doxygen's own list pages (\todo, \bug, \test, \deprecated) are
+          # notes for the server developers, not reference for plugin authors,
+          # and nothing else in the generated set links to them.
+          rm -f "$dest_dir/page-todo.md" "$dest_dir/page-bug.md" \
+            "$dest_dir/page-test.md" "$dest_dir/page-deprecated.md"
           rm -rf ".generated-api-plugin"
 
       - name: Flatten level 5 and 6 Markdown headers to level 4
@@ -123,6 +128,11 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/fix_plugin_api_member_anchors.py
 
+      - name: Retarget links whose fragment is a raw doxygen ID
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_doxygen_refs.py
+
       - name: Title-case the ABI version in generated page titles
         run: |
           set -euo pipefail
@@ -144,7 +154,7 @@ jobs:
       - name: Update Plugin API Documentation section in SUMMARY.md
         run: |
           set -euo pipefail
-          bash .github/scripts/add_server_plugin_api_to_summary.sh
+          python3 .github/scripts/add_server_plugin_api_to_summary.py
 
       - name: Open a pull request if the generated docs changed
         id: cpr

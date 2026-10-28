@@ -17,6 +17,7 @@ Code. It contains:
 | `hooks/navcheck.py` | Orphaned-page (nav coverage) checker, called by `doc-lint.sh` and by `navcheck-pr.yml` |
 | `hooks/shrinkcheck.py` | Net line-loss ("gutted page") guard, called by `doc-lint.sh` and by `shrinkcheck-pr.yml`. Was an inline block in `doc-lint.sh` until DOCS-6586 |
 | `hooks/postdownload.py` | The Post Download page map, plus two checks: `audit` keeps the `no-standalone:` register true, and `new <rev>` fails a release-notes page added since `<rev>` that lacks its `platform/post-download/` page or its `platform/SUMMARY.md` entry (DOCS-6408). Called by `doc-lint.sh`, by `postdownload-pr.yml`, and by `nightly-postdownload.yml`, which sweeps `main` for pages that landed without theirs (DOCS-6882) |
+| `hooks/changelog-lines.py` | The revision list of a changelog page, read-only from `git log`: Server in `prep-changelog`'s format, connectors in a format inferred from the previous page, the two repo-setup scripts from their `# Notes:` block (plus the version and sha256), with `--verify` to regenerate a published page and diff it first. Used by the `prep-changelog` skill (DOCS-6612) |
 | `hooks/doc-lint-allow.yml` | The acknowledgment register: `orphan:` and `shrink:` entries, each with a reason, for the two guards that have legitimate exceptions. A checked-in file rather than an environment variable so the acknowledgment is a diff line the reviewer reads |
 | `hooks/allowlist.py` | The **only** parser for that register — a strict subset of YAML, standard library only. Both guards read it through this one script |
 | `hooks/pre-commit.sh` | PreToolUse hook: gates Claude-made `git commit`s by calling `doc-lint.sh` |
@@ -59,6 +60,18 @@ commands. What you *do* set up is the per-user, gitignored pieces below.
    account**. Either way, verify with `getAccessibleAtlassianResources()` — it must list
    `mariadbcorp`. Full steps + the wrong-account pitfall:
    `dev-docs/cookbook-jira-workflow.md › Connecting the MariaDB Jira`.
+
+   **`jira.mariadb.org` is separate** (only `/prep-changelog` needs this). It is Jira *Server*, so
+   no Atlassian MCP connection reaches it, and release **TODO** tickets are not public: anonymously,
+   an issue GET returns 401 and a search says the `TODO` project does not exist. Create a personal access token there (profile › *Personal Access
+   Tokens*; reading is all it is used for), then either export it as `JIRA_MARIADB_TOKEN` or save
+   it to a file only you can read:
+   ```bash
+   mkdir -p ~/.config/mariadb-jira && install -m 600 /dev/stdin ~/.config/mariadb-jira/token
+   ```
+   (paste the token, then Ctrl-D). That path is the default; point `JIRA_MARIADB_TOKEN_FILE` at
+   another file to keep it elsewhere. `/triage-epic` reads only public MDEV tickets and needs no
+   token.
 4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
    MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts
    for the path + authoritative ref and saves `.claude/doc-sources.local.json` (gitignored).

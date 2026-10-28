@@ -6,7 +6,7 @@ description: >-
 
 # Sargable UPPER
 
-Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), expressions in the form
+Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113) and MariaDB Enterprise Server 10.6.15-10, expressions in the form
 
 ```sql
 UPPER(key_col) = expr
@@ -56,7 +56,7 @@ Here, the optimizer was able to construct `ref` access.
 
 ## Controlling the Optimization
 
-The [optimizer\_switch](optimizer-switch.md) variable has the flag `sargable_casefold` to turn the optimization on and off. The default is ON.
+The [optimizer\_switch](optimizer-switch.md) variable has the flag `sargable_casefold` to turn the optimization on and off. The default is ON, except in MariaDB Enterprise Server 10.6, where it is OFF.
 
 ## Optimizer Trace
 

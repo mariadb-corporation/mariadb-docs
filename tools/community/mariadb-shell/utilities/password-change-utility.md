@@ -6,6 +6,13 @@ description: >-
 
 # Password Change Utility
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 `util.change_password()` changes the password of a MariaDB account over the global session. Without options, it changes the password of the account you are connected as and prompts for the new password twice, so the password never appears in your command history or on the screen.
 
 ## Syntax
@@ -98,3 +105,5 @@ REPORT_NEW_PASSWORD='...' mariadb-shell admin@db1.example.com --py -f rotate_rep
 ```
 
 If you store passwords in the [credential store](../connecting/credential-store.md), update the stored password after the change, because the shell doesn't do it automatically.
+
+<sub>_This page is licensed: GPLv2_</sub>

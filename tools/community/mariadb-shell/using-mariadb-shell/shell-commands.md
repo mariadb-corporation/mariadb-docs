@@ -7,6 +7,13 @@ description: >-
 
 # Shell Commands
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Shell commands control MariaDB Shell itself rather than the server. Each one starts with a backslash, or with a slash in its place (see [The Slash Prefix](#the-slash-prefix)), works the same way in SQL and Python mode, and is processed by the shell before anything reaches the server or the Python interpreter.
 
 A shell command must be the only thing on its line and doesn't take a statement terminator. Arguments follow the command name, separated by spaces.
@@ -267,3 +274,5 @@ Warning (code 1292): Truncated incorrect INTEGER value: 'abc'
 ```
 
 Warnings are shown by default. The commands change the `showWarnings` option, which you can also set with `--show-warnings=false` on the command line or persist with `\option --persist showWarnings false`.
+
+<sub>_This page is licensed: GPLv2_</sub>

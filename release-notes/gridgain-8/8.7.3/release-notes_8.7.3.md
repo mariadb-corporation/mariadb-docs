@@ -35,6 +35,8 @@ Since its introduction, GridGain Web Console has steadily added features to supp
 
 ## Related Information
 
+[Customer Support](https://www.gridgain.com/services/support)
+
 ### We Value Your Feedback
 The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
 

@@ -8,6 +8,13 @@ icon: file-lines
 
 # Logging and Debugging
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell writes an application log that records what the shell does: startup, connections, plugin loading, errors, and, if you ask for it, the SQL statements it runs. The log is the first place to look when a connection fails, a plugin doesn't load, or a utility reports `Check mariadb-shell.log for more warnings`.
 
 Three independent outputs are available:
@@ -175,3 +182,5 @@ On Windows, the shell needs a registry key for its Event Log source. Run the she
 * **Utility warnings.** When a utility such as `util.import_table()` produces many warnings, it prints the first few and writes all of them to the log.
 * **Credential store problems.** Start with `--log-level=debug` and search the log for `helper`. See [Credential Store](connecting/credential-store.md).
 * **Support requests.** Include the relevant part of the log. Check it for host names, user names, and statement text you don't want to share before you send it.
+
+<sub>_This page is licensed: GPLv2_</sub>

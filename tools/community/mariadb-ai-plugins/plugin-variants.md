@@ -6,6 +6,13 @@ description: >-
 
 # Plugin Variants
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB AI Plugins are available in three variants. They differ in the skills they include and in whether they include the MCP server. All variants are built from the same sources.
 
 | Variant | Skills | MCP server |
@@ -25,6 +32,7 @@ In most cases, install the `dev` plugin.
 | OpenCode | Yes | Yes | Yes |
 | Pi | Yes | No | No |
 | Hermes Agent | Yes | Yes | Yes |
+| Cursor | Yes | Yes | Yes |
 
 ## Skill Counts
 
@@ -38,4 +46,6 @@ The [Skills Reference](skills-reference/) lists every skill and the variants tha
 
 ## Directory Layout
 
-In the repository, each variant lives in `<harness>/<variant>-plugin/`, for example `claude/dev-plugin/` or `codex/sql-plugin/`. Pi's plugin lives in `pi/dev-plugin/`, with the repository-root `package.json` as its manifest. In Hermes Agent, the plugin names are `mariadb-dev`, `mariadb-sql`, and `mariadb-contributor`.
+In the repository, each variant lives in `<harness>/<variant>-plugin/`, for example `claude/dev-plugin/` or `codex/sql-plugin/`. Pi's plugin lives in `pi/dev-plugin/`, with the repository-root `package.json` as its manifest. Cursor installs the Claude Code plugins from `claude/`. In Hermes Agent, the plugin names are `mariadb-dev`, `mariadb-sql`, and `mariadb-contributor`.
+
+<sub>_This page is licensed: GPLv2_</sub>

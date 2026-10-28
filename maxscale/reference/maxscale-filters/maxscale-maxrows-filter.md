@@ -38,6 +38,7 @@ The Maxrows filter has no mandatory parameters. Optional parameters are:
 * Mandatory: No
 * Dynamic: Yes
 * Default: (no limit)
+* Description: Specifies the maximum number of rows allowed in a result set returned to the client.
 
 Specifies the maximum number of rows a resultset can have in order to be returned to the user.
 
@@ -53,6 +54,7 @@ max_resultset_rows=1000
 * Mandatory: No
 * Dynamic: Yes
 * Default: `64Ki`
+* Description: Restricts the size of a resultset that can be returned to the client; larger resultsets are replaced with an empty result.
 
 Specifies the maximum size a resultset can have in order to be sent to the client. A resultset larger than this, will not be sent: an empty resultset will be sent instead.
 
@@ -67,6 +69,7 @@ max_resultset_size=128Ki
 * Dynamic: Yes
 * Values: `empty`, `error`, `ok`
 * Default: `empty`
+* Description: Regulates the response that is sent to the client when the limitations defined by the results are exceeded.
 
 Specifies what the filter sends to the client when the rows or size limit is hit, possible values:
 
@@ -87,6 +90,7 @@ ERROR 1415 (0A000): Row limit/size exceeded for query: select * from test.t4
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0`
+* Description: Manages the level of debug logging for the MaxRows filter.
 
 An integer value, using which the level of debug logging made by the Maxrows filter can be controlled. The value is actually a bitfield with different bits denoting different logging.
 

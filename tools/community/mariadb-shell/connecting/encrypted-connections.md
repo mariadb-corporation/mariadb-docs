@@ -7,6 +7,13 @@ description: >-
 
 # Encrypted Connections
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell encrypts connections with TLS through MariaDB Connector/C. By default, it uses TLS whenever the server supports it. To protect against a server impersonator, you also need to verify the server certificate with `ssl-mode=VERIFY_CA` or `VERIFY_IDENTITY`.
 
 You set the TLS options in a URI, in a connection dictionary, on the command line, or in an option file. In a URI, encode file paths or enclose them in parentheses.
@@ -122,3 +129,5 @@ If client and server have no protocol version or cipher in common, the connectio
 ## Related Topics
 
 * A sandbox instance has TLS turned on and comes with its own CA, server, and client certificates. See [Sandbox Instances](../sandbox-instances.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

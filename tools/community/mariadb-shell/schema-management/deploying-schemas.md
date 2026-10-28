@@ -7,6 +7,13 @@ description: >-
 
 # Deploying Schemas
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 `msm.deploy_schema()` runs the deployment script of a release on a server. The same call creates the schema on a server that doesn't have it, and upgrades the schema on a server that has an earlier release.
 
 ## Deploy a Release
@@ -161,3 +168,5 @@ When you run a deployment script without MSM, for example with `mariadb-shell -f
 | 32100 | The schema exists and has tables, but no `msm_schema_version` view. |
 | 32101 | The schema reports version `0.0.0`, so an earlier deployment failed or is still running. |
 | 32102 | The deployed version can't be upgraded by this script. |
+
+<sub>_This page is licensed: GPLv2_</sub>

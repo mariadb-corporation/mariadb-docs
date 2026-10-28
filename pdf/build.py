@@ -54,8 +54,8 @@ SPACE_TITLES = {
     "general-resources": "MariaDB General Resources",
     "galera-cluster": "MariaDB Galera Cluster",
     "home": "MariaDB Documentation",
-    "gridgain8": "GridGain 8",
-    "gridgain9": "GridGain 9",
+    "gridgain-8": "GridGain 8",
+    "gridgain-9": "GridGain 9",
 }
 
 # `help-tables/` is generated SQL, and the remaining top-level directories are
@@ -63,7 +63,7 @@ SPACE_TITLES = {
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
     "analytics", "tools", "mariadb-cloud", "general-resources",
-    "galera-cluster", "home", "gridgain8", "gridgain9",
+    "galera-cluster", "home", "gridgain-8", "gridgain-9",
 ]
 
 CHROME_CANDIDATES = [

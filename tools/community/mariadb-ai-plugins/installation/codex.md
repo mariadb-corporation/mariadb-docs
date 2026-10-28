@@ -6,6 +6,13 @@ description: >-
 
 # Codex
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 ## Install the Plugin
 
 Add the MariaDB marketplace and install the `dev` plugin with the Codex CLI:
@@ -60,3 +67,5 @@ To check that the plugin is enabled, run the following in Codex:
 ```text
 /plugins
 ```
+
+<sub>_This page is licensed: GPLv2_</sub>

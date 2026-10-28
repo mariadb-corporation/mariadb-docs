@@ -67,4 +67,6 @@ MariaDB Connector/Python constants module defines groups: CAPABILITY, CLIENT, CU
 {% endcolumn %}
 {% endcolumns %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

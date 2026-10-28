@@ -17,9 +17,9 @@ A TideSQL major version pairs with a single TidesDB library major version. A min
 | 5.x | v10.x | Current |
 | Earlier releases | Pre-v10 TidesDB | Archived |
 
-This manual documents the TideSQL 5.x line, which links TidesDB v10. The current pinned release is 5.2.0, whose version is encoded as the hex value `0x50200`, and it links TidesDB v10.2.1. It builds against TidesDB v10.2.0 or later, which added the transaction and iterator expiry reads it uses. TideSQL 5.1.1 paired with TidesDB v10.1.1, and 5.1.0 with v10.1.0.
+This manual documents the TideSQL 5.x line, which links TidesDB v10. The current pinned release is 5.2.1, whose version is encoded as the hex value `0x50201`, and it links TidesDB v10.2.1. It builds against TidesDB v10.2.0 or later, which added the transaction and iterator expiry reads it uses. TideSQL 5.1.1 paired with TidesDB v10.1.1, and 5.1.0 with v10.1.0.
 
-TideSQL 5.2.0 still writes on-disk format 10, the same as 5.0.0, which opened the v10 line, so a database moves between any 5.x releases in either direction without a dump. For the exact rules that relate the plugin version to the library version and the on-disk format, see [Versioning](https://github.com/tidesdb/tidesql/blob/master/VERSIONING.md).
+TideSQL 5.2.1 still writes on-disk format 10, the same as 5.0.0, which opened the v10 line, so a database moves between any 5.x releases in either direction without a dump. For the exact rules that relate the plugin version to the library version and the on-disk format, see [Versioning](https://github.com/tidesdb/tidesql/blob/master/VERSIONING.md).
 
 ## MariaDB Server Compatibility
 
@@ -37,7 +37,7 @@ Because TideSQL tracks the server's storage-engine interface, a given TideSQL re
 The table is updated as new server versions are tested and confirmed working.
 
 {% hint style="info" %}
-TideSQL 5.x targets the MariaDB 13 line. When the `install.sh` builder is run without a `--mariadb-version`, it builds against the latest MariaDB release, falling back to `mariadb-13.0.1` when it cannot look that up. Without a `--tidesdb-version`, it builds the latest TidesDB release, falling back to `v10.2.1`, the release TideSQL 5.2.0 pins.
+TideSQL 5.x targets the MariaDB 13 line. When the `install.sh` builder is run without a `--mariadb-version`, it builds against the latest MariaDB release, falling back to `mariadb-13.0.1` when it cannot look that up. Without a `--tidesdb-version`, it builds the latest TidesDB release, falling back to `v10.2.1`, the release TideSQL 5.2.1 pins.
 {% endhint %}
 
 ## Installation

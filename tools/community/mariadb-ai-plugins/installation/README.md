@@ -1,9 +1,16 @@
 ---
 description: >-
-  Install MariaDB AI Plugins in Claude Code, Codex, OpenCode, Pi, or Hermes Agent.
+  Install MariaDB AI Plugins in Claude Code, Codex, OpenCode, Pi, Hermes Agent, or Cursor.
 ---
 
 # Installation
+
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
 
 If a harness has its own plugin system, you install MariaDB AI Plugins through it. The installation consists of two steps:
 
@@ -18,9 +25,9 @@ When the plugin starts for the first time, it downloads and extracts MariaDB She
 
 ## Prerequisites
 
-* A supported harness: Claude Code, Codex, OpenCode, Pi, or Hermes Agent.
+* A supported harness: Claude Code, Codex, OpenCode, Pi, Hermes Agent, or Cursor.
 * Linux, macOS, or Windows. The optional migration tooling is available on Linux and macOS only.
-* Network access on first start, unless MariaDB Shell 26.9.5 or later is already installed.
+* Network access on first start, unless MariaDB Shell 26.10.4 or later is already installed.
 
 You don't need a MariaDB Server installation. If you don't have a server, the MCP server can deploy a local [sandbox instance](../features/sandbox-instances.md).
 
@@ -46,6 +53,10 @@ You don't need a MariaDB Server installation. If you don't have a server, the MC
 [hermes.md](hermes.md)
 {% endcontent-ref %}
 
+{% content-ref url="cursor.md" %}
+[cursor.md](cursor.md)
+{% endcontent-ref %}
+
 ## Verify the Skills Are Loaded
 
 To check that the skills are loaded, ask the agent a question that requires MariaDB-specific knowledge, for example:
@@ -55,3 +66,5 @@ Write a CREATE TABLE for a product catalog, MariaDB style.
 ```
 
 If the answer uses the native `UUID` data type with `UUID_v7()` rather than `CHAR(36)`, the skills are loaded.
+
+<sub>_This page is licensed: GPLv2_</sub>

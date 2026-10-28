@@ -8,6 +8,13 @@ icon: robot
 
 # MCP Server
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 MariaDB Shell includes a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. MCP is an open protocol that lets AI agents, such as coding assistants, call tools that an external server provides. The MariaDB MCP server provides tools to connect to MariaDB servers, inspect schemas, run SQL, manage versioned schema projects, and deploy local sandbox instances.
 
 The MCP server runs inside MariaDB Shell, as the built-in `mcp` plugin. It uses the shell's own connection handling, [credential store](../connecting/credential-store.md), [sandbox](../sandbox-instances.md) functions, and SSH tunnels, and it brings its own Python runtime and libraries with the shell, so it needs no separate installation.
@@ -51,13 +58,13 @@ The server's tools are organized in function groups. By default, the server prov
 | --- | --- |
 | `db` | List the configured connections, open and close sessions, list schemas and objects, describe objects, and run SQL statements and scripts. |
 | `msm` | Create and work with versioned schema projects of [MariaDB Schema Management](../schema-management/README.md), prepare releases, and deploy schemas. |
-| `mrs` | Work with the files of the MariaDB REST Service: generate client SDKs, dump and load REST services and service projects, and load static content. The REST services themselves are managed with REST SQL, which the `db` tools run. |
+| `rest` | Work with the files of the MariaDB REST Service: generate client SDKs, dump and load REST services and service projects, and load static content. The REST services themselves are managed with REST SQL, which the `db` tools run. |
 | `sandbox` | List the server versions that can be deployed, and deploy, start, stop, and delete local sandbox instances. A sandbox's MariaDB REST Daemon starts and stops with it. |
 | `migrator` | Plan and run a migration from MySQL to MariaDB. Only available on Linux and macOS, after you install the [migration tooling](migration-tooling.md) with `mcp setup`. |
 | `util` | Dump, load, copy, export, and import data as [background tasks](dump-and-load-tools.md) that a client follows and can cancel. |
-| `rest` | Set up, start, stop, and delete MariaDB REST Daemons for sandbox instances and other servers. |
+| `restd` | Set up, start, stop, and delete MariaDB REST Daemons for sandbox instances and other servers. |
 
-A [multi-tenant](multi-tenant-mode.md) server provides only the `db` group. The `msm` and `mrs` tools work on files on the developer's own machine, and the `util` and `rest` tools run long jobs and local processes on the server's machine, so they are not available on a server that several users reach remotely.
+A [multi-tenant](multi-tenant-mode.md) server provides only the `db` group. The `msm` and `rest` tools work on files on the developer's own machine, and the `util` and `restd` tools run long jobs and local processes on the server's machine, so they are not available on a server that several users reach remotely.
 
 ## The mcp Global Object
 
@@ -108,6 +115,12 @@ To show the built-in help, run `\? mcp` in Python mode, or `mariadb-shell -- mcp
 [oauth-authentication.md](oauth-authentication.md)
 {% endcontent-ref %}
 
+{% content-ref url="running-in-a-container.md" %}
+[running-in-a-container.md](running-in-a-container.md)
+{% endcontent-ref %}
+
 {% content-ref url="security-and-session-handling.md" %}
 [security-and-session-handling.md](security-and-session-handling.md)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

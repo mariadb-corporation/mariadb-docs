@@ -6,7 +6,14 @@ description: >-
 
 # About MariaDB AI Plugins
 
-MariaDB AI Plugins extend AI coding agents with knowledge about MariaDB and with access to MariaDB databases. You install a plugin through the plugin system of your coding agent. In this documentation, the coding agent is called the *harness*.
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
+MariaDB AI Plugins extend AI coding agents with knowledge about MariaDB and with access to MariaDB databases. You install a plugin through the plugin system of your coding agent. In this documentation, the coding agent is called the _harness_.
 
 ## What a Plugin Provides
 
@@ -31,6 +38,7 @@ The Model Context Protocol (MCP) is a standard interface through which AI agents
 | [OpenCode](https://opencode.ai) | `dev`, `sql`, `contributor` | Manual configuration |
 | [Pi](https://pi.dev) | `dev` | Pi package |
 | [Hermes Agent](https://hermes-agent.nousresearch.com/) | `dev`, `sql`, `contributor` | Agent Plugins package |
+| [Cursor](https://cursor.com) | `dev`, `sql`, `contributor` | Claude Code plugin marketplace |
 
 See [Plugin Variants](plugin-variants.md) for what each variant contains.
 
@@ -47,3 +55,5 @@ The version number of a plugin release matches the MariaDB Shell release it requ
 {% content-ref url="installation/" %}
 [installation](installation/)
 {% endcontent-ref %}
+
+<sub>_This page is licensed: GPLv2_</sub>

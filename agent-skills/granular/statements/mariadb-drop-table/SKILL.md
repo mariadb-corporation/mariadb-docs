@@ -23,7 +23,7 @@ This skill covers the **delta between standard SQL `DROP TABLE` and MariaDB's**.
 | Drops a table that another table's foreign key references | Blocked (`ER_ROW_IS_REFERENCED`). Drop the referencing FK first, or `SET foreign_key_checks = 0` for the session to bypass the check |
 | Wraps `DROP TABLE` in a transaction expecting to roll it back | DDL does an **implicit commit** — it can't be rolled back. The one exception: `DROP TEMPORARY TABLE` does *not* implicitly commit the surrounding transaction |
 | Drops a table, then separately hunts down its triggers | `DROP TABLE` removes the table's triggers automatically — no separate `DROP TRIGGER` needed |
-| `DROP TABLE x; CREATE TABLE x …` to replace a table definition | `CREATE OR REPLACE TABLE x …` — atomic, with no window where the table is missing. See `mariadb-create-table` |
+| `DROP TABLE x; CREATE TABLE x …` to replace a table definition | `CREATE OR REPLACE TABLE x …` — from 13.2 atomic by default (no window where the table is missing), except where the old table is dropped first; before 13.2 it is only crash-safe. See `mariadb-create-table` |
 | Uses `DROP TABLE` to clear rows or reset `AUTO_INCREMENT` | That destroys the table. To empty it, use `TRUNCATE TABLE` (resets `AUTO_INCREMENT`, implicit commit) or `DELETE FROM` (transactional). See `mariadb-delete` |
 
 ## Syntax

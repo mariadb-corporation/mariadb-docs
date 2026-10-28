@@ -114,8 +114,8 @@ Apache Ignite ODBC Driver was officially tested on:
 | Requirement | Details |
 |-------------|---------|
 | OS | Windows (XP and up, both 32-bit and 64-bit versions)<br>Windows Server (2008 and up, both 32-bit and 64-bit versions)<br>Ubuntu (14.x and 15.x 64-bit) |
-| C++ compiler | MS Visual C++ (10.0 and up), GCC (4.4.0 and up) |
-| Visual Studio | 2010 and above |
+| C++ compiler | MS Visual C++ or GCC, with C++14 support |
+| Visual Studio | A version that supports C++14 |
 
 If you plan to use SSL in your environment, also install [OpenSSL](https://openssl-library.org/source/).
 
@@ -133,7 +133,7 @@ We assume here that you are using the binary Ignite release. If you are using th
 
 ### Building on Windows
 
-You will need MS Visual Studio 2010 or later to be able to build the ODBC driver on Windows. Once you have it, open Ignite solution `%IGNITE_HOME%\platforms\cpp\project\vs\ignite.sln` (or `ignite_86.sln` if you are running 32-bit platform), left-click on odbc project in the "Solution Explorer" and choose "Build". Visual Studio will automatically detect and build all the necessary dependencies.
+You will need a version of MS Visual Studio that supports C++14 to be able to build the ODBC driver on Windows. Once you have it, open Ignite solution `%IGNITE_HOME%\platforms\cpp\project\vs\ignite.sln` (or `ignite_86.sln` if you are running 32-bit platform), left-click on odbc project in the "Solution Explorer" and choose "Build". Visual Studio will automatically detect and build all the necessary dependencies.
 
 The path to the .sln file may vary depending on whether you're building from source files or binaries. If you don't see your .sln file in `%IGNITE_HOME%\platforms\cpp\project\vs\`, try looking in `%IGNITE_HOME%\modules\platforms\cpp\project\vs\`.
 

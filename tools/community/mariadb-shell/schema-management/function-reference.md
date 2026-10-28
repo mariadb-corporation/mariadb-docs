@@ -6,6 +6,13 @@ description: >-
 
 # Function Reference
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 The `msm` global object and its sub-objects `msm.get` and `msm.set` provide the functions below. In Python mode, call them with snake_case names and pass options as keyword arguments. On the command line, use the kebab-case names shown in the tables and pass options as `--name=value`, in camelCase or kebab-case. See [Command Line Integration](../using-mariadb-shell/command-line-integration.md).
 
 ```python
@@ -75,3 +82,5 @@ These functions use the global session, or the session passed with the `session`
 | `msm.version()` | `msm version` | Returns the version of the plugin. |
 
 `msm.get_schema_diagram()` is reserved for a future schema modeler. It returns an empty diagram model and fails when you pass a project path.
+
+<sub>_This page is licensed: GPLv2_</sub>

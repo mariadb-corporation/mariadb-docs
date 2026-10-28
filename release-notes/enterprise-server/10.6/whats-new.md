@@ -189,11 +189,11 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262) | 9.9                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380) | 8.8                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-102523](https://www.cve.org/CVERecord?id=CVE-2026-102523) | 8.0                    | [10.6.28-24](10.6.28-24.md)    |
+| [CVE-2026-107814](https://www.cve.org/CVERecord?id=CVE-2026-107814) | 8.4                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815) | 8.5                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816) | 6.4                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107817](https://www.cve.org/CVERecord?id=CVE-2026-107817) | 4.4                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107818](https://www.cve.org/CVERecord?id=CVE-2026-107818) | 8.4                    | [10.6.28-24](10.6.28-24.md)    |
-| [CVE-2026-107819](https://www.cve.org/CVERecord?id=CVE-2026-107819) | 5.9                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107821](https://www.cve.org/CVERecord?id=CVE-2026-107821) | 8.0                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107822](https://www.cve.org/CVERecord?id=CVE-2026-107822) | 6.4                    | [10.6.28-24](10.6.28-24.md)    |
 | [CVE-2026-107823](https://www.cve.org/CVERecord?id=CVE-2026-107823) | 7.2                    | [10.6.28-24](10.6.28-24.md)    |

@@ -6,6 +6,13 @@ description: >-
 
 # Connection URIs and Options
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Every connection that MariaDB Shell opens is described by the same set of connection options: who connects, to which server, how the transport is secured, and so on. You can supply these options in three forms, and mix them:
 
 * A connection URI, such as `mariadb://dba@db1.example.com:3306/shop`. You can pass it on the command line, to `\connect`, or to Python functions such as `shell.connect()`.
@@ -149,6 +156,21 @@ mariadb-shell --local-infile=0 dba@db1/shop
 
 With local loading turned off, the statement fails with error 4166, `The used command is not allowed because the MariaDB server or client has disabled the local infile capability`.
 
+### Authentication Plugins
+
+MariaDB Shell logs in with whichever authentication plugin the account uses; you only give the password. `mysql_native_password` is built in. The other client plugins are loaded from `lib/mariadb/plugins` in the installation directory, or from the directory set by `--mysql-plugin-dir` or the `mysqlPluginDir` shell option.
+
+| Account plugin (`IDENTIFIED VIA`) | Client plugin |
+| --- | --- |
+| `mysql_native_password` | Built in |
+| `ed25519` | `client_ed25519` |
+| `parsec` | `parsec` |
+| `pam` | `dialog`, or `mysql_clear_password` when the server sets `pam_use_cleartext_plugin` |
+| `gssapi` | `auth_gssapi_client`. On Linux it uses the system Kerberos libraries (`libgssapi_krb5.so.2`, from the `krb5-libs` or `libgssapi-krb5-2` package). |
+| `caching_sha2_password`, `sha256_password` | `caching_sha2_password`, `sha256_password` |
+
+`mysql_clear_password` sends the password as plain text, so use it only over an encrypted connection. If a client plugin is missing, the login fails with `Plugin <name> could not be loaded`.
+
 ## Connection Dictionaries
 
 In Python, any function that takes connection data also accepts a dictionary. Besides the [connection options](#connection-options), a dictionary accepts the following keys:
@@ -268,3 +290,5 @@ When several sources describe the same setting, MariaDB Shell applies the follow
 | `credentialStore.helper` | string | `default` | The helper that stores passwords. |
 
 For all shell options, see [Configuration Options](../customizing/configuration-options.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

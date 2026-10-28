@@ -5,6 +5,13 @@ description: >-
 
 # Connector Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 There are two skills for each MariaDB connector. One covers installation and configuration, and the other covers using the connector in application code.
 
 | Skill | Plugins | What it covers |
@@ -23,3 +30,5 @@ There are two skills for each MariaDB connector. One covers installation and con
 | `mariadb-connector-cpp-usage` | `dev` | MariaDB-specific behavior of MariaDB Connector/C++ (the `sql::` namespace API, modeled on JDBC 4.0) for application code — that a driver comes from `sql::mariadb::get_driver_instance()` and connections from `driver->connect(url, props)`, returning a raw `Connection*` you must own; that the URL is `jdbc:mariadb://host:port/database[?opt=val]`; that `PreparedStatement` parameter indexes and `ResultSet` column indexes are 1-based, not 0-based; that `?` is the only placeholder; that `ResultSet::next()` must be called before the first read; that the API returns raw pointers with no automatic cleanup — wrap them in `std::unique_ptr` or `close()` explicitly, child before parent; that `sql::SQLString` is the parameter/return type throughout; that autocommit defaults to true; that errors surface as `sql::SQLException`; and that it is built on Connector/C. |
 | `mariadb-connector-c-install` | `dev` | Installing and configuring MariaDB Connector/C, the C client library the other MariaDB connectors build on — the runtime and development package names per distribution (`libmariadb3`/`libmariadb-dev`, `MariaDB-shared`/`MariaDB-devel`), how to get compile and link flags from `mariadb_config` or pkg-config `libmariadb` rather than hardcoding them, the build-from-source prerequisites, and the configuration side: that the library reads option files only when the application asks for them via `MYSQL_READ_DEFAULT_FILE` or `MYSQL_READ_DEFAULT_GROUP`, which option groups it reads, how `!includedir` and unknown options differ from the server, and which TLS options depend on the library it was built against. |
 | `mariadb-connector-c-usage` | `dev` | MariaDB-specific behavior of MariaDB Connector/C (the `libmariadb` client library implementing the MariaDB client-server protocol in C) for application code — that the public API is still `mysql_`-prefixed (`mysql_init`, `mysql_real_connect`, `mysql_query`, ...) with only a few `mariadb_`-prefixed extensions; that `mysql_init()` must precede `mysql_real_connect()`, with `mysql_optionsv()` options set in between; the buffered-vs-unbuffered split between `mysql_store_result()` and `mysql_use_result()` plus the mandatory `mysql_free_result()`; that literals need `mysql_real_escape_string()` when not using prepared statements; the `?`-placeholder prepared-statement API (`MYSQL_BIND` arrays, `mysql_stmt_bind_param`/`execute`/`fetch`); and that autocommit is ON by default so transactions need `mysql_autocommit(conn,0)`. |
+
+<sub>_This page is licensed: GPLv2_</sub>

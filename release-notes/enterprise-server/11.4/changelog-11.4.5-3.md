@@ -19,7 +19,6 @@ MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 * ([MENT-2228](https://jira.mariadb.org/browse/MENT-2228)) cherry-pick the fix for [MDEV-36138](https://jira.mariadb.org/browse/MDEV-36138)
 * ([MDEV-35789](https://jira.mariadb.org/browse/MDEV-35789)) Q1 2025 release merge
 * ([MDEV-35854](https://jira.mariadb.org/browse/MDEV-35854)) Clean up some DDL code around FOREIGN KEY constraints
-* ([MENT-2145](https://jira.mariadb.org/browse/MENT-2145)) Backport [MDEV-23729](https://jira.mariadb.org/browse/MDEV-23729) - INFORMATION\_SCHEMA Table info. about user locked due to max\_password\_errors
 * ([MENT-2234](https://jira.mariadb.org/browse/MENT-2234)) Starting with this release we generate a Software Builds of Materials(SBOM) JSON file provided in the downloads archive, which can be reached from the "All Files" link on the MariaDB Enterprise Server downloads page
 * ([MDEV-32576](https://jira.mariadb.org/browse/MDEV-32576)) InnoDB deadlock output query length increased to improve visibility of deadlocked statements.
 

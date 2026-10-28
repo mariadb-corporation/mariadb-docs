@@ -28,6 +28,7 @@ port=4006
 * Type: service
 * Mandatory: Yes
 * Dynamic: No
+* Description: Identifies the service that the listener is connected to.
 
 The service to which the listener is associated. This is the name of a service that is defined elsewhere in the configuration file.
 
@@ -37,6 +38,7 @@ The service to which the listener is associated. This is the name of a service t
 * Mandatory: No
 * Dynamic: No
 * Default: `mariadb`
+* Description: Defines the protocol module that clients and MaxScale use to communicate.
 
 The name of the protocol module used for communication between the client and MaxScale. The same protocol is also used for backend communication.
 
@@ -50,6 +52,7 @@ For NoSQL client connections, the protocol must be set to `protocol=nosqlprotoco
 * Mandatory: No
 * Dynamic: No
 * Default: `"::"`
+* Description: Indicates the hostname or address that the listener binds to when a connection is made.
 
 This sets the address the listening socket is bound to. The address may be specified as an IP address in 'dot notation' or as a hostname. If left undefined the listener will bind to all network interfaces.
 
@@ -59,6 +62,7 @@ This sets the address the listening socket is bound to. The address may be speci
 * Mandatory: Yes, if `socket` is not provided.
 * Dynamic: No
 * Default: `0`
+* Description: Specifies the port on which the listener accepts connections.
 
 The port the listener listens on. If left undefined a default port for the protocol is used.
 
@@ -68,6 +72,7 @@ The port the listener listens on. If left undefined a default port for the proto
 * Mandatory: Yes, if `port` is not provided.
 * Dynamic: No
 * Default: `""`
+* Description: Defines the Unix domain socket that the listener uses to receive inbound connections.
 
 If defined, the listener uses Unix domain sockets to listen for incoming connections. The parameter value is the name of the socket to use.
 
@@ -79,6 +84,7 @@ If you want to use both network ports and UNIX domain sockets with a service, de
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the authenticator module used for client authentication.
 
 The authenticator module to use. Each protocol module defines a default authentication module, which is used if the setting is left undefined. MariaDB protocol support multiple authenticators and they can be used simultaneously by giving a comma-separated list e.g. `authenticator=mariadbauth,gssapiauth`
 
@@ -88,6 +94,7 @@ The authenticator module to use. Each protocol module defines a default authenti
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Provides additional configuration settings for the authenticator module.
 
 This defines additional options for authentication. As of MaxScale 2.5.0, only _MariaDBClient_ and its authenticators support additional options. The value of this parameter should be a comma-separated list of key-value pairs. See authenticator specific documentation for more details.
 
@@ -98,6 +105,7 @@ This defines additional options for authentication. As of MaxScale 2.5.0, only _
 * Dynamic: Yes
 * Values: `default`, `oracle`
 * Default: `default`
+* Description: Specifies the listener's SQL mode, overriding the global `sql_mode` setting if it is set.
 
 Specify the sql mode for the listener similarly to global `sql_mode` setting. If both are used this setting will override the global setting for this listener.
 
@@ -123,6 +131,7 @@ Similar to MariaDB Server, MaxScale will also accept normal connections even if 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies a file containing SQL statements executed on backend connections after authentication.
 
 Path to a text file with sql queries. Any sessions created from the listener will send the contents of the file to backends after authentication. Each non-empty line in the file is interpreted as a query. Each query must succeed for the backend connection to be usable for client queries. The queries should not return any data.
 
@@ -143,6 +152,7 @@ set @myvar2 = 4;
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Provides optional backend credentials for MariaDB protocol connections, as well as a JSON file that specifies user and group mappings.
 
 Path to a json-text file with user and group mapping, as well as server credentials. Only affects MariaDB-protocol based listeners. Default value is empty, which disables the feature.
 
@@ -217,6 +227,7 @@ An example mapping file is below.
 * Default: `character_set_client=auto,character_set_connection=auto,character_set_results=auto,max_allowed_packet=auto,system_time_zone=auto,time_zone=auto,tx_isolation=auto,maxscale=auto`
 * Dynamic: Yes
 * Mandatory: No
+* Description: Provides the metadata that is given to clients upon connection as a list of key-value pairs separated by commas.
 
 Metadata that's sent to all connecting clients. The value must be a comma-separated list of key-value arguments. The keys or values cannot contain commas in them.
 
@@ -246,6 +257,7 @@ If the `connection_metadata` variable list contains the `tx_isolation` variable 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the database URL that clients are sent to following authentication.
 
 Database URL where clients are redirected.
 

@@ -44,6 +44,7 @@ For the MariaDB protocol module, the prefix is always `mariadbprotocol`.
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Manages whether the replication protocol is permitted through this listener.
 
 Whether the use of the replication protocol is allowed through this listener. If disabled with `mariadbprotocol.allow_replication=false`, all attempts to start replication will be rejected with a ER\_FEATURE\_DISABLED error (error number 1289).
 

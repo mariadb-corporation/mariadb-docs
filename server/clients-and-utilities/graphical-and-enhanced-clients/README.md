@@ -63,6 +63,10 @@ The third-party tools described in this section are not developed or maintained 
 [dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md](dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md)
 {% endcontent-ref %}
 
+{% content-ref url="dbine.md" %}
+[dbine.md](dbine.md)
+{% endcontent-ref %}
+
 {% content-ref url="dbschema.md" %}
 [dbschema.md](dbschema.md)
 {% endcontent-ref %}

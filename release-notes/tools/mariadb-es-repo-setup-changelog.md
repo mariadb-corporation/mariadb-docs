@@ -10,10 +10,12 @@ description: >-
 
 The version of the script is a date, which you can display by running the script with the `--version` option. The changes made in each version are listed below, reproduced from the changelog comments at the top of the script. For the checksum of each released version, see the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#versions) section of the setup and usage page.
 
+* **2026-10-22**
+  * Add the Enterprise Tools repository on SLES 15, which has mema-agent from 1.1.3; SLES 12 and 16 have no Enterprise Tools repository and still get none
 * **2026-09-15**
   * Add MariaDB Enterprise Server 12.3
   * Accept 12.3 as a --mariadb-server-version value, as the series on its own or as a specific \<version>-\<release>
-  * Add SLES 16, which 12.3 is the first release to ship; it uses the 2025 signing key, and has no Enterprise Tools repository, the same as RHEL 10 and Debian 13
+  * Add SLES 16, which 12.3 is the first release to ship; it uses the 2025 signing key, and has no Enterprise Tools repository
   * Skip the Server repo on Debian 11 (bullseye) and SLES 12 when 12.3 is requested; neither is built for 12.3
   * Name Alma and Oracle in the supported OS list; both were already detected, they just were not mentioned
 * **2026-06-30**

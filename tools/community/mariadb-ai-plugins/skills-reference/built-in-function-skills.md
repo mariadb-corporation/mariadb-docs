@@ -5,11 +5,18 @@ description: >-
 
 # Built-in Function Skills
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/ai-plugins, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-ai-plugins/).
+  Make every change in mariadb-corporation/ai-plugins. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 Each of these skills covers a group of built-in functions, such as the string, date and time, or JSON functions.
 
 | Skill | Plugins | What it covers |
 | --- | --- | --- |
-| `mariadb-json-functions` | `dev`, `sql` | MariaDB JSON functions — complete catalog of JSON_*, JSON_ARRAY/OBJECT constructors and aggregates (JSON_ARRAYAGG, JSON_OBJECTAGG), extraction (JSON_EXTRACT, JSON_VALUE, JSON_QUERY, JSON_TABLE, ->, ->>), modification (JSON_SET, JSON_INSERT, JSON_REPLACE, JSON_REMOVE, JSON_ARRAY_APPEND, JSON_ARRAY_INSERT), merge variants (JSON_MERGE, JSON_MERGE_PATCH, JSON_MERGE_PRESERVE), validation (JSON_VALID, JSON_SCHEMA_VALID, IS JSON), introspection (JSON_TYPE, JSON_DEPTH, JSON_LENGTH, JSON_KEYS, JSON_CONTAINS, JSON_EQUALS), formatting (JSON_DETAILED/PRETTY, JSON_COMPACT, JSON_LOOSE, JSON_QUOTE, JSON_UNQUOTE), and JSON_TABLE for relational projection. |
+| `mariadb-json-functions` | `dev`, `sql` | MariaDB JSON functions — complete catalog of JSON_\*, JSON_ARRAY/OBJECT constructors and aggregates (JSON_ARRAYAGG, JSON_OBJECTAGG), extraction (JSON_EXTRACT, JSON_VALUE, JSON_QUERY, JSON_TABLE, ->, ->>), modification (JSON_SET, JSON_INSERT, JSON_REPLACE, JSON_REMOVE, JSON_ARRAY_APPEND, JSON_ARRAY_INSERT), merge variants (JSON_MERGE, JSON_MERGE_PATCH, JSON_MERGE_PRESERVE), validation (JSON_VALID, JSON_SCHEMA_VALID, IS JSON), introspection (JSON_TYPE, JSON_DEPTH, JSON_LENGTH, JSON_KEYS, JSON_CONTAINS, JSON_EQUALS), formatting (JSON_DETAILED/PRETTY, JSON_COMPACT, JSON_LOOSE, JSON_QUOTE, JSON_UNQUOTE), and JSON_TABLE for relational projection. |
 | `mariadb-string-functions` | `dev`, `sql` | MariaDB string functions — extraction (SUBSTRING/SUBSTR, LEFT, RIGHT, MID, SUBSTRING_INDEX); length in bytes (LENGTH/OCTET_LENGTH/LENGTHB) vs characters (CHAR_LENGTH/CHARACTER_LENGTH); search (LOCATE, INSTR, POSITION, FIND_IN_SET, FIELD); concatenation (CONCAT, CONCAT_WS); modification (REPLACE, INSERT, REVERSE, REPEAT, SPACE, LPAD/RPAD, TRIM/LTRIM/RTRIM); case (LOWER/UPPER); PCRE2 regular expressions (REGEXP/RLIKE, REGEXP_REPLACE, REGEXP_INSTR, REGEXP_SUBSTR); formatting (FORMAT, SFORMAT); encoding (HEX/UNHEX, TO_BASE64/FROM_BASE64, ASCII, CHAR, ORD); plus the LIKE, REGEXP, SOUNDS LIKE, and BINARY operators. |
 | `mariadb-date-time-functions` | `dev`, `sql` | MariaDB date and time functions — current time (NOW, CURRENT_TIMESTAMP, SYSDATE, CURDATE, CURTIME, UTC_TIMESTAMP/UTC_DATE/UTC_TIME), arithmetic (DATE_ADD, DATE_SUB, ADDDATE, SUBDATE, INTERVAL units), differences (TIMESTAMPDIFF, TIMESTAMPADD, DATEDIFF, TIMEDIFF), extraction (EXTRACT, YEAR/MONTH/DAY/HOUR/MINUTE/SECOND/MICROSECOND, QUARTER, WEEK, DAYOFWEEK, WEEKDAY, LAST_DAY), parsing/formatting (STR_TO_DATE, DATE_FORMAT, GET_FORMAT), Unix time (UNIX_TIMESTAMP, FROM_UNIXTIME), time-zone conversion (CONVERT_TZ), construction (MAKEDATE, MAKETIME, SEC_TO_TIME), and Oracle-compat helpers (ADD_MONTHS, MONTHS_BETWEEN, TO_DATE). |
 | `mariadb-numeric-functions` | `dev`, `sql` | MariaDB numeric and math functions — rounding/truncation (ROUND, the TRUNCATE function vs the TRUNCATE TABLE statement, FLOOR, CEILING, SIGN, ABS), integer-vs-decimal division (the DIV operator vs /, MOD / %), powers and logs (POW/POWER, SQRT, EXP, LN, LOG, LOG2, LOG10), trigonometry (SIN, COS, TAN, ASIN, ACOS, ATAN, ATAN2, COT, PI, DEGREES, RADIANS), randomness (RAND, seeded RAND(N)), base conversion (CONV, OCT, BIN, HEX), checksums (CRC32, CRC32C), and number formatting (FORMAT). |
@@ -19,3 +26,5 @@ Each of these skills covers a group of built-in functions, such as the string, d
 | `mariadb-information-functions` | `dev`, `sql` | MariaDB information functions — session and server metadata: LAST_INSERT_ID, ROW_COUNT, FOUND_ROWS, DATABASE/SCHEMA, USER/CURRENT_USER/SESSION_USER/SYSTEM_USER, CURRENT_ROLE, VERSION, CONNECTION_ID, CHARSET, COLLATION, COERCIBILITY, BENCHMARK, DEFAULT, LAST_VALUE, ROWNUM, BINLOG_GTID_POS, DECODE_HISTOGRAM. |
 | `mariadb-vector-functions` | `dev`, `sql` | MariaDB vector functions — VEC_Distance, VEC_Distance_Euclidean, VEC_Distance_Cosine, VEC_FromText, VEC_ToText, and the VECTOR data type / MHNSW vector index context. |
 | `mariadb-encryption-functions` | `dev`, `sql` | MariaDB encryption, hashing, and compression functions — AES_ENCRYPT/AES_DECRYPT keyed off block_encryption_mode (default aes-128-ecb) with optional IV/mode since 11.2; SHA2/SHA1/MD5 checksums; KDF and RANDOM_BYTES for key derivation; COMPRESS/UNCOMPRESS/UNCOMPRESSED_LENGTH; PASSWORD/OLD_PASSWORD/ENCRYPT for auth hashing; ENCODE/DECODE (weak, not removed) vs DES_ENCRYPT/DES_DECRYPT (removed in 13.0). |
+
+<sub>_This page is licensed: GPLv2_</sub>

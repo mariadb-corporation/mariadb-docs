@@ -51,6 +51,7 @@ If the client continues to query at high speed and throttling duration is set to
 * Type: number
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Sets the maximum number of requests per second allowed for a session during the specific sample period.
 
 Maximum queries per second.
 
@@ -61,6 +62,7 @@ This is the frequency to which a session will be limited over a given time perio
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies how long a session can be throttled before being disconnected by MaxScale.
 
 This defines how long a session is allowed to be throttled before MaxScale disconnects the session.
 
@@ -70,6 +72,7 @@ This defines how long a session is allowed to be throttled before MaxScale disco
 * Mandatory: No
 * Dynamic: Yes
 * Default: 250ms
+* Description: Defines the time interval during which queries per second (QPS) are mesaured for throttling purposes.
 
 Sampling duration defines the window of time over which QPS is measured. This parameter directly affects the amount of time that high frequency queries are allowed before throttling kicks in.
 
@@ -81,6 +84,7 @@ The lower this value is, the more strict throttling becomes. Conversely, the lon
 * Mandatory: No
 * Dynamic: Yes
 * Default: 2s
+* Description: Specifies the time interval used to decide when continuous throttling begins and finishes.
 
 This value defines what continuous throttling means. Continuous throttling starts as soon as the filter throttles the frequency. Continuous throttling ends when no throttling has been performed in the past `continuous_duration` time.
 

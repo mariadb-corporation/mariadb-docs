@@ -6,6 +6,13 @@ description: >-
 
 # Limitations
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 This page lists what the dump and load utilities do not do on MariaDB, what you must prepare on a target server, and which behaviors are intended. Several of the limitations match the default behavior of `mariadb-dump`.
 
 ## Not Available
@@ -57,3 +64,5 @@ Without the engine-independent statistics, the optimizer on the target can choos
 * **Untested engines.** Tables on the Spider, CONNECT, OQGRAPH, VP, and FEDERATED engines are handled as described in [What a Dump Carries](what-a-dump-carries.md), but have not been tested, because the server packages used for testing do not include these engines. Subpartitions of system-versioned tables are not tested either.
 * **The manifest records the source configuration.** `@.json` contains every global system variable of the source, including file paths, host names, cluster addresses, and `report_password` if the server was started with one. Store and share dumps with the same care as the server's configuration files. See [The Manifest](what-a-dump-carries.md#the-manifest).
 * **Object storage is not validated.** Amazon S3, OCI Object Storage, and Azure Blob Storage have not been tested against MariaDB. Local and network file systems are fully tested. See [Object Storage](object-storage.md).
+
+<sub>_This page is licensed: GPLv2_</sub>

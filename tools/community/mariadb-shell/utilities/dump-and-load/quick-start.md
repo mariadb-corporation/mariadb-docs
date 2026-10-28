@@ -7,6 +7,13 @@ description: >-
 
 # Quick Start
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 This page lists what the source and target servers need, and then walks through four common tasks. Each example is a starting point: the [Dump Utilities](dump-utilities.md), [Load Dump Utility](load-dump-utility.md), and [Copy Utilities](copy-utilities.md) pages describe every option.
 
 ## Before You Start
@@ -127,3 +134,5 @@ The replica receives exactly the transactions committed on the primary after the
 ## If a Load Is Interrupted
 
 Run the same `util.load_dump()` call again. The load reads its progress file and continues with the steps that did not complete. To discard the progress and start over, add `"resetProgress": True`; objects that were already created are not dropped, so remove them first or add `"dropExistingObjects": True`. See [How Dump and Load Work](how-dump-and-load-work.md#resuming-a-load).
+
+<sub>_This page is licensed: GPLv2_</sub>

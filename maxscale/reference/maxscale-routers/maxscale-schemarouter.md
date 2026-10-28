@@ -103,6 +103,7 @@ This would in effect allow the user 'john' to only see the database 'shard' on t
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Disables the detection of duplicate tables on shards while it is enabled.
 
 If enabled, the detection of duplicated tables on shards is not done.
 
@@ -114,6 +115,7 @@ This parameter was added in MaxScale 25.01 and it is a more convenient and effic
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies a list of full table names to ignore when checking for duplicate tables.
 
 List of full table names (e.g. db1.t1) to ignore when checking for duplicate tables. By default no tables are ignored.
 
@@ -125,6 +127,7 @@ This parameter was once called `ignore_databases`.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines a PCRE2 regular expression to ignore specific tables when checking for duplicate databases.
 
 A [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) that is matched against database names when checking for duplicate databases. By default no tables are ignored.
 
@@ -156,6 +159,7 @@ This parameter has been moved to [the MaxScale core](../../maxscale-management/d
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Allows the database map to be refreshed when a `USE...` query fails during a session.
 
 Enable database map refreshing mid-session. These are triggered by a failure to change the database i.e. `USE ...` queries. This feature is disabled by default.
 
@@ -167,6 +171,7 @@ Before MaxScale 6.2.0, this parameter did nothing. Starting with the 6.2.0 relea
 * Mandatory: No
 * Dynamic: Yes
 * Default: `300s`
+* Description: Sets the minimum interval between database map refreshes to maintain cluster metadata up to date.
 
 The minimum interval between database map refreshes in seconds. The default value is 300 seconds.
 
@@ -178,6 +183,7 @@ If no explicit unit is provided, the value is interpreted as seconds in MaxScale
 * Mandatory: No
 * Dynamic: Yes
 * Default: 150s
+* Description: Specifies how long stale database map entries can be used by new connections while an update is in progress.
 
 The time how long stale database map entries can be used while an update is in progress. When a database map entry goes stale, the next connection to be created will start an update of the database map. While this update is ongoing, other connections can use the stale entry for up to `max_staleness` seconds. If this limit is exceeded and the update still hasn't completed, new connections will instead block and wait for the update to finish.
 

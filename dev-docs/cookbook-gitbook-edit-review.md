@@ -15,6 +15,14 @@ practical, so the docs team reviews them after they land. This page describes ho
   spaces);
 - a link to the commit diff;
 - up to four changed pages, each marked added, edited, deleted or renamed;
+- a :rotating_light: warning if the commit changed a **generated page**, which the next run of
+  its generator overwrites, so the edit has to be reverted and made in the page's source. The
+  list lives in `generated_pages` in `.github/scripts/gitbook-edit-digest.jq`. Today it holds
+  the MaxScale settings reference (`dev-docs/cookbook-maxscale-settings-reference.md`), the
+  Plugin API pages under `server/reference/plugins/api-plugin/`, and the Community Tools pages
+  synced into `tools/community/mariadb-ai-plugins/` and `tools/community/mariadb-shell/`
+  (`dev-docs/cookbook-community-tools-sync.md`). The gates can't catch this,
+  because a hand edit to a generated page usually passes all of them;
 - the content-gate result.
 
 It lists **every** GitBook commit, including clean ones, because the goal is for a person to

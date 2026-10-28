@@ -6,6 +6,13 @@ description: >-
 
 # Sockets and Named Pipes
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A server on the same machine can be reached without the network stack. On Linux and macOS, MariaDB Shell connects through the server's Unix socket file. On Windows, it can connect through a named pipe. Local transports avoid TCP overhead, and on Linux they make `unix_socket` authentication possible.
 
 ## Unix Socket Files
@@ -111,3 +118,5 @@ Sandbox instances on Windows don't enable named pipes, so you connect to them ov
 ## Shared Memory
 
 MariaDB Shell doesn't support shared-memory connections on Windows. It never requests the shared-memory transport from Connector/C, so a local connection without a pipe uses TCP, even if the server has `shared_memory` enabled.
+
+<sub>_This page is licensed: GPLv2_</sub>

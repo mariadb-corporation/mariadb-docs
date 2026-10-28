@@ -40,6 +40,7 @@ ssl=true
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Allows tracking of password hash mismatches during authentication.
 
 The service setting `log_auth_warnings` must also be enabled for this setting to have effect. When both settings are enabled, password hashes are logged if a client gives a wrong password. This feature may be useful when diagnosing authentication issues. It should only be enabled on a secure system as the logging of password hashes may be a security risk.
 

@@ -21,13 +21,13 @@
   },
   "synced": {
     "mariadb-ai-plugins": {
-      "commit": "2206a90dc25552bc52522c911e06f5a6f9668991",
+      "commit": "df762364ac3ecb2ae8dafc0fae4a4c3142084877",
       "assets": [
         "MariaDB_AI-Plugins_Architecture.svg"
       ]
     },
     "mariadb-shell": {
-      "commit": "eff5773d413e9b653fb61a3de42b0b885cd51a16",
+      "commit": "b074605909add4b0f624878e3a4a4b4cd6694d08",
       "assets": [
         "mcp-login.webp"
       ]

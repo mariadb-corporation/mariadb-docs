@@ -288,6 +288,7 @@ maxvisualize baseline-summary.json comparison-summary.json --Voila.ip='0.0.0.0'
 * Default: /var/lib/maxscale/wcar/
 * Mandatory: No
 * Dynamic: No
+* Description: Specifies the directory in which session capture subdirectories are kept for each filter.
 
 Directory under which capture directories are stored. Each capture directory has the name of the filter. In the examples above the name `CAPTURE_FLTR` was used.
 
@@ -297,6 +298,7 @@ Directory under which capture directories are stored. Each capture directory has
 * Default: false
 * Mandatory: No
 * Dynamic: No
+* Description: Determines whether session capture starts automatically when MaxScale starts.
 
 Start capture when maxscale starts.
 
@@ -306,6 +308,7 @@ Start capture when maxscale starts.
 * Default: 0s
 * Mandatory: No
 * Dynamic: No
+* Description: Determines how long a session capture can run; a value of `0` indicates an infinite duration.
 
 Limit capture to this duration. If set to zero there is no limit.
 
@@ -315,6 +318,7 @@ Limit capture to this duration. If set to zero there is no limit.
 * Default: 0
 * Mandatory: No
 * Dynamic: No
+* Description: Specifies the maximum session capture size in bytes; a value of 0 indicates no size restriction.
 
 Limit capture to approximately this many bytes in the file system. If set to zero there is no limit.
 

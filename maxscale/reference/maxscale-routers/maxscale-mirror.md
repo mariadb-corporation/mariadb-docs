@@ -39,6 +39,7 @@ The objects in the `results` array describe an individual query result and have 
 * Type: target
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the primary target server whose results are returned to the client and whose availability is required for the session.
 
 The main target from which results are returned to the client. This is a mandatory parameter and must define one of the targets configured in the`targets` parameter of the service.
 
@@ -50,6 +51,7 @@ If the connection to the main target cannot be created or is lost mid-session, t
 * Mandatory: Yes
 * Dynamic: Yes
 * Values: `log`, `file`, `kafka`
+* Description: Specifies the destination where metrics are exported, such as log, file, or Kafka.
 
 The exporter where the data is exported. This is a mandatory parameter. Possible values are:
 
@@ -66,6 +68,7 @@ The exporter where the data is exported. This is a mandatory parameter. Possible
 * Default: No default value
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies the file path where metrics are written when the file exporter is enabled.
 
 The output file where the metrics will be written. The file must be writable by the user that is running MaxScale, usually the `maxscale` user.
 
@@ -79,6 +82,7 @@ This is a mandatory parameter when configured with `exporter=file`.
 * Default: No default value
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies the list of Kafka brokers used to send metrics when the Kafka exporter is enabled.
 
 The Kafka broker list. Must be given as a comma-separated list of broker hosts with optional ports in `host:port` format.
 
@@ -90,6 +94,7 @@ This is a mandatory parameter when configured with `exporter=kafka`.
 * Default: No default value
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies the Kafka topic used to publish metrics when the Kafka exporter is enabled.
 
 The kafka topic where the metrics are sent.
 
@@ -102,6 +107,7 @@ This is a mandatory parameter when configured with `exporter=kafka`.
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignore`, `close`
+* Description: Defines how backend connection failures are handled, either by ignoring them or closing the client connection.
 
 What to do when a backend network connection fails. Accepted values are:
 
@@ -119,6 +125,7 @@ This parameter was added in MaxScale 6.0. Older versions always ignored failing 
 * Mandatory: No
 * Dynamic: Yes
 * Values: `always`, `on_conflict`
+* Description: Determines when query results are reported to the client, either always or only on conflicts.
 
 When to report the result of the queries. Accepted values are:
 

@@ -34,9 +34,13 @@ An existing `COPY` job that names a filesystem path or object-store URI fails af
 
 Read-write transactions now use the wound-wait deadlock prevention algorithm instead of wait-die.
 
-Under wait-die, a transaction that requested a lock held by an older transaction was cancelled and retried. Under wound-wait the priority runs the other way: an older transaction that needs a lock held by a younger one aborts the younger transaction and proceeds, while a younger transaction that meets an older holder waits for the lock to be released.
+Both algorithms resolve a lock conflict in favor of the older transaction. They differ in which of the two transactions is aborted: the one requesting the lock, or the one holding it.
 
-No configuration change is required. Applications that relied on the previous behavior may see different abort patterns under contention. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/transactions#deadlock-prevention).
+Under wait-die, the requesting transaction was aborted. A younger transaction that asked for a lock held by an older one was cancelled and retried, and an older transaction that asked for a lock held by a younger one waited for the lock to be released.
+
+Under wound-wait, the holding transaction is aborted instead. An older transaction that needs a lock held by a younger one kills the younger transaction and proceeds, and a younger transaction that meets an older holder waits for the lock to be released.
+
+No configuration change is required. The practical difference is that a transaction can now be aborted while it is not waiting for anything: it is killed because an older transaction needs a row it already holds. Applications that retry on lock conflicts should expect the abort on either side of the conflict, not only on the transaction that requested the lock. See [Deadlock Prevention](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/transactions#deadlock-prevention).
 
 ### Built-In Roles Can No Longer Be Assigned, Revoked, or Dropped
 
@@ -80,7 +84,7 @@ The `SYSTEM.TABLES` system view now has a `TABLE_SCHEMA_VERSION` column reportin
 | Issue ID | Category | Description |
 |---|---|---|
 | GG-51219 | Cluster Storage Engine | RANDOM_LRU and SEGMENTED_LRU page replacement policies are now deprecated. |
-| GG-51103 | Cluster Storage Engine | Increased the page memory segment count and bounded segment size over-allocation. |
+| GG-51103 | Cluster Storage Engine | Page memory data regions are now split into more segments, spreading lock traffic across more cores, and a small data region no longer allocates more off-heap memory than its configured size. |
 | GG-51034 | Cluster Storage Engine | The resource vacuum and the finished read-only broadcast now keep running after a failure. |
 | GG-50978 | Cluster SQL Engine | Fix exception in MERGE INTO query with dynamic parameters when assertions enabled |
 | GG-50916 | Cluster Data Replication | The DR connector `start.sh` now inherits `EXTRA_JVM_ARGS` from the environment, so JVM arguments no longer require editing the script after each upgrade. |
@@ -149,4 +153,4 @@ Currently, data rebalance may cause partition distribution to change and cause i
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.

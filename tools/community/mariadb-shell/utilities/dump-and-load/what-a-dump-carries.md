@@ -7,6 +7,13 @@ description: >-
 
 # What a Dump Carries
 
+<!--
+  SYNCED: this page is maintained in mariadb-corporation/mariadb-shell, under docs-ref/content/,
+  and copied one way into mariadb-docs (tools/community/mariadb-shell/).
+  Make every change in mariadb-corporation/mariadb-shell. A change made in mariadb-docs or in the
+  GitBook editor is overwritten by the next sync.
+-->
+
 A dump carries everything that makes up the schemas, data, and access control of a database, MariaDB-specific objects included. System schemas and server-level state are left out by design.
 
 ## Carried Objects
@@ -77,3 +84,5 @@ The load uses only a few of the recorded system variables. `lower_case_table_nam
 {% hint style="warning" %}
 `source.sysvars` is the complete, unfiltered list of the source's global system variables. It includes file paths, host names, cluster addresses, the `init_connect` statement, and, if the server was started with one, the value of `report_password`. Store and share dumps with the same care as the server's configuration files.
 {% endhint %}
+
+<sub>_This page is licensed: GPLv2_</sub>
