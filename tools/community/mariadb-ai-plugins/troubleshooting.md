@@ -45,6 +45,7 @@ Check that the harness loaded the plugin:
   ```
 
   To enable it, run `hermes plugins enable mariadb-dev`.
+* Cursor: check that the plugin is listed under **Customize**.
 
 ## The MCP Server Doesn't Start
 

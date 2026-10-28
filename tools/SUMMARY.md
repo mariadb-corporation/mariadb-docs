@@ -250,6 +250,7 @@
       * [OpenCode](community/mariadb-ai-plugins/installation/opencode.md)
       * [Pi](community/mariadb-ai-plugins/installation/pi.md)
       * [Hermes Agent](community/mariadb-ai-plugins/installation/hermes.md)
+      * [Cursor](community/mariadb-ai-plugins/installation/cursor.md)
     * [Configuring the MCP Server](community/mariadb-ai-plugins/configuring-the-mcp-server/README.md)
       * [Database Accounts for the MCP Server](community/mariadb-ai-plugins/configuring-the-mcp-server/database-accounts-for-the-mcp-server.md)
       * [Adding Database Connections](community/mariadb-ai-plugins/configuring-the-mcp-server/adding-database-connections.md)
