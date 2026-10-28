@@ -51,6 +51,7 @@ the keys of the ODBC driver.
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the ODBC connection string used to connect to GridGain.
 
 Specifies the GridGain connection string. The exact content depends on the
 ODBC driver and on the contents of `odbc.ini` and `odbcinst.ini`.
@@ -73,6 +74,7 @@ setting, for instance in the output of `maxctrl show service`.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s
+* Description: Sets the login timeout for a connection.
 
 Defines the login timeout in seconds for a connection. If the value is set
 to 0, the timeout is not set explicitly, which means that the default of the
@@ -87,6 +89,7 @@ change.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 30s
+* Description: Sets the query timeout for a connection.
 
 Defines the query timeout in seconds for a connection. If the value is set
 to 0, the timeout is not set explicitly, which means that the default of the
@@ -102,6 +105,7 @@ change.
 * Dynamic: No
 * Values: `read_only`, `read_write`
 * Default: `read_only`
+* Description: Determines whether the router appears as read-only or read-write to other MaxScale components.
 
 Specifies how _GridGainRouter_ appears to other components of MaxScale.
 This is of relevance only if another service uses a GridGain router service
@@ -116,6 +120,7 @@ what kind of queries can be run through the router.
 * Mandatory: No
 * Dynamic: No
 * Default: 10s
+* Description: Sets how long an unused kill connection is kept alive after the last `KILL` command; `0` closes it immediately after each use.
 
 The duration that an unused kill connection is kept alive after the
 last KILL command before it is automatically closed; a value of 0

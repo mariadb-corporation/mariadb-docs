@@ -333,6 +333,7 @@ password=mariadbmon
 * Dynamic: Yes
 * Default: None
 * Introduced: MaxScale 26.10
+* Description: Names the monitor of an external cluster from which the Galera primary replicates, which enables external replication management.
 
 Defines the monitor for the external cluster. Must be a valid monitor name. The
 external cluster monitor needs to be running for replication management to
@@ -346,12 +347,13 @@ external_replication_monitor=MyExternalClusterMonitor
 
 #### `external_replication_primary_role`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `replica`, `running`
 * Default: `primary`
 * Introduced: MaxScale 26.10
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
 
 Defines the external primary server to replicate from. This setting only has an
 effect when `external_replication_monitor` is set. The value defines a list of
@@ -370,6 +372,7 @@ external_replication_primary_role=replica
 * Dynamic: Yes
 * Default: None
 * Introduced: MaxScale 26.10
+* Description: Specifies the user the monitor uses when it sets up external replication.
 
 This and `replication_password` specify the credentials for the
 replication user. These are given as the values for `MASTER_USER` and
@@ -390,6 +393,7 @@ privilege.
 * Dynamic: Yes
 * Default: None
 * Introduced: MaxScale 26.10
+* Description: Specifies the password of the user the monitor uses when it sets up external replication.
 
 See [replication\_user](#replication_user). `replication_password` uses the same
 encryption scheme as other password parameters. If password encryption is in
@@ -404,6 +408,7 @@ erroneous decryption.
 * Default: `auto`
 * Values: `auto`, `off`, `on`
 * Introduced: MaxScale 26.10
+* Description: Controls the `MASTER_SSL` option in the `CHANGE MASTER TO` commands the monitor generates for external replication.
 
 This controls the `MASTER_SSL`-option for any `CHANGE MASTER TO`-commands the
 monitor generates. Thus, this setting affects asynchronous replication

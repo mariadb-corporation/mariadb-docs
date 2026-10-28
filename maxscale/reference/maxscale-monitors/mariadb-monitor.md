@@ -1450,6 +1450,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Allows the monitor to heal a primary that lost transactions during crash recovery by having it replicate them from a more advanced replica.
 
 This setting allows the monitor to heal a primary server that has truncated its
 binary logs during crash recovery. This truncation is possible when using
@@ -1668,6 +1669,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Controls whether switchover waits for open transactions to finish before proceeding.
 
 Whether to wait for open transactions to finish before proceeding with the
 switchover. The monitor will wait at most one third of `switchover_timeout`,
@@ -1728,6 +1730,7 @@ milliseconds will be rejected, even if the duration is longer than a second.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Lists servers that are never automatically selected as primary for failover, switchover or primary selection.
 
 This is a comma-separated list of server names that will not be chosen for
 primary promotion during a failover or autoselected for switchover. This does not
@@ -3117,6 +3120,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Names the monitor of an external cluster from which the primary replicates, which enables external replication management.
 
 Defines the monitor for the external cluster. Must be a valid monitor name. The
 external cluster monitor needs to be running for replication management to
@@ -3138,11 +3142,12 @@ external_replication_monitor=MyExternalClusterMonitor
 This setting is available from MaxScale 26.10.
 {% endhint %}
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `replica`, `running`
 * Default: `primary`
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
 
 Defines the external primary server to replicate from. This setting only has an
 effect when `external_replication_monitor` is set. The value defines a list of

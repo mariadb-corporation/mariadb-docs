@@ -332,6 +332,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `1024`
+* Description: Limits the number of characters logged for a single query; `0` removes the limit.
 
 Limits the length of the logged SQL query when `log_data` includes `query`. If
 `logged_query_max_length` is set to N, the filter only logs up to N characters
@@ -372,6 +373,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the comma-separated list of Kafka brokers, in `host:port` format, that the filter sends log events to.
 
 The list of Kafka brokers to use in `host:port` format. Multiple values can be
 separated with commas.
@@ -390,6 +392,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the Kafka topic where the filter publishes log events.
 
 The Kafka topic where the log events are published.
 
@@ -407,6 +410,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Enables the idempotent Kafka producer mode, which avoids duplicate log events caused by broker outages or network errors.
 
 Enable idempotent producer mode. This feature requires Kafka version 0.11 or
 newer to work. When enabled, the Kafka producer enters a strict mode which
@@ -422,6 +426,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Enables SSL for the connections to the Kafka broker.
 
 Enable SSL for Kafka connections.
 
@@ -435,6 +440,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the CA certificate file, in PEM format, used for Kafka SSL connections.
 
 Path to the certificate authority file in PEM format. If this is not provided,
 the default system certificates will be used.
@@ -449,6 +455,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the client certificate file, in PEM format, used for Kafka SSL connections; `kafka_ssl_key` must also be set.
 
 Path to the public certificate in PEM format. The client must provide a
 certificate if the Kafka server performs authentication of the client
@@ -467,6 +474,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the client private key file, in PEM format, used for Kafka SSL connections; `kafka_ssl_cert` must also be set.
 
 Path to the private key in PEM format. If `kafka_ssl_key` is provided,
 `kafka_ssl_cert` must also be provided.
@@ -481,6 +489,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the username for SASL authentication with the Kafka broker; `kafka_sasl_password` must also be set.
 
 Username for SASL authentication. If `kafka_sasl_user` is provided,
 `kafka_sasl_password` must also be provided.
@@ -495,6 +504,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the password for SASL authentication with the Kafka broker; `kafka_sasl_user` must also be set.
 
 Password for SASL authentication. If `kafka_sasl_password` is provided,
 `kafka_sasl_user` must also be provided.
@@ -510,6 +520,7 @@ This setting is available from MaxScale 26.10.
 * Dynamic: Yes
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
 * Default: `PLAIN`
+* Description: Selects the SASL mechanism used for authenticating with the Kafka broker.
 
 The SASL mechanism used. The default value `PLAIN` uses plaintext
 authentication. You should enable SSL whenever plaintext authentication is

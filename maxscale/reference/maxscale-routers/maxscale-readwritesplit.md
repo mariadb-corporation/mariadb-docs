@@ -755,6 +755,7 @@ Unlike modifications to most readwritesplit settings that only affect new sessio
 * Mandatory: No
 * Dynamic: Yes
 * Default: `100%`
+* Description: Sets the percentage of transactions that are synchronized.
 
 The percentage of transactions that are synchronized. By default all transactions are synchronized.
 
@@ -773,6 +774,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 * Dynamic: Yes
 * Min: `1ms`
 * Default: `5ms`
+* Description: Sets how much the commit wait of each transaction grows per minute while a server is being throttled.
 
 The rate at which transactions are throttled when a server is set into the `throttle` state with `maxctrl set server <name> throttle`. Transaction throttling is enabled even if `sync_transaction` is not in use.
 
@@ -790,8 +792,9 @@ This feature is only available in MaxScale 26.10.0 and later.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Controls whether replication lag is probed by synchronizing a transaction even if the maximum lag is not reached.
 
-Whether to probe transaction lag by doing synchronizing a transaction even if the maximum lag is not reached.
+Whether to probe transaction lag by synchronizing a transaction even if the maximum lag is not reached.
 
 Disabling the lag probes gives a more consistent performance but it comes at the cost of not knowing the true replication lag of the system. If a server is being throttled with `sync_transaction=none`, lag probes are not done to keep the commit latency predictable.
 

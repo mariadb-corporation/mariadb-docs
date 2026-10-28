@@ -283,6 +283,7 @@ Available since MaxScale 25.10.4.
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Defines the minimum time a query must take on the backend for its result to be stored in the cache.
 
 Specifies the minimum duration a query must take on the backend for its
 result to be stored in the cache. If a query executes faster than this, its
@@ -322,6 +323,7 @@ Available since MaxScale 25.10.4.
 * Mandatory: No
 * Dynamic: No
 * Default: `10000`
+* Description: Defines the maximum number of queries faster than `min_query_duration` that are remembered so that their cache lookups can be skipped.
 
 The maximum number of queries — observed to be faster than
 [min\_query\_duration](maxscale-cache.md#min_query_duration) — that
@@ -1136,6 +1138,7 @@ storage_gridgain.endpoints=127.0.0.1
 * Mandatory: No
 * Dynamic: No
 * Default: 127.0.0.1:10800
+* Description: Defines the comma-separated list of GridGain endpoints.
 
 An endpoint is specified as `<host>[:<port>[..<port_range>]]` and several
 endpoints can be specified, separated by a comma.
@@ -1146,6 +1149,7 @@ endpoints can be specified, separated by a comma.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the user used for authenticating with GridGain.
 
 The user to be used when authenticating with GridGain.
 
@@ -1155,6 +1159,7 @@ The user to be used when authenticating with GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the password used for authenticating with GridGain.
 
 The password to be used when authenticating with GridGain.
 
@@ -1164,6 +1169,7 @@ The password to be used when authenticating with GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enables SSL when connecting to the GridGain server.
 
 If `true`, SSL will be used in the communication with GridGain in which case
 the `ssl_` settings should be specified as well.
@@ -1174,6 +1180,7 @@ the `ssl_` settings should be specified as well.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client certificate used when connecting to the GridGain server.
 
 The SSL client certificate that MaxScale should use with the GridGain server. The certificate must
 match the key defined in `ssl_key`.
@@ -1184,6 +1191,7 @@ match the key defined in `ssl_key`.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client private key used when connecting to the GridGain server.
 
 The SSL client private key MaxScale should use with the GridGain server.
 
@@ -1193,6 +1201,7 @@ The SSL client private key MaxScale should use with the GridGain server.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the CA certificate used for the SSL connection to the GridGain server.
 
 The Certificate Authority (CA) certificate for the CA that signed the certificate
 specified with `ssl_cert`.
@@ -1203,6 +1212,7 @@ specified with `ssl_cert`.
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
+* Description: Defines the maximum size of a value that can be stored in GridGain.
 
 The default maximum size of a value to be stored in GridGain.
 
@@ -1212,6 +1222,7 @@ The default maximum size of a value to be stored in GridGain.
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Enables GridGain partition awareness, so that requests go directly to the node that owns the data.
 
 [Partition awareness](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness)
 allows a thin GridGain client to send query requests directly to the node that

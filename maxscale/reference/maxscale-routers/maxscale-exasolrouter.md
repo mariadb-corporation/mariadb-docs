@@ -241,6 +241,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: No
 * Default: false
+* Description: Determines whether the Exasol session of a client assumes the identity of the authenticated MariaDB user by using `IMPERSONATE`.
 
 Whether the Exasol session of a client should assume the identity of the
 client.
@@ -273,6 +274,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Determines whether MaxScale polls the GTID position that `exasol_cdc` writes into Exasol, for use in SmartRouter causal reads.
 
 Whether MaxScale should poll the GTID position that `exasol_cdc` writes into
 the Exasol table `maxscale_cdc.gtid_current_pos`.
@@ -295,6 +297,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 1s
+* Description: Sets how often the GTID position is polled when `gtid_polling` is enabled.
 
 How often the GTID position is polled, see [gtid\_polling](#gtid_polling).
 The minimum is 100ms.

@@ -468,6 +468,7 @@ This setting is available from MaxScale 26.10.
 * Dynamic: Yes
 * Values: `local`, `roundrobin`
 * Default: `local`
+* Description: Selects how new client connections are assigned to worker threads.
 
 Set the thread assignment method for new connections.
 
@@ -716,6 +717,7 @@ This setting is available from MaxScale 26.10.
 * Dynamic: Yes
 * Values: `default`, `datetime`, `iso_8601`
 * Default: `default`
+* Description: Selects the timestamp format used in log messages.
 
 The log timestamp format to use. The `default` and `iso_8601` values use ISO
 8601 timestamps with UTC timezone offset. The `datetime` is the legacy timestamp
@@ -1909,6 +1911,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Enables tracking of query statistics such as query execution latency.
 
 Enable tracking of query statistics.
 
@@ -1998,6 +2001,7 @@ value is `http://localhost:4318/v1/metrics`.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Defines the URL where OpenTelemetry metrics are sent, overriding the one derived from `telemetry_url`.
 
 URL where OpenTelemetry metrics are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send metrics to a separate or non-standard location.
 
@@ -2013,6 +2017,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Defines the URL where OpenTelemetry logs are sent, overriding the one derived from `telemetry_url`.
 
 URL where OpenTelemetry logs are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send logs to a separate or non-standard location.
 
@@ -2029,6 +2034,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 * Dynamic: Yes
 * Values: `metrics`, `logs`
 * Default: `metrics,logs`
+* Description: Specifies which telemetry signals, metrics and logs, are sent.
 
 The telemetry signals to send. By default both metrics and logs are sent if telemetry is enabled.
 
@@ -2081,6 +2087,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 50
+* Description: Defines the maximum number of the most used SQL query digests that are sent as metrics.
 
 How many of the most used SQL query digests are sent as metrics.
 
@@ -2105,6 +2112,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regular expression that selects the SQL query digests that are sent as metrics.
 
 Regular expression that's used to select which SQL query digests are sent over
 as metrics.
@@ -2123,6 +2131,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regular expression that excludes matching SQL query digests from the metrics.
 
 Regular expression that's used to exclude SQL query digests from being sent over
 as metrics.
@@ -2999,6 +3008,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: none
+* Description: Defines the path to a JSON file that maps SNI hostnames to certificates and services.
 
 Path to file that contains the
 [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication) hostname-to-service
@@ -3745,6 +3755,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the host where the KMIP server is.
 
 The host where the KMIP server is.
 

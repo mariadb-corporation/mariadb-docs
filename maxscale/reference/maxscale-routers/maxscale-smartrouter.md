@@ -100,6 +100,7 @@ This setting is available from MaxScale 26.10.
 * Dynamic: Yes
 * Values: `none`, `local`
 * Default: `none`
+* Description: Controls whether a read routed to a cluster other than the master waits until that cluster has applied the latest write of the session.
 
 Specifies whether a read must see the writes that the same session has made
 earlier. SmartRouter may route a read to a cluster other than the master, and
@@ -130,6 +131,7 @@ This setting is available from MaxScale 26.10.
 * Mandatory: No
 * Dynamic: Yes
 * Default: 10s
+* Description: Sets how long a read waits for a cluster to catch up with the latest write of the session before `causal_reads_on_timeout` is applied.
 
 How long a read waits for a cluster to catch up with the latest write of the
 session, before [causal\_reads\_on\_timeout](#causal_reads_on_timeout) is
@@ -147,6 +149,7 @@ This setting is available from MaxScale 26.10.
 * Dynamic: Yes
 * Values: `master`, `stale`, `error`
 * Default: `master`
+* Description: Determines whether a read that times out waiting for a cluster is routed to the master, routed to the cluster anyway, or returns an error.
 
 What to do with a read when the cluster has not caught up within
 `causal_reads_timeout`.
@@ -177,6 +180,7 @@ This feature is only available in MaxScale 26.10.0 and later.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `2m,5m,10m,20m`
+* Description: Specifies the intervals at which cached query performance measurements are re-measured to decide whether the entry stays in the cache.
 
 The eviction schedule for the performance measurements. At each step, the query performance is measured again and if the same target responds the fastest, the query is kept in the performance cache. By default, the query is measured at 2 minutes, 7 minutes (2 + 5), 17 minutes (2 + 5 + 10) and 37 minutes (2 + 5 + 10 + 20) of being in the cache.
 
