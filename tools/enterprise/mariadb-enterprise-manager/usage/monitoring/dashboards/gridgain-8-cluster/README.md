@@ -7,7 +7,7 @@ hidden: true
 
 # GridGain 8 Cluster
 
-MariaDB Enterprise Manager includes six Grafana dashboards for GridGain 8 clusters. They are provisioned automatically in the **GridGain Cluster** folder in Grafana, separate from the **MariaDB Server and MaxScale** folder.
+MariaDB Enterprise Manager includes six Grafana dashboards for GridGain 8 clusters. They are provisioned automatically in the **GridGain 8 Cluster** folder in Grafana, separate from the **MariaDB Server and MaxScale** folder.
 
 | Dashboard                                               | What it covers                                                                                           | Default time range |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------ |
