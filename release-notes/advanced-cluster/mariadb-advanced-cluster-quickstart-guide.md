@@ -278,14 +278,14 @@ encrypt_binlog=ON
 
 ### Existing Data Is Not Encrypted
 
-Only Raft log files created after you enable encryption are encrypted. If a node already has a plaintext Raft log, the existing files stay readable on disk until they are purged, or until you wipe the node and let it rejoin the cluster through SST. If the existing history must be protected, repeat this on every node.
+Only Raft log files created after you enable encryption are encrypted. Enabling encryption, or changing the key, makes the Raft server start a new log file; the files already on disk are neither re-encrypted nor decrypted. If a node already has a plaintext Raft log, the existing files stay readable on disk until they are purged, or until you wipe the node and let it rejoin the cluster through SST. The Raft server purges the oldest log files when it starts a new log file and the total size of the log files exceeds [raft-event-store-max-size](raft-system-variables.md#raft-event-store-max-size). If the existing history must be protected, repeat this on every node.
 
 ### Key Rotation
 
-The Raft plugin checks for a new version of encryption key `1` every [raft-key-rotation-check-interval](raft-system-variables.md#raft-key-rotation-check-interval) seconds. When the latest key version changes, the plugin pushes the new key to the Raft server, which uses it for the log files it creates from then on. Rotation does not re-encrypt existing log files: each file keeps the key version it was written under.
+The Raft plugin checks for a new version of encryption key `1` every [raft-key-rotation-check-interval](raft-system-variables.md#raft-key-rotation-check-interval) seconds. When the latest key version changes, the plugin pushes the new key to the Raft server, which starts a new log file and uses the new key for it and for the files it creates from then on. Rotation does not re-encrypt existing log files: each file keeps the key version it was written under.
 
 * **Delay**: the key management plugin can cache the latest key version, which adds to the time before a rotation takes effect. For example, `hashicorp_key_management` caches it for `hashicorp_key_management_cache_version_timeout` milliseconds, 60000 by default.
-* **Keep old key versions**: all key versions used by existing Raft log files must remain available. If one is missing at startup, the Raft plugin fails to initialize and the node does not start, with an error such as `Encryption key (key_id=1, key_version=1) unavailable`.
+* **Keep old key versions**: all key versions used by existing Raft log files must remain available. If one is missing at startup, the Raft plugin fails to initialize and the node does not start, with an error such as `Encryption key (key_id=1, key_version=1) unavailable`. This applies even when `encrypt_binlog` is `OFF`, because the node still requests the keys of any existing encrypted log files at startup.
 
 #### Rotating Keys with the File Key Management Plugin
 
@@ -307,6 +307,10 @@ Editing the key file alone has no effect, because the plugin reads the file only
 {% hint style="warning" %}
 Do not replace the key of an existing version in place. A running node ignores the change, but after a restart the node cannot open its Raft log. Always add a new version and keep the old ones.
 {% endhint %}
+
+### Disabling Encryption
+
+To stop encrypting new Raft log files, set `encrypt_binlog` to `OFF` and restart the node. The Raft server then writes new log files in plaintext. Log files that are already encrypted stay encrypted, so keep the key management plugin loaded and all the key versions they use available until the files are purged.
 
 ## XA Transactions
 
