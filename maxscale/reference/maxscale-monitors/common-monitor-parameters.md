@@ -304,12 +304,11 @@ intervals.
 * Default: None
 * Description: Specifies a command to execute when the server status changes, with the help of placeholders (such as `$INITIATOR`, `$EVENT`, and `$MASTERLIST`) that MaxScale replaces with relevant server information; script output is reported based on message prefixes.
 
-This command will be executed on a server state change. The value should
-be an absolute path to a command or the command should be in the executable
-path. The user running MaxScale should have execution rights to the file itself
-and the directory it resides in. If the value points to a script file (as
-opposed to an executable program), the file should begin with a shebang
-(e.g. `#!/usr/bin/env bash`) or it will likely not execute.
+This command will be executed on a server state change. The value should be an
+absolute path to a command. The user running MaxScale should have execution
+rights to the file itself and the directory it resides in. If the value points
+to a script file (as opposed to an executable program), the file should begin
+with a shebang (e.g. `#!/usr/bin/env bash`) or it will likely not execute.
 
 The value may include placeholders after the file path. MaxScale will substitute
 the placeholders with useful information when launching the script.

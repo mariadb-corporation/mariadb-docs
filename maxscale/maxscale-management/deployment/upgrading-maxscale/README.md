@@ -43,6 +43,18 @@ The default value of `max_auth_errors_until_block` was changed from 10 to 0.
 
 The default value of `max_connect_errors` was changed from 0 to 100.
 
+### PAM authenticator default mode
+
+The [PAM authenticator module](../../../reference/maxscale-authenticators/maxscale-pam-authenticator.md)
+now defaults to SUID-mode. To retain the previous default mode, set
+`authenticator_options=pam_mode=password`.
+
+### Monitor script requires a shebang, no longer searches PATH
+
+The script file (configured with `script`) should start with a shebang (e.g.
+`#!/usr/bin/env bash`). The PATH environment variable is no longer searched, so
+the path must be defined in `script`.
+
 ## Upgrading MariaDB MaxScale from 25.01 to 25.10
 
 ### Service User Grants
