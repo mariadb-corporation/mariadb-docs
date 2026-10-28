@@ -46,11 +46,11 @@ The settings are given in the binlogrouter service. None of them are dynamic:
 
 ### `odbc_connection_string`
 
-* Description: The ODBC connection string for Exasol.
 * Type: string
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: The ODBC connection string for Exasol.
 
 ```
 odbc_connection_string=DRIVER=/usr/lib64/maxscale/exasol/current/lib/libexaodbc.so;EXAHOST=exasoldb:8563;UID=cdc_user;PWD=cdc_password;FINGERPRINT=NOCERTCHECK
@@ -66,11 +66,11 @@ they need not be given.
 
 ### `odbc_include_tables`
 
-* Description: The schemas and tables to replicate
 * Type: stringlist
 * Mandatory: No
 * Dynamic: No
 * Default: `""` (all tables)
+* Description: The schemas and tables to replicate
 
 The tables to replicate, `schema.table`, or `schema.*` for all tables
 of a schema. A table that is not listed is not replicated, and DDL on it is
@@ -79,14 +79,45 @@ ignored.
 odbc_include_tables=shop.orders,shop.customers,stats.*
 ```
 
+### `odbc_insert_only_tables`
+
+* Type: stringlist
+* Mandatory: No
+* Dynamic: No
+* Default: `""`
+* Description: Tables whose data is kept in Exasol when it is deleted in MariaDB
+
+The tables, `schema.table`, or `schema.*` for all tables of a schema, whose
+data is kept in Exasol when it is deleted in MariaDB. Inserts and updates are
+replicated as for any other table, but deletes are not, so a row deleted in
+MariaDB remains in Exasol. Neither are the statements that would remove data
+from the table in Exasol: `TRUNCATE TABLE`, `DROP TABLE` and
+`ALTER TABLE ... DROP COLUMN`. Other DDL, such as adding a column, is handled
+as for any other table.
+
+The tables are identified by name. If a table is renamed to a name that is
+not listed, its data remains in Exasol under the new name, but deletes and
+DDL on it are then replicated as for any other table.
+
+A table listed here is replicated even if it is not listed in
+[`odbc_include_tables`](#odbc_include_tables).
+
+A `DROP DATABASE` is not replicated if any of its tables, or the schema
+itself with `schema.*`, is listed here. All tables of the schema are then
+kept in Exasol, including those that are not listed.
+
+```
+odbc_insert_only_tables=audit.events,history.*
+```
+
 ### `odbc_case`
 
-* Description: Exasol identifier comparison
 * Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: No
 * Values: `keep`, `sensitive`, `insensitive`
 * Default: `keep`
+* Description: Exasol identifier comparison
 
 How Exasol compares identifiers. `sensitive` and `insensitive` set the Exasol
 system parameter `SQL_IDENTIFIER_COMPARISON` when replication starts; `keep`
@@ -99,11 +130,11 @@ database.
 
 ### `odbc_create_table_from_sql`
 
-* Description: Create tables from `CREATE TABLE`
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Create tables from `CREATE TABLE`
 
 If `true`, a table is created in Exasol when its `CREATE TABLE` is replicated.
 If `false`, it is created when a row of the table is first inserted, and
@@ -113,24 +144,26 @@ The setting becomes `true` if [odbc\_manage\_user\_grants](#odbc_manage_user_gra
 
 ### `odbc_stop_on_error`
 
-* Description: Whether to stop replication on an error
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Whether to stop replication on an error
 
 What should happen when a transaction cannot be applied to Exasol, see
 [Errors](#errors).
 
 ### `odbc_manage_user_grants`
 
-* Description: Whether to replicate users, roles and grants
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Whether to replicate users, roles and grants
 
 Replicate users, roles and grants, see [Users and Grants](#users-and-grants).
+Enabling this also enables
+[`odbc_create_table_from_sql`](#odbc_create_table_from_sql).
 
 ### Tuning
 
@@ -141,41 +174,41 @@ expected to become largely automatic.
 
 #### `odbc_perf_max_buffered_rows`
 
-* Description: Max rows to buffer before pipeline processing
 * Type: count
 * Mandatory: No
 * Dynamic: No
 * Default: `750000`
+* Description: Max rows to buffer before pipeline processing
 
 The maximum number of accumulated rows that are applied as one batch.
 
 #### `odbc_perf_max_buffer_time`
 
-* Description: Longest time rows are accumulated before pipeline processing
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `2s`
+* Description: Longest time rows are accumulated before pipeline processing
 
 The longest time rows are accumulated before they are applied.
 
 #### `odbc_perf_max_buffer_time_in_idle`
 
-* Description: Longest time rows are accumulated with an idle pipeline
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
 * Default: `500ms`
+* Description: Longest time rows are accumulated with an idle pipeline
 
 The longest time rows are accumulated while the pipeline is idle.
 
 #### `odbc_perf_ncycles`
 
-* Description: Number of parallel cycles
 * Type: count
 * Mandatory: No
 * Dynamic: No
 * Default: `4`, range 1 to 4
+* Description: Number of parallel cycles
 
 How many cycles are applied in parallel. A lower value uses less memory and
 loads Exasol less. If there is reason to tune CDC memory usage it is better
@@ -183,22 +216,22 @@ to first lower odbc_perf_max_buffered_rows. Only then odbc_perf_ncycles if neede
 
 #### `odbc_perf_nthreads`
 
-* Description: Threads in pipeline
 * Type: count
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Threads in pipeline
 
 The maximum number of threads used for applying data.
 It is not recommended that this value be changed.
 
 #### `odbc_perf_batch_size`
 
-* Description: Network request payload size
 * Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: No
 * Default: `200Mi`
+* Description: Network request payload size
 
 The largest amount of data (payload) sent to Exasol in one network request.
 
