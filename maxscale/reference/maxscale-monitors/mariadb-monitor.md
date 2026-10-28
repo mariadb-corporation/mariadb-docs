@@ -1481,9 +1481,9 @@ The monitor will only attempt the healing replication if the GTIDs of the
 primary and the replica clearly suggest that truncation has taken place. This
 means:
 
-1. [gtid_binlog_pos]({server}/ha-and-performance/standard-replication/gtid#gtid_binlog_pos)
+1. [gtid_binlog_pos]({server}/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_binlog_pos)
 of the primary contains an element with a domain that matches the
-[gtid_domain_id]({server}/ha-and-performance/standard-replication/gtid#gtid_domain_id)
+[gtid_domain_id]({server}/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id)
 of the primary. This element must also match the primary's server id.
 
 2. A replica needs to have a
@@ -2332,9 +2332,9 @@ time. MaxScale B operates independently, and promotes Server 2. Server 1 and
 Server 2 will then diverge._
 
 This situation cannot be entirely protected against. The best remedy is to use
-[semisynchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication.md))
+[semisynchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication))
 with a sufficiently long (e.g. 1 minute)
-[rpl_semi_sync_master_timeout]({server}/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_timeout).
+[rpl_semi_sync_master_timeout]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
 This way, when Server 1 loses connectivity to the other servers, writes to
 Server 1 will stall, greatly limiting the number of transactions that may be
 committed. Any transactions in flight will eventually commit, though. As of
@@ -2517,7 +2517,7 @@ To perform backup operations, MaxScale requires ssh-access on all affected
 machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials
 MaxScale uses to access the servers. MaxScale must be able to run commands with
 _sudo_ on both the source and target servers. See [settings](#settings) and
-[sudoers.d configuration](#sudoersd-configuration) below
+[sudoers.d configuration](#sudoers.d-configuration) below
 for more information.
 
 The following tools need to be installed on the backends:
