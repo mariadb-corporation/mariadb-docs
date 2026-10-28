@@ -55,6 +55,48 @@ The script file (configured with `script`) should start with a shebang (e.g.
 `#!/usr/bin/env bash`). The PATH environment variable is no longer searched, so
 the path must be defined in `script`.
 
+### TLS for Servers and Listeners
+
+The [ssl](../installation-and-configuration/maxscale-configuration-guide.md#ssl)
+setting of servers and listeners is now an enumeration with the values
+`disable`, `allow` and `require`, and the new default is `allow`. With `allow`,
+MaxScale encrypts a connection to a server if the server supports TLS, and a
+listener accepts both encrypted and unencrypted connections. A listener that
+has no `ssl_key` and `ssl_cert` uses a certificate that MaxScale generates.
+
+As a result, connections to servers that support TLS are encrypted even if
+`ssl` was not set, which can increase CPU usage slightly. To keep them
+unencrypted, set `ssl=disable` for each server.
+
+The old boolean values are still accepted: `true` means `require` and `false`
+means `disable`. In the REST API, the `ssl` field of servers and listeners is
+now a string instead of a boolean.
+
+### MariaDB Monitor
+
+The default of
+[replication_master_ssl](../../../reference/maxscale-monitors/mariadb-monitor.md#replication_master_ssl)
+changed from `false` to `auto`, which preserves the existing `MASTER_SSL`
+setting of a replica. In the REST API, the `replication_master_ssl` field of
+the monitor parameters is now a string instead of a boolean.
+
+If
+[cooperative_monitoring_locks](../../../reference/maxscale-monitors/mariadb-monitor.md#cooperative_monitoring_locks)
+is used together with
+[passive=true](../installation-and-configuration/maxscale-configuration-guide.md#passive),
+the monitor no longer acquires any locks, and it releases any locks it holds.
+If all MaxScales are passive, no MaxScale holds the locks and, with the default
+[master_conditions](../../../reference/maxscale-monitors/mariadb-monitor.md#master_conditions),
+no server is designated primary, so at least one MaxScale must be active.
+
+### Removed Features
+
+* The avrorouter has been removed. Use the
+  [kafkacdc](../../../reference/maxscale-routers/maxscale-kafkacdc.md) router
+  instead.
+* Memcached is no longer supported as storage for the
+  [cache](../../../reference/maxscale-filters/maxscale-cache.md).
+
 ## Upgrading MariaDB MaxScale from 25.01 to 25.10
 
 ### Service User Grants
