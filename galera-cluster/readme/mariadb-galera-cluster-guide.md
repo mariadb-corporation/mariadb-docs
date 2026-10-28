@@ -51,7 +51,7 @@ See [Versioning Information](https://web.archive.org/web/20190722120303/https://
 
 ### Galera 4 Versions
 
-The Galera 4 wsrep provider package is called `galera-4` when you install it with [yum]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum), [apt]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files), or [zypper]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
+The Galera 4 wsrep provider package is called `galera-4` when you install it with [yum](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum), [apt](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files), or [zypper](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
 
 For the provider version that each MariaDB Server release ships with, see [Galera wsrep Provider Versions](../reference/galera-wsrep-provider-versions.md).
 
