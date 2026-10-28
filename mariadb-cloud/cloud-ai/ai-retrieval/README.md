@@ -102,22 +102,7 @@ Scanned documents, which are PDFs that contain only images of pages, and passwor
 
 ## Quotas
 
-AI Retrieval applies these default quotas.
-
-| Quota | Default | Scope |
-| --- | --- | --- |
-| Requests per second to `retrieve-chunks` | 2 | Each organization in a region |
-| Requests per second to `retrieve-chunks-and-generate`, including streaming | 2 | Each organization in a region |
-| Requests per second to list the chunks of a knowledge base | 2 | Each organization in a region |
-| Document size | 50 MB | Each document |
-| Concurrent ingestion jobs | 5 | Each organization in a region |
-| Concurrent data source syncs | 5 | Each organization in a region |
-
-All users of an organization share the request limits. When you exceed a request limit, the API returns HTTP status 429 with the error `ERR_RATE_LIMITED`. The response says how many seconds to wait in the `Retry-After` header. To raise a quota, contact MariaDB support and quote the quota ID from the error message.
-
-AI Retrieval also limits the MCUs that an organization can consume each month. See [Usage and Billing](usage-and-billing.md#monthly-mcu-limit).
-
-<!-- Source: skysql-microservices ai-service migrations 21 and 23 @ ca4d8483d (QPS quotas per organization since 2026-10-23; Egor's "per user" of 2026-10-14 is outdated) and ai-retrieval-cloud apigw/plugins/skysql_quota/plugin.go @ f9bd8c0e (429 text). TODO: wait for Karan Siddhpura's answers (DOCS-6592 comment 1144039) before unhiding; this table moves to the Service Quotas page. -->
+AI Retrieval limits request rates, document sizes, and concurrent ingestion for each organization, and the MCUs that an organization can consume each month. See [Service Quotas](service-quotas.md).
 
 ## Known Limitations
 
@@ -158,6 +143,10 @@ AI Retrieval also limits the MCUs that an organization can consume each month. S
 
 {% content-ref url="access-and-security.md" %}
 [access-and-security.md](access-and-security.md)
+{% endcontent-ref %}
+
+{% content-ref url="service-quotas.md" %}
+[service-quotas.md](service-quotas.md)
 {% endcontent-ref %}
 
 {% content-ref url="usage-and-billing.md" %}
