@@ -10,7 +10,7 @@ This page includes details for upgrading from [MariaDB 10.11](https://app.gitboo
 
 For Windows, see [Upgrading MariaDB on Windows](../upgrading-mariadb-on-windows.md).
 
-For MariaDB Galera Cluster, see [Upgrading Galera Cluster]({galera}/galera-management/upgrading-galera-cluster) instead.
+For MariaDB Galera Cluster, see [Upgrading Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) instead.
 
 Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
 
