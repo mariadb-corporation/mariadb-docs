@@ -197,7 +197,7 @@ def setting_name(lines, i, headers):
     name = heading.strip("`").strip()
     return name, gitbook_slug(heading), headers.prev().name
 
-def scan_lines(entries, path, lines):
+def scan_lines(entries, path, lines, indented):
     i=0
     end = len(lines)
     headers=Headers()
@@ -213,12 +213,19 @@ def scan_lines(entries, path, lines):
                     relevant_entries = {}
                     entries[group] = relevant_entries
 
-                entry = Entry(name, path, anchor)
-                entry.add(line)
+                # A bullet may continue on indented lines, which are joined to it.
+                bullets = [line]
                 i += 1
-                while i < end and lines[i].startswith("*"):
-                    entry.add(lines[i])
+                while i < end and (lines[i].startswith("*") or (indented[i] and lines[i])):
+                    if lines[i].startswith("*"):
+                        bullets.append(lines[i])
+                    else:
+                        bullets[-1] += " " + lines[i]
                     i += 1
+
+                entry = Entry(name, path, anchor)
+                for bullet in bullets:
+                    entry.add(bullet)
                 relevant_entries[entry.name] = entry
             else:
                 i += 1
@@ -229,6 +236,7 @@ def scan_md_file(entries, path):
     with open(path) as fin:
         try:
             lines=fin.readlines()
+            indented=[line[:1] in (" ", "\t") for line in lines]
             lines=[line.strip() for line in lines]
         except UnicodeDecodeError:
             print("warning Could not decode file, ignoring.", file=sys.stderr)
@@ -237,7 +245,7 @@ def scan_md_file(entries, path):
             print("warning: Could not read file, ignoring.", file=sys.stderr)
             return
 
-    scan_lines(entries, path, lines)
+    scan_lines(entries, path, lines, indented)
 
 def scan_file(entries, path):
     if os.path.isdir(path):
