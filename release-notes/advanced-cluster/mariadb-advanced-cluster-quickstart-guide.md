@@ -249,6 +249,65 @@ The priority can be changed while the cluster is running, using the `ChangeLeade
 Leadership priority changes the cluster protocol, and is **not** backwards compatible with the 0.9.0 technical preview release. Upgrade all nodes to the same release.
 {% endhint %}
 
+## Data-at-Rest Encryption
+
+The Raft log, the replication log that each node stores in [raft-data-dir](raft-system-variables.md#raft-data-dir), can be encrypted on disk. The Raft plugin uses the same key management plugin and the same `encrypt_binlog` setting as binary log encryption. The binary log itself does not need to be enabled.
+
+{% hint style="info" %}
+Data-at-rest encryption for the Raft log is available from MariaDB Enterprise Server 12.3.3-1.
+{% endhint %}
+
+### Enabling Encryption
+
+On each node:
+
+1. Load a key management plugin that provides encryption key `1`, such as `file_key_management` or `hashicorp_key_management`. Load it before the Raft plugin.
+2. Set `encrypt_binlog` to `ON`. This variable is read-only, so set it in the configuration file and restart the node.
+
+```ini
+[mariadb]
+plugin_load_add=file_key_management
+plugin_load_add=raft
+file_key_management_filename=/etc/mysql/encryption/keyfile.enc
+encrypt_binlog=ON
+```
+
+{% hint style="warning" %}
+`encrypt_binlog=ON` is required. A key management plugin on its own does not encrypt the Raft log. If `encrypt_binlog` is `OFF`, the Raft log is written in plaintext and the server logs no warning.
+{% endhint %}
+
+### Existing Data Is Not Encrypted
+
+Only Raft log files created after you enable encryption are encrypted. If a node already has a plaintext Raft log, the existing files stay readable on disk until they are purged, or until you wipe the node and let it rejoin the cluster through SST. If the existing history must be protected, repeat this on every node.
+
+### Key Rotation
+
+The Raft plugin checks for a new version of encryption key `1` every [raft-key-rotation-check-interval](raft-system-variables.md#raft-key-rotation-check-interval) seconds. When the latest key version changes, the plugin pushes the new key to the Raft server, which uses it for the log files it creates from then on. Rotation does not re-encrypt existing log files: each file keeps the key version it was written under.
+
+* **Delay**: the key management plugin can cache the latest key version, which adds to the time before a rotation takes effect. For example, `hashicorp_key_management` caches it for `hashicorp_key_management_cache_version_timeout` milliseconds, 60000 by default.
+* **Keep old key versions**: all key versions used by existing Raft log files must remain available. If one is missing at startup, the Raft plugin fails to initialize and the node does not start, with an error such as `Encryption key (key_id=1, key_version=1) unavailable`.
+
+#### Rotating Keys with the File Key Management Plugin
+
+1. Add a line for the new version of key `1` to the key file, and keep the existing lines. Each line has the format `key_id;version;hex_key`:
+
+   ```text
+   1;1;old_hex_key
+   1;2;new_hex_key
+   ```
+
+2. Reload the key file:
+
+   ```sql
+   FLUSH FILE_KEY_MANAGEMENT_KEYS;
+   ```
+
+Editing the key file alone has no effect, because the plugin reads the file only at startup and when you run this statement. At its next check, the Raft plugin pushes the new version to the Raft server and writes `Pushed encryption key (key_id=1, key_version=2)` to the error log.
+
+{% hint style="warning" %}
+Do not replace the key of an existing version in place. A running node ignores the change, but after a restart the node cannot open its Raft log. Always add a new version and keep the old ones.
+{% endhint %}
+
 ## XA Transactions
 
 `XA COMMIT` and `XA ROLLBACK` are fully supported. Standard Galera Cluster XA syntax and semantics apply — there are no Raft-specific differences in behavior.
@@ -301,6 +360,7 @@ The SSL settings that apply to these connections are described in [Raft System V
 | [raft-node-id](raft-system-variables.md#raft-node-id)                                               | auto    | Unique node identifier. The identifier can be either a human-readable string up to 15 characters long or a UUID. The special value 'auto' is reserved for generating a UUID whenever the server starts from a clean state. |
 | [raft-liveness-timeout](raft-system-variables.md#raft-liveness-timeout)                             | 20000   | Timeout after which the node is considered unresponsive. If no replication events appear in the log within this period, the node moves to non-primary state.                                                               |
 | [raft-eviction-timeout](raft-system-variables.md#raft-eviction-timeout)                             | 15000   | Timeout after which session to replication system is considered expired if there is no activity. If the node cannot communicate with the leader within this time period, it will be evicted from the cluster.              |
+| [raft-key-rotation-check-interval](raft-system-variables.md#raft-key-rotation-check-interval)       | 60      | Interval, in seconds, at which the plugin checks for binary log master key rotation and pushes the new key to the Raft server. Effective only when `encrypt_binlog` is enabled.                                          |
 | [raft-sst-listen-port](raft-system-variables.md#raft-sst-listen-port)                               | 50001   | Port to listen for SST requests.                                                                                                                                                                                           |
 
 #### Raft System Variables: SSL

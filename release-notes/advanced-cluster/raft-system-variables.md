@@ -305,6 +305,19 @@ Timeout after which session to replication system is considered expired if there
 | Range        | 1000 to 4294967295 |
 | Default      | 15000              |
 
+### raft-key-rotation-check-interval
+
+Interval, in seconds, at which the Raft plugin checks whether the binary log master key has been rotated and, if it has, pushes the new key to the Raft server. This variable has an effect only when `encrypt_binlog` is enabled. See [Data-at-Rest Encryption](mariadb-advanced-cluster-quickstart-guide.md#data-at-rest-encryption).
+
+| Property     | Value                                  |
+| ------------ | -------------------------------------- |
+| Command Line | --raft-key-rotation-check-interval=#   |
+| Scope        | Global                                 |
+| Dynamic      | Yes                                    |
+| Data Type    | Numeric (s)                            |
+| Range        | 1 to 4294967295                        |
+| Default      | 60                                     |
+
 ### raft-sst-listen-port
 
 Port to listen for SST requests.
