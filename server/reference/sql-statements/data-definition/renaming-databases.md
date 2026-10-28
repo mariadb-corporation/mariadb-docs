@@ -51,6 +51,10 @@ mariadb-dump PROD --no-data --no-create-info --routines --triggers --events \
 {% hint style="danger" %}
 Do not omit `--no-create-info`. Without it, the dump contains `DROP TABLE IF EXISTS` and `CREATE TABLE` for every table. Restoring that file after the rename drops the moved tables and recreates them empty. `--no-data` does not prevent this.
 {% endhint %}
+
+{% hint style="warning" %}
+`mariadb-dump` writes routine, trigger, and event bodies exactly as stored. A body that names `PROD.x` explicitly still points at `PROD` after the restore and fails at runtime. Search the dump for `PROD.` and edit it before restoring.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -61,11 +65,20 @@ Do not omit `--no-create-info`. Without it, the dump contains `DROP TABLE IF EXI
 ```bash
 mapfile -t views < <(mysql -ss -e"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS \
 WHERE TABLE_SCHEMA = 'PROD'")
-[ ${#views[@]} -gt 0 ] && mariadb-dump PROD "${views[@]}" --no-data --skip-triggers \
-> PROD_views.sql
+if [ ${#views[@]} -gt 0 ]; then
+  mariadb-dump PROD "${views[@]}" --no-data --skip-triggers > PROD_views.sql
+fi
 ```
 
-If `PROD` has no views, the second command does nothing and `PROD_views.sql` is not created, but the command exits with a non-zero status. In that case, skip the views restore in the later restore step.
+If `PROD` has no views, `PROD_views.sql` is not created. In that case, skip the views restore in the later restore step.
+
+{% hint style="warning" %}
+A view that also references another database keeps the `PROD`. qualifier in the dump, so the restore fails with `Table 'PROD.t1' doesn't exist`. Before restoring, replace the qualifier:
+
+```bash
+sed -i 's/`PROD`\./`TEST`./g' PROD_views.sql
+```
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -73,7 +86,7 @@ If `PROD` has no views, the second command does nothing and `PROD_views.sql` is 
 
 Run the following query to generate a script with the necessary `RENAME TABLE` statements. This is much faster than a full logical dump. Views are excluded, because they cannot be renamed into another database.
 
-```sql
+```bash
 mysql -ss -e"SELECT CONCAT('RENAME TABLE PROD.\`', TABLE_NAME, '\` TO TEST.\`', \
 TABLE_NAME, '\`;') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD' \
 AND TABLE_TYPE <> 'VIEW'" > PROD_rename_table.sql
@@ -113,10 +126,22 @@ CREATE DATABASE TEST;
 {% endstep %}
 
 {% step %}
+**Drop Triggers.**
+
+A table that has triggers cannot be renamed into another database. The rename fails with "Trigger in wrong schema". The dump from the first step already contains the triggers, so drop them in `PROD` and restore them afterwards.
+
+```bash
+mysql -ss -e"SELECT CONCAT('DROP TRIGGER \`', TRIGGER_NAME, '\`;') \
+FROM INFORMATION_SCHEMA.TRIGGERS WHERE TRIGGER_SCHEMA = 'PROD'" > PROD_drop_triggers.sql
+mysql PROD < PROD_drop_triggers.sql
+```
+{% endstep %}
+
+{% step %}
 **Run the rename\_table Script.**
 
 {% hint style="warning" %}
-A table that has triggers cannot be renamed into another database. The rename fails with "Trigger in wrong schema". If the script fails partway, the tables before it have already been moved to `TEST`, so check the list of triggers from the previous steps before you run the script.
+If the script fails partway, the tables before it have already been moved to `TEST`. Run it only after dropping the triggers.
 {% endhint %}
 
 ```bash
@@ -162,7 +187,7 @@ diff PROD_row_counts.txt TEST_row_counts.txt && echo "Row counts match"
 {% step %}
 **Cleanup.**
 
-Once you have confirmed everything looks good, you can drop the old `PROD` database.
+Once you have confirmed everything looks good, you can drop the old `PROD` database. Dropping `PROD` also removes the views, routines, and events that remain in it.
 
 {% hint style="warning" %}
 Privileges are neither dropped for `PROD`, nor are they "copied" to `TEST`. Use [SHOW PRIVILEGES](../administrative-sql-statements/show/show-privileges.md) to see which privileges are related to `PROD`, then [apply those privileges](../account-management-sql-statements/grant.md) to `TEST`.
