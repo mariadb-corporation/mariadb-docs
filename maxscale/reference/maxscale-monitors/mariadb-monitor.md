@@ -902,11 +902,16 @@ replication_custom_options=MASTER_SSL_CERT = '/tmp/certs/client-cert.pem',
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
-* Description: Sets the maximum time allowed for a failover operation before it is terminated and automatic failover is disabled.
+* Description: Sets the maximum time a failover operation may take, counted from when the new primary has processed its relay log.
 
 Time limit for failover operation. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
-If no successful failover takes place within the configured time period, a message is logged and automatic failover is disabled. This prevents further automatic modifications to the misbehaving cluster.
+The clock starts when the monitor begins to modify the cluster: after it has selected the new primary and confirmed that the new primary has no unprocessed events in its relay log (steps 1 and 2 of [Failover](mariadb-monitor.md#failover)). The time before that is not counted against `failover_timeout`:
+
+* The [failcount](mariadb-monitor.md#failcount) monitor iterations that the primary must be down before automatic failover begins, including the primary failure verification of [verify\_master\_failure](mariadb-monitor.md#verify_master_failure).
+* The time the new primary needs to process its relay log. Automatic failover is postponed, and retried on each monitor iteration, until the relay log has been processed. A manual failover fails with an error instead. Neither waits for the relay log under a time limit.
+
+If the failover does not succeed within the time limit, an error is logged and all automatic cluster operations are disabled for `failcount` monitor iterations, after which the failover may be retried. This prevents repeated modifications to a misbehaving cluster. See [Limitations and requirements](mariadb-monitor.md#limitations-and-requirements).
 
 #### `switchover_timeout`
 

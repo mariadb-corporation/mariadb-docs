@@ -3131,7 +3131,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
-* Description: Sets the maximum time allowed for a failover operation before it is terminated and automatic failover is disabled.
+* Description: Sets the maximum time a failover operation may take, counted from when the new primary has processed its relay log.
 
 [**handle\_events**](maxscale-monitors/mariadb-monitor.md#handle_events)
 
