@@ -3263,7 +3263,7 @@ server. `require` only uses encrypted connections. `allow`-mode is flexible, and
 means that MaxScale generally prefers to use encrypted connections but falls
 back to unencrypted connections if the server does not support encryption. In
 some cases (e.g. the
-[Binlogrouter](../../reference/maxscale-routers/maxscale-binlogrouter.md))
+[Binlogrouter](../../../reference/maxscale-routers/maxscale-binlogrouter.md))
 `allow` may default to unencrypted connections. Use `allow` when encryption is
 not essential, or when MariaDB Server SSL support may change while MaxScale is
 running.

@@ -218,7 +218,7 @@ With `preprocessor=internal`, the Exasolrouter translates MariaDB SQL to Exasol 
 preprocessor=internal:/path/to/maria_preprocessor.py
 ```
 
-The latest script is available from the [exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.sql) repository. That file is written as an Exasol `CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT` statement, so remove its first line before saving it as `maria_preprocessor.py`. A relative path is interpreted relative to the MaxScale share directory. For details, see [`preprocessor`](../reference/maxscale-routers/maxscale-exasolrouter.md#preprocessor).
+The latest script is available as [`maria_preprocessor.py`](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.py) in the exasol-mariadb-compat repository. It is plain Python, so you can use it as is. A relative path is interpreted relative to the MaxScale share directory. For details, see [`preprocessor`](../reference/maxscale-routers/maxscale-exasolrouter.md#preprocessor).
 
 ### Step 5. Configure the MaxScale SmartRouter.
 
