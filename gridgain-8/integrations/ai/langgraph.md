@@ -1,6 +1,6 @@
 ---
 description: >-
-  Use GridGain 8 as a LangGraph persistence backend: a checkpointer for thread state and a store for long-term memory across threads.
+  Use GridGain 8 as a LangGraph persistence backend: a checkpointer for thread state, a store for long-term memory across threads, and a node cache.
 ---
 
 # LangGraph Integration
@@ -9,6 +9,7 @@ The `langgraph-checkpoint-gridgain` package lets LangGraph applications keep the
 
 - **GridGainCheckpointSaver** stores the state of a graph thread. It enables pausing and resuming graphs, human approval steps, and time travel.
 - **GridGainMemoryStore** stores JSON memory that is shared across graph threads. It supports namespaces, structured filters, and expiry enforced by the server.
+- **GridGainNodeCache** stores the outputs of graph nodes, so a repeated input can reuse the result.
 
 These components use only the SQL and key-value APIs, so they do not require a license for vector search.
 
@@ -32,6 +33,7 @@ Import the components from the `langgraph` namespace:
 ```python
 from langgraph.checkpoint.gridgain import GridGainCheckpointSaver
 from langgraph.store.gridgain import GridGainMemoryStore
+from langgraph.cache.gridgain import GridGainNodeCache
 ```
 
 ## Connecting to GridGain
@@ -125,6 +127,45 @@ store.put(("users", "u1"), "session", {"step": 3}, ttl=10)
 item = store.get(("users", "u1"), "session", refresh_ttl=False)
 ```
 
+## GridGainNodeCache
+
+`GridGainNodeCache` is a LangGraph node cache. It caches the results of graph nodes. It is not related to the LangChain `GridGainCache`, which caches model responses and uses a different interface.
+
+To use the node cache, add a `CachePolicy` to each node whose output should be cached, and pass the cache to `compile`. Finish the edges of the graph before you compile it.
+
+Given a connected `client`, a graph `builder`, and a node function `expensive`:
+
+```python
+from langgraph.cache.gridgain import GridGainNodeCache
+from langgraph.types import CachePolicy
+
+node_cache = GridGainNodeCache(client, cache_name="my_app_node_cache")
+builder.add_node("expensive", expensive, cache_policy=CachePolicy(ttl=300))
+graph = builder.compile(cache=node_cache)
+```
+
+In this example, a repeated input reuses the cached output of the node for 300 seconds. The results are stored in GridGain, so a new graph or cache instance, for example, after a restart, can read them.
+
+The node cache works as follows:
+
+- TTL values are in **seconds**. Reading an entry does not extend its lifetime. If the TTL is `None`, the entry does not expire.
+- The default cache name is `lg_node_cache`, and the cache is shared across the cluster. The node cache does not add an application identifier to the keys, so applications that must not share entries need different `cache_name` values.
+- `node_cache.clear()` removes all entries from the whole cache. To remove only some namespaces, pass them to `clear()`. `graph.clear_cache()` removes the entries of the nodes of that graph.
+- With an `AioClient`, the asynchronous methods use non-blocking I/O.
+
+{% hint style="info" %}
+The default cache key does not guarantee a cache hit for every equivalent chat input. For nodes that take chat messages, set an explicit `key_func` in the `CachePolicy` that covers all fields that affect the output of the node:
+
+```python
+def messages_key(state):
+    return "|".join(f"{m.type}:{m.content}" for m in state["messages"])
+
+builder.add_node(
+    "call_model", call_model, cache_policy=CachePolicy(key_func=messages_key)
+)
+```
+{% endhint %}
+
 ## Using the Components Together
 
 Given a connected `client` and a configured graph `builder`:
@@ -143,6 +184,8 @@ matches = store.search(("users",), filter={"theme": "dark"})
 # Use config with graph.invoke(...) and graph.get_state(...).
 ```
 
+The memory store TTL values above are in minutes. The node cache TTL is in seconds.
+
 ## Upgrading from langchain-gridgain 2.x
 
 In `langchain-gridgain` 2.x, the checkpointer and the memory store were part of the `langchain-gridgain` package. In version 3.0.0, they moved to `langgraph-checkpoint-gridgain`. Install the new package and update the imports:
@@ -153,4 +196,4 @@ In `langchain-gridgain` 2.x, the checkpointer and the memory store were part of 
 +from langgraph.store.gridgain import GridGainMemoryStore
 ```
 
-The classes, their behavior, and the stored data are unchanged. The `langchain_gridgain` package does not import them anymore, and there is no `langgraph_checkpoint_gridgain` module.
+The classes, their behavior, and the stored data are unchanged. `GridGainNodeCache` was never released in `langchain-gridgain`; it is available starting with `langgraph-checkpoint-gridgain` 3.0.0. The `langchain_gridgain` package does not import them anymore, and there is no `langgraph_checkpoint_gridgain` module.
