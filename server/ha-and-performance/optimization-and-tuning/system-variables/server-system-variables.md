@@ -424,10 +424,29 @@ The suffix can be upper or lower-case.
   * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
+#### `debug_binlog_fsync_sleep`
+
+* Description: Extra time, in microseconds, to sleep after each `fsync()` of the [binary log](../../../server-management/server-monitoring-logs/binary-log/). Use it to artificially increase the cost of binary log flushes when testing. `0` adds no sleep. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
+#### `debug_mutex_deadlock_detector`
+
+* Description: Enable checking of wrong mutex usage, such as mutexes locked in an order that can lead to a deadlock. Only available when the server is built with `SAFE_MUTEX`, which debug builds (built with `-DCMAKE_BUILD_TYPE=Debug`) enable by default.
+* Command line: `--debug-mutex-deadlock-detector[={0|1}]`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thead-alarm=#`
+* Command line: `--debug-no-thread-alarm=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
