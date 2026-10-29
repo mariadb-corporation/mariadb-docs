@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure standard settings for all MaxScale monitors. Learn about essential
+  parameters like monitor intervals, backend timeouts, and user credentials for
+  connecting to database servers.
+---
+
 # Common Monitor Parameters
 
 This document settings supported by all monitors. These should be defined
@@ -187,8 +194,7 @@ This parameter duplicates the `disk_space_threshold`
 If the parameter has _not_ been specified for a server, then the one specified
 for the monitor is applied.
 
-**NOTE**: Since MariaDB 10.4.7, MariaDB 10.3.17 and MariaDB 10.2.26, the
-information will be available _only_ if the monitor user has the `FILE`
+**NOTE**: The information is available _only_ if the monitor user has the `FILE`
 privilege.
 
 That is, if the disk configuration is the same on all servers monitored by
@@ -510,105 +516,48 @@ monitor_interval=10s
 script=/path/to/maxscale_monitor_alert_script.sh --initiator=$INITIATOR --parent=$PARENT --children=$CHILDREN --event=$EVENT --node_list=$NODELIST --list=$LIST --master_list=$MASTERLIST --slave_list=$SLAVELIST --synced_list=$SYNCEDLIST
 ```
 
-File "maxscale\_monitor\_alert\_script.sh":
+File "maxscale_monitor_alert_script.sh":
 
-|    |                     |
-| -- | ------------------- |
-| 1  |                     |
-| 2  |                     |
-| 3  |                     |
-| 4  |                     |
-| 5  |                     |
-| 6  |                     |
-| 7  |                     |
-| 8  |                     |
-| 9  |                     |
-| 10 |                     |
-| 11 |                     |
-| 12 |                     |
-| 13 |                     |
-| 14 |                     |
-| 15 |                     |
-| 16 |                     |
-| 17 |                     |
-| 18 |                     |
-| 19 |                     |
-| 20 |                     |
-| 21 |                     |
-| 22 |                     |
-| 23 |                     |
-| 24 |                     |
-| 25 |                     |
-| 26 |                     |
-| 27 |                     |
-| 28 |                     |
-| 29 |                     |
-| 30 |                     |
-| 31 |                     |
-| 32 |                     |
-| 33 |                     |
-| 34 |                     |
-| 35 |                     |
-| 36 |                     |
-| 37 |                     |
-| 38 |                     |
-| 39 |                     |
-| 40 |                     |
-| 41 |                     |
-| 42 |                     |
-| 43 |                     |
-| 44 |                     |
-| 45 |                     |
-| 46 |                     |
-| 47 |                     |
-| 48 |                     |
-| 49 |                     |
-| 50 |                     |
-| 51 |                     |
-| 52 |                     |
-| 53 |                     |
-| 54 |                     |
-| 55 |                     |
-| 56 |                     |
-| 57 | #!/usr/bin/env bash |
+```
+#!/usr/bin/env bash
 
 initiator=""
 parent=""
 children=""
 event=""
-node\_list=""
+node_list=""
 list=""
-master\_list=""
-slave\_list=""
-synced\_list=""
+master_list=""
+slave_list=""
+synced_list=""
 
-process\_arguments()
+process_arguments()
 {
-while \[ "$1" != "" ]; do
-if \[\[ "$1" =\~ ^--initiator=.\* ]]; then
+while [ "$1" != "" ]; do
+if [[ "$1" =~ ^--initiator=.* ]]; then
 initiator=${1#'--initiator='}
-elif \[\[ "$1" =\~ ^--parent.\* ]]; then
+elif [[ "$1" =~ ^--parent.* ]]; then
 parent=${1#'--parent='}
-elif \[\[ "$1" =\~ ^--children.\* ]]; then
+elif [[ "$1" =~ ^--children.* ]]; then
 children=${1#'--children='}
-elif \[\[ "$1" =\~ ^--event.\* ]]; then
+elif [[ "$1" =~ ^--event.* ]]; then
 event=${1#'--event='}
-elif \[\[ "$1" =\~ ^--node\_list.\* ]]; then
-node\_list=${1#'--node\_list='}
-elif \[\[ "$1" =\~ ^--list.\* ]]; then
+elif [[ "$1" =~ ^--node_list.* ]]; then
+node_list=${1#'--node_list='}
+elif [[ "$1" =~ ^--list.* ]]; then
 list=${1#'--list='}
-elif \[\[ "$1" =\~ ^--master\_list.\* ]]; then
-master\_list=${1#'--master\_list='}
-elif \[\[ "$1" =\~ ^--slave\_list.\* ]]; then
-slave\_list=${1#'--slave\_list='}
-elif \[\[ "$1" =\~ ^--synced\_list.\* ]]; then
-synced\_list=${1#'--synced\_list='}
+elif [[ "$1" =~ ^--master_list.* ]]; then
+master_list=${1#'--master_list='}
+elif [[ "$1" =~ ^--slave_list.* ]]; then
+slave_list=${1#'--slave_list='}
+elif [[ "$1" =~ ^--synced_list.* ]]; then
+synced_list=${1#'--synced_list='}
 fi
 shift
 done
 }
 
-process\_arguments $@
+process_arguments $@
 read -r -d '' MESSAGE << EOM
 A server has changed state. The following information was provided:
 
@@ -616,20 +565,18 @@ Initiator: $initiator
 Parent: $parent
 Children: $children
 Event: $event
-Node list: $node\_list
+Node list: $node_list
 List: $list
-Primary list: $master\_list
-Replica list: $slave\_list
-Synced list: $synced\_list
+Primary list: $master_list
+Replica list: $slave_list
+Synced list: $synced_list
 EOM
 
-## print message to file
-
-echo "$MESSAGE" > /path/to/script\_output.txt
-
-## email the message
-
-echo "$MESSAGE" | mail -s "MaxScale received $event event for initiator $initiator." mariadb\_admin@domain.com |
+# print message to file
+echo "$MESSAGE" > /path/to/script_output.txt
+# email the message
+echo "$MESSAGE" | mail -s "MaxScale received $event event for initiator $initiator." mariadb_admin@domain.com
+```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

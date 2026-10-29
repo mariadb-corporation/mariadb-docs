@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage primary-replica clusters with the mariadbmon module. Learn to configure
+  automatic failover, perform switchovers, and monitor replication lag to
+  maintain database availability.
+---
+
 # MariaDB Monitor
 
 ## Overview
@@ -6,9 +13,7 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the
 states of the servers and assigns server roles such as primary and
 replica. Routers use the roles to decide where to route a query. MariaDB Monitor
 can also modify the replication cluster by performing failover, switchover,
-rejoin and other operations.  Server versions older than MariaDB/MySQL 5.5 are
-not supported. Failover and other similar operations require MariaDB 10.4 or
-later.
+rejoin and other operations.
 
 The monitor probes servers by connecting to them similar to a normal SQL client.
 If a connection succeeds, the server is assumed to be running. The monitor then
@@ -659,13 +664,12 @@ entire contents of a server: `rebuild-server` (run with the
 `restore-from-backup` (`async-restore-from-backup`). These are described in
 the [Backup operations](mariadb-monitor.md#backup-operations) section.
 
-The cluster operations require that the monitor user (`user`) has the following
-privileges:
+Before MariaDB Server 11.0.1, the cluster operations require that the monitor
+user (`user`) has the following privileges:
 
 * SUPER, to modify replica connections, set globals such as read\_only and kill
   connections from other super-users
-* REPLICATION CLIENT (REPLICATION SLAVE ADMIN in MariaDB Server 10.5), to list
-  replica connections
+* REPLICA MONITOR, to list replica connections
 * RELOAD, to flush binary logs
 * PROCESS, to check if the event\_scheduler process is running
 * SHOW DATABASES and EVENT, to list and modify server events
@@ -674,11 +678,6 @@ privileges:
 
 A list of the grants can be found in the [Required Grants](#required-grants)
 section.
-
-The privilege system was changed in MariaDB Server 10.5. The effects of this on
-the MaxScale monitor user are minor, as the SUPER-privilege contains many of the
-required privileges and is still required to kill connections from other
-super-users.
 
 In MariaDB Server 11.0.1 and later, SUPER no longer contains all the required
 grants. The monitor requires:
@@ -2369,8 +2368,7 @@ MariaDB Server may take a long time before it considers the monitor connection
 lost. This time ultimately depends on TCP keepalive settings on the machines
 running MariaDB Server.
 
-On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured
-for just the server process. See
+The TCP keepalive settings can be configured for just the server process. See
 [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval)
 for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and
 _tcp\_keepalive\_time_. These settings can also be set on the operating system
