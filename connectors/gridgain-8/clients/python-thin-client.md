@@ -8,7 +8,11 @@ description: >-
 
 ## Prerequisites
 
-Python 3.7 or above. Pre-built binaries are available for Python 3.9 and above.
+Python 3.11 or later. Pre-built binaries are available for Python 3.11 to 3.15.
+
+{% hint style="info" %}
+Starting with version 1.7.0, the Python thin client does not support Python 3.9 and 3.10. To use the client with these Python versions, install version 1.6.0 or earlier.
+{% endhint %}
 
 ## Installation
 
@@ -16,9 +20,13 @@ You can install the Python thin client either using `pip` or from a zip archive.
 
 ### Using PIP
 
-The python thin client package is called `pygridgain`. You can install it using the following command:
+The Python thin client package is called `pygridgain`. You can install it using the following command:
 
 {% include "../.gitbook/includes/gg8-install-python-pip.md" %}
+
+{% hint style="warning" %}
+The `pygridgain` package on PyPI also contains the GridGain 9 client, which has version numbers 9.0 and higher. Always specify a version lower than 9, as in the command above. A plain `pip install pygridgain` installs the GridGain 9 client, which does not work with GridGain 8.
+{% endhint %}
 
 ### Using ZIP Archive
 
@@ -581,6 +589,10 @@ client = Client(
 client.connect('localhost', 10800)
 ```
 
+{% hint style="info" %}
+Starting with version 1.7.0, the client uses TLS 1.3 or later by default. To connect to a cluster that supports only TLS 1.2, set `ssl_version=ssl.TLSVersion.TLSv1_2`. The client does not check the server host name.
+{% endhint %}
+
 Supported parameters:
 
 | Parameter | Description |
@@ -590,8 +602,8 @@ Supported parameters:
 | `ssl_certfile` | Path to the file containing the SSL certificate. |
 | `ssl_ca_certfile` | The path to the file with trusted certificates. |
 | `ssl_cert_reqs` | `ssl.CERT_NONE` − remote certificate is ignored (default),<br>`ssl.CERT_OPTIONAL` − remote certificate will be validated, if provided,<br>`ssl.CERT_REQUIRED` − valid remote certificate is required, |
-| `ssl_version` |  |
-| `ssl_ciphers` |  |
+| `ssl_version` | The minimum TLS version, as an `ssl.TLSVersion` value. The default is `ssl.TLSVersion.TLSv1_3`. To connect to a cluster that supports only TLS 1.2, set it to `ssl.TLSVersion.TLSv1_2`. The legacy `ssl.PROTOCOL_TLSv1_2`, `ssl.PROTOCOL_TLSv1_1`, and `ssl.PROTOCOL_TLSv1` constants are also accepted and allow only that TLS version. |
+| `ssl_ciphers` | The cipher list in the OpenSSL cipher list format. The default is the Python default cipher list. This parameter does not apply to TLS 1.3. |
 
 ### Authentication
 
