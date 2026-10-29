@@ -25,8 +25,8 @@ The Event ID uniquely identifies a problem and the logged event category indicat
 |---|---|---|---|
 | 15000 | ERROR | Source or Sink Connector misconfiguration | Analyse error details, fix connector configuration, restart connector. |
 | 15001 | INFO | Source or Sink connector changed or ignored some configuration to start successfully. | Consider changing connector configuration as described in the message. |
-| 15010 | ERROR | Sink connector failed to build Ignite object: the data was not streamed into sink Ignite cache. | Analyse error details.<br>Contact GridGain if enhancing Sink connector is needed. |
-| 15011 | WARNING | Source connector failed to build Kafka schema: schema-less data was streamed into Kafka. | Analyse error details.<br>Contact GridGain if enhancing Source connector is needed. |
+| 15010 | ERROR | Sink connector failed to build Ignite object: the data was not streamed into sink Ignite cache. | Analyse error details.<br>Contact GridGain [support](https://mariadb.com/support/) if enhancing Sink connector is needed. |
+| 15011 | WARNING | Source connector failed to build Kafka schema: schema-less data was streamed into Kafka. | Analyse error details.<br>Contact GridGain [support](https://mariadb.com/support/) if enhancing Source connector is needed. |
 | 15020 | ERROR | Source connector Backlog infrastructure failure. | Source connector restart or Backlog cleanup might be needed depending on the error details. |
 | 15030 | WARNING | Source connector continuous query failed.<br>Source connector will be re-trying the operation. | Analyse error details.<br>Something maybe wrong with source Ignite grid. |
 | 15040 | WARNING | Sink connector failed to write data into sink cache.<br>Sink connector will be re-trying the operation. | Analyse error details.<br>Something maybe wrong with sink Ignite grid. |
@@ -34,7 +34,7 @@ The Event ID uniquely identifies a problem and the logged event category indicat
 | 15051 | ERROR | Exception thrown from custom data filter. | Review and fix the custom data filter implementation. |
 | 15060 | INFO | Source or Sink connector connected to Ignite grid. | |
 | 15061 | INFO | Source or Sink connector disconnected from Ignite grid. | |
-| 15070 | ERROR | Ignite Binary Converter failed to convert data to (for Source connector) or from (for Sink Connector) Kafka format. | Analyse error details.<br>Contact GridGain if enhancing Ignite Binary Converter is needed. |
+| 15070 | ERROR | Ignite Binary Converter failed to convert data to (for Source connector) or from (for Sink Connector) Kafka format. | Analyse error details.<br>Contact GridGain [support](https://mariadb.com/support/) if enhancing Ignite Binary Converter is needed. |
 
 ## Exception Handling
 

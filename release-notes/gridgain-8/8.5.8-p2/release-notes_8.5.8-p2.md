@@ -32,7 +32,7 @@ See the [Rolling Upgrades](https://docs.gridgain.com/docs/rolling-upgrades) page
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

@@ -252,7 +252,7 @@ If you want to enable Data Center Replication during the upgrade, below is a mod
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

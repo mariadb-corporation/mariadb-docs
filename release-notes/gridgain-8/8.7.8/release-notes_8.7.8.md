@@ -188,7 +188,7 @@ Repeat this procedure for all nodes in the cluster.
 ## Related Information
 
 Need more details? Please don't hesitate to reach out to the
-[GridGain Customer Support](https://www.gridgain.com/services/support) team.
+[GridGain Customer Support](https://mariadb.com/support/) team.
 
 ### We Value Your Feedback
 

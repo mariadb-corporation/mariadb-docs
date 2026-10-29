@@ -52,7 +52,7 @@ We don't recommend configuring caches with ATOMIC and TRANSACTIONAL atomicity mo
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

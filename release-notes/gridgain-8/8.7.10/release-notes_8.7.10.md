@@ -56,7 +56,7 @@ The public interface of `DrSenderStore` has been changed compared to version 8.7
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

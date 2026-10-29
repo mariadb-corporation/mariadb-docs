@@ -17,6 +17,6 @@ This is a patch release, dedicated to fixing an SQL issue.
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: https://www.gridgain.com/services/support or docs@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/ or docs@gridgain.com
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

@@ -397,7 +397,7 @@ For more information on configuring authentication, including an LDAP provider e
 
 This section describes internal properties used by various GridGain components.
 
-You can edit these properties using the `cluster config update` CLI command, just like any other configuration option. However, we recommend discussing any changes with the GridGain [support team](https://www.gridgain.com/services/support) before applying them.
+You can edit these properties using the `cluster config update` CLI command, just like any other configuration option. However, we recommend discussing any changes with GridGain [support](https://mariadb.com/support/) before applying them.
 
 These properties may apply to the entire cluster (see below) or to a [specific node](node-configuration-parameters.md#system-configuration).
 

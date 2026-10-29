@@ -24,7 +24,7 @@ You can upgrade to 8.10 from the following 8.9.x releases.
 </details>
 
 {% hint style="info" %}
-If your cluster runs a release that is not listed, contact [GridGain Support](https://mariadb.com/support/) before you upgrade. Behavior can differ in places between releases. See the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/README.md) for the releases between your version and 8.9.39 first.
+If your cluster runs a release that is not listed, contact GridGain [support](https://mariadb.com/support/) before you upgrade. Behavior can differ in places between releases. See the [release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/gridgain-8/README.md) for the releases between your version and 8.9.39 first.
 {% endhint %}
 
 ## Choose Your Upgrade Path
@@ -63,7 +63,7 @@ The tables list each change, when it applies to you, and the effort it needs. If
 - *Config-only.* Set, remove, or restore a configuration property. No code changes.
 - *Code.* A contained code change, such as a renamed API call.
 - *Redesign.* Adopt a different system or API. Expect design work and retesting.
-- *Contact Support.* No documented replacement exists. Contact [GridGain Support](https://mariadb.com/support/) before you upgrade.
+- *Contact Support.* No documented replacement exists. Contact GridGain [support](https://mariadb.com/support/) before you upgrade.
 
 A range such as *Mechanical to Code* means that the effort depends on what you use.
 

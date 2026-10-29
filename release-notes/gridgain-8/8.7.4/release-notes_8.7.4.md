@@ -182,7 +182,7 @@ perform automated upgrades and for details about version compatibility.
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

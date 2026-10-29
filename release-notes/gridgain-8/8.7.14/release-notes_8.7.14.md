@@ -109,7 +109,7 @@ If your cluster is affected and you're planning to upgrade to this version, plea
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

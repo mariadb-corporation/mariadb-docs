@@ -782,7 +782,7 @@ Each GridGain storage engine can have several storage _profiles_.
 
 This section describes internal properties, which are used by a number of GridGain components.
 
-Although you can edit these properties in the same way you edit all others - using the `node config update` CLI command - we suggest that you discuss the proposed changes with the GridGain support team. The properties can apply to a specific node - see below - or to the [cluster as a whole](cluster-configuration-parameters.md#system-configuration).
+Although you can edit these properties in the same way you edit all others - using the `node config update` CLI command - we suggest that you discuss the proposed changes with GridGain [support](https://mariadb.com/support/). The properties can apply to a specific node - see below - or to the [cluster as a whole](cluster-configuration-parameters.md#system-configuration).
 
 {% hint style="info" %}
 Note that the property names are in `camelCase`.

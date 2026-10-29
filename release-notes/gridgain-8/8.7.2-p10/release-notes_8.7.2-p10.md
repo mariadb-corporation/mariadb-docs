@@ -27,7 +27,7 @@ See the [Rolling Upgrades](https://www.gridgain.com/docs/latest/administrators-g
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 

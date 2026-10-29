@@ -21,7 +21,7 @@ This maintenance release includes one critical bug fix.
 
 ## Related Information
 
-[Customer Support](https://www.gridgain.com/services/support)
+[Customer Support](https://mariadb.com/support/)
 
 ### We Value Your Feedback
 
