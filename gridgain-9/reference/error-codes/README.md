@@ -237,9 +237,9 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | --- | --- | --- |
 | `GG-LICENSE-1` | Generic license error. | Check the exception message for information on why the error occurred. |
 | `GG-LICENSE-2` | A license is missing for cluster. | Make sure to add the license when initializing the cluster. |
-| `GG-LICENSE-3` | A license has been modified. | Contact GridGain [support](https://mariadb.com/support/). |
-| `GG-LICENSE-4` | A license does not contain the required features. | Contact GridGain [support](https://mariadb.com/support/). |
-| `GG-LICENSE-5` | Blocked licenses list has been modified. | Contact GridGain [support](https://mariadb.com/support/). |
+| `GG-LICENSE-3` | A license has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
+| `GG-LICENSE-4` | A license does not contain the required features. | Contact MariaDB [support](https://mariadb.com/support/). |
+| `GG-LICENSE-5` | Blocked licenses list has been modified. | Contact MariaDB [support](https://mariadb.com/support/). |
 
 ## Marshalling Exceptions
 

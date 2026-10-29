@@ -105,6 +105,6 @@ If you are on a version that is not listed, contact GridGain for the information
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://gridgain.com/docs) for more information.

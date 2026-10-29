@@ -256,6 +256,6 @@ If you want to enable Data Center Replication during the upgrade, below is a mod
 
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://www.gridgain.com/docs/latest/getting-started/what-is-gridgain) for more information.
