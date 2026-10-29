@@ -199,8 +199,6 @@ When you scale the Exa node or Exa storage, stop the service or pause writes to 
 * **Exa node size:** in the portal, open the service, then click **Manage** → **Scale Exa nodes vertically** and select another size. Through the REST API, send `POST /provisioning/v1/services/{service_id}/analytics-node-pool` with the new `size`.
 * **Exa storage:** in the portal, click **Manage** → **Scale Exa storage** and change the size, IOPS, or throughput. Through the REST API, send `PATCH /provisioning/v1/services/{service_id}/analytics-storage` with `size`, `iops`, or `throughput`. The request returns an error if the service has no Exa volume, and it returns HTTP 425 while the storage is in a cooldown period after a recent change.
 
-You can't change the Exa storage type, and you can't reduce the Exa storage size.
-
 ## Monitoring, alerts, and logs
 
 * **Monitoring:** the service's monitoring includes an **Exasol** dashboard for the Exa node. See [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md#mariadb-exa-exasol).
@@ -263,15 +261,17 @@ Deep Dive: For a full list of supported SQL functions, detailed data type mappin
 
 **Service limits**
 
+* A single transaction larger than about 50 MB can exhaust the memory of the CDC (change data capture) process that copies data to Exa, and stop replication to Exa until it is recovered.
+* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+* Restoring MariaDB from a backup breaks CDC replication and leaves Exa in an inconsistent state relative to the restored MariaDB data.
 * Each service has one Exasol node. Multi-node Exasol and node-count selection are not available.
-* The Exa storage type can't be changed, and Exa storage can't be reduced.
 * Port **3311** is not read-only. It accepts write statements, but they are not supported and can break replication. Do not send writes to port 3311.
 * The `pymysql` client can't run queries on port 3311. Use MariaDB Connector/Python or another MariaDB connector.
-* A single transaction larger than about 50 MB can exhaust the memory of the CDC pod and stop replication to Exa until it is recovered.
 * On port 3311, `DATETIME` (without fractional seconds) and `TIMESTAMP` values come back padded with NUL bytes. `DATETIME(6)` and `DATE` values are not affected, and neither are queries on port 3306. To get clean text, use `TO_CHAR()` or `CAST(<column> AS VARCHAR(40))`.
+* On port 3311, queries that return rows with non-ASCII (UTF-8) characters, such as emoji, Cyrillic, or symbols like `©`, return no rows. The data is replicated to Exa. To read it, query on port 3306 or 3310.
 * The portal does not show replication failures between MariaDB and Exa.
 * You can't turn off Exa on its own on an existing service.
-* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+* MariaDB Exa is not supported on Insync (Galera) services. If you create a Galera service through the REST API with `"analytics": true`, the API accepts the request and creates the service without Exa, instead of returning an error.
 
 **SQL dialect** The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
 

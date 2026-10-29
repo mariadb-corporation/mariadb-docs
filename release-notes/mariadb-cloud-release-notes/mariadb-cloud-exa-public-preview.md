@@ -32,7 +32,7 @@ MariaDB Exa adds an analytics engine (powered by Exasol) to MariaDB Provisioned 
 * **Separate storage:** set the Exa storage size, IOPS, and throughput independently of MariaDB storage. If you do not specify them, the MariaDB volume settings are used.
 * **Scaling:** on a running service, use **Manage** → **Scale Exa nodes vertically** to change the Exa node size, and **Manage** → **Scale Exa storage** to change its size, IOPS, or throughput. The same operations are available through the REST API (`/services/{id}/analytics-node-pool` and `/services/{id}/analytics-storage`).
 * **Exa details and cost:** the service page shows the Exa node size and storage, and includes the Exa node in the cost estimate.
-* **Monitoring:** the service's monitoring includes an **Exasol** dashboard with memory, recommended database RAM, CPU usage, memory usage, database storage, compression ratio, SQL statements per minute, and concurrent queries panels. The Exasol node also appears in Topology Status.
+* **Monitoring:** the service's monitoring includes an **Exasol** dashboard with memory, recommended database RAM, CPU usage, memory usage, database storage, compression ratio, SQL statements per minute, and concurrent queries panels. The Exasol node also appears in the server list.
 * **Alerts:** new service-level alerts fire when Exasol memory is below 10% of the raw data size, when the index size exceeds the instance memory, or when the recommended database RAM exceeds twice the instance memory, each sustained for 30 minutes.
 * **Logs:** the portal log viewer includes an **Exasol Log** type.
 * **Billing:** Exa compute, storage, IOPS, and throughput are metered separately from MariaDB. On BYOC services, MariaDB Cloud bills only the Exa compute, and your cloud provider bills the Exa storage.
@@ -49,15 +49,17 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 
 ## Limitations
 
+* A single transaction larger than about 50 MB can exhaust the memory of the CDC (change data capture) process that copies data to Exa, and stop replication to Exa until it is recovered.
+* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+* Restoring MariaDB from a backup breaks CDC replication and leaves Exa in an inconsistent state relative to the restored MariaDB data.
 * Each service has one Exasol node. Multi-node Exasol and node-count selection are not available.
-* The Exa storage type cannot be changed, and Exa storage cannot be reduced.
 * The Exa port (3311) is not read-only. It accepts write statements, but they are not supported and can break replication. Do not send writes to port 3311.
 * The `pymysql` client cannot run queries on port 3311. Use the MariaDB Connector/Python or another MariaDB connector.
-* A single transaction larger than about 50 MB can exhaust the memory of the CDC pod and stop replication to Exa until it is recovered.
 * On port 3311, `DATETIME` (without fractional seconds) and `TIMESTAMP` values come back padded with NUL bytes. `DATETIME(6)` and `DATE` values are not affected, and neither are queries on port 3306. To get clean text, use `TO_CHAR()` or `CAST(<column> AS VARCHAR(40))`.
 * On Azure, when you create a service through the REST API, set the Exa storage `volume_type` explicitly, for example `StandardSSD_LRS`. If you omit it, the Exa disk takes the MariaDB disk type, which the Exa node can't use, and the Exasol pod fails to start. The Cloud Portal sets a supported type for you.
+* On port 3311, queries that return rows with non-ASCII (UTF-8) characters, such as emoji, Cyrillic, or symbols like `©`, return no rows. The data is replicated to Exa. To read it, query on port 3306 or 3310.
 * The portal does not show replication failures between MariaDB and Exa.
 * You cannot turn off Exa on its own on an existing service.
-* When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
+* MariaDB Exa is not supported on Insync (Galera) services. If you create a Galera service through the REST API with `"analytics": true`, the API accepts the request and creates the service without Exa, instead of returning an error.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
