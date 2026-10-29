@@ -19,6 +19,8 @@ The package implements the following LangChain interfaces:
 6. **GridGainSemanticCache**: A semantic cache for LLM responses.
 7. **GridGainVectorStore**: A vector store for storing and querying embeddings.
 
+For LangGraph persistence, see [LangGraph Integration](langgraph.md).
+
 ## Prerequisites
 
 The following is required to use the LangChain integration:
@@ -330,6 +332,10 @@ semantic_cache = GridGainSemanticCache(
 ```
 
 For the semantic cache, `ttl` applies to its own entries. Set the same `ttl` on the `GridGainCache` that it uses, so that both expire together.
+
+## Upgrading to Version 3.0.0
+
+In version 3.0.0, the LangGraph checkpointer and memory store moved from `langchain-gridgain` to the `langgraph-checkpoint-gridgain` package. If you use them, install `langgraph-checkpoint-gridgain` and update the imports as described in [LangGraph Integration](langgraph.md). If you use only the LangChain components, no changes are required.
 
 ## Upgrading from Version 1.0.x
 

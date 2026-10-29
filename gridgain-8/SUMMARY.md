@@ -280,6 +280,7 @@
   * [Cassandra Cache Store](integrations/cassandra-store.md)
   * [AI Integration](integrations/ai/README.md)
     * [LangChain](integrations/ai/langchain.md)
+    * [LangGraph](integrations/ai/langgraph.md)
     * [Langflow](integrations/ai/langflow.md)
     * [Feast](integrations/ai/feast.md)
     * [MCP Server](integrations/ai/mcp-server/README.md)
