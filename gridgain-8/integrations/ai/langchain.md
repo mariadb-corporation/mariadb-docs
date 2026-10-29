@@ -45,7 +45,7 @@ Version 3.0.0 depends on `langchain-core` 1.4.7 or later (below 2.0), the GridGa
 
 ## Connecting to GridGain
 
-Before using any of the GridGain-based components, connect to your GridGain cluster with the [Python thin client](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/python-thin-client):
+Before using any of the GridGain-based components, connect to your GridGain cluster with the [Python thin client]({connectors}/gridgain-8/clients/python-thin-client):
 
 ```python
 from pygridgain import Client
