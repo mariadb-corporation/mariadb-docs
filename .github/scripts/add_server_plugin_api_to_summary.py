@@ -17,8 +17,9 @@ Pages without a breadcrumb sit directly under the landing page, in this order:
 
 1. the doxygen pages (page-*.md), in the order the landing page links them,
    then any others by title;
-2. the top-level groups, by title;
-3. api.md ("API Reference"), which since MDBF-1224 only indexes the groups.
+2. the top-level groups, by title.
+
+The generated api.md is removed before this runs (DOCS-6625).
 
 Siblings are ordered by title, byte-wise, so the order is the same on every
 platform. GitBook builds a page's URL from its nav position, so nesting moves
@@ -88,11 +89,9 @@ def build_tree(dest_dir):
     doc_pages = [n for n in roots if n.startswith('page-')]
     doc_pages.sort(key=lambda n: (linked.index(n) if n in linked
                                   else len(linked), titles[n], n))
-    groups = sorted((n for n in roots
-                     if not n.startswith('page-') and n != 'api.md'),
+    groups = sorted((n for n in roots if not n.startswith('page-')),
                     key=by_title)
-    tail = ['api.md'] if 'api.md' in roots else []
-    return titles, children, doc_pages + groups + tail
+    return titles, children, doc_pages + groups
 
 
 def nav_lines(titles, children, roots):

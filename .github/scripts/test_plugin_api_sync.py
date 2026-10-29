@@ -25,6 +25,7 @@ doxygen_refs = load(HERE / 'fix_plugin_api_doxygen_refs.py', 'doxygen_refs')
 member_anchors = load(HERE / 'fix_plugin_api_member_anchors.py',
                       'member_anchors')
 summary = load(HERE / 'add_server_plugin_api_to_summary.py', 'summary')
+drop_api = load(HERE / 'drop_plugin_api_md.py', 'drop_api')
 
 FRONTMATTER = '---\ndescription: >-\n  Generated page.\n---\n\n'
 
@@ -171,6 +172,70 @@ class CrossPageMemberAnchors(TempDir):
         self.assertEqual(page.read_text(), text)
 
 
+class DropApiMd(TempDir):
+    API = ('# API Reference\n\n## Macros\n\n'
+           '### MARIA_DECLARE_PLUGIN__\n\n### maria_declare_plugin\n\n'
+           '## Enumerations\n\n### PSI_table_io_operation\n\n'
+           '## Typedefs\n\n### PSI_table_io_operation\n\n### my_bool\n\n'
+           '### orphan\n')
+
+    def drop(self, pages):
+        self.page('api.md', self.API)
+        for name, text in pages.items():
+            self.page(name, text)
+        return drop_api.drop(self.dir, fragcheck,
+                             member_anchors.published_anchors)
+
+    def test_links_follow_the_heading_text_not_the_slug(self):
+        # MARIA_DECLARE_PLUGIN__ and maria_declare_plugin share a slug; the
+        # my_bool typedef shares its name with a struct member (h4) elsewhere.
+        result = self.drop({
+            'plugin_declaration.md': '# Decl\n\n### MARIA_DECLARE_PLUGIN__\n\n'
+                                     '### maria_declare_plugin\n',
+            'plugin_api.md': '# Plugin API\n\n### my_bool\n',
+            'sql.md': '# SQL\n\n### st\n\n#### my_bool\n\n'
+                      '[a](api.md#maria_declare_plugin) '
+                      '[b](api.md#maria_declare_plugin-1) '
+                      '[c](api.md#my_bool)\n'})
+        self.assertEqual(result, (3, []))
+        self.assertIn('[a](plugin_declaration.md#maria_declare_plugin) '
+                      '[b](plugin_declaration.md#maria_declare_plugin-1) '
+                      '[c](plugin_api.md#my_bool)',
+                      (self.dir / 'sql.md').read_text())
+        self.assertFalse((self.dir / 'api.md').exists())
+
+    def test_repeated_heading_pairs_by_order_and_same_page_is_local(self):
+        result = self.drop({
+            'Instrumentation_interface.md':
+                '# PSI\n\n### PSI_table_io_operation\n\n'
+                '### PSI_table_io_operation\n\n'
+                '[x](api.md#psi_table_io_operation) '
+                '[y](api.md#psi_table_io_operation-1)\n'})
+        self.assertEqual(result, (2, []))
+        self.assertIn('[x](#psi_table_io_operation) '
+                      '[y](#psi_table_io_operation-1)',
+                      (self.dir / 'Instrumentation_interface.md').read_text())
+
+    def test_bare_link_goes_to_plugin_api_and_orphans_become_text(self):
+        result = self.drop({
+            'plugin_api.md': '# Plugin API\n',
+            'README.md': '* [API reference](api.md#)\n'
+                         'see [`orphan`](api.md#orphan) and [gone](api.md#nope)\n'
+                         '```\n[kept](api.md#nope)\n```\n'})
+        self.assertEqual(result[0], 1)
+        self.assertEqual([link for _, _, link in result[1]],
+                         ['[`orphan`](api.md#orphan)', '[gone](api.md#nope)'])
+        self.assertEqual((self.dir / 'README.md').read_text(),
+                         '* [API reference](plugin_api.md)\n'
+                         'see `orphan` and gone\n'
+                         '```\n[kept](api.md#nope)\n```\n')
+
+    def test_no_api_md_is_a_no_op(self):
+        self.page('plugin_api.md', '# Plugin API\n')
+        self.assertIsNone(drop_api.drop(self.dir, fragcheck,
+                                        member_anchors.published_anchors))
+
+
 class SummaryNav(TempDir):
     SUMMARY = ('# Table of contents\n\n'
                '* [Plugins](reference/plugins/README.md)\n'
@@ -191,7 +256,6 @@ class SummaryNav(TempDir):
         self.page('page-implementation.md',
                   FRONTMATTER + '# Plugin API Implementation\n')
         self.page('page-verification.md', FRONTMATTER + '# Plugin Verification\n')
-        self.page('api.md', FRONTMATTER + '# API Reference\n')
         self.page('plugin_api.md', FRONTMATTER + '# Plugin API\n')
         self.page('plugin_client_api.md', FRONTMATTER + '# Client Plugin API\n')
         self.page('plugin_types.md', FRONTMATTER + '# Plugin Types\n\n'
@@ -217,7 +281,6 @@ class SummaryNav(TempDir):
             f'        * [Plugin Types]({d}/plugin_types.md)',
             f'          * [Audit Plugin]({d}/audit.md)',
             f'          * [Daemon Plugin]({d}/daemon.md)',
-            f'      * [API Reference]({d}/api.md)',
         ])
 
     def test_replaces_the_whole_old_section_and_is_idempotent(self):
