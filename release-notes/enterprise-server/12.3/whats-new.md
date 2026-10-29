@@ -207,6 +207,8 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 * **Client port in connection records**: a connection is identified as `HOST:PORT` rather than by host alone, which distinguishes concurrent connections from the same host. When no port is available, the field records `unavailable`
 * **TLS version in connection events**: `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, `CHANGE_USER`, and `CHANGE_USER_DONE` records each carry the TLS version negotiated for the session, so audit logs can evidence which sessions used which protocol version
 
+From MariaDB Enterprise Server 12.3.3-1, MariaDB Enterprise Audit can also write the audit log in **JSON format**, one JSON object per record, to a file or to the system log. Set the new `server_audit_log_format` system variable to `JSON`; the default, `CSV`, keeps the existing format. See [JSON Format]({server}/reference/plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-log-destinations-and-format#json-format) ([MENT-2469](https://jira.mariadb.org/browse/MENT-2469)).
+
 ## Observability and Information Schema
 
 * **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
