@@ -908,21 +908,66 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 ## Options When Debugging mariadbd
 
+These options are intended for developers and for the `mariadb-test` suite. Do not use them in production. Options marked "Debug builds only" exist only when the server is built with `-DCMAKE_BUILD_TYPE=Debug`. A release build does not recognize them.
+
+#### `--debug-abort-slave-event-count`
+
+* Description: Used by `mariadb-test` to test replication. When set to a value greater than `0`, the replica SQL thread stops reading events from the relay log after that many events. Release builds accept this option, but it has an effect only in debug builds.
+* Command line: `--debug-abort-slave-event-count=#`
+* Data Type: `numeric`
+* Default Value: `0`
+
+#### `--debug-assert`
+
+* Description: Allow `DBUG_ASSERT()` to invoke `assert()`. Debug builds only.
+* Command line: `--debug-assert[={0|1}]`
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `--debug-assert-if-crashed-table`
 
-* Description: Do an assert in handler::print\_error() if we get a crashed table.
+* Description: Do an assert in handler::print\_error() if we get a crashed table. Debug builds only.
+
+#### `--debug-assert-on-error`
+
+* Description: Do an assert in various functions if the server gets a fatal error. Debug builds only.
+* Command line: `--debug-assert-on-error`
+* Data Type: `boolean`
+* Default Value: `OFF`
+
+#### `--debug-assert-on-not-freed-memory`
+
+* Description: Assert at shutdown if problems with memory allocation are found, such as memory that was not freed. Debug builds only.
+* Command line: `--debug-assert-on-not-freed-memory`, `--skip-debug-assert-on-not-freed-memory`
+* Data Type: `boolean`
+* Default Value: `ON`
 
 #### `--debug-binlog-fsync-sleep`
 
-* Description: `--debug-binlog-fsync-sleep=#`If not set to zero, sets the number of micro-seconds to sleep after running fsync() on the [binary log](../server-monitoring-logs/binary-log/) to flush transactions to disk. This can thus be used to artificially increase the perceived cost of such an fsync().
+* Description: `--debug-binlog-fsync-sleep=#`If not set to zero, sets the number of micro-seconds to sleep after running fsync() on the [binary log](../server-monitoring-logs/binary-log/) to flush transactions to disk. This can thus be used to artificially increase the perceived cost of such an fsync(). Debug builds only. See also the [debug\_binlog\_fsync\_sleep](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_binlog_fsync_sleep) system variable.
 
 #### `--debug-crc-break`
 
 * Description: `--debug-crc-break=#`Call my\_debug\_put\_break\_here() if crc matches this number (for debug).
+* Removed: [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7)
+
+#### `--debug-disconnect-slave-event-count`
+
+* Description: Used by `mariadb-test` to test replication. When set to a value greater than `0`, the replica I/O thread simulates a lost connection to the primary after reading that many events, then reconnects. Release builds accept this option, but it has an effect only in debug builds.
+* Command line: `--debug-disconnect-slave-event-count=#`
+* Data Type: `numeric`
+* Default Value: `0`
+
+#### `--debug-exit-info`
+
+* Description: Used for debugging. Use at your own risk. Sets internal test flags and makes the server print memory and error information when it exits.
+* Command line: `-T [flags]`, `--debug-exit-info[=flags]`
+* Data Type: `numeric`
 
 #### `--debug-flush`
 
 * Description: Default debug log with flush after write.
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `--debug-gdb`
 
@@ -936,6 +981,20 @@ Some options and system variables related to [Galera Cluster](../../architecture
 #### `--debug-no-sync`
 
 * Description: `debug-no-sync[=#]`Disables system sync calls. Only for running tests or debugging!
+
+#### `--debug-max-binlog-dump-events`
+
+* Description: Originally used by `mariadb-test` to test replication. The server still accepts this option, but it has no effect.
+* Command line: `--debug-max-binlog-dump-events=#`
+* Data Type: `numeric`
+* Default Value: `0`
+
+#### `--debug-sporadic-binlog-dump-fail`
+
+* Description: Used by `mariadb-test` to test replication. When enabled, the primary fails every second binary log dump request from a replica with the error `Master failed COM_BINLOG_DUMP to test if slave can recover`, so you can test that the replica recovers. Release builds accept this option, but it has an effect only in debug builds.
+* Command line: `--debug-sporadic-binlog-dump-fail`
+* Data Type: `boolean`
+* Default Value: `OFF`
 
 #### `--debug-sync-timeout`
 
@@ -952,13 +1011,17 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 #### `--thread-alarm`
 
-* Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging!
+* Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging! From MariaDB 5.5, replaced by [debug\_no\_thread\_alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm).
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 ### Debugging Options and System Variables
 
 * [core-file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file)
 * [debug](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug-debug_dbug)
+* [debug-binlog-fsync-sleep](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_binlog_fsync_sleep)
+* [debug-mutex-deadlock-detector](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_mutex_deadlock_detector)
 * [debug-no-thread-alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm)
+* [debug-sync](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_sync)
 
 ## Other Options
 
