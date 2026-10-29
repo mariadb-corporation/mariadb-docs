@@ -259,9 +259,9 @@ maxctrl call command galeramon discover-replicas monitor=MyGaleraMonitor remove=
 ## External replication management
 
 A Galera Cluster node typically only replicates from other members of the
-cluster using its own, [synchronous replication implementation]({galera}/readme/about-galera-replication.md).
+cluster using its own, [synchronous replication implementation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication.md).
 A Galera node can, in addition,
-[replicate asynchronously]({galera}/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/README.md)
+[replicate asynchronously](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/README.md)
 from a normal MariaDB Server, or even from a different Galera Cluster. Normally,
 the MaxScale Galera Monitor will not manage the asynchronous replication in any
 way. This means that if the primary server of either the Galera Cluster or the

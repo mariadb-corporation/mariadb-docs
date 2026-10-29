@@ -1456,7 +1456,7 @@ This setting allows the monitor to heal a primary server that has truncated its
 binary logs during crash recovery. This truncation is possible when using
 semisynchronous replication with `rpl_semi_sync_master_wait_point=AFTER_SYNC`
 and `--init-rpl-role=SLAVE` (see
-[here]({server}/ha-and-performance/standard-replication/semisynchronous-replication#configuring-the-primary-wait-point)
+[here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication#configuring-the-primary-wait-point)
 for more information).
 
 With `heal_primary_truncated_binlog=true`, whenever the monitor reconnects to
@@ -1481,13 +1481,13 @@ The monitor will only attempt the healing replication if the GTIDs of the
 primary and the replica clearly suggest that truncation has taken place. This
 means:
 
-1. [gtid_binlog_pos]({server}/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_binlog_pos)
+1. [gtid_binlog_pos](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_binlog_pos)
 of the primary contains an element with a domain that matches the
-[gtid_domain_id]({server}/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id)
+[gtid_domain_id](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_domain_id)
 of the primary. This element must also match the primary's server id.
 
 2. A replica needs to have a
-[Gtid_IO_Pos]({server}/reference/sql-statements/administrative-sql-statements/show/show-replica-status#column-descriptions)
+[Gtid_IO_Pos](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status#column-descriptions)
 with the same domain and server id, and with a higher sequence number than the
 primary. The SQL-thread of the replica must be running.
 
@@ -1497,9 +1497,9 @@ replica processes enough of its relay log.
 
 Both servers participating in the healing operation need to have complete binary
 logs so missing events can be replicated. This means that both
-[log_bin]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin)
+[log_bin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin)
 and
-[log_slave_updates]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates)
+[log_slave_updates](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates)
 need to be enabled on both servers.
 
 As an example, let's assume server1 is primary with gtid_domain_id 0 and server
@@ -2332,9 +2332,9 @@ time. MaxScale B operates independently, and promotes Server 2. Server 1 and
 Server 2 will then diverge._
 
 This situation cannot be entirely protected against. The best remedy is to use
-[semisynchronous replication]({server}/ha-and-performance/standard-replication/semisynchronous-replication))
+[semisynchronous replication](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication))
 with a sufficiently long (e.g. 1 minute)
-[rpl_semi_sync_master_timeout]({server}/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
+[rpl_semi_sync_master_timeout](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
 This way, when Server 1 loses connectivity to the other servers, writes to
 Server 1 will stall, greatly limiting the number of transactions that may be
 committed. Any transactions in flight will eventually commit, though. As of
