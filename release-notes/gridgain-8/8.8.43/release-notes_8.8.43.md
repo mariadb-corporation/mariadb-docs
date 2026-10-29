@@ -162,4 +162,4 @@ To run .NET SDK commands, install the .NET SDK. For more details, click [here](h
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: support@gridgain.com
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/

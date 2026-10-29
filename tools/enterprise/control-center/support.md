@@ -9,6 +9,6 @@ hidden: true
 
 GridGain Control Center is a tool that helps you manage local installations for Apache Ignite and GridGain. Our support team will help you resolve issues with the GridGain portal, billing, or account access.
 
-Contact us at [support.cloud@gridgain.com](mailto:support.cloud@gridgain.com?subject=GridGain%20Control%20Center%20Issue).
+Contact us at [MariaDB support](https://mariadb.com/support/).
 
 Make sure to include cluster information, and the description of your issue in your message to help our team identify what is happening.
