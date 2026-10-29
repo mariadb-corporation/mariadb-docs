@@ -51,6 +51,12 @@ pip3 install -r requirements/<your task>.txt
 
 Refer to the [Setuptools manual](https://setuptools.readthedocs.io/en/latest/) for more details about `setup.py` usage.
 
+### Using the Apache Ignite Python Thin Client
+
+You can also connect to a GridGain 8 cluster with the Apache Ignite 2.x Python thin client (`pyignite`). Version 0.6.1 was tested with GridGain 8.10: all operations that `pyignite` supports work, including key-value operations, transactions, SQL and scan queries, binary objects, cache configuration, expiry policies, partition awareness, the cluster state API, authentication, and SSL.
+
+`pyignite` does not support continuous queries, index queries, cache invoke, compute, services, the data streamer, atomic longs, Ignite sets, cluster groups, WAL state, and heartbeats. It also cannot use GridGain-specific features such as vector queries. For these features, use `pygridgain`.
+
 ## Connecting to Cluster
 
 The ZIP distribution package contains runnable examples that demonstrate
