@@ -38,7 +38,7 @@ from langgraph.cache.gridgain import GridGainNodeCache
 
 ## Connecting to GridGain
 
-The components take a connected [Python thin client]({connectors}/gridgain-8/clients/python-thin-client). Your application creates and closes the clients:
+The components take a connected [Python thin client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/python-thin-client). Your application creates and closes the clients:
 
 ```python
 from pygridgain import Client

@@ -43,7 +43,7 @@ Vector indexes accept the new `hnsw_m`, `hnsw_ef_construction`, `quantization` (
 
 The new vector parameters require GridGain 8.10 or later. If the cluster does not support a parameter that you set, the client raises `NotSupportedByClusterError`.
 
-For more information, see [Vector Queries]({connectors}/gridgain-8/clients/python-thin-client#vector-queries).
+For more information, see [Vector Queries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/python-thin-client#vector-queries).
 
 ### LangChain and LangGraph Integration
 
