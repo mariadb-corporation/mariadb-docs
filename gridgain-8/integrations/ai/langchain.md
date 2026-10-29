@@ -27,6 +27,7 @@ The following is required to use the LangChain integration:
 - A running GridGain 8 cluster. The edition you need depends on the components that you use:
   - `GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` use only key-value operations and work with any edition.
   - `GridGainVectorStore` and `GridGainSemanticCache` require GridGain 8.9.17 or later with a license that provides access to vector search.
+- To filter vector searches by metadata, GridGain 8.10.0 or later and `pygridgain` 1.7.0 or later, which requires Python 3.11 or later. See [Filtering by Metadata](#filtering-by-metadata).
 
 ## Installation
 
@@ -262,6 +263,48 @@ Note the following:
 - Scores are cosine distances: a lower distance means a closer match. Relevance scores, as returned by `similarity_search_with_relevance_scores` and used by the `similarity_score_threshold` retriever, are calculated as `1 - distance`. They are not limited to the `[0, 1]` range: opposite vectors have a relevance below `0`.
 - Deleting a document also removes it from the vector index.
 - The asynchronous methods run the synchronous ones in a thread pool.
+
+#### Filtering by Metadata
+
+You can restrict a vector search to documents with given metadata values. GridGain applies the filter on the server before it selects the top `k` results, so a filtered search returns up to `k` matching documents.
+
+Declare the metadata keys that you want to filter on in `filterable_metadata_fields` when you create the store. The store writes each declared key as a separate string field in a full-text index next to the vector index. The full metadata is still stored and returned unchanged.
+
+```python
+from langchain_gridgain import GridGainVectorStore
+
+store = GridGainVectorStore(
+    cache_name="docs_with_filters",
+    client=client,
+    embedding=embeddings,
+    filterable_metadata_fields=["tenant", "category"],
+)
+store.add_texts(
+    ["A laptop guide"],
+    metadatas=[{"tenant": "alice", "category": "laptop"}],
+    ids=["guide-1"],
+)
+docs = store.similarity_search("laptop", k=3, filter={"tenant": "alice"})
+retriever = store.as_retriever(
+    search_kwargs={"k": 3, "filter": {"tenant": "alice"}}
+)
+```
+
+The filter is passed to similarity search, maximal marginal relevance search, and retrievers. It supports the following forms:
+
+- Several keys, combined with AND: `{"tenant": "alice", "category": "laptop"}`.
+- Explicit equality: `{"tenant": {"$eq": "alice"}}`.
+- Explicit AND: `{"$and": [{"tenant": "alice"}, {"category": "laptop"}]}`.
+
+Only `None` and `{}` mean no filter. The following raise `ValueError` instead of being ignored: other operators, such as ranges, `$or`, and `$in`; keys that are not declared in `filterable_metadata_fields`; a key tested for two different values; and filters that are not dictionaries.
+
+Values are compared as text. Strings are compared as is, booleans as `"true"` or `"false"`, and numbers as their text form. As a result, the integer `1` matches the string `"1"`, but not the float `1.0`. Other values, such as `None`, lists, and dates, are not stored in the filter fields, so they never match, and a filter on them raises `ValueError`.
+
+{% hint style="warning" %}
+The filter fields are set when the cache is created. If you declare `filterable_metadata_fields` for an existing cache that was created without them, the store raises `ValueError`. Create the store with a new cache name and add the documents again. A store without `filterable_metadata_fields` opens existing caches as before.
+{% endhint %}
+
+If the installed `pygridgain` is older than 1.7.0, creating a store with `filterable_metadata_fields` raises `ImportError`. If the cluster does not support filtered vector queries, a filtered search raises `NotSupportedByClusterError`. The filter is never dropped silently.
 
 ## Entry Expiry (TTL)
 
