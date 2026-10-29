@@ -53,7 +53,15 @@ Refer to the [Setuptools manual](https://setuptools.readthedocs.io/en/latest/) f
 
 ### Using the Apache Ignite Python Thin Client
 
-You can also connect to a GridGain 8 cluster with the Apache Ignite 2.x Python thin client (`pyignite`). Version 0.6.1 was tested with GridGain 8.10: all operations that `pyignite` supports work, including key-value operations, transactions, SQL and scan queries, binary objects, cache configuration, expiry policies, partition awareness, the cluster state API, authentication, and SSL.
+You can also connect to a GridGain 8 cluster with the Apache Ignite 2.x Python thin client (`pyignite`). Version 0.6.1 was tested with GridGain 8.10. All operations that `pyignite` supports work, including:
+
+- Key-value operations and transactions
+- SQL and scan queries
+- Binary objects
+- Cache configuration and expiry policies
+- Partition awareness
+- The cluster state API
+- Authentication and SSL
 
 `pyignite` does not support continuous queries, index queries, cache invoke, compute, services, the data streamer, atomic longs, Ignite sets, cluster groups, WAL state, and heartbeats. It also cannot use GridGain-specific features such as vector queries. For these features, use `pygridgain`.
 
@@ -500,11 +508,11 @@ from pygridgain.datatypes.cache_config import IndexType
 
 ### Vector Index Parameters
 
-Starting with version 1.7.0, a vector index accepts the following optional keys. They require GridGain 8.10.0 or later. If the cluster does not support a parameter that you set, the client raises `NotSupportedByClusterError` instead of creating the index without it. If you set one of these keys on an index that is not a vector index, the client raises `ValueError`.
+Starting with version 1.7.0, a vector index accepts the following optional keys. They require GridGain 8.10 or later. If the cluster does not support a parameter that you set, the client raises `NotSupportedByClusterError` instead of creating the index without it. If you set one of these keys on an index that is not a vector index, the client raises `ValueError`.
 
 | Key | Values (default) | Description |
 | --- | --- | --- |
-| `hnsw_m` | 1–512 (`0`, engine default) | Number of graph connections for each vector in the HNSW graph. A higher value improves recall and costs graph memory and build time. Changing it requires an index rebuild. |
+| `hnsw_m` | 1–512 (`0`, engine default) | Number of graph connections for each vector in the Hierarchical Navigable Small World (HNSW) graph. A higher value improves recall and costs graph memory and build time. Changing it requires an index rebuild. |
 | `hnsw_ef_construction` | 1–3200 (`0`, engine default) | Build-time beam width: how many candidates the engine keeps while it chooses the connections of each vector. A higher value costs build time but no extra index memory. Changing it requires an index rebuild. |
 | `quantization` | A `VectorQuantization` value (`ENGINE_DEFAULT`) | How the index stores vectors: `NONE` (full precision), `INT8` (one byte per dimension), or `BINARY` (one bit per dimension, requires the Lucene 10 vector module on the cluster). `ENGINE_DEFAULT` leaves the choice to the node. |
 | `max_segments` | 1–1024 (`0`, engine default) | Target maximum number of index segments. A query searches one graph per segment, so fewer segments answer faster, but merging the index down to them costs more. |
@@ -544,7 +552,7 @@ The `vector()` method takes the following parameters:
 | `type_name` | Name of the type. |
 | `field` | Name of the vector field. |
 | `clause_vector` | The search vector. Any sequence of floats works. A NumPy array of dtype `'<f4'` is sent without conversion, which is the fastest option. |
-| `k` | Number of nearest vectors to return. Must be positive; otherwise the client raises `ValueError`. The cluster also limits it (10000 by default). |
+| `k` | Number of nearest vectors to return. Must be positive. Otherwise, the client raises `ValueError`. The cluster also limits it (10000 by default). |
 | `threshold` | Similarity threshold. `0` or a negative value disables it. |
 | `page_size` | Optional. Number of rows in one response page. Defaults to `k`, so the whole result arrives in one page. |
 | `ef_search` | Optional. Search beam width: how many candidate vectors the engine keeps while it walks the index graph. A value wider than `k` improves recall and increases latency. A value below `k` is treated as `k`. `0` (the default) uses the engine default. |
@@ -562,7 +570,7 @@ The shape of the result rows depends on the flags:
 | `no_content=True` | `key` |
 | `with_scores=True, no_content=True` | `(key, score)` |
 
-`ef_search`, `with_scores`, `no_content`, `field_filter`, and `oversample` were added in version 1.7.0 and require GridGain 8.10.0 or later. If the cluster does not support them, the client raises `NotSupportedByClusterError`. A query that does not use them works with earlier GridGain versions.
+`ef_search`, `with_scores`, `no_content`, `field_filter`, and `oversample` were added in version 1.7.0 and require GridGain 8.10 or later. If the cluster does not support them, the client raises `NotSupportedByClusterError`. A query that does not use them works with earlier GridGain versions.
 
 {% hint style="info" %}
 Starting with version 1.7.0, `page_size` defaults to `k`. Earlier versions used a page size of 1, which made one server round trip for each result row. To keep a smaller page, set `page_size` explicitly.
@@ -596,8 +604,6 @@ cursor = cache.vector(
     field_filter={'tenant': 'acme'},
 )
 ```
-
-The filter works as follows:
 
 - An entry matches when every field in the filter equals its value.
 - The filter can only use fields of the text (`FULLTEXT`) index of the type. If a field is not indexed, the cluster rejects the query and the client raises `CacheError`.

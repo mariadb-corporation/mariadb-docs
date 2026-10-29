@@ -12,10 +12,10 @@ The `langchain-gridgain` package provides storage adapters that let LangChain co
 The package implements the following LangChain interfaces:
 
 1. **GridGainStore**: A key-value store for string values.
-2. **GridGainByteStore**: A key-value store for binary values, for example, to cache computed embeddings.
+2. **GridGainByteStore**: A key-value store for binary values, such as computed embeddings.
 3. **GridGainDocumentLoader**: A document loader for retrieving documents from GridGain caches.
 4. **GridGainChatMessageHistory**: A chat message history store.
-5. **GridGainCache**: An exact-match cache for LLM responses.
+5. **GridGainCache**: An exact-match cache for large language model (LLM) responses.
 6. **GridGainSemanticCache**: A semantic cache for LLM responses.
 7. **GridGainVectorStore**: A vector store for storing and querying embeddings.
 
@@ -29,7 +29,7 @@ The following is required to use the LangChain integration:
 - A running GridGain 8 cluster. The edition you need depends on the components that you use:
   - `GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` use only key-value operations and work with any edition.
   - `GridGainVectorStore` and `GridGainSemanticCache` require GridGain 8.9.17 or later with a license that provides access to vector search.
-- To filter vector searches by metadata, GridGain 8.10.0 or later and `pygridgain` 1.7.0 or later, which requires Python 3.11 or later. See [Filtering by Metadata](#filtering-by-metadata).
+- To filter vector searches by metadata, GridGain 8.10 or later and `pygridgain` 1.7.0 or later, which requires Python 3.11 or later. See [Filtering by Metadata](#filtering-by-metadata).
 
 ## Installation
 
@@ -153,7 +153,7 @@ documents = doc_loader.load()
 
 ### 4. GridGainChatMessageHistory
 
-`GridGainChatMessageHistory` stores and retrieves chat message history in GridGain. This is crucial for maintaining context in conversational AI applications.
+`GridGainChatMessageHistory` stores and retrieves chat message history in GridGain. Use it to keep context in conversational AI applications.
 
 Usage example:
 
@@ -260,8 +260,6 @@ vector_store.delete(["review-1"])
 vector_store.clear()
 ```
 
-Note the following:
-
 - Scores are cosine distances: a lower distance means a closer match. Relevance scores, as returned by `similarity_search_with_relevance_scores` and used by the `similarity_score_threshold` retriever, are calculated as `1 - distance`. They are not limited to the `[0, 1]` range: opposite vectors have a relevance below `0`.
 - Deleting a document also removes it from the vector index.
 - The asynchronous methods run the synchronous ones in a thread pool.
@@ -298,7 +296,12 @@ The filter is passed to similarity search, maximal marginal relevance search, an
 - Explicit equality: `{"tenant": {"$eq": "alice"}}`.
 - Explicit AND: `{"$and": [{"tenant": "alice"}, {"category": "laptop"}]}`.
 
-Only `None` and `{}` mean no filter. The following raise `ValueError` instead of being ignored: other operators, such as ranges, `$or`, and `$in`; keys that are not declared in `filterable_metadata_fields`; a key tested for two different values; and filters that are not dictionaries.
+Only `None` and `{}` mean no filter. The following filters raise `ValueError` instead of being ignored:
+
+- Other operators, such as ranges, `$or`, and `$in`
+- Keys that are not declared in `filterable_metadata_fields`
+- A key tested for two different values
+- Filters that are not dictionaries
 
 Values are compared as text. Strings are compared as is, booleans as `"true"` or `"false"`, and numbers as their text form. As a result, the integer `1` matches the string `"1"`, but not the float `1.0`. Other values, such as `None`, lists, and dates, are not stored in the filter fields, so they never match, and a filter on them raises `ValueError`.
 
@@ -310,7 +313,7 @@ If the installed `pygridgain` is older than 1.7.0, creating a store with `filter
 
 ## Entry Expiry (TTL)
 
-`GridGainStore`, `GridGainByteStore`, `GridGainCache`, `GridGainSemanticCache`, and `GridGainVectorStore` accept an optional `ttl` argument: a number of seconds or a `datetime.timedelta`. Entries that the component writes expire that long after they are created or updated. Reading an entry does not extend its lifetime. A `ttl` below one millisecond raises `ValueError`.
+`GridGainStore`, `GridGainByteStore`, `GridGainCache`, `GridGainSemanticCache`, and `GridGainVectorStore` accept an optional `ttl` argument that sets a time to live (TTL), as a number of seconds or a `datetime.timedelta`. Entries that the component writes expire that long after they are created or updated. Reading an entry does not extend its lifetime. A `ttl` below one millisecond raises `ValueError`.
 
 The default, `None`, does not change the expiry policy of the cache.
 
@@ -337,7 +340,7 @@ For the semantic cache, `ttl` applies to its own entries. Set the same `ttl` on 
 
 In version 3.0.0, the LangGraph checkpointer and memory store moved from `langchain-gridgain` to the `langgraph-checkpoint-gridgain` package. If you use them, install `langgraph-checkpoint-gridgain` and update the imports as described in [LangGraph Integration](langgraph.md). If you use only the LangChain components, no changes are required.
 
-## Upgrading from Version 1.0.x
+## Upgrading From Version 1.0.x
 
 Version 2.0.0 changed the following:
 
@@ -355,6 +358,6 @@ Version 2.0.0 changed the following:
 
 ## LangChain Tutorial
 
-GridGain provides a comprehensive, real-world example of how to use this package. The tutorial includes a demonstration project that showcases the integration of GridGain with LangChain, using the `langchain-gridgain` package, and provides examples of how to use GridGain as a backend for various LangChain components, focusing on a laptop recommendation system.
+GridGain provides a tutorial with a demonstration project. The project uses `langchain-gridgain` to build a laptop recommendation system and shows GridGain as a backend for several LangChain components.
 
 The tutorial is available in the [Retrieval-Augmented Generation with GridGain and LangChain](https://www.gridgain.com/docs/tutorials/vector/langchain) section.

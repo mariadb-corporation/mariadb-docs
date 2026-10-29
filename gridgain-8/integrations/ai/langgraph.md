@@ -144,9 +144,7 @@ builder.add_node("expensive", expensive, cache_policy=CachePolicy(ttl=300))
 graph = builder.compile(cache=node_cache)
 ```
 
-In this example, a repeated input reuses the cached output of the node for 300 seconds. The results are stored in GridGain, so a new graph or cache instance, for example, after a restart, can read them.
-
-The node cache works as follows:
+In this example, a repeated input reuses the cached output of the node for 300 seconds. The results are stored in GridGain, so a new graph or cache instance can read them after a restart.
 
 - TTL values are in **seconds**. Reading an entry does not extend its lifetime. If the TTL is `None`, the entry does not expire.
 - The default cache name is `lg_node_cache`, and the cache is shared across the cluster. The node cache does not add an application identifier to the keys, so applications that must not share entries need different `cache_name` values.
@@ -186,7 +184,7 @@ matches = store.search(("users",), filter={"theme": "dark"})
 
 The memory store TTL values above are in minutes. The node cache TTL is in seconds.
 
-## Upgrading from langchain-gridgain 2.x
+## Upgrading From langchain-gridgain 2.x
 
 In `langchain-gridgain` 2.x, the checkpointer and the memory store were part of the `langchain-gridgain` package. In version 3.0.0, they moved to `langgraph-checkpoint-gridgain`. Install the new package and update the imports:
 
@@ -196,4 +194,4 @@ In `langchain-gridgain` 2.x, the checkpointer and the memory store were part of 
 +from langgraph.store.gridgain import GridGainMemoryStore
 ```
 
-The classes, their behavior, and the stored data are unchanged. `GridGainNodeCache` was never released in `langchain-gridgain`; it is available starting with `langgraph-checkpoint-gridgain` 3.0.0. The `langchain_gridgain` package does not import them anymore, and there is no `langgraph_checkpoint_gridgain` module.
+The classes, their behavior, and the stored data are unchanged. `GridGainNodeCache` was never released in `langchain-gridgain`. It is available starting with `langgraph-checkpoint-gridgain` 3.0.0. The `langchain_gridgain` package does not import them anymore, and there is no `langgraph_checkpoint_gridgain` module.

@@ -5,7 +5,7 @@ description: >-
 
 # AI Integration
 
-GridGain 8 integrates with popular AI and LLM frameworks, including LangChain, LangGraph, Langflow, and Feast, using GridGain as a vector store, agent memory, and feature store.
+GridGain 8 integrates with popular AI and large language model (LLM) frameworks, including LangChain, LangGraph, Langflow, and Feast, using GridGain as a vector store, agent memory, and feature store.
 
 - [LangChain Integration](langchain.md): Use GridGain as a backend for LangChain key-value stores, document loaders, chat history, LLM caches, and vector stores.
 - [LangGraph Integration](langgraph.md): Use GridGain as a LangGraph checkpointer and long-term memory store.
