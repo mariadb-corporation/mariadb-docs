@@ -1003,7 +1003,7 @@ These options are intended for developers and for the `mariadb-test` suite. Do n
 #### `--gdb`
 
 * Command line: `--gdb`, `--skip-gdb`
-* Description: Deprecated alias for [--debug-gdb](mariadbd-options.md#debug-gdb). From MariaDB 11.5, using it logs a deprecation warning. `--disable-gdb` and `--skip-gdb` are not separate options: they are the [`--disable-*`](mariadbd-options.md#disable) and `--skip-*` prefixes applied to `--gdb`.
+* Description: Deprecated alias for [--debug-gdb](mariadbd-options.md#debug-gdb). From MariaDB 11.5, any use of the name, including `--disable-gdb` and `--skip-gdb`, logs this warning at startup: `--gdb is deprecated and will be removed in a future release. Please use --debug-gdb instead.` `--disable-gdb` and `--skip-gdb` are not separate options: they are the [`--disable-*`](mariadbd-options.md#disable) and `--skip-*` prefixes applied to `--gdb`.
 
 #### `--silent-startup`
 
@@ -1189,6 +1189,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
   * On Linux and other Unix-like systems, the fatal signals handled are `SIGSEGV`, `SIGABRT`, `SIGBUS`, `SIGILL`, and `SIGFPE`.
   * Only available on builds with stack-trace support.
   * To also get a core file, set [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file).
+  * With `--skip-stack-trace`, what happens on a crash depends on `core_file`. If it is off, the server installs no handler for these signals, so the operating system's default action ends the server and nothing is written to the error log. If it is on, the server still writes the crash report (`got signal ...`, the server version and, if available, the current query) and a core file, but no stack trace.
 
 #### `--symbolic-links`
 
