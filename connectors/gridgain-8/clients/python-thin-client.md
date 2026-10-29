@@ -476,6 +476,8 @@ To start using vector queries:
 Below is the example of creating a vector index:
 
 ```python
+from pygridgain.datatypes.cache_config import IndexType
+
 'query_indexes': [
     {
         'index_name': 'vec',
@@ -490,12 +492,112 @@ Below is the example of creating a vector index:
 ]
 ```
 
+### Vector Index Parameters
+
+Starting with version 1.7.0, a vector index accepts the following optional keys. They require GridGain 8.10.0 or later. If the cluster does not support a parameter that you set, the client raises `NotSupportedByClusterError` instead of creating the index without it. If you set one of these keys on an index that is not a vector index, the client raises `ValueError`.
+
+| Key | Values (default) | Description |
+| --- | --- | --- |
+| `hnsw_m` | 1–512 (`0`, engine default) | Number of graph connections for each vector in the HNSW graph. A higher value improves recall and costs graph memory and build time. Changing it requires an index rebuild. |
+| `hnsw_ef_construction` | 1–3200 (`0`, engine default) | Build-time beam width: how many candidates the engine keeps while it chooses the connections of each vector. A higher value costs build time but no extra index memory. Changing it requires an index rebuild. |
+| `quantization` | A `VectorQuantization` value (`ENGINE_DEFAULT`) | How the index stores vectors: `NONE` (full precision), `INT8` (one byte per dimension), or `BINARY` (one bit per dimension, requires the Lucene 10 vector module on the cluster). `ENGINE_DEFAULT` leaves the choice to the node. |
+| `max_segments` | 1–1024 (`0`, engine default) | Target maximum number of index segments. A query searches one graph per segment, so fewer segments answer faster, but merging the index down to them costs more. |
+| `query_threads` | 1–64 (`0`, engine default) | Number of threads that search the segments of the index concurrently for one query. |
+
+For details about these settings, see [Vector Search](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/vector).
+
+```python
+from pygridgain.datatypes.cache_config import IndexType, VectorQuantization
+
+'query_indexes': [
+    {
+        'index_name': 'vec',
+        'index_type': IndexType.VECTOR,
+        'inline_size': 1024,
+        'fields': [{'name': 'vector_field'}],
+        'hnsw_m': 32,
+        'hnsw_ef_construction': 200,
+        'quantization': VectorQuantization.INT8,
+    }
+]
+```
+
+### Running Vector Queries
+
 If the cache has the vector index, use the vector from your model in the query:
 
 ```python
 query_vector = # Get from your model
 cursor = cache.vector(type_name=Article.type_name, field='vector_field', clause_vector=query_vector, k=1, threshold=0)
 ```
+
+The `vector()` method takes the following parameters:
+
+| Parameter | Description |
+| --- | --- |
+| `type_name` | Name of the type. |
+| `field` | Name of the vector field. |
+| `clause_vector` | The search vector. Any sequence of floats works. A NumPy array of dtype `'<f4'` is sent without conversion, which is the fastest option. |
+| `k` | Number of nearest vectors to return. Must be positive; otherwise the client raises `ValueError`. The cluster also limits it (10000 by default). |
+| `threshold` | Similarity threshold. `0` or a negative value disables it. |
+| `page_size` | Optional. Number of rows in one response page. Defaults to `k`, so the whole result arrives in one page. |
+| `ef_search` | Optional. Search beam width: how many candidate vectors the engine keeps while it walks the index graph. A value wider than `k` improves recall and increases latency. A value below `k` is treated as `k`. `0` (the default) uses the engine default. |
+| `with_scores` | Optional. If `True`, each row includes the similarity score. Scores are raw engine values: they depend on the similarity function and are not normalized. |
+| `no_content` | Optional. If `True`, rows do not include values. This is the smallest response. |
+| `field_filter` | Optional. A dictionary of field names and values. The query returns only entries whose fields equal all the given values. See [Filtering Vector Queries](#filtering-vector-queries). |
+| `oversample` | Optional. A non-negative integer. Applies only to an index that stores `BINARY` codes: the engine searches at least `k` × `oversample` candidates and re-scores them at full precision. `0` (the default) leaves it unset. |
+
+The shape of the result rows depends on the flags:
+
+| Flags | Row |
+| --- | --- |
+| None | `(key, value)` |
+| `with_scores=True` | `(key, value, score)` |
+| `no_content=True` | `key` |
+| `with_scores=True, no_content=True` | `(key, score)` |
+
+`ef_search`, `with_scores`, `no_content`, `field_filter`, and `oversample` were added in version 1.7.0 and require GridGain 8.10.0 or later. If the cluster does not support them, the client raises `NotSupportedByClusterError`. A query that does not use them works with earlier GridGain versions.
+
+{% hint style="info" %}
+Starting with version 1.7.0, `page_size` defaults to `k`. Earlier versions used a page size of 1, which made one server round trip for each result row. To keep a smaller page, set `page_size` explicitly.
+{% endhint %}
+
+```python
+cursor = cache.vector(
+    type_name=Article.type_name,
+    field='vector_field',
+    clause_vector=query_vector,
+    k=10,
+    threshold=0,
+    ef_search=100,
+    with_scores=True,
+)
+for key, value, score in cursor:
+    print(key, score)
+```
+
+### Filtering Vector Queries
+
+Use `field_filter` to restrict a query to entries with given field values. GridGain applies the filter while it searches the index, so the query returns `k` matching entries, not the `k` nearest entries of which only some match. For example, one index can serve several tenants, with one filter for each tenant.
+
+```python
+cursor = cache.vector(
+    type_name=Article.type_name,
+    field='vector_field',
+    clause_vector=query_vector,
+    k=10,
+    threshold=0,
+    field_filter={'tenant': 'acme'},
+)
+```
+
+The filter works as follows:
+
+- An entry matches when every field in the filter equals its value.
+- The filter can only use fields of the text (`FULLTEXT`) index of the type. If a field is not indexed, the cluster rejects the query and the client raises `CacheError`.
+- A value can be a `str`, `int`, `float`, `bool`, `Decimal`, `UUID`, `datetime`, `date`, or a `(datetime, nanos)` tuple. For any other value, including `None`, or for an empty field name, the client raises `ValueError` before it sends the query.
+- The cluster compares the text forms of the values, so the value must match the Java type of the stored field. A `datetime` or `date` matches a `java.util.Date` field, to the second. For a `java.sql.Timestamp` field, use the `(datetime, nanos)` tuple.
+- A `Decimal` keeps its scale: `Decimal('12.50')` does not match a stored `12.5`. The client stores decimals in normalized form, so filter values that this client wrote by their normalized form.
 
 ## Executing SQL Statements
 
