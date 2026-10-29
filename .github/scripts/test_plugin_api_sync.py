@@ -129,6 +129,48 @@ class MemberAnchorPairing(TempDir):
         self.assertEqual(len(unresolved), 1)
 
 
+class CrossPageMemberAnchors(TempDir):
+    TARGET = ('# Full-Text Parser Plugin Data\n\n### st_mysql_ftparser\n\n'
+              '#### parse\n\n#### init\n\n#### deinit\n\n'
+              '### st_mysql_ftparser_param\n\n#### flags\n\n'
+              '### st_mysql_ftparser_boolean_info\n\n#### flags\n')
+
+    def fix(self, text):
+        self.page('ftparser_plugin_data.md', self.TARGET)
+        page = self.page('api.md', text)
+        rewrites, unresolved = member_anchors.fix_page(page, fragcheck)
+        return page, rewrites, unresolved
+
+    def test_unique_heading_on_sibling_page_is_retargeted(self):
+        # MDBF-1224 (DOCS-7004): moxygen numbered `deinit` across its whole
+        # model; the target page has one `deinit` heading and publishes
+        # #deinit.
+        page, rewrites, unresolved = self.fix(
+            '# API\n\nbefore [st_mysql_ftparser::deinit()]'
+            '(ftparser_plugin_data.md#deinit-2) call\n')
+        self.assertEqual(unresolved, [])
+        self.assertEqual(rewrites, [(3, 'ftparser_plugin_data.md#deinit-2',
+                                     'ftparser_plugin_data.md#deinit')])
+        self.assertIn('(ftparser_plugin_data.md#deinit) call', page.read_text())
+
+    def test_ambiguous_heading_on_sibling_page_is_left_alone(self):
+        text = '# API\n\n[flags](ftparser_plugin_data.md#flags-5)\n'
+        page, rewrites, unresolved = self.fix(text)
+        self.assertEqual(rewrites, [])
+        self.assertEqual(unresolved,
+                         [(3, 'ftparser_plugin_data.md#flags-5', 2)])
+        self.assertEqual(page.read_text(), text)
+
+    def test_live_and_out_of_directory_links_are_untouched(self):
+        text = ('# API\n\n[parse](ftparser_plugin_data.md#parse)\n\n'
+                '[flags](ftparser_plugin_data.md#flags-1)\n\n'
+                '[x](../other/page.md#deinit-2)\n\n'
+                '[y](missing.md#deinit-2)\n')
+        page, rewrites, unresolved = self.fix(text)
+        self.assertEqual((rewrites, unresolved), ([], []))
+        self.assertEqual(page.read_text(), text)
+
+
 class SummaryNav(TempDir):
     SUMMARY = ('# Table of contents\n\n'
                '* [Plugins](reference/plugins/README.md)\n'
