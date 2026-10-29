@@ -148,6 +148,33 @@ Manual uploading allows you to be absolutely sure that we receive only the data 
 
 ## System Variables
 
+### `feedback_debug_first_interval`
+
+* Description: Time in seconds between the startup report and the first regular report. Intended for testing the plugin. If any of the `feedback_debug_*` variables differs from its default when the plugin starts, the plugin uses all three values in place of its normal schedule and sets [feedback\_user\_info](feedback-plugin.md#feedback_user_info) to `mysql-test`. Changing the value after the plugin has started has no effect. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--feedback-debug-first-interval=#`
+* Scope: Global
+* Data Type: numeric
+* Default Value: `86400` (one day)
+* Valid Values: `1` to `2147483647`
+
+### `feedback_debug_interval`
+
+* Description: Time in seconds between regular reports after the first one. Intended for testing the plugin. See [feedback\_debug\_first\_interval](feedback-plugin.md#feedback_debug_first_interval) for how the `feedback_debug_*` variables take effect. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--feedback-debug-interval=#`
+* Scope: Global
+* Data Type: numeric
+* Default Value: `604800` (one week)
+* Valid Values: `1` to `2147483647`
+
+### `feedback_debug_startup_interval`
+
+* Description: Time in seconds after the plugin starts before it sends the startup report. Intended for testing the plugin. See [feedback\_debug\_first\_interval](feedback-plugin.md#feedback_debug_first_interval) for how the `feedback_debug_*` variables take effect. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--feedback-debug-startup-interval=#`
+* Scope: Global
+* Data Type: numeric
+* Default Value: `300` (five minutes)
+* Valid Values: `1` to `2147483647`
+
 ### `feedback_http_proxy`
 
 * Description: Proxy server for use when http calls cannot be made, such as in a firewall environment. The format is `host:port`.
