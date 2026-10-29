@@ -7,12 +7,14 @@ description: >-
 
 # Statement Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
 | Name | Description |
 |------|-------------|
+| [`PSI_STATEMENT_CALL`](#psi_statement_call)  |  |
+| [`PSI_DIGEST_CALL`](#psi_digest_call)  |  |
 | [`mysql_statement_register`](#mysql_statement_register)  | Statement registration. |
 | [`MYSQL_DIGEST_START`](#mysql_digest_start)  |  |
 | [`MYSQL_DIGEST_END`](#mysql_digest_end)  |  |
@@ -23,6 +25,26 @@ description: >-
 | [`MYSQL_SET_STATEMENT_ROWS_SENT`](#mysql_set_statement_rows_sent)  |  |
 | [`MYSQL_SET_STATEMENT_ROWS_EXAMINED`](#mysql_set_statement_rows_examined)  |  |
 | [`MYSQL_END_STATEMENT`](#mysql_end_statement)  |  |
+
+---
+
+### PSI_STATEMENT_CALL
+
+```cpp
+#define PSI_STATEMENT_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_statement.h:44
+
+---
+
+### PSI_DIGEST_CALL
+
+```cpp
+#define PSI_DIGEST_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_statement.h:48
 
 ---
 
@@ -125,4 +147,20 @@ Defined in psi/mysql_statement.h:123
 ```
 
 Defined in psi/mysql_statement.h:131
+
+## Typedefs
+
+| Return | Name | Description |
+|--------|------|-------------|
+| `const struct charset_info_st` | [`CHARSET_INFO`](#charset_info)  |  |
+
+---
+
+### CHARSET_INFO
+
+```cpp
+using CHARSET_INFO = const struct charset_info_st
+```
+
+Defined in psi/mysql_statement.h:41
 

@@ -7,12 +7,13 @@ description: >-
 
 # Table Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
 | Name | Description |
 |------|-------------|
+| [`PSI_TABLE_CALL`](#psi_table_call)  |  |
 | [`MYSQL_UNBIND_TABLE`](#mysql_unbind_table)  |  |
 | [`PSI_CALL_unbind_table`](#psi_call_unbind_table)  |  |
 | [`PSI_CALL_rebind_table`](#psi_call_rebind_table)  |  |
@@ -28,13 +29,23 @@ description: >-
 
 ---
 
+### PSI_TABLE_CALL
+
+```cpp
+#define PSI_TABLE_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_table.h:39
+
+---
+
 ### MYSQL_UNBIND_TABLE
 
 ```cpp
 #define MYSQL_UNBIND_TABLE(handler, handler) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:55
+Defined in psi/mysql_table.h:53
 
 ---
 
@@ -44,7 +55,7 @@ Defined in psi/mysql_table.h:55
 #define PSI_CALL_unbind_table(A1, A1) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:57
+Defined in psi/mysql_table.h:55
 
 ---
 
@@ -54,7 +65,7 @@ Defined in psi/mysql_table.h:57
 #define PSI_CALL_rebind_table(A1, A2, A3, A1, A2, A3) NULL
 ```
 
-Defined in psi/mysql_table.h:58
+Defined in psi/mysql_table.h:56
 
 ---
 
@@ -64,7 +75,7 @@ Defined in psi/mysql_table.h:58
 #define PSI_CALL_close_table(A1, A2, A1, A2) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:59
+Defined in psi/mysql_table.h:57
 
 ---
 
@@ -74,7 +85,7 @@ Defined in psi/mysql_table.h:59
 #define PSI_CALL_open_table(A1, A2, A1, A2) NULL
 ```
 
-Defined in psi/mysql_table.h:60
+Defined in psi/mysql_table.h:58
 
 ---
 
@@ -84,7 +95,7 @@ Defined in psi/mysql_table.h:60
 #define PSI_CALL_get_table_share(A1, A2, A1, A2) NULL
 ```
 
-Defined in psi/mysql_table.h:61
+Defined in psi/mysql_table.h:59
 
 ---
 
@@ -94,7 +105,7 @@ Defined in psi/mysql_table.h:61
 #define PSI_CALL_release_table_share(A1, A1) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:62
+Defined in psi/mysql_table.h:60
 
 ---
 
@@ -104,7 +115,7 @@ Defined in psi/mysql_table.h:62
 #define PSI_CALL_drop_table_share(A1, A2, A3, A4, A5, A1, A2, A3, A4, A5) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:63
+Defined in psi/mysql_table.h:61
 
 ---
 
@@ -114,7 +125,7 @@ Defined in psi/mysql_table.h:63
 #define MYSQL_TABLE_WAIT_VARIABLES(LOCKER, STATE, LOCKER, STATE)
 ```
 
-Defined in psi/mysql_table.h:83
+Defined in psi/mysql_table.h:81
 
 Instrumentation helper for table waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: MYSQL_START_TABLE_IO_WAIT. 
 
@@ -141,7 +152,7 @@ Instrumentation helper for table waits. This instrumentation declares local vari
 #define MYSQL_START_TABLE_LOCK_WAIT(LOCKER, STATE, PSI, OP, FLAGS, LOCKER, STATE, PSI, OP, FLAGS) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:102
+Defined in psi/mysql_table.h:100
 
 Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](api.md#mysql_end_table_lock_wait).
 
@@ -168,7 +179,7 @@ Instrumentation helper for table lock waits. This instrumentation marks the star
 #define MYSQL_END_TABLE_LOCK_WAIT(LOCKER, LOCKER) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:117
+Defined in psi/mysql_table.h:115
 
 Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](api.md#mysql_start_table_lock_wait).
 
@@ -187,5 +198,5 @@ Instrumentation helper for table lock waits. This instrumentation marks the end 
 #define MYSQL_UNLOCK_TABLE(T, T) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:125
+Defined in psi/mysql_table.h:123
 

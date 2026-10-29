@@ -5,11 +5,12 @@ description: >-
 
 # Plugin API Documentation 
 
-The MariaDB plugin API allows development of plugins that can extend the basic server functionality.
+MariaDB Server Plugin API is a C-based extensibility framework (largely compatible with MySQL’s but extended) that allows dynamic or static loading of modules to add or modify server behavior without recompiling the core server.
 
-* Concepts
-* Get started: Building a plugin
-* Plugin types
-* Plugin services
+* [Plugin API Concepts](page-concepts.md)
+* [Plugin API Implementation](page-implementation.md)
+* [How to make a plugin](page-make_a_plugin.md)
+* [Plugin Types](plugin_types.md)
+* [Services for Plugins](plugin_api_services_for_plugins.md)
 * [API reference](api.md#)
 
