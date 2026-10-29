@@ -7,7 +7,7 @@ description: >-
 
 # File Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -19,6 +19,7 @@ description: >-
 
 | Name | Description |
 |------|-------------|
+| [`PSI_FILE_CALL`](#psi_file_call)  |  |
 | [`mysql_file_register`](#mysql_file_register)  | File registration. |
 | [`mysql_file_fgets`](#mysql_file_fgets)  | Instrumented fgets. `mysql_file_fgets` is a replacement for `fgets`. |
 | [`mysql_file_fgetc`](#mysql_file_fgetc)  | Instrumented fgetc. `mysql_file_fgetc` is a replacement for `fgetc`. |
@@ -53,6 +54,16 @@ description: >-
 | [`mysql_file_delete_with_symlink`](#mysql_file_delete_with_symlink)  | Instrumented delete with symbolic link. `mysql_file_delete_with_symlink` is a replacement for `my_handler_delete_with_symlink`. |
 | [`mysql_file_rename_with_symlink`](#mysql_file_rename_with_symlink)  | Instrumented rename with symbolic link. `mysql_file_rename_with_symlink` is a replacement for `my_rename_with_symlink`. |
 | [`mysql_file_sync`](#mysql_file_sync)  | Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`. |
+
+---
+
+### PSI_FILE_CALL
+
+```cpp
+#define PSI_FILE_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_file.h:58
 
 ---
 

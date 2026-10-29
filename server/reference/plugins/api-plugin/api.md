@@ -9,67 +9,8 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`Instrumentation Interface`](Instrumentation_interface.md) |  |
-
-## Classes
-
-| Name | Description |
-|------|-------------|
-| [`opaque_THD`](#opaque_thd) |  |
-| [`st_mysql_xid`](#st_mysql_xid) | struct [st_mysql_xid](#st_mysql_xid) is binary compatible with the XID structure as in the X/Open CAE Specification, Distributed Transaction Processing: The XA Specification, X/Open Company Ltd., 1991. [http://www.opengroup.org/bookstore/catalog/c193.htm](http://www.opengroup.org/bookstore/catalog/c193.htm) |
-| [`st_mysql_auth`](#st_mysql_auth) | Server authentication plugin descriptor |
-| [`st_plugin_vio`](#st_plugin_vio) | Provides plugin access to communication channel |
-| [`sql_service_st`](#sql_service_st) |  |
-| [`st_mysql_audit`](#st_mysql_audit) |  |
-| [`st_mysql_value`](#st_mysql_value) |  |
-| [`thd_service_st`](#thd_service_st) |  |
-| [`json_service_st`](#json_service_st) |  |
-| [`st_maria_plugin`](#st_maria_plugin) | MariaDB extension for plugins declaration structure. |
-| [`st_mysql_daemon`](#st_mysql_daemon) |  |
-| [`st_mysql_plugin`](#st_mysql_plugin) | Plugin description structure. |
-| [`Mysql_replication`](#mysql_replication) | Replication plugin descriptor |
-| [`wsrep_service_st`](#wsrep_service_st) |  |
-| [`base64_service_st`](#base64_service_st) |  |
-| [`logger_service_st`](#logger_service_st) |  |
-| [`mysql_event_table`](#mysql_event_table) |  |
-| [`st_mysql_ftparser`](#st_mysql_ftparser) |  |
-| [`my_md5_service_st`](#my_md5_service_st) |  |
-| [`st_mysql_show_var`](#st_mysql_show_var) |  |
-| [`my_sha1_service_st`](#my_sha1_service_st) |  |
-| [`my_sha2_service_st`](#my_sha2_service_st) |  |
-| [`mysql_event_general`](#mysql_event_general) |  |
-| [`st_plugin_vio_info`](#st_plugin_vio_info) |  |
-| [`thd_mdl_service_st`](#thd_mdl_service_st) |  |
-| [`thd_rnd_service_st`](#thd_rnd_service_st) |  |
-| [`my_crypt_service_st`](#my_crypt_service_st) |  |
-| [`st_encryption_scheme`](#st_encryption_scheme) |  |
-| [`st_mysql_lex_string`](#st_mysql_lex_string) |  |
-| [`thd_wait_service_st`](#thd_wait_service_st) |  |
-| [`encryption_service_st`](#encryption_service_st) |  |
-| [`st_mariadb_encryption`](#st_mariadb_encryption) | Encryption plugin descriptor |
-| [`thd_alloc_service_st`](#thd_alloc_service_st) |  |
-| [`mysql_event_connection`](#mysql_event_connection) |  |
-| [`my_snprintf_service_st`](#my_snprintf_service_st) |  |
-| [`st_mysql_client_plugin`](#st_mysql_client_plugin) |  |
-| [`thd_autoinc_service_st`](#thd_autoinc_service_st) |  |
-| [`st_mysql_ftparser_param`](#st_mysql_ftparser_param) |  |
-| [`st_mysql_storage_engine`](#st_mysql_storage_engine) |  |
-| [`thd_timezone_service_st`](#thd_timezone_service_st) |  |
-| [`st_encryption_scheme_key`](#st_encryption_scheme_key) |  |
-| [`thd_specifics_service_st`](#thd_specifics_service_st) |  |
-| [`kill_statement_service_st`](#kill_statement_service_st) |  |
-| [`my_print_error_service_st`](#my_print_error_service_st) |  |
-| [`progress_report_service_st`](#progress_report_service_st) |  |
-| [`st_mysql_const_lex_string`](#st_mysql_const_lex_string) |  |
-| [`st_mysql_server_auth_info`](#st_mysql_server_auth_info) | Provides server plugin access to authentication information |
-| [`print_check_msg_service_st`](#print_check_msg_service_st) |  |
-| [`st_mysql_information_schema`](#st_mysql_information_schema) |  |
-| [`encryption_scheme_service_st`](#encryption_scheme_service_st) |  |
-| [`thd_log_warnings_service_st`](#thd_log_warnings_service_st) |  |
-| [`thd_error_context_service_st`](#thd_error_context_service_st) |  |
-| [`st_mariadb_password_validation`](#st_mariadb_password_validation) | Password validation plugin descriptor |
-| [`st_mysql_ftparser_boolean_info`](#st_mysql_ftparser_boolean_info) |  |
-| [`st_mysql_client_plugin_AUTHENTICATION`](#st_mysql_client_plugin_authentication) |  |
+| [`Plugin API`](plugin_api.md) | The Plugin API is a set of interfaces for handling plugins. |
+| [`Client Plugin API`](plugin_client_api.md) | API for plugins that work on the client side |
 
 ## Macros
 
@@ -78,20 +19,20 @@ description: >-
 ### psi_likely
 
 ```cpp
-#define psi_likely(A) unlikely(A)
+#define psi_likely(A, A) unlikely(A)
 ```
 
-Defined in psi/psi.h:47
+Defined in psi/psi.h:52
 
 ---
 
 ### psi_unlikely
 
 ```cpp
-#define psi_unlikely(A) likely(A)
+#define psi_unlikely(A, A) likely(A)
 ```
 
-Defined in psi/psi.h:48
+Defined in psi/psi.h:53
 
 ---
 
@@ -101,7 +42,7 @@ Defined in psi/psi.h:48
 #define PSI_SCHEMA_NAME_LEN (64 * 3)
 ```
 
-Defined in psi/psi.h:1198
+Defined in psi/psi.h:1200
 
 ---
 
@@ -111,7 +52,7 @@ Defined in psi/psi.h:1198
 #define PSI_DYNAMIC_CALL(M, M) PSI_server->M
 ```
 
-Defined in psi/psi.h:3028
+Defined in psi/psi.h:3030
 
 ---
 
@@ -121,17 +62,33 @@ Defined in psi/psi.h:3028
 #define MYSQL_DLLEXPORT
 ```
 
-Defined in plugin.h:39
+Defined in plugin.h:45
+
+Declaration macros for MySQL plugins.
+
+On Windows, exports from DLL need to be declared Also, plugin needs to be declared as extern "C" because MSVC unlike other compilers, uses C++ mangling for variables not only for functions.
 
 ---
 
 ### MYSQL_PLUGIN_EXPORT
 
 ```cpp
-#define MYSQL_PLUGIN_EXPORT MYSQL_DLLEXPORT
+#define MYSQL_PLUGIN_EXPORT extern "C" MYSQL_DLLEXPORT
 ```
 
-Defined in plugin.h:45
+Defined in plugin.h:58
+
+Implementation independent macro for MySQL plugins.
+
+---
+
+### MYSQL_THD
+
+```cpp
+#define MYSQL_THD THD*
+```
+
+Defined in plugin.h:66
 
 ---
 
@@ -141,7 +98,7 @@ Defined in plugin.h:45
 #define MYSQL_XIDDATASIZE 128
 ```
 
-Defined in plugin.h:62
+Defined in plugin.h:87
 
 ---
 
@@ -151,7 +108,7 @@ Defined in plugin.h:62
 #define MYSQL_PLUGIN_INTERFACE_VERSION 0x0105
 ```
 
-Defined in plugin.h:84
+Defined in plugin.h:115
 
 MySQL plugin interface version
 
@@ -163,7 +120,7 @@ MySQL plugin interface version
 #define MARIA_PLUGIN_INTERFACE_VERSION 0x0110
 ```
 
-Defined in plugin.h:87
+Defined in plugin.h:118
 
 MariaDB plugin interface version
 
@@ -175,7 +132,7 @@ MariaDB plugin interface version
 #define MYSQL_UDF_PLUGIN 0
 ```
 
-Defined in plugin.h:92
+Defined in plugin.h:127
 
 not implemented <br/>
 
@@ -187,7 +144,9 @@ not implemented <br/>
 #define MYSQL_STORAGE_ENGINE_PLUGIN 1
 ```
 
-Defined in plugin.h:93
+Defined in plugin.h:128
+
+Storage engine plugin <br/>
 
 ---
 
@@ -197,7 +156,7 @@ Defined in plugin.h:93
 #define MYSQL_FTPARSER_PLUGIN 2
 ```
 
-Defined in plugin.h:94
+Defined in plugin.h:129
 
 Full-text parser plugin <br/>
 
@@ -209,7 +168,9 @@ Full-text parser plugin <br/>
 #define MYSQL_DAEMON_PLUGIN 3
 ```
 
-Defined in plugin.h:95
+Defined in plugin.h:130
+
+Daemon plugin <br/>
 
 ---
 
@@ -219,7 +180,9 @@ Defined in plugin.h:95
 #define MYSQL_INFORMATION_SCHEMA_PLUGIN 4
 ```
 
-Defined in plugin.h:96
+Defined in plugin.h:131
+
+Information schema plugin
 
 ---
 
@@ -229,7 +192,9 @@ Defined in plugin.h:96
 #define MYSQL_AUDIT_PLUGIN 5
 ```
 
-Defined in plugin.h:97
+Defined in plugin.h:132
+
+Audit plugin <br/>
 
 ---
 
@@ -239,7 +204,9 @@ Defined in plugin.h:97
 #define MYSQL_REPLICATION_PLUGIN 6
 ```
 
-Defined in plugin.h:98
+Defined in plugin.h:133
+
+Replication plugin <br/>
 
 ---
 
@@ -249,7 +216,9 @@ Defined in plugin.h:98
 #define MYSQL_AUTHENTICATION_PLUGIN 7
 ```
 
-Defined in plugin.h:99
+Defined in plugin.h:134
+
+Authentication plugin <br/>
 
 ---
 
@@ -259,9 +228,7 @@ Defined in plugin.h:99
 #define MYSQL_MAX_PLUGIN_TYPE_NUM 12
 ```
 
-Defined in plugin.h:100
-
-The number of plugin types
+Defined in plugin.h:135
 
 ---
 
@@ -271,7 +238,7 @@ The number of plugin types
 #define MariaDB_PASSWORD_VALIDATION_PLUGIN 8
 ```
 
-Defined in plugin.h:104
+Defined in plugin.h:139
 
 Client and server password validation Encryption and key management plugins
 
@@ -283,7 +250,7 @@ Client and server password validation Encryption and key management plugins
 #define MariaDB_ENCRYPTION_PLUGIN 9
 ```
 
-Defined in plugin.h:106
+Defined in plugin.h:141
 
 Plugins for SQL data storage types
 
@@ -295,7 +262,7 @@ Plugins for SQL data storage types
 #define MariaDB_DATA_TYPE_PLUGIN 10
 ```
 
-Defined in plugin.h:108
+Defined in plugin.h:143
 
 Plugins for new native SQL functions
 
@@ -307,7 +274,7 @@ Plugins for new native SQL functions
 #define MariaDB_FUNCTION_PLUGIN 11
 ```
 
-Defined in plugin.h:110
+Defined in plugin.h:145
 
 ---
 
@@ -317,7 +284,7 @@ Defined in plugin.h:110
 #define PLUGIN_LICENSE_PROPRIETARY 0
 ```
 
-Defined in plugin.h:113
+Defined in plugin.h:156
 
 ---
 
@@ -327,7 +294,7 @@ Defined in plugin.h:113
 #define PLUGIN_LICENSE_GPL 1
 ```
 
-Defined in plugin.h:114
+Defined in plugin.h:157
 
 ---
 
@@ -337,7 +304,7 @@ Defined in plugin.h:114
 #define PLUGIN_LICENSE_BSD 2
 ```
 
-Defined in plugin.h:115
+Defined in plugin.h:158
 
 ---
 
@@ -347,7 +314,7 @@ Defined in plugin.h:115
 #define PLUGIN_LICENSE_PROPRIETARY_STRING "PROPRIETARY"
 ```
 
-Defined in plugin.h:117
+Defined in plugin.h:160
 
 ---
 
@@ -357,7 +324,7 @@ Defined in plugin.h:117
 #define PLUGIN_LICENSE_GPL_STRING "GPL"
 ```
 
-Defined in plugin.h:118
+Defined in plugin.h:161
 
 ---
 
@@ -367,7 +334,7 @@ Defined in plugin.h:118
 #define PLUGIN_LICENSE_BSD_STRING "BSD"
 ```
 
-Defined in plugin.h:119
+Defined in plugin.h:162
 
 ---
 
@@ -377,7 +344,7 @@ Defined in plugin.h:119
 #define MariaDB_PLUGIN_MATURITY_UNKNOWN 0
 ```
 
-Defined in plugin.h:122
+Defined in plugin.h:173
 
 ---
 
@@ -387,7 +354,7 @@ Defined in plugin.h:122
 #define MariaDB_PLUGIN_MATURITY_EXPERIMENTAL 1
 ```
 
-Defined in plugin.h:123
+Defined in plugin.h:174
 
 ---
 
@@ -397,7 +364,7 @@ Defined in plugin.h:123
 #define MariaDB_PLUGIN_MATURITY_ALPHA 2
 ```
 
-Defined in plugin.h:124
+Defined in plugin.h:175
 
 ---
 
@@ -407,7 +374,7 @@ Defined in plugin.h:124
 #define MariaDB_PLUGIN_MATURITY_BETA 3
 ```
 
-Defined in plugin.h:125
+Defined in plugin.h:176
 
 ---
 
@@ -417,7 +384,7 @@ Defined in plugin.h:125
 #define MariaDB_PLUGIN_MATURITY_GAMMA 4
 ```
 
-Defined in plugin.h:126
+Defined in plugin.h:177
 
 ---
 
@@ -427,60 +394,63 @@ Defined in plugin.h:126
 #define MariaDB_PLUGIN_MATURITY_STABLE 5
 ```
 
-Defined in plugin.h:127
+Defined in plugin.h:178
 
 ---
 
 ### __MYSQL_DECLARE_PLUGIN
 
 ```cpp
-#define __MYSQL_DECLARE_PLUGIN(NAME, VERSION, PSIZE, DECLS) int VERSION= MYSQL_PLUGIN_INTERFACE_VERSION;                                  \
-int PSIZE= sizeof(struct st_mysql_plugin);                                    \
-struct st_mysql_plugin DECLS[]= {
+#define __MYSQL_DECLARE_PLUGIN(NAME, VERSION, PSIZE, DECLS, NAME, VERSION, PSIZE, DECLS) MYSQL_PLUGIN_EXPORT int _mysql_plugin_interface_version_;                     \
+int _mysql_plugin_interface_version_= MYSQL_PLUGIN_INTERFACE_VERSION;         \
+MYSQL_PLUGIN_EXPORT int _mysql_sizeof_struct_st_plugin_;                      \
+int _mysql_sizeof_struct_st_plugin_= sizeof(struct st_mysql_plugin);          \
+MYSQL_PLUGIN_EXPORT struct st_mysql_plugin _mysql_plugin_declarations_[];     \
+struct st_mysql_plugin _mysql_plugin_declarations_[]= {
 ```
 
-Defined in plugin.h:137
+Defined in plugin.h:207
 
 ---
 
 ### MARIA_DECLARE_PLUGIN__
 
 ```cpp
-#define MARIA_DECLARE_PLUGIN__(NAME, VERSION, PSIZE, DECLS) MYSQL_PLUGIN_EXPORT int VERSION;                                              \
-int VERSION= MARIA_PLUGIN_INTERFACE_VERSION;                                  \
-MYSQL_PLUGIN_EXPORT int PSIZE;                                                \
-int PSIZE= sizeof(struct st_maria_plugin);                                    \
-MYSQL_PLUGIN_EXPORT struct st_maria_plugin DECLS[];                           \
-struct st_maria_plugin DECLS[]= {
+#define MARIA_DECLARE_PLUGIN__(NAME, VERSION, PSIZE, DECLS, NAME, VERSION, PSIZE, DECLS) MYSQL_PLUGIN_EXPORT int _maria_plugin_interface_version_;                      \
+int _maria_plugin_interface_version_= MARIA_PLUGIN_INTERFACE_VERSION;          \
+MYSQL_PLUGIN_EXPORT int _maria_sizeof_struct_st_plugin_;                       \
+int _maria_sizeof_struct_st_plugin_= sizeof(struct st_maria_plugin);           \
+MYSQL_PLUGIN_EXPORT struct st_maria_plugin _maria_plugin_declarations_[];      \
+struct st_maria_plugin _maria_plugin_declarations_[]= {
 ```
 
-Defined in plugin.h:142
+Defined in plugin.h:215
 
 ---
 
 ### mysql_declare_plugin
 
 ```cpp
-#define mysql_declare_plugin(NAME) __MYSQL_DECLARE_PLUGIN(NAME, \
+#define mysql_declare_plugin(NAME, NAME) __MYSQL_DECLARE_PLUGIN(NAME, \
                  builtin_ ## NAME ## _plugin_interface_version, \
                  builtin_ ## NAME ## _sizeof_struct_st_plugin, \
                  builtin_ ## NAME ## _plugin)
 ```
 
-Defined in plugin.h:169
+Defined in plugin.h:225
 
 ---
 
 ### maria_declare_plugin
 
 ```cpp
-#define maria_declare_plugin(NAME) MARIA_DECLARE_PLUGIN__(NAME, \
+#define maria_declare_plugin(NAME, NAME) MARIA_DECLARE_PLUGIN__(NAME, \
                  builtin_maria_ ## NAME ## _plugin_interface_version, \
                  builtin_maria_ ## NAME ## _sizeof_struct_st_plugin, \
                  builtin_maria_ ## NAME ## _plugin)
 ```
 
-Defined in plugin.h:175
+Defined in plugin.h:231
 
 ---
 
@@ -490,7 +460,7 @@ Defined in plugin.h:175
 #define mysql_declare_plugin_end ,{0,0,0,0,0,0,0,0,0,0,0,0,0}}
 ```
 
-Defined in plugin.h:181
+Defined in plugin.h:237
 
 ---
 
@@ -500,7 +470,7 @@ Defined in plugin.h:181
 #define maria_declare_plugin_end ,{0,0,0,0,0,0,0,0,0,0,0,0,0}}
 ```
 
-Defined in plugin.h:182
+Defined in plugin.h:238
 
 ---
 
@@ -510,7 +480,9 @@ Defined in plugin.h:182
 #define SHOW_INT SHOW_UINT
 ```
 
-Defined in plugin.h:197
+Defined in plugin.h:272
+
+Backward compatibility mapping to [SHOW_UINT](plugin_status_vars.md#enum_mysql_show_type)
 
 ---
 
@@ -520,7 +492,9 @@ Defined in plugin.h:197
 #define SHOW_LONG SHOW_ULONG
 ```
 
-Defined in plugin.h:198
+Defined in plugin.h:274
+
+Backward compatibility mapping to [SHOW_ULONG](plugin_status_vars.md#enum_mysql_show_type)
 
 ---
 
@@ -530,7 +504,9 @@ Defined in plugin.h:198
 #define SHOW_LONGLONG SHOW_ULONGLONG
 ```
 
-Defined in plugin.h:199
+Defined in plugin.h:276
+
+Backward compatibility mapping to [SHOW_ULONGLONG](plugin_status_vars.md#enum_mysql_show_type)
 
 ---
 
@@ -540,7 +516,7 @@ Defined in plugin.h:199
 #define SHOW_VAR_FUNC_BUFF_SIZE (256 * sizeof(void*))
 ```
 
-Defined in plugin.h:214
+Defined in plugin.h:298
 
 ---
 
@@ -550,9 +526,9 @@ Defined in plugin.h:214
 #define PLUGIN_OPT_NO_INSTALL 1UL
 ```
 
-Defined in plugin.h:234
+Defined in plugin.h:323
 
-Not dynamically loadable
+Unused
 
 ---
 
@@ -562,9 +538,9 @@ Not dynamically loadable
 #define PLUGIN_OPT_NO_UNINSTALL 2UL
 ```
 
-Defined in plugin.h:235
+Defined in plugin.h:324
 
-Not dynamically unloadable
+Unused
 
 ---
 
@@ -574,7 +550,9 @@ Not dynamically unloadable
 #define PLUGIN_VAR_BOOL 0x0001
 ```
 
-Defined in plugin.h:243
+Defined in plugin.h:353
+
+[my_bool](#my_bool). **See also**: [MYSQL_SYSVAR_BOOL](#mysql_sysvar_bool)
 
 ---
 
@@ -584,7 +562,9 @@ Defined in plugin.h:243
 #define PLUGIN_VAR_INT 0x0002
 ```
 
-Defined in plugin.h:244
+Defined in plugin.h:354
+
+`int`. **See also**: [MYSQL_SYSVAR_INT](#mysql_sysvar_int)
 
 ---
 
@@ -594,7 +574,9 @@ Defined in plugin.h:244
 #define PLUGIN_VAR_LONG 0x0003
 ```
 
-Defined in plugin.h:245
+Defined in plugin.h:355
+
+`long`. **See also**: [MYSQL_SYSVAR_LONG](#mysql_sysvar_long)
 
 ---
 
@@ -604,7 +586,9 @@ Defined in plugin.h:245
 #define PLUGIN_VAR_LONGLONG 0x0004
 ```
 
-Defined in plugin.h:246
+Defined in plugin.h:356
+
+`long long`. **See also**: [MYSQL_SYSVAR_LONGLONG](#mysql_sysvar_longlong)
 
 ---
 
@@ -614,7 +598,9 @@ Defined in plugin.h:246
 #define PLUGIN_VAR_STR 0x0005
 ```
 
-Defined in plugin.h:247
+Defined in plugin.h:357
+
+`char*`. **See also**: [MYSQL_SYSVAR_STR](#mysql_sysvar_str)
 
 ---
 
@@ -624,7 +610,9 @@ Defined in plugin.h:247
 #define PLUGIN_VAR_ENUM 0x0006
 ```
 
-Defined in plugin.h:248
+Defined in plugin.h:358
+
+`unsigned long`. **See also**: [MYSQL_SYSVAR_ENUM](#mysql_sysvar_enum)
 
 ---
 
@@ -634,7 +622,9 @@ Defined in plugin.h:248
 #define PLUGIN_VAR_SET 0x0007
 ```
 
-Defined in plugin.h:249
+Defined in plugin.h:359
+
+`unsigned long long`. **See also**: [MYSQL_SYSVAR_SET](#mysql_sysvar_set)
 
 ---
 
@@ -644,7 +634,9 @@ Defined in plugin.h:249
 #define PLUGIN_VAR_DOUBLE 0x0008
 ```
 
-Defined in plugin.h:250
+Defined in plugin.h:360
+
+`double`. **See also**: [MYSQL_SYSVAR_DOUBLE](#mysql_sysvar_double)
 
 ---
 
@@ -654,7 +646,9 @@ Defined in plugin.h:250
 #define PLUGIN_VAR_UNSIGNED 0x0080
 ```
 
-Defined in plugin.h:251
+Defined in plugin.h:375
+
+Unsigned modifier for [PLUGIN_VAR_INT](#plugin_var_int), [PLUGIN_VAR_LONG](#plugin_var_long), [PLUGIN_VAR_LONGLONG](#plugin_var_longlong).
 
 ---
 
@@ -664,9 +658,9 @@ Defined in plugin.h:251
 #define PLUGIN_VAR_THDLOCAL 0x0100
 ```
 
-Defined in plugin.h:252
+Defined in plugin.h:376
 
-Variable is per-connection
+Variable is per-connection. Do not use directly!
 
 ---
 
@@ -676,7 +670,7 @@ Variable is per-connection
 #define PLUGIN_VAR_READONLY 0x0200
 ```
 
-Defined in plugin.h:253
+Defined in plugin.h:377
 
 Server variable is read only
 
@@ -688,9 +682,9 @@ Server variable is read only
 #define PLUGIN_VAR_NOSYSVAR 0x0400
 ```
 
-Defined in plugin.h:254
+Defined in plugin.h:378
 
-Not a server variable
+Not a server variable. Only a command line option
 
 ---
 
@@ -700,9 +694,9 @@ Not a server variable
 #define PLUGIN_VAR_NOCMDOPT 0x0800
 ```
 
-Defined in plugin.h:255
+Defined in plugin.h:379
 
-Not a command line option
+Not a command line option. Only a system variable
 
 ---
 
@@ -712,7 +706,7 @@ Not a command line option
 #define PLUGIN_VAR_NOCMDARG 0x1000
 ```
 
-Defined in plugin.h:256
+Defined in plugin.h:380
 
 No argument for cmd line
 
@@ -724,7 +718,7 @@ No argument for cmd line
 #define PLUGIN_VAR_RQCMDARG 0x0000
 ```
 
-Defined in plugin.h:257
+Defined in plugin.h:381
 
 Argument required for cmd line
 
@@ -736,7 +730,7 @@ Argument required for cmd line
 #define PLUGIN_VAR_OPCMDARG 0x2000
 ```
 
-Defined in plugin.h:258
+Defined in plugin.h:382
 
 Argument optional for cmd line
 
@@ -748,7 +742,7 @@ Argument optional for cmd line
 #define PLUGIN_VAR_DEPRECATED 0x4000
 ```
 
-Defined in plugin.h:259
+Defined in plugin.h:383
 
 Server variable is deprecated
 
@@ -760,7 +754,7 @@ Server variable is deprecated
 #define PLUGIN_VAR_MEMALLOC 0x8000
 ```
 
-Defined in plugin.h:260
+Defined in plugin.h:384
 
 String needs memory allocated
 
@@ -775,7 +769,7 @@ String needs memory allocated
          PLUGIN_VAR_DEPRECATED | PLUGIN_VAR_MEMALLOC)
 ```
 
-Defined in plugin.h:310
+Defined in plugin.h:444
 
 ---
 
@@ -789,62 +783,62 @@ Defined in plugin.h:310
   mysql_var_update_func update
 ```
 
-Defined in plugin.h:316
+Defined in plugin.h:450
 
 ---
 
 ### MYSQL_SYSVAR_NAME
 
 ```cpp
-#define MYSQL_SYSVAR_NAME(name) mysql_sysvar_ ## name
+#define MYSQL_SYSVAR_NAME(name, name) mysql_sysvar_ ## name
 ```
 
-Defined in plugin.h:323
+Defined in plugin.h:457
 
 ---
 
 ### MYSQL_SYSVAR
 
 ```cpp
-#define MYSQL_SYSVAR(name) ((struct st_mysql_sys_var *)&(MYSQL_SYSVAR_NAME(name)))
+#define MYSQL_SYSVAR(name, name) ((struct st_mysql_sys_var *)&(MYSQL_SYSVAR_NAME(name)))
 ```
 
-Defined in plugin.h:324
+Defined in plugin.h:458
 
 ---
 
 ### DECLARE_MYSQL_SYSVAR_BASIC
 
 ```cpp
-#define DECLARE_MYSQL_SYSVAR_BASIC(name, type) struct { \
+#define DECLARE_MYSQL_SYSVAR_BASIC(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   type *value;                  \
   const type def_val;                 \
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:335
+Defined in plugin.h:469
 
 ---
 
 ### DECLARE_MYSQL_SYSVAR_CONST_BASIC
 
 ```cpp
-#define DECLARE_MYSQL_SYSVAR_CONST_BASIC(name, type) struct { \
+#define DECLARE_MYSQL_SYSVAR_CONST_BASIC(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   const type *value;                  \
   const type def_val;                 \
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:341
+Defined in plugin.h:475
 
 ---
 
 ### DECLARE_MYSQL_SYSVAR_SIMPLE
 
 ```cpp
-#define DECLARE_MYSQL_SYSVAR_SIMPLE(name, type) struct { \
+#define DECLARE_MYSQL_SYSVAR_SIMPLE(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   type *value; type def_val;    \
   type min_val; type max_val;   \
@@ -852,38 +846,38 @@ Defined in plugin.h:341
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:347
+Defined in plugin.h:481
 
 ---
 
 ### DECLARE_MYSQL_SYSVAR_TYPELIB
 
 ```cpp
-#define DECLARE_MYSQL_SYSVAR_TYPELIB(name, type) struct { \
+#define DECLARE_MYSQL_SYSVAR_TYPELIB(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   type *value; type def_val;    \
   TYPELIB *typelib;             \
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:354
+Defined in plugin.h:488
 
 ---
 
 ### DECLARE_THDVAR_FUNC
 
 ```cpp
-#define DECLARE_THDVAR_FUNC(type) type *(*resolve)(MYSQL_THD thd, int offset)
+#define DECLARE_THDVAR_FUNC(type, type) type *(*resolve)(MYSQL_THD thd, int offset)
 ```
 
-Defined in plugin.h:360
+Defined in plugin.h:494
 
 ---
 
 ### DECLARE_MYSQL_THDVAR_BASIC
 
 ```cpp
-#define DECLARE_MYSQL_THDVAR_BASIC(name, type) struct { \
+#define DECLARE_MYSQL_THDVAR_BASIC(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   int offset;                   \
   const type def_val;           \
@@ -891,14 +885,14 @@ Defined in plugin.h:360
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:363
+Defined in plugin.h:497
 
 ---
 
 ### DECLARE_MYSQL_THDVAR_SIMPLE
 
 ```cpp
-#define DECLARE_MYSQL_THDVAR_SIMPLE(name, type) struct { \
+#define DECLARE_MYSQL_THDVAR_SIMPLE(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   int offset;                   \
   type def_val; type min_val;   \
@@ -907,14 +901,14 @@ Defined in plugin.h:363
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:370
+Defined in plugin.h:504
 
 ---
 
 ### DECLARE_MYSQL_THDVAR_TYPELIB
 
 ```cpp
-#define DECLARE_MYSQL_THDVAR_TYPELIB(name, type) struct { \
+#define DECLARE_MYSQL_THDVAR_TYPELIB(name, type, name, type) struct { \
   MYSQL_PLUGIN_VAR_HEADER;      \
   int offset;                   \
   const type def_val;           \
@@ -923,327 +917,365 @@ Defined in plugin.h:370
 } MYSQL_SYSVAR_NAME(name)
 ```
 
-Defined in plugin.h:378
+Defined in plugin.h:512
 
 ---
 
 ### MYSQL_SYSVAR_BOOL
 
 ```cpp
-#define MYSQL_SYSVAR_BOOL(name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_BASIC(name, char) = { \
+#define MYSQL_SYSVAR_BOOL(name, varname, opt, comment, check, update, def, name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_BASIC(name, char) = { \
   PLUGIN_VAR_BOOL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def}
 ```
 
-Defined in plugin.h:391
+Defined in plugin.h:530
 
 ---
 
 ### MYSQL_SYSVAR_STR
 
 ```cpp
-#define MYSQL_SYSVAR_STR(name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_BASIC(name, char *) = { \
+#define MYSQL_SYSVAR_STR(name, varname, opt, comment, check, update, def, name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_BASIC(name, char *) = { \
   PLUGIN_VAR_STR | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def}
 ```
 
-Defined in plugin.h:396
+Defined in plugin.h:535
 
 ---
 
 ### MYSQL_SYSVAR_CONST_STR
 
 ```cpp
-#define MYSQL_SYSVAR_CONST_STR(name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_CONST_BASIC(name, char *) = { \
+#define MYSQL_SYSVAR_CONST_STR(name, varname, opt, comment, check, update, def, name, varname, opt, comment, check, update, def) DECLARE_MYSQL_SYSVAR_CONST_BASIC(name, char *) = { \
   PLUGIN_VAR_STR | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def}
 ```
 
-Defined in plugin.h:401
+Defined in plugin.h:540
 
 ---
 
 ### MYSQL_SYSVAR_INT
 
 ```cpp
-#define MYSQL_SYSVAR_INT(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, int) = { \
+#define MYSQL_SYSVAR_INT(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, int) = { \
   PLUGIN_VAR_INT | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:406
+Defined in plugin.h:545
 
 ---
 
 ### MYSQL_SYSVAR_UINT
 
 ```cpp
-#define MYSQL_SYSVAR_UINT(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned int) = { \
+#define MYSQL_SYSVAR_UINT(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned int) = { \
   PLUGIN_VAR_INT | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:411
+Defined in plugin.h:550
 
 ---
 
 ### MYSQL_SYSVAR_LONG
 
 ```cpp
-#define MYSQL_SYSVAR_LONG(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, long) = { \
+#define MYSQL_SYSVAR_LONG(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, long) = { \
   PLUGIN_VAR_LONG | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:416
+Defined in plugin.h:555
 
 ---
 
 ### MYSQL_SYSVAR_ULONG
 
 ```cpp
-#define MYSQL_SYSVAR_ULONG(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned long) = { \
+#define MYSQL_SYSVAR_ULONG(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned long) = { \
   PLUGIN_VAR_LONG | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:421
+Defined in plugin.h:560
 
 ---
 
 ### MYSQL_SYSVAR_LONGLONG
 
 ```cpp
-#define MYSQL_SYSVAR_LONGLONG(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, long long) = { \
+#define MYSQL_SYSVAR_LONGLONG(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, long long) = { \
   PLUGIN_VAR_LONGLONG | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:426
+Defined in plugin.h:565
 
 ---
 
 ### MYSQL_SYSVAR_ULONGLONG
 
 ```cpp
-#define MYSQL_SYSVAR_ULONGLONG(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned long long) = { \
+#define MYSQL_SYSVAR_ULONGLONG(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, unsigned long long) = { \
   PLUGIN_VAR_LONGLONG | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:431
+Defined in plugin.h:570
 
 ---
 
 ### MYSQL_SYSVAR_UINT64_T
 
 ```cpp
-#define MYSQL_SYSVAR_UINT64_T(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, uint64_t) = { \
+#define MYSQL_SYSVAR_UINT64_T(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, uint64_t) = { \
   PLUGIN_VAR_LONGLONG | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:436
+Defined in plugin.h:575
 
 ---
 
 ### MYSQL_SYSVAR_SIZE_T
 
 ```cpp
-#define MYSQL_SYSVAR_SIZE_T(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, size_t) = { \
+#define MYSQL_SYSVAR_SIZE_T(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, size_t) = { \
   PLUGIN_VAR_LONG | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:447
+Defined in plugin.h:586
 
 ---
 
 ### MYSQL_SYSVAR_ENUM
 
 ```cpp
-#define MYSQL_SYSVAR_ENUM(name, varname, opt, comment, check, update, def, typelib) DECLARE_MYSQL_SYSVAR_TYPELIB(name, unsigned long) = { \
+#define MYSQL_SYSVAR_ENUM(name, varname, opt, comment, check, update, def, typelib, name, varname, opt, comment, check, update, def, typelib) DECLARE_MYSQL_SYSVAR_TYPELIB(name, unsigned long) = { \
   PLUGIN_VAR_ENUM | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, typelib }
 ```
 
-Defined in plugin.h:453
+Defined in plugin.h:592
 
 ---
 
 ### MYSQL_SYSVAR_SET
 
 ```cpp
-#define MYSQL_SYSVAR_SET(name, varname, opt, comment, check, update, def, typelib) DECLARE_MYSQL_SYSVAR_TYPELIB(name, unsigned long long) = { \
+#define MYSQL_SYSVAR_SET(name, varname, opt, comment, check, update, def, typelib, name, varname, opt, comment, check, update, def, typelib) DECLARE_MYSQL_SYSVAR_TYPELIB(name, unsigned long long) = { \
   PLUGIN_VAR_SET | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, typelib }
 ```
 
-Defined in plugin.h:458
+Defined in plugin.h:597
 
 ---
 
 ### MYSQL_SYSVAR_DOUBLE
 
 ```cpp
-#define MYSQL_SYSVAR_DOUBLE(name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, double) = { \
+#define MYSQL_SYSVAR_DOUBLE(name, varname, opt, comment, check, update, def, min, max, blk, name, varname, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_SYSVAR_SIMPLE(name, double) = { \
   PLUGIN_VAR_DOUBLE | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, &varname, def, min, max, blk }
 ```
 
-Defined in plugin.h:463
+Defined in plugin.h:602
 
 ---
 
 ### MYSQL_THDVAR_BOOL
 
 ```cpp
-#define MYSQL_THDVAR_BOOL(name, opt, comment, check, update, def) DECLARE_MYSQL_THDVAR_BASIC(name, char) = { \
+#define MYSQL_THDVAR_BOOL(name, opt, comment, check, update, def, name, opt, comment, check, update, def) DECLARE_MYSQL_THDVAR_BASIC(name, char) = { \
   PLUGIN_VAR_BOOL | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, NULL}
 ```
 
-Defined in plugin.h:468
+Defined in plugin.h:617
 
 ---
 
 ### MYSQL_THDVAR_STR
 
 ```cpp
-#define MYSQL_THDVAR_STR(name, opt, comment, check, update, def) DECLARE_MYSQL_THDVAR_BASIC(name, char *) = { \
+#define MYSQL_THDVAR_STR(name, opt, comment, check, update, def, name, opt, comment, check, update, def) DECLARE_MYSQL_THDVAR_BASIC(name, char *) = { \
   PLUGIN_VAR_STR | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, NULL}
 ```
 
-Defined in plugin.h:473
+Defined in plugin.h:622
 
 ---
 
 ### MYSQL_THDVAR_INT
 
 ```cpp
-#define MYSQL_THDVAR_INT(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, int) = { \
+#define MYSQL_THDVAR_INT(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, int) = { \
   PLUGIN_VAR_INT | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:478
+Defined in plugin.h:627
 
 ---
 
 ### MYSQL_THDVAR_UINT
 
 ```cpp
-#define MYSQL_THDVAR_UINT(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned int) = { \
+#define MYSQL_THDVAR_UINT(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned int) = { \
   PLUGIN_VAR_INT | PLUGIN_VAR_THDLOCAL | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:483
+Defined in plugin.h:632
 
 ---
 
 ### MYSQL_THDVAR_LONG
 
 ```cpp
-#define MYSQL_THDVAR_LONG(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, long) = { \
+#define MYSQL_THDVAR_LONG(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, long) = { \
   PLUGIN_VAR_LONG | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:488
+Defined in plugin.h:637
 
 ---
 
 ### MYSQL_THDVAR_ULONG
 
 ```cpp
-#define MYSQL_THDVAR_ULONG(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned long) = { \
+#define MYSQL_THDVAR_ULONG(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned long) = { \
   PLUGIN_VAR_LONG | PLUGIN_VAR_THDLOCAL | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:493
+Defined in plugin.h:642
 
 ---
 
 ### MYSQL_THDVAR_LONGLONG
 
 ```cpp
-#define MYSQL_THDVAR_LONGLONG(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, long long) = { \
+#define MYSQL_THDVAR_LONGLONG(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, long long) = { \
   PLUGIN_VAR_LONGLONG | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:498
+Defined in plugin.h:647
 
 ---
 
 ### MYSQL_THDVAR_ULONGLONG
 
 ```cpp
-#define MYSQL_THDVAR_ULONGLONG(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned long long) = { \
+#define MYSQL_THDVAR_ULONGLONG(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, unsigned long long) = { \
   PLUGIN_VAR_LONGLONG | PLUGIN_VAR_THDLOCAL | PLUGIN_VAR_UNSIGNED | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:503
+Defined in plugin.h:652
 
 ---
 
 ### MYSQL_THDVAR_ENUM
 
 ```cpp
-#define MYSQL_THDVAR_ENUM(name, opt, comment, check, update, def, typelib) DECLARE_MYSQL_THDVAR_TYPELIB(name, unsigned long) = { \
+#define MYSQL_THDVAR_ENUM(name, opt, comment, check, update, def, typelib, name, opt, comment, check, update, def, typelib) DECLARE_MYSQL_THDVAR_TYPELIB(name, unsigned long) = { \
   PLUGIN_VAR_ENUM | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, NULL, typelib }
 ```
 
-Defined in plugin.h:508
+Defined in plugin.h:657
 
 ---
 
 ### MYSQL_THDVAR_SET
 
 ```cpp
-#define MYSQL_THDVAR_SET(name, opt, comment, check, update, def, typelib) DECLARE_MYSQL_THDVAR_TYPELIB(name, unsigned long long) = { \
+#define MYSQL_THDVAR_SET(name, opt, comment, check, update, def, typelib, name, opt, comment, check, update, def, typelib) DECLARE_MYSQL_THDVAR_TYPELIB(name, unsigned long long) = { \
   PLUGIN_VAR_SET | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, NULL, typelib }
 ```
 
-Defined in plugin.h:513
+Defined in plugin.h:662
 
 ---
 
 ### MYSQL_THDVAR_DOUBLE
 
 ```cpp
-#define MYSQL_THDVAR_DOUBLE(name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, double) = { \
+#define MYSQL_THDVAR_DOUBLE(name, opt, comment, check, update, def, min, max, blk, name, opt, comment, check, update, def, min, max, blk) DECLARE_MYSQL_THDVAR_SIMPLE(name, double) = { \
   PLUGIN_VAR_DOUBLE | PLUGIN_VAR_THDLOCAL | ((opt) & PLUGIN_VAR_MASK), \
   #name, comment, check, update, -1, def, min, max, blk, NULL }
 ```
 
-Defined in plugin.h:518
+Defined in plugin.h:667
 
 ---
 
 ### SYSVAR
 
 ```cpp
-#define SYSVAR(name) (*(MYSQL_SYSVAR_NAME(name).value))
+#define SYSVAR(name, name) (*(MYSQL_SYSVAR_NAME(name).value))
 ```
 
-Defined in plugin.h:525
+Defined in plugin.h:691
+
+System variable value reference macro.
+
+Macro to reference plugin system variable global value.
+
+Example use 
+```cpp
+int value = SYSVAR(my_system_variable);
+...
+SYSVAR(my_system_variable) = 12;
+```
+
+**See also**: st_mysql_sys_var and [Plugin System Variables Implementation](page-implementation.md#plugin-system-variables-implementation)
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` |  | The name of the plugin system variable. |
+| `name` |  | The name of the plugin system variable. |
 
 ---
 
 ### THDVAR
 
 ```cpp
-#define THDVAR(thd, name) (*(MYSQL_SYSVAR_NAME(name).resolve(thd, MYSQL_SYSVAR_NAME(name).offset)))
+#define THDVAR(thd, name, thd, name) (*(MYSQL_SYSVAR_NAME(name).resolve(thd, MYSQL_SYSVAR_NAME(name).offset)))
 ```
 
-Defined in plugin.h:529
+Defined in plugin.h:705
+
+Access per-thread plugin system variable values.
+
+Used to reference the session system variable values.
+
+#### Returns
+Reference to the corresponding plugin system variable's value.
+
+**See also**: [Define a Session Variable](page-implementation.md#define-a-session-variable)
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | The session handle. If thd is NULL, the global value is accessed. |
+| `name` |  | The name of the plugin system variable. |
+| `thd` |  | The session handle. If thd is NULL, the global value is accessed. |
+| `name` |  | The name of the plugin system variable. |
 
 ---
 
@@ -1253,7 +1285,9 @@ Defined in plugin.h:529
 #define MYSQL_DAEMON_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
 ```
 
-Defined in plugin.h:600
+Defined in plugin.h:782
+
+daemon plugins of different MySQL releases are incompatible
 
 ---
 
@@ -1263,7 +1297,9 @@ Defined in plugin.h:600
 #define MYSQL_INFORMATION_SCHEMA_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
 ```
 
-Defined in plugin.h:618
+Defined in plugin.h:803
+
+information schema plugins of different MySQL releases are incompatible
 
 ---
 
@@ -1273,7 +1309,9 @@ Defined in plugin.h:618
 #define MYSQL_HANDLERTON_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
 ```
 
-Defined in plugin.h:636
+Defined in plugin.h:825
+
+storage engines of different MySQL releases are incompatible
 
 ---
 
@@ -1283,7 +1321,7 @@ Defined in plugin.h:636
 #define MYSQL_REPLICATION_INTERFACE_VERSION 0x0200
 ```
 
-Defined in plugin.h:655
+Defined in plugin.h:848
 
 ---
 
@@ -1293,7 +1331,7 @@ Defined in plugin.h:655
 #define MYSQL_VALUE_TYPE_STRING 0
 ```
 
-Defined in plugin.h:664
+Defined in plugin.h:864
 
 ---
 
@@ -1303,7 +1341,7 @@ Defined in plugin.h:664
 #define MYSQL_VALUE_TYPE_REAL 1
 ```
 
-Defined in plugin.h:665
+Defined in plugin.h:865
 
 ---
 
@@ -1313,127 +1351,117 @@ Defined in plugin.h:665
 #define MYSQL_VALUE_TYPE_INT 2
 ```
 
-Defined in plugin.h:666
-
----
-
-### MYSQL_SERVICES_INCLUDED
-
-```cpp
-#define MYSQL_SERVICES_INCLUDED
-```
-
-Defined in services.h:51
+Defined in plugin.h:866
 
 ---
 
 ### PSI_PS_CALL
 
 ```cpp
-#define PSI_PS_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_PS_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_ps.h:34
+Defined in psi/mysql_ps.h:41
 
 ---
 
 ### MYSQL_CREATE_PS
 
 ```cpp
-#define MYSQL_CREATE_PS(IDENTITY, ID, LOCKER, NAME, NAME_LENGTH) NULL
+#define MYSQL_CREATE_PS(IDENTITY, ID, LOCKER, NAME, NAME_LENGTH, IDENTITY, ID, LOCKER, NAME, NAME_LENGTH) NULL
 ```
 
-Defined in psi/mysql_ps.h:49
+Defined in psi/mysql_ps.h:56
 
 ---
 
 ### MYSQL_EXECUTE_PS
 
 ```cpp
-#define MYSQL_EXECUTE_PS(LOCKER, PREPARED_STMT) do {} while (0)
+#define MYSQL_EXECUTE_PS(LOCKER, PREPARED_STMT, LOCKER, PREPARED_STMT) do {} while (0)
 ```
 
-Defined in psi/mysql_ps.h:51
+Defined in psi/mysql_ps.h:58
 
 ---
 
 ### MYSQL_DESTROY_PS
 
 ```cpp
-#define MYSQL_DESTROY_PS(PREPARED_STMT) do {} while (0)
+#define MYSQL_DESTROY_PS(PREPARED_STMT, PREPARED_STMT) do {} while (0)
 ```
 
-Defined in psi/mysql_ps.h:53
+Defined in psi/mysql_ps.h:60
 
 ---
 
 ### MYSQL_REPREPARE_PS
 
 ```cpp
-#define MYSQL_REPREPARE_PS(PREPARED_STMT) do {} while (0)
+#define MYSQL_REPREPARE_PS(PREPARED_STMT, PREPARED_STMT) do {} while (0)
 ```
 
-Defined in psi/mysql_ps.h:55
+Defined in psi/mysql_ps.h:62
 
 ---
 
 ### MYSQL_SET_PS_TEXT
 
 ```cpp
-#define MYSQL_SET_PS_TEXT(PREPARED_STMT, SQLTEXT, SQLTEXT_LENGTH) do {} while (0)
+#define MYSQL_SET_PS_TEXT(PREPARED_STMT, SQLTEXT, SQLTEXT_LENGTH, PREPARED_STMT, SQLTEXT, SQLTEXT_LENGTH) do {} while (0)
 ```
 
-Defined in psi/mysql_ps.h:57
+Defined in psi/mysql_ps.h:64
 
 ---
 
 ### PSI_SP_CALL
 
 ```cpp
-#define PSI_SP_CALL(M) PSI_DYNAMIC_CALL(M)
-```
-
-Defined in psi/mysql_sp.h:34
-
----
-
-### MYSQL_START_SP
-
-```cpp
-#define MYSQL_START_SP(STATE, SP_SHARE) NULL
+#define PSI_SP_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
 Defined in psi/mysql_sp.h:41
 
 ---
 
+### MYSQL_START_SP
+
+```cpp
+#define MYSQL_START_SP(STATE, SP_SHARE, STATE, SP_SHARE) NULL
+```
+
+Defined in psi/mysql_sp.h:48
+
+---
+
 ### MYSQL_END_SP
 
 ```cpp
-#define MYSQL_END_SP(LOCKER) do {} while (0)
+#define MYSQL_END_SP(LOCKER, LOCKER) do {} while (0)
 ```
 
-Defined in psi/mysql_sp.h:50
+Defined in psi/mysql_sp.h:57
 
 ---
 
 ### MYSQL_DROP_SP
 
 ```cpp
-#define MYSQL_DROP_SP(OT, SN, SNL, ON, ONL) do {} while (0)
+#define MYSQL_DROP_SP(OT, SN, SNL, ON, ONL, OT, SN, SNL, ON, ONL) do {} while (0)
 ```
 
-Defined in psi/mysql_sp.h:58
+Defined in psi/mysql_sp.h:65
 
 ---
 
 ### MYSQL_GET_SP_SHARE
 
 ```cpp
-#define MYSQL_GET_SP_SHARE(OT, SN, SNL, ON, ONL) NULL
+#define MYSQL_GET_SP_SHARE(OT, SN, SNL, ON, ONL, OT, SN, SNL, ON, ONL) NULL
 ```
 
-Defined in psi/mysql_sp.h:66
+Defined in psi/mysql_sp.h:73
 
 ---
 
@@ -1564,50 +1592,50 @@ System thread flag. Indicates that the instrumented object exists on a system th
 ### PSI_CALL_start_metadata_wait
 
 ```cpp
-#define PSI_CALL_start_metadata_wait(A, B, C, D) 0
+#define PSI_CALL_start_metadata_wait(A, B, C, D, A, B, C, D) 0
 ```
 
-Defined in psi/mysql_mdl.h:45
+Defined in psi/mysql_mdl.h:52
 
 ---
 
 ### PSI_CALL_end_metadata_wait
 
 ```cpp
-#define PSI_CALL_end_metadata_wait(A, B) do { } while(0)
+#define PSI_CALL_end_metadata_wait(A, B, A, B) do { } while(0)
 ```
 
-Defined in psi/mysql_mdl.h:46
+Defined in psi/mysql_mdl.h:53
 
 ---
 
 ### PSI_CALL_create_metadata_lock
 
 ```cpp
-#define PSI_CALL_create_metadata_lock(A, B, C, D, E, F, G) 0
+#define PSI_CALL_create_metadata_lock(A, B, C, D, E, F, G, A, B, C, D, E, F, G) 0
 ```
 
-Defined in psi/mysql_mdl.h:47
+Defined in psi/mysql_mdl.h:54
 
 ---
 
 ### PSI_CALL_set_metadata_lock_status
 
 ```cpp
-#define PSI_CALL_set_metadata_lock_status(A, B) do {} while(0)
+#define PSI_CALL_set_metadata_lock_status(A, B, A, B) do {} while(0)
 ```
 
-Defined in psi/mysql_mdl.h:48
+Defined in psi/mysql_mdl.h:55
 
 ---
 
 ### PSI_CALL_destroy_metadata_lock
 
 ```cpp
-#define PSI_CALL_destroy_metadata_lock(A) do {} while(0)
+#define PSI_CALL_destroy_metadata_lock(A, A) do {} while(0)
 ```
 
-Defined in psi/mysql_mdl.h:49
+Defined in psi/mysql_mdl.h:56
 
 ---
 
@@ -1617,7 +1645,7 @@ Defined in psi/mysql_mdl.h:49
 #define mysql_mdl_create(I, K, T, D, S, F, L, I, K, T, D, S, F, L) NULL
 ```
 
-Defined in psi/mysql_mdl.h:74
+Defined in psi/mysql_mdl.h:75
 
 Instrumented metadata lock creation.
 
@@ -1648,7 +1676,7 @@ Instrumented metadata lock creation.
 #define mysql_mdl_set_status(L, S, L, S) do {} while (0)
 ```
 
-Defined in psi/mysql_mdl.h:81
+Defined in psi/mysql_mdl.h:82
 
 ---
 
@@ -1658,7 +1686,7 @@ Defined in psi/mysql_mdl.h:81
 #define mysql_mdl_destroy(M, M) do {} while (0)
 ```
 
-Defined in psi/mysql_mdl.h:95
+Defined in psi/mysql_mdl.h:96
 
 Instrumented metadata lock destruction.
 
@@ -1674,10 +1702,10 @@ Instrumented metadata lock destruction.
 ### PSI_FILE_CALL
 
 ```cpp
-#define PSI_FILE_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_FILE_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_file.h:52
+Defined in psi/mysql_file.h:58
 
 ---
 
@@ -2096,10 +2124,10 @@ Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`.
 ### PSI_IDLE_CALL
 
 ```cpp
-#define PSI_IDLE_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_IDLE_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_idle.h:35
+Defined in psi/mysql_idle.h:39
 
 ---
 
@@ -2109,7 +2137,7 @@ Defined in psi/mysql_idle.h:35
 #define MYSQL_START_IDLE_WAIT(LOCKER, STATE, LOCKER, STATE) do {} while (0)
 ```
 
-Defined in psi/mysql_idle.h:56
+Defined in psi/mysql_idle.h:54
 
 Instrumentation helper for table io_waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_IDLE_WAIT](#mysql_end_idle_wait).
 
@@ -2130,7 +2158,7 @@ Instrumentation helper for table io_waits. This instrumentation marks the start 
 #define MYSQL_END_IDLE_WAIT(LOCKER, LOCKER) do {} while (0)
 ```
 
-Defined in psi/mysql_idle.h:71
+Defined in psi/mysql_idle.h:69
 
 Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](#mysql_start_idle_wait).
 
@@ -2143,23 +2171,13 @@ Instrumentation helper for idle waits. This instrumentation marks the end of a w
 
 ---
 
-### MYSQL_PLUGIN_AUTH_INCLUDED
-
-```cpp
-#define MYSQL_PLUGIN_AUTH_INCLUDED
-```
-
-Defined in plugin_auth.h:26
-
----
-
 ### MYSQL_AUTHENTICATION_INTERFACE_VERSION
 
 ```cpp
 #define MYSQL_AUTHENTICATION_INTERFACE_VERSION 0x0203
 ```
 
-Defined in plugin_auth.h:30
+Defined in plugin_auth.h:37
 
 ---
 
@@ -2169,7 +2187,7 @@ Defined in plugin_auth.h:30
 #define PASSWORD_USED_NO 0
 ```
 
-Defined in plugin_auth.h:40
+Defined in plugin_auth.h:50
 
 ---
 
@@ -2179,7 +2197,7 @@ Defined in plugin_auth.h:40
 #define PASSWORD_USED_YES 1
 ```
 
-Defined in plugin_auth.h:41
+Defined in plugin_auth.h:51
 
 ---
 
@@ -2189,17 +2207,17 @@ Defined in plugin_auth.h:41
 #define PASSWORD_USED_NO_MENTION 2
 ```
 
-Defined in plugin_auth.h:42
+Defined in plugin_auth.h:52
 
 ---
 
 ### PSI_STAGE_CALL
 
 ```cpp
-#define PSI_STAGE_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_STAGE_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_stage.h:34
+Defined in psi/mysql_stage.h:38
 
 ---
 
@@ -2209,7 +2227,7 @@ Defined in psi/mysql_stage.h:34
 #define mysql_stage_register(P1, P2, P3, P1, P2, P3) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:51
+Defined in psi/mysql_stage.h:49
 
 Stage registration.
 
@@ -2221,7 +2239,7 @@ Stage registration.
 #define MYSQL_SET_STAGE(K, F, L, K, F, L) NULL
 ```
 
-Defined in psi/mysql_stage.h:69
+Defined in psi/mysql_stage.h:67
 
 Set the current stage. Use this API when the file and line is passed from the caller. 
 #### Returns
@@ -2246,7 +2264,7 @@ the current stage progress
 #define mysql_set_stage(K, K) NULL
 ```
 
-Defined in psi/mysql_stage.h:83
+Defined in psi/mysql_stage.h:81
 
 Set the current stage. 
 #### Returns
@@ -2267,7 +2285,7 @@ the current stage progress
 #define mysql_end_stage() do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:95
+Defined in psi/mysql_stage.h:93
 
 End the last stage
 
@@ -2279,7 +2297,7 @@ End the last stage
 #define mysql_stage_set_work_completed(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:131
+Defined in psi/mysql_stage.h:129
 
 ---
 
@@ -2289,7 +2307,7 @@ Defined in psi/mysql_stage.h:131
 #define mysql_stage_get_work_completed(P1, P1) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:134
+Defined in psi/mysql_stage.h:132
 
 ---
 
@@ -2299,7 +2317,7 @@ Defined in psi/mysql_stage.h:134
 #define mysql_stage_inc_work_completed(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:142
+Defined in psi/mysql_stage.h:140
 
 ---
 
@@ -2309,7 +2327,7 @@ Defined in psi/mysql_stage.h:142
 #define mysql_stage_set_work_estimated(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:153
+Defined in psi/mysql_stage.h:151
 
 ---
 
@@ -2319,17 +2337,17 @@ Defined in psi/mysql_stage.h:153
 #define mysql_stage_get_work_estimated(P1, P1) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:156
+Defined in psi/mysql_stage.h:154
 
 ---
 
 ### PSI_TABLE_CALL
 
 ```cpp
-#define PSI_TABLE_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_TABLE_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_table.h:35
+Defined in psi/mysql_table.h:39
 
 ---
 
@@ -2339,7 +2357,7 @@ Defined in psi/mysql_table.h:35
 #define MYSQL_UNBIND_TABLE(handler, handler) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:55
+Defined in psi/mysql_table.h:53
 
 ---
 
@@ -2349,7 +2367,7 @@ Defined in psi/mysql_table.h:55
 #define PSI_CALL_unbind_table(A1, A1) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:57
+Defined in psi/mysql_table.h:55
 
 ---
 
@@ -2359,7 +2377,7 @@ Defined in psi/mysql_table.h:57
 #define PSI_CALL_rebind_table(A1, A2, A3, A1, A2, A3) NULL
 ```
 
-Defined in psi/mysql_table.h:58
+Defined in psi/mysql_table.h:56
 
 ---
 
@@ -2369,7 +2387,7 @@ Defined in psi/mysql_table.h:58
 #define PSI_CALL_close_table(A1, A2, A1, A2) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:59
+Defined in psi/mysql_table.h:57
 
 ---
 
@@ -2379,7 +2397,7 @@ Defined in psi/mysql_table.h:59
 #define PSI_CALL_open_table(A1, A2, A1, A2) NULL
 ```
 
-Defined in psi/mysql_table.h:60
+Defined in psi/mysql_table.h:58
 
 ---
 
@@ -2389,7 +2407,7 @@ Defined in psi/mysql_table.h:60
 #define PSI_CALL_get_table_share(A1, A2, A1, A2) NULL
 ```
 
-Defined in psi/mysql_table.h:61
+Defined in psi/mysql_table.h:59
 
 ---
 
@@ -2399,7 +2417,7 @@ Defined in psi/mysql_table.h:61
 #define PSI_CALL_release_table_share(A1, A1) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:62
+Defined in psi/mysql_table.h:60
 
 ---
 
@@ -2409,7 +2427,7 @@ Defined in psi/mysql_table.h:62
 #define PSI_CALL_drop_table_share(A1, A2, A3, A4, A5, A1, A2, A3, A4, A5) do { } while(0)
 ```
 
-Defined in psi/mysql_table.h:63
+Defined in psi/mysql_table.h:61
 
 ---
 
@@ -2419,7 +2437,7 @@ Defined in psi/mysql_table.h:63
 #define MYSQL_TABLE_WAIT_VARIABLES(LOCKER, STATE, LOCKER, STATE)
 ```
 
-Defined in psi/mysql_table.h:83
+Defined in psi/mysql_table.h:81
 
 Instrumentation helper for table waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: MYSQL_START_TABLE_IO_WAIT. 
 
@@ -2446,7 +2464,7 @@ Instrumentation helper for table waits. This instrumentation declares local vari
 #define MYSQL_START_TABLE_LOCK_WAIT(LOCKER, STATE, PSI, OP, FLAGS, LOCKER, STATE, PSI, OP, FLAGS) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:102
+Defined in psi/mysql_table.h:100
 
 Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](#mysql_end_table_lock_wait).
 
@@ -2473,7 +2491,7 @@ Instrumentation helper for table lock waits. This instrumentation marks the star
 #define MYSQL_END_TABLE_LOCK_WAIT(LOCKER, LOCKER) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:117
+Defined in psi/mysql_table.h:115
 
 Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](#mysql_start_table_lock_wait).
 
@@ -2492,7 +2510,7 @@ Instrumentation helper for table lock waits. This instrumentation marks the end 
 #define MYSQL_UNLOCK_TABLE(T, T) do {} while (0)
 ```
 
-Defined in psi/mysql_table.h:125
+Defined in psi/mysql_table.h:123
 
 ---
 
@@ -2502,7 +2520,7 @@ Defined in psi/mysql_table.h:125
 #define MY_GLOBAL_INCLUDED
 ```
 
-Defined in psi/psi_abi_v0.h:29
+Defined in psi/psi_abi_v2.h:36
 
 ---
 
@@ -2512,7 +2530,7 @@ Defined in psi/psi_abi_v0.h:29
 #define USE_PSI_1
 ```
 
-Defined in psi/psi_abi_v1.h:29
+Defined in psi/psi_abi_v1.h:34
 
 ---
 
@@ -2522,7 +2540,7 @@ Defined in psi/psi_abi_v1.h:29
 #define HAVE_PSI_INTERFACE
 ```
 
-Defined in psi/psi_abi_v1.h:30
+Defined in psi/psi_abi_v2.h:35
 
 ---
 
@@ -2532,7 +2550,7 @@ Defined in psi/psi_abi_v1.h:30
 #define MY_GLOBAL_INCLUDED
 ```
 
-Defined in psi/psi_abi_v1.h:31
+Defined in psi/psi_abi_v2.h:36
 
 ---
 
@@ -2542,7 +2560,7 @@ Defined in psi/psi_abi_v1.h:31
 #define USE_PSI_2
 ```
 
-Defined in psi/psi_abi_v2.h:29
+Defined in psi/psi_abi_v2.h:34
 
 ---
 
@@ -2552,7 +2570,7 @@ Defined in psi/psi_abi_v2.h:29
 #define HAVE_PSI_INTERFACE
 ```
 
-Defined in psi/psi_abi_v2.h:30
+Defined in psi/psi_abi_v2.h:35
 
 ---
 
@@ -2562,7 +2580,7 @@ Defined in psi/psi_abi_v2.h:30
 #define MY_GLOBAL_INCLUDED
 ```
 
-Defined in psi/psi_abi_v2.h:31
+Defined in psi/psi_abi_v2.h:36
 
 ---
 
@@ -2572,27 +2590,291 @@ Defined in psi/psi_abi_v2.h:31
 #define MY_MD5_HASH_SIZE 16 /* Hash size in bytes */
 ```
 
-Defined in service_md5.h:32
+Defined in service_md5.h:40
 
 ---
 
-### MYSQL_SERVICE_MD5_INCLUDED
+### my_md5
 
 ```cpp
-#define MYSQL_SERVICE_MD5_INCLUDED
+#define my_md5(A, B, C, A, B, C) my_md5_service->my_md5_type(A,B,C)
 ```
 
-Defined in service_md5.h:67
+Defined in service_md5.h:53
 
 ---
 
-### MYSQL_SERVICE_THD_INCLUDED
+### my_md5_multi
 
 ```cpp
-#define MYSQL_SERVICE_THD_INCLUDED
+#define my_md5_multi my_md5_service->my_md5_multi_type
 ```
 
-Defined in service_thd.h:45
+Defined in service_md5.h:54
+
+---
+
+### my_md5_context_size
+
+```cpp
+#define my_md5_context_size() my_md5_service->my_md5_context_size_type()
+```
+
+Defined in service_md5.h:55
+
+---
+
+### my_md5_init
+
+```cpp
+#define my_md5_init(A, A) my_md5_service->my_md5_init_type(A)
+```
+
+Defined in service_md5.h:56
+
+---
+
+### my_md5_input
+
+```cpp
+#define my_md5_input(A, B, C, A, B, C) my_md5_service->my_md5_input_type(A,B,C)
+```
+
+Defined in service_md5.h:57
+
+---
+
+### my_md5_result
+
+```cpp
+#define my_md5_result(A, B, A, B) my_md5_service->my_md5_result_type(A,B)
+```
+
+Defined in service_md5.h:58
+
+---
+
+### mysql_init
+
+```cpp
+#define mysql_init(mysql, mysql) sql_service->mysql_init_func(mysql)
+```
+
+Defined in service_sql.h:90
+
+---
+
+### mysql_real_connect_local
+
+```cpp
+#define mysql_real_connect_local(mysql, mysql) sql_service->mysql_real_connect_local_func(mysql)
+```
+
+Defined in service_sql.h:91
+
+---
+
+### mysql_real_connect
+
+```cpp
+#define mysql_real_connect(mysql, host, user, password, db, port, socket, flags, mysql, host, user, password, db, port, socket, flags) sql_service->mysql_real_connect_func(mysql,host,user,password,db,port,socket,flags)
+```
+
+Defined in service_sql.h:92
+
+---
+
+### mysql_errno
+
+```cpp
+#define mysql_errno(mysql, mysql) sql_service->mysql_errno_func(mysql)
+```
+
+Defined in service_sql.h:94
+
+---
+
+### mysql_error
+
+```cpp
+#define mysql_error(mysql, mysql) sql_service->mysql_error_func(mysql)
+```
+
+Defined in service_sql.h:95
+
+---
+
+### mysql_real_query
+
+```cpp
+#define mysql_real_query sql_service->mysql_real_query_func
+```
+
+Defined in service_sql.h:96
+
+---
+
+### mysql_affected_rows
+
+```cpp
+#define mysql_affected_rows(mysql, mysql) sql_service->mysql_affected_rows_func(mysql)
+```
+
+Defined in service_sql.h:97
+
+---
+
+### mysql_num_rows
+
+```cpp
+#define mysql_num_rows(result, result) sql_service->mysql_num_rows_func(result)
+```
+
+Defined in service_sql.h:98
+
+---
+
+### mysql_store_result
+
+```cpp
+#define mysql_store_result(mysql, mysql) sql_service->mysql_store_result_func(mysql)
+```
+
+Defined in service_sql.h:99
+
+---
+
+### mysql_free_result
+
+```cpp
+#define mysql_free_result(result, result) sql_service->mysql_free_result_func(result)
+```
+
+Defined in service_sql.h:100
+
+---
+
+### mysql_fetch_row
+
+```cpp
+#define mysql_fetch_row(result, result) sql_service->mysql_fetch_row_func(result)
+```
+
+Defined in service_sql.h:101
+
+---
+
+### mysql_close
+
+```cpp
+#define mysql_close(mysql, mysql) sql_service->mysql_close_func(mysql)
+```
+
+Defined in service_sql.h:102
+
+---
+
+### mysql_options
+
+```cpp
+#define mysql_options(mysql, option, arg, mysql, option, arg) sql_service->mysql_options_func(mysql,option,arg)
+```
+
+Defined in service_sql.h:103
+
+---
+
+### mysql_fetch_lengths
+
+```cpp
+#define mysql_fetch_lengths(result, result) sql_service->mysql_fetch_lengths_func(result)
+```
+
+Defined in service_sql.h:104
+
+---
+
+### mysql_set_character_set
+
+```cpp
+#define mysql_set_character_set(mysql, cs_name, mysql, cs_name) sql_service->mysql_set_character_set_func(mysql,cs_name)
+```
+
+Defined in service_sql.h:105
+
+---
+
+### mysql_num_fields
+
+```cpp
+#define mysql_num_fields(result, result) sql_service->mysql_num_fields_func(result)
+```
+
+Defined in service_sql.h:106
+
+---
+
+### mysql_select_db
+
+```cpp
+#define mysql_select_db(mysql, db, mysql, db) sql_service->mysql_select_db_func(mysql,db)
+```
+
+Defined in service_sql.h:107
+
+---
+
+### mysql_use_result
+
+```cpp
+#define mysql_use_result(mysql, mysql) sql_service->mysql_use_result_func(mysql)
+```
+
+Defined in service_sql.h:108
+
+---
+
+### mysql_fetch_fields
+
+```cpp
+#define mysql_fetch_fields(result, result) sql_service->mysql_fetch_fields_func(result)
+```
+
+Defined in service_sql.h:109
+
+---
+
+### mysql_real_escape_string
+
+```cpp
+#define mysql_real_escape_string(mysql, to, from, length, mysql, to, from, length) sql_service->mysql_real_escape_string_func(mysql,to,from,length)
+```
+
+Defined in service_sql.h:110
+
+---
+
+### mysql_ssl_set
+
+```cpp
+#define mysql_ssl_set(mysql, key, cert, ca, capath, cipher, mysql, key, cert, ca, capath, cipher) sql_service->mysql_ssl_set_func(mysql,key,cert,ca,capath,cipher)
+```
+
+Defined in service_sql.h:111
+
+---
+
+### get_current_thd
+
+```cpp
+#define get_current_thd() thd_service->get_current_thd()
+```
+
+Defined in service_thd.h:49
+
+Current session (thd) accessor 
+#### Returns
+pointer to current thd
 
 ---
 
@@ -2602,7 +2884,7 @@ Defined in service_thd.h:45
 #define MYSQL_AUDIT_CLASS_MASK_SIZE 1
 ```
 
-Defined in plugin_audit.h:30
+Defined in plugin_audit.h:34
 
 ---
 
@@ -2612,7 +2894,7 @@ Defined in plugin_audit.h:30
 #define MYSQL_AUDIT_INTERFACE_VERSION 0x0304
 ```
 
-Defined in plugin_audit.h:32
+Defined in plugin_audit.h:36
 
 ---
 
@@ -2622,7 +2904,7 @@ Defined in plugin_audit.h:32
 #define MYSQL_AUDIT_GENERAL_CLASS 0
 ```
 
-Defined in plugin_audit.h:45
+Defined in plugin_audit.h:50
 
 ---
 
@@ -2632,7 +2914,7 @@ Defined in plugin_audit.h:45
 #define MYSQL_AUDIT_GENERAL_CLASSMASK (1 << MYSQL_AUDIT_GENERAL_CLASS)
 ```
 
-Defined in plugin_audit.h:46
+Defined in plugin_audit.h:51
 
 ---
 
@@ -2642,7 +2924,7 @@ Defined in plugin_audit.h:46
 #define MYSQL_AUDIT_GENERAL_LOG 0
 ```
 
-Defined in plugin_audit.h:47
+Defined in plugin_audit.h:52
 
 ---
 
@@ -2652,7 +2934,7 @@ Defined in plugin_audit.h:47
 #define MYSQL_AUDIT_GENERAL_ERROR 1
 ```
 
-Defined in plugin_audit.h:48
+Defined in plugin_audit.h:53
 
 ---
 
@@ -2662,7 +2944,7 @@ Defined in plugin_audit.h:48
 #define MYSQL_AUDIT_GENERAL_RESULT 2
 ```
 
-Defined in plugin_audit.h:49
+Defined in plugin_audit.h:54
 
 ---
 
@@ -2672,7 +2954,7 @@ Defined in plugin_audit.h:49
 #define MYSQL_AUDIT_GENERAL_STATUS 3
 ```
 
-Defined in plugin_audit.h:50
+Defined in plugin_audit.h:55
 
 ---
 
@@ -2682,7 +2964,7 @@ Defined in plugin_audit.h:50
 #define MYSQL_AUDIT_GENERAL_WARNING 4
 ```
 
-Defined in plugin_audit.h:51
+Defined in plugin_audit.h:56
 
 ---
 
@@ -2692,7 +2974,7 @@ Defined in plugin_audit.h:51
 #define MYSQL_AUDIT_CONNECTION_CLASS 1
 ```
 
-Defined in plugin_audit.h:91
+Defined in plugin_audit.h:98
 
 ---
 
@@ -2702,7 +2984,7 @@ Defined in plugin_audit.h:91
 #define MYSQL_AUDIT_CONNECTION_CLASSMASK (1 << MYSQL_AUDIT_CONNECTION_CLASS)
 ```
 
-Defined in plugin_audit.h:92
+Defined in plugin_audit.h:99
 
 ---
 
@@ -2712,7 +2994,7 @@ Defined in plugin_audit.h:92
 #define MYSQL_AUDIT_CONNECTION_CONNECT 0
 ```
 
-Defined in plugin_audit.h:93
+Defined in plugin_audit.h:100
 
 ---
 
@@ -2722,7 +3004,7 @@ Defined in plugin_audit.h:93
 #define MYSQL_AUDIT_CONNECTION_DISCONNECT 1
 ```
 
-Defined in plugin_audit.h:94
+Defined in plugin_audit.h:101
 
 ---
 
@@ -2732,7 +3014,7 @@ Defined in plugin_audit.h:94
 #define MYSQL_AUDIT_CONNECTION_CHANGE_USER 2
 ```
 
-Defined in plugin_audit.h:95
+Defined in plugin_audit.h:102
 
 ---
 
@@ -2742,7 +3024,7 @@ Defined in plugin_audit.h:95
 #define MYSQL_AUDIT_TABLE_CLASS 15
 ```
 
-Defined in plugin_audit.h:134
+Defined in plugin_audit.h:145
 
 ---
 
@@ -2752,7 +3034,7 @@ Defined in plugin_audit.h:134
 #define MYSQL_AUDIT_TABLE_CLASSMASK (1 << MYSQL_AUDIT_TABLE_CLASS)
 ```
 
-Defined in plugin_audit.h:135
+Defined in plugin_audit.h:146
 
 ---
 
@@ -2762,7 +3044,7 @@ Defined in plugin_audit.h:135
 #define MYSQL_AUDIT_TABLE_LOCK 0
 ```
 
-Defined in plugin_audit.h:136
+Defined in plugin_audit.h:147
 
 ---
 
@@ -2772,7 +3054,7 @@ Defined in plugin_audit.h:136
 #define MYSQL_AUDIT_TABLE_CREATE 1
 ```
 
-Defined in plugin_audit.h:137
+Defined in plugin_audit.h:148
 
 ---
 
@@ -2782,7 +3064,7 @@ Defined in plugin_audit.h:137
 #define MYSQL_AUDIT_TABLE_DROP 2
 ```
 
-Defined in plugin_audit.h:138
+Defined in plugin_audit.h:149
 
 ---
 
@@ -2792,7 +3074,7 @@ Defined in plugin_audit.h:138
 #define MYSQL_AUDIT_TABLE_RENAME 3
 ```
 
-Defined in plugin_audit.h:139
+Defined in plugin_audit.h:150
 
 ---
 
@@ -2802,57 +3084,67 @@ Defined in plugin_audit.h:139
 #define MYSQL_AUDIT_TABLE_ALTER 4
 ```
 
-Defined in plugin_audit.h:140
+Defined in plugin_audit.h:151
+
+---
+
+### MYSQL_MEMORY_H
+
+```cpp
+#define MYSQL_MEMORY_H
+```
+
+Defined in psi/mysql_memory.h:34
 
 ---
 
 ### PSI_CALL_memory_alloc
 
 ```cpp
-#define PSI_CALL_memory_alloc(A1, A2, A3) 0
+#define PSI_CALL_memory_alloc(A1, A2, A3, A1, A2, A3) 0
 ```
 
-Defined in psi/mysql_memory.h:39
+Defined in psi/mysql_memory.h:44
 
 ---
 
 ### PSI_CALL_memory_free
 
 ```cpp
-#define PSI_CALL_memory_free(A1, A2, A3) do { } while(0)
+#define PSI_CALL_memory_free(A1, A2, A3, A1, A2, A3) do { } while(0)
 ```
 
-Defined in psi/mysql_memory.h:40
+Defined in psi/mysql_memory.h:45
 
 ---
 
 ### PSI_CALL_memory_realloc
 
 ```cpp
-#define PSI_CALL_memory_realloc(A1, A2, A3, A4) 0
+#define PSI_CALL_memory_realloc(A1, A2, A3, A4, A1, A2, A3, A4) 0
 ```
 
-Defined in psi/mysql_memory.h:41
+Defined in psi/mysql_memory.h:46
 
 ---
 
 ### PSI_CALL_register_memory
 
 ```cpp
-#define PSI_CALL_register_memory(A1, A2, A3) do { } while(0)
+#define PSI_CALL_register_memory(A1, A2, A3, A1, A2, A3) do { } while(0)
 ```
 
-Defined in psi/mysql_memory.h:42
+Defined in psi/mysql_memory.h:47
 
 ---
 
 ### PSI_MEMORY_CALL
 
 ```cpp
-#define PSI_MEMORY_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_MEMORY_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_memory.h:46
+Defined in psi/mysql_memory.h:51
 
 ---
 
@@ -2862,7 +3154,7 @@ Defined in psi/mysql_memory.h:46
 #define mysql_memory_register(P1, P2, P3, P1, P2, P3) inline_mysql_memory_register(P1, P2, P3)
 ```
 
-Defined in psi/mysql_memory.h:59
+Defined in psi/mysql_memory.h:58
 
 Memory registration.
 
@@ -2874,17 +3166,17 @@ Memory registration.
 #define SOCKBUF_T void
 ```
 
-Defined in psi/mysql_socket.h:41
+Defined in psi/mysql_socket.h:53
 
 ---
 
 ### PSI_SOCKET_CALL
 
 ```cpp
-#define PSI_SOCKET_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_SOCKET_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_socket.h:51
+Defined in psi/mysql_socket.h:59
 
 ---
 
@@ -2894,7 +3186,7 @@ Defined in psi/mysql_socket.h:51
 #define mysql_socket_register(P1, P2, P3, P1, P2, P3) inline_mysql_socket_register(P1, P2, P3)
 ```
 
-Defined in psi/mysql_socket.h:65
+Defined in psi/mysql_socket.h:67
 
 Socket registration.
 
@@ -2906,7 +3198,7 @@ Socket registration.
 #define MYSQL_INVALID_SOCKET mysql_socket_invalid()
 ```
 
-Defined in psi/mysql_socket.h:107
+Defined in psi/mysql_socket.h:109
 
 MYSQL_SOCKET initial value.
 
@@ -2919,7 +3211,7 @@ MYSQL_SOCKET initial value.
     PSI_socket_locker_state STATE;
 ```
 
-Defined in psi/mysql_socket.h:202
+Defined in psi/mysql_socket.h:204
 
 Instrumentation helper for socket waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait). 
 
@@ -2943,7 +3235,7 @@ Instrumentation helper for socket waits. This instrumentation declares local var
                                            __FILE__, __LINE__)
 ```
 
-Defined in psi/mysql_socket.h:221
+Defined in psi/mysql_socket.h:223
 
 Instrumentation helper for socket waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait).
 
@@ -2970,7 +3262,7 @@ Instrumentation helper for socket waits. This instrumentation marks the start of
 #define MYSQL_END_SOCKET_WAIT(LOCKER, COUNT, LOCKER, COUNT) inline_mysql_end_socket_wait(LOCKER, COUNT)
 ```
 
-Defined in psi/mysql_socket.h:238
+Defined in psi/mysql_socket.h:240
 
 Instrumentation helper for socket waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait).
 
@@ -2991,7 +3283,7 @@ Instrumentation helper for socket waits. This instrumentation marks the end of a
 #define MYSQL_SOCKET_SET_STATE(SOCKET, STATE, SOCKET, STATE) inline_mysql_socket_set_state(SOCKET, STATE)
 ```
 
-Defined in psi/mysql_socket.h:253
+Defined in psi/mysql_socket.h:255
 
 Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket_state
 
@@ -3012,7 +3304,7 @@ Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket
 #define mysql_socket_fd(K, F, K, F) inline_mysql_socket_fd(K, F)
 ```
 
-Defined in psi/mysql_socket.h:317
+Defined in psi/mysql_socket.h:319
 
 Create a socket. `mysql_socket_fd` is a replacement for `socket`.
 
@@ -3033,7 +3325,7 @@ Create a socket. `mysql_socket_fd` is a replacement for `socket`.
 #define mysql_socket_socket(K, D, T, P, K, D, T, P) inline_mysql_socket_socket(K, D, T, P)
 ```
 
-Defined in psi/mysql_socket.h:335
+Defined in psi/mysql_socket.h:337
 
 Create a socket. `mysql_socket_socket` is a replacement for `socket`.
 
@@ -3058,7 +3350,7 @@ Create a socket. `mysql_socket_socket` is a replacement for `socket`.
 #define mysql_socket_bind(FD, AP, L, FD, AP, L) inline_mysql_socket_bind(__FILE__, __LINE__, FD, AP, L)
 ```
 
-Defined in psi/mysql_socket.h:351
+Defined in psi/mysql_socket.h:353
 
 Bind a socket to a local port number and IP address `mysql_socket_bind` is a replacement for `bind`.
 
@@ -3081,7 +3373,7 @@ Bind a socket to a local port number and IP address `mysql_socket_bind` is a rep
 #define mysql_socket_getsockname(FD, AP, LP, FD, AP, LP) inline_mysql_socket_getsockname(__FILE__, __LINE__, FD, AP, LP)
 ```
 
-Defined in psi/mysql_socket.h:367
+Defined in psi/mysql_socket.h:369
 
 Return port number and IP address of the local host `mysql_socket_getsockname` is a replacement for `getsockname`.
 
@@ -3104,7 +3396,7 @@ Return port number and IP address of the local host `mysql_socket_getsockname` i
 #define mysql_socket_connect(FD, AP, L, FD, AP, L) inline_mysql_socket_connect(__FILE__, __LINE__, FD, AP, L)
 ```
 
-Defined in psi/mysql_socket.h:383
+Defined in psi/mysql_socket.h:385
 
 Establish a connection to a remote host. `mysql_socket_connect` is a replacement for `connect`.
 
@@ -3127,7 +3419,7 @@ Establish a connection to a remote host. `mysql_socket_connect` is a replacement
 #define mysql_socket_getpeername(FD, AP, LP, FD, AP, LP) inline_mysql_socket_getpeername(__FILE__, __LINE__, FD, AP, LP)
 ```
 
-Defined in psi/mysql_socket.h:399
+Defined in psi/mysql_socket.h:401
 
 Get port number and IP address of remote host that a socket is connected to. `mysql_socket_getpeername` is a replacement for `getpeername`.
 
@@ -3150,7 +3442,7 @@ Get port number and IP address of remote host that a socket is connected to. `my
 #define mysql_socket_send(FD, B, N, FL, FD, B, N, FL) inline_mysql_socket_send(__FILE__, __LINE__, FD, B, N, FL)
 ```
 
-Defined in psi/mysql_socket.h:416
+Defined in psi/mysql_socket.h:418
 
 Send data from the buffer, B, to a connected socket. `mysql_socket_send` is a replacement for `send`.
 
@@ -3175,7 +3467,7 @@ Send data from the buffer, B, to a connected socket. `mysql_socket_send` is a re
 #define mysql_socket_recv(FD, B, N, FL, FD, B, N, FL) inline_mysql_socket_recv(__FILE__, __LINE__, FD, B, N, FL)
 ```
 
-Defined in psi/mysql_socket.h:433
+Defined in psi/mysql_socket.h:435
 
 Receive data from a connected socket. `mysql_socket_recv` is a replacement for `recv`.
 
@@ -3200,7 +3492,7 @@ Receive data from a connected socket. `mysql_socket_recv` is a replacement for `
 #define mysql_socket_sendto(FD, B, N, FL, AP, L, FD, B, N, FL, AP, L) inline_mysql_socket_sendto(__FILE__, __LINE__, FD, B, N, FL, AP, L)
 ```
 
-Defined in psi/mysql_socket.h:452
+Defined in psi/mysql_socket.h:454
 
 Send data to a socket at the specified address. `mysql_socket_sendto` is a replacement for `sendto`.
 
@@ -3229,7 +3521,7 @@ Send data to a socket at the specified address. `mysql_socket_sendto` is a repla
 #define mysql_socket_recvfrom(FD, B, N, FL, AP, LP, FD, B, N, FL, AP, LP) inline_mysql_socket_recvfrom(__FILE__, __LINE__, FD, B, N, FL, AP, LP)
 ```
 
-Defined in psi/mysql_socket.h:471
+Defined in psi/mysql_socket.h:473
 
 Receive data from a socket and return source address information `mysql_socket_recvfrom` is a replacement for `recvfrom`.
 
@@ -3258,7 +3550,7 @@ Receive data from a socket and return source address information `mysql_socket_r
 #define mysql_socket_getsockopt(FD, LV, ON, OP, OL, FD, LV, ON, OP, OL) inline_mysql_socket_getsockopt(__FILE__, __LINE__, FD, LV, ON, OP, OL)
 ```
 
-Defined in psi/mysql_socket.h:489
+Defined in psi/mysql_socket.h:491
 
 Get a socket option for the specified socket. `mysql_socket_getsockopt` is a replacement for `getsockopt`.
 
@@ -3285,7 +3577,7 @@ Get a socket option for the specified socket. `mysql_socket_getsockopt` is a rep
 #define mysql_socket_setsockopt(FD, LV, ON, OP, OL, FD, LV, ON, OP, OL) inline_mysql_socket_setsockopt(__FILE__, __LINE__, FD, LV, ON, OP, OL)
 ```
 
-Defined in psi/mysql_socket.h:507
+Defined in psi/mysql_socket.h:509
 
 Set a socket option for the specified socket. `mysql_socket_setsockopt` is a replacement for `setsockopt`.
 
@@ -3312,7 +3604,7 @@ Set a socket option for the specified socket. `mysql_socket_setsockopt` is a rep
 #define mysql_sock_set_nonblocking(FD, FD) inline_mysql_sock_set_nonblocking(__FILE__, __LINE__, FD)
 ```
 
-Defined in psi/mysql_socket.h:520
+Defined in psi/mysql_socket.h:522
 
 Set socket to non-blocking.
 
@@ -3331,7 +3623,7 @@ Set socket to non-blocking.
 #define mysql_socket_listen(FD, N, FD, N) inline_mysql_socket_listen(__FILE__, __LINE__, FD, N)
 ```
 
-Defined in psi/mysql_socket.h:535
+Defined in psi/mysql_socket.h:537
 
 Set socket state to listen for an incoming connection. `mysql_socket_listen` is a replacement for `listen`.
 
@@ -3352,7 +3644,7 @@ Set socket state to listen for an incoming connection. `mysql_socket_listen` is 
 #define mysql_socket_accept(K, FD, AP, LP, K, FD, AP, LP) inline_mysql_socket_accept(__FILE__, __LINE__, K, FD, AP, LP)
 ```
 
-Defined in psi/mysql_socket.h:552
+Defined in psi/mysql_socket.h:554
 
 Accept a connection from any remote host; TCP only. `mysql_socket_accept` is a replacement for `accept`.
 
@@ -3377,7 +3669,7 @@ Accept a connection from any remote host; TCP only. `mysql_socket_accept` is a r
 #define mysql_socket_close(FD, FD) inline_mysql_socket_close(__FILE__, __LINE__, FD)
 ```
 
-Defined in psi/mysql_socket.h:566
+Defined in psi/mysql_socket.h:568
 
 Close a socket and sever any connections. `mysql_socket_close` is a replacement for `close`.
 
@@ -3396,7 +3688,7 @@ Close a socket and sever any connections. `mysql_socket_close` is a replacement 
 #define mysql_socket_shutdown(FD, H, FD, H) inline_mysql_socket_shutdown(__FILE__, __LINE__, FD, H)
 ```
 
-Defined in psi/mysql_socket.h:581
+Defined in psi/mysql_socket.h:583
 
 Disable receives and/or sends on a socket. `mysql_socket_shutdown` is a replacement for `shutdown`.
 
@@ -3414,40 +3706,40 @@ Disable receives and/or sends on a socket. `mysql_socket_shutdown` is a replacem
 ### PSI_MUTEX_CALL
 
 ```cpp
-#define PSI_MUTEX_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_MUTEX_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_thread.h:73
+Defined in psi/mysql_thread.h:79
 
 ---
 
 ### PSI_RWLOCK_CALL
 
 ```cpp
-#define PSI_RWLOCK_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_RWLOCK_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_thread.h:77
+Defined in psi/mysql_thread.h:83
 
 ---
 
 ### PSI_COND_CALL
 
 ```cpp
-#define PSI_COND_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_COND_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_thread.h:81
+Defined in psi/mysql_thread.h:87
 
 ---
 
 ### PSI_THREAD_CALL
 
 ```cpp
-#define PSI_THREAD_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_THREAD_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_thread.h:85
+Defined in psi/mysql_thread.h:91
 
 ---
 
@@ -4105,43 +4397,373 @@ Set the thread sql session for the instrumentation.
 
 ---
 
+### json_type
+
+```cpp
+#define json_type json_service->json_type
+```
+
+Defined in service_json.h:93
+
+---
+
+### json_get_array_item
+
+```cpp
+#define json_get_array_item json_service->json_get_array_item
+```
+
+Defined in service_json.h:94
+
+---
+
+### json_get_object_key
+
+```cpp
+#define json_get_object_key json_service->json_get_object_key
+```
+
+Defined in service_json.h:95
+
+---
+
+### json_get_object_nkey
+
+```cpp
+#define json_get_object_nkey json_service->json_get_object_nkey
+```
+
+Defined in service_json.h:96
+
+---
+
+### json_escape_string
+
+```cpp
+#define json_escape_string json_service->json_escape_string
+```
+
+Defined in service_json.h:97
+
+---
+
+### json_unescape_json
+
+```cpp
+#define json_unescape_json json_service->json_unescape_json
+```
+
+Defined in service_json.h:98
+
+---
+
 ### MY_SHA1_HASH_SIZE
 
 ```cpp
 #define MY_SHA1_HASH_SIZE 20 /* Hash size in bytes */
 ```
 
-Defined in service_sha1.h:32
+Defined in service_sha1.h:41
 
 ---
 
-### MYSQL_SERVICE_SHA1_INCLUDED
+### my_sha1
 
 ```cpp
-#define MYSQL_SERVICE_SHA1_INCLUDED
+#define my_sha1(digest, buf, len, digest, buf, len) my_sha1_service->my_sha1_type(digest, buf, len)
 ```
 
-Defined in service_sha1.h:67
+Defined in service_sha1.h:54
 
 ---
 
-### MYSQL_SERVICE_SHA2_INCLUDED
+### my_sha1_multi
 
 ```cpp
-#define MYSQL_SERVICE_SHA2_INCLUDED
+#define my_sha1_multi my_sha1_service->my_sha1_multi_type
 ```
 
-Defined in service_sha2.h:128
+Defined in service_sha1.h:55
 
 ---
 
-### MYSQL_CLIENT_PLUGIN_INCLUDED
+### my_sha1_context_size
 
 ```cpp
-#define MYSQL_CLIENT_PLUGIN_INCLUDED
+#define my_sha1_context_size() my_sha1_service->my_sha1_context_size_type()
 ```
 
-Defined in client_plugin.h:25
+Defined in service_sha1.h:56
+
+---
+
+### my_sha1_init
+
+```cpp
+#define my_sha1_init(context, context) my_sha1_service->my_sha1_init_type(context)
+```
+
+Defined in service_sha1.h:57
+
+---
+
+### my_sha1_input
+
+```cpp
+#define my_sha1_input(context, buf, len, context, buf, len) my_sha1_service->my_sha1_input_type(context, buf, len)
+```
+
+Defined in service_sha1.h:58
+
+---
+
+### my_sha1_result
+
+```cpp
+#define my_sha1_result(context, digest, context, digest) my_sha1_service->my_sha1_result_type(context, digest)
+```
+
+Defined in service_sha1.h:59
+
+---
+
+### my_sha224
+
+```cpp
+#define my_sha224(digest, buf, len, digest, buf, len) my_sha2_service->my_sha224_type(digest, buf, len)
+```
+
+Defined in service_sha2.h:75
+
+---
+
+### my_sha224_multi
+
+```cpp
+#define my_sha224_multi my_sha2_service->my_sha224_multi_type
+```
+
+Defined in service_sha2.h:76
+
+---
+
+### my_sha224_context_size
+
+```cpp
+#define my_sha224_context_size() my_sha2_service->my_sha224_context_size_type()
+```
+
+Defined in service_sha2.h:77
+
+---
+
+### my_sha224_init
+
+```cpp
+#define my_sha224_init(context, context) my_sha2_service->my_sha224_init_type(context)
+```
+
+Defined in service_sha2.h:78
+
+---
+
+### my_sha224_input
+
+```cpp
+#define my_sha224_input(context, buf, len, context, buf, len) my_sha2_service->my_sha224_input_type(context, buf, len)
+```
+
+Defined in service_sha2.h:79
+
+---
+
+### my_sha224_result
+
+```cpp
+#define my_sha224_result(context, digest, context, digest) my_sha2_service->my_sha224_result_type(context, digest)
+```
+
+Defined in service_sha2.h:80
+
+---
+
+### my_sha256
+
+```cpp
+#define my_sha256(digest, buf, len, digest, buf, len) my_sha2_service->my_sha256_type(digest, buf, len)
+```
+
+Defined in service_sha2.h:82
+
+---
+
+### my_sha256_multi
+
+```cpp
+#define my_sha256_multi my_sha2_service->my_sha256_multi_type
+```
+
+Defined in service_sha2.h:83
+
+---
+
+### my_sha256_context_size
+
+```cpp
+#define my_sha256_context_size() my_sha2_service->my_sha256_context_size_type()
+```
+
+Defined in service_sha2.h:84
+
+---
+
+### my_sha256_init
+
+```cpp
+#define my_sha256_init(context, context) my_sha2_service->my_sha256_init_type(context)
+```
+
+Defined in service_sha2.h:85
+
+---
+
+### my_sha256_input
+
+```cpp
+#define my_sha256_input(context, buf, len, context, buf, len) my_sha2_service->my_sha256_input_type(context, buf, len)
+```
+
+Defined in service_sha2.h:86
+
+---
+
+### my_sha256_result
+
+```cpp
+#define my_sha256_result(context, digest, context, digest) my_sha2_service->my_sha256_result_type(context, digest)
+```
+
+Defined in service_sha2.h:87
+
+---
+
+### my_sha384
+
+```cpp
+#define my_sha384(digest, buf, len, digest, buf, len) my_sha2_service->my_sha384_type(digest, buf, len)
+```
+
+Defined in service_sha2.h:89
+
+---
+
+### my_sha384_multi
+
+```cpp
+#define my_sha384_multi my_sha2_service->my_sha384_multi_type
+```
+
+Defined in service_sha2.h:90
+
+---
+
+### my_sha384_context_size
+
+```cpp
+#define my_sha384_context_size() my_sha2_service->my_sha384_context_size_type()
+```
+
+Defined in service_sha2.h:91
+
+---
+
+### my_sha384_init
+
+```cpp
+#define my_sha384_init(context, context) my_sha2_service->my_sha384_init_type(context)
+```
+
+Defined in service_sha2.h:92
+
+---
+
+### my_sha384_input
+
+```cpp
+#define my_sha384_input(context, buf, len, context, buf, len) my_sha2_service->my_sha384_input_type(context, buf, len)
+```
+
+Defined in service_sha2.h:93
+
+---
+
+### my_sha384_result
+
+```cpp
+#define my_sha384_result(context, digest, context, digest) my_sha2_service->my_sha384_result_type(context, digest)
+```
+
+Defined in service_sha2.h:94
+
+---
+
+### my_sha512
+
+```cpp
+#define my_sha512(digest, buf, len, digest, buf, len) my_sha2_service->my_sha512_type(digest, buf, len)
+```
+
+Defined in service_sha2.h:96
+
+---
+
+### my_sha512_multi
+
+```cpp
+#define my_sha512_multi my_sha2_service->my_sha512_multi_type
+```
+
+Defined in service_sha2.h:97
+
+---
+
+### my_sha512_context_size
+
+```cpp
+#define my_sha512_context_size() my_sha2_service->my_sha512_context_size_type()
+```
+
+Defined in service_sha2.h:98
+
+---
+
+### my_sha512_init
+
+```cpp
+#define my_sha512_init(context, context) my_sha2_service->my_sha512_init_type(context)
+```
+
+Defined in service_sha2.h:99
+
+---
+
+### my_sha512_input
+
+```cpp
+#define my_sha512_input(context, buf, len, context, buf, len) my_sha2_service->my_sha512_input_type(context, buf, len)
+```
+
+Defined in service_sha2.h:100
+
+---
+
+### my_sha512_result
+
+```cpp
+#define my_sha512_result(context, digest, context, digest) my_sha2_service->my_sha512_result_type(context, digest)
+```
+
+Defined in service_sha2.h:101
 
 ---
 
@@ -4151,37 +4773,37 @@ Defined in client_plugin.h:25
 #define MYSQL_PLUGIN_EXPORT_C
 ```
 
-Defined in client_plugin.h:37
+Defined in client_plugin.h:42
 
 ---
 
 ### MYSQL_PLUGIN_EXPORT
 
 ```cpp
-#define MYSQL_PLUGIN_EXPORT MYSQL_PLUGIN_EXPORT_C
-```
-
-Defined in client_plugin.h:44
-
----
-
-### C_MODE_START
-
-```cpp
-#define C_MODE_START
+#define MYSQL_PLUGIN_EXPORT extern "C" MYSQL_PLUGIN_EXPORT_C
 ```
 
 Defined in client_plugin.h:45
 
 ---
 
-### C_MODE_END
+### C_MODE_START
 
 ```cpp
-#define C_MODE_END
+#define C_MODE_START extern "C" {
 ```
 
 Defined in client_plugin.h:46
+
+---
+
+### C_MODE_END
+
+```cpp
+#define C_MODE_END }
+```
+
+Defined in client_plugin.h:47
 
 ---
 
@@ -4191,7 +4813,7 @@ Defined in client_plugin.h:46
 #define MYSQL_CLIENT_reserved1 0
 ```
 
-Defined in client_plugin.h:55
+Defined in client_plugin.h:60
 
 ---
 
@@ -4201,7 +4823,7 @@ Defined in client_plugin.h:55
 #define MYSQL_CLIENT_reserved2 1
 ```
 
-Defined in client_plugin.h:56
+Defined in client_plugin.h:61
 
 ---
 
@@ -4211,7 +4833,7 @@ Defined in client_plugin.h:56
 #define MYSQL_CLIENT_AUTHENTICATION_PLUGIN 2
 ```
 
-Defined in client_plugin.h:57
+Defined in client_plugin.h:62
 
 ---
 
@@ -4221,7 +4843,7 @@ Defined in client_plugin.h:57
 #define MYSQL_CLIENT_AUTHENTICATION_PLUGIN_INTERFACE_VERSION 0x0101
 ```
 
-Defined in client_plugin.h:59
+Defined in client_plugin.h:64
 
 ---
 
@@ -4231,21 +4853,21 @@ Defined in client_plugin.h:59
 #define MYSQL_CLIENT_MAX_PLUGINS 3
 ```
 
-Defined in client_plugin.h:61
+Defined in client_plugin.h:66
 
 ---
 
 ### mysql_declare_client_plugin
 
 ```cpp
-#define mysql_declare_client_plugin(X) C_MODE_STARTMYSQL_PLUGIN_EXPORT_C         \
+#define mysql_declare_client_plugin(X, X) C_MODE_STARTMYSQL_PLUGIN_EXPORT_C         \
         struct st_mysql_client_plugin_ ## X        \
         _mysql_client_plugin_declaration_ = {   \
           MYSQL_CLIENT_ ## X ## _PLUGIN,        \
           MYSQL_CLIENT_ ## X ## _PLUGIN_INTERFACE_VERSION,
 ```
 
-Defined in client_plugin.h:63
+Defined in client_plugin.h:68
 
 ---
 
@@ -4255,7 +4877,7 @@ Defined in client_plugin.h:63
 #define mysql_end_client_plugin }; C_MODE_END
 ```
 
-Defined in client_plugin.h:69
+Defined in client_plugin.h:74
 
 ---
 
@@ -4275,7 +4897,7 @@ Defined in client_plugin.h:69
   int (*options)(const char *option, const void *);
 ```
 
-Defined in client_plugin.h:72
+Defined in client_plugin.h:77
 
 ---
 
@@ -4285,27 +4907,496 @@ Defined in client_plugin.h:72
 #define WSREP_ASSERT_INNODB_TRX 1
 ```
 
-Defined in service_wsrep.h:14
+Defined in service_wsrep.h:46
+
+The bits in the bitmask for disabling temporarily some asserts
 
 ---
 
-### MYSQL_SERVICE_WSREP_INCLUDED
+### MYSQL_SERVICE_WSREP_DYNAMIC_INCLUDED
 
 ```cpp
-#define MYSQL_SERVICE_WSREP_INCLUDED
+#define MYSQL_SERVICE_WSREP_DYNAMIC_INCLUDED
 ```
 
-Defined in service_wsrep.h:107
+Defined in service_wsrep.h:116
 
 ---
 
-### MYSQL_SERVICE_WSREP_STATIC_INCLUDED
+### get_wsrep_recovery
 
 ```cpp
-#define MYSQL_SERVICE_WSREP_STATIC_INCLUDED
+#define get_wsrep_recovery() wsrep_service->get_wsrep_recovery_func()
 ```
 
-Defined in service_wsrep.h:158
+Defined in service_wsrep.h:117
+
+---
+
+### wsrep_consistency_check
+
+```cpp
+#define wsrep_consistency_check(thd, thd) wsrep_service->wsrep_consistency_check_func(thd)
+```
+
+Defined in service_wsrep.h:118
+
+---
+
+### wsrep_is_wsrep_xid
+
+```cpp
+#define wsrep_is_wsrep_xid(xid, xid) wsrep_service->wsrep_is_wsrep_xid_func(xid)
+```
+
+Defined in service_wsrep.h:119
+
+---
+
+### wsrep_xid_seqno
+
+```cpp
+#define wsrep_xid_seqno(xid, xid) wsrep_service->wsrep_xid_seqno_func(xid)
+```
+
+Defined in service_wsrep.h:120
+
+---
+
+### wsrep_xid_uuid
+
+```cpp
+#define wsrep_xid_uuid(xid, xid) wsrep_service->wsrep_xid_uuid_func(xid)
+```
+
+Defined in service_wsrep.h:121
+
+---
+
+### wsrep_on
+
+```cpp
+#define wsrep_on(thd, thd) (thd) && WSREP_ON && wsrep_service->wsrep_on_func(thd)
+```
+
+Defined in service_wsrep.h:126
+
+Return true if wsrep is enabled for a thd. This means that wsrep is enabled globally and the thd has wsrep on
+
+---
+
+### wsrep_prepare_key_for_innodb
+
+```cpp
+#define wsrep_prepare_key_for_innodb(A, B, C, D, E, F, G, A, B, C, D, E, F, G) wsrep_service->wsrep_prepare_key_for_innodb_func(A,B,C,D,E,F,G)
+```
+
+Defined in service_wsrep.h:127
+
+---
+
+### wsrep_thd_LOCK
+
+```cpp
+#define wsrep_thd_LOCK(thd, thd) wsrep_service->wsrep_thd_LOCK_func(thd)
+```
+
+Defined in service_wsrep.h:129
+
+Lock thd wsrep lock
+
+---
+
+### wsrep_thd_TRYLOCK
+
+```cpp
+#define wsrep_thd_TRYLOCK(thd, thd) wsrep_service->wsrep_thd_TRYLOCK_func(thd)
+```
+
+Defined in service_wsrep.h:134
+
+Try thd wsrep lock. 
+#### Returns
+non-zero if lock could not be taken.
+
+---
+
+### wsrep_thd_UNLOCK
+
+```cpp
+#define wsrep_thd_UNLOCK(thd, thd) wsrep_service->wsrep_thd_UNLOCK_func(thd)
+```
+
+Defined in service_wsrep.h:136
+
+Unlock thd wsrep lock
+
+---
+
+### wsrep_thd_kill_LOCK
+
+```cpp
+#define wsrep_thd_kill_LOCK(thd, thd) wsrep_service->wsrep_thd_kill_LOCK_func(thd)
+```
+
+Defined in service_wsrep.h:137
+
+---
+
+### wsrep_thd_kill_UNLOCK
+
+```cpp
+#define wsrep_thd_kill_UNLOCK(thd, thd) wsrep_service->wsrep_thd_kill_UNLOCK_func(thd)
+```
+
+Defined in service_wsrep.h:138
+
+---
+
+### wsrep_thd_query
+
+```cpp
+#define wsrep_thd_query(thd, thd) wsrep_service->wsrep_thd_query_func(thd)
+```
+
+Defined in service_wsrep.h:139
+
+---
+
+### wsrep_thd_retry_counter
+
+```cpp
+#define wsrep_thd_retry_counter(thd, thd) wsrep_service->wsrep_thd_retry_counter_func(thd)
+```
+
+Defined in service_wsrep.h:140
+
+---
+
+### wsrep_thd_ignore_table
+
+```cpp
+#define wsrep_thd_ignore_table(thd, thd) wsrep_service->wsrep_thd_ignore_table_func(thd)
+```
+
+Defined in service_wsrep.h:141
+
+---
+
+### wsrep_thd_trx_seqno
+
+```cpp
+#define wsrep_thd_trx_seqno(thd, thd) wsrep_service->wsrep_thd_trx_seqno_func(thd)
+```
+
+Defined in service_wsrep.h:142
+
+---
+
+### wsrep_set_data_home_dir
+
+```cpp
+#define wsrep_set_data_home_dir(A, A) wsrep_service->wsrep_set_data_home_dir_func(A)
+```
+
+Defined in service_wsrep.h:143
+
+---
+
+### wsrep_thd_is_BF
+
+```cpp
+#define wsrep_thd_is_BF(thd, sync, thd, sync) wsrep_service->wsrep_thd_is_BF_func(thd,sync)
+```
+
+Defined in service_wsrep.h:145
+
+#### Return Values
+
+| Value | Description |
+|-------|-------------|
+| `true` | if thd is in BF mode, either high_priority or TOI |
+
+---
+
+### wsrep_thd_is_aborting
+
+```cpp
+#define wsrep_thd_is_aborting(thd, thd) wsrep_service->wsrep_thd_is_aborting_func(thd)
+```
+
+Defined in service_wsrep.h:146
+
+---
+
+### wsrep_thd_in_rollback_func
+
+```cpp
+#define wsrep_thd_in_rollback_func(thd, thd) wsrep_service->wsrep_thd_in_rollback_func(thd)
+```
+
+Defined in service_wsrep.h:148
+
+#### Return Values
+
+| Value | Description |
+|-------|-------------|
+| `true` | if thd is in rollback |
+
+---
+
+### wsrep_thd_is_local
+
+```cpp
+#define wsrep_thd_is_local(thd, thd) wsrep_service->wsrep_thd_is_local_func(thd)
+```
+
+Defined in service_wsrep.h:150
+
+#### Return Values
+
+| Value | Description |
+|-------|-------------|
+| `true` | if thd is in replicating mode |
+
+---
+
+### wsrep_thd_self_abort
+
+```cpp
+#define wsrep_thd_self_abort(thd, thd) wsrep_service->wsrep_thd_self_abort_func(thd)
+```
+
+Defined in service_wsrep.h:152
+
+Mark thd own transaction as aborted
+
+---
+
+### wsrep_thd_append_key
+
+```cpp
+#define wsrep_thd_append_key(thd, key, nkeys, key_type, thd, key, nkeys, key_type) wsrep_service->wsrep_thd_append_key_func(thd,key,nkeys,key_type)
+```
+
+Defined in service_wsrep.h:153
+
+---
+
+### wsrep_thd_append_table_key
+
+```cpp
+#define wsrep_thd_append_table_key(thd, db, table, key, thd, db, table, key) wsrep_service->wsrep_thd_append_table_key_func(thd,db,table,key)
+```
+
+Defined in service_wsrep.h:154
+
+---
+
+### wsrep_thd_is_local_transaction
+
+```cpp
+#define wsrep_thd_is_local_transaction(thd, thd) wsrep_service->wsrep_thd_is_local_transaction_func(thd)
+```
+
+Defined in service_wsrep.h:155
+
+---
+
+### wsrep_thd_client_state_str
+
+```cpp
+#define wsrep_thd_client_state_str(thd, thd) wsrep_service->wsrep_thd_client_state_str_func(thd)
+```
+
+Defined in service_wsrep.h:157
+
+#### Returns
+thd client state string
+
+---
+
+### wsrep_thd_client_mode_str
+
+```cpp
+#define wsrep_thd_client_mode_str(thd, thd) wsrep_service->wsrep_thd_client_mode_str_func(thd)
+```
+
+Defined in service_wsrep.h:159
+
+#### Returns
+thd client mode string
+
+---
+
+### wsrep_thd_transaction_state_str
+
+```cpp
+#define wsrep_thd_transaction_state_str(thd, thd) wsrep_service->wsrep_thd_transaction_state_str_func(thd)
+```
+
+Defined in service_wsrep.h:161
+
+#### Returns
+thd transaction state string
+
+---
+
+### wsrep_thd_transaction_id
+
+```cpp
+#define wsrep_thd_transaction_id(thd, thd) wsrep_service->wsrep_thd_transaction_id_func(thd)
+```
+
+Defined in service_wsrep.h:163
+
+#### Returns
+current transaction id
+
+---
+
+### wsrep_thd_bf_abort
+
+```cpp
+#define wsrep_thd_bf_abort(bf_thd, victim_thd, signal, bf_thd, victim_thd, signal) wsrep_service->wsrep_thd_bf_abort_func(bf_thd,victim_thd,signal)
+```
+
+Defined in service_wsrep.h:165
+
+Mark victim_thd transaction as aborted
+
+---
+
+### wsrep_thd_order_before
+
+```cpp
+#define wsrep_thd_order_before(left, right, left, right) wsrep_service->wsrep_thd_order_before_func(left,right)
+```
+
+Defined in service_wsrep.h:166
+
+---
+
+### wsrep_handle_SR_rollback
+
+```cpp
+#define wsrep_handle_SR_rollback(BF_thd, victim_thd, BF_thd, victim_thd) wsrep_service->wsrep_handle_SR_rollback_func(BF_thd,victim_thd)
+```
+
+Defined in service_wsrep.h:167
+
+---
+
+### wsrep_thd_skip_locking
+
+```cpp
+#define wsrep_thd_skip_locking(thd, thd) wsrep_service->wsrep_thd_skip_locking_func(thd)
+```
+
+Defined in service_wsrep.h:168
+
+---
+
+### wsrep_get_sr_table_name
+
+```cpp
+#define wsrep_get_sr_table_name() wsrep_service->wsrep_get_sr_table_name_func()
+```
+
+Defined in service_wsrep.h:169
+
+---
+
+### wsrep_get_debug
+
+```cpp
+#define wsrep_get_debug() wsrep_service->wsrep_get_debug_func()
+```
+
+Defined in service_wsrep.h:170
+
+---
+
+### wsrep_commit_ordered
+
+```cpp
+#define wsrep_commit_ordered(thd, thd) wsrep_service->wsrep_commit_ordered_func(thd)
+```
+
+Defined in service_wsrep.h:171
+
+---
+
+### wsrep_thd_is_applying
+
+```cpp
+#define wsrep_thd_is_applying(thd, thd) wsrep_service->wsrep_thd_is_applying_func(thd)
+```
+
+Defined in service_wsrep.h:176
+
+#### Returns
+true if thd is in high priority mode
+
+---
+
+### wsrep_OSU_method_get
+
+```cpp
+#define wsrep_OSU_method_get(thd, thd) wsrep_service->wsrep_OSU_method_get_func(thd)
+```
+
+Defined in service_wsrep.h:177
+
+---
+
+### wsrep_thd_has_ignored_error
+
+```cpp
+#define wsrep_thd_has_ignored_error(thd, thd) wsrep_service->wsrep_thd_has_ignored_error_func(thd)
+```
+
+Defined in service_wsrep.h:178
+
+---
+
+### wsrep_thd_set_ignored_error
+
+```cpp
+#define wsrep_thd_set_ignored_error(thd, val, thd, val) wsrep_service->wsrep_thd_set_ignored_error_func(thd,val)
+```
+
+Defined in service_wsrep.h:179
+
+---
+
+### wsrep_report_bf_lock_wait
+
+```cpp
+#define wsrep_report_bf_lock_wait(thd, trx_id, thd, trx_id) wsrep_service->wsrep_report_bf_lock_wait_func(thd,trx_id)
+```
+
+Defined in service_wsrep.h:180
+
+---
+
+### wsrep_thd_set_PA_unsafe
+
+```cpp
+#define wsrep_thd_set_PA_unsafe(thd, thd) wsrep_service->wsrep_thd_set_wsrep_PA_unsafe_func(thd)
+```
+
+Defined in service_wsrep.h:181
+
+---
+
+### wsrep_get_domain_id
+
+```cpp
+#define wsrep_get_domain_id() wsrep_service->wsrep_get_domain_id_func()
+```
+
+Defined in service_wsrep.h:182
 
 ---
 
@@ -4315,17 +5406,178 @@ Defined in service_wsrep.h:158
 #define MY_BASE64_DECODE_ALLOW_MULTIPLE_CHUNKS 1
 ```
 
-Defined in service_base64.h:33
+Defined in service_base64.h:45
 
 ---
 
-### MYSQL_SERVICE_BASE64_INCLUDED
+### my_base64_needed_encoded_length
 
 ```cpp
-#define MYSQL_SERVICE_BASE64_INCLUDED
+#define my_base64_needed_encoded_length(A, A) base64_service->base64_needed_encoded_length_ptr(A)
 ```
 
-Defined in service_base64.h:81
+Defined in service_base64.h:59
+
+---
+
+### my_base64_encode_max_arg_length
+
+```cpp
+#define my_base64_encode_max_arg_length() base64_service->base64_encode_max_arg_length_ptr()
+```
+
+Defined in service_base64.h:60
+
+---
+
+### my_base64_needed_decoded_length
+
+```cpp
+#define my_base64_needed_decoded_length(A, A) base64_service->base64_needed_decoded_length_ptr(A)
+```
+
+Defined in service_base64.h:61
+
+---
+
+### my_base64_decode_max_arg_length
+
+```cpp
+#define my_base64_decode_max_arg_length() base64_service->base64_decode_max_arg_length_ptr()
+```
+
+Defined in service_base64.h:62
+
+---
+
+### my_base64_encode
+
+```cpp
+#define my_base64_encode(A, B, C, A, B, C) base64_service->base64_encode_ptr(A,B,C)
+```
+
+Defined in service_base64.h:63
+
+---
+
+### my_base64_decode
+
+```cpp
+#define my_base64_decode(A, B, C, D, E, A, B, C, D, E) base64_service->base64_decode_ptr(A,B,C,D,E)
+```
+
+Defined in service_base64.h:64
+
+---
+
+### logger_init_mutexes
+
+```cpp
+#define logger_init_mutexes logger_service->logger_init_mutexes
+```
+
+Defined in service_logger.h:92
+
+---
+
+### logger_open
+
+```cpp
+#define logger_open(path, size_limit, rotations, buffer_size, path, size_limit, rotations, buffer_size) (logger_service->open(path, size_limit, rotations, buffer_size))
+```
+
+Defined in service_logger.h:93
+
+---
+
+### logger_close
+
+```cpp
+#define logger_close(log, log) (logger_service->close(log))
+```
+
+Defined in service_logger.h:95
+
+---
+
+### logger_rotate
+
+```cpp
+#define logger_rotate(log, log) (logger_service->rotate(log))
+```
+
+Defined in service_logger.h:96
+
+---
+
+### logger_vprintf
+
+```cpp
+#define logger_vprintf(log, fmt, argptr, log, fmt, argptr) (logger_service->\
+    vprintf(log, fmt, argptr))
+```
+
+Defined in service_logger.h:97
+
+---
+
+### logger_printf
+
+```cpp
+#define logger_printf (*logger_service->printf)
+```
+
+Defined in service_logger.h:99
+
+---
+
+### logger_write
+
+```cpp
+#define logger_write(log, data, size, log, data, size) (logger_service->write(log, data, size))
+```
+
+Defined in service_logger.h:100
+
+---
+
+### logger_sync
+
+```cpp
+#define logger_sync(log, log) (logger_service->sync(log))
+```
+
+Defined in service_logger.h:102
+
+---
+
+### logger_resize_buffer
+
+```cpp
+#define logger_resize_buffer(log, new_buffer_size, log, new_buffer_size) (logger_service->resize_buffer(log, new_buffer_size))
+```
+
+Defined in service_logger.h:103
+
+---
+
+### logger_set_filesize_limit
+
+```cpp
+#define logger_set_filesize_limit(log, new_file_limit, log, new_file_limit) (logger_service->set_filesize_limit(log, new_file_limit))
+```
+
+Defined in service_logger.h:105
+
+---
+
+### logger_set_rotations
+
+```cpp
+#define logger_set_rotations(log, new_rotations, log, new_rotations) (logger_service->set_rotations(log, new_rotations))
+```
+
+Defined in service_logger.h:107
 
 ---
 
@@ -4335,7 +5587,7 @@ Defined in service_base64.h:81
 #define MYSQL_FTPARSER_INTERFACE_VERSION 0x0100
 ```
 
-Defined in plugin_ftparser.h:29
+Defined in plugin_ftparser.h:31
 
 ---
 
@@ -4345,27 +5597,43 @@ Defined in plugin_ftparser.h:29
 #define MYSQL_FTFLAGS_NEED_COPY 1
 ```
 
-Defined in plugin_ftparser.h:142
+Defined in plugin_ftparser.h:159
+
+Needs a copy flag.
+
+The following flag means that buffer with a string (document, word) may be overwritten by the caller before the end of the parsing (that is before [st_mysql_ftparser::deinit()](ftparser_plugin_data.md#deinit) call). If one needs the string to survive between two successive calls of the parsing function, she needs to save a copy of it. The flag may be set by MySQL before calling [st_mysql_ftparser::parse()](ftparser_plugin_data.md#parse), or it may be set by a plugin before calling [st_mysql_ftparser_param::mysql_parse()](ftparser_plugin_data.md#mysql_parse) or [st_mysql_ftparser_param::mysql_add_word()](ftparser_plugin_data.md#mysql_add_word).
+
+---
+
+### MariaDB_FUNCTION_INTERFACE_VERSION
+
+```cpp
+#define MariaDB_FUNCTION_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
+```
+
+Defined in plugin_function.h:41
+
+API for function plugins.
 
 ---
 
 ### PSI_STATEMENT_CALL
 
 ```cpp
-#define PSI_STATEMENT_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_STATEMENT_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_statement.h:38
+Defined in psi/mysql_statement.h:44
 
 ---
 
 ### PSI_DIGEST_CALL
 
 ```cpp
-#define PSI_DIGEST_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_DIGEST_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_statement.h:42
+Defined in psi/mysql_statement.h:48
 
 ---
 
@@ -4471,23 +5739,69 @@ Defined in psi/mysql_statement.h:131
 
 ---
 
-### MYSQL_SERVICE_THD_RND_INCLUDED
+### thd_mdl_context
 
 ```cpp
-#define MYSQL_SERVICE_THD_RND_INCLUDED
+#define thd_mdl_context(thd, thd) thd_mdl_service->thd_mdl_context(thd)
 ```
 
-Defined in service_thd_rnd.h:62
+Defined in service_thd_mdl.h:49
+
+MDL_context accessor 
+#### Returns
+pointer to thd->mdl_context
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | the current session |
+| `thd` |  | the current session |
 
 ---
 
-### MYSQL_PLUGIN_ENCRYPTION_INCLUDED
+### thd_rnd
 
 ```cpp
-#define MYSQL_PLUGIN_ENCRYPTION_INCLUDED
+#define thd_rnd(thd, thd) thd_rnd_service->thd_rnd_ptr(thd)
 ```
 
-Defined in plugin_encryption.h:26
+Defined in service_thd_rnd.h:52
+
+---
+
+### thd_create_random_password
+
+```cpp
+#define thd_create_random_password(thd, to, length, thd, to, length) thd_rnd_service->thd_c_r_p_ptr(thd,to,length)
+```
+
+Defined in service_thd_rnd.h:61
+
+Generate string of printable random characters of requested length.
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | User thread connection handle |
+| `to` |  | Buffer for generation; must be at least length+1 bytes long; result string is always null-terminated |
+| `length` |  | How many random characters to put in buffer |
+| `thd` |  | User thread connection handle |
+| `to` |  | Buffer for generation; must be at least length+1 bytes long; result string is always null-terminated |
+| `length` |  | How many random characters to put in buffer |
+
+---
+
+### MariaDB_DATA_TYPE_INTERFACE_VERSION
+
+```cpp
+#define MariaDB_DATA_TYPE_INTERFACE_VERSION (MYSQL_VERSION_ID << 8)
+```
+
+Defined in plugin_data_type.h:40
+
+Data type plugin interface version
 
 ---
 
@@ -4497,17 +5811,17 @@ Defined in plugin_encryption.h:26
 #define MariaDB_ENCRYPTION_INTERFACE_VERSION 0x0300
 ```
 
-Defined in plugin_encryption.h:34
+Defined in plugin_encryption.h:52
 
 ---
 
 ### PSI_TRANSACTION_CALL
 
 ```cpp
-#define PSI_TRANSACTION_CALL(M) PSI_DYNAMIC_CALL(M)
+#define PSI_TRANSACTION_CALL(M, M) PSI_DYNAMIC_CALL(M)
 ```
 
-Defined in psi/mysql_transaction.h:34
+Defined in psi/mysql_transaction.h:40
 
 ---
 
@@ -4617,7 +5931,7 @@ Defined in psi/mysql_transaction.h:119
 #define MY_AES_OK 0
 ```
 
-Defined in service_my_crypt.h:37
+Defined in service_my_crypt.h:43
 
 ---
 
@@ -4627,7 +5941,7 @@ Defined in service_my_crypt.h:37
 #define MY_AES_BAD_DATA -100
 ```
 
-Defined in service_my_crypt.h:38
+Defined in service_my_crypt.h:44
 
 ---
 
@@ -4637,7 +5951,7 @@ Defined in service_my_crypt.h:38
 #define MY_AES_OPENSSL_ERROR -101
 ```
 
-Defined in service_my_crypt.h:39
+Defined in service_my_crypt.h:45
 
 ---
 
@@ -4647,7 +5961,7 @@ Defined in service_my_crypt.h:39
 #define MY_AES_BAD_KEYSIZE -102
 ```
 
-Defined in service_my_crypt.h:40
+Defined in service_my_crypt.h:46
 
 ---
 
@@ -4657,7 +5971,7 @@ Defined in service_my_crypt.h:40
 #define MY_AES_BLOCK_SIZE 16
 ```
 
-Defined in service_my_crypt.h:43
+Defined in service_my_crypt.h:49
 
 ---
 
@@ -4667,7 +5981,7 @@ Defined in service_my_crypt.h:43
 #define MY_AES_MAX_KEY_LENGTH 32
 ```
 
-Defined in service_my_crypt.h:46
+Defined in service_my_crypt.h:52
 
 ---
 
@@ -4677,7 +5991,128 @@ Defined in service_my_crypt.h:46
 #define MY_AES_CTX_SIZE 1040
 ```
 
-Defined in service_my_crypt.h:48
+Defined in service_my_crypt.h:54
+
+---
+
+### my_aes_crypt_init
+
+```cpp
+#define my_aes_crypt_init(A, B, C, D, E, F, G, A, B, C, D, E, F, G) my_crypt_service->my_aes_crypt_init(A,B,C,D,E,F,G)
+```
+
+Defined in service_my_crypt.h:90
+
+---
+
+### my_aes_crypt_update
+
+```cpp
+#define my_aes_crypt_update(A, B, C, D, E, A, B, C, D, E) my_crypt_service->my_aes_crypt_update(A,B,C,D,E)
+```
+
+Defined in service_my_crypt.h:93
+
+---
+
+### my_aes_crypt_finish
+
+```cpp
+#define my_aes_crypt_finish(A, B, C, A, B, C) my_crypt_service->my_aes_crypt_finish(A,B,C)
+```
+
+Defined in service_my_crypt.h:96
+
+---
+
+### my_aes_crypt
+
+```cpp
+#define my_aes_crypt(A, B, C, D, E, F, G, H, I, J, A, B, C, D, E, F, G, H, I, J) my_crypt_service->my_aes_crypt(A,B,C,D,E,F,G,H,I,J)
+```
+
+Defined in service_my_crypt.h:99
+
+---
+
+### my_aes_get_size
+
+```cpp
+#define my_aes_get_size(A, B, A, B) my_crypt_service->my_aes_get_size(A,B)
+```
+
+Defined in service_my_crypt.h:102
+
+---
+
+### my_aes_ctx_size
+
+```cpp
+#define my_aes_ctx_size(A, A) my_crypt_service->my_aes_ctx_size(A)
+```
+
+Defined in service_my_crypt.h:105
+
+---
+
+### my_random_bytes
+
+```cpp
+#define my_random_bytes(A, B, A, B) my_crypt_service->my_random_bytes(A,B)
+```
+
+Defined in service_my_crypt.h:108
+
+---
+
+### my_bytes_to_key
+
+```cpp
+#define my_bytes_to_key(A, B, C, D, E, F, G, A, B, C, D, E, F, G) my_crypt_service->my_bytes_to_key(A,B,C,D,E,F,G)
+```
+
+Defined in service_my_crypt.h:111
+
+---
+
+### thd_wait_begin
+
+```cpp
+#define thd_wait_begin(thd, wait_type, thd, wait_type) thd_wait_service->thd_wait_begin_func(thd, wait_type)
+```
+
+Defined in service_thd_wait.h:91
+
+Call just before a wait begins 
+This is used by the threadpool to have better knowledge of which threads that currently are actively running on CPUs. When a thread reports that it's going to sleep/stall, the threadpool scheduler is free to start another thread in the pool most likely. The expected wait time is simply an indication of how long the wait is expected to become, the real wait time could be very different.
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | Thread object. Use NULL if the thd is NOT known. |
+| `wait_type` |  | Type of wait: one of [thd_wait_type](#thd_wait_type) |
+| `thd` |  | Thread object. Use NULL if the thd is NOT known. |
+| `wait_type` |  | Type of wait: one of [thd_wait_type](#thd_wait_type) |
+
+---
+
+### thd_wait_end
+
+```cpp
+#define thd_wait_end(thd, thd) thd_wait_service->thd_wait_end_func(thd)
+```
+
+Defined in service_thd_wait.h:97
+
+Call just after a wait ends
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | Thread object. Use NULL if the thd is NOT known. |
+| `thd` |  | Thread object. Use NULL if the thd is NOT known. |
 
 ---
 
@@ -4687,7 +6122,7 @@ Defined in service_my_crypt.h:48
 #define ENCRYPTION_KEY_VERSION_INVALID (~(unsigned int)0)
 ```
 
-Defined in service_encryption.h:44
+Defined in service_encryption.h:48
 
 ---
 
@@ -4697,7 +6132,7 @@ Defined in service_encryption.h:44
 #define ENCRYPTION_KEY_NOT_ENCRYPTED (0)
 ```
 
-Defined in service_encryption.h:45
+Defined in service_encryption.h:49
 
 ---
 
@@ -4707,7 +6142,7 @@ Defined in service_encryption.h:45
 #define ENCRYPTION_KEY_SYSTEM_DATA 1
 ```
 
-Defined in service_encryption.h:47
+Defined in service_encryption.h:51
 
 ---
 
@@ -4717,7 +6152,7 @@ Defined in service_encryption.h:47
 #define ENCRYPTION_KEY_TEMPORARY_DATA 2
 ```
 
-Defined in service_encryption.h:48
+Defined in service_encryption.h:52
 
 ---
 
@@ -4727,7 +6162,7 @@ Defined in service_encryption.h:48
 #define ENCRYPTION_KEY_BUFFER_TOO_SMALL (100)
 ```
 
-Defined in service_encryption.h:51
+Defined in service_encryption.h:55
 
 ---
 
@@ -4737,7 +6172,7 @@ Defined in service_encryption.h:51
 #define ENCRYPTION_FLAG_DECRYPT 0
 ```
 
-Defined in service_encryption.h:53
+Defined in service_encryption.h:57
 
 ---
 
@@ -4747,7 +6182,7 @@ Defined in service_encryption.h:53
 #define ENCRYPTION_FLAG_ENCRYPT 1
 ```
 
-Defined in service_encryption.h:54
+Defined in service_encryption.h:58
 
 ---
 
@@ -4757,107 +6192,172 @@ Defined in service_encryption.h:54
 #define ENCRYPTION_FLAG_NOPAD 2
 ```
 
-Defined in service_encryption.h:55
+Defined in service_encryption.h:59
 
 ---
 
 ### encryption_key_get_latest_version
 
 ```cpp
-#define encryption_key_get_latest_version(KI) encryption_handler.encryption_key_get_latest_version_func(KI)
+#define encryption_key_get_latest_version(KI, KI) encryption_service->encryption_key_get_latest_version_func(KI)
 ```
 
-Defined in service_encryption.h:87
+Defined in service_encryption.h:80
 
 ---
 
 ### encryption_key_get
 
 ```cpp
-#define encryption_key_get(KI, KV, K, S) encryption_handler.encryption_key_get_func((KI),(KV),(K),(S))
+#define encryption_key_get(KI, KV, K, S, KI, KV, K, S) encryption_service->encryption_key_get_func((KI),(KV),(K),(S))
 ```
 
-Defined in service_encryption.h:88
+Defined in service_encryption.h:81
 
 ---
 
 ### encryption_ctx_size
 
 ```cpp
-#define encryption_ctx_size(KI, KV) encryption_handler.encryption_ctx_size_func((KI),(KV))
+#define encryption_ctx_size(KI, KV, KI, KV) encryption_service->encryption_ctx_size_func((KI),(KV))
 ```
 
-Defined in service_encryption.h:89
+Defined in service_encryption.h:82
 
 ---
 
 ### encryption_ctx_init
 
 ```cpp
-#define encryption_ctx_init(CTX, K, KL, IV, IVL, F, KI, KV) encryption_handler.encryption_ctx_init_func((CTX),(K),(KL),(IV),(IVL),(F),(KI),(KV))
+#define encryption_ctx_init(CTX, K, KL, IV, IVL, F, KI, KV, CTX, K, KL, IV, IVL, F, KI, KV) encryption_service->encryption_ctx_init_func((CTX),(K),(KL),(IV),(IVL),(F),(KI),(KV))
 ```
 
-Defined in service_encryption.h:90
+Defined in service_encryption.h:83
 
 ---
 
 ### encryption_ctx_update
 
 ```cpp
-#define encryption_ctx_update(CTX, S, SL, D, DL) encryption_handler.encryption_ctx_update_func((CTX),(S),(SL),(D),(DL))
+#define encryption_ctx_update(CTX, S, SL, D, DL, CTX, S, SL, D, DL) encryption_service->encryption_ctx_update_func((CTX),(S),(SL),(D),(DL))
 ```
 
-Defined in service_encryption.h:91
+Defined in service_encryption.h:84
 
 ---
 
 ### encryption_ctx_finish
 
 ```cpp
-#define encryption_ctx_finish(CTX, D, DL) encryption_handler.encryption_ctx_finish_func((CTX),(D),(DL))
+#define encryption_ctx_finish(CTX, D, DL, CTX, D, DL) encryption_service->encryption_ctx_finish_func((CTX),(D),(DL))
 ```
 
-Defined in service_encryption.h:92
+Defined in service_encryption.h:85
 
 ---
 
 ### encryption_encrypted_length
 
 ```cpp
-#define encryption_encrypted_length(SL, KI, KV) encryption_handler.encryption_encrypted_length_func((SL),(KI),(KV))
+#define encryption_encrypted_length(SL, KI, KV, SL, KI, KV) encryption_service->encryption_encrypted_length_func((SL),(KI),(KV))
 ```
 
-Defined in service_encryption.h:93
+Defined in service_encryption.h:86
 
 ---
 
-### MYSQL_SERVICE_ENCRYPTION_INCLUDED
+### thd_alloc
 
 ```cpp
-#define MYSQL_SERVICE_ENCRYPTION_INCLUDED
+#define thd_alloc(thd, size, thd, size) (thd_alloc_service->thd_alloc_func((thd), (size)))
 ```
 
-Defined in service_encryption.h:145
+Defined in service_thd_alloc.h:95
+
+Allocate memory in the connection's local memory pool
+
+When properly used in place of `my_malloc()`, this can significantly improve concurrency. Don't use this or related functions to allocate large chunks of memory. Use for temporary storage only. The memory will be freed automatically at the end of the statement; no explicit code is required to prevent memory leaks.
 
 ---
 
-### MYSQL_SERVICE_THD_ALLOC_INCLUDED
+### thd_calloc
 
 ```cpp
-#define MYSQL_SERVICE_THD_ALLOC_INCLUDED
+#define thd_calloc(thd, size, thd, size) (thd_alloc_service->thd_calloc_func((thd), (size)))
 ```
 
-Defined in service_thd_alloc.h:144
+Defined in service_thd_alloc.h:99
+
+**See also**: [thd_alloc()](#thd_alloc)
 
 ---
 
-### MYSQL_AUTH_DIALOG_CLIENT_INCLUDED
+### thd_strdup
 
 ```cpp
-#define MYSQL_AUTH_DIALOG_CLIENT_INCLUDED
+#define thd_strdup(thd, str, thd, str) (thd_alloc_service->thd_strdup_func((thd), (str)))
 ```
 
-Defined in auth_dialog_client.h:25
+Defined in service_thd_alloc.h:103
+
+**See also**: [thd_alloc()](#thd_alloc)
+
+---
+
+### thd_strmake
+
+```cpp
+#define thd_strmake(thd, str, size, thd, str, size) (thd_alloc_service->thd_strmake_func((thd), (str), (size)))
+```
+
+Defined in service_thd_alloc.h:107
+
+**See also**: [thd_alloc()](#thd_alloc)
+
+---
+
+### thd_memdup
+
+```cpp
+#define thd_memdup(thd, str, size, thd, str, size) (thd_alloc_service->thd_memdup_func((thd), (str), (size)))
+```
+
+Defined in service_thd_alloc.h:112
+
+**See also**: [thd_alloc()](#thd_alloc)
+
+---
+
+### thd_make_lex_string
+
+```cpp
+#define thd_make_lex_string(thd, lex_str, str, size, allocate_lex_string, thd, lex_str, str, size, allocate_lex_string) (thd_alloc_service->thd_make_lex_string_func((thd), (lex_str), (str), \
+                                               (size), (allocate_lex_string)))
+```
+
+Defined in service_thd_alloc.h:127
+
+Create a LEX_STRING in this connection's local memory pool
+
+#### Returns
+NULL on failure, or pointer to the LEX_STRING object
+
+**See also**: [thd_alloc()](#thd_alloc)
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `lex_str` |  | pointer to LEX_STRING object to be initialized |
+| `str` |  | initializer to be copied into lex_str |
+| `size` |  | length of str, in bytes |
+| `allocate_lex_string` |  | flag: if TRUE, allocate new LEX_STRING object, instead of using lex_str value |
+| `thd` |  | user thread connection handle |
+| `lex_str` |  | pointer to LEX_STRING object to be initialized |
+| `str` |  | initializer to be copied into lex_str |
+| `size` |  | length of str, in bytes |
+| `allocate_lex_string` |  | flag: if TRUE, allocate new LEX_STRING object, instead of using lex_str value |
 
 ---
 
@@ -4867,7 +6367,7 @@ Defined in auth_dialog_client.h:25
 #define ORDINARY_QUESTION "\2"
 ```
 
-Defined in auth_dialog_client.h:51
+Defined in auth_dialog_client.h:57
 
 first byte of the question string is the question "type". It can be an "ordinary" or a "password" question. The last bit set marks a last question in the authentication exchange.
 
@@ -4879,7 +6379,7 @@ first byte of the question string is the question "type". It can be an "ordinary
 #define LAST_QUESTION "\3"
 ```
 
-Defined in auth_dialog_client.h:52
+Defined in auth_dialog_client.h:58
 
 ---
 
@@ -4889,7 +6389,7 @@ Defined in auth_dialog_client.h:52
 #define PASSWORD_QUESTION "\4"
 ```
 
-Defined in auth_dialog_client.h:53
+Defined in auth_dialog_client.h:59
 
 ---
 
@@ -4899,17 +6399,7 @@ Defined in auth_dialog_client.h:53
 #define LAST_PASSWORD "\5"
 ```
 
-Defined in auth_dialog_client.h:54
-
----
-
-### MYSQL_PLUGIN_AUTH_COMMON_INCLUDED
-
-```cpp
-#define MYSQL_PLUGIN_AUTH_COMMON_INCLUDED
-```
-
-Defined in plugin_auth_common.h:28
+Defined in auth_dialog_client.h:60
 
 ---
 
@@ -4919,7 +6409,7 @@ Defined in plugin_auth_common.h:28
 #define MYSQL_USERNAME_LENGTH 512
 ```
 
-Defined in plugin_auth_common.h:31
+Defined in plugin_auth_common.h:37
 
 the max allowed length for a user name
 
@@ -4931,9 +6421,9 @@ the max allowed length for a user name
 #define CR_AUTH_PLUGIN_ERROR 3
 ```
 
-Defined in plugin_auth_common.h:43
+Defined in plugin_auth_common.h:50
 
-return values of the plugin authenticate_user() method. Authentication failed, plugin internal error. An error occurred in the authentication plugin itself. These errors are reported in table performance_schema.host_cache, column COUNT_AUTH_PLUGIN_ERRORS.
+Authentication failed, plugin internal error. An error occurred in the authentication plugin itself. These errors are reported in table performance_schema.host_cache, column COUNT_AUTH_PLUGIN_ERRORS.
 
 ---
 
@@ -4943,7 +6433,7 @@ return values of the plugin authenticate_user() method. Authentication failed, p
 #define CR_AUTH_HANDSHAKE 2
 ```
 
-Defined in plugin_auth_common.h:50
+Defined in plugin_auth_common.h:57
 
 Authentication failed, client server handshake. An error occurred during the client server handshake. These errors are reported in table performance_schema.host_cache, column COUNT_HANDSHAKE_ERRORS.
 
@@ -4955,7 +6445,7 @@ Authentication failed, client server handshake. An error occurred during the cli
 #define CR_AUTH_USER_CREDENTIALS 1
 ```
 
-Defined in plugin_auth_common.h:57
+Defined in plugin_auth_common.h:64
 
 Authentication failed, user credentials. For example, wrong passwords. These errors are reported in table performance_schema.host_cache, column COUNT_AUTHENTICATION_ERRORS.
 
@@ -4967,7 +6457,7 @@ Authentication failed, user credentials. For example, wrong passwords. These err
 #define CR_ERROR 0
 ```
 
-Defined in plugin_auth_common.h:68
+Defined in plugin_auth_common.h:75
 
 Authentication failed. Additionally, all other CR_xxx values (libmysql error code) can be used too.
 
@@ -4981,7 +6471,7 @@ The client plugin may set the error code and the error message directly in the M
 #define CR_OK -1
 ```
 
-Defined in plugin_auth_common.h:76
+Defined in plugin_auth_common.h:83
 
 Authentication (client part) was successful. It does not mean that the authentication as a whole was successful, usually it only means that the client was able to send the user name and the password to the server. If CR_OK is returned, the libmysql reads the next packet expecting it to be one of OK, ERROR, or CHANGE_PLUGIN packets.
 
@@ -4993,7 +6483,7 @@ Authentication (client part) was successful. It does not mean that the authentic
 #define CR_OK_HANDSHAKE_COMPLETE -2
 ```
 
-Defined in plugin_auth_common.h:91
+Defined in plugin_auth_common.h:98
 
 Authentication was successful. It means that the client has done its part successfully and also that a plugin has read the last packet (one of OK, ERROR, CHANGE_PLUGIN). In this case, libmysql will not read a packet from the server, but it will use the data at mysql->net.read_pos.
 
@@ -5003,113 +6493,293 @@ Server plugins should not return this value.
 
 ---
 
-### debug_sync_service
-
-```cpp
-#define debug_sync_service debug_sync_C_callback_ptr
-```
-
-Defined in service_debug_sync.h:332
-
----
-
 ### DEBUG_SYNC
 
 ```cpp
-#define DEBUG_SYNC(thd, name) do { } while(0)
-```
-
-Defined in service_debug_sync.h:349
-
----
-
-### DEBUG_SYNC_C_IF_THD
-
-```cpp
-#define DEBUG_SYNC_C_IF_THD(thd, _sync_point_name_) do { } while(0)
-```
-
-Defined in service_debug_sync.h:350
-
----
-
-### DEBUG_SYNC_C
-
-```cpp
-#define DEBUG_SYNC_C(name) DEBUG_SYNC(NULL, name)
+#define DEBUG_SYNC(thd, name, thd, name) do { } while(0)
 ```
 
 Defined in service_debug_sync.h:357
 
 ---
 
-### MYSQL_SERVICE_DEBUG_SYNC_INCLUDED
+### DEBUG_SYNC_C_IF_THD
 
 ```cpp
-#define MYSQL_SERVICE_DEBUG_SYNC_INCLUDED
+#define DEBUG_SYNC_C_IF_THD(thd, _sync_point_name_, thd, _sync_point_name_) do { } while(0)
 ```
 
-Defined in service_debug_sync.h:364
+Defined in service_debug_sync.h:358
 
 ---
 
-### MYSQL_SERVICE_MY_SNPRINTF_INCLUDED
+### DEBUG_SYNC_C
 
 ```cpp
-#define MYSQL_SERVICE_MY_SNPRINTF_INCLUDED
+#define DEBUG_SYNC_C(name, name) DEBUG_SYNC(nullptr, name)
 ```
 
-Defined in service_my_snprintf.h:124
+Defined in service_debug_sync.h:363
 
 ---
 
-### MYSQL_SERVICE_THD_AUTOINC_INCLUDED
+### my_snprintf
 
 ```cpp
-#define MYSQL_SERVICE_THD_AUTOINC_INCLUDED
+#define my_snprintf(to, n, fmt, to, n, fmt) my_snprintf_service->my_snprintf_type
 ```
 
-Defined in service_thd_autoinc.h:52
+Defined in service_my_snprintf.h:120
+
+A portable, limited vsnprintf() implementation, with some extra features.
+
+#### Returns
+a number of bytes written to a buffer *excluding* terminating '\0'
+
+> [!NOTE]
+> The syntax of a format string is generally the same: 
+> ```
+> %[<flag>][<length>][.<precision>][<size modifier>]<format>[<format extension>]
+> ```
+>  where everything but the `format` is optional.
+
+Two one-character `flags` are recognized:
+
+* '0' has the standard zero-padding semantics;
+* '-' is parsed, but silently ignored;
+
+Both `length` and `precision` are the same as in the standard. They can be specified as integers, or as '*' to consume an int argument.
+
+`size modifier` can be 'l', 'll', or 'z'.
+
+Supported `format`s are `s` (null pointer is accepted, printed as "(null)"), `c`, `d`, `i`, `u`, `x`, `X`, `o`, `p` (works as "0x%x"), `f`, and `g`.
+
+The `$n` syntax for positional arguments is supported.
+
+Format extensions:
+
+* Format 'sQ' quotes the string with "\`" (backtick)s similar to "%s", but also "escapes" existing backticks in the string to '\`\`' as in SQL ''''.
+* Format 'sB' treats the argument as a byte sequence. It reads and prints exactly `precision` bytes without terminating on any `\0`s in the sequence. The default `precision` when it's unspecified is not defined.
+* Format 'sT' replaces the end of the printed string with "..." if it was truncated.
+* Format 'sS' is a synonym for 's'. It's an escape that avoid consuming the following plain char as one of the above extension suffixes. Example: "Data Class: %sSType"
+* Format 'iE' treats the argument as an errno number. It prints this number, a space, then its corresponding error message in double quotes. In other words: 
+```cpp
+printf("%iE", n) === printf("%i \"%sT\"", n, strerror(n))
+```
+* Format 'dE' has no effect. Therefore, to escape 'iE', use 'dE' instead.
+
+Unrecognized and multiple suffixes are not parsed; for example, both "%sTQ" and "%iQ" will suffix with a literal 'Q'.
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `to` |  | A buffer to store the result in |
+| `n` |  | Store up to n-1 characters, followed by an end 0 |
+| `fmt` |  | printf-like format string |
+| `to` |  | A buffer to store the result in |
+| `n` |  | Store up to n-1 characters, followed by an end 0 |
+| `fmt` |  | printf-like format string |
 
 ---
 
-### MYSQL_SERVICE_THD_TIMEZONE_INCLUDED
+### my_vsnprintf
 
 ```cpp
-#define MYSQL_SERVICE_THD_TIMEZONE_INCLUDED
+#define my_vsnprintf my_snprintf_service->my_vsnprintf_type
 ```
 
-Defined in service_thd_timezone.h:77
+Defined in service_my_snprintf.h:121
+
+---
+
+### thd_get_autoinc
+
+```cpp
+#define thd_get_autoinc(thd, off, inc, thd, off, inc) (thd_autoinc_service->thd_get_autoinc_func((thd), (off), (inc)))
+```
+
+Defined in service_thd_autoinc.h:55
+
+Return autoincrement system variables
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `off` |  | the value of @SESSION.auto_increment_offset |
+| `inc` |  | the value of @SESSION.auto_increment_increment |
+| `thd` |  | user thread connection handle |
+| `off` |  | the value of @SESSION.auto_increment_offset |
+| `inc` |  | the value of @SESSION.auto_increment_increment |
+
+---
+
+### thd_log_warnings
+
+```cpp
+#define thd_log_warnings(thd, thd) thd_log_warnings_service->thd_log_warnings(thd)
+```
+
+Defined in service_log_warnings.h:48
+
+Log warnings accessor 
+#### Returns
+the value of thd->log_warnings
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | the current session |
+| `thd` |  | the current session |
+
+---
+
+### thd_TIME_to_gmt_sec
+
+```cpp
+#define thd_TIME_to_gmt_sec(thd, ltime, errcode, thd, ltime, errcode) (thd_timezone_service->thd_TIME_to_gmt_sec((thd), (ltime), (errcode)))
+```
+
+Defined in service_thd_timezone.h:67
+
+---
+
+### thd_gmt_sec_to_TIME
+
+```cpp
+#define thd_gmt_sec_to_TIME(thd, ltime, t, thd, ltime, t) (thd_timezone_service->thd_gmt_sec_to_TIME((thd), (ltime), (t)))
+```
+
+Defined in service_thd_timezone.h:70
+
+---
+
+### thd_TIME_to_str
+
+```cpp
+#define thd_TIME_to_str(thd, ltime, format, buf, buf_len, thd, ltime, format, buf, buf_len) (thd_timezone_service->thd_TIME_to_str((thd), (ltime), (format), (buf), (buf_len)))
+```
+
+Defined in service_thd_timezone.h:73
 
 ---
 
 ### thd_key_create_from_var
 
 ```cpp
-#define thd_key_create_from_var(K, V) do { *(K)= MYSQL_SYSVAR_NAME(V).offset; } while(0)
+#define thd_key_create_from_var(K, V, K, V) do { *(K)= MYSQL_SYSVAR_NAME(V).offset; } while(0)
 ```
 
-Defined in service_thd_specifics.h:69
+Defined in service_thd_specifics.h:81
 
 ---
 
-### MYSQL_SERVICE_THD_SPECIFICS_INCLUDED
+### thd_key_create
 
 ```cpp
-#define MYSQL_SERVICE_THD_SPECIFICS_INCLUDED
+#define thd_key_create(key, key) (thd_specifics_service->thd_key_create_func(key))
 ```
 
-Defined in service_thd_specifics.h:108
+Defined in service_thd_specifics.h:90
+
+create THD specific storage 
+#### Returns
+0 on success else errno is returned
+
+---
+
+### thd_key_delete
+
+```cpp
+#define thd_key_delete(key, key) (thd_specifics_service->thd_key_delete_func(key))
+```
+
+Defined in service_thd_specifics.h:94
+
+delete THD specific storage
+
+---
+
+### thd_getspecific
+
+```cpp
+#define thd_getspecific(thd, key, thd, key) (thd_specifics_service->thd_getspecific_func(thd, key))
+```
+
+Defined in service_thd_specifics.h:102
+
+get thd specific storage
+
+* first time this is called from a thread it will return 0
+* this call is thread-safe in that different threads may call this simultaneously if operating on different THDs.
+* this call acquires no mutexes and is implemented as an array lookup
+
+---
+
+### thd_setspecific
+
+```cpp
+#define thd_setspecific(thd, key, value, thd, key, value) (thd_specifics_service->thd_setspecific_func(thd, key, value))
+```
+
+Defined in service_thd_specifics.h:110
+
+set thd specific storage
+
+* first time this is called from a thread it will return 0
+* this call is thread-safe in that different threads may call this simultaneously if operating on different THDs.
+* this call acquires no mutexes and is implemented as an array lookup
 
 ---
 
 ### thd_killed
 
 ```cpp
-#define thd_killed(THD) (thd_kill_level(THD) == THD_ABORT_ASAP)
+#define thd_killed(THD, THD) (thd_kill_level(THD) == THD_ABORT_ASAP)
 ```
 
-Defined in service_kill_statement.h:53
+Defined in service_kill_statement.h:62
+
+Backward compatibility helper
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `THD` |  | thread handle |
+| `THD` |  | thread handle |
+
+#### Return Values
+
+| Value | Description |
+|-------|-------------|
+| `0` | No KILL statement was issued, continue normally |
+| `1` | There was a KILL statement, abort the execution. |
+
+---
+
+### thd_kill_level
+
+```cpp
+#define thd_kill_level(THD, THD) thd_kill_statement_service->thd_kill_level_func(THD)
+```
+
+Defined in service_kill_statement.h:73
+
+Check if a KILL statement was issued for the given thread.
+
+#### Returns
+[thd_kill_levels](#thd_kill_levels) values
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `THD` |  | thread handle |
+| `THD` |  | thread handle |
 
 ---
 
@@ -5119,7 +6789,7 @@ Defined in service_kill_statement.h:53
 #define ME_ERROR_LOG 64 /* Write the message to the error log */
 ```
 
-Defined in service_my_print_error.h:36
+Defined in service_my_print_error.h:43
 
 ---
 
@@ -5129,7 +6799,7 @@ Defined in service_my_print_error.h:36
 #define ME_ERROR_LOG_ONLY 128 /* Write the error message to error log only */
 ```
 
-Defined in service_my_print_error.h:37
+Defined in service_my_print_error.h:44
 
 ---
 
@@ -5139,7 +6809,7 @@ Defined in service_my_print_error.h:37
 #define ME_NOTE 1024 /* Not an error, just a note */
 ```
 
-Defined in service_my_print_error.h:38
+Defined in service_my_print_error.h:45
 
 ---
 
@@ -5149,7 +6819,7 @@ Defined in service_my_print_error.h:38
 #define ME_WARNING 2048 /* Not an error, just a warning */
 ```
 
-Defined in service_my_print_error.h:39
+Defined in service_my_print_error.h:46
 
 ---
 
@@ -5159,28 +6829,108 @@ Defined in service_my_print_error.h:39
 #define ME_FATAL 4096 /* Fatal statement error */
 ```
 
-Defined in service_my_print_error.h:40
+Defined in service_my_print_error.h:47
+
+---
+
+### my_error
+
+```cpp
+#define my_error my_print_error_service->my_error_func
+```
+
+Defined in service_my_print_error.h:61
+
+---
+
+### my_printf_error
+
+```cpp
+#define my_printf_error my_print_error_service->my_printf_error_func
+```
+
+Defined in service_my_print_error.h:62
+
+---
+
+### my_printv_error
+
+```cpp
+#define my_printv_error(A, B, C, D, A, B, C, D) my_print_error_service->my_printv_error_func(A,B,C,D)
+```
+
+Defined in service_my_print_error.h:63
 
 ---
 
 ### thd_proc_info
 
 ```cpp
-#define thd_proc_info(thd, msg) set_thd_proc_info(thd, msg, \
+#define thd_proc_info(thd, msg, thd, msg) set_thd_proc_info(thd, msg, \
                                                    __func__, __FILE__, __LINE__)
 ```
 
-Defined in service_progress_report.h:32
+Defined in service_progress_report.h:44
 
 ---
 
-### MYSQL_SERVICE_PROGRESS_REPORT_INCLUDED
+### thd_progress_init
 
 ```cpp
-#define MYSQL_SERVICE_PROGRESS_REPORT_INCLUDED
+#define thd_progress_init(thd, max_stage, thd, max_stage) (progress_report_service->thd_progress_init_func((thd),(max_stage)))
 ```
 
-Defined in service_progress_report.h:80
+Defined in service_progress_report.h:62
+
+---
+
+### thd_progress_report
+
+```cpp
+#define thd_progress_report(thd, progress, max_progress, thd, progress, max_progress) (progress_report_service->thd_progress_report_func((thd), (progress), (max_progress)))
+```
+
+Defined in service_progress_report.h:63
+
+---
+
+### thd_progress_next_stage
+
+```cpp
+#define thd_progress_next_stage(thd, thd) (progress_report_service->thd_progress_next_stage_func(thd))
+```
+
+Defined in service_progress_report.h:64
+
+---
+
+### thd_progress_end
+
+```cpp
+#define thd_progress_end(thd, thd) (progress_report_service->thd_progress_end_func(thd))
+```
+
+Defined in service_progress_report.h:65
+
+---
+
+### set_thd_proc_info
+
+```cpp
+#define set_thd_proc_info(thd, info, func, file, line, thd, info, func, file, line) (progress_report_service->set_thd_proc_info_func((thd),(info),(func),(file),(line)))
+```
+
+Defined in service_progress_report.h:66
+
+---
+
+### print_check_msg
+
+```cpp
+#define print_check_msg(thd, db_name, table_name, op, msg_type, message, print_to_log, thd, db_name, table_name, op, msg_type, message, print_to_log) print_check_msg_service->print_check_msg(thd, db_name, table_name, op, msg_type, message, print_to_log)
+```
+
+Defined in service_print_check_msg.h:41
 
 ---
 
@@ -5204,6 +6954,26 @@ Defined in service_encryption_scheme.h:75
 
 ---
 
+### encryption_scheme_encrypt
+
+```cpp
+#define encryption_scheme_encrypt(S, SL, D, DL, SCH, KV, I32, J32, I64, S, SL, D, DL, SCH, KV, I32, J32, I64) encryption_scheme_service->encryption_scheme_encrypt_func(S,SL,D,DL,SCH,KV,I32,J32,I64)
+```
+
+Defined in service_encryption_scheme.h:109
+
+---
+
+### encryption_scheme_decrypt
+
+```cpp
+#define encryption_scheme_decrypt(S, SL, D, DL, SCH, KV, I32, J32, I64, S, SL, D, DL, SCH, KV, I32, J32, I64) encryption_scheme_service->encryption_scheme_decrypt_func(S,SL,D,DL,SCH,KV,I32,J32,I64)
+```
+
+Defined in service_encryption_scheme.h:110
+
+---
+
 ### MYSQL_SERVICE_ENCRYPTION_SCHEME_INCLUDED
 
 ```cpp
@@ -5214,33 +6984,110 @@ Defined in service_encryption_scheme.h:132
 
 ---
 
-### MYSQL_PLUGIN_PASSWORD_VALIDATION_INCLUDED
-
-```cpp
-#define MYSQL_PLUGIN_PASSWORD_VALIDATION_INCLUDED
-```
-
-Defined in plugin_password_validation.h:25
-
----
-
 ### MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION
 
 ```cpp
 #define MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION 0x0101
 ```
 
-Defined in plugin_password_validation.h:33
+Defined in plugin_password_validation.h:43
 
 ---
 
-### MYSQL_SERVICE_THD_STMT_DA_INCLUDED
+### thd_get_error_message
 
 ```cpp
-#define MYSQL_SERVICE_THD_STMT_DA_INCLUDED
+#define thd_get_error_message(thd, thd) (thd_error_context_service->thd_get_error_message_func((thd)))
 ```
 
-Defined in service_thd_error_context.h:92
+Defined in service_thd_error_context.h:59
+
+Return error message 
+#### Returns
+error text
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `thd` |  | user thread connection handle |
+
+---
+
+### thd_get_error_number
+
+```cpp
+#define thd_get_error_number(thd, thd) (thd_error_context_service->thd_get_error_number_func((thd)))
+```
+
+Defined in service_thd_error_context.h:66
+
+Return error number 
+#### Returns
+error number
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `thd` |  | user thread connection handle |
+
+---
+
+### thd_get_error_row
+
+```cpp
+#define thd_get_error_row(thd, thd) (thd_error_context_service->thd_get_error_row_func((thd)))
+```
+
+Defined in service_thd_error_context.h:73
+
+Return the current row number (i.e. in a multiple INSERT statement) 
+#### Returns
+row number
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `thd` |  | user thread connection handle |
+
+---
+
+### thd_inc_error_row
+
+```cpp
+#define thd_inc_error_row(thd, thd) (thd_error_context_service->thd_inc_error_row_func((thd)))
+```
+
+Defined in service_thd_error_context.h:79
+
+Increment the current row number
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | user thread connection handle |
+| `thd` |  | user thread connection handle |
+
+---
+
+### thd_get_error_context_description
+
+```cpp
+#define thd_get_error_context_description(thd, buffer, length, max_query_length, thd, buffer, length, max_query_length) (thd_error_context_service->thd_get_error_context_description_func((thd), \
+                                                                (buffer), \
+                                                                (length), \
+                                                                (max_query_length)))
+```
+
+Defined in service_thd_error_context.h:85
+
+Return a text description of a thread, its security context (user,host) and the current query.
 
 ## Enumerations
 
@@ -5252,7 +7099,7 @@ Defined in service_thd_error_context.h:92
 enum PSI_table_io_operation
 ```
 
-Defined in psi/psi.h:241
+Defined in psi/psi.h:243
 
 IO operation performed on an instrumented table.
 
@@ -5271,26 +7118,28 @@ IO operation performed on an instrumented table.
 enum enum_mysql_show_type
 ```
 
-Defined in plugin.h:187
+Defined in plugin.h:251
+
+declarations for SHOW STATUS support in plugins
 
 | Value | Description |
 |-------|-------------|
-| `SHOW_UNDEF` |  |
-| `SHOW_BOOL` |  |
-| `SHOW_UINT` |  |
-| `SHOW_ULONG` |  |
-| `SHOW_ULONGLONG` |  |
-| `SHOW_CHAR` |  |
-| `SHOW_CHAR_PTR` |  |
-| `SHOW_ARRAY` |  |
-| `SHOW_FUNC` |  |
-| `SHOW_DOUBLE` |  |
-| `SHOW_SINT` |  |
-| `SHOW_SLONG` |  |
-| `SHOW_SLONGLONG` |  |
-| `SHOW_SIMPLE_FUNC` |  |
-| `SHOW_SIZE_T` |  |
-| `SHOW_always_last` |  |
+| `SHOW_UNDEF` | Internal only! |
+| `SHOW_BOOL` | [my_bool](#my_bool) |
+| `SHOW_UINT` | `unsigned int` |
+| `SHOW_ULONG` | `unsigned long` |
+| `SHOW_ULONGLONG` | `unsigned long long` |
+| `SHOW_CHAR` | `char *` |
+| `SHOW_CHAR_PTR` | `char **` |
+| `SHOW_ARRAY` | SHOW_VAR [] |
+| `SHOW_FUNC` | **See also**: SHOW_FUNC_ENTRY |
+| `SHOW_DOUBLE` | `double` |
+| `SHOW_SINT` | `int` |
+| `SHOW_SLONG` | `long` |
+| `SHOW_SLONGLONG` | `long long` |
+| `SHOW_SIMPLE_FUNC` | [mysql_show_var_func](#mysql_show_var_func) * |
+| `SHOW_SIZE_T` | `size_t` |
+| `SHOW_always_last` | Internal only! |
 
 ---
 
@@ -5300,14 +7149,16 @@ Defined in plugin.h:187
 enum enum_var_type
 ```
 
-Defined in plugin.h:201
+Defined in plugin.h:279
+
+SHOW STATUS scope
 
 | Value | Description |
 |-------|-------------|
-| `SHOW_OPT_DEFAULT` |  |
-| `SHOW_OPT_SESSION` |  |
-| `SHOW_OPT_GLOBAL` |  |
-| `SHOW_OPT_SESSION_NO_LOCK` |  |
+| `SHOW_OPT_DEFAULT` | Internal only! |
+| `SHOW_OPT_SESSION` | Session scope |
+| `SHOW_OPT_GLOBAL` | Global scope |
+| `SHOW_OPT_SESSION_NO_LOCK` | Session scope without locking |
 
 ---
 
@@ -5317,7 +7168,7 @@ Defined in plugin.h:201
 enum json_types
 ```
 
-Defined in service_json.h:51
+Defined in service_json.h:59
 
 | Value | Description |
 |-------|-------------|
@@ -5339,7 +7190,7 @@ Defined in service_json.h:51
 enum Wsrep_service_key_type
 ```
 
-Defined in service_wsrep.h:4
+Defined in service_wsrep.h:36
 
 | Value | Description |
 |-------|-------------|
@@ -5356,13 +7207,15 @@ Defined in service_wsrep.h:4
 enum enum_ftparser_mode
 ```
 
-Defined in plugin_ftparser.h:32
+Defined in plugin_ftparser.h:34
+
+Parsing modes. Set in [MYSQL_FTPARSER_PARAM::mode](ftparser_plugin_data.md#mode)
 
 | Value | Description |
 |-------|-------------|
-| `MYSQL_FTPARSER_SIMPLE_MODE` |  |
-| `MYSQL_FTPARSER_WITH_STOPWORDS` |  |
-| `MYSQL_FTPARSER_FULL_BOOLEAN_INFO` |  |
+| `MYSQL_FTPARSER_SIMPLE_MODE` | Fast and simple mode. |
+| `MYSQL_FTPARSER_WITH_STOPWORDS` | Parse with stopwords mode. |
+| `MYSQL_FTPARSER_FULL_BOOLEAN_INFO` | Parse in boolean mode. |
 
 ---
 
@@ -5372,15 +7225,19 @@ Defined in plugin_ftparser.h:32
 enum enum_ft_token_type
 ```
 
-Defined in plugin_ftparser.h:80
+Defined in plugin_ftparser.h:82
+
+Token types for boolean mode searching
+
+Used for the type member of MYSQL_FTPARSER_BOOLEAN_INFO struct.
 
 | Value | Description |
 |-------|-------------|
-| `FT_TOKEN_EOF` |  |
-| `FT_TOKEN_WORD` |  |
-| `FT_TOKEN_LEFT_PAREN` |  |
-| `FT_TOKEN_RIGHT_PAREN` |  |
-| `FT_TOKEN_STOPWORD` |  |
+| `FT_TOKEN_EOF` | End of data. |
+| `FT_TOKEN_WORD` | Regular word. |
+| `FT_TOKEN_LEFT_PAREN` | Left parenthesis (start of group/sub-expression). |
+| `FT_TOKEN_RIGHT_PAREN` | Right parenthesis (end of group/sub-expression). |
+| `FT_TOKEN_STOPWORD` | Stopword. |
 
 ---
 
@@ -5390,7 +7247,7 @@ Defined in plugin_ftparser.h:80
 enum my_aes_mode
 ```
 
-Defined in service_my_crypt.h:50
+Defined in service_my_crypt.h:56
 
 | Value | Description |
 |-------|-------------|
@@ -5405,7 +7262,7 @@ Defined in service_my_crypt.h:50
 enum my_digest
 ```
 
-Defined in service_my_crypt.h:60
+Defined in service_my_crypt.h:66
 
 | Value | Description |
 |-------|-------------|
@@ -5423,13 +7280,13 @@ Defined in service_my_crypt.h:60
 enum _thd_wait_type_e
 ```
 
-Defined in service_thd_wait.h:66
+Defined in service_thd_wait.h:57
 
 | Value | Description |
 |-------|-------------|
-| `THD_WAIT_SLEEP` |  |
-| `THD_WAIT_DISKIO` |  |
-| `THD_WAIT_ROW_LOCK` |  |
+| `THD_WAIT_SLEEP` | sleep |
+| `THD_WAIT_DISKIO` | Medium wait (e.g. for disk io) |
+| `THD_WAIT_ROW_LOCK` | Large wait (e.g. for locked row/table) |
 | `THD_WAIT_GLOBAL_LOCK` |  |
 | `THD_WAIT_META_DATA_LOCK` |  |
 | `THD_WAIT_TABLE_LOCK` |  |
@@ -5448,7 +7305,7 @@ Defined in service_thd_wait.h:66
 enum thd_kill_levels
 ```
 
-Defined in service_kill_statement.h:42
+Defined in service_kill_statement.h:45
 
 | Value | Description |
 |-------|-------------|
@@ -5467,7 +7324,7 @@ using MDL_key = struct MDL_key
 
 Type: struct [`MDL_key`](#mdl_key)
 
-Defined in psi/psi.h:70
+Defined in psi/psi.h:75
 
 ---
 
@@ -5477,7 +7334,7 @@ Defined in psi/psi.h:70
 using opaque_mdl_type = int
 ```
 
-Defined in psi/psi.h:73
+Defined in psi/psi.h:78
 
 **See also**: enum_mdl_type.
 
@@ -5489,7 +7346,7 @@ Defined in psi/psi.h:73
 using opaque_mdl_duration = int
 ```
 
-Defined in psi/psi.h:76
+Defined in psi/psi.h:81
 
 **See also**: enum_mdl_duration.
 
@@ -5501,7 +7358,7 @@ Defined in psi/psi.h:76
 using opaque_mdl_status = int
 ```
 
-Defined in psi/psi.h:79
+Defined in psi/psi.h:84
 
 **See also**: MDL_wait::enum_wait_status.
 
@@ -5513,21 +7370,9 @@ Defined in psi/psi.h:79
 using opaque_vio_type = int
 ```
 
-Defined in psi/psi.h:82
+Defined in psi/psi.h:87
 
 **See also**: enum_vio_type.
-
----
-
-### THD
-
-```cpp
-using THD = struct opaque_THD
-```
-
-Type: struct [`opaque_THD`](#opaque_thd)
-
-Defined in psi/psi.h:99
 
 ---
 
@@ -5539,7 +7384,7 @@ using PSI_mutex = struct PSI_mutex
 
 Type: struct [`PSI_mutex`](#psi_mutex)
 
-Defined in psi/psi.h:115
+Defined in psi/psi.h:117
 
 ---
 
@@ -5551,7 +7396,7 @@ using PSI_rwlock = struct PSI_rwlock
 
 Type: struct [`PSI_rwlock`](#psi_rwlock)
 
-Defined in psi/psi.h:122
+Defined in psi/psi.h:124
 
 ---
 
@@ -5563,7 +7408,7 @@ using PSI_cond = struct PSI_cond
 
 Type: struct [`PSI_cond`](#psi_cond)
 
-Defined in psi/psi.h:129
+Defined in psi/psi.h:131
 
 ---
 
@@ -5575,7 +7420,7 @@ using PSI_table_share = struct PSI_table_share
 
 Type: struct [`PSI_table_share`](#psi_table_share)
 
-Defined in psi/psi.h:136
+Defined in psi/psi.h:138
 
 ---
 
@@ -5587,7 +7432,7 @@ using PSI_table = struct PSI_table
 
 Type: struct [`PSI_table`](#psi_table)
 
-Defined in psi/psi.h:143
+Defined in psi/psi.h:145
 
 ---
 
@@ -5599,7 +7444,7 @@ using PSI_thread = struct PSI_thread
 
 Type: struct [`PSI_thread`](#psi_thread)
 
-Defined in psi/psi.h:150
+Defined in psi/psi.h:152
 
 ---
 
@@ -5611,7 +7456,7 @@ using PSI_file = struct PSI_file
 
 Type: struct [`PSI_file`](#psi_file)
 
-Defined in psi/psi.h:157
+Defined in psi/psi.h:159
 
 ---
 
@@ -5623,7 +7468,7 @@ using PSI_socket = struct PSI_socket
 
 Type: struct [`PSI_socket`](#psi_socket)
 
-Defined in psi/psi.h:164
+Defined in psi/psi.h:166
 
 ---
 
@@ -5635,7 +7480,7 @@ using PSI_prepared_stmt = struct PSI_prepared_stmt
 
 Type: struct [`PSI_prepared_stmt`](#psi_prepared_stmt)
 
-Defined in psi/psi.h:171
+Defined in psi/psi.h:173
 
 ---
 
@@ -5647,7 +7492,7 @@ using PSI_table_locker = struct PSI_table_locker
 
 Type: struct [`PSI_table_locker`](#psi_table_locker)
 
-Defined in psi/psi.h:178
+Defined in psi/psi.h:180
 
 ---
 
@@ -5659,7 +7504,7 @@ using PSI_statement_locker = struct PSI_statement_locker
 
 Type: struct [`PSI_statement_locker`](#psi_statement_locker)
 
-Defined in psi/psi.h:185
+Defined in psi/psi.h:187
 
 ---
 
@@ -5671,7 +7516,7 @@ using PSI_transaction_locker = struct PSI_transaction_locker
 
 Type: struct [`PSI_transaction_locker`](#psi_transaction_locker)
 
-Defined in psi/psi.h:192
+Defined in psi/psi.h:194
 
 ---
 
@@ -5683,7 +7528,7 @@ using PSI_idle_locker = struct PSI_idle_locker
 
 Type: struct [`PSI_idle_locker`](#psi_idle_locker)
 
-Defined in psi/psi.h:199
+Defined in psi/psi.h:201
 
 ---
 
@@ -5695,7 +7540,7 @@ using PSI_digest_locker = struct PSI_digest_locker
 
 Type: struct [`PSI_digest_locker`](#psi_digest_locker)
 
-Defined in psi/psi.h:206
+Defined in psi/psi.h:208
 
 ---
 
@@ -5707,7 +7552,7 @@ using PSI_sp_share = struct PSI_sp_share
 
 Type: struct [`PSI_sp_share`](#psi_sp_share)
 
-Defined in psi/psi.h:213
+Defined in psi/psi.h:215
 
 ---
 
@@ -5719,7 +7564,7 @@ using PSI_sp_locker = struct PSI_sp_locker
 
 Type: struct [`PSI_sp_locker`](#psi_sp_locker)
 
-Defined in psi/psi.h:220
+Defined in psi/psi.h:222
 
 ---
 
@@ -5731,7 +7576,7 @@ using PSI_metadata_lock = struct PSI_metadata_lock
 
 Type: struct [`PSI_metadata_lock`](#psi_metadata_lock)
 
-Defined in psi/psi.h:227
+Defined in psi/psi.h:229
 
 ---
 
@@ -5743,7 +7588,7 @@ using PSI_stage_progress = struct PSI_stage_progress
 
 Type: struct [`PSI_stage_progress`](Instrumentation_interface.md#psi_stage_progress-1)
 
-Defined in psi/psi.h:238
+Defined in psi/psi.h:240
 
 ---
 
@@ -5755,7 +7600,7 @@ using PSI_table_io_operation = enum PSI_table_io_operation
 
 Type: enum [`PSI_table_io_operation`](#psi_table_io_operation)
 
-Defined in psi/psi.h:252
+Defined in psi/psi.h:254
 
 ---
 
@@ -5767,7 +7612,7 @@ using PSI_table_locker_state = struct PSI_table_locker_state
 
 Type: struct [`PSI_table_locker_state`](Instrumentation_interface.md#psi_table_locker_state-1)
 
-Defined in psi/psi.h:290
+Defined in psi/psi.h:292
 
 ---
 
@@ -5779,7 +7624,7 @@ using PSI_bootstrap = struct PSI_bootstrap
 
 Type: struct [`PSI_bootstrap`](Instrumentation_interface.md#psi_bootstrap-1)
 
-Defined in psi/psi.h:310
+Defined in psi/psi.h:312
 
 ---
 
@@ -5789,7 +7634,7 @@ Defined in psi/psi.h:310
 using PSI_mutex_key = unsigned int
 ```
 
-Defined in psi/psi.h:792
+Defined in psi/psi.h:794
 
 Instrumented mutex key. To instrument a mutex, a mutex key must be obtained using `register_mutex`. Using a zero key always disable the instrumentation.
 
@@ -5801,7 +7646,7 @@ Instrumented mutex key. To instrument a mutex, a mutex key must be obtained usin
 using PSI_rwlock_key = unsigned int
 ```
 
-Defined in psi/psi.h:800
+Defined in psi/psi.h:802
 
 Instrumented rwlock key. To instrument a rwlock, a rwlock key must be obtained using `register_rwlock`. Using a zero key always disable the instrumentation.
 
@@ -5813,7 +7658,7 @@ Instrumented rwlock key. To instrument a rwlock, a rwlock key must be obtained u
 using PSI_cond_key = unsigned int
 ```
 
-Defined in psi/psi.h:808
+Defined in psi/psi.h:810
 
 Instrumented cond key. To instrument a condition, a condition key must be obtained using `register_cond`. Using a zero key always disable the instrumentation.
 
@@ -5825,7 +7670,7 @@ Instrumented cond key. To instrument a condition, a condition key must be obtain
 using PSI_thread_key = unsigned int
 ```
 
-Defined in psi/psi.h:816
+Defined in psi/psi.h:818
 
 Instrumented thread key. To instrument a thread, a thread key must be obtained using `register_thread`. Using a zero key always disable the instrumentation.
 
@@ -5837,7 +7682,7 @@ Instrumented thread key. To instrument a thread, a thread key must be obtained u
 using PSI_file_key = unsigned int
 ```
 
-Defined in psi/psi.h:823
+Defined in psi/psi.h:825
 
 Instrumented file key. To instrument a file, a file key must be obtained using `register_file`. Using a zero key always disable the instrumentation.
 
@@ -5849,7 +7694,7 @@ Instrumented file key. To instrument a file, a file key must be obtained using `
 using PSI_stage_key = unsigned int
 ```
 
-Defined in psi/psi.h:830
+Defined in psi/psi.h:832
 
 Instrumented stage key. To instrument a stage, a stage key must be obtained using `register_stage`. Using a zero key always disable the instrumentation.
 
@@ -5861,7 +7706,7 @@ Instrumented stage key. To instrument a stage, a stage key must be obtained usin
 using PSI_statement_key = unsigned int
 ```
 
-Defined in psi/psi.h:837
+Defined in psi/psi.h:839
 
 Instrumented statement key. To instrument a statement, a statement key must be obtained using `register_statement`. Using a zero key always disable the instrumentation.
 
@@ -5873,7 +7718,7 @@ Instrumented statement key. To instrument a statement, a statement key must be o
 using PSI_socket_key = unsigned int
 ```
 
-Defined in psi/psi.h:844
+Defined in psi/psi.h:846
 
 Instrumented socket key. To instrument a socket, a socket key must be obtained using `register_socket`. Using a zero key always disable the instrumentation.
 
@@ -5887,7 +7732,7 @@ using PSI_mutex_info_v1 = struct PSI_mutex_info_v1
 
 Type: struct [`PSI_mutex_info_v1`](Group_PSI_v1.md#psi_mutex_info_v1-1)
 
-Defined in psi/psi.h:875
+Defined in psi/psi.h:877
 
 ---
 
@@ -5899,7 +7744,7 @@ using PSI_rwlock_info_v1 = struct PSI_rwlock_info_v1
 
 Type: struct [`PSI_rwlock_info_v1`](Group_PSI_v1.md#psi_rwlock_info_v1-1)
 
-Defined in psi/psi.h:898
+Defined in psi/psi.h:900
 
 ---
 
@@ -5911,7 +7756,7 @@ using PSI_cond_info_v1 = struct PSI_cond_info_v1
 
 Type: struct [`PSI_cond_info_v1`](Group_PSI_v1.md#psi_cond_info_v1-1)
 
-Defined in psi/psi.h:921
+Defined in psi/psi.h:923
 
 ---
 
@@ -5923,7 +7768,7 @@ using PSI_thread_info_v1 = struct PSI_thread_info_v1
 
 Type: struct [`PSI_thread_info_v1`](Group_PSI_v1.md#psi_thread_info_v1-1)
 
-Defined in psi/psi.h:944
+Defined in psi/psi.h:946
 
 ---
 
@@ -5935,7 +7780,7 @@ using PSI_file_info_v1 = struct PSI_file_info_v1
 
 Type: struct [`PSI_file_info_v1`](Group_PSI_v1.md#psi_file_info_v1-1)
 
-Defined in psi/psi.h:967
+Defined in psi/psi.h:969
 
 ---
 
@@ -5947,7 +7792,7 @@ using PSI_stage_info_v1 = struct PSI_stage_info_v1
 
 Type: struct [`PSI_stage_info_v1`](Group_PSI_v1.md#psi_stage_info_v1-1)
 
-Defined in psi/psi.h:983
+Defined in psi/psi.h:985
 
 ---
 
@@ -5959,7 +7804,7 @@ using PSI_statement_info_v1 = struct PSI_statement_info_v1
 
 Type: struct [`PSI_statement_info_v1`](Group_PSI_v1.md#psi_statement_info_v1-1)
 
-Defined in psi/psi.h:999
+Defined in psi/psi.h:1001
 
 ---
 
@@ -5971,7 +7816,7 @@ using PSI_socket_info_v1 = struct PSI_socket_info_v1
 
 Type: struct [`PSI_socket_info_v1`](Group_PSI_v1.md#psi_socket_info_v1-1)
 
-Defined in psi/psi.h:1022
+Defined in psi/psi.h:1024
 
 ---
 
@@ -5983,7 +7828,7 @@ using PSI_idle_locker_state_v1 = struct PSI_idle_locker_state_v1
 
 Type: struct [`PSI_idle_locker_state_v1`](Group_PSI_v1.md#psi_idle_locker_state_v1-1)
 
-Defined in psi/psi.h:1046
+Defined in psi/psi.h:1048
 
 ---
 
@@ -5995,7 +7840,7 @@ using PSI_mutex_locker_state_v1 = struct PSI_mutex_locker_state_v1
 
 Type: struct [`PSI_mutex_locker_state_v1`](Group_PSI_v1.md#psi_mutex_locker_state_v1-1)
 
-Defined in psi/psi.h:1074
+Defined in psi/psi.h:1076
 
 ---
 
@@ -6007,7 +7852,7 @@ using PSI_rwlock_locker_state_v1 = struct PSI_rwlock_locker_state_v1
 
 Type: struct [`PSI_rwlock_locker_state_v1`](Group_PSI_v1.md#psi_rwlock_locker_state_v1-1)
 
-Defined in psi/psi.h:1103
+Defined in psi/psi.h:1105
 
 ---
 
@@ -6019,7 +7864,7 @@ using PSI_cond_locker_state_v1 = struct PSI_cond_locker_state_v1
 
 Type: struct [`PSI_cond_locker_state_v1`](Group_PSI_v1.md#psi_cond_locker_state_v1-1)
 
-Defined in psi/psi.h:1133
+Defined in psi/psi.h:1135
 
 ---
 
@@ -6031,7 +7876,7 @@ using PSI_file_locker_state_v1 = struct PSI_file_locker_state_v1
 
 Type: struct [`PSI_file_locker_state_v1`](Group_PSI_v1.md#psi_file_locker_state_v1-1)
 
-Defined in psi/psi.h:1169
+Defined in psi/psi.h:1171
 
 ---
 
@@ -6043,7 +7888,7 @@ using PSI_metadata_locker_state_v1 = struct PSI_metadata_locker_state_v1
 
 Type: struct [`PSI_metadata_locker_state_v1`](Group_PSI_v1.md#psi_metadata_locker_state_v1-1)
 
-Defined in psi/psi.h:1195
+Defined in psi/psi.h:1197
 
 ---
 
@@ -6055,7 +7900,7 @@ using PSI_statement_locker_state_v1 = struct PSI_statement_locker_state_v1
 
 Type: struct [`PSI_statement_locker_state_v1`](Group_PSI_v1.md#psi_statement_locker_state_v1-1)
 
-Defined in psi/psi.h:1271
+Defined in psi/psi.h:1273
 
 ---
 
@@ -6067,7 +7912,7 @@ using PSI_transaction_locker_state_v1 = struct PSI_transaction_locker_state_v1
 
 Type: struct [`PSI_transaction_locker_state_v1`](Group_PSI_v1.md#psi_transaction_locker_state_v1-1)
 
-Defined in psi/psi.h:1311
+Defined in psi/psi.h:1313
 
 ---
 
@@ -6079,7 +7924,7 @@ using PSI_socket_locker_state_v1 = struct PSI_socket_locker_state_v1
 
 Type: struct [`PSI_socket_locker_state_v1`](Group_PSI_v1.md#psi_socket_locker_state_v1-1)
 
-Defined in psi/psi.h:1345
+Defined in psi/psi.h:1347
 
 ---
 
@@ -6091,7 +7936,7 @@ using PSI_sp_locker_state_v1 = struct PSI_sp_locker_state_v1
 
 Type: struct [`PSI_sp_locker_state_v1`](Group_PSI_v1.md#psi_sp_locker_state_v1-1)
 
-Defined in psi/psi.h:1360
+Defined in psi/psi.h:1362
 
 ---
 
@@ -6101,7 +7946,7 @@ Defined in psi/psi.h:1360
 using register_mutex_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1370
+Defined in psi/psi.h:1372
 
 Mutex registration API.
 
@@ -6124,7 +7969,7 @@ Mutex registration API.
 using register_rwlock_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1379
+Defined in psi/psi.h:1381
 
 Rwlock registration API.
 
@@ -6147,7 +7992,7 @@ Rwlock registration API.
 using register_cond_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1388
+Defined in psi/psi.h:1390
 
 Cond registration API.
 
@@ -6170,7 +8015,7 @@ Cond registration API.
 using register_thread_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1397
+Defined in psi/psi.h:1399
 
 Thread registration API.
 
@@ -6193,7 +8038,7 @@ Thread registration API.
 using register_file_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1406
+Defined in psi/psi.h:1408
 
 File registration API.
 
@@ -6216,7 +8061,7 @@ File registration API.
 using register_stage_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1415
+Defined in psi/psi.h:1417
 
 Stage registration API.
 
@@ -6239,7 +8084,7 @@ Stage registration API.
 using register_statement_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1424
+Defined in psi/psi.h:1426
 
 Statement registration API.
 
@@ -6262,7 +8107,7 @@ Statement registration API.
 using register_socket_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1433
+Defined in psi/psi.h:1435
 
 Socket registration API.
 
@@ -6285,7 +8130,7 @@ Socket registration API.
 using init_mutex_v1_t = struct PSI_mutex *(*
 ```
 
-Defined in psi/psi.h:1433
+Defined in psi/psi.h:1435
 
 Mutex instrumentation initialisation API. 
 #### Returns
@@ -6308,7 +8153,7 @@ an instrumented mutex
 using destroy_mutex_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1449
+Defined in psi/psi.h:1451
 
 Mutex instrumentation destruction API.
 
@@ -6327,7 +8172,7 @@ Mutex instrumentation destruction API.
 using init_rwlock_v1_t = struct PSI_rwlock *(*
 ```
 
-Defined in psi/psi.h:1449
+Defined in psi/psi.h:1451
 
 Rwlock instrumentation initialisation API. 
 #### Returns
@@ -6350,7 +8195,7 @@ an instrumented rwlock
 using destroy_rwlock_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1464
+Defined in psi/psi.h:1466
 
 Rwlock instrumentation destruction API.
 
@@ -6369,7 +8214,7 @@ Rwlock instrumentation destruction API.
 using init_cond_v1_t = struct PSI_cond *(*
 ```
 
-Defined in psi/psi.h:1464
+Defined in psi/psi.h:1466
 
 Cond instrumentation initialisation API. 
 #### Returns
@@ -6392,7 +8237,7 @@ an instrumented cond
 using destroy_cond_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1479
+Defined in psi/psi.h:1481
 
 Cond instrumentation destruction API.
 
@@ -6411,7 +8256,7 @@ Cond instrumentation destruction API.
 using init_socket_v1_t = struct PSI_socket *(*
 ```
 
-Defined in psi/psi.h:1479
+Defined in psi/psi.h:1481
 
 Socket instrumentation initialisation API. 
 #### Returns
@@ -6438,7 +8283,7 @@ an instrumented socket
 using destroy_socket_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1497
+Defined in psi/psi.h:1499
 
 socket instrumentation destruction API.
 
@@ -6457,7 +8302,7 @@ socket instrumentation destruction API.
 using get_table_share_v1_t = struct PSI_table_share *(*
 ```
 
-Defined in psi/psi.h:1497
+Defined in psi/psi.h:1499
 
 Acquire a table share instrumentation. 
 #### Returns
@@ -6480,7 +8325,7 @@ a table share instrumentation, or NULL
 using release_table_share_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1512
+Defined in psi/psi.h:1514
 
 Release a table share.
 
@@ -6499,7 +8344,7 @@ Release a table share.
 using drop_table_share_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1522
+Defined in psi/psi.h:1524
 
 Drop a table share.
 
@@ -6526,7 +8371,7 @@ Drop a table share.
 using open_table_v1_t = struct PSI_table *(*
 ```
 
-Defined in psi/psi.h:1522
+Defined in psi/psi.h:1524
 
 Open an instrumentation table handle. 
 #### Returns
@@ -6549,7 +8394,7 @@ a table handle, or NULL
 using unbind_table_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1540
+Defined in psi/psi.h:1542
 
 Unbind a table handle from the current thread. This operation happens when an opened table is added to the open table cache.
 
@@ -6568,7 +8413,7 @@ Unbind a table handle from the current thread. This operation happens when an op
 using rebind_table_v1_t = PSI_table *(*
 ```
 
-Defined in psi/psi.h:1548
+Defined in psi/psi.h:1550
 
 Rebind a table handle to the current thread. This operation happens when a table from the open table cache is reused for a thread.
 
@@ -6580,7 +8425,7 @@ Rebind a table handle to the current thread. This operation happens when a table
 using close_table_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1555
+Defined in psi/psi.h:1557
 
 Close an instrumentation table handle. Note that the table handle is invalid after this call.
 
@@ -6592,7 +8437,7 @@ Close an instrumentation table handle. Note that the table handle is invalid aft
 using create_file_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1566
+Defined in psi/psi.h:1568
 
 Create a file instrumentation for a created file. This method does not create the file itself, but is used to notify the instrumentation interface that a file was just created.
 
@@ -6615,7 +8460,7 @@ Create a file instrumentation for a created file. This method does not create th
 using spawn_thread_v1_t = int(*
 ```
 
-Defined in psi/psi.h:1578
+Defined in psi/psi.h:1580
 
 Spawn a thread. This method creates a new thread, with instrumentation.
 
@@ -6642,7 +8487,7 @@ Spawn a thread. This method creates a new thread, with instrumentation.
 using new_thread_v1_t = struct PSI_thread *(*
 ```
 
-Defined in psi/psi.h:1578
+Defined in psi/psi.h:1580
 
 Create instrumentation for a thread. 
 #### Returns
@@ -6667,7 +8512,7 @@ an instrumented thread
 using set_thread_THD_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1598
+Defined in psi/psi.h:1600
 
 Assign a THD to an instrumented thread.
 
@@ -6688,7 +8533,7 @@ Assign a THD to an instrumented thread.
 using set_thread_id_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1606
+Defined in psi/psi.h:1608
 
 Assign an id to an instrumented thread.
 
@@ -6709,7 +8554,7 @@ Assign an id to an instrumented thread.
 using set_thread_os_id_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1614
+Defined in psi/psi.h:1616
 
 Assign the current operating system thread id to an instrumented thread. The operating system task id is obtained from `gettid()`
 
@@ -6728,7 +8573,7 @@ Assign the current operating system thread id to an instrumented thread. The ope
 using get_thread_v1_t = struct PSI_thread *(*
 ```
 
-Defined in psi/psi.h:1614
+Defined in psi/psi.h:1616
 
 Get the instrumentation for the running thread. For this function to return a result, the thread instrumentation must have been attached to the running thread using `set_thread()`
 #### Returns
@@ -6742,7 +8587,7 @@ the instrumentation for the running thread
 using get_thread_class_name_v1_t = const char *(*
 ```
 
-Defined in psi/psi.h:1629
+Defined in psi/psi.h:1631
 
 Get name of the thread, according to the thread class. The name is returns without the thread/subsystem prefix.
 
@@ -6754,7 +8599,7 @@ Get name of the thread, according to the thread class. The name is returns witho
 using set_thread_user_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1636
+Defined in psi/psi.h:1638
 
 Assign a user name to the instrumented thread.
 
@@ -6775,7 +8620,7 @@ Assign a user name to the instrumented thread.
 using set_thread_account_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1645
+Defined in psi/psi.h:1647
 
 Assign a user name and host name to the instrumented thread.
 
@@ -6800,7 +8645,7 @@ Assign a user name and host name to the instrumented thread.
 using set_thread_db_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1653
+Defined in psi/psi.h:1655
 
 Assign a current database to the instrumented thread.
 
@@ -6821,7 +8666,7 @@ Assign a current database to the instrumented thread.
 using set_thread_command_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1659
+Defined in psi/psi.h:1661
 
 Assign a current command to the instrumented thread.
 
@@ -6840,7 +8685,7 @@ Assign a current command to the instrumented thread.
 using set_connection_type_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1665
+Defined in psi/psi.h:1667
 
 Assign a connection type to the instrumented thread.
 
@@ -6859,7 +8704,7 @@ Assign a connection type to the instrumented thread.
 using set_thread_start_time_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1672
+Defined in psi/psi.h:1674
 
 Assign a start time to the instrumented thread.
 
@@ -6878,7 +8723,7 @@ Assign a start time to the instrumented thread.
 using set_thread_state_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1678
+Defined in psi/psi.h:1680
 
 Assign a state to the instrumented thread.
 
@@ -6897,7 +8742,7 @@ Assign a state to the instrumented thread.
 using set_thread_info_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1685
+Defined in psi/psi.h:1687
 
 Assign a process info to the instrumented thread.
 
@@ -6918,7 +8763,7 @@ Assign a process info to the instrumented thread.
 using set_thread_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1696
+Defined in psi/psi.h:1698
 
 Attach a thread instrumentation to the running thread. In case of thread pools, this method should be called when a worker thread picks a work item and runs it. Also, this method should be called if the instrumented code does not keep the pointer returned by `new_thread()` and relies on `get_thread()` instead.
 
@@ -6937,7 +8782,7 @@ Attach a thread instrumentation to the running thread. In case of thread pools, 
 using set_thread_peer_port_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1704
+Defined in psi/psi.h:1706
 
 Assign the remote (peer) port to the instrumented thread.
 
@@ -6958,7 +8803,7 @@ Assign the remote (peer) port to the instrumented thread.
 using delete_current_thread_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1708
+Defined in psi/psi.h:1710
 
 Delete the current thread instrumentation.
 
@@ -6970,7 +8815,7 @@ Delete the current thread instrumentation.
 using delete_thread_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1711
+Defined in psi/psi.h:1713
 
 Delete a thread instrumentation.
 
@@ -6982,7 +8827,7 @@ Delete a thread instrumentation.
 using get_thread_file_name_locker_v1_t = struct PSI_file_locker *(*
 ```
 
-Defined in psi/psi.h:1711
+Defined in psi/psi.h:1713
 
 Get a file instrumentation locker, for opening or creating a file. 
 #### Returns
@@ -7011,7 +8856,7 @@ a file locker, or NULL
 using get_thread_file_stream_locker_v1_t = struct PSI_file_locker *(*
 ```
 
-Defined in psi/psi.h:1711
+Defined in psi/psi.h:1713
 
 Get a file stream instrumentation locker. 
 #### Returns
@@ -7036,7 +8881,7 @@ a file locker, or NULL
 using get_thread_file_descriptor_locker_v1_t = struct PSI_file_locker *(*
 ```
 
-Defined in psi/psi.h:1711
+Defined in psi/psi.h:1713
 
 Get a file instrumentation locker. 
 #### Returns
@@ -7061,7 +8906,7 @@ a file locker, or NULL
 using unlock_mutex_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1753
+Defined in psi/psi.h:1755
 
 Record a mutex instrumentation unlock event.
 
@@ -7080,7 +8925,7 @@ Record a mutex instrumentation unlock event.
 using unlock_rwlock_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1760
+Defined in psi/psi.h:1762
 
 Record a rwlock instrumentation unlock event.
 
@@ -7099,7 +8944,7 @@ Record a rwlock instrumentation unlock event.
 using signal_cond_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1767
+Defined in psi/psi.h:1769
 
 Record a condition instrumentation signal event.
 
@@ -7118,7 +8963,7 @@ Record a condition instrumentation signal event.
 using broadcast_cond_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1774
+Defined in psi/psi.h:1776
 
 Record a condition instrumentation broadcast event.
 
@@ -7137,7 +8982,7 @@ Record a condition instrumentation broadcast event.
 using start_idle_wait_v1_t = struct PSI_idle_locker *(*
 ```
 
-Defined in psi/psi.h:1774
+Defined in psi/psi.h:1776
 
 Record an idle instrumentation wait start event. 
 #### Returns
@@ -7162,7 +9007,7 @@ an idle locker, or NULL
 using end_idle_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1791
+Defined in psi/psi.h:1793
 
 Record an idle instrumentation wait end event.
 
@@ -7181,7 +9026,7 @@ Record an idle instrumentation wait end event.
 using start_mutex_wait_v1_t = struct PSI_mutex_locker *(*
 ```
 
-Defined in psi/psi.h:1791
+Defined in psi/psi.h:1793
 
 Record a mutex instrumentation wait start event. 
 #### Returns
@@ -7210,7 +9055,7 @@ a mutex locker, or NULL
 using end_mutex_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1814
+Defined in psi/psi.h:1816
 
 Record a mutex instrumentation wait end event.
 
@@ -7231,7 +9076,7 @@ Record a mutex instrumentation wait end event.
 using start_rwlock_rdwait_v1_t = struct PSI_rwlock_locker *(*
 ```
 
-Defined in psi/psi.h:1814
+Defined in psi/psi.h:1816
 
 Record a rwlock instrumentation read wait start event.
 
@@ -7243,7 +9088,7 @@ Record a rwlock instrumentation read wait start event.
 using end_rwlock_rdwait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1831
+Defined in psi/psi.h:1833
 
 Record a rwlock instrumentation read wait end event.
 
@@ -7264,7 +9109,7 @@ Record a rwlock instrumentation read wait end event.
 using start_rwlock_wrwait_v1_t = struct PSI_rwlock_locker *(*
 ```
 
-Defined in psi/psi.h:1831
+Defined in psi/psi.h:1833
 
 Record a rwlock instrumentation write wait start event.
 
@@ -7276,7 +9121,7 @@ Record a rwlock instrumentation write wait start event.
 using end_rwlock_wrwait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1848
+Defined in psi/psi.h:1850
 
 Record a rwlock instrumentation write wait end event.
 
@@ -7297,7 +9142,7 @@ Record a rwlock instrumentation write wait end event.
 using start_cond_wait_v1_t = struct PSI_cond_locker *(*
 ```
 
-Defined in psi/psi.h:1848
+Defined in psi/psi.h:1850
 
 Record a condition instrumentation wait start event.
 
@@ -7309,7 +9154,7 @@ Record a condition instrumentation wait start event.
 using end_cond_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1866
+Defined in psi/psi.h:1868
 
 Record a condition instrumentation wait end event.
 
@@ -7330,7 +9175,7 @@ Record a condition instrumentation wait end event.
 using start_table_io_wait_v1_t = struct PSI_table_locker *(*
 ```
 
-Defined in psi/psi.h:1866
+Defined in psi/psi.h:1868
 
 Record a table instrumentation io wait start event.
 
@@ -7359,7 +9204,7 @@ Record a table instrumentation io wait start event.
 using end_table_io_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1890
+Defined in psi/psi.h:1892
 
 Record a table instrumentation io wait end event.
 
@@ -7380,7 +9225,7 @@ Record a table instrumentation io wait end event.
 using start_table_lock_wait_v1_t = struct PSI_table_locker *(*
 ```
 
-Defined in psi/psi.h:1890
+Defined in psi/psi.h:1892
 
 Record a table instrumentation lock wait start event.
 
@@ -7392,7 +9237,7 @@ Record a table instrumentation lock wait start event.
 using end_table_lock_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1908
+Defined in psi/psi.h:1910
 
 Record a table instrumentation lock wait end event.
 
@@ -7411,7 +9256,7 @@ Record a table instrumentation lock wait end event.
 using unlock_table_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1910
+Defined in psi/psi.h:1912
 
 ---
 
@@ -7421,7 +9266,7 @@ Defined in psi/psi.h:1910
 using start_file_open_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1918
+Defined in psi/psi.h:1920
 
 Start a file instrumentation open operation.
 
@@ -7444,7 +9289,7 @@ Start a file instrumentation open operation.
 using end_file_open_wait_v1_t = struct PSI_file *(*
 ```
 
-Defined in psi/psi.h:1918
+Defined in psi/psi.h:1920
 
 End a file instrumentation open operation, for file streams. 
 #### Returns
@@ -7467,7 +9312,7 @@ an instrumented file handle
 using end_file_open_wait_and_bind_to_descriptor_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1935
+Defined in psi/psi.h:1937
 
 End a file instrumentation open operation, for non stream files.
 
@@ -7488,7 +9333,7 @@ End a file instrumentation open operation, for non stream files.
 using end_temp_file_open_wait_and_bind_to_descriptor_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1944
+Defined in psi/psi.h:1946
 
 End a file instrumentation open operation, for non stream temporary files.
 
@@ -7511,7 +9356,7 @@ End a file instrumentation open operation, for non stream temporary files.
 using start_file_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1954
+Defined in psi/psi.h:1956
 
 Record a file instrumentation start event.
 
@@ -7536,7 +9381,7 @@ Record a file instrumentation start event.
 using end_file_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1970
+Defined in psi/psi.h:1972
 
 Record a file instrumentation end event. Note that for file close operations, the instrumented file handle associated with the file (which was provided to obtain a locker) is invalid after this call. **See also**: get_thread_file_name_locker 
 
@@ -7561,7 +9406,7 @@ Record a file instrumentation end event. Note that for file close operations, th
 using start_file_close_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1979
+Defined in psi/psi.h:1981
 
 Start a file instrumentation close operation.
 
@@ -7584,7 +9429,7 @@ Start a file instrumentation close operation.
 using end_file_close_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1988
+Defined in psi/psi.h:1990
 
 End a file instrumentation close operation. 
 #### Returns
@@ -7607,7 +9452,7 @@ an instrumented file handle
 using end_file_rename_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:1998
+Defined in psi/psi.h:2000
 
 Rename a file instrumentation close operation.
 
@@ -7632,7 +9477,7 @@ Rename a file instrumentation close operation.
 using start_stage_v1_t = PSI_stage_progress *(*
 ```
 
-Defined in psi/psi.h:2009
+Defined in psi/psi.h:2011
 
 Start a new stage, and implicitly end the previous stage. 
 #### Returns
@@ -7657,7 +9502,7 @@ the new stage progress
 using get_current_stage_progress_v1_t = PSI_stage_progress *(*
 ```
 
-Defined in psi/psi.h:2012
+Defined in psi/psi.h:2014
 
 ---
 
@@ -7667,7 +9512,7 @@ Defined in psi/psi.h:2012
 using end_stage_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2015
+Defined in psi/psi.h:2017
 
 End the current stage.
 
@@ -7679,7 +9524,7 @@ End the current stage.
 using get_thread_statement_locker_v1_t = struct PSI_statement_locker *(*
 ```
 
-Defined in psi/psi.h:2015
+Defined in psi/psi.h:2017
 
 Get a statement instrumentation locker. 
 #### Returns
@@ -7706,7 +9551,7 @@ a statement locker, or NULL
 using refine_statement_v1_t = struct PSI_statement_locker *(*
 ```
 
-Defined in psi/psi.h:2015
+Defined in psi/psi.h:2017
 
 Refine a statement locker to a more specific key. Note that only events declared mutable can be refined. **See also**: [PSI_FLAG_MUTABLE](#psi_flag_mutable)
 
@@ -7727,7 +9572,7 @@ Refine a statement locker to a more specific key. Note that only events declared
 using start_statement_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2048
+Defined in psi/psi.h:2050
 
 Start a new statement event.
 
@@ -7754,7 +9599,7 @@ Start a new statement event.
 using set_statement_text_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2059
+Defined in psi/psi.h:2061
 
 Set the statement text for a statement event.
 
@@ -7777,7 +9622,7 @@ Set the statement text for a statement event.
 using set_statement_lock_time_t = void(*
 ```
 
-Defined in psi/psi.h:2068
+Defined in psi/psi.h:2070
 
 Set a statement event lock time.
 
@@ -7798,7 +9643,7 @@ Set a statement event lock time.
 using set_statement_rows_sent_t = void(*
 ```
 
-Defined in psi/psi.h:2076
+Defined in psi/psi.h:2078
 
 Set a statement event rows sent metric.
 
@@ -7819,7 +9664,7 @@ Set a statement event rows sent metric.
 using set_statement_rows_examined_t = void(*
 ```
 
-Defined in psi/psi.h:2084
+Defined in psi/psi.h:2086
 
 Set a statement event rows examined metric.
 
@@ -7840,7 +9685,7 @@ Set a statement event rows examined metric.
 using inc_statement_created_tmp_disk_tables_t = void(*
 ```
 
-Defined in psi/psi.h:2092
+Defined in psi/psi.h:2094
 
 Increment a statement event "created tmp disk tables" metric.
 
@@ -7861,7 +9706,7 @@ Increment a statement event "created tmp disk tables" metric.
 using inc_statement_created_tmp_tables_t = void(*
 ```
 
-Defined in psi/psi.h:2100
+Defined in psi/psi.h:2102
 
 Increment a statement event "created tmp tables" metric.
 
@@ -7882,7 +9727,7 @@ Increment a statement event "created tmp tables" metric.
 using inc_statement_select_full_join_t = void(*
 ```
 
-Defined in psi/psi.h:2108
+Defined in psi/psi.h:2110
 
 Increment a statement event "select full join" metric.
 
@@ -7903,7 +9748,7 @@ Increment a statement event "select full join" metric.
 using inc_statement_select_full_range_join_t = void(*
 ```
 
-Defined in psi/psi.h:2116
+Defined in psi/psi.h:2118
 
 Increment a statement event "select full range join" metric.
 
@@ -7924,7 +9769,7 @@ Increment a statement event "select full range join" metric.
 using inc_statement_select_range_t = void(*
 ```
 
-Defined in psi/psi.h:2124
+Defined in psi/psi.h:2126
 
 Increment a statement event "select range join" metric.
 
@@ -7945,7 +9790,7 @@ Increment a statement event "select range join" metric.
 using inc_statement_select_range_check_t = void(*
 ```
 
-Defined in psi/psi.h:2132
+Defined in psi/psi.h:2134
 
 Increment a statement event "select range check" metric.
 
@@ -7966,7 +9811,7 @@ Increment a statement event "select range check" metric.
 using inc_statement_select_scan_t = void(*
 ```
 
-Defined in psi/psi.h:2140
+Defined in psi/psi.h:2142
 
 Increment a statement event "select scan" metric.
 
@@ -7987,7 +9832,7 @@ Increment a statement event "select scan" metric.
 using inc_statement_sort_merge_passes_t = void(*
 ```
 
-Defined in psi/psi.h:2148
+Defined in psi/psi.h:2150
 
 Increment a statement event "sort merge passes" metric.
 
@@ -8008,7 +9853,7 @@ Increment a statement event "sort merge passes" metric.
 using inc_statement_sort_range_t = void(*
 ```
 
-Defined in psi/psi.h:2156
+Defined in psi/psi.h:2158
 
 Increment a statement event "sort range" metric.
 
@@ -8029,7 +9874,7 @@ Increment a statement event "sort range" metric.
 using inc_statement_sort_rows_t = void(*
 ```
 
-Defined in psi/psi.h:2164
+Defined in psi/psi.h:2166
 
 Increment a statement event "sort rows" metric.
 
@@ -8050,7 +9895,7 @@ Increment a statement event "sort rows" metric.
 using inc_statement_sort_scan_t = void(*
 ```
 
-Defined in psi/psi.h:2172
+Defined in psi/psi.h:2174
 
 Increment a statement event "sort scan" metric.
 
@@ -8071,7 +9916,7 @@ Increment a statement event "sort scan" metric.
 using set_statement_no_index_used_t = void(*
 ```
 
-Defined in psi/psi.h:2179
+Defined in psi/psi.h:2181
 
 Set a statement event "no index used" metric.
 
@@ -8090,7 +9935,7 @@ Set a statement event "no index used" metric.
 using set_statement_no_good_index_used_t = void(*
 ```
 
-Defined in psi/psi.h:2186
+Defined in psi/psi.h:2188
 
 Set a statement event "no good index used" metric.
 
@@ -8109,7 +9954,7 @@ Set a statement event "no good index used" metric.
 using end_statement_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2195
+Defined in psi/psi.h:2197
 
 End a statement event. **See also**: Diagnostics_area
 
@@ -8130,7 +9975,7 @@ End a statement event. **See also**: Diagnostics_area
 using get_thread_transaction_locker_v1_t = struct PSI_transaction_locker *(*
 ```
 
-Defined in psi/psi.h:2195
+Defined in psi/psi.h:2197
 
 Get a transaction instrumentation locker. 
 #### Returns
@@ -8161,7 +10006,7 @@ a transaction locker, or NULL
 using start_transaction_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2219
+Defined in psi/psi.h:2221
 
 Start a new transaction event.
 
@@ -8184,7 +10029,7 @@ Start a new transaction event.
 using set_transaction_xid_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2229
+Defined in psi/psi.h:2231
 
 Set the transaction xid.
 
@@ -8207,7 +10052,7 @@ Set the transaction xid.
 using set_transaction_xa_state_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2238
+Defined in psi/psi.h:2240
 
 Set the state of the XA transaction.
 
@@ -8228,7 +10073,7 @@ Set the state of the XA transaction.
 using set_transaction_gtid_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2248
+Defined in psi/psi.h:2250
 
 Set the transaction gtid.
 
@@ -8251,7 +10096,7 @@ Set the transaction gtid.
 using set_transaction_trxid_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2257
+Defined in psi/psi.h:2259
 
 Set the transaction trx_id.
 
@@ -8272,7 +10117,7 @@ Set the transaction trx_id.
 using inc_transaction_savepoints_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2266
+Defined in psi/psi.h:2268
 
 Increment a transaction event savepoint count.
 
@@ -8293,7 +10138,7 @@ Increment a transaction event savepoint count.
 using inc_transaction_rollback_to_savepoint_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2274
+Defined in psi/psi.h:2276
 
 Increment a transaction event rollback to savepoint count.
 
@@ -8314,7 +10159,7 @@ Increment a transaction event rollback to savepoint count.
 using inc_transaction_release_savepoint_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2282
+Defined in psi/psi.h:2284
 
 Increment a transaction event release savepoint count.
 
@@ -8335,7 +10180,7 @@ Increment a transaction event release savepoint count.
 using end_transaction_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2290
+Defined in psi/psi.h:2292
 
 Commit or rollback the transaction.
 
@@ -8356,7 +10201,7 @@ Commit or rollback the transaction.
 using start_socket_wait_v1_t = struct PSI_socket_locker *(*
 ```
 
-Defined in psi/psi.h:2290
+Defined in psi/psi.h:2292
 
 Record a socket instrumentation start event.
 
@@ -8385,7 +10230,7 @@ Record a socket instrumentation start event.
 using end_socket_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2320
+Defined in psi/psi.h:2322
 
 Record a socket instrumentation end event. Note that for socket close operations, the instrumented socket handle associated with the socket (which was provided to obtain a locker) is invalid after this call. **See also**: get_thread_socket_locker
 
@@ -8406,7 +10251,7 @@ Record a socket instrumentation end event. Note that for socket close operations
 using set_socket_state_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2328
+Defined in psi/psi.h:2330
 
 Set the socket state for an instrumented socket.
 
@@ -8427,7 +10272,7 @@ Set the socket state for an instrumented socket.
 using set_socket_info_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2338
+Defined in psi/psi.h:2340
 
 Set the socket info for an instrumented socket.
 
@@ -8452,7 +10297,7 @@ Set the socket info for an instrumented socket.
 using set_socket_thread_owner_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2347
+Defined in psi/psi.h:2349
 
 Bind a socket to the thread that owns it.
 
@@ -8471,7 +10316,7 @@ Bind a socket to the thread that owns it.
 using create_prepared_stmt_v1_t = PSI_prepared_stmt *(*
 ```
 
-Defined in psi/psi.h:2352
+Defined in psi/psi.h:2354
 
 Get a prepare statement.
 
@@ -8483,7 +10328,7 @@ Get a prepare statement.
 using destroy_prepared_stmt_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2360
+Defined in psi/psi.h:2362
 
 destroy a prepare statement.
 
@@ -8502,7 +10347,7 @@ destroy a prepare statement.
 using reprepare_prepared_stmt_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2367
+Defined in psi/psi.h:2369
 
 reprepare a prepare statement.
 
@@ -8521,7 +10366,7 @@ reprepare a prepare statement.
 using execute_prepared_stmt_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2375
+Defined in psi/psi.h:2377
 
 Record a prepare statement instrumentation execute event.
 
@@ -8542,7 +10387,7 @@ Record a prepare statement instrumentation execute event.
 using set_prepared_stmt_text_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2384
+Defined in psi/psi.h:2386
 
 Set the statement text for a prepared statement event.
 
@@ -8565,7 +10410,7 @@ Set the statement text for a prepared statement event.
 using digest_start_v1_t = struct PSI_digest_locker *(*
 ```
 
-Defined in psi/psi.h:2384
+Defined in psi/psi.h:2386
 
 Get a digest locker for the current statement.
 
@@ -8584,7 +10429,7 @@ Get a digest locker for the current statement.
 using digest_end_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2399
+Defined in psi/psi.h:2401
 
 Add a token to the current digest instrumentation.
 
@@ -8605,7 +10450,7 @@ Add a token to the current digest instrumentation.
 using start_sp_v1_t = PSI_sp_locker *(*
 ```
 
-Defined in psi/psi.h:2402
+Defined in psi/psi.h:2404
 
 ---
 
@@ -8615,7 +10460,7 @@ Defined in psi/psi.h:2402
 using end_sp_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2405
+Defined in psi/psi.h:2407
 
 ---
 
@@ -8625,7 +10470,7 @@ Defined in psi/psi.h:2405
 using drop_sp_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2408
+Defined in psi/psi.h:2410
 
 ---
 
@@ -8635,7 +10480,7 @@ Defined in psi/psi.h:2408
 using get_sp_share_v1_t = struct PSI_sp_share *(*
 ```
 
-Defined in psi/psi.h:2408
+Defined in psi/psi.h:2410
 
 Acquire a sp share instrumentation. 
 #### Returns
@@ -8664,7 +10509,7 @@ a stored program share instrumentation, or NULL
 using release_sp_share_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2431
+Defined in psi/psi.h:2433
 
 Release a stored program share.
 
@@ -8683,7 +10528,7 @@ Release a stored program share.
 using create_metadata_lock_v1_t = PSI_metadata_lock *(*
 ```
 
-Defined in psi/psi.h:2433
+Defined in psi/psi.h:2435
 
 ---
 
@@ -8693,7 +10538,7 @@ Defined in psi/psi.h:2433
 using set_metadata_lock_status_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2442
+Defined in psi/psi.h:2444
 
 ---
 
@@ -8703,7 +10548,7 @@ Defined in psi/psi.h:2442
 using destroy_metadata_lock_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2445
+Defined in psi/psi.h:2447
 
 ---
 
@@ -8713,7 +10558,7 @@ Defined in psi/psi.h:2445
 using start_metadata_wait_v1_t = struct PSI_metadata_locker *(*
 ```
 
-Defined in psi/psi.h:2445
+Defined in psi/psi.h:2447
 
 ---
 
@@ -8723,7 +10568,7 @@ Defined in psi/psi.h:2445
 using end_metadata_wait_v1_t = void(*
 ```
 
-Defined in psi/psi.h:2452
+Defined in psi/psi.h:2454
 
 ---
 
@@ -8733,7 +10578,7 @@ Defined in psi/psi.h:2452
 using set_thread_connect_attrs_v1_t = int(*
 ```
 
-Defined in psi/psi.h:2465
+Defined in psi/psi.h:2467
 
 Stores an array of connection attributes 
 #### Returns
@@ -8767,7 +10612,7 @@ using PSI = struct PSI_v1
 
 Type: struct [`PSI_v1`](Group_PSI_v1.md#psi_v1)
 
-Defined in psi/psi.h:2930
+Defined in psi/psi.h:2932
 
 The instrumentation interface for the current version. **See also**: PSI_CURRENT_VERSION
 
@@ -8781,7 +10626,7 @@ using PSI_mutex_info = struct PSI_mutex_info_v1
 
 Type: struct [`PSI_mutex_info_v1`](Group_PSI_v1.md#psi_mutex_info_v1-1)
 
-Defined in psi/psi.h:2931
+Defined in psi/psi.h:2933
 
 The mutex information structure for the current version.
 
@@ -8795,7 +10640,7 @@ using PSI_rwlock_info = struct PSI_rwlock_info_v1
 
 Type: struct [`PSI_rwlock_info_v1`](Group_PSI_v1.md#psi_rwlock_info_v1-1)
 
-Defined in psi/psi.h:2932
+Defined in psi/psi.h:2934
 
 The rwlock information structure for the current version.
 
@@ -8809,7 +10654,7 @@ using PSI_cond_info = struct PSI_cond_info_v1
 
 Type: struct [`PSI_cond_info_v1`](Group_PSI_v1.md#psi_cond_info_v1-1)
 
-Defined in psi/psi.h:2933
+Defined in psi/psi.h:2935
 
 The cond information structure for the current version.
 
@@ -8823,7 +10668,7 @@ using PSI_thread_info = struct PSI_thread_info_v1
 
 Type: struct [`PSI_thread_info_v1`](Group_PSI_v1.md#psi_thread_info_v1-1)
 
-Defined in psi/psi.h:2934
+Defined in psi/psi.h:2936
 
 The thread information structure for the current version.
 
@@ -8837,7 +10682,7 @@ using PSI_file_info = struct PSI_file_info_v1
 
 Type: struct [`PSI_file_info_v1`](Group_PSI_v1.md#psi_file_info_v1-1)
 
-Defined in psi/psi.h:2935
+Defined in psi/psi.h:2937
 
 The file information structure for the current version.
 
@@ -8851,7 +10696,7 @@ using PSI_stage_info = struct PSI_stage_info_v1
 
 Type: struct [`PSI_stage_info_v1`](Group_PSI_v1.md#psi_stage_info_v1-1)
 
-Defined in psi/psi.h:2936
+Defined in psi/psi.h:2938
 
 The stage instrumentation has to co exist with the legacy THD::set_proc_info instrumentation. To avoid duplication of the instrumentation in the server, the common PSI_stage_info structure is used, so we export it here, even when not building with HAVE_PSI_INTERFACE.
 
@@ -8865,7 +10710,7 @@ using PSI_statement_info = struct PSI_statement_info_v1
 
 Type: struct [`PSI_statement_info_v1`](Group_PSI_v1.md#psi_statement_info_v1-1)
 
-Defined in psi/psi.h:2937
+Defined in psi/psi.h:2939
 
 ---
 
@@ -8875,7 +10720,7 @@ Defined in psi/psi.h:2937
 using PSI_transaction_info = struct PSI_transaction_info_v1
 ```
 
-Defined in psi/psi.h:2938
+Defined in psi/psi.h:2940
 
 ---
 
@@ -8887,7 +10732,7 @@ using PSI_socket_info = struct PSI_socket_info_v1
 
 Type: struct [`PSI_socket_info_v1`](Group_PSI_v1.md#psi_socket_info_v1-1)
 
-Defined in psi/psi.h:2939
+Defined in psi/psi.h:2941
 
 ---
 
@@ -8899,7 +10744,7 @@ using PSI_idle_locker_state = struct PSI_idle_locker_state_v1
 
 Type: struct [`PSI_idle_locker_state_v1`](Group_PSI_v1.md#psi_idle_locker_state_v1-1)
 
-Defined in psi/psi.h:2940
+Defined in psi/psi.h:2942
 
 ---
 
@@ -8911,7 +10756,7 @@ using PSI_mutex_locker_state = struct PSI_mutex_locker_state_v1
 
 Type: struct [`PSI_mutex_locker_state_v1`](Group_PSI_v1.md#psi_mutex_locker_state_v1-1)
 
-Defined in psi/psi.h:2941
+Defined in psi/psi.h:2943
 
 ---
 
@@ -8923,7 +10768,7 @@ using PSI_rwlock_locker_state = struct PSI_rwlock_locker_state_v1
 
 Type: struct [`PSI_rwlock_locker_state_v1`](Group_PSI_v1.md#psi_rwlock_locker_state_v1-1)
 
-Defined in psi/psi.h:2942
+Defined in psi/psi.h:2944
 
 ---
 
@@ -8935,7 +10780,7 @@ using PSI_cond_locker_state = struct PSI_cond_locker_state_v1
 
 Type: struct [`PSI_cond_locker_state_v1`](Group_PSI_v1.md#psi_cond_locker_state_v1-1)
 
-Defined in psi/psi.h:2943
+Defined in psi/psi.h:2945
 
 ---
 
@@ -8947,7 +10792,7 @@ using PSI_file_locker_state = struct PSI_file_locker_state_v1
 
 Type: struct [`PSI_file_locker_state_v1`](Group_PSI_v1.md#psi_file_locker_state_v1-1)
 
-Defined in psi/psi.h:2944
+Defined in psi/psi.h:2946
 
 ---
 
@@ -8959,7 +10804,7 @@ using PSI_statement_locker_state = struct PSI_statement_locker_state_v1
 
 Type: struct [`PSI_statement_locker_state_v1`](Group_PSI_v1.md#psi_statement_locker_state_v1-1)
 
-Defined in psi/psi.h:2945
+Defined in psi/psi.h:2947
 
 ---
 
@@ -8971,7 +10816,7 @@ using PSI_transaction_locker_state = struct PSI_transaction_locker_state_v1
 
 Type: struct [`PSI_transaction_locker_state_v1`](Group_PSI_v1.md#psi_transaction_locker_state_v1-1)
 
-Defined in psi/psi.h:2946
+Defined in psi/psi.h:2948
 
 ---
 
@@ -8983,7 +10828,7 @@ using PSI_socket_locker_state = struct PSI_socket_locker_state_v1
 
 Type: struct [`PSI_socket_locker_state_v1`](Group_PSI_v1.md#psi_socket_locker_state_v1-1)
 
-Defined in psi/psi.h:2947
+Defined in psi/psi.h:2949
 
 ---
 
@@ -8995,7 +10840,7 @@ using PSI_sp_locker_state = struct PSI_sp_locker_state_v1
 
 Type: struct [`PSI_sp_locker_state_v1`](Group_PSI_v1.md#psi_sp_locker_state_v1-1)
 
-Defined in psi/psi.h:2948
+Defined in psi/psi.h:2950
 
 ---
 
@@ -9007,7 +10852,7 @@ using PSI_metadata_locker_state = struct PSI_metadata_locker_state_v1
 
 Type: struct [`PSI_metadata_locker_state_v1`](Group_PSI_v1.md#psi_metadata_locker_state_v1-1)
 
-Defined in psi/psi.h:2949
+Defined in psi/psi.h:2951
 
 ---
 
@@ -9019,19 +10864,7 @@ using PSI_metadata_locker = struct PSI_stage_info_none
 
 Type: struct [`PSI_stage_info_none`](Instrumentation_interface.md#psi_stage_info_none)
 
-Defined in psi/psi.h:3015
-
----
-
-### MYSQL_THD
-
-```cpp
-using MYSQL_THD = struct THD *
-```
-
-Type: struct [`THD`](#thd) *
-
-Defined in plugin.h:54
+Defined in psi/psi.h:3017
 
 ---
 
@@ -9041,7 +10874,7 @@ Defined in plugin.h:54
 using my_bool = char
 ```
 
-Defined in plugin.h:57
+Defined in plugin.h:72
 
 ---
 
@@ -9051,7 +10884,9 @@ Defined in plugin.h:57
 using MYSQL_PLUGIN = void *
 ```
 
-Defined in plugin.h:58
+Defined in plugin.h:78
+
+Opaque type for a plugin handle.
 
 ---
 
@@ -9061,9 +10896,9 @@ Defined in plugin.h:58
 using MYSQL_XID = struct st_mysql_xid
 ```
 
-Type: struct [`st_mysql_xid`](#st_mysql_xid)
+Type: struct [`st_mysql_xid`](storage_engine_plugin_data.md#st_mysql_xid)
 
-Defined in plugin.h:77
+Defined in plugin.h:102
 
 ---
 
@@ -9073,7 +10908,7 @@ Defined in plugin.h:77
 using mysql_show_var_func = int(*
 ```
 
-Defined in plugin.h:215
+Defined in plugin.h:299
 
 ---
 
@@ -9083,11 +10918,34 @@ Defined in plugin.h:215
 using mysql_var_check_func = int(*
 ```
 
-Defined in plugin.h:284
-
-SYNOPSIS (*mysql_var_check_func)() thd thread handle var dynamic variable being altered save pointer to temporary storage value user provided value RETURN 0 user provided value is OK and the update func may be called. any other value indicates error.
+Defined in plugin.h:413
 
 This function should parse the user provided value and store in the provided temporary storage any data as required by the update func. There is sufficient space in the temporary storage to store a double. Note that the update func may not be called if any other error occurs so any memory allocated should be thread-local so that it may be freed automatically at the end of the statement.
+
+> [!WARNING]
+> If this callback is supplied, it *MUST* store the new value into `save`, so that [mysql_var_update_func](#mysql_var_update_func) can pick it up later. The server will not do it on its own in addition to calling the callback.
+
+**See also**: [Check and Update Callbacks](page-implementation.md#check-and-update-callbacks)
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | thread handle |
+| `var` |  | dynamic variable being altered |
+| `save` |  | pointer to temporary storage. Valid across check and update functions. |
+| `value` |  | user provided value |
+| `thd` |  | thread handle |
+| `var` |  | dynamic variable being altered |
+| `save` |  | pointer to temporary storage. Valid across check and update functions. |
+| `value` |  | user provided value |
+
+#### Return Values
+
+| Value | Description |
+|-------|-------------|
+| `0` | user provided value is OK and the update func may be called. |
+| `any` | other value indicates error. |
 
 ---
 
@@ -9097,11 +10955,27 @@ This function should parse the user provided value and store in the provided tem
 using mysql_var_update_func = void(*
 ```
 
-Defined in plugin.h:302
+Defined in plugin.h:432
 
-SYNOPSIS (*mysql_var_update_func)() thd thread handle var dynamic variable being altered var_ptr pointer to dynamic variable save pointer to temporary storage RETURN NONE
+This function should use the validated value stored in the temporary store `save` and persist it in the provided pointer to the dynamic variable. For example, strings may require memory to be allocated.
 
-This function should use the validated value stored in the temporary store and persist it in the provided pointer to the dynamic variable. For example, strings may require memory to be allocated.
+> [!WARNING]
+> If this callback is supplied, it *MUST* store the actual value from `save` to `var_ptr`. The server will not do it on its own in addition to calling the callback.
+
+**See also**: [Check and Update Callbacks](page-implementation.md#check-and-update-callbacks)
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `thd` |  | thread handle |
+| `var` |  | dynamic variable being altered |
+| `var_ptr` |  | pointer to dynamic variable |
+| `save` |  | pointer to temporary storage. Valid across check and update functions. |
+| `thd` |  | thread handle |
+| `var` |  | dynamic variable being altered |
+| `var_ptr` |  | pointer to dynamic variable |
+| `save` |  | pointer to temporary storage. Valid across check and update functions. |
 
 ---
 
@@ -9111,7 +10985,7 @@ This function should use the validated value stored in the temporary store and p
 using PSI_memory_key = unsigned int
 ```
 
-Defined in psi/psi_base.h:177
+Defined in psi/psi_base.h:175
 
 Instrumented memory key. To instrument memory, a memory key must be obtained using `register_memory`. Using a zero key always disable the instrumentation.
 
@@ -9284,9 +11158,9 @@ Defined in psi/psi_memory.h:148
 using MYSQL_SERVER_AUTH_INFO = struct st_mysql_server_auth_info
 ```
 
-Type: struct [`st_mysql_server_auth_info`](#st_mysql_server_auth_info)
+Type: struct [`st_mysql_server_auth_info`](authentication_plugin.md#st_mysql_server_auth_info)
 
-Defined in plugin_auth.h:114
+Defined in plugin_auth.h:128
 
 Provides server plugin access to authentication information
 
@@ -9300,7 +11174,7 @@ using MYSQL_SOCKET = struct st_mysql_socket
 
 Type: struct [`st_mysql_socket`](Socket_instrumentation.md#st_mysql_socket)
 
-Defined in psi/mysql_socket.h:99
+Defined in psi/mysql_socket.h:101
 
 An instrumented socket. `MYSQL_SOCKET` is a replacement for `my_socket`.
 
@@ -9408,7 +11282,9 @@ Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `
 using query_id_t = int64
 ```
 
-Defined in service_wsrep.h:53
+Defined in service_wsrep.h:60
+
+Must match to definition in sql/mysqld.h
 
 ---
 
@@ -9418,7 +11294,7 @@ Defined in service_wsrep.h:53
 using LOGGER_HANDLE = struct logger_handle_st
 ```
 
-Defined in service_logger.h:61
+Defined in service_logger.h:69
 
 ---
 
@@ -9428,9 +11304,13 @@ Defined in service_logger.h:61
 using MYSQL_FTPARSER_BOOLEAN_INFO = struct st_mysql_ftparser_boolean_info
 ```
 
-Type: struct [`st_mysql_ftparser_boolean_info`](#st_mysql_ftparser_boolean_info)
+Type: struct [`st_mysql_ftparser_boolean_info`](ftparser_plugin_data.md#st_mysql_ftparser_boolean_info)
 
-Defined in plugin_ftparser.h:130
+Defined in plugin_ftparser.h:145
+
+Structure for boolean mode search.
+
+This structure is used in boolean search mode only. It conveys boolean-mode metadata to the MySQL search engine for every word in the search query. A valid instance of this structure must be filled in by the plugin parser and passed as an argument in the call to mysql_add_word (the callback function in the MYSQL_FTPARSER_PARAM structure) when a query is parsed in boolean mode.
 
 ---
 
@@ -9440,9 +11320,13 @@ Defined in plugin_ftparser.h:130
 using MYSQL_FTPARSER_PARAM = struct st_mysql_ftparser_param
 ```
 
-Type: struct [`st_mysql_ftparser_param`](#st_mysql_ftparser_param)
+Type: struct [`st_mysql_ftparser_param`](ftparser_plugin_data.md#st_mysql_ftparser_param)
 
-Defined in plugin_ftparser.h:198
+Defined in plugin_ftparser.h:231
+
+An argument of the full-text parser plugin.
+
+This structure is filled in by MySQL server and passed to the parsing function of the plugin as an in/out parameter.
 
 ---
 
@@ -9452,7 +11336,7 @@ Defined in plugin_ftparser.h:198
 using CHARSET_INFO = const struct charset_info_st
 ```
 
-Defined in psi/mysql_statement.h:35
+Defined in psi/mysql_statement.h:41
 
 ---
 
@@ -9464,7 +11348,7 @@ using thd_wait_type = enum _thd_wait_type_e
 
 Type: enum [`_thd_wait_type_e`](#thd_wait_type_e)
 
-Defined in service_thd_wait.h:79
+Defined in service_thd_wait.h:70
 
 ---
 
@@ -9474,9 +11358,9 @@ Defined in service_thd_wait.h:79
 using MYSQL_CONST_LEX_STRING = struct st_mysql_const_lex_string
 ```
 
-Type: struct [`st_mysql_const_lex_string`](#st_mysql_const_lex_string)
+Type: struct [`st_mysql_const_lex_string`](plugin_api_service_thd_alloc.md#st_mysql_const_lex_string)
 
-Defined in service_thd_alloc.h:43
+Defined in service_thd_alloc.h:56
 
 ---
 
@@ -9486,9 +11370,9 @@ Defined in service_thd_alloc.h:43
 using MYSQL_LEX_STRING = struct st_mysql_lex_string
 ```
 
-Type: struct [`st_mysql_lex_string`](#st_mysql_lex_string)
+Type: struct [`st_mysql_lex_string`](plugin_api_service_thd_alloc.md#st_mysql_lex_string)
 
-Defined in service_thd_alloc.h:57
+Defined in service_thd_alloc.h:70
 
 ---
 
@@ -9498,7 +11382,7 @@ Defined in service_thd_alloc.h:57
 using mysql_authentication_dialog_ask_t = char *(*
 ```
 
-Defined in auth_dialog_client.h:43
+Defined in auth_dialog_client.h:49
 
 type of the mysql_authentication_dialog_ask function
 
@@ -9506,6 +11390,11 @@ type of the mysql_authentication_dialog_ask function
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `mysql` |  | mysql |
+| `type` |  | type of the input 1 - ordinary string input 2 - password string |
+| `prompt` |  | prompt |
+| `buf` |  | a buffer to store the use input |
+| `buf_len` |  | the length of the buffer |
 | `mysql` |  | mysql |
 | `type` |  | type of the input 1 - ordinary string input 2 - password string |
 | `prompt` |  | prompt |
@@ -9526,9 +11415,9 @@ type of the mysql_authentication_dialog_ask function
 using MYSQL_PLUGIN_VIO_INFO = struct st_plugin_vio_info
 ```
 
-Type: struct [`st_plugin_vio_info`](#st_plugin_vio_info)
+Type: struct [`st_plugin_vio_info`](authentication_plugin.md#st_plugin_vio_info)
 
-Defined in plugin_auth_common.h:102
+Defined in plugin_auth_common.h:110
 
 ---
 
@@ -9538,9 +11427,9 @@ Defined in plugin_auth_common.h:102
 using MYSQL_PLUGIN_VIO = struct st_plugin_vio
 ```
 
-Type: struct [`st_plugin_vio`](#st_plugin_vio)
+Type: struct [`st_plugin_vio`](authentication_plugin.md#st_plugin_vio)
 
-Defined in plugin_auth_common.h:131
+Defined in plugin_auth_common.h:139
 
 Provides plugin access to communication channel
 
@@ -9552,7 +11441,7 @@ Provides plugin access to communication channel
 using MYSQL_THD_KEY_T = int
 ```
 
-Defined in service_thd_specifics.h:60
+Defined in service_thd_specifics.h:72
 
 ## Functions
 
@@ -9563,100 +11452,100 @@ Defined in service_thd_specifics.h:60
 `static` `inline`
 
 ```cpp
-static inline struct st_mysql_show_var SHOW_FUNC_ENTRY(const char * name, mysql_show_var_func func_arg)
+static inline struct st_mysql_show_var SHOW_FUNC_ENTRY(const char * name, mysql_show_var_func func_arg, const char * name, mysql_show_var_func func_arg)
 ```
 
-Defined in plugin.h:219
+Defined in plugin.h:303
 
 ---
 
 ### thd_in_lock_tables
 
 ```cpp
-int thd_in_lock_tables(const MYSQL_THD thd)
+int thd_in_lock_tables(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:696
+Defined in plugin.h:904
 
 ---
 
 ### thd_tablespace_op
 
 ```cpp
-int thd_tablespace_op(const MYSQL_THD thd)
+int thd_tablespace_op(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:697
+Defined in plugin.h:905
 
 ---
 
 ### thd_test_options
 
 ```cpp
-long long thd_test_options(const MYSQL_THD thd, long long test_options)
+long long thd_test_options(const MYSQL_THD thd, long long test_options, const MYSQL_THD thd, long long test_options)
 ```
 
-Defined in plugin.h:698
+Defined in plugin.h:906
 
 ---
 
 ### thd_sql_command
 
 ```cpp
-int thd_sql_command(const MYSQL_THD thd)
+int thd_sql_command(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:699
+Defined in plugin.h:907
 
 ---
 
 ### thd_ddl_options
 
 ```cpp
-struct DDL_options_st * thd_ddl_options(const MYSQL_THD thd)
+struct DDL_options_st * thd_ddl_options(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:701
+Defined in plugin.h:909
 
 ---
 
 ### thd_storage_lock_wait
 
 ```cpp
-void thd_storage_lock_wait(MYSQL_THD thd, long long value)
+void thd_storage_lock_wait(MYSQL_THD thd, long long value, MYSQL_THD thd, long long value)
 ```
 
-Defined in plugin.h:702
+Defined in plugin.h:910
 
 ---
 
 ### thd_tx_isolation
 
 ```cpp
-int thd_tx_isolation(const MYSQL_THD thd)
+int thd_tx_isolation(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:703
+Defined in plugin.h:911
 
 ---
 
 ### thd_tx_is_read_only
 
 ```cpp
-int thd_tx_is_read_only(const MYSQL_THD thd)
+int thd_tx_is_read_only(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:704
+Defined in plugin.h:912
 
 ---
 
 ### mysql_tmpfile
 
 ```cpp
-int mysql_tmpfile(const char * prefix)
+int mysql_tmpfile(const char * prefix, const char * prefix)
 ```
 
-Defined in plugin.h:718
+Defined in plugin.h:926
 
 Create a temporary file.
 
@@ -9666,6 +11555,7 @@ The temporary file is created in a location specified by the mysql server config
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `prefix` | `const char *` | prefix for temporary file name |
 | `prefix` | `const char *` | prefix for temporary file name |
 
 #### Return Values
@@ -9680,10 +11570,10 @@ The temporary file is created in a location specified by the mysql server config
 ### thd_get_thread_id
 
 ```cpp
-unsigned long thd_get_thread_id(const MYSQL_THD thd)
+unsigned long thd_get_thread_id(const MYSQL_THD thd, const MYSQL_THD thd)
 ```
 
-Defined in plugin.h:726
+Defined in plugin.h:934
 
 Return the thread id of a user thread
 
@@ -9695,16 +11585,17 @@ thread id
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
+| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
 
 ---
 
 ### thd_get_xid
 
 ```cpp
-void thd_get_xid(const MYSQL_THD thd, MYSQL_XID * xid)
+void thd_get_xid(const MYSQL_THD thd, MYSQL_XID * xid, const MYSQL_THD thd, MYSQL_XID * xid)
 ```
 
-Defined in plugin.h:734
+Defined in plugin.h:946
 
 Get the XID for this connection's transaction
 
@@ -9714,16 +11605,18 @@ Get the XID for this connection's transaction
 |-----------|------|-------------|
 | `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
 | `xid` | [`MYSQL_XID`](#mysql_xid) * | location where identifier is stored |
+| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
+| `xid` | [`MYSQL_XID`](#mysql_xid) * | location where identifier is stored |
 
 ---
 
 ### mysql_query_cache_invalidate4
 
 ```cpp
-void mysql_query_cache_invalidate4(MYSQL_THD thd, const char * key, unsigned int key_length, int using_trx)
+void mysql_query_cache_invalidate4(MYSQL_THD thd, const char * key, unsigned int key_length, int using_trx, MYSQL_THD thd, const char * key, unsigned int key_length, int using_trx)
 ```
 
-Defined in plugin.h:744
+Defined in plugin.h:958
 
 Invalidate the query cache for a given table.
 
@@ -9735,16 +11628,20 @@ Invalidate the query cache for a given table.
 | `key` | `const char *` | databasename\0tablename\0 |
 | `key_length` | `unsigned int` | length of key in bytes, including the NUL bytes |
 | `using_trx` | `int` | flag: TRUE if using transactions, FALSE otherwise |
+| `thd` | [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
+| `key` | `const char *` | databasename\0tablename\0 |
+| `key_length` | `unsigned int` | length of key in bytes, including the NUL bytes |
+| `using_trx` | `int` | flag: TRUE if using transactions, FALSE otherwise |
 
 ---
 
 ### thd_get_ha_data
 
 ```cpp
-void * thd_get_ha_data(const MYSQL_THD thd, const struct transaction_participant * hton)
+void * thd_get_ha_data(const MYSQL_THD thd, const struct transaction_participant * hton, const MYSQL_THD thd, const struct transaction_participant * hton)
 ```
 
-Defined in plugin.h:752
+Defined in plugin.h:966
 
 Provide a handler data getter to simplify coding
 
@@ -9753,10 +11650,10 @@ Provide a handler data getter to simplify coding
 ### thd_set_ha_data
 
 ```cpp
-void thd_set_ha_data(MYSQL_THD thd, const struct transaction_participant * hton, const void * ha_data)
+void thd_set_ha_data(MYSQL_THD thd, const struct transaction_participant * hton, const void * ha_data, MYSQL_THD thd, const struct transaction_participant * hton, const void * ha_data)
 ```
 
-Defined in plugin.h:776
+Defined in plugin.h:990
 
 Provide a handler data setter to simplify coding
 
@@ -9775,10 +11672,10 @@ If transaction_participant::close_connection() didn't reset ha_data, server does
 ### thd_wakeup_subsequent_commits
 
 ```cpp
-void thd_wakeup_subsequent_commits(MYSQL_THD thd, int wakeup_error)
+void thd_wakeup_subsequent_commits(MYSQL_THD thd, int wakeup_error, MYSQL_THD thd, int wakeup_error)
 ```
 
-Defined in plugin.h:811
+Defined in plugin.h:1025
 
 Signal that the first part of handler commit is finished, and that the committed transaction is now visible and has fixed commit ordering with respect to other transactions. The commit need *not* be durable yet, and typically will not be when this call makes sense.
 
@@ -10200,90 +12097,6 @@ Defined in psi/mysql_file.h:1428
 
 ---
 
-### my_md5
-
-```cpp
-void my_md5(unsigned char *, const char *, size_t)
-```
-
-Defined in service_md5.h:54
-
----
-
-### my_md5_multi
-
-```cpp
-void my_md5_multi(unsigned char *, ...)
-```
-
-Defined in service_md5.h:55
-
----
-
-### my_md5_context_size
-
-```cpp
-size_t my_md5_context_size()
-```
-
-Defined in service_md5.h:56
-
----
-
-### my_md5_init
-
-```cpp
-void my_md5_init(void * context)
-```
-
-Defined in service_md5.h:57
-
----
-
-### my_md5_input
-
-```cpp
-void my_md5_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_md5.h:58
-
----
-
-### my_md5_result
-
-```cpp
-void my_md5_result(void * context, unsigned char * digest)
-```
-
-Defined in service_md5.h:59
-
----
-
-### mysql_real_connect_local
-
-```cpp
-MYSQL * mysql_real_connect_local(MYSQL * mysql)
-```
-
-Defined in service_sql.h:112
-
----
-
-### get_current_thd
-
-```cpp
-MYSQL_THD get_current_thd()
-```
-
-Defined in service_thd.h:38
-
-current thd accessor 
-#### Returns
-pointer to current thd
-
----
-
 ### inline_mysql_memory_register
 
 `static` `inline`
@@ -10292,7 +12105,7 @@ pointer to current thd
 static inline void inline_mysql_memory_register(const char *category __attribute__, void *info __attribute__, int count __attribute__, const char *category __attribute__, void *info __attribute__, int count __attribute__)
 ```
 
-Defined in psi/mysql_memory.h:62
+Defined in psi/mysql_memory.h:61
 
 ---
 
@@ -10304,7 +12117,7 @@ Defined in psi/mysql_memory.h:62
 static inline MYSQL_SOCKET mysql_socket_invalid()
 ```
 
-Defined in psi/mysql_socket.h:115
+Defined in psi/mysql_socket.h:117
 
 MYSQL_SOCKET helper. Initialize instrumented socket. **See also**: mysql_socket_getfd 
 
@@ -10320,7 +12133,7 @@ MYSQL_SOCKET helper. Initialize instrumented socket. **See also**: mysql_socket_
 static inline void mysql_socket_set_address(MYSQL_SOCKET socket, const struct sockaddr * addr, socklen_t addr_len, MYSQL_SOCKET socket, const struct sockaddr * addr, socklen_t addr_len)
 ```
 
-Defined in psi/mysql_socket.h:130
+Defined in psi/mysql_socket.h:132
 
 Set socket descriptor and address.
 
@@ -10345,7 +12158,7 @@ Set socket descriptor and address.
 static inline void mysql_socket_set_thread_owner(MYSQL_SOCKET socket, MYSQL_SOCKET socket)
 ```
 
-Defined in psi/mysql_socket.h:153
+Defined in psi/mysql_socket.h:155
 
 Set socket descriptor and address.
 
@@ -10366,7 +12179,7 @@ Set socket descriptor and address.
 static inline my_socket mysql_socket_getfd(MYSQL_SOCKET mysql_socket, MYSQL_SOCKET mysql_socket)
 ```
 
-Defined in psi/mysql_socket.h:173
+Defined in psi/mysql_socket.h:175
 
 MYSQL_SOCKET helper. Get socket descriptor. **See also**: mysql_socket_getfd
 
@@ -10387,7 +12200,7 @@ MYSQL_SOCKET helper. Get socket descriptor. **See also**: mysql_socket_getfd
 static inline void mysql_socket_setfd(MYSQL_SOCKET * mysql_socket, my_socket fd, MYSQL_SOCKET * mysql_socket, my_socket fd)
 ```
 
-Defined in psi/mysql_socket.h:185
+Defined in psi/mysql_socket.h:187
 
 MYSQL_SOCKET helper. Set socket descriptor. **See also**: mysql_socket_setfd
 
@@ -10410,7 +12223,7 @@ MYSQL_SOCKET helper. Set socket descriptor. **See also**: mysql_socket_setfd
 static inline struct PSI_socket_locker * inline_mysql_start_socket_wait(PSI_socket_locker_state * state, MYSQL_SOCKET mysql_socket, enum PSI_socket_operation op, size_t byte_count, const char * src_file, uint src_line, PSI_socket_locker_state * state, MYSQL_SOCKET mysql_socket, enum PSI_socket_operation op, size_t byte_count, const char * src_file, uint src_line)
 ```
 
-Defined in psi/mysql_socket.h:266
+Defined in psi/mysql_socket.h:268
 
 Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait).
 
@@ -10424,7 +12237,7 @@ Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SO
 static inline void inline_mysql_end_socket_wait(struct PSI_socket_locker * locker, size_t byte_count, struct PSI_socket_locker * locker, size_t byte_count)
 ```
 
-Defined in psi/mysql_socket.h:288
+Defined in psi/mysql_socket.h:290
 
 Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait).
 
@@ -10438,7 +12251,7 @@ Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET
 static inline void inline_mysql_socket_set_state(MYSQL_SOCKET socket, enum PSI_socket_state state, MYSQL_SOCKET socket, enum PSI_socket_state state)
 ```
 
-Defined in psi/mysql_socket.h:301
+Defined in psi/mysql_socket.h:303
 
 Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket_state
 
@@ -10461,7 +12274,7 @@ Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket
 static inline void inline_mysql_socket_register(const char * category, PSI_socket_info * info, int count, const char * category, PSI_socket_info * info, int count)
 ```
 
-Defined in psi/mysql_socket.h:589
+Defined in psi/mysql_socket.h:591
 
 ---
 
@@ -10473,7 +12286,7 @@ Defined in psi/mysql_socket.h:589
 static inline MYSQL_SOCKET inline_mysql_socket_fd(PSI_socket_key key, int fd, PSI_socket_key key, int fd)
 ```
 
-Defined in psi/mysql_socket.h:601
+Defined in psi/mysql_socket.h:603
 
 mysql_socket_fd
 
@@ -10487,7 +12300,7 @@ mysql_socket_fd
 static inline MYSQL_SOCKET inline_mysql_socket_socket(PSI_socket_key key, int domain, int type, int protocol, PSI_socket_key key, int domain, int type, int protocol)
 ```
 
-Defined in psi/mysql_socket.h:634
+Defined in psi/mysql_socket.h:636
 
 mysql_socket_socket
 
@@ -10501,7 +12314,7 @@ mysql_socket_socket
 static inline int inline_mysql_socket_bind(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const struct sockaddr * addr, size_t len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const struct sockaddr * addr, size_t len)
 ```
 
-Defined in psi/mysql_socket.h:663
+Defined in psi/mysql_socket.h:665
 
 mysql_socket_bind
 
@@ -10515,7 +12328,7 @@ mysql_socket_bind
 static inline int inline_mysql_socket_getsockname(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, struct sockaddr * addr, socklen_t * len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, struct sockaddr * addr, socklen_t * len)
 ```
 
-Defined in psi/mysql_socket.h:703
+Defined in psi/mysql_socket.h:705
 
 mysql_socket_getsockname
 
@@ -10529,7 +12342,7 @@ mysql_socket_getsockname
 static inline int inline_mysql_socket_connect(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const struct sockaddr * addr, socklen_t len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const struct sockaddr * addr, socklen_t len)
 ```
 
-Defined in psi/mysql_socket.h:741
+Defined in psi/mysql_socket.h:743
 
 mysql_socket_connect
 
@@ -10543,7 +12356,7 @@ mysql_socket_connect
 static inline int inline_mysql_socket_getpeername(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, struct sockaddr * addr, socklen_t * len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, struct sockaddr * addr, socklen_t * len)
 ```
 
-Defined in psi/mysql_socket.h:779
+Defined in psi/mysql_socket.h:781
 
 mysql_socket_getpeername
 
@@ -10557,7 +12370,7 @@ mysql_socket_getpeername
 static inline ssize_t inline_mysql_socket_send(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const SOCKBUF_T * buf, size_t n, int flags, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const SOCKBUF_T * buf, size_t n, int flags)
 ```
 
-Defined in psi/mysql_socket.h:817
+Defined in psi/mysql_socket.h:819
 
 mysql_socket_send
 
@@ -10571,7 +12384,7 @@ mysql_socket_send
 static inline ssize_t inline_mysql_socket_recv(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, SOCKBUF_T * buf, size_t n, int flags, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, SOCKBUF_T * buf, size_t n, int flags)
 ```
 
-Defined in psi/mysql_socket.h:858
+Defined in psi/mysql_socket.h:860
 
 mysql_socket_recv
 
@@ -10585,7 +12398,7 @@ mysql_socket_recv
 static inline ssize_t inline_mysql_socket_sendto(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const SOCKBUF_T * buf, size_t n, int flags, const struct sockaddr * addr, socklen_t addr_len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const SOCKBUF_T * buf, size_t n, int flags, const struct sockaddr * addr, socklen_t addr_len)
 ```
 
-Defined in psi/mysql_socket.h:899
+Defined in psi/mysql_socket.h:901
 
 mysql_socket_sendto
 
@@ -10599,7 +12412,7 @@ mysql_socket_sendto
 static inline ssize_t inline_mysql_socket_recvfrom(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, SOCKBUF_T * buf, size_t n, int flags, struct sockaddr * addr, socklen_t * addr_len, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, SOCKBUF_T * buf, size_t n, int flags, struct sockaddr * addr, socklen_t * addr_len)
 ```
 
-Defined in psi/mysql_socket.h:940
+Defined in psi/mysql_socket.h:942
 
 mysql_socket_recvfrom
 
@@ -10613,7 +12426,7 @@ mysql_socket_recvfrom
 static inline int inline_mysql_socket_getsockopt(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int level, int optname, SOCKBUF_T * optval, socklen_t * optlen, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int level, int optname, SOCKBUF_T * optval, socklen_t * optlen)
 ```
 
-Defined in psi/mysql_socket.h:982
+Defined in psi/mysql_socket.h:984
 
 mysql_socket_getsockopt
 
@@ -10627,7 +12440,7 @@ mysql_socket_getsockopt
 static inline int inline_mysql_socket_setsockopt(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int level, int optname, const SOCKBUF_T * optval, socklen_t optlen, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int level, int optname, const SOCKBUF_T * optval, socklen_t optlen)
 ```
 
-Defined in psi/mysql_socket.h:1020
+Defined in psi/mysql_socket.h:1022
 
 mysql_socket_setsockopt
 
@@ -10641,7 +12454,7 @@ mysql_socket_setsockopt
 static inline int set_socket_nonblock(my_socket fd, my_socket fd)
 ```
 
-Defined in psi/mysql_socket.h:1058
+Defined in psi/mysql_socket.h:1060
 
 set_socket_nonblock
 
@@ -10655,7 +12468,7 @@ set_socket_nonblock
 static inline int inline_mysql_sock_set_nonblocking(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket)
 ```
 
-Defined in psi/mysql_socket.h:1091
+Defined in psi/mysql_socket.h:1093
 
 mysql_socket_set_nonblocking
 
@@ -10669,7 +12482,7 @@ mysql_socket_set_nonblocking
 static inline int inline_mysql_socket_listen(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int backlog, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int backlog)
 ```
 
-Defined in psi/mysql_socket.h:1131
+Defined in psi/mysql_socket.h:1133
 
 mysql_socket_listen
 
@@ -10683,7 +12496,7 @@ mysql_socket_listen
 static inline MYSQL_SOCKET inline_mysql_socket_accept(const char * src_file, uint src_line, PSI_socket_key key, MYSQL_SOCKET socket_listen, struct sockaddr * addr, socklen_t * addr_len, const char * src_file, uint src_line, PSI_socket_key key, MYSQL_SOCKET socket_listen, struct sockaddr * addr, socklen_t * addr_len)
 ```
 
-Defined in psi/mysql_socket.h:1169
+Defined in psi/mysql_socket.h:1171
 
 mysql_socket_accept
 
@@ -10697,7 +12510,7 @@ mysql_socket_accept
 static inline int inline_mysql_socket_close(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket)
 ```
 
-Defined in psi/mysql_socket.h:1250
+Defined in psi/mysql_socket.h:1252
 
 mysql_socket_close
 
@@ -10711,7 +12524,7 @@ mysql_socket_close
 static inline int inline_mysql_socket_shutdown(const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int how, const char * src_file, uint src_line, MYSQL_SOCKET mysql_socket, int how)
 ```
 
-Defined in psi/mysql_socket.h:1291
+Defined in psi/mysql_socket.h:1293
 
 mysql_socket_shutdown
 
@@ -11041,373 +12854,13 @@ Defined in psi/mysql_thread.h:1115
 
 ---
 
-### json_type
-
-```cpp
-enum json_types json_type(const char * js, const char * js_end, const char ** value, int * value_len)
-```
-
-Defined in service_json.h:94
-
----
-
-### json_get_array_item
-
-```cpp
-enum json_types json_get_array_item(const char * js, const char * js_end, int n_item, const char ** value, int * value_len)
-```
-
-Defined in service_json.h:96
-
----
-
-### json_get_object_key
-
-```cpp
-enum json_types json_get_object_key(const char * js, const char * js_end, const char * key, const char ** value, int * value_len)
-```
-
-Defined in service_json.h:99
-
----
-
-### json_get_object_nkey
-
-```cpp
-enum json_types json_get_object_nkey(const char * js, const char * js_end, int nkey, const char ** keyname, const char ** keyname_end, const char ** value, int * value_len)
-```
-
-Defined in service_json.h:102
-
----
-
-### json_escape_string
-
-```cpp
-int json_escape_string(const char * str, const char * str_end, char * json, char * json_end)
-```
-
-Defined in service_json.h:105
-
----
-
-### json_unescape_json
-
-```cpp
-int json_unescape_json(const char * json_str, const char * json_end, char * res, char * res_end)
-```
-
-Defined in service_json.h:107
-
----
-
-### my_sha1
-
-```cpp
-void my_sha1(unsigned char *, const char *, size_t)
-```
-
-Defined in service_sha1.h:54
-
----
-
-### my_sha1_multi
-
-```cpp
-void my_sha1_multi(unsigned char *, ...)
-```
-
-Defined in service_sha1.h:55
-
----
-
-### my_sha1_context_size
-
-```cpp
-size_t my_sha1_context_size()
-```
-
-Defined in service_sha1.h:56
-
----
-
-### my_sha1_init
-
-```cpp
-void my_sha1_init(void * context)
-```
-
-Defined in service_sha1.h:57
-
----
-
-### my_sha1_input
-
-```cpp
-void my_sha1_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_sha1.h:58
-
----
-
-### my_sha1_result
-
-```cpp
-void my_sha1_result(void * context, unsigned char * digest)
-```
-
-Defined in service_sha1.h:59
-
----
-
-### my_sha224
-
-```cpp
-void my_sha224(unsigned char *, const char *, size_t)
-```
-
-Defined in service_sha2.h:94
-
----
-
-### my_sha224_multi
-
-```cpp
-void my_sha224_multi(unsigned char *, ...)
-```
-
-Defined in service_sha2.h:95
-
----
-
-### my_sha224_context_size
-
-```cpp
-size_t my_sha224_context_size()
-```
-
-Defined in service_sha2.h:96
-
----
-
-### my_sha224_init
-
-```cpp
-void my_sha224_init(void * context)
-```
-
-Defined in service_sha2.h:97
-
----
-
-### my_sha224_input
-
-```cpp
-void my_sha224_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_sha2.h:98
-
----
-
-### my_sha224_result
-
-```cpp
-void my_sha224_result(void * context, unsigned char * digest)
-```
-
-Defined in service_sha2.h:99
-
----
-
-### my_sha256
-
-```cpp
-void my_sha256(unsigned char *, const char *, size_t)
-```
-
-Defined in service_sha2.h:101
-
----
-
-### my_sha256_multi
-
-```cpp
-void my_sha256_multi(unsigned char *, ...)
-```
-
-Defined in service_sha2.h:102
-
----
-
-### my_sha256_context_size
-
-```cpp
-size_t my_sha256_context_size()
-```
-
-Defined in service_sha2.h:103
-
----
-
-### my_sha256_init
-
-```cpp
-void my_sha256_init(void * context)
-```
-
-Defined in service_sha2.h:104
-
----
-
-### my_sha256_input
-
-```cpp
-void my_sha256_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_sha2.h:105
-
----
-
-### my_sha256_result
-
-```cpp
-void my_sha256_result(void * context, unsigned char * digest)
-```
-
-Defined in service_sha2.h:106
-
----
-
-### my_sha384
-
-```cpp
-void my_sha384(unsigned char *, const char *, size_t)
-```
-
-Defined in service_sha2.h:108
-
----
-
-### my_sha384_multi
-
-```cpp
-void my_sha384_multi(unsigned char *, ...)
-```
-
-Defined in service_sha2.h:109
-
----
-
-### my_sha384_context_size
-
-```cpp
-size_t my_sha384_context_size()
-```
-
-Defined in service_sha2.h:110
-
----
-
-### my_sha384_init
-
-```cpp
-void my_sha384_init(void * context)
-```
-
-Defined in service_sha2.h:111
-
----
-
-### my_sha384_input
-
-```cpp
-void my_sha384_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_sha2.h:112
-
----
-
-### my_sha384_result
-
-```cpp
-void my_sha384_result(void * context, unsigned char * digest)
-```
-
-Defined in service_sha2.h:113
-
----
-
-### my_sha512
-
-```cpp
-void my_sha512(unsigned char *, const char *, size_t)
-```
-
-Defined in service_sha2.h:115
-
----
-
-### my_sha512_multi
-
-```cpp
-void my_sha512_multi(unsigned char *, ...)
-```
-
-Defined in service_sha2.h:116
-
----
-
-### my_sha512_context_size
-
-```cpp
-size_t my_sha512_context_size()
-```
-
-Defined in service_sha2.h:117
-
----
-
-### my_sha512_init
-
-```cpp
-void my_sha512_init(void * context)
-```
-
-Defined in service_sha2.h:118
-
----
-
-### my_sha512_input
-
-```cpp
-void my_sha512_input(void * context, const unsigned char * buf, size_t len)
-```
-
-Defined in service_sha2.h:119
-
----
-
-### my_sha512_result
-
-```cpp
-void my_sha512_result(void * context, unsigned char * digest)
-```
-
-Defined in service_sha2.h:120
-
----
-
 ### mysql_load_plugin
 
 ```cpp
-struct st_mysql_client_plugin * mysql_load_plugin(struct st_mysql * mysql, const char * name, int type, int argc, ...)
+struct st_mysql_client_plugin * mysql_load_plugin(struct st_mysql * mysql, const char * name, int type, int argc, ..., struct st_mysql * mysql, const char * name, int type, int argc, ...)
 ```
 
-Defined in client_plugin.h:120
+Defined in client_plugin.h:125
 
 loads a plugin and initializes it
 
@@ -11415,6 +12868,10 @@ loads a plugin and initializes it
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `mysql` | `struct st_mysql *` | MYSQL structure. |
+| `name` | `const char *` | a name of the plugin to load |
+| `type` | `int` | type of plugin that should be loaded, -1 to disable type check |
+| `argc` | `int` | number of arguments to pass to the plugin initialization function |
 | `mysql` | `struct st_mysql *` | MYSQL structure. |
 | `name` | `const char *` | a name of the plugin to load |
 | `type` | `int` | type of plugin that should be loaded, -1 to disable type check |
@@ -11431,10 +12888,10 @@ loads a plugin and initializes it
 ### mysql_load_plugin_v
 
 ```cpp
-struct st_mysql_client_plugin * mysql_load_plugin_v(struct st_mysql * mysql, const char * name, int type, int argc, va_list args)
+struct st_mysql_client_plugin * mysql_load_plugin_v(struct st_mysql * mysql, const char * name, int type, int argc, va_list args, struct st_mysql * mysql, const char * name, int type, int argc, va_list args)
 ```
 
-Defined in client_plugin.h:140
+Defined in client_plugin.h:145
 
 loads a plugin and initializes it, taking va_list as an argument
 
@@ -11444,6 +12901,11 @@ This is the same as mysql_load_plugin, but take va_list instead of a list of arg
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `mysql` | `struct st_mysql *` | MYSQL structure. |
+| `name` | `const char *` | a name of the plugin to load |
+| `type` | `int` | type of plugin that should be loaded, -1 to disable type check |
+| `argc` | `int` | number of arguments to pass to the plugin initialization function |
+| `args` | `va_list` | arguments for the plugin initialization function |
 | `mysql` | `struct st_mysql *` | MYSQL structure. |
 | `name` | `const char *` | a name of the plugin to load |
 | `type` | `int` | type of plugin that should be loaded, -1 to disable type check |
@@ -11461,10 +12923,10 @@ This is the same as mysql_load_plugin, but take va_list instead of a list of arg
 ### mysql_client_find_plugin
 
 ```cpp
-struct st_mysql_client_plugin * mysql_client_find_plugin(struct st_mysql * mysql, const char * name, int type)
+struct st_mysql_client_plugin * mysql_client_find_plugin(struct st_mysql * mysql, const char * name, int type, struct st_mysql * mysql, const char * name, int type)
 ```
 
-Defined in client_plugin.h:154
+Defined in client_plugin.h:159
 
 finds an already loaded plugin by name, or loads it, if necessary
 
@@ -11472,6 +12934,9 @@ finds an already loaded plugin by name, or loads it, if necessary
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `mysql` | `struct st_mysql *` | MYSQL structure. |
+| `name` | `const char *` | a name of the plugin to load |
+| `type` | `int` | type of plugin that should be loaded |
 | `mysql` | `struct st_mysql *` | MYSQL structure. |
 | `name` | `const char *` | a name of the plugin to load |
 | `type` | `int` | type of plugin that should be loaded |
@@ -11487,10 +12952,10 @@ finds an already loaded plugin by name, or loads it, if necessary
 ### mysql_client_register_plugin
 
 ```cpp
-struct st_mysql_client_plugin * mysql_client_register_plugin(struct st_mysql * mysql, struct st_mysql_client_plugin * plugin)
+struct st_mysql_client_plugin * mysql_client_register_plugin(struct st_mysql * mysql, struct st_mysql_client_plugin * plugin, struct st_mysql * mysql, struct st_mysql_client_plugin * plugin)
 ```
 
-Defined in client_plugin.h:171
+Defined in client_plugin.h:176
 
 adds a plugin structure to the list of loaded plugins
 
@@ -11501,7 +12966,9 @@ This is useful if an application has the necessary functionality (for example, a
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `mysql` | `struct st_mysql *` | MYSQL structure. It is only used for error reporting |
-| `plugin` | struct [`st_mysql_client_plugin`](#st_mysql_client_plugin) * | an [st_mysql_client_plugin](#st_mysql_client_plugin) structure to register |
+| `plugin` | struct [`st_mysql_client_plugin`](plugin_client_api.md#st_mysql_client_plugin) * | an [st_mysql_client_plugin](plugin_client_api.md#st_mysql_client_plugin) structure to register |
+| `mysql` | `struct st_mysql *` | MYSQL structure. It is only used for error reporting |
+| `plugin` | struct [`st_mysql_client_plugin`](plugin_client_api.md#st_mysql_client_plugin) * | an [st_mysql_client_plugin](plugin_client_api.md#st_mysql_client_plugin) structure to register |
 
 #### Return Values
 
@@ -11514,10 +12981,10 @@ This is useful if an application has the necessary functionality (for example, a
 ### mysql_plugin_options
 
 ```cpp
-int mysql_plugin_options(struct st_mysql_client_plugin * plugin, const char * option, const void * value)
+int mysql_plugin_options(struct st_mysql_client_plugin * plugin, const char * option, const void * value, struct st_mysql_client_plugin * plugin, const char * option, const void * value)
 ```
 
-Defined in client_plugin.h:186
+Defined in client_plugin.h:191
 
 set plugin options
 
@@ -11527,7 +12994,10 @@ Can be used to set extra options and affect behavior for a plugin. This function
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `plugin` | struct [`st_mysql_client_plugin`](#st_mysql_client_plugin) * | an [st_mysql_client_plugin](#st_mysql_client_plugin) structure |
+| `plugin` | struct [`st_mysql_client_plugin`](plugin_client_api.md#st_mysql_client_plugin) * | an [st_mysql_client_plugin](plugin_client_api.md#st_mysql_client_plugin) structure |
+| `option` | `const char *` | a string which specifies the option to set |
+| `value` | `const void *` | value for the option. |
+| `plugin` | struct [`st_mysql_client_plugin`](plugin_client_api.md#st_mysql_client_plugin) * | an [st_mysql_client_plugin](plugin_client_api.md#st_mysql_client_plugin) structure |
 | `option` | `const char *` | a string which specifies the option to set |
 | `value` | `const void *` | value for the option. |
 
@@ -11539,805 +13009,15 @@ Can be used to set extra options and affect behavior for a plugin. This function
 
 ---
 
-### wsrep_consistency_check
-
-```cpp
-bool wsrep_consistency_check(MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:167
-
----
-
-### wsrep_prepare_key_for_innodb
-
-```cpp
-bool wsrep_prepare_key_for_innodb(MYSQL_THD thd, const unsigned char * cache_key, size_t cache_key_len, const unsigned char * row_id, size_t row_id_len, struct wsrep_buf * key, size_t * key_len)
-```
-
-Defined in service_wsrep.h:168
-
----
-
-### wsrep_thd_query
-
-```cpp
-const char * wsrep_thd_query(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:169
-
----
-
-### wsrep_is_wsrep_xid
-
-```cpp
-int wsrep_is_wsrep_xid(const void * xid)
-```
-
-Defined in service_wsrep.h:170
-
----
-
-### wsrep_xid_seqno
-
-```cpp
-long long wsrep_xid_seqno(const struct xid_t * xid)
-```
-
-Defined in service_wsrep.h:171
-
----
-
-### wsrep_xid_uuid
-
-```cpp
-const unsigned char * wsrep_xid_uuid(const struct xid_t * xid)
-```
-
-Defined in service_wsrep.h:172
-
----
-
-### wsrep_thd_trx_seqno
-
-```cpp
-long long wsrep_thd_trx_seqno(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:173
-
----
-
-### get_wsrep_recovery
-
-```cpp
-my_bool get_wsrep_recovery()
-```
-
-Defined in service_wsrep.h:174
-
----
-
-### wsrep_thd_ignore_table
-
-```cpp
-bool wsrep_thd_ignore_table(MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:175
-
----
-
-### wsrep_set_data_home_dir
-
-```cpp
-void wsrep_set_data_home_dir(const char * data_dir)
-```
-
-Defined in service_wsrep.h:176
-
----
-
-### wsrep_on
-
-```cpp
-my_bool wsrep_on(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:184
-
----
-
-### wsrep_thd_LOCK
-
-```cpp
-void wsrep_thd_LOCK(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:186
-
----
-
-### wsrep_thd_TRYLOCK
-
-```cpp
-int wsrep_thd_TRYLOCK(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:188
-
----
-
-### wsrep_thd_UNLOCK
-
-```cpp
-void wsrep_thd_UNLOCK(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:190
-
----
-
-### wsrep_thd_kill_LOCK
-
-```cpp
-void wsrep_thd_kill_LOCK(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:192
-
----
-
-### wsrep_thd_kill_UNLOCK
-
-```cpp
-void wsrep_thd_kill_UNLOCK(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:193
-
----
-
-### wsrep_thd_client_state_str
-
-```cpp
-const char * wsrep_thd_client_state_str(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:196
-
----
-
-### wsrep_thd_client_mode_str
-
-```cpp
-const char * wsrep_thd_client_mode_str(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:198
-
----
-
-### wsrep_thd_transaction_state_str
-
-```cpp
-const char * wsrep_thd_transaction_state_str(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:200
-
----
-
-### wsrep_thd_transaction_id
-
-```cpp
-query_id_t wsrep_thd_transaction_id(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:203
-
----
-
-### wsrep_thd_self_abort
-
-```cpp
-void wsrep_thd_self_abort(MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:205
-
----
-
-### wsrep_thd_is_local
-
-```cpp
-my_bool wsrep_thd_is_local(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:207
-
----
-
-### wsrep_thd_is_applying
-
-```cpp
-my_bool wsrep_thd_is_applying(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:210
-
----
-
-### wsrep_thd_is_toi
-
-```cpp
-my_bool wsrep_thd_is_toi(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:212
-
----
-
-### wsrep_thd_is_local_toi
-
-```cpp
-my_bool wsrep_thd_is_local_toi(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:214
-
----
-
-### wsrep_thd_is_in_rsu
-
-```cpp
-my_bool wsrep_thd_is_in_rsu(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:216
-
----
-
-### wsrep_thd_is_BF
-
-```cpp
-my_bool wsrep_thd_is_BF(const MYSQL_THD thd, my_bool sync)
-```
-
-Defined in service_wsrep.h:218
-
----
-
-### wsrep_thd_is_SR
-
-```cpp
-my_bool wsrep_thd_is_SR(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:220
-
----
-
-### wsrep_handle_SR_rollback
-
-```cpp
-void wsrep_handle_SR_rollback(MYSQL_THD BF_thd, MYSQL_THD victim_thd)
-```
-
-Defined in service_wsrep.h:221
-
----
-
-### wsrep_thd_retry_counter
-
-```cpp
-int wsrep_thd_retry_counter(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:223
-
----
-
-### wsrep_thd_bf_abort
-
-```cpp
-my_bool wsrep_thd_bf_abort(MYSQL_THD bf_thd, MYSQL_THD victim_thd, my_bool signal)
-```
-
-Defined in service_wsrep.h:225
-
----
-
-### wsrep_thd_order_before
-
-```cpp
-my_bool wsrep_thd_order_before(const MYSQL_THD left, const MYSQL_THD right)
-```
-
-Defined in service_wsrep.h:229
-
----
-
-### wsrep_thd_skip_locking
-
-```cpp
-my_bool wsrep_thd_skip_locking(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:232
-
----
-
-### wsrep_thd_is_aborting
-
-```cpp
-my_bool wsrep_thd_is_aborting(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:234
-
----
-
-### wsrep_thd_in_rollback
-
-```cpp
-my_bool wsrep_thd_in_rollback(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:236
-
----
-
-### wsrep_thd_append_key
-
-```cpp
-int wsrep_thd_append_key(MYSQL_THD thd, const struct wsrep_key * key, int n_keys, enum Wsrep_service_key_type)
-```
-
-Defined in service_wsrep.h:240
-
----
-
-### wsrep_thd_append_table_key
-
-```cpp
-int wsrep_thd_append_table_key(MYSQL_THD thd, const char * db, const char * table, enum Wsrep_service_key_type)
-```
-
-Defined in service_wsrep.h:245
-
----
-
-### wsrep_thd_is_local_transaction
-
-```cpp
-my_bool wsrep_thd_is_local_transaction(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:250
-
----
-
-### wsrep_get_sr_table_name
-
-```cpp
-const char * wsrep_get_sr_table_name()
-```
-
-Defined in service_wsrep.h:254
-
----
-
-### wsrep_get_debug
-
-```cpp
-my_bool wsrep_get_debug()
-```
-
-Defined in service_wsrep.h:256
-
----
-
-### wsrep_commit_ordered
-
-```cpp
-void wsrep_commit_ordered(MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:258
-
----
-
-### wsrep_OSU_method_get
-
-```cpp
-ulong wsrep_OSU_method_get(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:260
-
----
-
-### wsrep_thd_has_ignored_error
-
-```cpp
-my_bool wsrep_thd_has_ignored_error(const MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:261
-
----
-
-### wsrep_thd_set_ignored_error
-
-```cpp
-void wsrep_thd_set_ignored_error(MYSQL_THD thd, my_bool val)
-```
-
-Defined in service_wsrep.h:262
-
----
-
-### wsrep_report_bf_lock_wait
-
-```cpp
-void wsrep_report_bf_lock_wait(const THD * thd, unsigned long long trx_id)
-```
-
-Defined in service_wsrep.h:263
-
----
-
-### wsrep_thd_set_PA_unsafe
-
-```cpp
-void wsrep_thd_set_PA_unsafe(MYSQL_THD thd)
-```
-
-Defined in service_wsrep.h:266
-
----
-
-### wsrep_get_domain_id
-
-```cpp
-uint32 wsrep_get_domain_id()
-```
-
-Defined in service_wsrep.h:267
-
----
-
-### my_base64_needed_encoded_length
-
-```cpp
-int my_base64_needed_encoded_length(int length_of_data)
-```
-
-Defined in service_base64.h:57
-
----
-
-### my_base64_encode_max_arg_length
-
-```cpp
-int my_base64_encode_max_arg_length(void)
-```
-
-Defined in service_base64.h:60
-
----
-
-### my_base64_needed_decoded_length
-
-```cpp
-int my_base64_needed_decoded_length(int length_of_encoded_data)
-```
-
-Defined in service_base64.h:63
-
----
-
-### my_base64_decode_max_arg_length
-
-```cpp
-int my_base64_decode_max_arg_length()
-```
-
-Defined in service_base64.h:66
-
----
-
-### my_base64_encode
-
-```cpp
-int my_base64_encode(const void * src, size_t src_len, char * dst)
-```
-
-Defined in service_base64.h:69
-
----
-
-### my_base64_decode
-
-```cpp
-int my_base64_decode(const char * src, size_t src_len, void * dst, const char ** end_ptr, int flags)
-```
-
-Defined in service_base64.h:72
-
----
-
-### logger_init_mutexes
-
-```cpp
-void logger_init_mutexes()
-```
-
-Defined in service_logger.h:103
-
----
-
-### logger_open
-
-```cpp
-LOGGER_HANDLE * logger_open(const char * path, unsigned long long size_limit, unsigned int rotations, size_t buffer_size)
-```
-
-Defined in service_logger.h:104
-
----
-
-### logger_close
-
-```cpp
-int logger_close(LOGGER_HANDLE * log)
-```
-
-Defined in service_logger.h:107
-
----
-
-### logger_vprintf
-
-```cpp
-int logger_vprintf(LOGGER_HANDLE * log, const char * fmt, va_list argptr)
-```
-
-Defined in service_logger.h:108
-
----
-
-### logger_printf
-
-```cpp
-int int logger_printf(LOGGER_HANDLE * log, const char * fmt, ...)
-```
-
-Defined in service_logger.h:110
-
----
-
-### logger_write
-
-```cpp
-int int int logger_write(LOGGER_HANDLE * log, const void * data, size_t size)
-```
-
-Defined in service_logger.h:112
-
----
-
-### logger_rotate
-
-```cpp
-int logger_rotate(LOGGER_HANDLE * log)
-```
-
-Defined in service_logger.h:113
-
----
-
-### logger_sync
-
-```cpp
-int logger_sync(LOGGER_HANDLE * log)
-```
-
-Defined in service_logger.h:114
-
----
-
-### logger_resize_buffer
-
-```cpp
-int logger_resize_buffer(LOGGER_HANDLE * log, size_t new_buffer_size)
-```
-
-Defined in service_logger.h:115
-
----
-
-### logger_set_filesize_limit
-
-```cpp
-int logger_set_filesize_limit(LOGGER_HANDLE * log, unsigned long long new_file_limit)
-```
-
-Defined in service_logger.h:116
-
----
-
-### logger_set_rotations
-
-```cpp
-int logger_set_rotations(LOGGER_HANDLE * log, unsigned int new_rotations)
-```
-
-Defined in service_logger.h:118
-
----
-
-### thd_mdl_context
-
-```cpp
-void * thd_mdl_context(MYSQL_THD thd)
-```
-
-Defined in service_thd_mdl.h:41
-
-MDL_context accessor 
-#### Returns
-pointer to thd->mdl_context
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](#mysql_thd) | the current session |
-
----
-
-### thd_rnd
-
-```cpp
-double thd_rnd(MYSQL_THD thd)
-```
-
-Defined in service_thd_rnd.h:44
-
----
-
-### thd_create_random_password
-
-```cpp
-void thd_create_random_password(MYSQL_THD thd, char * to, size_t length)
-```
-
-Defined in service_thd_rnd.h:54
-
-Generate string of printable random characters of requested length.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](#mysql_thd) | User thread connection handle |
-| `to` | `char *` | Buffer for generation; must be at least length+1 bytes long; result string is always null-terminated |
-| `length` | `size_t` | How many random characters to put in buffer |
-
----
-
-### my_aes_crypt_init
-
-```cpp
-int my_aes_crypt_init(void * ctx, enum my_aes_mode mode, int flags, const unsigned char * key, unsigned int klen, const unsigned char * iv, unsigned int ivlen)
-```
-
-Defined in service_my_crypt.h:110
-
----
-
-### my_aes_crypt_update
-
-```cpp
-int my_aes_crypt_update(void * ctx, const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen)
-```
-
-Defined in service_my_crypt.h:113
-
----
-
-### my_aes_crypt_finish
-
-```cpp
-int my_aes_crypt_finish(void * ctx, unsigned char * dst, unsigned int * dlen)
-```
-
-Defined in service_my_crypt.h:115
-
----
-
-### my_aes_crypt
-
-```cpp
-int my_aes_crypt(enum my_aes_mode mode, int flags, const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, const unsigned char * key, unsigned int klen, const unsigned char * iv, unsigned int ivlen)
-```
-
-Defined in service_my_crypt.h:116
-
----
-
-### my_random_bytes
-
-```cpp
-int my_random_bytes(unsigned char * buf, int num)
-```
-
-Defined in service_my_crypt.h:120
-
----
-
-### my_bytes_to_key
-
-```cpp
-void my_bytes_to_key(const unsigned char * salt, const unsigned char * input, unsigned int input_len, unsigned char * key, unsigned char * iv, enum my_digest digest, unsigned int use_pbkdf2)
-```
-
-Defined in service_my_crypt.h:121
-
----
-
-### my_aes_get_size
-
-```cpp
-unsigned int my_aes_get_size(enum my_aes_mode mode, unsigned int source_length)
-```
-
-Defined in service_my_crypt.h:125
-
----
-
-### my_aes_ctx_size
-
-```cpp
-unsigned int my_aes_ctx_size(enum my_aes_mode mode)
-```
-
-Defined in service_my_crypt.h:126
-
----
-
-### thd_wait_begin
-
-```cpp
-void thd_wait_begin(MYSQL_THD thd, int wait_type)
-```
-
-Defined in service_thd_wait.h:94
-
----
-
-### thd_wait_end
-
-```cpp
-void thd_wait_end(MYSQL_THD thd)
-```
-
-Defined in service_thd_wait.h:95
-
----
-
 ### encryption_key_id_exists
 
 `static` `inline`
 
 ```cpp
-static inline unsigned int encryption_key_id_exists(unsigned int id)
+static inline unsigned int encryption_key_id_exists(unsigned int id, unsigned int id)
 ```
 
-Defined in service_encryption.h:96
+Defined in service_encryption.h:100
 
 ---
 
@@ -12346,10 +13026,10 @@ Defined in service_encryption.h:96
 `static` `inline`
 
 ```cpp
-static inline unsigned int encryption_key_version_exists(unsigned int id, unsigned int version)
+static inline unsigned int encryption_key_version_exists(unsigned int id, unsigned int version, unsigned int id, unsigned int version)
 ```
 
-Defined in service_encryption.h:101
+Defined in service_encryption.h:105
 
 ---
 
@@ -12358,10 +13038,10 @@ Defined in service_encryption.h:101
 `static` `inline`
 
 ```cpp
-static inline int encryption_crypt(const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, const unsigned char * key, unsigned int klen, const unsigned char * iv, unsigned int ivlen, int flags, unsigned int key_id, unsigned int key_version)
+static inline int encryption_crypt(const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, const unsigned char * key, unsigned int klen, const unsigned char * iv, unsigned int ivlen, int flags, unsigned int key_id, unsigned int key_version, const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, const unsigned char * key, unsigned int klen, const unsigned char * iv, unsigned int ivlen, int flags, unsigned int key_id, unsigned int key_version)
 ```
 
-Defined in service_encryption.h:112
+Defined in service_encryption.h:116
 
 main entrypoint to perform encryption or decryption 
 #### Invariants
@@ -12372,459 +13052,6 @@ main entrypoint to perform encryption or decryption
 
 #### Invariants
 `src` and `dst` do not overlap
-
----
-
-### thd_alloc
-
-```cpp
-void * thd_alloc(const MYSQL_THD thd, size_t size)
-```
-
-Defined in service_thd_alloc.h:102
-
-Allocate memory in the connection's local memory pool
-
-When properly used in place of `my_malloc()`, this can significantly improve concurrency. Don't use this or related functions to allocate large chunks of memory. Use for temporary storage only. The memory will be freed automatically at the end of the statement; no explicit code is required to prevent memory leaks.
-
-**See also**: alloc_root()
-
----
-
-### thd_calloc
-
-```cpp
-void * thd_calloc(const MYSQL_THD thd, size_t size)
-```
-
-Defined in service_thd_alloc.h:106
-
-**See also**: [thd_alloc()](#thd_alloc)
-
----
-
-### thd_strdup
-
-```cpp
-char * thd_strdup(const MYSQL_THD thd, const char * str)
-```
-
-Defined in service_thd_alloc.h:110
-
-**See also**: [thd_alloc()](#thd_alloc)
-
----
-
-### thd_strmake
-
-```cpp
-char * thd_strmake(const MYSQL_THD thd, const char * str, size_t size)
-```
-
-Defined in service_thd_alloc.h:114
-
-**See also**: [thd_alloc()](#thd_alloc)
-
----
-
-### thd_memdup
-
-```cpp
-void * thd_memdup(const MYSQL_THD thd, const void * str, size_t size)
-```
-
-Defined in service_thd_alloc.h:118
-
-**See also**: [thd_alloc()](#thd_alloc)
-
----
-
-### thd_make_lex_string
-
-```cpp
-MYSQL_CONST_LEX_STRING * thd_make_lex_string(const MYSQL_THD thd, MYSQL_CONST_LEX_STRING * lex_str, const char * str, size_t size, int allocate_lex_string)
-```
-
-Defined in service_thd_alloc.h:134
-
-Create a LEX_STRING in this connection's local memory pool
-
-#### Returns
-NULL on failure, or pointer to the LEX_STRING object
-
-**See also**: [thd_alloc()](#thd_alloc)
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-| `lex_str` | [`MYSQL_CONST_LEX_STRING`](#mysql_const_lex_string) * | pointer to LEX_STRING object to be initialized |
-| `str` | `const char *` | initializer to be copied into lex_str |
-| `size` | `size_t` | length of str, in bytes |
-| `allocate_lex_string` | `int` | flag: if TRUE, allocate new LEX_STRING object, instead of using lex_str value |
-
----
-
-### my_snprintf
-
-```cpp
-size_t my_snprintf(char * to, size_t n, const char * fmt, ...)
-```
-
-Defined in service_my_snprintf.h:113
-
----
-
-### my_vsnprintf
-
-```cpp
-size_t size_t my_vsnprintf(char * to, size_t n, const char * fmt, va_list ap)
-```
-
-Defined in service_my_snprintf.h:115
-
----
-
-### thd_get_autoinc
-
-```cpp
-void thd_get_autoinc(const MYSQL_THD thd, unsigned long * off, unsigned long * inc)
-```
-
-Defined in service_thd_autoinc.h:44
-
-Return autoincrement system variables
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-| `off` | `unsigned long *` | the value of @SESSION.auto_increment_offset |
-| `inc` | `unsigned long *` | the value of @SESSION.auto_increment_increment |
-
----
-
-### thd_log_warnings
-
-```cpp
-int thd_log_warnings(MYSQL_THD thd)
-```
-
-Defined in service_log_warnings.h:44
-
-MDL_context accessor 
-#### Returns
-pointer to thd->mdl_context
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](#mysql_thd) | the current session |
-
----
-
-### thd_TIME_to_gmt_sec
-
-```cpp
-my_time_t thd_TIME_to_gmt_sec(MYSQL_THD thd, const MYSQL_TIME * ltime, unsigned int * errcode)
-```
-
-Defined in service_thd_timezone.h:67
-
----
-
-### thd_gmt_sec_to_TIME
-
-```cpp
-void thd_gmt_sec_to_TIME(MYSQL_THD thd, MYSQL_TIME * ltime, my_time_t t)
-```
-
-Defined in service_thd_timezone.h:68
-
----
-
-### thd_TIME_to_str
-
-```cpp
-void thd_TIME_to_str(MYSQL_THD thd, const MYSQL_TIME * ltime, const char * format, char * buf, unsigned int buf_len)
-```
-
-Defined in service_thd_timezone.h:69
-
----
-
-### thd_key_create
-
-```cpp
-int thd_key_create(MYSQL_THD_KEY_T * key)
-```
-
-Defined in service_thd_specifics.h:85
-
-create THD specific storage 
-#### Returns
-0 on success else errno is returned
-
----
-
-### thd_key_delete
-
-```cpp
-void thd_key_delete(MYSQL_THD_KEY_T * key)
-```
-
-Defined in service_thd_specifics.h:90
-
-delete THD specific storage
-
----
-
-### thd_getspecific
-
-```cpp
-void * thd_getspecific(MYSQL_THD thd, MYSQL_THD_KEY_T key)
-```
-
-Defined in service_thd_specifics.h:99
-
-get/set thd specific storage
-
-* first time this is called from a thread it will return 0
-* this call is thread-safe in that different threads may call this simultaneously if operating on different THDs.
-* this call acquires no mutexes and is implemented as an array lookup
-
----
-
-### thd_setspecific
-
-```cpp
-int thd_setspecific(MYSQL_THD thd, MYSQL_THD_KEY_T key, void * value)
-```
-
-Defined in service_thd_specifics.h:100
-
----
-
-### thd_kill_level
-
-```cpp
-enum thd_kill_levels thd_kill_level(const MYSQL_THD)
-```
-
-Defined in service_kill_statement.h:62
-
----
-
-### my_error
-
-```cpp
-void my_error(unsigned int nr, unsigned long MyFlags, ...)
-```
-
-Defined in service_my_print_error.h:59
-
----
-
-### my_printf_error
-
-```cpp
-void my_printf_error(unsigned int my_err, const char * format, unsigned long MyFlags, ...)
-```
-
-Defined in service_my_print_error.h:60
-
----
-
-### my_printv_error
-
-```cpp
-void void my_printv_error(unsigned int error, const char * format, unsigned long MyFlags, va_list ap)
-```
-
-Defined in service_my_print_error.h:63
-
----
-
-### thd_progress_init
-
-```cpp
-void thd_progress_init(MYSQL_THD thd, unsigned int max_stage)
-```
-
-Defined in service_progress_report.h:58
-
----
-
-### thd_progress_report
-
-```cpp
-void thd_progress_report(MYSQL_THD thd, unsigned long long progress, unsigned long long max_progress)
-```
-
-Defined in service_progress_report.h:66
-
-Report progress for long running operations
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](#mysql_thd) | User thread connection handle |
-| `progress` | `unsigned long long` | Where we are now |
-| `max_progress` | `unsigned long long` | Progress will continue up to this |
-
----
-
-### thd_progress_next_stage
-
-```cpp
-void thd_progress_next_stage(MYSQL_THD thd)
-```
-
-Defined in service_progress_report.h:69
-
----
-
-### thd_progress_end
-
-```cpp
-void thd_progress_end(MYSQL_THD thd)
-```
-
-Defined in service_progress_report.h:70
-
----
-
-### set_thd_proc_info
-
-```cpp
-const char * set_thd_proc_info(MYSQL_THD, const char * info, const char * func, const char * file, unsigned int line)
-```
-
-Defined in service_progress_report.h:71
-
----
-
-### print_check_msg
-
-```cpp
-void print_check_msg(MYSQL_THD, const char * db_name, const char * table_name, const char * op, const char * msg_type, const char * message, my_bool print_to_log)
-```
-
-Defined in service_print_check_msg.h:37
-
----
-
-### encryption_scheme_encrypt
-
-```cpp
-int encryption_scheme_encrypt(const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, struct st_encryption_scheme * scheme, unsigned int key_version, unsigned int i32_1, unsigned int i32_2, unsigned long long i64)
-```
-
-Defined in service_encryption_scheme.h:114
-
----
-
-### encryption_scheme_decrypt
-
-```cpp
-int encryption_scheme_decrypt(const unsigned char * src, unsigned int slen, unsigned char * dst, unsigned int * dlen, struct st_encryption_scheme * scheme, unsigned int key_version, unsigned int i32_1, unsigned int i32_2, unsigned long long i64)
-```
-
-Defined in service_encryption_scheme.h:119
-
----
-
-### thd_get_error_message
-
-```cpp
-const char * thd_get_error_message(const MYSQL_THD thd)
-```
-
-Defined in service_thd_error_context.h:61
-
-Return error message 
-#### Returns
-error text
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-
----
-
-### thd_get_error_number
-
-```cpp
-unsigned int thd_get_error_number(const MYSQL_THD thd)
-```
-
-Defined in service_thd_error_context.h:67
-
-Return error number 
-#### Returns
-error number
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-
----
-
-### thd_get_error_row
-
-```cpp
-unsigned long thd_get_error_row(const MYSQL_THD thd)
-```
-
-Defined in service_thd_error_context.h:73
-
-Return the current row number (i.e. in a multiple INSERT statement) 
-#### Returns
-row number
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-
----
-
-### thd_inc_error_row
-
-```cpp
-void thd_inc_error_row(MYSQL_THD thd)
-```
-
-Defined in service_thd_error_context.h:78
-
-Increment the current row number
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](#mysql_thd) | user thread connection handle |
-
----
-
-### thd_get_error_context_description
-
-```cpp
-char * thd_get_error_context_description(MYSQL_THD thd, char * buffer, unsigned int length, unsigned int max_query_length)
-```
-
-Defined in service_thd_error_context.h:83
-
-Return a text description of a thread, its security context (user,host) and the current query.
 
 ## Variables
 
@@ -12838,7 +13065,7 @@ MYSQL_PLUGIN_IMPORT PSI * PSI_server
 
 Type: MYSQL_PLUGIN_IMPORT [`PSI`](#psi) *
 
-Defined in psi/psi.h:3019
+Defined in psi/psi.h:3021
 
 ---
 
@@ -12848,9 +13075,9 @@ Defined in psi/psi.h:3019
 struct my_md5_service_st * my_md5_service
 ```
 
-Type: struct [`my_md5_service_st`](#my_md5_service_st) *
+Type: struct [`my_md5_service_st`](plugin_api_service_md5.md#my_md5_service_st) *
 
-Defined in service_md5.h:41
+Defined in service_md5.h:49
 
 ---
 
@@ -12860,9 +13087,9 @@ Defined in service_md5.h:41
 struct sql_service_st * sql_service
 ```
 
-Type: struct [`sql_service_st`](#sql_service_st) *
+Type: struct [`sql_service_st`](plugin_api_service_sql.md#sql_service_st) *
 
-Defined in service_sql.h:77
+Defined in service_sql.h:86
 
 ---
 
@@ -12872,9 +13099,9 @@ Defined in service_sql.h:77
 struct thd_service_st * thd_service
 ```
 
-Type: struct [`thd_service_st`](#thd_service_st) *
+Type: struct [`thd_service_st`](plugin_api_service_thd.md#thd_service_st) *
 
-Defined in service_thd.h:29
+Defined in service_thd.h:42
 
 ---
 
@@ -12884,9 +13111,9 @@ Defined in service_thd.h:29
 struct json_service_st * json_service
 ```
 
-Type: struct [`json_service_st`](#json_service_st) *
+Type: struct [`json_service_st`](plugin_api_service_json.md#json_service_st) *
 
-Defined in service_json.h:81
+Defined in service_json.h:89
 
 ---
 
@@ -12896,9 +13123,9 @@ Defined in service_json.h:81
 struct my_sha1_service_st * my_sha1_service
 ```
 
-Type: struct [`my_sha1_service_st`](#my_sha1_service_st) *
+Type: struct [`my_sha1_service_st`](plugin_api_service_sha1.md#my_sha1_service_st) *
 
-Defined in service_sha1.h:41
+Defined in service_sha1.h:50
 
 ---
 
@@ -12908,9 +13135,9 @@ Defined in service_sha1.h:41
 struct my_sha2_service_st * my_sha2_service
 ```
 
-Type: struct [`my_sha2_service_st`](#my_sha2_service_st) *
+Type: struct [`my_sha2_service_st`](plugin_api_service_sha2.md#my_sha2_service_st) *
 
-Defined in service_sha2.h:60
+Defined in service_sha2.h:71
 
 ---
 
@@ -12920,99 +13147,9 @@ Defined in service_sha2.h:60
 struct wsrep_service_st * wsrep_service
 ```
 
-Type: struct [`wsrep_service_st`](#wsrep_service_st) *
+Type: struct [`wsrep_service_st`](plugin_api_service_wsrep.md#wsrep_service_st) *
 
-Defined in service_wsrep.h:105
-
----
-
-### wsrep_debug
-
-```cpp
-ulong wsrep_debug
-```
-
-Defined in service_wsrep.h:159
-
----
-
-### wsrep_log_conflicts
-
-```cpp
-my_bool wsrep_log_conflicts
-```
-
-Type: [`my_bool`](#my_bool)
-
-Defined in service_wsrep.h:160
-
----
-
-### wsrep_certify_nonPK
-
-```cpp
-my_bool wsrep_certify_nonPK
-```
-
-Type: [`my_bool`](#my_bool)
-
-Defined in service_wsrep.h:161
-
----
-
-### wsrep_load_data_splitting
-
-```cpp
-my_bool wsrep_load_data_splitting
-```
-
-Type: [`my_bool`](#my_bool)
-
-Defined in service_wsrep.h:162
-
----
-
-### wsrep_drupal_282555_workaround
-
-```cpp
-my_bool wsrep_drupal_282555_workaround
-```
-
-Type: [`my_bool`](#my_bool)
-
-Defined in service_wsrep.h:163
-
----
-
-### wsrep_recovery
-
-```cpp
-my_bool wsrep_recovery
-```
-
-Type: [`my_bool`](#my_bool)
-
-Defined in service_wsrep.h:164
-
----
-
-### wsrep_protocol_version
-
-```cpp
-long wsrep_protocol_version
-```
-
-Defined in service_wsrep.h:165
-
----
-
-### wsrep_sr_table_name_full
-
-```cpp
-const char * wsrep_sr_table_name_full
-```
-
-Defined in service_wsrep.h:252
+Defined in service_wsrep.h:110
 
 ---
 
@@ -13022,9 +13159,9 @@ Defined in service_wsrep.h:252
 struct base64_service_st * base64_service
 ```
 
-Type: struct [`base64_service_st`](#base64_service_st) *
+Type: struct [`base64_service_st`](plugin_api_service_base64.md#base64_service_st) *
 
-Defined in service_base64.h:43
+Defined in service_base64.h:55
 
 ---
 
@@ -13034,9 +13171,9 @@ Defined in service_base64.h:43
 struct logger_service_st * logger_service
 ```
 
-Type: struct [`logger_service_st`](#logger_service_st) *
+Type: struct [`logger_service_st`](plugin_api_service_logger.md#logger_service_st) *
 
-Defined in service_logger.h:80
+Defined in service_logger.h:88
 
 ---
 
@@ -13046,9 +13183,9 @@ Defined in service_logger.h:80
 struct thd_mdl_service_st * thd_mdl_service
 ```
 
-Type: struct [`thd_mdl_service_st`](#thd_mdl_service_st) *
+Type: struct [`thd_mdl_service_st`](plugin_api_service_thd_mdl.md#thd_mdl_service_st) *
 
-Defined in service_thd_mdl.h:31
+Defined in service_thd_mdl.h:41
 
 ---
 
@@ -13058,9 +13195,9 @@ Defined in service_thd_mdl.h:31
 struct thd_rnd_service_st * thd_rnd_service
 ```
 
-Type: struct [`thd_rnd_service_st`](#thd_rnd_service_st) *
+Type: struct [`thd_rnd_service_st`](plugin_api_service_thd_rnd.md#thd_rnd_service_st) *
 
-Defined in service_thd_rnd.h:37
+Defined in service_thd_rnd.h:49
 
 ---
 
@@ -13070,9 +13207,9 @@ Defined in service_thd_rnd.h:37
 struct my_crypt_service_st * my_crypt_service
 ```
 
-Type: struct [`my_crypt_service_st`](#my_crypt_service_st) *
+Type: struct [`my_crypt_service_st`](plugin_api_service_my_crypt.md#my_crypt_service_st) *
 
-Defined in service_my_crypt.h:80
+Defined in service_my_crypt.h:86
 
 ---
 
@@ -13082,21 +13219,21 @@ Defined in service_my_crypt.h:80
 struct thd_wait_service_st * thd_wait_service
 ```
 
-Type: struct [`thd_wait_service_st`](#thd_wait_service_st) *
+Type: struct [`thd_wait_service_st`](plugin_api_service_thd_wait.md#thd_wait_service_st) *
 
-Defined in service_thd_wait.h:84
+Defined in service_thd_wait.h:75
 
 ---
 
-### encryption_handler
+### encryption_service
 
 ```cpp
-struct encryption_service_st encryption_handler
+struct encryption_service_st * encryption_service
 ```
 
-Type: struct [`encryption_service_st`](#encryption_service_st)
+Type: struct [`encryption_service_st`](plugin_api_service_encryption.md#encryption_service_st) *
 
-Defined in service_encryption.h:85
+Defined in service_encryption.h:78
 
 ---
 
@@ -13106,19 +13243,19 @@ Defined in service_encryption.h:85
 struct thd_alloc_service_st * thd_alloc_service
 ```
 
-Type: struct [`thd_alloc_service_st`](#thd_alloc_service_st) *
+Type: struct [`thd_alloc_service_st`](plugin_api_service_thd_alloc.md#thd_alloc_service_st) *
 
-Defined in service_thd_alloc.h:68
+Defined in service_thd_alloc.h:81
 
 ---
 
-### debug_sync_C_callback_ptr
+### debug_sync_service
 
 ```cpp
-void(* debug_sync_C_callback_ptr)(MYSQL_THD, const char *, size_t)
+void(* debug_sync_service)(MYSQL_THD, const char *, size_t)
 ```
 
-Defined in service_debug_sync.h:333
+Defined in service_debug_sync.h:338
 
 ---
 
@@ -13128,9 +13265,9 @@ Defined in service_debug_sync.h:333
 struct my_snprintf_service_st * my_snprintf_service
 ```
 
-Type: struct [`my_snprintf_service_st`](#my_snprintf_service_st) *
+Type: struct [`my_snprintf_service_st`](plugin_api_service_my_snprintf.md#my_snprintf_service_st) *
 
-Defined in service_my_snprintf.h:104
+Defined in service_my_snprintf.h:55
 
 ---
 
@@ -13140,9 +13277,9 @@ Defined in service_my_snprintf.h:104
 struct thd_autoinc_service_st * thd_autoinc_service
 ```
 
-Type: struct [`thd_autoinc_service_st`](#thd_autoinc_service_st) *
+Type: struct [`thd_autoinc_service_st`](plugin_api_service_thd_autoinc.md#thd_autoinc_service_st) *
 
-Defined in service_thd_autoinc.h:32
+Defined in service_thd_autoinc.h:46
 
 ---
 
@@ -13152,9 +13289,9 @@ Defined in service_thd_autoinc.h:32
 struct thd_log_warnings_service_st * thd_log_warnings_service
 ```
 
-Type: struct [`thd_log_warnings_service_st`](#thd_log_warnings_service_st) *
+Type: struct [`thd_log_warnings_service_st`](plugin_api_service_log_warnings.md#thd_log_warnings_service_st) *
 
-Defined in service_log_warnings.h:34
+Defined in service_log_warnings.h:40
 
 ---
 
@@ -13164,9 +13301,9 @@ Defined in service_log_warnings.h:34
 struct thd_timezone_service_st * thd_timezone_service
 ```
 
-Type: struct [`thd_timezone_service_st`](#thd_timezone_service_st) *
+Type: struct [`thd_timezone_service_st`](plugin_api_service_thd_timezone.md#thd_timezone_service_st) *
 
-Defined in service_thd_timezone.h:52
+Defined in service_thd_timezone.h:63
 
 ---
 
@@ -13176,9 +13313,9 @@ Defined in service_thd_timezone.h:52
 struct thd_specifics_service_st * thd_specifics_service
 ```
 
-Type: struct [`thd_specifics_service_st`](#thd_specifics_service_st) *
+Type: struct [`thd_specifics_service_st`](plugin_api_service_thd_specifics.md#thd_specifics_service_st) *
 
-Defined in service_thd_specifics.h:67
+Defined in service_thd_specifics.h:79
 
 ---
 
@@ -13188,9 +13325,9 @@ Defined in service_thd_specifics.h:67
 struct kill_statement_service_st * thd_kill_statement_service
 ```
 
-Type: struct [`kill_statement_service_st`](#kill_statement_service_st) *
+Type: struct [`kill_statement_service_st`](plugin_api_service_kill_statement.md#kill_statement_service_st) *
 
-Defined in service_kill_statement.h:50
+Defined in service_kill_statement.h:53
 
 ---
 
@@ -13200,9 +13337,9 @@ Defined in service_kill_statement.h:50
 struct my_print_error_service_st * my_print_error_service
 ```
 
-Type: struct [`my_print_error_service_st`](#my_print_error_service_st) *
+Type: struct [`my_print_error_service_st`](plugin_api_service_my_print_error.md#my_print_error_service_st) *
 
-Defined in service_my_print_error.h:50
+Defined in service_my_print_error.h:57
 
 ---
 
@@ -13212,9 +13349,9 @@ Defined in service_my_print_error.h:50
 struct progress_report_service_st * progress_report_service
 ```
 
-Type: struct [`progress_report_service_st`](#progress_report_service_st) *
+Type: struct [`progress_report_service_st`](plugin_api_service_progress_report.md#progress_report_service_st) *
 
-Defined in service_progress_report.h:46
+Defined in service_progress_report.h:58
 
 ---
 
@@ -13224,9 +13361,9 @@ Defined in service_progress_report.h:46
 struct print_check_msg_service_st * print_check_msg_service
 ```
 
-Type: struct [`print_check_msg_service_st`](#print_check_msg_service_st) *
+Type: struct [`print_check_msg_service_st`](plugin_api_service_print_check_msg.md#print_check_msg_service_st) *
 
-Defined in service_print_check_msg.h:32
+Defined in service_print_check_msg.h:38
 
 ---
 
@@ -13236,7 +13373,7 @@ Defined in service_print_check_msg.h:32
 struct encryption_scheme_service_st * encryption_scheme_service
 ```
 
-Type: struct [`encryption_scheme_service_st`](#encryption_scheme_service_st) *
+Type: struct [`encryption_scheme_service_st`](plugin_api_service_encryption_scheme.md#encryption_scheme_service_st) *
 
 Defined in service_encryption_scheme.h:105
 
@@ -13248,803 +13385,8 @@ Defined in service_encryption_scheme.h:105
 struct thd_error_context_service_st * thd_error_context_service
 ```
 
-Type: struct [`thd_error_context_service_st`](#thd_error_context_service_st) *
+Type: struct [`thd_error_context_service_st`](plugin_api_service_thd_error_context.md#thd_error_context_service_st) *
 
-Defined in service_thd_error_context.h:39
-
-
-## Class Definitions
-
-
-
-### opaque_THD
-
-```cpp
-#include <psi.h>
-```
-
-```cpp
-struct opaque_THD
-```
-
-Defined in psi/psi.h:95
-
-
-
-### st_mysql_xid
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_xid
-```
-
-Defined in plugin.h:71
-
-struct [st_mysql_xid](#st_mysql_xid) is binary compatible with the XID structure as in the X/Open CAE Specification, Distributed Transaction Processing: The XA Specification, X/Open Company Ltd., 1991. [http://www.opengroup.org/bookstore/catalog/c193.htm](http://www.opengroup.org/bookstore/catalog/c193.htm)
-
-**See also**: XID in sql/handler.h
-
-
-
-### st_mysql_auth
-
-```cpp
-#include <plugin_auth.h>
-```
-
-```cpp
-struct st_mysql_auth
-```
-
-Defined in plugin_auth.h:119
-
-Server authentication plugin descriptor
-
-
-
-### st_plugin_vio
-
-```cpp
-#include <plugin_auth_common.h>
-```
-
-```cpp
-struct st_plugin_vio
-```
-
-Defined in plugin_auth_common.h:107
-
-Provides plugin access to communication channel
-
-
-
-### sql_service_st
-
-```cpp
-#include <service_sql.h>
-```
-
-```cpp
-struct sql_service_st
-```
-
-Defined in service_sql.h:49
-
-
-
-### st_mysql_audit
-
-```cpp
-#include <plugin_audit.h>
-```
-
-```cpp
-struct st_mysql_audit
-```
-
-Defined in plugin_audit.h:183
-
-
-
-### st_mysql_value
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_value
-```
-
-Defined in plugin.h:678
-
-
-
-### thd_service_st
-
-```cpp
-#include <service_thd.h>
-```
-
-```cpp
-struct thd_service_st
-```
-
-Defined in service_thd.h:27
-
-
-
-### json_service_st
-
-```cpp
-#include <service_json.h>
-```
-
-```cpp
-struct json_service_st
-```
-
-Defined in service_json.h:64
-
-
-
-### st_maria_plugin
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_maria_plugin
-```
-
-Defined in plugin.h:567
-
-MariaDB extension for plugins declaration structure.
-
-It also copies current MySQL plugin fields to have more independency in plugins extension
-
-
-
-### st_mysql_daemon
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_daemon
-```
-
-Defined in plugin.h:607
-
-
-
-### st_mysql_plugin
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_plugin
-```
-
-Defined in plugin.h:537
-
-Plugin description structure.
-
-
-
-### Mysql_replication
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct Mysql_replication
-```
-
-Defined in plugin.h:660
-
-Replication plugin descriptor
-
-
-
-### wsrep_service_st
-
-```cpp
-#include <service_wsrep.h>
-```
-
-```cpp
-struct wsrep_service_st
-```
-
-Defined in service_wsrep.h:56
-
-
-
-### base64_service_st
-
-```cpp
-#include <service_base64.h>
-```
-
-```cpp
-struct base64_service_st
-```
-
-Defined in service_base64.h:35
-
-
-
-### logger_service_st
-
-```cpp
-#include <service_logger.h>
-```
-
-```cpp
-struct logger_service_st
-```
-
-Defined in service_logger.h:63
-
-
-
-### mysql_event_table
-
-```cpp
-#include <plugin_audit.h>
-```
-
-```cpp
-struct mysql_event_table
-```
-
-Defined in plugin_audit.h:142
-
-
-
-### st_mysql_ftparser
-
-```cpp
-#include <plugin_ftparser.h>
-```
-
-```cpp
-struct st_mysql_ftparser
-```
-
-Defined in plugin_ftparser.h:208
-
-
-
-### my_md5_service_st
-
-```cpp
-#include <service_md5.h>
-```
-
-```cpp
-struct my_md5_service_st
-```
-
-Defined in service_md5.h:34
-
-
-
-### st_mysql_show_var
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_show_var
-```
-
-Defined in plugin.h:206
-
-
-
-### my_sha1_service_st
-
-```cpp
-#include <service_sha1.h>
-```
-
-```cpp
-struct my_sha1_service_st
-```
-
-Defined in service_sha1.h:34
-
-
-
-### my_sha2_service_st
-
-```cpp
-#include <service_sha2.h>
-```
-
-```cpp
-struct my_sha2_service_st
-```
-
-Defined in service_sha2.h:32
-
-
-
-### mysql_event_general
-
-```cpp
-#include <plugin_audit.h>
-```
-
-```cpp
-struct mysql_event_general
-```
-
-Defined in plugin_audit.h:53
-
-
-
-### st_plugin_vio_info
-
-```cpp
-#include <plugin_auth_common.h>
-```
-
-```cpp
-struct st_plugin_vio_info
-```
-
-Defined in plugin_auth_common.h:93
-
-
-
-### thd_mdl_service_st
-
-```cpp
-#include <service_thd_mdl.h>
-```
-
-```cpp
-struct thd_mdl_service_st
-```
-
-Defined in service_thd_mdl.h:29
-
-
-
-### thd_rnd_service_st
-
-```cpp
-#include <service_thd_rnd.h>
-```
-
-```cpp
-struct thd_rnd_service_st
-```
-
-Defined in service_thd_rnd.h:34
-
-
-
-### my_crypt_service_st
-
-```cpp
-#include <service_my_crypt.h>
-```
-
-```cpp
-struct my_crypt_service_st
-```
-
-Defined in service_my_crypt.h:63
-
-
-
-### st_encryption_scheme
-
-```cpp
-#include <service_encryption_scheme.h>
-```
-
-```cpp
-struct st_encryption_scheme
-```
-
-Defined in service_encryption_scheme.h:82
-
-
-
-### st_mysql_lex_string
-
-```cpp
-#include <service_thd_alloc.h>
-```
-
-```cpp
-struct st_mysql_lex_string
-```
-
-Defined in service_thd_alloc.h:45
-
-
-
-### thd_wait_service_st
-
-```cpp
-#include <service_thd_wait.h>
-```
-
-```cpp
-struct thd_wait_service_st
-```
-
-Defined in service_thd_wait.h:81
-
-
-
-### encryption_service_st
-
-```cpp
-#include <service_encryption.h>
-```
-
-```cpp
-struct encryption_service_st
-```
-
-Defined in service_encryption.h:57
-
-
-
-### st_mariadb_encryption
-
-```cpp
-#include <plugin_encryption.h>
-```
-
-```cpp
-struct st_mariadb_encryption
-```
-
-Defined in plugin_encryption.h:39
-
-Encryption plugin descriptor
-
-
-
-### thd_alloc_service_st
-
-```cpp
-#include <service_thd_alloc.h>
-```
-
-```cpp
-struct thd_alloc_service_st
-```
-
-Defined in service_thd_alloc.h:59
-
-
-
-### mysql_event_connection
-
-```cpp
-#include <plugin_audit.h>
-```
-
-```cpp
-struct mysql_event_connection
-```
-
-Defined in plugin_audit.h:97
-
-
-
-### my_snprintf_service_st
-
-```cpp
-#include <service_my_snprintf.h>
-```
-
-```cpp
-struct my_snprintf_service_st
-```
-
-Defined in service_my_snprintf.h:99
-
-
-
-### st_mysql_client_plugin
-
-```cpp
-#include <client_plugin.h>
-```
-
-```cpp
-struct st_mysql_client_plugin
-```
-
-Defined in client_plugin.h:85
-
-
-
-### thd_autoinc_service_st
-
-```cpp
-#include <service_thd_autoinc.h>
-```
-
-```cpp
-struct thd_autoinc_service_st
-```
-
-Defined in service_thd_autoinc.h:29
-
-
-
-### st_mysql_ftparser_param
-
-```cpp
-#include <plugin_ftparser.h>
-```
-
-```cpp
-struct st_mysql_ftparser_param
-```
-
-Defined in plugin_ftparser.h:184
-
-
-
-### st_mysql_storage_engine
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_storage_engine
-```
-
-Defined in plugin.h:644
-
-
-
-### thd_timezone_service_st
-
-```cpp
-#include <service_thd_timezone.h>
-```
-
-```cpp
-struct thd_timezone_service_st
-```
-
-Defined in service_thd_timezone.h:48
-
-
-
-### st_encryption_scheme_key
-
-```cpp
-#include <service_encryption_scheme.h>
-```
-
-```cpp
-struct st_encryption_scheme_key
-```
-
-Defined in service_encryption_scheme.h:77
-
-
-
-### thd_specifics_service_st
-
-```cpp
-#include <service_thd_specifics.h>
-```
-
-```cpp
-struct thd_specifics_service_st
-```
-
-Defined in service_thd_specifics.h:62
-
-
-
-### kill_statement_service_st
-
-```cpp
-#include <service_kill_statement.h>
-```
-
-```cpp
-struct kill_statement_service_st
-```
-
-Defined in service_kill_statement.h:48
-
-
-
-### my_print_error_service_st
-
-```cpp
-#include <service_my_print_error.h>
-```
-
-```cpp
-struct my_print_error_service_st
-```
-
-Defined in service_my_print_error.h:42
-
-
-
-### progress_report_service_st
-
-```cpp
-#include <service_progress_report.h>
-```
-
-```cpp
-struct progress_report_service_st
-```
-
-Defined in service_progress_report.h:35
-
-
-
-### st_mysql_const_lex_string
-
-```cpp
-#include <service_thd_alloc.h>
-```
-
-```cpp
-struct st_mysql_const_lex_string
-```
-
-Defined in service_thd_alloc.h:38
-
-
-
-### st_mysql_server_auth_info
-
-```cpp
-#include <plugin_auth.h>
-```
-
-```cpp
-struct st_mysql_server_auth_info
-```
-
-Defined in plugin_auth.h:48
-
-Provides server plugin access to authentication information
-
-
-
-### print_check_msg_service_st
-
-```cpp
-#include <service_print_check_msg.h>
-```
-
-```cpp
-struct print_check_msg_service_st
-```
-
-Defined in service_print_check_msg.h:28
-
-
-
-### st_mysql_information_schema
-
-```cpp
-#include <plugin.h>
-```
-
-```cpp
-struct st_mysql_information_schema
-```
-
-Defined in plugin.h:625
-
-
-
-### encryption_scheme_service_st
-
-```cpp
-#include <service_encryption_scheme.h>
-```
-
-```cpp
-struct encryption_scheme_service_st
-```
-
-Defined in service_encryption_scheme.h:92
-
-
-
-### thd_log_warnings_service_st
-
-```cpp
-#include <service_log_warnings.h>
-```
-
-```cpp
-struct thd_log_warnings_service_st
-```
-
-Defined in service_log_warnings.h:32
-
-
-
-### thd_error_context_service_st
-
-```cpp
-#include <service_thd_error_context.h>
-```
-
-```cpp
-struct thd_error_context_service_st
-```
-
-Defined in service_thd_error_context.h:30
-
-
-
-### st_mariadb_password_validation
-
-```cpp
-#include <plugin_password_validation.h>
-```
-
-```cpp
-struct st_mariadb_password_validation
-```
-
-Defined in plugin_password_validation.h:38
-
-Password validation plugin descriptor
-
-
-
-### st_mysql_ftparser_boolean_info
-
-```cpp
-#include <plugin_ftparser.h>
-```
-
-```cpp
-struct st_mysql_ftparser_boolean_info
-```
-
-Defined in plugin_ftparser.h:120
-
-
-
-### st_mysql_client_plugin_AUTHENTICATION
-
-```cpp
-#include <client_plugin.h>
-```
-
-```cpp
-struct st_mysql_client_plugin_AUTHENTICATION
-```
-
-Defined in client_plugin.h:95
+Defined in service_thd_error_context.h:51
 
 Generated by [Moxygen](https://0state.com/moxygen)

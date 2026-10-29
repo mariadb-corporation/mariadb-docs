@@ -7,7 +7,7 @@ description: >-
 
 # Thread Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
@@ -22,6 +22,10 @@ description: >-
 
 | Name | Description |
 |------|-------------|
+| [`PSI_MUTEX_CALL`](#psi_mutex_call)  |  |
+| [`PSI_RWLOCK_CALL`](#psi_rwlock_call)  |  |
+| [`PSI_COND_CALL`](#psi_cond_call)  |  |
+| [`PSI_THREAD_CALL`](#psi_thread_call)  |  |
 | [`PSI_CALL_delete_current_thread`](#psi_call_delete_current_thread)  |  |
 | [`PSI_CALL_get_thread`](#psi_call_get_thread)  |  |
 | [`PSI_CALL_new_thread`](#psi_call_new_thread)  |  |
@@ -73,6 +77,46 @@ description: >-
 | [`mysql_thread_create`](#mysql_thread_create)  | Instrumented pthread_create. This function creates both the thread instrumentation and a thread. `mysql_thread_create` is a replacement for `pthread_create`. The parameter P4 (or, if it is NULL, P1) will be used as the instrumented thread "identity". Providing a P1 / P4 parameter with a different value for each call will on average improve performances, since this thread identity value is used internally to randomize access to data and prevent contention. This is optional, and the improvement is not guaranteed, only statistical. |
 | [`mysql_thread_set_psi_id`](#mysql_thread_set_psi_id)  | Set the thread identifier for the instrumentation. |
 | [`mysql_thread_set_psi_THD`](#mysql_thread_set_psi_thd)  | Set the thread sql session for the instrumentation. |
+
+---
+
+### PSI_MUTEX_CALL
+
+```cpp
+#define PSI_MUTEX_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_thread.h:79
+
+---
+
+### PSI_RWLOCK_CALL
+
+```cpp
+#define PSI_RWLOCK_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_thread.h:83
+
+---
+
+### PSI_COND_CALL
+
+```cpp
+#define PSI_COND_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_thread.h:87
+
+---
+
+### PSI_THREAD_CALL
+
+```cpp
+#define PSI_THREAD_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_thread.h:91
 
 ---
 
