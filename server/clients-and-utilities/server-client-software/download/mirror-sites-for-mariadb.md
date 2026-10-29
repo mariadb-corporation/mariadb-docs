@@ -242,7 +242,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 ### Italy
 
-- EvoWise (Milan)
 - MonoVM (Milan)
 
 ### Japan
