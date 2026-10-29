@@ -44,7 +44,7 @@ CREATE TABLE t1 (a INT NOT NULL, b BLOB, PRIMARY KEY (a)) ENGINE=MEMORY;
 MEMORY tables use fixed-length rows. The row itself holds only the length and location of each `BLOB` or `TEXT` value. The value is stored in additional fixed-size chunks of the same size as a row, allocated from the table's memory. As a consequence:
 
 * `BLOB` and `TEXT` data counts toward the [max\_heap\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) limit of the table. When the limit is reached, an insert fails with a "table is full" error.
-* A value always occupies at least one chunk. In a table with wide rows, short values can use considerably more memory than their length.
+* Each non-empty `BLOB` or `TEXT` value occupies at least one chunk, while NULL and empty values occupy none. In a table with wide rows, a row with several short values therefore uses considerably more memory than the values themselves.
 
 ### Internal Temporary Tables
 
@@ -62,6 +62,8 @@ As a result, the [Created\_tmp\_disk\_tables](../../ha-and-performance/optimizat
 The maximum total size of MEMORY tables cannot exceed the [max\_heap\_table\_size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) system server variable. When a table is created this value applies to that table, and when the server is restarted this value applies to existing tables. Changing this value has no effect on existing tables. However, executing a `ALTER TABLE ... ENGINE=MEMORY` statement applies the current value of `max_heap_table_size` to the table. Also, it is possible to change the session value of `max_heap_table_size` before creating a table, to make sure that tables created by other sessions are not affected.
 
 The `MAX_ROWS` table option provides a hint about the number of rows you plan to store in them. This is not a hard limit that cannot be exceeded, and does not allow to exceed `max_heap_table_size`. The storage engine uses max\_heap\_table\_size and MAX\_ROWS to calculate the maximum memory that could be allocated for the table.
+
+From MariaDB 13.2, if the table has `BLOB` or `TEXT` columns, the chunks that hold their values count toward `MAX_ROWS` as well as the rows, so the table can be full before it holds `MAX_ROWS` rows. See [Memory Usage of BLOB and TEXT Values](#memory-usage-of-blob-and-text-values).
 
 Memory allocated to a MEMORY table is freed by running [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md) or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md), or rebuilding with [ALTER TABLE tbl\_name ENGINE = MEMORY](../../reference/sql-statements/data-definition/alter/alter-table/). When rows are deleted, space is not automatically freed.
 
