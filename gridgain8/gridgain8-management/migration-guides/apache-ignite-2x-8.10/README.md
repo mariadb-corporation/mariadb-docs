@@ -1,24 +1,14 @@
 ---
 description: >-
-  How to migrate from Apache Ignite 2.18 to the GridGain 8.10 Ultimate release,
+  How to migrate from Apache Ignite 2.18 to the GridGain 8.10 Ultimate Edition,
   with links to the step-by-step procedure and planning reference material.
 ---
 
-# Migration From Apache Ignite 2 to GridGain 8.10
+# Migration From Apache Ignite 2.18 to GridGain 8.10
 
-This guide describes how to migrate from Apache Ignite 2.18 to the GridGain 8.10 Ultimate release.
+This guide describes how to migrate from Apache Ignite 2.18 to the GridGain 8.10 Ultimate Edition.
 
-{% columns %}
-{% column %}
-{% content-ref url="migration-procedure.md" %}
-[Migrating from Apache Ignite 2](migration-procedure.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Step-by-step procedure for migrating a cluster, its data, clients, and tooling from Apache Ignite 2.18 to GridGain 8.10, with cutover, verification, and rollback.
-{% endcolumn %}
-{% endcolumns %}
+To plan the migration, start with [What to Know Before Migrating](before-you-migrate.md). To run it, follow the [step-by-step procedure](migration-procedure.md).
 
 {% columns %}
 {% column %}
@@ -28,7 +18,19 @@ Step-by-step procedure for migrating a cluster, its data, clients, and tooling f
 {% endcolumn %}
 
 {% column %}
-Planning reference for migrating from Apache Ignite 2.18 to GridGain 8: prerequisites, migration constraints, a compatibility summary, and effort estimates.
+Planning reference for migrating from Ignite 2 to GridGain 8: prerequisites, migration constraints, a compatibility summary, and effort estimates.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="migration-procedure.md" %}
+[Migrating from Apache Ignite 2](migration-procedure.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Step-by-step procedure for migrating a cluster, its data, clients, and tooling from Ignite 2 to GridGain 8.10, with cutover, verification, and rollback.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -40,7 +42,7 @@ Planning reference for migrating from Apache Ignite 2.18 to GridGain 8: prerequi
 {% endcolumn %}
 
 {% column %}
-Apache Ignite 2 features that work differently or have no equivalent in GridGain 8, with what to do and how to verify each replacement.
+Ignite 2 features that work differently or have no equivalent in GridGain 8, with what to do and how to verify each replacement.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -52,7 +54,7 @@ Apache Ignite 2 features that work differently or have no equivalent in GridGain
 {% endcolumn %}
 
 {% column %}
-Configuration changes when migrating from Apache Ignite 2 to GridGain 8: changed defaults, removed and unsupported properties, and binary field ordering.
+Configuration changes when migrating from Ignite 2 to GridGain 8: changed defaults, removed and unsupported properties, and binary field ordering.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -64,7 +66,7 @@ Configuration changes when migrating from Apache Ignite 2 to GridGain 8: changed
 {% endcolumn %}
 
 {% column %}
-SQL engine, per-language client, and plugin/SPI changes to account for when migrating applications from Apache Ignite 2 to GridGain 8.
+SQL engine, per-language client, and plugin/SPI changes to account for when migrating applications from Ignite 2 to GridGain 8.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -76,7 +78,7 @@ SQL engine, per-language client, and plugin/SPI changes to account for when migr
 {% endcolumn %}
 
 {% column %}
-GridGain distribution formats, per-language build coordinate changes, Docker differences, and module and extension availability when migrating from Apache Ignite 2.
+GridGain 8 distribution formats, per-language build coordinate changes, Docker differences, and module and extension availability when migrating from Ignite 2.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -88,7 +90,7 @@ GridGain distribution formats, per-language build coordinate changes, Docker dif
 {% endcolumn %}
 
 {% column %}
-Monitoring and command-line changes when migrating from Apache Ignite 2 to GridGain 8, covering logs, metrics, system views, events, and the CLI tools.
+Monitoring and command-line changes when migrating from Ignite 2 to GridGain 8, covering logs, metrics, system views, events, and the CLI tools.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -100,6 +102,6 @@ Monitoring and command-line changes when migrating from Apache Ignite 2 to GridG
 {% endcolumn %}
 
 {% column %}
-How to migrate authorization from a secured Apache Ignite 2.x cluster to GridGain 8: retired permissions, coarser admin grants, and user management.
+How to migrate authorization from a secured Ignite 2 cluster to GridGain 8: retired permissions, coarser admin grants, and user management.
 {% endcolumn %}
 {% endcolumns %}
