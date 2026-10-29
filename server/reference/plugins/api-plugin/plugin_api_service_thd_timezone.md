@@ -17,7 +17,7 @@ The values of the my_time_t type are in Unix timestamp format, i.e. the number o
 
 The values of the MYSQL_TIME type are in the current time zone, according to `thd->variables.time_zone`.
 
-If the [MYSQL_THD](api.md#mysql_thd) parameter is NULL, then `global_system_variables.time_zone` is used for conversion.
+If the [MYSQL_THD](plugin_api.md#mysql_thd) parameter is NULL, then `global_system_variables.time_zone` is used for conversion.
 
 ## Classes
 

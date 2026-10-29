@@ -452,7 +452,7 @@ Defined in client_plugin.h:100
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`MYSQL_CLIENT_PLUGIN_HEADER`](api.md#mysql_client_plugin_header) int(* | [`authenticate_user`](#authenticate_user)  |  |
+| [`MYSQL_CLIENT_PLUGIN_HEADER`](#mysql_client_plugin_header) int(* | [`authenticate_user`](#authenticate_user)  |  |
 | `int(*` | [`hash_password_bin`](#hash_password_bin)  |  |
 
 ---

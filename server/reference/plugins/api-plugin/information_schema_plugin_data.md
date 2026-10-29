@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for I_S plugin. ([MYSQL_INFORMATION_SCHEMA_PLUGIN](api.md#mysql_information_schema_plugin))
+API for I_S plugin. ([MYSQL_INFORMATION_SCHEMA_PLUGIN](plugin_types.md#mysql_information_schema_plugin))
 
 ## Classes
 

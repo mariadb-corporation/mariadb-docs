@@ -32,7 +32,7 @@ description: >-
 | Name | Description |
 |------|-------------|
 | [`PSI_stage_progress`](#psi_stage_progress-1) | Interface for an instrumented stage progress. This is a public structure, for efficiency. |
-| [`PSI_table_locker_state`](#psi_table_locker_state-1) | State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`. This structure provide temporary storage to a table locker. The content of this structure is considered opaque, the fields are only hints of what an implementation of the psi interface can use. This memory is provided by the instrumented code for performance reasons. **See also**: [start_table_io_wait_v1_t](api.md#start_table_io_wait_v1_t) |
+| [`PSI_table_locker_state`](#psi_table_locker_state-1) | State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`. This structure provide temporary storage to a table locker. The content of this structure is considered opaque, the fields are only hints of what an implementation of the psi interface can use. This memory is provided by the instrumented code for performance reasons. **See also**: [start_table_io_wait_v1_t](Group_PSI_v1.md#start_table_io_wait_v1_t) |
 | [`PSI_bootstrap`](#psi_bootstrap-1) | Entry point for the performance schema interface. |
 | [`PSI_none`](#psi_none) | Dummy structure, used to declare PSI_server when no instrumentation is available. The content does not matter, since PSI_server will be NULL. |
 | [`PSI_stage_info_none`](#psi_stage_info_none) | Stage instrument information. **Since**: PSI_VERSION_1 This structure is used to register an instrumented stage. |
@@ -282,30 +282,30 @@ IO operation performed on an instrumented table.
 
 | Return | Name | Description |
 |--------|------|-------------|
-| struct [`MDL_key`](api.md#mdl_key) | [`MDL_key`](#mdl_key)  |  |
+| struct [`MDL_key`](#mdl_key) | [`MDL_key`](#mdl_key)  |  |
 | `int` | [`opaque_mdl_type`](#opaque_mdl_type)  | **See also**: enum_mdl_type. |
 | `int` | [`opaque_mdl_duration`](#opaque_mdl_duration)  | **See also**: enum_mdl_duration. |
 | `int` | [`opaque_mdl_status`](#opaque_mdl_status)  | **See also**: MDL_wait::enum_wait_status. |
 | `int` | [`opaque_vio_type`](#opaque_vio_type)  | **See also**: enum_vio_type. |
-| struct [`PSI_mutex`](api.md#psi_mutex) | [`PSI_mutex`](#psi_mutex)  |  |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) | [`PSI_rwlock`](#psi_rwlock)  |  |
-| struct [`PSI_cond`](api.md#psi_cond) | [`PSI_cond`](#psi_cond)  |  |
-| struct [`PSI_table_share`](api.md#psi_table_share) | [`PSI_table_share`](#psi_table_share)  |  |
-| struct [`PSI_table`](api.md#psi_table) | [`PSI_table`](#psi_table)  |  |
-| struct [`PSI_thread`](api.md#psi_thread) | [`PSI_thread`](#psi_thread)  |  |
-| struct [`PSI_file`](api.md#psi_file) | [`PSI_file`](#psi_file)  |  |
-| struct [`PSI_socket`](api.md#psi_socket) | [`PSI_socket`](#psi_socket)  |  |
-| struct [`PSI_prepared_stmt`](api.md#psi_prepared_stmt) | [`PSI_prepared_stmt`](#psi_prepared_stmt)  |  |
-| struct [`PSI_table_locker`](api.md#psi_table_locker) | [`PSI_table_locker`](#psi_table_locker)  |  |
-| struct [`PSI_statement_locker`](api.md#psi_statement_locker) | [`PSI_statement_locker`](#psi_statement_locker)  |  |
-| struct [`PSI_transaction_locker`](api.md#psi_transaction_locker) | [`PSI_transaction_locker`](#psi_transaction_locker)  |  |
-| struct [`PSI_idle_locker`](api.md#psi_idle_locker) | [`PSI_idle_locker`](#psi_idle_locker)  |  |
-| struct [`PSI_digest_locker`](api.md#psi_digest_locker) | [`PSI_digest_locker`](#psi_digest_locker)  |  |
-| struct [`PSI_sp_share`](api.md#psi_sp_share) | [`PSI_sp_share`](#psi_sp_share)  |  |
-| struct [`PSI_sp_locker`](api.md#psi_sp_locker) | [`PSI_sp_locker`](#psi_sp_locker)  |  |
-| struct [`PSI_metadata_lock`](api.md#psi_metadata_lock) | [`PSI_metadata_lock`](#psi_metadata_lock)  |  |
+| struct [`PSI_mutex`](#psi_mutex) | [`PSI_mutex`](#psi_mutex)  |  |
+| struct [`PSI_rwlock`](#psi_rwlock) | [`PSI_rwlock`](#psi_rwlock)  |  |
+| struct [`PSI_cond`](#psi_cond) | [`PSI_cond`](#psi_cond)  |  |
+| struct [`PSI_table_share`](#psi_table_share) | [`PSI_table_share`](#psi_table_share)  |  |
+| struct [`PSI_table`](#psi_table) | [`PSI_table`](#psi_table)  |  |
+| struct [`PSI_thread`](#psi_thread) | [`PSI_thread`](#psi_thread)  |  |
+| struct [`PSI_file`](#psi_file) | [`PSI_file`](#psi_file)  |  |
+| struct [`PSI_socket`](#psi_socket) | [`PSI_socket`](#psi_socket)  |  |
+| struct [`PSI_prepared_stmt`](#psi_prepared_stmt) | [`PSI_prepared_stmt`](#psi_prepared_stmt)  |  |
+| struct [`PSI_table_locker`](#psi_table_locker) | [`PSI_table_locker`](#psi_table_locker)  |  |
+| struct [`PSI_statement_locker`](#psi_statement_locker) | [`PSI_statement_locker`](#psi_statement_locker)  |  |
+| struct [`PSI_transaction_locker`](#psi_transaction_locker) | [`PSI_transaction_locker`](#psi_transaction_locker)  |  |
+| struct [`PSI_idle_locker`](#psi_idle_locker) | [`PSI_idle_locker`](#psi_idle_locker)  |  |
+| struct [`PSI_digest_locker`](#psi_digest_locker) | [`PSI_digest_locker`](#psi_digest_locker)  |  |
+| struct [`PSI_sp_share`](#psi_sp_share) | [`PSI_sp_share`](#psi_sp_share)  |  |
+| struct [`PSI_sp_locker`](#psi_sp_locker) | [`PSI_sp_locker`](#psi_sp_locker)  |  |
+| struct [`PSI_metadata_lock`](#psi_metadata_lock) | [`PSI_metadata_lock`](#psi_metadata_lock)  |  |
 | struct [`PSI_stage_progress`](#psi_stage_progress-1) | [`PSI_stage_progress`](#psi_stage_progress)  |  |
-| enum [`PSI_table_io_operation`](api.md#psi_table_io_operation) | [`PSI_table_io_operation`](#psi_table_io_operation-1)  |  |
+| enum [`PSI_table_io_operation`](#psi_table_io_operation) | [`PSI_table_io_operation`](#psi_table_io_operation-1)  |  |
 | struct [`PSI_table_locker_state`](#psi_table_locker_state-1) | [`PSI_table_locker_state`](#psi_table_locker_state)  |  |
 | struct [`PSI_bootstrap`](#psi_bootstrap-1) | [`PSI_bootstrap`](#psi_bootstrap)  |  |
 | `unsigned int` | [`PSI_mutex_key`](#psi_mutex_key)  | Instrumented mutex key. To instrument a mutex, a mutex key must be obtained using `register_mutex`. Using a zero key always disable the instrumentation. |
@@ -348,7 +348,7 @@ IO operation performed on an instrumented table.
 using MDL_key = struct MDL_key
 ```
 
-Type: struct [`MDL_key`](api.md#mdl_key)
+Type: struct [`MDL_key`](#mdl_key)
 
 Defined in psi/psi.h:75
 
@@ -408,7 +408,7 @@ Defined in psi/psi.h:87
 using PSI_mutex = struct PSI_mutex
 ```
 
-Type: struct [`PSI_mutex`](api.md#psi_mutex)
+Type: struct [`PSI_mutex`](#psi_mutex)
 
 Defined in psi/psi.h:117
 
@@ -420,7 +420,7 @@ Defined in psi/psi.h:117
 using PSI_rwlock = struct PSI_rwlock
 ```
 
-Type: struct [`PSI_rwlock`](api.md#psi_rwlock)
+Type: struct [`PSI_rwlock`](#psi_rwlock)
 
 Defined in psi/psi.h:124
 
@@ -432,7 +432,7 @@ Defined in psi/psi.h:124
 using PSI_cond = struct PSI_cond
 ```
 
-Type: struct [`PSI_cond`](api.md#psi_cond)
+Type: struct [`PSI_cond`](#psi_cond)
 
 Defined in psi/psi.h:131
 
@@ -444,7 +444,7 @@ Defined in psi/psi.h:131
 using PSI_table_share = struct PSI_table_share
 ```
 
-Type: struct [`PSI_table_share`](api.md#psi_table_share)
+Type: struct [`PSI_table_share`](#psi_table_share)
 
 Defined in psi/psi.h:138
 
@@ -456,7 +456,7 @@ Defined in psi/psi.h:138
 using PSI_table = struct PSI_table
 ```
 
-Type: struct [`PSI_table`](api.md#psi_table)
+Type: struct [`PSI_table`](#psi_table)
 
 Defined in psi/psi.h:145
 
@@ -468,7 +468,7 @@ Defined in psi/psi.h:145
 using PSI_thread = struct PSI_thread
 ```
 
-Type: struct [`PSI_thread`](api.md#psi_thread)
+Type: struct [`PSI_thread`](#psi_thread)
 
 Defined in psi/psi.h:152
 
@@ -480,7 +480,7 @@ Defined in psi/psi.h:152
 using PSI_file = struct PSI_file
 ```
 
-Type: struct [`PSI_file`](api.md#psi_file)
+Type: struct [`PSI_file`](#psi_file)
 
 Defined in psi/psi.h:159
 
@@ -492,7 +492,7 @@ Defined in psi/psi.h:159
 using PSI_socket = struct PSI_socket
 ```
 
-Type: struct [`PSI_socket`](api.md#psi_socket)
+Type: struct [`PSI_socket`](#psi_socket)
 
 Defined in psi/psi.h:166
 
@@ -504,7 +504,7 @@ Defined in psi/psi.h:166
 using PSI_prepared_stmt = struct PSI_prepared_stmt
 ```
 
-Type: struct [`PSI_prepared_stmt`](api.md#psi_prepared_stmt)
+Type: struct [`PSI_prepared_stmt`](#psi_prepared_stmt)
 
 Defined in psi/psi.h:173
 
@@ -516,7 +516,7 @@ Defined in psi/psi.h:173
 using PSI_table_locker = struct PSI_table_locker
 ```
 
-Type: struct [`PSI_table_locker`](api.md#psi_table_locker)
+Type: struct [`PSI_table_locker`](#psi_table_locker)
 
 Defined in psi/psi.h:180
 
@@ -528,7 +528,7 @@ Defined in psi/psi.h:180
 using PSI_statement_locker = struct PSI_statement_locker
 ```
 
-Type: struct [`PSI_statement_locker`](api.md#psi_statement_locker)
+Type: struct [`PSI_statement_locker`](#psi_statement_locker)
 
 Defined in psi/psi.h:187
 
@@ -540,7 +540,7 @@ Defined in psi/psi.h:187
 using PSI_transaction_locker = struct PSI_transaction_locker
 ```
 
-Type: struct [`PSI_transaction_locker`](api.md#psi_transaction_locker)
+Type: struct [`PSI_transaction_locker`](#psi_transaction_locker)
 
 Defined in psi/psi.h:194
 
@@ -552,7 +552,7 @@ Defined in psi/psi.h:194
 using PSI_idle_locker = struct PSI_idle_locker
 ```
 
-Type: struct [`PSI_idle_locker`](api.md#psi_idle_locker)
+Type: struct [`PSI_idle_locker`](#psi_idle_locker)
 
 Defined in psi/psi.h:201
 
@@ -564,7 +564,7 @@ Defined in psi/psi.h:201
 using PSI_digest_locker = struct PSI_digest_locker
 ```
 
-Type: struct [`PSI_digest_locker`](api.md#psi_digest_locker)
+Type: struct [`PSI_digest_locker`](#psi_digest_locker)
 
 Defined in psi/psi.h:208
 
@@ -576,7 +576,7 @@ Defined in psi/psi.h:208
 using PSI_sp_share = struct PSI_sp_share
 ```
 
-Type: struct [`PSI_sp_share`](api.md#psi_sp_share)
+Type: struct [`PSI_sp_share`](#psi_sp_share)
 
 Defined in psi/psi.h:215
 
@@ -588,7 +588,7 @@ Defined in psi/psi.h:215
 using PSI_sp_locker = struct PSI_sp_locker
 ```
 
-Type: struct [`PSI_sp_locker`](api.md#psi_sp_locker)
+Type: struct [`PSI_sp_locker`](#psi_sp_locker)
 
 Defined in psi/psi.h:222
 
@@ -600,7 +600,7 @@ Defined in psi/psi.h:222
 using PSI_metadata_lock = struct PSI_metadata_lock
 ```
 
-Type: struct [`PSI_metadata_lock`](api.md#psi_metadata_lock)
+Type: struct [`PSI_metadata_lock`](#psi_metadata_lock)
 
 Defined in psi/psi.h:229
 
@@ -624,7 +624,7 @@ Defined in psi/psi.h:240
 using PSI_table_io_operation = enum PSI_table_io_operation
 ```
 
-Type: enum [`PSI_table_io_operation`](api.md#psi_table_io_operation)
+Type: enum [`PSI_table_io_operation`](#psi_table_io_operation)
 
 Defined in psi/psi.h:254
 
@@ -1040,7 +1040,7 @@ Defined in psi/psi_memory.h:148
 
 | Return | Name | Description |
 |--------|------|-------------|
-| MYSQL_PLUGIN_IMPORT [`PSI`](api.md#psi) * | [`PSI_server`](#psi_server)  |  |
+| MYSQL_PLUGIN_IMPORT [`PSI`](#psi) * | [`PSI_server`](#psi_server)  |  |
 
 ---
 
@@ -1050,7 +1050,7 @@ Defined in psi/psi_memory.h:148
 MYSQL_PLUGIN_IMPORT PSI * PSI_server
 ```
 
-Type: MYSQL_PLUGIN_IMPORT [`PSI`](api.md#psi) *
+Type: MYSQL_PLUGIN_IMPORT [`PSI`](#psi) *
 
 Defined in psi/psi.h:3021
 
@@ -1114,19 +1114,19 @@ struct PSI_table_locker_state
 
 Defined in psi/psi.h:267
 
-State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`. This structure provide temporary storage to a table locker. The content of this structure is considered opaque, the fields are only hints of what an implementation of the psi interface can use. This memory is provided by the instrumented code for performance reasons. **See also**: [start_table_io_wait_v1_t](api.md#start_table_io_wait_v1_t)
+State data storage for `start_table_io_wait_v1_t`, `start_table_lock_wait_v1_t`. This structure provide temporary storage to a table locker. The content of this structure is considered opaque, the fields are only hints of what an implementation of the psi interface can use. This memory is provided by the instrumented code for performance reasons. **See also**: [start_table_io_wait_v1_t](Group_PSI_v1.md#start_table_io_wait_v1_t)
 
-**See also**: [start_table_lock_wait_v1_t](api.md#start_table_lock_wait_v1_t)
+**See also**: [start_table_lock_wait_v1_t](Group_PSI_v1.md#start_table_lock_wait_v1_t)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `uint` | [`m_flags`](#m_flags)  | Internal state. |
-| enum [`PSI_table_io_operation`](api.md#psi_table_io_operation) | [`m_io_operation`](#m_io_operation)  | Current io operation. |
-| struct [`PSI_table`](api.md#psi_table) * | [`m_table`](#m_table)  | Current table handle. |
-| struct [`PSI_table_share`](api.md#psi_table_share) * | [`m_table_share`](#m_table_share)  | Current table share. |
-| struct [`PSI_thread`](api.md#psi_thread) * | [`m_thread`](#m_thread)  | Current thread. |
+| enum [`PSI_table_io_operation`](#psi_table_io_operation) | [`m_io_operation`](#m_io_operation)  | Current io operation. |
+| struct [`PSI_table`](#psi_table) * | [`m_table`](#m_table)  | Current table handle. |
+| struct [`PSI_table_share`](#psi_table_share) * | [`m_table_share`](#m_table_share)  | Current table share. |
+| struct [`PSI_thread`](#psi_thread) * | [`m_thread`](#m_thread)  | Current thread. |
 | `ulonglong` | [`m_timer_start`](#m_timer_start)  | Timer start. |
 | `ulonglong(*` | [`m_timer`](#m_timer)  | Timer function. |
 | `void *` | [`m_wait`](#m_wait)  | Internal data. |
@@ -1152,7 +1152,7 @@ Internal state.
 enum PSI_table_io_operation m_io_operation
 ```
 
-Type: enum [`PSI_table_io_operation`](api.md#psi_table_io_operation)
+Type: enum [`PSI_table_io_operation`](#psi_table_io_operation)
 
 Defined in psi/psi.h:272
 
@@ -1166,7 +1166,7 @@ Current io operation.
 struct PSI_table * m_table
 ```
 
-Type: struct [`PSI_table`](api.md#psi_table) *
+Type: struct [`PSI_table`](#psi_table) *
 
 Defined in psi/psi.h:274
 
@@ -1180,7 +1180,7 @@ Current table handle.
 struct PSI_table_share * m_table_share
 ```
 
-Type: struct [`PSI_table_share`](api.md#psi_table_share) *
+Type: struct [`PSI_table_share`](#psi_table_share) *
 
 Defined in psi/psi.h:276
 
@@ -1194,7 +1194,7 @@ Current table share.
 struct PSI_thread * m_thread
 ```
 
-Type: struct [`PSI_thread`](api.md#psi_thread) *
+Type: struct [`PSI_thread`](#psi_thread) *
 
 Defined in psi/psi.h:278
 
@@ -1294,7 +1294,7 @@ a versioned interface ([PSI_v1](Group_PSI_v1.md#psi_v1), PSI_v2 or PSI)
 
 **See also**: PSI_CURRENT_VERSION 
 
-**See also**: [PSI](api.md#psi)
+**See also**: [PSI](#psi)
 
 #### Parameters
 

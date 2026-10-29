@@ -114,7 +114,7 @@ Defined in plugin_audit.h:104
 | `const char *` | [`ip`](#ip)  |  |
 | `unsigned int` | [`ip_length`](#ip_length)  |  |
 | `unsigned int` | [`port`](#port)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`database`](#database)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`database`](#database)  |  |
 | `const char *` | [`tls_version`](#tls_version)  |  |
 | `unsigned int` | [`tls_version_length`](#tls_version_length)  |  |
 
@@ -286,7 +286,7 @@ Defined in plugin_audit.h:121
 MYSQL_CONST_LEX_STRING database
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:122
 

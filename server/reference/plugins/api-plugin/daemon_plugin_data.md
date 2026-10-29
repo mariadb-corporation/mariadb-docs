@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Daemon plugin. ([MYSQL_DAEMON_PLUGIN](api.md#mysql_daemon_plugin))
+API for Daemon plugin. ([MYSQL_DAEMON_PLUGIN](plugin_types.md#mysql_daemon_plugin))
 
 ## Classes
 

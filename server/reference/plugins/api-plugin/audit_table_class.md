@@ -132,10 +132,10 @@ Defined in plugin_audit.h:153
 | `const char *` | [`host`](#host)  |  |
 | `const char *` | [`ip`](#ip)  |  |
 | `unsigned int` | [`port`](#port)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`database`](#database)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`table`](#table)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`new_database`](#new_database)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`new_table`](#new_table)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`database`](#database)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`table`](#table)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`new_database`](#new_database)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`new_table`](#new_table)  |  |
 | `int` | [`read_only`](#read_only)  |  |
 | `unsigned long long` | [`query_id`](#query_id)  |  |
 
@@ -247,7 +247,7 @@ Defined in plugin_audit.h:164
 MYSQL_CONST_LEX_STRING database
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:165
 
@@ -259,7 +259,7 @@ Defined in plugin_audit.h:165
 MYSQL_CONST_LEX_STRING table
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:166
 
@@ -271,7 +271,7 @@ Defined in plugin_audit.h:166
 MYSQL_CONST_LEX_STRING new_database
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:168
 
@@ -283,7 +283,7 @@ Defined in plugin_audit.h:168
 MYSQL_CONST_LEX_STRING new_table
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:169
 

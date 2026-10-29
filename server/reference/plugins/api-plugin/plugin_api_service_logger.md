@@ -13,17 +13,17 @@ Log file with rotation implementation.
 
 This service implements logging with possible rotation of the log files. Interface intentionally tries to be similar to FILE* related functions.
 
-So that one can open the log with [logger_open()](api.md#logger_open), specifying the limit on the logfile size and the rotations number.
+So that one can open the log with [logger_open()](#logger_open), specifying the limit on the logfile size and the rotations number.
 
-Then it's possible to write messages to the log with [logger_printf()](api.md#logger_printf) or [logger_vprintf()](api.md#logger_vprintf) functions.
+Then it's possible to write messages to the log with [logger_printf()](#logger_printf) or [logger_vprintf()](#logger_vprintf) functions.
 
 As the size of the logfile grows over the specified limit, it is renamed to `logfile.1`. The former `logfile.1` becomes `logfile.2`, etc. The file `logfile.rotations` is removed.
 
 That's how the rotation works.
 
-The rotation can be forced with the [logger_rotate()](api.md#logger_rotate) call.
+The rotation can be forced with the [logger_rotate()](#logger_rotate) call.
 
-Finally the log should be closed with [logger_close()](api.md#logger_close).
+Finally the log should be closed with [logger_close()](#logger_close).
 
 > [!NOTE]
 > Implementation checks the size of the log file before it starts new printf into it. So the size of the file gets over the limit when it rotates.
@@ -219,7 +219,7 @@ Defined in service_logger.h:71
 | Return | Name | Description |
 |--------|------|-------------|
 | `void(*` | [`logger_init_mutexes`](#logger_init_mutexes-1)  |  |
-| [`LOGGER_HANDLE`](api.md#logger_handle) *(* | [`open`](#open)  |  |
+| [`LOGGER_HANDLE`](#logger_handle) *(* | [`open`](#open)  |  |
 | `int(*` | [`close`](#close)  |  |
 | `int(*` | [`vprintf`](#vprintf)  |  |
 | `int(*) int(*` | [`printf`](#printf)  |  |

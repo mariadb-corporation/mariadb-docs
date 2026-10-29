@@ -13,7 +13,7 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`st_mysql_file`](#st_mysql_file) | An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file) |
+| [`st_mysql_file`](#st_mysql_file) | An instrumented FILE structure. **See also**: [MYSQL_FILE](#mysql_file) |
 
 ## Macros
 
@@ -481,7 +481,7 @@ Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`.
 
 | Return | Name | Description |
 |--------|------|-------------|
-| struct [`st_mysql_file`](#st_mysql_file) | [`MYSQL_FILE`](#mysql_file)  | Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](api.md#mysql_file_open) |
+| struct [`st_mysql_file`](#st_mysql_file) | [`MYSQL_FILE`](#mysql_file)  | Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](#mysql_file_open) |
 
 ---
 
@@ -495,7 +495,7 @@ Type: struct [`st_mysql_file`](#st_mysql_file)
 
 Defined in psi/mysql_file.h:515
 
-Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](api.md#mysql_file_open)
+Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](#mysql_file_open)
 
 ## Functions
 
@@ -513,7 +513,7 @@ Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. 
 | `int` | [`inline_mysql_file_fstat`](#inline_mysql_file_fstat) `static` `inline` |  |
 | `MY_STAT *` | [`inline_mysql_file_stat`](#inline_mysql_file_stat) `static` `inline` |  |
 | `int` | [`inline_mysql_file_chsize`](#inline_mysql_file_chsize) `static` `inline` |  |
-| [`MYSQL_FILE`](api.md#mysql_file) * | [`inline_mysql_file_fopen`](#inline_mysql_file_fopen) `static` `inline` |  |
+| [`MYSQL_FILE`](#mysql_file) * | [`inline_mysql_file_fopen`](#inline_mysql_file_fopen) `static` `inline` |  |
 | `int` | [`inline_mysql_file_fclose`](#inline_mysql_file_fclose) `static` `inline` |  |
 | `size_t` | [`inline_mysql_file_fread`](#inline_mysql_file_fread) `static` `inline` |  |
 | `size_t` | [`inline_mysql_file_fwrite`](#inline_mysql_file_fwrite) `static` `inline` |  |
@@ -961,14 +961,14 @@ struct st_mysql_file
 
 Defined in psi/mysql_file.h:498
 
-An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file)
+An instrumented FILE structure. **See also**: [MYSQL_FILE](#mysql_file)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `FILE *` | [`m_file`](#m_file)  | The real file. |
-| struct [`PSI_file`](api.md#psi_file) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_FILE` interface. |
+| struct [`PSI_file`](Instrumentation_interface.md#psi_file) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_FILE` interface. |
 
 ---
 
@@ -990,7 +990,7 @@ The real file.
 struct PSI_file * m_psi
 ```
 
-Type: struct [`PSI_file`](api.md#psi_file) *
+Type: struct [`PSI_file`](Instrumentation_interface.md#psi_file) *
 
 Defined in psi/mysql_file.h:507
 

@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Storage Engine plugin. ([MYSQL_STORAGE_ENGINE_PLUGIN](api.md#mysql_storage_engine_plugin))
+API for Storage Engine plugin. ([MYSQL_STORAGE_ENGINE_PLUGIN](plugin_types.md#mysql_storage_engine_plugin))
 
 ## Classes
 

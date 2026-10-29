@@ -15,18 +15,18 @@ Interface for plugins to execute SQL queries on the local server.
 
 Functions of the service are the 'server-limited' client library:
 
-* [mysql_init](api.md#mysql_init)
-* [mysql_real_connect_local](api.md#mysql_real_connect_local)
-* [mysql_real_connect](api.md#mysql_real_connect)
-* [mysql_errno](api.md#mysql_errno)
-* [mysql_error](api.md#mysql_error)
-* [mysql_real_query](api.md#mysql_real_query)
-* [mysql_affected_rows](api.md#mysql_affected_rows)
-* [mysql_num_rows](api.md#mysql_num_rows)
-* [mysql_store_result](api.md#mysql_store_result)
-* [mysql_free_result](api.md#mysql_free_result)
-* [mysql_fetch_row](api.md#mysql_fetch_row)
-* [mysql_close](api.md#mysql_close)
+* [mysql_init](#mysql_init)
+* [mysql_real_connect_local](#mysql_real_connect_local)
+* [mysql_real_connect](#mysql_real_connect)
+* [mysql_errno](#mysql_errno)
+* [mysql_error](#mysql_error)
+* [mysql_real_query](#mysql_real_query)
+* [mysql_affected_rows](#mysql_affected_rows)
+* [mysql_num_rows](#mysql_num_rows)
+* [mysql_store_result](#mysql_store_result)
+* [mysql_free_result](#mysql_free_result)
+* [mysql_fetch_row](#mysql_fetch_row)
+* [mysql_close](#mysql_close)
 
 ## Classes
 

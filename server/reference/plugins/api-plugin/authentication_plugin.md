@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Authentication plugin. ([MYSQL_AUTHENTICATION_PLUGIN](api.md#mysql_authentication_plugin))
+API for Authentication plugin. ([MYSQL_AUTHENTICATION_PLUGIN](plugin_types.md#mysql_authentication_plugin))
 
 ## Groups
 
@@ -136,7 +136,7 @@ Provides server plugin access to authentication information
 | `int` | [`password_used`](#password_used)  | This only affects the "Authentication failed. Password used: @%s" error message. has the following values: |
 | `const char *` | [`host_or_ip`](#host_or_ip)  | Set to the name of the connected client host, if it can be resolved, or to its IP address otherwise. |
 | `unsigned int` | [`host_or_ip_length`](#host_or_ip_length)  | Length of host_or_ip |
-| [`MYSQL_THD`](api.md#mysql_thd) | [`thd`](#thd)  | Current THD pointer (to use with various services) |
+| [`MYSQL_THD`](plugin_api.md#mysql_thd) | [`thd`](#thd)  | Current THD pointer (to use with various services) |
 
 ---
 
@@ -262,7 +262,7 @@ Length of host_or_ip
 MYSQL_THD thd
 ```
 
-Type: [`MYSQL_THD`](api.md#mysql_thd)
+Type: [`MYSQL_THD`](plugin_api.md#mysql_thd)
 
 Defined in plugin_auth.h:126
 

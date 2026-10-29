@@ -13,10 +13,10 @@ description: >-
 
 | Name | Description |
 |------|-------------|
-| [`st_mysql_mutex`](#st_mysql_mutex) | An instrumented mutex structure. **See also**: [mysql_mutex_t](api.md#mysql_mutex_t) |
-| [`st_mysql_rwlock`](#st_mysql_rwlock) | An instrumented rwlock structure. **See also**: [mysql_rwlock_t](api.md#mysql_rwlock_t) |
-| [`st_mysql_prlock`](#st_mysql_prlock) | An instrumented prlock structure. **See also**: [mysql_prlock_t](api.md#mysql_prlock_t) |
-| [`st_mysql_cond`](#st_mysql_cond) | An instrumented cond structure. **See also**: [mysql_cond_t](api.md#mysql_cond_t) |
+| [`st_mysql_mutex`](#st_mysql_mutex) | An instrumented mutex structure. **See also**: [mysql_mutex_t](#mysql_mutex_t) |
+| [`st_mysql_rwlock`](#st_mysql_rwlock) | An instrumented rwlock structure. **See also**: [mysql_rwlock_t](#mysql_rwlock_t) |
+| [`st_mysql_prlock`](#st_mysql_prlock) | An instrumented prlock structure. **See also**: [mysql_prlock_t](#mysql_prlock_t) |
+| [`st_mysql_cond`](#st_mysql_cond) | An instrumented cond structure. **See also**: [mysql_cond_t](#mysql_cond_t) |
 
 ## Macros
 
@@ -776,10 +776,10 @@ Set the thread sql session for the instrumentation.
 
 | Return | Name | Description |
 |--------|------|-------------|
-| struct [`st_mysql_mutex`](#st_mysql_mutex) | [`mysql_mutex_t`](#mysql_mutex_t)  | Type of an instrumented mutex. `mysql_mutex_t` is a drop-in replacement for `pthread_mutex_t`. **See also**: [mysql_mutex_assert_owner](api.md#mysql_mutex_assert_owner) |
-| struct [`st_mysql_rwlock`](#st_mysql_rwlock) | [`mysql_rwlock_t`](#mysql_rwlock_t)  | Type of an instrumented rwlock. `mysql_rwlock_t` is a drop-in replacement for `pthread_rwlock_t`. **See also**: [mysql_rwlock_init](api.md#mysql_rwlock_init) |
-| struct [`st_mysql_prlock`](#st_mysql_prlock) | [`mysql_prlock_t`](#mysql_prlock_t)  | Type of an instrumented prlock. A prlock is a read write lock that 'prefers readers' (pr). `mysql_prlock_t` is a drop-in replacement for `rw_pr_lock_t`. **See also**: [mysql_prlock_init](api.md#mysql_prlock_init) |
-| struct [`st_mysql_cond`](#st_mysql_cond) | [`mysql_cond_t`](#mysql_cond_t)  | Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `pthread_cond_t`. **See also**: [mysql_cond_init](api.md#mysql_cond_init) |
+| struct [`st_mysql_mutex`](#st_mysql_mutex) | [`mysql_mutex_t`](#mysql_mutex_t)  | Type of an instrumented mutex. `mysql_mutex_t` is a drop-in replacement for `pthread_mutex_t`. **See also**: [mysql_mutex_assert_owner](#mysql_mutex_assert_owner) |
+| struct [`st_mysql_rwlock`](#st_mysql_rwlock) | [`mysql_rwlock_t`](#mysql_rwlock_t)  | Type of an instrumented rwlock. `mysql_rwlock_t` is a drop-in replacement for `pthread_rwlock_t`. **See also**: [mysql_rwlock_init](#mysql_rwlock_init) |
+| struct [`st_mysql_prlock`](#st_mysql_prlock) | [`mysql_prlock_t`](#mysql_prlock_t)  | Type of an instrumented prlock. A prlock is a read write lock that 'prefers readers' (pr). `mysql_prlock_t` is a drop-in replacement for `rw_pr_lock_t`. **See also**: [mysql_prlock_init](#mysql_prlock_init) |
+| struct [`st_mysql_cond`](#st_mysql_cond) | [`mysql_cond_t`](#mysql_cond_t)  | Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `pthread_cond_t`. **See also**: [mysql_cond_init](#mysql_cond_init) |
 
 ---
 
@@ -793,17 +793,17 @@ Type: struct [`st_mysql_mutex`](#st_mysql_mutex)
 
 Defined in psi/mysql_thread.h:159
 
-Type of an instrumented mutex. `mysql_mutex_t` is a drop-in replacement for `pthread_mutex_t`. **See also**: [mysql_mutex_assert_owner](api.md#mysql_mutex_assert_owner)
+Type of an instrumented mutex. `mysql_mutex_t` is a drop-in replacement for `pthread_mutex_t`. **See also**: [mysql_mutex_assert_owner](#mysql_mutex_assert_owner)
 
-**See also**: [mysql_mutex_assert_not_owner](api.md#mysql_mutex_assert_not_owner)
+**See also**: [mysql_mutex_assert_not_owner](#mysql_mutex_assert_not_owner)
 
-**See also**: [mysql_mutex_init](api.md#mysql_mutex_init)
+**See also**: [mysql_mutex_init](#mysql_mutex_init)
 
-**See also**: [mysql_mutex_lock](api.md#mysql_mutex_lock)
+**See also**: [mysql_mutex_lock](#mysql_mutex_lock)
 
-**See also**: [mysql_mutex_unlock](api.md#mysql_mutex_unlock)
+**See also**: [mysql_mutex_unlock](#mysql_mutex_unlock)
 
-**See also**: [mysql_mutex_destroy](api.md#mysql_mutex_destroy)
+**See also**: [mysql_mutex_destroy](#mysql_mutex_destroy)
 
 ---
 
@@ -817,19 +817,19 @@ Type: struct [`st_mysql_rwlock`](#st_mysql_rwlock)
 
 Defined in psi/mysql_thread.h:204
 
-Type of an instrumented rwlock. `mysql_rwlock_t` is a drop-in replacement for `pthread_rwlock_t`. **See also**: [mysql_rwlock_init](api.md#mysql_rwlock_init)
+Type of an instrumented rwlock. `mysql_rwlock_t` is a drop-in replacement for `pthread_rwlock_t`. **See also**: [mysql_rwlock_init](#mysql_rwlock_init)
 
-**See also**: [mysql_rwlock_rdlock](api.md#mysql_rwlock_rdlock)
+**See also**: [mysql_rwlock_rdlock](#mysql_rwlock_rdlock)
 
-**See also**: [mysql_rwlock_tryrdlock](api.md#mysql_rwlock_tryrdlock)
+**See also**: [mysql_rwlock_tryrdlock](#mysql_rwlock_tryrdlock)
 
-**See also**: [mysql_rwlock_wrlock](api.md#mysql_rwlock_wrlock)
+**See also**: [mysql_rwlock_wrlock](#mysql_rwlock_wrlock)
 
-**See also**: [mysql_rwlock_trywrlock](api.md#mysql_rwlock_trywrlock)
+**See also**: [mysql_rwlock_trywrlock](#mysql_rwlock_trywrlock)
 
-**See also**: [mysql_rwlock_unlock](api.md#mysql_rwlock_unlock)
+**See also**: [mysql_rwlock_unlock](#mysql_rwlock_unlock)
 
-**See also**: [mysql_rwlock_destroy](api.md#mysql_rwlock_destroy)
+**See also**: [mysql_rwlock_destroy](#mysql_rwlock_destroy)
 
 ---
 
@@ -843,15 +843,15 @@ Type: struct [`st_mysql_prlock`](#st_mysql_prlock)
 
 Defined in psi/mysql_thread.h:216
 
-Type of an instrumented prlock. A prlock is a read write lock that 'prefers readers' (pr). `mysql_prlock_t` is a drop-in replacement for `rw_pr_lock_t`. **See also**: [mysql_prlock_init](api.md#mysql_prlock_init)
+Type of an instrumented prlock. A prlock is a read write lock that 'prefers readers' (pr). `mysql_prlock_t` is a drop-in replacement for `rw_pr_lock_t`. **See also**: [mysql_prlock_init](#mysql_prlock_init)
 
-**See also**: [mysql_prlock_rdlock](api.md#mysql_prlock_rdlock)
+**See also**: [mysql_prlock_rdlock](#mysql_prlock_rdlock)
 
-**See also**: [mysql_prlock_wrlock](api.md#mysql_prlock_wrlock)
+**See also**: [mysql_prlock_wrlock](#mysql_prlock_wrlock)
 
-**See also**: [mysql_prlock_unlock](api.md#mysql_prlock_unlock)
+**See also**: [mysql_prlock_unlock](#mysql_prlock_unlock)
 
-**See also**: [mysql_prlock_destroy](api.md#mysql_prlock_destroy)
+**See also**: [mysql_prlock_destroy](#mysql_prlock_destroy)
 
 ---
 
@@ -865,17 +865,17 @@ Type: struct [`st_mysql_cond`](#st_mysql_cond)
 
 Defined in psi/mysql_thread.h:244
 
-Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `pthread_cond_t`. **See also**: [mysql_cond_init](api.md#mysql_cond_init)
+Type of an instrumented condition. `mysql_cond_t` is a drop-in replacement for `pthread_cond_t`. **See also**: [mysql_cond_init](#mysql_cond_init)
 
-**See also**: [mysql_cond_wait](api.md#mysql_cond_wait)
+**See also**: [mysql_cond_wait](#mysql_cond_wait)
 
-**See also**: [mysql_cond_timedwait](api.md#mysql_cond_timedwait)
+**See also**: [mysql_cond_timedwait](#mysql_cond_timedwait)
 
-**See also**: [mysql_cond_signal](api.md#mysql_cond_signal)
+**See also**: [mysql_cond_signal](#mysql_cond_signal)
 
-**See also**: [mysql_cond_broadcast](api.md#mysql_cond_broadcast)
+**See also**: [mysql_cond_broadcast](#mysql_cond_broadcast)
 
-**See also**: [mysql_cond_destroy](api.md#mysql_cond_destroy)
+**See also**: [mysql_cond_destroy](#mysql_cond_destroy)
 
 ## Functions
 
@@ -1250,14 +1250,14 @@ struct st_mysql_mutex
 
 Defined in psi/mysql_thread.h:133
 
-An instrumented mutex structure. **See also**: [mysql_mutex_t](api.md#mysql_mutex_t)
+An instrumented mutex structure. **See also**: [mysql_mutex_t](#mysql_mutex_t)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `pthread_mutex_t` | [`m_mutex`](#m_mutex)  | The real mutex. |
-| struct [`PSI_mutex`](api.md#psi_mutex) * | [`m_psi`](#m_psi-2)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_mutex_t` interface. |
+| struct [`PSI_mutex`](Instrumentation_interface.md#psi_mutex) * | [`m_psi`](#m_psi-2)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_mutex_t` interface. |
 
 ---
 
@@ -1279,7 +1279,7 @@ The real mutex.
 struct PSI_mutex * m_psi
 ```
 
-Type: struct [`PSI_mutex`](api.md#psi_mutex) *
+Type: struct [`PSI_mutex`](Instrumentation_interface.md#psi_mutex) *
 
 Defined in psi/mysql_thread.h:146
 
@@ -1299,14 +1299,14 @@ struct st_mysql_rwlock
 
 Defined in psi/mysql_thread.h:165
 
-An instrumented rwlock structure. **See also**: [mysql_rwlock_t](api.md#mysql_rwlock_t)
+An instrumented rwlock structure. **See also**: [mysql_rwlock_t](#mysql_rwlock_t)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `rw_lock_t` | [`m_rwlock`](#m_rwlock)  | The real rwlock |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_psi`](#m_psi-3)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
+| struct [`PSI_rwlock`](Instrumentation_interface.md#psi_rwlock) * | [`m_psi`](#m_psi-3)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
 
 ---
 
@@ -1328,7 +1328,7 @@ The real rwlock
 struct PSI_rwlock * m_psi
 ```
 
-Type: struct [`PSI_rwlock`](api.md#psi_rwlock) *
+Type: struct [`PSI_rwlock`](Instrumentation_interface.md#psi_rwlock) *
 
 Defined in psi/mysql_thread.h:174
 
@@ -1348,14 +1348,14 @@ struct st_mysql_prlock
 
 Defined in psi/mysql_thread.h:181
 
-An instrumented prlock structure. **See also**: [mysql_prlock_t](api.md#mysql_prlock_t)
+An instrumented prlock structure. **See also**: [mysql_prlock_t](#mysql_prlock_t)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `rw_pr_lock_t` | [`m_prlock`](#m_prlock)  | The real prlock |
-| struct [`PSI_rwlock`](api.md#psi_rwlock) * | [`m_psi`](#m_psi-2)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
+| struct [`PSI_rwlock`](Instrumentation_interface.md#psi_rwlock) * | [`m_psi`](#m_psi-2)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_rwlock_t` interface. |
 
 ---
 
@@ -1377,7 +1377,7 @@ The real prlock
 struct PSI_rwlock * m_psi
 ```
 
-Type: struct [`PSI_rwlock`](api.md#psi_rwlock) *
+Type: struct [`PSI_rwlock`](Instrumentation_interface.md#psi_rwlock) *
 
 Defined in psi/mysql_thread.h:190
 
@@ -1397,14 +1397,14 @@ struct st_mysql_cond
 
 Defined in psi/mysql_thread.h:222
 
-An instrumented cond structure. **See also**: [mysql_cond_t](api.md#mysql_cond_t)
+An instrumented cond structure. **See also**: [mysql_cond_t](#mysql_cond_t)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `pthread_cond_t` | [`m_cond`](#m_cond)  | The real condition |
-| struct [`PSI_cond`](api.md#psi_cond) * | [`m_psi`](#m_psi-3)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_cond_t` interface. |
+| struct [`PSI_cond`](Instrumentation_interface.md#psi_cond) * | [`m_psi`](#m_psi-3)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `mysql_cond_t` interface. |
 
 ---
 
@@ -1426,7 +1426,7 @@ The real condition
 struct PSI_cond * m_psi
 ```
 
-Type: struct [`PSI_cond`](api.md#psi_cond) *
+Type: struct [`PSI_cond`](Instrumentation_interface.md#psi_cond) *
 
 Defined in psi/mysql_thread.h:231
 

@@ -11,7 +11,7 @@ description: >-
 
 How to declare a plugin to the server.
 
-Macros for beginning and ending plugin declarations. Between [maria_declare_plugin](api.md#maria_declare_plugin) and [maria_declare_plugin_end](api.md#maria_declare_plugin_end) there should be a [st_maria_plugin](#st_maria_plugin) struct for each plugin to be declared.
+Macros for beginning and ending plugin declarations. Between [maria_declare_plugin](#maria_declare_plugin) and [maria_declare_plugin_end](#maria_declare_plugin_end) there should be a [st_maria_plugin](#st_maria_plugin) struct for each plugin to be declared.
 
 ## Groups
 

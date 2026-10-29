@@ -78,7 +78,7 @@ Defined in service_thd.h:40
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`MYSQL_THD`](api.md#mysql_thd)(* | [`get_current_thd`](#get_current_thd-1)  |  |
+| [`MYSQL_THD`](plugin_api.md#mysql_thd)(* | [`get_current_thd`](#get_current_thd-1)  |  |
 
 ---
 

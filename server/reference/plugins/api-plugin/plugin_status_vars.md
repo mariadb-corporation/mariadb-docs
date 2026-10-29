@@ -92,7 +92,7 @@ declarations for SHOW STATUS support in plugins
 | Value | Description |
 |-------|-------------|
 | `SHOW_UNDEF` | Internal only! |
-| `SHOW_BOOL` | [my_bool](api.md#my_bool) |
+| `SHOW_BOOL` | [my_bool](plugin_api.md#my_bool) |
 | `SHOW_UINT` | `unsigned int` |
 | `SHOW_ULONG` | `unsigned long` |
 | `SHOW_ULONGLONG` | `unsigned long long` |
@@ -104,7 +104,7 @@ declarations for SHOW STATUS support in plugins
 | `SHOW_SINT` | `int` |
 | `SHOW_SLONG` | `long` |
 | `SHOW_SLONGLONG` | `long long` |
-| `SHOW_SIMPLE_FUNC` | [mysql_show_var_func](api.md#mysql_show_var_func) * |
+| `SHOW_SIMPLE_FUNC` | [mysql_show_var_func](#mysql_show_var_func) * |
 | `SHOW_SIZE_T` | `size_t` |
 | `SHOW_always_last` | Internal only! |
 
@@ -185,7 +185,7 @@ Structure representing a SHOW STATUS variable in a plugin.
 |--------|------|-------------|
 | `const char *` | [`name`](#name)  |  |
 | `void *` | [`value`](#value)  |  |
-| enum [`enum_mysql_show_type`](api.md#enum_mysql_show_type) | [`type`](#type)  |  |
+| enum [`enum_mysql_show_type`](#enum_mysql_show_type) | [`type`](#type)  |  |
 
 ---
 
@@ -215,7 +215,7 @@ Defined in plugin.h:292
 enum enum_mysql_show_type type
 ```
 
-Type: enum [`enum_mysql_show_type`](api.md#enum_mysql_show_type)
+Type: enum [`enum_mysql_show_type`](#enum_mysql_show_type)
 
 Defined in plugin.h:293
 

@@ -147,7 +147,7 @@ Defined in plugin.h:413
 This function should parse the user provided value and store in the provided temporary storage any data as required by the update func. There is sufficient space in the temporary storage to store a double. Note that the update func may not be called if any other error occurs so any memory allocated should be thread-local so that it may be freed automatically at the end of the statement.
 
 > [!WARNING]
-> If this callback is supplied, it *MUST* store the new value into `save`, so that [mysql_var_update_func](api.md#mysql_var_update_func) can pick it up later. The server will not do it on its own in addition to calling the callback.
+> If this callback is supplied, it *MUST* store the new value into `save`, so that [mysql_var_update_func](#mysql_var_update_func) can pick it up later. The server will not do it on its own in addition to calling the callback.
 
 **See also**: [Check and Update Callbacks](page-implementation.md#check-and-update-callbacks)
 

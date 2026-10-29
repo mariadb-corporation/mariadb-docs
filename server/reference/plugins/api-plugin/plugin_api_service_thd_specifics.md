@@ -13,11 +13,11 @@ THD specific for plugin(s)
 
 This API provides pthread_getspecific() like functionality to plugin authors. This is a functional alternative to the declarative MYSQL_THDVAR_* API.
 
-A plugin should at init call [thd_key_create()](api.md#thd_key_create) that create a key that will have storage in each THD. The key should be used by all threads and can be used concurrently from all threads.
+A plugin should at init call [thd_key_create()](#thd_key_create) that create a key that will have storage in each THD. The key should be used by all threads and can be used concurrently from all threads.
 
-A plugin should at deinit call [thd_key_delete()](api.md#thd_key_delete).
+A plugin should at deinit call [thd_key_delete()](#thd_key_delete).
 
-Alternatively, a plugin can use [thd_key_create_from_var(K,V)](api.md#thd_key_create_from_var) to create a key that corresponds to a named MYSQL_THDVAR_* variable.
+Alternatively, a plugin can use [thd_key_create_from_var(K,V)](#thd_key_create_from_var) to create a key that corresponds to a named MYSQL_THDVAR_* variable.
 
 This API is also safe when using pool-of-threads in which case pthread_getspecific() is not, because the actual OS thread may change.
 
@@ -29,7 +29,7 @@ Normally one should prefer MYSQL_THDVAR_* declarative API.
 The benefits are:
 
 * It supports typed variables (int, char*, enum, etc), not only void*.
-* The memory allocated for MYSQL_THDVAR_* is free'd automatically (if [PLUGIN_VAR_MEMALLOC](api.md#plugin_var_memalloc) is specified).
+* The memory allocated for MYSQL_THDVAR_* is free'd automatically (if [PLUGIN_VAR_MEMALLOC](plugin_sysvar_flags.md#plugin_var_memalloc) is specified).
 * Continuous loading and unloading of the same plugin does not allocate memory for same variables over and over again.
 
 An example of using MYSQL_THDVAR_* for a thd local storage: 
