@@ -2897,7 +2897,7 @@
 * [MariaDB Cloud Release Notes](mariadb-cloud-release-notes/README.md)
   * [MariaDB Cloud Release Notes: MariaDB Exa Technical Preview](mariadb-cloud-release-notes/mariadb-cloud-exa-public-preview.md)
   * [MariaDB Cloud 2026.10.16 Release Notes: BYOC Onboarding](mariadb-cloud-release-notes/mariadb-cloud-2026.10.16.md)
-  * [MariaDB Cloud 2026.10.01 Release Notes: Query Result Cache](mariadb-cloud-release-notes/mariadb-cloud-2026.10.01.md)
+  * [MariaDB Cloud 2026.10.01 Release Notes: Provisioning, Query Result Cache, Azure Premium SSD v2](mariadb-cloud-release-notes/mariadb-cloud-2026.10.01.md)
   * [MariaDB Cloud 2026.09.30 Release Notes: Serverless](mariadb-cloud-release-notes/mariadb-cloud-2026.09.30.md)
   * [MariaDB Cloud 2026.08.26 Release Notes: Enterprise Cluster](mariadb-cloud-release-notes/mariadb-cloud-2026.08.26.md)
   * [MariaDB Cloud 2026.08.20 Release Notes: BYOC](mariadb-cloud-release-notes/mariadb-cloud-2026.08.20.md)
