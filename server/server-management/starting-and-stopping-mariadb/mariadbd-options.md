@@ -26,7 +26,7 @@ Previously, the client used to be called `mysqld`, and can still be accessed und
 
 #### `--disable-*`
 
-* Description: For all boolean options, disables the setting (equivalent to setting it to `0`). Same as `--skip`.
+* Description: For all boolean options, disables the setting (equivalent to setting it to `0`). Same as `--skip`. For example, `--disable-debug-gdb` is the same as `--skip-debug-gdb`. There is no separate `--disable-gdb` option: it is this prefix applied to `--gdb`.
 
 #### `--enable-*`
 
@@ -924,6 +924,15 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 * Description: Default debug log with flush after write.
 
+#### `--debug-gdb`
+
+* Command line: `--debug-gdb`, `--skip-debug-gdb`
+* Description: Sets up signal handling for running the server under a debugger such as `gdb`. Off by default. When enabled:
+  * `SIGINT` is not blocked, so you can interrupt the server from the debugger (for example, with Ctrl+C). If `SIGINT` reaches the server, it shuts down normally.
+  * No core file is written on a crash, even if [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) is set.
+  * On Windows, the server doesn't install its own unhandled-exception filter, so an attached debugger or Windows Error Reporting handles the crash.
+  * It doesn't turn off [--stack-trace](mariadbd-options.md#stack-trace). Use `--skip-stack-trace` for that.
+
 #### `--debug-no-sync`
 
 * Description: `debug-no-sync[=#]`Disables system sync calls. Only for running tests or debugging!
@@ -934,7 +943,8 @@ Some options and system variables related to [Galera Cluster](../../architecture
 
 #### `--gdb`
 
-* Description: Set up signals usable for debugging.
+* Command line: `--gdb`, `--skip-gdb`
+* Description: Deprecated alias for [--debug-gdb](mariadbd-options.md#debug-gdb). From MariaDB 11.5, using it logs a deprecation warning. `--disable-gdb` and `--skip-gdb` are not separate options: they are the [`--disable-*`](mariadbd-options.md#disable) and `--skip-*` prefixes applied to `--gdb`.
 
 #### `--silent-startup`
 
@@ -1112,7 +1122,10 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--stack-trace`
 
 * Command line: `--stack-trace`, `--skip-stack-trace`
-* Description: Print a stack trace on failure. Enabled by default, disable with `-skip-stack-trace`.
+* Description: When the server crashes on a fatal signal, prints a symbolic stack trace to the [error log](../server-monitoring-logs/error-log.md), with a pointer to [How to Produce a Full Stack Trace for mariadbd](../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md). Include this output in bug reports. Enabled by default, except in builds with AddressSanitizer or MemorySanitizer. Disable with `--skip-stack-trace`.
+  * On Linux and other Unix-like systems, the fatal signals handled are `SIGSEGV`, `SIGABRT`, `SIGBUS`, `SIGILL`, and `SIGFPE`.
+  * Only available on builds with stack-trace support.
+  * To also get a core file, set [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file).
 
 #### `--symbolic-links`
 

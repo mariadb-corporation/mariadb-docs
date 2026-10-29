@@ -84,7 +84,7 @@ The **Documents** table shows the status of each document, and the **Chunks** co
 
 To monitor ingestion from an application, register a webhook with the ingestion API. AI Retrieval then notifies your endpoint when a document is ingested and when an ingestion job completes or fails.
 
-<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. TODO: link the webhook section of the API reference (Swagger) once it is published, and confirm that webhooks are public in the preview, because Egor said the ingestion job endpoints will be hidden. -->
+<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. Egor\'s unified API spec of 2026-10-27 keeps a public "Webhooks for Document KB" group while hiding ingestion jobs. TODO: link that section of the API reference once it is published. -->
 
 ### Connect a Storage Bucket
 
@@ -227,7 +227,7 @@ The stream endpoint sends server-sent events. A `token` event carries part of th
 
 If your organization exceeds a request limit, the API returns HTTP status 429.
 
-See [Quotas](README.md#quotas) for the limits.
+See [Service Quotas](service-quotas.md) for the limits.
 
 ## Manage Documents
 

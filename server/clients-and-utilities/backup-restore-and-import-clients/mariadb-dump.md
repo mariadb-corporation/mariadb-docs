@@ -172,7 +172,7 @@ Adds [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/r
 
 #### --as-of=name
 
-As of the given timestamp, dump the [system versioned table(s)](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). Note that table structures are always dumped regardless of the date/time specified; only the data is filtered by the timestamp. The `--tz-utc` setting is used to understand the timestamp argument; for important interaction details, see [--tz-utc](mariadb-dump.md#tz-utc). This option is available from MariaDB 10.7.
+As of the given timestamp, dump the [system versioned table(s)](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). Note that table structures are always dumped regardless of the date/time specified; only the data is filtered by the timestamp. The `--tz-utc` setting is used to understand the timestamp argument; for important interaction details, see [--tz-utc](mariadb-dump.md#tz-utc). This option is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.8-4.
 
 If no data is available for the specified timestamp (for example, a date before any records were entered), only the table structure (CREATE, TABLE statement) will be dumped.
 

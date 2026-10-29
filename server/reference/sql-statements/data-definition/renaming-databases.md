@@ -44,20 +44,52 @@ In the following steps, the source database is named `PROD` , and the destinatio
 `RENAME TABLE` does not work for triggers, events, and routines. You need to dump these logical objects separately.
 
 ```bash
-mariadb-dump PROD --no-data --routines --triggers --events \
+mariadb-dump PROD --no-data --no-create-info --routines --triggers --events \
 > PROD_routines_triggers_events.sql
 ```
+
+{% hint style="danger" %}
+Do not omit `--no-create-info`. Without it, the dump contains `DROP TABLE IF EXISTS` and `CREATE TABLE` for every table. Restoring that file after the rename drops the moved tables and recreates them empty. `--no-data` does not prevent this.
+{% endhint %}
+
+{% hint style="warning" %}
+`mariadb-dump` writes routine, trigger, and event bodies exactly as stored. A body that names `PROD.x` explicitly still points at `PROD` after the restore and fails at runtime. Search the dump for `PROD.` and edit it before restoring.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**Dump Views.**
+
+`--no-create-info` leaves views out of the previous dump, and `RENAME TABLE` cannot move a view into another database. Dump the views separately, before the rename. This step requires bash, because it reads the view names into an array.
+
+```bash
+mapfile -t views < <(mysql -ss -e"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS \
+WHERE TABLE_SCHEMA = 'PROD'")
+if [ ${#views[@]} -gt 0 ]; then
+  mariadb-dump PROD "${views[@]}" --no-data --skip-triggers > PROD_views.sql
+fi
+```
+
+If `PROD` has no views, `PROD_views.sql` is not created. In that case, skip the views restore in the later restore step.
+
+{% hint style="warning" %}
+A view that also references another database keeps the `PROD`. qualifier in the dump, so the restore fails with `Table 'PROD.t1' doesn't exist`. Before restoring, replace the qualifier:
+
+```bash
+sed -i 's/`PROD`\./`TEST`./g' PROD_views.sql
+```
+{% endhint %}
 {% endstep %}
 
 {% step %}
 **Generate RENAME TABLE Commands.**
 
-Run the following query to generate a script with the necessary `RENAME TABLE` statements. This is much faster than a full logical dump.
+Run the following query to generate a script with the necessary `RENAME TABLE` statements. This is much faster than a full logical dump. Views are excluded, because they cannot be renamed into another database.
 
-```sql
-mysql -ss -e"SELECT CONCAT('RENAME TABLE PROD.', TABLE_NAME, ' TO TEST.', \
-TABLE_NAME, ';') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD'" \
-> PROD_rename_table.sql
+```bash
+mysql -ss -e"SELECT CONCAT('RENAME TABLE PROD.\`', TABLE_NAME, '\` TO TEST.\`', \
+TABLE_NAME, '\`;') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD' \
+AND TABLE_TYPE <> 'VIEW'" > PROD_rename_table.sql
 ```
 {% endstep %}
 
@@ -74,6 +106,15 @@ SELECT ROUTINE_SCHEMA, ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
 SELECT TRIGGER_SCHEMA, TRIGGER_NAME FROM INFORMATION_SCHEMA.TRIGGERS 
  WHERE TRIGGER_SCHEMA = 'PROD';
 ```
+
+Also record the number of rows in every base table. Take these counts now, before the rename, because afterwards the tables are no longer in `PROD`.
+
+```bash
+mysql -ss -e"SELECT CONCAT('SELECT ''', TABLE_NAME, ''', COUNT(*) FROM \`', \
+TABLE_NAME, '\`;') FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PROD' \
+AND TABLE_TYPE IN ('BASE TABLE', 'SYSTEM VERSIONED')" > count_rows.sql
+mysql -ss PROD < count_rows.sql > PROD_row_counts.txt
+```
 {% endstep %}
 
 {% step %}
@@ -85,7 +126,23 @@ CREATE DATABASE TEST;
 {% endstep %}
 
 {% step %}
+**Drop Triggers.**
+
+A table that has triggers cannot be renamed into another database. The rename fails with "Trigger in wrong schema". The dump from the first step already contains the triggers, so drop them in `PROD` and restore them afterwards.
+
+```bash
+mysql -ss -e"SELECT CONCAT('DROP TRIGGER \`', TRIGGER_NAME, '\`;') \
+FROM INFORMATION_SCHEMA.TRIGGERS WHERE TRIGGER_SCHEMA = 'PROD'" > PROD_drop_triggers.sql
+mysql PROD < PROD_drop_triggers.sql
+```
+{% endstep %}
+
+{% step %}
 **Run the rename\_table Script.**
+
+{% hint style="warning" %}
+If the script fails partway, the tables before it have already been moved to `TEST`. Run it only after dropping the triggers.
+{% endhint %}
 
 ```bash
 mysql TEST < PROD_rename_table.sql
@@ -95,10 +152,11 @@ mysql TEST < PROD_rename_table.sql
 {% step %}
 **Restore Logical Objects.**
 
-After the rename script completes, restore the triggers, routines, and events into the new database.
+After the rename script completes, restore the triggers, routines, and events into the new database. Restore the views last.
 
 ```bash
 mysql TEST < PROD_routines_triggers_events.sql
+mysql TEST < PROD_views.sql
 ```
 {% endstep %}
 
@@ -117,12 +175,19 @@ SELECT ROUTINE_SCHEMA, ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
 SELECT TRIGGER_SCHEMA, TRIGGER_NAME FROM INFORMATION_SCHEMA.TRIGGERS 
        WHERE TRIGGER_SCHEMA = 'TEST';
 ```
+
+Then compare the row counts with the counts you took before the rename. Any difference means that rows were lost, so do not drop `PROD`.
+
+```bash
+mysql -ss TEST < count_rows.sql > TEST_row_counts.txt
+diff PROD_row_counts.txt TEST_row_counts.txt && echo "Row counts match"
+```
 {% endstep %}
 
 {% step %}
 **Cleanup.**
 
-Once you have confirmed everything looks good, you can drop the old `PROD` database.
+Once you have confirmed everything looks good, you can drop the old `PROD` database. Dropping `PROD` also removes the views, routines, and events that remain in it.
 
 {% hint style="warning" %}
 Privileges are neither dropped for `PROD`, nor are they "copied" to `TEST`. Use [SHOW PRIVILEGES](../administrative-sql-statements/show/show-privileges.md) to see which privileges are related to `PROD`, then [apply those privileges](../account-management-sql-statements/grant.md) to `TEST`.

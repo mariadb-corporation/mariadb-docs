@@ -7,7 +7,7 @@ description: >-
 # mysql.password\_reuse\_check\_history Table
 
 {% hint style="info" %}
-This table is available from MariaDB 10.7.
+This table is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.8-4.
 {% endhint %}
 
 The mysql.password\_reuse\_check\_history Table is installed as part of the [password\_reuse\_check plugin](../../plugins/password-validation-plugins/password-reuse-check-plugin.md).
