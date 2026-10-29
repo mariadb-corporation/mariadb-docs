@@ -37,7 +37,7 @@ Before starting replication, complete the following:
    ```bash
    gridgain9 cluster init --name <cluster-name> --metastorage-group <node-name> --license <path-to-license> --url http://localhost:10300
    ```
-5. Contact GridGain [support](https://mariadb.com/support/) to enable data center replication for any existing caches you plan to replicate.
+5. Contact MariaDB [support](https://mariadb.com/support/) to enable data center replication for any existing caches you plan to replicate.
 
 ## Type Mapping
 
