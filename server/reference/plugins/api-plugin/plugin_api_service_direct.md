@@ -163,8 +163,8 @@ thread id
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
-| `thd` | const [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
+| `thd` | const [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
+| `thd` | const [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
 
 ---
 
@@ -182,11 +182,11 @@ Invalidate the query cache for a given table.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `thd` | [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
+| `thd` | [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
 | `key` | `const char *` | databasename\0tablename\0 |
 | `key_length` | `unsigned int` | length of key in bytes, including the NUL bytes |
 | `using_trx` | `int` | flag: TRUE if using transactions, FALSE otherwise |
-| `thd` | [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
+| `thd` | [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
 | `key` | `const char *` | databasename\0tablename\0 |
 | `key_length` | `unsigned int` | length of key in bytes, including the NUL bytes |
 | `using_trx` | `int` | flag: TRUE if using transactions, FALSE otherwise |
@@ -219,9 +219,9 @@ Set ha_data pointer (storage engine per-connection information).
 
 To avoid unclean deactivation (uninstall) of storage engine plugin in the middle of transaction, additional storage engine plugin lock is acquired.
 
-If ha_data is not null and storage engine plugin was not locked by [thd_set_ha_data()](api.md#thd_set_ha_data) in this connection before, storage engine plugin gets locked.
+If ha_data is not null and storage engine plugin was not locked by [thd_set_ha_data()](#thd_set_ha_data) in this connection before, storage engine plugin gets locked.
 
-If ha_data is null and storage engine plugin was locked by [thd_set_ha_data()](api.md#thd_set_ha_data) in this connection before, storage engine plugin lock gets released.
+If ha_data is null and storage engine plugin was locked by [thd_set_ha_data()](#thd_set_ha_data) in this connection before, storage engine plugin lock gets released.
 
 If transaction_participant::close_connection() didn't reset ha_data, server does it immediately after calling transaction_participant::close_connection()
 
@@ -243,5 +243,5 @@ In-order parallel replication uses this to apply different transaction in parall
 
 The storage engine can call this from within the commit() method, typically after the commit record has been written to the transaction log, but before the log has been fsync()'ed. This will allow the next replicated transaction to proceed to commit before the first one has done fsync() or similar. Thus, it becomes possible for multiple sequential replicated transactions to share a single fsync() inside the engine in group commit.
 
-Note that this method should *not* be called from within the commit_ordered() method, or any other place in the storage engine. When commit_ordered() is used (typically when binlog is enabled), the transaction coordinator takes care of this and makes group commit in the storage engine possible without any other action needed on the part of the storage engine. This function [thd_wakeup_subsequent_commits()](api.md#thd_wakeup_subsequent_commits) is only needed when no transaction coordinator is used, meaning a single storage engine and no binary log.
+Note that this method should *not* be called from within the commit_ordered() method, or any other place in the storage engine. When commit_ordered() is used (typically when binlog is enabled), the transaction coordinator takes care of this and makes group commit in the storage engine possible without any other action needed on the part of the storage engine. This function [thd_wakeup_subsequent_commits()](#thd_wakeup_subsequent_commits) is only needed when no transaction coordinator is used, meaning a single storage engine and no binary log.
 

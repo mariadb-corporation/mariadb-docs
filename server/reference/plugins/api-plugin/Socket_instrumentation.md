@@ -23,9 +23,9 @@ description: >-
 | [`PSI_SOCKET_CALL`](#psi_socket_call)  |  |
 | [`mysql_socket_register`](#mysql_socket_register)  | Socket registration. |
 | [`MYSQL_INVALID_SOCKET`](#mysql_invalid_socket)  | MYSQL_SOCKET initial value. |
-| [`MYSQL_SOCKET_WAIT_VARIABLES`](#mysql_socket_wait_variables)  | Instrumentation helper for socket waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait). |
-| [`MYSQL_START_SOCKET_WAIT`](#mysql_start_socket_wait)  | Instrumentation helper for socket waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait). |
-| [`MYSQL_END_SOCKET_WAIT`](#mysql_end_socket_wait)  | Instrumentation helper for socket waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait). |
+| [`MYSQL_SOCKET_WAIT_VARIABLES`](#mysql_socket_wait_variables)  | Instrumentation helper for socket waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait). |
+| [`MYSQL_START_SOCKET_WAIT`](#mysql_start_socket_wait)  | Instrumentation helper for socket waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait). |
+| [`MYSQL_END_SOCKET_WAIT`](#mysql_end_socket_wait)  | Instrumentation helper for socket waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait). |
 | [`MYSQL_SOCKET_SET_STATE`](#mysql_socket_set_state)  | Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket_state |
 | [`mysql_socket_fd`](#mysql_socket_fd)  | Create a socket. `mysql_socket_fd` is a replacement for `socket`. |
 | [`mysql_socket_socket`](#mysql_socket_socket)  | Create a socket. `mysql_socket_socket` is a replacement for `socket`. |
@@ -100,9 +100,9 @@ MYSQL_SOCKET initial value.
 
 Defined in psi/mysql_socket.h:204
 
-Instrumentation helper for socket waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait). 
+Instrumentation helper for socket waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait). 
 
-**See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait).
+**See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait).
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Instrumentation helper for socket waits. This instrumentation declares local var
 
 Defined in psi/mysql_socket.h:223
 
-Instrumentation helper for socket waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait).
+Instrumentation helper for socket waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait).
 
 #### Parameters
 
@@ -151,7 +151,7 @@ Instrumentation helper for socket waits. This instrumentation marks the start of
 
 Defined in psi/mysql_socket.h:240
 
-Instrumentation helper for socket waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait).
+Instrumentation helper for socket waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait).
 
 #### Parameters
 
@@ -612,17 +612,17 @@ An instrumented socket. `MYSQL_SOCKET` is a replacement for `my_socket`.
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`MYSQL_SOCKET`](api.md#mysql_socket) | [`mysql_socket_invalid`](#mysql_socket_invalid) `static` `inline` | MYSQL_SOCKET helper. Initialize instrumented socket. **See also**: mysql_socket_getfd |
+| [`MYSQL_SOCKET`](#mysql_socket) | [`mysql_socket_invalid`](#mysql_socket_invalid) `static` `inline` | MYSQL_SOCKET helper. Initialize instrumented socket. **See also**: mysql_socket_getfd |
 | `void` | [`mysql_socket_set_address`](#mysql_socket_set_address) `static` `inline` | Set socket descriptor and address. |
 | `void` | [`mysql_socket_set_thread_owner`](#mysql_socket_set_thread_owner) `static` `inline` | Set socket descriptor and address. |
 | `my_socket` | [`mysql_socket_getfd`](#mysql_socket_getfd) `static` `inline` | MYSQL_SOCKET helper. Get socket descriptor. **See also**: mysql_socket_getfd |
 | `void` | [`mysql_socket_setfd`](#mysql_socket_setfd) `static` `inline` | MYSQL_SOCKET helper. Set socket descriptor. **See also**: mysql_socket_setfd |
-| `struct PSI_socket_locker *` | [`inline_mysql_start_socket_wait`](#inline_mysql_start_socket_wait) `static` `inline` | Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait). |
-| `void` | [`inline_mysql_end_socket_wait`](#inline_mysql_end_socket_wait) `static` `inline` | Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait). |
+| `struct PSI_socket_locker *` | [`inline_mysql_start_socket_wait`](#inline_mysql_start_socket_wait) `static` `inline` | Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait). |
+| `void` | [`inline_mysql_end_socket_wait`](#inline_mysql_end_socket_wait) `static` `inline` | Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait). |
 | `void` | [`inline_mysql_socket_set_state`](#inline_mysql_socket_set_state) `static` `inline` | Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket_state |
 | `void` | [`inline_mysql_socket_register`](#inline_mysql_socket_register) `static` `inline` |  |
-| [`MYSQL_SOCKET`](api.md#mysql_socket) | [`inline_mysql_socket_fd`](#inline_mysql_socket_fd) `static` `inline` | mysql_socket_fd |
-| [`MYSQL_SOCKET`](api.md#mysql_socket) | [`inline_mysql_socket_socket`](#inline_mysql_socket_socket) `static` `inline` | mysql_socket_socket |
+| [`MYSQL_SOCKET`](#mysql_socket) | [`inline_mysql_socket_fd`](#inline_mysql_socket_fd) `static` `inline` | mysql_socket_fd |
+| [`MYSQL_SOCKET`](#mysql_socket) | [`inline_mysql_socket_socket`](#inline_mysql_socket_socket) `static` `inline` | mysql_socket_socket |
 | `int` | [`inline_mysql_socket_bind`](#inline_mysql_socket_bind) `static` `inline` | mysql_socket_bind |
 | `int` | [`inline_mysql_socket_getsockname`](#inline_mysql_socket_getsockname) `static` `inline` | mysql_socket_getsockname |
 | `int` | [`inline_mysql_socket_connect`](#inline_mysql_socket_connect) `static` `inline` | mysql_socket_connect |
@@ -636,7 +636,7 @@ An instrumented socket. `MYSQL_SOCKET` is a replacement for `my_socket`.
 | `int` | [`set_socket_nonblock`](#set_socket_nonblock) `static` `inline` | set_socket_nonblock |
 | `int` | [`inline_mysql_sock_set_nonblocking`](#inline_mysql_sock_set_nonblocking) `static` `inline` | mysql_socket_set_nonblocking |
 | `int` | [`inline_mysql_socket_listen`](#inline_mysql_socket_listen) `static` `inline` | mysql_socket_listen |
-| [`MYSQL_SOCKET`](api.md#mysql_socket) | [`inline_mysql_socket_accept`](#inline_mysql_socket_accept) `static` `inline` | mysql_socket_accept |
+| [`MYSQL_SOCKET`](#mysql_socket) | [`inline_mysql_socket_accept`](#inline_mysql_socket_accept) `static` `inline` | mysql_socket_accept |
 | `int` | [`inline_mysql_socket_close`](#inline_mysql_socket_close) `static` `inline` | mysql_socket_close |
 | `int` | [`inline_mysql_socket_shutdown`](#inline_mysql_socket_shutdown) `static` `inline` | mysql_socket_shutdown |
 
@@ -674,10 +674,10 @@ Set socket descriptor and address.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | instrumented socket |
 | `addr` | `const struct sockaddr *` | unformatted socket address |
 | `addr_len` | `socklen_t` | length of socket address |
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | instrumented socket |
 | `addr` | `const struct sockaddr *` | unformatted socket address |
 | `addr_len` | `socklen_t` | length of socket address |
 
@@ -699,8 +699,8 @@ Set socket descriptor and address.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | instrumented socket |
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | instrumented socket |
 
 ---
 
@@ -720,8 +720,8 @@ MYSQL_SOCKET helper. Get socket descriptor. **See also**: mysql_socket_getfd
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `mysql_socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | Instrumented socket |
-| `mysql_socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | Instrumented socket |
+| `mysql_socket` | [`MYSQL_SOCKET`](#mysql_socket) | Instrumented socket |
+| `mysql_socket` | [`MYSQL_SOCKET`](#mysql_socket) | Instrumented socket |
 
 ---
 
@@ -741,9 +741,9 @@ MYSQL_SOCKET helper. Set socket descriptor. **See also**: mysql_socket_setfd
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `mysql_socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) * | Instrumented socket |
+| `mysql_socket` | [`MYSQL_SOCKET`](#mysql_socket) * | Instrumented socket |
 | `fd` | `my_socket` | Socket descriptor |
-| `mysql_socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) * | Instrumented socket |
+| `mysql_socket` | [`MYSQL_SOCKET`](#mysql_socket) * | Instrumented socket |
 | `fd` | `my_socket` | Socket descriptor |
 
 ---
@@ -758,7 +758,7 @@ static inline struct PSI_socket_locker * inline_mysql_start_socket_wait(PSI_sock
 
 Defined in psi/mysql_socket.h:268
 
-Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SOCKET_WAIT](api.md#mysql_start_socket_wait).
+Instrumentation calls for MYSQL_START_SOCKET_WAIT. **See also**: [MYSQL_START_SOCKET_WAIT](#mysql_start_socket_wait).
 
 ---
 
@@ -772,7 +772,7 @@ static inline void inline_mysql_end_socket_wait(struct PSI_socket_locker * locke
 
 Defined in psi/mysql_socket.h:290
 
-Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](api.md#mysql_end_socket_wait).
+Instrumentation calls for MYSQL_END_SOCKET_WAIT. **See also**: [MYSQL_END_SOCKET_WAIT](#mysql_end_socket_wait).
 
 ---
 
@@ -792,9 +792,9 @@ Set the state (IDLE, ACTIVE) of an instrumented socket. **See also**: PSI_socket
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | the instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | the instrumented socket |
 | `state` | `enum PSI_socket_state` | the new state |
-| `socket` | [`MYSQL_SOCKET`](api.md#mysql_socket) | the instrumented socket |
+| `socket` | [`MYSQL_SOCKET`](#mysql_socket) | the instrumented socket |
 | `state` | `enum PSI_socket_state` | the new state |
 
 ---
@@ -1088,7 +1088,7 @@ An instrumented socket.
 | `char` | [`is_unix_domain_socket`](#is_unix_domain_socket)  | Is this a Unix-domain socket? |
 | `char` | [`is_extra_port`](#is_extra_port)  | Is this a socket opened for the extra port? |
 | `unsigned short` | [`address_family`](#address_family)  | Address family of the socket. (See sa_family from struct sockaddr). |
-| struct [`PSI_socket`](api.md#psi_socket) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
+| struct [`PSI_socket`](Instrumentation_interface.md#psi_socket) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface. |
 
 ---
 
@@ -1146,7 +1146,7 @@ Address family of the socket. (See sa_family from struct sockaddr).
 struct PSI_socket * m_psi
 ```
 
-Type: struct [`PSI_socket`](api.md#psi_socket) *
+Type: struct [`PSI_socket`](Instrumentation_interface.md#psi_socket) *
 
 Defined in psi/mysql_socket.h:94
 

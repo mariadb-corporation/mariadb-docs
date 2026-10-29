@@ -628,10 +628,10 @@ Get the XID for this connection's transaction
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `thd` | const [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
-| `xid` | [`MYSQL_XID`](api.md#mysql_xid) * | location where identifier is stored |
-| `thd` | const [`MYSQL_THD`](api.md#mysql_thd) | user thread connection handle |
-| `xid` | [`MYSQL_XID`](api.md#mysql_xid) * | location where identifier is stored |
+| `thd` | const [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
+| `xid` | [`MYSQL_XID`](storage_engine_plugin_data.md#mysql_xid) * | location where identifier is stored |
+| `thd` | const [`MYSQL_THD`](plugin_api.md#mysql_thd) | user thread connection handle |
+| `xid` | [`MYSQL_XID`](storage_engine_plugin_data.md#mysql_xid) * | location where identifier is stored |
 
 ## Variables
 
@@ -672,12 +672,12 @@ Defined in service_wsrep.h:61
 
 | Return | Name | Description |
 |--------|------|-------------|
-| [`my_bool`](api.md#my_bool)(* | [`get_wsrep_recovery_func`](#get_wsrep_recovery_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`get_wsrep_recovery_func`](#get_wsrep_recovery_func)  |  |
 | `bool(*` | [`wsrep_consistency_check_func`](#wsrep_consistency_check_func)  |  |
 | `int(*` | [`wsrep_is_wsrep_xid_func`](#wsrep_is_wsrep_xid_func)  |  |
 | `long long(*` | [`wsrep_xid_seqno_func`](#wsrep_xid_seqno_func)  |  |
 | `const unsigned char *(*` | [`wsrep_xid_uuid_func`](#wsrep_xid_uuid_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_on_func`](#wsrep_on_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_on_func`](#wsrep_on_func)  |  |
 | `bool(*` | [`wsrep_prepare_key_for_innodb_func`](#wsrep_prepare_key_for_innodb_func)  |  |
 | `void(*` | [`wsrep_thd_LOCK_func`](#wsrep_thd_lock_func)  |  |
 | `int(*` | [`wsrep_thd_TRYLOCK_func`](#wsrep_thd_trylock_func)  |  |
@@ -686,29 +686,29 @@ Defined in service_wsrep.h:61
 | `int(*` | [`wsrep_thd_retry_counter_func`](#wsrep_thd_retry_counter_func)  |  |
 | `bool(*` | [`wsrep_thd_ignore_table_func`](#wsrep_thd_ignore_table_func)  |  |
 | `long long(*` | [`wsrep_thd_trx_seqno_func`](#wsrep_thd_trx_seqno_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_is_aborting_func`](#wsrep_thd_is_aborting_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_in_rollback_func`](#wsrep_thd_in_rollback_func-1)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_is_aborting_func`](#wsrep_thd_is_aborting_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_in_rollback_func`](#wsrep_thd_in_rollback_func-1)  |  |
 | `void(*` | [`wsrep_set_data_home_dir_func`](#wsrep_set_data_home_dir_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_is_BF_func`](#wsrep_thd_is_bf_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_is_local_func`](#wsrep_thd_is_local_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_is_BF_func`](#wsrep_thd_is_bf_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_is_local_func`](#wsrep_thd_is_local_func)  |  |
 | `void(*` | [`wsrep_thd_self_abort_func`](#wsrep_thd_self_abort_func)  |  |
 | `int(*` | [`wsrep_thd_append_key_func`](#wsrep_thd_append_key_func)  |  |
 | `int(*` | [`wsrep_thd_append_table_key_func`](#wsrep_thd_append_table_key_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_is_local_transaction`](#wsrep_thd_is_local_transaction-1)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_is_local_transaction`](#wsrep_thd_is_local_transaction-1)  |  |
 | `const char *(*` | [`wsrep_thd_client_state_str_func`](#wsrep_thd_client_state_str_func)  |  |
 | `const char *(*` | [`wsrep_thd_client_mode_str_func`](#wsrep_thd_client_mode_str_func)  |  |
 | `const char *(*` | [`wsrep_thd_transaction_state_str_func`](#wsrep_thd_transaction_state_str_func)  |  |
-| [`query_id_t`](api.md#query_id_t)(* | [`wsrep_thd_transaction_id_func`](#wsrep_thd_transaction_id_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_bf_abort_func`](#wsrep_thd_bf_abort_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_order_before_func`](#wsrep_thd_order_before_func)  |  |
+| [`query_id_t`](#query_id_t)(* | [`wsrep_thd_transaction_id_func`](#wsrep_thd_transaction_id_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_bf_abort_func`](#wsrep_thd_bf_abort_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_order_before_func`](#wsrep_thd_order_before_func)  |  |
 | `void(*` | [`wsrep_handle_SR_rollback_func`](#wsrep_handle_sr_rollback_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_skip_locking_func`](#wsrep_thd_skip_locking_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_skip_locking_func`](#wsrep_thd_skip_locking_func)  |  |
 | `const char *(*` | [`wsrep_get_sr_table_name_func`](#wsrep_get_sr_table_name_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_get_debug_func`](#wsrep_get_debug_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_get_debug_func`](#wsrep_get_debug_func)  |  |
 | `void(*` | [`wsrep_commit_ordered_func`](#wsrep_commit_ordered_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_is_applying_func`](#wsrep_thd_is_applying_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_is_applying_func`](#wsrep_thd_is_applying_func)  |  |
 | `ulong(*` | [`wsrep_OSU_method_get_func`](#wsrep_osu_method_get_func)  |  |
-| [`my_bool`](api.md#my_bool)(* | [`wsrep_thd_has_ignored_error_func`](#wsrep_thd_has_ignored_error_func)  |  |
+| [`my_bool`](plugin_api.md#my_bool)(* | [`wsrep_thd_has_ignored_error_func`](#wsrep_thd_has_ignored_error_func)  |  |
 | `void(*` | [`wsrep_thd_set_ignored_error_func`](#wsrep_thd_set_ignored_error_func)  |  |
 | `void(*` | [`wsrep_report_bf_lock_wait_func`](#wsrep_report_bf_lock_wait_func)  |  |
 | `void(*` | [`wsrep_thd_kill_LOCK_func`](#wsrep_thd_kill_lock_func)  |  |

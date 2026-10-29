@@ -64,7 +64,7 @@ maria_declare_plugin(plugin_one)
 maria_declare_plugin_end;
 ```
 
-**See also**: [maria_declare_plugin](api.md#maria_declare_plugin), [maria_declare_plugin_end](api.md#maria_declare_plugin_end), [MYSQL_DAEMON_PLUGIN](api.md#mysql_daemon_plugin), [MYSQL_DAEMON_INTERFACE_VERSION](api.md#mysql_daemon_interface_version), [PLUGIN_LICENSE_GPL](api.md#plugin_license_gpl), [MariaDB_PLUGIN_MATURITY_EXPERIMENTAL](api.md#mariadb_plugin_maturity_experimental)
+**See also**: [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin), [maria_declare_plugin_end](plugin_declaration.md#maria_declare_plugin_end), [MYSQL_DAEMON_PLUGIN](plugin_types.md#mysql_daemon_plugin), [MYSQL_DAEMON_INTERFACE_VERSION](daemon_plugin_data.md#mysql_daemon_interface_version), [PLUGIN_LICENSE_GPL](plugin_license.md#plugin_license_gpl), [MariaDB_PLUGIN_MATURITY_EXPERIMENTAL](plugin_maturity.md#mariadb_plugin_maturity_experimental)
 
 If you need to add system variables, you can add the following to the above:
 
@@ -108,9 +108,9 @@ static struct st_mysql_sys_var* sysvars[]= {
 };
 ```
 
-And then pass on the `sysvars` to the [maria_declare_plugin](api.md#maria_declare_plugin) 's system variable placeholder.
+And then pass on the `sysvars` to the [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin) 's system variable placeholder.
 
-**See also**: [MYSQL_SYSVAR_UINT](api.md#mysql_sysvar_uint), [mysql_var_check_func](api.md#mysql_var_check_func), [mysql_var_update_func](api.md#mysql_var_update_func), [MYSQL_SYSVAR](api.md#mysql_sysvar)
+**See also**: [MYSQL_SYSVAR_UINT](plugin_sysvar_macros.md#mysql_sysvar_uint), [mysql_var_check_func](plugin_sys_vars.md#mysql_var_check_func), [mysql_var_update_func](plugin_sys_vars.md#mysql_var_update_func), [MYSQL_SYSVAR](implementation_only_plugin_vars.md#mysql_sysvar)
 
 Similarly, if you need status variables, you can add the following:
 
@@ -127,7 +127,7 @@ static struct st_mysql_show_var status_vars[]=
 };
 ```
 
-And then pass on the `status_vars` to the [maria_declare_plugin](api.md#maria_declare_plugin) 's status variable placeholder.
+And then pass on the `status_vars` to the [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin) 's status variable placeholder.
 
-**See also**: [st_mysql_show_var](plugin_status_vars.md#st_mysql_show_var), [SHOW_INT](api.md#show_int)
+**See also**: [st_mysql_show_var](plugin_status_vars.md#st_mysql_show_var), [SHOW_INT](plugin_status_vars.md#show_int)
 

@@ -11,7 +11,7 @@ description: >-
 
 This service provides functions for plugins and storage engines to report when they are going to sleep/stall.
 
-Using [thd_wait_begin()](api.md#thd_wait_begin) / [thd_wait_end()](api.md#thd_wait_end) service is optional but recommended. Using it will improve performance as the thread pool will be more active at managing the thread workload. If [thd_wait_begin()](api.md#thd_wait_begin) is called, [thd_wait_end()](api.md#thd_wait_end) MUST be called immediately after waking up.
+Using [thd_wait_begin()](#thd_wait_begin) / [thd_wait_end()](#thd_wait_end) service is optional but recommended. Using it will improve performance as the thread pool will be more active at managing the thread workload. If [thd_wait_begin()](#thd_wait_begin) is called, [thd_wait_end()](#thd_wait_end) MUST be called immediately after waking up.
 
 One should only report wait events that could potentially block for a long time. A mutex wait is too short of an event to report. The reason is that an event which is reported leads to a new thread starts executing a query and this has a negative impact of usage of CPU caches and thus the expected gain of starting a new thread must be higher than the expected cost of lost performance due to starting a new thread.
 
@@ -48,9 +48,9 @@ This is used by the threadpool to have better knowledge of which threads that cu
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `thd` |  | Thread object. Use NULL if the thd is NOT known. |
-| `wait_type` |  | Type of wait: one of [thd_wait_type](api.md#thd_wait_type) |
+| `wait_type` |  | Type of wait: one of [thd_wait_type](#thd_wait_type) |
 | `thd` |  | Thread object. Use NULL if the thd is NOT known. |
-| `wait_type` |  | Type of wait: one of [thd_wait_type](api.md#thd_wait_type) |
+| `wait_type` |  | Type of wait: one of [thd_wait_type](#thd_wait_type) |
 
 ---
 
@@ -105,7 +105,7 @@ Defined in service_thd_wait.h:57
 
 | Return | Name | Description |
 |--------|------|-------------|
-| enum [`_thd_wait_type_e`](api.md#thd_wait_type_e) | [`thd_wait_type`](#thd_wait_type)  |  |
+| enum [`_thd_wait_type_e`](#thd_wait_type_e) | [`thd_wait_type`](#thd_wait_type)  |  |
 
 ---
 
@@ -115,7 +115,7 @@ Defined in service_thd_wait.h:57
 using thd_wait_type = enum _thd_wait_type_e
 ```
 
-Type: enum [`_thd_wait_type_e`](api.md#thd_wait_type_e)
+Type: enum [`_thd_wait_type_e`](#thd_wait_type_e)
 
 Defined in service_thd_wait.h:70
 

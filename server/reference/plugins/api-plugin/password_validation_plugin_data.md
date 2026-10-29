@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-Password validation plugin API ([MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION](api.md#mariadb_password_validation_interface_version))
+Password validation plugin API ([MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION](#mariadb_password_validation_interface_version))
 
 This file defines the API for server plugins that perform password validation.
 

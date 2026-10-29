@@ -65,7 +65,7 @@ Defined in service_kill_statement.h:73
 Check if a KILL statement was issued for the given thread.
 
 #### Returns
-[thd_kill_levels](api.md#thd_kill_levels) values
+[thd_kill_levels](#thd_kill_levels) values
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in service_kill_statement.h:51
 
 | Return | Name | Description |
 |--------|------|-------------|
-| enum [`thd_kill_levels`](api.md#thd_kill_levels)(* | [`thd_kill_level_func`](#thd_kill_level_func)  |  |
+| enum [`thd_kill_levels`](#thd_kill_levels)(* | [`thd_kill_level_func`](#thd_kill_level_func)  |  |
 
 ---
 

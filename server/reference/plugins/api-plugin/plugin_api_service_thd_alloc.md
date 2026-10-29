@@ -28,10 +28,10 @@ The pool is best for small to medium objects, don't use it for large allocations
 | Name | Description |
 |------|-------------|
 | [`thd_alloc`](#thd_alloc)  | Allocate memory in the connection's local memory pool |
-| [`thd_calloc`](#thd_calloc)  | **See also**: [thd_alloc()](api.md#thd_alloc) |
-| [`thd_strdup`](#thd_strdup)  | **See also**: [thd_alloc()](api.md#thd_alloc) |
-| [`thd_strmake`](#thd_strmake)  | **See also**: [thd_alloc()](api.md#thd_alloc) |
-| [`thd_memdup`](#thd_memdup)  | **See also**: [thd_alloc()](api.md#thd_alloc) |
+| [`thd_calloc`](#thd_calloc)  | **See also**: [thd_alloc()](#thd_alloc) |
+| [`thd_strdup`](#thd_strdup)  | **See also**: [thd_alloc()](#thd_alloc) |
+| [`thd_strmake`](#thd_strmake)  | **See also**: [thd_alloc()](#thd_alloc) |
+| [`thd_memdup`](#thd_memdup)  | **See also**: [thd_alloc()](#thd_alloc) |
 | [`thd_make_lex_string`](#thd_make_lex_string)  | Create a LEX_STRING in this connection's local memory pool |
 
 ---
@@ -58,7 +58,7 @@ When properly used in place of `my_malloc()`, this can significantly improve con
 
 Defined in service_thd_alloc.h:99
 
-**See also**: [thd_alloc()](api.md#thd_alloc)
+**See also**: [thd_alloc()](#thd_alloc)
 
 ---
 
@@ -70,7 +70,7 @@ Defined in service_thd_alloc.h:99
 
 Defined in service_thd_alloc.h:103
 
-**See also**: [thd_alloc()](api.md#thd_alloc)
+**See also**: [thd_alloc()](#thd_alloc)
 
 ---
 
@@ -82,7 +82,7 @@ Defined in service_thd_alloc.h:103
 
 Defined in service_thd_alloc.h:107
 
-**See also**: [thd_alloc()](api.md#thd_alloc)
+**See also**: [thd_alloc()](#thd_alloc)
 
 ---
 
@@ -94,7 +94,7 @@ Defined in service_thd_alloc.h:107
 
 Defined in service_thd_alloc.h:112
 
-**See also**: [thd_alloc()](api.md#thd_alloc)
+**See also**: [thd_alloc()](#thd_alloc)
 
 ---
 
@@ -112,7 +112,7 @@ Create a LEX_STRING in this connection's local memory pool
 #### Returns
 NULL on failure, or pointer to the LEX_STRING object
 
-**See also**: [thd_alloc()](api.md#thd_alloc)
+**See also**: [thd_alloc()](#thd_alloc)
 
 #### Parameters
 
@@ -304,7 +304,7 @@ Defined in service_thd_alloc.h:72
 | `char *(*` | [`thd_strdup_func`](#thd_strdup_func)  |  |
 | `char *(*` | [`thd_strmake_func`](#thd_strmake_func)  |  |
 | `void *(*` | [`thd_memdup_func`](#thd_memdup_func)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) *(* | [`thd_make_lex_string_func`](#thd_make_lex_string_func)  |  |
+| [`MYSQL_CONST_LEX_STRING`](#mysql_const_lex_string) *(* | [`thd_make_lex_string_func`](#thd_make_lex_string_func)  |  |
 
 ---
 

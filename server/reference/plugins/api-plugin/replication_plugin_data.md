@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Replication plugin. ([MYSQL_REPLICATION_PLUGIN](api.md#mysql_replication_plugin))
+API for Replication plugin. ([MYSQL_REPLICATION_PLUGIN](plugin_types.md#mysql_replication_plugin))
 
 ## Classes
 

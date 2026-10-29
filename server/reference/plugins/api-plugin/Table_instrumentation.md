@@ -23,8 +23,8 @@ description: >-
 | [`PSI_CALL_release_table_share`](#psi_call_release_table_share)  |  |
 | [`PSI_CALL_drop_table_share`](#psi_call_drop_table_share)  |  |
 | [`MYSQL_TABLE_WAIT_VARIABLES`](#mysql_table_wait_variables)  | Instrumentation helper for table waits. This instrumentation declares local variables. Do not use a ';' after this macro **See also**: MYSQL_START_TABLE_IO_WAIT. |
-| [`MYSQL_START_TABLE_LOCK_WAIT`](#mysql_start_table_lock_wait)  | Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](api.md#mysql_end_table_lock_wait). |
-| [`MYSQL_END_TABLE_LOCK_WAIT`](#mysql_end_table_lock_wait)  | Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](api.md#mysql_start_table_lock_wait). |
+| [`MYSQL_START_TABLE_LOCK_WAIT`](#mysql_start_table_lock_wait)  | Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](#mysql_end_table_lock_wait). |
+| [`MYSQL_END_TABLE_LOCK_WAIT`](#mysql_end_table_lock_wait)  | Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](#mysql_start_table_lock_wait). |
 | [`MYSQL_UNLOCK_TABLE`](#mysql_unlock_table)  |  |
 
 ---
@@ -131,9 +131,9 @@ Instrumentation helper for table waits. This instrumentation declares local vari
 
 **See also**: MYSQL_END_TABLE_IO_WAIT. 
 
-**See also**: [MYSQL_START_TABLE_LOCK_WAIT](api.md#mysql_start_table_lock_wait). 
+**See also**: [MYSQL_START_TABLE_LOCK_WAIT](#mysql_start_table_lock_wait). 
 
-**See also**: [MYSQL_END_TABLE_LOCK_WAIT](api.md#mysql_end_table_lock_wait).
+**See also**: [MYSQL_END_TABLE_LOCK_WAIT](#mysql_end_table_lock_wait).
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Instrumentation helper for table waits. This instrumentation declares local vari
 
 Defined in psi/mysql_table.h:100
 
-Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](api.md#mysql_end_table_lock_wait).
+Instrumentation helper for table lock waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_TABLE_LOCK_WAIT](#mysql_end_table_lock_wait).
 
 #### Parameters
 
@@ -181,7 +181,7 @@ Instrumentation helper for table lock waits. This instrumentation marks the star
 
 Defined in psi/mysql_table.h:115
 
-Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](api.md#mysql_start_table_lock_wait).
+Instrumentation helper for table lock waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_TABLE_LOCK_WAIT](#mysql_start_table_lock_wait).
 
 #### Parameters
 

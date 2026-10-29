@@ -15,17 +15,17 @@ The available plugin APIs (types).
 
 | Name | Description |
 |------|-------------|
-| [`Daemon Plugin`](daemon_plugin_data.md) | API for Daemon plugin. ([MYSQL_DAEMON_PLUGIN](api.md#mysql_daemon_plugin)) |
-| [`Information Schema Plugin`](information_schema_plugin_data.md) | API for I_S plugin. ([MYSQL_INFORMATION_SCHEMA_PLUGIN](api.md#mysql_information_schema_plugin)) |
-| [`Storage Engine Plugin`](storage_engine_plugin_data.md) | API for Storage Engine plugin. ([MYSQL_STORAGE_ENGINE_PLUGIN](api.md#mysql_storage_engine_plugin)) |
-| [`Replication Plugin`](replication_plugin_data.md) | API for Replication plugin. ([MYSQL_REPLICATION_PLUGIN](api.md#mysql_replication_plugin)) |
-| [`Audit Plugin`](audit_plugin_data.md) | API for Audit plugin. ([MYSQL_AUDIT_PLUGIN](api.md#mysql_audit_plugin)) |
-| [`Authentication Plugin`](authentication_plugin.md) | API for Authentication plugin. ([MYSQL_AUTHENTICATION_PLUGIN](api.md#mysql_authentication_plugin)) |
-| [`Data Type Plugin`](data_type_plugin.md) | API for data type plugins. ([MariaDB_DATA_TYPE_PLUGIN](api.md#mariadb_data_type_plugin)) |
-| [`Encryption Plugin`](encryption_plugin_data.md) | API for Encryption plugin. ([MariaDB_ENCRYPTION_PLUGIN](api.md#mariadb_encryption_plugin)) |
-| [`Full-Text Parser Plugin`](ftparser_plugin_data.md) | API for Full-text parser plugin. ([MYSQL_FTPARSER_PLUGIN](api.md#mysql_ftparser_plugin)) |
-| [`Function Plugin`](function_plugin_data.md) | API for Function plugin. ([MariaDB_FUNCTION_INTERFACE_VERSION](api.md#mariadb_function_interface_version)) |
-| [`Password Validation Plugin`](password_validation_plugin_data.md) | Password validation plugin API ([MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION](api.md#mariadb_password_validation_interface_version)) |
+| [`Daemon Plugin`](daemon_plugin_data.md) | API for Daemon plugin. ([MYSQL_DAEMON_PLUGIN](#mysql_daemon_plugin)) |
+| [`Information Schema Plugin`](information_schema_plugin_data.md) | API for I_S plugin. ([MYSQL_INFORMATION_SCHEMA_PLUGIN](#mysql_information_schema_plugin)) |
+| [`Storage Engine Plugin`](storage_engine_plugin_data.md) | API for Storage Engine plugin. ([MYSQL_STORAGE_ENGINE_PLUGIN](#mysql_storage_engine_plugin)) |
+| [`Replication Plugin`](replication_plugin_data.md) | API for Replication plugin. ([MYSQL_REPLICATION_PLUGIN](#mysql_replication_plugin)) |
+| [`Audit Plugin`](audit_plugin_data.md) | API for Audit plugin. ([MYSQL_AUDIT_PLUGIN](#mysql_audit_plugin)) |
+| [`Authentication Plugin`](authentication_plugin.md) | API for Authentication plugin. ([MYSQL_AUTHENTICATION_PLUGIN](#mysql_authentication_plugin)) |
+| [`Data Type Plugin`](data_type_plugin.md) | API for data type plugins. ([MariaDB_DATA_TYPE_PLUGIN](#mariadb_data_type_plugin)) |
+| [`Encryption Plugin`](encryption_plugin_data.md) | API for Encryption plugin. ([MariaDB_ENCRYPTION_PLUGIN](#mariadb_encryption_plugin)) |
+| [`Full-Text Parser Plugin`](ftparser_plugin_data.md) | API for Full-text parser plugin. ([MYSQL_FTPARSER_PLUGIN](#mysql_ftparser_plugin)) |
+| [`Function Plugin`](function_plugin_data.md) | API for Function plugin. ([MariaDB_FUNCTION_INTERFACE_VERSION](function_plugin_data.md#mariadb_function_interface_version)) |
+| [`Password Validation Plugin`](password_validation_plugin_data.md) | Password validation plugin API ([MariaDB_PASSWORD_VALIDATION_INTERFACE_VERSION](password_validation_plugin_data.md#mariadb_password_validation_interface_version)) |
 
 ## Macros
 

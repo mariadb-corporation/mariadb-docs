@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Audit plugin. ([MYSQL_AUDIT_PLUGIN](api.md#mysql_audit_plugin))
+API for Audit plugin. ([MYSQL_AUDIT_PLUGIN](plugin_types.md#mysql_audit_plugin))
 
 ## Groups
 

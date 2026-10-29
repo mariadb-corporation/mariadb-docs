@@ -134,7 +134,7 @@ Defined in plugin_audit.h:58
 | `unsigned long long` | [`general_rows`](#general_rows)  |  |
 | `unsigned long long` | [`query_id`](#query_id)  |  |
 | `unsigned int` | [`port`](#port)  |  |
-| [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string) | [`database`](#database)  |  |
+| [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string) | [`database`](#database)  |  |
 | `unsigned long long` | [`general_time_microseconds`](#general_time_microseconds)  |  |
 
 ---
@@ -285,7 +285,7 @@ Defined in plugin_audit.h:75
 MYSQL_CONST_LEX_STRING database
 ```
 
-Type: [`MYSQL_CONST_LEX_STRING`](api.md#mysql_const_lex_string)
+Type: [`MYSQL_CONST_LEX_STRING`](plugin_api_service_thd_alloc.md#mysql_const_lex_string)
 
 Defined in plugin_audit.h:76
 

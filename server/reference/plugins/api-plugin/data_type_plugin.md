@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for data type plugins. ([MariaDB_DATA_TYPE_PLUGIN](api.md#mariadb_data_type_plugin))
+API for data type plugins. ([MariaDB_DATA_TYPE_PLUGIN](plugin_types.md#mariadb_data_type_plugin))
 
 ## Classes
 

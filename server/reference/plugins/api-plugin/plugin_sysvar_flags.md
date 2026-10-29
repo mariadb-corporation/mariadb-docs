@@ -15,7 +15,7 @@ Flags for plugin system variables.
 
 | Name | Description |
 |------|-------------|
-| [`PLUGIN_VAR_UNSIGNED`](#plugin_var_unsigned)  | Unsigned modifier for [PLUGIN_VAR_INT](api.md#plugin_var_int), [PLUGIN_VAR_LONG](api.md#plugin_var_long), [PLUGIN_VAR_LONGLONG](api.md#plugin_var_longlong). |
+| [`PLUGIN_VAR_UNSIGNED`](#plugin_var_unsigned)  | Unsigned modifier for [PLUGIN_VAR_INT](plugin_sysvar_types.md#plugin_var_int), [PLUGIN_VAR_LONG](plugin_sysvar_types.md#plugin_var_long), [PLUGIN_VAR_LONGLONG](plugin_sysvar_types.md#plugin_var_longlong). |
 | [`PLUGIN_VAR_THDLOCAL`](#plugin_var_thdlocal)  | Variable is per-connection. Do not use directly! |
 | [`PLUGIN_VAR_READONLY`](#plugin_var_readonly)  | Server variable is read only |
 | [`PLUGIN_VAR_NOSYSVAR`](#plugin_var_nosysvar)  | Not a server variable. Only a command line option |
@@ -36,7 +36,7 @@ Flags for plugin system variables.
 
 Defined in plugin.h:375
 
-Unsigned modifier for [PLUGIN_VAR_INT](api.md#plugin_var_int), [PLUGIN_VAR_LONG](api.md#plugin_var_long), [PLUGIN_VAR_LONGLONG](api.md#plugin_var_longlong).
+Unsigned modifier for [PLUGIN_VAR_INT](plugin_sysvar_types.md#plugin_var_int), [PLUGIN_VAR_LONG](plugin_sysvar_types.md#plugin_var_long), [PLUGIN_VAR_LONGLONG](plugin_sysvar_types.md#plugin_var_longlong).
 
 ---
 

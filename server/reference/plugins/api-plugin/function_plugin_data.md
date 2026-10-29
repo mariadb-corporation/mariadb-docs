@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Function plugin. ([MariaDB_FUNCTION_INTERFACE_VERSION](api.md#mariadb_function_interface_version))
+API for Function plugin. ([MariaDB_FUNCTION_INTERFACE_VERSION](#mariadb_function_interface_version))
 
 This file defines the API for server plugins that manage functions.
 

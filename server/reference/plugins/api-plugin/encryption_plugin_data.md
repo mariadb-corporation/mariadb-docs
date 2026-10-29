@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Encryption plugin. ([MariaDB_ENCRYPTION_PLUGIN](api.md#mariadb_encryption_plugin))
+API for Encryption plugin. ([MariaDB_ENCRYPTION_PLUGIN](plugin_types.md#mariadb_encryption_plugin))
 
 The API for server plugins that manage encryption keys for MariaDB on-disk data encryption
 

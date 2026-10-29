@@ -2290,7 +2290,6 @@
             * [my_snprintf Service](reference/plugins/api-plugin/plugin_api_service_my_snprintf.md)
           * [Services for Direct Access to Server Internals](reference/plugins/api-plugin/plugin_api_service_direct.md)
             * [WSREP Service](reference/plugins/api-plugin/plugin_api_service_wsrep.md)
-      * [API Reference](reference/plugins/api-plugin/api.md)
     * [Plugin Maturity](reference/plugins/information-on-plugins/list-of-plugins.md)
     * [MariaDB Enterprise Audit](reference/plugins/mariadb-enterprise-audit/README.md)
       * [Enterprise Audit Installation and Setup](reference/plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-installation.md)

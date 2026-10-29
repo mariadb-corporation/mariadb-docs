@@ -14,8 +14,8 @@ description: >-
 | Name | Description |
 |------|-------------|
 | [`PSI_IDLE_CALL`](#psi_idle_call)  |  |
-| [`MYSQL_START_IDLE_WAIT`](#mysql_start_idle_wait)  | Instrumentation helper for table io_waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_IDLE_WAIT](api.md#mysql_end_idle_wait). |
-| [`MYSQL_END_IDLE_WAIT`](#mysql_end_idle_wait)  | Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](api.md#mysql_start_idle_wait). |
+| [`MYSQL_START_IDLE_WAIT`](#mysql_start_idle_wait)  | Instrumentation helper for table io_waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_IDLE_WAIT](#mysql_end_idle_wait). |
+| [`MYSQL_END_IDLE_WAIT`](#mysql_end_idle_wait)  | Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](#mysql_start_idle_wait). |
 
 ---
 
@@ -37,7 +37,7 @@ Defined in psi/mysql_idle.h:39
 
 Defined in psi/mysql_idle.h:54
 
-Instrumentation helper for table io_waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_IDLE_WAIT](api.md#mysql_end_idle_wait).
+Instrumentation helper for table io_waits. This instrumentation marks the start of a wait event. **See also**: [MYSQL_END_IDLE_WAIT](#mysql_end_idle_wait).
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Instrumentation helper for table io_waits. This instrumentation marks the start 
 
 Defined in psi/mysql_idle.h:69
 
-Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](api.md#mysql_start_idle_wait).
+Instrumentation helper for idle waits. This instrumentation marks the end of a wait event. **See also**: [MYSQL_START_IDLE_WAIT](#mysql_start_idle_wait).
 
 #### Parameters
 

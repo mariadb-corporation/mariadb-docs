@@ -9,7 +9,7 @@ description: >-
 
 > [`Plugin API`](plugin_api.md) / [`Plugin Types`](plugin_types.md)
 
-API for Full-text parser plugin. ([MYSQL_FTPARSER_PLUGIN](api.md#mysql_ftparser_plugin))
+API for Full-text parser plugin. ([MYSQL_FTPARSER_PLUGIN](plugin_types.md#mysql_ftparser_plugin))
 
 ## Classes
 
@@ -160,7 +160,7 @@ This structure is used in boolean search mode only. It conveys boolean-mode meta
 
 | Return | Name | Description |
 |--------|------|-------------|
-| enum [`enum_ft_token_type`](api.md#enum_ft_token_type) | [`type`](#type)  | The token type. Should be one of the enum_ft_token_type values. |
+| enum [`enum_ft_token_type`](#enum_ft_token_type) | [`type`](#type)  | The token type. Should be one of the enum_ft_token_type values. |
 | `int` | [`yesno`](#yesno)  | Whether the word must be present for a match to occur |
 | `int` | [`weight_adjust`](#weight_adjust)  | A weighting factor that determines how much a match for the word counts. |
 | `char` | [`wasign`](#wasign)  | The sign of the word's weight in the query. |
@@ -176,7 +176,7 @@ This structure is used in boolean search mode only. It conveys boolean-mode meta
 enum enum_ft_token_type type
 ```
 
-Type: enum [`enum_ft_token_type`](api.md#enum_ft_token_type)
+Type: enum [`enum_ft_token_type`](#enum_ft_token_type)
 
 Defined in plugin_ftparser.h:105
 
@@ -293,8 +293,8 @@ This structure is filled in by MySQL server and passed to the parsing function o
 | `const struct charset_info_st *` | [`cs`](#cs)  | Information about the character set of the document or query string. |
 | `const char *` | [`doc`](#doc)  | A pointer to the document or query string to be parsed. |
 | `int` | [`length`](#length)  | Length of the document or query string, in bytes. |
-| `unsigned int` | [`flags`](#flags)  | Flags for the parser. **See also**: [MYSQL_FTFLAGS_NEED_COPY](api.md#mysql_ftflags_need_copy) |
-| enum [`enum_ftparser_mode`](api.md#enum_ftparser_mode) | [`mode`](#mode)  | The parsing mode. With boolean operators, with stopwords, or nothing. **See also**: [enum_ftparser_mode](api.md#enum_ftparser_mode). |
+| `unsigned int` | [`flags`](#flags)  | Flags for the parser. **See also**: [MYSQL_FTFLAGS_NEED_COPY](#mysql_ftflags_need_copy) |
+| enum [`enum_ftparser_mode`](#enum_ftparser_mode) | [`mode`](#mode)  | The parsing mode. With boolean operators, with stopwords, or nothing. **See also**: [enum_ftparser_mode](#enum_ftparser_mode). |
 
 ---
 
@@ -398,7 +398,7 @@ unsigned int flags
 
 Defined in plugin_ftparser.h:225
 
-Flags for the parser. **See also**: [MYSQL_FTFLAGS_NEED_COPY](api.md#mysql_ftflags_need_copy)
+Flags for the parser. **See also**: [MYSQL_FTFLAGS_NEED_COPY](#mysql_ftflags_need_copy)
 
 ---
 
@@ -408,11 +408,11 @@ Flags for the parser. **See also**: [MYSQL_FTFLAGS_NEED_COPY](api.md#mysql_ftfla
 enum enum_ftparser_mode mode
 ```
 
-Type: enum [`enum_ftparser_mode`](api.md#enum_ftparser_mode)
+Type: enum [`enum_ftparser_mode`](#enum_ftparser_mode)
 
 Defined in plugin_ftparser.h:230
 
-The parsing mode. With boolean operators, with stopwords, or nothing. **See also**: [enum_ftparser_mode](api.md#enum_ftparser_mode).
+The parsing mode. With boolean operators, with stopwords, or nothing. **See also**: [enum_ftparser_mode](#enum_ftparser_mode).
 
 
 
