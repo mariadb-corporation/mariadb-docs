@@ -760,16 +760,16 @@ The suffix can be upper or lower-case.
 
 #### `group_concat_max_len`
 
-* Description: Maximum length in bytes of the returned result for the functions [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md), [JSON\_OBJECTAGG](../../../reference/sql-functions/special-functions/json-functions/json_objectagg.md) and [JSON\_ARRAYAGG](../../../reference/sql-functions/special-functions/json-functions/json_arrayagg.md).
+* Description: Maximum length in bytes of the returned result for the functions [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md), [JSON\_OBJECTAGG](../../../reference/sql-functions/special-functions/json-functions/json_objectagg.md) and [JSON\_ARRAYAGG](../../../reference/sql-functions/special-functions/json-functions/json_arrayagg.md). The result is also never longer than [max\_allowed\_packet](server-system-variables.md#max_allowed_packet). From MariaDB 13.2, `GROUP_CONCAT()` with `ORDER BY` may use at least this much memory to sort the rows of a group, even if [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is smaller; see [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md#memory-usage-with-order-by).
 * Command line: `--group-concat-max-len=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value:
   * `1048576` (1M)
-* Range: `4` to `1073741824`
-
-.
+* Range:
+  * `4` to `4294967295` (>= MariaDB 13.2)
+  * `4` to `1073741824` (<= MariaDB 13.1)
 
 #### `have_compress`
 
@@ -1473,13 +1473,13 @@ This raises the cap from systemd's default of 15% of the system's task limit to 
 
 #### `max_heap_table_size`
 
-* Description: Maximum size in bytes for user-created [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables. Setting the variable while the server is active has no effect on existing tables unless they are recreated or altered. The smaller of max\_heap\_table\_size and [tmp\_table\_size](server-system-variables.md#tmp_table_size) also limits internal in-memory tables. When the maximum size is reached, any further attempts to insert data will receive a "table ... is full" error. Temporary tables created with [CREATE TEMPORARY](../../../reference/sql-statements/data-definition/create/create-table.md) will not be converted to Aria, as occurs with internal temporary tables, but will also receive a table full error.
+* Description: Maximum size in bytes for user-created [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables. Setting the variable while the server is active has no effect on existing tables unless they are recreated or altered. The smaller of max\_heap\_table\_size and [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) also limits internal in-memory tables and some internal memory buffers; see `tmp_memory_table_size` for which buffers. Before MariaDB 13.2, `GROUP_CONCAT()` with `ORDER BY` and the distinct-value counting of `ANALYZE TABLE ... PERSISTENT FOR` were limited by max\_heap\_table\_size alone. When the maximum size is reached, any further attempts to insert data will receive a "table ... is full" error. Temporary tables created with [CREATE TEMPORARY](../../../reference/sql-statements/data-definition/create/create-table.md) will not be converted to Aria, as occurs with internal temporary tables, but will also receive a table full error.
 * Command line: `--max-heap-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `16777216`
-* Range : `16384` to `4294966272`
+* Range: `16384` to `18446744073709551615`
 
 #### `max_insert_delayed_threads`
 
@@ -2794,18 +2794,19 @@ Before MariaDB 12.0:
 
 #### `tmp_memory_table_size`
 
-* Description: An alias for [tmp\_table\_size](server-system-variables.md#tmp_table_size).
+* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. When an internal in-memory temporary table exceeds this size, it is converted to an on-disk Aria or MyISAM table. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_table\_size](server-system-variables.md#tmp_table_size) is an alias.
+  * The smaller of `tmp_memory_table_size` and `max_heap_table_size` also limits the memory buffers used by `COUNT(DISTINCT)`, [GROUP\_CONCAT()](../../../reference/sql-functions/aggregate-functions/group_concat.md) with `DISTINCT`, and, from MariaDB 13.2, `GROUP_CONCAT()` with `ORDER BY` and the distinct-value counting of [ANALYZE TABLE ... PERSISTENT FOR](../../../reference/sql-statements/table-statements/analyze-table.md). These buffers are at least 8 KB, even if `tmp_memory_table_size` is set to `0` (before MariaDB 13.2, at least 1 KB). So from MariaDB 13.2, raising `max_heap_table_size` alone no longer enlarges them, and lowering `tmp_memory_table_size` shrinks them.
 * Command line: `--tmp-memory-table-size=#`
-
-#### `tmp_table_size`
-
-* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
-* Command line: `--tmp-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `16777216` (16MB)
-* Range: `0` to `4294967295`
+* Range: `0` to `18446744073709551615`
+
+#### `tmp_table_size`
+
+* Description: An alias for [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size).
+* Command line: `--tmp-table-size=#`
 
 #### `tmpdir`
 
