@@ -32,9 +32,6 @@ for page in "$dest_dir"/*.md; do
     README.md)
       description="Generated reference for the MariaDB plugin API, built from the server headers by doxygen and moxygen."
       ;;
-    api.md)
-      description="Every generated Plugin API class, macro, typedef, and function on one page, including the plugin services and the audit, authentication, and encryption plugin interfaces."
-      ;;
     Instrumentation_interface.md)
       description="The Performance Schema instrumentation interface (PSI) that the server and plugins use to report locks, I/O, statements, and other events, with links to each instrumentation group."
       ;;
