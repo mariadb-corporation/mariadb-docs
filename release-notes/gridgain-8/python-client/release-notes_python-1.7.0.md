@@ -56,7 +56,8 @@ For more information, see [Vector Queries](https://www.gridgain.com/docs/gridgai
 - **`GridGainByteStore`.** A key-value store for binary values, such as embeddings cached with `CacheBackedEmbeddings`.
 - **Entry expiry.** `GridGainStore`, `GridGainByteStore`, `GridGainCache`, `GridGainSemanticCache`, and `GridGainVectorStore` accept a `ttl` argument.
 - **Vector store metadata filtering.** `GridGainVectorStore` filters searches by declared metadata keys on the server. Filtering requires PyGridGain 1.7.0 and GridGain 8.10 or later.
-- **Vector store improvements.** `GridGainVectorStore` supports IDs, deleting and getting documents by ID, and maximal marginal relevance search, and returns real cosine distances as scores.
+- **Vector store improvements.** `GridGainVectorStore` supports IDs, deleting and getting documents by ID, and maximal marginal relevance search, and returns real cosine distances as scores. The new `similarity_search_by_vector` method searches by an embedding vector.
+- **LangChain fixes.** `GridGainStore.yield_keys` returns the keys. `GridGainDocumentLoader` applies `filter_criteria` and `create_cache_if_not_exists`. `GridGainVectorStore` searches work with `score_threshold=None`. `add_documents` stores each document of a batch in which only some documents have IDs. Components that share one client no longer corrupt the connection when used from several threads.
 
 ## Changes in Behavior
 
@@ -66,7 +67,7 @@ For more information, see [Vector Queries](https://www.gridgain.com/docs/gridgai
 - **Vector query response shapes.** An asyncio `(key, value)` row is now a `tuple` instead of a `list`. The low-level `pygridgain.api.sql.vector()` function returns rows as a list of `(key, value)` tuples instead of a dictionary.
 - **Feature bits of vector index parameters.** The client uses the same feature bits as GridGain 8.10 for Hierarchical Navigable Small World (HNSW) build parameters and vector quantization. It no longer uses these features with GridGain 8.9.38 or 8.9.39, which advertise the old bits but do not support the fields.
 - **Dependencies.** `attrs` and `tzlocal` are no longer pinned to exact versions, and `contextvars` is no longer required.
-- **Packaging.** The package metadata moved to `pyproject.toml`. The installed package no longer contains a top-level `tests` package. Building from a source distribution requires setuptools 77 or later.
+- **Packaging.** The package metadata moved to `pyproject.toml`. The installed package no longer contains a top-level `tests` package. Building from a source distribution requires setuptools 77 or later. The package includes a `py.typed` marker, so type checkers use its type hints. The empty `pygridgain.stream.aio_cluster` module was removed; `pygridgain.aio_cluster` is not affected.
 - **License.** The client is licensed under the MariaDB Software License Terms.
 - **LangGraph imports.** In `langchain-gridgain` 3.0.0, `GridGainCheckpointSaver` and `GridGainMemoryStore` moved to `langgraph-checkpoint-gridgain`. Import them from `langgraph.checkpoint.gridgain` and `langgraph.store.gridgain`.
 - **LangChain dependencies and cache keys.** `langchain-gridgain` depends on `langchain-core` 1.4.7 or later instead of `langchain-community`, and `GridGainCache` keys now include the large language model (LLM). Clear LLM caches written by version 1.0.x once after the upgrade.
@@ -78,10 +79,12 @@ For more information, see [Vector Queries](https://www.gridgain.com/docs/gridgai
 | GG-38200 | A partition-aware client now registers the binary type of a complex key before it sends the key. Before, SQL and other clients could not read such keys. `AioClient` was affected by default. |
 | GG-45279 | `langchain-gridgain`: `GridGainVectorStore.clear()` and `from_texts()` now work correctly. |
 | GG-49286 | Added the `ef_search`, `with_scores`, and `no_content` vector query parameters. |
+| GG-49287 | Primitive arrays, such as vectors in query results, are decoded in one pass instead of element by element. |
 | GG-49543 | Added the `hnsw_m` and `hnsw_ef_construction` vector index parameters. |
 | GG-49786 | `langchain-gridgain`: added `GridGainByteStore` and TTL support; fixed the LLM cache key, similarity scores, and clearing of the semantic cache. |
 | GG-49787, GG-49788, GG-49789 | Added the LangGraph `GridGainCheckpointSaver` and `GridGainMemoryStore`. |
 | GG-49932 | Vector queries use `k` as the default page size and decode responses faster. Strings that contain a NUL character (U+0000) are no longer truncated. |
+| GG-50683 | Primitive arrays are encoded in one pass. A NumPy array whose dtype matches the wire format, such as `'<f4'` for floats, is sent without conversion. |
 | GG-50943 | Added the `quantization` (including `INT8`), `max_segments`, and `query_threads` vector index parameters. |
 | GG-51543 | The client now sends its time zone ID, such as `Europe/Berlin`, in the handshake. In versions 1.5.0 and 1.6.0, the time zone was not sent for zones that use daylight saving time, so the server shifted timestamps. |
 | GG-51569 | The LangGraph components moved to the new `langgraph-checkpoint-gridgain` package. |

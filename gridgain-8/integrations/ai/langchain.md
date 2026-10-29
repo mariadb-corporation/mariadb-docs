@@ -39,7 +39,9 @@ Install the `langchain-gridgain` package using pip:
 pip install langchain-gridgain
 ```
 
-Version 3.0.0 depends on `langchain-core` 1.4.7 or later (below 2.0) and the GridGain 8 Python thin client, `pygridgain` 1.6.0 or later (below 2.0). It does not depend on `langchain-community`.
+Version 3.0.0 depends on `langchain-core` 1.4.7 or later (below 2.0), the GridGain 8 Python thin client `pygridgain` 1.6.0 or later (below 2.0), and the Apache Ignite Python thin client `pyignite` 0.6.1 or later (below 0.7). It does not depend on `langchain-community`.
+
+`GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` accept a `pygridgain` or a `pyignite` client. `GridGainVectorStore` and `GridGainSemanticCache` require a `pygridgain` client, because `pyignite` does not support vector queries.
 
 ## Connecting to GridGain
 
@@ -247,6 +249,9 @@ ids = vector_store.add_texts(
 docs = vector_store.similarity_search("What's a good laptop for video editing?", k=2)
 scored = vector_store.similarity_search_with_score("video editing", k=2)
 
+# Search by an embedding vector instead of a text query
+docs = vector_store.similarity_search_by_vector(embeddings.embed_query("video editing"), k=2)
+
 # Maximal marginal relevance search: balance relevance and diversity
 diverse = vector_store.max_marginal_relevance_search(
     "laptops", k=2, fetch_k=10, lambda_mult=0.5
@@ -261,6 +266,7 @@ vector_store.clear()
 ```
 
 - Scores are cosine distances: a lower distance means a closer match. Relevance scores, as returned by `similarity_search_with_relevance_scores` and used by the `similarity_score_threshold` retriever, are calculated as `1 - distance`. They are not limited to the `[0, 1]` range: opposite vectors have a relevance below `0`.
+- The `score_threshold` argument of the search methods is applied on the server, on the similarity scale of the vector engine. If you omit it, no threshold is applied.
 - Deleting a document also removes it from the vector index.
 - The asynchronous methods run the synchronous ones in a thread pool.
 
@@ -269,6 +275,8 @@ vector_store.clear()
 You can restrict a vector search to documents with given metadata values. GridGain applies the filter on the server before it selects the top `k` results, so a filtered search returns up to `k` matching documents.
 
 Declare the metadata keys that you want to filter on in `filterable_metadata_fields` when you create the store. The store writes each declared key as a separate string field in a full-text index next to the vector index. The full metadata is still stored and returned unchanged.
+
+A field name must start with a letter, contain only letters, digits, and underscores, and be at most 63 characters long. It cannot be a Python keyword, `self`, or `cls`. The names `id`, `content`, `contentVector`, `metadata`, `schema`, `schema_id`, `type_id`, `type_name`, and `version` are reserved in any letter case. For any other name, the store raises `ValueError`.
 
 ```python
 from langchain_gridgain import GridGainVectorStore

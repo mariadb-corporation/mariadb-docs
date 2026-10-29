@@ -83,7 +83,7 @@ The checkpointer has no expiry (TTL) option. It does not support extended operat
 
 ## GridGainMemoryStore
 
-`GridGainMemoryStore` is a LangGraph store for memory that outlives a single thread, such as user preferences or facts that an agent should recall across conversations. It stores JSON items in namespaces. By default, it uses the `lg_store` cache; to use another cache, set `cache_name`.
+`GridGainMemoryStore` is a LangGraph store for memory that outlives a single thread, such as user preferences or facts that an agent should recall across conversations. It stores JSON items in namespaces. By default, it uses the `lg_store` cache. To use another cache, set `cache_name`. When you create the store, it adds a `(prefix, itemKey)` index to the cache, if the index does not exist.
 
 The store supports `get`, `put`, `delete`, `search`, `list_namespaces`, `batch`, and `abatch`.
 
@@ -148,6 +148,7 @@ In this example, a repeated input reuses the cached output of the node for 300 s
 
 - TTL values are in **seconds**. Reading an entry does not extend its lifetime. If the TTL is `None`, the entry does not expire.
 - The default cache name is `lg_node_cache`, and the cache is shared across the cluster. The node cache does not add an application identifier to the keys, so applications that must not share entries need different `cache_name` values.
+- `cache_name` must be a plain identifier (letters, digits, and underscores, not starting with a digit) and cannot be an SQL reserved word. Node names must be plain `str` values. For a `StrEnum` member, pass `str(member)`; otherwise, the node cache raises `TypeError`.
 - `node_cache.clear()` removes all entries from the whole cache. To remove only some namespaces, pass them to `clear()`. `graph.clear_cache()` removes the entries of the nodes of that graph.
 - With an `AioClient`, the asynchronous methods use non-blocking I/O.
 

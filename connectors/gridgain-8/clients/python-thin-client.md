@@ -40,8 +40,7 @@ The thin client can be installed from the zip archive available for download fro
 pip3 install .
 ```
 
-This will install `pygridgain` in your environment in the so-called "develop" or "editable" mode. Learn more
-about the mode from the [official documentation](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs).
+This installs `pygridgain` in your environment.
 
 Check the `requirements` folder and install additional requirements, if needed, using the following command:
 
@@ -49,7 +48,7 @@ Check the `requirements` folder and install additional requirements, if needed, 
 pip3 install -r requirements/<your task>.txt
 ```
 
-Refer to the [Setuptools manual](https://setuptools.readthedocs.io/en/latest/) for more details about `setup.py` usage.
+Starting with version 1.7.0, the package metadata is in `pyproject.toml`. Building the client from source requires setuptools 77 or later, which `pip` installs automatically.
 
 ### Using the Apache Ignite Python Thin Client
 
