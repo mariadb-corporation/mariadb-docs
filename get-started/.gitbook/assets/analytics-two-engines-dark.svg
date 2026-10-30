@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" role="img" aria-label="One database, two storage engines. The products table uses InnoDB and stores whole rows together, so a checkout reads one complete row. The sales table uses ColumnStore and stores each column apart, so a revenue report reads only the product_id, quantity, and price columns. One SELECT joins both tables.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #e4ecef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #9aabb3; } .acct { fill: #96DDCF; }
+  .box { fill: #1f2a30; stroke: #3d5059; } .plain { fill: none; stroke: #3d5059; }
+  .accbox { fill: #1d3533; stroke: #96DDCF; } .frame { fill: none; stroke: #9aabb3; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #e4ecef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #96DDCF; stroke-width: 2; } .mut-ln { stroke: #9aabb3; }
+  .fillacc { fill: #96DDCF; } .fillsoft { fill: #1d3533; } .fillpanel { fill: #1f2a30; }
+  .halo { paint-order: stroke; stroke: #1b1f22; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #0f1a1c; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #e4ecef; } .mkacc { fill: #96DDCF; }
+</style>
+
+<rect class="frame" x="16" y="12" width="728" height="306" rx="8"/>
+<text class="t" x="380" y="34" text-anchor="middle">One database: shop</text>
+<text class="t" x="179" y="58" text-anchor="middle">products  ·  InnoDB</text>
+<text class="t" x="557" y="58" text-anchor="middle">sales  ·  ColumnStore</text>
+<text class="mono xs mut" x="63" y="78" text-anchor="middle">id</text><text class="mono xs mut" x="121" y="78" text-anchor="middle">name</text><text class="mono xs mut" x="179" y="78" text-anchor="middle">price</text><text class="mono xs mut" x="237" y="78" text-anchor="middle">stock</text><text class="mono xs mut" x="295" y="78" text-anchor="middle">...</text><text class="mono xs mut" x="417" y="78" text-anchor="middle">sale_id</text><text class="mono xs acct" x="487" y="78" text-anchor="middle">product_id</text><text class="mono xs mut" x="557" y="78" text-anchor="middle">sale_date</text><text class="mono xs acct" x="627" y="78" text-anchor="middle">quantity</text><text class="mono xs acct" x="697" y="78" text-anchor="middle">price</text>
+<rect class="fillpanel" x="36" y="86" width="54" height="20" rx="2"/><rect class="fillpanel" x="94" y="86" width="54" height="20" rx="2"/><rect class="fillpanel" x="152" y="86" width="54" height="20" rx="2"/><rect class="fillpanel" x="210" y="86" width="54" height="20" rx="2"/><rect class="fillpanel" x="268" y="86" width="54" height="20" rx="2"/><rect class="fillpanel" x="36" y="110" width="54" height="20" rx="2"/><rect class="fillpanel" x="94" y="110" width="54" height="20" rx="2"/><rect class="fillpanel" x="152" y="110" width="54" height="20" rx="2"/><rect class="fillpanel" x="210" y="110" width="54" height="20" rx="2"/><rect class="fillpanel" x="268" y="110" width="54" height="20" rx="2"/><rect class="fillsoft" x="36" y="134" width="54" height="20" rx="2"/><rect class="fillsoft" x="94" y="134" width="54" height="20" rx="2"/><rect class="fillsoft" x="152" y="134" width="54" height="20" rx="2"/><rect class="fillsoft" x="210" y="134" width="54" height="20" rx="2"/><rect class="fillsoft" x="268" y="134" width="54" height="20" rx="2"/><rect class="fillpanel" x="36" y="158" width="54" height="20" rx="2"/><rect class="fillpanel" x="94" y="158" width="54" height="20" rx="2"/><rect class="fillpanel" x="152" y="158" width="54" height="20" rx="2"/><rect class="fillpanel" x="210" y="158" width="54" height="20" rx="2"/><rect class="fillpanel" x="268" y="158" width="54" height="20" rx="2"/><rect class="fillpanel" x="36" y="182" width="54" height="20" rx="2"/><rect class="fillpanel" x="94" y="182" width="54" height="20" rx="2"/><rect class="fillpanel" x="152" y="182" width="54" height="20" rx="2"/><rect class="fillpanel" x="210" y="182" width="54" height="20" rx="2"/><rect class="fillpanel" x="268" y="182" width="54" height="20" rx="2"/><rect class="plain" x="32" y="132" width="294" height="28" rx="4" style="stroke-width:2"/><rect class="fillpanel" x="384" y="86" width="66" height="20" rx="2"/><rect class="fillsoft" x="454" y="86" width="66" height="20" rx="2"/><rect class="fillpanel" x="524" y="86" width="66" height="20" rx="2"/><rect class="fillsoft" x="594" y="86" width="66" height="20" rx="2"/><rect class="fillsoft" x="664" y="86" width="66" height="20" rx="2"/><rect class="fillpanel" x="384" y="110" width="66" height="20" rx="2"/><rect class="fillsoft" x="454" y="110" width="66" height="20" rx="2"/><rect class="fillpanel" x="524" y="110" width="66" height="20" rx="2"/><rect class="fillsoft" x="594" y="110" width="66" height="20" rx="2"/><rect class="fillsoft" x="664" y="110" width="66" height="20" rx="2"/><rect class="fillpanel" x="384" y="134" width="66" height="20" rx="2"/><rect class="fillsoft" x="454" y="134" width="66" height="20" rx="2"/><rect class="fillpanel" x="524" y="134" width="66" height="20" rx="2"/><rect class="fillsoft" x="594" y="134" width="66" height="20" rx="2"/><rect class="fillsoft" x="664" y="134" width="66" height="20" rx="2"/><rect class="fillpanel" x="384" y="158" width="66" height="20" rx="2"/><rect class="fillsoft" x="454" y="158" width="66" height="20" rx="2"/><rect class="fillpanel" x="524" y="158" width="66" height="20" rx="2"/><rect class="fillsoft" x="594" y="158" width="66" height="20" rx="2"/><rect class="fillsoft" x="664" y="158" width="66" height="20" rx="2"/><rect class="fillpanel" x="384" y="182" width="66" height="20" rx="2"/><rect class="fillsoft" x="454" y="182" width="66" height="20" rx="2"/><rect class="fillpanel" x="524" y="182" width="66" height="20" rx="2"/><rect class="fillsoft" x="594" y="182" width="66" height="20" rx="2"/><rect class="fillsoft" x="664" y="182" width="66" height="20" rx="2"/>
+<text class="sm" x="179" y="228" text-anchor="middle">Rows stored together.</text>
+<text class="sm mut" x="179" y="246" text-anchor="middle">A checkout reads one whole row.</text>
+<text class="sm" x="557" y="228" text-anchor="middle">Columns stored apart.</text>
+<text class="sm mut" x="557" y="246" text-anchor="middle">A report reads three columns of every row.</text>
+<rect class="accbox" x="150" y="266" width="460" height="38" rx="6"/>
+<text class="mono sm" x="380" y="290" text-anchor="middle">SELECT p.name, SUM(s.quantity * s.price) ... JOIN</text>
+<path class="ln acc" d="M179,266 V256" marker-end="url(#ac)"/>
+<path class="ln acc" d="M557,266 V256" marker-end="url(#ac)"/>
+
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220" role="img" aria-label="Back up and restore with mariadb-backup in four stages. First, back up while the server keeps running. Second, prepare the copied files so they are consistent. Third, stop the server and copy the backup into an empty data directory. Fourth, start the server and verify row counts. The server is stopped only during the restore.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #e4ecef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #9aabb3; } .acct { fill: #96DDCF; }
+  .box { fill: #1f2a30; stroke: #3d5059; } .plain { fill: none; stroke: #3d5059; }
+  .accbox { fill: #1d3533; stroke: #96DDCF; } .frame { fill: none; stroke: #9aabb3; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #e4ecef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #96DDCF; stroke-width: 2; } .mut-ln { stroke: #9aabb3; }
+  .fillacc { fill: #96DDCF; } .fillsoft { fill: #1d3533; } .fillpanel { fill: #1f2a30; }
+  .halo { paint-order: stroke; stroke: #1b1f22; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #0f1a1c; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #e4ecef; } .mkacc { fill: #96DDCF; }
+</style>
+<rect class="box" x="20" y="30" width="172" height="112" rx="6"/>
+<text class="t" x="30" y="54">1  Back up</text>
+<text class="mono cmd" x="30" y="78">mariadb-backup --backup</text>
+<text class="xs mut" x="30" y="102">copies data files while</text>
+<text class="xs mut" x="30" y="118">the server keeps running</text>
+<line class="ln" x1="192" y1="86" x2="201" y2="86" marker-end="url(#a)"/>
+<rect class="box" x="202" y="30" width="172" height="112" rx="6"/>
+<text class="t" x="212" y="54">2  Prepare</text>
+<text class="mono cmd" x="212" y="78">mariadb-backup --prepare</text>
+<text class="xs mut" x="212" y="102">makes the copied files</text>
+<text class="xs mut" x="212" y="118">consistent</text>
+<line class="ln" x1="374" y1="86" x2="383" y2="86" marker-end="url(#a)"/>
+<rect class="box" x="384" y="30" width="172" height="112" rx="6"/>
+<text class="t" x="394" y="54">3  Restore</text>
+<text class="mono cmd" x="394" y="78">mariadb-backup --copy-back</text>
+<text class="xs mut" x="394" y="102">into an empty data directory,</text>
+<text class="xs mut" x="394" y="118">then chown mysql:mysql</text>
+<line class="ln" x1="556" y1="86" x2="565" y2="86" marker-end="url(#a)"/>
+<rect class="accbox" x="566" y="30" width="172" height="112" rx="6"/>
+<text class="t acct" x="576" y="54">4  Verify</text>
+<text class="mono cmd" x="576" y="78">SELECT COUNT(*) ...</text>
+<text class="xs mut" x="576" y="102">start the server and compare</text>
+<text class="xs mut" x="576" y="118">row counts</text>
+<text class="sm mut" x="20" y="178">Server</text>
+<rect class="fillacc" x="80" y="166" width="300" height="16" rx="3"/>
+<rect class="plain" x="384" y="166" width="196" height="16" rx="3"/>
+<rect class="fillacc" x="584" y="166" width="154" height="16" rx="3"/>
+<text class="xs" x="230" y="200" text-anchor="middle">running</text>
+<text class="xs" x="482" y="200" text-anchor="middle">stopped for the restore</text>
+<text class="xs" x="662" y="200" text-anchor="middle">running</text>
+</svg>

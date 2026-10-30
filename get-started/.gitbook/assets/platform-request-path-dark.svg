@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="770" height="330" viewBox="0 0 770 330" role="img" aria-label="Request path in MariaDB Enterprise Platform. Your application connects through a MariaDB connector to MaxScale on port 4006. MaxScale's read/write split service sends writes to the primary server and reads to the replicas, and its monitor tracks which server is primary. The primary replicates to two replicas. MariaDB Enterprise Manager watches every component from outside the query path.">
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<style>
+  text { fill: #e4ecef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
+  .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
+  .mut { fill: #9aabb3; } .acct { fill: #96DDCF; }
+  .box { fill: #1f2a30; stroke: #3d5059; } .plain { fill: none; stroke: #3d5059; }
+  .accbox { fill: #1d3533; stroke: #96DDCF; } .frame { fill: none; stroke: #9aabb3; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #e4ecef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #96DDCF; stroke-width: 2; } .mut-ln { stroke: #9aabb3; }
+  .fillacc { fill: #96DDCF; } .fillsoft { fill: #1d3533; } .fillpanel { fill: #1f2a30; }
+  .halo { paint-order: stroke; stroke: #1b1f22; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #0f1a1c; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #e4ecef; } .mkacc { fill: #96DDCF; }
+</style>
+
+<rect class="box" x="20" y="110" width="170" height="70" rx="6"/>
+<text class="t" x="105" y="138" text-anchor="middle">Your application</text>
+<text class="sm mut" x="105" y="158" text-anchor="middle">MariaDB connector</text>
+<line class="ln" x1="190" y1="145" x2="248" y2="145" marker-end="url(#a)"/>
+<text class="xs mut halo" x="219" y="137" text-anchor="middle">port 4006</text>
+
+<rect class="accbox" x="250" y="70" width="200" height="150" rx="6"/>
+<text class="t acct" x="350" y="96" text-anchor="middle">MaxScale</text>
+<rect class="plain" x="266" y="110" width="168" height="40" rx="4"/>
+<text class="mono xs" x="350" y="127" text-anchor="middle">readwritesplit</text>
+<text class="xs mut" x="350" y="142" text-anchor="middle">routes each statement</text>
+<rect class="plain" x="266" y="160" width="168" height="40" rx="4"/>
+<text class="mono xs" x="350" y="177" text-anchor="middle">mariadbmon</text>
+<text class="xs mut" x="350" y="192" text-anchor="middle">tracks the primary</text>
+
+<rect class="box" x="560" y="40" width="180" height="56" rx="6"/>
+<text class="t" x="650" y="64" text-anchor="middle">Primary</text>
+<text class="xs mut" x="650" y="82" text-anchor="middle">MariaDB Enterprise Server</text>
+<rect class="box" x="560" y="140" width="180" height="56" rx="6"/>
+<text class="t" x="650" y="164" text-anchor="middle">Replica</text>
+<text class="xs mut" x="650" y="182" text-anchor="middle">MariaDB Enterprise Server</text>
+<rect class="box" x="560" y="216" width="180" height="56" rx="6"/>
+<text class="t" x="650" y="240" text-anchor="middle">Replica</text>
+<text class="xs mut" x="650" y="258" text-anchor="middle">MariaDB Enterprise Server</text>
+
+<path class="ln acc" d="M450,100 H505 V68 H558" marker-end="url(#ac)"/>
+<text class="xs acct halo" x="505" y="60" text-anchor="middle">writes</text>
+<path class="ln" d="M450,170 H558" marker-end="url(#a)"/>
+<path class="ln" d="M505,170 V244 H558" marker-end="url(#a)"/>
+<text class="xs halo" x="505" y="162" text-anchor="middle">reads</text>
+<path class="ln dash" d="M740,68 H752 V244 H742" marker-end="url(#a)"/>
+<path class="ln dash" d="M752,168 H742" marker-end="url(#a)"/>
+<text class="xs mut" x="650" y="122" text-anchor="middle">replicates to both replicas</text>
+
+<rect class="frame" x="250" y="276" width="490" height="40" rx="6"/>
+<text class="t" x="270" y="301">MariaDB Enterprise Manager</text>
+<text class="xs mut" x="720" y="301" text-anchor="end">monitors every component, outside the query path</text>
+<line class="ln dash mut-ln" x1="350" y1="276" x2="350" y2="222"/>
+
+</svg>
