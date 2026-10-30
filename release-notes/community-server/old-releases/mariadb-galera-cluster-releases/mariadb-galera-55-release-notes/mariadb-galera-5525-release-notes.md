@@ -12,7 +12,7 @@ Various articles about MariaDB Galera Cluster, including [known limitations](htt
 
 For a list of changes made in [MariaDB Galera 5.5.25](mariadb-galera-5525-release-notes.md), with links to detailed information on each push, see the [MariaDB Galera 5.5.25 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5525-changelog.md).
 
-In most respects [MariaDB](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1/) will work exactly as MySQL: all commands, interfaces, libraries and APIs that exist in MySQL also exist in MariaDB.
+In most respects [MariaDB](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/1H8tuThi64HJmOJHG6nV/) will work exactly as MySQL: all commands, interfaces, libraries and APIs that exist in MySQL also exist in MariaDB.
 
 ## Includes [MariaDB 5.5.25](../../5.5/5.5.25.md) and Galera Cluster
 
