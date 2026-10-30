@@ -5,8 +5,6 @@ description: >-
 
 # GridGain JSON Basics
 
-<!-- TODO (not tested): This tutorial (the 300,000-row insert and the sample output) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
-
 ## Introduction
 
 {% hint style="info" %}

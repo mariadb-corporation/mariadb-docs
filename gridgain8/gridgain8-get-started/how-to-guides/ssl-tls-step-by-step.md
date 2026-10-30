@@ -651,7 +651,7 @@ REST can also use a secured connection to cluster. In this case, you will need t
    If you see an output similar to the one below, then HTTPS was configured correctly.
 
    ```
-   {"successStatus":0,"error":null,"sessionToken":null,"response":"8.10.X"}
+   {"successStatus":0,"error":null,"response":"8.10.X","sessionToken":null}
    ```
 
 ## Related

@@ -303,12 +303,12 @@ For this guide, a sample dashboard has been prepared that displays a number of m
 
    ![Data source ID in URL](../../.gitbook/assets/guides/monitor-gridgain8-prometheus-grafana/dashboard-id.png)
 
-1. Download the sample dashboard. Grafana imports metrics in a JSON format.
-1. Open the downloaded dashboard JSON and edit the `datasource.uid` field to match your data source ID:
+1. Download the [sample dashboard](../../.gitbook/assets/gg8_dashboard.json). Grafana imports dashboards in a JSON format.
+1. Open the downloaded dashboard JSON and replace every `datasource.uid` value (`e105d3fd-a91b-462e-b2e9-891dc66b8d78` in the file) with your data source ID and replace:
 
    ```json
    "datasource": {
-     "type": "datasource",
+     "type": "prometheus",
      "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
    }
    ```

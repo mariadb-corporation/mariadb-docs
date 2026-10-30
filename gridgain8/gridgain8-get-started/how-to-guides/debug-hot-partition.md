@@ -5,8 +5,6 @@ description: >-
 
 # How to Debug a Hot Partition
 
-<!-- TODO (not tested): The sample numbers on this page was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
-
 ## Prerequisites
 
 - **Familiarity with partitioned caches and affinity.** [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) covers partitions and owners. [Design Keys for Colocation](../learning-paths/data-locality/design-keys-for-colocation.md) covers the three affinity mechanisms.
@@ -200,6 +198,10 @@ public class SampleCallable implements IgniteCallable<List<String>> {
     }
 }
 ```
+
+{% hint style="warning" %}
+`e.getKey().toString()` deserializes the key, so it fails with `BinaryInvalidTypeException` when the key class is not on the server's classpath, for example when the class exists only in your client application. Either deploy the key class to the servers, or read the key in binary form: query with `ignite.<Object, Object>cache(cacheName).withKeepBinary()` and read the fields with `((BinaryObject) e.getKey()).field("tenant")`.
+{% endhint %}
 
 Call it with a cluster group that targets the owning node, and read the output. The pattern in the affinity-key values points at the cause:
 
