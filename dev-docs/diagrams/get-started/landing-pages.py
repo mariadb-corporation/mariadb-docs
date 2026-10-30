@@ -14,14 +14,14 @@ exec(src.split("# 1. AI")[0])  # palettes, STYLE, DEFS, svg(), output folders
 # the server, not ranked, and only MariaDB Server takes the accent color, because it is the part
 # that stays the same.
 svg("get-started-orientation", 790, 420,
-    "Run it anywhere. Your code stays the same. Your application connects through a MariaDB connector, and your "
+    "Run MariaDB Server anywhere. Your code stays the same. Your application connects through a MariaDB connector, and your "
     "coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, Community or Enterprise. "
     "MariaDB Server runs on any of four environments. You run it with Docker on your laptop, with Linux on your "
     "servers and VMs, or with the operator on your Kubernetes cluster, and MariaDB Enterprise Platform adds MaxScale, "
     "Galera Cluster, ColumnStore, Exa, and GridGain to any of these. Or MariaDB runs it for you in MariaDB Cloud. "
     "Moving between them changes only the connection settings: host, user, password, and TLS.",
     """
-<text class="t" x="395" y="26" text-anchor="middle">Run it anywhere. Your code stays the same.</text>
+<text class="t" x="395" y="26" text-anchor="middle">Run MariaDB Server anywhere. Your code stays the same.</text>
 
 <rect class="box" x="20" y="127" width="170" height="64" rx="6"/>
 <text class="t" x="105" y="155" text-anchor="middle">Your application</text>
