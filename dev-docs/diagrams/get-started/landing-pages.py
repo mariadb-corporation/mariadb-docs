@@ -9,43 +9,63 @@ HERE = Path(__file__).resolve().parent
 src = (HERE / "build.py").read_text()
 exec(src.split("# 1. AI")[0])  # palettes, STYLE, DEFS, svg(), output folders
 
-# A. One server, three ways to run it --------------------------------------------------------
-svg("get-started-orientation", 760, 296,
-    "Orientation. Your application connects through a MariaDB connector, and your coding agent connects through "
-    "the MariaDB MCP server. Both reach MariaDB Server, available as MariaDB Community Server and MariaDB Enterprise "
-    "Server. You run it yourself, run it with the MariaDB Enterprise Platform components around it, or let MariaDB Cloud run it.",
+# A. One server, wherever you run it ---------------------------------------------------------
+# The four environments match the install tabs under the diagram. They are grouped by who runs
+# the server, not ranked, and only MariaDB Server takes the accent color, because it is the part
+# that stays the same.
+svg("get-started-orientation", 790, 420,
+    "Run it anywhere. Your code stays the same. Your application connects through a MariaDB connector, and your "
+    "coding agent connects through the MariaDB MCP server. Both reach MariaDB Server, Community or Enterprise. "
+    "MariaDB Server runs on any of four environments. You run it with Docker on your laptop, with Linux on your "
+    "servers and VMs, or with the operator on your Kubernetes cluster, and MariaDB Enterprise Platform adds MaxScale, "
+    "Galera Cluster, ColumnStore, Exa, and GridGain to any of these. Or MariaDB runs it for you in MariaDB Cloud. "
+    "Moving between them changes only the connection settings: host, user, password, and TLS.",
     """
-<rect class="box" x="20" y="70" width="170" height="64" rx="6"/>
-<text class="t" x="105" y="98" text-anchor="middle">Your application</text>
-<text class="xs mut" x="105" y="117" text-anchor="middle">Python, Node.js, Java, PHP, .NET</text>
-<rect class="box" x="20" y="176" width="170" height="64" rx="6"/>
-<text class="t" x="105" y="204" text-anchor="middle">Your coding agent</text>
-<text class="xs mut" x="105" y="223" text-anchor="middle">Claude Code, Codex, and more</text>
-<line class="ln" x1="190" y1="102" x2="268" y2="140" marker-end="url(#a)"/>
-<text class="xs mut halo" x="226" y="108" text-anchor="middle">connector</text>
-<line class="ln" x1="190" y1="208" x2="268" y2="172" marker-end="url(#a)"/>
-<text class="xs mut halo" x="226" y="214" text-anchor="middle">MCP server</text>
+<text class="t" x="395" y="26" text-anchor="middle">Run it anywhere. Your code stays the same.</text>
 
-<rect class="accbox" x="270" y="104" width="190" height="104" rx="8"/>
-<text class="t acct" x="365" y="134" text-anchor="middle">MariaDB Server</text>
-<text class="xs" x="365" y="156" text-anchor="middle">SQL, JSON, vectors,</text>
-<text class="xs" x="365" y="172" text-anchor="middle">storage engines, replication</text>
-<text class="xs mut" x="365" y="194" text-anchor="middle">Community or Enterprise</text>
+<rect class="box" x="20" y="127" width="170" height="64" rx="6"/>
+<text class="t" x="105" y="155" text-anchor="middle">Your application</text>
+<text class="xs mut" x="105" y="174" text-anchor="middle">Python, Node.js, Java, PHP, .NET</text>
+<rect class="box" x="20" y="231" width="170" height="64" rx="6"/>
+<text class="t" x="105" y="259" text-anchor="middle">Your coding agent</text>
+<text class="xs mut" x="105" y="278" text-anchor="middle">Claude Code, Codex, and more</text>
+<line class="ln" x1="190" y1="159" x2="258" y2="193" marker-end="url(#a)"/>
+<text class="xs mut halo" x="228" y="155" text-anchor="middle">connector</text>
+<line class="ln" x1="190" y1="263" x2="258" y2="229" marker-end="url(#a)"/>
+<text class="xs mut halo" x="228" y="279" text-anchor="middle">MCP server</text>
 
-<text class="sm mut" x="620" y="30" text-anchor="middle">Run it the way that fits</text>
-<rect class="box" x="510" y="44" width="230" height="62" rx="6"/>
-<text class="t" x="530" y="70">Yourself</text>
-<text class="xs mut" x="530" y="90">Docker, Linux, Windows, macOS</text>
-<rect class="box" x="510" y="124" width="230" height="78" rx="6"/>
-<text class="t" x="530" y="150">MariaDB Enterprise Platform</text>
-<text class="xs mut" x="530" y="170">MaxScale, Galera Cluster, ColumnStore,</text>
-<text class="xs mut" x="530" y="186">Exa, GridGain, Kubernetes operator</text>
-<rect class="box" x="510" y="220" width="230" height="62" rx="6"/>
-<text class="t" x="530" y="246">MariaDB Cloud</text>
-<text class="xs mut" x="530" y="266">Serverless or Provisioned, managed</text>
-<path class="ln dash" d="M460,140 H485 V75 H508" marker-end="url(#a)"/>
-<path class="ln dash" d="M460,156 H508" marker-end="url(#a)"/>
-<path class="ln dash" d="M460,172 H485 V251 H508" marker-end="url(#a)"/>
+<rect class="accbox" x="260" y="159" width="190" height="104" rx="8"/>
+<text class="t acct" x="355" y="189" text-anchor="middle">MariaDB Server</text>
+<text class="xs" x="355" y="211" text-anchor="middle">SQL, JSON, vectors,</text>
+<text class="xs" x="355" y="227" text-anchor="middle">storage engines, replication</text>
+<text class="xs mut" x="355" y="249" text-anchor="middle">Community or Enterprise</text>
+
+<path class="plain" d="M450,211 H486"/>
+<path class="plain" d="M486,88 V334 M486,88 H510 M486,144 H510 M486,200 H510 M486,334 H510"/>
+<text class="xs mut" transform="rotate(-90 478 140)" x="478" y="140" text-anchor="middle">runs on any of these</text>
+
+<rect class="frame" x="500" y="40" width="270" height="242" rx="8"/>
+<text class="xs mut" x="512" y="56">You run it</text>
+<rect class="box" x="510" y="64" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="85">Docker</text>
+<text class="xs mut" x="526" y="102">Your laptop, one command</text>
+<rect class="box" x="510" y="120" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="141">Linux</text>
+<text class="xs mut" x="526" y="158">Your servers and VMs</text>
+<rect class="box" x="510" y="176" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="197">Kubernetes</text>
+<text class="xs mut" x="526" y="214">Your cluster, with the operator</text>
+<text class="t xs" x="512" y="242">MariaDB Enterprise Platform adds</text>
+<text class="xs mut" x="512" y="257">MaxScale, Galera Cluster, ColumnStore,</text>
+<text class="xs mut" x="512" y="272">Exa, and GridGain to any of these</text>
+
+<text class="xs mut" x="512" y="302">MariaDB runs it</text>
+<rect class="box" x="510" y="310" width="250" height="48" rx="6"/>
+<text class="t" x="526" y="331">MariaDB Cloud</text>
+<text class="xs mut" x="526" y="348">MariaDB runs it for you</text>
+
+<text class="sm mut" x="395" y="390" text-anchor="middle">Moving between them changes only the connection settings: host, user, password, TLS.</text>
+<text class="sm acct" x="395" y="410" text-anchor="middle">Pick your environment in the tabs below.</text>
 """)
 
 # B. What the agent prompt sets up ------------------------------------------------------------
