@@ -7,7 +7,7 @@ hidden: true
 
 # Events Screen
 
-Control Center supports event management for GridGain 9 and [Apache Ignite 3](https://ignite.apache.org/docs/ignite3/latest/developers-guide/events/events-list#map-reduce-task-events) clusters. You can view, inspect, and manage events through the **Events** screen.
+Control Center supports event management for GridGain 9 clusters. You can view, inspect, and manage events through the **Events** screen.
 
 ![](../../../../.gitbook/assets/cc-gg9-events_all.png)
 

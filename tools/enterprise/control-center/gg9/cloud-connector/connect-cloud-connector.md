@@ -121,4 +121,4 @@ sudo service gridgain-cloud-connector start
 
 ## Attach the Cluster to Control Center
 
-To start using the connector with Control Center and your cluster, refer to the documentation on attaching a [Gridgain 9](../../getting-started/connect/connect-gridgain9-cluster.md) or [Apache Ignite 3](../../getting-started/connect/connect-ignite-3-cluster.md#by-using-the-custom-connector) cluster.
+To start using the connector with Control Center and your cluster, refer to the documentation on attaching a [GridGain 9](../../getting-started/connect/connect-gridgain9-cluster.md) cluster.

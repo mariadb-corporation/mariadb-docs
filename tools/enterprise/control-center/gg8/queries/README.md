@@ -1,12 +1,12 @@
 ---
 description: >-
-  The Control Center Queries screen for GridGain 8 and Apache Ignite 2 clusters.
+  The Control Center Queries screen for GridGain 8 clusters.
 hidden: true
 ---
 
 # Queries Screen
 
-This section describes the Queries screen. Its layout and functionality changes between the GridGain 8 (Apache Ignite 2) and GridGain 9 clusters.
+This section describes the Queries screen. Its layout and functionality changes between the GridGain 8 and GridGain 9 clusters.
 
 {% hint style="info" %}
 Depending on configuration, [secured clusters](../auth/authorization-permissions.md) might require a cluster-level authentication for some (or all) of the actions.

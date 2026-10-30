@@ -10,7 +10,7 @@ hidden: true
 This page explains how to attach a GridGain 8 cluster to Control Center. You can attach as many clusters as your license supports. Control Center allows you to switch between clusters at will.
 
 {% hint style="info" %}
-To attach a GridGain 9 cluster, follow [this instruction](connect-gridgain9-cluster.md). To attach an Apache Ignite cluster, follow [this instruction](connect-ignite-cluster.md).
+To attach a GridGain 9 cluster, follow [this instruction](connect-gridgain9-cluster.md).
 {% endhint %}
 
 The following diagram illustrates how Control Center interacts with the cluster and the web browser.

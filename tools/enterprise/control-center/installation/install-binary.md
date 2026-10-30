@@ -124,4 +124,4 @@ If `management.sh` is not used, Control Center settings can be provided at JVM s
 
 - [Change Configuration Parameters](../admin-guide/configuration.md) - make sure you [optimize the disk space utilization](../admin-guide/disk-space-optimization.md)
 - [Add a License](../getting-started/adding-license.md)
-- Connect a [GridGain](../getting-started/connect/connect-gridgain-cluster.md) or [Apache Ignite](../getting-started/connect/connect-ignite-cluster.md) Cluster
+- Connect a [GridGain 8](../getting-started/connect/connect-gridgain-cluster.md) or [GridGain 9](../getting-started/connect/connect-gridgain9-cluster.md) cluster
