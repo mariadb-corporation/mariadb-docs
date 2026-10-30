@@ -75,7 +75,7 @@ Download [`docker-compose.yml`](../.gitbook/assets/gg9-quick-start-docker-compos
 name: gridgain9
 
 x-gridgain-def: &gridgain-def
-  image: gridgain/gridgain9:9.1
+  image: gridgain/gridgain9:latest
   environment:
     JVM_MAX_MEM: "4g"
     JVM_MIN_MEM: "4g"
@@ -143,7 +143,7 @@ The `node_config` configuration in the Docker Compose file:
 Download the Docker image:
 
 ```bash
-docker pull gridgain/gridgain9:9.1
+docker pull gridgain/gridgain9:latest
 ```
 
 Run the following command to start your cluster:
@@ -164,9 +164,9 @@ You should see output similar to:
 
 ```
 NAME              IMAGE                       COMMAND                  SERVICE   CREATED         STATUS         PORTS
-gridgain9-node1-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node1     44 seconds ago   Up 6 seconds   0.0.0.0:10300->10300/tcp, 3344/tcp, 0.0.0.0:10800->10800/tcp
-gridgain9-node2-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node2     44 seconds ago   Up 6 seconds   3344/tcp, 0.0.0.0:10301->10300/tcp, 0.0.0.0:10801->10800/tcp
-gridgain9-node3-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node3     44 seconds ago   Up 6 seconds   3344/tcp, 0.0.0.0:10302->10300/tcp, 0.0.0.0:10802->10800/tcp
+gridgain9-node1-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node1     44 seconds ago   Up 6 seconds   0.0.0.0:10300->10300/tcp, 3344/tcp, 0.0.0.0:10800->10800/tcp
+gridgain9-node2-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node2     44 seconds ago   Up 6 seconds   3344/tcp, 0.0.0.0:10301->10300/tcp, 0.0.0.0:10801->10800/tcp
+gridgain9-node3-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node3     44 seconds ago   Up 6 seconds   3344/tcp, 0.0.0.0:10302->10300/tcp, 0.0.0.0:10802->10800/tcp
 ```
 
 Verify the Docker network:
@@ -182,7 +182,7 @@ docker network ls
 Connect to the GridGain CLI:
 
 ```bash
-docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json -e LANG=C.UTF-8 -e LC_ALL=C.UTF-8 gridgain/gridgain9:9.1 cli
+docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json -e LANG=C.UTF-8 -e LC_ALL=C.UTF-8 gridgain/gridgain9:latest cli
 ```
 
 When the CLI tool offers to connect to default node, confirm the connection. If you ever get disconnected, you can connect again by typing the following command:

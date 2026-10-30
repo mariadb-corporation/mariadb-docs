@@ -5,6 +5,8 @@ description: >-
 
 # Feast Stores
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 The GridGain Feast integration provides a way of using GridGain as online store for Feast, providing high-performance, in-memory data storage and retrieval for feature serving.
 
 ## Features
@@ -23,10 +25,10 @@ Both implementations provide similar functionality but are tailored to their res
 
 ## Prerequisites
 
-The following is required to use LangChain integration:
+The following is required to use the Feast integration:
 
-- GridGain 8.9.17 or later with an appropriate license is required to use vector store.
-- Python 3.11.7 or later is required to use the LangChain extension.
+- A running GridGain 8 cluster with an appropriate license, which the GridGain online store connects to.
+- A Python version supported by the `feast-gridgain` package.
 
 ## Installation
 
@@ -51,4 +53,4 @@ Both Apache Ignite and GridGain stores provide the following methods:
 
 GridGain provides a comprehensive example of using Ignite for creating an online store for a Feast integration with Kafka. This tutorial provides a detailed implementation that demonstrates the integration of Ignite Online Store with Feast in a Continuous Glucose Monitoring (CGM) use case. It includes examples of configuration, feature definitions, and usage in different environments.
 
-The full tutorial is available in the [Low-Latency Machine Learning Feature Store with GridGain and Feast](https://www.gridgain.com/docs/tutorials/vector/feast) section.
+The full tutorial is available in the [How to Build a Machine Learning Feature Store With GridGain and Feast](../../gridgain8-get-started/how-to-guides/feast-feature-store-tutorial.md) page.

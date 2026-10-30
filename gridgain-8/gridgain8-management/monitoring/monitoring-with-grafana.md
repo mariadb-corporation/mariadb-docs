@@ -18,12 +18,13 @@ The JMX exporter runs as a Java agent and exports metrics to the Prometheus serv
 
 ## Configuring Cluster Nodes
 
-Set the JMX port and add the JMX exporter as a Java agent when starting a node:
+Open a JMX port with the standard JVM system properties and add the JMX exporter as a Java agent when starting a node. The GridGain start scripts do not read a JMX port variable, so pass the properties in `JVM_OPTS`:
 
 ```shell
-export IGNITE_JMX_PORT=45000
-export JVM_OPTS="-javaagent:jmx_prometheus_javaagent-0.12.0.jar=8080:config.yaml -DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false"
+export JVM_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=45000 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -javaagent:jmx_prometheus_javaagent-0.12.0.jar=8080:config.yaml -DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false"
 ```
+
+These `jmxremote` settings turn off authentication and SSL, so use them only on a trusted network.
 
 {% code title="config.yaml" %}
 ```yaml
@@ -35,3 +36,8 @@ lowercaseOutputName: false
 {% endcode %}
 
 You can connect to a single node and monitor its global metrics. If you want to monitor every node, add the JMX exporter to each node.
+
+## See Also
+
+- [How to Monitor GridGain 8 With Prometheus and Grafana](../../gridgain8-get-started/how-to-guides/prometheus-grafana-step-by-step.md)
+- [How to Monitor GridGain Clusters With New Relic](../../gridgain8-get-started/how-to-guides/new-relic.md)

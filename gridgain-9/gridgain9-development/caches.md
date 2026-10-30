@@ -26,7 +26,7 @@ To use caches in your project, you need to add a `gridgain-jdbc-cache-store` dep
 <dependency>
     <groupId>org.gridgain</groupId>
     <artifactId>gridgain-jdbc-cache-store</artifactId>
-    <version>9.1</version>
+    <version>9.1.28</version>
 </dependency>
 ```
 

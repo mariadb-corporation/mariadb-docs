@@ -1,4 +1,5 @@
 ---
+icon: rabbit-running
 description: >-
   Install GridGain, start a node, and run your first application in your preferred
   language — Java, .NET, C++, Python, Node.js, PHP, SQL, or REST.
@@ -113,5 +114,33 @@ Install GridGain, start a cluster, and run a simple Hello World example using th
 
 {% column %}
 Install GridGain, start a cluster, and run a simple Hello World example using GridGain's REST API.
+{% endcolumn %}
+{% endcolumns %}
+
+## Quickstart guides
+
+Short, hands-on guides that get you from a running cluster to working code.
+
+{% columns %}
+{% column %}
+{% content-ref url="start-local-cache-cluster.md" %}
+[Start a Local Cache Development Cluster](start-local-cache-cluster.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Set up a single-node GridGain 8 cluster with Docker Compose for cache-centric development and testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="work-with-cache-api.md" %}
+[Work With the Cache API](work-with-cache-api.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Connect a Java thick client to your cache-centric cluster, create distributed caches, and perform put, get, and bulk operations with IgniteCache.
 {% endcolumn %}
 {% endcolumns %}

@@ -87,7 +87,7 @@ The 32 GB threshold assumes the default object alignment of 8 bytes. Raising `-X
 
 Below are sets of example JVM configurations for applications that can utilize Java Heap on server nodes heavily, thus triggering long — or frequent, short — stop-the-world GC pauses.
 
-Use the G1 garbage collector.
+Use the G1 garbage collector (the default on Java 17).
 The settings below are a good starting point if 10GB heap is more than enough for your server nodes:
 
 ```bash

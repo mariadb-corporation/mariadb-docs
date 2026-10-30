@@ -52,7 +52,7 @@ Create a new Maven project with your favorite IDE and add the following dependen
 
 ```xml
 <properties>
-    <gridgain.version>8.10</gridgain.version>
+    <gridgain.version>8.10.0</gridgain.version>
 </properties>
 
 <repositories>
@@ -165,11 +165,16 @@ Plus, you might need to add these settings to your pom.xml if the IDE keeps usin
 
 Run HelloWorld.java. You will see 'Hello World!' and other environment details printed on all the server nodes.
 
+{% hint style="warning" %}
+`HelloWorld` sets `peerClassLoadingEnabled` to `true`, and this value must match on every node. The default node configuration and `example-ignite.xml` leave peer class loading off, so a server started with them rejects the client with `Remote node has peer class loading enabled flag different from local`. Start the servers with `peerClassLoadingEnabled` set to `true`, for example in your own configuration file.
+{% endhint %}
+
 ## Next Steps
 
 From here, you may want to:
 
 - Read more about using GridGain
+- Work through the [GridGain 8 Tutorials](../learning-paths/README.md) for hands-on, step-by-step practice
 - Use [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) to monitor your cluster
 
 ### Further Examples

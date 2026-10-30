@@ -5,6 +5,8 @@ description: >-
 
 # LangChain Integration
 
+<!-- TODO (not tested): This AI integration page depends on a third-party tool and was not run against GridGain 8.10. Run it with an 8.10 build and the current tool version, compare the steps and output, fix differences, then delete this comment. -->
+
 The `langchain-gridgain` package provides storage adapters that let LangChain components use GridGain as a backend for various data storage needs.
 
 ## Features
@@ -374,4 +376,4 @@ Version 2.0.0 changed the following:
 
 GridGain provides a tutorial with a demonstration project. The project uses `langchain-gridgain` to build a laptop recommendation system and shows GridGain as a backend for several LangChain components.
 
-The tutorial is available in the [Retrieval-Augmented Generation with GridGain and LangChain](https://www.gridgain.com/docs/tutorials/vector/langchain) section.
+The tutorial is available in the [How to Build Retrieval-Augmented Generation With GridGain and LangChain](../../gridgain8-get-started/how-to-guides/langchain-rag-tutorial.md) page.

@@ -22,7 +22,7 @@ This guide walks you through the process of setting up and running a GridGain 9 
 name: gridgain9
 
 x-gridgain-def: &gridgain-def
-  image: gridgain/gridgain9:9.1
+  image: gridgain/gridgain9:latest
   environment:
     JVM_MAX_MEM: "4g"
     JVM_MIN_MEM: "4g"
@@ -84,7 +84,7 @@ echo GRIDGAIN9_VERSION=9.1 > .env
 Then download the Docker image:
 
 ```bash
-docker pull gridgain/gridgain9:9.1
+docker pull gridgain/gridgain9:latest
 ```
 
 ## Step 2: Start the Ignite Cluster
@@ -113,9 +113,9 @@ Here is how the command output may look:
 
 ```
 NAME                IMAGE                       COMMAND                  SERVICE   CREATED          STATUS         PORTS
-gridgain9-node1-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node1     13 seconds ago   Up 9 seconds   0.0.0.0:10300->10300/tcp, 3344/tcp, 0.0.0.0:10800->10800/tcp
-gridgain9-node2-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node2     13 seconds ago   Up 9 seconds   3344/tcp, 0.0.0.0:10301->10300/tcp, 0.0.0.0:10801->10800/tcp
-gridgain9-node3-1   gridgain/gridgain9:9.1   "docker-entrypoint.s…"   node3     13 seconds ago   Up 9 seconds   3344/tcp, 0.0.0.0:10302->10300/tcp, 0.0.0.0:10802->10800/tcp
+gridgain9-node1-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node1     13 seconds ago   Up 9 seconds   0.0.0.0:10300->10300/tcp, 3344/tcp, 0.0.0.0:10800->10800/tcp
+gridgain9-node2-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node2     13 seconds ago   Up 9 seconds   3344/tcp, 0.0.0.0:10301->10300/tcp, 0.0.0.0:10801->10800/tcp
+gridgain9-node3-1   gridgain/gridgain9:latest   "docker-entrypoint.s…"   node3     13 seconds ago   Up 9 seconds   3344/tcp, 0.0.0.0:10302->10300/tcp, 0.0.0.0:10802->10800/tcp
 ```
 
 Your nodes are now running, but the cluster is not initialized.
@@ -125,7 +125,7 @@ Your nodes are now running, but the cluster is not initialized.
 ## Step 3: Initialize the Cluster
 
 {% hint style="info" %}
-You need an active GridGain license to complete this step. Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree).
+You need an active GridGain license to complete this step. If you are interested in trying out GridGain 9, contact our support.
 {% endhint %}
 
 {% stepper %}
@@ -137,7 +137,7 @@ Copy your license file into your project directory.
 Start the Ignite CLI in Docker:
 
 ```
-docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.1 cli
+docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:latest cli
 ```
 
 {% hint style="info" %}
@@ -261,7 +261,7 @@ docker run \
   -v /host/logs:/gridgain/log \
   -v /host/logging.properties:/gridgain/config/logging.properties \
   -e GRIDGAIN9_EXTRA_JVM_ARGS="-Djava.util.logging.config.file=/gridgain/config/logging.properties" \
-  gridgain/gridgain9:9.1
+  gridgain/gridgain9:latest
 ```
 {% endstep %}
 
@@ -304,3 +304,7 @@ docker compose down
 ```
 
 This will stop and remove all the containers. Your data will be lost unless you have configured persistent storage.
+
+## See Also
+
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)

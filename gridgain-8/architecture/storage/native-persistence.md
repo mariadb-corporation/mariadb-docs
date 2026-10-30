@@ -51,7 +51,7 @@ The following example shows how to enable persistent storage for the default dat
                     <property name="persistenceEnabled" value="true"/>
                 </bean>
             </property>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>
@@ -173,7 +173,7 @@ You can change the location of data files by modifying the `storagePath` propert
                 </bean>
             </property>
             <property name="storagePath" value="/opt/storage"/>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>
@@ -385,7 +385,7 @@ You can change the size of the WAL segment files in the data storage configurati
                 </bean>
             </property>
             <property name="storagePath" value="/opt/storage"/>
-            <property name="walSegmentSize" value="128 * 1024 * 1024"/>
+            <property name="walSegmentSize" value="#{128 * 1024 * 1024}"/>
         </bean>
     </property>
 </bean>
@@ -480,3 +480,7 @@ The following table describes native persistence properties.
 | `walCompactionLevel` | WAL archive compression level. `1` indicates the fastest speed, and `9` indicates the best compression. | `1` |
 | `maxWalArchiveSize` | The maximum size (in bytes) the WAL archive can occupy on the file system. Observed as long as it does not prevent completion of a checkpoint. If a specific checkpoint causes the archive to grow beyond the maximum size, the system starts self-cleanup as soon as this checkpoint is completed. "-1" means there is no archive size limit. | 1 Gb |
 | `minWalArchiveSize` | The size (in bytes) starting from which the WAL archive begins self-cleanup. | Half the value of `maxWalArchiveSize`; initially, 500 Mb |
+
+## See Also
+
+- [Beyond Cache: The Persistence Problem](../../gridgain8-get-started/learning-paths/beyond-key-value/native-persistence-beyond-cache.md)
