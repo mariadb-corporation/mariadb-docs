@@ -208,6 +208,56 @@ The following rules apply to async sequence operations:
 - Update calls on the same `ClientAtomicSequence` instance are applied one after another, in the order in which they are made.
 - If the sequence has been removed, the returned future completes exceptionally with an `IgniteException` whose message starts with `Sequence was removed from cache`.
 
+## Client Atomic Long
+
+_Atomic long_ is a distributed counter. It supports atomic operations, such as increment-and-get and compare-and-set, on a value that the whole cluster sees. Use `IgniteClient.atomicLong()` to get an atomic long, or to create it if it does not exist:
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+ClientAtomicLong atomicLong = client.atomicLong(
+        "counterName", // Atomic long name.
+        0,             // Initial value. Ignored if the atomic long already exists.
+        true           // Create if it does not exist.
+);
+
+long value = atomicLong.incrementAndGet();
+```
+
+### Async Operations
+
+Available since 8.10.0, every `ClientAtomicLong` operation has an async counterpart that returns an `IgniteClientFuture<T>`. See [Async APIs](#async-apis) for how async methods behave.
+
+| Blocking method | Async method | Future result |
+|---|---|---|
+| `IgniteClient.atomicLong(...)` | `IgniteClient.atomicLongAsync(...)` | `ClientAtomicLong`, or `null` if the atomic long does not exist and `create` is `false` |
+| `get()` | `getAsync()` | `Long`, the current value |
+| `incrementAndGet()` | `incrementAndGetAsync()` | `Long`, the value after the increment |
+| `getAndIncrement()` | `getAndIncrementAsync()` | `Long`, the value before the increment |
+| `decrementAndGet()` | `decrementAndGetAsync()` | `Long`, the value after the decrement |
+| `getAndDecrement()` | `getAndDecrementAsync()` | `Long`, the value before the decrement |
+| `addAndGet(long)` | `addAndGetAsync(long)` | `Long`, the value after the addition |
+| `getAndAdd(long)` | `getAndAddAsync(long)` | `Long`, the value before the addition |
+| `getAndSet(long)` | `getAndSetAsync(long)` | `Long`, the value before the new value is set |
+| `compareAndSet(long, long)` | `compareAndSetAsync(long, long)` | `Boolean`, `true` if the current value equaled the expected value and was replaced |
+| `removed()` | `removedAsync()` | `Boolean`, `true` if the atomic long was removed |
+| `close()` | `closeAsync()` | `Void` (removes the atomic long) |
+
+`atomicLongAsync` has the same two overloads as `atomicLong`: with and without a `ClientAtomicConfiguration`.
+
+```java
+IgniteClient client = Ignition.startClient(...);
+
+ClientAtomicLong atomicLong = client.atomicLongAsync("counterName", 0, true).get();
+
+IgniteClientFuture<Long> fut = atomicLong.incrementAndGetAsync();
+fut.thenAccept(val -> System.out.println("Incremented value: " + val)); // Non-blocking continuation.
+
+boolean removed = atomicLong.removedAsync().get(); // Blocking wait.
+```
+
+If the atomic long has been removed, operations that read or change its value, such as `get()` and `incrementAndGet()`, throw a `ClientException`. The async equivalents complete exceptionally with the same `ClientException`, which `Future.get()` wraps in an `ExecutionException`.
+
 ## Partition Awareness
 
 {% include "../.gitbook/includes/gg8-partition-awareness.md" %}
