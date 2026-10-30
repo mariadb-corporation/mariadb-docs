@@ -39,7 +39,7 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 ### Database Knowledge Bases
 
 1. You create a knowledge base from a schema of a MariaDB service.
-2. AI Retrieval connects to the database, reads the tables and columns that the database user can see, and builds the semantic map: a model of your database that AI Retrieval builds automatically: the tables and columns, the relationships between tables, the indexes, and descriptions of the data. You do not need to do anything for this step. You can refine the semantic map later.
+2. AI Retrieval connects to the database, reads the tables and columns that the database user can see, and builds the semantic map: the metadata layer over the database, with the schema metadata (including indexes and column relations), generated table and column descriptions, and a column literals index. You do not need to do anything for this step. You can refine the semantic map later.
 3. Your application sends a question to the knowledge base endpoint.
 4. AI Retrieval uses the semantic map to turn the question into an SQL query, checks that the query only reads data, runs it, and returns the rows. For a generated answer, it writes the answer from the rows. A follow-up question in the same session can build on the earlier ones.
 
@@ -48,7 +48,7 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 | Concept          | Meaning                                                                                                                                                                                          |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Knowledge base   | The searchable collection that you create and query. It has a type, a cloud region, and settings such as the models and the reranker.                                                            |
-| Vector store     | The MariaDB service that stores the chunks and embeddings of a document knowledge base.                                                                                                          |
+| Vector store     | The MariaDB service, Provisioned or Serverless, that stores the chunks and embeddings of a document knowledge base.                                                                             |
 | Document         | A file in a document knowledge base.                                                                                                                                                             |
 | Data source      | <p>An Amazon S3 or Google Cloud Storage bucket that is connected to a document knowledge base. </p><p></p><p>And MariaDB database connected as a source to database knowledge base.</p>          |
 | Chunk            | A passage of a document. A retrieval request returns chunks.                                                                                                                                     |
