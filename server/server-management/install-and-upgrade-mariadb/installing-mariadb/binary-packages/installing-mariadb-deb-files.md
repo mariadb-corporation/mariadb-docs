@@ -8,7 +8,7 @@ description: >-
 
 ## Installing MariaDB with APT
 
-On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://help.ubuntu.com/community/SynapticHowto), or another package manager.
+On Debian, Ubuntu, and other similar Linux distributions, it is highly recommended to install the relevant `.deb` packages from MariaDB's repository using [apt](https://manpages.ubuntu.com/manpages/bionic/man8/apt.8.html), [aptitude](https://manpages.ubuntu.com/manpages/bionic/man8/aptitude-curses.8.html), [Ubuntu Software Center](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter), [Synaptic Package Manager](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto), or another package manager.
 
 This page walks you through the simple installation steps using `apt`.
 
@@ -85,23 +85,23 @@ sudo apt update
 
 **Using Ubuntu Software Center**
 
-Another way to add an `apt` repository is by using [Ubuntu Software Center](https://help.ubuntu.com/community/UbuntuSoftwareCenter).
+Another way to add an `apt` repository is by using [Ubuntu Software Center](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **Edit** > **Software Sources** or by navigating to **System** > **Administration** > **Software Sources**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
+See [here](https://web.archive.org/web/2023/https://help.ubuntu.com/community/UbuntuSoftwareCenter#Managing_software_sources) for more information.
 
 **Using Synaptic Package Manager**
 
-Another way to add an `apt` repository is by using [Synaptic Package Manager](https://help.ubuntu.com/community/SynapticHowto).
+Another way to add an `apt` repository is by using [Synaptic Package Manager](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto).
 
 You can do this by going to the **Software Sources** window. This window can be opened either by navigating to **System** > **Administrator** > **Software Sources** or by navigating to **Settings** > **Repositories**.
 
 Once the **Software Sources** window is open, go to the **Other Software** tab, and click the **Add** button. At that point, you can input the repository information provided by the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
 
-See [here](https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
+See [here](https://web.archive.org/web/2023/https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
 
 #### Pinning the MariaDB Repository to the repository of a Specific Minor Release
 
@@ -319,6 +319,23 @@ Then, execute the following command:
 ```bash
 sudo apt-get install mariadb-cracklib-password-check
 ```
+
+{% hint style="warning" %}
+In MariaDB 10.3 and 10.4, the `mariadb-plugin-rocksdb` DEB package includes `/usr/bin/sst_dump`. If the `rocksdb-tools` package provided by your distribution is already installed, installing the plugin fails because both packages provide that file:
+
+```
+trying to overwrite '/usr/bin/sst_dump', which is also in package rocksdb-tools
+```
+
+Remove `rocksdb-tools` and install the plugin again:
+
+```bash
+sudo apt remove rocksdb-tools
+sudo apt install mariadb-plugin-rocksdb
+```
+
+Starting with MariaDB 10.5, on most architectures the plugin package depends on `rocksdb-tools` instead of including its own copy of `sst_dump`, so do not remove it.
+{% endhint %}
 
 ### Installing Older Versions from the Repository
 
