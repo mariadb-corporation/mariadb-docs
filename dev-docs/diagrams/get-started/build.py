@@ -97,41 +97,48 @@ svg("ai-semantic-search", 760, 300,
 """)
 
 # 2. Analytics: one database, two storage engines ----------------------------------------------
+# The sales table names no engine on purpose: ColumnStore is one columnar engine, and the diagram
+# shows the idea (rows versus columns, one join), not a product choice. What the report reads is
+# marked with an accent outline as well as a fill, so it does not rest on a faint fill alone.
+ROW_Y, ROW_H = 130, 24
 cells = []
-# InnoDB: 5 rows x 5 cols, one row highlighted (checkout reads one row)
+# InnoDB: 5 rows x 5 cols, one row read (a checkout reads one product)
 for r in range(5):
     for c in range(5):
         cls = "fillsoft" if r == 2 else "fillpanel"
-        cells.append(f'<rect class="{cls}" x="{36 + c * 58}" y="{86 + r * 24}" width="54" height="20" rx="2"/>')
-cells.append('<rect class="plain" x="32" y="132" width="294" height="28" rx="4" style="stroke-width:2"/>')
-# ColumnStore: 5 rows x 5 cols, columns 1, 3, 4 highlighted (product_id, quantity, price)
+        cells.append(f'<rect class="{cls}" x="{36 + c * 58}" y="{ROW_Y + r * ROW_H}" width="54" height="20" rx="2"/>')
+cells.append(f'<rect class="plain acc" x="32" y="{ROW_Y + 2 * ROW_H - 4}" width="294" height="28" rx="4"/>')
+# Columnar: 5 rows x 5 cols, columns 1, 3, 4 read (product_id, quantity, price)
 for r in range(5):
     for c in range(5):
         cls = "fillsoft" if c in (1, 3, 4) else "fillpanel"
-        cells.append(f'<rect class="{cls}" x="{384 + c * 70}" y="{86 + r * 24}" width="66" height="20" rx="2"/>')
+        cells.append(f'<rect class="{cls}" x="{384 + c * 70}" y="{ROW_Y + r * ROW_H}" width="66" height="20" rx="2"/>')
+for x, w in ((450, 74), (590, 144)):  # product_id; quantity and price together
+    cells.append(f'<rect class="plain acc" x="{x}" y="108" width="{w}" height="142" rx="4"/>')
 heads_l = ["id", "name", "price", "stock", "..."]
 heads_r = ["sale_id", "product_id", "sale_date", "quantity", "price"]
-hl = "".join(f'<text class="mono xs mut" x="{63 + i * 58}" y="78" text-anchor="middle">{h}</text>' for i, h in enumerate(heads_l))
-hr = "".join(f'<text class="mono xs {"acct" if i in (1, 3, 4) else "mut"}" x="{417 + i * 70}" y="78" text-anchor="middle">{h}</text>' for i, h in enumerate(heads_r))
-svg("analytics-two-engines", 760, 330,
-    "One database, two storage engines. The products table uses InnoDB and stores whole rows together, "
-    "so a checkout reads one complete row. The sales table uses ColumnStore and stores each column apart, "
+hl = "".join(f'<text class="mono xs mut" x="{63 + i * 58}" y="122" text-anchor="middle">{h}</text>' for i, h in enumerate(heads_l))
+hr = "".join(f'<text class="mono xs {"acct" if i in (1, 3, 4) else "mut"}" x="{417 + i * 70}" y="122" text-anchor="middle"'
+             f'{" font-weight=\"700\"" if i in (1, 3, 4) else ""}>{h}</text>' for i, h in enumerate(heads_r))
+svg("analytics-two-engines", 760, 354,
+    "One database, two storage engines. The products table uses InnoDB, which stores whole rows together, "
+    "so a checkout reads one complete row. The sales table uses a columnar engine, which stores each column apart, "
     "so a revenue report reads only the product_id, quantity, and price columns. One SELECT joins both tables.",
     f"""
-<rect class="frame" x="16" y="12" width="728" height="306" rx="8"/>
-<text class="t" x="380" y="34" text-anchor="middle">One database: shop</text>
-<text class="t" x="179" y="58" text-anchor="middle">products  ·  InnoDB</text>
-<text class="t" x="557" y="58" text-anchor="middle">sales  ·  ColumnStore</text>
+<rect class="frame" x="16" y="12" width="728" height="330" rx="8"/>
+<text class="t" x="380" y="36" text-anchor="middle">One database: shop</text>
+<text class="t" x="179" y="62" text-anchor="middle">products  ·  InnoDB</text>
+<text class="sm" x="179" y="82" text-anchor="middle">Rows stored together.</text>
+<text class="xs mut" x="179" y="98" text-anchor="middle">A checkout reads one whole row.</text>
+<text class="t" x="557" y="62" text-anchor="middle">sales  ·  a columnar engine</text>
+<text class="sm" x="557" y="82" text-anchor="middle">Columns stored apart.</text>
+<text class="xs mut" x="557" y="98" text-anchor="middle">A report reads three columns of every row.</text>
 {hl}{hr}
 {''.join(cells)}
-<text class="sm" x="179" y="228" text-anchor="middle">Rows stored together.</text>
-<text class="sm mut" x="179" y="246" text-anchor="middle">A checkout reads one whole row.</text>
-<text class="sm" x="557" y="228" text-anchor="middle">Columns stored apart.</text>
-<text class="sm mut" x="557" y="246" text-anchor="middle">A report reads three columns of every row.</text>
-<rect class="accbox" x="150" y="266" width="460" height="38" rx="6"/>
-<text class="mono sm" x="380" y="290" text-anchor="middle">SELECT p.name, SUM(s.quantity * s.price) ... JOIN</text>
-<path class="ln acc" d="M179,266 V256" marker-end="url(#ac)"/>
-<path class="ln acc" d="M557,266 V256" marker-end="url(#ac)"/>
+<path class="ln acc" d="M179,290 V258" marker-end="url(#ac)"/>
+<path class="ln acc" d="M557,290 V258" marker-end="url(#ac)"/>
+<rect class="accbox" x="150" y="290" width="460" height="38" rx="6"/>
+<text class="mono sm" x="380" y="314" text-anchor="middle">SELECT p.name, SUM(s.quantity * s.price) ... JOIN</text>
 """)
 
 # 3. Operations: back up, prepare, restore, verify ----------------------------------------------
