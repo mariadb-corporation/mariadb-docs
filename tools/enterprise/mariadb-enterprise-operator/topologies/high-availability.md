@@ -6,7 +6,7 @@ This section provides guidance on how to configure high availability in `MariaDB
 
 Our recommended setup for production is:
 * Use a **[highly available topology](#highly-available-topologies)** for MariaDB:
-  * **[Asynchronous replication](./replication.md)** with a primary node and at least 2 replicas.
+  * **[Asynchronous replication](./replication.md)** with a primary node and at least 2 replicas. 
   * Synchronous multi-master **[Galera](./galera.md)** with at least 3 nodes. Always an odd number of nodes, as it is quorum-based.
 * Leverage **[MaxScale](./maxscale.md)** as database proxy to load balance requests and perform  failover/switchover operations. Configure 2 replicas to enable MaxScale upgrades without downtime.
 * Use [dedicated nodes](#dedicated-nodes) to avoid noisy neighbours.

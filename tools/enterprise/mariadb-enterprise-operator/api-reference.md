@@ -60,6 +60,7 @@ AffinityConfig defines policies to schedule Pods in Nodes.
 
 
 _Appears in:_
+- [Arbitrator](#arbitrator)
 - [BackupSpec](#backupspec)
 - [Exporter](#exporter)
 - [Job](#job)
@@ -112,6 +113,44 @@ _Appears in:_
 | `kubernetesAuth` _[KubernetesAuth](#kubernetesauth)_ | KubernetesAuth to be used by the agent container |  |  |
 | `basicAuth` _[BasicAuth](#basicauth)_ | BasicAuth to be used by the agent container |  |  |
 | `gracefulShutdownTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#duration-v1-meta)_ | GracefulShutdownTimeout is the time we give to the agent container in order to gracefully terminate in-flight requests. |  |  |
+
+
+#### Arbitrator
+
+
+
+Arbitrator is a dataless MariaDB instance that contributes a vote to the high availability topology it belongs to,
+without ever holding data or serving traffic. It lets an even number of data nodes reach an odd quorum, so the
+topology keeps both split-brain safety and failover liveness.
+
+The arbitrator holds no usable data and must never be read from or written to. It is excluded from every data path:
+client Services and Connections never select it, and it is never a backup source, a bootstrap donor, nor a
+failover or switchover target.
+
+It is configured in 'spec.arbitrator', at the top level of the spec rather than under a specific topology, because
+the same instance serves both: it votes through MaxScale cooperative monitoring in the replication topology, and it
+will vote in the Galera quorum once that is implemented. Only replication is wired up for now.
+
+
+
+_Appears in:_
+- [MariaDBSpec](#mariadbspec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `enabled` _boolean_ | Enabled is a flag to enable the arbitrator. It requires high availability to be enabled.<br />Only the replication topology provisions it for now, the Galera arbitrator is not implemented yet. |  |  |
+| `podMetadata` _[Metadata](#metadata)_ | PodMetadata defines extra metadata for the arbitrator Pod. |  |  |
+| `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements of the arbitrator container.<br />The arbitrator serves no traffic, it may be sized much smaller than the data nodes. |  |  |
+| `livenessProbe` _[Probe](#probe)_ | LivenessProbe to be used in the arbitrator container. |  |  |
+| `readinessProbe` _[Probe](#probe)_ | ReadinessProbe to be used in the arbitrator container. |  |  |
+| `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the arbitrator container. |  |  |
+| `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to the arbitrator container. |  |  |
+| `podSecurityContext` _[PodSecurityContext](#podsecuritycontext)_ | PodSecurityContext holds pod-level security attributes for the arbitrator Pod. |  |  |
+| `affinity` _[AffinityConfig](#affinityconfig)_ | Affinity to be used in the arbitrator Pod.<br />Setting 'antiAffinityEnabled' keeps the arbitrator away from the Nodes running the data nodes, which determines<br />how much infrastructure failure the topology survives. See the replication docs for guidance. |  |  |
+| `nodeSelector` _object (keys:string, values:string)_ | NodeSelector to be used in the arbitrator Pod. |  |  |
+| `tolerations` _[Toleration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#toleration-v1-core) array_ | Tolerations to be used in the arbitrator Pod. |  |  |
+| `topologySpreadConstraints` _[TopologySpreadConstraint](#topologyspreadconstraint) array_ | TopologySpreadConstraints to be used in the arbitrator Pod. |  |  |
+| `priorityClassName` _string_ | PriorityClassName to be used in the arbitrator Pod. |  |  |
 
 
 #### AzureBlob
@@ -832,6 +871,7 @@ _Appears in:_
 | `clientCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCertSecretRef is a reference to a TLS Secret containing the client certificate.<br />It is mutually exclusive with clientCertIssuerRef. |  |  |
 | `clientCertIssuerRef` _IssuerReference_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
 | `clientCertConfig` _[CertConfig](#certconfig)_ | ClientCertConfig allows configuring the client certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
+| `clientAuth` _[TLSClientAuth](#tlsclientauth)_ | ClientAuth configures TLS client certificate authentication for the operator.<br />When enabled, the operator bypasses all password-based authentication and exclusively uses the mounted client TLS<br />certificate to connect. This is required for strict FIPS 140-3 compliance (GODEBUG=fips140=only).<br />It is immutable: to migrate an existing MariaDB, restore a logical backup (with ignoreGlobalPriv enabled) into a new one.<br />It requires TLS to be enabled and it is disabled by default. |  |  |
 | `galeraSSTEnabled` _boolean_ | GaleraSSTEnabled determines whether Galera SST connections should use TLS.<br />It disabled by default. |  |  |
 | `galeraServerSSLMode` _string_ | GaleraServerSSLMode defines the server SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes |  | Enum: [PROVIDER SERVER SERVER_X509] <br /> |
 | `galeraClientSSLMode` _string_ | GaleraClientSSLMode defines the client SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes |  | Enum: [DISABLED REQUIRED VERIFY_CA VERIFY_IDENTITY] <br /> |
@@ -1513,6 +1553,7 @@ _Appears in:_
 | `replication` _[Replication](#replication)_ | Replication configures high availability via replication. This feature is still in alpha, use Galera if you are looking for a more production-ready HA. |  |  |
 | `galera` _[Galera](#galera)_ | Galera configures high availability via Galera. |  |  |
 | `multiCluster` _[MultiCluster](#multicluster)_ | MultiCluster configures the multi-cluster topology. |  |  |
+| `arbitrator` _[Arbitrator](#arbitrator)_ | Arbitrator configures a dataless MariaDB instance that contributes a vote to the high availability topology<br />without ever holding data or serving traffic. It gives an even sized cluster both split-brain safety and<br />failover liveness. It is disabled by default. |  |  |
 | `maxScaleRef` _[ObjectReference](#objectreference)_ | MaxScaleRef is a reference to a MaxScale resource to be used with the current MariaDB.<br />Providing this reference implies delegating high availability tasks such as primary failover to MaxScale. |  |  |
 | `pointInTimeRecoveryRef` _[LocalObjectReference](#localobjectreference)_ | PointInTimeRecoveryRef is a reference to a PointInTimeRecovery resource to be used with the current MariaDB.<br />Providing this reference implies configuring binary logs in the MariaDB instance and binary log archival in the sidecar agent. |  |  |
 | `replicas` _integer_ | Replicas indicates the number of desired instances. | 1 |  |
@@ -1661,7 +1702,7 @@ _Appears in:_
 | `monitorUsername` _string_ | MonitorUsername is the user used by MaxScale monitor to connect to MariaDB server. It is defaulted if not provided. |  |  |
 | `monitorPasswordSecretKeyRef` _[GeneratedSecretKeyRef](#generatedsecretkeyref)_ | MonitorPasswordSecretKeyRef is Secret key reference to the password used by MaxScale monitor to connect to MariaDB server. It is defaulted if not provided.<br />If the referred Secret is labeled with "enterprise.mariadb.com/watch", updates may be performed to the Secret in order to update the password. |  |  |
 | `monitorMaxConnections` _integer_ | MonitorMaxConnections defines the maximum number of connections that the monitor can establish.<br />If HA is enabled, make sure to increase this value, as more MaxScale replicas implies more connections.<br />It defaults to 30 times the number of MaxScale replicas. |  |  |
-| `syncUsername` _string_ | MonitoSyncUsernamerUsername is the user used by MaxScale config sync to connect to MariaDB server. It is defaulted when HA is enabled. |  |  |
+| `syncUsername` _string_ | SyncUsername is the user used by MaxScale config sync to connect to MariaDB server. It is defaulted when HA is enabled. |  |  |
 | `syncPasswordSecretKeyRef` _[GeneratedSecretKeyRef](#generatedsecretkeyref)_ | SyncPasswordSecretKeyRef is Secret key reference to the password used by MaxScale config to connect to MariaDB server. It is defaulted when HA is enabled.<br />If the referred Secret is labeled with "enterprise.mariadb.com/watch", updates may be performed to the Secret in order to update the password. |  |  |
 | `syncMaxConnections` _integer_ | SyncMaxConnections defines the maximum number of connections that the sync can establish.<br />If HA is enabled, make sure to increase this value, as more MaxScale replicas implies more connections.<br />It defaults to 30 times the number of MaxScale replicas. |  |  |
 
@@ -1890,6 +1931,7 @@ _Appears in:_
 | `admin` _[MaxScaleAdmin](#maxscaleadmin)_ | Admin configures the admin REST API and GUI. |  |  |
 | `config` _[MaxScaleConfig](#maxscaleconfig)_ | Config defines the MaxScale configuration. |  |  |
 | `auth` _[MaxScaleAuth](#maxscaleauth)_ | Auth defines the credentials required for MaxScale to connect to MariaDB. |  |  |
+| `licenseSecretKeyRef` _[SecretKeySelector](#secretkeyselector)_ | LicenseSecretKeyRef is a reference to the Enterprise license key required by MaxScale versions that enforce licensing.<br />If not provided, and the MaxScale version requires a license, the operator falls back to the license configured<br />at the operator level (see the `enterpriseLicenseKeyRef` Helm value), if any. |  |  |
 | `metrics` _[MaxScaleMetrics](#maxscalemetrics)_ | Metrics configures metrics and how to scrape them. |  |  |
 | `tls` _[MaxScaleTLS](#maxscaletls)_ | TLS defines the PKI to be used with MaxScale. |  |  |
 | `connection` _[ConnectionTemplate](#connectiontemplate)_ | Connection provides a template to define the Connection for MaxScale. |  |  |
@@ -1928,7 +1970,7 @@ _Appears in:_
 | `listenerCertConfig` _[CertConfig](#certconfig)_ | ListenerCertConfig allows configuring the listener certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
 | `serverCASecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCASecretRef is a reference to a Secret containing the MariaDB server CA certificates. It is used to establish trust with MariaDB servers.<br />The Secret should contain a 'ca.crt' key in order to establish trust.<br />If not provided, and the reference to a MariaDB resource is set (mariaDbRef), it will be defaulted to the referred MariaDB CA bundle. |  |  |
 | `serverCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ServerCertSecretRef is a reference to a TLS Secret used by MaxScale to connect to the MariaDB servers.<br />If not provided, and the reference to a MariaDB resource is set (mariaDbRef), it will be defaulted to the referred MariaDB client certificate (clientCertSecretRef). |  |  |
-| `verifyPeerCertificate` _boolean_ | VerifyPeerCertificate specifies whether the peer certificate's signature should be validated against the CA.<br />It is disabled by default. |  |  |
+| `verifyPeerCertificate` _boolean_ | VerifyPeerCertificate specifies whether the peer certificate's signature should be validated against the CA.<br />It is disabled by default, except for the connection to the MariaDB servers when the referenced MariaDB has TLS<br />client authentication enabled, where it is enabled unless set explicitly.<br />In listeners, it requires every client to present a certificate. |  |  |
 | `verifyPeerHost` _boolean_ | VerifyPeerHost specifies whether the peer certificate's SANs should match the peer host.<br />It is disabled by default. |  |  |
 | `replicationSSLEnabled` _boolean_ | ReplicationSSLEnabled specifies whether the replication SSL is enabled. If enabled, the SSL options will be added to the server configuration.<br />It is enabled by default when the referred MariaDB instance (via mariaDbRef) has replication enabled.<br />If the MariaDB servers are manually provided by the user via the 'servers' field, this must be set by the user as well. |  |  |
 
@@ -1942,6 +1984,7 @@ Metadata defines the metadata to added to resources.
 
 
 _Appears in:_
+- [Arbitrator](#arbitrator)
 - [BackupSpec](#backupspec)
 - [Exporter](#exporter)
 - [ExternalMariaDBSpec](#externalmariadbspec)
@@ -2462,6 +2505,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [Arbitrator](#arbitrator)
 - [BackupSpec](#backupspec)
 - [Exporter](#exporter)
 - [JobPodTemplate](#jobpodtemplate)
@@ -2610,6 +2654,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 _Appears in:_
 - [Agent](#agent)
+- [Arbitrator](#arbitrator)
 - [ContainerTemplate](#containertemplate)
 - [InitContainer](#initcontainer)
 - [MariaDBSpec](#mariadbspec)
@@ -2775,6 +2820,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 _Appears in:_
 - [Agent](#agent)
+- [Arbitrator](#arbitrator)
 - [BackupSpec](#backupspec)
 - [Container](#container)
 - [ContainerTemplate](#containertemplate)
@@ -2985,6 +3031,7 @@ _Appears in:_
 - [ExternalMariaDBSpec](#externalmariadbspec)
 - [GeneratedSecretKeyRef](#generatedsecretkeyref)
 - [MariaDBSpec](#mariadbspec)
+- [MaxScaleSpec](#maxscalespec)
 - [PasswordPlugin](#passwordplugin)
 - [S3](#s3)
 - [SSECConfig](#ssecconfig)
@@ -3052,6 +3099,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 _Appears in:_
 - [Agent](#agent)
+- [Arbitrator](#arbitrator)
 - [BackupSpec](#backupspec)
 - [ContainerTemplate](#containertemplate)
 - [Exporter](#exporter)
@@ -3381,10 +3429,31 @@ _Appears in:_
 | `clientCertSecretRef` _[LocalObjectReference](#localobjectreference)_ | ClientCertSecretRef is a reference to a TLS Secret containing the client certificate.<br />It is mutually exclusive with clientCertIssuerRef. |  |  |
 | `clientCertIssuerRef` _IssuerReference_ | ClientCertIssuerRef is a reference to a cert-manager issuer object used to issue the client certificate. cert-manager must be installed previously in the cluster.<br />It is mutually exclusive with clientCertSecretRef.<br />By default, the Secret field 'ca.crt' provisioned by cert-manager will be added to the trust chain. A custom trust bundle may be specified via clientCASecretRef. |  |  |
 | `clientCertConfig` _[CertConfig](#certconfig)_ | ClientCertConfig allows configuring the client certificates, either issued by the operator or cert-manager.<br />If not set, the default settings will be used. |  |  |
+| `clientAuth` _[TLSClientAuth](#tlsclientauth)_ | ClientAuth configures TLS client certificate authentication for the operator.<br />When enabled, the operator bypasses all password-based authentication and exclusively uses the mounted client TLS<br />certificate to connect. This is required for strict FIPS 140-3 compliance (GODEBUG=fips140=only).<br />It is immutable: to migrate an existing MariaDB, restore a logical backup (with ignoreGlobalPriv enabled) into a new one.<br />It requires TLS to be enabled and it is disabled by default. |  |  |
 | `galeraSSTEnabled` _boolean_ | GaleraSSTEnabled determines whether Galera SST connections should use TLS.<br />It disabled by default. |  |  |
 | `galeraServerSSLMode` _string_ | GaleraServerSSLMode defines the server SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes |  | Enum: [PROVIDER SERVER SERVER_X509] <br /> |
 | `galeraClientSSLMode` _string_ | GaleraClientSSLMode defines the client SSL mode for a Galera Enterprise cluster.<br />This field is only supported and applicable for Galera Enterprise >= 10.6 instances.<br />Refer to the MariaDB Enterprise docs for more detail: https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes |  | Enum: [DISABLED REQUIRED VERIFY_CA VERIFY_IDENTITY] <br /> |
 | `serverCertAdditionalNames` _string array_ | ServerCertAdditionalNames is a list of additional certificate common names |  |  |
+
+
+#### TLSClientAuth
+
+
+
+TLSClientAuth configures TLS client certificate authentication, where the operator
+authenticates to MariaDB using the mounted client certificate instead of a password.
+
+
+
+_Appears in:_
+- [ExternalTLS](#externaltls)
+- [TLS](#tls)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `enabled` _boolean_ | Enabled determines whether TLS client certificate authentication is enabled.<br />It is disabled by default. |  |  |
+| `rootTLSRequirements` _[TLSRequirements](#tlsrequirements)_ | RootTLSRequirements overrides the TLS requirements that the 'root' user is required to present.<br />Only Subject and/or Issuer are supported for 'root', as it is bootstrapped by the container entrypoint,<br />which requires a Subject to be set (expressed in OpenSSL one-line format, e.g. "/CN=root"). When not set,<br />it defaults to the operator-issued client certificate's common name (Subject) and client CA's common name<br />(Issuer). Set this when bringing your own client certificate (clientCertSecretRef), CA (clientCASecretRef)<br />or a cert-manager issuer (clientCertIssuerRef) whose subject/issuer do not follow the default convention. |  |  |
+| `tlsRequirements` _[TLSRequirements](#tlsrequirements)_ | TLSRequirements overrides the TLS requirements that the other operator-managed users (replication, metrics,<br />MaxScale...) are required to present. When not set, it defaults to the 'root' user's effective requirement<br />(see rootTLSRequirements), as these users authenticate with the same client certificate. As these users are<br />passwordless, a Subject must be set when overriding: SSL-only and X509-only requirements are not supported. |  |  |
 
 
 #### TLSConfig
@@ -3414,6 +3483,7 @@ TLSRequirements specifies TLS requirements for the user to connect. See: https:/
 
 
 _Appears in:_
+- [TLSClientAuth](#tlsclientauth)
 - [UserSpec](#userspec)
 
 | Field | Description | Default | Validation |
@@ -3435,6 +3505,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [Arbitrator](#arbitrator)
 - [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
@@ -3485,6 +3556,7 @@ _Appears in:_
 | `type` _[UpdateType](#updatetype)_ | Type defines the type of updates. One of `ReplicasFirstPrimaryLast`, `RollingUpdate` or `OnDelete`. If not defined, it defaults to `ReplicasFirstPrimaryLast`. | ReplicasFirstPrimaryLast | Enum: [ReplicasFirstPrimaryLast RollingUpdate OnDelete Never] <br /> |
 | `rollingUpdate` _[RollingUpdateStatefulSetStrategy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#rollingupdatestatefulsetstrategy-v1-apps)_ | RollingUpdate defines parameters for the RollingUpdate type. |  |  |
 | `autoUpdateDataPlane` _boolean_ | AutoUpdateDataPlane indicates whether the Galera data-plane version (agent and init containers) should be automatically updated based on the operator version. It defaults to false.<br />Updating the operator will trigger updates on all the MariaDB instances that have this flag set to true. Thus, it is recommended to progressively set this flag after having updated the operator. |  |  |
+| `mariadbAutoUpgradeEnabled` _boolean_ | MariaDBAutoUpgradeEnabled indicates whether the official `mariadb` image entrypoint should run `mariadb-upgrade` on start, by setting `MARIADB_AUTO_UPGRADE=true` in the `mariadb` container env. It defaults to false.<br />Set this to true before bumping `spec.image` to a new major version, so that the server schema is migrated when the Pods roll. Leaving it set afterwards is safe: `mariadb-upgrade` is a no-op when there is nothing to migrate. |  |  |
 
 
 #### UpdateType
@@ -3524,6 +3596,22 @@ User is the Schema for the users API.  It is used to define grants as if you wer
 | `spec` _[UserSpec](#userspec)_ |  |  |  |
 
 
+#### UserClientCertificate
+
+
+
+UserClientCertificate configures whether the operator issues a dedicated TLS client certificate for a User.
+
+
+
+_Appears in:_
+- [UserSpec](#userspec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `enabled` _boolean_ | Enabled determines whether the operator issues a TLS client certificate for this User, signed by the same<br />CA used by the referenced MariaDB (spec.tls.clientCASecretRef / spec.tls.clientCertIssuerRef, or the<br />operator-managed CA otherwise). It requires the referenced MariaDB to have TLS enabled (spec.tls.enabled: true).<br />It is disabled by default. |  |  |
+
+
 #### UserSpec
 
 
@@ -3545,6 +3633,7 @@ _Appears in:_
 | `passwordHashSecretKeyRef` _[SecretKeySelector](#secretkeyselector)_ | PasswordHashSecretKeyRef is a reference to the password hash to be used by the User.<br />If the referred Secret is labeled with "enterprise.mariadb.com/watch", updates may be performed to the Secret in order to update the password hash.<br />It requires the 'strict-password-validation=false' option to be set. See: https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#strict_password_validation. |  |  |
 | `passwordPlugin` _[PasswordPlugin](#passwordplugin)_ | PasswordPlugin is a reference to the password plugin and arguments to be used by the User.<br />It requires the 'strict-password-validation=false' option to be set. See: https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#strict_password_validation. |  |  |
 | `require` _[TLSRequirements](#tlsrequirements)_ | Require specifies TLS requirements for the user to connect. See: https://mariadb.com/docs/server/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts. |  |  |
+| `clientCertificate` _[UserClientCertificate](#userclientcertificate)_ | ClientCertificate configures whether the operator issues a dedicated TLS client certificate for this User. |  |  |
 | `maxUserConnections` _integer_ | MaxUserConnections defines the maximum number of simultaneous connections that the User can establish. | 10 |  |
 | `name` _string_ | Name overrides the default name provided by metadata.name. |  | MaxLength: 80 <br /> |
 | `host` _string_ | Host related to the User. |  | MaxLength: 255 <br /> |

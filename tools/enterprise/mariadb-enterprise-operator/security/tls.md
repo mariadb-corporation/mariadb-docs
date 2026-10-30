@@ -862,6 +862,10 @@ spec:
 
 When any of these TLS requirements are not met, the user will not be able to connect to the instance.
 
+{% hint style="info" %}
+To make the operator itself authenticate with a TLS client certificate instead of passwords, see [TLS client certificate authentication](tls-client-authentication.md).
+{% endhint %}
+
 See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls-for-specific-user-accounts) and the [API reference](../api-reference.md) for further detail.
 
 ## Galera Enterprise SSL modes
