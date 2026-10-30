@@ -19,7 +19,7 @@ svg("get-started-orientation", 790, 420,
     "MariaDB Server runs on any of four environments. You run it with Docker on your laptop, with Linux on your "
     "servers and VMs, or with the operator on your Kubernetes cluster, and MariaDB Enterprise Platform adds MaxScale, "
     "Galera Cluster, ColumnStore, Exa, and GridGain to any of these. Or MariaDB runs it for you in MariaDB Cloud. "
-    "Moving between them changes only the connection settings: host, user, password, and TLS.",
+    "Switching environments changes only your connection settings: host, user, password, and TLS.",
     """
 <text class="t" x="395" y="26" text-anchor="middle">Run MariaDB Server anywhere. Your code stays the same.</text>
 
@@ -64,7 +64,7 @@ svg("get-started-orientation", 790, 420,
 <text class="t" x="526" y="331">MariaDB Cloud</text>
 <text class="xs mut" x="526" y="348">MariaDB runs it for you</text>
 
-<text class="sm mut" x="395" y="390" text-anchor="middle">Moving between them changes only the connection settings: host, user, password, TLS.</text>
+<text class="sm mut" x="395" y="390" text-anchor="middle">Switching environments changes only your connection settings: host, user, password, TLS.</text>
 <text class="sm acct" x="395" y="410" text-anchor="middle">Pick your environment in the tabs below.</text>
 """)
 
