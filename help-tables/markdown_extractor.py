@@ -25,6 +25,9 @@ EXCLUDED_DIRS = [
 # If no key matches, the topic is assigned category 35 (Contents) by default.
 CATEGORY_MAP = {
     "string-functions": 37,
+    # XML functions moved to special-functions/xml-functions (DOCS-6912); keep
+    # them in the String Functions category the server has always shipped.
+    "xml-functions": 37,
     "aggregate-functions": 16,
     "numeric-functions": 4,
     "date-time-functions": 31,

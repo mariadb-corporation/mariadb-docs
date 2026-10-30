@@ -519,6 +519,14 @@ description: >-
 * Default: `10`
 * Description: Maximum number of authentication failures before temporarily blocking a host.
 
+[**max\_connect\_errors**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_connect_errors)
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: `0`
+* Description: Maximum number of aborted connection attempts before temporarily blocking a host.
+
 [**maxlog**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#maxlog)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
@@ -2548,7 +2556,7 @@ description: >-
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
-* Description: Determines how regular expressions are parsed, including case sensitivity and extended syntax.
+* Description: Deprecated and has no effect. Do not use.
 
 [**service**](maxscale-filters/maxscale-tee-filter.md#service)
 

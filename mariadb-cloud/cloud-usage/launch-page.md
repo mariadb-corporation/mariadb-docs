@@ -37,9 +37,7 @@ For provisioned services, select a high-availability mode:
 * **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA. Available on request: the card is labeled **On Request** until the MariaDB Cloud team enables it for your organization. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Query Result Cache** — adds an in-memory query result cache alongside your transactional workload. See [Query Result Cache](../quickstart/query-cache-gridgain-8.md).
 
-Both add-ons are currently available as a _Tech Preview_.
-
-<figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache, both marked Tech Preview with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
 
 ## Cloud provider & region
 
@@ -58,6 +56,8 @@ For **serverless** services, set the MCU thresholds. One MCU (MariaDB Compute Un
 <figure><img src="../.gitbook/assets/provision-serverless-mcu.png" alt="Serverless scale thresholds with Min MCUs set to 0 and Max MCUs set to 12, noting the instance scales to zero when idle."><figcaption><p>Scale thresholds (Serverless)</p></figcaption></figure>
 
 Set the storage capacity and, if needed, enable storage auto-scaling.
+
+If you selected the **Analytics (HTAP)** add-on, **Instance Resources** also has an **Exa** group. Choose the Exa node size (minimum 4 vCPU / 32 GB RAM) and the Exa storage capacity there, separately from the MariaDB nodes. Under **Advanced Options**, you can also set the **MariaDB Exa Storage Type**. The cost estimate includes the Exa node. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md).
 
 ## Secure connectivity
 

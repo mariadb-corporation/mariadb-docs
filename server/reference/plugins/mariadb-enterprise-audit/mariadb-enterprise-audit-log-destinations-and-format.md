@@ -81,7 +81,7 @@ The audit log format for MariaDB Enterprise Audit depends on the [audit log dest
 
 When MariaDB Enterprise Audit is configured to use a dedicated file, it records events in a comma-separated (CSV) format. For tool developers, it is critical to use standardized field mappings to correlate audit data with other server logs.
 
-Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>,<tlsversion>`
+Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 
 | Field | Component      | Data Type      | Standardized Name / Description                                                                                                       |
 | ----- | -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -93,17 +93,17 @@ Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<que
 | 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query. Used to link Query and Table events.                                                      |
 | 7     | `operation`    | `String`       | The type of action (e.g., `CONNECT`, `QUERY`, `WRITE`).                                                                               |
 | 8     | `database`     | `String`       | The name of the database being accessed.                                                                                              |
-| 9     | `object`       | `String`       | The specific table or object involved in the operation.                                                                               |
+| 9     | `object`       | `String`       | The specific table or object involved in the operation. On [connection events](mariadb-enterprise-audit-filter-types.md#connection-events), from MariaDB Enterprise Server 12.3.3-1, this field holds the negotiated TLS version, such as `TLSv1.3`, and is empty when the connection is not encrypted. |
 | 10    | `retcode`      | `Integer`      | The return code; `0` indicates success, non-zero indicates an error code.                                                             |
-| 11    | `tlsversion`   | `String`       | The TLS version negotiated for the connection, such as `TLSv1.3`. Present only on [connection events](mariadb-enterprise-audit-filter-types.md#connection-events), and empty when the connection is not encrypted. Added in MariaDB Enterprise Server 12.3. |
 
 {% hint style="warning" %}
 **Changed in MariaDB Enterprise Server 12.3**
 
-Two changes to the log format require updates to tools that parse the audit log:
+These changes to the log format require updates to tools that parse the audit log:
 
 * The `host` field now contains a colon and the client port.
-* Connection event records carry an eleventh field. Records for all other operations still end at `retcode`.
+* Connection events record the negotiated TLS version. From MariaDB Enterprise Server 12.3.3-1, it is in the `object` field and the record ends at `retcode`, matching the [MariaDB Audit Plugin](../mariadb-audit-plugin/mariadb-audit-plugin-log-format.md). In MariaDB Enterprise Server 12.3.3-0, it was a trailing eleventh field after `retcode`.
+* `CHANGE_USER` records write the new user name in the `object` field, followed by the TLS version and then `retcode`, so they have eleven fields.
 {% endhint %}
 
 #### Milliseconds Precision Timestamps

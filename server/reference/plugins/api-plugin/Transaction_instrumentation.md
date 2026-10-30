@@ -7,12 +7,13 @@ description: >-
 
 # Transaction Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
 | Name | Description |
 |------|-------------|
+| [`PSI_TRANSACTION_CALL`](#psi_transaction_call)  |  |
 | [`MYSQL_START_TRANSACTION`](#mysql_start_transaction)  |  |
 | [`MYSQL_SET_TRANSACTION_GTID`](#mysql_set_transaction_gtid)  |  |
 | [`MYSQL_SET_TRANSACTION_XID`](#mysql_set_transaction_xid)  |  |
@@ -23,6 +24,16 @@ description: >-
 | [`MYSQL_INC_TRANSACTION_RELEASE_SAVEPOINT`](#mysql_inc_transaction_release_savepoint)  |  |
 | [`MYSQL_ROLLBACK_TRANSACTION`](#mysql_rollback_transaction)  |  |
 | [`MYSQL_COMMIT_TRANSACTION`](#mysql_commit_transaction)  |  |
+
+---
+
+### PSI_TRANSACTION_CALL
+
+```cpp
+#define PSI_TRANSACTION_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_transaction.h:40
 
 ---
 

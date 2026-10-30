@@ -38,6 +38,7 @@ The Model Context Protocol (MCP) is a standard interface through which AI agents
 | [OpenCode](https://opencode.ai) | `dev`, `sql`, `contributor` | Manual configuration |
 | [Pi](https://pi.dev) | `dev` | Pi package |
 | [Hermes Agent](https://hermes-agent.nousresearch.com/) | `dev`, `sql`, `contributor` | Agent Plugins package |
+| [Cursor](https://cursor.com) | `dev`, `sql`, `contributor` | Claude Code plugin marketplace |
 
 See [Plugin Variants](plugin-variants.md) for what each variant contains.
 

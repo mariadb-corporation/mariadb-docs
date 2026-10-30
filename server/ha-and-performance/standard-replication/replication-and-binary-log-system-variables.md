@@ -62,7 +62,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per-connection, of the cache holding a record of binary log changes during a transaction. A separate variable, [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size), sets the upper limit for the statement cache. The [binlog\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](replication-and-binary-log-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable sets the size in bytes of the in-memory buffer that holds a transaction's binary log changes before they are written to the binary log. The variable has global scope, but the buffer is allocated separately for each connection that writes to the binary log, so total memory use grows with the number of connections. A transaction whose changes exceed the buffer spills to a temporary file on disk. Changing the value does not resize caches that existing connections have already allocated. Changes made by statements on non-transactional tables use a separate cache, sized by [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size). The maximum size a connection's transaction cache can reach is set by [max\_binlog\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_cache_size). The [binlog\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](replication-and-binary-log-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
 * Command line: `--binlog-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -70,6 +70,10 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Default Value: `32768`
 * Range - 32 bit: `4096` to `4294967295`
 * Range - 64 bit: `4096` to `18446744073709547520`
+
+{% hint style="info" %}
+From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine=innodb`), `binlog_cache_size` is still the size of each connection's in-memory buffer. A transaction that outgrows the buffer is not written to a temporary file; its changes are written to the [InnoDB-based binary log](innodb-based-binary-log.md) in pieces while the transaction runs.
+{% endhint %}
 
 #### `binlog_checksum`
 
@@ -308,7 +312,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_stmt_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per connection, of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
 * Command line: `--binlog-stmt-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -509,7 +513,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `max_binlog_cache_size`
 
-* Description: Restricts the size in bytes used to cache a multi-transactional query. If more bytes are required, a `Multi-statement transaction required more than 'max_binlog_cache_size' bytes of storage` error is generated. If the value is changed, current sessions are unaffected, only sessions started subsequently. See [max\_binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_stmt_cache_size) and [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size).
+* Description: Sets the maximum size in bytes of the transaction cache that a single connection can use for binary log changes. [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size) sets only the in-memory part of that cache. If a multi-statement transaction needs more than `max_binlog_cache_size` bytes, it fails with the error `Multi-statement transaction required more than 'max_binlog_cache_size' bytes of storage; increase this mariadbd variable and try again`. The limit is fixed when a connection's cache is created, so changing the value does not affect connections that have already used the cache. See also [max\_binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_stmt_cache_size).
 * Command line: `--max-binlog-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -924,7 +928,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `numeric`
 * Default Value: `0.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), MariaDB Enterprise Server 10.6.11-6
 
 #### `slave_net_timeout`
 

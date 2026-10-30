@@ -390,4 +390,6 @@ This type object is used to describe date/time columns in a database.
 This type object is not supported in MariaDB Connector/Python and represents
 an empty set.
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
 {% @marketo/form formId="4316" %}

@@ -24,19 +24,12 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
 
 <figure><img src="../.gitbook/assets/image.png" alt="Login form for MariaDB Cloud, showing information about the service in the left panel, and the login form itself in the right panel."><figcaption><p>MariaDB Cloud login form</p></figcaption></figure>
 
-## Step 2: Launch a Service
+## Step 2: Create a Service
 
-1. [Log in to the MariaDB Cloud Portal](https://app.skysql.com/) and, from the Dashboard, click the [+ Launch New Service](https://app.skysql.com/launch-service) button.
-2. From the launch interface, select one of the following service types:
-   * Provisioned:
-     * MariaDB Server with Replicas
-     * MariaDB Server Single Node
-     *   MariaDB Enterprise Cluster
-
-         <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Enterprise Cluster Requirements</strong></p><p>MariaDB Enterprise Clusters are exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to maintain quorum.</p></div>
-   * Serverless:&#x20;
-     * MariaDB Serverless Single Node.
-3.  Select your cloud provider and region:\
+1. [Log in to the MariaDB Cloud Portal](https://app.skysql.com/) and, from the Dashboard, click the [+ Create New Service](https://app.skysql.com/create-service) button. The **Provision Cloud Database** page opens.
+2. Under **Topology**, select **MariaDB Serverless** or **MariaDB Provisioned**.
+3. For a provisioned service, under **High Availability**, select **Semi-sync**, **Insync**, or **None**.
+4.  Select your cloud provider and region:\
     Choose AWS, Google Cloud, or Azure, and then select one of the supported regions for the chosen provider.\
     Examples:
 
@@ -46,13 +39,10 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
 
     \
     **Note:** Available regions vary by cloud provider and service type.
-4. Service Name: Enter a name to identify your database service, such as `quickstart-1` or keep the automatically suggested service name.
-5. Click the `Launch Service` button.\
-   For additional information on available selections, see "[Service Launch](../cloud-usage/launch-page.md)".
-
-<figure><img src="../.gitbook/assets/service-attribute.png" alt="Provide a unique service name for the database service."><figcaption><p>Service Name Identifier</p></figcaption></figure>
-
-6. After launching, you will then be redirected to the Dashboard. \
+5. Under **Basic attributes**, enter a **Service Name**, such as `quickstart-1`, or keep the automatically suggested name.
+6. Click **Create Service** in the footer, which shows the estimated hourly and monthly cost.\
+   For the other selections on this page, see "[Launch Page](../cloud-usage/launch-page.md)".
+7. After the service is created, you are redirected to the Dashboard. \
    **Note**: If you choose a Serverless deployment, your service will be in a 'Healthy' state and ready for use. For Provisioned deployment types, the service will initially be in a 'Creating' state. Please wait until it transitions to a 'Healthy' state before proceeding to the next step. Typically, launching a new Provisioned database takes about 5 minutes or less.
 
 ## Step 3: Observe, Scale

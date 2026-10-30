@@ -46,13 +46,13 @@ For each document knowledge base, AI Retrieval creates these objects in the vect
 | Schema | `ai_retrieval_cloud_` followed by the last 7 characters of the knowledge base ID | Holds the chunks and embeddings of the knowledge base. |
 | Database user | `mdb_ai_rag_` followed by the same 7 characters | The account that AI Retrieval uses to connect. It has privileges on this schema only. |
 
-You do not supply credentials for a document knowledge base, and the portal does not offer an option to choose the user name.
+AI Retrieval creates these objects with a service user that has permission to create users. You do not supply credentials for a document knowledge base, and the portal does not offer an option to choose the user name.
 
 {% hint style="warning" %}
 Do not delete or change these objects, and do not change the password of the database user. A knowledge base cannot ingest or retrieve documents without them.
 {% endhint %}
 
-<!-- TODO: Egor said on 2026-10-20 that AI Retrieval connects with the service user shown in the Connect dialog and stops working when its password changes. That matches the database knowledge base form, which pre-fills the default service user (recording frame; MCDEV-3813 added a default read-only user and a custom-user override), but not the document knowledge base code. The code (ai-retrieval-cloud packages/skysql-common dbprovision/user_provisioner.py, commit 5124e49a of 2026-09-15) provisions a dedicated mdb_ai_rag_<suffix> user per knowledge base with privileges on its own schema only, and customer_db.py ensures it on first ingestion. Ask Egor which is right before unhiding, then fix the table and the hint. -->
+<!-- Egor, 2026-10-22: the code is right. AI Retrieval still uses a service user that has permission to create users, and with it creates the dedicated user of each knowledge base. He asked to double-check with Vijay. Code: ai-retrieval-cloud packages/skysql-common dbprovision/user_provisioner.py, commit 5124e49a of 2026-09-15; customer_db.py ensures the user on first ingestion. -->
 
 <!-- TODO: confirm that deleting the schema breaks the knowledge base and whether a service restored from a backup needs the objects recreated. See Known Limitations in the overview. -->
 
@@ -66,7 +66,7 @@ AI Retrieval connects to the vector store service over a private network inside 
 
 ## Database Knowledge Bases
 
-A database knowledge base reads from a MariaDB service that already holds your data. The create form pre-fills the default user of the service, and you can enter a different user name and password instead. AI Retrieval builds its description of the database, called the semantic map, from the tables and columns that the account can see.
+A database knowledge base reads from a MariaDB service that already holds your data. The create form pre-fills the default user of the service, and you can enter a different user name and password instead. AI Retrieval builds the semantic map of the database only from the tables and columns that this account can see.
 
 To control what a database knowledge base can read, create a dedicated user:
 
@@ -76,9 +76,13 @@ To control what a database knowledge base can read, create a dedicated user:
 
 ### Network Access for Database Knowledge Bases
 
-A database knowledge base connects to your service from outside the service network. Add the IP address of AI Retrieval to the IP allowlist of the service, or the connection fails.
+A database knowledge base connects to your service from outside the network of the service. Add this address of AI Retrieval to the IP allowlist of the service, or the connection fails:
 
-<!-- TODO: Egor said in a Slack DM on 2026-10-20 that the user must add the AI Retrieval IP address to the allowlist for a database knowledge base, and gave a test environment address. Ask Egor for the production address and for where the portal shows it, then state it here. The addresses are in research/DOCS-6592.md. Do not publish the test address. -->
+```
+34.41.226.174/32
+```
+
+<!-- Egor gave this address on 2026-10-22 (Slack DM, 15:17 IST) as the production address for database knowledge bases. It is the address that the portal shows today in the AI Agents datasource dialog. The portal will show it in the knowledge base form later. Egor wants it in this guide. Keep the address out of research notes that are committed. -->
 
 <!-- TODO: Database knowledge bases are not documented yet. The source is on the unmerged branch feature/MCDEV-3646-DBKB of skysql-gen-ai and in skysql-microservices ai-service. Confirm this section against the merged code and the final create form. -->
 
