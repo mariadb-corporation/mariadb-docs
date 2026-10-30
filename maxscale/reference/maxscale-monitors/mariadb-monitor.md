@@ -110,10 +110,10 @@ Before MariaDB 10.11:
 The `SUPER` privilege contains most required privileges.
 
 ```sql
-GRANT SUPER ON *.* TO 'maxscale'@'maxscalehost';
-GRANT PROCESS, RELOAD ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
+GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
