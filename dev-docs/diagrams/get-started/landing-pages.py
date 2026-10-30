@@ -1,6 +1,6 @@
 """Landing diagrams: get-started-orientation (site landing page) and ai-tools-agent-setup (AI Tools landing page).
 
-Usage: python3 -I proposals.py
+Usage: python3 -I landing-pages.py
 Reuses the palette, styles, output folders, and svg() writer from build.py.
 """
 from pathlib import Path
