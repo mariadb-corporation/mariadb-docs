@@ -4169,6 +4169,7 @@
       * [Information Schema Plugins: SHOW and FLUSH Statements](reference/product-development/plugin-development/information-schema-plugins-show-and-flush-statements.md)
       * [Replication & Cluster Plugin Development](reference/product-development/plugin-development/replication-and-cluster-plugin-development.md)
       * [Password Validation Plugin Development](reference/product-development/plugin-development/password-validation-plugin-development.md)
+      * [SQL Service for Plugins](reference/product-development/plugin-development/sql-service-for-plugins.md)
       * [Storage Engine Development](reference/product-development/plugin-development/storage-engines-storage-engine-development/README.md)
         * [Engine-defined New Table/Field/Index Attributes](reference/product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
         * [Table Discovery](reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md)
