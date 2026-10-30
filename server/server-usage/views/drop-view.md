@@ -24,9 +24,9 @@ The `IF EXISTS` clause prevents an error from occurring for views that don't exi
 
 It is possible to specify view names as `db_name`.`view_name`. This is useful to delete views from multiple databases with one statement. See [Identifier Qualifiers](../../reference/sql-structure/sql-language-structure/identifier-qualifiers.md) for details.
 
-The [DROP privilege](../../reference/sql-statements/account-management-sql-statements/grant.md#table-privileges) is required to use `DROP TABLE` on non-temporary tables. For temporary tables, no privilege is required, because such tables are only visible for the current session.
+**Important**: When a view is dropped, user privileges on the view are not automatically dropped. See [GRANT](../../reference/sql-statements/account-management-sql-statements/grant.md).
 
-If a view references another view, it are possible to drop the referenced view. However, the other view will reference a view which does not exist any more. Thus, querying it will produce an error similar to the following:
+If a view references another view, it is possible to drop the referenced view. However, the other view will reference a view which does not exist any more. Thus, querying it will produce an error similar to the following:
 
 ```sql
 ERROR 1356 (HY000): View 'db_name.view_name' references invalid table(s) or 
