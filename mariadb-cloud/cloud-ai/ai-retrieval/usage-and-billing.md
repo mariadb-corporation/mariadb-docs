@@ -23,9 +23,13 @@ AI Retrieval measures usage in MariaDB Compute Units (MCUs), the same unit that 
 
 ## Monthly MCU Limit
 
-Each organization has a monthly limit on the MCUs that AI Retrieval operations consume. The default limit is 100 MCUs per month. When the organization reaches its limit, AI Retrieval rejects new uploads, data source syncs, and retrieval and generation requests with HTTP status 403 and the error `ERR_MCU_LIMIT_REACHED` until the next month starts. Files of a sync that are over the limit are not ingested. To raise the limit, contact MariaDB support.
+Each organization has a monthly allowance of MCUs for AI Retrieval operations. The default allowance is 100 MCUs per month. It is separate from the MCU allowance of Serverless services.
 
-<!-- Source: ai-retrieval-cloud packages/metering limits.py and config.py @ f9bd8c0e (MCDEV-5410, MCDEV-5494, MCDEV-5507: default 100, per-org override, 403 ERR_MCU_LIMIT_REACHED; enforced on upload, data source sync, retrieval, and generation). TODO: the limit is off by default in the code (metering_limit_enabled); confirm it is on at launch, whether the 100 MCUs are a free tier that applies to every organization or a spend cap for card-billed organizations (Naman, 2026-09-02; Egor's layout document mentions a 4,000 MCU cap), whether customers can see their usage (GET /usage/mcu, MCDEV-5507), and who can raise the limit. -->
+The allowance applies to the whole organization, across all regions. Usage in one region can take up to about 30 minutes to count in the other regions.
+
+When the organization reaches its allowance, AI Retrieval rejects new uploads, data source syncs, and retrieval and generation requests with HTTP status 403 and the error `ERR_MCU_LIMIT_REACHED` until the next month starts. Files of a sync that are over the allowance are not ingested. To raise the allowance, contact MariaDB support.
+
+<!-- Sources: ai-retrieval-cloud packages/metering limits.py @ f9bd8c0e (403 ERR_MCU_LIMIT_REACHED; upload, sync, retrieval, generation); Kartikey, launch channel 2026-10-30 (per org across all regions, other regions learn usage in about 30 minutes; usage as ai_mcu_consumed_mtd and ai_mcu_limit in the billing account endpoint); Egor, 2026-10-29 (Serverless 10 MCUs and AI Retrieval 100 MCUs are separate limits; the portal banner will show 100). The limit is enforced in the test environment (Tarique reached it). TODO: say where customers see their usage once the portal shows it. -->
 
 ## Document Knowledge Bases
 

@@ -36,9 +36,13 @@ When a request exceeds a rate quota, the API returns HTTP status 429 with the er
 
 The portal uploads at most 5 files at a time, each up to 50 MB.
 
-A data source sync over the limit is not rejected. It waits and starts by itself when a sync slot is free.
+What happens at these limits:
 
-<!-- TODO: Karan has not answered whether Egor's ingestion model (tasks of up to 20 documents and under 20 MB, documents processed in 10-page batches, 3 tasks per organization per region) replaces "5 concurrent ingestion jobs" as the customer-facing limit, nor what a customer sees when a size, concurrency, or count quota is reached (Slack DM 2026-10-27 questions 1 and 7). Update this table and add the error behavior when he does. -->
+* A document over the size limit is rejected with HTTP status 413. During a data source sync, files in the bucket that are over the size limit are skipped.
+* AI Retrieval processes 5 documents of an upload session at a time. The other documents wait their turn and are not rejected.
+* A data source sync over the limit is not rejected. It waits and starts by itself when a sync slot is free.
+
+<!-- Karan, launch channel 2026-10-30: 413 for oversized documents; oversized bucket files skipped; 5 documents processed at a time per upload session. TODO: Karan has not answered whether Egor's ingestion model (tasks of up to 20 documents and under 20 MB, documents processed in 10-page batches, 3 tasks per organization per region) replaces "5 concurrent ingestion jobs" as the customer-facing limit, nor what a customer sees when a size, concurrency, or count quota is reached (Slack DM 2026-10-27 questions 1 and 7). Update this table and add the error behavior when he does. -->
 
 ## Monthly MCU Limit
 

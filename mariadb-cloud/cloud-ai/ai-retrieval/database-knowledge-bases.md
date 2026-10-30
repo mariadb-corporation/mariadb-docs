@@ -1,7 +1,7 @@
 ---
 description: >-
   Create a MariaDB Cloud AI Retrieval database knowledge base, build its
-  semantic map, describe your tables, and query your data in natural language.
+  semantic map, customize it, and query your data in natural language.
 icon: database
 hidden: true
 ---
@@ -37,19 +37,39 @@ AI Retrieval connects to the database and synchronizes its schema. This usually 
 
 <!-- TODO: Ryan Killea to confirm the steps, the defaults, and whether Golden Queries ship in the preview (Egor asked on 2026-10-21 whether golden query add/edit is exposed in the API; the skysql-gen-ai branch feat/dbkb-literals-golden-creds is not merged). Document the Advanced Options field for the description that the model receives (agentDescription in databaseKb.ts) once its portal label is known. -->
 
-## Build the Semantic Map
+## The Semantic Map
 
-The semantic map is the description of your tables and columns that AI Retrieval uses to turn a question into a query. AI Retrieval builds it when it synchronizes the schema.
+The semantic map is a model of your database that AI Retrieval builds automatically: the tables and columns, the relationships between tables, the indexes, and descriptions of the data. AI Retrieval uses it to turn a question into an SQL query.
+
+AI Retrieval builds the semantic map automatically when you create the knowledge base, including a description of each table with sample rows. You do not need to change anything to start asking questions. The steps in [Customize the Semantic Map](#customize-the-semantic-map) are optional.
+
+<!-- TODO: replace the semantic map wording with the description that Egor will send (call of 2026-10-29). -->
 
 Synchronize the schema again after you change the tables of the database. Some changes in the portal also apply only after the next sync. In that case, the knowledge base page shows **Some schema changes apply only after the next sync**. Select **Sync Now**.
 
-## Describe Your Tables and Columns
+## Customize the Semantic Map
 
-Descriptions help AI Retrieval pick the right tables and columns when it writes a query.
+Customize the semantic map only when you want to change what AI Retrieval uses, for example to correct a description or to keep a table out of every query.
+
+### Choose How Each Table Is Used
+
+Each table of the semantic map has a status that decides when AI Retrieval puts it into the context of a question:
+
+| Status | Effect |
+| --- | --- |
+| **Retrievable** (default) | AI Retrieval includes the table when it is relevant to the question. |
+| **Always Include** | AI Retrieval always includes the table. |
+| **Never Include** | AI Retrieval never includes the table. |
+
+The status is set by the first sync. In the current release, the annotation editor shows it but cannot change it.
+
+<!-- Egor, call of 2026-10-29: the statuses apply per table and can be changed; Phil had not wired the edit yet. Portal 4.13.37: schemaEditor.statusTooltip "Set by the first sync. It can't be changed here yet." Update when the portal can change the status. -->
+
+### Edit Descriptions and Columns
 
 1. Open the knowledge base. The **Schema Annotations** section lists the tables of the semantic map.
 2. Select **Edit Annotations**.
-3. Select a table, and enter a **Table description** and a description for each column.
+3. Select a table, and change its **Table description** or the description of a column.
 4. Select **Save**.
 
 Descriptions apply right away. In the same editor, you can also control the columns:
@@ -72,6 +92,7 @@ The results show the **Generated SQL** and the rows that it returned. If more ro
 | --- | --- |
 | **SQL Results** | Includes the result rows in the response, next to the generated answer. When it is off, the SQL is generated but not run. |
 | **SQL Limit** | The maximum number of rows that the generated query returns. |
+| **Multi Turn** | Keeps the conversation history across questions, so that a follow-up question builds on the earlier ones. It is on by default. |
 
 <!-- TODO: confirm the tab names of the Test drawer for a database knowledge base and add a screenshot after the production flip. -->
 
@@ -87,6 +108,14 @@ Select **Connect** on the knowledge base to see its endpoints and examples. A da
 Authenticate with an API key, in the same way as for a document knowledge base. See [Connect Your Application](document-knowledge-bases.md#connect-your-application).
 
 <!-- TODO: add the endpoint paths and the request and response fields once the API paths are final (MCDEV-1488 moves them to /ai/v1/knowledge-bases/). Vijay said on 2026-10-13 that database knowledge bases route through the API gateway, not the regional data plane. -->
+
+## Ask Follow-Up Questions
+
+A database knowledge base can answer a series of questions as one conversation. Each question can refer to the earlier ones, for example "Show the top customers this year" followed by "Only the ones in Germany". AI Retrieval refines the SQL query from the context of the earlier questions.
+
+To use this from the API, send the same `session_key` value with each request of the conversation. Without a `session_key`, each request is answered on its own.
+
+<!-- Source: skysql-gen-ai copilot/api/db_kb.py RetrieveRowsRequest (session_key optional, opt-in multi-turn; omit for a stateless call) @ main; portal TestDrawer.vue Multi Turn toggle (default on, sends session_key sess_ui_<uuid>); Egor, call of 2026-10-29 ("a big one"). Document knowledge bases do not support multi-turn (Vijay, 2026-10-30). -->
 
 ## Safeguards
 
