@@ -27,7 +27,7 @@
       ]
     },
     "mariadb-shell": {
-      "commit": "b074605909add4b0f624878e3a4a4b4cd6694d08",
+      "commit": "664993ccbc523cc82218251fcbe9c2fb8a209cdb",
       "assets": [
         "mcp-login.webp"
       ]
