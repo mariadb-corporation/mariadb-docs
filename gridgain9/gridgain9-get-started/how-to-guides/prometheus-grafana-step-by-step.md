@@ -5,8 +5,6 @@ description: >-
 
 # How to Monitor GridGain 9 With Prometheus and Grafana
 
-<!-- TODO (not tested): The Grafana steps were checked on 9.1.28 with Prometheus 3.1.0 and Grafana 12.4.0 through the Grafana HTTP API (login, data source, dashboard import, queries), not by clicking through the UI. The three screenshots are the originals from the devhub guide (made with an earlier Grafana). Click through the UI steps with Grafana 12.4.0 and retake the screenshots if the screens differ, then delete this comment. -->
-
 ## Prerequisites
 
 - **GridGain 9.1.28** or later
@@ -79,7 +77,7 @@ Finally, you set up [Grafana](https://grafana.com/docs/grafana/latest/setup-graf
 {% tab title="Unix" %}
 
    ```bash
-   ./grafana-server
+   ./bin/grafana server
    ```
 
 {% endtab %}
@@ -87,7 +85,7 @@ Finally, you set up [Grafana](https://grafana.com/docs/grafana/latest/setup-graf
 {% tab title="Windows" %}
 
    ```bash
-   grafana-server.exe
+   bin\grafana.exe server
    ```
 
 {% endtab %}
@@ -96,9 +94,9 @@ Finally, you set up [Grafana](https://grafana.com/docs/grafana/latest/setup-graf
 
    By default, Grafana is available at http://localhost:3000/login.
 
-3. Use the default login credentials: `admin` / `admin`. You must change them after your first login for security reasons.
-4. Navigate to **Connections**/**Data sources** and select **Add data source**.
-5. Add Prometheus as the data source.
+3. Log in with the default credentials: `admin` / `admin`. You must change them after your first login for security reasons.
+4. Open **Connections** > **Data sources** and click **Add data source**.
+5. Select **Prometheus**, enter your Prometheus server URL (for example, `http://localhost:9090`) under **Connection**, and click **Save & test**. Grafana confirms with `Successfully queried the Prometheus API`.
 
    ![Add data source in Grafana](../../.gitbook/assets/guides/monitor-gridgain9-prometheus-grafana/add_datasource.png)
 

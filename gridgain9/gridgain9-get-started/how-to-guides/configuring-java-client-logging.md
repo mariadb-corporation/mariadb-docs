@@ -99,6 +99,7 @@ import java.util.logging.*;
 static void configureLogging() {
     Logger igniteLogger = Logger.getLogger("org.apache.ignite.internal.client");
     igniteLogger.setLevel(Level.FINE);
+    igniteLogger.setUseParentHandlers(false);
 
     ConsoleHandler handler = new ConsoleHandler();
     handler.setLevel(Level.FINE);

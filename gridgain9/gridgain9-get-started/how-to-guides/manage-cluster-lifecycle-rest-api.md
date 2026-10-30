@@ -106,7 +106,7 @@ Expected response (abbreviated):
       "port": 3344
     },
     "metadata": {
-      "restHost": "172.18.0.2",
+      "restHost": "a1b2c3d4e5f6",
       "httpPort": 10300,
       "httpsPort": -1
     }
@@ -118,7 +118,7 @@ Expected response (abbreviated):
       "port": 3344
     },
     "metadata": {
-      "restHost": "172.18.0.3",
+      "restHost": "b2c3d4e5f6a1",
       "httpPort": 10300,
       "httpsPort": -1
     }
@@ -130,7 +130,7 @@ Expected response (abbreviated):
       "port": 3344
     },
     "metadata": {
-      "restHost": "172.18.0.4",
+      "restHost": "c3d4e5f6a1b2",
       "httpPort": 10300,
       "httpsPort": -1
     }
@@ -138,7 +138,7 @@ Expected response (abbreviated):
 ]
 ```
 
-The physical topology lists every node that has announced itself over port 3344, regardless of whether a cluster has been initialized. Each entry includes the node's `name` (persistent across restarts), internal communication `address`, and REST API metadata. The `id` field (UUID) changes on every restart and is omitted above for brevity.
+The physical topology lists every node that has announced itself over port 3344, whether or not the cluster is initialized. Each entry has the node's `name` (stable across restarts), its internal `address`, and REST `metadata`. In Docker, `restHost` is the container's hostname, not its IP address. The `id` (a UUID that changes on every restart) is omitted above.
 
 Wait until all expected nodes appear before proceeding. Node names are case-sensitive and must match exactly when referenced in the initialization request. Nodes that have not discovered each other cannot participate in cluster formation.
 
