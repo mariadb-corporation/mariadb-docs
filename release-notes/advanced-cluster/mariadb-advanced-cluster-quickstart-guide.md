@@ -429,12 +429,12 @@ FLUSH SSL;
 The `raft_tls_mode` and `raft_ssl_*` options protect the cluster connections. Other connections have their own configuration:
 
 * **State transfer request.** The joiner requests a state transfer through `mariadb-raft-sst`. It uses `raft_tls_mode` and the `raft_ssl_*` options, including the client certificate.
-* **State transfer data.** The `rsync` and `mariabackup` methods send the data through the `wsrep_sst_<method>` script. The `raft_ssl_*` options do not apply to it. Configure its encryption in the `[sst]` section, as for Galera. See [Securing Communications in Galera Cluster]({galera}/galera-security/securing-communications-in-galera-cluster).
+* **State transfer data.** The `rsync` and `mariabackup` methods send the data through the `wsrep_sst_<method>` script. The `raft_ssl_*` options do not apply to it. Configure its encryption in the `[sst]` section, as for Galera. See [Securing Communications in Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster).
 * **SQL connections.** `ssl_ca`, `ssl_cert` and `ssl_key` apply to SQL clients. They are separate from the `raft_ssl_*` options.
 
 ## Raft Event Log Encryption
 
-When [encrypt\_binlog]({server}/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#encrypt_binlog) is `ON`, the Raft server encrypts the new Raft event log files. It uses the keys of the configured encryption plugin, as for the binary log. When `encrypt_binlog` is `OFF`, new log files are not encrypted.
+When [encrypt\_binlog](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#encrypt_binlog) is `ON`, the Raft server encrypts the new Raft event log files. It uses the keys of the configured encryption plugin, as for the binary log. When `encrypt_binlog` is `OFF`, new log files are not encrypted.
 
 The plugin checks for a rotated master key at the interval that [raft\_key\_rotation\_check\_interval](raft-system-variables.md#raft-key-rotation-check-interval) sets, and gives the new key to the Raft server. You do not need to restart the node after a key rotation.
 

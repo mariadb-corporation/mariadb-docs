@@ -73,7 +73,7 @@ MariaDB Raft Cluster configures inter-node TLS through its own `raft_tls_mode` a
 * `ENCRYPT`: TLS without peer authentication.
 * `VERIFY_CA` (default): TLS. Both ends validate the peer certificate against `raft_ssl_ca` or `raft_ssl_capath`. A node without a CA and its own certificate and key does not start.
 
-The `raft_ssl_*` variables do not apply to the SST data. Configure SST encryption as described above. See [Raft System Variables]({release-notes}/advanced-cluster/raft-system-variables#raft-tls-mode).
+The `raft_ssl_*` variables do not apply to the SST data. Configure SST encryption as described above. See [Raft System Variables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/advanced-cluster/raft-system-variables#raft-tls-mode).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

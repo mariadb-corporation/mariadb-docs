@@ -8,7 +8,7 @@ description: >-
 # MariaDB Raft Cluster: Team FAQ & Architectural Guide
 
 {% hint style="info" %}
-For deployment and configuration, see the [MariaDB Raft Cluster Quickstart Guide]({release-notes}/advanced-cluster/mariadb-advanced-cluster-quickstart-guide).
+For deployment and configuration, see the [MariaDB Raft Cluster Quickstart Guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/advanced-cluster/mariadb-advanced-cluster-quickstart-guide).
 {% endhint %}
 
 ## The Basics
