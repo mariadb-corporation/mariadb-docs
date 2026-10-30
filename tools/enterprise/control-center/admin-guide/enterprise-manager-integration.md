@@ -10,7 +10,7 @@ hidden: true
 
 <!-- DOCS-6280 extended scope (E6). Verified against gmc master @ 4989bb129; review by the Control Center team. -->
 
-MariaDB Enterprise Manager can show the GridGain 8 clusters that Control Center monitors and open them in Control Center with single sign-on. For this, Control Center uses Enterprise Manager as an OpenID Connect provider named `em`. Configuring that provider is what enables the integration; there is no separate setting.
+MariaDB Enterprise Manager can show the GridGain 8 clusters that Control Center monitors and open them in Control Center with single sign-on. For this, Control Center uses Enterprise Manager as an OpenID Connect provider registered as `em`. Configuring that provider is what enables the integration; there is no separate setting. The registration name must be exactly `em`, because Enterprise Manager uses it in every link it builds into Control Center; any other name breaks the drill-through.
 
 Control Center otherwise runs as usual: agents connect to Control Center, and users browse clusters in Control Center. You apply the settings on this page, and connect Enterprise Manager to Control Center on the Enterprise Manager side. For the Enterprise Manager steps, see [Add a GridGain 8 Cluster](../../mariadb-enterprise-manager/administration/deployment/adding-databases/add-gridgain-8-cluster.md).
 
@@ -40,7 +40,7 @@ control.base-url=<cc-url>
 Do not set these two properties for the `em` provider:
 
 * `spring.security.oauth2.client.provider.em.issuer-uri`: Control Center would read Enterprise Manager's discovery document at startup and check the issuer. The check fails, and Control Center does not start.
-* `spring.security.oauth2.client.provider.em.user-info-uri`: Control Center reads the user's role from the ID token that Enterprise Manager issues at sign-in. Enterprise Manager's user info endpoint carries no role. When the access token expires after 8 hours, the calls to it fail and log an error every 10 seconds.
+* `spring.security.oauth2.client.provider.em.user-info-uri`: Control Center reads the user's role from the ID token that Enterprise Manager issues at sign-in (see [Role Attribute Sources](open-id.md#role-attribute-sources)). Enterprise Manager's user info endpoint carries no role. When the access token expires after 8 hours, the calls to it fail and log an error every 10 seconds.
 {% endhint %}
 
 When the `em` provider is configured, Control Center creates the account `em-service-user@controlcenter.local` on its next start. Enterprise Manager uses this regular account to read the cluster list. The account joins the Global Team.
@@ -80,9 +80,9 @@ If Control Center uses another identity provider instead of Enterprise Manager, 
 
 ## Trust the Enterprise Manager Certificate
 
-Control Center calls Enterprise Manager over HTTPS to read its key set and exchange tokens. Enterprise Manager uses a self-signed certificate by default, so Control Center must trust it. Otherwise Control Center cannot verify Enterprise Manager's tokens, and no clusters appear in Enterprise Manager. A certificate signed by a public CA is already trusted.
+Control Center calls Enterprise Manager over HTTPS to read its key set and exchange tokens. Enterprise Manager uses a self-signed certificate by default, so Control Center must trust it. Otherwise Control Center cannot verify Enterprise Manager's tokens, and no clusters appear in Enterprise Manager; the Control Center log shows `PKIX path building failed`. A certificate signed by a public CA is already trusted.
 
-<!-- DOCS-6280 TODO (Control Center team review): gmc assembly/README.txt says to use server.ssl.trust-store, but the JWK set is fetched by Spring's default NimbusJwtDecoder (EmJwtDecoderConfig), which uses the JVM trust store. Confirm the procedure below. -->
+Control Center trusts certificates through the standard Java trust store properties, as described in [Configuring SSL Without Management Script](../installation/install-binary.md#configuring-ssl-without-management-script).
 
 1. Import the Enterprise Manager certificate into a trust store:
 
