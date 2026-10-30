@@ -4,18 +4,18 @@
   <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
 </defs>
 <style>
-  text { fill: #1d2a33; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  text { fill: #18181b; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
   .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
   .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
-  .mut { fill: #5b6b75; } .acct { fill: #0E6488; }
-  .box { fill: #eef3f6; stroke: #b8c6ce; } .plain { fill: none; stroke: #b8c6ce; }
-  .accbox { fill: #dcecf3; stroke: #0E6488; } .frame { fill: none; stroke: #5b6b75; stroke-dasharray: 5 4; }
-  .ln { fill: none; stroke: #1d2a33; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
-  .acc { stroke: #0E6488; stroke-width: 2; } .mut-ln { stroke: #5b6b75; }
-  .fillacc { fill: #0E6488; } .fillsoft { fill: #dcecf3; } .fillpanel { fill: #eef3f6; }
+  .mut { fill: #5f5f69; } .acct { fill: #8328ED; }
+  .box { fill: #f4f4f5; stroke: #c4c4cc; } .plain { fill: none; stroke: #c4c4cc; }
+  .accbox { fill: #f1e8fe; stroke: #8328ED; } .frame { fill: none; stroke: #5f5f69; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #18181b; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #8328ED; stroke-width: 2; } .mut-ln { stroke: #5f5f69; }
+  .fillacc { fill: #8328ED; } .fillsoft { fill: #f1e8fe; } .fillpanel { fill: #f4f4f5; }
   .halo { paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
   .on { fill: #ffffff; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
-  .mk { fill: #1d2a33; } .mkacc { fill: #0E6488; }
+  .mk { fill: #18181b; } .mkacc { fill: #8328ED; }
 </style>
 
 <rect class="box" x="20" y="110" width="170" height="70" rx="6"/>

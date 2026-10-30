@@ -3,7 +3,8 @@
 Usage: python3 -I build.py
 Each diagram is written once with CSS classes; the script bakes the light and dark palettes
 into two files, <name>-light.svg and <name>-dark.svg, for a GitBook <picture> block.
-Palettes follow the production site: primary #0E6488 (light) and #96DDCF (dark).
+Palettes follow the 2026-11-03 site theme (rehearsal site site_bFEbB): primary #8328ED (light)
+and #BEA4FD (dark), with neutral grays to match its neutral tint.
 """
 from pathlib import Path
 
@@ -12,10 +13,10 @@ GET_STARTED = REPO / "get-started/.gitbook/assets"
 AI_TOOLS = REPO / "ai-tools/.gitbook/assets"
 
 PALETTES = {
-    "light": dict(fg="#1d2a33", muted="#5b6b75", panel="#eef3f6", line="#b8c6ce", accent="#0E6488",
-                  accentsoft="#dcecf3", accenttext="#0E6488", halo="#ffffff", on="#ffffff"),
-    "dark": dict(fg="#e4ecef", muted="#9aabb3", panel="#1f2a30", line="#3d5059", accent="#96DDCF",
-                 accentsoft="#1d3533", accenttext="#96DDCF", halo="#1b1f22", on="#0f1a1c"),
+    "light": dict(fg="#18181b", muted="#5f5f69", panel="#f4f4f5", line="#c4c4cc", accent="#8328ED",
+                  accentsoft="#f1e8fe", accenttext="#8328ED", halo="#ffffff", on="#ffffff"),
+    "dark": dict(fg="#ececef", muted="#a1a1aa", panel="#1e1e22", line="#45454d", accent="#BEA4FD",
+                 accentsoft="#2b2242", accenttext="#BEA4FD", halo="#111113", on="#18181b"),
 }
 
 STYLE = """<style>
