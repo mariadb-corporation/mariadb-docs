@@ -2,7 +2,7 @@
 description: >-
   PyGridGain 1.7.0 supports Python 3.11 to 3.15, adds vector query filters and
   tuning parameters, and uses TLS 1.3 by default. Also covers langchain-gridgain
-  and langgraph-checkpoint-gridgain 3.0.0.
+  and langgraph-checkpoint-gridgain 3.1.0.
 hidden: true
 ---
 
@@ -10,7 +10,7 @@ hidden: true
 
 ## New Features
 
-PyGridGain 1.7.0 adds new vector search parameters, supports newer Python versions, and changes several defaults. This release also covers `langchain-gridgain` 3.0.0 and the new `langgraph-checkpoint-gridgain` 3.0.0 package.
+PyGridGain 1.7.0 adds new vector search parameters, supports newer Python versions, and changes several defaults. This release also covers `langchain-gridgain` 3.1.0 and the new `langgraph-checkpoint-gridgain` 3.1.0 package.
 
 ### Python 3.11 to 3.15
 
@@ -47,7 +47,7 @@ For more information, see [Vector Queries](https://app.gitbook.com/o/diTpXxF5Wsb
 
 ### LangChain and LangGraph Integration
 
-`langchain-gridgain` 3.0.0 and the new `langgraph-checkpoint-gridgain` 3.0.0 package include the following changes, including the changes from `langchain-gridgain` 2.0.0:
+`langchain-gridgain` 3.1.0 and the new `langgraph-checkpoint-gridgain` 3.1.0 package include the following changes, including the changes from `langchain-gridgain` 2.0.0 and 3.0.0:
 
 - **New `langgraph-checkpoint-gridgain` package.** It provides the following LangGraph components, which do not require a license for vector search:
   - `GridGainCheckpointSaver`, a checkpointer.
@@ -55,7 +55,7 @@ For more information, see [Vector Queries](https://app.gitbook.com/o/diTpXxF5Wsb
   - `GridGainNodeCache`, a node cache.
 - **`GridGainByteStore`.** A key-value store for binary values, such as embeddings cached with `CacheBackedEmbeddings`.
 - **Entry expiry.** `GridGainStore`, `GridGainByteStore`, `GridGainCache`, `GridGainSemanticCache`, and `GridGainVectorStore` accept a `ttl` argument.
-- **Vector store metadata filtering.** `GridGainVectorStore` filters searches by declared metadata keys on the server. Filtering requires PyGridGain 1.7.0 and GridGain 8.10 or later.
+- **Vector store metadata filtering.** `GridGainVectorStore` filters searches by declared metadata keys on the server. Filtering requires GridGain 8.10 or later.
 - **Vector store improvements.** `GridGainVectorStore` supports IDs, deleting and getting documents by ID, and maximal marginal relevance search, and returns real cosine distances as scores. The new `similarity_search_by_vector` method searches by an embedding vector.
 - **LangChain fixes.** `GridGainStore.yield_keys` returns the keys. `GridGainDocumentLoader` applies `filter_criteria` and `create_cache_if_not_exists`. `GridGainVectorStore` searches work with `score_threshold=None`. `add_documents` stores each document of a batch in which only some documents have IDs. Components that share one client no longer corrupt the connection when used from several threads.
 
@@ -69,6 +69,7 @@ For more information, see [Vector Queries](https://app.gitbook.com/o/diTpXxF5Wsb
 - **Dependencies.** `attrs` and `tzlocal` are no longer pinned to exact versions, and `contextvars` is no longer required.
 - **Packaging.** The package metadata moved to `pyproject.toml`. The installed package no longer contains a top-level `tests` package. Building from a source distribution requires setuptools 77 or later. The package includes a `py.typed` marker, so type checkers use its type hints. The empty `pygridgain.stream.aio_cluster` module was removed; `pygridgain.aio_cluster` is not affected.
 - **License.** The client is licensed under the MariaDB Software License Terms.
+- **LangChain and LangGraph requirements.** `langchain-gridgain` 3.1.0 and `langgraph-checkpoint-gridgain` 3.1.0 require Python 3.11 or later and PyGridGain 1.7.0 or later (below 2.0). `langgraph-checkpoint-gridgain` 3.1.0 requires `langchain-gridgain` 3.1.0.
 - **LangGraph imports.** In `langchain-gridgain` 3.0.0, `GridGainCheckpointSaver` and `GridGainMemoryStore` moved to `langgraph-checkpoint-gridgain`. Import them from `langgraph.checkpoint.gridgain` and `langgraph.store.gridgain`.
 - **LangChain dependencies and cache keys.** `langchain-gridgain` depends on `langchain-core` 1.4.7 or later instead of `langchain-community`, and `GridGainCache` keys now include the large language model (LLM). Clear LLM caches written by version 1.0.x once after the upgrade.
 
@@ -123,8 +124,8 @@ pip install pygridgain==1.7.0
 To install the LangChain and LangGraph packages:
 
 ```shell
-pip install langchain-gridgain==3.0.0
-pip install langgraph-checkpoint-gridgain==3.0.0
+pip install langchain-gridgain==3.1.0
+pip install langgraph-checkpoint-gridgain==3.1.0
 ```
 
 ## Previous Releases

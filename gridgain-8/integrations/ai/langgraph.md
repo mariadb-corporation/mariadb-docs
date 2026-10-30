@@ -15,7 +15,7 @@ These components use only the SQL and key-value APIs, so they do not require a l
 
 ## Prerequisites
 
-- Python 3.10 or later.
+- Python 3.11 or later.
 - A running GridGain 8 cluster.
 
 ## Installation
@@ -23,10 +23,10 @@ These components use only the SQL and key-value APIs, so they do not require a l
 Install the package using pip:
 
 ```bash
-pip install langgraph-checkpoint-gridgain==3.0.0
+pip install langgraph-checkpoint-gridgain==3.1.0
 ```
 
-The package depends on `langchain-gridgain` 3.0.0, `langgraph-checkpoint` 4.1.1 or later (below 5.0), `langchain-core` 1.4.7 or later (below 2.0), and `pygridgain` 1.6.0 or later (below 2.0). It installs the `langchain-gridgain` [LangChain components](langchain.md) as well. Install the `langgraph` package that runs your graphs separately.
+The package depends on `langchain-gridgain` 3.1.0, `langgraph-checkpoint` 4.1.1 or later (below 5.0), `langchain-core` 1.4.7 or later (below 2.0), and `pygridgain` 1.7.0 or later (below 2.0). It installs the `langchain-gridgain` [LangChain components](langchain.md) as well. Install the `langgraph` package that runs your graphs separately.
 
 Import the components from the `langgraph` namespace:
 
@@ -153,11 +153,28 @@ In this example, a repeated input reuses the cached output of the node for 300 s
 - With an `AioClient`, the asynchronous methods use non-blocking I/O.
 
 {% hint style="info" %}
-The default cache key does not guarantee a cache hit for every equivalent chat input. For nodes that take chat messages, set an explicit `key_func` in the `CachePolicy` that covers all fields that affect the output of the node:
+The default cache key does not guarantee a cache hit for every equivalent chat input. For nodes that take chat messages, set an explicit `key_func` in the `CachePolicy` that covers all fields that affect the output of the node. Serialize the messages as structured data, such as a JSON list. If you join message fields into one string with a delimiter, different message lists can produce the same key, and the node returns a cached result for the wrong input.
+
+The following example encodes each message as a separate JSON object, including tool call data. Add any other state fields that affect the output of your node:
 
 ```python
+import json
+
 def messages_key(state):
-    return "|".join(f"{m.type}:{m.content}" for m in state["messages"])
+    return json.dumps(
+        [
+            {
+                "type": m.type,
+                "content": m.content,
+                "name": m.name,
+                "tool_calls": getattr(m, "tool_calls", None),
+                "tool_call_id": getattr(m, "tool_call_id", None),
+            }
+            for m in state["messages"]
+        ],
+        sort_keys=True,
+        default=str,
+    )
 
 builder.add_node(
     "call_model", call_model, cache_policy=CachePolicy(key_func=messages_key)

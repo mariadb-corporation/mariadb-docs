@@ -25,11 +25,11 @@ For LangGraph persistence, see [LangGraph Integration](langgraph.md).
 
 The following is required to use the LangChain integration:
 
-- Python 3.10 or later.
+- Python 3.11 or later.
 - A running GridGain 8 cluster. The edition you need depends on the components that you use:
   - `GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` use only key-value operations and work with any edition.
   - `GridGainVectorStore` and `GridGainSemanticCache` require GridGain 8.9.17 or later with a license that provides access to vector search.
-- To filter vector searches by metadata, GridGain 8.10 or later and `pygridgain` 1.7.0 or later, which requires Python 3.11 or later. See [Filtering by Metadata](#filtering-by-metadata).
+- To filter vector searches by metadata, GridGain 8.10 or later. See [Filtering by Metadata](#filtering-by-metadata).
 
 ## Installation
 
@@ -39,7 +39,7 @@ Install the `langchain-gridgain` package using pip:
 pip install langchain-gridgain
 ```
 
-Version 3.0.0 depends on `langchain-core` 1.4.7 or later (below 2.0), the GridGain 8 Python thin client `pygridgain` 1.6.0 or later (below 2.0), and the Apache Ignite Python thin client `pyignite` 0.6.1 or later (below 0.7). It does not depend on `langchain-community`.
+Version 3.1.0 depends on `langchain-core` 1.4.7 or later (below 2.0), the GridGain 8 Python thin client `pygridgain` 1.7.0 or later (below 2.0), and the Apache Ignite Python thin client `pyignite` 0.6.1 or later (below 0.7). It does not depend on `langchain-community`.
 
 `GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` accept a `pygridgain` or a `pyignite` client. `GridGainVectorStore` and `GridGainSemanticCache` require a `pygridgain` client, because `pyignite` does not support vector queries.
 
@@ -81,7 +81,9 @@ Replace `"your_username"`, `"your_password"`, `"gridgain.example.com"`, and `108
 The examples below use the `client` object returned by this function.
 
 {% hint style="info" %}
-All components that use the same client share one lock, so you can use one client from several components and threads without extra locking. Operations on one client run one at a time. If you need client-side parallelism, use several clients.
+All components that use the same client share one lock, so you can use one client from several components and threads. Operations on one client run one at a time. If you need client-side parallelism, use several clients.
+
+The lock protects each client operation, not a sequence of operations. For example, `GridGainChatMessageHistory.add_messages()` reads the session history and then writes it back. If several threads or processes add messages to the same session at the same time, they can overwrite each other's messages. Serialize updates to one session in your application.
 {% endhint %}
 
 ## Detailed Component Explanations
@@ -317,7 +319,7 @@ Values are compared as text. Strings are compared as is, booleans as `"true"` or
 The filter fields are set when the cache is created. If you declare `filterable_metadata_fields` for an existing cache that was created without them, the store raises `ValueError`. Create the store with a new cache name and add the documents again. A store without `filterable_metadata_fields` opens existing caches as before.
 {% endhint %}
 
-If the installed `pygridgain` is older than 1.7.0, creating a store with `filterable_metadata_fields` raises `ImportError`. If the cluster does not support filtered vector queries, a filtered search raises `NotSupportedByClusterError`. The filter is never dropped silently.
+If the cluster does not support filtered vector queries, a filtered search raises `NotSupportedByClusterError`. The filter is never dropped silently.
 
 ## Entry Expiry (TTL)
 
@@ -343,6 +345,10 @@ semantic_cache = GridGainSemanticCache(
 ```
 
 For the semantic cache, `ttl` applies to its own entries. Set the same `ttl` on the `GridGainCache` that it uses, so that both expire together.
+
+## Upgrading to Version 3.1.0
+
+Version 3.1.0 requires Python 3.11 or later and `pygridgain` 1.7.0 or later (below 2.0). Upgrade Python before you install the new version. A non-empty filter that the vector store cannot apply raises `ValueError`. Only `None` and `{}` mean no filter. The stored data remains compatible with version 3.0.0.
 
 ## Upgrading to Version 3.0.0
 
