@@ -181,8 +181,13 @@ There are several ways you can change the default work directory:
 
 GridGain ships with a number of modules that provide various functionality. You can enable modules one by one, as required.
 
-All modules are included in the binary distribution, but by default they are disabled (except for `ignite-core`, `ignite-spring`, `ignite-indexing`, and `ignite-opencensus`).
-Modules can be found in the `libs/optional` directory of the distribution package (each module is located in a separate sub-directory).
+The modules in the `libs` directory of the binary distribution are enabled by default: `ignite-core`, `ignite-spring`, `ignite-indexing`, and `ignite-lucene-9`.
+Other modules are disabled by default. They are in the `libs/optional` directory of the distribution package, each in a separate sub-directory.
+
+Some modules and integrations are not in the binary distribution:
+
+- `ignite-hibernate-7.4`, `ignite-spring-data`, and `ignite-spring-data-commons` are available from Maven only. If code that uses them runs on a standalone node, for example in a compute task or a service, add the artifact and its dependencies to the node's classpath.
+- The Oracle GoldenGate integrations are in the separate GridGain Integrations download. See [GridGain Handler](../integrations/oracle-goldengate/gridgain-handler.md).
 
 Depending on how you use GridGain, you can enable modules using one of the following methods:
 
@@ -219,6 +224,7 @@ The following modules are available:
 |ignite-log4j2 |Support for Log4j2|
 |ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Enabled by default: the binary distribution ships it in the `libs` directory.|
 |ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later. Disabled by default: the binary distribution ships it in the `libs/optional` directory. It replaces `ignite-lucene-9` on a node. On Java 22 and later, you can use `ignite-lucene-10-java22` instead. See [Choosing a Lucene Line](vector-search/README.md#choosing-a-lucene-line).|
+|ignite-opencensus | Support for [OpenCensus tracing](../gridgain8-management/monitoring/tracing.md) and the [OpenCensus metrics exporter](../reference/monitoring/generic-metrics.md#opencensus). Disabled by default. A node configured with `OpenCensusTracingSpi` or `OpenCensusMetricExporterSpi` fails at startup with `ClassNotFoundException` unless the module is enabled.|
 |ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
 |ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|
 |ignite-osgi-karaf | This module contains a feature repository to facilitate installing GridGain into an Apache Karaf container.|
@@ -226,7 +232,7 @@ The following modules are available:
 |ignite-rest-http | GridGain REST-HTTP starts a Jetty-based server within a node that can be used to execute tasks and/or cache commands in grid using HTTP-based [RESTful APIs](../reference/rest-api/README.md).|
 |ignite-schedule | This  module provides functionality for scheduling jobs locally using UNIX cron-based syntax.|
 |ignite-slf4j | Support for [SLF4J logging framework](../gridgain8-management/cluster-configuration/logging.md#using-slf4j).|
-|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data 4 framework. The repository API is in the `org.apache.ignite.springdata` package. The module was previously named `ignite-spring-data_2.2`. When upgrading from GridGain 8.9.x, change the Maven `artifactId` to `ignite-spring-data` and replace `org.apache.ignite.springdata22` with `org.apache.ignite.springdata` in your imports.|
+|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data 4 framework. The repository API is in the `org.apache.ignite.springdata` package. The module was previously named `ignite-spring-data_2.2`. When upgrading from GridGain 8.9.x, change the Maven `artifactId` to `ignite-spring-data` and replace `org.apache.ignite.springdata22` with `org.apache.ignite.springdata` in your imports. Available from Maven only.|
 |ignite-urideploy | GridGain URI Deploy module provides capabilities to deploy tasks from different sources such as File System, HTTP, or even Email.|
 |ignite-web | GridGain Web allows you to start nodes inside any web container based on servlet and servlet context listener. In addition, this module provides capabilities to cache web sessions in a GridGain cache.|
 |ignite-zookeeper | GridGain ZooKeeper provides a TCP Discovery IP Finder that uses a ZooKeeper directory to discover other GridGain nodes.|
