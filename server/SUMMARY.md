@@ -826,6 +826,7 @@
     * [phpMyAdmin](clients-and-utilities/graphical-and-enhanced-clients/phpmyadmin.md)
     * [Querious](clients-and-utilities/graphical-and-enhanced-clients/querious.md)
     * [SB Data Generator](clients-and-utilities/graphical-and-enhanced-clients/sb-data-generator.md)
+    * [Seqora](clients-and-utilities/graphical-and-enhanced-clients/seqora.md)
     * [SQL Diagnostic Manager & SQLyog](clients-and-utilities/graphical-and-enhanced-clients/sql-diagnostic-manager-and-sqlyog.md)
     * [SQLPro Studio](clients-and-utilities/graphical-and-enhanced-clients/sqlpro-studio.md)
     * [SQLyog](clients-and-utilities/graphical-and-enhanced-clients/sqlyog-community-edition.md)
