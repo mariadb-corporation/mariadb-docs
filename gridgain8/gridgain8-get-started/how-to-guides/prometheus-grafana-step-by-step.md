@@ -7,7 +7,8 @@ description: >-
 
 ## Prerequisites
 
-- A **GridGain 8** project you can launch from Java code
+- A **GridGain 8** project you can launch from Java code, built with **JDK 17** or later and **Maven**
+- A GridGain Enterprise or Ultimate license file for the nodes
 - A [**Prometheus**](https://prometheus.io/download/) server
 - [**Grafana**](https://grafana.com/grafana/download)
 
@@ -236,11 +237,26 @@ First, you need to configure GridGain to use a Prometheus exporter and create an
   }
   ```
 
+  The `Exporter` class starts the HTTP server that Prometheus scrapes, so register it as a lifecycle bean in the node configuration, together with `OpenCensusMetricExporterSpi`. (The XML tab does the same job with the `httpServer` and `opencensusWrapper` beans, so it does not use this class.)
+
+  ```java
+  IgniteConfiguration cfg = new IgniteConfiguration();
+
+  cfg.setLifecycleBeans(new Exporter(1234));
+  OpenCensusMetricExporterSpi exporterSpi = new OpenCensusMetricExporterSpi();
+  exporterSpi.setPeriod(1000);
+  cfg.setMetricExporterSpi(exporterSpi);
+  cfg.setMetricsUpdateFrequency(1000);
+
+  Ignition.start(cfg);
+  ```
+
 {% endtab %}
 
 {% endtabs %}
 
-- Start GridGain nodes.
+- Start GridGain nodes. Give each node on the same host its own exporter port, for example `1234`, `1235`, and `1236`.
+- If you use native persistence, as in the XML example, activate the cluster with `control.sh --set-state ACTIVE`.
 
 You should be able to access the metrics on the HTTP server URL: [http://localhost:1234](http://localhost:1234).
 
