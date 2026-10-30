@@ -278,7 +278,7 @@ helm uninstall mariadb-enterprise-operator-crds
 | config.exporterMaxscaleImage | object | `{"repository":"mariadb/maxscale-prometheus-exporter-ubi","tag":"1.2.1"}` | Default MaxScale exporter image |
 | config.galeraLibPath | string | `"/usr/lib64/galera/libgalera_enterprise_smm.so"` | Galera Enterprise library path to be used with Galera |
 | config.mariadbDefaultVersion | string | `"12.3"` | Default MariaDB Enterprise version to be used when unable to infer it via image tag |
-| config.mariadbImage | object | `{"repository":"docker.mariadb.com/enterprise-server","tag":"12.3.3-0"}` | Default MariaDB Enterprise image |
+| config.mariadbImage | object | `{"repository":"docker.mariadb.com/enterprise-server","tag":"12.3.3-1"}` | Default MariaDB Enterprise image |
 | config.mariadbImageName | string | `"docker.mariadb.com/enterprise-server"` | Default MariaDB Enterprise image name |
 | config.maxscaleImage | object | `{"repository":"docker.mariadb.com/maxscale","tag":"26.10.0"}` | Default MaxScale Enterprise image |
 | crds | object | `{"enabled":false}` | CRDs |

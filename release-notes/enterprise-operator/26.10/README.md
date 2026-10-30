@@ -26,7 +26,7 @@ Please refer to the [OpenShift](https://mariadb.com/docs/tools/enterprise/mariad
 
 ### [K8SDKR-257](https://jira.mariadb.org/browse/K8SDKR-257) / [K8SDKR-259](https://jira.mariadb.org/browse/K8SDKR-259) New default images
 
-The operator now defaults to MariaDB Enterprise Server `12.3` (`config.mariadbDefaultVersion`, image `12.3.3-0`) and to MaxScale `26.10.0`. Existing `MariaDB` and `MaxScale` resources keep the image they already use.
+The operator now defaults to MariaDB Enterprise Server `12.3` (`config.mariadbDefaultVersion`, image `12.3.3-1`) and to MaxScale `26.10.0`. Existing `MariaDB` and `MaxScale` resources keep the image they already use.
 
 ### [K8SDKR-341](https://jira.mariadb.org/browse/K8SDKR-341) Updated license terms
 
@@ -40,7 +40,6 @@ MariaDB Enterprise Server 12.3 is now supported. Three changes in the operator a
 
 * `spec.updateStrategy.mariadbAutoUpgradeEnabled` runs `mariadb-upgrade` when the Pods start, so the system schema is migrated when `spec.image` crosses a major version. It defaults to `false`: set it to `true` before bumping `spec.image` to a new major version.
 * The multi-cluster switchover no longer fails on 12.3 with `Error 4243`: the replicas are stopped and their `Binlog Dump` threads killed on the promoted primary before `RESET MASTER` is issued.
-* A replica that was stopped on purpose, with no replication error, is no longer restarted by the agent liveness probe.
 
 ### [K8SDKR-259](https://jira.mariadb.org/browse/K8SDKR-259) Support for MaxScale 26.10 and MaxScale licensing
 
@@ -95,12 +94,12 @@ New examples cover physical backups and restores of large Galera datasets, from 
 
 The current release has been tested with the following versions:
 
-| Platform/Component        | Version    |
-| ------------------------- | ---------- |
-| Kubernetes                | 1.36       |
-| OpenShift                 | 4.20       |
-| MariaDB Enterprise Server | 12.3.3-0   |
-| MaxScale                  | 26.10.0    |
+| Platform/Component        | Version          |
+| ------------------------- | ---------------- |
+| Kubernetes                | 1.36             |
+| OpenShift                 | 4.18, 4.20, 4.22 |
+| MariaDB Enterprise Server | 12.3.3-1         |
+| MaxScale                  | 26.10.0          |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
