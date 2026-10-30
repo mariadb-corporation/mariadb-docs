@@ -11,7 +11,7 @@ description: >-
 
 "There are only two hard things in computer science: cache invalidation and naming things" (attributed to Phil Karlton, a principal engineer at Netscape in the 1990s). This tutorial takes on the first one.
 
-You can put and get data with `IgniteCache` after [Work with the Cache API](work-with-cache-api.md). That is enough to call it a cache, but two problems make an unbounded cache unusable in production.
+You can put and get data with `IgniteCache` after [Work with the Cache API](../../quick-start/work-with-cache-api.md). That is enough to call it a cache, but two problems make an unbounded cache unusable in production.
 
 Without a size ceiling, every put expands the memory footprint until the JVM or the server's off-heap region runs out. A cache with no entry expiry is worse. It keeps serving data that has already gone stale in the source system. Neither is a bug that surfaces in a 1,000-entry test. Both are real under production load.
 
@@ -23,7 +23,7 @@ This tutorial labels itself "beginner" for GridGain. The surrounding Java stack 
 
 ## Prerequisites
 
-- **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
+- **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
 - **Java 17** or later
 - **Maven 3.6** or later
 - **JCache `ExpiryPolicy` terminology** will be introduced; no prior knowledge assumed.
@@ -147,7 +147,7 @@ Create `cache-client/pom.xml`:
 
 GridGain 8 artifacts are published to GridGain's Nexus repository, not Maven Central. The `<repositories>` block tells Maven where to find the `gridgain-core` dependency.
 
-This `pom.xml` matches the one from [Work with the Cache API](work-with-cache-api.md). If you kept that project, you can continue using it; the four classes in this tutorial live in the same `com.example` package and the same `exec-maven-plugin` invocation runs them. The `exec.mainClass` property in `<properties>` is overridden on each `mvn exec:exec` call, so you switch between classes without editing the pom.
+This `pom.xml` matches the one from [Work with the Cache API](../../quick-start/work-with-cache-api.md). If you kept that project, you can continue using it; the four classes in this tutorial live in the same `com.example` package and the same `exec-maven-plugin` invocation runs them. The `exec.mainClass` property in `<properties>` is overridden on each `mvn exec:exec` call, so you switch between classes without editing the pom.
 
 {% hint style="success" %}
 **Checkpoint:** The `pom.xml` is in `cache-client/` and `mvn compile` succeeds with no errors.

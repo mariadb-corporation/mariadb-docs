@@ -214,4 +214,4 @@ As such, here are general recommendations depending on your environment:
 
 ## See Also
 
-- [How to Configure NUMA-Aware Memory Allocation](numa-memory-allocation.md)
+- [How to Configure NUMA-Aware Memory Allocation](../../gridgain8-get-started/how-to-guides/numa-memory-allocation.md)

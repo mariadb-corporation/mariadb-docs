@@ -15,8 +15,8 @@ Cache API lookups need keys you already have. The Cache API can push a single-ca
 
 ## Prerequisites
 
-- **A running single-node cluster** from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md)
-- **Cache API familiarity** from [Work with the Cache API](../cache-centric-foundations/work-with-cache-api.md)
+- **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
+- **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
 - **Java 17 or later** for the client runtime
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
@@ -464,7 +464,7 @@ Two caches exist. Both have `QueryEntity` descriptions built from the POJO annot
 
 Now populate them. Download the dataset file into the `sql-on-cache/` directory so it sits next to the `pom.xml`:
 
-- [chinook-customers-invoices.sql](../../.gitbook/assets/chinook-customers-invoices.sql)
+- [chinook-customers-invoices.sql](../../../.gitbook/assets/chinook-customers-invoices.sql)
 
 `SeedFromChinook` reads the file relative to the JVM's working directory, which is also `sql-on-cache/` when you run Maven from there.
 
@@ -1183,8 +1183,8 @@ The deeper reframing is that the cache is a distributed database with two access
 ### What's Next
 
 - `setDistributedJoins(true)` for the case where colocation is not possible, covered in [When to Break Colocation](../data-locality/when-to-break-colocation.md).
-- Secondary index strategies for high-cardinality columns and composite-index design (coming soon). In the meantime, see [Defining Indexes](../../gridgain8-development/sql/indexes.md).
-- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration (coming soon). In the meantime, see [SQL and Key-Value Usage](../../gridgain8-development/sql/sql-key-value-storage.md).
+- Secondary index strategies for high-cardinality columns and composite-index design (coming soon). In the meantime, see [Defining Indexes](../../../gridgain8-development/sql/indexes.md).
+- DDL-based cache creation (`CREATE TABLE ... WITH "CACHE_NAME=..., VALUE_TYPE=..."`), the alternative path that creates caches from SQL instead of Java configuration (coming soon). In the meantime, see [SQL and Key-Value Usage](../../../gridgain8-development/sql/sql-key-value-storage.md).
 
 The next tutorial in this learning path, [Atomic Operations Across Keys: The Transaction Problem](cross-partition-transactions.md), shifts from queries to writes. Cross-partition transactions solve the problem of atomically updating two keys that live on different nodes, a case single-shard `txStart()` does not cover.
 

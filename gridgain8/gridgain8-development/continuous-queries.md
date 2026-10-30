@@ -581,4 +581,4 @@ GridGain manages a special per-partition update counter that helps to avoid dupl
 
 ## See Also
 
-- [Real-Time Event Processing: The Streaming Problem](../gridgain8-tutorials/beyond-key-value/continuous-queries-streaming.md)
+- [Real-Time Event Processing: The Streaming Problem](../gridgain8-get-started/learning-paths/beyond-key-value/continuous-queries-streaming.md)

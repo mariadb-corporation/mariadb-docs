@@ -11,7 +11,7 @@ description: >-
 
 - An AWS account with access to the [AWS Management Console](https://aws.amazon.com/console/)
 - A **GridGain Enterprise Edition or Ultimate Edition** cluster on AWS, installed with the [Installation Guide](../../gridgain8-management/installation/aws/manual-install-on-ec2.md)
-- The [**GridGain Kafka Connector**](certified-kafka-connector.md) package
+- The [**GridGain Kafka Connector**](../../integrations/kafka/certified-kafka-connector.md) package
 
 ## Overview
 
@@ -21,8 +21,8 @@ description: >-
 
 GridGain offers two options to integrate with Kafka:
 
-- *Streaming*, where you write your own custom code using the [Kafka Streamer](../apache-ignite-extensions.md)
-- [GridGain Kafka Connector](certified-kafka-connector.md), which is a no-code, configuration-driven, scalable, resilient, DevOps-friendly, certified solution
+- *Streaming*, where you write your own custom code using the [Kafka Streamer](../../integrations/apache-ignite-extensions.md)
+- [GridGain Kafka Connector](../../integrations/kafka/certified-kafka-connector.md), which is a no-code, configuration-driven, scalable, resilient, DevOps-friendly, certified solution
 
 This guide presents the second option - GridGain Kafka Connector. It demonstrates Kafka running on Amazon MSK with the GridGain Kafka Connector running on EC2. The GridGain Kafka Connector sources and sinks data between MSK and a GridGain cluster running in AWS. This is a basic guide intended to get you started with Amazon MSK. For detailed configurations and advanced topics, refer to the [official AWS documentation](https://docs.aws.amazon.com/msk/latest/developerguide/getting-started.html).
 
@@ -126,7 +126,7 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
 
 ## Step 7: Configure the GridGain Kafka Connector
 
-1. Install the GridGain Kafka Connector component from Confluent Hub, as described in [Step 1 of the quick start](quick-start.md#step-1-prepare-connector-package).
+1. Install the GridGain Kafka Connector component from Confluent Hub, as described in [Step 1 of the quick start](../../integrations/kafka/quick-start.md#step-1-prepare-connector-package).
 2. If your cluster runs GridGain Ultimate, add the Ultimate jars to the component, as described in the same step.
 3. Create two Connector Property files: `gridgain-kafka-connect-source.properties` and `gridgain-kafka-connect-sink.properties`.
    - Example Source Properties:
@@ -188,5 +188,5 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
 
 ## Related
 
-- [GridGain Kafka Connector](certified-kafka-connector.md) - The certified, configuration-driven connector used in this guide.
-- [Kafka Streamer](../apache-ignite-extensions.md) - The alternative code-based streaming integration.
+- [GridGain Kafka Connector](../../integrations/kafka/certified-kafka-connector.md) - The certified, configuration-driven connector used in this guide.
+- [Kafka Streamer](../../integrations/apache-ignite-extensions.md) - The alternative code-based streaming integration.

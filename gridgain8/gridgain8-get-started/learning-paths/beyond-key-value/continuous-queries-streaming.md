@@ -19,7 +19,7 @@ A traditional caching layer offers two patterns and neither fits. Pub/sub is fir
 
 ## Prerequisites
 
-- **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Development Cluster](../cache-centric-foundations/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
+- **A running single-node cluster** using `cache-cluster/docker-compose.yml` from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md). One node is enough. Continuous-query semantics are independent of topology, so an extra server adds no teaching value at this stage.
 - **The Stock cache value class on the server's classpath.** The continuous query's filter and the initial ScanQuery deserialize cache values inside the server. Peer class loading covers closures (the filter factory, the filter itself), but binary deserialization of cache value classes uses a separate path. The fix is to mount the project jar in the server's `libs/user-libs/` directory once. Step 1 covers the one-time mount.
 - **Java 17** or later for the client runtime. The Maven project compiles to Java 17 bytecode, the same version the GridGain 8 server JVM runs.
 - **Maven 3.6** or later.

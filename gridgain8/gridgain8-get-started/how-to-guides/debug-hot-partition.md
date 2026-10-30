@@ -9,7 +9,7 @@ description: >-
 
 ## Prerequisites
 
-- **Familiarity with partitioned caches and affinity.** [Understand How Your Cache Is Distributed](../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) covers partitions and owners. [Design Keys for Colocation](../gridgain8-tutorials/data-locality/design-keys-for-colocation.md) covers the three affinity mechanisms.
+- **Familiarity with partitioned caches and affinity.** [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) covers partitions and owners. [Design Keys for Colocation](../learning-paths/data-locality/design-keys-for-colocation.md) covers the three affinity mechanisms.
 - **Thick-client access to the running cluster.** The diagnostic procedure broadcasts a callable to every server, which the thin client cannot do.
 - **Monitoring that named the symptom.** CPU or heap pressure on one node while peers idle, or an alert from your observability stack.
 
@@ -247,7 +247,7 @@ At put time, use the salted value as the affinity-key field. Reads must reconstr
 
 ### Fix 2: Change the Affinity Field
 
-Pick a higher-cardinality field for `@AffinityKeyMapped`, or switch to a composite key where the high-cardinality field drives placement. [Design Keys for Colocation](../gridgain8-tutorials/data-locality/design-keys-for-colocation.md) covers the three mechanisms: `@AffinityKeyMapped` on the key class, the `AffinityKey<K>` wrapper at the call site, and `CacheKeyConfiguration` on the cache.
+Pick a higher-cardinality field for `@AffinityKeyMapped`, or switch to a composite key where the high-cardinality field drives placement. [Design Keys for Colocation](../learning-paths/data-locality/design-keys-for-colocation.md) covers the three mechanisms: `@AffinityKeyMapped` on the key class, the `AffinityKey<K>` wrapper at the call site, and `CacheKeyConfiguration` on the cache.
 
 **Tradeoff:** schema change. Every caller that constructs the old key must update.
 
@@ -277,7 +277,7 @@ CacheConfiguration<?, ?> cfg = new CacheConfiguration<>("invoices")
 
 ### Fix 4: Redesign the Schema
 
-When the key distribution itself is wrong, no runtime fix survives. Pick new keys. [When to Break Colocation](../gridgain8-tutorials/data-locality/when-to-break-colocation.md) covers the schema-level decision.
+When the key distribution itself is wrong, no runtime fix survives. Pick new keys. [When to Break Colocation](../learning-paths/data-locality/when-to-break-colocation.md) covers the schema-level decision.
 
 **Tradeoff:** disruptive. Requires migration.
 
@@ -301,7 +301,7 @@ CacheConfiguration<?, ?> cfg = new CacheConfiguration<>("genres")
 
 ### Fix 6: Near Cache
 
-For a read-heavy hot key, a client-side near cache absorbs the repeated reads. See [Near Caches](../gridgain8-development/near-caches.md) for configuration.
+For a read-heavy hot key, a client-side near cache absorbs the repeated reads. See [Near Caches](../../gridgain8-development/near-caches.md) for configuration.
 
 ## Cause-to-fix Mapping
 
@@ -314,11 +314,11 @@ For a read-heavy hot key, a client-side near cache absorbs the repeated reads. S
 
 ## Verify the fix
 
-Re-run Step 2 of the diagnosis procedure. The `max / mean` ratio should drop to a small multiple (roughly 1.5 or less on a uniform distribution). If the ratio stays high, either the fix was applied to the wrong cause or the data has not fully redistributed yet. [Verify Colocation Is Working](../gridgain8-tutorials/data-locality/verify-colocation.md) covers the full verification toolkit, including the per-node primary count check that complements `localSizeLong`.
+Re-run Step 2 of the diagnosis procedure. The `max / mean` ratio should drop to a small multiple (roughly 1.5 or less on a uniform distribution). If the ratio stays high, either the fix was applied to the wrong cause or the data has not fully redistributed yet. [Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) covers the full verification toolkit, including the per-node primary count check that complements `localSizeLong`.
 
 ## Related
 
-- [How to Choose a Partition Count for Your Workload](../architecture/data-modeling/choose-partition-count.md) handles the case where the count itself is wrong, rather than the key distribution.
-- [Verify Colocation Is Working](../gridgain8-tutorials/data-locality/verify-colocation.md) teaches `SYS.CACHE_GROUPS`, `SYS.PARTITION_STATES`, and the local-scan broadcast pattern used in Step 2.
-- [Design Keys for Colocation](../gridgain8-tutorials/data-locality/design-keys-for-colocation.md) covers the three mechanisms that Fix 2 and Fix 3 draw from.
-- [When to Break Colocation](../gridgain8-tutorials/data-locality/when-to-break-colocation.md) covers the `PARTITIONED` vs `REPLICATED` decision that Fix 5 depends on.
+- [How to Choose a Partition Count for Your Workload](choose-partition-count.md) handles the case where the count itself is wrong, rather than the key distribution.
+- [Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) teaches `SYS.CACHE_GROUPS`, `SYS.PARTITION_STATES`, and the local-scan broadcast pattern used in Step 2.
+- [Design Keys for Colocation](../learning-paths/data-locality/design-keys-for-colocation.md) covers the three mechanisms that Fix 2 and Fix 3 draw from.
+- [When to Break Colocation](../learning-paths/data-locality/when-to-break-colocation.md) covers the `PARTITIONED` vs `REPLICATED` decision that Fix 5 depends on.

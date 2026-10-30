@@ -237,4 +237,4 @@ The example below shows the correct way to configure a consistent ID for reintro
 
 ## See Also
 
-- [How to Debug a Hot Partition](debug-hot-partition.md)
+- [How to Debug a Hot Partition](../gridgain8-get-started/how-to-guides/debug-hot-partition.md)

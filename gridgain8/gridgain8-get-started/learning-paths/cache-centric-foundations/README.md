@@ -9,8 +9,8 @@ Start here if you are new to GridGain 8. You set up a local cluster, work with t
 
 | Tutorial | Time | Level |
 | -------- | ---- | ----- |
-| [Start a Local Cache Development Cluster](start-local-cache-cluster.md) | 20 min | Beginner |
-| [Work With the Cache API](work-with-cache-api.md) | 45 min | Beginner |
+| [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md) | 20 min | Beginner |
+| [Work With the Cache API](../../quick-start/work-with-cache-api.md) | 45 min | Beginner |
 | [Cache Sizing and Expiry](cache-sizing-and-expiry.md) | 45 min | Beginner |
 | [Cache-Aside Under Load](cache-aside-under-load.md) | 60 min | Beginner |
 | [Use Transactions With the Cache API](cache-transactions.md) | 60 min | Intermediate |

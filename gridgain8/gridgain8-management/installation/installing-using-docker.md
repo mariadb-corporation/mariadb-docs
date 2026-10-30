@@ -246,4 +246,4 @@ See [Software Identification](../software-identification.md) for details.
 
 ## See Also
 
-- [Start a Local Cache Development Cluster](../../gridgain8-tutorials/cache-centric-foundations/start-local-cache-cluster.md)
+- [Start a Local Cache Development Cluster](../../gridgain8-get-started/quick-start/start-local-cache-cluster.md)

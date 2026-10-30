@@ -41,18 +41,42 @@ Introduction to GridGain as an in-memory computing platform: what you can do wit
 {% endcolumn %}
 
 {% column %}
-Install GridGain, start a node, and run your first application in your preferred language — Java, .NET, C++, Python, Node.js, PHP, SQL, or REST.
+Install GridGain, start a node, and run your first application in your preferred language, then follow short quickstart guides for a local cache cluster, the cache API, and monitoring.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="../gridgain8-tutorials/" %}
-[Tutorials](../gridgain8-tutorials/)
+{% content-ref url="learning-paths/" %}
+[Learning Paths](learning-paths/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Hands-on, step-by-step tutorials that take you from a local cache cluster to colocated compute, persistence, and application examples.
+Tutorials that take you from a local cache cluster to colocated compute, persistence, and application examples.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="application-examples/" %}
+[Application Examples](application-examples/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Standalone example applications: a Spring Boot REST service, a Micronaut microservice, a serverless Azure Function, and JSON in SQL.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="how-to-guides/" %}
+[How-To Guides](how-to-guides/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Task-focused guides for security, monitoring, performance, operations, and integrations.
 {% endcolumn %}
 {% endcolumns %}

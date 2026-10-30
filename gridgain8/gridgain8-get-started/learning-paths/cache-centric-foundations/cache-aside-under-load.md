@@ -13,7 +13,7 @@ description: >-
 
 Your relational database works. It serves correct results, enforces constraints, and survives restarts. Under growing load, customer lookups start queuing behind invoice writes, p99 latency climbs, and the operations team asks for a plan.
 
-The benchmark from [Work with the Cache API](work-with-cache-api.md) answered one question: on a single localhost hop, MariaDB is 3 to 4 times faster than the cache for primary-key lookups. A database with a warm buffer pool is hard to beat at one read. A cache earns its place by taking the read volume off the database so the database has room to handle everything else: writes, analytical queries, range scans, joins, etc.
+The benchmark from [Work with the Cache API](../../quick-start/work-with-cache-api.md) answered one question: on a single localhost hop, MariaDB is 3 to 4 times faster than the cache for primary-key lookups. A database with a warm buffer pool is hard to beat at one read. A cache earns its place by taking the read volume off the database so the database has room to handle everything else: writes, analytical queries, range scans, joins, etc.
 
 In this tutorial, you build a cache-aside implementation that reads from the `customers` cache first, falls through to MariaDB on a miss, and populates the cache with the fresh row. Then you pressure MariaDB with a workload simulator that drives realistic mixed traffic and measure what the cache absorbs. On a 60-second run with 8 concurrent readers and a second client running 2,000 queries per second against the database, the cache serves 2.5 million lookups while MariaDB sees 118 additional queries from the listen harness. That is the offload.
 
@@ -25,7 +25,7 @@ You work from a companion repository that ships the Docker configurations and a 
 
 ## Prerequisites
 
-- **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
+- **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
 - **Eviction and expiry vocabulary** from [Cache Sizing and Expiry](cache-sizing-and-expiry.md)
 - **Java 17** or later
 - **Maven 3.6** or later
@@ -40,7 +40,7 @@ git clone https://github.com/maglietti/cache-aside.git
 
 The repository contains `docker/` (MariaDB and GridGain 8 compose files), `listen-harness/` (a multi-threaded driver that exercises the same cache-aside pattern you will write), and `workload-simulator/` (the traffic generator). You will start the database from it in Step 1 and build the listen harness from it in Step 8. The code you write in Steps 3-6 lives in your own `cache-client/` project; the harness keeps its own copy in a separate Java package (`com.example.listen`) so the jar builds and runs on its own.
 
-If you completed [Start a Local Cache Development Cluster](start-local-cache-cluster.md), you can reuse your existing cache cluster. If you arrived here fresh, `docker/gridgain8/` inside the clone starts a single-node cluster in one command.
+If you completed [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md), you can reuse your existing cache cluster. If you arrived here fresh, `docker/gridgain8/` inside the clone starts a single-node cluster in one command.
 
 <details>
 <summary>Returning to these tutorials? Verify your cluster is running.</summary>
@@ -148,7 +148,7 @@ Customer is the read-heavy reference data the cache will absorb. Invoice and Inv
 
 ## Extend the Maven Project
 
-If you are working through the [Cache-Centric Foundations](README.md) learning path, you may now have two directories side by side in your working directory: the `cache-client/` Maven project you built in [Work with the Cache API](work-with-cache-api.md) and [Cache Sizing and Expiry](cache-sizing-and-expiry.md), and the `cache-aside/` companion repository you cloned in the prerequisites. You edit `cache-client/` throughout this tutorial; `cache-aside/` ships Docker configurations and pre-built tools you start using in Step 1.
+If you are working through the [Cache-Centric Foundations](README.md) learning path, you may now have two directories side by side in your working directory: the `cache-client/` Maven project you built in [Work with the Cache API](../../quick-start/work-with-cache-api.md) and [Cache Sizing and Expiry](cache-sizing-and-expiry.md), and the `cache-aside/` companion repository you cloned in the prerequisites. You edit `cache-client/` throughout this tutorial; `cache-aside/` ships Docker configurations and pre-built tools you start using in Step 1.
 
 ```text
 working-directory/

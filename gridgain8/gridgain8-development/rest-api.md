@@ -240,7 +240,7 @@ The SSL connector uses `org.eclipse.jetty.util.ssl.SslContextFactory$Server`. A 
 ## Security
 
 {% hint style="info" %}
-Refer to the [SSL/TLS Step by Step](../security/ssl-tls-step-by-step.md) for a comprehensive instruction on SSL.
+Refer to the [SSL/TLS Step by Step](../gridgain8-get-started/how-to-guides/ssl-tls-step-by-step.md) for a comprehensive instruction on SSL.
 {% endhint %}
 
 When [authentication](../security/authentication.md) is configured in the cluster, all applications that use REST API request authentication by providing security credentials.

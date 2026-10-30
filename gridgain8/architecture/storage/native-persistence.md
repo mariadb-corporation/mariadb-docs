@@ -483,4 +483,4 @@ The following table describes native persistence properties.
 
 ## See Also
 
-- [Beyond Cache: The Persistence Problem](../../gridgain8-tutorials/beyond-key-value/native-persistence-beyond-cache.md)
+- [Beyond Cache: The Persistence Problem](../../gridgain8-get-started/learning-paths/beyond-key-value/native-persistence-beyond-cache.md)

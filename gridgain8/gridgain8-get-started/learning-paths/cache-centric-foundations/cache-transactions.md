@@ -19,13 +19,13 @@ The rest of the tutorial runs the scenario through failure modes and contention,
 
 ## Prerequisites
 
-- **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
+- **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
+- **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
 - **Java 17 or later for the client runtime.** The Maven project in Step 2 compiles to Java 17 bytecode, the same version the server JVM runs. Step 6 ships a class to the server, and the server rejects bytecode newer than its own JVM.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
 
-If you have the `cache-client/` Maven project from [Work with the Cache API](work-with-cache-api.md), you add a new package (`com.example.transactions`) to it. If you arrived here fresh, Step 2 starts a new project with the same dependency footprint.
+If you have the `cache-client/` Maven project from [Work with the Cache API](../../quick-start/work-with-cache-api.md), you add a new package (`com.example.transactions`) to it. If you arrived here fresh, Step 2 starts a new project with the same dependency footprint.
 
 The last step of this tutorial uses `EntryProcessor`, which requires an additional cluster-side setting. Step 6 explains the requirement and walks through the config change.
 
@@ -1600,9 +1600,9 @@ This tutorial closed the Foundations path. You have seen the cache in three mode
 
 ### What's Next
 
-- Deadlock detection, transaction timeouts, and the `txStart(concurrency, isolation, timeoutMs, txSize)` overload (coming soon). In the meantime, see [Deadlock Detection](../../gridgain8-development/transactions.md#deadlock-detection) and [Long Running Transactions Termination](../../gridgain8-development/transactions.md#long-running-transactions-termination) in Performing Transactions.
+- Deadlock detection, transaction timeouts, and the `txStart(concurrency, isolation, timeoutMs, txSize)` overload (coming soon). In the meantime, see [Deadlock Detection](../../../gridgain8-development/transactions.md#deadlock-detection) and [Long Running Transactions Termination](../../../gridgain8-development/transactions.md#long-running-transactions-termination) in Performing Transactions.
 - `invokeAll` for bulk atomic mutations across many keys in one call (coming soon).
-- Write-through with `CacheStore`, the path that commits the cache and a database together as a single transaction for multi-key atomicity spanning both layers (coming soon). In the meantime, see [External Storage](../../gridgain8-development/persistence/external-storage.md) and [Implementing Custom Cache Store](../../gridgain8-development/persistence/custom-cache-store.md).
+- Write-through with `CacheStore`, the path that commits the cache and a database together as a single transaction for multi-key atomicity spanning both layers (coming soon). In the meantime, see [External Storage](../../../gridgain8-development/persistence/external-storage.md) and [Implementing Custom Cache Store](../../../gridgain8-development/persistence/custom-cache-store.md).
 
 ### Related
 

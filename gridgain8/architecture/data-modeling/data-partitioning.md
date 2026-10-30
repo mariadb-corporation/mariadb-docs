@@ -128,6 +128,6 @@ It may happen that throughout the cluster’s lifecycle, some of the data partit
 
 ## See Also
 
-- [How to Choose a Partition Count for Your Workload](choose-partition-count.md)
-- [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md)
-- [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md)
+- [How to Choose a Partition Count for Your Workload](../../gridgain8-get-started/how-to-guides/choose-partition-count.md)
+- [How to Debug a Hot Partition](../../gridgain8-get-started/how-to-guides/debug-hot-partition.md)
+- [Understand How Your Cache Is Distributed](../../gridgain8-get-started/learning-paths/cache-centric-foundations/understand-cache-distribution.md)

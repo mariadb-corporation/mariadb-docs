@@ -861,7 +861,7 @@ Three adjacent topics belong in their own content:
 - **Queue capacity and bounded behavior**, including `put()` blocking on a full queue, `offer(timeout)` for bounded waits, and how to size capacity for backpressure.
 - **The other six primitives**, particularly `IgniteCountDownLatch` for fan-out coordination, `IgniteSemaphore` for bounded concurrency across nodes, and `IgniteAtomicSequence` for high-throughput ID generation.
 
-The official primitive reference covers these in depth: [Data Structures](../../gridgain8-development/data-structures/README.md).
+The official primitive reference covers these in depth: [Data Structures](../../../gridgain8-development/data-structures/README.md).
 
 ## What's Next
 

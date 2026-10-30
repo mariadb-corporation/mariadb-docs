@@ -17,8 +17,8 @@ You make the distribution visible here. You create a partitioned cache, seed it 
 
 ## Prerequisites
 
-- **A running single-node cluster** from [Start a Local Cache Development Cluster](start-local-cache-cluster.md)
-- **Cache API familiarity** from [Work with the Cache API](work-with-cache-api.md)
+- **A running single-node cluster** from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md)
+- **Cache API familiarity** from [Work with the Cache API](../../quick-start/work-with-cache-api.md)
 - **Java 17 or later for the client runtime.** The Maven project compiles to Java 17 bytecode, the same version the server JVM runs.
 - **Maven 3.6** or later
 - **Docker Compose 2.23** or later
@@ -302,7 +302,7 @@ mvn -f cache-distribution/pom.xml compile
 
 ## Add the Cluster Compose Files
 
-The single-node cluster from [Start a Local Cache Development Cluster](start-local-cache-cluster.md) does not expose the communication port (47100) that the thick client needs for direct cache operations. The prior tutorials worked around that through the server's initial discovery channel; this tutorial opens enough connections to need the comm port too.
+The single-node cluster from [Start a Local Cache Development Cluster](../../quick-start/start-local-cache-cluster.md) does not expose the communication port (47100) that the thick client needs for direct cache operations. The prior tutorials worked around that through the server's initial discovery channel; this tutorial opens enough connections to need the comm port too.
 
 Create three replacement compose files plus four per-node configs in your existing `cache-cluster/` directory. Your existing `docker-compose.yml` and `ignite-config.xml` stay in place and are ignored for the rest of this tutorial.
 
@@ -916,9 +916,9 @@ Beyond Key-Value and the Design for Data Locality path build directly on this me
 
 - [From Key-Value to SQL: The JOIN Problem](../beyond-key-value/from-keyvalue-to-sql.md) uses partitioning directly. JOIN correctness depends on putting related rows in the same partition, and the tutorial walks through the failure mode before showing the fix.
 - [Design for Data Locality](../data-locality/README.md), a dedicated path for readers who will design a production schema, covers affinity keys, compute gravity, and the tradeoffs of partition count.
-- [How to Choose a Partition Count for Your Workload](../../architecture/data-modeling/choose-partition-count.md) covers the 1024 default and when to deviate.
+- [How to Choose a Partition Count for Your Workload](../../how-to-guides/choose-partition-count.md) covers the 1024 default and when to deviate.
 
 ### Related
 
 - [Use Transactions with the Cache API](cache-transactions.md) added multi-key atomicity to the Foundations path. Transactions and distribution combine in the Beyond Key-Value path, where colocated writes commit faster than cross-node writes.
-- [Work with the Cache API](work-with-cache-api.md) introduced the thick client used throughout.
+- [Work with the Cache API](../../quick-start/work-with-cache-api.md) introduced the thick client used throughout.

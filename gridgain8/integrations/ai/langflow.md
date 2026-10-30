@@ -102,4 +102,4 @@ Memory components in Langflow store and retrieve chat messages by session_id. Th
 
 ## Langflow Tutorial
 
-GridGain provides a Langflow tutorial that shows how to use it to solve real world problems. Full tutorial is available in the  [How to Build a Low-Code RAG Application With GridGain and Langflow](langflow-rag-tutorial.md) page.
+GridGain provides a Langflow tutorial that shows how to use it to solve real world problems. Full tutorial is available in the  [How to Build a Low-Code RAG Application With GridGain and Langflow](../../gridgain8-get-started/how-to-guides/langflow-rag-tutorial.md) page.

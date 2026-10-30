@@ -9,11 +9,11 @@ description: >-
 
 ## Prerequisites
 
-- An [enabled](../gridgain8-development/project-setup.md#enabling-modules) `gridgain-bulkload` module.
-- An up and running [GridGain node](../gridgain8-get-started/what-is-gridgain.md).
+- An [enabled](../../gridgain8-development/project-setup.md#enabling-modules) `gridgain-bulkload` module.
+- An up and running [GridGain node](../what-is-gridgain.md).
 - A valid [AWS account](https://aws.amazon.com/account/).
 - GridGain 8.10 or later, with server-side S3 and Iceberg `COPY` allowed in the node configuration (see [Allow COPY to Use S3 and Iceberg](#allow-copy-to-use-s3-and-iceberg)).
-- Brief knowledge of the [COPY command](../reference/sql/operational-commands.md#copy-into).
+- Brief knowledge of the [COPY command](../../reference/sql/operational-commands.md#copy-into).
 
 ## Overview
 
@@ -113,7 +113,7 @@ The AWS Glue data catalog is a persistent technical metadata store. The data is 
 
 ### Command
 
-Export data from the GridGain table to the AWS cloud using the [COPY command](../reference/sql/operational-commands.md#copy-into):
+Export data from the GridGain table to the AWS cloud using the [COPY command](../../reference/sql/operational-commands.md#copy-into):
 
 ```sql
 COPY FROM cities(id, city, country, population_est)
@@ -143,21 +143,21 @@ When the export is complete:
 
 1. Examine the "destination" S3 bucket:
 
-   ![S3 data](../.gitbook/assets/guides/export-data-iceberg-aws/1-s3-data.png)
+   ![S3 data](../../.gitbook/assets/guides/export-data-iceberg-aws/1-s3-data.png)
 
 2. Note that a new AWS Glue table has been created, and it refers to S3:
 
-   ![AWS Glue tables](../.gitbook/assets/guides/export-data-iceberg-aws/2-glue-tables.png)
+   ![AWS Glue tables](../../.gitbook/assets/guides/export-data-iceberg-aws/2-glue-tables.png)
 
 3. Query the exported data with Amazon Athena (using the previously created workgroup) [read more](https://docs.aws.amazon.com/athena/latest/ug/querying-iceberg.html). The query should pick up the new table created in AWS Glue:
 
-   ![Athena query](../.gitbook/assets/guides/export-data-iceberg-aws/3-athena-query.png)
+   ![Athena query](../../.gitbook/assets/guides/export-data-iceberg-aws/3-athena-query.png)
 
 ## Batch-Import an Apache Iceberg Table to GridGain
 
 To import an Apache Iceberg table from AWS Glue (Amazon S3) to GridGain.
 
-1. Create a "destination" GridGain table (for example, using [DDL](../reference/sql/ddl.md)). For this guide's purposes, you can reuse an existing GridGain table - just clean it up first:
+1. Create a "destination" GridGain table (for example, using [DDL](../../reference/sql/ddl.md)). For this guide's purposes, you can reuse an existing GridGain table - just clean it up first:
 
    ```sql
    DELETE FROM CITIES;
@@ -203,5 +203,5 @@ You have successfully completed the guide. You have learned how to bulk-upload A
 
 ## Related
 
-- [COPY command reference](../reference/sql/operational-commands.md#copy-into) - The GridGain SQL command used for batch export and import.
+- [COPY command reference](../../reference/sql/operational-commands.md#copy-into) - The GridGain SQL command used for batch export and import.
 - [Apache Iceberg documentation](https://iceberg.apache.org/) - The open table format for huge analytic datasets.

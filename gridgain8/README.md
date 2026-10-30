@@ -21,15 +21,3 @@ GridGain 8 is an in-memory computing platform, built on Apache Ignite, that stor
 Install GridGain, start a cluster, and run your first application — plus the core concepts you need to understand the platform.
 {% endcolumn %}
 {% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="gridgain8-tutorials/" %}
-[Tutorials](gridgain8-tutorials/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Hands-on tutorials and application examples, from your first local cache cluster to colocated compute and persistence.
-{% endcolumn %}
-{% endcolumns %}

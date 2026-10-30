@@ -179,4 +179,4 @@ These methods have the following limitations:
 
 ## See Also
 
-- [Cache Sizing and Expiry](../../gridgain8-tutorials/cache-centric-foundations/cache-sizing-and-expiry.md)
+- [Cache Sizing and Expiry](../../gridgain8-get-started/learning-paths/cache-centric-foundations/cache-sizing-and-expiry.md)

@@ -5,7 +5,7 @@ description: >-
 
 # Design for Data Locality
 
-Learn to keep related data on the same node, verify that it stays there, run compute next to the data, and decide when to break colocation on purpose. Two how-to guides complete the path: [Choose a Partition Count for Your Workload](../../architecture/data-modeling/choose-partition-count.md) and [Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md).
+Learn to keep related data on the same node, verify that it stays there, run compute next to the data, and decide when to break colocation on purpose. Two how-to guides complete the path: [Choose a Partition Count for Your Workload](../../how-to-guides/choose-partition-count.md) and [Debug a Hot Partition](../../how-to-guides/debug-hot-partition.md).
 
 Complete [Cache-Centric Foundations](../cache-centric-foundations/README.md) first.
 

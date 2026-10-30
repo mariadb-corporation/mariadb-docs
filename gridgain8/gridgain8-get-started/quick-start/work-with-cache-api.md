@@ -592,4 +592,4 @@ You built a Java application that connects to your cache-centric cluster as a th
 
 ## Next Step
 
-The next tutorial, [Cache Sizing and Expiry](cache-sizing-and-expiry.md), solves the two problems that make an unbounded cache unusable in production. You add LRU eviction to bound the on-heap tier, set TTL with a JCache `ExpiryPolicy`, and watch a real-time snapshot of the cache shrinking itself as entries leave under both rules.
+The next tutorial, [Cache Sizing and Expiry](../learning-paths/cache-centric-foundations/cache-sizing-and-expiry.md), solves the two problems that make an unbounded cache unusable in production. You add LRU eviction to bound the on-heap tier, set TTL with a JCache `ExpiryPolicy`, and watch a real-time snapshot of the cache shrinking itself as entries leave under both rules.

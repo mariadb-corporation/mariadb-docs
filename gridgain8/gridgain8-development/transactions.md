@@ -865,5 +865,5 @@ You can also use the [control script](../reference/cli-tool/README.md#transactio
 
 ## See Also
 
-- [Use Transactions With the Cache API](../gridgain8-tutorials/cache-centric-foundations/cache-transactions.md)
-- [Atomic Operations Across Keys: The Transaction Problem](../gridgain8-tutorials/beyond-key-value/cross-partition-transactions.md)
+- [Use Transactions With the Cache API](../gridgain8-get-started/learning-paths/cache-centric-foundations/cache-transactions.md)
+- [Atomic Operations Across Keys: The Transaction Problem](../gridgain8-get-started/learning-paths/beyond-key-value/cross-partition-transactions.md)

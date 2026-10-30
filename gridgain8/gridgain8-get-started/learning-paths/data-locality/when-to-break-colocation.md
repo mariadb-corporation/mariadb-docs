@@ -1174,8 +1174,8 @@ REPLICATED dimensions do not remove the need for the flag. They reduce its cost.
 
 This is the final tutorial in the Design for Data Locality path. Two supporting guides build on it:
 
-- [How to Choose a Partition Count for Your Workload](../../architecture/data-modeling/choose-partition-count.md) covers the tradeoffs between the 32-partition setup used in this path and the 1,024 default, and how the decision shifts as cluster size grows. Opens in a new tab so this tutorial stays in your sidebar.
-- [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md) diagnoses the failure mode where one node carries most of the load because an affinity key skews toward one partition. Opens in a new tab.
+- [How to Choose a Partition Count for Your Workload](../../how-to-guides/choose-partition-count.md) covers the tradeoffs between the 32-partition setup used in this path and the 1,024 default, and how the decision shifts as cluster size grows. Opens in a new tab so this tutorial stays in your sidebar.
+- [How to Debug a Hot Partition](../../how-to-guides/debug-hot-partition.md) diagnoses the failure mode where one node carries most of the load because an affinity key skews toward one partition. Opens in a new tab.
 
 ### Related
 

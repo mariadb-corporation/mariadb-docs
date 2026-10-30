@@ -135,4 +135,4 @@ Each Kafka worker exposes REST API to manage Kafka Connectors (available on port
 
 ## See Also
 
-- [How to run the GridGain Kafka Connector on Amazon MSK](example-running-on-amazon-msk.md)
+- [How to run the GridGain Kafka Connector on Amazon MSK](../../gridgain8-get-started/how-to-guides/example-running-on-amazon-msk.md)

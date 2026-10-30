@@ -336,4 +336,4 @@ To change the certificate in this case:
 
 ## See Also
 
-- [How to Configure SSL/TLS/HTTPS Security](ssl-tls-step-by-step.md)
+- [How to Configure SSL/TLS/HTTPS Security](../gridgain8-get-started/how-to-guides/ssl-tls-step-by-step.md)

@@ -41,5 +41,5 @@ You can connect to a single node and monitor its global metrics. If you want to 
 
 ## See Also
 
-- [How to Monitor GridGain 8 With Prometheus and Grafana](prometheus-grafana-step-by-step.md)
-- [How to Monitor GridGain Clusters With New Relic](new-relic.md)
+- [How to Monitor GridGain 8 With Prometheus and Grafana](../../gridgain8-get-started/how-to-guides/prometheus-grafana-step-by-step.md)
+- [How to Monitor GridGain Clusters With New Relic](../../gridgain8-get-started/how-to-guides/new-relic.md)

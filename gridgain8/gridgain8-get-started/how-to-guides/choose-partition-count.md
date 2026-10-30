@@ -7,7 +7,7 @@ description: >-
 
 ## Prerequisites
 
-- **Familiarity with partitioned caches.** This guide assumes you know what a partition is and how keys hash to partitions. [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) covers the mental model.
+- **Familiarity with partitioned caches.** This guide assumes you know what a partition is and how keys hash to partitions. [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) covers the mental model.
 - **A cache configuration to edit,** or a new cache to create. The partition count is set on the `AffinityFunction` attached to a `CacheConfiguration` at cache-creation time.
 
 ## Overview
@@ -96,7 +96,7 @@ Rarely. The two narrow cases:
 
 **Small caches on small clusters.** A cache of a few thousand rows on a 3-node cluster runs fine with 1024 partitions, but 256 reduces the per-partition bookkeeping on each node. The difference is small. Leave it alone unless memory accounting shows the overhead matters.
 
-**Teaching clusters.** [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) uses 32 partitions so the per-node counts fit in a printed table. That is a teaching number, not a production one.
+**Teaching clusters.** [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) uses 32 partitions so the per-node counts fit in a printed table. That is a teaching number, not a production one.
 
 ## Tradeoffs
 
@@ -104,7 +104,7 @@ Rarely. The two narrow cases:
 
 More partitions also raises the per-partition bookkeeping on each node. Every partition carries a partition state, update counter, and index segment whether it holds one key or a million. At 1024 partitions and 10 nodes, the bookkeeping overhead is negligible. At 65,000 partitions and 100 nodes, it dominates.
 
-**Fewer partitions** means coarser rebalance and a higher risk of hot partitions. With 32 partitions on 3 nodes, a skewed key distribution concentrates traffic on one node. With 1024 partitions, the same skew spreads across many partitions before any single one heats up. [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md) handles the diagnostic when skew is the cause.
+**Fewer partitions** means coarser rebalance and a higher risk of hot partitions. With 32 partitions on 3 nodes, a skewed key distribution concentrates traffic on one node. With 1024 partitions, the same skew spreads across many partitions before any single one heats up. [How to Debug a Hot Partition](debug-hot-partition.md) handles the diagnostic when skew is the cause.
 
 ## Set it in Code
 
@@ -133,10 +133,10 @@ After creating the cache, confirm the partition count is what you set and that d
 int count = ignite.affinity("customers").partitions();
 ```
 
-[Verify Colocation Is Working](../../gridgain8-tutorials/data-locality/verify-colocation.md) teaches the full verification pattern, including per-partition row counts and the `SYS.CACHE_GROUPS` system view. The same techniques confirm a partition-count decision holds at runtime. The partition count reported by the cluster should equal the value you passed. The per-partition row counts should cluster around the expected mean, with no individual partition carrying a disproportionate share.
+[Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) teaches the full verification pattern, including per-partition row counts and the `SYS.CACHE_GROUPS` system view. The same techniques confirm a partition-count decision holds at runtime. The partition count reported by the cluster should equal the value you passed. The per-partition row counts should cluster around the expected mean, with no individual partition carrying a disproportionate share.
 
 ## Related
 
-- [Understand How Your Cache Is Distributed](../../gridgain8-tutorials/cache-centric-foundations/understand-cache-distribution.md) introduces partitions, the `Affinity` API, and the relationship between partition count and node count.
-- [Verify Colocation Is Working](../../gridgain8-tutorials/data-locality/verify-colocation.md) teaches the per-partition verification techniques that confirm a partition-count choice produces an even distribution.
-- [How to Debug a Hot Partition](../../tuning-and-troubleshooting/debug-hot-partition.md) handles the case where the count is correct but a single partition takes disproportionate traffic because of key skew.
+- [Understand How Your Cache Is Distributed](../learning-paths/cache-centric-foundations/understand-cache-distribution.md) introduces partitions, the `Affinity` API, and the relationship between partition count and node count.
+- [Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) teaches the per-partition verification techniques that confirm a partition-count choice produces an even distribution.
+- [How to Debug a Hot Partition](debug-hot-partition.md) handles the case where the count is correct but a single partition takes disproportionate traffic because of key skew.

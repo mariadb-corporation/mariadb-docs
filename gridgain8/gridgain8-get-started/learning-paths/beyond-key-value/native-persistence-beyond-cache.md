@@ -874,7 +874,7 @@ sequenceDiagram
 
 Single-node persistence proves the durability story cleanly. Multi-node persistence introduces a second concern. The baseline expects every node it activated with. If a baseline node is missing on restart, the cluster does not auto-activate. The operator either waits for the missing node to rejoin, removes it from the baseline manually, or enables auto-adjust mode (`cluster().baselineAutoAdjustEnabled(AutoAdjustMode.SCALE_UP, true)` for scale-up only; the single-argument `baselineAutoAdjustEnabled(boolean)` is deprecated) so the cluster reshapes the baseline as nodes join and leave.
 
-Multi-node persistence deserves its own guide. Until that guide ships, the official docs cover the failure modes in detail at [Baseline Topology](../../architecture/baseline-topology.md).
+Multi-node persistence deserves its own guide. Until that guide ships, the official docs cover the failure modes in detail at [Baseline Topology](../../../architecture/baseline-topology.md).
 
 ## Summary
 

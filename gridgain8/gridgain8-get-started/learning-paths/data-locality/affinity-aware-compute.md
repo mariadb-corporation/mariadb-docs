@@ -1301,7 +1301,7 @@ At 100,000 customers the pull-to-client approach moves 12 MB to answer a ten-row
 ### What's Next
 
 - [When to Break Colocation](when-to-break-colocation.md) teaches the inverse design decision: reference tables in `REPLICATED` caches, fact-dimension star schemas, and the cases where distributed joins replace colocated compute.
-- [How to Choose a Partition Count for Your Workload](../../architecture/data-modeling/choose-partition-count.md) covers the tradeoff this tutorial parked: 32 partitions on 3 nodes versus the 1,024 default, and what changes as cluster size and data volume shift. Opens in a new tab so this tutorial stays in your sidebar.
+- [How to Choose a Partition Count for Your Workload](../../how-to-guides/choose-partition-count.md) covers the tradeoff this tutorial parked: 32 partitions on 3 nodes versus the 1,024 default, and what changes as cluster size and data volume shift. Opens in a new tab so this tutorial stays in your sidebar.
 
 ### Related
 

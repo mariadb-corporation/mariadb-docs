@@ -82,5 +82,5 @@ A generic, step-by-step guide to deploying and managing GridGain server nodes on
 
 ## See Also
 
-- [How to Encrypt Cluster Traffic With Istio mTLS on Kubernetes](encrypt-traffic-istio.md)
-- [How to Encrypt Inter-Node Cluster Traffic With Linkerd on Kubernetes](encrypt-traffic-linkerd.md)
+- [How to Encrypt Cluster Traffic With Istio mTLS on Kubernetes](../../../gridgain8-get-started/how-to-guides/encrypt-traffic-istio.md)
+- [How to Encrypt Inter-Node Cluster Traffic With Linkerd on Kubernetes](../../../gridgain8-get-started/how-to-guides/encrypt-traffic-linkerd.md)
