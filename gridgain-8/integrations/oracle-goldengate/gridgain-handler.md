@@ -36,7 +36,7 @@ JDK 8.x
    edit params javarepl
    ```
 
-5. Copy the GridGain GoldenGate connector directory (available in `integration/gridgain-goldengate-19`) from the GridGain distribution to the GoldenGate distribution under `ggjava/lib`.
+5. Copy the GridGain GoldenGate connector directory (available in `integration/gridgain-goldengate-19`) from the GridGain Integrations download to the GoldenGate distribution under `ggjava/lib`.
 
    Example configuration for the `replicat` process:
 
