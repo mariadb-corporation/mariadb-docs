@@ -35,6 +35,42 @@ Set up and run a three-node GridGain 9 cluster using Docker containers, then ini
 
 {% columns %}
 {% column %}
+{% content-ref url="start-cluster-docker-compose.md" %}
+[How to Start a Cluster With Docker Compose](start-cluster-docker-compose.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Start a 3-node GridGain 9 cluster for development using Docker Compose.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="start-local-cluster.md" %}
+[Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Start a local GridGain 9 cluster and load the Music Store dataset used by the tutorials.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cli-tool-step-by-step.md" %}
+[How to Work With the GridGain CLI](cli-tool-step-by-step.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Connect to a cluster, execute SQL, and manage cluster state using the GridGain 9 command-line interface.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="explore-sql.md" %}
 [Explore SQL Capabilities](explore-sql.md)
 {% endcontent-ref %}
@@ -90,42 +126,6 @@ Configure GridGain 9 secondary columnar storage to run analytical queries alongs
 
 {% column %}
 How to start and manage a GridGain 9 cluster from a Java project using embedded mode.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="start-local-cluster.md" %}
-[Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Start a local GridGain 9 cluster and load the Music Store dataset used by the tutorials.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="start-cluster-docker-compose.md" %}
-[How to Start a Cluster With Docker Compose](start-cluster-docker-compose.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Start a 3-node GridGain 9 cluster for development using Docker Compose.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="cli-tool-step-by-step.md" %}
-[How to Work With the GridGain CLI](cli-tool-step-by-step.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Connect to a cluster, execute SQL, and manage cluster state using the GridGain 9 command-line interface.
 {% endcolumn %}
 {% endcolumns %}
 
