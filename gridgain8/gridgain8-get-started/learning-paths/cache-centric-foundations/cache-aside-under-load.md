@@ -5,8 +5,6 @@ description: >-
 
 # Cache-Aside Under Load
 
-<!-- TODO (not tested): Only the Java cache-aside example (CacheClient, "Run the Cache-Aside Example") was run on 8.10, against a local MariaDB. The "Run the Workload Simulator Alone" and "Run the Listen Harness Alongside the Simulator" sections were not run: they need the companion repository's Maven build (workload-simulator.jar, listen-harness), and Maven is not installed here and 8.10 is not on Nexus. The sample numbers in those sections (about 93,000 queries in 60 seconds, throughput, hit ratios) are the original author's. Build and run both against an 8.10 cluster, refresh the samples, then delete this comment. -->
-
 ## Introduction
 
 Your relational database works. It serves correct results, enforces constraints, and survives restarts. Under growing load, customer lookups start queuing behind invoice writes, p99 latency climbs, and the operations team asks for a plan.

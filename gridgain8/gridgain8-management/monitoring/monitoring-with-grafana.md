@@ -6,8 +6,6 @@ description: >-
 
 # Monitoring with Grafana and Prometheus
 
-<!-- TODO (not tested): The Grafana and JMX flags on this page (rewritten for 8.10, not run) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
-
 This chapter explains how to configure monitoring of a GridGain cluster with Grafana and Prometheus.
 
 ## Prerequisites

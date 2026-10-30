@@ -5,8 +5,6 @@ description: >-
 
 # When to Break Colocation
 
-<!-- TODO (hold): the explanation that Version B and Version C run the fact-to-fact JOIN locally because of `@AffinityKeyMapped` is not proven. The query joins on `i.customerId = c.id`, and `id` is a value column. The SQL engine treats a join as collocated only on the affinity column (`_KEY` for Customer), so with `setDistributedJoins(true)` the planner cannot show this join as collocated. The B-versus-A speed-up may come from something else. Places to fix: the Javadoc for Version A and B in `CacheConfigs`, the comment in `ReportQuery`, the "Version B, flag on" paragraph, and the Version C statement that the flag is "required for correctness" (nothing in source requires it when the facts are physically colocated and the dimensions are REPLICATED). To resolve: run EXPLAIN for B and C with and without the flag, test the join on `c._key`, re-measure, rewrite the claims and the numbers, then delete this comment. -->
-
 ## Introduction
 
 The previous three tutorials colocated Customer and Invoice caches so every invoice lands on the same primary node as its customer. That design is correct for fact tables that share a join key. It is wrong for the reference data the same query needs to enrich the result.

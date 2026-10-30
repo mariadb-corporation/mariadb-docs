@@ -6,13 +6,9 @@ description: >-
 
 # Software Identification (SWID Tags)
 
-<!-- TODO (release): The field table still shows 8.9.33 as the example version; refresh it with an 8.10.0 SWID file after the release, then delete this comment. -->
-
-<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 GridGain distributions include a Software Identification (SWID) tag — an ISO 19770-2 compliant XML artifact that uniquely identifies the product in software asset management (SAM) systems.
 
-SWID tags are generated per package and included in ZIP, Docker, and other distributions. Each tag contains the product name, edition, version, target platform, and a SHA256 digest of the deliverable, allowing SAM tools to accurately track GridGain installations across your environment.
+SWID tags are generated per package and included in ZIP, Docker, and other distributions. Each tag contains the product name, edition, and version, allowing SAM tools to accurately track GridGain installations across your environment.
 
 ## SWID Tag Location
 
@@ -51,20 +47,18 @@ docker run --rm --entrypoint sh gridgain/ultimate:8.10.0 -c "cat /usr/share/swid
 
 Each SWID tag is an XML file containing the following fields:
 
-| Field | Type | Description |
+| Field | Location | Description |
 |---|---|---|
-| `tagId` | string (UUID) | Globally unique identifier for this SWID tag. |
-| `tagVersion` | integer | Version of this SWID document. Starts at `1`. |
-| `name` | string | Product name, including edition. For example: `GridGain 8 Ultimate Edition`, `GridGain 8 Enterprise Edition`. |
-| `version` | string | Full product version in `Major.Minor.Maintenance` format. For example: `8.9.33`. |
-| `versionScheme` | string | Version format identifier. Depends on the package format. For example: `semver` for ZIP and Docker, `rpm` for RPM packages. |
-| `softwareCreator` | string | Product creator. Value: `GridGain Systems`. |
-| `tagCreator` | string | Entity that generated this SWID tag. Value: `GridGain CI`. |
-| `summary` | string | Short product description. For example: `GridGain in-memory computing platform`. |
-| `os` | string | Target operating system. For example: `linux`, `windows`. |
-| `arch` | string | Target architecture. For example: `amd64`, `arm64`. |
-| `digest` | string | SHA256 digest of the deliverable package. |
-| `format` | string | Package type. One of: `zip`, `docker`, `rpm`, `deb`, `tar`, `python`, `dotnet`. |
+| `name` | `SoftwareIdentity` | Product name. Value: `GridGain`. |
+| `tagId` | `SoftwareIdentity` | Identifier of this tag, in the form `com.gridgain.gridgain-<edition>_<version>`. For example: `com.gridgain.gridgain-ultimate_8.10.0`. |
+| `tagVersion` | `SoftwareIdentity` | Version of this SWID document. Value: `1`. |
+| `version` | `SoftwareIdentity` | Full product version in `Major.Minor.Maintenance` format. For example: `8.10.0`. |
+| `versionScheme` | `SoftwareIdentity` | Version format identifier. Value: `semver`. |
+| `Entity name` | `Entity` | Product creator and tag creator. Value: `GridGain Systems`, with `role="tagCreator softwareCreator"` and `regid="regid.2009-11.com.gridgain"`. |
+| `product` | `Meta` | Product name. Value: `GridGain`. |
+| `productFamily` | `Meta` | Product family. Value: `GridGain`. |
+| `edition` | `Meta` | Edition of the package. For example: `Ultimate`, `Enterprise`. |
+| `summary` | `Meta` | Short product description. Value: `GridGain is an enterprise in-memory computing platform`. |
 
 ## Example SWID Tag
 
@@ -72,9 +66,9 @@ Each SWID tag is an XML file containing the following fields:
 
 ## Edition and Lifecycle Information
 
-The `name` field encodes the product and edition, for example:
+The `edition` attribute of the `Meta` element and the `tagId` encode the edition, for example:
 
-- `GridGain 8 Ultimate Edition`
-- `GridGain 8 Enterprise Edition`
+- `Ultimate` (`com.gridgain.gridgain-ultimate_8.10.0`)
+- `Enterprise` (`com.gridgain.gridgain-enterprise_8.10.0`)
 
-The `version` field encodes the full version including major and minor components. These can be mapped to end-of-standard-support (EOS) dates using the [Versioning and Support Lifecycle](versioning-and-support-lifecycle.md) page.
+The `version` attribute encodes the full version including major and minor components. These can be mapped to end-of-standard-support (EOS) dates using the [Versioning and Support Lifecycle](versioning-and-support-lifecycle.md) page.

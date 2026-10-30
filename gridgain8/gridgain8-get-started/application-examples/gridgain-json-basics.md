@@ -15,7 +15,7 @@ JSON functions are available only in GridGain Enterprise and Ultimate editions, 
 
 {% hint style="info" %}
 
-To proceed with this tutorial, you need to [enable the 'gridgain-sql' module](../../gridgain8-development/project-setup.md#enabling-modules).
+To proceed with this tutorial, you need to [enable the 'gridgain-sql' module](../../gridgain8-development/project-setup.md#enabling-modules). The module's JSON library needs the SLF4J API, which the base `libs` folder does not include, so enable the `ignite-slf4j` module too. Without it, the JSON functions fail with `NoClassDefFoundError: org/slf4j/LoggerFactory`.
 
 {% endhint %}
 

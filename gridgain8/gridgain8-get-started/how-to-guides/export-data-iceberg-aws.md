@@ -5,11 +5,9 @@ description: >-
 
 # How to Export Data to Apache Iceberg on AWS
 
-<!-- TODO (hold): in 8.10 builds, `libs/optional/gridgain-bulkload` carries no `slf4j-api` and the base `libs/` has none either (it is only in `libs/optional/ignite-slf4j`). With only `gridgain-bulkload` enabled, an Iceberg COPY that passes the new `ImportExportConfiguration` check fails with `NoClassDefFoundError: org/slf4j/LoggerFactory`. With `ignite-slf4j` also enabled it proceeds to the AWS credential lookup. The module pom says the release supplies `slf4j-api` from the base `libs/`, so this may be a packaging bug. Decide: if the packaging stays as it is, add the `ignite-slf4j` module to the prerequisites; if it is fixed, check the final distribution and delete this comment. The guide has not been run against real AWS. -->
-
 ## Prerequisites
 
-- An [enabled](../../gridgain8-development/project-setup.md#enabling-modules) `gridgain-bulkload` module.
+- An [enabled](../../gridgain8-development/project-setup.md#enabling-modules) `gridgain-bulkload` module. The module needs the SLF4J API, which the base `libs` folder does not include, so enable the `ignite-slf4j` module too. Without it, the Iceberg `COPY` fails with `NoClassDefFoundError: org/slf4j/LoggerFactory`.
 - An up and running [GridGain node](../what-is-gridgain.md).
 - A valid [AWS account](https://aws.amazon.com/account/).
 - GridGain 8.10 or later, with server-side S3 and Iceberg `COPY` allowed in the node configuration (see [Allow COPY to Use S3 and Iceberg](#allow-copy-to-use-s3-and-iceberg)).
