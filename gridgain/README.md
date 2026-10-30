@@ -18,6 +18,6 @@ GridGain 8 and GridGain 9 each have their own documentation. Use the switcher at
 
 **Control Center** is the management and monitoring console for GridGain 8 and GridGain 9 clusters. Its documentation is in the Tools section.
 
-{% content-ref url="{tools}/enterprise/control-center" %}
-[Control Center]({tools}/enterprise/control-center)
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center" %}
+[Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center)
 {% endcontent-ref %}

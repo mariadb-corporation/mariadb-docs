@@ -31,7 +31,7 @@ The Get Started pages follow one small online shop. It starts as a single `produ
 **Run databases for a team?** As a database administrator, start with [Deployment](deployment.md) to choose where the server runs, then go to [Operations](operations.md) to back it up, restore it, and add a replica. **Report on the data?** As an analyst, go to [Analytics](analytics-overview.md), which moves the shop's sales history into a columnar table and joins it to the live tables in one query.
 {% endhint %}
 
-Pick a tab to get a server running, either with your coding agent or by hand. The Get Started pages follow the Docker tab, and each other tab says what changes for you. On Windows or macOS without Docker, install MariaDB Server with the [Windows MSI package]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows) or with [Homebrew on macOS]({server}/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew), then continue at step 2.
+Pick a tab to get a server running, either with your coding agent or by hand. The Get Started pages follow the Docker tab, and each other tab says what changes for you. On Windows or macOS without Docker, install MariaDB Server with the [Windows MSI package](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows) or with [Homebrew on macOS](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew), then continue at step 2.
 
 {% tabs %}
 {% tab title="Agent prompt" %}
@@ -79,7 +79,7 @@ done
 docker exec -it mariadb mariadb -uroot -pchangeme
 ```
 
-This runs the [official MariaDB image](https://hub.docker.com/_/mariadb) from Docker Hub. On first start, the container spends a few seconds creating its data directory, so the `until` loop waits for the image's `healthcheck.sh` script to report that the server accepts connections. For volumes, configuration, and the other environment variables, see [Installing and Using MariaDB via Docker]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker).
+This runs the [official MariaDB image](https://hub.docker.com/_/mariadb) from Docker Hub. On first start, the container spends a few seconds creating its data directory, so the `until` loop waits for the image's `healthcheck.sh` script to report that the server accepts connections. For volumes, configuration, and the other environment variables, see [Installing and Using MariaDB via Docker](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker).
 {% endtab %}
 
 {% tab title="Linux" %}
@@ -94,7 +94,7 @@ sudo systemctl enable --now mariadb
 sudo mariadb
 ```
 
-Your distribution's package might be a few releases behind. To get the current release, [add the MariaDB package repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) first.
+Your distribution's package might be a few releases behind. To get the current release, [add the MariaDB package repository](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) first.
 
 A package install gives `root` no password. The `root` account signs in through Unix socket authentication, so open the client with `sudo mariadb`, and run the step 3 script after the [Server](choose-your-path/community-server.md) page creates the `shop_app` account.
 {% endtab %}
@@ -114,7 +114,7 @@ helm install mariadb-enterprise-operator \
   -f values.yaml
 ```
 
-The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images from `docker.mariadb.com` with your Customer Download Token, which the `mariadb-enterprise` secret holds. The `values.yaml` file names that secret under `imagePullSecrets`. See [Install the operator with Helm]({tools}/enterprise/mariadb-enterprise-operator/installation/helm).
+The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images from `docker.mariadb.com` with your Customer Download Token, which the `mariadb-enterprise` secret holds. The `values.yaml` file names that secret under `imagePullSecrets`. See [Install the operator with Helm](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/installation/helm).
 
 The operator alone runs no database yet. Before step 2, create a `MariaDB` resource as the Kubernetes tab on the [Deployment](deployment.md) page shows.
 {% endtab %}
@@ -130,7 +130,7 @@ mariadb --host <host> --port <port> \
   --user <user> -p --ssl-verify-server-cert
 ```
 
-The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall]({mariadb-cloud}/security/configuring-firewall) covers the allowlist.
+The [MariaDB Cloud quickstart](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/security/configuring-firewall) covers the allowlist.
 
 In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](choose-your-path/cloud.md) page shows the full script.
 {% endtab %}
@@ -167,7 +167,7 @@ INSERT INTO shop.products (name, price) VALUES
   ('Notebook', 4.50);
 ```
 
-[The MariaDB basics guide]({server}/mariadb-quickstart-guides/basics-guide) covers databases, tables, and your first statements in more depth.
+[The MariaDB basics guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/basics-guide) covers databases, tables, and your first statements in more depth.
 {% endstep %}
 
 {% step %}
@@ -202,7 +202,7 @@ for name, price in cur:
 conn.close()
 ```
 
-On the sandbox, use port `3310` and the password `sandbox`. The [Python connector quickstart]({connectors}/connectors-quickstart-guides/connector-python-guide) picks up from here with transactions, connection pools, and error handling.
+On the sandbox, use port `3310` and the password `sandbox`. The [Python connector quickstart](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/connector-python-guide) picks up from here with transactions, connection pools, and error handling.
 {% endstep %}
 {% endstepper %}
 
@@ -222,18 +222,18 @@ claude mcp add --transport http mariadb-docs \
 {% endcolumns %}
 
 {% hint style="info" %}
-**Already running MariaDB?** The [Server]({server}) docs cover administration and the full SQL reference. For MaxScale, clustering, and analytics, head to [MariaDB Platform]({platform}).
+**Already running MariaDB?** The [Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV) docs cover administration and the full SQL reference. For MaxScale, clustering, and analytics, head to [MariaDB Platform](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn).
 {% endhint %}
 
 ## Build With MariaDB
 
 Jump to a feature, find the connector for your language, or clone a sample app and run it.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI and Vector Search</strong></td><td>Store embeddings in a native <code>VECTOR</code> column and run similarity search in SQL, next to the rest of your data.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>JSON</strong></td><td>Keep flexible documents in the same tables as relational data, and query both with one statement.</td><td><a href="{server}/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the database keep every version of a row, then query your data as it was at any point in time.</td><td><a href="{server}/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Modern SQL</strong></td><td>Recursive and non-recursive common table expressions, window functions, and sequences, for queries that go past a basic <code>SELECT</code>.</td><td><a href="{server}/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Columnar Analytics</strong></td><td>Load operational data into ColumnStore tables in the same database, and run analytical queries there instead of in a separate warehouse.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Sample Apps</strong></td><td>Open source apps on GitHub, from to-do lists to RAG, in Python, Node.js, Java, .NET, and C++.</td><td><a href="https://github.com/mariadb-developers">mariadb-developers</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI and Vector Search</strong></td><td>Store embeddings in a native <code>VECTOR</code> column and run similarity search in SQL, next to the rest of your data.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>JSON</strong></td><td>Keep flexible documents in the same tables as relational data, and query both with one statement.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions">json-functions</a></td></tr><tr><td><strong>Temporal Tables</strong></td><td>Let the database keep every version of a row, then query your data as it was at any point in time.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables">system-versioned-tables</a></td></tr><tr><td><strong>Modern SQL</strong></td><td>Recursive and non-recursive common table expressions, window functions, and sequences, for queries that go past a basic <code>SELECT</code>.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions">common-table-expressions</a></td></tr><tr><td><strong>Columnar Analytics</strong></td><td>Load operational data into ColumnStore tables in the same database, and run analytical queries there instead of in a separate warehouse.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide">mariadb-columnstore-guide</a></td></tr><tr><td><strong>Sample Apps</strong></td><td>Open source apps on GitHub, from to-do lists to RAG, in Python, Node.js, Java, .NET, and C++.</td><td><a href="https://github.com/mariadb-developers">mariadb-developers</a></td></tr></tbody></table>
 
 ### Connect From Your Language
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python</td><td><a href="{connectors}/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js</td><td><a href="{connectors}/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PHP's MySQL extensions</td><td><a href="{connectors}/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++</td><td><a href="{connectors}/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Python</strong></td><td>MariaDB Connector/Python</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/connector-python-guide">connector-python-guide</a></td></tr><tr><td><strong>Node.js</strong></td><td>MariaDB Connector/Node.js</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/connector-node.js-guide">connector-node.js-guide</a></td></tr><tr><td><strong>Java</strong></td><td>MariaDB Connector/J</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-j-guide">mariadb-connector-j-guide</a></td></tr><tr><td><strong>PHP</strong></td><td>PHP's MySQL extensions</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/other/mariadb-php-connectors-guide">mariadb-php-connectors-guide</a></td></tr><tr><td><strong>C# and .NET</strong></td><td>MariaDB Connector/NET</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-net-guide">mariadb-connector-net-guide</a></td></tr><tr><td><strong>C++</strong></td><td>MariaDB Connector/C++</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c++-guide">mariadb-connector-c++-guide</a></td></tr></tbody></table>
 
 ## Pick a Path
 
