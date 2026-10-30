@@ -34,7 +34,7 @@
       * [Affinity-Aware Compute at Scale](gridgain8-get-started/learning-paths/data-locality/affinity-aware-compute.md)
       * [When to Break Colocation](gridgain8-get-started/learning-paths/data-locality/when-to-break-colocation.md)
   * [Application Examples](gridgain8-get-started/application-examples/README.md)
-    * [Build a RESTful Web Service With Spring Boot and Ignite](gridgain8-get-started/application-examples/build-rest-service-spring.md)
+    * [Build a RESTful Web Service With Spring Boot and GridGain](gridgain8-get-started/application-examples/build-rest-service-spring.md)
     * [Build Microservices With Micronaut and Ignite](gridgain8-get-started/application-examples/build-microservices-micronaut.md)
     * [Serverless Computing With Ignite and Azure Functions](gridgain8-get-started/application-examples/serverless-azure-functions.md)
     * [GridGain JSON Basics](gridgain8-get-started/application-examples/gridgain-json-basics.md)

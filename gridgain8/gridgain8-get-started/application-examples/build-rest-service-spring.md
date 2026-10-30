@@ -1,50 +1,39 @@
 ---
 hidden: true
 description: >-
-  Build a Spring Boot RESTful service backed by Apache Ignite, using Spring Data repositories, DTOs, a service layer, and a REST controller over the World database.
+  Build a Spring Boot RESTful service backed by GridGain 8, using Spring Data repositories, DTOs, a service layer, and a REST controller over the World database.
 ---
 
-# Build a RESTful Web Service With Spring Boot and Ignite
-
-<!-- TODO (rewrite): This page is still written for Apache Ignite 2.x and was not run on GridGain 8.10. Swap to `org.gridgain:ignite-core` and `ignite-indexing`, use `ignite-spring-data` (package `org.apache.ignite.springdata.repository.*`, no `springdata22`), pick a Spring Boot version that matches the Spring 7 / Spring Data 4.1 used by the 8.10 modules, use Java 17, drop the H2 pin, and check `world.sql` in the GridGain 8 distribution. Retest once 8.10 is on Nexus and Maven is installed, then delete this comment. -->
+# Build a RESTful Web Service With Spring Boot and GridGain
 
 ## Introduction
 
-This tutorial walks you through the process of creating a RESTful web service that uses Apache Ignite as a high-performance, in-memory database. The service is a Spring Boot application with an embedded Apache Tomcat instance that interacts with an Apache Ignite cluster via Spring Data repository abstraction.
-
-You can find a complete implementation of the service [in the GitHub repository](https://github.com/GridGain-Demos/ignite-spring-data-demo). Depending on your preference, you can build the application from the ground up, learning all the nuances, or you can download the GitHub project and jump to the [Run the application](#run-the-application) section of this guide.
-
-{% hint style="info" %}
-
-[Instructor-led Developer Training - Apache Ignite for Spring Boot and Spring Data](https://www.gridgain.com/products/services/training/apache-ignite-spring-boot-and-spring-data-development)
-
-Join our upcoming live, instructor-led training session to explore the best practices of using Spring Boot and Spring Data with Apache Ignite.
-
-{% endhint %}
+This tutorial walks you through the process of creating a RESTful web service that uses GridGain 8 as a high-performance, in-memory database. The service is a Spring Boot application with an embedded Apache Tomcat instance that interacts with a GridGain cluster via Spring Data repository abstraction.
 
 ## Prerequisites
 
-- **[Apache Ignite 2.14](https://ignite.apache.org/download.cgi#binaries)** or later
-- **Java Development Kit**, version 8 or later
-- **[Apache Maven 3.6](https://maven.apache.org)** or later
+- **GridGain 8.10** binary distribution and a GridGain Enterprise or Ultimate license file (`gridgain-license.xml`)
+- **Java Development Kit**, version 17 or later
+- **[Apache Maven 3.6.3](https://maven.apache.org)** or later
 - Your favorite IDE, such as IntelliJ IDEA, or Eclipse
 
 ## What You Will Learn
 
-- How to start an Ignite cluster and load the World sample database
-- How to model Ignite data as Spring Data POJOs and DTOs
-- How to query Ignite through Spring Data repositories
-- How to expose a Spring REST controller backed by an Ignite thick client
+- How to start a GridGain cluster and load the World sample database
+- How to model GridGain data as Spring Data POJOs and DTOs
+- How to query GridGain through Spring Data repositories
+- How to expose a Spring REST controller backed by a GridGain thick client
 
-## Start the Apache Ignite Cluster and Load the Sample Database
+## Start the GridGain Cluster and Load the Sample Database
 
-Before you develop the RESTful service, you start the Apache Ignite cluster and load it with sample data. You can deploy Ignite in the environment of your choice. However, for this tutorial, you bootstrap the cluster in a bare-metal environment such as your personal Linux or Windows machine.
+Before you develop the RESTful service, you start the GridGain cluster and load it with sample data. You can deploy GridGain in the environment of your choice. However, for this tutorial, you bootstrap the cluster in a bare-metal environment such as your personal Linux or Windows machine.
 
-First, start a 2-node Ignite cluster:
+First, start a 2-node GridGain cluster:
 
-1. Download and unarchive the [Apache Ignite 2.14+](https://ignite.apache.org/download.cgi#binaries) binary package to some directory (this tutorial refers to it as `{ignite}` or `$IGNITE_HOME`).
-1. Open a command-line tool (also known as "a terminal window") and go to the `{ignite}/bin` folder of the Ignite distribution.
-1. Using the default configuration settings, start the first Ignite cluster node.
+1. Download and unarchive the GridGain 8.10 binary package to some directory (this tutorial refers to it as `{ignite}` or `$IGNITE_HOME`).
+1. Copy your `gridgain-license.xml` file to the top level of that directory. The nodes read the license from there.
+1. Open a command-line tool (also known as "a terminal window") and go to the `{ignite}/bin` folder of the GridGain distribution.
+1. Using the default configuration settings, start the first cluster node.
 
 {% tabs %}
 {% tab title="Unix" %}
@@ -93,7 +82,7 @@ First, start a 2-node Ignite cluster:
    [15:11:35]   ^-- Baseline [id=0, size=2, online=2, offline=0]
    ```
 
-Next, before you initialize a sample database in Ignite, tweak some parameters of the default SQL script that is shipped with the Ignite binary package:
+Next, before you initialize a sample database in GridGain, tweak some parameters of the default SQL script that is shipped with the GridGain binary package:
 
 1. In a text editor, open the `{ignite}/examples/sql/world.sql` file.
 1. Replace the `VALUE_TYPE=demo.model.Country` parameter of the `CREATE TABLE Country` statement with the `VALUE_TYPE=org.gridgain.demo.springdata.model.Country`.
@@ -103,7 +92,7 @@ Next, before you initialize a sample database in Ignite, tweak some parameters o
 
 You made the parameter changes to link the tables with data POJOs, which will be created later. With these settings, you can use the POJOs throughout the application logic, with Ignite taking care of serialization and deserialization to and from the raw data representation.
 
-Finally, connect to the Ignite cluster (by using the SQLLine tool that is shipped with the Ignite binary distribution) and instantiate the database:
+Finally, connect to the GridGain cluster (by using the SQLLine tool that is shipped with the GridGain binary distribution) and instantiate the database:
 
 1. Open another command-line window, and go to the `{ignite}/bin` folder.
 1. Use SQLLine to connect to the cluster:
@@ -176,78 +165,80 @@ Once the cluster is running, you can proceed with development of the RESTful app
 ![Spring Project Initialization](../../.gitbook/assets/tutorials/build-rest-service-spring/spring_project_init.png)
 
 - Project: Maven project for Java
-- Spring Boot: the latest stable Spring version, such as `2.7.8`
+- Spring Boot: `4.1.2` or a later 4.1 release. GridGain 8.10 uses Spring Framework 7 and Spring Data 4.1, which require Spring Boot 4.
 - Group: `org.gridgain.demo`
 - Artifact: `ignite-spring-data-demo`
 - Project name: `ignite-spring-data-demo`
 - Package name: `org.gridgain.demo.springdata`
 - Packaging: Jar
-- Java: 8+
+- Java: 17 or later
 - Dependencies: Spring Web.
 
 After you generate and download the project, open it with your favorite IDE and add additional dependencies to the `pom.xml` file:
 
-1. Add Ignite and Spring-specific dependencies:
-
-{% hint style="info" %}
-
-   Make sure to specify the version of Ignite you have downloaded.
-
-{% endhint %}
+1. Add the GridGain repository, GridGain dependencies, and a JVM configuration for running the application:
 
    ```xml
    <properties>
-       <ignite.version>2.14.0</ignite.version>
-       <ignite-autoconfigure.version>1.0.0</ignite-autoconfigure.version>
-       <ignite-spring-data.version>2.0.0</ignite-spring-data.version>
-
-       <!--
-       By default, Spring pulls in a version of H2 that is not supported by Ignite,
-       So we pin appropriate H2 version explicitly
-       -->
-       <h2.version>1.4.197</h2.version>
+       <java.version>17</java.version>
+       <gridgain.version>8.10.0</gridgain.version>
    </properties>
+
+   <repositories>
+       <repository>
+           <id>GridGain External Repository</id>
+           <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
+       </repository>
+   </repositories>
 
    <dependencies>
 
-       <!-- Apache Ignite -->
+       <!-- GridGain -->
        <dependency>
-           <groupId>org.apache.ignite</groupId>
-           <artifactId>ignite-core</artifactId>
-           <version>${ignite.version}</version>
+           <groupId>org.gridgain</groupId>
+           <artifactId>gridgain-core</artifactId>
+           <version>${gridgain.version}</version>
        </dependency>
        <dependency>
-           <groupId>org.apache.ignite</groupId>
+           <groupId>org.gridgain</groupId>
            <artifactId>ignite-indexing</artifactId>
-           <version>${ignite.version}</version>
+           <version>${gridgain.version}</version>
        </dependency>
        <dependency>
-           <groupId>org.apache.ignite</groupId>
-           <artifactId>ignite-spring-boot-autoconfigure-ext</artifactId>
-           <version>${ignite-autoconfigure.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>org.apache.ignite</groupId>
-           <artifactId>ignite-spring-data-ext</artifactId>
-           <version>${ignite-spring-data.version}</version>
+           <groupId>org.gridgain</groupId>
+           <artifactId>ignite-spring-data</artifactId>
+           <version>${gridgain.version}</version>
        </dependency>
 
        <!-- Spring -->
        <dependency>
            <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-web</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework.data</groupId>
-           <artifactId>spring-data-commons</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-tx</artifactId>
+           <artifactId>spring-boot-starter-webmvc</artifactId>
        </dependency>
 
    </dependencies>
+
+   <build>
+       <plugins>
+           <plugin>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-maven-plugin</artifactId>
+               <configuration>
+                   <!-- The GridGain thick client needs access to JDK internals on Java 17 and later. -->
+                   <jvmArguments>
+                       --add-opens java.base/java.nio=ALL-UNNAMED
+                       --add-opens java.base/java.io=ALL-UNNAMED
+                       --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                       --add-opens java.base/java.lang=ALL-UNNAMED
+                       --add-opens java.base/java.util=ALL-UNNAMED
+                   </jvmArguments>
+               </configuration>
+           </plugin>
+       </plugins>
+   </build>
    ```
+
+   Keep the `spring-boot-starter-parent` and the other entries that Spring Initializr generated. The `ignite-spring-data` module brings in Spring Data Commons and Spring Transaction, so you do not add them separately. If your Initializr project lists `spring-boot-starter-web`, use the generated dependency as is.
 
 Do a final configuration change, by requesting Spring to start an embedded Tomcat instance on port number `9000`:
 
@@ -256,7 +247,7 @@ Do a final configuration change, by requesting Spring to start an embedded Tomca
 
 ## Define Data Model POJOs
 
-Apache Ignite stores application records and entries in a cross-platform, language-neutral [binary format](../../architecture/data-modeling/introduction.md#binary-object-format). With this format, applications can query individual object fields. The applications can use SQL as well as use key-value APIs to read a full object entry that can be automatically deserialized to an associated POJO class instance.
+GridGain stores application records and entries in a cross-platform, language-neutral [binary format](../../architecture/data-modeling/introduction.md#binary-object-format). With this format, applications can query individual object fields. The applications can use SQL as well as use key-value APIs to read a full object entry that can be automatically deserialized to an associated POJO class instance.
 
 In this tutorial, you define two types of POJOs. The first type, which represents the business objects of the RESTful service, is used internally throughout the application logic. The second type, which is called "data transfer objects (DTO)", is used by Spring Boot controllers to exchange the data via the external RESTful APIs.
 
@@ -416,7 +407,7 @@ public class Country {
 
 Observations about the POJO class:
 
-- The names of the POJO fields and the names of the columns of the `Country` table need to correspond so that Ignite can transform the internal object representation to an instance of the POJO class.
+- The names of the POJO fields and the names of the columns of the `Country` table need to correspond so that GridGain can transform the internal object representation to an instance of the POJO class.
 - The POJO includes all the fields of the `Country` table, except the primary key. The `Code` field is a primary key of the `Country` table, thus, it's not added to this POJO class. On the physical level, Ignite [stores application records as key-value pairs](../../architecture/data-modeling/introduction.md#overview), and your `Country` POJO should hold only the fields that belong to the value of a key-value pair. To retrieve a full key-value entry via a Spring Data repository, you can always use the `Cache.Entry<KeyType,ValueType>` notation, as shown later in the tutorial.
 
 Define the business object classes by creating a POJO that is associated with the `City` table - `org.gridgain.demo.springdata.model.City`:
@@ -529,12 +520,14 @@ public class CityDTO {
     public CityDTO() {
     }
 
-    public CityDTO(CityKey key, City value) {
-        this.id = key.getId();
-        this.countryCode = key.getCountryCode();
-        this.name = value.getName();
-        this.district = value.getDistrict();
-        this.population = value.getPopulation();
+    public static CityDTO of(CityKey key, City value) {
+        CityDTO dto = new CityDTO();
+        dto.id = key.getId();
+        dto.countryCode = key.getCountryCode();
+        dto.name = value.getName();
+        dto.district = value.getDistrict();
+        dto.population = value.getPopulation();
+        return dto;
     }
 
     public int getId() {
@@ -558,6 +551,8 @@ public class CityDTO {
     }
 }
 ```
+
+The DTO creates itself from a key and a value with the static `of` method, not with a constructor. Spring Boot 4 serializes JSON with Jackson 3, which would treat a public two-argument constructor as a way to create the object from JSON and fail to deserialize the request body of the `PUT` call later in this tutorial.
 
 Add another DTO to hold all the fields of the `Country` table.
 
@@ -621,8 +616,8 @@ package org.gridgain.demo.springdata.dao;
 
 import java.util.List;
 import javax.cache.Cache;
-import org.apache.ignite.springdata22.repository.IgniteRepository;
-import org.apache.ignite.springdata22.repository.config.RepositoryConfig;
+import org.apache.ignite.springdata.repository.IgniteRepository;
+import org.apache.ignite.springdata.repository.config.RepositoryConfig;
 import org.gridgain.demo.springdata.model.Country;
 import org.springframework.stereotype.Repository;
 
@@ -644,9 +639,9 @@ package org.gridgain.demo.springdata.dao;
 
 import java.util.List;
 import javax.cache.Cache;
-import org.apache.ignite.springdata22.repository.IgniteRepository;
-import org.apache.ignite.springdata22.repository.config.Query;
-import org.apache.ignite.springdata22.repository.config.RepositoryConfig;
+import org.apache.ignite.springdata.repository.IgniteRepository;
+import org.apache.ignite.springdata.repository.config.Query;
+import org.apache.ignite.springdata.repository.config.RepositoryConfig;
 import org.gridgain.demo.springdata.model.City;
 import org.gridgain.demo.springdata.model.CityKey;
 import org.springframework.stereotype.Repository;
@@ -667,10 +662,10 @@ public interface CityRepository extends IgniteRepository<City, CityKey> {
 }
 ```
 
-In the repository, three methods demonstrate various usage patterns of the Ignite Spring Data integration:
+In the repository, three methods demonstrate various usage patterns of the GridGain Spring Data integration:
 
 - The `findAllByPopulationGreaterThanEqualOrderByPopulation` method shows how to use Spring's query auto-generation feature to get a list of key-value pairs (`Cache.Entry<CityKey, City>`).
-- The `findMostPopulatedCities` method demonstrates how to pass in a direct query to Ignite to join the records of two tables. The method returns individual fields, rather than business model POJOs.
+- The `findMostPopulatedCities` method demonstrates how to pass in a direct query to GridGain to join the records of two tables. The method returns individual fields, rather than business model POJOs.
 - The `findById` method shows how to get key-value pairs if you need to filter the records by the value of a primary key field or fields.
 
 ## Introduce Spring Service Abstraction
@@ -714,7 +709,7 @@ public class WorldDatabaseService {
         List<CityDTO> cities = new ArrayList<>();
 
         for (Cache.Entry<CityKey, City> entry: cityDao.findAllByPopulationGreaterThanEqualOrderByPopulation(population))
-            cities.add(new CityDTO(entry.getKey(), entry.getValue()));
+            cities.add(CityDTO.of(entry.getKey(), entry.getValue()));
 
         return cities;
     }
@@ -730,7 +725,7 @@ public class WorldDatabaseService {
 
         cityDao.save(entry.getKey(), entry.getValue());
 
-        return new CityDTO(entry.getKey(), entry.getValue());
+        return CityDTO.of(entry.getKey(), entry.getValue());
     }
 }
 ```
@@ -739,7 +734,7 @@ In addition to the methods that read data from the repositories upon controller 
 
 {% hint style="info" %}
 
-The implementation of `updateCityPopulation` method presents one of the ways for data modification with Spring Data repositories. Alternatively, you can always send `UPDATE`, `DELETE` or `INSERT` commands to Ignite by adding direct queries to the same repositories.
+The implementation of `updateCityPopulation` method presents one of the ways for data modification with Spring Data repositories. Alternatively, you can always send `UPDATE`, `DELETE` or `INSERT` commands to GridGain by adding direct queries to the same repositories.
 
 {% endhint %}
 
@@ -793,43 +788,38 @@ public class WorldDatabaseController {
 
 The controller intercepts a handful of GET and PUT requests that delegate the business logic execution to the Spring service abstraction.
 
-## Configure the Ignite Client
+## Configure the GridGain Client
 
-Next, you need to provide the Ignite Spring Boot Auto-Configurer with a custom configuration that launches the Apache Ignite thick client.
-
-Place the class under the `org.gridgain.demo.springdata` package and name it `org.gridgain.demo.springdata.DemoConfig`:
+Next, you define the GridGain thick client as a Spring bean. The Ignite Spring Data repositories look the client up by the `igniteInstance` bean name. Place the class under the `org.gridgain.demo.springdata` package and name it `org.gridgain.demo.springdata.DemoConfig`:
 
 ```java
 package org.gridgain.demo.springdata;
 
 import org.apache.ignite.Ignite;
+import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.springframework.boot.autoconfigure.IgniteConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DemoConfig {
     @Bean(name = "igniteInstance")
-    public Ignite igniteInstance(Ignite ignite) {
-        return ignite;
-    }
-
-    @Bean
-    public IgniteConfigurer configurer() {
-        return igniteConfiguration -> {
-            igniteConfiguration.setClientMode(true);
-        };
+    public Ignite igniteInstance() {
+        IgniteConfiguration cfg = new IgniteConfiguration();
+        cfg.setClientMode(true);
+        return Ignition.start(cfg);
     }
 }
 ```
 
-Finally, update the auto-generated `org.gridgain.demo.springdata.IgniteSpringDataDemoApplication` class by adding the `@EnableIgniteRepositories` annotation to enable Ignite Spring Data repositories.
+With the default configuration, the client finds the two server nodes you started earlier through the default IP finder.
+
+Finally, update the auto-generated `org.gridgain.demo.springdata.IgniteSpringDataDemoApplication` class by adding the `@EnableIgniteRepositories` annotation to enable GridGain Spring Data repositories.
 
 ```java
 package org.gridgain.demo.springdata;
 
-import org.apache.ignite.springdata22.repository.config.EnableIgniteRepositories;
+import org.apache.ignite.springdata.repository.config.EnableIgniteRepositories;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -862,16 +852,16 @@ curl http://localhost:9000/api/cities?population=8000000
 The response is as follows:
 
 ```bash
-[{"id":3793,"countryCode":"USA","name":"New York","district":"New York","population":8008278},
-{"id":3580,"countryCode":"RUS","name":"Moscow","district":"Moscow (City)","population":8389200},
-{"id":2515,"countryCode":"MEX","name":"Ciudad de México","district":"Distrito Federal","population":8591309},
-{"id":3357,"countryCode":"TUR","name":"Istanbul","district":"Istanbul","population":8787958},
-{"id":2822,"countryCode":"PAK","name":"Karachi","district":"Sindh","population":9269265},
-{"id":939,"countryCode":"IDN","name":"Jakarta","district":"Jakarta Raya","population":9604900},
-{"id":1890,"countryCode":"CHN","name":"Shanghai","district":"Shanghai","population":9696300},
-{"id":206,"countryCode":"BRA","name":"São Paulo","district":"São Paulo","population":9968485},
-{"id":2331,"countryCode":"KOR","name":"Seoul","district":"Seoul","population":9981619},
-{"id":1024,"countryCode":"IND","name":"Mumbai (Bombay)","district":"Maharashtra","population":10500000}]
+[{"countryCode":"USA","district":"New York","id":3793,"name":"New York","population":8008278},
+{"countryCode":"RUS","district":"Moscow (City)","id":3580,"name":"Moscow","population":8389200},
+{"countryCode":"MEX","district":"Distrito Federal","id":2515,"name":"Ciudad de México","population":8591309},
+{"countryCode":"TUR","district":"Istanbul","id":3357,"name":"Istanbul","population":8787958},
+{"countryCode":"PAK","district":"Sindh","id":2822,"name":"Karachi","population":9269265},
+{"countryCode":"IDN","district":"Jakarta Raya","id":939,"name":"Jakarta","population":9604900},
+{"countryCode":"CHN","district":"Shanghai","id":1890,"name":"Shanghai","population":9696300},
+{"countryCode":"BRA","district":"São Paulo","id":206,"name":"São Paulo","population":9968485},
+{"countryCode":"KOR","district":"Seoul","id":2331,"name":"Seoul","population":9981619},
+{"countryCode":"IND","district":"Maharashtra","id":1024,"name":"Mumbai (Bombay)","population":10500000}]
 ```
 
 Second, get the top 10 most populated cities:
@@ -919,14 +909,11 @@ curl -X PUT -H "Content-Type: application/json" -d "{\"population\":5000}" http:
 The data is updated, and the controller sends back the modified version of the specified city's record:
 
 ```bash
-{"id":3507,"countryCode":"UZB","name":"Buhoro","district":"Buhoro","population":5000}
+{"countryCode":"UZB","district":"Buhoro","id":3507,"name":"Buhoro","population":5000}
 ```
 
-Congratulations! You've completed the tutorial and learned how to use Apache Ignite with Spring Boot and Spring Data to build high-performance RESTful services.
+Congratulations! You've completed the tutorial and learned how to use GridGain with Spring Boot and Spring Data to build high-performance RESTful services.
 
 ## Related
 
-- [ignite-spring-data-demo](https://github.com/GridGain-Demos/ignite-spring-data-demo) for the complete reference implementation
-- [Complimentary Developer Training - Apache Ignite for Spring Boot and Spring Data](https://www.gridgain.com/products/services/training/apache-ignite-spring-boot-and-spring-data-development)
-- [Ignite Spring Data documentation](https://ignite.apache.org/docs/latest/extensions-and-integrations/spring/spring-data) to learn more about the integration
-- [Spring Boot documentation](https://ignite.apache.org/docs/latest/extensions-and-integrations/spring/spring-boot) for details on how to use the Spring auto-starter with Ignite
+- [Spring Boot reference documentation](https://docs.spring.io/spring-boot/index.html) for details on the Spring Boot features used here

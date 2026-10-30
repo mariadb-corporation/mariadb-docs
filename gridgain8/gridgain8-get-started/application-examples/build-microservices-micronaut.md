@@ -1,33 +1,29 @@
 ---
 hidden: true
 description: >-
-  Build a Micronaut microservice backed by an Apache Ignite in-memory database, then deploy the service and a two-node cluster in Docker.
+  Build a Micronaut microservice backed by a GridGain in-memory database, then deploy the service and a two-node cluster in Docker.
 ---
 
-# Build Microservices With Micronaut and Ignite
-
-<!-- TODO (rewrite): This page is still written for Apache Ignite 2.x (`org.apache.ignite:ignite-core:2.8.1`) and was not run on GridGain 8.10. Use `org.gridgain:ignite-core`, a GridGain image or distribution, Java 17, and `setAffinityAwarenessEnabled` instead of the deprecated `setPartitionAwarenessEnabled`. Retest once 8.10 is on Nexus and Maven is installed, then delete this comment. -->
+# Build Microservices With Micronaut and GridGain
 
 ## Introduction
 
-This tutorial walks you through the process of creating a simple Micronaut microservice that uses Apache Ignite as an in-memory database. The service provides information about the world's most populated cities by processing user HTTP requests and querying data from a distributed Ignite cluster. At the end of the tutorial, you deploy the microservice in Docker in your local environment. You can then easily launch the solution, with minimal changes, in a cloud environment.
-
-You can find a complete implementation of the microservice [in the GitHub repository](https://github.com/GridGain-Demos/ignite-micronaut-demo). Depending on your preference, you can build the service from the ground up, learning about all the nuances, or you can download the GitHub project and run the finished implementation.
+This tutorial walks you through the process of creating a simple Micronaut microservice that uses GridGain 8 as an in-memory database. The service provides information about the world's most populated cities by processing user HTTP requests and querying data from a distributed GridGain cluster. At the end of the tutorial, you deploy the microservice in Docker in your local environment. You can then easily launch the solution, with minimal changes, in a cloud environment.
 
 ## Prerequisites
 
-- **Java Development Kit**, version 8 or later
-- **[Micronaut CLI](https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation)**
-- **[Apache Maven 3.0](https://maven.apache.org)** or later
-- **Docker 19** or later (install [Docker Desktop Community 2.3](https://www.docker.com/products/docker-desktop) or later for simplicity)
-- **[Docker Compose 1.25](https://docs.docker.com/compose/install/)** or later
+- **Java Development Kit**, version 17 or later
+- **[Micronaut CLI](https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation)**, version 4.10. This tutorial uses Micronaut 4.10, which builds on Java 17. Micronaut 5 build plugins require a newer Java (25).
+- **[Apache Maven 3.9](https://maven.apache.org)** or later
+- **[Docker](https://www.docker.com/products/docker-desktop)** with Docker Compose V2 (the `docker compose` command)
+- **GridGain 8.10** trial license file (`gridgain-license.xml`) and the SQL script `examples/sql/world.sql`, both from the GridGain 8.10 binary distribution
 - Your favorite IDE, such as IntelliJ IDEA, or Eclipse
 
 ## What You Will Learn
 
-- How to create an Ignite thin client singleton with Micronaut dependency injection
-- How to expose a Micronaut controller that queries Ignite with SQL
-- How to start a two-node Ignite cluster and load the World sample database
+- How to create a GridGain thin client singleton with Micronaut dependency injection
+- How to expose a Micronaut controller that queries GridGain with SQL
+- How to start a two-node GridGain cluster and load the World sample database
 - How to deploy the microservice and cluster together in Docker
 
 ## Generate the Application Project
@@ -40,24 +36,42 @@ To expedite this step, open a terminal window and use [Micronaut CLI](https://mi
 mn create-app org.gridgain.demo.ignite-micronaut-demo -b=maven -l=java
 ```
 
-Open the project with your favorite IDE and edit the `{project}/pom.xml` file by adding the `ignite-core` library to the list of the project dependencies:
+Open the project with your favorite IDE and edit the `{project}/pom.xml` file:
 
-```xml
-<dependency>
-  <groupId>org.apache.ignite</groupId>
-  <artifactId>ignite-core</artifactId>
-  <version>2.8.1</version>
-</dependency>
-```
+1. Add the GridGain repository next to the existing `central` repository:
 
-## Create the Ignite Thin Client Singleton
+   ```xml
+   <repository>
+     <id>GridGain External Repository</id>
+     <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
+   </repository>
+   ```
 
-Micronaut implements the [JSR-330: Dependency Injection for Java](http://javax-inject.github.io/javax-inject/) specification, which supports the `@Singleton` annotation. With that annotation, you can easily create a single instance of an Ignite thin client connection and share it across all your Micronaut controllers.
+1. Add the `gridgain-core` library, which includes the thin client, to the list of the project dependencies:
+
+   ```xml
+   <dependency>
+     <groupId>org.gridgain</groupId>
+     <artifactId>gridgain-core</artifactId>
+     <version>8.10.0</version>
+   </dependency>
+   ```
+
+## Create the GridGain Thin Client Singleton
+
+Micronaut implements the [JSR-330: Dependency Injection for Java](http://javax-inject.github.io/javax-inject/) specification, which supports the `@Singleton` annotation. With that annotation, you can easily create a single instance of a GridGain thin client connection and share it across all your Micronaut controllers.
 
 Add the following singleton implementation to the `{project}/src/main/java/org/gridgain/demo` folder:
 
 ```java
 package org.gridgain.demo;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Singleton;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.client.IgniteClient;
+import org.apache.ignite.configuration.ClientConfiguration;
 
 @Singleton
 public class IgniteClientConnection {
@@ -69,7 +83,7 @@ public class IgniteClientConnection {
         ClientConfiguration cfg = new ClientConfiguration();
 
         cfg.setAddresses(Application.IGNITE_SERVER_ADDRESS);
-        cfg.setPartitionAwarenessEnabled(true);
+        cfg.setAffinityAwarenessEnabled(true);
 
         client = Ignition.startClient(cfg);
     }
@@ -90,9 +104,9 @@ public class IgniteClientConnection {
 }
 ```
 
-- The first inquiry to the singleton automatically calls the `init()` method. The method creates an instance of the Ignite thin client.
-- The `cfg.setAddresses(Application.IGNITE_SERVER_ADDRESS)` parameter passes the IP address of an Ignite server node that the client needs to connect to. `Application.IGNITE_SERVER_ADDRESS` represents the environment variable that you are about to add to the application logic.
-- The `cfg.setPartitionAwarenessEnabled(true)` setting enables the [partition-awareness feature of Ignite](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness) that allows the thin client to send query requests directly to the node that owns the requested record. If your network is configured so that the client can communicate only to the server with the `Application.IGNITE_SERVER_ADDRESS` address, disable this property.
+- The first inquiry to the singleton automatically calls the `init()` method. The method creates an instance of the GridGain thin client.
+- The `cfg.setAddresses(Application.IGNITE_SERVER_ADDRESS)` parameter passes the address of a GridGain server node that the client needs to connect to. `Application.IGNITE_SERVER_ADDRESS` represents the environment variable that you are about to add to the application logic.
+- The `cfg.setAffinityAwarenessEnabled(true)` setting enables the [partition-awareness feature of GridGain](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness) that allows the thin client to send query requests directly to the node that owns the requested record. If your network is configured so that the client can communicate only to the server with the `Application.IGNITE_SERVER_ADDRESS` address, disable this property.
 
 Open `{project}/src/main/java/org/gridgain/demo/Application.java` class that Micronaut CLI generated and change its default implementation by adding the logic that is related to the `Application.IGNITE_SERVER_ADDRESS` variable:
 
@@ -122,9 +136,9 @@ Add `org.gridgain.demo.City` POJO class into the `{project}/src/main/java/org/gr
 ```java
 package org.gridgain.demo;
 
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
-@Introspected
+@Serdeable
 public class City {
     private Integer id;
 
@@ -178,10 +192,22 @@ public class City {
 }
 ```
 
+The `@Serdeable` annotation lets Micronaut Serialization convert `City` objects to JSON.
+
 Complete the microservice implementation by adding the controller class into the `{project}/src/main/java/org/gridgain/demo` location:
 
 ```java
 package org.gridgain.demo;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import jakarta.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.ignite.cache.query.FieldsQueryCursor;
+import org.apache.ignite.cache.query.SqlFieldsQuery;
 
 @Controller("/cities")
 public class CityController {
@@ -218,57 +244,99 @@ public class CityController {
 }
 ```
 
-- The `@Inject IgniteClientConnection` client directive injects an instance of your Ignite thin client singleton during the controller-creation process.
-- The `List<City> listCities(int population)` method intercepts user requests, queries data from Ignite and sends backs a sorted result.
+- The `@Inject IgniteClientConnection` client directive injects an instance of your GridGain thin client singleton during the controller-creation process.
+- The `List<City> listCities(int population)` method intercepts user requests, queries data from GridGain and sends backs a sorted result.
 
-## Start the Ignite Cluster and Load the Sample Database
+## Start the GridGain Cluster and Load the Sample Database
 
-In the last few sections of the tutorial, you deploy the whole solution, including an Ignite cluster and the just-completed Micronaut microservice in Docker. Start by adding the `ignite-cluster.yaml` Docker Compose configuration file into the project root folder:
+In the last few sections of the tutorial, you deploy the whole solution, including a GridGain cluster and the just-completed Micronaut microservice in Docker. Start by preparing three files in a `cluster` folder next to your project:
 
-```yaml
-version: '3.7'
-services:
-  ignite_server_node:
-    image: apacheignite/ignite:2.8.1
-    environment:
-      - IGNITE_WORK_DIR=/opt/ignite/work
-    networks:
-      - ignite_net
-    volumes:
-      - ../work:/opt/ignite/work
+1. Copy your `gridgain-license.xml` file and the `examples/sql/world.sql` script from the GridGain 8.10 distribution to the `cluster` folder. The Docker image does not include the examples.
+1. Add the `ignite-config.xml` file. The default multicast discovery does not connect nodes in a Docker bridge network, so the configuration lists the service name of the server nodes, which Docker resolves to every node container:
 
-networks:
-  ignite_net:
-    driver: bridge
-```
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-Bootstrap a two-node Ignite cluster and load the World database records:
+       <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+           <property name="discoverySpi">
+               <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                   <property name="ipFinder">
+                       <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                           <property name="addresses">
+                               <list>
+                                   <value>ignite_server_node:47500..47509</value>
+                               </list>
+                           </property>
+                       </bean>
+                   </property>
+               </bean>
+           </property>
+       </bean>
+   </beans>
+   ```
 
-1. Open a terminal window, navigate to the project root, and use the following Docker Compose command to launch the cluster:
+1. Add the `ignite-cluster.yaml` Docker Compose configuration file:
+
+   ```yaml
+   services:
+     ignite_server_node:
+       image: gridgain/enterprise:8.10.0
+       environment:
+         - CONFIG_URI=/config/ignite-config.xml
+       networks:
+         - ignite_net
+       volumes:
+         - ./ignite-config.xml:/config/ignite-config.xml:ro
+         - ./gridgain-license.xml:/opt/gridgain/gridgain-license.xml:ro
+         - ./world.sql:/opt/gridgain/world.sql:ro
+
+   networks:
+     ignite_net:
+       driver: bridge
+   ```
+
+Bootstrap a two-node GridGain cluster and load the World database records:
+
+1. Open a terminal window, navigate to the `cluster` folder, and use the following Docker Compose command to launch the cluster:
 
    ```bash
-   docker-compose -p cluster -f ignite-cluster.yaml up --scale ignite_server_node=2 -d
+   docker compose -p cluster -f ignite-cluster.yaml up --scale ignite_server_node=2 -d
    ```
+
+1. Wait about half a minute, then check that the two nodes formed one cluster. Look for `servers=2` in the log of the second node:
+
+   ```bash
+   docker logs cluster-ignite_server_node-2 2>&1 | grep "Topology snapshot"
+   ```
+
 1. Connect to the first server node's container:
 
    ```bash
-   docker exec -it cluster_ignite_server_node_1 bash
+   docker exec -it cluster-ignite_server_node-1 bash
    ```
-1. Once inside of the container, go to the `bin` folder of the Ignite installation directory:
+
+1. Once inside of the container, go to the `bin` folder of the GridGain installation directory:
 
    ```bash
-   cd apache-ignite/bin/
+   cd /opt/gridgain/bin
    ```
-1. Connect to the cluster with the SQLLine tool that was shipped with Ignite
+
+1. Connect to the cluster with the SQLLine tool that is shipped with GridGain:
 
    ```bash
    ./sqlline.sh --verbose=true -u jdbc:ignite:thin://127.0.0.1/
    ```
-1. Create the World database schema and load the sample data by using the script that is shipped with every Ignite release:
+
+1. Create the World database schema and load the sample data by using the script that you mounted into the container:
 
    ```bash
-   !run ../examples/sql/world.sql
+   !run ../world.sql
    ```
+
 1. Exit the container by closing the SQLLine connection (`!q`) and the bash session (`exit`).
 
 ## Build and Deploy the Micronaut Microservice
@@ -282,24 +350,27 @@ First, create a Docker image:
    ```bash
    mvn clean package
    ```
-1. Create a Docker image named `ignite-micronaut-app` (note, the project has the required Dockerfile, which was generated by Micronaut CLI):
+
+1. Add a file named `Dockerfile` to the project's root folder. The GridGain thin client needs access to a JDK internal package (`java.nio`) on Java 17 and later, so the `java` command opens it:
+
+   ```dockerfile
+   FROM eclipse-temurin:17-jre
+   COPY target/ignite-micronaut-demo-0.1.jar app.jar
+   EXPOSE 8080
+   ENTRYPOINT ["java", "--add-opens=java.base/java.nio=ALL-UNNAMED", "-jar", "app.jar"]
+   ```
+
+1. Create a Docker image named `ignite-micronaut-app`:
 
    ```bash
    docker build -t ignite-micronaut-app .
    ```
 
-Second, start the microservice from the image:
+Second, start the microservice from the image in the same Docker network as the cluster. Use the `ignite_server_node` service name as the server address, so that you do not need to look up a container IP address:
 
-1. Get the IP address of the first server node:
-
-   ```bash
-   docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cluster_ignite_server_node_1
-   ```
-1. Replace the `<YOUR_IP_ADDRESS>` parameter in the following command with the first server node's IP address and launch the service in Docker:
-
-   ```bash
-   docker run -p 8080:8080 --env igniteServerAddress=<YOUR_IP_ADDRESS>:10800 --name ignite-micronaut-app --network cluster_ignite_net ignite-micronaut-app
-   ```
+```bash
+docker run -p 8080:8080 --env igniteServerAddress=ignite_server_node:10800 --name ignite-micronaut-app --network cluster_ignite_net ignite-micronaut-app
+```
 
 ## Query Most Populated Cities
 
@@ -342,16 +413,12 @@ Use the following commands to shut down the demo and free up resources:
   ```bash
   docker container rm ignite-micronaut-app
   ```
-- Shutdown the Ignite cluster:
+- Shutdown the GridGain cluster:
 
   ```bash
-  docker-compose -p cluster -f ignite-cluster.yaml down
+  docker compose -p cluster -f ignite-cluster.yaml down
   ```
 
 ## Bonus Task
 
 Create a similar application but deploy it as a [serverless function](https://docs.micronaut.io/latest/guide/#serverlessFunctions) in your favorite cloud environment. When the solution is workable, upload it to GitHub and claim an award by sending a [direct message to the tutorial author](https://twitter.com/denismagda).
-
-## Related
-
-- [Building Microservices With Micronaut and Apache Ignite](https://github.com/GridGain-Demos/ignite-micronaut-demo) for the complete reference implementation
