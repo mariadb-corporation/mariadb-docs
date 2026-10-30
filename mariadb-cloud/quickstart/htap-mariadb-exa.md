@@ -264,6 +264,7 @@ Deep Dive: For a full list of supported SQL functions, detailed data type mappin
 * A single transaction larger than about 50 MB can exhaust the memory of the CDC (change data capture) process that copies data to Exa, and stop replication to Exa until it is recovered.
 * When you scale the Exa node or Exa storage, stop the service or pause writes to MariaDB first. Writes made while the scaling runs can fail to replicate to Exa.
 * Restoring MariaDB from a backup breaks CDC replication and leaves Exa in an inconsistent state relative to the restored MariaDB data.
+* Rows written to MariaDB while the Exasol node restarts can be lost: they never reach Exa, so they are not returned on port 3311.
 * Each service has one Exasol node. Multi-node Exasol and node-count selection are not available.
 * Port **3311** is not read-only. It accepts write statements, but they are not supported and can break replication. Do not send writes to port 3311.
 * The `pymysql` client can't run queries on port 3311. Use MariaDB Connector/Python or another MariaDB connector.
@@ -272,6 +273,7 @@ Deep Dive: For a full list of supported SQL functions, detailed data type mappin
 * The portal does not show replication failures between MariaDB and Exa.
 * You can't turn off Exa on its own on an existing service.
 * MariaDB Exa is not supported on Insync (Galera) services. If you create a Galera service through the REST API with `"analytics": true`, the API accepts the request and creates the service without Exa, instead of returning an error.
+* Errors in syntax or replication on ports 3310 and 3311 can expose usernames and passwords in plaintext in the proxy logs.
 
 **SQL dialect** The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
 
