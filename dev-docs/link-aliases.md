@@ -46,6 +46,8 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{tools}` | Tools (Enterprise and Community tools; alias keeps the `tools` slug) |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
+| `{exa}` | Exa |
+| `{ai-tools}` | AI Tools |
 
 ## Rules for agents
 
