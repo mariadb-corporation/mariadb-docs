@@ -5,8 +5,6 @@ description: >-
 
 # Cache Sizing and Expiry
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 "There are only two hard things in computer science: cache invalidation and naming things" (attributed to Phil Karlton, a principal engineer at Netscape in the 1990s). This tutorial takes on the first one.

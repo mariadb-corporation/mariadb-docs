@@ -5,8 +5,6 @@ description: >-
 
 # Affinity-Aware Compute at Scale
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 Pulling a distributed dataset to the client to compute on it does not scale. At 100,000 customers with three invoices each, the client fetches roughly 12 MB of invoice rows to produce a ten-row top-10. Running the same aggregation on the servers that own the rows returns under 1 KB. This tutorial builds three compute patterns that do that, then measures them against pull-to-client at 1,000, 10,000, and 100,000 customers.

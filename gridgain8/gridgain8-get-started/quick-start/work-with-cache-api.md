@@ -5,8 +5,6 @@ description: >-
 
 # Work With the Cache API
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 Your cluster is running. Now you connect a Java application and store data in it.

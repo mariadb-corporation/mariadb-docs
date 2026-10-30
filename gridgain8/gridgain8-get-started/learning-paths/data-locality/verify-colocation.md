@@ -5,10 +5,6 @@ description: >-
 
 # Verify Colocation Is Working
 
-<!-- TODO (check): The sample comment "reduces 96 rows (32 partitions x 3 nodes)" is probably about 64 with backups=1; this was not run. Run the query on 3 nodes, fix the number, then delete this comment. -->
-
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 Colocation has no compile-time guard and no runtime exception. The previous tutorial gave you three mechanisms that declare a parent-child colocation contract. All three mechanisms compile and produce working code, and none of them throws when the contract is wrong.
@@ -697,8 +693,8 @@ private static void actTwoSystemViews(Ignite ignite, Labels labels) {
     System.out.printf("%-22s %-12s %s%n", "CACHE", "NODE", "PRIMARY PARTITION COUNT");
     System.out.println("--------------------------------------------------------------");
 
-    // Group-by on the partition-states view reduces 96 rows (32
-    // partitions * 3 nodes) to one row per cache per node.
+    // The IS_PRIMARY filter leaves 64 rows (32 primary partitions in each
+    // of the two caches). Group-by reduces them to one row per cache per node.
     SqlFieldsQuery partsQry = new SqlFieldsQuery(
         "SELECT CACHE_GROUP_ID, NODE_ID, COUNT(*) " +
         "FROM SYS.PARTITION_STATES " +

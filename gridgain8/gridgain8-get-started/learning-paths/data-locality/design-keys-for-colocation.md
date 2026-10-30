@@ -5,8 +5,6 @@ description: >-
 
 # Design Keys for Colocation
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 A partitioned cache distributes entries across nodes by hashing the key. That behavior works for lookups, but a production schema needs more control. When a customer has a hundred invoices, the cluster has no reason to keep them together. Invoice keys hash independently of the customer's key, so the invoices land on whichever nodes their hashes pick.

@@ -6,8 +6,6 @@ description: >-
 
 # GridGain Quick Start Guide for Java
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 This chapter explains system requirements for running GridGain, how to install GridGain, start a cluster and run a simple Hello World example.
 
 Since GridGain is built on top of Apache Ignite, GridGain reuses Ignite's system properties, environment properties, startup scripts, etc. wherever possible.

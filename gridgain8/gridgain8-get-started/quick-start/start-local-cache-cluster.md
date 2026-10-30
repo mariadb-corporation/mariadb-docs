@@ -5,9 +5,7 @@ description: >-
 
 # Start a Local Cache Development Cluster
 
-<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0; the version strings in the sample output and the download file name are placeholders; re-capture them from the released build. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
-<!-- TODO (release): no official 8.10.0 image is published yet, so whether the `platform: linux/amd64` pin is still needed was not tested. This page keeps the amd64 wording and the pin as originally written. After the 8.10.0 release, check the architectures of the final tag and decide whether to drop the pin and the emulation notes here and in the other tutorials that use `platform: linux/amd64`. -->
+<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). The official `gridgain/enterprise:8.10.0` image is multi-arch (amd64 and arm64), so the pin is probably no longer needed. Decide whether to drop the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
 
 ## Introduction
 

@@ -5,8 +5,6 @@ description: >-
 
 # Real-Time Event Processing: The Streaming Problem
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 Every tutorial in this path so far runs on requests from your code. You query the cache with SQL, run ACID transactions across keys, dispatch compute to where the data lives, make storage durable, and reach for cluster-wide coordination primitives. Each operation starts when the application calls in.

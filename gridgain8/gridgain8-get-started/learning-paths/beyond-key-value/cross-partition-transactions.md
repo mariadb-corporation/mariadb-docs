@@ -5,8 +5,6 @@ description: >-
 
 # Atomic Operations Across Keys: The Transaction Problem
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 In a sharded cache, multi-key writes are only atomic when the keys live on the same shard. Cross-shard atomicity has historically meant application-layer work: key co-location, per-shard scripting, or compensation after partial failures. Each option pushes consistency work back into your code. You already covered `txStart`, `commit`, and the optimistic retry pattern on a single-node cluster. This tutorial puts that same API on a three-node cluster, shows how `OPTIMISTIC + REPEATABLE_READ` silently drops writes, and ends with the production retry pattern wrapped around any optimistic transaction.

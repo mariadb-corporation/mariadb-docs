@@ -5,9 +5,7 @@ description: >-
 
 # Beyond Cache: The Persistence Problem
 
-<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). No official 8.10.0 image is published yet, so whether the pin is still needed is untested. Decide after the 8.10.0 release whether to keep the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
-
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is; the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
+<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). The official `gridgain/enterprise:8.10.0` image is multi-arch (amd64 and arm64), so the pin is probably no longer needed. Decide whether to drop the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
 
 ## Introduction
 

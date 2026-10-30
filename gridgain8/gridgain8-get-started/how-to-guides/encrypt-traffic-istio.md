@@ -7,8 +7,6 @@ description: >-
 
 <!-- TODO (not tested): The Istio steps (need a Kubernetes cluster) was not run against GridGain 8.10. Run it on an 8.10 build, compare the output and samples with the page, fix differences, then delete this comment. -->
 
-<!-- TODO (release): the Docker Hub tag with the plain version 8.10.0 does not exist yet (no 8.10.0 image is published yet); this page uses the placeholder tag 8.10.0. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Prerequisites
 
 - A running Kubernetes cluster with `kubectl` access. The commands below were tested on [kind](https://kind.sigs.k8s.io). They apply unchanged to managed Kubernetes (EKS, GKE, AKS); only the external load balancer in the optional gateway step differs by platform.

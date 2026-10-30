@@ -5,8 +5,6 @@ description: >-
 
 # Use Transactions With the Cache API
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 The cache from [Cache-Aside Under Load](cache-aside-under-load.md) cannot carry multi-key transactions. Each entry arrived from the database at its own moment, so the cache never held a consistent snapshot that a transaction could protect.

@@ -5,8 +5,6 @@ description: >-
 
 # Distributed Primitives: The Coordination Problem
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Introduction
 
 So far in this path the cluster has acted as a data service. You stored entries, queried them, ran compute against them, and learned how to make the storage durable. This tutorial shifts the cluster's role to a coordination service that the application talks to instead of a coordination library.

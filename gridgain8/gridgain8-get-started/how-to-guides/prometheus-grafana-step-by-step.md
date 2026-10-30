@@ -5,8 +5,6 @@ description: >-
 
 # How to Monitor GridGain 8 With Prometheus and Grafana
 
-<!-- TODO (release): the Maven version 8.10.0 is not yet published on the GridGain Nexus repository (it has no 8.10 version), so the pom in this page cannot resolve until it is. After the 8.10.0 release, check that each of these resolves, update this page if the final names differ, and delete this comment. -->
-
 ## Prerequisites
 
 - A **GridGain 8** project you can launch from Java code
