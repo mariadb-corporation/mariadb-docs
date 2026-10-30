@@ -16,7 +16,7 @@ The tables aren't the problem. Their layout is. InnoDB, the default storage engi
 MariaDB ColumnStore stores each column on its own, so a report reads only the columns it names. Because every table in MariaDB Server chooses its own storage engine, the sales history can move to ColumnStore while products and orders stay on InnoDB, all in the same `shop` database. ColumnStore is open source and ships with MariaDB Community Server and MariaDB Enterprise Server.
 
 {% hint style="info" %}
-To follow along, you need a server with ColumnStore installed, because both the `ENGINE=ColumnStore` tables and the `cpimport` loader come from it. The official Docker image from the landing page doesn't include ColumnStore, so use a Linux host for this page. On MariaDB Community Server, install the `mariadb-plugin-columnstore` package (`MariaDB-columnstore-engine` on RHEL) from the MariaDB repository. For MariaDB Enterprise Server, the [single-node install guide]({analytics}/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage) walks through the setup.
+To follow along, you need a server with ColumnStore installed, because both the `ENGINE=ColumnStore` tables and the `cpimport` loader come from it. The official Docker image from the landing page doesn't include ColumnStore, so use a Linux host for this page. On MariaDB Community Server, install the `mariadb-plugin-columnstore` package (`MariaDB-columnstore-engine` on RHEL) from the MariaDB repository. For MariaDB Enterprise Server, the [single-node install guide](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage) walks through the setup.
 {% endhint %}
 
 ## Move Sales to ColumnStore
@@ -37,7 +37,7 @@ CREATE TABLE shop.sales (
 ) ENGINE=ColumnStore;
 ```
 
-The [ColumnStore quickstart]({analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide) explains how the engine stores and compresses each column.
+The [ColumnStore quickstart](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-guide) explains how the engine stores and compresses each column.
 {% endstep %}
 
 {% step %}
@@ -51,7 +51,7 @@ printf '1|1|2026-09-01|2|39.00\n2|2|2026-09-01|1|249.00\n3|3|2026-09-02|10|4.50\
 sudo cpimport shop sales sales.txt
 ```
 
-Reports keep running while the load is in progress. When your order history already lives in an InnoDB table, an `INSERT INTO shop.sales SELECT ...` statement run outside a transaction becomes the same bulk load. [Data Loading with cpimport]({analytics}/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport) covers the file formats and options.
+Reports keep running while the load is in progress. When your order history already lives in an InnoDB table, an `INSERT INTO shop.sales SELECT ...` statement run outside a transaction becomes the same bulk load. [Data Loading with cpimport](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport) covers the file formats and options.
 {% endstep %}
 
 {% step %}
@@ -67,7 +67,7 @@ GROUP BY p.name
 ORDER BY revenue DESC;
 ```
 
-ColumnStore reaches the InnoDB table through a cross-engine connection that you set up once with the `mcsSetConfig CrossEngineSupport` commands in [Start and Configure ColumnStore]({analytics}/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage/step-3-start-and-configure-enterprise-columnstore).
+ColumnStore reaches the InnoDB table through a cross-engine connection that you set up once with the `mcsSetConfig CrossEngineSupport` commands in [Start and Configure ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/deployment/install-guide/singlenode-localstorage/step-3-start-and-configure-enterprise-columnstore).
 {% endstep %}
 {% endstepper %}
 
@@ -75,4 +75,4 @@ With the sales history on ColumnStore, the Monday report reads a few compressed 
 
 ## Keep Going
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Choose a Storage Engine</strong></td><td>Match each table to how your application reads and writes it.</td><td><a href="{server}/server-usage/storage-engines/choosing-the-right-storage-engine">choosing-the-right-storage-engine</a></td></tr><tr><td><strong>ColumnStore Hardware</strong></td><td>Size memory, disk, and CPU cores before you pick machines, since scan speed depends on all of them.</td><td><a href="{analytics}/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide">mariadb-columnstore-hardware-guide</a></td></tr><tr><td><strong>How MariaDB Exa Works</strong></td><td>See how MaxScale CDC reads the binary log and loads each change into the Exa cluster for analytics.</td><td><a href="{exa}/architecture">architecture</a></td></tr><tr><td><strong>Load Data With INSERT ... SELECT</strong></td><td>Copy rows from InnoDB tables into ColumnStore with plain SQL.</td><td><a href="{analytics}/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select">mariadb-enterprise-columnstore-data-loading-with-insert-select</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Run the largest analytical workloads on a separate cluster.</td><td><a href="{exa}/deployment">deployment</a></td></tr><tr><td><strong>HTAP on MariaDB Cloud</strong></td><td>Pair a transactional MariaDB Cloud service with MariaDB Exa, a technical preview on the Power and PowerPlus tiers, enabled on request.</td><td><a href="{mariadb-cloud}/quickstart/htap-mariadb-exa">htap-mariadb-exa</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Choose a Storage Engine</strong></td><td>Match each table to how your application reads and writes it.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/choosing-the-right-storage-engine">choosing-the-right-storage-engine</a></td></tr><tr><td><strong>ColumnStore Hardware</strong></td><td>Size memory, disk, and CPU cores before you pick machines, since scan speed depends on all of them.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/columnstore-quickstart-guides/mariadb-columnstore-hardware-guide">mariadb-columnstore-hardware-guide</a></td></tr><tr><td><strong>How MariaDB Exa Works</strong></td><td>See how MaxScale CDC reads the binary log and loads each change into the Exa cluster for analytics.</td><td><a href="{exa}/architecture">architecture</a></td></tr><tr><td><strong>Load Data With INSERT ... SELECT</strong></td><td>Copy rows from InnoDB tables into ColumnStore with plain SQL.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select">mariadb-enterprise-columnstore-data-loading-with-insert-select</a></td></tr><tr><td><strong>Deploy MariaDB Exa</strong></td><td>Run the largest analytical workloads on a separate cluster.</td><td><a href="{exa}/deployment">deployment</a></td></tr><tr><td><strong>HTAP on MariaDB Cloud</strong></td><td>Pair a transactional MariaDB Cloud service with MariaDB Exa, a technical preview on the Power and PowerPlus tiers, enabled on request.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/quickstart/htap-mariadb-exa">htap-mariadb-exa</a></td></tr></tbody></table>

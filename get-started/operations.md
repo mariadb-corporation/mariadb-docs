@@ -40,7 +40,7 @@ sudo mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-The [mariadb-backup overview]({server}/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) lists the extra privileges that some options need, such as `--galera-info`.
+The [mariadb-backup overview](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview) lists the extra privileges that some options need, such as `--galera-info`.
 {% endstep %}
 
 {% step %}
@@ -59,7 +59,7 @@ sudo mariadb-backup --copy-back --target-dir=/var/mariadb/backup/
 sudo chown -R mysql:mysql /var/lib/mysql/
 ```
 
-Prepare the backup with the same version of the `mariadb-backup` tool that took it. [Full backup and restore]({server}/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) covers the `--move-back` alternative and restoring with `rsync`.
+Prepare the backup with the same version of the `mariadb-backup` tool that took it. [Full backup and restore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) covers the `--move-back` alternative and restoring with `rsync`.
 {% endstep %}
 
 {% step %}
@@ -72,7 +72,7 @@ sudo systemctl start mariadb
 sudo mariadb -e "SELECT COUNT(*) FROM shop.products;"
 ```
 
-When the counts match, the application can reconnect, and you can remove the old data directory at `/var/lib/mysql.old`. To keep nightly backups small between full copies, see [incremental backup and restore]({server}/server-usage/backup-and-restore/mariadb-backup/incremental-backup-and-restore-with-mariadb-backup).
+When the counts match, the application can reconnect, and you can remove the old data directory at `/var/lib/mysql.old`. To keep nightly backups small between full copies, see [incremental backup and restore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/incremental-backup-and-restore-with-mariadb-backup).
 {% endstep %}
 {% endstepper %}
 
@@ -80,8 +80,8 @@ The shop is back, with everything up to last night's backup. Orders placed after
 
 ## Add a Replica
 
-A replica, a second server that keeps its own copy of the data, covers both the outage and the lost orders. It applies each change from the primary server's binary log, usually within seconds, so a failed disk on the primary costs only the changes the replica hadn't received yet, not a day of orders. MariaDB MaxScale sits between the application and the servers, sends writes to the primary, and sends reads to the replica, which is also where the shop starts getting faster. With [automatic failover]({maxscale}/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor) turned on in its monitor, MaxScale also promotes the replica when the primary fails. The [MariaDB Platform](choose-your-path/enterprise-platform.md) page shows how these pieces fit together.
+A replica, a second server that keeps its own copy of the data, covers both the outage and the lost orders. It applies each change from the primary server's binary log, usually within seconds, so a failed disk on the primary costs only the changes the replica hadn't received yet, not a day of orders. MariaDB MaxScale sits between the application and the servers, sends writes to the primary, and sends reads to the replica, which is also where the shop starts getting faster. With [automatic failover](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor) turned on in its monitor, MaxScale also promotes the replica when the primary fails. The [MariaDB Platform](choose-your-path/enterprise-platform.md) page shows how these pieces fit together.
 
 ## Keep Going
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Galera Cluster Quickstart</strong></td><td>Set up synchronous replication where every node can take writes.</td><td><a href="{galera}/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide">mariadb-galera-cluster-guide</a></td></tr><tr><td><strong>MaxScale Quickstart</strong></td><td>Put MaxScale in front of your servers to route queries and handle failover for the application.</td><td><a href="{maxscale}/maxscale-quickstart-guides/maxscale-beginner-guide">maxscale-beginner-guide</a></td></tr><tr><td><strong>High Availability on MariaDB Cloud</strong></td><td>Get a replicated topology with automatic failover on the managed service.</td><td><a href="{mariadb-cloud}/high-availability-dr/ha-and-replicated-topology">ha-and-replicated-topology</a></td></tr><tr><td><strong>Benchmarking</strong></td><td>Measure the shop under a realistic load before and after each tuning change.</td><td><a href="{server}/ha-and-performance/benchmarking">benchmarking</a></td></tr><tr><td><strong>Backup and Restore Overview</strong></td><td>Compare logical dumps, physical backups, and point-in-time recovery to pick a schedule.</td><td><a href="{server}/server-usage/backup-and-restore">backup-and-restore</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer a fleet of MariaDB servers from one console.</td><td><a href="{tools}/enterprise/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Galera Cluster Quickstart</strong></td><td>Set up synchronous replication where every node can take writes.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide">mariadb-galera-cluster-guide</a></td></tr><tr><td><strong>MaxScale Quickstart</strong></td><td>Put MaxScale in front of your servers to route queries and handle failover for the application.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/maxscale-beginner-guide">maxscale-beginner-guide</a></td></tr><tr><td><strong>High Availability on MariaDB Cloud</strong></td><td>Get a replicated topology with automatic failover on the managed service.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/high-availability-dr/ha-and-replicated-topology">ha-and-replicated-topology</a></td></tr><tr><td><strong>Benchmarking</strong></td><td>Measure the shop under a realistic load before and after each tuning change.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/benchmarking">benchmarking</a></td></tr><tr><td><strong>Backup and Restore Overview</strong></td><td>Compare logical dumps, physical backups, and point-in-time recovery to pick a schedule.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore">backup-and-restore</a></td></tr><tr><td><strong>MariaDB Enterprise Manager</strong></td><td>Monitor and administer a fleet of MariaDB servers from one console.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-manager">mariadb-enterprise-manager</a></td></tr></tbody></table>

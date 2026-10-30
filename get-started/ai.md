@@ -37,7 +37,7 @@ CREATE TABLE shop.product_embeddings (
 );
 ```
 
-The indexed column must be `NOT NULL`, and a table can have only one vector index. [CREATE TABLE with Vectors]({server}/reference/sql-structure/vectors/create-table-with-vectors) covers the `M` and `DISTANCE` options.
+The indexed column must be `NOT NULL`, and a table can have only one vector index. [CREATE TABLE with Vectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/create-table-with-vectors) covers the `M` and `DISTANCE` options.
 {% endstep %}
 
 {% step %}
@@ -52,7 +52,7 @@ INSERT INTO shop.product_embeddings (product_id, embedding) VALUES
   (3, VEC_FromText('[0.15, 0.10, 0.20, 0.95]'));
 ```
 
-The [VEC\_FromText reference]({server}/reference/sql-functions/vector-functions/vec_fromtext) shows the binary format it produces, which is four bytes per dimension.
+The [VEC\_FromText reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/vector-functions/vec_fromtext) shows the binary format it produces, which is four bytes per dimension.
 {% endstep %}
 
 {% step %}
@@ -78,7 +78,7 @@ LIMIT 2;
 +---------------+---------------------+
 ```
 
-A smaller distance means a closer match. [Using the vector index efficiently]({server}/reference/sql-structure/vectors/vector-overview#using-the-vector-index-efficiently) lists the query patterns that fall back to a full table scan.
+A smaller distance means a closer match. [Using the vector index efficiently](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/vector-overview#using-the-vector-index-efficiently) lists the query patterns that fall back to a full table scan.
 {% endstep %}
 {% endstepper %}
 
@@ -92,4 +92,4 @@ The [MariaDB AI plugins](https://github.com/mariadb/ai-plugins) give Claude Code
 
 ## Keep Going
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI Tools</strong></td><td>Set up a coding agent that knows MariaDB, and choose an MCP server for agents that work on production data.</td><td><a href="{ai-tools}">ai-tools</a></td></tr><tr><td><strong>Vector Overview</strong></td><td>Read about the <code>VECTOR</code> data type, the HNSW-based vector index, and the distance functions before you design a production schema.</td><td><a href="{server}/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>Hybrid Search</strong></td><td>Merge vector matches and full-text keyword matches into one ranking with reciprocal rank fusion.</td><td><a href="{server}/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf">optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf</a></td></tr><tr><td><strong>Framework Integrations</strong></td><td>Use MariaDB as the vector store for LangChain, LlamaIndex, Spring AI, and other frameworks.</td><td><a href="{server}/reference/sql-structure/vectors/vector-framework-integrations">vector-framework-integrations</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give agents access to production databases with the authentication and permissions you set.</td><td><a href="{tools}/enterprise/mariadb-enterprise-mcp-server/introduction">introduction</a></td></tr><tr><td><strong>Vector Search Workshop</strong></td><td>Build semantic search step by step in Python with LangChain and MariaDB.</td><td><a href="https://github.com/mariadb-developers/vector-search-workshop">vector-search-workshop</a></td></tr><tr><td><strong>RAG Demo in Java</strong></td><td>Run retrieval augmented generation on MariaDB vector search with the OpenAI API.</td><td><a href="https://github.com/mariadb-developers/mariadb-rag-demo-java">mariadb-rag-demo-java</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>AI Tools</strong></td><td>Set up a coding agent that knows MariaDB, and choose an MCP server for agents that work on production data.</td><td><a href="{ai-tools}">ai-tools</a></td></tr><tr><td><strong>Vector Overview</strong></td><td>Read about the <code>VECTOR</code> data type, the HNSW-based vector index, and the distance functions before you design a production schema.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/vector-overview">vector-overview</a></td></tr><tr><td><strong>Hybrid Search</strong></td><td>Merge vector matches and full-text keyword matches into one ranking with reciprocal rank fusion.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf">optimizing-hybrid-search-query-with-reciprocal-rank-fusion-rrf</a></td></tr><tr><td><strong>Framework Integrations</strong></td><td>Use MariaDB as the vector store for LangChain, LlamaIndex, Spring AI, and other frameworks.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/vector-framework-integrations">vector-framework-integrations</a></td></tr><tr><td><strong>MariaDB Enterprise MCP Server</strong></td><td>Give agents access to production databases with the authentication and permissions you set.</td><td><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-mcp-server/introduction">introduction</a></td></tr><tr><td><strong>Vector Search Workshop</strong></td><td>Build semantic search step by step in Python with LangChain and MariaDB.</td><td><a href="https://github.com/mariadb-developers/vector-search-workshop">vector-search-workshop</a></td></tr><tr><td><strong>RAG Demo in Java</strong></td><td>Run retrieval augmented generation on MariaDB vector search with the OpenAI API.</td><td><a href="https://github.com/mariadb-developers/mariadb-rag-demo-java">mariadb-rag-demo-java</a></td></tr></tbody></table>
