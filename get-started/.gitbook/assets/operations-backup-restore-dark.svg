@@ -4,18 +4,18 @@
   <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkacc" d="M0,0 L10,5 L0,10 z"/></marker>
 </defs>
 <style>
-  text { fill: #e4ecef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
+  text { fill: #ececef; font: 13px Lato, "Helvetica Neue", Arial, sans-serif; }
   .mono { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; font-variant-ligatures: none; }
   .t { font-weight: 700; font-size: 14px; } .sm { font-size: 12px; } .xs { font-size: 11px; }
-  .mut { fill: #9aabb3; } .acct { fill: #96DDCF; }
-  .box { fill: #1f2a30; stroke: #3d5059; } .plain { fill: none; stroke: #3d5059; }
-  .accbox { fill: #1d3533; stroke: #96DDCF; } .frame { fill: none; stroke: #9aabb3; stroke-dasharray: 5 4; }
-  .ln { fill: none; stroke: #e4ecef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
-  .acc { stroke: #96DDCF; stroke-width: 2; } .mut-ln { stroke: #9aabb3; }
-  .fillacc { fill: #96DDCF; } .fillsoft { fill: #1d3533; } .fillpanel { fill: #1f2a30; }
-  .halo { paint-order: stroke; stroke: #1b1f22; stroke-width: 4px; stroke-linejoin: round; }
-  .on { fill: #0f1a1c; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
-  .mk { fill: #e4ecef; } .mkacc { fill: #96DDCF; }
+  .mut { fill: #a1a1aa; } .acct { fill: #BEA4FD; }
+  .box { fill: #1e1e22; stroke: #45454d; } .plain { fill: none; stroke: #45454d; }
+  .accbox { fill: #2b2242; stroke: #BEA4FD; } .frame { fill: none; stroke: #a1a1aa; stroke-dasharray: 5 4; }
+  .ln { fill: none; stroke: #ececef; stroke-width: 1.4; } .dash { stroke-dasharray: 5 4; }
+  .acc { stroke: #BEA4FD; stroke-width: 2; } .mut-ln { stroke: #a1a1aa; }
+  .fillacc { fill: #BEA4FD; } .fillsoft { fill: #2b2242; } .fillpanel { fill: #1e1e22; }
+  .halo { paint-order: stroke; stroke: #111113; stroke-width: 4px; stroke-linejoin: round; }
+  .on { fill: #18181b; } .cmd { font-size: 10.5px; font-variant-ligatures: none; }
+  .mk { fill: #ececef; } .mkacc { fill: #BEA4FD; }
 </style>
 <rect class="box" x="20" y="30" width="172" height="112" rx="6"/>
 <text class="t" x="30" y="54">1  Back up</text>
