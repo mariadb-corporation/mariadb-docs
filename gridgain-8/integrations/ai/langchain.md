@@ -1,48 +1,51 @@
 ---
 description: >-
-  Use GridGain 8 as a backend for LangChain components, including a key-value store, document loader, chat message history, LLM caches, and a vector store.
+  Use GridGain 8 as a backend for LangChain components, including key-value and byte stores, a document loader, chat message history, LLM caches, and a vector store.
 ---
 
 # LangChain Integration
 
-GridGain provides support for a LangChain integration. In this extension, a set of storage adapters that allow LangChain components to efficiently use GridGain as a backend for various data storage needs is provided.
+The `langchain-gridgain` package provides storage adapters that let LangChain components use GridGain as a backend for various data storage needs.
 
 ## Features
 
-Support for the following five key LangChain interfaces are provided in this extension:
+The package implements the following LangChain interfaces:
 
-1. **GridGainStore**: A key-value store implementation.
-2. **GridGainDocumentLoader**: A document loader for retrieving documents from GridGain caches.
-3. **GridGainChatMessageHistory**: A chat message history store using GridGain.
-4. **GridGainCache**: A caching mechanism for Language Models using GridGain.
-5. **GridGainVectorStore**: A vector store implementation using GridGain for storing and querying embeddings.
+1. **GridGainStore**: A key-value store for string values.
+2. **GridGainByteStore**: A key-value store for binary values, such as computed embeddings.
+3. **GridGainDocumentLoader**: A document loader for retrieving documents from GridGain caches.
+4. **GridGainChatMessageHistory**: A chat message history store.
+5. **GridGainCache**: An exact-match cache for large language model (LLM) responses.
+6. **GridGainSemanticCache**: A semantic cache for LLM responses.
+7. **GridGainVectorStore**: A vector store for storing and querying embeddings.
+
+For LangGraph persistence, see [LangGraph Integration](langgraph.md).
 
 ## Prerequisites
 
-The following is required to use LangChain integration:
+The following is required to use the LangChain integration:
 
-- GridGain 8.9.17 or later with an appropriate license is required to use vector store.
-- Python 3.11.7 or later is required to use the LangChain extension.
+- Python 3.11 or later.
+- A running GridGain 8 cluster. The edition you need depends on the components that you use:
+  - `GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` use only key-value operations and work with any edition.
+  - `GridGainVectorStore` and `GridGainSemanticCache` require GridGain 8.9.17 or later with a license that provides access to vector search.
+- To filter vector searches by metadata, GridGain 8.10 or later. See [Filtering by Metadata](#filtering-by-metadata).
 
 ## Installation
 
-The `langchain-gridgain` extension is available for installation via pip:
+Install the `langchain-gridgain` package using pip:
 
 ```bash
 pip install langchain-gridgain
 ```
 
-## GridGain Setup
+Version 3.1.0 depends on `langchain-core` 1.4.7 or later (below 2.0), the GridGain 8 Python thin client `pygridgain` 1.7.0 or later (below 2.0), and the Apache Ignite Python thin client `pyignite` 0.6.1 or later (below 0.7). It does not depend on `langchain-community`.
 
-In order to use [GridGain](https://www.gridgain.com/) as an online store, you need to have a running GridGain cluster.
+`GridGainStore`, `GridGainByteStore`, `GridGainDocumentLoader`, `GridGainChatMessageHistory`, and `GridGainCache` accept a `pygridgain` or a `pyignite` client. `GridGainVectorStore` and `GridGainSemanticCache` require a `pygridgain` client, because `pyignite` does not support vector queries.
 
-The GridGain online store provides the capability to connect to local/remote GridGain  clusters.
+## Connecting to GridGain
 
-### Connecting to GridGain
-
-Before using any of the GridGain-based components, you need to establish a connection to your GridGain cluster. The connection method differs slightly depending on whether you're using Apache Ignite or GridGain.
-
-Below is an example of configuring GridGain:
+Before using any of the GridGain-based components, connect to your GridGain cluster with the [Python thin client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/gridgain-8/clients/python-thin-client):
 
 ```python
 from pygridgain import Client
@@ -65,47 +68,36 @@ def connect_to_gridgain(username: str, password: str, url: str, port: int) -> Cl
         raise
 
 # Example usage
-try:
-    client = connect_to_gridgain(
-        username="your_username",
-        password="your_password",
-        url="gridgain.example.com",
-        port=10800
-    )
-except Exception as e:
-    print(f"Connection failed: {e}")
+client = connect_to_gridgain(
+    username="your_username",
+    password="your_password",
+    url="gridgain.example.com",
+    port=10800
+)
 ```
 
-Make sure to replace `"your_username"`, `"your_password"`, `"gridgain.example.com"`, and `10800` with your actual GridGain cluster credentials and connection details.
+Replace `"your_username"`, `"your_password"`, `"gridgain.example.com"`, and `10800` with your actual GridGain cluster credentials and connection details.
 
-The client object returned by this connection functions will be used when initializing GridGain-based components.
+The examples below use the `client` object returned by this function.
+
+{% hint style="info" %}
+All components that use the same client share one lock, so you can use one client from several components and threads. Operations on one client run one at a time. If you need client-side parallelism, use several clients.
+
+The lock protects each client operation, not a sequence of operations. For example, `GridGainChatMessageHistory.add_messages()` reads the session history and then writes it back. If several threads or processes add messages to the same session at the same time, they can overwrite each other's messages. Serialize updates to one session in your application.
+{% endhint %}
 
 ## Detailed Component Explanations
 
 ### 1. GridGainStore
 
-GridGainStore is a key-value store implementation that uses GridGain as its backend. It provides a simple and efficient way to store and retrieve data using key-value pairs.
+`GridGainStore` is a key-value store that uses GridGain as its backend. It provides a simple way to store and retrieve data using key-value pairs.
 
 Usage example:
 
 ```python
-from langchain_community.storage.ignite import GridGainStore
+from langchain_gridgain import GridGainStore
 
-def initialize_keyvalue_store(client) -> GridGainStore:
-    try:
-        key_value_store = GridGainStore(
-            cache_name="laptop_specs",
-            client=client
-        )
-        print("GridGainStore initialized successfully.")
-        return key_value_store
-    except Exception as e:
-        print(f"Failed to initialize GridGainStore: {e}")
-        raise
-
-# Usage
-client = connect_to_ignite("localhost", 10800)
-key_value_store = initialize_keyvalue_store(client)
+key_value_store = GridGainStore(cache_name="laptop_specs", client=client)
 
 # Store a value
 key_value_store.mset([("laptop1", "16GB RAM, NVIDIA RTX 3060, Intel i7 11th Gen")])
@@ -114,31 +106,44 @@ key_value_store.mset([("laptop1", "16GB RAM, NVIDIA RTX 3060, Intel i7 11th Gen"
 specs = key_value_store.mget(["laptop1"])[0]
 ```
 
-### 2. GridGainDocumentLoader
+### 2. GridGainByteStore
 
-GridGainDocumentLoader is designed to load documents from GridGain caches. It's particularly useful for scenarios where you need to retrieve and process large amounts of textual data stored in GridGain.
+`GridGainByteStore` is a key-value store for binary values (`BaseStore[str, bytes]`). Its main use is caching computed embeddings with LangChain's `CacheBackedEmbeddings`, so each text is embedded only once.
+
+`mget`, `mset`, and `mdelete` each send one request for the whole batch. `mget` returns the values in the order of the keys, with `None` for missing keys.
 
 Usage example:
 
 ```python
-from langchain_community.document_loaders.ignite import GridGainDocumentLoader
+from langchain_classic.embeddings import CacheBackedEmbeddings
+from langchain_gridgain import GridGainByteStore
 
-def initialize_doc_loader(client) -> GridGainDocumentLoader:
-    try:
-        doc_loader = GridGainDocumentLoader(
-            cache_name="review_cache",
-            client=client,
-            create_cache_if_not_exists=True
-        )
-        print("GridGainDocumentLoader initialized successfully.")
-        return doc_loader
-    except Exception as e:
-        print(f"Failed to initialize GridGainDocumentLoader: {e}")
-        raise
+byte_store = GridGainByteStore(cache_name="embedding_cache", client=client, ttl=3600)
 
-# Usage
-client = connect_to_ignite("localhost", 10800)
-doc_loader = initialize_doc_loader(client)
+cached_embeddings = CacheBackedEmbeddings.from_bytes_store(
+    embeddings, byte_store, namespace="my_embedding_model", key_encoder="sha256"
+)
+
+# The first call computes and caches the embeddings; repeated calls read them from GridGain.
+vectors = cached_embeddings.embed_documents(["Hello world"])
+```
+
+This example requires the `langchain-classic` package, which `langchain-gridgain` does not install. Choose a `namespace` that identifies the embedding model and its configuration.
+
+### 3. GridGainDocumentLoader
+
+`GridGainDocumentLoader` loads documents from GridGain caches. It is useful when you need to retrieve and process large amounts of text stored in GridGain.
+
+Usage example:
+
+```python
+from langchain_gridgain import GridGainDocumentLoader
+
+doc_loader = GridGainDocumentLoader(
+    cache_name="review_cache",
+    client=client,
+    create_cache_if_not_exists=True
+)
 
 # Populate the cache
 reviews = {
@@ -150,31 +155,20 @@ doc_loader.populate_cache(reviews)
 documents = doc_loader.load()
 ```
 
-### 3. GridGainChatMessageHistory
+### 4. GridGainChatMessageHistory
 
-GridGainChatMessageHistory provides a way to store and retrieve chat message history using GridGain. This is crucial for maintaining context in conversational AI applications.
+`GridGainChatMessageHistory` stores and retrieves chat message history in GridGain. Use it to keep context in conversational AI applications.
 
 Usage example:
 
 ```python
-from langchain_community.chat_message_histories.ignite import GridGainChatMessageHistory
+from langchain_gridgain import GridGainChatMessageHistory
 
-def initialize_chathistory_store(client) -> GridGainChatMessageHistory:
-    try:
-        chat_history = GridGainChatMessageHistory(
-            session_id="user_session",
-            cache_name="chat_history",
-            client=client
-        )
-        print("GridGainChatMessageHistory initialized successfully.")
-        return chat_history
-    except Exception as e:
-        print(f"Failed to initialize GridGainChatMessageHistory: {e}")
-        raise
-
-# Usage
-client = connect_to_ignite("localhost", 10800)
-chat_history = initialize_chathistory_store(client)
+chat_history = GridGainChatMessageHistory(
+    session_id="user_session",
+    cache_name="chat_history",
+    client=client
+)
 
 # Add a message to the history
 chat_history.add_user_message("Hello, I need help choosing a laptop.")
@@ -183,111 +177,201 @@ chat_history.add_user_message("Hello, I need help choosing a laptop.")
 messages = chat_history.messages
 ```
 
-### 4. GridGainCache
+### 5. GridGainCache
 
-GridGainCache provides a caching mechanism for the responses received from LLMs using GridGain. This can significantly improve response times for repeated or similar queries by storing and retrieving pre-computed results.
+`GridGainCache` caches LLM responses in GridGain. This improves response times for repeated, identical prompts.
+
+The cache key includes both the prompt and the LLM, so the same prompt sent to different models is cached separately.
 
 Usage example:
 
 ```python
-from langchain_community.llm_cache.ignite import GridGainCache
-from utils import connect_to_ignite, initialize_llm_cache
+from langchain_core.globals import set_llm_cache
+from langchain_gridgain import GridGainCache
 
-# Connect to GridGain/Ignite
-client = connect_to_ignite("localhost", 10800)
-
-# Initialize GridGainCache
-llm_cache = initialize_llm_cache(client)
-
-# Set up your LLM (e.g., OpenAI)
-from langchain_openai import OpenAI
-llm = OpenAI()
-
-# Set the cache for the LLM
-llm.cache = llm_cache
-
-# Use the LLM in your application
-response = llm.predict("What are the key features to consider when buying a laptop for video editing?")
-print(response)
+llm_cache = GridGainCache(cache_name="llm_cache", client=client)
+set_llm_cache(llm_cache)
 ```
 
-### 5. GridGainSemanticCache
+To remove all entries from the cache, call `llm_cache.clear()`.
+
+### 6. GridGainSemanticCache
+
+`GridGainSemanticCache` caches LLM responses for similar prompts. It finds a cached response by comparing the embedding of a new prompt with the embeddings of earlier prompts, and stores the responses in a `GridGainCache`.
 
 Usage example:
 
 ```python
-from langchain_community.llm_cache.ignite import GridGainSemanticCache
-from langchain_openai import OpenAIEmbeddings
-from utils import connect_to_ignite, initialize_semantic_llm_cache, initialize_embeddings_model
+from langchain_core.globals import set_llm_cache
+from langchain_gridgain import GridGainCache, GridGainSemanticCache
 
-# Connect to GridGain/Ignite
-client = connect_to_ignite("localhost", 10800)
-
-# Initialize embedding model
-api_key = os.environ["OPENAI_API_KEY"]
-embedding_model = initialize_embeddings_model(api_key)
-
-# Initialize GridGainSemanticCache
-api_endpoint = "http://localhost:8080"
-semantic_cache = initialize_semantic_llm_cache(client, embedding_model, api_endpoint)
-
-# Set up your LLM (e.g., OpenAI)
-from langchain_openai import OpenAI
-llm = OpenAI()
-
-# Set the cache for the LLM
-llm.cache = semantic_cache
-
-# Use the LLM in your application
-response = llm.predict("What are the key features to consider when buying a laptop for video editing?")
-print(response)
+llm_cache = GridGainCache(cache_name="llm_cache", client=client)
+semantic_cache = GridGainSemanticCache(
+    llm_cache=llm_cache,
+    cache_name="semantic_llm_cache",
+    client=client,
+    embedding=embeddings,
+    similarity_threshold=0.85
+)
+set_llm_cache(semantic_cache)
 ```
 
-### 6. GridGainVectorStore
+If a lookup fails, the semantic cache logs the error and treats it as a cache miss. If an update fails, it logs the error and skips the write. `clear()` raises an exception on failure.
 
-GridGainVectorStore is a vector store implementation using GridGain for storing and querying embeddings. It allows efficient similarity search operations on high-dimensional vector data.
+`semantic_cache.clear()` removes all entries from its own cache and from the whole `GridGainCache` that it uses.
+
+### 7. GridGainVectorStore
+
+`GridGainVectorStore` stores and queries embeddings in GridGain. It implements the standard LangChain `VectorStore` interface.
 
 Usage example:
 
 ```python
-from langchain_community.vectorstores import GridGainVectorStore
-from utils import initialize_embeddings_model, initialize_vector_store
+from langchain_gridgain import GridGainVectorStore
 
-# Initialize embedding model
-api_key = os.environ["OPENAI_API_KEY"]
-embedding_model = initialize_embeddings_model(api_key)
+vector_store = GridGainVectorStore(
+    cache_name="tech_reviews",
+    embedding=embeddings,
+    client=client,
+)
 
-# Initialize GridGainVectorStore
-api_endpoint = "http://localhost:8080"
-vector_store = initialize_vector_store(api_endpoint, embedding_model)
-
-# Add texts to the vector store
 texts = [
     "The latest MacBook Pro offers exceptional performance for video editing.",
-    "Dell XPS 15 is a powerful Windows laptop suitable for creative professionals.",
-    "ASUS ROG Zephyrus G14 provides a balance of portability and gaming performance."
+    "ASUS ROG Zephyrus G14 provides a balance of portability and gaming performance.",
 ]
-metadatas = [{"id": "tech_review_1"}, {"id": "tech_review_2"}, {"id": "tech_review_3"}]
 
-vector_store.add_texts(texts=texts, metadatas=metadatas)
+# IDs are optional. If you do not pass them, the store generates them.
+ids = vector_store.add_texts(
+    texts,
+    metadatas=[{"category": "laptop"}, {"category": "laptop"}],
+    ids=["review-1", "review-2"],
+)
 
-# Perform similarity search
-query = "What's a good laptop for video editing?"
-results = vector_store.similarity_search(query, k=2)
+# Similarity search, with or without scores
+docs = vector_store.similarity_search("What's a good laptop for video editing?", k=2)
+scored = vector_store.similarity_search_with_score("video editing", k=2)
 
-for doc in results:
-    print(f"Content: {doc.page_content}")
-    print(f"Metadata: {doc.metadata}")
-    print("---")
+# Search by an embedding vector instead of a text query
+docs = vector_store.similarity_search_by_vector(embeddings.embed_query("video editing"), k=2)
 
-# Clear the vector store
+# Maximal marginal relevance search: balance relevance and diversity
+diverse = vector_store.max_marginal_relevance_search(
+    "laptops", k=2, fetch_k=10, lambda_mult=0.5
+)
+
+# Get and delete documents by ID
+vector_store.get_by_ids(["review-1"])
+vector_store.delete(["review-1"])
+
+# Delete all documents
 vector_store.clear()
 ```
 
-The GridGainVectorStore allows you to store text data along with their vector embeddings, enabling efficient similarity searches based on the semantic meaning of the text. This is particularly useful for applications involving natural language processing, recommendation systems, and information retrieval.
+- Scores are cosine distances: a lower distance means a closer match. Relevance scores, as returned by `similarity_search_with_relevance_scores` and used by the `similarity_score_threshold` retriever, are calculated as `1 - distance`. They are not limited to the `[0, 1]` range: opposite vectors have a relevance below `0`.
+- The `score_threshold` argument of the search methods is applied on the server, on the similarity scale of the vector engine. If you omit it, no threshold is applied.
+- Deleting a document also removes it from the vector index.
+- The asynchronous methods run the synchronous ones in a thread pool.
 
-## Langchain Tutorial
+#### Filtering by Metadata
 
-GridGain provides a comprehensive, real-world example of how to use this package. The tutorial includes a demonstration project that showcases the integration of GridGain with LangChain, using the custom `langchain-gridgain` package and provides examples of how to use GridGain as a backend for various LangChain components, focusing on a laptop recommendation system.
+You can restrict a vector search to documents with given metadata values. GridGain applies the filter on the server before it selects the top `k` results, so a filtered search returns up to `k` matching documents.
+
+Declare the metadata keys that you want to filter on in `filterable_metadata_fields` when you create the store. The store writes each declared key as a separate string field in a full-text index next to the vector index. The full metadata is still stored and returned unchanged.
+
+A field name must start with a letter, contain only letters, digits, and underscores, and be at most 63 characters long. It cannot be a Python keyword, `self`, or `cls`. The names `id`, `content`, `contentVector`, `metadata`, `schema`, `schema_id`, `type_id`, `type_name`, and `version` are reserved in any letter case. For any other name, the store raises `ValueError`.
+
+```python
+from langchain_gridgain import GridGainVectorStore
+
+store = GridGainVectorStore(
+    cache_name="docs_with_filters",
+    client=client,
+    embedding=embeddings,
+    filterable_metadata_fields=["tenant", "category"],
+)
+store.add_texts(
+    ["A laptop guide"],
+    metadatas=[{"tenant": "alice", "category": "laptop"}],
+    ids=["guide-1"],
+)
+docs = store.similarity_search("laptop", k=3, filter={"tenant": "alice"})
+retriever = store.as_retriever(
+    search_kwargs={"k": 3, "filter": {"tenant": "alice"}}
+)
+```
+
+The filter is passed to similarity search, maximal marginal relevance search, and retrievers. It supports the following forms:
+
+- Several keys, combined with AND: `{"tenant": "alice", "category": "laptop"}`.
+- Explicit equality: `{"tenant": {"$eq": "alice"}}`.
+- Explicit AND: `{"$and": [{"tenant": "alice"}, {"category": "laptop"}]}`.
+
+Only `None` and `{}` mean no filter. The following filters raise `ValueError` instead of being ignored:
+
+- Other operators, such as ranges, `$or`, and `$in`
+- Keys that are not declared in `filterable_metadata_fields`
+- A key tested for two different values
+- Filters that are not dictionaries
+
+Values are compared as text. Strings are compared as is, booleans as `"true"` or `"false"`, and numbers as their text form. As a result, the integer `1` matches the string `"1"`, but not the float `1.0`. Other values, such as `None`, lists, and dates, are not stored in the filter fields, so they never match, and a filter on them raises `ValueError`.
+
+{% hint style="warning" %}
+The filter fields are set when the cache is created. If you declare `filterable_metadata_fields` for an existing cache that was created without them, the store raises `ValueError`. Create the store with a new cache name and add the documents again. A store without `filterable_metadata_fields` opens existing caches as before.
+{% endhint %}
+
+If the cluster does not support filtered vector queries, a filtered search raises `NotSupportedByClusterError`. The filter is never dropped silently.
+
+## Entry Expiry (TTL)
+
+`GridGainStore`, `GridGainByteStore`, `GridGainCache`, `GridGainSemanticCache`, and `GridGainVectorStore` accept an optional `ttl` argument that sets a time to live (TTL), as a number of seconds or a `datetime.timedelta`. Entries that the component writes expire that long after they are created or updated. Reading an entry does not extend its lifetime. A `ttl` below one millisecond raises `ValueError`.
+
+The default, `None`, does not change the expiry policy of the cache.
+
+`GridGainChatMessageHistory` and `GridGainDocumentLoader` do not accept `ttl`.
+
+```python
+from datetime import timedelta
+from langchain_gridgain import GridGainCache, GridGainSemanticCache
+
+llm_cache = GridGainCache(cache_name="llm_cache", client=client, ttl=timedelta(hours=1))
+
+semantic_cache = GridGainSemanticCache(
+    llm_cache=llm_cache,
+    cache_name="semantic_llm_cache",
+    client=client,
+    embedding=embeddings,
+    ttl=timedelta(hours=1),
+)
+```
+
+For the semantic cache, `ttl` applies to its own entries. Set the same `ttl` on the `GridGainCache` that it uses, so that both expire together.
+
+## Upgrading to Version 3.1.0
+
+Version 3.1.0 requires Python 3.11 or later and `pygridgain` 1.7.0 or later (below 2.0). Upgrade Python before you install the new version. A non-empty filter that the vector store cannot apply raises `ValueError`. Only `None` and `{}` mean no filter. The stored data remains compatible with version 3.0.0.
+
+## Upgrading to Version 3.0.0
+
+In version 3.0.0, the LangGraph checkpointer and memory store moved from `langchain-gridgain` to the `langgraph-checkpoint-gridgain` package. If you use them, install `langgraph-checkpoint-gridgain` and update the imports as described in [LangGraph Integration](langgraph.md). If you use only the LangChain components, no changes are required.
+
+## Upgrading From Version 1.0.x
+
+Version 2.0.0 changed the following:
+
+- **Dependencies.** The package depends on `langchain-core` 1.4.7 or later instead of fixed versions of `langchain` and `langchain-community`, and requires `pygridgain` 1.6.0 or later.
+- **Imports.** Import the components from `langchain_gridgain`, not from `langchain_community`.
+- **LLM cache keys.** `GridGainCache` keys now include the LLM. Entries written by version 1.0.x cannot be found with the new keys and never expire. After the upgrade, clear each cache once:
+
+  ```python
+  llm_cache.clear()        # exact-match cache
+  semantic_cache.clear()   # semantic cache and its exact-match cache
+  ```
+
+- **Embedding cache keys.** The `CacheBackedEmbeddings` example now uses `key_encoder="sha256"`. If you change the key encoder, the embeddings are computed again. `GridGainByteStore` has no `clear()` method. To remove the old entries, call `byte_store.mdelete(list(byte_store.yield_keys()))`.
+- **Vector store.** `GridGainVectorStore` returns real cosine distances instead of a constant score of `1.0`, and supports deleting documents by ID.
+
+## LangChain Tutorial
+
+GridGain provides a tutorial with a demonstration project. The project uses `langchain-gridgain` to build a laptop recommendation system and shows GridGain as a backend for several LangChain components.
 
 The tutorial is available in the [Retrieval-Augmented Generation with GridGain and LangChain](https://www.gridgain.com/docs/tutorials/vector/langchain) section.

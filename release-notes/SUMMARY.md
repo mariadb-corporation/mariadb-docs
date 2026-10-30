@@ -3213,6 +3213,7 @@
   * [GridGain 8.5.7-p2 Release Notes](gridgain-8/8.5.7-p2/release-notes_8.5.7-p2.md)
   * [GridGain 8.4.17 Release Notes](gridgain-8/8.4.17/release-notes_8.4.17.md)
   * [PyGridGain Client Release Notes](gridgain-8/python-client/README.md)
+    * [PyGridGain 1.7.0 Release Notes](gridgain-8/python-client/release-notes_python-1.7.0.md)
     * [PyGridGain 1.6.0 Release Notes](gridgain-8/python-client/release-notes_python-1.6.0.md)
     * [PyGridGain 1.5.0 Release Notes](gridgain-8/python-client/release-notes_python-1.5.0.md)
     * [PyGridGain 1.4.0 Release Notes](gridgain-8/python-client/release-notes_python-1.4.0.md)
