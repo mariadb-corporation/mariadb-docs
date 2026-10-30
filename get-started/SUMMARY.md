@@ -8,5 +8,5 @@
 * [Deployment](deployment.md)
 * [Migration](migration.md)
 * [Operations](operations.md)
-* [Analytics](analytics.md)
+* [Analytics](analytics-overview.md)
 * [AI](ai.md)
