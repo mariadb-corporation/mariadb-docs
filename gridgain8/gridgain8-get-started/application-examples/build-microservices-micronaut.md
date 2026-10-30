@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Build a Micronaut microservice backed by a GridGain in-memory database, then deploy the service and a two-node cluster in Docker.
 ---

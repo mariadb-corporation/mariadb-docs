@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Build a Spring Boot RESTful service backed by GridGain 8, using Spring Data repositories, DTOs, a service layer, and a REST controller over the World database.
 ---
