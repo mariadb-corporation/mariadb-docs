@@ -99,22 +99,6 @@ Your distribution's package might be a few releases behind. To get the current r
 A package install gives `root` no password. The `root` account signs in through Unix socket authentication, so open the client with `sudo mariadb`, and run the step 3 script after the [Server](choose-your-path/community-server.md) page creates the `shop_app` account.
 {% endtab %}
 
-{% tab title="Cloud" %}
-1. Sign in at [cloud.mariadb.com](https://cloud.mariadb.com) and launch a **Serverless** service. It's ready in seconds.
-2. Click **Manage** on the service, choose **Manage allowlist**, and add your IP address. A new service blocks all external traffic until you do.
-3. Click **Connect** on the service and copy the host, port, user, and password.
-4. Connect:
-
-```bash
-mariadb --host <host> --port <port> \
-  --user <user> -p --ssl-verify-server-cert
-```
-
-The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall]({mariadb-cloud}/security/configuring-firewall) covers the allowlist.
-
-In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](choose-your-path/cloud.md) page shows the full script.
-{% endtab %}
-
 {% tab title="Kubernetes" %}
 ```bash
 kubectl create secret docker-registry mariadb-enterprise \
@@ -133,6 +117,22 @@ helm install mariadb-enterprise-operator \
 The MariaDB Enterprise Kubernetes Operator is part of MariaDB Enterprise Platform. It pulls images from `docker.mariadb.com` with your Customer Download Token, which the `mariadb-enterprise` secret holds. The `values.yaml` file names that secret under `imagePullSecrets`. See [Install the operator with Helm]({tools}/enterprise/mariadb-enterprise-operator/installation/helm).
 
 The operator alone runs no database yet. Before step 2, create a `MariaDB` resource as the Kubernetes tab on the [Deployment](deployment.md) page shows.
+{% endtab %}
+
+{% tab title="Cloud" %}
+1. Sign in at [cloud.mariadb.com](https://cloud.mariadb.com) and launch a **Serverless** service. It's ready in seconds.
+2. Click **Manage** on the service, choose **Manage allowlist**, and add your IP address. A new service blocks all external traffic until you do.
+3. Click **Connect** on the service and copy the host, port, user, and password.
+4. Connect:
+
+```bash
+mariadb --host <host> --port <port> \
+  --user <user> -p --ssl-verify-server-cert
+```
+
+The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall]({mariadb-cloud}/security/configuring-firewall) covers the allowlist.
+
+In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](choose-your-path/cloud.md) page shows the full script.
 {% endtab %}
 {% endtabs %}
 
