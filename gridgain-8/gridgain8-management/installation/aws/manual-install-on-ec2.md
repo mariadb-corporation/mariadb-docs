@@ -99,8 +99,6 @@ If java is not already installed, install it using the package manager of the in
 $ sudo yum install java-17-amazon-corretto-headless
 ```
 
-<!-- TODO (not tested): The package name above is the Amazon Linux one for Java 17 (GridGain 8.10 needs Java 17 or later; the page said java-1.8.0-openjdk). It was not run on an EC2 instance. Adjust it if the instances use another distribution, then delete this comment. -->
-
 Upload a GridGain distribution package into the instance. Run the following command from you local machine:
 
 ```shell

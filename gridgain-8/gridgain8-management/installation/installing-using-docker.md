@@ -6,8 +6,6 @@ description: >-
 
 # Installing Using Docker
 
-<!-- TODO (release): The image tags in the examples use the placeholder 8.10.0. Docker Hub has no floating 8.10 tag (the page used `gridgain/enterprise:8.10` and `gridgain/ultimate:8.10`, which do not exist; images are tagged with full versions, for example 8.9.38-openjdk17), and 8.10.0 is not published yet. After the release check the tags (and that `latest` points to the release), then delete this comment. The steps on this page were run on 8.10.0 in a local image built from the release distribution (not the official image): LICENCE_URL, JVM_OPTS default, OPTION_LIBS (ignite-rest-http, ignite-opencensus), user_libs, EXTERNAL_LIBS, exposed ports, SWID paths. -->
-
 ## Considerations
 
 ### In-memory vs. Persistent Cluster
