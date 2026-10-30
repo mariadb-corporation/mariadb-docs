@@ -10,3 +10,4 @@
 * [Operations](operations.md)
 * [Analytics](analytics-overview.md)
 * [AI](ai.md)
+* [MariaDB Server Ecosystem Hub](mariadb-server-ecosystem-hub.md)
