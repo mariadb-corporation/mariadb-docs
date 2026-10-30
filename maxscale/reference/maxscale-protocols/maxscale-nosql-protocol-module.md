@@ -623,13 +623,22 @@ Note that we make **no** guarantees that the table in which the account informat
 
 ## Wire Protocol
 
-_Nosqlprotocol_ fully supports wire protocol version 6 and only provides rudimentary support for earlier wire protocol versions, but reports at startup that it would support versions 0 to 6. The reason is that some client libraries are buggy and use an old wire protocol version if the server claims to support only version 6. Consequently, one should use a client library version that at least supports wire protocol version 6.
+_Nosqlprotocol_ reports that it supports wire protocol versions 0 to 9. The
+functionality is that of wire protocol version 6, with the exception that
+the commands needed for transactions are recognized, see [transaction
+support](maxscale-nosql-protocol-module.md#transaction-support). Earlier
+wire protocol versions are supported only rudimentarily.
+
+The maximum version is 9, as recent client versions refuse to connect if it
+is lower.
 
 ## Client Library
 
 As the goal of _nosqlprotocol_ is to implement, to the extent that it is feasible, the wire protocol and the database commands the way MongoDB® implements them, it should be possible to use any language specific driver.
 
-However, during the development of _nosqlprotocol_, the _only_ client library that has been verified to work is version 3.6 of _MongoDB Node.JS Driver_.
+However, only a few client libraries have been verified to work. They are
+version 3.6 of _MongoDB Node.JS Driver_ and the _MongoDB Shell_ (`mongosh`)
+2.13.0, which uses version 7.5 of the Node.JS driver.
 
 ## Settings
 
@@ -818,6 +827,37 @@ Enumeration values:
 
 What combination of `ordered_insert_behavior` and `ordered` (in the insert command document) is used, has an impact on the performance. Please see the discussion at [insert](maxscale-nosql-protocol-module.md#insert).
 
+### `transactions`
+
+* Type:
+  [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Values: `error`, `ignore`
+* Default: `error`
+* Description: Controls whether the transaction related commands result in
+  an error or are silently ignored.
+
+_Nosqlprotocol_ does not support transactions. The setting specifies what
+happens when a client attempts to use them.
+
+Enumeration values:
+
+* `error`: An error is returned when a transaction is started, committed or
+  aborted.
+* `ignore`: Starting a transaction is ignored and the commands that
+  otherwise would be executed within the transaction are executed
+  immediately and independently. The `commitTransaction` and
+  `abortTransaction` commands return success, but note that an aborted
+  transaction does _not_ roll back anything.
+
+The default is `error`, as `ignore` may cause the application to believe
+that its changes are atomic when they are not. Please see [transaction
+support](maxscale-nosql-protocol-module.md#transaction-support) for more
+information.
+
+The value can be changed for the current session with
+[mxsSetConfig](maxscale-nosql-protocol-module.md#mxssetconfig).
+
 ### `cursor_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
@@ -862,6 +902,27 @@ to have the incoming command, the corresponding SQL sent to the backend and the 
 Specifies what internal cache to use if any. The only permissible value is `cache`, which refers to the [cache filter](../maxscale-filters/maxscale-cache.md).
 
 Please see [caching](maxscale-nosql-protocol-module.md#caching) for more information.
+
+## Transaction Support
+
+Multi-document transactions, which were introduced in MongoDB 4.0, are not
+supported. A transaction is started by a command that contains the field
+`startTransaction: true` or `autocommit: false`, and finished with the
+`commitTransaction` or `abortTransaction` command.
+
+What happens is controlled by the
+[transactions](maxscale-nosql-protocol-module.md#transactions) setting. By
+default, an error with the code `115` (`CommandNotSupported`) is returned
+for the starting command and for `commitTransaction` and `abortTransaction`.
+If the value is `ignore`, the commands within a transaction are executed
+independently and `commitTransaction` and `abortTransaction` return
+`{ "ok" : 1 }`.
+
+Note that a `txnNumber` field alone does not start a transaction, as it is
+also used by retryable writes.
+
+When transactions are supported, there will be a third value, `support`,
+which will then become the default.
 
 ## Databases and Tables
 
@@ -2256,6 +2317,7 @@ The document takes the following fields:
 | on\_unknown\_command | string  | Either "return\_error" or "return\_empty"   |
 | auto\_create\_tables | boolean | Whether tables should be created as needed. |
 | id\_length           | integer | id column VARCHAR size in created tables.   |
+| transactions         | string  | Either "error" or "ignore"                  |
 
 **Returns**
 
