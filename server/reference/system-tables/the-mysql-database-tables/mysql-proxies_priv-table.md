@@ -16,12 +16,12 @@ The `mysql.proxies_priv` table contains the following fields:
 
 | Field         | Type       | Null | Key | Default            | Description |
 | ------------- | ---------- | ---- | --- | ------------------ | ----------- |
-| Host          | char(60)   | NO   | PRI |                    |             |
-| User          | char(80)   | NO   | PRI |                    |             |
-| Proxied\_host | char(60)   | NO   | PRI |                    |             |
-| Proxied\_user | char(80)   | NO   | PRI |                    |             |
+| Host          | char(255)  | NO   | PRI |                    |             |
+| User          | char(128)  | NO   | PRI |                    |             |
+| Proxied\_host | char(255)  | NO   | PRI |                    |             |
+| Proxied\_user | char(128)  | NO   | PRI |                    |             |
 | With\_grant   | tinyint(1) | NO   |     | 0                  |             |
-| Grantor       | char(141)  | NO   | MUL |                    |             |
+| Grantor       | varchar(384) | NO   | MUL |                    |             |
 | Timestamp     | timestamp  | NO   |     | CURRENT\_TIMESTAMP |             |
 
 The [Acl\_proxy\_users](../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#acl_proxy_users) status variable indicates how many rows the `mysql.proxies_priv` table contains.

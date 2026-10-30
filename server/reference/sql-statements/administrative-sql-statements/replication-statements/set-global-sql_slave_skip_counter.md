@@ -37,7 +37,7 @@ START SLAVE;
 
 ## Multiple Replication Domains
 
-`sql_slave_skip_counter` can't be used to skip transactions on a replica if [GTID replication](../../../../ha-and-performance/standard-replication/gtid.md) is in use and if [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) contains multiple [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) values. In that case, you'll get an error like the following:
+`sql_slave_skip_counter` can't be used to skip transactions on a replica if [GTID replication](../../../../ha-and-performance/standard-replication/gtid/README.md) is in use and if [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) contains multiple [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) values. In that case, you'll get an error like the following:
 
 ```
 ERROR 1966 (HY000): When using parallel replication and GTID with multiple 
@@ -46,7 +46,7 @@ ERROR 1966 (HY000): When using parallel replication and GTID with multiple
  position.
 ```
 
-In order to skip transactions in cases like this, you will have to manually change [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos).
+In order to skip transactions in cases like this, you will have to manually change [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos).
 
 ## See Also
 

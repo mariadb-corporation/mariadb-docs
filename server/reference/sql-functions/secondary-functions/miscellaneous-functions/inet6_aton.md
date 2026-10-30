@@ -22,17 +22,7 @@ The returned binary string will be [VARBINARY(16)](../../../data-types/string-da
 
 Returns `NULL` if the argument is not understood.
 
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
-
-{% tabs %}
-{% tab title="Current" %}
 `INET6_ATON` can take [INET6](../../../data-types/string-data-types/inet6.md) as an argument.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-`INET6_ATON` **cannot** take [INET6](../../../data-types/string-data-types/inet6.md) as an argument.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

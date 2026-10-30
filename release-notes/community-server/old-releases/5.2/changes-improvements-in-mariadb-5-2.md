@@ -28,7 +28,7 @@
 [MariaDB 5.2](changes-improvements-in-mariadb-5-2.md) is based on [MariaDB 5.1](../5.1/changes-improvements-in-mariadb-5-1.md) and thus MySQL 5.1.
 
 The new features in 5.2 are quite isolated and as most have been in use by
-members in the MySQL community for a long time. Current versions of [MariaDB 5.2](changes-improvements-in-mariadb-5-2.md) are [stable](../../about/release-criteria.md) and can be downloaded from [downloads.askmonty.org](https://downloads.askmonty.org).
+members in the MySQL community for a long time. Current versions of [MariaDB 5.2](changes-improvements-in-mariadb-5-2.md) are [stable](../../about/release-criteria.md) and can be downloaded from [mariadb.org/download](https://mariadb.org/download/).
 
 ### New storage engines
 

@@ -20,6 +20,7 @@ WHERE Country.code IN (SELECT City.Country
 The subquery is uncorrelated, that is, we can run it independently of the upper query. The idea of semi-join materialization is to do just that, and fill a temporary table with possible values of the City.country field of big cities, and then do a join with countries in Europe:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Building and joining the semi-join materialized table
     accDescr { The City table has six rows pairing a city with a country code: Berlin-DEU, Paris-FRA, Munich-DEU, Koln-DEU, Beijing-CHN, and Shanghai-CHN. All six rows feed into a materialized temporary table that keeps only the distinct country codes: DEU, FRA, and CHN. This materialized table is joined with the Country table, filtered to countries in Europe, to produce the result. }
@@ -37,6 +38,7 @@ flowchart LR
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _City rows feed a materialized temporary table of distinct country codes, which is joined with countries in Europe to produce the result._

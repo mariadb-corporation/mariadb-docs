@@ -1,3 +1,10 @@
+---
+description: >-
+  Compare two values for equality, treating NULL as a value. The <=>
+  operator returns 1 when both operands are NULL and 0 when only one is,
+  never NULL.
+---
+
 # <=>
 
 ## Syntax

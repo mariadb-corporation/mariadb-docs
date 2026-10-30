@@ -78,10 +78,18 @@ _`trigger_time`_ is the trigger action time. It can be `BEFORE` or `AFTER` to in
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 Multiple _`trigger_event`_ events can be specified.
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 Only one _`trigger_event`_ can be specified.
 {% endtab %}
 {% endtabs %}
@@ -131,15 +139,7 @@ SELECT trigger_name, action_order FROM information_schema.triggers
 
 ### Atomic DDL
 
-{% tabs %}
-{% tab title="Current" %}
 MariaDB supports [Atomic DDL](../../../reference/sql-statements/data-definition/atomic-ddl.md), and `CREATE TRIGGER` is atomic.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-MariaDB does **not** support [Atomic DDL](../../../reference/sql-statements/data-definition/atomic-ddl.md).
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

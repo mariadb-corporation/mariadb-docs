@@ -42,7 +42,7 @@ While MariaDB maintains a high degree of compatibility with MySQL, it is crucial
 
 | MySQL Version | Compatible MariaDB Version                  |
 | ------------- | ------------------------------------------- |
-| 5.7           | 10.2 and newer                              |
+| 5.7           | 10.6 and newer                              |
 | 8.0           | 10.6.21, 10.11.11, 11.4.5, 11.7.2 and newer |
 
 For more details, see [MySQL to MariaDB Replication Compatibilit](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)y.

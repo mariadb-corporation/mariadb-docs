@@ -31,7 +31,7 @@ The entire vector feature — the `VECTOR` data type, `VECTOR INDEX`, and every 
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/vector-functions -->
-<!-- 3 functions, 2 pages skipped on extraction failure -->
+<!-- 5 functions, 0 pages skipped on extraction failure -->
 
 ### VEC_DISTANCE
 `VEC_DISTANCE(v, s)`  
@@ -44,6 +44,14 @@ The entire vector feature — the `VECTOR` data type, `VECTOR INDEX`, and every 
 ### VEC_DISTANCE_EUCLIDEAN
 `VEC_DISTANCE_EUCLIDEAN(v, s)`  
 `VEC_Distance_Euclidean` is an SQL function that calculates a Euclidean (L2) distance between two points.
+
+### VEC_FromText
+`VEC_FromText(s)`  
+`VEC_FromText` converts a text representation of the vector (json array of numbers) to a vector (little-endian IEEE float sequence of bytes, 4 bytes per float).
+
+### VEC_ToText
+`VEC_ToText(v)`  
+`VEC_ToText` converts a binary vector into a json array of numbers (floats).
 <!-- END GENERATED -->
 
 ## See Also

@@ -29,7 +29,7 @@ This page lists the main features that were added in very old MySQL trees, befor
   * HEAP (now called [MEMORY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/memory-storage-engine))
   * [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) (which replaced ISAM)
   * InnoDB
-  * [bdb](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-bdb) (removed in MySQL 5.1; no version of MariaDB included it)
+  * bdb (removed in MySQL 5.1; no version of MariaDB included it)
 * [COUNT(DISTINCT)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/aggregate-functions/count-distinct)
 * Table comments
 * ...

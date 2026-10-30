@@ -6,7 +6,7 @@ The most recent release in the [MariaDB 5.5](changes-improvements-in-mariadb-5-5
 
 [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) is [MariaDB 5.3](../5.3/changes-improvements-in-mariadb-5-3.md) + MySQL 5.5, with added features. The first stable release was in April 2012, and the final release in May 2020.
 
-For upgrading to [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), the more recent stable release, see [Upgrading from MariaDB 5.5 to MariaDB 10.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
+For upgrading to [MariaDB 10.0](../10.0/changes-improvements-in-mariadb-10-0.md), the more recent stable release, see Upgrading from MariaDB 5.5 to MariaDB 10.0.
 
 ## Feature Comparison Matrix
 
@@ -17,11 +17,11 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
 ## New Features
 
 * Significantly more efficient [thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb), comparable in functionality to the closed source feature in MySQL Enterprise.
-* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
-* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
+* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) (MWL#192)
+* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) (MWL#234)
 * [SphinxSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
 * [Extended Keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizer/extended-keys) support for XtraDB and InnoDB
-* New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement ([MWL#77](https://askmonty.org/worklog/?tid=77))
+* New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement (MWL#77)
 * New [LIMIT ROWS EXAMINED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined) optimization ([MDEV-28](https://jira.mariadb.org/browse/MDEV-28))
 * `mysql_real_connect()` Changes
   * In MySQL, and in MariaDB versions before 5.5.21, `mysql_real_connect()` removes from the MYSQL object any options set with `mysql_option()` when it fails. Beginning with [MariaDB 5.5.21](5.5.21.md), options are preserved by a failing `mysql_real_connect();` use `mysql_close()`, as normal, to clear them.
@@ -176,7 +176,7 @@ The following CVEs are also fixed in [MariaDB 5.5](changes-improvements-in-maria
 
 ## See Also
 
-* [Upgrading from MariaDB 5.3 to MariaDB 5.5](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-53-to-mariadb-55)
+* Upgrading from MariaDB 5.3 to MariaDB 5.5
 * [Getting, Installing, and Upgrading MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb)
 
 {% include "../../../.gitbook/includes/announce.md" %}

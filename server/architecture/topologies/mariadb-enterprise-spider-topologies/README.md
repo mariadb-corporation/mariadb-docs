@@ -27,7 +27,7 @@ Query, join, or migrate tables on a remote MariaDB Enterprise Server node from a
 {% endcolumn %}
 
 {% column %}
-Read from and write to external ODBC data sources from a Spider Node using virtual Spider Tables and the ODBC foreign data wrapper (Enterprise Server 10.5 and later).
+Read from and write to external ODBC data sources from a Spider Node using virtual Spider Tables and the ODBC foreign data wrapper.
 {% endcolumn %}
 {% endcolumns %}
 

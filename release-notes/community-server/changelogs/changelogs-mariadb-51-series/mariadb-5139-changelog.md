@@ -1,6 +1,6 @@
 # MariaDB 5.1.39 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.39) | [Release Notes](../../old-releases/5.1/5.1.39.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.39/) | [Release Notes](../../old-releases/5.1/5.1.39.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 15 Nov 2009
 
@@ -11,7 +11,7 @@ additional changes and bug fixes.
   for details of changes since MySQL 5.1.38)
 * Includes XtraDB 1.0.3-8 (check [XtraDB release notes](https://www.percona.com/docs/wiki/percona-xtradb:info:xtradb_changelog#release_1.0.3-8)
   for details of changes since XtraDB 1.0.3-6)
-* RPMs for Centos 5 [now available](https://downloads.askmonty.org/).
+* RPMs for Centos 5 [now available](https://mariadb.org/download/).
 * Includes [FederatedX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/federatedx-storage-engine) as replacement for
   old Federated storage engine.
 * Test suite speedups.

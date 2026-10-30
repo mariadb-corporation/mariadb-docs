@@ -109,13 +109,15 @@ MariaDB ColumnStore supports multiple storage types:
 ### Deployment with S3-Compatible Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MariaDB Enterprise ColumnStore using S3-compatible storage
     accDescr {
         Client and application queries reach a highly available pair of MaxScale instances,
         which coordinate their configuration through a shared Redis cache. MaxScale routes
         queries and handles failover to a ColumnStore cluster made up of one primary node and
-        two replica nodes. The cluster stores Enterprise ColumnStore metadata on shared storage
+        two replica nodes, with an arrow from the primary node to each replica node.
+        The cluster stores Enterprise ColumnStore metadata on shared storage
         and stores the ColumnStore data on S3-compatible object storage.
     }
     Client["Client"]
@@ -144,6 +146,7 @@ flowchart TD
     class MX1,MX2,P,R1,R2 node
     class Redis,Meta,S3 storage
     class Client client
+    linkStyle default color:#111111
 ```
 
 _MaxScale (an HA pair sharing a Redis cache) routes queries to a ColumnStore primary and two replicas; metadata lives on shared storage and data on S3-compatible object storage._
@@ -151,13 +154,15 @@ _MaxScale (an HA pair sharing a Redis cache) routes queries to a ColumnStore pri
 ### Deployment with Shared Storage
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MariaDB Enterprise ColumnStore using shared storage
     accDescr {
         Client and application queries reach a highly available pair of MaxScale instances,
         which coordinate their configuration through a shared Redis cache. MaxScale routes
         queries and handles failover to a ColumnStore cluster made up of one primary node and
-        two replica nodes. The cluster stores both Enterprise ColumnStore metadata and data on
+        two replica nodes, with an arrow from the primary node to each replica node.
+        The cluster stores both Enterprise ColumnStore metadata and data on
         shared storage.
     }
     Client["Client"]
@@ -184,6 +189,7 @@ flowchart TD
     class MX1,MX2,P,R1,R2 node
     class Redis,Shared storage
     class Client client
+    linkStyle default color:#111111
 ```
 
 _The same topology using shared storage for both ColumnStore metadata and data._

@@ -9,7 +9,9 @@ The following is a list of all reserved words in MariaDB.
 
 Reserved words cannot be used as [Identifiers](identifier-names.md), unless they are quoted.
 
-A version in parentheses, such as `(12.3+)`, means the word became reserved in that release and remains reserved in later releases.
+A version in parentheses, such as `(12.3+)`, means the word became reserved in that release and remains reserved in later releases. `(before 12.0)` means the word is reserved only in releases before that one.
+
+Keywords that aren't on this list are non-reserved and can be used as unquoted identifiers. This includes some words that are reserved in MySQL, such as `DATABASE`, `SCHEMA`, `OPTION`, and `WINDOW`.
 
 The definitive list of reserved words for each version can be found by examining the `sql/lex.h` and `sql/sql_yacc.yy` files.
 
@@ -17,7 +19,7 @@ The definitive list of reserved words for each version can be found by examining
 
 | Keyword                           |
 | --------------------------------- |
-| ACCESSIBLE                        |
+| ACCESSIBLE (before 12.0)          |
 | ADD                               |
 | ALL                               |
 | ALTER                             |
@@ -50,12 +52,12 @@ The definitive list of reserved words for each version can be found by examining
 | CREATE                            |
 | CROSS                             |
 | CURRENT\_DATE                     |
+| CURRENT\_PATH (12.3+)             |
 | CURRENT\_ROLE                     |
 | CURRENT\_TIME                     |
 | CURRENT\_TIMESTAMP                |
 | CURRENT\_USER                     |
 | CURSOR                            |
-| DATABASE                          |
 | DATABASES                         |
 | DAY\_HOUR                         |
 | DAY\_MICROSECOND                  |
@@ -97,7 +99,6 @@ The definitive list of reserved words for each version can be found by examining
 | FOREIGN                           |
 | FROM                              |
 | FULLTEXT                          |
-| GENERAL                           |
 | GRANT                             |
 | GROUP                             |
 | HAVING                            |
@@ -108,7 +109,6 @@ The definitive list of reserved words for each version can be found by examining
 | IF                                |
 | IGNORE                            |
 | IGNORE\_DOMAIN\_IDS               |
-| IGNORE\_SERVER\_IDS               |
 | IN                                |
 | INDEX                             |
 | INFILE                            |
@@ -148,8 +148,9 @@ The definitive list of reserved words for each version can be found by examining
 | LONGTEXT                          |
 | LOOP                              |
 | LOW\_PRIORITY                     |
-| MASTER\_HEARTBEAT\_PERIOD         |
-| MASTER\_SSL\_VERIFY\_SERVER\_CERT |
+| MASTER\_DEMOTE\_TO\_REPLICA (10.10+) |
+| MASTER\_DEMOTE\_TO\_SLAVE (10.10+) |
+| MASTER\_SSL\_VERIFY\_SERVER\_CERT (before 11.8.6 and 12.2.2) |
 | MATCH                             |
 | MAXVALUE                          |
 | MEDIUMBLOB                        |
@@ -168,7 +169,6 @@ The definitive list of reserved words for each version can be found by examining
 | OFFSET (10.6+)                    |
 | ON                                |
 | OPTIMIZE                          |
-| OPTION                            |
 | OPTIONALLY                        |
 | OR                                |
 | ORDER                             |
@@ -179,6 +179,7 @@ The definitive list of reserved words for each version can be found by examining
 | PAGE\_CHECKSUM                    |
 | PARSE\_VCOL\_EXPR                 |
 | PARTITION                         |
+| PORTION                           |
 | PRECISION                         |
 | PRIMARY                           |
 | PROCEDURE                         |
@@ -206,7 +207,6 @@ The definitive list of reserved words for each version can be found by examining
 | RLIKE                             |
 | ROW\_NUMBER (10.7+)               |
 | ROWS                              |
-| SCHEMA                            |
 | SCHEMAS                           |
 | SECOND\_MICROSECOND               |
 | SELECT                            |
@@ -215,11 +215,12 @@ The definitive list of reserved words for each version can be found by examining
 | SET                               |
 | SHOW                              |
 | SIGNAL                            |
-| SLOW                              |
 | SMALLINT                          |
 | SPATIAL                           |
 | SPECIFIC                          |
 | SQL                               |
+| SQL\_AFTER\_GTIDS (11.3+)         |
+| SQL\_BEFORE\_GTIDS (11.3+)        |
 | SQLEXCEPTION                      |
 | SQLSTATE                          |
 | SQLWARNING                        |
@@ -264,7 +265,6 @@ The definitive list of reserved words for each version can be found by examining
 | WHEN                              |
 | WHERE                             |
 | WHILE                             |
-| WINDOW                            |
 | WITH                              |
 | WRITE                             |
 | XOR                               |
@@ -295,25 +295,19 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 | BODY             |
 | ELSIF            |
 | GOTO             |
-| HISTORY          |
 | MINUS (10.6+)    |
 | OTHERS           |
 | PACKAGE          |
-| PERIOD           |
 | RAISE            |
 | ROWNUM           |
 | ROWTYPE          |
 | SYSDATE          |
-| SYSTEM           |
-| SYSTEM\_TIME     |
-| VERSIONING       |
-| WITHOUT          |
 
 ### Contextual Keywords and Parser Limitations
 
 The lists above indicate words that are always reserved and must be quoted. Some keywords, though, are reserved for specific contexts. In most SQL statements, they operate normally, but in some cases, they activate unique parser rules.
 
-The Oracle mode term `SYSTEM` is a prime example. Although it is not a fully reserved word, the parser expects the VERSIONING keyword to follow (as part of the `SYSTEM VERSIONING` clause for [system-versioned tables](../temporal-tables/system-versioned-tables.md)), which results in a syntax error in an `ALTER TABLE ... ADD` command.
+The keyword `SYSTEM` is a prime example, in both the default mode and Oracle mode. Although it is not a fully reserved word, the parser expects the VERSIONING keyword to follow (as part of the `SYSTEM VERSIONING` clause for [system-versioned tables](../temporal-tables/system-versioned-tables.md)), which results in a syntax error in an `ALTER TABLE ... ADD` command.
 
 **Example of unexpected behavior**
 

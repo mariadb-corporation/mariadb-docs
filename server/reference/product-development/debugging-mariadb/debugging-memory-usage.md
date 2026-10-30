@@ -81,7 +81,7 @@ performance_schema=on
 performance-schema-instrument='memory/%=ON'
 ```
 
-This is available since [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2). With this enabled, [performance\_schema.memory\_summary\_global\_by\_event\_name](../../system-tables/performance-schema/performance-schema-tables/performance-schema-memory_summary_global_by_event_name-table.md) can start to show where the memory leak is occurring.
+With this enabled, [performance\_schema.memory\_summary\_global\_by\_event\_name](../../system-tables/performance-schema/performance-schema-tables/performance-schema-memory_summary_global_by_event_name-table.md) can start to show where the memory leak is occurring.
 
 ## Memleak
 

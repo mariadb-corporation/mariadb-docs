@@ -23,7 +23,7 @@ ORDER BY plugin_name;
 
 Plugin maturity is not the same as plugin support and maintenance. When a plugin has a maturity level of _Stable_, that doesn't necessarily imply that it's actively maintained or supported via MariaDB Support.
 
-Currently, the plugins maintained and supported by MariaDB plc for a given release series are the ones included in the corresponding MariaDB Enterprise Server release. Plugins that are not supported by MariaDB plc are either placed in a separate **unsupported repository** (reached by passing the `--include-unsupported` flag to the `mariadb_es_repo_setup` script) or omitted from the build entirely.
+The plugins maintained and supported by MariaDB plc for a given release series are the ones included in the corresponding MariaDB Enterprise Server release. Plugins that are not supported by MariaDB plc are either placed in a separate **unsupported repository** (reached by passing the `--include-unsupported` flag to the `mariadb_es_repo_setup` script) or omitted from the build entirely.
 
 ## See Also
 

@@ -10,10 +10,12 @@ description: >-
 ### Syntax
 
 ```sql
-WITH [RECURSIVE] table_reference [(columns_list)] AS  (
+WITH [RECURSIVE] table_reference [(columns_list)] AS (
   SELECT ...
-)
-[CYCLE cycle_column_list RESTRICT]
+) [CYCLE cycle_column_list RESTRICT]
+[, table_reference [(columns_list)] AS (
+  SELECT ...
+) [CYCLE cycle_column_list RESTRICT]] ...
 SELECT ...
 ```
 
@@ -28,12 +30,12 @@ There are two kinds of CTEs:
 
 You can use `table_reference` as any normal table in the external `SELECT` part. You can also use `WITH` in subqueries, as well as with [EXPLAIN](../../../administrative-sql-statements/analyze-and-explain-statements/explain.md) and [SELECT](../select.md).
 
+A single `WITH` clause can define several CTEs, separated by commas. Each CTE must have a unique name within the clause. A CTE can refer to any CTE defined before it in the same clause. Without the `RECURSIVE` keyword, a CTE can't refer to a CTE defined after it; with `RECURSIVE`, the CTEs of the clause can refer to one another in any order. The `RECURSIVE` keyword is written once, after `WITH`, and applies to the whole clause.
+
 Poorly-formed recursive CTEs can in theory cause infinite loops. The [max\_recursive\_iterations](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_recursive_iterations) system variable limits the number of recursions.
 
 #### CYCLE ... RESTRICT
 
-{% tabs %}
-{% tab title="Current" %}
 The `CYCLE` clause enables CTE cycle detection, avoiding excessive or infinite loops,\
 MariaDB supports a relaxed, non-standard grammar.\
 The SQL Standard permits a `CYCLE` clause, as follows:
@@ -58,12 +60,6 @@ CYCLE <cycle column list> RESTRICT
 ```
 
 With the use of `CYCLE ... RESTRICT` it makes no difference whether the CTE uses `UNION ALL` or `UNION DISTINCT` anymore. `UNION ALL` means "all rows, but without cycles", which is exactly what the `CYCLE` clause enables. And `UNION DISTINCT` means all rows should be different, which, again, is what will happen — as uniqueness is enforced over a subset of columns, complete rows will automatically all be different.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-`CYCLE ... RESTRICT` is not available.
-{% endtab %}
-{% endtabs %}
 
 ### Examples
 
@@ -81,6 +77,19 @@ SELECT t1.a, t1.b FROM t1, t2
   WHERE t1.a > t2.c 
      AND t2.c IN(WITH t AS (SELECT * FROM t1 WHERE t1.a < 5)
                 SELECT t2.c FROM t2, t WHERE t2.c = t.a);
+```
+
+The example below defines two CTEs in one `WITH` clause. The second CTE, `b`, refers to the first, `a`:
+
+```sql
+WITH a AS (SELECT 1 AS x),
+     b AS (SELECT x + 1 AS y FROM a)
+SELECT a.x, b.y FROM a, b;
++---+---+
+| x | y |
++---+---+
+| 1 | 2 |
++---+---+
 ```
 
 Below is an example of a Recursive CTE:

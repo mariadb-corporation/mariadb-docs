@@ -26,7 +26,7 @@ vulnerabilities maintained at
 
 The appropriate release notes listed [here](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) document CVEs fixed within a given release. Additional information can also be found at [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security).
 
-There are no known CVEs on ColumnStore-specific infrastructure outside of the MariaDB server at this time.
+As of September 2026, there are no known CVEs on ColumnStore-specific infrastructure outside of the MariaDB server.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

@@ -109,6 +109,10 @@ Just as traditional full, incremental, and partial backups should be tested, so 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#nonblocking-backups) functionality to reduce the impact of backup operations:
 
 1. Connect with a client and issue a `BACKUP STAGE START` statement and then a `BACKUP STAGE BLOCK_COMMIT` statement.
@@ -119,6 +123,10 @@ MariaDB Server includes [advanced backup](mariadb-enterprise-backup.md#nonblocki
 {% endtab %}
 
 {% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 It is recommended to briefly prevent writes while snapshotting. Specific commands vary depending on storage platform, business requirements, and setup, but a general approach is to:
 
 1. Connect with a client and issue a `FLUSH TABLES WITH READ LOCK` statement, leaving the client connected.

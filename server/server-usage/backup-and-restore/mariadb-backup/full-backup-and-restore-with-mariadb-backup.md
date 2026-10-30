@@ -66,7 +66,7 @@ $ mariadb-backup --prepare \
 
 #### Backup Preparation Steps
 
-1. Run `mariadb-backup --backup`. You must use a version of `mariadb-backup` that is compatible with the server version you are planning to upgrade from. For instance, when upgrading from MariaDB 10.4 to 10.5, you must use the 10.4 version of `mariadb-backup`, Another example: When upgrading from MariaDB 10.6 to 10.11, you must use the 10.6 version of `mariadb-backup`.
+1. Run `mariadb-backup --backup`. You must use a version of `mariadb-backup` that is compatible with the server version you are planning to upgrade from. For instance, when upgrading from MariaDB 10.6 to 10.11, you must use the 10.6 version of `mariadb-backup`. Another example: When upgrading from MariaDB 10.11 to 11.4, you must use the 10.11 version of `mariadb-backup`.
 2. Run `mariadb-backup --prepare`, again using a compatible version of `mariadb-backup`, as described in the previous step.
 
 ### Restoring the Backup

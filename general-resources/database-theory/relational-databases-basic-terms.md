@@ -33,8 +33,8 @@ _A vending machine appears in exactly one store (one-to-one)._
 erDiagram
     accTitle: Sculptor to sculpture relationship
     accDescr {
-        One sculptor sculpts many sculptures; each sculpture is made by exactly one
-        sculptor. This is a one-to-many relationship.
+        One sculptor sculpts zero or many sculptures; each sculpture is made by exactly
+        one sculptor. This is a one-to-many relationship.
     }
     SCULPTOR ||--o{ SCULPTURE : sculpts
 ```

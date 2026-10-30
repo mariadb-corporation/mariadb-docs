@@ -91,7 +91,6 @@ On production workloads, MyRocks was tested to prove that it provides:
 
 ### Requirements and Limitations
 
-* MyRocks is included from [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5).
 * MyRocks is available in the MariaDB Server packages for Linux and Windows.
 * Maria DB optimistic parallel replication may not be supported.
 * MyRocks is not available for 32-bit platforms

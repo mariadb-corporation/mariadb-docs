@@ -15,7 +15,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 This page lists system variables that are related to [binary logging](../../server-management/server-monitoring-logs/binary-log/) and [replication](./).
 
-See [Server System Variables](../optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them, as well as [System variables for global transaction ID](gtid.md#system-variables).
+See [Server System Variables](../optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them, as well as [System variables for global transaction ID](gtid/gtid-system-variables.md).
 
 Also see [mariadbd replication options](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#replication-and-binary-logging-options) for related options that are not system variables (such as [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-do-db) and [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#binlog-ignore-db)).
 
@@ -62,7 +62,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per-connection, of the cache holding a record of binary log changes during a transaction. A separate variable, [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size), sets the upper limit for the statement cache. The [binlog\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](replication-and-binary-log-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable sets the size in bytes of the in-memory buffer that holds a transaction's binary log changes before they are written to the binary log. The variable has global scope, but the buffer is allocated separately for each connection that writes to the binary log, so total memory use grows with the number of connections. A transaction whose changes exceed the buffer spills to a temporary file on disk. Changing the value does not resize caches that existing connections have already allocated. Changes made by statements on non-transactional tables use a separate cache, sized by [binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#binlog_stmt_cache_size). The maximum size a connection's transaction cache can reach is set by [max\_binlog\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_cache_size). The [binlog\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_cache_disk_use) and [binlog\_cache\_use](replication-and-binary-log-status-variables.md#binlog_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of binlog\_cache\_disk\_use to binlog\_cache\_use).
 * Command line: `--binlog-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -70,6 +70,10 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Default Value: `32768`
 * Range - 32 bit: `4096` to `4294967295`
 * Range - 64 bit: `4096` to `18446744073709547520`
+
+{% hint style="info" %}
+From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine=innodb`), `binlog_cache_size` is still the size of each connection's in-memory buffer. A transaction that outgrows the buffer is not written to a temporary file; its changes are written to the [InnoDB-based binary log](innodb-based-binary-log.md) in pieces while the transaction runs.
+{% endhint %}
 
 #### `binlog_checksum`
 
@@ -162,7 +166,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_format`
 
-* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Statement-based was the default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3). Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A replica applies any events it gets from the primary, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
+* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A replica applies any events it gets from the primary, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
 * Command line: `--binlog-format=format`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -172,7 +176,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_gtid_index`
 
-* Description: Enable the creation of a GTID index for every binlog file, and the use of such index for speeding up GTID lookup in the binlog. See [Binlog indexing](gtid.md#binlog-indexing).
+* Description: Enable the creation of a GTID index for every binlog file, and the use of such index for speeding up GTID lookup in the binlog. See [Binlog indexing](gtid/README.md#binlog-indexing).
 * Command line: `--binlog-gtid-index{=0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -182,7 +186,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_gtid_index_page_size`
 
-* Description: Page size to use for the binlog GTID index. See [Binlog indexing](gtid.md#binlog-indexing).
+* Description: Page size to use for the binlog GTID index. See [Binlog indexing](gtid/README.md#binlog-indexing).
 * Command line: `--binlog-gtid-index-page-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -193,7 +197,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_gtid_index_span_min`
 
-* Description: Control sparseness of the binlog GTID index. If set, at most one index record is added for every `N` bytes of binlog file written, to reduce the size of the index. Normally, this does not need tuning. See [Binlog indexing](gtid.md#binlog-indexing).
+* Description: Control sparseness of the binlog GTID index. If set, at most one index record is added for every `N` bytes of binlog file written, to reduce the size of the index. Normally, this does not need tuning. See [Binlog indexing](gtid/README.md#binlog-indexing).
 * Command line: `--binlog-gtid-index-span-min=#`
 * Scope: Global
 * Dynamic: Yes
@@ -308,7 +312,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_stmt_cache_size`
 
-* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
+* Description: If the [binary log](../../server-management/server-monitoring-logs/binary-log/) is active, this variable determines the size in bytes, per connection, of the cache holding a record of binary log changes outside of a transaction. The variable [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size), determines the cache size for binary log statements inside a transaction. The [binlog\_stmt\_cache\_disk\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_disk_use) and [binlog\_stmt\_cache\_use](replication-and-binary-log-status-variables.md#binlog_stmt_cache_use) [server status variables](../optimization-and-tuning/system-variables/server-status-variables.md) indicates whether this variable needs to be increased (you want a low ratio of `binlog_stmt_cache_disk_use` to `binlog_stmt_cache_use`).
 * Command line: `--binlog-stmt-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -323,8 +327,8 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Command line: `--binlog-storage-engine=name`
 * Scope: Global
 * Dynamic: No (requires server restart)
-* Data type: `enum`
-* Default Value: None
+* Data type: `string`
+* Default Value: `''` (empty)
 
 #### `create_tmp_table_binlog_formats`
 
@@ -332,10 +336,16 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Command line: `--create-tmp-table-binlog-formats=#`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `enum`
+* Data Type: `set`
 * Default Value: `STATEMENT`
 * Valid Values: `STATEMENT` or `MIXED,STATEMENT`
 * Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
+
+{% hint style="info" %}
+Starting with MariaDB Enterprise Server 11.8.9-6, this variable is [available in Enterprise Server](../optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-11.8.md) as a backport of MDEV-36099, with a default value of `MIXED,STATEMENT` rather than the Community Server default of `STATEMENT`. Earlier Enterprise Server 11.8 releases do not have this variable.
+
+Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value that includes `MIXED` without `STATEMENT` is automatically upgraded to `MIXED,STATEMENT` and warning 1292 (`Truncated incorrect create_tmp_table_binlog_formats value`) is returned. The variable retains the upgraded value, so `SELECT` returns `MIXED,STATEMENT` and not the value that was assigned. No warning is returned when `STATEMENT` is already part of the assigned value, including the Enterprise Server 11.8.9-6 default, which already includes `STATEMENT`.
+{% endhint %}
 
 #### `default_master_connection`
 
@@ -391,12 +401,13 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `innodb_binlog_state_interval`
 
-* Description: The interval (in bytes) between writing GTID state records into the binary log.
+* Description: The interval (in bytes) between writing GTID state records into the binary log. The value must be a power-of-two multiple of the binary log page size (16 KiB).
 * Command line: `--innodb-binlog-state-interval=#`
 * Scope: Global
-* Dynamic: Yes
+* Dynamic: No (requires server restart)
 * Data Type: `numeric`
 * Default Value: 2097152 (2MB)
+* Minimum Value: `32768`
 
 #### `log_bin`
 
@@ -502,7 +513,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `max_binlog_cache_size`
 
-* Description: Restricts the size in bytes used to cache a multi-transactional query. If more bytes are required, a `Multi-statement transaction required more than 'max_binlog_cache_size' bytes of storage` error is generated. If the value is changed, current sessions are unaffected, only sessions started subsequently. See [max\_binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_stmt_cache_size) and [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size).
+* Description: Sets the maximum size in bytes of the transaction cache that a single connection can use for binary log changes. [binlog\_cache\_size](replication-and-binary-log-system-variables.md#binlog_cache_size) sets only the in-memory part of that cache. If a multi-statement transaction needs more than `max_binlog_cache_size` bytes, it fails with the error `Multi-statement transaction required more than 'max_binlog_cache_size' bytes of storage; increase this mariadbd variable and try again`. The limit is fixed when a connection's cache is created, so changing the value does not affect connections that have already used the cache. See also [max\_binlog\_stmt\_cache\_size](replication-and-binary-log-system-variables.md#max_binlog_stmt_cache_size).
 * Command line: `--max-binlog-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -608,12 +619,11 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Note: In MySQL and in MariaDB before version 10.0.8 this variable was silently changed if you did [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md).
 
 #### `relay_log_recovery`
 
 * Description: If set to `1` (`0` is default), on startup the replica drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the primary. Can be useful after the replica has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
-  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
+  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid/README.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
   * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the replica has already acknowledged to the primary. Those transactions are refetched from the primary, so this is only a problem if the primary has lost them as well. Use `relay_log_recovery=0` on semisynchronous replicas that connect using binary log coordinates.
 * Command line: `--relay-log-recovery`
 * Scope: Global
@@ -857,7 +867,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1`; `0` on Galera cluster nodes.
-* Range: `0` to `18446744073709551615`
+* Range: `0` to `4294967295`
 * Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 #### `slave_ddl_exec_mode`
@@ -918,7 +928,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Data Type: `numeric`
 * Default Value: `0.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), MariaDB Enterprise Server 10.6.11-6
 
 #### `slave_net_timeout`
 
@@ -959,7 +969,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enum`
-* Default Value: `optimistic` (>= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)), `conservative` (<= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0))
+* Default Value: `optimistic`
 * Valid Values: `conservative`, `optimistic`, `none`, `aggressive` and `minimal`
 
 #### `slave_parallel_threads`
@@ -968,7 +978,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
   * If this system variable is set to a value greater than `0`, then its value determines how many replica [worker threads](replication-threads.md#worker-threads) are created to apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events in parallel.
   * If this system variable is set to `0` (which is the default value), no replica [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the replica's [SQL thread](replication-threads.md#replica-sql-thread).
   * The [replica threads](replication-threads.md#threads-on-the-replica) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
-  * Events that were logged with [GTIDs](gtid.md) with different [gtid\_domain\_id](gtid.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
+  * Events that were logged with [GTIDs](gtid/README.md) with different [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
   * Events that were [group-committed](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary can be applied in parallel in an [in-order](parallel-replication.md#in-order-parallel-replication) manner, and the specific behavior can be configured by setting [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode).
 * Command line: `--slave-parallel-threads=#`
 * Scope: Global
@@ -990,7 +1000,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Dynamic: Yes
 * Data Type: `enum`
 * Default Value: `NO`
-* Valid Values: `NO`, `YES`, `LOGGING`, or `ENFORCE` (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2))
+* Valid Values: `NO`, `YES`, `LOGGING`, or `ENFORCE`
 
 #### `slave_skip_errors`
 
@@ -1031,7 +1041,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Data Type: `string`
 * Default Value:
   * `1158,1159,1160,1161,1205,1213,1020,1429,2013,12701` (>= [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18), [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4), [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.2))
-  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (>= [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5))
+  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (< [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18))
 * Valid Values: _`comma-separated list of error codes`_
 * Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 

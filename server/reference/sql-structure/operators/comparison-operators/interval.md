@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the index of the last argument that is less than or equal to the
+  first argument. The remaining arguments must be in ascending order.
+---
+
 # INTERVAL
 
 ## Syntax

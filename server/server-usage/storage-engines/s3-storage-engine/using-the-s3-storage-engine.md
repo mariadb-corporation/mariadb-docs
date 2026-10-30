@@ -217,13 +217,13 @@ S3 works with [replication](../../../ha-and-performance/standard-replication/rep
 
 ## ANALYZE TABLE
 
-As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
+[ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
 As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However
-using `ANALYZE TABLE table_name PERSISTENT FOR...` will now work.
+using `ANALYZE TABLE table_name PERSISTENT FOR...` works.
 
 ## CHECK TABLE
 
-As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) will work. As S3 tables are read only
+[CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) works. As S3 tables are read only
 it is very unlikely that they can become corrupted. The only known way an S3 table could be corrupted if either the original table copied to S3 was corrupted or the process of copying the original table to S3 was somehow interrupted.
 
 ## Current Limitations

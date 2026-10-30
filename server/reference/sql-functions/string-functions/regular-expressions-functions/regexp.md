@@ -20,13 +20,15 @@ regular expressions (see also [PCRE Regular Expressions](pcre.md)).
 
 Returns `1` if `expr` matches `pat` or `0` if it doesn't match. If either `expr` or `pat` are `NULL`, the result is `NULL`.
 
+The pattern matches if it occurs anywhere in `expr`. To match the whole string, anchor the pattern with `^` and `$`.
+
 The negative form [NOT REGEXP](../not-regexp.md) also exists, as an alias for `NOT (string REGEXP pattern)`. `RLIKE` and `NOT RLIKE` are synonyms for `REGEXP` and `NOT REGEXP`, originally provided for mSQL compatibility.
 
 The pattern need not be a literal string. For example, it can be specified as a string expression or table column.
 
 **Note:** Because MariaDB uses the C escape syntax in strings (for example, `\n` to represent the newline character), you must double any backslash (`\`) that you use in your `REGEXP` strings.
 
-`REGEXP` is not case sensitive, except when used with binary strings.
+`REGEXP` is not case sensitive, except when used with a binary string, a string with a binary collation such as `utf8mb4_bin`, or a string with certain case-sensitive collations such as `latin1_general_cs`. Some case-sensitive collations, including the UCA-based `_as_cs` collations such as `utf8mb4_uca1400_as_cs`, still match case-insensitively. To force a case-sensitive match, use [BINARY](../binary-operator.md) or start the pattern with `(?-i)`.
 
 The [default\_regex\_flags](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_regex_flags) variable addresses the remaining compatibilities between PCRE and the old regex library.
 
@@ -107,6 +109,17 @@ SELECT 'a\nb\nc' RLIKE '^b$';
 +-----------------------+
 |                     1 |
 +-----------------------+
+```
+
+An unanchored pattern matches anywhere in the string:
+
+```sql
+SELECT 'abc' REGEXP 'b', 'abc' REGEXP '^b$';
++------------------+--------------------+
+| 'abc' REGEXP 'b' | 'abc' REGEXP '^b$' |
++------------------+--------------------+
+|                1 |                  0 |
++------------------+--------------------+
 ```
 
 ## See Also

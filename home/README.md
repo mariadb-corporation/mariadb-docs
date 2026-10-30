@@ -44,10 +44,11 @@ Dedicated resources for specific MariaDB products and tools.
 * [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
 * [MariaDB Connectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/)
 * [MariaDB Tools](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/)
-  * [MariaDB Enterprise Manager](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-manager)
-  * [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator)
-  * [MariaDB Enterprise MCP Server](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-mcp-server)
-  * [MariaDB AI RAG](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag)
+  * [MariaDB Enterprise Manager](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-manager)
+  * [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator)
+  * [MariaDB Enterprise MCP Server](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-mcp-server)
+  * [MariaDB AI RAG](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-ai-rag)
+  * [MySQL to MariaDB Migrator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-migrator)
 
 ### Ecosystem
 
@@ -89,3 +90,4 @@ Read the documentation offline. Each PDF covers one documentation set and links 
 Page counts describe the July 2026 snapshot and grow as the documentation does. [Browse every snapshot](https://github.com/mariadb-corporation/mariadb-docs/releases) to download an older set. This site is always the authoritative version.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+

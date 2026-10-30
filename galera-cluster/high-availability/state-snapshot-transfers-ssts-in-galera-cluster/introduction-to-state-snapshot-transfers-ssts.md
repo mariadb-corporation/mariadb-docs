@@ -40,11 +40,10 @@ MariaDB Galera Cluster comes with the following built-in SST methods:
 
 ### mariadb-backup
 
-This SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) utility for performing SSTs. It is one of the two non-locking methods. This is the recommended SST method if you require the ability to run queries on the donor node during the SST. Note that if you use the `mariadb-backup` SST method, then you also need to have `socat` installed on the server. This is needed to stream the backup from the donor to the joiner. This is a limitation inherited from the `xtrabackup-v2` SST method.
+This SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) utility for performing SSTs. It is a non-locking method. This is the recommended SST method if you require the ability to run queries on the donor node during the SST. Note that if you use the `mariadb-backup` SST method, then you also need to have `socat` installed on the server. This is needed to stream the backup from the donor to the joiner. This is a limitation inherited from the `xtrabackup-v2` SST method.
 
 * This SST method supports [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
 * This SST method supports [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
-* This SST method is available from [MariaDB 10.1.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.26) and [MariaDB 10.2.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.10).
 
 With this SST method, it is impossible to upgrade the cluster between some major versions; see [MDEV-27437](https://jira.mariadb.org/browse/MDEV-27437).
 
@@ -69,16 +68,22 @@ Starting with MariaDB 13.0, the SST staging area can be moved to a different fil
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7.4 / 10.6.8:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default).
 {% endtab %}
 
-{% tab title="< 10.7.4 / 10.6.8 / 10.5.16 / 10.4.25 / 10.3.35" %}
+{% tab title="< 10.7.4 / 10.6.8" %}
+{% hint style="info" %}
+Before MariaDB 10.7.4 / 10.6.8:
+{% endhint %}
+
 Use of this SST method **could result in data corruption** when using [innodb\_use\_native\_aio](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_use_native_aio) (the default). `wsrep_sst_method=rsync` is a reliable way to upgrade the cluster to a newer major version.
 {% endtab %}
 {% endtabs %}
 
-{% tabs %}
-{% tab title="Current" %}
 [stunnel ](https://www.stunnel.org/)can be used to encrypt data over the wire. Be sure to have `stunnel` installed. You will also need to generate certificates and keys. See [the stunnel documentation](https://www.stunnel.org/howto.html) for information on how to do that. Once you have the keys, you will need to add the `tkey` and `tcert` options to the `[sst]` option group in your MariaDB configuration file, such as:
 
 ```ini
@@ -88,12 +93,12 @@ tcert = /etc/my.cnf.d/certificates/client-cert.pem
 ```
 
 You also need to run the certificate directory through [openssl rehash](mariadb-backup-sst-method.md).
-{% endtab %}
 
-{% tab title="< 10.3.10 / 10.2.18 / 10.1.36" %}
-[stunnel](https://www.stunnel.org) **cannot** be used to encrypt data over the wire.
-{% endtab %}
-{% endtabs %}
+{% hint style="warning" %}
+**MariaDB Enterprise Server 12.3.3-0 Beta does not install `stunnel`.** Its packages list `stunnel` neither as a requirement nor as a recommendation, on RPM or DEB, so an encrypted rsync SST cannot work until you install `stunnel` yourself. Enterprise Server 11.8 and earlier shipped it as a recommended package.
+
+**MariaDB Community Server 12.3 is not affected the same way.** There, `stunnel` is a recommended package of `mariadb-server-galera`, so a default install includes it. It is left out only when you install with recommendations disabled — `apt --no-install-recommends`, or `dnf`/`yum` with `install_weak_deps=False`.
+{% endhint %}
 
 ### mysqldump
 
@@ -102,27 +107,9 @@ This SST method runs mysqldump on the donor node and pipes the output to the [ma
 * This SST method supports [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid).
 * This SST method supports [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
 
-### xtrabackup-v2
+### xtrabackup and xtrabackup-v2
 
-Percona XtraBackup is **not supported** in MariaDB. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) is the recommended backup method to use instead of Percona XtraBackup. See Percona XtraBackup Overview: Compatibility with MariaDB for more information.
-
-This SST method uses the Percona XtraBackup utility for performing SSTs. It is one of the two non-blocking methods. Note that if you use the `xtrabackup-v2` SST method, you also need to have `socat` installed on the server. Since Percona XtraBackup is a third-party product, this SST method requires an additional installation and some additional configuration. Please refer to [Percona's xtrabackup SST documentation](https://www.percona.com/doc/percona-xtradb-cluster/5.7/manual/xtrabackup_sst.html) for information from the vendor.
-
-* This SST method does **not** support [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
-* This SST method does **not** support [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
-
-This SST method is available from MariaDB Galera Cluster 5.5.37 and MariaDB Galera Cluster 10.0.10.
-
-See xtrabackup-v2 SST method for more information.
-
-### xtrabackup
-
-Percona XtraBackup is **not supported** in MariaDB. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) is the recommended backup method to use instead of Percona XtraBackup. See Percona XtraBackup Overview: Compatibility with MariaDB for more information.
-
-This SST method is an older SST method that uses the Percona XtraBackup utility for performing SSTs. The `xtrabackup-v2` SST method should be used instead of the `xtrabackup` SST method starting from [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33).
-
-* This SST method does **not** support [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
-* This SST method does **not** support [Data at Rest Encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals).
+The `xtrabackup` and `xtrabackup-v2` SST methods, which used the third-party Percona XtraBackup utility, have been removed. Percona XtraBackup is **not supported** in MariaDB. Use the [mariadb-backup](introduction-to-state-snapshot-transfers-ssts.md#mariadb-backup) SST method instead.
 
 ## Authentication
 
@@ -176,9 +163,9 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#configuring-the-systemd-service-timeout) for more details.
+See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/configuring#configuring-the-systemd-service-timeout) for more details.
 
-Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](https://lists.freedesktop.org/archives/systemd-devel/2017-December/039996.html) that allows services to extend the startup timeout during long-running processes. Starting with [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.35), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17), and [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8), on systems with systemd versions that support it, MariaDB uses this feature to extend the startup timeout during long SSTs. Therefore, if you are using `systemd` 236 or later, then you should not need to manually override `TimeoutStartSec`, even if your SSTs run for longer than the configured value. See [MDEV-15607](https://jira.mariadb.org/browse/MDEV-15607) for more information.
+Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](https://lists.freedesktop.org/archives/systemd-devel/2017-December/039996.html) that allows services to extend the startup timeout during long-running processes. On systems with systemd versions that support it, MariaDB uses this feature to extend the startup timeout during long SSTs. Therefore, if you are using `systemd` 236 or later, then you should not need to manually override `TimeoutStartSec`, even if your SSTs run for longer than the configured value. See [MDEV-15607](https://jira.mariadb.org/browse/MDEV-15607) for more information.
 
 ## SST Failure
 
@@ -213,7 +200,7 @@ In some cases, if Galera Cluster's automatic SSTs repeatedly fail, then it can b
 
 ### mysqld\_multi
 
-SST scripts can't currently read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
+SST scripts can't read the mysqld<#> [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) that are read by instances managed by mysqld\_multi.
 
 See [MDEV-18863](https://jira.mariadb.org/browse/MDEV-18863) for more information.
 

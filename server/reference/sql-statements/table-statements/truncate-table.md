@@ -86,7 +86,6 @@ Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engine
 ## See Also
 
 * [TRUNCATE function](../../sql-functions/numeric-functions/truncate.md)
-* [innodb\_safe\_truncate](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_safe_truncate) system variable
 * [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

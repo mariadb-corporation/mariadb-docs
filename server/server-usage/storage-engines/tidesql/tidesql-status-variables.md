@@ -11,7 +11,7 @@ description: >-
 SHOW GLOBAL STATUS LIKE 'tidesdb%';
 ```
 
-These are the machine-readable counters for a monitoring agent such as a Prometheus exporter or PMM. [Monitoring](tidesql-monitoring.md) explains which of them matter and what healthy looks like. They are refreshed on demand behind a short coalescing window, so reading many of them in one statement costs a single stats pass.
+These are the machine-readable counters for a monitoring agent such as a Prometheus exporter or PMM. [Monitoring](tidesql-monitoring.md) explains which of them matter and what healthy looks like. They are refreshed on demand behind a short coalescing window, so reading many of them in one statement costs a single stats pass. The transaction error counters are the exception and are read live.
 
 All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS`.
 
@@ -19,19 +19,19 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 
 #### `Tidesdb_version`
 
-* Description: TideSQL plugin version string, for example `5.0.0`.
+* Description: TideSQL plugin version string, for example `5.2.1`.
 * Scope: Global
 * Data Type: `string`
 
 #### `Tidesdb_version_hex`
 
-* Description: Plugin version as an integer, for example `327680` for `0x50000`.
+* Description: Plugin version as an integer, for example `328193` for `0x50201`.
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Tidesdb_library_version`
 
-* Description: Linked TidesDB library version string.
+* Description: Version string of the TidesDB library the plugin was built against, for example `10.2.1`.
 * Scope: Global
 * Data Type: `string`
 
@@ -57,7 +57,7 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 
 #### `Tidesdb_active_transactions`
 
-* Description: Transactions currently joined to the MVCC registry.
+* Description: Transactions currently joined to the MVCC registry. `READ UNCOMMITTED` transactions do not join it and are not counted.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -67,11 +67,51 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 * Scope: Global
 * Data Type: `numeric`
 
+## Transaction Errors
+
+These counters are incremented each time a library error is mapped to a server error. A failure at `COMMIT` that is returned as a deadlock or lock wait timeout counts once in `Tidesdb_commit_conflicts`, and a failure inside a statement counts in the `Tidesdb_stmt_*` counter for its cause, so real contention can be told apart from engine churn. Unlike the other status variables, these counters are read live rather than through the refresh window. See [Monitoring](tidesql-monitoring.md#commit-conflicts-and-statement-error-counters) for how to read them.
+
+#### `Tidesdb_commit_conflicts`
+
+* Description: `COMMIT` statements that failed with a deadlock or lock wait timeout error. A failure in the prepare phase, which the server runs when the binary log is on, counts here too. The server also counts a failed `COMMIT` in `Com_commit`, so subtract this counter from `Com_commit` to get successful commits.
+* Scope: Global
+* Data Type: `numeric`
+
+#### `Tidesdb_stmt_conflicts`
+
+* Description: Statements that failed on a write conflict, or because the library ran out of retries under heavy memtable rotation, returned as a deadlock error.
+* Scope: Global
+* Data Type: `numeric`
+
+#### `Tidesdb_stmt_locked`
+
+* Description: Statements that failed on transient contention the library reports as locked, returned as a lock wait timeout after a short bounded retry.
+* Scope: Global
+* Data Type: `numeric`
+
+#### `Tidesdb_stmt_memory_limit`
+
+* Description: Statements that failed on memtable backpressure, returned as a lock wait timeout.
+* Scope: Global
+* Data Type: `numeric`
+
+#### `Tidesdb_stmt_txn_expired`
+
+* Description: Statements that failed because the transaction outlived [`tidesdb_txn_timeout_seconds`](tidesql-system-variables.md#tidesdb_txn_timeout_seconds), returned as a lock wait timeout.
+* Scope: Global
+* Data Type: `numeric`
+
+#### `Tidesdb_stmt_bf_aborted`
+
+* Description: Statements that failed because a Galera applier brute-force aborted the transaction, returned as a deadlock error.
+* Scope: Global
+* Data Type: `numeric`
+
 ## Memory and Storage
 
 #### `Tidesdb_memtable_bytes`
 
-* Description: Bytes in the active memtable.
+* Description: Memory the active memtable occupies in bytes, counting skip-list nodes and version structures as well as key and value bytes. This is the figure compared against `tidesdb_memtable_write_buffer_size`.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -89,7 +129,7 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 
 #### `Tidesdb_data_size_bytes`
 
-* Description: Total on-disk data size in bytes.
+* Description: On-disk key-log (SSTable) bytes summed across every column family and level. The value log, reported in `Tidesdb_vlog_file_size`, and the WAL are not included.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -151,7 +191,7 @@ All TideSQL status variables are global and are read through `SHOW GLOBAL STATUS
 
 ## Encoding
 
-Aggregate codec-chain totals summed across every chain, so `logical` divided by `stored` is the realized compression ratio for each log. The per-chain codec breakdown prints in `SHOW ENGINE TIDESDB STATUS`.
+Aggregate codec-chain totals summed across every chain, so `logical` divided by `stored` is the realized compression ratio for each log. `SHOW ENGINE TIDESDB STATUS` prints the same totals per log with the chain count and the ratio.
 
 #### `Tidesdb_klog_logical_bytes`
 
@@ -179,7 +219,7 @@ Aggregate codec-chain totals summed across every chain, so `logical` divided by 
 
 ## Device IO
 
-Write accounting from the library's file-descriptor manager, which meters the SSTable and WAL devices. The value log keeps its own byte accounting in the value-log counters above. These counters are writes only, there is no read-side or syscall figure.
+Write accounting from the library's file-descriptor manager, which meters the SSTable, WAL, and value-log devices. Only the SSTable and WAL figures are status variables. `SHOW ENGINE TIDESDB STATUS` prints all three devices with their write timing, and `Tidesdb_vlog_bytes_written` covers value-log appends. These counters are writes only, there is no read-side figure.
 
 #### `Tidesdb_io_sstable_write_ops`
 
@@ -233,13 +273,13 @@ Write accounting from the library's file-descriptor manager, which meters the SS
 
 #### `Tidesdb_flush_count`
 
-* Description: Flushes completed across all column families.
+* Description: SSTables produced by flushes, one per column family per flush.
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Tidesdb_compaction_count`
 
-* Description: Compactions completed across all column families.
+* Description: Compaction jobs completed across all column families. It counts jobs, not the SSTables they write.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -253,7 +293,7 @@ Write accounting from the library's file-descriptor manager, which meters the SS
 
 #### `Tidesdb_writes_blocked`
 
-* Description: Commits it made wait for the flush queue to drain.
+* Description: Commits it made wait for the flush queue or the level-1 backlog to drain.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -361,7 +401,7 @@ The aggregate counters above sum admission stall time. These per-reason counts s
 
 #### `Tidesdb_max_sst_tombstone_density_level`
 
-* Description: 1-based LSM level where the worst SSTable sits.
+* Description: 1-based LSM level where the worst SSTable sits, `0` if none was observed.
 * Scope: Global
 * Data Type: `numeric`
 

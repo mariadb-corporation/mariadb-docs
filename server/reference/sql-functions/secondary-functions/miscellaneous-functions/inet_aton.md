@@ -29,7 +29,7 @@ SELECT INET_ATON('192.168.1.1');
 +--------------------------+
 ```
 
-This is calculated as follows: 192 x 2563 + 168 x 256 2 + 1 x 256 + 1.
+This is calculated as follows: 192 x 256³ + 168 x 256² + 1 x 256 + 1.
 
 ## See Also
 

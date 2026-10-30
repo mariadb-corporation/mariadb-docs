@@ -71,6 +71,19 @@ on the file set, from the repo root:
   the author never opened, and reproduce it with
   `git ls-files -z -- '*.md' '*.html' | .claude/hooks/includecheck.sh --stdin0`. There is no
   acknowledgment path and should not be one: a dead include is always a bug.
+- It also fails a **Mermaid flowchart with edge labels** (`A -->|Yes| B`, `A -- No --> B`) that
+  lacks the dark-mode contrast fix: an `%%{init}%%` directive setting `edgeLabelBackground` as
+  the block's first line and `linkStyle default color:…` as its last, at >= 4.5:1. Without it,
+  GitBook's dark theme draws the label at 4.43:1, which fails WCAG AA. The fix is
+  `python3 .claude/hooks/mermaidcheck.py --fix <file>`; the convention is in
+  `dev-docs/gitbook-syntax.md`. Gated tree-wide in CI by `mermaidcheck-pr.yml` (DOCS-6630). Needs
+  python3, and SKIPs locally without it.
+- It also fails a **frontmatter `description:` GitBook will render broken**: over 200 characters
+  (GitBook cuts the subtitle and meta description there, mid-word, with no ellipsis), split by a
+  blank line inside the `>-` block, containing Markdown such as backticks (descriptions are plain
+  text, so they show literally), or just repeating the H1. Run by `desccheck.py`; gated on
+  changed pages in CI by `desccheck-pr.yml` (DOCS-6763). Needs python3, and SKIPs locally
+  without it.
 - It also gates **GitBook heading anchors** — a link to `page.md#some-heading` whose anchor no
   longer exists. Gated in CI by `fragcheck-pr.yml` since DOCS-6524 (and `nightly-fragcheck.yml`
   catches the write paths that never open a PR — GitBook-UI syncs, the alias-expansion bot), so
@@ -105,6 +118,12 @@ on the file set, from the repo root:
   is reported `[unanchored-heading]`. A heading GitBook transliterates and the rules cannot
   reproduce — `中国` publishes as `zhong-guo` — is listed by `.claude/hooks/fragcheck.py risky`
   and reported `[uncertain-slug]`, never silently resolved against a guess.
+- **Cross-space links are checked too** (DOCS-6608): an `app.gitbook.com/.../s/<space>/<path>#x`
+  or `{alias}/<path>#x` link has its anchor checked on the target space's page. Its `<path>` is
+  the page's position in that space's `SUMMARY.md`, **not** its file path, so write the nav path
+  without `.md`. GitBook cannot resolve a file path, and it renders the link as a raw editor URL
+  that readers can't open. The same gate therefore fails a PR that moves a `SUMMARY.md` entry
+  other spaces link to, and lists every link that stops resolving.
 - The same gate catches a heading that publishes **another heading's** anchor. Duplicate a
   heading line for a new section, edit its text but leave its `<a href="#x" id="x">` behind, and
   GitBook honours that explicit id over the text slug: the two sections share one anchor, the
@@ -121,17 +140,22 @@ on the file set, from the repo root:
   the page is simply never built. DOCS-6566 is the case — `dde0fb263` added four post-download
   pages without touching `platform/SUMMARY.md` and they sat unpublished for eight days with every
   gate green, until a reader reported them. Like the anchor gate it is **history-aware**, and for
-  the same reason: `main` carries 219 pre-existing orphans (190 in `server`), so it reports only
-  pages newly orphaned against `DOC_LINT_BASE` — added with no nav entry, or de-listed while the
-  file survives. Needs python3 and a git work tree; missing either is a SKIP. Costs ~40 ms, so
-  there is no skip flag. A deliberately unlisted page is legitimate: re-run with
-  `DOC_LINT_ALLOW_ORPHAN='<path>'` and tell the user to say why in the commit message — report it
-  as FAIL when unverified, WARN when acknowledged. For triage,
-  `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones.
-  Added in DOCS-6567.
+  the same reason: the repo carries a standing orphan backlog (219 when DOCS-6586 was filed, 44
+  on 2026-09-17 — **take it fresh with `navcheck.py check`, never quote a figure from a
+  document**), so it reports only pages newly orphaned against `DOC_LINT_BASE` — added with no
+  nav entry, or de-listed while the file survives. Needs python3 and a git work tree; missing
+  either is a SKIP. Costs ~40 ms, so there is no skip flag. Gated in CI by `navcheck-pr.yml`
+  since DOCS-6586. A deliberately unlisted page is legitimate, and the acknowledgment is
+  **checked in** — an `orphan:` entry with a reason in `.claude/hooks/doc-lint-allow.yml`, which
+  is what the CI gate reads. Add the entry rather than reaching for the environment variable, and
+  tell the user what reason you wrote; report it as FAIL when unverified, WARN when acknowledged.
+  `DOC_LINT_ALLOW_ORPHAN='<path>'` remains a local one-off. For triage,
+  `.claude/hooks/navcheck.py check [path ...]` lists every current orphan, not just the new ones,
+  and `navcheck.py stale` audits the register. Added in DOCS-6567.
 - It also flags a **gutted page** — any file that lost more than 40% of its lines *net*
   (deletions minus additions; min 20 lines lost, pre-image ≥ 30 lines) against `DOC_LINT_BASE`
-  (default `HEAD`). No CI counterpart, never SKIPs. This catches what the other checks
+  (default `HEAD`). Gated in CI by `shrinkcheck-pr.yml` since DOCS-6586; needs python3, and
+  missing it is a SKIP. This catches what the other checks
   structurally cannot: a page that loses most of its body while the surviving markup stays valid
   and the remaining links resolve, so codespell and lychee both PASS. DOCS-6442 is the case —
   a campaign meant to remove one `{% columns %}` content-ref block from the Storage Engines
@@ -139,9 +163,17 @@ on the file set, from the repo root:
   untouched, so nav listed 27 engines and the page listed one.
   **Do not silence this by reflex.** Verify the page first: for a landing page, compare its
   content-ref count with the space's `SUMMARY.md` children (`SUMMARY.md` is authoritative for
-  nav — it is what DOCS-6442 used to rebuild the page). If the shrink is genuinely intended,
-  re-run with `DOC_LINT_ALLOW_SHRINK='<path>'` and tell the user to state the reason in the
-  commit message. Report it as FAIL when unverified, WARN when acknowledged.
+  nav — it is what DOCS-6442 used to rebuild the page). If the shrink is genuinely intended, add
+  a `shrink:` entry with its reason to `.claude/hooks/doc-lint-allow.yml` — that file, not the
+  environment variable, is what CI reads — and tell the user what you wrote.
+  `DOC_LINT_ALLOW_SHRINK='<path>'` remains a local one-off. Report it as FAIL when unverified,
+  WARN when acknowledged.
+- **The acknowledgment register itself can fail the gate**, and that is not a finding about any
+  page: an entry whose page has since been listed in `SUMMARY.md` or deleted is **stale** and
+  must be removed in the same PR, and a register that does not parse is exit 2 rather than being
+  read as empty. Both guards name the line to delete. Report a stale entry as FAIL against the
+  register, not against the page it names, and never "fix" it by adding more entries. The format
+  and its rules: `dev-docs/cookbook-pre-pr.md` § 1a, and `.claude/hooks/allowlist.py`'s header.
 
 The remaining checks below are **best-effort, LLM-performed heuristics** — report them as
 warnings, not hard failures, and **ignore anything inside fenced code blocks (```) or
@@ -212,6 +244,7 @@ docs-check on 3 files:
   includes ....... FAIL (dead include in platform/post-download/x.md:22)
   orphan pages ... FAIL (platform/post-download/x.md has no SUMMARY.md entry)
   gutted pages ... FAIL (storage-engines/README.md lost 93% of its lines net)
+  ack register ... WARN (doc-lint-allow.yml:12 — page is listed again, delete the entry)
   frontmatter .... PASS
   gitbook blocks . FAIL (unclosed {% tabs %} in server/foo.md)
   link style ..... PASS

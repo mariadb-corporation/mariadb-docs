@@ -13,7 +13,7 @@ description: The CONNECT storage engine.
 - [CONNECT - Files Retrieved Using Rest Queries](connect-files-retrieved-using-rest-queries.md)
 - [CONNECT INI Table Type](connect-ini-table-type.md)
 - [CONNECT JDBC Table Type: Accessing Tables from Another DBMS](connect-jdbc-table-type-accessing-tables-from-another-dbms.md)
-- [CONNECT JSON Table Type](connect-json-table-type.md)
+- [CONNECT JSON Table Type](connect-json-table-type/README.md)
 - [CONNECT MONGO Table Type: Accessing Collections from MongoDB](connect-mongo-table-type.md)
 - [CONNECT MYSQL Table Type: Accessing MySQL/MariaDB Tables](connect-mysql-table-type-accessing-mysqlmariadb-tables.md)
 - [CONNECT - NoSQL Table Types](connect-nosql-table-types.md)

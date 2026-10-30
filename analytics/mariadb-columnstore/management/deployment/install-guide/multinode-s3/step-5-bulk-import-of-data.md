@@ -1,5 +1,7 @@
 ---
-description: 'Step 5: Bulk Import of Data'
+description: >-
+  Step 5 of the multi-node MariaDB ColumnStore install with object storage:
+  import the schema and bulk-import data into ColumnStore.
 hidden: true
 ---
 

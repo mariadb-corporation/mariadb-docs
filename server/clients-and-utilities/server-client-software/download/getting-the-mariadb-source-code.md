@@ -83,7 +83,7 @@ bzr branch lp:maria trunk
 ```
 
 The above will give you the latest stable MariaDB version.\
-If you want to get another release use lp:maria/5.2, lp:maria/5.3...\
+If you want to get another release, choose its branch from the list on Launchpad.\
 For a complete list, go to [Launchpad](https://launchpad.net/~maria-captains/) and choose ['Code'](https://code.launchpad.net/~maria-captains) from the top menu on the page.
 
 * Note: The initial branch operation can take a long time depending on the speed of your Internet connection and the load on launchpad. For this initial branch you need to download over a gigabyte of data.
@@ -149,10 +149,9 @@ tar -zxvf ${downloadsdir}/mariadb-shared-repo.tgz
    a working tree. While in the shared repository directory, use the`bzr branch` command to branch the MariaDB trees you are
    interested in. For example:
 
-* `bzr branch lp:maria/5.2`
 * `bzr branch lp:maria`
 
-1. Thanks to the repository, either of the above commands will complete very fast.
+1. Thanks to the repository, the above command will complete very fast.
 2. Before working with the code, make sure you pull down the latest version of the source code:
 
 ```
@@ -210,13 +209,6 @@ Check out MariaDB sources:
 ```
 $BZR branch $MARIA_REPO $MARIA_MASTER
 $BZR branch $MARIA_MASTER $MARIA_WORK
-```
-
-Check out packaging sources (only for [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) and below):
-
-```
-$BZR branch $PACKAGING_REPO $PACKAGING_MASTER
-$BZR branch $PACKAGING_MASTER $PACKAGING_WORK
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema replication\_applier\_status Table
 
-{% hint style="info" %}
-The `replication_applier_status` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The [Performance Schema](../) replication\_applier\_status table contains information about the general transaction execution status on the replica.
 
 It contains the following fields.

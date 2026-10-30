@@ -157,6 +157,7 @@ The cache filter has no mandatory parameters but a range of optional ones. Note 
 * Mandatory: No
 * Dynamic: No
 * Default: `storage_inmemory`
+* Description: Defines the storage module used by the cache.
 
 The name of the module that provides the storage for the cache. That module will be loaded and provided with the value of `storage_options` as argument. For instance:
 
@@ -172,6 +173,7 @@ See [Storage](maxscale-cache.md#storage-1) for what storage modules are availabl
 * Mandatory: No
 * Dynamic: No
 * Default:
+* Description: Deprecated. Previously used to pass configuration options to the storage module.
 
 **NOTE** Deprecated in 23.02.
 
@@ -185,6 +187,7 @@ From 23.02 onwards, the storage module configuration should be provided using ne
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Specifies how long cached data can last before being deleted and reloaded.
 
 _Hard time to live_; the maximum amount of time the cached result is used before it is discarded and the result is fetched from the backend (and cached). See also [soft\_ttl](maxscale-cache.md#soft_ttl).
 
@@ -198,6 +201,7 @@ hard_ttl=60s
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Determines how long cached data is used before being refreshed from the backend.
 
 _Soft time to live_; the amount of time - in seconds - the cached result is used before it is refreshed from the server. When `soft_ttl` has passed, the result will be refreshed when the _first_ client requests the value.
 
@@ -215,6 +219,7 @@ If the value of `soft_ttl` is larger than `hard_ttl` it will be adjusted down to
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Defines the maximum number of rows in a result set that can be cached.
 
 Specifies the maximum number of rows a resultset can have in order to be stored in the cache. A resultset larger than this, will not be stored.
 
@@ -228,6 +233,7 @@ max_resultset_rows=1000
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Specifies the maximum result set size that can be cached.
 
 Specifies the maximum size of a resultset, for it to be stored in the cache. A resultset larger than this, will not be stored.
 
@@ -243,6 +249,7 @@ Note that the value of `max_resultset_size` should not be larger than the value 
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Specifies the maximum amount of data that cache can store.
 
 The maximum number of items the cache may contain. If the limit has been reached and a new item should be stored, then an older item will be evicted.
 
@@ -258,6 +265,7 @@ max_count=1000
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Defines the maximum total size of the cache.
 
 The maximum size the cache may occupy. If the limit has been reached and a new item should be stored, then some older item(s) will be evicted to make space.
 
@@ -267,12 +275,103 @@ Note that if `cached_data` is `thread_specific` then this limit will be applied 
 max_size=100Mi
 ```
 
+### `min_query_duration`
+
+Available since MaxScale 25.10.4.
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: `0s` (no limit)
+
+Specifies the minimum duration a query must take on the backend for its
+result to be stored in the cache. If a query executes faster than this, its
+result is _not_ cached.
+
+The rationale is that the result of a fast query is cheap to fetch from the
+backend, so caching it saves little while still consuming cache space and
+being subject to the same consistency caveats as any other cached value
+(see [Best Efforts](maxscale-cache.md#best-efforts)). What counts as "fast"
+depends on the deployment; for instance, a cache reached over the network
+has a higher break-even point than a local one.
+
+By default the value is `0s`, which means the duration of a query is not
+considered and all cacheable results are stored.
+
+The duration is measured by MaxScale as the time between the query being
+sent to the backend and its complete result having been received, and so
+includes both the network round-trip and the execution time. As the
+measurement is taken with the granularity of the event loop, a threshold
+smaller than a few milliseconds is not meaningful.
+
+To avoid repeatedly attempting a cache lookup that is bound to miss for a
+query whose result is not stored, MaxScale remembers the queries observed
+to be faster than `min_query_duration` and skips the lookup for them. The
+size of that bookkeeping is bounded by
+[max\_uncached\_query\_count](maxscale-cache.md#max_uncached_query_count).
+
+```
+min_query_duration=10ms
+```
+
+### `max_uncached_query_count`
+
+Available since MaxScale 25.10.4.
+
+* Type: count
+* Mandatory: No
+* Dynamic: No
+* Default: `10000`
+
+The maximum number of queries — observed to be faster than
+[min\_query\_duration](maxscale-cache.md#min_query_duration) — that
+MaxScale remembers in order to skip a cache lookup that would in any case
+miss. When the limit has been reached and a new such query is seen, the
+least recently used one is forgotten; the only consequence is that a lookup
+will be attempted, and the query's duration measured, once more.
+
+A value of `0` disables this bookkeeping, in which case a lookup is always
+attempted even for queries known to be fast. The setting has no effect if
+`min_query_duration` is `0`.
+
+Note that if `cached_data` is `thread_specific` then this limit will be
+applied to each cache _separately_. That is, if a thread specific cache is
+used, then the total number of remembered queries is #threads \* the value
+of `max_uncached_query_count`.
+
+Tuning: the value need only be large enough to hold the set of _recurring_
+fast queries; a query seen just once gains nothing from being remembered.
+Because the cache key is a hash of the exact query text (literal values
+included), queries that differ only in a literal are distinct keys, so a
+point-lookup workload can have a very large distinct fast-query space; if
+many distinct fast queries recur, a larger value increases how often the
+lookup is skipped. Setting it too low is not harmful — an evicted entry
+merely causes its lookup to be attempted, and its duration re-measured, once
+more.
+
+The `uncached_queries` diagnostics shown by `maxctrl show filter` report
+`hits` (lookups skipped) and `misses` (below-threshold queries that were not
+skipped); a persistently low `hits / (hits + misses)` ratio means the value
+is delivering little. Raise it and check whether the ratio improves; if it
+does not, the fast queries are mostly one-offs and the value can be set to 0.
+
+The benefit is greatest with a networked storage (`storage_redis`,
+`storage_gridgain`), where a skipped lookup avoids a server round-trip. With
+`storage_inmemory` the skipped lookup is only a local hash probe, so this
+setting has little effect and a small value — or `0` — is appropriate. The
+memory cost is roughly 90 bytes per remembered query, per storage instance.
+
+```
+max_uncached_query_count=10000
+```
+
 ### `rules`
 
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""` (no rules)
+* Description: Specifies the file path containing caching rules.
 
 Specifies the path of the file where the caching rules are stored. A relative path is interpreted relative to the _data directory_ of MariaDB MaxScale.
 
@@ -293,6 +392,7 @@ maxctrl alter filter MyCache rules='/path/to/rules-file'
 * Dynamic: No
 * Values: `shared`, `thread_specific`
 * Default: `thread_specific`
+* Description: Determines whether cached data remains thread-specific or shared across threads.
 
 An enumeration option specifying how data is shared between threads. The allowed values are:
 
@@ -312,6 +412,7 @@ Default is `thread_specific`. See `max_count` and `max_size` what implication ch
 * Dynamic: Yes
 * Values: `assume_cacheable`, `verify_cacheable`
 * Default: `assume_cacheable`
+* Description: Controls whether SELECT statements are considered to be cacheable or validated before caching.
 
 An enumeration option specifying what approach the cache should take with respect to `SELECT` statements. The allowed values are:
 
@@ -341,6 +442,7 @@ Note that parsing all `SELECT` statements carries a performance cost. Please rea
 * Dynamic: No
 * Values: `never`, `read_only_transactions`, `all_transactions`
 * Default: `all_transactions`
+* Description: Manages how the cache is used and updated during transactions.
 
 An enumeration option specifying how the cache should behave when there are active transactions:
 
@@ -362,6 +464,7 @@ The values `read_only_transactions` and `all_transactions` have roughly the same
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0`
+* Description: Uses a bitmask value to control the cache's debug logging level.
 
 An integer value, using which the level of debug logging made by the cache can be controlled. The value is actually a bitfield with different bits denoting different logging.
 
@@ -384,6 +487,7 @@ debug=31
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Manages whether the cache is enabled or disabled at startup.
 
 Specifies whether the cache is initially enabled or disabled.
 
@@ -400,6 +504,7 @@ The value affects the initial state of the MaxScale user variables using which t
 * Dynamic: No
 * Values: `never`, `current`
 * Default: `never`
+* Description: Manages how cached data is invalidated when changes occur.
 
 An enumeration option specifying how the cache should invalidate cache entries.
 
@@ -423,6 +528,7 @@ If it is important that an application _immediately_ sees all changes, irrespect
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
+* Description: Controls whether the cache is cleared when modifying statements are not parsed correctly.
 
 This boolean option specifies how the cache should behave in case of parsing errors when invalidation has been enabled.
 
@@ -440,6 +546,7 @@ Changing the value to `false` may mean that stale data is returned from the cach
 * Dynamic: No
 * Values: `mixed`, `isolated`
 * Default: `mixed`
+* Description: Manages whether cached data is stored separately for each user or shared between users.
 
 An enumeration option specifying how the cache should cache data for different users.
 
@@ -459,6 +566,7 @@ Note that if `isolated` has been specified, then each user will conceptually hav
 * Mandatory: No
 * Dynamic: No
 * Default: `5s`
+* Description: Specifies the timeout for processes involving external storage backends.
 
 The _timeout_ used when performing operations to distributed storages such as _redis_ or _memcached_.
 
@@ -742,7 +850,7 @@ When using `=` or `!=` in the rule object in conjunction with `database`,`table`
 
 In practice that means that if _attribute_ is `database` then _value_ may not contain a dot, if _attribute_ is `table` then _value_ may contain one dot, used for separating the database and table names respectively, and if _attribute_ is `column` then _value_ may contain one or two dots, used for separating table and column names, or database, table and column names.
 
-Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. Currently Maria DB MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
+Note that if a qualified name is used as a _value_, then all parts of the name must be available for a match. MaxScale may not always be capable of deducing in what table a particular column is. If that is the case, then a value like `tbl.field` may not necessarily be a match even if the field is `field` and the table actually is `tbl`.
 
 #### Implication of the default database
 
@@ -971,7 +1079,7 @@ There are two types of storages that can be used; _local_ and _shared_.
 
 The only _local_ storage implementation is `storage_inmemory` that simply stores the cache values in memory. The storage is not persistent and is destroyed when MaxScale terminates. Since the storage exists in the MaxScale process, it is very fast and provides almost always a performance benefit.
 
-Currently there are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
+There are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
 that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
 [gridgain](https://www.gridgain.com/) respectively.
 
@@ -1134,6 +1242,7 @@ storage=storage_memcached
 * Type: The Memcached server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the Memcached server address. The default port is 11211 is used when no port is provided.
 
 If no port is provided, then the default port `11211` will be used.
 
@@ -1143,6 +1252,7 @@ If no port is provided, then the default port `11211` will be used.
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
+* Description: Defines the maximum size of a value that can be stored in the cache.
 
 By default, the maximum size of a value stored to memcached is 1MiB, but that can be configured to something else, in which case this parameter should be set accordingly.
 
@@ -1199,6 +1309,7 @@ If a timeout error occurs during an operation, reconnecting will be attempted af
 * Type: The Redis server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
+* Description: Defines the Redis server address. The default port is 6379 is used when no port is provided.
 
 If no port is provided, then the default port `6379` will be used.
 
@@ -1208,6 +1319,7 @@ If no port is provided, then the default port `6379` will be used.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Username used for authentication.
 
 Please see [authentication](maxscale-cache.md#authentication) for more information.
 
@@ -1217,6 +1329,7 @@ Please see [authentication](maxscale-cache.md#authentication) for more informati
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Password used for authentication.
 
 Please see [authentication](maxscale-cache.md#authentication) for more information.
 
@@ -1226,6 +1339,7 @@ Please see [authentication](maxscale-cache.md#authentication) for more informati
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Enable SSL when connectign to the Redis server.
 
 Please see [ssl](maxscale-cache.md#ssl-1) for more information.
 
@@ -1235,6 +1349,7 @@ Please see [ssl](maxscale-cache.md#ssl-1) for more information.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Defines the SSL client certificate used when connecting to the Redis server.
 
 The SSL client certificate that MaxScale should use with the Redis server. The certificate must match the key defined in `ssl_key`.
 
@@ -1246,6 +1361,7 @@ Please see [ssl](maxscale-cache.md#ssl-1) for more information.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the private key for the SSL client that is used to connect to the Redis server.
 
 The SSL client private key MaxScale should use with the Redis server.
 
@@ -1257,6 +1373,7 @@ Please see [ssl](maxscale-cache.md#ssl-1) for more information.
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the CA certificate used to verify the Redis server certificate.
 
 The Certificate Authority (CA) certificate for the CA that signed the certificate specified with `ssl_cert`.
 
@@ -1392,7 +1509,7 @@ If the rule is instead expressed using a regular expression
 
 then the statement will not be parsed.
 
-However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and currently the cost for parsing and regular expression matching is roughly the same.
+However, when the [query classifier cache](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size) was introduced, the parsing cost was significantly reduced and the cost for parsing and regular expression matching is roughly the same.
 
 In the following is a table with numbers giving a rough picture of the relative cost of different approaches.
 

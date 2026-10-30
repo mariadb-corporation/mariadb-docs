@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Exa architecture: MaxScale routes reads and writes while MaxScale CDC
-  (binlogrouter) tails the MariaDB binary log and bulk-loads changes into Exasol
-  for near real-time analytics on operational data.
+  MariaDB Exa architecture: MaxScale routes reads and writes, while MaxScale CDC
+  (binlogrouter) tails the binary log and bulk-loads changes into Exasol for
+  near real-time analytics.
 icon: house-blank
 ---
 
@@ -29,7 +29,19 @@ MaxScale-native CDC to Exasol requires **MaxScale 25.10.3 or later**. Earlier in
 Writes always go to MariaDB. MaxScale CDC connects to MariaDB as a replica, tails the binary log, and applies committed changes to Exasol in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: Writes to MariaDB and change capture to Exasol
+    accDescr {
+        The Application (MariaDB connector) is outside the MaxScale group, which
+        holds Smart Router (routes writes and reads) and MaxScale CDC (tails
+        binlog, applies to Exasol). MariaDB (transactional core, binlog, GTID) and
+        Exasol (analytics engine, columnar) are also outside it. Four numbered
+        one-way arrows: 1 - reads and writes, from Application to Smart Router. 2
+        - write committed to binlog, from Smart Router to MariaDB. 3 - CDC tails
+        binlog (async), from MariaDB to MaxScale CDC. 4 - applies change + GTID,
+        from MaxScale CDC to Exasol.
+    }
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
         SR["Smart Router<br/>routes writes and reads"]
@@ -50,6 +62,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._
@@ -85,7 +98,19 @@ SmartRouter caches the winning engine, so future reads of the same canonical que
 {% endstepper %}
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
+    accTitle: Smart Router choosing between MariaDB and Exasol for a read
+    accDescr {
+        The Application (MariaDB connector) is outside the MaxScale group, which
+        holds Smart Router (routes to the faster engine) and Token cache (caches
+        the winning engine per query). MariaDB (transactional core, row store) and
+        Exasol (analytics engine, columnar) are also outside it. 1 - read request:
+        an arrow from Application to Smart Router. 2 - first time: raced on both:
+        two arrows with this label lead from Smart Router, one to MariaDB and one
+        to Exasol. Smart Router and Token cache are joined by a line with no
+        direction.
+    }
     App["Application<br/>MariaDB connector"]
     subgraph MS["MaxScale"]
         SR["Smart Router<br/>routes to the faster engine"]
@@ -106,6 +131,7 @@ flowchart LR
     class MDB maria;
     class EXA exa;
     style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
+    linkStyle default color:#111111
 ```
 
 ## Deployment topologies
@@ -127,6 +153,16 @@ MaxScale CDC uses the `binlogrouter` module to read the MariaDB binary log and b
 
 ```mermaid
 flowchart LR
+    accTitle: MaxScale CDC batch pipeline stages
+    accDescr {
+        A left-to-right chain of five boxes joined by one-way arrows. 01 Capture
+        (tail MariaDB binlog as a replica) leads to 02 Compact (collapse row
+        updates to final state), which leads to 03 Batch (accumulate many rows per
+        write). 03 Batch leads to 04 Bulk insert (apply to Exasol in one
+        transaction, matching GTID), which leads to Staging table + MERGE
+        (bulk-load into _stagingN, then MERGE inserts, updates, deletes
+        atomically).
+    }
     C1["01 Capture<br/>tail MariaDB binlog as a replica"]
     C2["02 Compact<br/>collapse row updates to final state"]
     C3["03 Batch<br/>accumulate many rows per write"]

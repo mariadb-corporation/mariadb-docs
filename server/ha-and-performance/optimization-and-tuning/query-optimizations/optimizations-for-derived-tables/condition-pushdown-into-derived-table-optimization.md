@@ -65,18 +65,26 @@ The pushdown from HAVING to WHERE part is controlled by `condition_pushdown_from
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 From MariaDB 12.1, it is possible to enable or disable the optimization with  [DERIVED_CONDITION_PUSHDOWN() and NO_DERIVED_CONDITION_PUSHDOWN() optimizer hints](../../optimizer-hints/table-level-hints.md#derived_condition_pushdown-no_derived_condition_pushdown).
 {% endtab %}
 
-{% tab title="<12.1" %}
+{% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 No optimizer hint is available.
 {% endtab %}
 {% endtabs %}
 
 ## See Also
 
-* Condition Pushdown through Window Functions (since [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103))
-* [Condition Pushdown into IN Subqueries](../subquery-optimizations/condition-pushdown-into-in-subqueries.md) (since [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
+* Condition Pushdown through Window Functions
+* [Condition Pushdown into IN Subqueries](../subquery-optimizations/condition-pushdown-into-in-subqueries.md)
 * The Jira task for the feature is [MDEV-9197](https://jira.mariadb.org/browse/MDEV-9197).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

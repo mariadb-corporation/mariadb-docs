@@ -29,7 +29,7 @@ strong C/C++ skills. Areas for non-developers include:
 * Creating documentation for MariaDB.
 * Advocating MariaDB in your area.
 * Participate in [open source events](https://mariadb.org/events/) and talk about MariaDB.
-* Running a [Buildbot](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/buildbot) on a platform which is not currently [builders](https://buildbot.mariadb.org/#/builders).
+* Running a [Buildbot](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/buildbot) on a platform that is not among the [builders](https://buildbot.mariadb.org/#/builders).
 * [Donate](https://mariadb.org/donate/) time or money to the MariaDB project.
 * Ask your company to [sponsor a feature](sponsoring-the-mariadb-project.md).
 * [MariaDB Foundation page on getting involved](https://mariadb.org/get-involved/)

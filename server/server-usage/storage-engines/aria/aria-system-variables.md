@@ -20,9 +20,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Dynamic: No
 * Data Type: `numeric`
 * Default Value: `8192`
-* Range:
-  * > \= [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7): `4096` to `32768` in increments of `1024`
-  * <= [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6): `1024` to `32768` in increments of `1024`
+* Range: `4096` to `32768` in increments of `1024`
 
 #### `aria_checkpoint_interval`
 
@@ -193,14 +191,10 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Range: `1` to `128`
 * Introduced: [MariaDB Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1), [MariaDB Enterprise Server 11.4.8-5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/11.4.8-5), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new)
 
-#### `aria_recover`
-
-* Description: `aria_recover` has been renamed to `aria_recover_options` in [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0). See [aria\_recover\_options](aria-system-variables.md#aria_recover_options) for the description.
-
 #### `aria_recover_options`
 
 * Description: Specifies how corrupted tables should be automatically repaired. More than one option can be specified, for example `FORCE,BACKUP`.
-  * `NORMAL`: Normal automatic repair, the default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3)
+  * `NORMAL`: Normal automatic repair
   * `OFF`: Autorecovery is disabled, the equivalent of not using the option
   * `QUICK`: Does not check rows in the table if there are no delete blocks.
   * `FORCE`: Runs the recovery even if it determines that more than one row from the data file are lost.
@@ -209,9 +203,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
-* Default Value:
-  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4))
-  * `NORMAL` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3))
+* Default Value: `BACKUP,QUICK`
 * Valid Values: `NORMAL`, `BACKUP`, `FORCE`, `QUICK`, `OFF`
 * Introduced: [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0)
 

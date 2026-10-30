@@ -1,0 +1,113 @@
+name: Check Mermaid Edge-Label Contrast in PR
+
+# Gates the WCAG AA contrast of Mermaid flowchart edge labels (DOCS-6630).
+#
+# GitBook renders Mermaid with its stock themes, and the DARK theme draws an edge label
+# (`A -->|Yes| B`) as #ccc text on a #585858 pill: 4.43:1, under the 4.5:1 WCAG AA requires for
+# ~12px text. Our GitBook site has no custom-CSS field, so it cannot be fixed once for the whole
+# site, and `classDef` cannot reach an edge label. Every edge-labelled flowchart therefore
+# carries a two-line fix -- an init directive for the pill colour and `linkStyle default` for
+# the text colour -- and .claude/hooks/mermaidcheck.py fails any that does not. Its header has
+# the measurements and the reason both halves are needed.
+#
+# No link checker, spell checker or renderer error can see this: a diagram without the fix
+# renders fine and reads fine in light mode, which is the mode most authors preview in. Without
+# a gate the next new diagram regresses silently.
+#
+# Tree-wide and absolute, like includecheck-pr.yml, because there is no backlog: DOCS-6630 fixed
+# all 111 edge-labelled flowcharts in the same change that added this gate, so a failure can only
+# come from the PR under test. A whole-tree pass is a few seconds. It runs `mermaidcheck.py`
+# directly rather than doc-lint.sh for the reason includecheck-pr.yml gives: doc-lint.sh would
+# re-run codespell and lychee, which have their own workflows.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mermaidcheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  mermaidcheck:
+    runs-on: ubuntu-latest
+    # A whole-tree pass takes seconds. Without a timeout a wedged run inherits the 6-hour
+    # default and ends as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        # Absolute check: the working tree is all it needs, so the default shallow clone is fine.
+
+      - name: Check every edge-labelled Mermaid flowchart in the tree
+        id: mermaidcheck
+        run: |
+          set -uo pipefail
+          # NUL-delimited through --stdin0, not xargs: ~9,700 paths is over ARG_MAX once xargs
+          # has them, and a split run returns only the LAST batch's status. One invocation, one
+          # verdict -- the trap includecheck-pr.yml documents.
+          set +e
+          git ls-files -z -- '*.md' \
+            | python3 .claude/hooks/mermaidcheck.py --stdin0 > mermaidcheck.log 2>&1
+          rc=$?
+          set -e
+          cat mermaidcheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::This PR has a Mermaid flowchart whose edge labels miss WCAG AA contrast in dark mode. Run: python3 .claude/hooks/mermaidcheck.py --fix <file>. Details in the job log and the run summary." ;;
+            2) echo "::error::mermaidcheck.py rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::mermaidcheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # "Checked 111 flowcharts, all fixed" and "checked nothing" share exit 0. A broken file list
+      # or a detector regression that stops recognizing labels would turn this gate silently and
+      # permanently green, so assert that it really looked at something.
+      - name: Assert the check was not vacuous
+        if: steps.mermaidcheck.outputs.rc == '0'
+        run: |
+          set -euo pipefail
+          if grep -q 'no Markdown files' mermaidcheck.log; then
+            echo "::error::mermaidcheck reported no files to check, in a repository with ~9,700 tracked Markdown files. The file list is broken, not the tree."
+            exit 1
+          fi
+          # A floor of 1, not the current count: any fixed number rots on the next diagram added
+          # or removed, and the point is only that the detector found real content.
+          count="$(sed -n 's/^mermaidcheck: \([0-9]\{1,\}\) edge-labelled.*/\1/p' mermaidcheck.log)"
+          if [[ -z "$count" || "$count" -lt 1 ]]; then
+            cat mermaidcheck.log
+            echo "::error::Could not read a nonzero flowchart count out of mermaidcheck's output. Either the summary line changed shape (update this assertion with it) or the detector found no edge-labelled flowcharts in a tree that has over a hundred."
+            exit 1
+          fi
+          echo "Checked $count edge-labelled flowchart(s) -- the check ran against real content."
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.mermaidcheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Mermaid edge-label contrast"
+            echo
+            if [[ ! -s mermaidcheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every edge-labelled Mermaid flowchart carries the dark-mode contrast fix." ;;
+                1) echo "A Mermaid flowchart with edge labels is missing the dark-mode contrast fix (4.43:1 without it). Add it with \`python3 .claude/hooks/mermaidcheck.py --fix <file>\`, or by hand: \`%%{init: {\"themeVariables\": {\"edgeLabelBackground\": \"#eef2ff\"}}}%%\` as the block's first line and \`linkStyle default color:#111111\` as its last." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Four-backtick fence: the log embeds author-controlled file paths, and this summary
+              # renders as GFM. Same reasoning as includecheck-pr.yml.
+              echo '````text'
+              cat mermaidcheck.log
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

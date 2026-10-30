@@ -3,7 +3,6 @@ description: >-
   Query Result Cache adds an in-memory query result cache alongside your
   transactional MariaDB Cloud workload, serving repeated reads from memory
   behind MaxScale with no application changes.
-hidden: true
 icon: bolt
 ---
 
@@ -31,7 +30,21 @@ The cache is positioned between MaxScale and MariaDB. MaxScale intercepts cachea
 ---
 title: Simplified Query Result Cache Architecture (Technical View)
 ---
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Simplified Query Result Cache Architecture (Technical View)
+    accDescr {
+        Two groups are drawn. Access & Routing holds Application Clients, MariaDB
+        Cloud endpoint and MaxScale. Storage & Cache holds MariaDB Primary +
+        replicas (authoritative data store) and GridGain (in-memory query result
+        cache). The MaxScale box reads: Cache Filter checks cache for cacheable
+        reads; fills on miss; applies TTL; bypasses to MariaDB if cache is down.
+        Application Clients and MariaDB Cloud endpoint are joined by a line with
+        no direction. An arrow leads from MariaDB Cloud endpoint to MaxScale.
+        Three numbered arrows follow: 1. Check cache, from MaxScale to GridGain.
+        2a. Hit: cached result, from GridGain back to MaxScale. 2b. Miss: run
+        query, then cache result, from MaxScale to MariaDB Primary + replicas.
+    }
     subgraph Routing_Layer [Access & Routing]
         App[Application Clients] --- Endpoint["MariaDB Cloud endpoint"]
         Endpoint --> MS(MaxScale<br/>Cache Filter<br/>checks cache for cacheable reads;<br/>fills on miss; applies TTL;<br/>bypasses to MariaDB if cache is down)
@@ -53,6 +66,7 @@ graph TD
 
     style Routing_Layer fill:#f9f9f9,stroke:#ddd,stroke-dasharray: 5 5
     style Engine_Layer fill:#fff,stroke:#ddd
+    linkStyle default color:#111111
 ```
 
 ### Core Components
@@ -267,7 +281,9 @@ _Manage - Caching rules, Guided_
 _Manage - Caching rules, Raw JSON_
 
 {% hint style="info" %}
-Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect. **Reset to default** puts the volatile-result exclusion back; it does not disable the cache or remove any nodes.
+Saving rules does not restart your service, and the cache is not emptied — MaxScale rereads the rules in place. Allow a few minutes for new rules to take effect.
+
+**Reset to default** restores the volatile-result exclusion a new service starts with, replacing any rules you have saved. It does not disable the cache or remove any nodes.
 {% endhint %}
 
 ### What the Default Excludes
@@ -474,7 +490,7 @@ _Monitoring - Query Result Cache_
 | Cache Throughput   | Cache gets, hits, and misses per second                                                              |
 | Data Region Memory | Off-heap memory allocated for cached data against the data region's configured maximum               |
 
-These figures cover the whole service. Selecting the cache node in the list on the left instead gives the same panels for that one node, plus an **Eviction Rate** panel.
+These panels cover the whole service. Selecting the cache node in the list on the left shows the same panels for that node alone, with two differences: there is no **Cache Nodes** panel, and an **Eviction Rate** panel charts over time the same eviction metric that **Evictions / sec** reports as a single figure.
 
 For the full list of panels, see [Service Monitoring Panels](../cloud-usage/service-monitoring-panels.md). The same metrics are also available through the [Observability](../cloud-management/observability.md) API.
 

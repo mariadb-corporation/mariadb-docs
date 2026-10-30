@@ -14,7 +14,7 @@ This page walks you through the simple installation steps using `apt`.
 
 ### Adding the MariaDB APT repository
 
-We currently have APT repositories for the following Linux distributions:
+MariaDB provides APT repositories for the following Linux distributions:
 
 * Debian 11 (Bullseye)
 * Debian 12 (Bookworm)
@@ -35,7 +35,7 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
+Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
 
 See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) for more information.
 
@@ -121,10 +121,10 @@ If you used the [MariaDB Foundation's Repository Configuration tool](https://mar
 
 Archives are only of the distros and architectures supported at the time of release. For example, MariaDB Community Server 10.6.21 exists for Ubuntu `bionic`, `focal`, `jammy`, and `kinetic`, and the list of what distributions are available is obtained by looking in the `dists` folder of the [10.6.21 Debian](https://archive.mariadb.org/mariadb-10.6.21/repo/debian/dists/) or [Ubuntu](https://archive.mariadb.org/mariadb-10.6.21/repo/ubuntu/dists) repositories.
 
-For example, if you wanted to pin your repository to [MariaDB Community Server 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9) on Ubuntu 20.04 LTS (Focal), then you would have to first remove any existing MariaDB repository source list file from `/etc/apt/sources.list.d/`. And then you could use the following commands to add the MariaDB `apt-get` repository:
+For example, if you wanted to pin your repository to MariaDB Community Server 10.6.21 on Ubuntu 20.04 LTS (Focal), then you would have to first remove any existing MariaDB repository source list file from `/etc/apt/sources.list.d/`. And then you could use the following commands to add the MariaDB `apt-get` repository:
 
 ```bash
-sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] http://archive.mariadb.org/mariadb-10.5.9/repo/ubuntu/ focal main main/debug'
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] http://archive.mariadb.org/mariadb-10.6.21/repo/ubuntu/ focal main main/debug'
 ```
 
 Ensure you have the [signing key installed](installing-mariadb-deb-files.md#importing-the-mariadb-gpg-public-key).
@@ -184,10 +184,10 @@ After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.co
 
 **Updating a Source List File**
 
-If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/bionic/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), and if the source list file was at `/etc/apt/sources.list.d/MariaDB.list`, then you could execute the following:
+If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/bionic/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to MariaDB 10.11, and if the source list file was at `/etc/apt/sources.list.d/MariaDB.list`, then you could execute the following:
 
 ```bash
-sudo sed -i 's/10.5/10.6/' /etc/apt/sources.list.d/MariaDB.list
+sudo sed -i 's/10.6/10.11/' /etc/apt/sources.list.d/MariaDB.list
 ```
 
 And then you would have to update the package cache by executing the following command:
@@ -196,7 +196,7 @@ And then you would have to update the package cache by executing the following c
 sudo apt update
 ```
 
-After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
+After that, the repository should refer to MariaDB 10.11 and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
 
 ### Importing the MariaDB GPG Public Key
 

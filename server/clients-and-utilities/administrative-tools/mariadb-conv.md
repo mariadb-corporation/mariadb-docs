@@ -1,14 +1,8 @@
 ---
-description: >-
-  mariadb-conv is a character set conversion utility for MariaDB, available
-  from MariaDB 10.5.
+description: mariadb-conv is a character set conversion utility for MariaDB.
 ---
 
 # mariadb-conv
-
-{% hint style="info" %}
-This tool is available from MariaDB 10.5.
-{% endhint %}
 
 `mariadb-conv` is a character set conversion utility for MariaDB.
 

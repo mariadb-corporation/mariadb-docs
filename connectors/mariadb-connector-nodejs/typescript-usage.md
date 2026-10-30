@@ -54,7 +54,7 @@ main();
 
 ## Typing Query Results
 
-`connection.query()` and `connection.execute()` accept a generic type parameter for the result type, and an optional second parameter for the values array (added in 3.5.1).
+`connection.query()` and `connection.execute()` accept a generic type parameter for the result type, and an optional second generic type parameter for the values array (added in 3.5.1).
 
 ```ts
 interface Animal {
@@ -162,7 +162,7 @@ for (const col of rows.meta) {
 }
 ```
 
-Since 3.5.3, `FieldInfo` additionally exposes the MariaDB extended type name via the `dataTypeName` property (e.g. `'uuid'`, `'inet6'`, `'json'`; MariaDB 10.5+, `undefined` on MySQL) and the `isDataTypeFormatJson()` helper.
+Since 3.5.3, `FieldInfo` additionally exposes the MariaDB extended type name via the `dataTypeName` property (e.g. `'uuid'`, `'inet6'`, `'json'`; MariaDB only, `undefined` on MySQL) and the `isDataTypeFormatJson()` helper.
 
 Since 3.5.4, the `Types` (name) and `TypeNumbers` (protocol code) enums are real runtime values, so they can be compared against instead of hard-coding strings. Earlier versions declared them in the type definitions only, and importing them threw at runtime:
 

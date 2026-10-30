@@ -1,24 +1,25 @@
 ---
 description: >-
-  Plugin API reference: File Instrumentation. Generated from the MariaDB server headers by doxygen and moxygen.
+  The MYSQL_FILE structure and the mysql_file_* wrappers for opening, reading, writing, seeking, syncing, renaming, and deleting files with Performance Schema instrumentation.
 ---
 
 
 
 # File Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Classes
 
 | Name | Description |
 |------|-------------|
-| [`st_mysql_file`](#st_mysql_file) | An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file) |
+| [`st_mysql_file`](#st_mysql_file) | An instrumented FILE structure. **See also**: [MYSQL_FILE](#mysql_file) |
 
 ## Macros
 
 | Name | Description |
 |------|-------------|
+| [`PSI_FILE_CALL`](#psi_file_call)  |  |
 | [`mysql_file_register`](#mysql_file_register)  | File registration. |
 | [`mysql_file_fgets`](#mysql_file_fgets)  | Instrumented fgets. `mysql_file_fgets` is a replacement for `fgets`. |
 | [`mysql_file_fgetc`](#mysql_file_fgetc)  | Instrumented fgetc. `mysql_file_fgetc` is a replacement for `fgetc`. |
@@ -53,6 +54,16 @@ description: >-
 | [`mysql_file_delete_with_symlink`](#mysql_file_delete_with_symlink)  | Instrumented delete with symbolic link. `mysql_file_delete_with_symlink` is a replacement for `my_handler_delete_with_symlink`. |
 | [`mysql_file_rename_with_symlink`](#mysql_file_rename_with_symlink)  | Instrumented rename with symbolic link. `mysql_file_rename_with_symlink` is a replacement for `my_rename_with_symlink`. |
 | [`mysql_file_sync`](#mysql_file_sync)  | Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`. |
+
+---
+
+### PSI_FILE_CALL
+
+```cpp
+#define PSI_FILE_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_file.h:58
 
 ---
 
@@ -470,7 +481,7 @@ Instrumented file sync. `mysql_file_sync` is a replacement for `my_sync`.
 
 | Return | Name | Description |
 |--------|------|-------------|
-| struct [`st_mysql_file`](#st_mysql_file) | [`MYSQL_FILE`](#mysql_file)  | Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](api.md#mysql_file_open) |
+| struct [`st_mysql_file`](#st_mysql_file) | [`MYSQL_FILE`](#mysql_file)  | Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](#mysql_file_open) |
 
 ---
 
@@ -484,7 +495,7 @@ Type: struct [`st_mysql_file`](#st_mysql_file)
 
 Defined in psi/mysql_file.h:515
 
-Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](api.md#mysql_file_open)
+Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. **See also**: [mysql_file_open](#mysql_file_open)
 
 ## Functions
 
@@ -502,7 +513,7 @@ Type of an instrumented file. `MYSQL_FILE` is a drop-in replacement for `FILE`. 
 | `int` | [`inline_mysql_file_fstat`](#inline_mysql_file_fstat) `static` `inline` |  |
 | `MY_STAT *` | [`inline_mysql_file_stat`](#inline_mysql_file_stat) `static` `inline` |  |
 | `int` | [`inline_mysql_file_chsize`](#inline_mysql_file_chsize) `static` `inline` |  |
-| [`MYSQL_FILE`](api.md#mysql_file) * | [`inline_mysql_file_fopen`](#inline_mysql_file_fopen) `static` `inline` |  |
+| [`MYSQL_FILE`](#mysql_file) * | [`inline_mysql_file_fopen`](#inline_mysql_file_fopen) `static` `inline` |  |
 | `int` | [`inline_mysql_file_fclose`](#inline_mysql_file_fclose) `static` `inline` |  |
 | `size_t` | [`inline_mysql_file_fread`](#inline_mysql_file_fread) `static` `inline` |  |
 | `size_t` | [`inline_mysql_file_fwrite`](#inline_mysql_file_fwrite) `static` `inline` |  |
@@ -950,14 +961,14 @@ struct st_mysql_file
 
 Defined in psi/mysql_file.h:498
 
-An instrumented FILE structure. **See also**: [MYSQL_FILE](api.md#mysql_file)
+An instrumented FILE structure. **See also**: [MYSQL_FILE](#mysql_file)
 
 #### Public Attributes
 
 | Return | Name | Description |
 |--------|------|-------------|
 | `FILE *` | [`m_file`](#m_file)  | The real file. |
-| struct [`PSI_file`](api.md#psi_file) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_FILE` interface. |
+| struct [`PSI_file`](Instrumentation_interface.md#psi_file) * | [`m_psi`](#m_psi)  | The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_FILE` interface. |
 
 ---
 
@@ -979,7 +990,7 @@ The real file.
 struct PSI_file * m_psi
 ```
 
-Type: struct [`PSI_file`](api.md#psi_file) *
+Type: struct [`PSI_file`](Instrumentation_interface.md#psi_file) *
 
 Defined in psi/mysql_file.h:507
 

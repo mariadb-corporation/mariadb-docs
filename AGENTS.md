@@ -129,6 +129,10 @@ Pull requests run these GitHub Actions. Mirror them locally with the **`docs-che
 - Server **error-code pages** are refreshed by the nightly error-sync job, which also
   auto-commits `server/SUMMARY.md` — an authorized exception to the "SUMMARY.md is hand-curated"
   rule. Don't treat its entries as anomalies.
+- **`tools/community/mariadb-ai-plugins/` and `tools/community/mariadb-shell/`** are copied from
+  the products' own repos by `sync-community-tools-docs.yml`, which also writes their entries in
+  `tools/SUMMARY.md` and their sections on the Tools landing pages. Fix those pages in the
+  product repo; see `dev-docs/cookbook-community-tools-sync.md`.
 
 ## Style
 

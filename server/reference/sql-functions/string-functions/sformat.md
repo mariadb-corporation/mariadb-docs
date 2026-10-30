@@ -10,6 +10,12 @@ description: >-
 `SFORMAT` is available from MariaDB 10.7.
 {% endhint %}
 
+## Syntax
+
+```bnf
+SFORMAT(format, value[, value ...])
+```
+
 ## Description
 
 The `SFORMAT` function takes an input string and a formatting specification and returns the string formatted using the rules the user passed in the specification.

@@ -72,7 +72,7 @@ There are more condition properties, which are never set for built-in errors. Th
 
 `CURSOR_NAME` indicates the name of the cursor which caused the error.
 
-The following properties can be used and are defined in the standard SQL, but have no meaning because MariaDB doesn't currently support catalogs:
+The following properties can be used and are defined in the standard SQL, but have no meaning because MariaDB doesn't support catalogs:
 
 `CATALOG_NAME` is used by the standard SQL to indicate in which catalog the error occurred.
 

@@ -6,10 +6,6 @@ description: >-
 
 # RELEASE\_ALL\_LOCKS
 
-{% hint style="info" %}
-`RELEASE_ALL_LOCKS` is available from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2).
-{% endhint %}
-
 ## Syntax
 
 ```bnf

@@ -49,6 +49,11 @@ jobs:
           # DOCS-6481. They are git pathspecs rather than a filter pipeline so
           # that one command produces the list, with no shell globbing and no
           # dependence on a particular grep.
+          #
+          # The Community Tools pages are copied byte for byte from their product
+          # repos (DOCS-6926, sync-community-tools-docs.yml), so expanding an alias
+          # in them would make them differ from their source. They use absolute
+          # links instead, and the sync refuses a page with an alias.
           CHANGED_MD="$RUNNER_TEMP/changed-md.nul"
 
           git fetch --no-tags --quiet origin \
@@ -65,6 +70,8 @@ jobs:
             ':(exclude)pdf/README.md' \
             ':(exclude,glob)**/CONTRIBUTING.md' \
             ':(exclude,glob)**/general-resources/about/readme/about-links.md' \
+            ':(exclude)tools/community/mariadb-ai-plugins/' \
+            ':(exclude)tools/community/mariadb-shell/' \
             > "$CHANGED_MD"
 
           echo "CHANGED_MD=$CHANGED_MD" >> "$GITHUB_ENV"
@@ -113,10 +120,11 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]home[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]platform[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]connectors[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]gridgain9[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]tools[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]mariadb-cloud[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]release-notes[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb#g' \
-            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E#g' \
             < "$CHANGED_MD"
 
           echo "Git status after expansion:"

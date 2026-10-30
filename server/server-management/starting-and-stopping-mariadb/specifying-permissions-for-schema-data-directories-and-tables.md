@@ -1,7 +1,7 @@
 ---
 description: >-
   Explains default file permissions for data directories and how to customize
-  them using `UMASK` and `UMASK_DIR` environment variables.
+  them using UMASK and UMASK_DIR environment variables.
 ---
 
 # Specifying Permissions for Schema (Data) Directories and Tables

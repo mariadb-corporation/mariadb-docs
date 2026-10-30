@@ -11,15 +11,23 @@ description: >-
 
 ## Galera Packaging Changes in MariaDB 12.3
 
-As of MariaDB 12.3, Galera is no longer a dependency of the standard server packages ([MDEV-30953](https://jira.mariadb.org/browse/MDEV-30953)):
+As of MariaDB 12.3.2, Galera is no longer a dependency of the standard server packages ([MDEV-30953](https://jira.mariadb.org/browse/MDEV-30953)):
 
 {% tabs %}
-{% tab title="Up to MariaDB 11.8" %}
-The standard server package (`mariadb-server` on Debian/Ubuntu, `MariaDB-server` on RHEL/SLES) depends directly on `galera-4`.
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3.2:
+{% endhint %}
+
+Galera is no longer a server dependency. A new package — `mariadb-server-galera` (Debian/Ubuntu) / `MariaDB-server-galera` (RHEL/SLES) — must be installed explicitly.
 {% endtab %}
 
-{% tab title="From MariaDB 12.3" %}
-Galera is no longer a server dependency. A new package — `mariadb-server-galera` (Debian/Ubuntu) / `MariaDB-server-galera` (RHEL/SLES) — must be installed explicitly.
+{% tab title="< 12.3.2" %}
+{% hint style="info" %}
+Before MariaDB 12.3.2:
+{% endhint %}
+
+The standard server package (`mariadb-server` on Debian/Ubuntu, `MariaDB-server` on RHEL/SLES) depends directly on `galera-4`.
 {% endtab %}
 {% endtabs %}
 

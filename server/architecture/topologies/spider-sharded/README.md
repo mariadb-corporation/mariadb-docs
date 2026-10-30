@@ -7,6 +7,7 @@ description: Deploy Spider Sharded Topology
 ## Overview
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Spider Sharded topology
     accDescr {
@@ -29,13 +30,14 @@ flowchart LR
     classDef client fill:#eeeeee,stroke:#333333,stroke-width:2px,color:#111;
     class Spider,S1,S2,S3 node
     class Client client
+    linkStyle default color:#111111
 ```
 
 _Spider Sharded: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
 
-<ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
+<ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
 
-<p><strong>Shard tables for horizontal scalability</strong></p><ul><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server 10.3+, Enterprise Spider</li></ul>
+<p><strong>Shard tables for horizontal scalability</strong></p><ul><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server, Enterprise Spider</li></ul>
 
 This procedure describes the deployment of the **Spider Sharded topology** with MariaDB Enterprise Server.
 

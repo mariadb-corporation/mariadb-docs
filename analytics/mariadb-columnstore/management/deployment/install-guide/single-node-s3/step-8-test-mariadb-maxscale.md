@@ -1,5 +1,7 @@
 ---
-description: 'Step 8: Test MariaDB MaxScale'
+description: >-
+  Step 8 of the MariaDB ColumnStore install with object storage: check the
+  MaxScale configuration and test reads and writes through its routers.
 hidden: true
 ---
 

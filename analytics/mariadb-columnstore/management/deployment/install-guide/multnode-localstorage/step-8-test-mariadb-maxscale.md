@@ -1,5 +1,8 @@
 ---
-description: 'Step 8: Test MariaDB MaxScale'
+description: >-
+  Step 8 of the multi-node MariaDB ColumnStore install with shared local
+  storage: check the MaxScale configuration and test reads and writes through
+  its routers.
 hidden: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Guide to using the `log_bin_compress` system variable to compress binary log
+  Guide to using the log_bin_compress system variable to compress binary log
   events, reducing storage usage and network bandwidth during replication.
 ---
 

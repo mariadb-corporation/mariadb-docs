@@ -107,6 +107,10 @@ As stated, a `DELETE` statement with no `WHERE` clause deletes all rows. A faste
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 Single-table `DELETE` statements support aliases. For example:
 
 ```sql
@@ -118,6 +122,10 @@ DELETE FROM t1 AS a1 WHERE a1.c1 = 2;
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 Single-table `DELETE` statements do **not** support aliases.
 {% endtab %}
 {% endtabs %}

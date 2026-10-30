@@ -4,7 +4,7 @@ description: The CONNECT storage engine.
 
 # CONNECT JDBC Table Type: Accessing Tables from Another DBMS
 
-The JDBC table type should be distributed with all recent versions of MariaDB. However, if the automatic compilation of it is possible after the java JDK was installed, the complete distribution of it is not fully implemented in older versions. The distributed JdbcInterface.jar file contains the JdbcInterface wrapper only. New versions distribute a JavaWrappers.jar that contains all currently existing wrappers.
+The JDBC table type should be distributed with all recent versions of MariaDB. However, if the automatic compilation of it is possible after the java JDK was installed, the complete distribution of it is not fully implemented in older versions. The distributed JdbcInterface.jar file contains the JdbcInterface wrapper only. New versions distribute a JavaWrappers.jar that contains all the wrappers.
 
 This will require that:
 
@@ -285,7 +285,7 @@ The Apache one uses data sources implemented by the Apache-commons-dbcp2 package
 
 Note: the versions numbers can be different on your installation.
 
-The other ones use data sources provided by the matching JDBC driver. There are currently four wrappers to be used with mysql-6.0.2, mariadb, oracle and postgresql.
+The other ones use data sources provided by the matching JDBC driver. There are four wrappers to be used with mysql-6.0.2, mariadb, oracle and postgresql.
 
 Unlike the class path, the used wrapper can be changed even after the JVM machine was created.
 

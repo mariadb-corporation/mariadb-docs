@@ -23,12 +23,6 @@ OPEN cursor_variable FOR LOCAL spvar;
 ```
 {% endcode %}
 {% endtab %}
-
-{% tab title="< 10.3" %}
-```sql
-OPEN cursor_name
-```
-{% endtab %}
 {% endtabs %}
 
 ## Description

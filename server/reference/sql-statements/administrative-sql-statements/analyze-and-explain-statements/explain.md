@@ -173,8 +173,6 @@ The optimization phase can do the following changes to the `WHERE` clause:
 
 ### Rowid Filter Notation
 
-Added in MariaDB 10.4.3 ([MDEV-16188](https://jira.mariadb.org/browse/MDEV-16188)).
-
 When the optimizer applies the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md), it adds no row of its own to the `EXPLAIN` output. Instead, it annotates the row of the table the filter applies to:
 
 | Column   | Example value                | Meaning                                                                                                      |

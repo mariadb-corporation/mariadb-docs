@@ -16,7 +16,7 @@ CHECKSUM TABLE tbl_name [, tbl_name] ... [ QUICK | EXTENDED ]
 
 `CHECKSUM TABLE` reports a table checksum. This is very useful if you want to know if two tables are the same (for example on a master and a replica).
 
-With `QUICK`, the live table checksum is reported if it is available, or `NULL` otherwise. This is very fast. A live checksum is enabled by specifying the `CHECKSUM=1` table option when you [create the table](../data-definition/create/create-table.md); currently, this is supported only for [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables.
+With `QUICK`, the live table checksum is reported if it is available, or `NULL` otherwise. This is very fast. A live checksum is enabled by specifying the `CHECKSUM=1` table option when you [create the table](../data-definition/create/create-table.md); this is supported only for [Aria](../../../server-usage/storage-engines/aria/) and [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) tables.
 
 With `EXTENDED`, the entire table is read row by row and the checksum is calculated. This can be very slow for large tables.
 
@@ -42,10 +42,18 @@ Identical tables mean that the CREATE statement is identical and that the follow
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.9:
+{% endhint %}
+
 You can get the 'old style' checksum in MariaDB by setting [old\_mode](../../../server-management/variables-and-modes/old_mode.md) to [COMPAT\_5\_1\_CHECKSUM](../../../server-management/variables-and-modes/old_mode.md#compat_5_1_checksum). Note, however, that the MyISAM and Aria storage engines in MariaDB are using the new checksum internally, so if you are using this old mode, the `CHECKSUM` command will be slower as it needs to calculate the checksum row by row.
 {% endtab %}
 
 {% tab title="< 10.9" %}
+{% hint style="info" %}
+Before MariaDB 10.9:
+{% endhint %}
+
 You can get the 'old style' checksum in MariaDB by starting [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd.md) with the [--old](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) option. Note, however, that the MyISAM and Aria storage engines in MariaDB are using the new checksum internally, so if you are using this old mode, the `CHECKSUM` command will be slower as it needs to calculate the checksum row by row.
 {% endtab %}
 {% endtabs %}

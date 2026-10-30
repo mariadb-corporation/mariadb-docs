@@ -1,16 +1,17 @@
 ---
 description: >-
   Route analytical queries to an Exasol cluster. This router integrates Exasol
-  with MaxScale often used alongside SmartRouter for hybrid
+  with MaxScale and is often used with SmartRouter for hybrid
   transactional/analytical workloads.
-
-  The router is provided in the package `maxscale-exasol` that must be installed explicitly.
 ---
 
 # MaxScale Exasolrouter
 
 {% hint style="info" %}
 This functionality is available from MaxScale 25.10.1.
+
+The router is provided in the `maxscale-exasol` package, which must be
+installed separately.
 {% endhint %}
 
 ## Overview
@@ -66,6 +67,7 @@ selected using the setting [preprocessor](#preprocessor).
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the Exasol ODBC connection string used to connect to the database.
 
 Specifies the Exasol connection string. The exact content depends on the
 contents of `odbc.ini` and `odbcinst.ini`.
@@ -83,6 +85,7 @@ an `ExasolDSN` entry.
 * Mandatory: No
 * Dynamic: No
 * Default: 30s
+* Description: Sets the login timeout for a connection, overriding `LOGINTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
 Defines the login timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeout
@@ -95,6 +98,7 @@ will be honored. Otherwise this value will override.
 * Mandatory: No
 * Dynamic: No
 * Default: 30s
+* Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
 Defines the query timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
@@ -108,6 +112,7 @@ will be honored. Otherwise this value will override.
 * Dynamic: No
 * Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
 * Default: `internal`, if the distribution provides a new enough Python implementation, `disabled` if not.
+* Description: Determines how MariaDB SQL is transpiled for Exasol: internally with a Python script, externally by a preprocessor script in Exasol, or not at all.
 
 The values mean:
 
@@ -131,6 +136,14 @@ The values mean:
   providing it as an argument. Unless an absolute path is used, it is
   interpreted relative to the _share_ directory.
 
+The bundled `maria_preprocessor.py` is installed by the `maxscale-exasol`
+package. The latest version of the script is available from the
+[exasol-mariadb-compat](https://github.com/mariadb-corporation/exasol-mariadb-compat/blob/main/preprocessor/maria_preprocessor.py)
+repository and can be used with `internal` as it is. For example:
+```
+preprocessor=internal:/path/to/maria_preprocessor.py
+```
+
 _Internal_ transpilation is performed using Python, but it is supported only
 if the Linux distribution supports a sufficiently new version of Python.
 On Ubuntu 24.04, Python 3.12 is sufficient, but on all other distributions
@@ -151,6 +164,7 @@ On all other platforms, specifying `internal` will cause a startup error.
 * Mandatory: No
 * Dynamic: No
 * Default: `<maxscale-libdir>/python3/site-packages`
+* Description: Specifies the directory that SQLGlot is loaded from when `preprocessor` is `internal`.
 
 The library from which [SQLGlot](https://sqlglot.com/sqlglot.html) is loaded,
 if the value of `preprocessor` is `internal`.
@@ -162,6 +176,7 @@ if the value of `preprocessor` is `internal`.
 * Dynamic: No
 * Values: `read_only`, `read_write`
 * Default: `read_only`
+* Description: Determines whether the Exasolrouter appears as read-only or read-write to other MaxScale components.
 
 Specifies how _ExasolRouter_ appears to other components of MaxScale.
 This is of relevance only if another service uses an Exasol router service
@@ -176,6 +191,7 @@ what kind of queries can be run through the router.
 * Mandatory: No
 * Dynamic: No
 * Default: 10s
+* Description: Sets how long an unused kill connection is kept alive after the last KILL command. A value of `0` closes it immediately after each use.
 
 The duration that an unused kill connection is kept alive after the
 last KILL command before it is automatically closed; a value of 0
@@ -187,12 +203,13 @@ closes it immediately after each use.
 * Mandatory: No
 * Dynamic: No
 * Default: true
+* Description: Determines whether the router quotes identifiers when converting a `COM_INIT_DB` packet to `OPEN SCHEMA`, and when transpiling internally with `preprocessor` set to `disabled`.
 
 Whether _ExasolRouter_ should quote identifiers. This applies always
 when a `COM_INIT_DB` packet is converted to an `OPEN SCHEMA ...`
 statement and when the value of `preprocessor` is `disabled`.
 
-In the latter case, currently it only affects whether 'USE db' becomes
+In the latter case, it only affects whether 'USE db' becomes
 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
@@ -207,7 +224,7 @@ is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 If the value of `preprocessor` is `disabled`, _ExasolRouter_ itself
 translates some MariaDB constructs to equivalent Exasol constructs.
 
-Currently a transformation will be made _only_ if there is an **exact** match
+A transformation will be made _only_ if there is an **exact** match
 (apart from case and differences in whitespace) with the MariaDb SQL.
 
 | MariaDb                           | Exasol                                                                                                              |

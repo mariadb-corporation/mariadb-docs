@@ -63,9 +63,12 @@ jobs:
   # Resolve every input once -- a scheduled run supplies none of them -- so the
   # build matrix and the release job agree on one set of values.
   plan:
+    # Upstream only: forks must not open bot PRs, post to Slack or publish (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
     runs-on: ubuntu-latest
     outputs:
       spaces: ${{ steps.plan.outputs.spaces }}
+      all_spaces: ${{ steps.plan.outputs.all_spaces }}
       label: ${{ steps.plan.outputs.label }}
       tag: ${{ steps.plan.outputs.tag }}
       draft: ${{ steps.plan.outputs.draft }}
@@ -102,6 +105,9 @@ jobs:
             spaces=$(python3 pdf/build.py --list-spaces "${requested_spaces[@]}")
           fi
           echo "spaces=$spaces" >> "$GITHUB_OUTPUT"
+          # Every space, whatever this run builds: the release job checks the
+          # release itself against it before publishing (DOCS-6947).
+          echo "all_spaces=$(python3 pdf/build.py --list-spaces)" >> "$GITHUB_OUTPUT"
 
           label="$LABEL_INPUT"
           [[ -n "$label" ]] || label="Snapshot $(date -u +%Y-%m-%d)"
@@ -158,6 +164,11 @@ jobs:
         space: ${{ fromJSON(needs.plan.outputs.spaces) }}
     steps:
       - uses: actions/checkout@v7
+
+      # The runner image's apt index can name package versions the mirrors have
+      # since dropped, and every install below then 404s (DOCS-6945).
+      - name: Refresh the apt index
+        run: sudo apt-get update
 
       # Ubuntu's packaged pandoc lags well behind and lacks the flags build.py
       # relies on, so pin the version explicitly.
@@ -246,7 +257,7 @@ jobs:
 
   release:
     needs: [plan, build]
-    if: always() && needs.build.result != 'cancelled'
+    if: always() && github.repository == 'mariadb-corporation/mariadb-docs' && needs.build.result != 'cancelled'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v7
@@ -288,6 +299,8 @@ jobs:
           # every gh call fails with "not a git repository".
           GH_REPO: ${{ github.repository }}
           TAG: ${{ needs.plan.outputs.tag }}
+          ALL_SPACES: ${{ needs.plan.outputs.all_spaces }}
+          DRAFT: ${{ needs.plan.outputs.draft }}
         run: |
           set -euo pipefail
           notes="MariaDB documentation PDFs — ${{ needs.plan.outputs.label }}
@@ -298,6 +311,14 @@ jobs:
           The authoritative, continuously updated documentation is at
           https://mariadb.com/docs."
 
+          # An incomplete release must not reach readers as Latest: the docs
+          # home page links to releases/latest, so every missing PDF is a dead
+          # link there (DOCS-6945). So a new release always starts as a draft,
+          # which leaves Latest on the previous, complete one, and is published
+          # only once the release itself -- not just this run, which may build
+          # a few spaces (DOCS-6947) -- holds a PDF for every space.
+          # "Re-run failed jobs" re-runs this job too, so that is how a draft
+          # left by failed builds gets completed and published.
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/*.pdf --clobber
           else
@@ -308,5 +329,20 @@ jobs:
               --target "$GITHUB_SHA" \
               --title "Documentation PDFs — ${{ needs.plan.outputs.label }}" \
               --notes "$notes" \
-              ${{ needs.plan.outputs.draft == 'true' && '--draft' || '' }}
+              --draft
+          fi
+
+          assets=$(gh release view "$TAG" --json assets --jq '.assets[].name')
+          missing=()
+          for space in $(jq -r '.[]' <<< "$ALL_SPACES"); do
+            grep -qxF "mariadb-${space}.pdf" <<< "$assets" || missing+=("$space")
+          done
+
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::error::$TAG has no PDF for: ${missing[*]} -- re-run the failed jobs, or dispatch a run for those spaces"
+            exit 1
+          fi
+          if [[ "$DRAFT" != "true" \
+                && "$(gh release view "$TAG" --json isDraft --jq .isDraft)" == "true" ]]; then
+            gh release edit "$TAG" --draft=false --latest
           fi

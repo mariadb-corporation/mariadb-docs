@@ -7,7 +7,7 @@ description: >-
 # Getting Started with MariaDB Galera Cluster
 
 {% hint style="warning" %}
-Currently, MariaDB Galera Cluster only supports the [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) storage engine (although there is experimental support for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) and [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)).
+MariaDB Galera Cluster only supports the [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) storage engine (although there is experimental support for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) and [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)).
 {% endhint %}
 
 ## Galera Cluster Support in MariaDB Server
@@ -15,7 +15,7 @@ Currently, MariaDB Galera Cluster only supports the [InnoDB](https://app.gitbook
 MariaDB Galera Cluster is powered by:
 
 * MariaDB Server.
-* The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch for MySQL Server and MariaDB Server. The patch currently supports only Unix-like operating systems.
+* The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch for MySQL Server and MariaDB Server. The patch supports only Unix-like operating systems.
 * The [Galera wsrep provider library](https://github.com/codership/galera/).
 
 The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch has been merged into MariaDB Server. This means that the functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package.&#x20;
@@ -36,7 +36,7 @@ noticeable in a typical application. There is one exception, though:
 
 #### Writeset caching during state transfer
 
-When a node is receiving a state transfer, it cannot process and apply incoming writesets because it has no state to apply them to yet. Depending on a state transfer mechanism (e.g.mysqldump) the node that sends the state transfer may not be able to apply writesets as well. Thus, they need to cache those writesets for a catch-up phase. Currently the writesets are cached in memory and, if the system runs out of memory either the state transfer will fail or the cluster will block waiting for the state transfer to end.
+When a node is receiving a state transfer, it cannot process and apply incoming writesets because it has no state to apply them to yet. Depending on a state transfer mechanism (e.g.mysqldump) the node that sends the state transfer may not be able to apply writesets as well. Thus, they need to cache those writesets for a catch-up phase. The writesets are cached in the Galera write-set cache (GCache), whose ring buffer is sized by [gcache.size](../../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.size); writesets that do not fit are written to on-disk page files.
 
 To control memory usage for writeset caching, check the [Galera parameters](../../reference/galera-cluster-system-variables.md): `gcs.recv_q_hard_limit`, `gcs.recv_q_soft_limit`, and `gcs.max_throttle`.
 
@@ -98,9 +98,9 @@ A number of options need to be set in order for Galera Cluster to work when usin
 
 ## Bootstrapping a New Cluster
 
-To first node of a new cluster needs to be bootstrapped by starting [mariadbd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
+To first node of a new cluster needs to be bootstrapped by starting [mariadbd](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options) on that node with the option [`--wsrep-new-cluster`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#wsrep-new-cluster) option. This option tells the node that there is no existing cluster to connect to. The node will create a new UUID to identify the new cluster.
 
-Do not use the [--wsrep-new-cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#-wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
+Do not use the [--wsrep-new-cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#wsrep-new-cluster) option when connecting to an existing cluster. Restarting the node with this option set will cause the node to create new UUID to identify the cluster again, and the node won't reconnect to the old cluster. See the next section about how to reconnect to an existing cluster.
 
 For example, if you are manually starting `mariadbd` on a node, you can bootstrap it by executing the following:
 
@@ -120,7 +120,7 @@ $ galera_new_cluster
 
 This wrapper uses `systemd` to run `mariadbd` with the `--wsrep-new-cluster` option.
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/starting#interacting-with-multiple-mariadb-server-processes),  you can bootstrap a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_new_cluster mariadb@node1
@@ -180,7 +180,7 @@ On operating systems that use `systemd`, the position of a node can be recovered
 $ galera_recovery
 ```
 
-If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
+If you are using the `systemd` service that supports the [systemd service's method for interacting with multiple MariaDB Server processes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd/starting#interacting-with-multiple-mariadb-server-processes), you can recover the position of a specific instance by specifying the instance name as a suffix:
 
 ```bash
 $ galera_recovery mariadb@node1

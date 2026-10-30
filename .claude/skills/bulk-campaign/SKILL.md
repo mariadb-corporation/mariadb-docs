@@ -12,7 +12,8 @@ status: active
 Run a sustained, multi-file documentation change safely: discover the work-list, process it in
 small batches, verify each file, track progress so it's resumable, and never silently truncate.
 Modeled on real campaigns like **DOCS-5614** ("add Railroad diagrams to N more SQL pages") whose
-history is a series of small, reviewable batch commits.
+history is a series of small, reviewable batch commits. For railroad diagrams, the generator
+command and the required `railroadcheck.py --fix` step are in `dev-docs/railroad-diagrams.md`.
 
 ## When to use
 

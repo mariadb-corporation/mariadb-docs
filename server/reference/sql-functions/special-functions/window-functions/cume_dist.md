@@ -12,7 +12,7 @@ description: >-
 ```bnf
 CUME_DIST() OVER ( 
   [ PARTITION BY partition_expression ] 
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

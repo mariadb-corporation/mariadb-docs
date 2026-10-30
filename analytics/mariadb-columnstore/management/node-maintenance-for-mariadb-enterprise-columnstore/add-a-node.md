@@ -106,7 +106,7 @@ MariaDB Enterprise ColumnStore requires MariaDB Replication, which must be confi
     ```bash
     sudo mariadb
     ```
-3.  Set the [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid#gtid_slave_pos) system variable to the GTID position:
+3.  Set the [gtid\_slave\_pos](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_slave_pos) system variable to the GTID position:
 
     ```sql
     SET GLOBAL gtid_slave_pos='0-1-2001,1-2-5139';
@@ -142,24 +142,13 @@ The new node must be added to Enterprise ColumnStore using [CMAPI](../../referen
 
 For example, if the primary node's host name is `mcs1` and the new node's IP address is `192.0.2.3`:
 
-*   In ES 10.5.10-7 and later:
-
-    ```bash
-    curl -k -s -X PUT https://mcs1:8640/cmapi/0.4.0/cluster/node \
-       --header 'Content-Type:application/json' \
-       --header 'x-api-key:93816fa66cc2d8c224e62275bd4f248234dd4947b68d4af2b29671dd7d5532dd' \
-       --data '{"timeout":20, "node": "192.0.2.3"}' \
-       | jq .
-    ```
-*   In ES 10.5.9-6 and earlier:
-
-    ```bash
-    curl -k -s -X PUT https://mcs1:8640/cmapi/0.4.0/cluster/add-node \
-       --header 'Content-Type:application/json' \
-       --header 'x-api-key:93816fa66cc2d8c224e62275bd4f248234dd4947b68d4af2b29671dd7d5532dd' \
-       --data '{"timeout":20, "node": "192.0.2.3"}' \
-       | jq .
-    ```
+```bash
+curl -k -s -X PUT https://mcs1:8640/cmapi/0.4.0/cluster/node \
+   --header 'Content-Type:application/json' \
+   --header 'x-api-key:93816fa66cc2d8c224e62275bd4f248234dd4947b68d4af2b29671dd7d5532dd' \
+   --data '{"timeout":20, "node": "192.0.2.3"}' \
+   | jq .
+```
 
 Example output:
 

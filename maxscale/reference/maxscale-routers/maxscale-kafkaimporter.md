@@ -47,6 +47,7 @@ The user defined by the `user` parameter of the service must have `INSERT` and`C
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the comma-separated list of Kafka broker addresses used to establish connections.
 
 The list of Kafka brokers as a CSV list in `host:port` format.
 
@@ -55,6 +56,7 @@ The list of Kafka brokers as a CSV list in `host:port` format.
 * Type: stringlist
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the comma-separated list of topics to subscribe to.
 
 The comma separated list of topics to subscribe to.
 
@@ -64,6 +66,7 @@ The comma separated list of topics to subscribe to.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `100`
+* Description: Defines the maximum number of records to buffer before committing a batch of imported data.
 
 Maximum number of uncommitted records. The KafkaImporter will buffer records into batches and commit them once either enough records are gathered (controlled by this parameter) or when the KafkaImporter goes idle. Any uncommitted records will be read again if a reconnection to either Kafka or MariaDB occurs.
 
@@ -74,6 +77,7 @@ Maximum number of uncommitted records. The KafkaImporter will buffer records int
 * Dynamic: Yes
 * Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
 * Default: `PLAIN`
+* Description: Specifies the SASL authentication mechanism used for Kafka connections.
 
 SASL mechanism to use. The Kafka broker must be configured with the same authentication scheme.
 
@@ -83,6 +87,7 @@ SASL mechanism to use. The Kafka broker must be configured with the same authent
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the SASL username for Kafka authentication, requiring a corresponding password.
 
 SASL username used for authentication. If this parameter is defined,`kafka_sasl_password` must also be provided.
 
@@ -92,6 +97,7 @@ SASL username used for authentication. If this parameter is defined,`kafka_sasl_
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the SASL password for Kafka authentication, requiring a corresponding username.
 
 SASL password for the user. If this parameter is defined, `kafka_sasl_user` must also be provided.
 
@@ -101,6 +107,7 @@ SASL password for the user. If this parameter is defined, `kafka_sasl_user` must
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Enables or disables SSL encryption for Kafka connections.
 
 Enable SSL for Kafka connections.
 
@@ -110,6 +117,7 @@ Enable SSL for Kafka connections.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the CA certificate file used to verify Kafka SSL connections, or defaults to the system CA.
 
 SSL Certificate Authority file in PEM format. If this parameter is not defined, the system default CA certificate is used.
 
@@ -119,6 +127,7 @@ SSL Certificate Authority file in PEM format. If this parameter is not defined, 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Defines the SSL certificate file for Kafka connections, requiring a corresponding private key.
 
 SSL public certificate file in PEM format. If this parameter is defined,`kafka_ssl_key` must also be provided.
 
@@ -128,6 +137,7 @@ SSL public certificate file in PEM format. If this parameter is defined,`kafka_s
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""`
+* Description: Specifies the SSL private key file for Kafka connections, requiring a corresponding certificate.
 
 SSL private key file in PEM format. If this parameter is defined,`kafka_ssl_cert` must also be provided.
 
@@ -138,6 +148,7 @@ SSL private key file in PEM format. If this parameter is defined,`kafka_ssl_cert
 * Dynamic: Yes
 * Values: `topic`, `key`
 * Default: `topic`
+* Description: Defines whether the Kafka topic or message key is used to determine the target table for data insertion.
 
 The Kafka message part that is used to locate the table to insert the data into.
 
@@ -158,6 +169,7 @@ For example, all messages with a fully qualified table name of `my_db.my_table` 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `5000ms`
+* Description: Sets the timeout for network communication with both Kafka and MariaDB.
 
 Timeout for both Kafka and MariaDB network communication.
 
@@ -167,6 +179,7 @@ Timeout for both Kafka and MariaDB network communication.
 * Default: `InnoDB`
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies the storage engine used when creating tables for imported Kafka data.
 
 The storage engine used for tables that are created by the KafkaImporter.
 
@@ -180,7 +193,7 @@ This is done to avoid conflicts where the custom engine does not support all the
 
 ## Limitations
 
-* The backend servers used by this service must be MariaDB version 10.2 or newer.
+* The backend servers used by this service must be MariaDB servers.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

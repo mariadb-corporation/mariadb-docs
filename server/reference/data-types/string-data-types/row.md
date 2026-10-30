@@ -70,15 +70,9 @@ FETCH cur INTO rec;
 
 where `cur` is a `CURSOR` and `rec` is a `ROW` type stored procedure variable.
 
-Note, currently an attempt to use `FETCH` for a `ROW` type variable returns this error:
-
-```sql
-ERROR 1328 (HY000): Incorrect number of FETCH variables
-```
-
 `FETCH` from a cursor `cur` into a `ROW` variable `rec` works as follows:
 
-* The number of fields in `cur` must match the number of fields in `rec`. Otherwise, an error is reported.
+* The number of fields in `cur` must match the number of fields in `rec`. Otherwise, `ERROR 1328 (HY000): Incorrect number of FETCH variables` is reported.
 * Assignment is done from left to right. The first cursor field is assigned to the first variable field, the second cursor field is assigned to the second variable field, etc.
 * Field names in `rec` are not important and can differ from field names in `cur`.
 

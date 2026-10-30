@@ -1,5 +1,7 @@
 ---
-description: 'Step 3: Install MariaDB Enterprise Server'
+description: >-
+  Step 3 of the MariaDB ColumnStore install with object storage: set up the
+  repository and install Enterprise Server and ColumnStore.
 hidden: true
 ---
 

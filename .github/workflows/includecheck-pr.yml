@@ -1,7 +1,7 @@
 name: Check GitBook Includes in PR
 
 # Gates dead and cross-space GitBook `{% include %}` targets. Part of DOCS-6586, which is
-# DOCS-6471 Part 2: putting the doc-lint checks that have no CI counterpart behind a PR gate.
+# DOCS-6471 Part 2: putting the doc-lint checks that had no CI counterpart behind a PR gate.
 #
 # `{% include "../.gitbook/includes/foo.md" %}` is GitBook TEMPLATE syntax, not a Markdown link.
 # lychee cannot see it -- it is not a link -- and codespell has no opinion about it, so a dead

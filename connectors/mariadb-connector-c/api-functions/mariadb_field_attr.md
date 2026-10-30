@@ -26,7 +26,7 @@ Returns zero on success or non zero if the field doesn't provide extended metada
 
 ### Notes
 
-* Pluggable field type support is available in MariaDB server version 10.5.2 and later.
+* Pluggable field type support requires MariaDB Server.
 * To check if the server supports pluggable field types, check the extended server capabilities which can be obtained by api function [mariadb\_get\_info()](mariadb_get_info.md).
 
 ## Example

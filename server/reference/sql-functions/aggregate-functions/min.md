@@ -16,7 +16,7 @@ MIN([DISTINCT] expr)
 
 Returns the minimum value of _`expr`_. `MIN()` may take a string argument, in which case it returns the minimum string value. The `DISTINCT` keyword can be used to find the minimum of the distinct values of _`expr`_, however, this produces the same result as omitting `DISTINCT`.
 
-Note that [SET](../../sql-statements/administrative-sql-statements/set-commands/set.md) and [ENUM](../../data-types/string-data-types/enum.md) fields are currently compared by their string value rather than their relative position in the set, so MIN() may produce a different lowest result than ORDER BY ASC.
+Note that [SET](../../sql-statements/administrative-sql-statements/set-commands/set.md) and [ENUM](../../data-types/string-data-types/enum.md) fields are compared by their string value rather than their relative position in the set, so MIN() may produce a different lowest result than ORDER BY ASC.
 
 It is an [aggregate function](./), and so can be used with the [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause.
 
@@ -26,10 +26,18 @@ It is an [aggregate function](./), and so can be used with the [GROUP BY](../../
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 Not only ascending, but also [descending indexes](../../sql-statements/data-definition/create/create-table.md#index-types) can be used to optimize `MIN`.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 Only ascending indexes can be used to optimize `MIN`.
 {% endtab %}
 {% endtabs %}

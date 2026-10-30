@@ -6,7 +6,7 @@ description: >-
 
 # TideSQL Table Options
 
-Per-table options set at `CREATE TABLE` are baked into the column family at creation time and shown in `SHOW CREATE TABLE`. Most have a `tidesdb_default_*` session variable, so a deployment can set the policy once and let every `CREATE TABLE` inherit it, with an explicit option overriding the default for one table. The exceptions, noted below, are `TTL`, `ENCRYPTED`, `ENCRYPTION_KEY_ID`, and `ISOLATION_LEVEL`, which are covered in their own pages.
+Per-table options set at `CREATE TABLE` configure the table's column families at creation time and are shown in `SHOW CREATE TABLE`. Most have a `tidesdb_default_*` session variable, so a deployment can set the policy once and let every `CREATE TABLE` inherit it, with an explicit option overriding the default for one table. The exceptions are `TTL`, `ENCRYPTED`, and `ENCRYPTION_KEY_ID`, which have no session default. These three and `ISOLATION_LEVEL` are covered in their own pages.
 
 The complete set of options is `COMPRESSION`, `BLOOM_FILTER`, `BLOOM_FPR`, `KEEP_VALUES_INLINE`, `BTREE_KLOG_BLOCK_SIZE`, `LEVEL_SIZE_RATIO`, `MIN_LEVELS`, `DIVIDING_LEVEL_OFFSET`, `L1_FILE_COUNT_TRIGGER`, `TOMBSTONE_DENSITY_TRIGGER`, `TOMBSTONE_DENSITY_MIN_ENTRIES`, `TTL`, `ENCRYPTED`, `ENCRYPTION_KEY_ID`, and `ISOLATION_LEVEL`.
 
@@ -36,7 +36,7 @@ CREATE TABLE inline_vals (id INT PRIMARY KEY, val VARCHAR(200))
   ENGINE=TIDESDB KEEP_VALUES_INLINE=1;
 ```
 
-Each SSTable has a key log and a value log. Value separation is a database-wide policy set by `tidesdb_value_separation_threshold`, so a value at or above that size goes to the shared value log with a pointer left in the key log, and a smaller one stays inline. Separating a large value keeps it out of every later merge, which is the whole point of the threshold, at the cost of one value-log read per row on a scan. `KEEP_VALUES_INLINE=1` overrides the policy for one table and holds every value in the key log whatever its size, which is worth it for a table that is scanned far more than it is merged. The session default is `tidesdb_default_keep_values_inline`.
+Each SSTable stores its keys in a key log, and the database keeps one shared value log. Value separation is a database-wide policy set by `tidesdb_value_separation_threshold`, so a value at or above that size goes to the shared value log with a pointer left in the key log, and a smaller one stays inline. Separating a large value keeps it out of every later merge, which is the whole point of the threshold, at the cost of one value-log read per row on a scan. `KEEP_VALUES_INLINE=1` overrides the policy for one table and holds every value in the key log whatever its size, which is worth it for a table that is scanned far more than it is merged. The session default is `tidesdb_default_keep_values_inline`.
 
 `BTREE_KLOG_BLOCK_SIZE` sets the block size in bytes of the key log's B-tree nodes, with a default of 4096. The default matches the block manager's first-read window so a node is read in one go, and sizing a node just above that window costs a second read on every access. The session default is `tidesdb_default_btree_klog_block_size`.
 
@@ -62,13 +62,17 @@ CREATE TABLE events (
   TOMBSTONE_DENSITY_MIN_ENTRIES=2048;
 ```
 
-After each flush the engine can escalate compaction for any level-1 SSTable whose tombstone count divided by entry count exceeds a ratio, provided the SSTable has enough entries to matter. `TOMBSTONE_DENSITY_TRIGGER` is that ratio in parts per 10,000, so `5000` means 0.50, and the default `0` disables the check. `TOMBSTONE_DENSITY_MIN_ENTRIES` is the entry-count floor, with a default of 1024, that stops a tiny SSTable from firing compaction. `ALTER TABLE ... TOMBSTONE_DENSITY_TRIGGER=N` updates the live column family so the new ratio applies on the next post-flush check without a restart. The session defaults are `tidesdb_default_tombstone_density_trigger` and `tidesdb_default_tombstone_density_min_entries`.
+When the library's compaction planner evaluates a column family, it escalates compaction if any one SSTable, at any level, has a tombstone count divided by entry count at or above a ratio while holding enough entries to matter. A single such SSTable is enough. `TOMBSTONE_DENSITY_TRIGGER` is that ratio in parts per 10,000, so `5000` means 0.50, and the default `0` disables the check. `TOMBSTONE_DENSITY_MIN_ENTRIES` is the entry-count floor, with a default of 1024, that stops a tiny SSTable from firing compaction. `ALTER TABLE ... TOMBSTONE_DENSITY_TRIGGER=N` updates the live column family so the new ratio applies on the next compaction planner pass without a restart. The session defaults are `tidesdb_default_tombstone_density_trigger` and `tidesdb_default_tombstone_density_min_entries`. For how this trigger works together with single deletes, see [TideSQL Write-Path Optimizations](tidesql-write-path-optimizations.md).
 
 ## Options Covered Elsewhere
 
 * `TTL` at the table level and `` `TTL` `` on a column set row expiration. See [Time-To-Live](tidesql-time-to-live.md).
 * `ENCRYPTED` and `ENCRYPTION_KEY_ID` turn on data-at-rest encryption. See [Data-at-Rest Encryption](tidesql-encryption.md).
-* `ISOLATION_LEVEL` pins the per-table isolation level. See [Transactions and Isolation](tidesql-transactions-and-isolation.md).
+* `ISOLATION_LEVEL` sets the per-table isolation level that a session at the SQL default `REPEATABLE READ` uses, with a default of `REPEATABLE_READ`, which maps to the library's `SNAPSHOT`, and the session default `tidesdb_default_isolation_level`. A session that asks for `READ UNCOMMITTED`, `READ COMMITTED`, or `SERIALIZABLE` uses its own level instead. See [Transactions and Isolation](tidesql-transactions-and-isolation.md).
+
+## Changing Options With ALTER TABLE
+
+`ALTER TABLE ... option=value` changes any of these options instantly, with no table copy, and applies the new configuration to the table's live column families, so it takes effect without a restart. The exceptions are `ENCRYPTED` and, on an encrypted table, `ENCRYPTION_KEY_ID`. Changing either one rewrites every row, so it runs as a table copy, and `ALGORITHM=INSTANT` or `ALGORITHM=INPLACE` is refused. An unencrypted table can change its `ENCRYPTION_KEY_ID` instantly, since nothing is encrypted with it. See [TideSQL Online DDL](tidesql-online-ddl.md).
 
 ## Combining Options
 

@@ -14,7 +14,7 @@ It contains the following columns:
 
 | Column         | Description                                                                                                                      |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| OBJECT\_TYPE   | Type of object to instrument, currently only . Currently, only TABLE', for base table.                                           |
+| OBJECT\_TYPE   | Type of object to instrument: `EVENT`, `FUNCTION`, `PROCEDURE`, `TABLE`, or `TRIGGER`.                                           |
 | OBJECT\_SCHEMA | Schema containing the object, either the literal or % for any schema.                                                            |
 | OBJECT\_NAME   | Name of the instrumented object, either the literal or % for any object.                                                         |
 | ENABLED        | Whether the object's events are instrumented or not. Can be disabled, in which case monitoring is not enabled for those objects. |

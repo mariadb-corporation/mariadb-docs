@@ -25,16 +25,28 @@ DATE_FORMAT(FROM_UNIXTIME(unix_timestamp), format)
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 Timestamps in MariaDB have a maximum value of 4294967295, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in NULL being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+From MariaDB 11.5 to before MariaDB 11.7:
+{% endhint %}
+
 The one-argument form of `FROM_UNIXTIME()` returns a`DATETIME`. This means that it can return values outside of valid `TIMESTAMP` range, in particular `1970-01-01 00:00:00`. And it can return the same result for different values of unix\_timestamp (around DST changes).
 
 Timestamps in MariaDB have a maximum value of 4294967295, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in NULL being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 The one-argument form of `FROM_UNIXTIME()` returns a`DATETIME`. This means that it can return values outside of valid `TIMESTAMP` range, in particular `1970-01-01 00:00:00`. And it can return the same result for different values of unix\_timestamp (around DST changes).
 
 The maximum value is 2147483647, equivalent to `2038-01-19 05:14:07`.

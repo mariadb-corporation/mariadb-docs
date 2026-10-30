@@ -112,9 +112,7 @@ CONNECT will analyze the where clause and only read the _xt1_ table. This can sa
 
 ### Parallel Execution
 
-Parallel Execution is currently unavailable until some bugs are fixed.
-
-When the sub-tables are located on different servers, it is possible to execute the remote queries simultaneously instead of sequentially. To enable this, set the thread option to yes.
+Parallel execution is not supported. It was designed for sub-tables located on different servers, running the remote queries simultaneously instead of sequentially, and was enabled with the `THREAD` option. In release builds, a TBL table that sets `THREAD=YES` returns the error `Option THREAD is no more supported`.
 
 Additional options available for this table type:
 

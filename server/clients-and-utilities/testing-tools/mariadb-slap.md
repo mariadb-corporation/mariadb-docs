@@ -8,7 +8,7 @@ description: >-
 
 `mariadb-slap` is a tool for load-testing MariaDB. It allows you to emulate multiple concurrent connections, and run a set of queries multiple times.
 
-Prior to [MariaDB 10.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the client was called `mysqlslap`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+The client was formerly called `mysqlslap`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
 
 It returns a benchmark including the following information:
 
@@ -116,7 +116,7 @@ The following options relate to how MariaDB command line tools handles option fi
 | Group             | Description                                                                                                                                                              |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | \[mysqlslap]      | Options read by mariadb-slap, which includes both MariaDB Server and MySQL Server.                                                                                       |
-| \[mariadb-slap]   | Options read by mariadb-slap. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6).        |
+| \[mariadb-slap]   | Options read by mariadb-slap. |
 | \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                            |
 | \[client-server]  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
 | \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                             |

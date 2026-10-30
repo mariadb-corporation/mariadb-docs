@@ -20,7 +20,7 @@ Note: Every project we know of which works with MySQL also works with MariaDB. T
 
 * [dbForge Studio](https://www.devart.com/dbforge/mysql/studio/mariadb-gui-client.html) is a versatile and feature-rich IDE designed for MySQL and MariaDB professionals. It fully supports all individual features of MariaDB, such as support for Packages and Sequences, and other specificities.
 * [Dynamic Active Record](https://github.com/tom--/yii2-dynamic-ar) - The yii2-dynamic-ar extension uses MariaDB dynamic columns to add NoSQL-like documents to Yii 2 Framework's Active Record ORM.
-* [ocelotgui](https://ocelot.ca/) - supports [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) [window functions](../../reference/sql-functions/special-functions/window-functions/).
+* [ocelotgui](https://ocelot.ca/) - supports [window functions](../../reference/sql-functions/special-functions/window-functions/).
 * [SQL Maestro for MySQL](https://www.sqlmaestro.com/products/mysql/maestro/) is a database management tool that provides direct support for a number of MariaDB features like [roles](../../security/user-account-management/roles/), [check constraints](../../reference/sql-statements/data-definition/constraint.md#check-constraints), and [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
 
 ## Officially Supports MariaDB
@@ -61,7 +61,7 @@ Note: Every project we know of which works with MySQL also works with MariaDB. T
 * [Plone](https://plone.org/)
 * [Querious](https://www.araelium.com/querious) - Mac OS X database administration tool
 * [RAD Studio (Embarcadero)](https://www.embarcadero.com/products/rad-studio/whats-new-in-10-2-tokyo) supports MariaDB from RAD Studio 10.2 Tokyo
-* [Replication Manager for MariaDB and MySQL](https://github.com/tanji/replication-manager) - High Availability solution to manage MariaDB Server 10.0+ GTID-based replication topologies
+* [Replication Manager for MariaDB and MySQL](https://github.com/tanji/replication-manager) - High Availability solution to manage MariaDB Server GTID-based replication topologies
 * [SafeNet ProtectFile from Gemalto](https://data-protection-updates.gemalto.com/2015/05/01/customer-release-notes-available-for-safenet-protectfile-windows-and-linux-v8-1/)
 * [SaltOS](https://www.saltos.org/)
 * [sequelize](https://github.com/sequelize/sequelize) - Dialect object-relationship-mapper for node.js.

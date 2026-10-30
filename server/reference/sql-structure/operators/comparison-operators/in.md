@@ -1,9 +1,17 @@
+---
+description: >-
+  Test whether a value matches any value in a list. IN returns 1 on a match
+  and 0 if nothing matches, or NULL when the value is NULL or the list has a
+  NULL and no match.
+---
+
 # IN
 
 ## Syntax
 
 ```bnf
 expr IN (value,...)
+expr IN (subquery)
 ```
 
 ## Description
@@ -13,6 +21,8 @@ using a binary search. This means IN is very quick if the IN value list consists
 applied to all the arguments.
 
 If _`expr`_ is `NULL`, `IN` always returns `NULL`. If at least one of the values in the list is `NULL`, and one of the comparisons is true, the result is `1`. If at least one of the values in the list is `NULL` and none of the comparisons is true, the result is `NULL`.
+
+With a subquery, `expr IN (subquery)` is the same as `expr = ANY (subquery)`. See [Subqueries with IN and NOT IN](../../../sql-statements/data-manipulation/selecting-data/subqueries/subqueries-with-in-and-not-in.md).
 
 ## Examples
 
@@ -71,6 +81,8 @@ SELECT 5 IN (1, 2, NULL);
 ## See Also
 
 * [Conversion of Big IN Predicates Into Subqueries](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/subquery-optimizations/conversion-of-big-in-predicates-into-subqueries.md)
+* [Row Constructor Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/row-constructor-optimization.md)
+* [Subqueries with IN and NOT IN](../../../sql-statements/data-manipulation/selecting-data/subqueries/subqueries-with-in-and-not-in.md)
 * [Operator Precedence](../operator-precedence.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

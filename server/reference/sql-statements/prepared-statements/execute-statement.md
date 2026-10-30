@@ -25,15 +25,7 @@ If the specified statement has not been PREPAREd, an error similar to the follow
 ERROR 1243 (HY000): Unknown prepared statement handler (stmt_name) given to EXECUTE
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 `EXECUTE` with arbitrary expression as parameters can be used, not just user variables (@var\_name).
-{% endtab %}
-
-{% tab title="< 10.2.3" %}
-You can only use user variables (@var\_name) as parameters.
-{% endtab %}
-{% endtabs %}
 
 ### LOCAL Statement Names
 

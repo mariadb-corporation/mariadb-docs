@@ -11,7 +11,7 @@ description: >-
 ```bnf
 DENSE_RANK() OVER (
   [ PARTITION BY partition_expression ]
-  [ ORDER BY order_list ]
+  ORDER BY order_list
 )
 ```
 

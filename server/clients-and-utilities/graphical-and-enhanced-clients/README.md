@@ -19,12 +19,12 @@ The third-party tools described in this section are not developed or maintained 
 [adminneo.md](adminneo.md)
 {% endcontent-ref %}
 
-{% content-ref url="beekeeper-studio.md" %}
-[beekeeper-studio.md](beekeeper-studio.md)
+{% content-ref url="audax-data-manager.md" %}
+[audax-data-manager.md](audax-data-manager.md)
 {% endcontent-ref %}
 
-{% content-ref url="cost-effective-agentless-mariadb-database-performance-management.md" %}
-[cost-effective-agentless-mariadb-database-performance-management.md](cost-effective-agentless-mariadb-database-performance-management.md)
+{% content-ref url="beekeeper-studio.md" %}
+[beekeeper-studio.md](beekeeper-studio.md)
 {% endcontent-ref %}
 
 {% content-ref url="database-workbench.md" %}
@@ -61,6 +61,10 @@ The third-party tools described in this section are not developed or maintained 
 
 {% content-ref url="dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md" %}
 [dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md](dbforge-studio-for-mariadb-universal-gui-tool-for-management-administration.md)
+{% endcontent-ref %}
+
+{% content-ref url="dbine.md" %}
+[dbine.md](dbine.md)
 {% endcontent-ref %}
 
 {% content-ref url="dbschema.md" %}
@@ -123,10 +127,6 @@ The third-party tools described in this section are not developed or maintained 
 [ocelotgui.md](ocelotgui.md)
 {% endcontent-ref %}
 
-{% content-ref url="pgmanage.md" %}
-[pgmanage.md](pgmanage.md)
-{% endcontent-ref %}
-
 {% content-ref url="phpmyadmin.md" %}
 [phpmyadmin.md](phpmyadmin.md)
 {% endcontent-ref %}
@@ -137,6 +137,10 @@ The third-party tools described in this section are not developed or maintained 
 
 {% content-ref url="sb-data-generator.md" %}
 [sb-data-generator.md](sb-data-generator.md)
+{% endcontent-ref %}
+
+{% content-ref url="sql-diagnostic-manager-and-sqlyog.md" %}
+[sql-diagnostic-manager-and-sqlyog.md](sql-diagnostic-manager-and-sqlyog.md)
 {% endcontent-ref %}
 
 {% content-ref url="sqlpro-studio.md" %}
@@ -151,12 +155,20 @@ The third-party tools described in this section are not developed or maintained 
 [tableplus.md](tableplus.md)
 {% endcontent-ref %}
 
+{% content-ref url="tabularis.md" %}
+[tabularis.md](tabularis.md)
+{% endcontent-ref %}
+
 {% content-ref url="toad-edge.md" %}
 [toad-edge.md](toad-edge.md)
 {% endcontent-ref %}
 
 {% content-ref url="valentina-studio.md" %}
 [valentina-studio.md](valentina-studio.md)
+{% endcontent-ref %}
+
+{% content-ref url="visualeaf.md" %}
+[visualeaf.md](visualeaf.md)
 {% endcontent-ref %}
 
 {% content-ref url="mariadb-direct-query-adapter-for-microsoft-power-bi.md" %}

@@ -9,7 +9,7 @@ description: >-
 
 ## Overview
 
-The **namedserverfilter** is a MariaDB MaxScale filter module able to route queries to servers based on regular expression (regex) matches. Since it is a filter instead of a router, the NamedServerFilter only sets routing suggestions. It requires a compatible router to be effective. Currently, both**readwritesplit** and **hintrouter** take advantage of routing hints in the data packets. This filter uses the _PCRE2_ library for regular expression matching.
+The **namedserverfilter** is a MariaDB MaxScale filter module able to route queries to servers based on regular expression (regex) matches. Since it is a filter instead of a router, the NamedServerFilter only sets routing suggestions. It requires a compatible router to be effective. Routers that take advantage of routing hints in the data packets include **readwritesplit**. This filter uses the _PCRE2_ library for regular expression matching.
 
 ## Configuration
 
@@ -47,6 +47,7 @@ NamedServerFilter requires at least one _matchXY_ - _targetXY_ pair.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a numbered regex pattern to match SQL queries and apply a corresponding routing target when the pattern is matched.
 
 _matchXY_ defines a [PCRE2 regular expression](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) against which the incoming SQL query is matched. _XY_ must be a number in the range 01 - 25. Each _match_-setting pairs with a similarly indexed _target_-setting. If one is defined, the other must be defined as well. If a query matches the pattern, the filter attaches a routing hint defined by the _target_-setting to the query. The _options_-parameter affects how the patterns are compiled.
 
@@ -62,6 +63,7 @@ options=case,extended
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
+* Description: Describes the collection and matching process for the matchXY regular expressions (e.g., case sensitivity or extended syntax).
 
 [Regular expression options](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions) for `matchXY`.
 
@@ -71,6 +73,7 @@ options=case,extended
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines the routing hint used to direct queries that match the corresponding matchXY pattern to specific server or roles.
 
 The hint which is attached to the queries matching the regular expression defined by _matchXY_. If a compatible router is used in the service the query will be routed accordingly. The target can be one of the following:
 
@@ -92,6 +95,7 @@ target01=MyServer2
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits the filter to client connections from particular IP addresses or patterns; the regex rules will only be applied to sessions that match.
 
 This optional parameter defines an IP address or mask which a connecting client's IP address is matched against. Only sessions whose address matches this setting will have this filter active and performing the regex matching. Traffic from other client IPs is simply left as is and routed straight through.
 
@@ -121,6 +125,7 @@ source=192.168.21.3,192.168.10.%
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limit the filters to sessions authenticated with a specific username; the routing hints and regex rules will only be applied to matching users.
 
 This optional parameter defines a username the connecting client username is matched against. Only sessions that are connected using this username will have the match and routing hints applied to them. Traffic from other users is simply left as is and routed straight through.
 

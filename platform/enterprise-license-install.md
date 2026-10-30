@@ -22,8 +22,8 @@ Platform**, evaluation builds under **Trials** — then license it as described 
 | Product | What the license is | Where you install it |
 | ------- | ------------------- | -------------------- |
 | [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/deployment/installation-and-configuration/maxscale-license-key) | License key | `license_key` in `maxscale.cnf` |
-| [MariaDB AI RAG](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview) | License key | `MARIADB_LICENSE_KEY` in `config.env.secure` |
-| [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/adding-license) | GridGain license file | Uploaded in the Control Center UI, or read from disk |
+| [MariaDB AI RAG](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-ai-rag/deployment/overview) | License key | `MARIADB_LICENSE_KEY` in `config.env.secure` |
+| [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/getting-started/adding-license) | GridGain license file | Uploaded in the Control Center UI, or read from disk |
 
 Products not listed here do not require a license to run. MariaDB Enterprise Server, for example,
 is authenticated at download time with a Customer Download Token rather than a license at runtime —
@@ -77,7 +77,7 @@ Set `MARIADB_LICENSE_KEY` in `config.env.secure`.
 MARIADB_LICENSE_KEY=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6...
 ```
 
-Full instructions: [AI RAG deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview).
+Full instructions: [AI RAG deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-ai-rag/deployment/overview).
 {% endtab %}
 {% endtabs %}
 
@@ -108,11 +108,11 @@ There are two of them, and they are separate things:
 
 To install one, see:
 
-{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/getting-started/adding-license" %}
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/getting-started/adding-license" %}
 Install Control Center and Add License
 {% endcontent-ref %}
 
-{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/control-center/admin-guide/license" %}
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center/admin-guide/license" %}
 Managing License
 {% endcontent-ref %}
 

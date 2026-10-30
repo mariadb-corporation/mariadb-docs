@@ -102,6 +102,26 @@ jobs:
           # The 429 is host-level rate limiting, so replacing the URLs with
           # their resolved /projects/ansible/ form would not help.
           #
+          # DOCS-6723 adds seven more of the same kind, surfaced by the GridGain 8
+          # docs migration. All serve 200 to a normal browser but are unreachable
+          # from the runners: gridgain.com/resources/download (Cloudflare 403,
+          # 301 -> /tryfree, which is already excluded), bugs.openjdk.java.net
+          # (Atlassian 403, the old domain of the already-excluded
+          # bugs.openjdk.org), docs.openshift.com (403, 301 -> docs.redhat.com,
+          # which is already excluded), unix.stackexchange.com (403, same class
+          # as the excluded stackoverflow/dba.stackexchange), www.tableau.com
+          # (403), lists.apache.org (mailing-list archive, 302), and
+          # www.javatpoint.com (times out from the runners).
+          #
+          # DOCS-6926 adds openai.com, synced in with the MariaDB AI Plugins docs
+          # (the Codex link on about-mariadb-ai-plugins.md). It answered the Actions
+          # runners with 403 on the gate run of the first sync (2026-10-15) while
+          # serving 200 to a browser, and to lychee from a developer machine, so a
+          # local run PASSES while CI fails. The page is synced from
+          # mariadb-corporation/ai-plugins, so the link can't be changed here
+          # anyway. The pattern also covers subdomains such as help.openai.com,
+          # which answers a non-browser client with 403 too.
+          #
           # Note for editors: the args block below is a YAML folded scalar, so
           # a '#' line inside it is NOT a comment -- it would be passed to
           # lychee as arguments. Document new excludes up here.
@@ -177,6 +197,11 @@ jobs:
           # Exchange requires JS), and www.fsf.org fails lychee's connection
           # while serving 200 to a browser User-Agent. All are valid for readers.
           #
+          # DOCS-6640 (2026-09-24): documentation.ubuntu.com answers 429 Too Many
+          # Requests to GitHub-hosted runners on every attempt (two runs in a row)
+          # while serving 200 from a developer machine. It replaced the retired
+          # wiki.ubuntu.com pages, so there is no other URL to point at.
+          #
           # DOCS-6449 (2026-08-18): three vendor/doc hosts cited from
           # server/clients-and-utilities/ that block automated clients, proven
           # alive by the challenge each one serves rather than by a status code.
@@ -204,7 +229,7 @@ jobs:
           #
           #
           # DOCS-6415 (2026-09-14): medium.com, cited twice from
-          # tools/control-center/admin-guide/configuration.md as further reading on
+          # tools/enterprise/control-center/admin-guide/configuration.md as further reading on
           # Active Directory configuration. Medium serves 403 to automated clients
           # across the board -- same class as docs.oracle.com and access.redhat.com
           # above -- while both posts load normally in a browser. Nothing to
@@ -270,6 +295,11 @@ jobs:
           # www.akamai.com and cloud.ibm.com above. The URLs are resolved to the form
           # O'Reilly itself redirects to, so the citations point at the publisher's own
           # canonical page.
+          #
+          # DOCS-6755 (2026-10-01): bugs.openjdk.org, cited from the Connector/J
+          # GSSAPI page. The JDK bug tracker answers 403 to lychee and to a browser
+          # User-Agent but 200 to plain curl, so it is User-Agent-based bot
+          # protection, not a dead page. Same class as www.reddit.com above.
           args: >-
             --no-progress
             --exclude 'bazaar\.launchpad\.net'
@@ -339,6 +369,7 @@ jobs:
             --exclude 'www\.fsf\.org'
             --exclude 'dba\.stackexchange\.com'
             --exclude 'askubuntu\.com'
+            --exclude 'documentation\.ubuntu\.com'
             --exclude 'valentina-db\.com'
             --exclude 'docs\.moodle\.org'
             --exclude 'www\.sqlmaestro\.com'
@@ -351,6 +382,16 @@ jobs:
             --exclude 'cloud\.ibm\.com'
             --exclude 'www\.akamai\.com'
             --exclude 'www\.oreilly\.com'
+            --exclude 'www\.gridgain\.com/tryfree'
+            --exclude 'bugs\.openjdk\.org'
+            --exclude 'gridgain\.com/resources/download'
+            --exclude 'bugs\.openjdk\.java\.net'
+            --exclude 'docs\.openshift\.com'
+            --exclude 'unix\.stackexchange\.com'
+            --exclude 'www\.tableau\.com'
+            --exclude 'lists\.apache\.org'
+            --exclude 'www\.javatpoint\.com'
+            --exclude 'openai\.com'
             ${{ steps.list.outputs.files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee

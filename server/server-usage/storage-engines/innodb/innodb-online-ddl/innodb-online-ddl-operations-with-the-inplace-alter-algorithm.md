@@ -34,8 +34,7 @@ CREATE OR REPLACE TABLE tab (
    b VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD COLUMN c VARCHAR(50);
+ALTER TABLE tab ADD COLUMN c VARCHAR(50), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -58,8 +57,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP COLUMN c;
+ALTER TABLE tab DROP COLUMN c, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.021 sec)
 ```
 
@@ -86,8 +84,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) AFTER a;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) AFTER a, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.022 sec)
 ```
 
@@ -95,8 +92,8 @@ Query OK, 0 rows affected (0.022 sec)
 
 InnoDB does **not** support modifying a column's data type with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in most cases. There are some exceptions:
 
-* In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`, unless it would require changing the number of bytes requires to represent the column's length. A `VARCHAR` column that is between 0 and 255 bytes in size requires 1 byte to represent its length, while a `VARCHAR` column that is 256 bytes or longer requires 2 bytes to represent its length. This means that the length of a column cannot be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` if the original length was less than 256 bytes, and the new length is 256 bytes or more.
-* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+* InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`, unless it would require changing the number of bytes requires to represent the column's length. A `VARCHAR` column that is between 0 and 255 bytes in size requires 1 byte to represent its length, while a `VARCHAR` column that is 256 bytes or longer requires 2 bytes to represent its length. This means that the length of a column cannot be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` if the original length was less than 256 bytes, and the new length is 256 bytes or more.
+* InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Changing the Data Type of a Column](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -109,12 +106,11 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c INT;
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c INT, ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
-But this succeeds in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, because the original length of the column is less than 256 bytes, and the new length is still less than 256 bytes:
+But this succeeds, because the original length of the column is less than 256 bytes, and the new length is still less than 256 bytes:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -123,12 +119,11 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(100);
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(100), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
-But this fails in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, because the original length of the column is less than 256 bytes, and the new length is greater than 256 bytes:
+But this fails, because the original length of the column is less than 256 bytes, and the new length is greater than 256 bytes:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -137,9 +132,8 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(255)
 ) CHARACTER SET=latin1;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(256);
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(256), ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Changing a Column to NULL
@@ -159,8 +153,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50) NOT NULL
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NULL;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NULL, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.021 sec)
 ```
 
@@ -181,8 +174,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) NOT NULL, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.021 sec)
 ```
 
@@ -206,8 +198,7 @@ CREATE OR REPLACE TABLE tab (
    c ENUM('red', 'green')
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'green', 'blue');
+ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'green', 'blue'), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -220,9 +211,8 @@ CREATE OR REPLACE TABLE tab (
    c ENUM('red', 'green')
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'blue', 'green');
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c ENUM('red', 'blue', 'green'), ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Adding a New `SET` Option
@@ -245,8 +235,7 @@ CREATE OR REPLACE TABLE tab (
    c SET('red', 'green')
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c SET('red', 'green', 'blue');
+ALTER TABLE tab MODIFY COLUMN c SET('red', 'green', 'blue'), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -259,14 +248,13 @@ CREATE OR REPLACE TABLE tab (
    c SET('red', 'green')
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c SET('red', 'blue', 'green');
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c SET('red', 'blue', 'green'), ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 #### Removing System Versioning from a Column
 
-In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
+InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -275,13 +263,12 @@ For example:
 ```sql
 CREATE OR REPLACE TABLE tab (
    a INT PRIMARY KEY,
-   b VARCHAR(50),
+   b VARCHAR(50) WITH SYSTEM VERSIONING,
    c VARCHAR(50) WITH SYSTEM VERSIONING
 );
 
 SET SESSION system_versioning_alter_history='KEEP';
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) WITHOUT SYSTEM VERSIONING;
+ALTER TABLE tab MODIFY COLUMN c VARCHAR(50) WITHOUT SYSTEM VERSIONING, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -305,8 +292,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ALTER COLUMN c SET DEFAULT 'NO value explicitly provided.';
+ALTER TABLE tab ALTER COLUMN c SET DEFAULT 'NO value explicitly provided.', ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -327,8 +313,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50) DEFAULT 'NO value explicitly provided.'
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ALTER COLUMN c DROP DEFAULT;
+ALTER TABLE tab ALTER COLUMN c DROP DEFAULT, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -349,8 +334,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab CHANGE COLUMN c str VARCHAR(50);
+ALTER TABLE tab CHANGE COLUMN c str VARCHAR(50), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -363,9 +347,8 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab CHANGE COLUMN c num INT;
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab CHANGE COLUMN c num INT, ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 This applies to [ALTER TABLE ... CHANGE COLUMN](../../../../reference/sql-statements/data-definition/alter/alter-table/#change-column) for [InnoDB](../) tables.
@@ -392,8 +375,7 @@ CREATE OR REPLACE TABLE tab (
 );
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD PRIMARY KEY (a);
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.021 sec)
 ```
 
@@ -409,8 +391,7 @@ CREATE OR REPLACE TABLE tab (
 INSERT INTO tab VALUES (NULL, NULL, NULL);
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD PRIMARY KEY (a);
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=INPLACE;
 ERROR 1265 (01000): Data truncated for column 'a' at row 1
 ```
 
@@ -427,8 +408,7 @@ INSERT INTO tab VALUES (1, NULL, NULL);
 INSERT INTO tab VALUES (1, NULL, NULL);
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD PRIMARY KEY (a);
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=INPLACE;
 ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
 ```
 
@@ -451,8 +431,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP PRIMARY KEY;
+ALTER TABLE tab DROP PRIMARY KEY, ALGORITHM=INPLACE;
 ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Dropping a primary key is not allowed without also adding a new primary key. Try ALGORITHM=COPY
 ```
 
@@ -466,8 +445,7 @@ CREATE OR REPLACE TABLE tab (
 );
 
 SET SESSION sql_mode='STRICT_TRANS_TABLES';
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP PRIMARY KEY, ADD PRIMARY KEY (b);
+ALTER TABLE tab DROP PRIMARY KEY, ADD PRIMARY KEY (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.020 sec)
 ```
 
@@ -492,8 +470,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD INDEX b_index (b);
+ALTER TABLE tab ADD INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.010 sec)
 ```
 
@@ -506,8 +483,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-CREATE INDEX b_index ON tab (b);
+CREATE INDEX b_index ON tab (b) ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.011 sec)
 ```
 
@@ -533,8 +509,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.055 sec)
 ```
 
@@ -547,8 +522,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-CREATE FULLTEXT INDEX b_index ON tab (b);
+CREATE FULLTEXT INDEX b_index ON tab (b) ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.041 sec)
 ```
 
@@ -561,11 +535,10 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.043 sec)
 
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.017 sec)
 ```
 
@@ -579,11 +552,10 @@ CREATE OR REPLACE TABLE tab (
    d VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.041 sec)
 
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ADD FULLTEXT INDEX d_index (d);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ADD FULLTEXT INDEX d_index (d), ALGORITHM=INPLACE;
 ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: InnoDB presently supports one FULLTEXT index creation at a time. Try ALGORITHM=COPY
 ```
 
@@ -596,14 +568,13 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD FULLTEXT INDEX b_index (b);
+ALTER TABLE tab ADD FULLTEXT INDEX b_index (b), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.040 sec)
 
-ALTER TABLE tab ADD FULLTEXT INDEX c_index (c);
+ALTER TABLE tab ADD FULLTEXT INDEX c_index (c), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.015 sec)
 
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=INPLACE;
 ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: InnoDB presently supports one FULLTEXT index creation at a time. Try ALGORITHM=COPY
 ```
 
@@ -626,8 +597,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ADD SPATIAL INDEX c_index (c);
+ALTER TABLE tab ADD SPATIAL INDEX c_index (c), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -640,8 +610,7 @@ CREATE OR REPLACE TABLE tab (
    c GEOMETRY NOT NULL
 );
 
-SET SESSION alter_algorithm='INPLACE';
-CREATE SPATIAL INDEX c_index ON tab (c);
+CREATE SPATIAL INDEX c_index ON tab (c) ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -663,11 +632,10 @@ CREATE OR REPLACE TABLE tab (
    INDEX b_index (b)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP INDEX b_index;
+ALTER TABLE tab DROP INDEX b_index, ALGORITHM=INPLACE;
 ```
 
-And this succeeds:
+And this succeeds. [DROP INDEX](../../../../reference/sql-statements/data-definition/drop/drop-index.md) has no `ALGORITHM` clause, so it uses the default algorithm:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -677,7 +645,6 @@ CREATE OR REPLACE TABLE tab (
    INDEX b_index (b)
 );
 
-SET SESSION alter_algorithm='INPLACE';
 DROP INDEX b_index ON tab;
 ```
 
@@ -706,8 +673,7 @@ CREATE OR REPLACE TABLE tab2 (
    b VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a);
+ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a), ALGORITHM=INPLACE;
 ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Adding foreign keys needs foreign_key_checks=OFF. Try ALGORITHM=COPY
 ```
 
@@ -727,8 +693,7 @@ CREATE OR REPLACE TABLE tab2 (
 );
 
 SET SESSION foreign_key_checks=OFF;
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a);
+ALTER TABLE tab1 ADD FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a), ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.011 sec)
 ```
 
@@ -758,8 +723,7 @@ CREATE OR REPLACE TABLE tab1 (
    FOREIGN KEY tab2_fk (d) REFERENCES tab2 (a)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab1 DROP FOREIGN KEY tab2_fk;
+ALTER TABLE tab1 DROP FOREIGN KEY tab2_fk, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.005 sec)
 ```
 
@@ -782,8 +746,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab AUTO_INCREMENT=100;
+ALTER TABLE tab AUTO_INCREMENT=100, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -806,8 +769,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) ROW_FORMAT=DYNAMIC;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ROW_FORMAT=COMPRESSED;
+ALTER TABLE tab ROW_FORMAT=COMPRESSED, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.025 sec)
 ```
 
@@ -831,8 +793,7 @@ CREATE OR REPLACE TABLE tab (
 ) ROW_FORMAT=COMPRESSED
   KEY_BLOCK_SIZE=4;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab KEY_BLOCK_SIZE=2;
+ALTER TABLE tab KEY_BLOCK_SIZE=2, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.021 sec)
 ```
 
@@ -840,7 +801,7 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=...` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. InnoDB also supports changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
+InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. InnoDB also supports changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
 In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
@@ -857,8 +818,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab PAGE_COMPRESSED=1;
+ALTER TABLE tab PAGE_COMPRESSED=1, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -871,8 +831,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) PAGE_COMPRESSED=1;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab PAGE_COMPRESSED=0;
+ALTER TABLE tab PAGE_COMPRESSED=0, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.020 sec)
 ```
 
@@ -886,8 +845,7 @@ CREATE OR REPLACE TABLE tab (
 ) PAGE_COMPRESSED=1
   PAGE_COMPRESSION_LEVEL=5;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab PAGE_COMPRESSION_LEVEL=4;
+ALTER TABLE tab PAGE_COMPRESSION_LEVEL=4, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.006 sec)
 ```
 
@@ -908,15 +866,14 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 ) WITH SYSTEM VERSIONING;
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP SYSTEM VERSIONING;
+ALTER TABLE tab DROP SYSTEM VERSIONING, ALGORITHM=INPLACE;
 ```
 
 This applies to [ALTER TABLE ... DROP SYSTEM VERSIONING](../../../../reference/sql-statements/data-definition/alter/alter-table/#drop-system-versioning) for [InnoDB](../) tables.
 
 ### `ALTER TABLE ... DROP CONSTRAINT`
 
-In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
+InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -930,8 +887,7 @@ CREATE OR REPLACE TABLE tab (
    CONSTRAINT b_not_empty CHECK (b != '')
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab DROP CONSTRAINT b_not_empty;
+ALTER TABLE tab DROP CONSTRAINT b_not_empty, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.004 sec)
 ```
 
@@ -954,8 +910,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab FORCE;
+ALTER TABLE tab FORCE, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.022 sec)
 ```
 
@@ -978,18 +933,21 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab ENGINE=InnoDB;
+ALTER TABLE tab ENGINE=InnoDB, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.022 sec)
 ```
 
-This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#storage-engine) for [InnoDB](../) tables.
+This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statements/data-definition/create/create-table.md#engine) for [InnoDB](../) tables.
 
 ### `OPTIMIZE TABLE ...`
 
+{% hint style="info" %}
+`OPTIMIZE TABLE` has no `ALGORITHM` clause. In MariaDB 11.4 and earlier, it uses the algorithm set by the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable, as in the example below. From MariaDB 11.5, that variable is ignored ([MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655)), and `OPTIMIZE TABLE` always uses the default algorithm.
+{% endhint %}
+
 InnoDB supports optimizing a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
-If the [innodb\_defragment](../innodb-system-variables.md#innodb_defragment) system variable is set to `OFF`, and if the [innodb\_optimize\_fulltext\_only](../innodb-system-variables.md#innodb_optimize_fulltext_only) system variable is also set to `OFF`, then `OPTIMIZE TABLE` are equivalent to `ALTER TABLE … FORCE`.
+If the [innodb\_defragment](../innodb-system-variables.md#innodb_defragment) system variable is set to `OFF`, and if the [innodb\_optimize\_fulltext\_only](../innodb-system-variables.md#innodb_optimize_fulltext_only) system variable is also set to `OFF`, then `OPTIMIZE TABLE` is equivalent to `ALTER TABLE … FORCE`. The `innodb_defragment` system variable exists in MariaDB 11.0 and earlier only; it was removed in MariaDB 11.1 ([MDEV-30545](https://jira.mariadb.org/browse/MDEV-30545)).
 
 The table is rebuilt, which means that all of the data is reorganized substantially, and the indexes are rebuilt. As a result, the operation is quite expensive.
 
@@ -1070,8 +1028,7 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
-ALTER TABLE tab RENAME TO old_tab;
+ALTER TABLE tab RENAME TO old_tab, ALGORITHM=INPLACE;
 Query OK, 0 rows affected (0.011 sec)
 ```
 
@@ -1084,7 +1041,6 @@ CREATE OR REPLACE TABLE tab (
    c VARCHAR(50)
 );
 
-SET SESSION alter_algorithm='INPLACE';
 RENAME TABLE tab TO old_tab;
 ```
 
@@ -1103,7 +1059,7 @@ This applies to [ALTER TABLE ... RENAME TO](../../../../reference/sql-statements
 
 ### Limitations Related to Generated (Virtual and Persistent/Stored) Columns
 
-[Generated columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md) do not currently support online DDL for all of the same operations that are supported for "real" columns.
+[Generated columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md) do not support online DDL for all of the same operations that are supported for "real" columns.
 
 See [Generated (Virtual and Persistent/Stored) Columns: Statement Support](../../../../reference/sql-statements/data-definition/create/generated-columns.md#statement-support) for more information on the limitations.
 

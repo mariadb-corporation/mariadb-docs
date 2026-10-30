@@ -22,7 +22,7 @@ A long integer representing the client version
 
 {% hint style="info" %}
 * To obtain a string containing the client library version use the [mysql\_get\_client\_info()](mysql_get_client_info.md) function.
-* Since MariaDB Server 10.2.6 and MariaDB Connector/C 3.0.1 the client library is bundled with server package and returns the server package version. To obtain the client version of the connector, please use the constant `MARIADB_PACKAGE_VERSION_ID`
+* When the client library is bundled with the server package, it returns the server package version. To obtain the client version of the connector, please use the constant `MARIADB_PACKAGE_VERSION_ID`
 {% endhint %}
 
 ## See Also

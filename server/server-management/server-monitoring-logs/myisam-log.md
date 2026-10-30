@@ -1,7 +1,7 @@
 ---
 description: >-
-  Explains the MyISAM log (`myisam.log`), a specialized log for recording
-  changes to MyISAM tables for debugging purposes, enabled via the `--log-isam`
+  Explains the MyISAM log (myisam.log), a specialized log for recording
+  changes to MyISAM tables for debugging purposes, enabled via the --log-isam
   option.
 ---
 

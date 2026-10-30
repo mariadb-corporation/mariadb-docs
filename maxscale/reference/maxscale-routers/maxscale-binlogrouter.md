@@ -30,7 +30,7 @@ The related configuration options, which are explained in more detail in the con
 * [_archivedir_](maxscale-binlogrouter.md#archivedir) \_Directory to which files are archived. This directory must exist when MaxScale is started.
 * [expire\_log\_minimum\_files](maxscale-binlogrouter.md#expire_log_minimum_files) The minimum number of binlogs to keep before purge or archive is allowed.
 * [_expire\_log\_duration_](maxscale-binlogrouter.md#expire_log_duration) Duration from the last file modification until the binlog is eligible for purge or archive.
-* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Currently only zstandard is supported.
+* [compression\_algorithm](maxscale-binlogrouter.md#compression_algorithm) Select a compression algorithm or `none` for no compression. Only zstandard is supported.
 * [number\_of\_noncompressed\_files](maxscale-binlogrouter.md#number_of_noncompressed_files) The minimum number of binlogs not to compress.
 
 Following are example settings where it is expected that a replica is down for no more than 24 hours.
@@ -96,7 +96,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SHOW BINARY LOGS`
 * Lists the current files and their sizes. These will be different from the ones listed by the original primary where the binlogrouter is replicating from.
 * `PURGE { BINARY | MASTER } LOGS TO <filename>`
-* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not currently supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
+* Purges binary logs up to but not including the given file. The file name must be one of the names shown in `SHOW BINARY LOGS`. The version of this command which accepts a timestamp is not supported. Automatic purging is supported using the configuration parameter [expire\_log\_duration](maxscale-binlogrouter.md#expire_log_duration). The files are purged in the order they were created. If a file to be purged is detected to be in use, the purge stops. This means that the purge will stop at the oldest file that a replica is still reading. NOTE: You should still take precaution not to purge files that a potential replica will need in the future. MaxScale can only detect that a file is in active use when a replica is connected, and requesting events from it.
 * `SHOW MASTER STATUS`
 * Shows the name and position of the file to which the binlogrouter will write the next replicated data. The name and position do not correspond to the name and position in the primary.
 * `SHOW SLAVE STATUS`
@@ -143,7 +143,7 @@ NOTE: `MASTER_LOG_FILE` and `MASTER_LOG_POS` are not supported as binlogrouter o
 * `SET`
 * `@@global.gtid_slave_pos`: Set the position from which binlogrouter should start replicating. E.g. `SET @@global.gtid_slave_pos="0-1000-1234,1-1001-5678"`
 * `SHOW VARIABLES LIKE '...'`
-* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not currently supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. Currently the only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
+* Shows variables matching a string. The `LIKE` operator in `SHOW VARIABLES` is mandatory for the binlogrouter. This means that a plain `SHOW VARIABLES` is not supported. In addition, the `LIKE` operator in binlogrouter only supports exact matches. The only variables that are returned are `gtid_slave_pos`,`gtid_current_pos` and `gtid_binlog_pos` which return the current GTID coordinates of the binlogrouter. In addition to these, the `server_id` variable will return the configured server ID of the binlogrouter.
 
 ## Semi-sync replication
 
@@ -161,6 +161,7 @@ The settings that control change data capture from MariaDB to Exasol are documen
 * Mandatory: No
 * Dynamic: No
 * Default: `/var/lib/maxscale/binlogs`
+* Description: Shows the directory where binary log files are stored.
 
 Directory where binary log files are stored.
 
@@ -170,6 +171,7 @@ Directory where binary log files are stored.
 * Mandatory: Yes
 * Default: No
 * Dynamic: No
+* Description: Specifies the directory where files are archived when `expiration_mode` is set to `archive`. 
 
 Mandatory if `expiration_mode=archive`
 
@@ -187,6 +189,7 @@ The directory must exist when MaxScale starts.
 * Mandatory: No
 * Dynamic: No
 * Default: `1234`
+* Description: Mentions the server ID used by MaxScale for replication and serving binary logs to replicas.
 
 The server ID that MaxScale uses when connecting to the primary and when serving binary logs to the replicas.
 
@@ -196,6 +199,7 @@ The server ID that MaxScale uses when connecting to the primary and when serving
 * Mandatory: No
 * Dynamic: No
 * Default: `10s`
+* Description: Sets the network connection and read timeout for the primary server connection.
 
 Network connection and read timeout for the connection to the primary.
 
@@ -205,6 +209,7 @@ Network connection and read timeout for the connection to the primary.
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
+* Description: Selects a primary server for replication automatically from a list of servers that are monitored and have Master status.
 
 Automatically select the primary server to replicate from.
 
@@ -222,6 +227,7 @@ The GTID the replication will start from, will be based on the latest replicated
 * Dynamic: No
 * Values: `purge`, `archive`
 * Default: `purge`
+* Description: Indicates whether expired logs are automatically deleted or archived.
 
 Choose whether expired logs should be purged or archived.
 
@@ -231,6 +237,7 @@ Choose whether expired logs should be purged or archived.
 * Mandatory: No
 * Dynamic: No
 * Default: `0s`
+* Description: Sets the duration after which binary log files expire and are eligible for purge or archiving.
 
 Duration after which a binary log file expires, i.e. becomes eligible for purge or archive. This is similar to the server system variable.
 
@@ -246,6 +253,7 @@ The duration is measured from the last modification of the log file. Files are p
 * Mandatory: No
 * Dynamic: No
 * Default: `2`
+* Description: Determines the minimum number of binary log files to keep during automatic purging.
 
 The minimum number of log files the automatic purge keeps. At least one file is always kept.
 
@@ -256,6 +264,7 @@ The minimum number of log files the automatic purge keeps. At least one file is 
 * Dynamic: No
 * Values: `none`, `zstandard`
 * Default: `none`
+* Description: Defines the compression algorithm to use for archived files.
 
 ### `number_of_noncompressed_files`
 
@@ -263,6 +272,7 @@ The minimum number of log files the automatic purge keeps. At least one file is 
 * Mandatory: No
 * Dynamic: No
 * Default: `2`
+* Description: Specifies the minimum number of binary log files to keep up uncompressed.
 
 The minimum number of log files that are not compressed. At least one file is not compressed.
 
@@ -272,6 +282,7 @@ The minimum number of log files that are not compressed. At least one file is no
 * Mandatory: No
 * Dynamic: No
 * Default: false
+* Description: When enabled, only DDL events (CREATE, ALTER, DROP) are logged, excluding data changes.
 
 When enabled, only DDL events are written to the binary logs. This means that`CREATE`, `ALTER` and `DROP` events are written but `INSERT`, `UPDATE` and`DELETE` events are not.
 
@@ -283,6 +294,7 @@ This mode can be used to keep a record of all the schema changes that occur on a
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+* Description: Specifies the encryption key ID used to encrypt binary logs, requiring a configured key manager.
 
 Encryption key ID used to encrypt the binary logs. If configured, an [Encryption Key Manager](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) must also be configured and it must contain the key with the given ID. If the encryption key manager supports versioning, new binary logs will be encrypted using the latest encryption key. Old binlogs will remain encrypted with older key versions and remain readable as long as the key versions used to encrypt them are available.
 
@@ -297,8 +309,9 @@ Re-encryption of binlogs using another encryption key is not possible. However, 
 * Dynamic: No
 * Values: `AES_CBC`, `AES_CTR`, `AES_GCM`
 * Default: `AES_GCM`
+* Description: Defines the AES encryption mode used for securing data, such as GCM, CBC, or CTR.
 
-The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are currently supported.
+The encryption cipher to use. The encryption key size also affects which mode is used: only 128, 192 and 256 bit encryption keys are supported.
 
 Possible values are:
 
@@ -315,6 +328,7 @@ Possible values are:
 * Mandatory: No
 * Default: false
 * Dynamic: Yes
+* Description: Enables semi-synchronous replication from a MariaDB server by sending acknowledgements for received events.
 
 Enable [semi-synchronous](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md) replication when replicating from a MariaDB server. If enabled, the binlogrouter will send acknowledgment for each received event. Note that the [rpl\_semi\_sync\_master\_enabled](../../../server/ha-and-performance/standard-replication/semisynchronous-replication.md#rpl_semi_sync_master_enabled) parameter must be enabled in the MariaDB server where the replication is done from for the semi-synchronous replication to take place.
 

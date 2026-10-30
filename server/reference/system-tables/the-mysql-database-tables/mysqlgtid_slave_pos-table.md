@@ -6,13 +6,13 @@ description: >-
 
 # mysql.gtid\_slave\_pos Table
 
-The `mysql.gtid_slave_pos` table is used in [replication](../../../ha-and-performance/standard-replication/) by replica servers to keep track of their current position (the [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md) of the last transaction applied). Using the table allows the replica to maintain a consistent value for the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md) system variable across server restarts. See [Global Transaction ID](../../../ha-and-performance/standard-replication/gtid.md).
+The `mysql.gtid_slave_pos` table is used in [replication](../../../ha-and-performance/standard-replication/) by replica servers to keep track of their current position (the [global transaction ID](../../../ha-and-performance/standard-replication/gtid/README.md) of the last transaction applied). Using the table allows the replica to maintain a consistent value for the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/README.md) system variable across server restarts. See [Global Transaction ID](../../../ha-and-performance/standard-replication/gtid/README.md).
 
 You should never attempt to modify the table directly. If you do need to change the global `gtid_slave_pos` value, use `SET GLOBAL gtid_slave_pos = ...` instead.
 
 The table is updated with the new position as part of each transaction committed during replication. This makes it preferable that the table is using the same storage engine as the tables otherwise being modified in the transaction, since otherwise a multi-engine transaction is needed that can reduce performance.
 
-Multiple versions of this table are supported, each using a different storage engine. This is selected with the [gtid\_pos\_auto\_engines option](../../../ha-and-performance/standard-replication/gtid.md), by giving a comma-separated list of engine names. The server will then on-demand create an extra version of the table using the appropriate storage engine, and select the table version using the same engine as the rest of the transaction, avoiding multi-engine transactions.
+Multiple versions of this table are supported, each using a different storage engine. This is selected with the [gtid\_pos\_auto\_engines option](../../../ha-and-performance/standard-replication/gtid/README.md), by giving a comma-separated list of engine names. The server will then on-demand create an extra version of the table using the appropriate storage engine, and select the table version using the same engine as the rest of the transaction, avoiding multi-engine transactions.
 
 When `gtid_pos_auto_engines=innodb,rocksdb` is set, the tables `mysql.gtid_slave_pos_InnoDB` and `mysql.gtid_slave_pos_RocksDB` are created and used, if needed. If there is no match to the storage engine, the default `mysql.gtid_slave_pos` table is used; this also happens if non-transactional updates (like MyISAM) are replicated, since there is then no active transaction at the time of the `mysql.gtid_slave_pos` table update.
 
@@ -31,9 +31,9 @@ The table `mysql.gtid_slave_pos` contains the following fields:
 
 | Field      | Type                | Null | Key | Default | Description                                                                                                                                                                                                              |
 | ---------- | ------------------- | ---- | --- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| domain\_id | int(10) unsigned    | NO   | PRI | NULL    | Domain id (see [Global Transaction ID domain ID](../../../ha-and-performance/standard-replication/gtid.md).                                                                                                              |
+| domain\_id | int(10) unsigned    | NO   | PRI | NULL    | Domain id (see [Global Transaction ID domain ID](../../../ha-and-performance/standard-replication/gtid/README.md).                                                                                                              |
 | sub\_id    | bigint(20) unsigned | NO   | PRI | NULL    | This field enables multiple parallel transactions within same domain\_id to update this table without contention. At any instant, the replication state corresponds to records with largest sub\_id for each domain\_id. |
-| server\_id | int(10) unsigned    | NO   |     | NULL    | [Server id](../../../ha-and-performance/standard-replication/gtid.md).                                                                                                                                                   |
+| server\_id | int(10) unsigned    | NO   |     | NULL    | [Server id](../../../ha-and-performance/standard-replication/gtid/README.md).                                                                                                                                                   |
 | seq\_no    | bigint(20) unsigned | NO   |     | NULL    | Sequence number, an integer that is monotonically increasing for each new event group logged into the binlog.                                                                                                            |
 
 Some status variables are available to monitor the use of the different `gtid_slave_pos` table versions:

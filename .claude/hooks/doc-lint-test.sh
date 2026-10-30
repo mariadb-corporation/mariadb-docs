@@ -25,11 +25,18 @@
 #   different coreutils.
 #
 # WHAT IT COVERS AND WHAT IT DOES NOT
-#   It exercises the GitBook `{% include %}` resolver (DOCS-6372, also gated in CI by
-#   includecheck-pr.yml since DOCS-6586) and the net line-loss "gutted page" guard (DOCS-6470,
-#   for the DOCS-6442 class), which still has no CI counterpart — plus the plumbing every check
-#   sits behind: the repo-root config guard, the argument filter, the env-var knobs, and the
-#   tool-missing SKIP branches.
+#   It exercises the GitBook `{% include %}` resolver (DOCS-6372, gated in CI by
+#   includecheck-pr.yml), the net line-loss "gutted page" guard (DOCS-6470, for the DOCS-6442
+#   class, gated by shrinkcheck-pr.yml), the orphaned-page guard (DOCS-6567, gated by
+#   navcheck-pr.yml) and the acknowledgment register those last two read (DOCS-6586) — plus the
+#   plumbing every check sits behind: the repo-root config guard, the argument filter, the
+#   env-var knobs, and the tool-missing SKIP branches.
+#
+#   As of DOCS-6586 every check exercised here has a CI counterpart, so this suite is no longer
+#   the last line of defence for any of them — but it is still the only thing that exercises the
+#   SCRIPT, on a platform the author is not using, which is the DOCS-6409 class. The one check
+#   that stays local-only is the retired-Knowledge-Base link rule (doc-lint.sh, DOC_LINT_ALLOW_KB)
+#   — for that one this suite IS the only gate.
 #
 #   codespell and lychee are gated separately by codespell.yml and link-check-pr.yml, so their
 #   flag sets are not what this suite guards. What it does guard is that doc-lint REACHES them:
@@ -118,7 +125,8 @@ gen_lines() {
 
 build_sandbox() {
   mkdir -p "$SANDBOX/server/includes" "$SANDBOX/maxscale" \
-           "$SANDBOX/.gitbook/includes" "$SANDBOX/dev-docs" "$SANDBOX/.claude"
+           "$SANDBOX/.gitbook/includes" "$SANDBOX/dev-docs" "$SANDBOX/.claude" \
+           "$SANDBOX/.claude/hooks"
 
   # The repo-root marker doc-lint.sh insists on. Carries one ignore word so the
   # "-I .codespellignore is honoured" case has something to be ignored. Spliced for the same
@@ -154,6 +162,9 @@ build_sandbox() {
   gen_lines  10 "$SANDBOX/server/tiny.md"        #  20 lines -> under SHRINK_FLOOR (30)
   gen_lines  20 "$SANDBOX/server/small-loss.md"  #  40 lines -> can lose <SHRINK_MIN net
   gen_lines  50 "$SANDBOX/server/modest.md"      # 100 lines -> 25% loss: under PCT, over MIN
+  # A path with a space, for shrinkcheck.py's --stdin0 branch. NUL-delimiting exists so that
+  # this cannot split into two arguments, and a space is the cheapest way to prove it did not.
+  gen_lines 120 "$SANDBOX/server/gutted with spaces.md"
 
   # codespell fixtures. The misspellings are spliced across a quote boundary on purpose: written
   # whole, they would make this file itself a permanent false positive in every repo-wide
@@ -181,6 +192,165 @@ build_sandbox() {
   # Not a Markdown/HTML path, so the argument filter must drop it.
   printf 'not markdown\n' > "$SANDBOX/server/notes.txt"
 
+  # Paired version-include fixtures (DOCS-6734). A self-contained mini-repo under vc/, NOT files
+  # at the sandbox root: versioncheck.py is tree-wide and roots itself at the nearest
+  # .codespellignore, so a mismatched pair at the root would fail every other case in this suite.
+  # Its own marker confines it to the case that asks for it -- and leaves the root sandbox with no
+  # includes directories at all, which is exactly what the SKIP case needs.
+  mkdir -p "$SANDBOX/vc/release-notes/.gitbook/includes" \
+           "$SANDBOX/vc/platform/.gitbook/includes"
+  : > "$SANDBOX/vc/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/vc/clean.md"
+  vcr="$SANDBOX/vc/release-notes/.gitbook/includes"
+  # One disagreeing pair: the release-notes side bumped to 3.4.11, the platform side left behind.
+  printf -- '---\ntitle: latest-c\n---\n\n<p><strong>3.4.11</strong></p>\n' > "$vcr/latest-c.md"
+  printf -- '---\ntitle: most-recent-c\n---\n\n* The most recent release is 3.4.9, released on 1 Jan 2026\n' \
+    > "$SANDBOX/vc/platform/.gitbook/includes/most-recent-c.md"
+  # The two NO_PLATFORM_INCLUDE connectors, present so the fixture reports ONLY the disagreement.
+  # Their absence is a stale-exemption finding by design -- the register prunes itself -- and
+  # leaving them out would make this case pass for three reasons instead of the one it names.
+  printf -- '---\ntitle: latest-cpp\n---\n\n<p><strong>1.1.8</strong></p>\n'   > "$vcr/latest-cpp.md"
+  printf -- '---\ntitle: latest-r2dbc\n---\n\n<p><strong>1.4.2</strong></p>\n' > "$vcr/latest-r2dbc.md"
+
+  # no-standalone register fixtures (DOCS-6734). Its own mini-repo under pd/ for the same reason
+  # vc/ is one: the audit roots itself at the nearest .codespellignore and reads the register
+  # beside it, so a register here must not be the register every other case sees.
+  mkdir -p "$SANDBOX/pd/.claude/hooks" "$SANDBOX/pd/platform/post-download" \
+           "$SANDBOX/pd/release-notes/connectors/c/3.4" \
+           "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4"
+  : > "$SANDBOX/pd/.codespellignore"
+  printf '# Clean Page\n\nNothing here trips any check.\n' > "$SANDBOX/pd/clean.md"
+  printf '# Connector/C 3.4.10 Release Notes\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+  printf '# Connector/C 3.4.10 Changelog\n' \
+    > "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.10.md"
+  printf '# Post Download\n' > "$SANDBOX/pd/platform/post-download/README.md"
+
+  # Mermaid edge-label contrast fixtures (DOCS-6630). Quoted heredocs, not printf: the init
+  # directive starts with `%%{`, which printf would read as a format.
+  mkdir -p "$SANDBOX/server/mermaid"
+  cat > "$SANDBOX/server/mermaid/unfixed.md" <<'MD'
+# Unfixed
+
+```mermaid
+flowchart TD
+    A[Start] -->|Yes| B[End]
+```
+MD
+  cat > "$SANDBOX/server/mermaid/fixed.md" <<'MD'
+# Fixed
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+flowchart TD
+    A[Start] -- No --> B[End]
+    linkStyle default color:#111111
+```
+MD
+  # The one-line fix first proposed on DOCS-6630. It measured 1.44:1 in the dark theme, so it
+  # must fail: it sets no text colour.
+  cat > "$SANDBOX/server/mermaid/ticket-variant.md" <<'MD'
+# Ticket Variant
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff", "tertiaryTextColor": "#111111"}}}%%
+flowchart TD
+    A -->|Yes| B
+```
+MD
+  cat > "$SANDBOX/server/mermaid/low-contrast.md" <<'MD'
+# Low Contrast
+
+```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
+graph LR
+    A -->|Yes| B
+    linkStyle default color:#cccccc
+```
+MD
+  # Nothing to fix: no edge labels, a `--` and a `|` inside node text and the description, and a
+  # non-flowchart diagram with labelled arrows.
+  cat > "$SANDBOX/server/mermaid/unlabelled.md" <<'MD'
+# Unlabelled
+
+```mermaid
+flowchart LR
+    accTitle: Two nodes
+    accDescr { A -- to --> B, with a | in it }
+    A["a -- b --> c"] --> B[x | y]
+```
+
+```mermaid
+sequenceDiagram
+    A->>B: hello
+```
+MD
+  # The regression that shipped in the first draft: the asymmetric-node rule (`A>text]`) ate the
+  # arrowhead and the label of `-->|build| Image[image]`, hiding 13 labelled diagrams.
+  cat > "$SANDBOX/server/mermaid/pipe-before-node.md" <<'MD'
+# Pipe Before Node
+
+```mermaid
+flowchart LR
+    Dockerfile[Dockerfile] -->|build| Image[image]
+```
+MD
+  cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/unfixed with spaces.md"
+
+  # Page-description fixtures (DOCS-6763). GitBook cuts a description at 200 characters and
+  # renders it as plain text, so each of these is a defect a reader would see.
+  mkdir -p "$SANDBOX/server/desc" "$SANDBOX/agent-skills/desc"
+  cat > "$SANDBOX/server/desc/clean.md" <<'MD'
+---
+description: >-
+  A short, plain description that says what the page covers, well under the
+  limit.
+---
+
+# Clean Description
+MD
+  # 201 characters once folded: one over the limit, so the boundary itself is tested.
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 201); printf '\n---\n\n# Long\n'; } \
+    > "$SANDBOX/server/desc/long.md"
+  { printf -- '---\ndescription: >-\n  '; printf 'x%.0s' $(seq 1 200); printf '\n---\n\n# Exactly 200\n'; } \
+    > "$SANDBOX/server/desc/exactly-200.md"
+  # The MaxScale Exasolrouter shape before #1184: a blank line inside the folded scalar.
+  cat > "$SANDBOX/server/desc/blank-line.md" <<'MD'
+---
+description: >-
+  First paragraph.
+
+  Second paragraph.
+---
+
+# Blank Line
+MD
+  cat > "$SANDBOX/server/desc/backtick.md" <<'MD'
+---
+description: Load time zones with the `mariadb-tzinfo-to-sql` utility.
+---
+
+# Backtick
+MD
+  cat > "$SANDBOX/server/desc/title.md" <<'MD'
+---
+description: 'Step 9: Import Data'
+---
+
+# Step 9: Import Data
+MD
+  # `<` and `&` are HTML-escaped by GitBook and render as written, so they must NOT fail.
+  cat > "$SANDBOX/server/desc/angle.md" <<'MD'
+---
+description: Delete a restore with a DELETE call to /restores/<ID> & an API key.
+---
+
+# Angle
+MD
+  # Outside every GitBook space: a SKILL.md description is agent-trigger text, long on purpose.
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/agent-skills/desc/SKILL.md"
+  cp "$SANDBOX/server/desc/long.md" "$SANDBOX/server/desc/long with spaces.md"
+
   (
     cd "$SANDBOX" || exit 1
     git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
@@ -196,6 +366,7 @@ build_sandbox() {
   gen_lines   1 "$SANDBOX/server/tiny.md"         #  20 ->  2: pre-image under the floor
   gen_lines  11 "$SANDBOX/server/small-loss.md"   #  40 -> 22: net 18, under SHRINK_MIN (20)
   gen_lines  37 "$SANDBOX/server/modest.md"       # 100 -> 74: net 26, 26% — under PCT (40)
+  gen_lines  10 "$SANDBOX/server/gutted with spaces.md"   # 240 -> 20, as above
   # Never committed, so the guard has no pre-image to compare against.
   gen_lines 120 "$SANDBOX/server/brand-new.md"
 }
@@ -225,6 +396,11 @@ build_navbox() {
   : > "$NAVBOX/.codespellignore"
   cp "$SCRIPT_DIR/navcheck.py"     "$NAVBOX/.claude/hooks/navcheck.py"
   cp "$SCRIPT_DIR/includecheck.sh" "$NAVBOX/.claude/hooks/includecheck.sh"
+  # navcheck.py imports allowlist.py for the acknowledgment register (DOCS-6586) and treats its
+  # absence as a broken checkout rather than a missing tool, so the copy is not optional -- and
+  # one case below deletes it on purpose to assert exactly that.
+  cp "$SCRIPT_DIR/allowlist.py"    "$NAVBOX/.claude/hooks/allowlist.py"
+  cp "$SCRIPT_DIR/shrinkcheck.py"  "$NAVBOX/.claude/hooks/shrinkcheck.py"
 
   # Ignored paths, for the enumeration case. `scratch/` is the shape that motivated the fix:
   # /graphify writes GRAPH_REPORT.md into the tree, git ignores it, and os.walk did not.
@@ -259,6 +435,20 @@ build_navbox() {
     git config commit.gpgsign false
     git add -A >/dev/null
     git commit -q -m 'nav fixtures' >/dev/null
+  ) || return 1
+
+  # pd/ is its own repo, initialised AFTER the sandbox commit above so the outer repo never
+  # sees it as embedded. The new-page gate reads its base side from the object store of the repo
+  # it is rooted at, and refuses to run if that is not the top of the tree (a nested tree would
+  # answer for the outer repo and call every page new) -- so the gate cases need a real HEAD here.
+  (
+    cd "$SANDBOX/pd" || exit 1
+    git init -q -b main . >/dev/null 2>&1 || git init -q . >/dev/null 2>&1
+    git config user.name  'doc-lint test'
+    git config user.email 'doc-lint-test@example.invalid'
+    git config commit.gpgsign false
+    git add -A >/dev/null
+    git commit -q -m 'post-download fixtures' >/dev/null
   ) || return 1
 }
 
@@ -359,6 +549,74 @@ nav() {
 navreset() {
   ( cd "$NAVBOX" && git checkout -q -- . && git clean -fdxq \
       -e .claude -e .codespellignore ) || return 1
+  # The register is never committed in the fixture, and `git clean -e .claude` deliberately
+  # keeps the whole directory, so a case that wrote one has to have it removed here or the
+  # next case inherits its acknowledgments.
+  rm -f "$NAVBOX/.claude/hooks/doc-lint-allow.yml"
+}
+
+# shrink <env-assignments...> -- <shrinkcheck args...>
+# shrinkcheck.py driven directly, which is how shrinkcheck-pr.yml drives it (DOCS-6586) -- so
+# its argument handling, its --stdin0 mode, its counts line and its exit codes are a public
+# surface rather than internals reachable only through doc-lint.sh. Findings go to stderr and
+# the counts line to stdout, the contract both doc-lint.sh's `>/dev/null` and the workflow's
+# non-vacuity assertion depend on, so the two are captured separately.
+#   SHRINK_STDIN   a file to feed on stdin, for the --stdin0 branch
+#   SHRINK_ROOT    the tree to run in (default: the main sandbox)
+#   SHRINK_SCRIPT  the copy of the script to run (default: the one under test)
+SHRINKCHECK="$SCRIPT_DIR/shrinkcheck.py"
+SHRINK_STDIN=''
+SHRINK_ROOT=''
+SHRINK_SCRIPT=''
+shrink() {
+  local root="${SHRINK_ROOT:-$SANDBOX}"
+  local script="${SHRINK_SCRIPT:-$SHRINKCHECK}"
+  local cmd=(env -i "PATH=$MIN_PATH" "HOME=$root" "TMPDIR=${TMPDIR:-/tmp}")
+  while [ "$#" -gt 0 ] && [ "$1" != '--' ]; do cmd+=("$1"); shift; done
+  shift  # drop the --
+  cmd+=(python3 "$script" "$@")
+
+  set +e
+  if [ -n "$SHRINK_STDIN" ]; then
+    ( cd "$root" && "${cmd[@]}" < "$SHRINK_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$root" && "${cmd[@]}" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+
+  if [ "$VERBOSE" = "1" ]; then sed 's/^/      | /' < "$ERR"; fi
+}
+
+# al <allowlist.py args...> — the register's parser on its own. It is the SINGLE parser for
+# .claude/hooks/doc-lint-allow.yml, read by both guards, so what it accepts and rejects is
+# asserted here rather than only through its callers.
+al() {
+  local root="${SHRINK_ROOT:-$SANDBOX}"
+  set +e
+  ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
+      python3 "$SCRIPT_DIR/allowlist.py" "$@" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+# pd <tree> -- <postdownload args...>. Roots at the tree, like the real invocation: the audit
+# resolves the repo from the working directory so it reads the register beside the pages it is
+# auditing, not the repo's own.
+pd() {
+  local root="$1"; shift
+  set +e
+  ( cd "$root" && env -i "PATH=$MIN_PATH" "HOME=$root" \
+      python3 "$SCRIPT_DIR/postdownload.py" "$@" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+# write_allow <tree> — the register, body on stdin. Never committed in either sandbox, so a
+# case that writes one removes it again (navreset does it for the orphan sandbox).
+write_allow() {
+  mkdir -p "$1/.claude/hooks"
+  cat > "$1/.claude/hooks/doc-lint-allow.yml"
 }
 
 begin() { CURRENT="$1"; CASE_OK=1; }
@@ -563,6 +821,292 @@ set -e
 want_rc 1
 want_err 'cannot resolve GitBook includes'
 want_err 'broken checkout'
+end
+
+# ---- Mermaid edge-label contrast (DOCS-6630; gated in CI by mermaidcheck-pr.yml) -------------
+# mermaidcheck.py is driven directly, the way mermaidcheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation. python3 is looked up on MIN_PATH like shrinkcheck's is.
+MERMAIDCHECK="$SCRIPT_DIR/mermaidcheck.py"
+MM_STDIN=''
+mm() {
+  set +e
+  if [ -n "$MM_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < "$MM_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$MERMAIDCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'mermaidcheck.py with no arguments is a usage error, not a silent pass'
+mm
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'an edge-labelled flowchart with no fix fails'
+mm server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
+want_err 'linkStyle default'
+end
+
+begin 'the house fix passes, and the summary counts what was checked'
+mm server/mermaid/fixed.md
+want_rc 0
+want_out '1 edge-labelled flowchart(s) in 1 file(s); 0 failing'
+end
+
+begin 'the one-line directive first proposed on the ticket fails — it sets no text colour'
+mm server/mermaid/ticket-variant.md
+want_rc 1
+want_err 'linkStyle default'
+end
+
+begin 'a fix whose colours miss 4.5:1 fails on the measured ratio'
+mm server/mermaid/low-contrast.md
+want_rc 1
+want_err 'contrast 1.44:1'
+end
+
+begin 'no edge labels, labels inside node text, and non-flowcharts need nothing'
+mm server/mermaid/unlabelled.md
+want_rc 0
+want_out '0 edge-labelled flowchart(s)'
+end
+
+begin 'a pipe label before a bracketed node is still a label (first-draft regression)'
+mm server/mermaid/pipe-before-node.md
+want_rc 1
+want_err 'no init directive'
+end
+
+begin '--fix adds the house fix, and a second run is clean and changes nothing'
+cp "$SANDBOX/server/mermaid/unfixed.md" "$SANDBOX/server/mermaid/tofix.md"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+cp "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+mm --fix server/mermaid/tofix.md
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+mm server/mermaid/tofix.md
+want_rc 0
+rm -f "$SANDBOX/server/mermaid/tofix.md" "$SANDBOX/.tofix-once"
+end
+
+begin 'mermaidcheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/mermaid/unfixed with spaces.md'
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 1
+want_err 'server/mermaid/unfixed with spaces.md'
+end
+
+begin 'mermaidcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+MM_STDIN="$SANDBOX/.list" mm --stdin0
+MM_STDIN=''
+want_rc 0
+want_out 'no Markdown files'
+end
+
+begin 'doc-lint.sh reaches mermaidcheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/mermaid/unfixed.md
+want_rc 1
+want_err 'no init directive'
+end
+
+# ---- page descriptions (DOCS-6763; gated in CI by desccheck-pr.yml) ------------------------
+# desccheck.py is driven directly, the way desccheck-pr.yml drives it, plus once through
+# doc-lint.sh to prove the delegation.
+DESCCHECK="$SCRIPT_DIR/desccheck.py"
+DC_STDIN=''
+dc() {
+  set +e
+  if [ -n "$DC_STDIN" ]; then
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < "$DC_STDIN" ) > "$OUT" 2> "$ERR"
+  else
+    ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+        python3 "$DESCCHECK" "$@" < /dev/null ) > "$OUT" 2> "$ERR"
+  fi
+  RC=$?
+  set -e
+}
+
+begin 'desccheck.py with no arguments is a usage error, not a silent pass'
+dc
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a short plain description passes, and the summary counts what was checked'
+dc server/desc/clean.md
+want_rc 0
+want_out '1 description(s) in 1 published file(s) (1 given, 0 exempt or not Markdown); 0 failing'
+end
+
+begin 'exactly 200 characters passes; 201 fails'
+dc server/desc/exactly-200.md
+want_rc 0
+dc server/desc/long.md
+want_rc 1
+want_err '201 characters'
+end
+
+begin 'a blank line inside a folded description fails (the Exasolrouter shape)'
+dc server/desc/blank-line.md
+want_rc 1
+want_err 'blank line inside the block scalar'
+end
+
+begin 'a backtick fails, because GitBook shows it literally'
+dc server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
+end
+
+begin 'a description that repeats the H1 fails'
+dc server/desc/title.md
+want_rc 1
+want_err 'repeats the page title'
+end
+
+begin 'angle brackets and ampersands pass: GitBook escapes them'
+dc server/desc/angle.md
+want_rc 0
+end
+
+begin 'agent-skills/ is exempt: SKILL.md descriptions are not page descriptions'
+dc agent-skills/desc/SKILL.md
+want_rc 0
+want_out '(1 given, 1 exempt or not Markdown)'
+end
+
+begin 'desccheck --stdin0 does not split a path containing a space'
+nul_list "$SANDBOX/.list" 'server/desc/long with spaces.md'
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 1
+want_err 'server/desc/long with spaces.md'
+end
+
+begin 'desccheck --stdin0 on empty input reports zero given rather than claiming a clean set'
+nul_list "$SANDBOX/.list"
+DC_STDIN="$SANDBOX/.list" dc --stdin0
+DC_STDIN=''
+want_rc 0
+want_out '(0 given,'
+end
+
+begin 'doc-lint.sh reaches desccheck.py'
+lint . - DOC_LINT_SKIP_FRAGMENTS=1 -- server/desc/backtick.md
+want_rc 1
+want_err 'contains a backtick'
+end
+
+# ---- railroad-diagram dark-mode card (DOCS-6637; gated in CI by railroadcheck-pr.yml) --------
+# railroadcheck.py is driven directly, the way railroadcheck-pr.yml drives it. The fixture is
+# the smallest committed diagram as RR 2.6 emits it, before the card, so --fix is exercised on
+# real generator output rather than a hand-made imitation.
+RAILROADCHECK="$SCRIPT_DIR/railroadcheck.py"
+RR_DIR="$SANDBOX/server/rr"
+mkdir -p "$RR_DIR"
+cat > "$RR_DIR/raw.svg" <<'SVG'
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="227" height="37">
+   <defs>
+      <style type="text/css">
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <path class="line" d="m17 17 h2 m0 0 h10"/>
+</svg>
+SVG
+sed 's|</defs>|</defs>\n   <rect width="100%" height="100%" fill="#ffffff"/>|' "$RR_DIR/raw.svg" \
+  > "$RR_DIR/attr-fill.svg"
+sed 's|</defs>|</defs>\n   <rect class="plate" width="100%" height="100%" style="fill: #666666; stroke: none"/>|' \
+  "$RR_DIR/raw.svg" > "$RR_DIR/grey-card.svg"
+RR_STDIN=''
+rr() {
+  set +e
+  ( cd "$SANDBOX" && env -i "PATH=$MIN_PATH" "HOME=$SANDBOX" \
+      python3 "$RAILROADCHECK" "$@" < "${RR_STDIN:-/dev/null}" ) > "$OUT" 2> "$ERR"
+  RC=$?
+  set -e
+}
+
+begin 'railroadcheck.py with no arguments is a usage error, not a silent pass'
+rr
+want_rc 2
+want_err 'usage:'
+end
+
+begin 'a diagram straight from the generator fails'
+rr server/rr/raw.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'the ticket-style fill= attribute fails — the generator CSS paints it dark brown'
+rr server/rr/attr-fill.svg
+want_rc 1
+want_err 'no background card'
+end
+
+begin 'a card whose colour misses 3:1 against the connectors fails on the measured ratio'
+rr server/rr/grey-card.svg
+want_rc 1
+want_err 'needs 3:1'
+end
+
+begin '--fix adds the card, grows the canvas by the padding, and a second run changes nothing'
+cp "$RR_DIR/raw.svg" "$RR_DIR/tofix.svg"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out 'fixed 1 file(s)'
+if ! grep -q 'width="243" height="53"' "$RR_DIR/tofix.svg"; then
+  problem 'the canvas was not grown by 2 x 8px of padding'
+fi
+cp "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"
+rr --fix server/rr/tofix.svg
+want_rc 0
+want_out '0 failing; fixed 0 file(s)'
+if ! cmp -s "$RR_DIR/tofix.svg" "$SANDBOX/.rr-once"; then
+  problem 'a second --fix run changed the file again'
+fi
+rr server/rr/tofix.svg
+want_rc 0
+rm -f "$SANDBOX/.rr-once"
+end
+
+begin 'railroadcheck --stdin0 does not split a path containing a space'
+cp "$RR_DIR/raw.svg" "$RR_DIR/raw with spaces.svg"
+nul_list "$SANDBOX/.list" 'server/rr/raw with spaces.svg' 'server/rr/tofix.svg'
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 1
+want_err 'server/rr/raw with spaces.svg'
+want_out '2 diagram(s); 1 failing'
+end
+
+begin 'railroadcheck --stdin0 on empty input says so rather than claiming a clean tree'
+nul_list "$SANDBOX/.list"
+RR_STDIN="$SANDBOX/.list" rr --stdin0
+RR_STDIN=''
+want_rc 0
+want_out 'no SVG files'
 end
 
 # ---- orphaned pages / navcheck.py (DOCS-6567; fixtures added in DOCS-6586) -------------------
@@ -776,7 +1320,289 @@ want_no_err 'alpha/preexisting-orphan.md'
 rm -rf "$NESTED"
 end
 
-# ---- net line-loss guard (DOCS-6470 / DOCS-6442; no CI counterpart) --------------------------
+# ---- the acknowledgment register (DOCS-6586) ------------------------------------------------
+# The in-band form that unblocked the two CI gates: DOC_LINT_ALLOW_ORPHAN and
+# DOC_LINT_ALLOW_SHRINK are environment variables, which no PR author can set from a branch, so
+# the acknowledgment moved into a checked-in file a reviewer sees in the diff. allowlist.py is
+# the only parser for it, and it accepts a strict subset of YAML precisely so that a
+# half-understood entry cannot become an acknowledgment the reviewer can see and the gate
+# cannot. Every rejection below therefore asserts the LINE NUMBER as well as the exit code --
+# an error without one is unactionable in a file that may hold dozens of entries.
+
+begin 'a well-formed register validates, and the counts are reported'
+write_allow "$SANDBOX" <<'ALLOW'
+# a comment, and a blank line, both of which are skipped
+orphan:
+  - path: server/hidden.md
+    reason: "hidden until the beta ships — DOCS-1234"
+
+shrink:
+  - path: server/gutted.md
+    reason: three of five children retired
+ALLOW
+al validate
+want_rc 0
+want_out '1 orphan entry, 1 shrink entry'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'an absent register is zero entries, not an error'
+# Fail-closed, and what keeps a partial checkout and both sandboxes working: nothing is
+# acknowledged rather than everything.
+al validate
+want_rc 0
+want_out '0 orphan entries, 0 shrink entries'
+end
+
+begin "the register refuses the word all, which would be a permanent repo-wide disable"
+# The environment variables still take it, for a one-off local run. A checked-in `all` is a
+# different thing entirely -- it turns the gate off for everyone, forever, in one line that
+# reads like an acknowledgment.
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: all
+    reason: "everything, forever"
+ALLOW
+al validate
+want_rc 2
+want_err 'line 2'
+want_err 'not accepted in the allowlist file'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'an entry with no reason is rejected'
+# The reason is the whole point of a file over a flag; an entry without one is a silent
+# exemption with better formatting.
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+ALLOW
+al validate
+want_rc 2
+want_err 'line 2'
+want_err "no \`reason\`"
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a reason that YAML would read as a top-level key is rejected'
+# A `reason` indented no deeper than its own `- ` is not part of the entry in YAML: Ruby's
+# parser answers {"orphan"=>[{"path"=>...}], "reason"=>...}, so the entry carries NO reason
+# while a reviewer sees the text sitting right under it in the diff. Accepting it would let the
+# one rule this register exists to enforce be satisfied by something that is not structurally a
+# reason (Daniel Bartholomew, review of PR #1100).
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+reason: "not indented under the entry"
+ALLOW
+al validate
+want_rc 2
+want_err 'line 3'
+want_err 'must be indented deeper'
+# The same text one column deeper than the `- ` is a real reason and validates.
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+   reason: "one column deeper is still part of the entry"
+ALLOW
+al validate
+want_rc 0
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a path that could never match is rejected'
+# Absolute paths, `./` prefixes, `..` and backslashes all look like they cover a page while
+# matching nothing, because both consumers compare against repo-relative posix paths.
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: /server/hidden.md
+    reason: "absolute"
+ALLOW
+al validate
+want_rc 2
+want_err 'is absolute'
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: ./server/hidden.md
+    reason: "not normalized"
+ALLOW
+al validate
+want_rc 2
+want_err 'not normalized'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a duplicate path, an unknown key, an unknown section and a tab are each rejected'
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+    reason: "one"
+  - path: server/hidden.md
+    reason: "two"
+ALLOW
+al validate
+want_rc 2
+want_err 'listed twice'
+write_allow "$SANDBOX" <<'ALLOW'
+orphan:
+  - path: server/hidden.md
+    reason: "one"
+    ticket: DOCS-1234
+ALLOW
+al validate
+want_rc 2
+want_err 'unknown key'
+write_allow "$SANDBOX" <<'ALLOW'
+gutted:
+  - path: server/hidden.md
+    reason: "one"
+ALLOW
+al validate
+want_rc 2
+want_err 'unknown section'
+printf 'orphan:\n\t- path: server/hidden.md\n\t  reason: "one"\n' \
+  > "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+al validate
+want_rc 2
+want_err 'tab indentation'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+# ---- the register as the orphan gate's acknowledgment path ----------------------------------
+
+begin 'a register entry acknowledges a newly orphaned page'
+printf '# Hidden\n\nDeliberately unlisted.\n' > "$NAVBOX/alpha/hidden.md"
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/hidden.md
+    reason: "hidden until the beta ships — DOCS-1234"
+ALLOW
+nav -- new HEAD alpha/hidden.md
+want_rc 0
+want_no_err 'but not listed in SUMMARY.md'
+navreset
+end
+
+begin 'the register and DOC_LINT_ALLOW_ORPHAN are unioned, not exclusive'
+# The environment variable keeps working for a local run; a case that only checked the file
+# would not notice it had been dropped.
+printf '# Hidden\n\nIn the register.\n' > "$NAVBOX/alpha/hidden.md"
+printf '# Local\n\nIn the environment.\n' > "$NAVBOX/alpha/local-only.md"
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/hidden.md
+    reason: "hidden until the beta ships"
+ALLOW
+nav DOC_LINT_ALLOW_ORPHAN=alpha/local-only.md -- new HEAD alpha/hidden.md alpha/local-only.md
+want_rc 0
+want_no_err 'but not listed in SUMMARY.md'
+navreset
+end
+
+begin 'an acknowledgment whose page is now listed in SUMMARY.md is stale and fails'
+# Daniel Bartholomew's condition on DOCS-6586's go-ahead: the register has to prune itself at
+# the point someone forgets, rather than depending on an audit nobody remembers exists. A
+# stale exemption is worse than none -- it covers a page no one has looked at since.
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/listed.md
+    reason: "was unlisted once"
+ALLOW
+nav -- new HEAD alpha/listed.md
+want_rc 1
+want_err 'stale acknowledgment'
+want_err 'now listed in alpha/SUMMARY.md'
+navreset
+end
+
+begin 'an acknowledgment whose page is gone is stale, as is one that names no page at all'
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/never-existed.md
+    reason: "deleted three campaigns ago"
+  - path: notaspace/page.md
+    reason: "not in a space, so the gate would never have reported it"
+ALLOW
+nav -- new HEAD alpha/listed.md
+want_rc 1
+want_err 'no such file'
+want_err 'not a nav-listable page in any space'
+navreset
+end
+
+begin 'the stale audit runs even under DOC_LINT_ALLOW_ORPHAN=all'
+# `all` turns off the FINDINGS, not the register's own integrity: a stale entry is a defect in
+# the file rather than a claim about a page, so no scope and no local hatch may hide it.
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/never-existed.md
+    reason: "gone"
+ALLOW
+nav DOC_LINT_ALLOW_ORPHAN=all -- new HEAD alpha/listed.md
+want_rc 1
+want_err 'stale acknowledgment'
+navreset
+end
+
+begin 'a malformed register fails the gate rather than being read as empty'
+# Reading a broken register as an empty one would fail a PR that HAD acknowledged its finding
+# correctly, leaving the author a valid-looking entry in the diff and a red gate with no
+# explanation. Exit 2, not 1: this is the file's fault, not the pages'.
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/hidden.md
+ALLOW
+nav -- new HEAD alpha/listed.md
+want_rc 2
+want_err 'is malformed'
+navreset
+end
+
+begin 'the stale mode on its own reports a clean register'
+nav -- stale
+want_rc 0
+want_out 'none stale'
+end
+
+begin 'a missing allowlist.py is a broken checkout, not a missing tool'
+# The distinction PR #1027 drew for includecheck.sh: every other dependency doc-lint delegates
+# to is an external TOOL a contributor may legitimately not have, so its absence is a SKIP.
+# allowlist.py ships beside navcheck.py, so its absence means a check that cannot read its
+# acknowledgments -- which must not report success.
+mv "$NAVBOX/.claude/hooks/allowlist.py" "$NAVBOX/allowlist.py.away"
+nav -- new HEAD alpha/listed.md
+want_rc 2
+want_err 'broken checkout'
+mv "$NAVBOX/allowlist.py.away" "$NAVBOX/.claude/hooks/allowlist.py"
+navreset
+end
+
+begin "the clean line carries the page count navcheck-pr.yml asserts on"
+# "scanned 9,491 pages, none newly orphaned" and "scanned nothing at all" are the same exit
+# code, so the workflow reads this count and requires it to be nonzero. If the line ever
+# changes shape, this case and that assertion have to move together.
+nav -- new HEAD alpha/listed.md
+want_rc 0
+want_out 'page(s) scanned'
+end
+
+begin 'the register reaches navcheck.py through doc-lint.sh too'
+# Not just through the CI entry point: the local hook has to honour a checked-in
+# acknowledgment, or a contributor sees a finding CI does not report.
+printf '# Hidden\n\nDeliberately unlisted.\n' > "$NAVBOX/alpha/hidden.md"
+write_allow "$NAVBOX" <<'ALLOW'
+orphan:
+  - path: alpha/hidden.md
+    reason: "hidden until the beta ships"
+ALLOW
+LINT_ROOT="$NAVBOX" lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- alpha/hidden.md
+LINT_ROOT=''
+want_rc 0
+want_no_err 'but not listed in SUMMARY.md'
+navreset
+end
+
+# ---- net line-loss guard (DOCS-6470 / DOCS-6442; gated by shrinkcheck-pr.yml) ---------------
 
 begin 'a gutted page fails with "possible gutted page"'
 lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- server/gutted.md
@@ -843,6 +1669,442 @@ begin 'an unresolvable DOC_LINT_BASE disables the history-aware checks rather th
 lint . - "$NOFRAG" DOC_LINT_BASE=refs/heads/no-such-branch -- server/gutted.md
 want_rc 0
 want_no_err 'possible gutted page'
+end
+
+# ---- shrinkcheck.py as its own entry point (DOCS-6586) --------------------------------------
+# The cases above reach the guard through doc-lint.sh, which is how the pre-commit hook does it.
+# These drive the script directly, which is how shrinkcheck-pr.yml does it -- so its argument
+# handling, its --stdin0 mode, its counts line and its exit codes are asserted as the public
+# surface they now are, exactly as PR #1027 did for includecheck.sh.
+
+begin 'a gutted page fails through shrinkcheck.py directly'
+shrink -- --base HEAD server/gutted.md
+want_rc 1
+want_err 'possible gutted page'
+want_err 'server/gutted.md'
+end
+
+begin 'the counts line goes to stdout and names what the script received'
+# The contract two callers depend on: doc-lint.sh swallows stdout (so findings must be on
+# stderr), and shrinkcheck-pr.yml reads the received count back and requires it to equal the
+# number of changed paths it fed. "Compared 40 files, none gutted" and "was handed nothing at
+# all" are otherwise the same exit code.
+shrink -- --base HEAD server/clean.md
+want_rc 0
+want_out '1 given'
+want_out 'compared against HEAD'
+end
+
+begin '--stdin0 survives a path containing a space'
+# The whole reason for NUL-delimiting rather than xargs. A space is the cheapest proof the path
+# did not split into two arguments -- and xargs is also why this takes stdin at all: this repo
+# is ~9,700 tracked paths, over ARG_MAX, and xargs would split the run into batches that each
+# return their own status, so findings in an earlier batch could still exit 0.
+nul_list "$SANDBOX/.stdin" 'server/gutted with spaces.md' 'server/clean.md'
+SHRINK_STDIN="$SANDBOX/.stdin"
+shrink -- --base HEAD --stdin0
+SHRINK_STDIN=''
+want_rc 1
+want_err 'gutted with spaces.md'
+want_out '2 given'
+end
+
+begin '--stdin0 together with file arguments is a usage error, not a silent half-check'
+SHRINK_STDIN="$SANDBOX/.stdin"
+shrink -- --base HEAD --stdin0 server/gutted.md
+SHRINK_STDIN=''
+want_rc 2
+want_err 'takes the paths on stdin'
+end
+
+begin 'an unknown option and a bare --base are usage errors'
+shrink -- --sideways server/gutted.md
+want_rc 2
+want_err 'unknown option'
+shrink -- --base
+want_rc 2
+want_err 'needs a revision'
+end
+
+begin 'a register entry acknowledges the shrink'
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/gutted.md
+    reason: "three of five children retired — DOCS-5976"
+ALLOW
+shrink -- --base HEAD server/gutted.md
+want_rc 0
+want_no_err 'possible gutted page'
+want_out '1 acknowledged'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'the register reaches shrinkcheck.py through doc-lint.sh too'
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/gutted.md
+    reason: "three of five children retired — DOCS-5976"
+ALLOW
+lint . - "$NOFRAG" DOC_LINT_BASE=HEAD -- server/gutted.md
+want_rc 0
+want_no_err 'possible gutted page'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a stale shrink entry fails on its own, and even under DOC_LINT_ALLOW_SHRINK=all'
+# The shrink half can only self-prune this far: there is no "un-shrink" signal, so an entry
+# whose page has since regrown still needs an occasional manual pass. An entry whose page is
+# GONE, though, cannot apply to anything and is caught here.
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/never-existed.md
+    reason: "deleted three campaigns ago"
+ALLOW
+shrink -- --base HEAD server/clean.md
+want_rc 1
+want_err 'stale allowlist entry'
+want_err 'no such file'
+shrink DOC_LINT_ALLOW_SHRINK=all -- --base HEAD server/clean.md
+want_rc 1
+want_err 'stale allowlist entry'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a malformed register fails shrinkcheck rather than being read as empty'
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/gutted.md
+ALLOW
+shrink -- --base HEAD server/gutted.md
+want_rc 2
+want_err 'is malformed'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'a missing allowlist.py is a broken checkout for shrinkcheck too'
+mv "$NAVBOX/.claude/hooks/allowlist.py" "$NAVBOX/allowlist.py.away"
+SHRINK_ROOT="$NAVBOX" SHRINK_SCRIPT="$NAVBOX/.claude/hooks/shrinkcheck.py" \
+  shrink -- --base HEAD alpha/listed.md
+SHRINK_ROOT=''; SHRINK_SCRIPT=''
+want_rc 2
+want_err 'broken checkout'
+mv "$NAVBOX/allowlist.py.away" "$NAVBOX/.claude/hooks/allowlist.py"
+end
+
+begin 'an unresolvable base and a tree with no git are SKIPs, not failures'
+# Never block a local commit over a missing baseline. Both callers that must not tolerate a
+# missing base assert it themselves before invoking -- shrinkcheck-pr.yml does it in its own
+# step, exactly as fragcheck-pr.yml does, because a SKIP here returns 0.
+shrink -- --base refs/heads/no-such-branch server/gutted.md
+want_rc 0
+want_err 'SKIPPED'
+want_no_err 'possible gutted page'
+NOGIT2="$(mktemp -d "${TMPDIR:-/tmp}/doclint-nogit2.XXXXXX")"
+( cd "$SANDBOX" && git archive HEAD ) | ( cd "$NOGIT2" && tar xf - ) || problem 'archive failed'
+SHRINK_ROOT="$NOGIT2" shrink -- --base HEAD server/gutted.md
+SHRINK_ROOT=''
+want_rc 0
+want_err 'SKIPPED'
+rm -rf "$NOGIT2"
+end
+
+begin 'a run from a subdirectory measures the file it was named, not a same-named one at the root'
+# The paths arrive CWD-relative and are read root-relative, so before DOCS-6586's review fix a
+# run from server/ measured a DIFFERENT file of the same relative name -- and reported a
+# confident "0 possibly gutted" for it. Not reachable from either caller (CI and pre-commit.sh
+# both run from the root), but the workflow asserts `given` and `eligible`, never `compared`, so
+# nothing else in this PR would have caught it (Daniel Bartholomew, review of PR #1100).
+SHRINK_ROOT="$SANDBOX/server" shrink -- --base HEAD gutted.md
+SHRINK_ROOT=''
+want_rc 1
+want_err 'possible gutted page'
+want_err 'server/gutted.md'
+want_out '1 file(s) compared'
+end
+
+begin 'a path outside the repository is a usage error, not something measured'
+# `root` comes from the FIRST path, so this is the mixed list: one path in the repo and one
+# outside it, which has no pre-image in that object store to be measured against. Exiting 2
+# beats measuring the in-repo half and reporting a count that covers less than it was given.
+printf '# Outside\n' > "${TMPDIR:-/tmp}/doclint-outside.md"
+shrink -- --base HEAD server/clean.md "${TMPDIR:-/tmp}/doclint-outside.md"
+want_rc 2
+want_err 'is outside'
+want_empty_stdout
+rm -f "${TMPDIR:-/tmp}/doclint-outside.md"
+end
+
+begin 'a stale entry is reported even when the base revision cannot be resolved'
+# A stale entry is a file-existence test that needs no git at all, so a missing base must not
+# hide it -- navcheck.py audits its own section before the same guards. The measurement still
+# SKIPs, and the exit code is the audit's (Daniel Bartholomew, review of PR #1100).
+write_allow "$SANDBOX" <<'ALLOW'
+shrink:
+  - path: server/never-existed.md
+    reason: "deleted three campaigns ago"
+ALLOW
+shrink -- --base refs/heads/no-such-branch server/clean.md
+want_rc 1
+want_err 'stale allowlist entry'
+want_err 'SKIPPED'
+rm -f "$SANDBOX/.claude/hooks/doc-lint-allow.yml"
+end
+
+begin 'git missing from PATH is a SKIP, not a traceback'
+# The guard reads its pre-image out of the object store, so with no git there is no base to
+# compare against -- the same SKIP the header contracts for a tree with no git. Before the fix
+# git() raised an uncaught FileNotFoundError and the script exited 1, which reads as a finding.
+NOGITBIN="$(mktemp -d "${TMPDIR:-/tmp}/doclint-nogitbin.XXXXXX")"
+ln -s "$(command -v python3)" "$NOGITBIN/python3"
+shrink "PATH=$NOGITBIN" -- --base HEAD server/gutted.md
+want_rc 0
+want_err 'SKIPPED'
+want_no_err 'Traceback'
+want_no_err 'possible gutted page'
+rm -rf "$NOGITBIN"
+end
+
+# ---- paired version includes (DOCS-6734) -----------------------------------------------------
+
+begin 'a tree with no includes directories SKIPs the version-include check'
+# The root sandbox has neither release-notes/.gitbook/includes/ nor platform/.gitbook/includes/,
+# which is what doc-lint-test's own tree looks like to a tree-wide check. A SKIP rather than a
+# failure, so the suite is not blocked by subject matter that is simply absent; versioncheck-pr.yml
+# refuses to accept this same SKIP as a pass, which is where the vacuity risk is answered.
+lint . - -- server/clean.md
+want_rc 0
+want_err 'not a docs checkout'
+end
+
+begin 'a disagreeing version-include pair fails through doc-lint.sh'
+# vc/ is a mini-repo whose latest-c says 3.4.11 while its most-recent-c still says 3.4.9 -- the
+# bump-one-forget-the-other mistake the check exists for. Note the file argument is irrelevant:
+# the check takes no file list, so naming a clean page still surfaces the pair.
+lint vc - -- clean.md
+want_rc 1
+want_err 'paired includes disagree'
+want_err '3.4.11'
+want_err '3.4.9'
+want_no_err 'stale exemption'
+end
+
+# ---- the no-standalone register (DOCS-6734) --------------------------------------------------
+
+begin 'a no-standalone entry whose release has no Post Download page is accepted'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server; 3.4.11 is the standalone — DOCS-6732"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 0
+want_out '1 no-standalone entry audited, 0 stale'
+end
+
+begin 'an entry whose release has since gained a Post Download page is stale'
+# The self-pruning direction the shrink section cannot have: "no standalone package" stops being
+# true the moment the page exists, and the entry must go with it.
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'stale entry'
+want_err 'mariadb-connector-c-3.4.10.md'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+end
+
+begin 'an entry whose page is gone is stale'
+mv "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md" "$SANDBOX/pd/moved.md"
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'acknowledges a page that no'
+mv "$SANDBOX/pd/moved.md" "$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.10.md"
+end
+
+begin 'an entry naming a changelog exempts nothing and is rejected'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/changelogs/3.4/3.4.10.md
+    reason: "wrong target"
+ALLOW
+pd "$SANDBOX/pd" audit
+want_rc 1
+want_err 'not a release page'
+end
+
+begin 'the naming map resolves each space spelling of a product'
+pd "$SANDBOX/pd" path release-notes/connectors/java/3.5/3.5.10.md
+want_rc 0
+want_out 'platform/post-download/mariadb-connector-j-3.5.10.md'
+pd "$SANDBOX/pd" path release-notes/community-server/11.8/11.8.9.md
+want_rc 0
+want_out 'platform/post-download/mariadb-server-11.8.9.md'
+# c++ has no Post Download pages at all, and longest-prefix matching must not read it as `c`.
+pd "$SANDBOX/pd" path 'release-notes/connectors/c++/1.1/1.1.8.md'
+want_rc 0
+want_out 'none'
+end
+
+begin 'a stale no-standalone entry fails through doc-lint.sh too'
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.10.md
+    reason: "shipped only inside Server — DOCS-6732"
+ALLOW
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+lint pd - "$NOFRAG" -- clean.md
+want_rc 1
+want_err 'stale entry'
+rm -f "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.10.md"
+rm -f "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml"
+end
+
+# ---- the new-page gate (DOCS-6408) -----------------------------------------------------------
+# Each case adds its pages to the working tree, untracked, against the fixture commit as base,
+# and removes them again so the next case starts from the same tree.
+
+PD_NEW="$SANDBOX/pd/release-notes/connectors/c/3.4/3.4.11.md"
+pd_new_page() {
+  printf -- '---\ndescription: Connector/C 3.4.11 release notes.\n---\n\n# Connector/C 3.4.11\n' > "$PD_NEW"
+}
+pd_clean() {
+  rm -f "$PD_NEW" "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md" \
+        "$SANDBOX/pd/platform/SUMMARY.md" "$SANDBOX/pd/.claude/hooks/doc-lint-allow.yml" \
+        "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.11.md"
+  rm -rf "$SANDBOX/pd/release-notes/connectors/c++"
+}
+
+begin 'a new release page with no Post Download page fails the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new HEAD
+want_rc 1
+want_err 'missing Post Download page'
+want_err 'mariadb-connector-c-3.4.11.md'
+want_err 'no-standalone'
+want_out '1 new release page checked'
+pd_clean
+end
+
+begin 'a Post Download page that platform/SUMMARY.md does not link fails the gate'
+pd_new_page
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n' > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 1
+want_err 'not in the nav'
+pd_clean
+end
+
+begin 'a new release page with its page and nav entry passes the gate'
+pd_new_page
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n  * [Connector/C 3.4.11](post-download/mariadb-connector-c-3.4.11.md)\n' \
+  > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '1 new release page checked'
+want_out '0 without a Post Download page'
+pd_clean
+end
+
+begin 'a no-standalone entry satisfies the gate for a new release page'
+pd_new_page
+write_allow "$SANDBOX/pd" <<'ALLOW'
+no-standalone:
+  - path: release-notes/connectors/c/3.4/3.4.11.md
+    reason: "shipped only inside Server — DOCS-6408 fixture"
+ALLOW
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '1 new release page checked'
+pd_clean
+end
+
+begin '--advisory rewords the findings for the docs team without changing the exit code'
+# A fork PR's author cannot be asked to write platform pages, so postdownload-pr.yml demotes the
+# gate to a warning there. The script's half is only the wording: same finding, same exit 1, but
+# addressed to the team rather than telling the contributor to "add it in this PR".
+pd_new_page
+pd "$SANDBOX/pd" new HEAD --advisory
+want_rc 1
+want_err 'Post Download page owed'
+want_err 'docs-team member'
+want_no_err 'in this PR'
+want_out '1 new release page checked'
+: > "$SANDBOX/pd/platform/post-download/mariadb-connector-c-3.4.11.md"
+printf '# Table of contents\n\n* [Post Download](post-download/README.md)\n' > "$SANDBOX/pd/platform/SUMMARY.md"
+pd "$SANDBOX/pd" new HEAD --advisory
+want_rc 1
+want_err 'not in the nav'
+want_err 'docs-team member adds the entry'
+pd_clean
+end
+
+begin 'a changelog and a product with no Post Download pages are not gated'
+mkdir -p "$SANDBOX/pd/release-notes/connectors/c++/1.1"
+printf '# Connector/C++ 1.1.9\n' > "$SANDBOX/pd/release-notes/connectors/c++/1.1/1.1.9.md"
+printf '# Connector/C 3.4.11 Changelog\n' > "$SANDBOX/pd/release-notes/connectors/c/changelogs/3.4/3.4.11.md"
+pd "$SANDBOX/pd" new HEAD
+want_rc 0
+want_out '0 new release pages checked'
+pd_clean
+end
+
+begin 'file arguments scope the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new HEAD clean.md
+want_rc 0
+want_out '0 new release pages checked'
+pd_clean
+end
+
+begin 'a ./ or absolute file argument still scopes the gate to that page'
+# The scope used to be compared as spelled, so either form matched no page and the gate passed
+# having checked nothing. CI passes no file list, but docs-check passes whatever it is given.
+pd_new_page
+pd "$SANDBOX/pd" new HEAD ./release-notes/connectors/c/3.4/3.4.11.md
+want_rc 1
+want_out '1 new release page checked'
+want_err 'missing Post Download page'
+pd "$SANDBOX/pd" new HEAD "$PD_NEW"
+want_rc 1
+want_out '1 new release page checked'
+want_err 'missing Post Download page'
+pd_clean
+end
+
+begin 'an unresolvable base revision SKIPs the new-page gate'
+pd_new_page
+pd "$SANDBOX/pd" new refs/heads/no-such-branch
+want_rc 0
+want_err 'not found'
+want_err 'SKIPPED'
+pd_clean
+end
+
+begin 'a nested tree SKIPs the new-page gate rather than calling every page new'
+# $SANDBOX/pd/sub is not the top of any repo of its own: git answers for pd/, which has never
+# heard of the pages, so without the guard every release page here would read as added.
+mkdir -p "$SANDBOX/pd/sub/platform/post-download" "$SANDBOX/pd/sub/release-notes/connectors/c/3.4"
+: > "$SANDBOX/pd/sub/.codespellignore"
+printf '# x\n' > "$SANDBOX/pd/sub/release-notes/connectors/c/3.4/3.4.10.md"
+pd "$SANDBOX/pd/sub" new HEAD
+want_rc 0
+want_err 'not the top of its git repository'
+rm -rf "$SANDBOX/pd/sub"
+end
+
+begin 'the new-page gate runs through doc-lint.sh'
+pd_new_page
+lint pd - "$NOFRAG" DOC_LINT_BASE=HEAD -- release-notes/connectors/c/3.4/3.4.11.md
+want_rc 1
+want_err 'missing Post Download page'
+pd_clean
+end
+
+begin 'a tree with no post-download directory SKIPs the register audit'
+pd "$SANDBOX" audit
+want_rc 0
+want_err 'not a docs checkout'
 end
 
 # ---- SKIP branches: a missing tool is a notice, never a failure ------------------------------

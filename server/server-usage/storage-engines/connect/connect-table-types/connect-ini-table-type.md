@@ -134,7 +134,7 @@ This displays the following result:
 | UK1     | city     | London                   |
 | UK1     | zipcode  | NW1 2BP                  |
 
-**Note:** When processing an INI table, all section names are retrieved in a buffer of 8K bytes (2048 bytes before 10.0.17). For a big file having many sections, this size can be increased using for example:
+**Note:** When processing an INI table, all section names are retrieved in a buffer of 8K bytes . For a big file having many sections, this size can be increased using for example:
 
 ```
 option_list='seclen=16K';

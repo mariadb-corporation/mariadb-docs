@@ -20,6 +20,10 @@ TO_CHAR(expr[, fmt])
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
 
 `FM` can be specified multiple times, with each time disabling the previous state:
@@ -40,6 +44,10 @@ These additional formats (for _`fmt`_) are available:
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+From MariaDB 12.0 to before MariaDB 12.3:
+{% endhint %}
+
 The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
 
 `FM` can be specified multiple times, with each time disabling the previous state:
@@ -49,6 +57,10 @@ The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-a
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _`fmt`_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`.
 {% endtab %}
 {% endtabs %}
@@ -59,6 +71,10 @@ In Oracle, `TO_CHAR` can also be used to convert numbers to strings, but this is
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.0:
+{% endhint %}
+
 ```sql
 SELECT TO_CHAR('1980-01-11 04:50:39', 'YYYY-MM-DD');
 +----------------------------------------------+
@@ -146,6 +162,10 @@ SELECT CONCAT('/', TO_CHAR('2020-01-06 10:11:12', 'DAYFM'), '/');
 {% endtab %}
 
 {% tab title="< 12.0" %}
+{% hint style="info" %}
+Before MariaDB 12.0:
+{% endhint %}
+
 ```sql
 SELECT TO_CHAR('1980-01-11 04:50:39', 'YYYY-MM-DD');
 +----------------------------------------------+

@@ -667,7 +667,7 @@ modified in that revision.
           * Adding patch for security bug 19471516
         * [Revision #3077.204.26](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3077.204.26)\
           Fri 2014-09-05 08:37:21 +0200
-          * Applying the patch to remove [WL#7219](https://askmonty.org/worklog/?tid=7219) which was by mistake included by the dev team.
+          * Applying the patch to remove WL#7219 which was by mistake included by the dev team.
         * [Revision #3077.204.25](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3077.204.25)\
           Tue 2014-08-26 14:01:38 +0200
           * Renaming the enterprise packages to commercial
@@ -747,7 +747,7 @@ modified in that revision.
           * Bug#18935421 RPAD DIES WITH CERTAIN PADSTR INTPUTS....
         * [Revision #3077.204.6](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3077.204.6)\
           Fri 2014-07-04 03:29:34 +0530
-          * [WL#7219](https://askmonty.org/worklog/?tid=7219): Implement audit filter
+          * WL#7219: Implement audit filter
         * [Revision #3077.204.5](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3077.204.5)\
           Thu 2014-07-03 14:12:02 +0530
           * Bug#18469276: MOD FOR SMALL DECIMALS FAILS

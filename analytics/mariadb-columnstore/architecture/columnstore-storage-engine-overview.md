@@ -18,7 +18,7 @@ The ColumnStore storage engine has the following features:
 | Feature                | Detail             | Resources                                                                                                                                     |
 | ---------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | Storage Engine         | ColumnStore        |                                                                                                                                               |
-| Availability           | ES 10.5+, CS 10.5+ | MariaDB Enterprise Server                                                                                                                     |
+| Availability           | ES, CS             | MariaDB Enterprise Server                                                                                                                     |
 | Workload Optimization  | OLAP and Hybrid    | [OLAP Workloads ](columnstore-storage-architecture.md#olap-workloads)[Hybrid Workloads](columnstore-storage-architecture.md#hybrid-workloads) |
 | Table Orientation      | Columnar           | [Columnar Storage Engine](columnstore-architectural-overview.md#columnar-storage-engine)                                                      |
 | ACID-compliant         | Yes                |                                                                                                                                               |

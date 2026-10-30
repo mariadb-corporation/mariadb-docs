@@ -27,7 +27,7 @@ One of the first plugins developed by third parties was [InnoDB](understanding-m
 
 Note that when MariaDB asks a storage engine to write or read a row, the storage engine could theoretically do anything. This led to the creation of very interesting alternative engines, like [BLACKHOLE](../../../../server-usage/storage-engines/blackhole.md) (which doesn’t write or read any data, acting like the /dev/null file in Linux), or [CONNECT](../../../../server-usage/storage-engines/connect/) (which can read and write to files written in many different formats, or remote DBMSs, or some other special data sources).
 
-Nowadays InnoDB is the default MariaDB storage engine, and it is the best choice for most use cases. But for particular needs, sometimes using a different storage engine is desirable. In case of doubts about the best storage engine to use for a specific case, check the [Choosing the Right Storage Engine](../../../../server-usage/storage-engines/choosing-the-right-storage-engine.md) page.
+InnoDB is the default MariaDB storage engine, and it is the best choice for most use cases. But for particular needs, sometimes using a different storage engine is desirable. In case of doubts about the best storage engine to use for a specific case, check the [Choosing the Right Storage Engine](../../../../server-usage/storage-engines/choosing-the-right-storage-engine.md) page.
 
 When we create a table, we specify its storage engine or use the default one. It is possible to convert an existing table to another storage engine, though this is a blocking operation which requires a complete table copy. Third-party storage engines can also be installed while MariaDB is running.
 
@@ -66,7 +66,7 @@ The system tablespace is stored in the file `ibdata`. It contains information us
 
 Tables created while `innodb_file_per_table=1` are written into their own tablespace. These are `.ibd` files.
 
-Starting from [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), temporary tables are written into temporary tablespaces, which means `ibtmp*` files. Previously, they were created in the system tablespace or in file-per-table tablespaces according to the value of `innodb_file_per_table`, just like regular tables. Temporary tablespaces, if present, are deleted when MariaDB starts.
+Temporary tables are written into temporary tablespaces, which means `ibtmp*` files. Temporary tablespaces, if present, are deleted when MariaDB starts.
 
 **It is important to remember that tablespaces can never shrink**. If a file-per-table tablespace grows too much, deleting data won't recover space. Instead, a new table must be created and data needs to be copied. Finally, the old table will be deleted. If the system tablespace grows too much, the only solution is to move data into a new MariaDB installation.
 
@@ -107,7 +107,7 @@ In case of a system crash, hardware failure or power outage, a page could be hal
 * If an event prevents the first page from being written, the old version of the page will still be available.
 * If an event prevents the old page from being completely overwritten by its new version, the page can still be recovered using the doublewrite buffer.
 
-The doublewrite buffer can disabled using the [innodb\_doublewrite](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite) variable, but this usually doesn't bring big performance benefits. The doublewrite buffer location can be changed with [innodb\_doublewrite\_file](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite_file).
+The doublewrite buffer can disabled using the [innodb\_doublewrite](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_doublewrite) variable, but this usually doesn't bring big performance benefits.
 
 ### Aria
 
@@ -193,7 +193,7 @@ The binary log can be written in the following formats:
 
 * STATEMENT logs SQL statements that modify data;
 * ROW logs a reference to the rows that have been modified, if any (usually it’s the primary key), and the new values that have been added or modified, in a binary format.
-* MIXED is a combination of the above formats. It means that ROW is used for statements that can safely be logged in this way (see below), and STATEMENT is used in other cases. This is the default format from [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102).
+* MIXED is a combination of the above formats. It means that ROW is used for statements that can safely be logged in this way (see below), and STATEMENT is used in other cases. This is the default format.
 
 In most cases, STATEMENT is slower because the SQL statement needs to be re-executed by the replica, and because certain statements may produce a different result in the replica (think about queries that use LIMIT without ORDER BY, or the CURRENT\_TIMESTAMP() function). But there are exceptions, and besides, DDL statements are always logged as STATEMENT to avoid flooding the binary log. Therefore, the binary log may well contain both ROW and STATEMENT entries.
 

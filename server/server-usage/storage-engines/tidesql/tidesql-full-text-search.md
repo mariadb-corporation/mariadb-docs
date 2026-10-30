@@ -39,7 +39,7 @@ SELECT * FROM articles WHERE MATCH(title, body) AGAINST('"database management sy
 SELECT * FROM articles WHERE MATCH(title, body) AGAINST('+"management system" -tutorial' IN BOOLEAN MODE);
 ```
 
-A phrase query uses the inverted index to find candidate documents containing all phrase words, then verifies the exact sequence by re-tokenizing the document, the same approach InnoDB's FTS uses.
+A phrase query uses the inverted index to find candidate documents containing all phrase words, then verifies the exact sequence by re-tokenizing the document.
 
 ## BM25 Ranking
 
@@ -54,11 +54,13 @@ score  = IDF * (tf * (k1+1)) / (tf + k1 * (1 - b + b * |d| / avgdl))
 
 ## Tokenization
 
-The tokenizer is charset-aware and handles multi-byte scripts including UTF-8, CJK, Cyrillic, and Greek. Text is split on word boundaries using MariaDB's charset classification and lowercased with the charset's case-folding rules. Words shorter than `tidesdb_fts_min_word_len` (default 3) or longer than `tidesdb_fts_max_word_len` (default 84) are excluded from the index and from queries.
+The tokenizer is charset-aware. A word is a run of characters the column's charset classifies as alphanumeric, and every multi-byte character counts as a word character, so a script written without spaces, such as CJK, indexes one token per unbroken run. Tokens are lowercased with the charset's case-folding rules. Words shorter than `tidesdb_fts_min_word_len` (default 3) or longer than `tidesdb_fts_max_word_len` (default 84) characters are excluded from the index and from natural-language queries.
+
+Boolean mode filters differently. Words inside a quoted phrase go through the same tokenizer, but a plain term is only lowercased, with no length or stop-word filtering. A required term that is too short or is a stop word, such as `+db` or `+the`, matches no indexed entry, so the query returns no rows.
 
 ## Stop Words
 
-Common words are excluded from the index. By default, TideSQL uses the same default list as InnoDB (`information_schema.INNODB_FT_DEFAULT_STOPWORD`). Stop words are filtered during tokenization, so they are never stored and never match. The list is customizable with `tidesdb_ft_stopword_table`, which names a `db_name/table_name` table that must have a `value` VARCHAR column of one word per row. The stop-word table must itself be a TideSQL table, since the loader resolves it as a TidesDB column family. Pointing the variable at a table on another engine logs a warning and leaves the previous list in place rather than taking effect. Setting it to NULL or empty restores the default:
+Common words are excluded from the index. By default, TideSQL uses the same default list as InnoDB (`information_schema.INNODB_FT_DEFAULT_STOPWORD`). Stop words are filtered during tokenization, so they are never stored and never match. The list is customizable with `tidesdb_ft_stopword_table`, which names a `db_name/table_name` table whose only column is a `value` VARCHAR holding one word per row, since the loader reads each stored row as that single packed column. The stop-word table must itself be a TideSQL table, since the loader resolves it as a TidesDB column family. A `SET GLOBAL` naming a missing table, a table on another engine, or a value not in `db_name/table_name` form fails with `ER_WRONG_VALUE_FOR_VAR` and the variable keeps its old value. A TideSQL table of another shape is accepted, and any row that does not hold a single VARCHAR is skipped. Each word is lowercased with utf8mb4 case rules, so an uppercase word outside ASCII still matches the lowercased text. A value set in the option file is loaded at startup, and if that table cannot be read the server logs a warning and keeps the default list. Setting it to NULL or empty restores the default:
 
 ```sql
 CREATE TABLE mydb.my_stopwords (value VARCHAR(50)) ENGINE=TIDESDB;
@@ -82,7 +84,7 @@ A blend character is treated as both a separator and a valid word character. Whe
 SET GLOBAL tidesdb_fts_blend_chars = "'";
 ```
 
-The default is empty. The setting is global and applies to subsequent indexing and queries, so rebuild existing indexes after changing it.
+The default is empty. The setting is global and applies to subsequent indexing, natural-language queries, and quoted phrases in boolean mode, so rebuild existing indexes after changing it. A plain boolean-mode term still splits on a blend character, so `+dell'aria` is parsed as the required term `dell` followed by the optional term `aria`.
 
 The full-text tuning variables above are documented on the [TideSQL System Variables](tidesql-system-variables.md) page.
 
@@ -97,6 +99,6 @@ CREATE TABLE docs (
 ) ENGINE=TIDESDB;
 ```
 
-Index entries are maintained inside the same transaction as the row change. An insert tokenizes the document and writes one entry per unique term, a delete removes the entries, and an update that changes the indexed columns removes the old entries and writes new ones. The document count and average document length for BM25 are maintained atomically in the data column family.
+Index entries are maintained inside the same transaction as the row change. An insert tokenizes the document and writes one entry per unique term, a delete removes the entries, and an update that changes the indexed columns or the primary key removes the old entries and writes new ones. An update on a table with a `TTL` option or `TTL` column, in a session with a non-zero `tidesdb_ttl`, or of a row that already carries an expiry from an earlier session TTL, also rewrites the row's entries with its new expiry, or with none. The document count and total word count for BM25 are maintained atomically in the data column family, and the average document length is derived from them at query time.
 
 <sub>_This page is licensed: GPLv2_</sub>

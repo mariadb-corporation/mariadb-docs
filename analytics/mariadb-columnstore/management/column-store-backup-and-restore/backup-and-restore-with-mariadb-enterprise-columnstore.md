@@ -39,13 +39,15 @@ To see the procedure to perform a full backup and restore, choose the storage ty
 **[ColumnStore with Object Storage](mariadb-enterprise-columnstore-backup-and-restore-with-object-storage.md)**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on S3 storage
     accDescr {
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
         routes. All three nodes use a shared S3-compatible object storage
-        backend for their table data.
+        backend for their table data. Arrows lead from the S3-compatible object
+        storage box to each of the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
@@ -60,6 +62,7 @@ flowchart TD
     S3 -.-> N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3,S3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3-compatible object storage._
@@ -67,13 +70,15 @@ _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by S3
 **[ColumnStore with Shared Local Storage](../../architecture/columnstore-architectural-overview.md#columnstore-with-shared-local-storage)**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ColumnStore cluster on NFS shared storage
     accDescr {
         A MaxScale proxy routes client connections to three MariaDB Enterprise
         Server and ColumnStore nodes: one read-write route and two read-only
         routes. All three nodes share their table data over an NFS shared
-        storage backend.
+        storage backend. Arrows lead from the NFS shared storage box to each of
+        the three nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES + ColumnStore")]
@@ -88,6 +93,7 @@ flowchart TD
     NFS -.-> N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3,NFS node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes read/write traffic to three ES + ColumnStore nodes backed by NFS shared storage._

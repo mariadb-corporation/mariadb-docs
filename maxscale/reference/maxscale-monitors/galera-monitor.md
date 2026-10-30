@@ -65,12 +65,6 @@ CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
 GRANT REPLICA MONITOR ON *.* TO 'maxscale-user'@'maxscalehost';
 ```
 
-With MariaDB Server 10.4 and earlier, `REPLICATION CLIENT` is required instead.
-
-```
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale-user'@'maxscalehost';
-```
-
 If `set_donor_nodes` is configured, the `SUPER` grant is required:
 
 ```
@@ -101,6 +95,7 @@ For a list of optional parameters that all monitors support, read the [Common Mo
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Prevents MaxScale from restoring the original node to primary status after a failover; the new primary retains the role while running.
 
 If a node marked as primary inside MaxScale happens to fail and the primary status is assigned to another node MaxScale will normally return the primary status to the original node after it comes back up. With this option enabled, if the primary status is assigned to a new node it will not be reassigned to the original node for as long as the new primary node is running. In this case the `Master Stickiness` status bit is set which will be visible in the `maxctrl list servers` output.
 
@@ -109,6 +104,7 @@ If a node marked as primary inside MaxScale happens to fail and the primary stat
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Allows Galera nodes to continue performing normal operations while acting as donors during non-blocking SST methods, preventing them from losing synchronized or read/write state.
 
 This option allows Galera nodes to be used normally when they are donors in an SST operation when the SST method is non-blocking (e.g. `wsrep_sst_method=mariadb-backup`).
 
@@ -121,6 +117,7 @@ The current list of non-blocking SST methods are `xtrabackup`, `xtrabackup-v2` a
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Disables automatic primary and replica role assignment in a Galera cluster; when enabled, only the Synced status is assigned.
 
 This disables the assignment of primary and replica roles to the Galera cluster nodes. If this option is enabled, Synced is the only status assigned by this monitor.
 
@@ -129,6 +126,7 @@ This disables the assignment of primary and replica roles to the Galera cluster 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Allows the monitor to automatically select the writing node and manage controlled node replacements in a Galera cluster while keeping server priorities into account.
 
 Enable interaction with server priorities. This will allow the monitor to deterministically pick the write node for the monitored Galera cluster and will allow for controlled node replacement.
 
@@ -137,6 +135,7 @@ Enable interaction with server priorities. This will allow the monitor to determ
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Ensures that only the Galera node with `wsrep_local_index = 0` can be chosen as the primary for writes, enabling many MaxScale instances to use the same primary node.
 
 This option controls whether the write primary Galera node requires _wsrep\_local\_index_ value of 0. This option was introduced in MaxScale 2.1.0 and it is disabled by default in versions 2.1.5 and newer. In versions 2.1.4 and older, the option was enabled by default.
 
@@ -151,6 +150,7 @@ This parameter can work with `disable_master_failback` but using them together i
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: Yes
+* Description: Controls whether the `wsrep_sst_donor` global variable is set on each replica node, listing eligible donor nodes for SST in a sorted order based on priority or `wsrep_local_index`. 
 
 This option controls whether the global variable _wsrep\_sst\_donor_ should be set in each cluster node with `Read` status. The variable contains a list of replica servers, automatically sorted, with possible primary candidates at its end.
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Description
 
-The `setup_timers` table shows the currently selected event timers. Deprecated since 10.5, removed in 12.0.
+The `setup_timers` table shows the currently selected event timers. The table is deprecated, and was removed in MariaDB 12.0.
 
 It contains the following columns:
 

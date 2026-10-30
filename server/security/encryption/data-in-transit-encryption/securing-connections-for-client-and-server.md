@@ -18,10 +18,18 @@ The data in transit are encrypted (by default or if enabled manually) using the 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 MariaDB [enables TLS automatically](zero-configuration-ssl.md). Certificates are generated on startup and only stored in memory. Certificate verification is enabled by default on the client side and certificates are verified if the authentication plugin itself is MitM safe (`mysql_native_password`, `ed25519`, `parsec`).
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 In order to enable TLS in a MariaDB server, you need to generate TLS certificates and configure the server to use them.
 
 To do that there are a number of system variables that you need to set, such as:
@@ -128,7 +136,7 @@ Two-way SSL is required for an account if the `REQUIRE X509`, `REQUIRE SUBJECT`,
 
 ### Enabling TLS for MariaDB Connector/C Clients
 
-See the documentation on MariaDB Connector/C's [TLS Options](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv#tlsssl-options) for information on how to enable TLS for clients that use MariaDB Connector/C.
+See the documentation on MariaDB Connector/C's [TLS Options](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv#tls-options) for information on how to enable TLS for clients that use MariaDB Connector/C.
 
 ### Enabling TLS for MariaDB Connector/ODBC Clients
 

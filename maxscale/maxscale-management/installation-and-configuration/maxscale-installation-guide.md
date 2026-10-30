@@ -1,8 +1,8 @@
 ---
 description: >-
-  Install MariaDB MaxScale on Linux using official package repositories, RPM/DEB
-  files, or a tarball. This guide details setup for RHEL, Debian, and SLES, plus
-  the kernel memory-overcommit setting MaxScale assumes.
+  Install MariaDB MaxScale on Linux from package repositories, RPM/DEB files, or
+  a tarball on RHEL, Debian, and SLES, plus the kernel memory-overcommit setting
+  MaxScale assumes.
 ---
 
 # MaxScale Installation Guide

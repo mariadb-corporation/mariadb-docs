@@ -210,6 +210,8 @@ The **MariaDB Enterprise Tools** repository contains additional tools for use wi
 
 By default, the script configures the latest version of the Enterprise Tools repository. In most cases, you should not change this. However, the option exists to configure a different version. To do so use the `--mariadb-enterprise-tools-version` option. To skip this repository, use the `--skip-enterprise-tools` option.
 
+The script configures the Enterprise Tools repository on RHEL 8, 9, and 10 and compatible distributions, on the supported Debian and Ubuntu releases, and on SLES 15. It doesn't configure it on SLES 12 or SLES 16, for which the repository has no packages. Versions of the script before 2026-10-22 don't configure it on any SLES release.
+
 ### The MariaDB Enterprise Unsupported Repository
 
 In addition to its default repositories, the `mariadb_es_repo_setup` script can configure a **MariaDB Enterprise Server Unsupported** repository. This repository contains unsupported storage engines and other supplemental packages, such as the CONNECT storage engine.
@@ -404,7 +406,7 @@ For more details see [Pinning the Repository to a Specific Minor Release](mariad
 
 {% tabs %}
 {% tab title="MariaDB Enterprise Server" %}
-The following MariaDB Enterprise Server versions are currently supported:
+The following MariaDB Enterprise Server versions are supported:
 
 * `10.6`
 * `11.4`
@@ -413,7 +415,7 @@ The following MariaDB Enterprise Server versions are currently supported:
 {% endtab %}
 
 {% tab title="MariaDB Community Server" %}
-The following MariaDB Community Server versions are currently supported:
+The following MariaDB Community Server versions are supported:
 
 * `mariadb-10.6`
 * `mariadb-10.11`
@@ -423,7 +425,9 @@ The following MariaDB Community Server versions are currently supported:
 * `mariadb-11.rc`
 * `mariadb-12.1`
 * `mariadb-12.2`
-* `mariadb-12.rolling` (default)
+* `mariadb-12.3`
+* `mariadb-12.rolling`
+* `mariadb-13.rolling` (default)
 * `mariadb-12.rc`
 {% endtab %}
 {% endtabs %}
@@ -466,7 +470,7 @@ For example, to configure your system to install from the repository of MariaDB 
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-maxscale-version="6.1"
 ```
 
-The following MariaDB MaxScale versions are currently supported:
+The following MariaDB MaxScale versions are supported:
 
 * MaxScale 25.10
 * MaxScale 25.01
@@ -635,6 +639,7 @@ For the list of changes made in each version, see the changelogs:
 
 | Version    | sha256sum                                                          |
 | ---------- | ------------------------------------------------------------------ |
+| 2026-10-22 | `830743a98763b408a10f1010a978c2d1d3e480af20933d0735628e9691cf5b27` |
 | 2026-09-15 | `36cbeab52419d36dec10f1eee0ca0b8b7526dd4391d8855178c47fc5859386f4` |
 | 2026-06-30 | `f1baa2eb7af306bc17ede4659e207348f23851b47391415b6e4358a51ac45f28` |
 | 2026-04-30 | `704beacaf236155a69eec63b06987007ba612c7f665dd76cfb384b68fccff8af` |

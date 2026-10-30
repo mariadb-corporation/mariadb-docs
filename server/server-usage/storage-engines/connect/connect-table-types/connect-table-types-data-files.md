@@ -14,7 +14,7 @@ Unless specified, the maturity of file table types is stable.
 
 A **multiple** file table is one that is physically contained in several files of the same type instead of just one. These files are processed sequentially during the process of a query and the result is the same as if all the table files were merged into one. This is great to process files coming from different sources (such as cash register log files) or made at different time periods (such as bank monthly reports) regarded as one table. Note that the operations on such files are restricted to sequential Select and Update; and that VEC multiple tables are not supported by CONNECT. The file list depends on the setting of the **multiple** option of the `CREATE TABLE` statement for that table.
 
-Multiple tables are specified by the option MULTIPLE=_n_, which can take This storage engine has been deprecated.four values:
+Multiple tables are specified by the option MULTIPLE=_n_, which can take four values:
 
 |   |                                                                                                                                                                |
 | - | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@ The `FILEID` special column, described [here](../using-connect/using-connect-vir
 
 ## Record Format
 
-This characteristic applies to table files handled by the operating system input/output functions. It is **fixed** for table types [FIX](connect-dos-and-fix-table-types.md), [BIN](connect-bin-table-type.md), [DBF](connect-dbf-table-type.md) and [VEC](connect-vec-table-type.md), and it is variable for [DOS](connect-dos-and-fix-table-types.md), VCT, [FMT](connect-csv-and-fmt-table-types.md) and some [JSON](connect-json-table-type.md) tables.
+This characteristic applies to table files handled by the operating system input/output functions. It is **fixed** for table types [FIX](connect-dos-and-fix-table-types.md), [BIN](connect-bin-table-type.md), [DBF](connect-dbf-table-type.md) and [VEC](connect-vec-table-type.md), and it is variable for [DOS](connect-dos-and-fix-table-types.md), VCT, [FMT](connect-csv-and-fmt-table-types.md) and some [JSON](connect-json-table-type/README.md) tables.
 
 For fixed tables, most I/O operations are done by block of BLOCK\_SIZE rows. This diminishes the number of I/O’s and enables block indexing.
 
@@ -80,7 +80,7 @@ This is also different from what MariaDB does with [dynamic columns](../../../..
 The following NoSQL types are supported:
 
 * [XML Table Type](connect-xml-table-type.md)
-* [JSON Table Type](connect-json-table-type.md)
+* [JSON Table Type](connect-json-table-type/README.md)
 * [INI Table Type](connect-ini-table-type.md)
 
 <sub>_This page is licensed: GPLv2_</sub>

@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 ```bnf
 CREATE
     [OR REPLACE]
@@ -45,6 +49,10 @@ The `IN OUT` parameter works only in [Oracle mode](create-procedure.md#oracle-mo
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 ```sql
 CREATE
     [OR REPLACE]
@@ -127,7 +135,7 @@ As of [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-se
 
 `CONTAINS SQL` means that the function contains at least one SQL statement, but it does not read or write any data stored in a database. Examples include [SET](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) or [DO](../../../reference/sql-statements/stored-routine-statements/do.md).
 
-`NO SQL` means nothing, because MariaDB does not currently support any language other than SQL.
+`NO SQL` means nothing, because MariaDB does not support any language other than SQL.
 
 The routine\_body consists of a valid SQL procedure statement. This can be a simple statement such as [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md), or it can be a compound statement written using [BEGIN and END](../../../reference/sql-statements/programmatic-compound-statements/begin-end.md). Compound statements can contain declarations, loops, and other control structure statements. See [Programmatic and Compound Statements](../../../reference/sql-statements/programmatic-compound-statements/) for syntax details.
 

@@ -14,6 +14,17 @@ To understand these use cases, it helps to see how Galera's core features are re
 
 ```mermaid
 flowchart LR
+    accTitle: How Galera Cluster features relate to its use cases
+    accDescr {
+        MariaDB Galera Cluster is joined by plain lines, with no direction, to
+        three core features: Synchronous Replication, Multi-Master Architecture
+        and Automatic Node Failover. Arrows then lead from the features to four
+        benefits. High Availability receives arrows from Synchronous Replication
+        and Multi-Master Architecture. Data Consistency and DR receives arrows
+        from Synchronous Replication and Multi-Master Architecture. Zero-Downtime
+        Maintenance receives arrows from Multi-Master Architecture and Automatic
+        Node Failover. Scalable Reads receives arrows from all three features.
+    }
     %% 1. Define all nodes first
     A[MariaDB Galera Cluster]
     B[Synchronous Replication]
@@ -61,7 +72,18 @@ Galera's core strength is its synchronous replication, ensuring that data is wri
 This diagram shows how a proxy like MaxScale handles a node failure. The application is shielded from the downtime, and traffic is automatically rerouted to the healthy nodes.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: MaxScale routing around a failed Galera node
+    accDescr {
+        The user application sends requests to MariaDB MaxScale. Inside the Galera
+        Cluster, MaxScale sends active traffic to Node 1 and to Node 2. Node 3 has
+        failed and is drawn with a dashed red outline. A dotted arrow labelled
+        Re-routes traffic leads from MaxScale to Node 3. Node 1 and Node 2 are
+        joined to each other by a solid line with arrows in both directions. Node
+        3 is joined to each of them by a dotted line with arrows in both
+        directions.
+    }
     App[User Application] --> Proxy[MariaDB MaxScale]
 
     subgraph "Galera Cluster"
@@ -77,6 +99,7 @@ graph TD
     style N3 fill:#f99,stroke:#a00,stroke-width:2px,stroke-dasharray: 5 5
     linkStyle 2 stroke-dasharray: 5 5,stroke:red
     linkStyle 4,5 stroke-dasharray: 5 5,stroke:grey
+    linkStyle default color:#111111
 ```
 
 #### How It _Really_ Works: The "Synchronous" Nuance
@@ -134,6 +157,15 @@ This flowchart shows the "rolling" process for a 3-node cluster.
 
 ```mermaid
 graph TD
+    accTitle: Rolling maintenance of a three-node cluster
+    accDescr {
+        A top-to-bottom sequence that starts at Start Maintenance and ends at End
+        Maintenance. Node 1 is handled first in four steps: isolate it from the
+        proxy, stop, patch and restart it, let it sync using IST (Incremental
+        State Transfer), and add it back to the proxy. The same four steps are
+        then repeated for Node 2. The last step before the end is to repeat the
+        process for Node 3.
+    }
     A[Start Maintenance] --> B["1. Isolate Node 1 from Proxy"]
     B --> C["2. Stop, Patch & Restart Node 1"]
     C --> D["3. Node 1 Syncs (IST)"]
@@ -194,7 +226,17 @@ This use case covers two distinct architectures with different goals:
 This is a single Galera cluster with nodes stretched across multiple data centers. A COMMIT in New York is not "OK'd" until the data is safely certified by the London node. This gives Zero Data Loss (RPO=0) but has a major performance impact.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Synchronous Galera cluster across two data centers
+    accDescr {
+        The application connects to Node 1. Node 1 and Node 2 are in the DC 1 New
+        York data center, and Node 3 is in the DC 2 London data center. All three
+        nodes are joined to each other by synchronous links with arrows in both
+        directions. The link between Node 1 and Node 2 is labelled Sync (Local).
+        The links from Node 1 to Node 3 and from Node 2 to Node 3 are labelled
+        Sync (WAN) and are drawn thick, red and dashed.
+    }
     subgraph "DC 1: New York"
         N1[Node 1]
         N2[Node 2]
@@ -212,6 +254,7 @@ graph TD
     linkStyle 1,2 stroke-width:4px,stroke:red,stroke-dasharray: 5 5
     linkStyle 3 stroke-width:2px,stroke:blue
     style App fill:#f5f5f5
+    linkStyle default color:#111111
 ```
 {% endtab %}
 
@@ -219,7 +262,17 @@ graph TD
 This is the more common setup. A primary cluster in DC-1 runs at full speed. It asynchronously replicates its data to a separate node/cluster in DC-2. This is fast, but allows for minimal data loss (RPO > 0) in a disaster.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Asynchronous replication to a disaster recovery data center
+    accDescr {
+        In DC 1, the primary data center, the application sends requests to
+        MaxScale, and MaxScale sends them to a Galera cluster of three nodes. In
+        DC 2, the disaster recovery data center, there is a single DR node or
+        cluster. An arrow labelled Async Replication, drawn thick, green and
+        dashed, leads from the Galera cluster in DC 1 to the DR node or cluster in
+        DC 2.
+    }
     subgraph "DC 1: Primary"
         App[Application] --> Proxy[MaxScale]
         Proxy --> Cluster1["Galera Cluster<br>(3 Nodes)"]
@@ -232,6 +285,7 @@ graph TD
     Cluster1 -- Async Replication --> Cluster2
     linkStyle 2 stroke-width:4px,stroke:green,stroke-dasharray: 5 5
     style App,Proxy fill:#f5f5f5
+    linkStyle default color:#111111
 ```
 {% endtab %}
 {% endtabs %}
@@ -264,7 +318,17 @@ While synchronous replication adds some overhead, Galera fundamentally allows an
 This is the most common and recommended architecture. MaxScale's `readwritesplit` router automatically designates one node as the "Primary" (for writes) and load-balances reads across the others. If the Primary node fails, MaxScale automatically promotes a new one.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: MaxScale read/write split across a Galera cluster
+    accDescr {
+        The user application sends requests to MariaDB MaxScale, the read/write
+        split router. MaxScale sends all writes to Node 1, the Primary, and sends
+        reads to Node 2 and to Node 3, the Replicas. The three nodes sit inside
+        the MariaDB Galera Cluster box, and each pair of nodes is joined by a line
+        with arrows in both directions: Node 1 and Node 2, Node 1 and Node 3, and
+        Node 2 and Node 3.
+    }
     App[User Application] --> Proxy["MariaDB MaxScale<br>(Read/Write Split Router)"]
 
     subgraph "MariaDB Galera Cluster"
@@ -294,6 +358,7 @@ graph TD
     linkStyle 1,2,3 stroke-width:2px,stroke:blue,stroke-dasharray: 3 3
     linkStyle 4 stroke-width:4px,stroke:red
     linkStyle 5,6 stroke-width:2px,stroke:green
+    linkStyle default color:#111111
 ```
 
 <table><thead><tr><th width="135">Strategy</th><th>"True Multi-Master"</th><th>"Read-Write Split" (Recommended)</th></tr></thead><tbody><tr><td>How it Works</td><td>The application (or proxy) sends writes to <em>all</em>nodes in the cluster.</td><td>A proxy (MaxScale) designates <em>one</em> node as "Primary" and sends 100% of writes to it.</td></tr><tr><td>Pros</td><td>Fully utilizes all nodes for writes; no single point of failure for write ingress.</td><td>No application deadlocks. Zero certification failures. Simple for the application.</td></tr><tr><td>Cons</td><td>High risk of deadlocks. If two clients update the same row on different nodes, one fails.</td><td>Write throughput is limited to what a <em>single node</em> can handle.</td></tr><tr><td>Best For</td><td>Very specific applications that are 100% guaranteed to have no write conflicts.</td><td>99% of all applications. You get full read-scaling and automatic HA, without the application complexity.</td></tr></tbody></table>

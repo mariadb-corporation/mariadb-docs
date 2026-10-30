@@ -18,7 +18,7 @@ See [Installing OQGRAPH](installing-oqgraph.md). Note that if the [query cache](
 
 ## Creating a Table
 
-The following documentation is based upon [MariaDB 10.0.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.7) and OQGRAPH v3.
+The following documentation is based upon OQGRAPH v3.
 
 ## Example with origin and destination nodes only
 
@@ -57,7 +57,7 @@ ENGINE=OQGRAPH
 data_table='oq_backing' origid='origid' destid='destid';
 ```
 
-An older format (prior to [MariaDB 10.0.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.7)) has the latch field as a SMALLINT rather than a VARCHAR. The format gives an error:
+An older format has the latch field as a SMALLINT rather than a VARCHAR. The format gives an error:
 
 ```sql
 CREATE TABLE oq_old (

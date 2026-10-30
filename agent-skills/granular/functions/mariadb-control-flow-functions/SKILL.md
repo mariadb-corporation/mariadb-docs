@@ -5,7 +5,7 @@ description: "MariaDB control-flow functions and operators — IF(), IFNULL()/NV
 
 # MariaDB Control-Flow Functions
 
-*Last updated: 2026-07-20*
+*Last updated: 2026-10-08*
 
 Catalog of every built-in control-flow function in MariaDB, with signature and
 a one-line semantic summary per entry. The `CASE` operator and `DECODE_ORACLE`
@@ -45,7 +45,7 @@ If `expr1` is `TRUE` (`expr1 <> 0` and `expr1 <> NULL`) then `IF()` returns `exp
 
 ### IFNULL
 `IFNULL(expr1,expr2)`  
-If _`expr1`_ is not `NULL`, `IFNULL()` returns _`expr1`_; otherwise it returns_`expr2`_.
+If _`expr1`_ is not `NULL`, `IFNULL()` returns _`expr1`_; otherwise it returns _`expr2`_.
 
 ### NULLIF
 `NULLIF(expr1,expr2)`  

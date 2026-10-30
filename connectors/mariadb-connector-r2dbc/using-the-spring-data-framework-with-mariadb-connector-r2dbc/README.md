@@ -37,8 +37,6 @@ For information on how to use MariaDB Connector/R2DBC with the native R2DBC API,
 
 [Spring Data R2DBC](https://spring.io/projects/spring-data-r2dbc/) allows MariaDB Connector/R2DBC to be used with the popular [Spring Data](https://spring.io/projects/spring-data/) framework, which is part of the larger [Spring Framework](https://spring.io/projects/spring-framework/).
 
-Spring Data R2DBC is currently in incubation, so it is not yet included with the main Spring Data modules.
-
 Spring Data R2DBC supports many features from the Spring Data framework:
 
 | Spring Data Feature    | Supported |

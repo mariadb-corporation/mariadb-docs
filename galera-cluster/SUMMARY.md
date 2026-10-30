@@ -30,8 +30,6 @@
     * [Backing Up a MariaDB Galera Cluster](galera-management/general-operations/backing-up-a-mariadb-galera-cluster.md)
     * [Galera Black Box](galera-management/general-operations/galera-black-box.md)
   * [Upgrading Galera Cluster](galera-management/upgrading-galera-cluster/README.md)
-    * [Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-3-to-mariadb-10-4-with-galera-cluster.md)
-    * [Upgrading from MariaDB 10.4 to MariaDB 10.5 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-4-to-mariadb-10-5-with-galera-cluster.md)
     * [Upgrading from MariaDB 10.5 to MariaDB 10.6 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-5-to-mariadb-10-6-with-galera-cluster.md)
     * [Upgrading from MariaDB 10.6 to MariaDB 10.11 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-6-to-mariadb-10-11-with-galeracluster.md)
     * [Upgrading from MariaDB 10.11 to MariaDB 11.4 with Galera Cluster](galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10.11-to-mariadb-11.4-with-galera-cluster.md)

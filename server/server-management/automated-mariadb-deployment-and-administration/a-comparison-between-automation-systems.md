@@ -7,7 +7,7 @@ description: >-
 
 # Comparison Between Automation Systems
 
-This page compares the automation systems that are covered by this section of the MariaDB documentation. More information about these systems are presented in the relevant pages, and more systems may be added in the future.
+This page compares the automation systems that are covered by this section of the MariaDB documentation. More information about these systems is presented in the relevant pages.
 
 ## Code Structure Differences
 
@@ -120,7 +120,7 @@ Puppet is open source, released under the GNU GPL. It is produced by a homonym c
 
 [Puppet Forge](https://forge.puppet.com/) is a big repository of modules produced by the vendor and by the community, as well as how-to guides.
 
-Currently Puppet has many MariaDB modules.
+Puppet has many MariaDB modules.
 {% endtab %}
 {% endtabs %}
 

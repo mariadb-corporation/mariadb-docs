@@ -11,12 +11,20 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 ```bnf
 DROP USER [IF EXISTS] user_name [, user_name] ... [FORCE]
 ```
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 ```sql
 DROP USER [IF EXISTS] user_name [, user_name] ...
 ```
@@ -29,6 +37,10 @@ The `DROP USER` statement removes one or more MariaDB accounts. It removes privi
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.1:
+{% endhint %}
+
 If you specify an account that is currently connected, it is deleted, but the statement completes with a warning:
 
 {% code overflow="wrap" %}
@@ -53,6 +65,10 @@ The `FORCE` clause is not available in MariaDB Community Server. In Community Se
 {% endtab %}
 
 {% tab title="< 12.1" %}
+{% hint style="info" %}
+Before MariaDB 12.1:
+{% endhint %}
+
 If you specify an account that is currently connected, it is not deleted until the connection is closed. The connection is not automatically closed.
 
 However, a deleted user cannot initiate new connections any more.

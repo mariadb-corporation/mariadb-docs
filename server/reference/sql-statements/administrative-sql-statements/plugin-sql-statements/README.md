@@ -1,5 +1,5 @@
 ---
-ayout:
+layout:
   title:
     visible: true
   description:

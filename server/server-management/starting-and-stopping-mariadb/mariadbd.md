@@ -1,6 +1,6 @@
 ---
 description: >-
-  Describes the `mariadbd` binary (formerly `mysqld`), which is the core
+  Describes the mariadbd binary (formerly mysqld), which is the core
   database server executable.
 ---
 

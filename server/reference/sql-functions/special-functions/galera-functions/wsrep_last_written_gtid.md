@@ -15,7 +15,7 @@ WSREP_LAST_WRITTEN_GTID()
 
 ## Description
 
-Returns the [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) of the most recent write transaction performed by the client.
+Returns the [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) of the most recent write transaction performed by the client.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

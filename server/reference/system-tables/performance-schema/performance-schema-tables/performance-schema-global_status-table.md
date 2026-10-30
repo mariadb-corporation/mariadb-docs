@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema global\_status Table
 
-{% hint style="info" %}
-The `global_status` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `global_status` table contains a list of status variables and their global values. The table only stores status variable statistics for threads which are instrumented, and does not collect statistics for `Com_xxx` variables.
 
 The table contains the following columns:

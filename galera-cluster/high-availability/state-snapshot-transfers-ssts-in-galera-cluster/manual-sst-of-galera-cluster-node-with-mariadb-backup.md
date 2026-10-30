@@ -36,7 +36,20 @@ mariadb-backup --version
 Select the strategy below that best matches your environment's resource constraints and upgrade requirements.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 graph TD
+    accTitle: Manual SST methods using mariadb-backup
+    accDescr {
+        A top-to-bottom flowchart of three ways to run a manual state transfer.
+        All three start by taking a backup on the donor using mariadb-backup.
+        Method A: save the raw backup to the donor disk, transfer the raw files to
+        the joiner with rsync or scp, then prepare the backup on the joiner.
+        Method B: save the raw backup to the donor disk, prepare the backup on the
+        donor, then transfer the prepared files to the joiner with rsync or scp.
+        The diagram draws no step after this transfer. Method C: stream the backup
+        by SSH, extract the stream on the joiner, then prepare the backup on the
+        joiner.
+    }
     classDef donor fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
     classDef joiner fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
     classDef network fill:#fff3e0,stroke:#f57c00,stroke-width:2px,stroke-dasharray: 5 5;
@@ -68,6 +81,7 @@ graph TD
     TransRaw --> PrepJoiner["Prepare Backup on Joiner 
     (--prepare)"]:::joiner
     Extract --> PrepJoiner
+    linkStyle default color:#111111
 ```
 
 #### **Method A: Prepare on the Joiner Node (Standard / Resource-Saving)**

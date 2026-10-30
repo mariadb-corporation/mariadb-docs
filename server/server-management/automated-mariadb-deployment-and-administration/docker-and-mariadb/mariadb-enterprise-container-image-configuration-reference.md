@@ -43,7 +43,7 @@ CREATE USER 'exporter'@'localhost' IDENTIFIED BY 'XXXXXXXX' WITH MAX_USER_CONNEC
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
 ```
 
-> Note: Limiting connections is recommended to prevent monitoring traffic from impacting server performance, though some versions like MariaDB 10.1 do not support resource limits.
+> Note: Limiting connections is recommended to prevent monitoring traffic from impacting server performance.
 
 ### Configuration and Usage
 
@@ -76,7 +76,7 @@ Configuration options follow a hierarchy where environment variables override co
 
 ## MariaDB Enterprise nslcd Sidecar
 
-The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-enterprise-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
+The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
 
 ### Configuration Requirements
 

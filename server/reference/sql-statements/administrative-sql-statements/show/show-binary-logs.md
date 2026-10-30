@@ -17,15 +17,7 @@ SHOW MASTER LOGS
 
 Lists the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) files on the server. This statement is used as part of the procedure described in [PURGE BINARY LOGS](../purge-binary-logs.md), that shows how to determine which logs can be purged.
 
-{% tabs %}
-{% tab title="Current" %}
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-This statement requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege and the [REPLICATION\_CLIENT](../../account-management-sql-statements/grant.md#replication-client) privilege.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

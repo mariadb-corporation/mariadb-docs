@@ -52,7 +52,7 @@ The following elements are not encrypted by the MariaDB server:
 
 * Metadata: Information in `.frm` files and the system data dictionary.
 * Specific Logs: The MariaDB Error Log, General Query Log, and Slow Query Log.
-* Aria Control Log: While Aria tables can be encrypted, the Aria storage engine log is not currently encrypted.
+* Aria Control Log: While Aria tables can be encrypted, the Aria storage engine log is not encrypted.
 * Utilities: Tools like `mariadb-binlog` require the `--read-from-remote-server` flag to read encrypted content.
 
 ## Key Management
@@ -100,7 +100,11 @@ The key file format differs by product and version, so pick the tab that matches
 {% endhint %}
 
 {% tabs %}
-{% tab title="Community Server (all versions) & Enterprise Server before 11.8" %}
+{% tab title="CS & ES before 11.8" %}
+{% hint style="info" %}
+Community Server (CS), all versions, and Enterprise Server (ES) before 11.8:
+{% endhint %}
+
 Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
 
 {% code overflow="wrap" %}
@@ -111,7 +115,11 @@ echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/
 {% endcode %}
 {% endtab %}
 
-{% tab title="Enterprise Server 11.8 and later" %}
+{% tab title="ES 11.8 and later" %}
+{% hint style="info" %}
+Enterprise Server (ES) 11.8 and later:
+{% endhint %}
+
 Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder. The second field is the key version.
 
 {% code overflow="wrap" %}
@@ -272,7 +280,7 @@ If you determine that encryption is no longer necessary, you can revert the syst
 
 ### Prerequisites
 
-* Encryption Status: MariaDB Server must currently have data-at-rest encryption enabled and active.
+* Encryption Status: MariaDB Server must have data-at-rest encryption enabled and active.
 * Key Management Access: You must have the original key management plugin active and the correct keys loaded to facilitate the decryption of the data.
 * Sufficient Disk Space: Ensure adequate free space is available to accommodate the rewritten, unencrypted data files.
 

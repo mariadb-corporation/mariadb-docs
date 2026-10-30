@@ -136,7 +136,6 @@ Some examples of removed RPMs are:
 | Package Name          | Description                                                                            |
 | --------------------- | -------------------------------------------------------------------------------------- |
 | MariaDB-compat        | Old shared client libraries, removed in MariaDB 11.4 as they were no longer needed     |
-| MariaDB-tokudb-engine | The TokuDB storage engine. It was disabled in MariaDB 10.5 and removed in MariaDB 10.6 |
 
 ## Installing RPM Packages
 

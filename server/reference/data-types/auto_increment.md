@@ -362,7 +362,7 @@ SELECT * FROM t1;
 ## See Also
 
 * [Getting Started with Indexes](../../mariadb-quickstart-guides/mariadb-indexes-guide.md)
-* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
+* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment
 * [AUTO\_INCREMENT FAQ](auto_increment-faq.md)
 * [LAST\_INSERT\_ID()](../sql-functions/secondary-functions/information-functions/last_insert_id.md)
 * [AUTO\_INCREMENT handling in InnoDB](../../server-usage/storage-engines/innodb/auto_increment-handling-in-innodb.md)

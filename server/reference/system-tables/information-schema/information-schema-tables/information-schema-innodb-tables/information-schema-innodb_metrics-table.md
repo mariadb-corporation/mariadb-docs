@@ -32,8 +32,6 @@ It has the following columns:
 | TYPE              | Item type; one of counter, value, status\_counter, set\_owner, set\_member.                                                                                                                                                                                                                                                                                                                          |
 | COMMENT           | Counter description.                                                                                                                                                                                                                                                                                                                                                                                 |
 
-Note: In MariaDB 10.4 and earlier the `ENABLED` column was called `STATUS`.
-
 ## Enabling and Disabling Counters
 
 Most of the counters are disabled by default. To enable them, use the [innodb\_monitor\_enable](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_monitor_enable) system variable. You can either enable a variable by its name, for example:

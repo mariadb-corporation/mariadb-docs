@@ -1,0 +1,159 @@
+name: Check Page Descriptions in PR
+
+# Gates the frontmatter `description:` of every page a PR changes (DOCS-6763).
+#
+# GitBook publishes a description as the subtitle under the H1 and as the meta/og/twitter
+# description, and in all of them it (a) cuts the text at exactly 200 characters, mid-word and
+# with no ellipsis, and (b) renders it as plain text, so backticks and other Markdown show
+# literally. Neither is visible in a Markdown preview, a link checker or a spell checker, and
+# both were measured on the live site: MaxScale SmartRouter (207 chars) rendered as "...hybrid
+# (HTAP) proc", and a backticked utility name shows its backticks in the subtitle.
+# .claude/hooks/desccheck.py's header has the full list of what fails and why.
+#
+# WHY CHANGED FILES, WHEN mermaidcheck-pr.yml IS TREE-WIDE
+#   A description finding is LOCAL to its page -- the distinction shrinkcheck-pr.yml's header
+#   draws -- so a changed-files scan cannot miss anything a PR caused. And there IS a backlog:
+#   DOCS-6763 fixed 101 descriptions but left three over-long ones in mariadb-cloud/ to that
+#   space's owners, so a tree-wide gate would fail every PR on pages its author never touched.
+#   Changed-files scope makes those three fail exactly when someone edits them.
+#
+# WHY HEAD^1 AND NOT base.sha
+#   Same as shrinkcheck-pr.yml: the checkout is the PR's merge ref, and base.sha is a stale
+#   snapshot of the base branch, so pairing them reports pages someone else changed on main.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desccheck-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  desccheck:
+    runs-on: ubuntu-latest
+    # Seconds in practice. Without an explicit timeout a wedged run inherits the 6-hour default
+    # and ends as *cancelled*, which `if: failure()` does not catch.
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          # REQUIRED: the changed set is a diff against HEAD^1, which a shallow clone of the
+          # merge ref does not contain.
+          fetch-depth: 0
+
+      - name: Resolve and verify the base revision
+        id: base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+            EFFECTIVE_BASE="$(git rev-parse 'HEAD^1')"
+            echo "HEAD is a merge commit; diffing against its first parent ${EFFECTIVE_BASE}."
+          else
+            EFFECTIVE_BASE="${BASE_SHA:-}"
+            echo "HEAD is not a merge commit; diffing against the PR base ${EFFECTIVE_BASE}."
+          fi
+          if [[ -z "${EFFECTIVE_BASE:-}" ]]; then
+            echo "::error::The PR base SHA is empty, so there is no changed set to check."
+            exit 1
+          fi
+          if ! git cat-file -e "${EFFECTIVE_BASE}^{commit}" 2>/dev/null; then
+            echo "::error::Base commit ${EFFECTIVE_BASE} is not in this clone, so the changed set cannot be computed. Check that fetch-depth: 0 is still set on the checkout step."
+            exit 1
+          fi
+          echo "sha=${EFFECTIVE_BASE}" >> "$GITHUB_OUTPUT"
+
+      - name: Collect the changed pages
+        id: changed
+        env:
+          BASE_SHA: ${{ steps.base.outputs.sha }}
+        run: |
+          set -euo pipefail
+          # --diff-filter=d: a deleted page has no description left to check. NUL-delimited end
+          # to end, so a path containing a space is not split in two.
+          git diff -z --name-only --diff-filter=d "$BASE_SHA" -- '*.md' > changed.nul
+          count="$(tr -cd '\0' < changed.nul | wc -c | tr -d ' ')"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "$count changed Markdown page(s) in this PR."
+
+      - name: Check the descriptions of the changed pages
+        id: desccheck
+        run: |
+          set -uo pipefail
+          # --stdin0, not xargs: a split run returns only the last batch's status. One
+          # invocation, one verdict -- the trap includecheck-pr.yml documents.
+          set +e
+          python3 .claude/hooks/desccheck.py --stdin0 < changed.nul > desccheck.log 2>&1
+          rc=$?
+          set -e
+          cat desccheck.log
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+          case "$rc" in
+            0) ;;
+            1) echo "::error::A page in this PR has a description GitBook will render broken: over 200 characters (cut mid-word), split by a blank line, containing Markdown (shown literally), or repeating the title. Details in the job log and the run summary." ;;
+            2) echo "::error::desccheck.py rejected its arguments -- this workflow is misconfigured, not the PR." ;;
+            *) echo "::error::desccheck.py exited $rc (crash). This is a tooling failure, not a PR finding." ;;
+          esac
+          exit "$rc"
+
+      # "Checked 40 pages, all fine" and "was handed nothing" share exit 0, so the count the
+      # script received is asserted against the list built above. A PR that changes no Markdown
+      # legitimately has nothing to check, which is why this compares rather than using a floor.
+      - name: Assert the check saw the whole changed set
+        if: steps.desccheck.outputs.rc == '0'
+        env:
+          EXPECTED: ${{ steps.changed.outputs.count }}
+        run: |
+          set -euo pipefail
+          given="$(sed -n 's/.*(\([0-9]\{1,\}\) given,.*/\1/p' desccheck.log | head -1)"
+          if [[ -z "$given" ]]; then
+            cat desccheck.log
+            echo "::error::Could not read the received-file count out of desccheck's output. Either the summary line changed shape (update this assertion with it) or the script never got to print it."
+            exit 1
+          fi
+          if [[ "$given" != "${EXPECTED}" ]]; then
+            cat desccheck.log
+            echo "::error::desccheck was handed ${EXPECTED} changed page(s) but reports ${given}. The file list did not survive the pipe, so this run did not check what the PR changed."
+            exit 1
+          fi
+          echo "desccheck received all ${EXPECTED} changed page(s)."
+
+      - name: Record the result in the run summary
+        if: always()
+        env:
+          RC: ${{ steps.desccheck.outputs.rc }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Page descriptions"
+            echo
+            if [[ ! -s desccheck.log ]]; then
+              echo "No output was produced -- an earlier step failed before the scan ran."
+            else
+              case "${RC:-}" in
+                0) echo "Every changed page's \`description:\` will render whole and as written." ;;
+                1) echo "A changed page's \`description:\` will render broken. Keep it to one plain-text sentence or two of at most 200 characters, with no backticks or other Markdown, and move anything longer into the page body." ;;
+                *) echo "The check did not complete (exit ${RC:-unknown}). This is a tooling failure, not a PR finding." ;;
+              esac
+              echo
+              # Four-backtick fence: the log embeds author-controlled file paths, and this
+              # summary renders as GFM. Same reasoning as shrinkcheck-pr.yml.
+              echo '````text'
+              cat desccheck.log
+              echo '````'
+              echo
+              echo "Run the same check locally with:"
+              echo
+              echo '````bash'
+              echo "git diff -z --name-only --diff-filter=d ${GITHUB_BASE_REF:-main} -- '*.md' \\"
+              echo "  | python3 .claude/hooks/desccheck.py --stdin0"
+              echo '````'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

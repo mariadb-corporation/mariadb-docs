@@ -66,7 +66,7 @@ For valid identifiers to use as index names, see [Identifier Names](../../../sql
 
 For limits on InnoDB indexes, see [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md).
 
-Note that `KEY_BLOCK_SIZE` is currently ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
+Note that `KEY_BLOCK_SIZE` is ignored in `CREATE INDEX`, although it is included in the output of [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md).
 
 ## Privileges
 
@@ -117,19 +117,11 @@ See [Progress Reporting](../../../product-development/mariadb-internals/using-ma
 
 ## WITHOUT OVERLAPS
 
-{% tabs %}
-{% tab title="Current" %}
 The `WITHOUT OVERLAPS` clause allows you to constrain a primary or unique index such that [application-time periods](../../../sql-structure/temporal-tables/application-time-periods.md) cannot overlap. It can be used like this:
 
 ```sql
 CREATE UNIQUE INDEX u ON rooms (room_number, p WITHOUT OVERLAPS);
 ```
-{% endtab %}
-
-{% tab title="< 10.5.3" %}
-`WITHOUT OVERLAPS` is not available.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

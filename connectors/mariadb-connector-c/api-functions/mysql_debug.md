@@ -19,7 +19,7 @@ void mysql_debug(const char * debug);
 
 Enables debug output for development and debug purposes by using Fred Fish's DBUG library. For using this function the mariadb-client library must be compiled with debug support.
 
-Almost all MariaDB binaries use the DBUG library and one can get a trace of the program execution by using the [--debug](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#debug) command line option with the binary. This will only work if the binary is compiled for debugging (compiler option `-DDBUG_ON`).
+Almost all MariaDB binaries use the DBUG library and one can get a trace of the program execution by using the [--debug](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#debug-debug_dbug) command line option with the binary. This will only work if the binary is compiled for debugging (compiler option `-DDBUG_ON`).
 
 Returns void.
 
@@ -35,7 +35,7 @@ Each field consists of a mandatory flag character followed by an optional "," an
 flag[,modifier,modifier,...,modifier]
 ```
 
-The currently recognized flag characters are:
+The recognized flag characters are:
 
 | Option | Description                                                                                                                                                                                                                                                                  |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

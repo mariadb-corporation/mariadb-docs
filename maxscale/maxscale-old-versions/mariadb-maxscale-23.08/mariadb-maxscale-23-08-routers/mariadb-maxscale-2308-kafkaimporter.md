@@ -214,8 +214,7 @@ features that InnoDB supports.
 
 ### Limitations
 
-* The backend servers used by this service must be MariaDB version 10.2 or
-  newer.
+* The backend servers used by this service must be MariaDB servers.
 
 CC BY-SA / Gnu FDL
 

@@ -15,21 +15,10 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the st
 
 The monitor user requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
 GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-```sql
-CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
-GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
-```
-{% endtab %}
-{% endtabs %}
 
 If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set), it needs the `FILE` privilege:
 
@@ -59,6 +48,10 @@ If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-ope
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0:
+{% endhint %}
+
 ```sql
 GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -67,7 +60,11 @@ GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
-{% tab title="< 11.0.1" %}
+{% tab title="< 11.0" %}
+{% hint style="info" %}
+Before MariaDB 11.0:
+{% endhint %}
+
 ```sql
 GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
 GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
@@ -85,21 +82,10 @@ GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
 
 If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
 
-{% tabs %}
-{% tab title="Current" %}
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
 ```
-{% endtab %}
-
-{% tab title="< 10.5" %}
-```sql
-CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
-GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
-```
-{% endtab %}
-{% endtabs %}
 
 ## Primary selection
 
@@ -151,6 +137,7 @@ These are optional parameters specific to the MariaDB Monitor. Failover, switcho
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: When enabled, the monitor assumes that the server hostnames and ports in the configuration match those provided by the servers, resulting in accurate topology identification and support for cluster actions such as failover and switching.
 
 When active, the monitor assumes that server hostnames and ports are consistent between the server definitions in the MaxScale configuration file and the "SHOW ALL SLAVES STATUS" outputs of the servers themselves. Specifically, the monitor assumes that if server A is replicating from server B, then A must have a replica connection with `Master_Host` and`Master_Port` equal to B's address and port in the configuration file. If this is not the case, e.g. an IP is used in the server while a hostname is given in the file, the monitor may misinterpret the topology. The monitor attempts name resolution on the addresses if a simple string comparison does not find a match. Using exact matching addresses is, however, more reliable. In MaxScale 24.02.0, an alternative IP or hostname for a server can be given in [private\_address](mariadb-monitor.md#private_address).
 
@@ -173,6 +160,7 @@ This setting is useful if replication and application traffic are separated to d
 * Dynamic: Yes
 * Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
 * Default: `primary_monitor_master, disk_space_ok`
+* Description: Specifies additional requirements for a server to be considered primary, such as the availability of connected or running replicas, sufficient disk space, or agreement with supporting monitors.
 
 Designate additional conditions for _master_-status, i.e. qualified for read and write queries.
 
@@ -204,6 +192,7 @@ master_conditions=connected_slave,running_slave
 * Dynamic: Yes
 * Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
 * Default: `none`
+* Description: Specifies additional requirements for a server to be identified as a Slave, such as being connected to a running or writable primary; several conditions can be coupled using an `enum` mask.
 
 Designate additional conditions for _Slave_-status, i.e qualified for read queries.
 
@@ -230,6 +219,7 @@ slave_conditions=running_master,writable_master
 * Mandatory: No
 * Dynamic: Yes
 * Default: `5`
+* Description: Specifies how many consecutive monitor cycles a primary must fail before being considered down and requiring failover or primary reselection.
 
 The number of consecutive monitor passes a primary server must be down before it is considered failed. If automatic failover is enabled (`auto_failover=true`), it may be performed at this time. A value of 0 or 1 enables immediate failover.
 
@@ -249,6 +239,7 @@ If [cooperative monitoring](mariadb-monitor.md#cooperative-monitoring) is enable
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Ensures that the primary server is always writable by automatically disabling read-only mode during monitoring.
 
 If set to ON, the monitor attempts to disable the _read\_only_-flag on the primary when seen. The flag is checked every monitor tick. The monitor user requires the SUPER-privilege for this feature to work.
 
@@ -262,6 +253,7 @@ When this feature is enabled, setting the primary manually to _read\_only_ will 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Automatically sets `read_only` flag on writable replica servers, allowing only privileged users to write; the primary server is unaffected.
 
 If set to ON, the monitor attempts to enable the _read\_only_-flag on any writable replica server. The flag is checked every monitor tick. The monitor user requires the SUPER-privilege (or READ\_ONLY ADMIN) for this feature to work. While the _read\_only_-flag is ON, only users with the SUPER-privilege (or READ\_ONLY ADMIN) can write to the backend server. If temporary write access is required, this feature should be disabled before attempting to disable _read\_only_ manually. Otherwise, the monitor will quickly re-enable it.
 
@@ -273,6 +265,7 @@ _read\_only_ won't be enabled on the master server, even if it has lost \[Master
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Automatically sets `read_only` on any writable servers that are not the primary and are not under maintenance, ensuring that non-primary servers remain read-only.
 
 Works similar to [enforce\_read\_only\_slaves](mariadb-monitor.md#enforce_read_only_slaves) except will set _read\_only_ on any writable server that is not the primary and not in maintenance (a superset of the servers altered by _enforce\_read\_only\_slaves_).
 
@@ -284,6 +277,7 @@ The monitor user requires the SUPER-privilege (or READ\_ONLY ADMIN) for this fea
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: When disk space is low, non-primary servers are automatically put into maintenance mode, which stops them from being used for sessions or failover unless they are manually removed.
 
 If a running server that is not the primary or a relay primary is out of disk space the server is set to maintenance mode. Such servers are not used for router sessions and are ignored when performing a failover or other cluster modification operation. See the general monitor parameters [disk\_space\_threshold](common-monitor-parameters.md#disk_space_threshold) and [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval) on how to enable disk space monitoring.
 
@@ -300,6 +294,7 @@ maxctrl clear server server2 Maint
 * Dynamic: Yes
 * Values: `none`, `majority_of_all`, `majority_of_running`
 * Default: `none`
+* Description: Controls how a monitor achieves exclusive locks in multi-MaxScale configurations; decides whether a monitor becomes primary based on the majority of all servers, only running servers, or none at all.
 
 Using this setting is recommended when multiple MaxScales are monitoring the same backend cluster. When enabled, the monitor attempts to acquire exclusive locks on the backend servers. The monitor considers itself the primary monitor if it has a majority of locks. The majority can be either over all configured servers or just over running servers. See [Cooperative monitoring](mariadb-monitor.md#cooperative-monitoring) for more details on how this feature works and which value to use.
 
@@ -332,6 +327,7 @@ servers_no_cooperative_monitoring_locks=backup_dc_server1,backup_dc_server2
 * Mandatory: No
 * Dynamic: Yes
 * Default: `-1`
+* Description: Sets a replication lag threshold (in seconds) that executes the monitor script when exceeded (`rlag_above`) or returned below (`rlag_below`); negative values disable this feature.
 
 Defines a replication lag limit in seconds for launching the monitor script configured in the _script_-parameter. If the replication lag of a server goes above this limit, the script is run with the $EVENT-placeholder replaced by "rlag\_above". If the lag goes back below the limit, the script is run again with replacement "rlag\_below".
 
@@ -353,10 +349,10 @@ See [operation details](mariadb-monitor.md#operation-details) for more informati
 
 MariaDB Monitor also supports backup operations that copy or overwrite the entire contents of a server: `rebuild-server` (run with the `async-rebuild-server` command), `create-backup` (`async-create-backup`), and `restore-from-backup` (`async-restore-from-backup`). These are described in the [Backup operations](mariadb-monitor.md#backup-operations) section.
 
-The cluster operations require that the monitor user (`user`) has the following privileges:
+Before MariaDB Server 11.0.1, the cluster operations require that the monitor user (`user`) has the following privileges:
 
 * SUPER, to modify replica connections, set globals such as read\_only and kill connections from other super-users
-* REPLICATION CLIENT (REPLICATION SLAVE ADMIN in MariaDB Server 10.5), to list replica connections
+* REPLICA MONITOR, to list replica connections
 * RELOAD, to flush binary logs
 * PROCESS, to check if the event\_scheduler process is running
 * SHOW DATABASES and EVENT, to list and modify server events
@@ -364,8 +360,6 @@ The cluster operations require that the monitor user (`user`) has the following 
 * SELECT on mysql.global\_priv so see to see which users have READ\_ONLY ADMIN
 
 A list of the grants can be found in the [Required Grants](mariadb-monitor.md#required-grants) section.
-
-The privilege system was changed in MariaDB Server 10.5. The effects of this on the MaxScale monitor user are minor, as the SUPER-privilege contains many of the required privileges and is still required to kill connections from other super-users.
 
 In MariaDB Server 11.0.1 and later, SUPER no longer contains all the required grants. The monitor requires:
 
@@ -763,6 +757,7 @@ After failover the new primary is replicating from the external primary. If the 
 * Dynamic: Yes
 * Values: `true`, `on`, `yes`, `1`, `false`, `off`, `no`, `0`, `safe`
 * Default: `false`
+* Description: Enables or disables automated primary failover, which allows MaxScale to select a new primary if the current one fails.
 
 Enable automatic primary failover. `true`, `on`, `yes` and `1` enable normal failover. `false`, `off`, `no` and `0` disable the feature. `safe` enables [safe failover](mariadb-monitor.md#failover-safe).
 
@@ -778,6 +773,7 @@ Failover is designed to be used with simple primary-replica topologies. More com
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Allows automatic redirection of servers to duplicate from the current primary, resulting in a 1-primary-N-replicas architecture.
 
 Enable automatic joining of servers to the cluster. When enabled, MaxScale will attempt to direct servers to replicate from the current cluster primary if they are not currently doing so. Replication will be started on any standalone servers. Servers that are replicating from another server will be redirected. This effectively enforces a 1-primary-N-replicas topology. The current primary itself is not redirected, so it can continue to replicate from an external primary. Rejoin is also not performed on any server that is replicating from multiple sources, as this indicates a complicated topology (this rule is overridden by [enforce\_simple\_topology](mariadb-monitor.md#enforce_simple_topology)).
 
@@ -821,6 +817,7 @@ The following series of events demonstrates failback switchover:
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Enables automatic switchover of a primary server that is low on disk space to a replica without disk space issues.
 
 If enabled, the monitor will attempt to switchover a primary server low on disk space with a replica. The switch is only done if a replica without disk space issues is found. If`maintenance_on_low_disk_space` is also enabled, the old primary (now a replica) will be put to maintenance during the next monitor iteration.
 
@@ -836,6 +833,7 @@ switchover_on_low_disk_space=true
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Promotes a 1-primary-N-replicas cluster configuration, automatically reconnecting servers and deleting unnecessary replication sources to maintain a simple topology.
 
 This setting tells the monitor to assume that the servers should be arranged in a 1-primary-N-replicas topology and the monitor should try to keep it that way. If`enforce_simple_topology` is enabled, the settings `assume_unique_hostnames`,`auto_failover` and `auto_rejoin` are also activated regardless of their individual settings.
 
@@ -853,6 +851,7 @@ enforce_simple_topology=true
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the username used for replication authentication when configuring replica connections.
 
 This and `replication_password` specify the username and password of the replication user. These are given as the values for `MASTER_USER` and`MASTER_PASSWORD` whenever a `CHANGE MASTER TO` command is executed.
 
@@ -868,6 +867,7 @@ The credentials used for replication must have the `REPLICATION SLAVE` privilege
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the password used by the replication user for authentication.
 
 See [replication\_user](mariadb-monitor.md#replication_user)
 
@@ -877,6 +877,7 @@ See [replication\_user](mariadb-monitor.md#replication_user)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Enables SSL encryption for replication by configuring generated replication commands to use secure connections.
 
 If set to ON, any `CHANGE MASTER TO`-command generated will set `MASTER_SSL=1` to enable encryption for the replication stream. This setting should only be enabled if the backend servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ and _ssl\_key_ in the server configuration file. Additionally, credentials for the replication user should require an encrypted connection (`e.g. ALTER USER repl@'%' REQUIRE SSL;`).
 
@@ -901,6 +902,7 @@ replication_custom_options=MASTER_SSL_CERT = '/tmp/certs/client-cert.pem',
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
+* Description: Sets the maximum time allowed for a failover operation before it is terminated and automatic failover is disabled.
 
 Time limit for failover operation. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
@@ -912,6 +914,7 @@ If no successful failover takes place within the configured time period, a messa
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
+* Description: Defines the maximum time allowed for switchover and rejoin operations before timing out.
 
 Time limit for switchover operations. The timeout is also used as the time limit for a rejoin operation. Rejoin should rarely time out, since it is a faster operation than switchover. Note that since the granularity of the timeouts is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
@@ -921,6 +924,7 @@ Time limit for switchover operations. The timeout is also used as the time limit
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Enables verification of primary server failure using replica status before triggering automatic failover.
 
 Enable additional primary failure verification for automatic failover.`verify_master_failure` enables this feature and [master\_failure\_timeout](mariadb-monitor.md#master_failure_timeout) defines the timeout.
 
@@ -938,6 +942,7 @@ For automatic failover to activate, the `failcount` requirement must also be met
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
+* Description: Specifies the duration MaxScale waits before considering a primary server as failed.
 
 `master_failure_timeout` is specified as documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
@@ -962,6 +967,7 @@ As of MaxScale 24.02.4 and 24.08.1, this setting also affects primary server sel
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a file of SQL statements to execute on a server during promotion to primary.
 
 This and `demotion_sql_file` are paths to text files with SQL statements in them. During promotion or demotion, the contents are read line-by-line and executed on the backend. Use these settings to execute custom statements on the servers to complement the built-in operations.
 
@@ -984,6 +990,7 @@ demotion_sql_file=/home/root/scripts/demotion.sql
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a SQL file to execute when a server is downgraded; equivalent to `promotion_sql_file`.
 
 See [promotion\_sql\_file](mariadb-monitor.md#promotion_sql_file).
 
@@ -993,6 +1000,7 @@ See [promotion\_sql\_file](mariadb-monitor.md#promotion_sql_file).
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether the monitor tracks and updates scheduled events on servers during offers, demotions, and rejoins.
 
 If enabled, the monitor continuously queries the servers for enabled scheduled events and uses this information when performing cluster operations, enabling and disabling events as appropriate.
 
@@ -1030,6 +1038,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 The flowchart below illustrates the lock handling logic.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative monitoring — acquiring the primary lock majority
     accDescr {
@@ -1064,6 +1073,7 @@ flowchart TD
     class Check,AcqRemaining,AcqAll,Release proc
     class Have,CanGet,Got decision
     class Start,Primary,Secondary terminal
+    linkStyle default color:#111111
 ```
 
 _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or can acquire) a majority of server locks becomes primary; otherwise it releases any locks and continues as secondary._
@@ -1073,8 +1083,18 @@ _MariaDB Monitor cooperative locking: on each tick, a MaxScale that holds (or ca
 `cooperative_monitoring_locks=majority_of_running` is meant for situations where the network is reliable in the sense that a network partition is highly unlikely. In a reliable network, if a server becomes unconnectable for one MaxScale, it does so for all MaxScales. This is typically the case if all servers and all MaxScales are close by, in the same datacenter under the same router. Because `majority_of_running` adjusts the total number of servers in the majority calculation according to how many servers are connectable, a lock majority is possible even with just one server left running.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - majority with one server remaining (majority_of_running)
+    accDescr {
+        Three servers, Server 1, Server 2 and Server 3, and two MaxScales,
+        MaxScale A and MaxScale B. Each MaxScale has an arrow to each server. The
+        arrow from MaxScale A to Server 1 is labelled locked. The arrow from
+        MaxScale B to Server 1 is labelled reachable. The four arrows from the two
+        MaxScales to Server 2 and Server 3 are labelled unreachable. The boxes
+        show the outcome: MaxScale A is primary, MaxScale B is secondary, Server 1
+        is read-write, and Server 2 and Server 3 are down.
+    }
 
     MXA["MaxScale A<br/>primary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1089,14 +1109,26 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1. All other servers are down. MaxScale A has claimed the exclusive lock on Server 1 and concludes it has lock majority (1/1 running servers). MaxScale A either considers Server 1 primary, or promotes it if [auto_failover](#auto_failover) is enabled. MaxScale A has also claimed the master-lock on Server 1. MaxScale B sees the locks taken and agrees that Server 1 is the primary._
 
 `cooperative_monitoring_locks=majority_of_running` should not be used when network partition is a credible threat. This is the case when the MaxScales and the servers are separated into multiple datacenters or are otherwise in multiple networks. If a network partition takes place, different MaxScales see different servers as connectable, and claim the exclusive locks on them. Thus, multiple MaxScales can conclude that they have lock majority, which leads to multiple primary servers. This may lead to write-queries being routed to multiple servers, splitting the cluster. Once the split happens, MaxScale can no longer reassemble the cluster automatically, and manual intervention is required.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: Cooperative locking - split-brain scenario (majority_of_running)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1, Server 2 and MaxScale A.
+        Datacenter B holds Server 3, Server 4 and MaxScale B. Arrows labelled
+        locked lead from MaxScale A to Server 1 and Server 2, and from MaxScale B
+        to Server 3 and Server 4. Dotted arrows lead from each MaxScale to the two
+        servers in the other datacenter. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: MaxScale A and MaxScale B are both primary. Server 1 and Server 3
+        are read-write, and Server 2 and Server 4 are read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>primary"]:::warn
@@ -1118,6 +1150,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A and B is broken. MaxScale A holds locks on Server 1 and Server 2, but cannot connect to Server 3 and Server 4. Datacenter B has the opposite situation. Both MaxScales think they have two locks out of two running servers, and act as the primary MaxScale. This leads to a split-brain situation with two independent read-write servers._
 
@@ -1126,8 +1159,18 @@ _The link between datacenters A and B is broken. MaxScale A holds locks on Serve
 `cooperative_monitoring_locks=majority_of_all` is meant for situations where a network partition is possible, e.g. when the servers and MaxScales are spread over multiple datacenters. Because `majority_of_all` calculates the required majority over all configured servers, it ensures that only one MaxScale can have lock majority at any time. This does not mean that the cluster will survive failure scenarios without service outage, though. If the network partitions or too many servers go down, then the typical outcome is that no MaxScale will have lock majority, no MaxScale is the primary MaxScale, and no server is writable. Still, this may be preferable to a split cluster with multiple primary servers.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - network partition (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Each MaxScale has an arrow labelled reachable to the server in
+        its own datacenter, and dotted arrows to the servers in the other two
+        datacenters. Dotted arrows show servers that the MaxScale cannot reach, as
+        the page caption explains. The boxes show the outcome: all three MaxScales
+        are secondary and all three servers are read-only.
+    }
 
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
@@ -1156,14 +1199,25 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The link between datacenters A, B and C is broken. Each MaxScale can only connect to the server in their local datacenter. Each MaxScale can acquire one lock out of three total servers, which is not enough for majority. All MaxScales are in secondary status, and will release any locks they may have acquired. No primary server is detected so all servers are in read-only mode. Once connectivity is restored, one MaxScale will again claim lock majority and the cluster resumes normal operation._
 
 The downside of `majority_of_all` is that it can lead to a read-only cluster in situations where it is not strictly necessary. This is the case when too many servers go down or otherwise become unconnectable, so that a majority can no longer be formed.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - no majority (majority_of_all)
+    accDescr {
+        Four servers, Server 1, Server 2, Server 3 and Server 4, and two
+        MaxScales, MaxScale A and MaxScale B. Arrows labelled reachable lead from
+        each MaxScale to Server 1 and Server 2. Dotted arrows lead from each
+        MaxScale to Server 3 and Server 4. Dotted arrows show servers that the
+        MaxScale cannot reach, as the page caption explains. The boxes show the
+        outcome: both MaxScales are secondary, Server 1 and Server 2 are
+        read-only, and Server 3 and Server 4 are down.
+    }
 
     MXA["MaxScale A<br/>secondary"]:::node
     MXB["MaxScale B<br/>secondary"]:::node
@@ -1179,14 +1233,25 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Both MaxScales maintain a connection to Server 1 and Server 2. Server 3 and Server 4 are down. Neither MaxScale can reach lock majority, which would require three locks. Servers remain unlocked. Because both MaxScales are in secondary mode, no server is declared primary. Servers 1 and 2 are in read-only mode._
 
 `cooperative_monitoring_locks=majority_of_all` requires at least three servers to work reliably. With only two servers, just one server going down means that lock majority is no longer possible (one out of two is not a majority). Also, separating the three servers to just two datacenters is fragile: if the datacenter with two servers loses power, the remaining datacenter can no longer reach majority.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - majority datacenter down (majority_of_all)
+    accDescr {
+        Two datacenters. Datacenter A holds Server 1 and MaxScale A. Datacenter B
+        holds Server 2, Server 3 and MaxScale B. An arrow labelled reachable leads
+        from MaxScale A to Server 1, and dotted arrows lead from MaxScale A to
+        Server 2 and Server 3. Dotted arrows show servers that the MaxScale cannot
+        reach, as the page caption explains. MaxScale B has no arrows. The boxes
+        show the outcome: MaxScale B, Server 2 and Server 3 are down. MaxScale A
+        is secondary and Server 1 is read-only.
+    }
 
     subgraph DCB["Datacenter B"]
       MXB["MaxScale B<br/>down"]:::warn
@@ -1207,14 +1272,27 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter B is down. Since it contained two out of three servers, the surviving datacenter does not have enough servers to claim majority._
 
 Resistance to datacenter-wide failures requires at least three datacenters, so that a majority can be formed with the remaining datacenters.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter down (majority_of_all)
+    accDescr {
+        Three datacenters. Datacenter A holds Server 1 and MaxScale A, Datacenter
+        B holds Server 2 and MaxScale B, and Datacenter C holds Server 3 and
+        MaxScale C. Arrows labelled locked lead from MaxScale A to Server 1 and
+        Server 2. Arrows labelled reachable lead from MaxScale B to Server 1 and
+        Server 2. Dotted arrows lead from MaxScale A and MaxScale B to Server 3.
+        Dotted arrows show servers that the MaxScale cannot reach, as the page
+        caption explains. MaxScale C has no arrows. The boxes show the outcome:
+        MaxScale C and Server 3 are down. MaxScale A is primary and Server 1 is
+        read-write. MaxScale B is secondary and Server 2 is read-only.
+    }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>down"]:::warn
       SC1["Server 3<br/>down"]:::warn
@@ -1240,6 +1318,7 @@ flowchart TD
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter C is down. It only contained one out of three servers, so the servers in the remaining datacenters can still form a majority._
 
@@ -1256,14 +1335,18 @@ settings) do the other MaxScales realize that the situation has changed.
 During this time, transactions can still commit to the old primary.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale cooperative locking - one datacenter with primary server disconnected (majority_of_all)
     accDescr {
-      Datacenter A has lost its connection to datacenters B and C but keeps running. MaxScale A
-      still reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2
-      and Server 3, and MaxScale C reaches Server 3 normally. Until the master lock expires,
-      Server 1 keeps accepting writes while MaxScale B promotes Server 2, so the two servers
-      diverge.
+      Three datacenters. Datacenter A holds Server 1 (read-write, soon read-only) and MaxScale A
+      (secondary). Datacenter B holds Server 2 (read-only, soon read-write) and MaxScale B
+      (primary). Datacenter C holds Server 3 (read-only) and MaxScale C (secondary). Datacenter
+      A has lost its connection to datacenters B and C but keeps running. MaxScale A still
+      reaches Server 1, the now-stale primary, while MaxScale B holds the locks on Server 2 and
+      Server 3, and MaxScale C reaches Server 3 normally and also has an unlabelled arrow to
+      Server 2. Until the master lock expires, Server 1 keeps accepting writes while MaxScale B
+      promotes Server 2, so the two servers diverge.
     }
     subgraph DCC["Datacenter C"]
       MXC["MaxScale C<br/>secondary"]:::node
@@ -1291,6 +1374,7 @@ flowchart TD
     MXC --> |reachable| SC1
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _Datacenter A disconnects from datacenters B and C but stays running. MaxScale A
 (secondary) still sees the master-lock taken on Server 1 and assumes that it is
@@ -1318,7 +1402,7 @@ Monitor cooperation depends on the server locks. The locks are connection-specif
 
 If the primary MaxScale or its monitor is stopped normally, the monitor connections are properly closed, releasing the locks. This allows the secondary MaxScale to quickly claim the locks. However, if the primary simply vanishes (broken network), the connection may just look idle. In this case, the MariaDB Server may take a long time before it considers the monitor connection lost. This time ultimately depends on TCP keepalive settings on the machines running MariaDB Server.
 
-On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
+The TCP keepalive settings can be configured for just the server process. See [Server System Variables](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tcp_keepalive_interval) for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and _tcp\_keepalive\_time_. These settings can also be set on the operating system level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring TCP keepalive is no longer necessary as the monitor sets the session _wait\_timeout_ variable when acquiring a lock. This causes the MariaDB Server to close the monitor connection if the connection appears idle for too long. The value of _wait\_timeout_ used depends on the monitor interval and connection timeout settings, and is logged at MaxScale startup.
 
@@ -1343,6 +1427,7 @@ See the following configuration parameters for more information on how to config
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Dynamic: Yes
 * Default: 0s
+* Description: Sets the interval after which a write test is performed on the primary if no changes are detected.
 
 If enabled (value > 0s), the monitor will perform a write test on the primary server if its gtid\_binlog\_pos has not changed within the configured interval. This test inserts one row to the table configured in [write\_test\_table](mariadb-monitor.md#write_test_table). If the insert fails or does not complete within [backend\_read\_timeout](common-monitor-parameters.md#backend_read_timeout), the server fails the write test. What happens after that depends on [write\_test\_fail\_action](mariadb-monitor.md#write_test_fail_action).
 
@@ -1355,6 +1440,7 @@ write_test_interval=20s
 * Type: string
 * Dynamic: Yes
 * Default: `mxs.maxscale_write_test`
+* Description: Specifies the fully qualified table used by the monitor to perform primary server write tests.
 
 The write test target table. The table name should be fully qualified i.e. include the database name. If the table does not exist or does not contain expected columns, the monitor (re)creates it. The table is created with a query like
 
@@ -1381,6 +1467,7 @@ write_test_table=mxs.my_write_test_table
 * Default: `log`
 * Values: `log`, `failover`
 * Dynamic: Yes
+* Description: Defines the action to consider when the primary fails a write text, either logging the failure or triggering a failover.
 
 Which action to take if the primary server fails the write test. `log` means that MaxScale will simply log the failure but perform no other action. This is mainly useful for testing the feature.
 
@@ -1671,6 +1758,7 @@ $ maxctrl call command mariadbmon list-backups monitor=MariaDB-Monitor
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the SSH username for logging in to backend servers to execute commands.
 
 Ssh username. Used when logging in to backend servers to run commands.
 
@@ -1680,6 +1768,7 @@ Ssh username. Used when logging in to backend servers to run commands.
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the SSH private key file used by MaxScale to authenticate when connecting to backend servers.
 
 Path to file with an ssh private key. Used when logging in to backend servers to run commands.
 
@@ -1689,6 +1778,7 @@ Path to file with an ssh private key. Used when logging in to backend servers to
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether MaxScale verifies the SSH host key when connecting to a backend server.  When set to `true`, MaxScale requires that the backend server’s host key is already present in the `known_hosts` file of the user running MaxScale. This ensures the authenticity of the server during SSH connections. 
 
 Boolean, default: true. When logging in to backends, require that the server is already listed in the known\_hosts-file of the user running MaxScale.
 
@@ -1698,6 +1788,7 @@ Boolean, default: true. When logging in to backends, require that the server is 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
+* Description: Specifies the maximum duration allowed for SSH commands during a rebuild before timing out.
 
 The rebuild operation consists of multiple ssh commands. Most of the commands are assumed to complete quickly. If these commands take more than _ssh\_timeout_ to complete, the operation fails. Adjust this setting if rebuild fails due to ssh commands timing out. This setting does not affect steps 5 and 6, as these are assumed to take significant time.
 
@@ -1707,6 +1798,7 @@ The rebuild operation consists of multiple ssh commands. Most of the commands ar
 * Mandatory: No
 * Dynamic: Yes
 * Default: `22`
+* Description: Uses port for SSH connections when executing remote commands on backend servers.
 
 SSH port. Used for running remote commands on servers.
 
@@ -1716,6 +1808,7 @@ SSH port. Used for running remote commands on servers.
 * Mandatory: No
 * Dynamic: Yes
 * Default: `4444`
+* Description: Specifies the TCP port on which the source server will listen for the rebuild (SST) connection during a state transfer. This port must be open (not blocked by firewalls) and free (not in use by another process). If another process uses the port when the rebuild begins, MaxScale will attempt to terminate it to free up the port.
 
 The port which the source server listens on for a connection. The port must not be blocked by a firewall or listened on by any other program. If another process is listening on the port when rebuild is starting, MaxScale will attempt to kill the process.
 
@@ -1725,6 +1818,7 @@ The port which the source server listens on for a connection. The port must not 
 * Mandatory: No
 * Dynamic: Yes
 * Default: `1G`
+* Description: Specifies how much memory `mariadb-backup` should use during the `--prepare` phase. This value is specified with the `--use-memory=<val>`. Setting it to an empty string disables the option and allows `mariadb-backup` to utilize the internal default. Increasing RAM can accelerate backup preparation, especially for large datasets.
 
 Given as is to`mariadb-backup --prepare --use-memory=<mariadb_backup_use_memory>`. If set to empty, no `--use-memory` is set and mariadb-backup will use its internal default. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#use-memory) for more information.
 
@@ -1740,6 +1834,7 @@ Starting with MaxScale 24.02.7, the old name `mariabackup_use_memory` has been d
 * Mandatory: No
 * Dynamic: Yes
 * Default: `1`
+* Description: Defines the number of parallel threads to use while running `mariadb-backup`. This value is used as the `--parallel=<val>` for `mariadb-backup --backup`. Increasing this value can accelerate backups on systems with multiple CPUs and fast I/O.
 
 Given as is to`mariadb-backup --backup --parallel=<val>`. Defines the number of threads used for parallel data file transfer. See [here](../../../server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options.md#parallel) for more information.
 
@@ -1755,6 +1850,7 @@ Starting with MaxScale 24.02.7, the old name `mariabackup_parallel` has been dep
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Provides the backup storage server's hostname or IP address. The server does not have to run MariaDB or be monitored by MaxScale. MaxScale connects via SSH, and the storage must have enough disk space to accommodate all backups.
 
 Address of the backup storage. Does not need to have MariaDB Server running or be monitored by the monitor. Connected to with ssh. Must have enough disk space to store all backups.
 
@@ -1768,6 +1864,7 @@ backup_storage_address=192.168.1.11
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the path to the backup storage host where backups will be saved. The SSH user specified in `ssh_user` must have full read and write access to this directory.
 
 Path to main backup storage directory on backup storage host. _ssh\_user_ needs to have full access to this directory to save and read backups.
 
@@ -1916,7 +2013,7 @@ maxctrl call command mariadbmon fetch-cmd-result MyMonitor
 }
 ```
 
-### Settings for Columnstore commands
+### Settings for ColumnStore commands
 
 #### `cs_admin_port`
 

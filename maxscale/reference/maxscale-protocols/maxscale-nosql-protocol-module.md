@@ -180,7 +180,7 @@ In addition there are `AnyDatabase` versions of `dbAdmin`, `read` and`readWrite`
 
 If the `root` role is assigned to a user in the `admin` database, then the privileges are granted on `*.*`, otherwise on `<db>.*`.
 
-Other pre-defined roles are recognized and stored in the local nosqlprotocol account database, but they do not affect what privileges are granted to the MariaDB user. Currently user-defined roles are not supported.
+Other pre-defined roles are recognized and stored in the local nosqlprotocol account database, but they do not affect what privileges are granted to the MariaDB user. User-defined roles are not supported.
 
 ### Client Authentication
 
@@ -653,6 +653,7 @@ nosqlprotocol.on_unknown_command=return_error
 * Type: string
 * Mandatory: No
 * Default: `""`
+* Description: Specifies the username used for backend connections when the MongoDB client is unauthenticated.
 
 Specifies the _user_ to be used when connecting to the backend, if the MongoDB® client is not authenticated.
 
@@ -661,6 +662,7 @@ Specifies the _user_ to be used when connecting to the backend, if the MongoDB®
 * Type: string
 * Mandatory: No
 * Default: `""`
+* Description: Specifies the password used for backend connections when the MongoDB client is unauthenticated.
 
 Specifies the _password_ to be used when connecting to the backend, is the MongoDB® client is not authenticated. Note that the same _user_/_password_ combination will be used for all unauthenticated MongoDB® clients connecting to the same listener port.
 
@@ -669,6 +671,7 @@ Specifies the _password_ to be used when connecting to the backend, is the Mongo
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
+* Description: Determines whether clients are required to authenticate before accessing the service.
 
 Specifies whether the client always must authenticate. If authentication is required, it does not matter whether `user` and `password` have been specified, the client must authenticate.
 
@@ -681,6 +684,7 @@ NOTE: All client activity is _always_ subject to authorization performed by the 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
+* Description: Controls whether NoSQL account information is stored in a shared or private manner.
 
 Specifies whether the NoSQL account information should be stored in a shared manner or privately.
 
@@ -689,6 +693,7 @@ Specifies whether the NoSQL account information should be stored in a shared man
 * Type: string
 * Mandatory: No
 * Default: `"NoSQL"`
+* Description: Specifies the database that stores NoSQL account information for authentication.
 
 Specifies the database of the table where the NoSQL account information is stored, if `authentication_shared` is `true`. If the database does not exist, nosqlprotocol will attempt to create it, so either is should be manually created or the used specified with `authentication_user` should have the grants required to do so.
 
@@ -697,6 +702,7 @@ Specifies the database of the table where the NoSQL account information is store
 * Type: string
 * Mandatory: No
 * Default: `""`
+* Description: Specifies the encryption key ID used to encrypt NoSQL account information in the database.
 
 The encryption key ID, using which the NoSQL account information should be encrypted with when stored in the MariaDB server. If an encryption key ID is given, the encryption key manager in MaxScale must also be enabled.
 
@@ -706,6 +712,7 @@ The encryption key must be a 256-bit key. Keys of shorter length are rejected as
 
 * Type: string
 * Mandatory: Yes, if `authentication_shared` is true.
+* Description: Specifies the user used to access and manage shared NoSQL account information.
 
 Specifies the _user_ to be used when modifying and accessing the NoSQL account information stored in the MariaDB server.
 
@@ -714,6 +721,7 @@ Specifies the _user_ to be used when modifying and accessing the NoSQL account i
 * Type: string
 * Mandatory: No
 * Default: `""`
+* Description: Specifies the password for the NoSQL authentication user.
 
 Specifies the _password_ of `authentication_user`.
 
@@ -722,6 +730,7 @@ Specifies the _password_ of `authentication_user`.
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
+* Description: Enables or disables NoSQL protocol–level authorization for user management commands.
 
 Specifies whether nosqlprotocol itself should perform authorization in the context of the commands [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser), [mxsRemoveUser](maxscale-nosql-protocol-module.md#mxsremoveuser) and [mxsUpdateUser](maxscale-nosql-protocol-module.md#mxsupdateuser). Authorization should not be enabled before users have been created with [createUser](maxscale-nosql-protocol-module.md#createuser) or added with [mxsAddUser](maxscale-nosql-protocol-module.md#mxsadduser) with authorization being disabled.
 
@@ -732,6 +741,7 @@ NOTE: All client activity is _always_ subject to authorization performed by the 
 * Type: string
 * Mandatory: No
 * Default: `"%"`
+* Description: Specifies the host portion of the MariaDB user account created via the NoSQL protocol.
 
 Specifies the _host_ to be used when a MariaDB user is created via nosqlprotocol. By default all users are created as `...@'%'`, which means that it is possible to connect to the MariaDB server from any host using the credentials of the created user. For tighter security, the IP-address of the MaxScale host can be specified.
 
@@ -743,6 +753,7 @@ NOTE: This value does **not** specify from which host it is allowed to connect t
 * Mandatory: No
 * Values: `return_error`, `return_empty`
 * Default: `return_error`
+* Description: Defines how the system responds to unrecognized client commands, either with an error or an empty result.
 
 Specifies what should happen in case a clients sends an unrecognized command.
 
@@ -756,14 +767,16 @@ Enumeration values:
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `false`
+* Description: Determines whether unsupported or unknown client commands are logged for debugging.
 
-Specifies whether an unknown command should be logged. This is primarily for debugging purposes, to find out whether a client uses a command that currently is not supported.
+Specifies whether an unknown command should be logged. This is primarily for debugging purposes, to find out whether a client uses a command that is not supported.
 
 ### `auto_create_databases`
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
+* Description: Controls whether databases are automatically created when required.
 
 Specifies whether databases should automatically be created, as needed.
 
@@ -774,6 +787,7 @@ Note that setting this parameter to `true`, without also setting`auto_create_tab
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Default: `true`
+* Description: Controls whether tables are automatically created within existing databases when required.
 
 Specifies whether tables should automatically be created, as needed.
 
@@ -785,6 +799,7 @@ Note that this applies only if the relevant database already exists. If a databa
 * Mandatory: No
 * Range: `[35, 2048]`
 * \*Default: `35`
+* Description: Sets the length of the `id` column for automatically created tables.
 
 Specifies the length of the id column in tables that are automatically created.
 
@@ -794,6 +809,7 @@ Specifies the length of the id column in tables that are automatically created.
 * Mandatory: No
 * Values: `atomic`, `default`
 * Default: `default`
+* Description: Controls whether multi-document inserts are performed completely or individually based on the `ordered` setting. 
 
 Enumeration values:
 
@@ -807,6 +823,7 @@ What combination of `ordered_insert_behavior` and `ordered` (in the insert comma
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Default: `60s`
+* Description: Sets the maximum idle time before an inactive cursor is automatically closed.
 
 Specifies how long a cursor can be idle, that is, not accessed, before it is automatically closed.
 
@@ -816,6 +833,7 @@ Specifies how long a cursor can be idle, that is, not accessed, before it is aut
 * Mandatory: No
 * Values: `none`, `in`, `out`, `back`
 * Default: `none`
+* Description: Manages which protocol events are logged, including incoming commands, backend SQL, and client responses.
 
 Specifies what should be logged as _notice_ messages.
 
@@ -839,8 +857,9 @@ to have the incoming command, the corresponding SQL sent to the backend and the 
 * Type: string
 * Mandatory: No
 * Default: ''
+* Description: Specifies the internal cache to use. Only the `cache` filter is supported. 
 
-Specifies what internal cache to use if any. Currently, the only permissible value is `cache`, which refers to the [cache filter](../maxscale-filters/maxscale-cache.md).
+Specifies what internal cache to use if any. The only permissible value is `cache`, which refers to the [cache filter](../maxscale-filters/maxscale-cache.md).
 
 Please see [caching](maxscale-nosql-protocol-module.md#caching) for more information.
 
@@ -904,9 +923,9 @@ _Nosqlprotocol_ translates that query into something like
 
 The former condition picks out objects whose `color` field contains a literal value `"red"` while the latter picks out objects whose `color` field contains an array containing the value `"color"`.
 
-In MariaDB Server it is currently not possible to create an index that would be appropriate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
+In MariaDB Server it is not possible to create an index that would be appropriate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
 
-Currently, an index is created with the assumption that the field is a literal text-value.
+An index is created with the assumption that the field is a literal text-value.
 
 When an index is created like
 
@@ -984,7 +1003,7 @@ the document will be found, but the index will not be used.
 
 ## Operators
 
-The following operators are currently supported.
+The following operators are supported.
 
 ### Query and Projection Operators
 
@@ -1392,13 +1411,13 @@ Each element of the updates array is an update statement document. Each document
 | u     | document | The modifications to apply. See behavior below for details.                                                                                                        |
 | multi | boolean  | Optional. If true, updates all documents that meet the query criteria. If false limit the update to one document that meets the query criteria. Defaults to false. |
 
-Note that currently it is possible to set `multi` to `true` in conjunction with a _replacement-style_ update, even though MongoDB® rejects that.
+Note that it is possible to set `multi` to `true` in conjunction with a _replacement-style_ update, even though MongoDB® rejects that.
 
 All other fields are ignored, with the exception of `upsert` that if present with the value of `true` will cause the command to fail.
 
 **Behavior**
 
-Currently only updating using _update operator expressions_ or with a _replacement document_ is supported. In particular, updating using an _aggregation pipeline_ is not supported.
+Only updating using _update operator expressions_ or with a _replacement document_ is supported. In particular, updating using an _aggregation pipeline_ is not supported.
 
 \####### Update with an Update Operator Expressions document
 
@@ -1632,7 +1651,7 @@ The following fields are relevant.
 | capped | boolean | Optional. If specified, the value must be false as capped collections are not supported. |
 | viewOn | string  | Optional. If specified, the command will fail as views are not supported.                |
 
-Currently, _capped collections_ and _views_ are not supported. Consequently, specifying that the collection should be capped or that it should be a view on another collection, will cause the command to fail.
+_Capped collections_ and _views_ are not supported. Consequently, specifying that the collection should be capped or that it should be a view on another collection, will cause the command to fail.
 
 #### createIndexes
 
@@ -1645,7 +1664,7 @@ The following fields are relevant for each document in the `indexes` array.
 
 | Field  | Type     | Description                                                                                                                                                                                            |
 | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| key    | document | Contains key/value pairs, where the key is the name of the field to index and value the index direction or the index type. Currently the direction is ignored and a specific type cannot be specified. |
+| key    | document | Contains key/value pairs, where the key is the name of the field to index and value the index direction or the index type. The direction is ignored and a specific type cannot be specified. |
 | name   | string   | The name of the index.                                                                                                                                                                                 |
 | unique | boolean  | Optional. If true, a unique index will be created.                                                                                                                                                     |
 | sparse | boolean  | Optional and has no effect.                                                                                                                                                                            |
@@ -1748,7 +1767,7 @@ The following fields are relevant.
 | ----------- | ------ | --------------------------- |
 | listIndexes | string | The name of the collection. |
 
-**NOTE** As it currently is not possible to actually create indexes, although an attempt to do so using `createIndexes` will succeed, the result will always only contain information about the built-in index `_id_`.
+**NOTE** As it is not possible to actually create indexes, although an attempt to do so using `createIndexes` will succeed, the result will always only contain information about the built-in index `_id_`.
 
 #### renameCollection
 

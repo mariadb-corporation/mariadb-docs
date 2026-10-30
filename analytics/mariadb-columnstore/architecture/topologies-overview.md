@@ -26,6 +26,7 @@ Although multiple topologies are listed on this page, the listed topologies are 
 ### Primary/Replica Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing reads and writes across a MariaDB primary/replica topology
     accDescr {
@@ -48,24 +49,27 @@ flowchart TD
     class MX proxy
     class R1,R2 node
     class P primary
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes reads to two replicas and writes to one primary, which replicates to both._
 
 <p><strong>MariaDB Replication</strong></p>
 
-<ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales read via MaxScale.</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul>
+<ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales read via MaxScale.</li><li>Enterprise Server, MaxScale 2.5+</li></ul>
 
 ### Galera Cluster Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node Galera Cluster
     accDescr {
         A MaxScale proxy routes write traffic to one MariaDB Enterprise Server node and read
         traffic to the other two. All three nodes belong to a Galera Cluster and stay
         synchronized with each other through virtually synchronous, certification-based Galera
-        replication, so any node can accept writes.
+        replication, so any node can accept writes. Arrows labelled Galera lead from the
+        read-write node to each of the two read-only nodes.
     }
     MX["MariaDB MaxScale"]
     N1[("ES")]
@@ -80,13 +84,14 @@ flowchart TD
     classDef proxy fill:#f0e2f5,stroke:#5b1a70,stroke-width:2px,color:#111;
     class MX proxy
     class N1,N2,N3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three Galera Cluster nodes that replicate virtually synchronously with each other._
 
 <p><strong>Galera Cluster Topology Multi-Primary Cluster Powered by Galera for Transactional/OLTP Workloads</strong></p>
 
-<ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale Enterprise Server 10.3+, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul>
+<ul><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MariaDB Enterprise Cluster (powered by Galera), MaxScale 2.5+</li></ul>
 
 ## Analytical (OLAP, Data Warehousing, DSS)
 
@@ -99,12 +104,15 @@ _MaxScale routes to three Galera Cluster nodes that replicate virtually synchron
 ### ColumnStore Object Storage Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ColumnStore nodes backed by S3 object storage
     accDescr {
         A MaxScale proxy routes write traffic to one MariaDB Enterprise Server and ColumnStore
         node and read traffic to two others. All three ColumnStore nodes share the same data by
-        reading from and writing to a common S3-compatible object storage bucket.
+        using a common S3 object storage box. Each of the three MariaDB Enterprise Server
+        boxes is joined by a line with no direction to its own ColumnStore box. Arrows
+        lead from the S3 object storage box to each of the three ColumnStore boxes.
     }
     MX["MariaDB MaxScale"]
     E1[("ES")]
@@ -129,6 +137,7 @@ flowchart TD
     class MX proxy
     class E1,E2,E3,C1,C2,C3 node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ColumnStore nodes that all read and write the same S3 object storage._
@@ -142,6 +151,7 @@ _MaxScale routes to three ColumnStore nodes that all read and write the same S3 
 ### HTAP Topology
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a single HTAP server splitting analytical and transactional storage
     accDescr {
@@ -166,6 +176,7 @@ flowchart TD
     class MX proxy
     class ES,CS,IDB node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes HTAP traffic to one server that replicates from InnoDB to S3-backed ColumnStore._

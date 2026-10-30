@@ -35,7 +35,7 @@ innodb_max_dirty_pages_pct = 80
 ## Compile
 
 Install MariaDB or MySQL to /usr/local and make a symlink to /usr/local/mysql.\
-Please use non-debug version! On Mac OS X we currently need automake1.10.
+Please use non-debug version! On macOS, automake 1.10 is needed.
 
 ```
 ./autogen.sh

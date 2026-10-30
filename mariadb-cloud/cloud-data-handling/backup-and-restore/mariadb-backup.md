@@ -25,11 +25,10 @@ Backup support is specific to storage engines. All supported storage engines ena
 
 A feature of MariaDB Backup and MariaDB Server, non-blocking backups minimize workload impact during backups. When MariaDB Backup connects to MariaDB Server, staging operations are initiated to protect data during read.
 
-Non-blocking backup functionality differs from historical backup functionality in the following ways:
+Non-blocking backups work in the following ways:
 
 * MariaDB Backup includes optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
-* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
-* Older MariaDB Community Server releases used `FLUSH TABLES WITH READ LOCK`, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+* MariaDB Backup blocks commits, and writes to log tables and statistics tables, only during the final stage of the backup. DDL statements and new writes to non-transactional tables are blocked earlier.
 
 ## **Understanding Recovery**
 

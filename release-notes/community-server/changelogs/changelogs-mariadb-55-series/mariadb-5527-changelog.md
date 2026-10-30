@@ -287,7 +287,7 @@ modified in that revision.
 * [Revision #3500](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3500)\
   Tue 2012-08-21 15:24:43 +0300
   * Fix bug [MDEV-447](https://jira.mariadb.org/browse/MDEV-447): Wrong output from the EXPLAIN command of the test case for [Bug #714999](https://bugs.launchpad.net/bugs/714999)
-  * The fix backports from [MWL#182](https://askmonty.org/worklog/?tid=182): Explain running statements the logic that
+  * The fix backports from MWL#182: Explain running statements the logic that
     saves the original JOIN\_TAB array of a query plan after optimization. This
     array is later used during EXPLAIN to iterate over the original JOIN plan
     nodes in the cases when this plan could be changed by early subquery

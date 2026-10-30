@@ -17,7 +17,7 @@ AdminNeo is based on the [Adminer](adminer.md) project, with a redesigned user i
 
 ![AdminNeo — selecting data](../../.gitbook/assets/adminneo-select.webp)
 
-## Key features
+## Key Features
 
 * Clean, modern user interface.
 * Managing the structure of databases and tables.
@@ -26,7 +26,7 @@ AdminNeo is based on the [Adminer](adminer.md) project, with a redesigned user i
 * Executing batch SQL commands.
 * Extensibility through plugins and customizations.
 
-## Supported databases
+## Supported Databases
 
 AdminNeo supports MariaDB through the MySQL driver. Other database systems: PostgreSQL, MS SQL, SQLite, Oracle, MongoDB, SimpleDB, 
 Elasticsearch (beta) and ClickHouse (alpha).

@@ -45,8 +45,8 @@ Every MariaDB storage engine is implemented as a plugin. This section covers the
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-audit.md" %}
-[mariadb-enterprise-audit.md](mariadb-enterprise-audit.md)
+{% content-ref url="mariadb-enterprise-audit/README.md" %}
+[mariadb-enterprise-audit/README.md](mariadb-enterprise-audit/README.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Cloud support: Basic support is included with every subscription,
-  Standard support adds 24x7 S1 response and Engineering Support, and the
-  Remote DBA (RDBA) add-on is available on Power and PowerPlus.
+  MariaDB Cloud support: Basic support comes with every subscription, Standard
+  adds 24x7 S1 response and Engineering Support, and the Remote DBA (RDBA)
+  add-on is on Power and PowerPlus.
 ---
 
 # Support

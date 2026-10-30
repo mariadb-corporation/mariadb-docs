@@ -1,3 +1,9 @@
+---
+description: >-
+  Subtract one number from another. The same operator is also the unary
+  minus, which changes the sign of a value.
+---
+
 # Subtraction Operator (-)
 
 ## Syntax
@@ -31,11 +37,11 @@ SELECT 15-17;
 |    -2 |
 +-------+
 
-SELECT 3.66 + 1.333;
+SELECT 3.66 - 1.333;
 +--------------+
-| 3.66 + 1.333 |
+| 3.66 - 1.333 |
 +--------------+
-|        4.993 |
+|        2.327 |
 +--------------+
 ```
 

@@ -137,7 +137,7 @@ It is generally recommended to use (GTIDs), as it has a number of benefits. All 
 CHANGE MASTER TO MASTER_USE_GTID = slave_pos
 ```
 
-See [Global Transaction ID](gtid.md) for a full description.
+See [Global Transaction ID](gtid/README.md) for a full description.
 
 * Now start the replica with the [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) statement:
 
@@ -176,7 +176,7 @@ Slave_SQL_Running: Yes
 * [Replication and Foreign Keys](replication-and-foreign-keys.md)
 * [Replication as a Backup Solution](../../server-usage/backup-and-restore/replication-as-a-backup-solution.md)
 * [Multi-source Replication](multi-source-replication.md)
-* [Global Transaction ID](gtid.md)
+* [Global Transaction ID](gtid/README.md)
 * [Parallel Replication](parallel-replication.md)
 * [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md)
 * [Replication and Binary Log Status Variables](replication-and-binary-log-status-variables.md)

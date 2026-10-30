@@ -112,7 +112,7 @@ Functions come in pairs:
 * `xxx_num()` operates on the old (pre-MariaDB-10.0.1) dynamic column blob format, where columns were identified by numbers.
 * `xxx_named()` can operate on both old or new data format. If it modifies the blob, it converts it to the new data format.
 
-You should use `xxx_named()` functions, unless you need to keep the data compatible with MariaDB versions before 10.0.1.
+You should use the `xxx_named()` functions.
 
 ### mariadb\_dyncol\_init <a href="#mariadb_dyncol_init" id="mariadb_dyncol_init"></a>
 

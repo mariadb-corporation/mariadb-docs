@@ -60,6 +60,9 @@ TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 # (string/date/numeric/aggregate), or a bare ``` fence; and optional GitBook
 # `{% tabs %}`/`{% tab %}` markup between the heading and the fence (version-
 # tabbed syntax, e.g. CRC32) — the first fence is the "Current" form.
+# Matched against the hint- and tab-stripped body, not the raw text: since
+# DOCS-6672 every version tab opens with a `{% hint %}From MariaDB X:` block,
+# whose text line this pattern cannot step over (DOCS-6889).
 SYNTAX_BLOCK_RE = re.compile(
     r"^#{2,3}\s+Syntax\s*\n+(?:\{%[^\n]*%\}\s*\n+)*```[A-Za-z0-9]*\s*\n(.*?)\n```",
     re.DOTALL | re.MULTILINE,
@@ -94,6 +97,10 @@ SINCE_RE = re.compile(
 GITBOOK_HINT_RE = re.compile(
     r"\{%\s*hint[^%]*%\}.*?\{%\s*endhint\s*%\}", re.DOTALL
 )
+# Version-tab markup lines ({% tabs %}, {% tab title="..." %}, {% endtab %},
+# {% endtabs %}). Stripped from the body together with hints, so a tabbed
+# Syntax or Description section reads as its first ("Current") tab.
+TAB_TAG_RE = re.compile(r"^[ \t]*\{%\s*(?:end)?tabs?\b[^%]*%\}[ \t]*\n?", re.MULTILINE)
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
 MULTISPACE_RE = re.compile(r"\s+")
 
@@ -110,12 +117,26 @@ def clean_description(raw: str) -> str:
 
 
 def first_signature(syntax_block: str) -> str:
-    """Take the first non-blank line of the syntax code block as the signature."""
+    """The first signature in the syntax code block, on one line.
+
+    Starts at the first non-blank line and keeps joining the lines that follow
+    until its parentheses balance, so a signature the page wraps for
+    readability -- `LAG (expr[, offset]) OVER (` / `[ PARTITION BY ... ]` /
+    `)` -- is not cut off at its first line (DOCS-6889). A line that balances
+    on its own is returned alone: blocks that list alternative forms one per
+    line keep only the first.
+    """
+    parts: list[str] = []
+    depth = 0
     for line in syntax_block.splitlines():
         line = line.strip()
-        if line:
-            return line
-    return ""
+        if not line and not parts:
+            continue
+        parts.append(line)
+        depth += line.count("(") - line.count(")")
+        if depth <= 0:
+            break
+    return MULTISPACE_RE.sub(" ", " ".join(parts)).strip()
 
 
 def clean_prose(s: str) -> str:
@@ -159,8 +180,11 @@ def extract_function(path: Path) -> dict:
     name = re.sub(r"\s+Function$", "", name, flags=re.IGNORECASE).strip()
 
     # Editorial pages (e.g. "Differences between X and Y") don't look like
-    # function names. Function names are uppercase with underscores/digits.
-    if not re.match(r"^[A-Z][A-Z0-9_]*$", name):
+    # function names. Function names are one word of letters, digits and
+    # underscores -- usually uppercase, but not always: VEC_FromText,
+    # VEC_ToText and UUID_v7 are titled in the case the server documents
+    # them in, and were skipped as "editorial" until DOCS-6889.
+    if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", name):
         raise ExtractionError(
             f"{path.name}: title `{name}` doesn't look like a function — editorial page?"
         )
@@ -168,12 +192,13 @@ def extract_function(path: Path) -> dict:
     since_match = SINCE_RE.search(text)
     since = since_match.group(1) if since_match else ""
 
-    # Strip GitBook hints before scanning for alias / description so the
-    # hint text doesn't pollute the prose extraction.
-    body = GITBOOK_HINT_RE.sub("", text)
+    # Strip GitBook hints and version-tab tags before scanning for syntax,
+    # alias and description, so neither the hint text nor a bare
+    # `{% tab title="Current" %}` line is read as the page's prose (DOCS-6889).
+    body = TAB_TAG_RE.sub("", GITBOOK_HINT_RE.sub("", text))
 
     # Alias-only stub path: no Syntax block, body says "X is an alias for Y".
-    syntax_match = SYNTAX_BLOCK_RE.search(text)
+    syntax_match = SYNTAX_BLOCK_RE.search(body)
     if not syntax_match:
         alias = ALIAS_RE.search(body)
         # Only treat as an alias if the target reads like a function name

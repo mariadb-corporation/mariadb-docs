@@ -26,11 +26,7 @@ We are also putting a lot of effort into speeding up MariaDB Server, and to keep
 
 The MariaDB Server source tree is maintained by MariaDB the company and its developers. They are the primary contributors to the MariaDB Server project and the ones who are ultimately responsible for the quality of the code.
 
-MariaDB Server 5.1, MariaDB Server 5.2, and MariaDB Server 5.3 were built off of MySQL 5.1.
-
-MariaDB Server 5.5 was a combination of MariaDB Server 5.3 and MySQL 5.5.
-
-MariaDB Server 10.0, and later build off of the previous MariaDB Server releases with backported features from MySQL and entirely new features not found anywhere else.
+MariaDB Server began as a fork of MySQL. Each release builds off of the previous MariaDB Server releases, with backported features from MySQL and entirely new features not found anywhere else.
 
 Short descriptions of the various MariaDB Server releases and their main new features
 can be found on the [MariaDB Server Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server) page.

@@ -1,0 +1,36 @@
+{
+  "_comment": "Community Tools docs synced one way from their product repos (DOCS-6926). Written by .github/scripts/sync_community_tools.py: edit 'products' by hand, never 'synced'. See dev-docs/cookbook-community-tools-sync.md.",
+  "products": {
+    "mariadb-ai-plugins": {
+      "title": "MariaDB AI Plugins",
+      "repo": "mariadb-corporation/ai-plugins",
+      "ref": "main",
+      "exclude": [
+        "mcp-tool-reference/rest-tools.md",
+        "features/rest-endpoints-with-mariadb-rest-service.md"
+      ]
+    },
+    "mariadb-shell": {
+      "title": "MariaDB Shell",
+      "repo": "mariadb-corporation/mariadb-shell",
+      "ref": "main",
+      "exclude": [
+        "mcp-server/rest-daemon-tools.md"
+      ]
+    }
+  },
+  "synced": {
+    "mariadb-ai-plugins": {
+      "commit": "df762364ac3ecb2ae8dafc0fae4a4c3142084877",
+      "assets": [
+        "MariaDB_AI-Plugins_Architecture.svg"
+      ]
+    },
+    "mariadb-shell": {
+      "commit": "b074605909add4b0f624878e3a4a4b4cd6694d08",
+      "assets": [
+        "mcp-login.webp"
+      ]
+    }
+  }
+}

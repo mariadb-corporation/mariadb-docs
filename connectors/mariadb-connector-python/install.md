@@ -26,7 +26,7 @@ MariaDB Connector/Python 2.0 supports
 ## Installation Options
 
 {% hint style="info" %}
-**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.**
+**As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release.**
 
 Because 2.0 is not yet GA, a plain `pip install mariadb` installs the latest stable release (1.1). To install the 2.0 release candidate you must pass the `--pre` flag, for example `pip install --pre mariadb`. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
@@ -50,8 +50,6 @@ Version 1.1:
 - Requires MariaDB Connector/C to be pre-installed
 - Does not support pure Python or binary wheels
 - Connection pooling is included by default
-
-For version 1.1 documentation, see the [1.1 branch documentation](https://mariadb-corporation.github.io/mariadb-connector-python/).
 
 ### Installing Version 2.0 (Release Candidate)
 
@@ -211,5 +209,7 @@ You can configure the connection parameters by using the following environment v
 * TEST_DB_DATABASE (default ‘testp’)
 * TEST_DB_HOST (default ‘localhost’)
 * TEST_DB_PORT (default 3306)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

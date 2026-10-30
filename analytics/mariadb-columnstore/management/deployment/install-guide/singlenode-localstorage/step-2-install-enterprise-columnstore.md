@@ -1,5 +1,7 @@
 ---
-description: 'Step 2: Install ColumnStore'
+description: >-
+  Step 2 of the single-node MariaDB ColumnStore install with local storage:
+  retrieve a download token, set up the repository, and install ColumnStore.
 hidden: true
 ---
 

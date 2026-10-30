@@ -1,8 +1,8 @@
 ---
 description: >-
-  Compare the ways of coordinating failover between multiple MariaDB MaxScale
-  instances. Walk through how an active/passive pair can diverge a cluster and
-  lose transactions, and how cooperative locking prevents it.
+  Compare ways to coordinate failover between MariaDB MaxScale instances: how an
+  active/passive pair can diverge a cluster and lose transactions, and how
+  cooperative locking prevents it.
 ---
 
 # Failover With Multiple MaxScales
@@ -243,9 +243,16 @@ By the time the network heals, the majority partition may have promoted a new
 primary and written to it. The two partitions have thus diverged.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: majority_of_all with the primary server in the minority partition
     accDescr {
+    Two groups of boxes, Partition 1 — minority and Partition 2 — majority, are joined by an
+    arrow labelled partitioned that leads from Partition 1 to Partition 2. Partition 1 holds
+    MaxScale A (secondary monitor) and server1 (read-only). Partition 2 holds MaxScale B
+    (primary monitor), server2 (primary) and server3 (replica). An arrow labelled read-only
+    leads from MaxScale A to server1. An arrow labelled write leads from MaxScale B to server2,
+    and an unlabelled arrow leads from MaxScale B to server3.
     MaxScale A is alone with server1 and cannot reach a lock majority, so it releases its locks
     and allows only reads. MaxScale B holds locks on server2 and server3, a majority of the three
     configured servers, and has promoted server2 to primary.
@@ -267,6 +274,7 @@ flowchart TD
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef warn fill:#fde2e2,stroke:#a12020,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 _The minority side goes read-only; the majority side promotes a new primary._
 

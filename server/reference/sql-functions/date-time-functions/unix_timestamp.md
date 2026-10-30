@@ -23,10 +23,18 @@ The inverse function of `UNIX_TIMESTAMP()` is [FROM\_UNIXTIME()](from_unixtime.m
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 Timestamps in MariaDB have a maximum value of `4294967295`, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 Timestamps in MariaDB have a maximum value of `2147483647`, equivalent to `2038-01-19 05:14:07`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 {% endtabs %}

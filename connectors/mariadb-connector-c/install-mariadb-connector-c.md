@@ -72,7 +72,7 @@ To configure the ES package repository:
 
     * All major releases of ES contain the same version of MariaDB Connector/C.
     * By default, the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility will configure your system to use the package repository for ES 10.6.
-    * To configure your system to use the ES package repository for a specific major release, use the [--mariadb-server-version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb-server-version) option.
+    * To configure your system to use the ES package repository for a specific major release, use the [--mariadb-server-version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#the-mariadb-server-version-option) option.
 5. [Install MariaDB Connector/C](install-mariadb-connector-c.md#installation-via-package-repository-linux) using the package repository.
 
 ### CS Package Repository
@@ -125,7 +125,7 @@ To configure the CS package repository:
 
     * All major releases of CS contain the same version of MariaDB Connector/C.
     * By default, the [mariadb\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) utility will configure your system to use the package repository for CS 10.6.
-    * To configure your system to use the CS package repository for a specific major release, use the [--mariadb-server-version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb-server-version) option.
+    * To configure your system to use the CS package repository for a specific major release, use the [--mariadb-server-version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#the-mariadb-server-version-option) option.
 4. [Install MariaDB Connector/C](install-mariadb-connector-c.md#installation-via-package-repository-linux) using the package repository.
 
 ## Installation

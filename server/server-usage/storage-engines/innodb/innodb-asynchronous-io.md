@@ -6,7 +6,7 @@ description: >-
 
 # InnoDB Asynchronous I/O
 
-From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), [InnoDB](./) uses asynchronous I/O to read from and write to disk asynchronously. This forms part of the InnoDB Background Thread Pool.
+[InnoDB](./) uses asynchronous I/O to read from and write to disk asynchronously. This forms part of the InnoDB Background Thread Pool.
 
 ### Stages
 

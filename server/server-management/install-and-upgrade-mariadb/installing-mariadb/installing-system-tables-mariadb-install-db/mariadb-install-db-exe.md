@@ -1,6 +1,6 @@
 ---
 description: >-
-  Details the use of `mariadb-install-db.exe` on Windows to create new database
+  Details the use of mariadb-install-db.exe on Windows to create new database
   instances, set the root password, and register Windows services.
 ---
 
@@ -25,7 +25,7 @@ The functionality of `mariadb-install-db.exe` is comparable with the shell scrip
 | `-D`, `--default-user`             | Create default user                                   |
 | `-R`, `--allow-remote-root-access` | Allow remote access from network for user `root`      |
 | `-N`, `--skip-networking`          | Do not use `TCP` connections, use `pipe` instead      |
-| `-i`, `--innodb-page-size`         | `Innodb` page size, since `MariaDB 10.2.5`            |
+| `-i`, `--innodb-page-size`         | `Innodb` page size                                    |
 | `-s`, `--silent`                   | Print less information                                |
 | `-o`, `--verbose-bootstrap`        | Include `mysqld` bootstrap output                     |
 | `-l`, `--large-pages`              | Use large pages, since `MariaDB 10.6.1`               |

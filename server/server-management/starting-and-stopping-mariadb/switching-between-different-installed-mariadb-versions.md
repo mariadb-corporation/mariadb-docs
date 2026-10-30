@@ -27,7 +27,7 @@ Note that you don't have to uninstall or otherwise remove MySQL!
 
 ## How to Create a Binary Distribution (tar File)
 
-Here is a short description of how to generate a tar file from a source distribution. If you have [downloaded](https://downloads.askmonty.org/mariadb/) a binary tar file, you can skip this section.
+Here is a short description of how to generate a tar file from a source distribution. If you have [downloaded](https://mariadb.org/download/) a binary tar file, you can skip this section.
 
 The steps to create a binary tar file are:
 

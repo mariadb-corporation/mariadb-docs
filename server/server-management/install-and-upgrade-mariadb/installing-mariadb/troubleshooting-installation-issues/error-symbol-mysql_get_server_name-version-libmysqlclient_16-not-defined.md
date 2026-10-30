@@ -1,7 +1,7 @@
 ---
 description: >-
   Troubleshooting guide for a specific linker error involving
-  `mysql_get_server_name` and `libmysqlclient_16`, typically occurring due to
+  mysql_get_server_name and libmysqlclient_16, typically occurring due to
   library version mismatches.
 ---
 

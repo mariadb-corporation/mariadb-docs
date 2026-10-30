@@ -30,7 +30,7 @@ A zero delay disables delayed replication. The replica must be stopped when chan
 {% hint style="success" %}
 New Variables to Measure Replication Lag
 
-MariaDB 10.6 ES and 11.6 introduced new variables to measure replication lag. The variables are recommended to monitor the time difference between the master and slave.
+MariaDB 11.6, MariaDB Enterprise Server 10.6.20-16, and MariaDB Enterprise Server 11.4.3-1 introduced new [SHOW REPLICA STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) columns to measure replication lag. The columns are recommended to monitor the time difference between the master and slave.
 
 * `Master_last_event_time`: The timestamp of the last event read from the master by the IO thread.
 * `Slave_last_event_time`: The timestamp of the last event committed on the slave (from the master's perspective).
@@ -59,8 +59,6 @@ MariaDB 10.6 ES and 11.6 introduced new variables to measure replication lag. Th
    same as in [SHOW PROCESSLIST](../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md). When the replica is delaying the execution of an
    event due to MASTER\_DELAY, this fields displays: "Waiting until MASTER\_DELAY
    seconds after master executed event".
-
-When using older versions prior to [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3), a 3rd party tool called [pt-slave-delay](https://www.percona.com/doc/percona-toolkit/LATEST/pt-slave-delay.html) can be used. It is part of the Percona Toolkit. Note that pt-slave-delay does not support MariaDB multi-channel replication syntax.
 
 ## clock\_difference\_between\_master\_and\_slave
 

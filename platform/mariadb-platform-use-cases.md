@@ -1,6 +1,6 @@
 # MariaDB Platform Use Cases
 
-_This section outlines various topologies for MariaDB deployment, emphasizing flexibility and configurations to meet diverse use cases. Key topologies include Primary/Replica for transactional workloads with features like asynchronous replication and failover management, and Galera Cluster offering a multi-primary architecture with synchronous replication. Both topologies leverage MaxScale for scaling and are compatible with Enterprise Server 10.3+ and MaxScale 2.5+. The guide also introduces the ColumnStore Object Storage for analytical processing, focusing on OLAP and data warehousing needs._
+_This section outlines various topologies for MariaDB deployment, emphasizing flexibility and configurations to meet diverse use cases. Key topologies include Primary/Replica for transactional workloads with features like asynchronous replication and failover management, and Galera Cluster offering a multi-primary architecture with synchronous replication. Both topologies leverage MaxScale for scaling and are compatible with Enterprise Server and MaxScale 2.5+. The guide also introduces the ColumnStore Object Storage for analytical processing, focusing on OLAP and data warehousing needs._
 
 MariaDB products can be deployed in many different topologies, arrangements of products and components to achieve a purpose. MariaDB products can also be deployed to form other topologies, leverage advanced product capabilities, or combine the capabilities of multiple topologies.
 
@@ -22,11 +22,12 @@ In the diagrams, ES is short for Enterprise Server.
 
 ### Primary/Replica
 
-MariaDB Replication offers high availability through asynchronous or semi-synchronous methods. It supports automatic failover via MaxScale (2.5+) and read scaling. New nodes require manual provisioning from backup. This solution is available with Enterprise Server 10.3+.
+MariaDB Replication offers high availability through asynchronous or semi-synchronous methods. It supports automatic failover via MaxScale (2.5+) and read scaling. New nodes require manual provisioning from backup. This solution is available with Enterprise Server.
 
 **Add note about primary/replica vs. master/slave**
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to an ES primary and two replicas
     accDescr {
@@ -48,17 +49,19 @@ flowchart TD
     classDef primary fill:#cde8ea,stroke:#0a5a6b,stroke-width:3px,color:#111;
     class MX,R1,R2 node
     class P primary
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes reads to two replicas and writes to a primary, which replicates to both replicas._
 
-<ul><li><strong>MariaDB Replication</strong></li><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul>
+<ul><li><strong>MariaDB Replication</strong></li><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server, MaxScale 2.5+</li></ul>
 
 ### Galera Cluster
 
-MariaDB Enterprise Cluster, powered by Galera, provides a highly available, multi-primary solution for transactional/OLTP workloads using the InnoDB storage engine. It features virtually synchronous, certification-based replication, automated node provisioning (IST/SST), and scales reads via MaxScale. It's compatible with Enterprise Server 10.3+ and MaxScale 2.5+.
+MariaDB Enterprise Cluster, powered by Galera, provides a highly available, multi-primary solution for transactional/OLTP workloads using the InnoDB storage engine. It features virtually synchronous, certification-based replication, automated node provisioning (IST/SST), and scales reads via MaxScale. It's compatible with Enterprise Server and MaxScale 2.5+.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to a three-node ES Galera cluster
     accDescr {
@@ -79,11 +82,12 @@ flowchart TD
     N1 <-->|"Galera<br/>(virtually sync)"| N3
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     class MX,N1,N2,N3 node
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES nodes that replicate synchronously with each other as a Galera cluster._
 
-<ul><li><strong>Multi-Master Cluster Powered by Galera for Transactional/OLTP Workloads</strong></li><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li><p>Enterprise Server 10.3+, MariaDB Enterprise Cluster</p><p>(powered by Galera), MaxScale 2.5+</p></li></ul>
+<ul><li><strong>Multi-Master Cluster Powered by Galera for Transactional/OLTP Workloads</strong></li><li>InnoDB Storage Engine</li><li>Highly available</li><li>Virtually synchronous, certification-based replication</li><li>Automated provisioning of new nodes (IST/SST)</li><li>Scales reads via MaxScale</li><li><p>Enterprise Server, MariaDB Enterprise Cluster</p><p>(powered by Galera), MaxScale 2.5+</p></li></ul>
 
 ### Analytical (OLAP, Data Warehousing, DSS)
 
@@ -92,6 +96,7 @@ _MaxScale routes to three ES nodes that replicate synchronously with each other 
 MariaDB Enterprise ColumnStore offers a highly available, columnar storage engine with S3-compatible object storage for data warehousing and analytics. It features automatic failover via MaxScale and CMAPI, read scaling through MaxScale, and efficient bulk data import. It's supported on Enterprise Server 10.5 and 10.6 with corresponding ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ES ColumnStore nodes sharing S3 object storage
     accDescr {
@@ -99,6 +104,7 @@ flowchart TD
         traffic to one node. Each of the three ES nodes runs a ColumnStore storage-engine
         layer, and all three ColumnStore layers share a single S3-compatible object storage
         bucket for their data.
+        Arrows lead from the S3 box to each of the three ColumnStore boxes.
     }
     E1[("ES")]
     E2[("ES")]
@@ -121,6 +127,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES/ColumnStore nodes, all sharing S3-compatible object storage._
@@ -132,13 +139,14 @@ _MaxScale routes to three ES/ColumnStore nodes, all sharing S3-compatible object
 MariaDB Enterprise ColumnStore, utilizing shared local storage, delivers a highly available columnar solution. It features automatic failover via MaxScale and CMAPI, scales reads through MaxScale, and enables bulk data imports. This setup is compatible with Enterprise Server 10.5 and 10.6, alongside specific Enterprise ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing to three ES ColumnStore nodes sharing NFS storage
     accDescr {
         A MaxScale proxy routes read-only traffic to two ES ColumnStore nodes and read-write
         traffic to one node. Each of the three ES nodes runs a ColumnStore storage-engine
         layer, and all three ColumnStore layers share a single NFS storage volume for their
-        data.
+        data. Arrows lead from the NFS box to each of the three ColumnStore boxes.
     }
     E1[("ES")]
     E2[("ES")]
@@ -161,6 +169,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,E1,E2,E3,C1,C2,C3 node
     class NFS storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes to three ES/ColumnStore nodes, all sharing NFS storage._
@@ -174,13 +183,15 @@ _MaxScale routes to three ES/ColumnStore nodes, all sharing NFS storage._
 MariaDB's single-stack solution handles hybrid transactional/analytical workloads by combining ColumnStore for analytics with S3-compatible object storage and InnoDB for transactions. It supports cross-engine JOINs for comprehensive queries. This offering is available with Enterprise Server 10.5 or 10.6, paired with specific Enterprise ColumnStore and MaxScale versions.
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart TD
     accTitle: MaxScale routing HTAP traffic to a single ES node with ColumnStore and InnoDB
     accDescr {
         A MaxScale proxy routes read-write HTAP traffic to a single Enterprise Server node.
         That node reads and writes to both a ColumnStore engine for OLAP queries and an
         InnoDB engine for OLTP queries. InnoDB replicates to ColumnStore through HTAP
-        Replication, and ColumnStore stores its data on S3-compatible object storage.
+        Replication, and ColumnStore is backed by S3-compatible object storage. An arrow leads
+        from the S3 box to the ColumnStore box.
     }
     ES[("ES")]
     CS[("ColumnStore")]
@@ -196,6 +207,7 @@ flowchart TD
     classDef storage fill:#fdebd0,stroke:#8a5a00,stroke-width:2px,color:#111;
     class MX,ES,CS,IN node
     class S3 storage
+    linkStyle default color:#111111
 ```
 
 _MaxScale routes HTAP traffic to one ES node, which fans out to ColumnStore and InnoDB with replication between them._

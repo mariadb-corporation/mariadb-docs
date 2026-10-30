@@ -14,7 +14,7 @@ SELECT ...
 
 ## Description
 
-MariaDB has supported `INTERSECT` (as well as [EXCEPT](except.md)) in addition to [UNION](union.md) since [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103).
+MariaDB supports `INTERSECT` (as well as [EXCEPT](except.md)) in addition to [UNION](union.md).
 
 All behavior for naming columns, `ORDER BY` and `LIMIT` is the same as for [UNION](union.md).
 
@@ -49,29 +49,11 @@ UNION
 
 ### Parentheses
 
-{% tabs %}
-{% tab title="Current" %}
 Parentheses can be used to specify precedence.
-{% endtab %}
-
-{% tab title="< 10.4" %}
-Parentheses **cannot** be used to specify precedence.
-{% endtab %}
-{% endtabs %}
-
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 ### ALL/DISTINCT
 
-{% tabs %}
-{% tab title="Current" %}
 `INTERSECT ALL` and `INTERSECT DISTINCT` . The `ALL` operator leaves duplicates intact, while the `DISTINCT` operator removes duplicates. `DISTINCT` is the default behavior if neither operator is supplied.
-{% endtab %}
-
-{% tab title="< 10.5" %}
-`DISTINCT` is the only behavior available.
-{% endtab %}
-{% endtabs %}
 
 ## Examples
 

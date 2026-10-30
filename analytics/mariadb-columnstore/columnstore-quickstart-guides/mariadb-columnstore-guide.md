@@ -37,7 +37,7 @@ MariaDB ColumnStore is installed as a separate package that integrates with Mari
 
 **General Steps (conceptual):**
 
-1. **Install MariaDB Server:** Ensure you have a compatible MariaDB Server version installed (e.g., MariaDB 10.5.4 or later).
+1. **Install MariaDB Server:** Ensure you have a compatible MariaDB Server version installed.
 2. **Install ColumnStore Package:** Download and install the specific MariaDB ColumnStore package for your OS. This package includes the ColumnStore storage engine and its associated tools.
    * **Linux (e.g., Debian/Ubuntu):** You would typically add the MariaDB repository configured for ColumnStore and then install `mariadb-plugin-columnstore`.
    * **Single Server vs. Distributed:** For a single-server setup, you install all ColumnStore components on one machine. For a distributed setup, you install and configure components across multiple machines.

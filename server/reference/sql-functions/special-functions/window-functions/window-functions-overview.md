@@ -369,7 +369,6 @@ MariaDB:
 * [RANK](rank.md)
 * [AVG](../../aggregate-functions/avg.md)
 * [SUM](../../aggregate-functions/sum.md)
-* [Introduction to Window Functions in MariaDB Server 10.2](https://mariadb.com/resources/blog/introduction-window-functions-mariadb-server-102)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

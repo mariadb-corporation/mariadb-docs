@@ -1,7 +1,7 @@
 ---
 description: >-
   Maps SQL Server backup concepts like differential and transaction log backups
-  to MariaDB equivalents such as `mariadb-backup` (hot backups) and binary logs
+  to MariaDB equivalents such as mariadb-backup (hot backups) and binary logs
   for incremental recovery.
 ---
 
@@ -97,7 +97,7 @@ It is entirely possible to restore a single table from a physical backup, or to 
 
 With the [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) storage engine it was very easy to move tables between different servers, as long as the MySQL or MariaDB version was the same.
 
-[InnoDB](../../../../server-usage/storage-engines/innodb/) is nowadays the default storage engine, and it is more complex, as it supports transactions for example. It still supports restoring a table from a physical file, this feature is called _transportable tablespaces_. There is a particular procedure to follow, and some limitations. This is basically the MariaDB equivalent of detaching and re-attaching tables in SQL Server.
+[InnoDB](../../../../server-usage/storage-engines/innodb/) is the default storage engine, and it is more complex, as it supports transactions for example. It still supports restoring a table from a physical file, this feature is called _transportable tablespaces_. There is a particular procedure to follow, and some limitations. This is basically the MariaDB equivalent of detaching and re-attaching tables in SQL Server.
 
 For more information, see [InnoDB File-Per-Table Tablespaces](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md).
 

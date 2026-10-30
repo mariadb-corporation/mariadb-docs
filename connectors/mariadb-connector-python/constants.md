@@ -62,7 +62,7 @@ Capability flags are defined in module *mariadb.constants.CLIENT*
 ## CURSOR
 
 Cursor constants are used for server side cursors.
-Currently only read only cursor is supported.
+Only read-only cursors are supported.
 
 Cursor constants are defined in module *mariadb.constants.CURSOR*.
 
@@ -301,7 +301,7 @@ column type is GEOMETRY
 ## INDICATORS
 
 Indicator values are used in executemany() method of cursor class to
-indicate special values when connected to a MariaDB server 10.2 or newer.
+indicate special values when connected to a MariaDB server.
 
 #### INDICATOR.NULL
 
@@ -499,5 +499,7 @@ Session tracking constants for monitoring session state changes.
 Session tracking constants are defined in module *mariadb.constants.SESSION_TRACK*
 
 *Since version 2.0*
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

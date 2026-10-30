@@ -16,10 +16,18 @@ SESSION_USER()
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 Shows the value of [CURRENT\_USER()](current_user.md) when the session was created, that is, it shows a `user@host` pair from the [mysql.global\_priv table](../../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md), like `CURRENT_USER()`, but unlike `CURRENT_USER()` it will not change inside stored routines and views. This is SQL Standard behavior for the `SESSION_USER` function.
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 `SESSION_USER()` is a synonym for [USER()](user.md).
 {% endtab %}
 {% endtabs %}

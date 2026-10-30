@@ -40,7 +40,7 @@ To guarantee consistency, you should temporarily pause the node's ability to app
 
 #### 3. Perform the Backup
 
-With the node's replication paused, run the `mariadb-backup` [command](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#list-of-mariadb-backup-options) to create a full backup.
+With the node's replication paused, run the `mariadb-backup` [command](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) to create a full backup.
 
 ```bash
 mariadb-backup --backup --target-dir=/path/to/backup/ --user=backup_user --password=...

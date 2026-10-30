@@ -41,9 +41,22 @@ The service users now require a `SELECT` grant on the `mysql.global_priv` table 
 GRANT SELECT ON mysql.global_priv TO 'maxscale_user'@'%';
 ```
 
-### Monitor timeouts
+### Monitor Timeouts
 
 In MaxScale 25.10, only one monitor backend timeout remains: [backend\_timeout](../../../reference/maxscale-monitors/common-monitor-parameters.md#backend_timeout). This replaces the old `backend_connect_timeout`, `backend_write_timeout` and `backend_read_timeout`, using the same value for all underlying timeouts. `backend_connect_timeout` is still supported as an alias for `backend_timeout`, but any values given to `backend_write_timeout` and `backend_read_timeout` are ignored.
+
+### Core Files
+
+MaxScale 25.10 no longer writes a core file when it crashes, because the default of [core\_file](../installation-and-configuration/maxscale-configuration-guide.md#core_file) changed from `true` to `false`. MaxScale still logs the stack trace of all threads when it crashes, which is usually enough to find the cause.
+
+To keep writing core files, as MaxScale 25.01 does by default, set `core_file` in the `[maxscale]` section of the configuration file:
+
+```ini
+[maxscale]
+core_file=true
+```
+
+The parameter isn't dynamic, so it takes effect only when MaxScale starts. Set it before you start MaxScale 25.10 for the first time.
 
 ## Upgrading MariaDB MaxScale from 24.02 to 25.01
 
@@ -104,7 +117,7 @@ filters=OptimisticTrx
 
 ## Upgrading MariaDB MaxScale from 23.08 to 24.02
 
-### Downgrading to older major versions
+### Downgrading to Older Major Versions
 
 The MaxScale packaging has been modified in 24.02 to include all of the necessary files in the package itself. This removes the need for a post-installation script that installs them while also clearly stating what's included in the package.
 
@@ -117,7 +130,7 @@ To downgrade from MaxScale 24.02 to an older MaxScale major release:
 
 ## Upgrading MariaDB MaxScale from 23.02 to 23.08
 
-MariaDB Monitor switchover requires an additional grant on MariaDB Server 10.5 and later. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor.md#cluster-manipulation-grants) for more information.
+MariaDB Monitor switchover requires an additional grant. See [Cluster Manipulation Grants](../../../reference/maxscale-monitors/mariadb-monitor.md#cluster-manipulation-grants) for more information.
 
 ## Upgrading MariaDB MaxScale from 22.08 to 23.02
 
@@ -210,9 +223,9 @@ The encrypted passwords feature has been updated to be more secure. Users are re
 
 The default state of servers in 2.4 was `Running` and in 2.5 it is now`Down`. This was done to prevent newly added servers from being accidentally used before they were monitored.
 
-### Columnstore Monitor
+### ColumnStore Monitor
 
-It is now mandatory to specify in the configuration what version the monitored Columnstore cluster is.
+It is now mandatory to specify in the configuration what version the monitored ColumnStore cluster is.
 
 ```
 [CSMonitor]

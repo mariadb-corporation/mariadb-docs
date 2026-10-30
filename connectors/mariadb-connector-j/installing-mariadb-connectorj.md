@@ -7,8 +7,10 @@ description: >-
 # Installing MariaDB Connector/J
 
 {% hint style="info" %}
-The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is:[**MariaDB Connector/J 3.5.9**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/3.5/3.5.9)
+The most recent [_**Stable**_](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) _**(GA)**_ release of [MariaDB Connector/J](../connectors-quickstart-guides/mariadb-connector-j-guide.md) is: [**MariaDB Connector/J 4.0.0**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/4.0/4.0.0)
 {% endhint %}
+
+MariaDB Connector/J 4.0 requires Java 17 or later. Applications that run on Java 8 or Java 11 must use the 3.5 release series, whose latest release is [MariaDB Connector/J 3.5.11](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/connectors/java/3.5/3.5.11).
 
 [Download MariaDB Connector/J](https://mariadb.com/downloads/connectors/)
 
@@ -60,7 +62,7 @@ git clone https://github.com/MariaDB/mariadb-connector-j.git
 
 If you would prefer a packaged source tarball release, then MariaDB Connector/J `.jar` source code tarballs can be downloaded from the following URL:
 
-* [https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/](https://mariadb.com/downloads/connectors/connectors-data-access/java-connector/)
+* [https://mariadb.com/downloads/connectors/connectors-data-access/java8-connector](https://mariadb.com/downloads/connectors/connectors-data-access/java8-connector)
 
 MariaDB Connector/J has the following build requirements:
 
@@ -90,3 +92,4 @@ Once the build is complete, you should have a `.jar` file with a name like the o
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}
+

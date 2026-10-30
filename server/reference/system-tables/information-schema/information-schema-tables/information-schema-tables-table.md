@@ -9,10 +9,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.2:
+{% endhint %}
+
 The [Information Schema](../) table shows information about the various tables and [views](../../../../server-usage/views/) on the server.
 {% endtab %}
 
-{% tab title="< 11.2.0" %}
+{% tab title="< 11.2" %}
+{% hint style="info" %}
+Before MariaDB 11.2:
+{% endhint %}
+
 The [Information Schema](../) table shows information about the various tables, excluding `TEMPORARY` tables, except for tables from the `Information Schema` database and [views](../../../../server-usage/views/) on the server.
 {% endtab %}
 {% endtabs %}

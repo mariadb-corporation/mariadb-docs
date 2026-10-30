@@ -172,7 +172,7 @@ the actual CUSTOMERS data tables except that:
 have returned the columns of all the tables defined in the connected data
 source.
 
-Currently the available `CATFUNC` are:
+The available `CATFUNC` values are:
 
 | Function    | Specified as:                | Applies to table types:                            |
 | ----------- | ---------------------------- | -------------------------------------------------- |

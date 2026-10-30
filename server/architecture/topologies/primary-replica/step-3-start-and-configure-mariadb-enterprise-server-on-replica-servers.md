@@ -129,7 +129,7 @@ The GTID position from the above output is `0-1-2001,1-2-5139`.
 $ sudo mariadb
 ```
 
-Set the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable to the GTID position:
+Set the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) system variable to the GTID position:
 
 ```sql
 SET GLOBAL gtid_slave_pos='0-1-2001,1-2-5139';

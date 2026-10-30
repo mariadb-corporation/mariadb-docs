@@ -15,7 +15,7 @@ The `caching_sha2_password` plugin is now the default authentication plugin in M
 ## Support in MariaDB Server
 
 {% hint style="warning" %}
-MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin was added in MariaDB [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new). See [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804) for more information.
+MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin is available from MariaDB Community Server 11.4.9 / 11.8.4 / 12.1 and MariaDB Enterprise Server 10.6.24-20 / 11.4.9-6 / 11.8.3-1. It was implemented in [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804); the Enterprise Server 10.6 version is a backport of that work ([MENT-2480](https://jira.mariadb.org/browse/MENT-2480)). See the [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new) release notes for more.
 {% endhint %}
 
 Reasons for not supporting the SHA-256 plugin:

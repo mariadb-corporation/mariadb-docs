@@ -74,10 +74,18 @@ Field and index (key) attributes are declared similarly using `HA_FOPTION_*` and
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 When in a `CREATE TABLE` statement, the `::create()` handler method is called, the table attributes are available in the `option_struct` member of the handler, field attributes - in the `option_struct` member of the individual fields (objects of the `Field` class), index attributes - in the `option_struct` member of the individual keys (objects of the `KEY` class).
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 When in a `CREATE TABLE` statement, the `::create()` handler method is called, the table attributes are available in the `table_arg->s->option_struct`, field attributes - in the `option_struct` member of the individual fields (objects of the `Field` class), index attributes - in the `option_struct` member of the individual keys (objects of the `KEY` class).
 {% endtab %}
 {% endtabs %}

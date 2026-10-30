@@ -128,9 +128,16 @@ source,destination
 Include a row for each retired **section/landing** too (point it at the nearest surviving
 landing), not just the leaf pages.
 
-## Importing (the manual step)
+## Loading the rules
 
-The person with GitBook site admin access does this — it is not a Git operation:
+**With site admin, load them through the API** instead of the UI: stage them with
+`bulkUpsertSiteRedirects` and `intent: "draft"`, check them, then publish them with
+`intent: "publish"`. A path destination (`{"kind": "path", "spaceId": …, "path": …}`) lets GitBook
+resolve the page, so you don't need absolute URLs or page ids. The `gitbook-redirects` skill has
+the full procedure, including the admin check.
+
+**Without it**, the person with GitBook site admin access imports the CSV — it is not a Git
+operation:
 
 1. GitBook → the site → **Settings → Redirects**.
 2. Add a single redirect, or **Import** the CSV.

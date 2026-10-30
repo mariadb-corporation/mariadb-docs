@@ -1,5 +1,8 @@
 ---
-description: MariaDB Galera Cluster usage guide
+description: >-
+  How to use a running MariaDB Galera Cluster: connecting via a load balancer or
+  directly, reads and writes, DDL methods, status monitoring, node failure
+  recovery, and application best practices.
 ---
 
 # MariaDB Galera Cluster Usage Guide

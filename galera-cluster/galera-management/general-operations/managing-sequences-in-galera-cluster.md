@@ -45,6 +45,16 @@ The following diagram illustrates how two nodes in a 3-node cluster generate uni
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence ID generation across two Galera nodes
+    accDescr {
+        A sequence of four numbered requests for the next sequence value, NEXTVAL.
+        Node A has Offset=1 and Node B has Offset=2, and a note says the cluster
+        size is 3. Request 1: App (Node A) asks Node A, which calculates 1 + (0 *
+        3) and returns ID 1. Request 2: App (Node B) asks Node B, which calculates
+        2 + (0 * 3) and returns ID 2. Request 3: App (Node A) asks Node A again,
+        which calculates 1 + (1 * 3) and returns ID 4. Request 4: App (Node B)
+        asks Node B again, which calculates 2 + (1 * 3) and returns ID 5.
+    }
     participant Client_A as "App (Node A)"
     participant Node_A as "Node A (Offset=1)"
     participant Node_B as "Node B (Offset=2)"

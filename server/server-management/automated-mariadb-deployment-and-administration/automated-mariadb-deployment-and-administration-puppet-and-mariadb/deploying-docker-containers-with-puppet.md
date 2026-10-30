@@ -1,6 +1,6 @@
 ---
 description: >-
-  A guide to managing Docker container lifecycles using Puppet's `docker`
+  A guide to managing Docker container lifecycles using Puppet's docker
   resource type, covering image pulling, container execution, and upgrades for
   MariaDB.
 ---

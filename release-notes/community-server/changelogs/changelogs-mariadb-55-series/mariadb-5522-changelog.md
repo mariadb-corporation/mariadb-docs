@@ -2,7 +2,7 @@
 
 The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.askmonty.org/mariadb/5.5.22) |[Release Notes](../../old-releases/5.5/5.5.22.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
+[Download](https://archive.mariadb.org/mariadb-5.5.22/) |[Release Notes](../../old-releases/5.5/5.5.22.md) |**Changelog** |\[[Overview of 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 
 **Release date:** 29 Mar 2012
 

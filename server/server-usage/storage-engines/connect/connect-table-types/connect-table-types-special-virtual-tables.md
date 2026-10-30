@@ -4,7 +4,7 @@ description: The CONNECT storage engine.
 
 # CONNECT Table Types - Special "Virtual" Tables
 
-The special table types supported by CONNECT are the Virtual table type ([VIR](connect-table-types-vir.md) - introduced in [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.15)), Directory Listing table type (DIR), the Windows Management Instrumentation Table Type (WMI), and the “Mac Address” type (MAC).
+The special table types supported by CONNECT are the Virtual table type ([VIR](connect-table-types-vir.md)), Directory Listing table type (DIR), the Windows Management Instrumentation Table Type (WMI), and the “Mac Address” type (MAC).
 
 These tables are “virtual tables”, meaning they have no physical data but rather produce result data using specific algorithms. Note that this is close to what Views are, so they could be regarded as special views.
 
@@ -172,7 +172,7 @@ Queries to WMI providers are done using the WQL language, not the SQL language. 
 
 1. No function.
 2. No comparison between two columns.
-3. No expression (currently a CONNECT restriction)
+3. No expression (a CONNECT restriction)
 4. No BETWEEN and IN predicates.
 
 Filtering with WHERE clauses not respecting these conditions will still be done by MariaDB only,

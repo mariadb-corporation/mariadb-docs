@@ -35,10 +35,18 @@ By default, `ANALYZE TABLE` statements are written to the [binary log](../../../
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.6.16:
+{% endhint %}
+
 `ANALYZE TABLE` is non-blocking and non-intrusive. A connection will start using new statistics for the query following the completion of the `ANALYZE TABLE`.
 {% endtab %}
 
 {% tab title="< 10.6.16" %}
+{% hint style="info" %}
+Before MariaDB 10.6.16:
+{% endhint %}
+
 `ANALYZE TABLE` is blocking and intrusive.
 {% endtab %}
 {% endtabs %}
@@ -49,6 +57,10 @@ The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From Community Server (CS) 10.6.23 / 10.11.14 / 11.4.8 / 11.8.3 / 12.0.2 / 12.1.1 and Enterprise Server (ES) 11.8.3-1:
+{% endhint %}
+
 ### Skipping Long CHAR/VARCHAR Columns
 
 When using `ANALYZE TABLE PERSISTENT`, MariaDB skips long [`CHAR`](../../data-types/string-data-types/char.md)/[`VARCHAR`](../../data-types/string-data-types/varchar.md) columns during statistics collection if they exceed the value of the [`analyze_max_length`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#analyze_max_length) system variable.
@@ -90,7 +102,11 @@ ANALYZE TABLE product_data PERSISTENT FOR COLUMNS(description);
 ```
 {% endtab %}
 
-{% tab title="< 10.6.23 / 10.11.14 / 11.4.8 / 11.8.3 / 12.0.2 / 12.1.1 / 11.8 Enterprise Server" %}
+{% tab title="< CS 10.6.23 / 10.11.14 / 11.4.8 / 11.8.3 / 12.0.2 / 12.1.1 / ES 11.8.3-1" %}
+{% hint style="info" %}
+Before Community Server (CS) 10.6.23 / 10.11.14 / 11.4.8 / 11.8.3 / 12.0.2 / 12.1.1 and Enterprise Server (ES) 11.8.3-1:
+{% endhint %}
+
 The functionality for skipping long `CHAR` and `VARCHAR` columns isn't available.
 {% endtab %}
 {% endtabs %}

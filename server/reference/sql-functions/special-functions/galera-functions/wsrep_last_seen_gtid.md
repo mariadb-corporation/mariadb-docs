@@ -14,7 +14,7 @@ WSREP_LAST_SEEN_GTID()
 
 ## Description
 
-Returns the [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) of the most recent write transaction observed by the client.
+Returns the [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) of the most recent write transaction observed by the client.
 
 The result can be useful to determine the transaction to provide to [WSREP\_SYNC\_WAIT\_UPTO\_GTID](wsrep_sync_wait_upto_gtid.md) for waiting and unblocking purposes.
 

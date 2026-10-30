@@ -52,15 +52,7 @@ If used out of a [HANDLER](../../sql-structure/nosql/handler/) construct, RESIGN
 ERROR 1645 (0K000): RESIGNAL when handler not active
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`, but trying to do this raises the above error.
-{% endtab %}
-
-{% tab title="< 5.6" %}
-If a [HANDLER](../../sql-structure/nosql/handler/) contains a [CALL](../stored-routine-statements/call.md) to another procedure, that procedure can use `RESIGNAL`.
-{% endtab %}
-{% endtabs %}
 
 For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../error-codes/mariadb-error-code-reference.md).
 

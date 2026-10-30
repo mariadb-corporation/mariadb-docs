@@ -46,10 +46,18 @@ transaction-isolation = REPEATABLE-READ
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.1:
+{% endhint %}
+
 To determine the global and session transaction isolation levels at runtime, check the value of the [transaction\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) variable.
 {% endtab %}
 
-{% tab title="< 11.1.1" %}
+{% tab title="< 11.1" %}
+{% hint style="info" %}
+Before MariaDB 11.1:
+{% endhint %}
+
 To determine the global and session transaction isolation levels at runtime, check the value of the [tx\_isolation](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation) system variable.
 {% endtab %}
 {% endtabs %}
@@ -118,10 +126,18 @@ also with respect to each other. See [innodb-consistent-read.html](https://dev.m
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.0 / 10.11.2 / 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12:
+{% endhint %}
+
 For locking reads (`SELECT` with `FOR UPDATE` or `LOCK IN SHARE MODE`), `UPDATE`, and `DELETE` statements, locking depends on whether the statement uses a unique index with a unique search condition, or a range-type search condition. MariaDB does not relax the gap locking for unique indexes.
 {% endtab %}
 
-{% tab title="< 11.0 / 10.11.2 / 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12 / 10.5.19 / 10.4.28 / 10.3.38" %}
+{% tab title="< 11.0 / 10.11.2 / 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12" %}
+{% hint style="info" %}
+Before MariaDB 11.0 / 10.11.2 / 10.10.3 / 10.9.5 / 10.8.7 / 10.7.8 / 10.6.12:
+{% endhint %}
+
 For locking reads (`SELECT` with `FOR UPDATE` or `LOCK IN SHARE MODE`), `UPDATE`, and `DELETE` statements, locking depends on whether the statement uses a unique index with a unique search condition, or a range-type search condition. For a unique index with a unique search condition, InnoDB locks only the index record found, not the gap before it.
 {% endtab %}
 {% endtabs %}
@@ -167,10 +183,18 @@ Prefer `ON`, because it is what makes `REPEATABLE READ` behave as its name claim
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.11:
+{% endhint %}
+
 The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [READ\_ONLY ADMIN](../account-management-sql-statements/grant.md#read_only-admin) privilege doesn't allow writes, and DDL statements on temporary tables are not allowed either.
 {% endtab %}
 
-{% tab title="< 10.11.0" %}
+{% tab title="< 10.11" %}
+{% hint style="info" %}
+Before MariaDB 10.11:
+{% endhint %}
+
 The access mode specifies whether the transaction is allowed to write data or not. By default, transactions are in `READ WRITE` mode (see the [tx\_read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_read_only) system variable). `READ ONLY` mode allows the storage engine to apply optimizations that cannot be used for transactions which write data. Note that, unlike the global [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) mode, the [SUPER](../account-management-sql-statements/grant.md#super) privilege doesn't allow writes, and DDL statements on temporary tables are not allowed either.
 {% endtab %}
 {% endtabs %}

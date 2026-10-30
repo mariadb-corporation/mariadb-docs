@@ -1,7 +1,7 @@
 ---
 description: >-
   Understand the support status of this statement. Originally designed for NDB
-  Cluster, it is not currently supported in MariaDB Server.
+  Cluster, it is not supported in MariaDB Server.
 ---
 
 # ALTER LOGFILE GROUP

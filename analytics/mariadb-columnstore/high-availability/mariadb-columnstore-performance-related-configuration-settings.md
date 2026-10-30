@@ -19,10 +19,18 @@ Convenience utility programs _getConfig_ and _setConfig_ are available to safely
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 23.10:
+{% endhint %}
+
 The `NumBlocksPct` configuration parameter specifies the percentage of physical memory to utilize for disk block caching. The default value is 25, to ensure enough physical memory.
 {% endtab %}
 
 {% tab title="< 23.10" %}
+{% hint style="info" %}
+Before MariaDB 23.10:
+{% endhint %}
+
 The `NumBlocksPct` configuration parameter specifies the percentage of physical memory to utilize for disk block caching. The default value is 50, to ensure enough physical memory.
 {% endtab %}
 {% endtabs %}
@@ -31,10 +39,18 @@ The `NumBlocksPct` configuration parameter specifies the percentage of physical 
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 23.10:
+{% endhint %}
+
 The `TotalUmMemory` configuration parameter specifies the percentage of physical memory to utilize for joins, intermediate results and set operations. This specifies an upper limit for small table results in joins rather than a pre-allocation of memory. The default value is 50.
 {% endtab %}
 
 {% tab title="< 23.10" %}
+{% hint style="info" %}
+Before MariaDB 23.10:
+{% endhint %}
+
 The `TotalUmMemory` configuration parameter specifies the percentage of physical memory to utilize for joins, intermediate results and set operations. This specifies an upper limit for small table results in joins rather than a pre-allocation of memory. The default value is 25.
 {% endtab %}
 {% endtabs %}

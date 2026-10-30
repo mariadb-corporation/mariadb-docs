@@ -30,6 +30,7 @@ mysql> EXPLAIN SELECT * FROM (SELECT * FROM City WHERE Population > 1*1000)
 It plans to do the following actions:
 
 ```mermaid
+%%{init: {"themeVariables": {"edgeLabelBackground": "#eef2ff"}}}%%
 flowchart LR
     accTitle: Unmerged execution plan for the derived table query
     accDescr { The City table has 4079 rows. Filtered by the condition Population greater than 10*1000 (Using where), it feeds into the derived2 temporary table, which is populated with 4068 rows by writing to a temp. table. The derived2 temporary table is then filtered by the condition Country equals 'DEU' (Using where) to produce the query output of 93 rows. }
@@ -43,6 +44,7 @@ flowchart LR
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;
     classDef file fill:#eaf2fb,stroke:#2f5b8f,stroke-width:2px,color:#111;
+    linkStyle default color:#111111
 ```
 
 _City rows are filtered on `Population`, written to the `derived2` temporary table, then filtered again on `Country` to produce the query output._
@@ -57,7 +59,7 @@ Executing a subquery like this is very inefficient, because the highly-selective
 
 ## Derived table merge in action
 
-If one runs this query in MariaDB/MySQL 5.6, they get this:
+If one runs this query in MariaDB, they get this:
 
 ```sql
 MariaDB [world]> EXPLAIN SELECT * FROM (SELECT * FROM City WHERE Population > 1*1000) 
@@ -85,7 +87,7 @@ From the above, one can see that:
 SET @@optimizer_switch='derived_merge=OFF'
 ```
 * From MariaDB 12.1, it is possible to enable or disable the optimization with [MERGE() and NO_MERGE() optimizer hints](../../optimizer-hints/table-level-hints.md#merge-no_merge).
-* Versions of MySQL and MariaDB which do not have support for this optimization will execute subqueries even when running `EXPLAIN`. This can result in a well-known problem (see e.g. [MySQL Bug #44802](https://bugs.mysql.com/bug.php?id=44802)) of `EXPLAIN` statements taking a very long time. Starting from [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)+ and MySQL 5.6+ `EXPLAIN` commands execute instantly, regardless of the `derived_merge` setting.
+* Versions of MySQL before 5.6, which do not have support for this optimization, execute subqueries even when running `EXPLAIN`. This can result in a well-known problem (see e.g. [MySQL Bug #44802](https://bugs.mysql.com/bug.php?id=44802)) of `EXPLAIN` statements taking a very long time. In MariaDB and MySQL 5.6+, `EXPLAIN` commands execute instantly, regardless of the `derived_merge` setting.
 
 ## See Also
 

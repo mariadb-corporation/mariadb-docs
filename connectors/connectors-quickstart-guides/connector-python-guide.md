@@ -30,7 +30,7 @@ Before installing MariaDB Connector/Python, ensure you have:
 #### 2. Installation
 
 {% hint style="info" %}
-**Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
+**Version 1.1 is the latest stable (GA) release; version 2.0 is a Release Candidate (RC) as of 2.0.0rc2.** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 **Version 1.1 (stable / GA)**
@@ -261,7 +261,7 @@ asyncio.run(main())
 #### Further Resources:
 
 * [PyPI MariaDB Connector/Python](https://pypi.org/project/mariadb/)
-* [MariaDB Connector/Python Documentation](https://mariadb-corporation.github.io/mariadb-connector-python/)
+* [MariaDB Connector/Python Documentation](../mariadb-connector-python/README.md)
 * Migration Guide (1.1 to 2.0)
 * Async/Await Support
 * [MariaDB Developers Python Quickstart (GitHub)](https://github.com/mariadb-developers/python-quickstart)

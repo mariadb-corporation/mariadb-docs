@@ -12,7 +12,7 @@ The `unix_socket` authentication plugin allows the user to use operating system 
 
 The `unix_socket` authentication plugin works by calling the [getsockopt](https://man7.org/linux/man-pages/man7/socket.7.html) system call with the `SO_PEERCRED` socket option, which allows it to retrieve the `uid` of the process that is connected to the socket. It is then able to get the user name associated with that `uid`. Once it has the user name, it will authenticate the connecting user as the MariaDB account that has the same user name.
 
-The `unix_socket` authentication plugin is not suited to multiple Unix users accessing a single MariaDB user account.
+Before MariaDB 11.6, the `unix_socket` authentication plugin is not suited to multiple Unix users accessing a single MariaDB user account. From MariaDB 11.6, you can map several Unix users to one account; see [Creating Users](authentication-plugin-unix-socket.md#creating-users).
 
 ## Security
 
@@ -113,16 +113,16 @@ GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA unix_socket;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.6:
+{% endhint %}
+
 The authentication string (if present) is compared with the socket's user name. Authentication proceeds if there's a match. In this case, the [external\_user](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#external_user) system variable contains the OS user.
 
 Consider an OS user named 'bob' that has been created like this:
 
 ```sql
 CREATE USER A identified via unix_socket as 'bob';
-
-
-
-
 ```
 
 That user can connect like this:
@@ -147,9 +147,23 @@ SELECT USER(),@@external_user;
 | A@localhost | bob             |
 +-------------+-----------------+
 ```
+
+When an authentication string is defined, the Unix user name is compared only with that string, not with the MariaDB user name. In the example above, the account `A` accepts the Unix user `bob`, but not a Unix user named `A`.
+
+To let several Unix users connect as the same account, list one `unix_socket` entry per user, separated by `OR`:
+
+```sql
+CREATE USER A IDENTIFIED VIA unix_socket AS 'bob' OR unix_socket AS 'alice';
+```
+
+Both `bob` and `alice` can then connect as `A`. The entries are tried in the order they are declared, and authentication succeeds as soon as one of them matches. See [Authentication Options](../../sql-statements/account-management-sql-statements/create-user.md#authentication-options) for more on combining authentication methods with `OR`.
 {% endtab %}
 
 {% tab title="< 11.6" %}
+{% hint style="info" %}
+Before MariaDB 11.6:
+{% endhint %}
+
 The plugin only checks whether the OS socket user id matches the MariaDB user name. It ignores the authentication string.
 {% endtab %}
 {% endtabs %}

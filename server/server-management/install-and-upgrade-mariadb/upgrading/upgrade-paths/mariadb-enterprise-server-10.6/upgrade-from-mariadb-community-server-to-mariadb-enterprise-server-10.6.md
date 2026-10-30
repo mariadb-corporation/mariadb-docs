@@ -53,7 +53,7 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
 ### Audit Plugin Considerations
 
-If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed, then the audit plugin should be removed prior to the upgrade to prevent conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit.md) that is included in MariaDB Enterprise Server 10.6.
+If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed, then the audit plugin should be removed prior to the upgrade to prevent conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/README.md) that is included in MariaDB Enterprise Server 10.6.
 
 The two plugins differ mainly in how audit logging can be filtered:
 

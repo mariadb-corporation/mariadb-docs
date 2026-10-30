@@ -8,10 +8,18 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE` statement can be used in any mode.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 {% endtab %}
 {% endtabs %}
@@ -130,10 +138,18 @@ A package whose specification was created by the `CREATE PACKAGE` statement, sho
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported anywhere.
 {% endtab %}
 
-{% tab title="< 10.8.0" %}
+{% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 The function parameter quantifiers for `IN`, `OUT`, `INOUT`, and `IN OUT` are supported only in procedures.
 {% endtab %}
 {% endtabs %}

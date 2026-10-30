@@ -1,5 +1,8 @@
 ---
-description: 'Step 4: Test ColumnStore'
+description: >-
+  Step 4 of the multi-node MariaDB ColumnStore install with object storage: test
+  the S3 and local connections, the plugin status, table creation, and a cross-
+  engine join.
 hidden: true
 ---
 

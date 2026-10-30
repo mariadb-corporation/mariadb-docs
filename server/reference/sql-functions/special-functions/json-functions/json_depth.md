@@ -22,13 +22,21 @@ Returns the maximum depth of the given JSON document, or `NULL` if the argument 
 * In all other cases, the depth can be 2 or greater.
 
 {% tabs %}
-{% tab title="12.2" %}
+{% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.2:
+{% endhint %}
+
 There is no maximum depth level — it's unlimited.
 
 For more information, see [this blog post](https://mariadb.org/make-json-depth-unlimited-new-feature-in-mariadb-12-1/).
 {% endtab %}
 
 {% tab title="< 12.2" %}
+{% hint style="info" %}
+Before MariaDB 12.2:
+{% endhint %}
+
 The maximum depth is 32.
 {% endtab %}
 {% endtabs %}

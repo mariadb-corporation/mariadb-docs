@@ -10,6 +10,10 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 12.3:
+{% endhint %}
+
 ```bnf
 PARTITION BY LINEAR KEY [ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
 ([column_names])
@@ -20,6 +24,10 @@ For a description of the different `ALGORITHM` types, see [KEY Partitioning](key
 {% endtab %}
 
 {% tab title="< 12.3" %}
+{% hint style="info" %}
+Before MariaDB 12.3:
+{% endhint %}
+
 ```sql
 PARTITION BY LINEAR KEY ([column_names])
 [PARTITIONS (number_of_partitions)]

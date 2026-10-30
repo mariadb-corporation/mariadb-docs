@@ -1,8 +1,8 @@
 ---
 description: >-
   Instructions on directing the General Query Log and Slow Query Log to tables
-  (`mysql.general_log`, `mysql.slow_log`) instead of files using the
-  `log_output=TABLE` system variable.
+  (mysql.general_log, mysql.slow_log) instead of files using the
+  log_output=TABLE system variable.
 ---
 
 # Writing Logs Into Tables

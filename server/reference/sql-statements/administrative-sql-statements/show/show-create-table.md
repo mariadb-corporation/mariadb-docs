@@ -26,15 +26,7 @@ Note that `SHOW CREATE TABLE` is not meant to provide metadata about a table. It
 
 MariaDB permits [TEXT](../../../data-types/string-data-types/text.md) and [BLOB](../../../data-types/string-data-types/blob.md) data types to be assigned a [DEFAULT](../../data-definition/create/create-table.md#default-column-option) value. As a result, `SHOW CREATE TABLE` will append a `DEFAULT NULL` to nullable TEXT or BLOB fields if no specific default is provided.
 
-{% tabs %}
-{% tab title="Current" %}
 Numbers are quoted in the `DEFAULT` clause in `SHOW CREATE` statement.
-{% endtab %}
-
-{% tab title="< 10.2.2" %}
-Numbers are not quoted in the `DEFAULT` clause in `SHOW CREATE` statement.
-{% endtab %}
-{% endtabs %}
 
 ### Index Order
 

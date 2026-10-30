@@ -88,7 +88,7 @@ Mentor: Sergei Golubchik
 
 ### Potential list
 
-[suggested development](https://kb.askmonty.org/en/suggested-development/)
+suggested development
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

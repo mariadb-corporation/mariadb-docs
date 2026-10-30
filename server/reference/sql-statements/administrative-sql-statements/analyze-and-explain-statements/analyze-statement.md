@@ -54,7 +54,7 @@ Compared to `EXPLAIN`, `ANALYZE` produces two extra columns:
 * `r_rows` is an observation-based counterpart of the rows column. It shows how many rows were actually read from the table.
 * `r_filtered` is an observation-based counterpart of the filtered column. It shows which fraction of rows was left after applying the WHERE condition.
 
-> These `r_rows` and `r_filtered` columns are also included in the EXPLAIN output written to the [slow query log](../../../../server-management/server-monitoring-logs/slow-query-log/) in MariaDB 10.1.0 and later. This explains why, even though they are not displayed by a standard EXPLAIN statement, some columns may appear in slow query log data.
+> These `r_rows` and `r_filtered` columns are also included in the EXPLAIN output written to the [slow query log](../../../../server-management/server-monitoring-logs/slow-query-log/). This explains why, even though they are not displayed by a standard EXPLAIN statement, some columns may appear in slow query log data.
 
 ## Interpreting the Output
 
@@ -113,8 +113,6 @@ WHERE
 The output of **orders.r\_rows=NULL** and **orders.r\_filtered=NULL** shows that the table `orders` was never scanned. Indeed, we can also see customer.r\_filtered=0.00. This shows that a part of WHERE attached to table `customer` was never satisfied (or, satisfied in less than 0.01% of cases).
 
 ### Rowid Filter Notation
-
-Added in MariaDB 10.4.3 ([MDEV-16188](https://jira.mariadb.org/browse/MDEV-16188)).
 
 When the [Rowid Filtering Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md) applies to a table, `r_rows` takes the same `<r_rows> (<N>%)` form that [EXPLAIN](explain.md#rowid-filter-notation) uses for `rows` — but both halves are observations rather than estimates. `r_rows` counts the rows actually read from the table, which with a filter in place means the rows the filter accepted, and `(<N>%)` is the selectivity the filter actually achieved. The `type`, `key` and `key_len` columns use the same composite notation as in `EXPLAIN`.
 

@@ -7,7 +7,7 @@ description: >-
 # mariadb-secure-installation
 
 {% hint style="info" %}
-Note that many of the reasons for the existence of this script no longer apply (and therefore the guidelines in many online tutorials. In particular, from MariaDB 10.4, [Unix socket authentication](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is applied by default, and there is usually no need to create a root password. See [Authentication from MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md).
+Note that many of the reasons for the existence of this script no longer apply (and therefore the guidelines in many online tutorials. In particular, [Unix socket authentication](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is applied by default, and there is usually no need to create a root password. See [Authentication from MariaDB 10.4](../../security/user-account-management/authentication-from-mariadb-10-4.md).
 {% endhint %}
 
 {% hint style="info" %}
@@ -80,14 +80,17 @@ Thanks for using MariaDB!
 
 `mariadb-secure-installation` accepts some options:
 
-| Option                  | Description                                      |
-| ----------------------- | ------------------------------------------------ |
-| --basedir=dir           | Base directory.                                  |
-| --no-defaults           | Don't read default options from any option file. |
-| --defaults-file=#       | Only read default options from the given file #. |
-| --defaults-extra-file=# | Read this file after the global files are read.  |
+| Option                    | Description                                                                         |
+| ------------------------- | ----------------------------------------------------------------------------------- |
+| --basedir=dir             | Base directory.                                                                     |
+| --no-defaults             | Don't read default options from any option file.                                    |
+| --defaults-file=#         | Only read default options from the given file #.                                    |
+| --defaults-extra-file=#   | Read this file after the global files are read.                                     |
+| --defaults-group-suffix=# | In addition to the default option groups, also read option groups with this suffix. |
 
-Other unrecognized options is passed on to the server.
+Any other option is passed on to the [mariadb](../mariadb-client/mariadb-command-line-client.md) client that `mariadb-secure-installation` runs to connect to the server, for example `--socket` or `--port`.
+
+`mariadb-secure-installation` doesn't support `--print-defaults`. To list the options in the option groups it reads, run `my_print_defaults client client-server client-mariadb` (see [my\_print\_defaults](../administrative-tools/my_print_defaults.md)).
 
 ### Option Files
 

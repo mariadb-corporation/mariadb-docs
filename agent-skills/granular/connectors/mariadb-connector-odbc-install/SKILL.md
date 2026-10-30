@@ -5,7 +5,7 @@ description: "Installing and configuring MariaDB Connector/ODBC — that a drive
 
 # MariaDB Connector/ODBC: Installation and Configuration
 
-*Last updated: 2026-08-10*
+*Last updated: 2026-10-15*
 
 MariaDB Connector/ODBC is an ODBC 3.8-compliant driver built on MariaDB Connector/C. Almost everything that goes wrong with it goes wrong before the first query: the driver manager cannot find the driver, the bitness does not match, or the DSN is in a file nothing reads. This skill covers that layer. For the ODBC API itself, see **`mariadb-connector-odbc-usage`**.
 
@@ -17,7 +17,8 @@ MariaDB Connector/ODBC is an ODBC 3.8-compliant driver built on MariaDB Connecto
 |---|---|
 | Installs the driver and connects straight away | ODBC always goes through a **driver manager**: unixODBC on Linux, iODBC on macOS, the built-in manager on Windows. The driver must be **registered** with it before either a DSN or a `DRIVER=` connection string can resolve |
 | Installs MariaDB Connector/C first, as Connector/C++ requires | Not necessary here. The **binary packages carry Connector/C with them**. A source build can use the bundled `libmariadb` submodule or link the system one, but an installed driver package is self-contained |
-| Edits `/etc/odbcinst.ini` by hand and hopes the path is right | Use **`odbcinst`**, which writes to whatever paths the local unixODBC was actually built with: `sudo odbcinst -i -d -f driver-template.ini` for the driver, `-i -s -l -f` for a system DSN, `-i -s -h -f` for a user DSN |
+| Edits `/etc/odbcinst.ini` by hand and hopes the path is right | Use **`odbcinst`**, which writes to whatever paths the local unixODBC was actually built with: `odbcinst -i -d -f driver-template.ini` for the driver, `-i -s -l -f` for a system DSN, `-i -s -h -f` for a user DSN. The first two write system files and need root |
+| Runs the package manager, `odbcinst -i -d`, or a system-wide `cmake --install` itself, as root | The agent does **not** run root steps. It hands them to the user — one command to run, or a script to review and run — and waits; see **Privileged steps**. A user DSN, a `$HOME/.local` build, and a driver registered under a user-owned `ODBCSYSINI` need no root |
 | Mixes a 64-bit driver with a 32-bit driver manager | Bitness must match end to end — driver, driver manager, and application. On Windows this means opening the **matching** version of the ODBC Data Source Administrator; the 64-bit and 32-bit tools show different lists |
 | Adds a DSN through the unixODBC GUI | The driver **does not support the unixODBC GUI for adding DSNs**. Write the `.ini` entry or use `odbcinst` |
 | Cannot find the configuration and assumes it is missing | Three environment variables move it: **`ODBCSYSINI`** (directory of the system files, default `/etc`), **`ODBCINSTINI`** (driver file name, relative to `ODBCSYSINI`, default `odbcinst.ini`), and **`ODBCINI`** (user DSN file, default `~/.odbc.ini`) |
@@ -30,13 +31,22 @@ MariaDB Connector/ODBC is an ODBC 3.8-compliant driver built on MariaDB Connecto
 
 ## Installing
 
+### Privileged steps
+
+Installing packages, registering the driver in the system `odbcinst.ini`, a system DSN, and installing into `/usr` need root. The agent never runs these itself: privilege escalation hangs on a password prompt the agent cannot answer, and the decision to act as root belongs to the user.
+
+- **One command** — show it exactly, ask the user to run it as root in their own terminal, and wait for confirmation.
+- **Several commands** (packages plus driver registration, or a source build plus registration) — write them into a script such as `install-mariadb-connector-deps.sh`, with no privilege escalation inside it, ask the user to review it and run it as root, and wait.
+- **Afterwards** — verify without root: `odbcinst -j` (which files unixODBC uses), `odbcinst -q -d` (the driver section is listed), `odbcinst -q -s` (DSNs), then `isql` as below.
+
 ### Linux
 
 Install unixODBC and its tools, then the driver package downloaded for the distribution:
 
 ```bash
-sudo apt install unixodbc odbcinst          # Debian, Ubuntu
-sudo yum install unixODBC                   # RHEL, Rocky Linux
+# as root (the user runs this) — the line for the distribution
+apt install unixodbc odbcinst          # Debian, Ubuntu
+yum install unixODBC                   # RHEL, Rocky Linux
 ```
 
 ### Registering the driver
@@ -49,8 +59,11 @@ Driver = /usr/lib64/libmaodbc.so
 ```
 
 ```bash
-sudo odbcinst -i -d -f MariaDB_odbc_driver_template.ini
+# as root (the user runs this) — writes the system odbcinst.ini
+odbcinst -i -d -f MariaDB_odbc_driver_template.ini
 ```
+
+Without root, register into a user-owned directory instead: with `ODBCSYSINI=$HOME/.odbc` exported (the directory must exist), the same `odbcinst -i -d -f` writes `$HOME/.odbc/odbcinst.ini`. Every process that must find the driver — `isql`, the application — then needs that same `ODBCSYSINI`, and system DSNs move to `$HOME/.odbc/odbc.ini` with it.
 
 At this point `SQLDriverConnect` works with `Driver={MariaDB ODBC 3.2 Driver};…`, with no DSN involved.
 
@@ -68,9 +81,11 @@ PWD         = secret
 DATABASE    = appdb
 ```
 
+Prefer the user DSN — it needs no root:
+
 ```bash
-sudo odbcinst -i -s -l -f MariaDB_odbc_data_source_template.ini   # system-wide, /etc/odbc.ini
-odbcinst -i -s -h -f MariaDB_odbc_data_source_template.ini        # this user, ~/.odbc.ini
+odbcinst -i -s -h -f MariaDB_odbc_data_source_template.ini   # this user, ~/.odbc.ini
+odbcinst -i -s -l -f MariaDB_odbc_data_source_template.ini   # system-wide, /etc/odbc.ini — as root (the user runs this)
 ```
 
 ### macOS
@@ -84,16 +99,21 @@ Install the MSI, then define the DSN in the ODBC Data Source Administrator — t
 ### Building from source
 
 ```bash
-sudo apt install git cmake make gcc libssl-dev unixodbc odbcinst unixodbc-dev
-# or: sudo yum install git cmake make gcc openssl openssl-devel unixODBC unixODBC-devel
+# as root (the user runs this) — build dependencies, the line for the distribution
+apt install git cmake make gcc libssl-dev unixodbc odbcinst unixodbc-dev
+yum install git cmake make gcc openssl openssl-devel unixODBC unixODBC-devel
+```
 
+```bash
 git clone https://github.com/MariaDB/mariadb-connector-odbc.git
 cd mariadb-connector-odbc
 git submodule update --init --recursive      # brings in the bundled libmariadb
-cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo .
+cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="$HOME/.local" .
 cmake --build build
-sudo cmake --install build
+cmake --install build                        # user prefix, no root
 ```
+
+With this prefix the driver lands at `$HOME/.local/lib/mariadb/libmaodbc.so` on every distribution, RPM-based ones included. Point the template's `Driver =` at that path and register it under a user-owned `ODBCSYSINI` as above. For a system-wide driver, the install into the default prefix and the `odbcinst -i -d` registration together make a script for the user to review and run as root.
 
 OpenSSL development headers are what make the resulting driver TLS-capable on Unix-like platforms; on Windows there are no dependencies beyond CMake, git, and Visual Studio.
 

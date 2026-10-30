@@ -20,7 +20,7 @@ To create the trace log, start `mysqld` like so:
 mysqld --debug
 ```
 
-Without options for --debug, the trace file will be named `/tmp/mysqld.trace` in MySQL and older versions of MariaDB before 10.5 and `/tmp/mariadbd.trace` starting from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105).
+Without options for --debug, the trace file is named `/tmp/mariadbd.trace`.
 
 On Windows, the debug `mysqld` is called `mysqld-debug` and you should also use the `--standalone` option. So the command on Windows will look like:
 

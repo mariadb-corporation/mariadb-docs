@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema metadata\_locks Table
 
-{% hint style="info" %}
-The `metadata_locks` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 ## Description
 
 The `metadata_locks` table contains [metadata lock](../../../sql-statements/transactions/metadata-locking.md) information.

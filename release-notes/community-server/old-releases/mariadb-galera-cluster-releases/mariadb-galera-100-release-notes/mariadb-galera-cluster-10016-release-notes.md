@@ -26,7 +26,7 @@ For a list of changes made in MariaDB Galera Cluster 10.0.16, with links to deta
 * MariaDB Galera Cluster supports ROW binlog\_format only, thus it discards any request of setting it to any value other than ROW with an error. With this release, this restriction has been eased a bit to allow setting of binlog\_format to other formats at SESSION scope. ([MDEV-7322](https://jira.mariadb.org/browse/MDEV-7322))
 * Compatibility: Wsrep providers (Galera libraries) other than version 25.x.xx are not supported.
 * Compatibility: If Galera v2 and v3 are both being used in the cluster,\
-  MariaDB with Galera v3 must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum) in order to make it backward compatible with Galera v2.
+  MariaDB with Galera v3 must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socket.checksum) in order to make it backward compatible with Galera v2.
 * See the [MariaDB 10.0.16 Release Notes](../../10.0/10.0.16.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10016-changelog.md) for more information on the changes in\
   MariaDB.
 

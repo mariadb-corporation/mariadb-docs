@@ -36,10 +36,18 @@ If any argument is `NULL`, returns `NULL`.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.8:
+{% endhint %}
+
 The optimizer can make use of an index for conditions like `SUBSTR(indexed_column, 1, n) = const_string`.
 {% endtab %}
 
 {% tab title="< 11.8" %}
+{% hint style="info" %}
+Before MariaDB 11.8:
+{% endhint %}
+
 The optimizer cannot make use of an index if an indexed column is an argument of `SUBSTR()`.
 {% endtab %}
 {% endtabs %}

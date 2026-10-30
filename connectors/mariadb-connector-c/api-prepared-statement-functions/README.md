@@ -31,7 +31,7 @@ The MariaDB Connector/C prepared-statement API provides functions for allocating
 
 | Function | Description |
 | --- | --- |
-| [`mariadb_stmt_execute_direct()`](mariadb_stmt_execute_direct.md) | Prepares and executes a statement in a single call using a pre-allocated MYSQL_STMT handle, available in Connector/C 3.0 with MariaDB 10.2 or later. |
+| [`mariadb_stmt_execute_direct()`](mariadb_stmt_execute_direct.md) | Prepares and executes a statement in a single call using a pre-allocated MYSQL_STMT handle, available in Connector/C 3.0 and later. |
 | [`mariadb_stmt_fetch_fields()`](mariadb_stmt_fetch_fields.md) | Returns an array of MYSQL_FIELD descriptors for each result set column of a prepared statement, added in MariaDB Connector/C 3.1.0. |
 | [`mysql_stmt_affected_rows()`](mysql_stmt_affected_rows.md) | Returns the number of rows affected by the last INSERT, UPDATE, DELETE, or REPLACE prepared statement, or -1 if the statement failed. |
 | [`mysql_stmt_attr_get()`](mysql_stmt_attr_get.md) | Retrieves the current value of a prepared statement attribute, such as cursor type, prefetch row count, or max-length update behavior. |

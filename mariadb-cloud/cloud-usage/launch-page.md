@@ -3,7 +3,6 @@ description: >-
   The MariaDB Cloud Provision Cloud Database page creates a new database service
   from a single page: topology, high availability, add-ons, provider and region,
   instance resources, connectivity, and adva
-hidden: true
 ---
 
 # Launch Page
@@ -35,12 +34,10 @@ For provisioned services, select a high-availability mode:
 
 ## Add-ons
 
-* **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA.
+* **Analytics (HTAP)** — adds the MariaDB Exa engine for real-time analytical queries alongside your transactional workload. Requires Semi-sync HA. Available on request: the card is labeled **On Request** until the MariaDB Cloud team enables it for your organization. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Query Result Cache** — adds an in-memory query result cache alongside your transactional workload. See [Query Result Cache](../quickstart/query-cache-gridgain-8.md).
 
-Both add-ons are currently available as a _Tech Preview_.
-
-<figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache, both marked Tech Preview with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/provision-addons.png" alt="Add-on cards for Analytics (HTAP) and Query Result Cache with starting prices."><figcaption><p>Add-ons</p></figcaption></figure>
 
 ## Cloud provider & region
 
@@ -60,6 +57,8 @@ For **serverless** services, set the MCU thresholds. One MCU (MariaDB Compute Un
 
 Set the storage capacity and, if needed, enable storage auto-scaling.
 
+If you selected the **Analytics (HTAP)** add-on, **Instance Resources** also has an **Exa** group. Choose the Exa node size (minimum 4 vCPU / 32 GB RAM) and the Exa storage capacity there, separately from the MariaDB nodes. Under **Advanced Options**, you can also set the **MariaDB Exa Storage Type**. The cost estimate includes the Exa node. See [HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md).
+
 ## Secure connectivity
 
 Choose how the service accepts connections:
@@ -71,7 +70,7 @@ Choose how the service accepts connections:
 
 ## Basic attributes
 
-Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**. The version list is the same for serverless and provisioned services, and the default version is pre-selected.
+Select the **MariaDB Version** (with a link to its release notes) and enter a **Service Name**. The version list is the same for serverless and provisioned services, and the default version is preselected.
 
 For **serverless** services, the default version launches from a ready instance and starts in milliseconds. Choosing any other version builds the database on demand, so it takes longer to launch — the page notes this below the picker when you select one. The service is serverless either way; only the launch differs. Choosing a version other than the default requires a paid plan; on a trial with no payment method on file, only the default version is listed.
 
@@ -79,7 +78,16 @@ For **serverless** services, the default version launches from a ready instance 
 
 Optionally configure storage type, provisioned IOPS and throughput, MaxScale redundancy, NoSQL (MongoDB®-compatible) support, an SSL/TLS toggle, and the maintenance window.
 
-<figure><img src="../.gitbook/assets/provision-advanced-options.png" alt="Advanced Options panel: storage type (io1 or gp3), provisioned IOPS, throughput, MaxScale redundancy, NoSQL support, disable SSL/TLS, and maintenance window."><figcaption><p>Advanced options</p></figcaption></figure>
+The available **Storage Type** depends on the cloud provider. On Azure, choose from **Premium SSD v2**, **Standard SSD**, and **Premium SSD**. Premium SSD v2 is designed for production and performance-sensitive workloads that consistently require low latency, high IOPS, and high throughput. For Premium SSD v2, you can set:
+
+* **Provisioned IOPS**: 3,000 to 80,000. The maximum depends on the storage size you selected: 500 IOPS per GB, never above 80,000.
+* **Throughput (MB/s)**: 125 to 2,000. The maximum depends on the IOPS you selected: 0.25 MB/s per IOPS, never above 2,000.
+
+Every service includes 3,000 IOPS and 125 MB/s at no extra cost. IOPS and throughput above those amounts increase the estimated cost shown in the footer.
+
+Existing Azure services keep their current storage type.
+
+<figure><img src="../.gitbook/assets/provision-advanced-options-azure.png" alt="Advanced Options panel for Azure: storage type (Premium SSD v2, Standard SSD, or Premium SSD), provisioned IOPS, throughput, MaxScale redundancy, NoSQL support, disable SSL/TLS, and maintenance window."><figcaption><p>Advanced options (Azure)</p></figcaption></figure>
 
 {% hint style="info" %}
 Some options — Insync high availability, the Analytics (HTAP) add-on, auto-scaling, Private Link, MaxScale redundancy, and a custom maintenance window — require the **Power** or **Power Plus** service tier.

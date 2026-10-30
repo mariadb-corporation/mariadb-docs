@@ -1,5 +1,7 @@
 ---
-description: 'Step 1: Prepare Systems for ColumnStore Nodes'
+description: >-
+  Step 1 of the single-node MariaDB ColumnStore install with local storage: tune
+  Linux kernel parameters and configure security modules and character encoding.
 hidden: true
 ---
 

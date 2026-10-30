@@ -16,7 +16,7 @@ int mysql_shutdown(MYSQL * mysql,
 ## Parameters
 
 * `mysql` - a mysql handle, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
-* `mysql_enum_shutdown_level` - currently only one shutdown level, `SHUTDOWN_DEFAULT` is supported.
+* `mysql_enum_shutdown_level` - only one shutdown level, `SHUTDOWN_DEFAULT`, is supported.
 
 ## Description
 

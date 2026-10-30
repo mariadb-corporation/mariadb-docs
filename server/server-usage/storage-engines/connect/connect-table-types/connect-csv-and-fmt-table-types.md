@@ -321,7 +321,7 @@ size calculated by default too small.
 
 **Note 2:** The file name could have been specified as`'e:/data/token/Websamp.dat'`.
 
-**Note 3:** FMT tables are currently read only.
+**Note 3:** FMT tables are read-only.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -64,7 +64,7 @@ For code blocks larger than 1 line one can use the block syntax:
 To be able to see the level of coverage within the current test suite, do the following:
 
 1. In the mysql-test directory, run this command: `./mysql-test-run -gcov`
-2. To see which lines are not yet covered, look at `source_file_name.gcov` in the source tree. In MariaDB 10.1 or below it's in the CMakeFiles directory where the object files are stored. In MariaDB 10.2 it's stored together with the source files.
+2. To see which lines are not yet covered, look at `source_file_name.gcov` in the source tree. It is stored together with the source files.
 3. Think hard about a test case which will cover those lines that are not tested, and write one.
 
 ### Tools <a href="#tools" id="tools"></a>

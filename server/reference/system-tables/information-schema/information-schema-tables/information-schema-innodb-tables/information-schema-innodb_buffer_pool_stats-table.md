@@ -14,7 +14,7 @@ It has the following columns:
 
 | Column                                | Description                                                                                                                                                                                                                 |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| POOL\_ID                              | Buffer Pool identifier. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1) returns a value of 0, since multiple InnoDB buffer pool instances has been removed. |
+| POOL\_ID                              | Buffer Pool identifier. Always returns 0, since multiple InnoDB buffer pool instances have been removed. |
 | POOL\_SIZE                            | Size in pages of the buffer pool.                                                                                                                                                                                           |
 | FREE\_BUFFERS                         | Number of free pages in the buffer pool.                                                                                                                                                                                    |
 | DATABASE\_PAGES                       | Total number of pages in the buffer pool.                                                                                                                                                                                   |

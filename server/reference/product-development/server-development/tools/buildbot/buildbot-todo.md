@@ -91,7 +91,7 @@ high.
   of `--valgrind`. Little point in Valgrinding mysqltest when we
   in any case ignore any errors in that program.
 * Show pending builds for a slave on the 'builders' page,
-  eg. [hardy-x86-rtai](https://askmonty.org/buildbot/builders/hardy-x86-rtai)
+  eg. hardy-x86-rtai
 * Show dates in local time of the client. One way is with\
   Javascript: a client-side script
   (would be nice if some dates were still shown when javascript is not

@@ -13,7 +13,7 @@ The following [SHOW](./) statements can be extended using a `WHERE` clause and a
 * [SHOW COLUMNS](show-columns.md)
 * [SHOW DATABASES](show-databases.md)
 * [SHOW FUNCTION STATUS](show-function-status.md)
-* [SHOW INDEX](show-index.md)\`\`
+* [SHOW INDEX](show-index.md)
 * [SHOW OPEN TABLES](show-open-tables.md)
 * [SHOW PACKAGE STATUS](show-package-status.md)
 * [SHOW PACKAGE BODY STATUS](show-package-body-status.md)

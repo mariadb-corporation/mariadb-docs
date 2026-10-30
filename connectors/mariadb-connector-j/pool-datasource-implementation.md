@@ -24,7 +24,7 @@ When using MariaDbPoolDataSource, different options permit specifying the pool b
 | minPoolSize | When connections are removed due to not being used for longer than "maxIdleTime", connections are closed and removed from the pool. "minPoolSize" indicates the number of physical connections the pool should keep available at all times. Should be less or equal to maxPoolSize.Default: maxPoolSize value. Since 2.2.0 |
 | poolValidMinDelay | When asking a connection to pool, the pool will validate the connection state. "poolValidMinDelay" permits disabling this validation if the connection has been borrowed recently avoiding useless verifications in case of frequent reuse of connections. 0 means validation is done each time the connection is asked.Default: 1000 (in milliseconds). Since 2.2.0 |
 | maxIdleTime | The maximum amount of time in seconds that a connection can stay in the pool when not used. This value must always be below @wait_timeout value - 45s Default: 600 in seconds (=10 minutes), minimum value is 60 seconds. Since 2.2.0 |
-| useResetConnection | When a connection is closed() (given back to pool), the pool resets the connection state. Setting this option, the prepare command will be deleted, session variables changed will be reset, and user variables will be destroyed when the server permits it (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4), >= MySQL 5.7.3), permitting saving memory on the server if the application make extensive use of variables. Must not be used with the useServerPrepStmts optionDefault: false. Since 2.2.0 |
+| useResetConnection | When a connection is closed() (given back to pool), the pool resets the connection state. Setting this option, the prepare command will be deleted, session variables changed will be reset, and user variables will be destroyed when the server permits it (MariaDB, or MySQL 5.7.3 and later), permitting saving memory on the server if the application make extensive use of variables. Must not be used with the useServerPrepStmts optionDefault: false. Since 2.2.0 |
 | registerJmxPool | Register JMX monitoring pools.Default: true. Since 2.2.0 |
 
 Example of use:
@@ -98,7 +98,7 @@ Reset operations:
 * Resetting `autocommit` to its default value.
 * Restoring the original transaction isolation level (if changed).
 
-If the server version is >= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) (5.7.3 for MySQL server), then the "useResetConnection" option can be used. This option will delete all user variables and reset session variables to their initial state.
+If the server is MariaDB, or MySQL 5.7.3 and later, then the "useResetConnection" option can be used. This option will delete all user variables and reset session variables to their initial state.
 
 ### Idle Timeout Thread
 

@@ -8,6 +8,12 @@ description: >-
 
 ## Syntax
 
+```bnf
+PERCENTILE_CONT(percentile) WITHIN GROUP (ORDER BY expression [ASC | DESC]) OVER (
+  [ PARTITION BY partition_expression ]
+)
+```
+
 ## Description
 
 `PERCENTILE_CONT()` (standing for continuous percentile) is a [window function](./) which returns a value which corresponds to the given fraction in the sort order. If required, it will interpolate between adjacent input items.

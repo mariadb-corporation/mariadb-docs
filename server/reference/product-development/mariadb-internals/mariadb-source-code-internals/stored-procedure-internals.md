@@ -1127,7 +1127,7 @@ class sp_instr_cfetch : public sp_instr
 
 ### The mysql.proc schema
 
-This is the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) used in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104):
+This is the [mysql.proc table](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md):
 
 ```
 CREATE TABLE `proc` (

@@ -11,8 +11,7 @@ be backed up.
 
 ## Upgrading MariaDB MaxScale from 23.02 to 23.08
 
-MariaDB Monitor switchover requires an additional grant on MariaDB Server 10.5
-and later. See [Cluster Manipulation Grants](../mariadb-maxscale-23-08-monitors/mariadb-maxscale-2308-mariadb-monitor.md#cluster-manipulation-grants)
+MariaDB Monitor switchover requires an additional grant. See [Cluster Manipulation Grants](../mariadb-maxscale-23-08-monitors/mariadb-maxscale-2308-mariadb-monitor.md#cluster-manipulation-grants)
 for more information.
 
 ## Upgrading MariaDB MaxScale from 22.08 to 23.02

@@ -1,3 +1,10 @@
+---
+description: >-
+  Assign a value with =. As an assignment operator, = is valid only in a SET
+  statement or the SET clause of an UPDATE statement; elsewhere it compares
+  values.
+---
+
 # Assignment Operator (=)
 
 ## Syntax

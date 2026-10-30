@@ -249,18 +249,6 @@ Using LIMIT ROWS EXAMINED to cap how many rows a query examines.
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-53-optimizer-debugging.md" %}
-[mariadb-53-optimizer-debugging.md](mariadb-53-optimizer-debugging.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-An obsolete optimizer-debugging facility from an early MariaDB release (historical).
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="not_null_range_scan-optimization.md" %}
 [not_null_range_scan-optimization.md](not_null_range_scan-optimization.md)
 {% endcontent-ref %}

@@ -1,5 +1,8 @@
 ---
-description: 'Step 1: Prepare ColumnStore Nodes'
+description: >-
+  Step 1 of the MariaDB ColumnStore install with object storage: tune kernel
+  parameters, set up security modules, firewall, encoding, and DNS, and create
+  an S3 bucket.
 hidden: true
 ---
 

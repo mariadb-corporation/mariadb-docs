@@ -21,7 +21,7 @@ description: >-
 ### Software-Based
 
 {% hint style="warning" %}
-Due to the frequent code changes and deviation from the AWS standards, none are approved at this time.
+Due to the frequent code changes and deviation from the AWS standards, none are approved.
 {% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

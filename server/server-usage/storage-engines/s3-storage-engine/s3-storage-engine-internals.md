@@ -6,10 +6,6 @@ description: >-
 
 # S3 Engine Internals
 
-{% hint style="info" %}
-The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4).
-{% endhint %}
-
 The [S3 storage engine](./) is based on the [Aria](../aria/aria-storage-engine.md) code. Internally, the S3 storage inherits from the Aria code, with hooks that change reads, so that instead of reading data from the local disk it reads things from S3.
 
 The S3 engine uses it's own page cache, modified to be able to handle reading blocks from S3 (of size `s3_block_size`). Internally the S3 page cache uses pages of [aria-block-size](../aria/aria-system-variables.md#aria_block_size) for splitting the blocks read from S3.

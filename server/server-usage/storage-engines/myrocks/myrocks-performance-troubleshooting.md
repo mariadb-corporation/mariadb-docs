@@ -1,7 +1,7 @@
 ---
 description: >-
   A guide to diagnosing and resolving performance issues in MyRocks using status
-  variables, `SHOW ENGINE ROCKSDB STATUS`, and RocksDB performance context.
+  variables, SHOW ENGINE ROCKSDB STATUS, and RocksDB performance context.
 ---
 
 # MyRocks Performance Troubleshooting

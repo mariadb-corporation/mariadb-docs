@@ -12,7 +12,7 @@ icon: link
 MariaDB Connector/Python enables python programs to access MariaDB and MySQL databases, using an API which is compliant with the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-0249/)).
 
 {% hint style="info" %}
-**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Because 2.0 is not yet GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). See the [Installation](install.md) page for details. Do not use non-stable (non-GA) releases in production.
+**As of 2.0.0rc2, version 2.0 is a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Because 2.0 is not yet GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). See the [Installation](install.md) page for details. Do not use non-stable (non-GA) releases in production.
 {% endhint %}
 
 {% columns %}
@@ -89,18 +89,6 @@ Migration from MariaDB Connector/Python 1.1 to 2.0 covers renamed parameters, re
 
 {% columns %}
 {% column %}
-{% content-ref url="application-development.md" %}
-[application-development.md](application-development.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Application development with MariaDB Connector/Python.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="api.md" %}
 [api.md](api.md)
 {% endcontent-ref %}
@@ -119,7 +107,7 @@ MariaDB Connector/Python API reference covers the module, connection class, curs
 {% endcolumn %}
 
 {% column %}
-MariaDB Connector/Python is licensed under the GNU LGPL v2.1; the accompanying documentation is covered by the Creative Commons Attribution 3.0 license.
+MariaDB Connector/Python is licensed under the GNU LGPL v2.1.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -170,5 +158,7 @@ MariaDB Connector/Python transactions default to manual commit; the Connection c
 MariaDB Connector/Python FAQ addresses common installation issues, migration from 1.1 to 2.0, the binary vs text protocol distinction, async setup, and transaction commit requirements.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

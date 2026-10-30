@@ -1,3 +1,9 @@
+---
+description: >-
+  Logical NOT. NOT and ! return 1 if the operand is 0, 0 if it is non-zero,
+  and NULL if it is NULL.
+---
+
 # !
 
 ## Syntax

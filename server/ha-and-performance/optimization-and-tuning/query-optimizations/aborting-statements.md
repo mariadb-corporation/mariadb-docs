@@ -7,7 +7,7 @@ description: >-
 
 ## Overview
 
-[MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1) introduced the [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) system variable. When set to a non-zero value, the server attempts to abort any queries taking longer than this time in seconds.&#x20;
+The [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) system variable sets a time limit for statements. When set to a non-zero value, the server attempts to abort any queries taking longer than this time in seconds.&#x20;
 
 {% hint style="danger" %}
 The abortion is not immediate; the server checks the timer status at specific intervals during execution. Consequently, a query may run slightly longer than the specified time before being detected and stopped.&#x20;
@@ -44,11 +44,10 @@ SET STATEMENT max_statement_time=100 FOR
   SELECT field1 FROM table_name ORDER BY field1;
 ```
 
-max\_statement\_time per query\
-Individual queries can also be limited by adding a `MAX_STATEMENT_TIME` clause to the query. For example:
+From MariaDB 12.0, a `SELECT` can also be limited with the [MAX\_EXECUTION\_TIME](../optimizer-hints/expanded-optimizer-hints.md#max_execution_time) optimizer hint, in milliseconds:
 
 ```sql
-SELECT MAX_STATEMENT_TIME=2 * FROM t1;
+SELECT /*+ MAX_EXECUTION_TIME(2000) */ * FROM t1;
 ```
 
 ## Limitations

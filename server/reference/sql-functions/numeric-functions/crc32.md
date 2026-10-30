@@ -10,12 +10,20 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 ```bnf
 CRC32([par,]expr)
 ```
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 ```sql
 CRC32(expr)
 ```
@@ -28,12 +36,20 @@ Computes a cyclic redundancy check (CRC) value and returns a 32-bit unsigned val
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 Uses the alternate Castagnoli polynomia.
 
 Often, CRC is computed in pieces. To facilitate this, there's an optional parameter: CRC32('MariaDB')=CRC32(CRC32('Maria'),'DB').
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 Uses the ISO 3309 polynomial that used by zlib and many others.
 {% endtab %}
 {% endtabs %}
@@ -42,6 +58,10 @@ Uses the ISO 3309 polynomial that used by zlib and many others.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.8:
+{% endhint %}
+
 ```sql
 SELECT CRC32(CRC32('Maria'),'DB');
 +----------------------------+
@@ -53,6 +73,10 @@ SELECT CRC32(CRC32('Maria'),'DB');
 {% endtab %}
 
 {% tab title="< 10.8" %}
+{% hint style="info" %}
+Before MariaDB 10.8:
+{% endhint %}
+
 ```sql
 SELECT CRC32('MariaDB');
 +------------------+

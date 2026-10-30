@@ -67,13 +67,13 @@ Each separated by a space or : as above
 
 | Option        | Description                                                                            | Version |
 | ------------- | -------------------------------------------------------------------------------------- | ------- |
-| Time          | Time (YYYY-MM-DD hh-mm-ss)                                                             | 5.5.22  |
+| Time          | Time (YYYY-MM-DD hh-mm-ss)                                                             | All     |
 | Thread Id     | Thread Id of current thread                                                            | 10.6.17 |
-| User          | privilege\_user \[login\_user\_name] @ hostname \[ip]                                  | 5.5.22  |
+| User          | privilege\_user \[login\_user\_name] @ hostname \[ip]                                  | All     |
 | Database name | Name of the currently selected database                                                | 10.6.17 |
 | Type          | ERROR or WARNING                                                                       | 10.11.6 |
-| Error\_code   | OS error, MariaDB storage engine code (120-199) or MariaDB internal error code (1000-) | 5.5.22  |
-| Query         | Query text                                                                             | 5.5.22  |
+| Error\_code   | OS error, MariaDB storage engine code (120-199) or MariaDB internal error code (1000-) | All     |
+| Query         | Query text                                                                             | All     |
 
 ### **Formal Specification**
 
@@ -127,9 +127,6 @@ ERROR 1286 (42000): Unknown storage engine 'WHOOPSIE'
 | Version | Status | Introduced                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.1     | Stable | [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17), [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.7), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.4), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3) |
-| 1.0     | Stable | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.13)                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| 1.0     | Gamma  | [MariaDB 10.0.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.10)                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| 1.0     | Alpha  | [MariaDB 5.5.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.22)                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ## System Variables and Options
 

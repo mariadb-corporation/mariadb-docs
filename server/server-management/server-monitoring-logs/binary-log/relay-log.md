@@ -72,7 +72,7 @@ Two related system variables sync the files that track replication positions rat
 Whether the events in a relay log survive a restart of the replica depends on how the replica connects to the primary:
 
 * A replica that connects using binary log file and position coordinates keeps its relay logs across a restart, and the SQL thread continues where it left off. The exception is [relay\_log\_recovery](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_recovery), which is `OFF` by default: when it is enabled, the replica discards the relay logs it has not yet applied on startup and fetches those events from the primary again.
-* A replica that connects using [GTIDs](../../../ha-and-performance/standard-replication/gtid.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart, regardless of `relay_log_recovery`. It then fetches events from the primary again, starting at its GTID position.
+* A replica that connects using [GTIDs](../../../ha-and-performance/standard-replication/gtid/README.md), with `MASTER_USE_GTID` set to `slave_pos` or `current_pos`, purges its relay logs every time the replication threads start, including after a restart, regardless of `relay_log_recovery`. It then fetches events from the primary again, starting at its GTID position.
 
 Either way, the replica ends up with the same data, provided that the primary still has the events. If the primary lost them, because it crashed and its own [binary log](./) was not durable, then events that existed only in the replica's relay log are gone. That case is what matters for semisynchronous replication.
 

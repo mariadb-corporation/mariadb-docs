@@ -1,7 +1,7 @@
 ---
 description: >-
   Provides methods for transferring data from SQL Server to MariaDB, including
-  generating CSV files, using `mariadb-dump`, or leveraging the CONNECT storage
+  generating CSV files, using mariadb-dump, or leveraging the CONNECT storage
   engine with ODBC.
 ---
 
@@ -122,7 +122,7 @@ CSV files can also be used to export data to SQL Server. There are several ways 
 
 The [CONNECT](../../../../server-usage/storage-engines/connect/) storage engine allows one to access external data, in many forms:
 
-* [Data files](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-data-files.md) ([CSV](../../../../server-usage/storage-engines/connect/connect-table-types/connect-csv-and-fmt-table-types.md), [JSON](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type.md), [XML](../../../../server-usage/storage-engines/connect/connect-table-types/connect-xml-table-type.md), HTML and more).
+* [Data files](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-data-files.md) ([CSV](../../../../server-usage/storage-engines/connect/connect-table-types/connect-csv-and-fmt-table-types.md), [JSON](../../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/README.md), [XML](../../../../server-usage/storage-engines/connect/connect-table-types/connect-xml-table-type.md), HTML and more).
 * Remote databases, using the [ODBC](../../../../server-usage/storage-engines/connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md) or [JDBC](../../../../server-usage/storage-engines/connect/connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md) standards, or [MariaDB/MySQL native protocol](../../../../server-usage/storage-engines/connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md).
 * Some [special data sources](../../../../server-usage/storage-engines/connect/connect-table-types/connect-table-types-special-virtual-tables.md).
 

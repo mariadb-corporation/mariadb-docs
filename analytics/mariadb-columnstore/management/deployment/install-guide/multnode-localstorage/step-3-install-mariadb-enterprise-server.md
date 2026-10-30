@@ -1,5 +1,7 @@
 ---
-description: 'Step 3: Install MariaDB Enterprise Server'
+description: >-
+  Step 3 of the multi-node MariaDB ColumnStore install with shared local
+  storage: set up the repository and install Enterprise Server and ColumnStore.
 hidden: true
 ---
 

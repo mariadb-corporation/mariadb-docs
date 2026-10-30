@@ -33,7 +33,7 @@ A UUID is a 128-bit number represented by a utf8 string of five hexadecimal numb
   spatial uniqueness cannot be guaranteed. Nevertheless, a collision should
   have very low probability.
 
-Currently, the MAC address of an interface is taken into account only on FreeBSD and Linux. On other operating systems, MariaDB uses a randomly generated 48-bit number.
+The MAC address of an interface is taken into account only on Linux, Windows, macOS, FreeBSD, OpenBSD, AIX, and Solaris. On other operating systems, MariaDB uses a randomly generated 48-bit number.
 
 Statements using the UUID() function are not [safe for statement-based replication](../../../../ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication.md).
 

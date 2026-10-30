@@ -1,6 +1,6 @@
 # MariaDB 5.1.47 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.47) | [Release Notes](../../old-releases/5.1/5.1.47.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
+[Download](https://archive.mariadb.org/mariadb-5.1.47/) | [Release Notes](../../old-releases/5.1/5.1.47.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 01 Jun 2010
 

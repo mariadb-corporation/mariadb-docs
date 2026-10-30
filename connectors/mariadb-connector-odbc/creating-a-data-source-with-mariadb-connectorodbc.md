@@ -15,10 +15,10 @@ description: >-
 * It supports both Unicode and ANSI modes.
 * It uses the MariaDB/MySQL binary protocol (server-side [prepared statements](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements)) for `SQLPrepare`. One-shot `SQLExecDirect` queries default to the client-side text protocol unless the `SQL_ATTR_EXECDIRECT_ON_SERVER` attribute (or the `EDSERVER` connection option) is set.
 
-The current release series are:
+The supported release series are:
 
 * MariaDB Connector/ODBC 3.2 is the current stable release series.
-* MariaDB Connector/ODBC 3.1 is the previous stable release series, which is currently still supported.
+* MariaDB Connector/ODBC 3.1 is the previous stable release series. It has passed End of Standard Support and is available under extended support only.
 
 This page discusses how to create a data source with MariaDB Connector/ODBC.
 

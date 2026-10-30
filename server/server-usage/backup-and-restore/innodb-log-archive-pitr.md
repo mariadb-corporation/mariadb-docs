@@ -23,7 +23,7 @@ No shipped backup tool yet generates or restores backups in the `innodb_log_arch
 
 Two startup parameters define the range of the log replay:
 
-* [`innodb_log_recovery_start`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_start) — the LSN at which recovery begins. Set this to the end LSN of the previous restore when applying an incremental restore. The default `0` starts from the latest completed checkpoint, which is guaranteed to live in one of the last two `ib_`_`lsn`_`.log` files.
+* [`innodb_log_recovery_start`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_start) — the LSN at which recovery begins. Set this to an LSN that points to the checkpoint from which to start the recovery. The default `0` starts from the latest completed checkpoint, which is guaranteed to live in one of the last two `ib_`_`lsn`_`.log` files.
 * [`innodb_log_recovery_target`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target) — the LSN at which recovery ends (the recovery point objective). When this is non-zero, persistent InnoDB tables become read-only and no log writes are allowed during the recovery session. The default `0` replays the log to its end.
 
 You can identify candidate LSNs from the [`Innodb_lsn_archived`](../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_archived) status variable on the source server, and from the file names in the data directory (each `ib_`_`lsn`_`.log` file name encodes the LSN at file offset `0x3000`).

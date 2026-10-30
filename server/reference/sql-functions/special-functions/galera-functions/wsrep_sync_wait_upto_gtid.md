@@ -15,7 +15,7 @@ WSREP_SYNC_WAIT_UPTO_GTID(gtid[,timeout])
 
 ## Description
 
-Blocks the client until the transaction specified by the given [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) is applied and committed by the node.
+Blocks the client until the transaction specified by the given [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) is applied and committed by the node.
 
 The optional _timeout_ argument can be used to specify a block timeout in seconds. If not provided, the timeout will be indefinite.
 

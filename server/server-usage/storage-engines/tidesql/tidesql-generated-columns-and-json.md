@@ -8,7 +8,7 @@ description: >-
 
 ## Generated Columns
 
-The engine supports both `VIRTUAL` and `STORED` generated columns. A virtual column is computed on read and never returned from storage. A stored column is computed on write and persisted with the row, so it reads back without recomputation. A virtual column cannot be indexed on this engine, so a generated column you need to index must be `STORED` or `PERSISTENT`, which is the pattern the JSON section below uses.
+The engine supports both `VIRTUAL` and `STORED` generated columns. The server recomputes a virtual column each time the row is read, so the value it returns never comes from the stored row. A query answered from an index on that column alone takes the value from the index entry instead. A stored column is computed on write and persisted with the row, so it reads back without recomputation. Either kind can carry a secondary index, including a `UNIQUE` one, and the engine re-keys the index entry when an `UPDATE` to a base column changes the generated value. The JSON section below uses stored columns for this pattern.
 
 ```sql
 CREATE TABLE orders (

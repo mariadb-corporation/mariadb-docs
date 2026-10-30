@@ -92,7 +92,7 @@ Please see the configuration parameter \[treat\_string\_arg\_as\_field(#treat\_s
 
 The masking filter can _only_ be used for masking columns of the following types: `BINARY`, `VARBINARY`, `CHAR`, `VARCHAR`, `BLOB`, `TINYBLOB`,`MEDIUMBLOB`, `LONGBLOB`, `TEXT`, `TINYTEXT`, `MEDIUMTEXT`, `LONGTEXT`,`ENUM` and `SET`. If the type of the column is something else, then no masking will be performed.
 
-Currently, the masking filter can only work on packets whose payload is less than 16MB. If the masking filter encounters a packet whose payload is exactly that, thus indicating a situation where the payload is delivered in multiple packets, the value of the parameter `large_payloads` specifies how the masking filter should handle the situation.
+The masking filter can only work on packets whose payload is less than 16MB. If the masking filter encounters a packet whose payload is exactly that, thus indicating a situation where the payload is delivered in multiple packets, the value of the parameter `large_payloads` specifies how the masking filter should handle the situation.
 
 ## Configuration
 
@@ -119,6 +119,7 @@ The masking filter has one mandatory parameter - `rules`.
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Determines the path to the file containing masking rules.
 
 Specifies the path of the file where the masking rules are stored. A relative path is interpreted relative to the _module configuration directory_ of MariaDB MaxScale. The default module configuration directory is\_/etc/maxscale.modules.d\_.
 
@@ -133,6 +134,7 @@ rules=/path/to/rules-file
 * Dynamic: Yes
 * Values: `never`, `always`
 * Default: `never`
+* Description: Controls whether a column with an unsupported type is matched by a masking rule and whether a warning is logged.
 
 With this optional parameter the masking filter can be instructed to log a warning if a masking rule matches a column that is not of one of the allowed types.
 
@@ -147,6 +149,7 @@ warn_type_mismatch=always
 * Dynamic: Yes
 * Values: `ignore`, `abort`
 * Default: `abort`
+* Description: Controls how payloads larger than 16MB are managed by the masking filter.
 
 This optional parameter specifies how the masking filter should treat payloads larger than `16MB`, that is, payloads that are delivered in multiple MySQL protocol packets.
 
@@ -164,6 +167,7 @@ large_payload=ignore
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether queries using functions on masked columns are rejected.
 
 This optional parameter specifies how the masking filter should behave if a column that should be masked, is used in conjunction with some function. As the masking filter works _only_ on the basis of the information in the returned result-set, if the name of a column is not present in the result-set, then the masking filter cannot mask a value. This means that the masking filter basically can be bypassed with a query like:
 
@@ -183,6 +187,7 @@ prevent_function_usage=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Determines whether statements that cannot be fully parsed are rejected.
 
 This optional parameter specifies how the masking filter should behave in case any of `prevent_function_usage`, `check_user_variables`,`check_unions` or `check_subqueries` is true and it encounters a statement that cannot be fully parsed,
 
@@ -200,6 +205,7 @@ Note that if this parameter is set to false, then `prevent_function_usage`,`chec
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages if functions' string parameters are managed as fields for masking.
 
 This optional parameter specifies how the masking filter should treat strings used as arguments to functions. If true, they will be handled as fields, which will cause fields to be masked even if `ANSI_QUOTES` has been enabled and `"` is used instead of backtick.
 
@@ -213,6 +219,7 @@ treat_string_arg_as_field=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether user variables are applied to user variables.
 
 This optional parameter specifies how the masking filter should behave with respect to user variables. If true, then a statement like
 
@@ -232,6 +239,7 @@ check_user_variables=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Controls whether masking rules are applied to the UNION queries.
 
 This optional parameter specifies how the masking filter should behave with respect to UNIONs. If true, then a statement like
 
@@ -251,6 +259,7 @@ check_unions=false
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
+* Description: Manages whether masking rules are applied to subqueries.
 
 This optional parameter specifies how the masking filter should behave with respect to subqueries. If true, then a statement like
 
@@ -378,7 +387,7 @@ SELECT name from db1.tbl1;`
 
 ### `with`
 
-The value of this key is an object that specifies what the value of the matched column should be replaced with for the `replace` rule. Currently, the object is expected to contain either the key `value` or the key `fill`. The value of both must be a string with length greater than zero. If both keys are specified, `value` takes precedence. If `fill` is not specified, the default `X` is used as its value.
+The value of this key is an object that specifies what the value of the matched column should be replaced with for the `replace` rule. The object is expected to contain either the key `value` or the key `fill`. The value of both must be a string with length greater than zero. If both keys are specified, `value` takes precedence. If `fill` is not specified, the default `X` is used as its value.
 
 If `value` is specified, then its value is used to replace the actual value verbatim and the length of the specified value must match the actual returned value (from the server) exactly. If the lengths do not match, the value of`fill` is used to mask the actual value.
 

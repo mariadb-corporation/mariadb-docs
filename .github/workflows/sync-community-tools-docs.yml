@@ -1,0 +1,151 @@
+name: Sync Community Tools documentation
+
+# Copies the MariaDB AI Plugins and MariaDB Shell docs from their product repos into
+# tools/community/ (DOCS-6926), and opens a PR if they changed. The copy is one way and byte for
+# byte: a fix to a synced page goes into the product repo, never into this one. Products, refs
+# and pages held back from publishing are in .github/community-tools.json; the cookbook is
+# dev-docs/cookbook-community-tools-sync.md.
+#
+# The PR is opened with GITHUB_TOKEN, so none of the `on: pull_request` gates run on it
+# (DOCS-6675). The gate job below runs them and posts the verdict as the `doc-gates` status.
+#
+# Requires the repo setting: Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests".
+
+on:
+  schedule:
+    - cron: '47 5 * * 1-5'   # weekdays, 05:47 UTC
+  workflow_dispatch:
+    inputs:
+      products:
+        description: 'Space-separated product keys from .github/community-tools.json, or "all" (skips products on hold)'
+        required: false
+        default: 'all'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-community-tools-docs
+  cancel-in-progress: false
+
+jobs:
+  sync-and-pr:
+    # Upstream only: forks must not open bot PRs (DOCS-6934).
+    if: github.repository == 'mariadb-corporation/mariadb-docs'
+    runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.cpr.outputs.pull-request-number }}
+      head-sha: ${{ steps.cpr.outputs.pull-request-head-sha }}
+      operation: ${{ steps.cpr.outputs.pull-request-operation }}
+    steps:
+      - name: Checkout mariadb-docs
+        uses: actions/checkout@v7
+
+      - name: Pick the products to sync
+        id: pick
+        env:
+          PRODUCTS: ${{ inputs.products || 'all' }}
+        run: |
+          set -euo pipefail
+          if [ "$PRODUCTS" = all ]; then
+            # A product with "hold": true is synced only when named explicitly.
+            PRODUCTS="$(jq -r '.products | to_entries | map(select(.value.hold != true) | .key) | join(" ")' .github/community-tools.json)"
+          fi
+          for key in $PRODUCTS; do
+            jq -e --arg k "$key" '.products[$k]' .github/community-tools.json >/dev/null \
+              || { echo "::error::Unknown product '$key'."; exit 1; }
+          done
+          echo "products=$PRODUCTS" >> "$GITHUB_OUTPUT"
+          echo "Syncing: $PRODUCTS"
+
+      # The product repos are public, so a shallow clone needs no credential.
+      - name: Check out the product repos
+        env:
+          PRODUCTS: ${{ steps.pick.outputs.products }}
+        run: |
+          set -euo pipefail
+          for key in $PRODUCTS; do
+            repo="$(jq -r --arg k "$key" '.products[$k].repo' .github/community-tools.json)"
+            ref="$(jq -r --arg k "$key" '.products[$k].ref' .github/community-tools.json)"
+            git clone --quiet --depth 1 --branch "$ref" \
+              "https://github.com/${repo}.git" ".community-src/${key}"
+            echo "$key: ${repo}@$(git -C ".community-src/${key}" rev-parse --short HEAD) ($ref)"
+          done
+
+      - name: Sync the pages, nav, landing sections and images
+        env:
+          PRODUCTS: ${{ steps.pick.outputs.products }}
+        run: |
+          set -euo pipefail
+          args=()
+          for key in $PRODUCTS; do args+=(--product "$key"); done
+          python3 .github/scripts/sync_community_tools.py --src .community-src \
+            --summary "$RUNNER_TEMP/sync-summary.md" "${args[@]}"
+          rm -rf .community-src
+          {
+            echo "Syncs the Community Tools docs from their product repos into \`tools/community/\`:"
+            echo
+            cat "$RUNNER_TEMP/sync-summary.md"
+            echo
+            echo "The pages are copied byte for byte. **Don't edit them here or in GitBook**:"
+            echo "fix them in the product repo, and the next sync brings the fix in. See"
+            echo "\`dev-docs/cookbook-community-tools-sync.md\`."
+            echo
+            echo "Automated by \`.github/workflows/sync-community-tools-docs.yml\`. The"
+            echo "\`doc-gates\` status below is this repo's content gates on the synced pages."
+          } > "$RUNNER_TEMP/pr-body.md"
+
+      # The script moves each product's "synced" commit to the upstream head on every run, even
+      # when no page changed (an upstream commit outside docs-ref/content/). A PR with only that
+      # pin change has nothing for doc-gates to scan, so it fails as "could not run" (#1354).
+      # Keep the old pins then: with no diff left, no PR is opened, and an open one is closed.
+      - name: Drop a pin-only change
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain --untracked-files=all -- \
+                tools/community tools/README.md tools/SUMMARY.md tools/.gitbook/assets)" ]; then
+            git checkout -- .github/community-tools.json
+            echo "No synced page or image changed; keeping the old pins, so no PR."
+          fi
+
+      - name: Open a pull request if the docs changed
+        id: cpr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automated/sync-community-tools-docs
+          base: main
+          delete-branch: true
+          add-paths: |
+            tools/community/**
+            tools/README.md
+            tools/SUMMARY.md
+            tools/.gitbook/assets/**
+            .github/community-tools.json
+          title: DOCS-6926 Sync Community Tools documentation from the product repos
+          commit-message: |
+            DOCS-6926 Sync Community Tools documentation from the product repos
+
+            Automated by sync-community-tools-docs.yml. Copies the product
+            docs byte for byte; fix them in the product repo, not here.
+          body-path: ${{ runner.temp }}/pr-body.md
+          labels: |
+            automated
+            documentation
+
+  gate:
+    needs: sync-and-pr
+    if: needs.sync-and-pr.outputs.pr-number != '' && needs.sync-and-pr.outputs.operation != 'closed'
+    permissions:
+      contents: read
+      statuses: write
+    uses: ./.github/workflows/doc-gates.yml
+    with:
+      branch: automated/sync-community-tools-docs
+      head-sha: ${{ needs.sync-and-pr.outputs.head-sha }}
+      pathspecs: |
+        tools/community/**
+        tools/README.md
+        tools/SUMMARY.md
+      status-context: doc-gates

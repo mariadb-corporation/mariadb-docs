@@ -53,10 +53,6 @@ The method that you would use to enable TLS for [State Snapshot Transfers (SSTs)
 
 See [mariadb-backup SST Method: TLS](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method.md#tls) for more information.
 
-### xtrabackup-v2
-
-See xtrabackup-v2 SST Method: TLS for more information.
-
 ### mysqldump
 
 This SST method simply uses the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) (previously mysqldump) utility, so TLS would be enabled by following the guide at [Securing Connections for Client and Server: Enabling TLS for MariaDB Clients](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#enabling-tls-for-mariadb-clients)

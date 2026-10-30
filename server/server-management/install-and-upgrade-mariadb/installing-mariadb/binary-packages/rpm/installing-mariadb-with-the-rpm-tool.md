@@ -1,7 +1,7 @@
 ---
 description: >-
-  A guide to installing MariaDB using the low-level `rpm` command, suitable for
-  situations where package managers like `yum` or `dnf` are not available or
+  A guide to installing MariaDB using the low-level rpm command, suitable for
+  situations where package managers like yum or dnf are not available or
   preferred.
 ---
 
@@ -79,13 +79,13 @@ See the MySQL manual for more instructions.
 
 Please report any problems with the /usr/bin/mysqlbug script!
 
-The latest information about MariaDB is available at http://www.askmonty.org/.
+The latest information about MariaDB is available at https://mariadb.org/.
 You can find additional information about the MySQL part at:
 http://dev.mysql.com
 Support MariaDB development by buying support/new features from
 Monty Program Ab. You can contact us about this at sales@askmonty.org.
 Alternatively consider joining our community based development effort:
-http://askmonty.org/wiki/index.php/MariaDB#How_can_I_participate_in_the_development_of_MariaDB
+https://mariadb.org/contribute/
 
 Starting MySQL....[  OK  ]
 Giving mysqld 2 seconds to start

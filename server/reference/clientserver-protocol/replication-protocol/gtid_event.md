@@ -6,7 +6,7 @@ description: >-
 
 # GTID\_EVENT
 
-For [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md), used to start a new transaction event group, instead of the old `BEGIN` query event, and also to mark stand-alone (DDL).
+For [global transaction ID](../../../ha-and-performance/standard-replication/gtid/README.md), used to start a new transaction event group, instead of the old `BEGIN` query event, and also to mark stand-alone (DDL).
 
 `GTID_EVENT` event type is `162` (`0xa2`).
 

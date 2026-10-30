@@ -144,8 +144,7 @@ Download a free 30-day trial of dbForge Studio for MariaDB and MySQL [here](http
 | dbForge Studio for MySQL 10.0 | Support for MariaDB 11.4, added Source Control, support for temporal tables in MariaDB.                                                                                |
 | dbForge Studio for MySQL 9.2  | Support for MariaDB 11.3, enhanced code completion for application-period temporal tables, support for sequence tables in MariaDB databases                            |
 | dbForge Studio for MySQL 9.1  | Connectivity support for MariaDB 10.9 and 10.10.                                                                                                                       |
-| dbForge Studio for MySQL 9.0  | Connectivity support for MariaDB 10.5 and 10.6.                                                                                                                        |
-| dbForge Studio for MySQL 8.1  | Support for MariaDB 10.4.                                                                                                                                              |
+| dbForge Studio for MySQL 9.0  | Connectivity support for MariaDB 10.6.                                                                                                                        |
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

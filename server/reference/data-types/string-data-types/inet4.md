@@ -22,10 +22,18 @@ INET4
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is permitted, allowing for example comparisons between the two data types, and for `INET4` values to be inserted into `INET6` columns.
 {% endtab %}
 
 {% tab title="< 11.3" %}
+{% hint style="info" %}
+Before MariaDB 11.3:
+{% endhint %}
+
 Casting from [INET4](inet4.md) data types to `INET6` is **not** permitted.
 {% endtab %}
 {% endtabs %}
@@ -58,6 +66,10 @@ Casting from `INET4` to [INET6](inet6.md) is permitted, allowing direct inserts.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.3:
+{% endhint %}
+
 ```sql
 CREATE TABLE t1 (a INET6);
 
@@ -81,6 +93,10 @@ SELECT LEAST(i4,i6) FROM t1;
 {% endtab %}
 
 {% tab title="< 11.3" %}
+{% hint style="info" %}
+Before MariaDB 11.3:
+{% endhint %}
+
 ```sql
 CREATE TABLE t1 (a INET6);
 

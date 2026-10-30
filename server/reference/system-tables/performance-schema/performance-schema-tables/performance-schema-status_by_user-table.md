@@ -6,10 +6,6 @@ description: >-
 
 # Performance Schema status\_by\_user Table
 
-{% hint style="info" %}
-The `status_by_account` table is available from MariaDB 10.5.2.
-{% endhint %}
-
 The `status_by_account` table contains status variable information by user. The table does not collect statistics for `Com_xxx` variables.
 
 The table contains the following columns:

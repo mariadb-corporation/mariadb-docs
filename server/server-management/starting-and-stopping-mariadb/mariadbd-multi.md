@@ -1,6 +1,6 @@
 ---
 description: >-
-  Explains how to use `mariadbd-multi` to manage multiple MariaDB server
+  Explains how to use mariadbd-multi to manage multiple MariaDB server
   processes on a single host using GNR groups in the configuration file.
 ---
 
@@ -69,7 +69,7 @@ mariadbd-multi stop 8,10-13
 | --user=username         | The user name of the MariaDB account to use when invoking [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md).                                                                                                                                                                                                                                                                                                                                                            |
 | --verbose               | Be more verbose.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | --version               | Display version information and exit.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| --wsrep-new-cluster     | Bootstrap a cluster. Added in [MariaDB 10.1.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.15).                                                                                                                                                                                                                                                                                                                                                              |
+| --wsrep-new-cluster     | Bootstrap a cluster.                                                                                                                                                                                                                                                                                                                                                              |
 
 ### Option Files
 
@@ -111,7 +111,7 @@ The regular server [option groups](../install-and-upgrade-mariadb/configuring-ma
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | \[mysqld]        | Options read by mysqld, which includes both MariaDB Server and MySQL Server.                                                                                                                                            |
 | \[server]        | Options read by MariaDB Server.                                                                                                                                                                                         |
-| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-5.5].                                                                                          |
+| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-10.6].                                                                                          |
 | \[mariadb]       | Options read by MariaDB Server.                                                                                                                                                                                         |
 | \[mariadb-X.Y]   | Options read by a specific version of MariaDB Server.                                                                                                                                                                   |
 | \[client-server] | Options read by all MariaDB [client programs](../../clients-and-utilities/mariadb-client/) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |

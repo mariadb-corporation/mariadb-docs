@@ -17,15 +17,7 @@ SHOW BINLOG EVENTS
 
 Shows the events in the [binary log](../../../../server-management/server-monitoring-logs/binary-log/). If you do not specify `log_name`, the first binary log is displayed.
 
-{% tabs %}
-{% tab title="Current" %}
 This statement requires the [BINLOG MONITOR](../../account-management-sql-statements/grant.md#binlog-monitor) privilege.
-{% endtab %}
-
-{% tab title="< 10.5.2" %}
-This statement requires the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege.
-{% endtab %}
-{% endtabs %}
 
 ## Example
 

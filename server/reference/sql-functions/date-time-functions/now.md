@@ -29,6 +29,10 @@ Returns the current date and time as a value in `YYYY-MM-DD HH:MM:SS` or `YYYYMM
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.7:
+{% endhint %}
+
 These functions return SQL standard compliant types:
 
 * `NOW()` and `CURRENT_TIMESTAMP()` return a `TIMESTAMP` value (analogous to the standard type `TIMESTAMP WITH LOCAL TIME ZONE`) which corresponds to the current point in time and is unambiguous around DST changes.
@@ -36,6 +40,10 @@ These functions return SQL standard compliant types:
 {% endtab %}
 
 {% tab title="< 11.7" %}
+{% hint style="info" %}
+Before MariaDB 11.7:
+{% endhint %}
+
 These functions do **not** return SQL standard compliant types:
 
 * `NOW()`

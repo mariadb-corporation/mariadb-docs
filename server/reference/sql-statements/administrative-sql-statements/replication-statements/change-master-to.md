@@ -63,10 +63,18 @@ Note: The value is extracted from the corresponding server option or system vari
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `CHANGE MASTER`.
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 `FOR CHANNEL` is not available.
 {% endtab %}
 {% endtabs %}
@@ -162,15 +170,7 @@ These options determine values automatically and may override `--master-*` setti
 
 The `MASTER_USER` option for `CHANGE MASTER` defines the user account that the [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
 This user account will need the [REPLICATION REPLICA](../../account-management-sql-statements/grant.md#replication-replica) privilege on the primary.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-This user account will need the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege on the primary.
-{% endtab %}
-{% endtabs %}
 
 For example:
 
@@ -182,15 +182,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 The maximum length of the `MASTER_USER` string is 128 characters.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The maximum length of the `MASTER_USER` string is 96 characters.
-{% endtab %}
-{% endtabs %}
 
 #### MASTER\_PASSWORD
 
@@ -215,15 +207,7 @@ Due to [MDEV-29994](https://jira.mariadb.org/browse/MDEV-29994), the password ca
 
 The `MASTER_HOST` option for `CHANGE MASTER` defines the hostname or IP address of the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
-{% tabs %}
-{% tab title="Current" %}
 If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error.
-{% endtab %}
-
-{% tab title="< 5.4" %}
-If you set the value of the `MASTER_HOST` option to the empty string, then that is not the same as not setting the option's value at all. If you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command will fail with an error. In MariaDB 5.3 and before, if you set the value of the `MASTER_HOST` option to the empty string, then the `CHANGE MASTER` command would succeed, but the subsequent [START REPLICA](start-replica.md) command would fail.
-{% endtab %}
-{% endtabs %}
 
 For example:
 
@@ -238,22 +222,14 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-If you set the value of the `MASTER_HOST` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
+If you set the value of the `MASTER_HOST` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
 {% endhint %}
 
 {% hint style="info" %}
 Replicas cannot connect to primaries using Unix socket files or Windows named pipes. The replica must connect to the primary using TCP/IP.
 {% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
 The maximum length of the `MASTER_HOST` string is 255 characters.
-{% endtab %}
-
-{% tab title="< 10.6" %}
-The maximum length of the `MASTER_HOST` string is 60 characters.
-{% endtab %}
-{% endtabs %}
 
 #### MASTER\_PORT
 
@@ -273,7 +249,7 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-If you set the value of the `MASTER_PORT` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
+If you set the value of the `MASTER_PORT` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
 {% endhint %}
 
 {% hint style="info" %}
@@ -310,11 +286,7 @@ Setting this option resets the `Connects_Tried` statistic in [SHOW REPLICA STATU
 
 The default is the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option, which can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-{% tabs %}
-{% tab title="< 12.0" %}
-The `MASTER_RETRY_COUNT` option for `CHANGE MASTER` is only supported by MariaDB 12.0.1 and later and by MySQL. Please use the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option instead, which be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
-{% endtab %}
-{% endtabs %}
+Before MariaDB 12.0, `CHANGE MASTER` has no `MASTER_RETRY_COUNT` option, so set the `--master-retry-count` option instead.
 
 ```ini
 [mariadb]
@@ -534,10 +506,18 @@ The maximum length of `MASTER_SSL_CIPHER` string is 511 characters.
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.4:
+{% endhint %}
+
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
 {% endtab %}
 
 {% tab title="< 11.4" %}
+{% hint style="info" %}
+Before MariaDB 11.4:
+{% endhint %}
+
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
@@ -581,7 +561,7 @@ The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_P
 {% endhint %}
 
 {% hint style="info" %}
-The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options are effectively ignored if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement.
+The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options are effectively ignored if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement.
 {% endhint %}
 
 #### MASTER\_LOG\_POS
@@ -603,7 +583,7 @@ The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_P
 {% endhint %}
 
 {% hint style="info" %}
-The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options are effectively ignored if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement.
+The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options are effectively ignored if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement.
 {% endhint %}
 
 ### Relay Log Options
@@ -658,29 +638,11 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 #### MASTER\_USE\_GTID
 
-{% tabs %}
-{% tab title="Current" %}
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
+The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid/README.md) when connecting to a primary. The possible values are:
 
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary. `replica_pos` is an alias for `slave_pos`.
-* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
-{% endtab %}
-
-{% tab title="< 10.5.1" %}
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
-
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary.
-* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
-{% endtab %}
-{% endtabs %}
-
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
-
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), `replica_pos` is an alias for `slave_pos`.
-* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
+* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using this on a replica server can break replication if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
+* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) as the position to start downloading transactions from the primary. `replica_pos` is an alias for `slave_pos`.
+* `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode.
 
 For example:
 
@@ -707,6 +669,10 @@ START SLAVE;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.10:
+{% endhint %}
+
 Used to transition a primary to become a replica. Replaces the old [MASTER\_USE\_GTID=current\_pos](change-master-to.md#master_use_gtid) with a safe alternative by forcing users to set `Using_Gtid=Slave_Pos` and merging `gtid_binlog_pos` into `gtid_slave_pos` once at `CHANGE MASTER TO` time. If `gtid_slave_pos` is more recent than `gtid_binlog_pos` (as in the case of chain replication), the replication state should be preserved.
 
 For example:
@@ -720,6 +686,10 @@ START SLAVE;
 {% endtab %}
 
 {% tab title="< 10.10" %}
+{% hint style="info" %}
+Before MariaDB 10.10:
+{% endhint %}
+
 `MASTER_DEMOTE_TO_SLAVE` is not available.
 {% endtab %}
 {% endtabs %}
@@ -752,9 +722,9 @@ START SLAVE;
 
 #### DO\_DOMAIN\_IDS
 
-The `DO_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to only apply [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The `DO_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to only apply [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
-The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
+The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
 
 ```sql
 STOP SLAVE;
@@ -785,14 +755,14 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-The `DO_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
+The `DO_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
 {% endhint %}
 
 #### IGNORE\_DOMAIN\_IDS
 
-The `IGNORE_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The `IGNORE_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
-The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
+The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
 
 ```sql
 STOP SLAVE;
@@ -823,7 +793,7 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-The `IGNORE_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
+The `IGNORE_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
 {% endhint %}
 
 ### Delayed Replication Options
@@ -876,13 +846,13 @@ relay_log_info_file=/mariadb/myserver1-relay-log.info
 
 ## GTID Persistence
 
-If the replica is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md), then the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable.
+If the replica is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid/README.md), then the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos) system variable.
 
-If the replica has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_pos) system variable.
+If the replica has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#replica-sql-thread) will also go into the replica's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid/README.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_binlog_pos) system variable.
 
 ## Creating a replica from a backup
 
-The `CHANGE MASTER` statement is useful for setting up a replica when you have a backup of the primary and you also have the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position or [GTID](../../../../ha-and-performance/standard-replication/gtid.md) position corresponding to the backup.
+The `CHANGE MASTER` statement is useful for setting up a replica when you have a backup of the primary and you also have the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position or [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) position corresponding to the backup.
 
 After restoring the backup on the replica, you could execute something like this to use the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position:
 
@@ -893,7 +863,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-Or you could execute something like this to use the [GTID](../../../../ha-and-performance/standard-replication/gtid.md) position:
+Or you could execute something like this to use the [GTID](../../../../ha-and-performance/standard-replication/gtid/README.md) position:
 
 ```sql
 SET GLOBAL gtid_slave_pos='0-1-153';
@@ -926,7 +896,7 @@ START SLAVE;
 * [START REPLICA](start-replica.md)
 * [Multi-source replication](../../../../ha-and-performance/standard-replication/multi-source-replication.md)
 * [RESET REPLICA](reset-replica.md). Removes a connection created with `CHANGE MASTER TO`.
-* [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid.md)
+* [Global Transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

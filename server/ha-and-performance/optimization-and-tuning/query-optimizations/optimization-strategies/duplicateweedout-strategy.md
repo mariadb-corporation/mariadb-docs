@@ -63,7 +63,7 @@ Now, lets put `DuplicateWeedout` into the picture:
 ```mermaid
 flowchart LR
     accTitle: DuplicateWeedout using a temporary table to remove duplicate join rows
-    accDescr { Start temporary creates a temporary table tmp1 with country.rowid as its primary key. The city table (Berlin, Paris, Munich, Koln) joins the country table (Germany, France) the same way as the plain inner join, producing candidate rows Germany (Berlin), France (Paris), Germany (Munich), and Germany (Koln). Each candidate tries to INSERT INTO tmp1 VALUES (country.rowid). The Germany (Berlin) and France (Paris) inserts succeed with OK, but the Germany (Munich) and Germany (Koln) inserts fail because country.rowid for Germany is already in tmp1, so those duplicate rows are weeded out before End temporary. }
+    accDescr { Start temporary creates a temporary table tmp1 with country.rowid as its primary key. The city table (Berlin, Paris, Munich, Koln) joins the country table (Germany, France) the same way as the plain inner join, producing candidate rows Germany (Berlin), France (Paris), Germany (Munich), and Germany (Koln). Each candidate tries to INSERT INTO tmp1 VALUES (country.rowid). The Germany (Berlin) and France (Paris) inserts succeed with OK, but the Germany (Munich) and Germany (Koln) inserts fail because country.rowid for Germany is already in tmp1, so those duplicate rows are weeded out. Start temporary leads to End temporary. The two OK results lead to End temporary by solid arrows, and the two Fail results lead to it by dotted arrows. }
 
     classDef node fill:#e2f0f2,stroke:#0a5a6b,stroke-width:2px,color:#111;
     classDef proc fill:#fbe5d6,stroke:#c15911,stroke-width:2px,color:#111;

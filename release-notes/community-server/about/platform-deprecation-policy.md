@@ -18,21 +18,21 @@ The MariaDB project builds packages for the following:
 | Fedora 43                                    | Dec 2026                 |
 | CentOS Stream 9                              | May 2027                 |
 | Ubuntu 22.04 "Jammy"                         | Jun 2027                 |
-| Fedora 44                                    | Jun 2027                 |
-| OpenSUSE Leap 16.00                          | Oct 2027                 |
-| Debian 12 "Bookworm" (i386, amd64 and arm64) | Jun 2028                 |
-| Debian 13 "Trixie" (ppc64el)                 | Jun 2028                 |
+| Fedora 44                                    | Aug 2027                 |
+| OpenSUSE Leap 16.0                           | Nov 2027                 |
+| SUSE Linux Enterprise Server 16.0            | Dec 2027                 |
+| Debian 12 "Bookworm"                         | Jun 2028                 |
 | Red Hat Enterprise Linux 8.x                 | Jun 2029                 |
 | Ubuntu 24.04 "Noble"                         | Jun 2029                 |
 | CentOS Stream 10                             | Jan 2030                 |
-| Debian 13 "Trixie" (i386, amd64 and arm64)   | Jun 2030                 |
+| Debian 13 "Trixie"                           | Jun 2030                 |
 | Ubuntu 26.04 "Resolute Raccoon"              | Apr 2031                 |
-| SLES 15 SP7                                  | Jun 2031                 |
+| SUSE Linux Enterprise Server 15 SP7          | Jun 2031                 |
 | Red Hat Enterprise Linux 9.x                 | Jun 2032                 |
 | Red Hat Enterprise Linux 10.x                | May 2035                 |
 
 * [Ubuntu Release Information](https://wiki.ubuntu.com/Releases) (End of Standard Support)
-* [Debian LTS Information](https://wiki.debian.org/LTS) (i386, amd64 and arm64 only)
+* [Debian LTS Information](https://wiki.debian.org/LTS) (the architectures covered vary by release)
 * [General Debian Release Information](https://www.debian.org/releases/)
 * [Red Hat Enterprise Linux Release Information](https://access.redhat.com/support/policy/updates/errata/)
 * [Fedora Release Information](https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle)

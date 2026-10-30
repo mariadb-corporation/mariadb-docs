@@ -162,7 +162,7 @@ IGNORE 1 LINES
 
 ### Using the `mariadb-import` Utility
 
-The [`mariadb-import`](../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) utility (known as `mysqlimport` before MariaDB 10.5) is a command-line program that acts as a wrapper for `LOAD DATA INFILE`. It's useful for scripting imports.
+The [`mariadb-import`](../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) utility is a command-line program that acts as a wrapper for `LOAD DATA INFILE`. It's useful for scripting imports.
 
 **Syntax:**
 

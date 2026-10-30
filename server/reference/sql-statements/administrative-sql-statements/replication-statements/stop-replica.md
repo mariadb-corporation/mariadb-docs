@@ -21,7 +21,7 @@ thread_type: IO_THREAD | SQL_THREAD
 
 ## Description
 
-Stops the replica threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
+Stops the replica threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
 
 Like [START REPLICA](start-replica.md), this statement may be used with the `IO_THREAD` and`SQL_THREAD` options to name the thread or threads to be stopped. In almost all cases, one never need to use the `thread_type` options.
 
@@ -43,10 +43,18 @@ If there is only one nameless primary, or the default primary (as specified by t
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 10.7:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is available for MySQL compatibility. This is identical as using the channel\_name directly after `STOP SLAVE`.
 {% endtab %}
 
-{% tab title="< 10.7.0" %}
+{% tab title="< 10.7" %}
+{% hint style="info" %}
+Before MariaDB 10.7:
+{% endhint %}
+
 The `FOR CHANNEL` keyword is not available.
 {% endtab %}
 {% endtabs %}

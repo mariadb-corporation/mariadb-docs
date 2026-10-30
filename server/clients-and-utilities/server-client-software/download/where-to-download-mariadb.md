@@ -32,7 +32,7 @@ production systems but may be of use for debugging.
 Once at the above URL you will need to click on the MariaDB tree you are
 interested in, and then the build. The build number corresponds to the`tarbuildnum` variable in Buildbot.
 
-For example, if you were interested in the bsd9-64 build of the [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
+For example, if you were interested in the bsd9-64 build of a MariaDB
 tree, revision 3497, the `tarbuildnum` is listed in the "Build Properties"
 table of the Buildbot build report.\
 In this case, the value is "2434".

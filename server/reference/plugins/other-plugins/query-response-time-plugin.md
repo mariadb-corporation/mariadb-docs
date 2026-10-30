@@ -16,6 +16,10 @@ This feature is based on Percona's [Response Time Distribution](https://www.perc
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 This shared library actually consists of a number of different plugins:
 
 * `QUERY_RESPONSE_TIME` - An INFORMATION\_SCHEMA plugin that exposes statistics.
@@ -31,6 +35,10 @@ In addition, these additional plugins are available:
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 This shared library actually consists of a number of different plugins:
 
 * `QUERY_RESPONSE_TIME` - An INFORMATION\_SCHEMA plugin that exposes statistics.
@@ -219,10 +227,18 @@ SET GLOBAL query_response_time_flush=1;
 
 {% tabs %}
 {% tab title="Current" %}
+{% hint style="info" %}
+From MariaDB 11.5:
+{% endhint %}
+
 It is possible to specify flushing read and/or write statements with the `FLUSH QUERY_RESPONSE_TIME_READ`, `FLUSH QUERY_RESPONSE_TIME_WRITE` and `FLUSH QUERY_RESPONSE_TIME_READ_WRITE` statements.
 {% endtab %}
 
 {% tab title="< 11.5" %}
+{% hint style="info" %}
+Before MariaDB 11.5:
+{% endhint %}
+
 It is **not** possible to specify flushing read and/or write statements with the `FLUSH QUERY_RESPONSE_TIME_READ`, `FLUSH QUERY_RESPONSE_TIME_WRITE` and `FLUSH QUERY_RESPONSE_TIME_READ_WRITE` statements.
 {% endtab %}
 {% endtabs %}

@@ -187,10 +187,6 @@ The `UPDATE FOR PORTION` statement has the following limitations:
 
 ### WITHOUT OVERLAPS
 
-{% hint style="info" %}
-This clause is available from MariaDB 10.5.3.
-{% endhint %}
-
 `WITHOUT OVERLAPS` allows to create an index specifying that application time periods should not overlap. An index constrained by `WITHOUT OVERLAPS` is required to be either a primary key or a unique index.
 
 Take the following example, an application time period table for a booking system:

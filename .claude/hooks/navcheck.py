@@ -46,15 +46,32 @@ WHAT IS NOT A PAGE
 MODES
     navcheck.py check [path ...]      every orphan under each path -- for triage
     navcheck.py new <rev> [path ...]  only pages newly orphaned vs <rev> -- the gate
+    navcheck.py stale                 only the stale-acknowledgment audit, which
+                                      `check` and `new` also run
 
     Paths are the changed files; the spaces containing them are what gets
     scanned, since adding a page to one space cannot orphan a page in another.
     With no paths, every space is scanned.
 
-ESCAPE HATCH
-    DOC_LINT_ALLOW_ORPHAN  space/comma-separated repo-relative paths to exempt,
-                           or "all". A deliberately unlisted page is legitimate;
-                           name it here and say why in the commit message.
+ACKNOWLEDGMENT
+    A deliberately unlisted page is legitimate -- a `hidden: true` page, or an
+    unreleased draft -- so this gate is meant to be acknowledged rather than
+    disabled. The acknowledgment is an entry with a reason in the `orphan:`
+    section of .claude/hooks/doc-lint-allow.yml, which puts it in the diff where
+    review already happens (DOCS-6586, decided on the ticket). Parsed by
+    allowlist.py, the single parser for that file.
+
+    DOC_LINT_ALLOW_ORPHAN (space/comma-separated paths, or "all") still works for
+    a local one-off run and is unioned with the file; only the environment
+    variable takes "all", because in a checked-in file that would be a permanent
+    repo-wide disable.
+
+    An acknowledgment that is no longer true FAILS, so the register prunes itself
+    at the point someone forgets instead of piling up entries nobody dares
+    remove: an entry whose page has since been listed in SUMMARY.md, whose page
+    no longer exists, or which names a path that is not a page in any space at
+    all. This was the condition on the ticket's go-ahead.
+
 
 Exit: 0 = no new orphans (or SKIPPED), 1 = new orphans found, 2 = usage error.
 Unlike fragcheck.py this needs no worktree -- the base side is read with
@@ -67,7 +84,18 @@ import re
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import allowlist
+except ImportError:  # pragma: no cover - a broken checkout, not a missing tool
+    print('navcheck: .claude/hooks/allowlist.py not found. It is checked in '
+          'beside this\n          script, so this is a broken checkout, not a '
+          'missing tool, and a check\n          that cannot read its '
+          'acknowledgments must not report success.', file=sys.stderr)
+    sys.exit(2)
+
 SUMMARY = 'SUMMARY.md'
+SECTION = 'orphan'
 
 # Markdown link targets in SUMMARY.md. GitBook writes plain relative paths here;
 # the only exceptions on main are 6 absolute cross-space URLs, filtered below.
@@ -171,12 +199,20 @@ def tree_pages(root, space):
 
 
 def orphans_now(root, space):
-    """Pages of `space` in the working tree with no SUMMARY.md entry."""
+    """(orphans, pages examined) for `space` in the working tree.
+
+    The page count is returned rather than derived again by the caller because
+    navcheck-pr.yml asserts on it: "scanned 9,468 pages, none newly orphaned"
+    and "scanned nothing at all" are otherwise the same exit code, so a wrong
+    working directory or an empty space list would leave the gate permanently
+    and silently green. Same assertion shape as includecheck.sh's include count.
+    """
     sm = pathlib.Path(root) / space / SUMMARY
     if not sm.is_file():
-        return set()
+        return set(), 0
     refs = parse_refs(sm.read_text(encoding='utf-8', errors='replace'), space)
-    return tree_pages(root, space) - refs
+    pages = tree_pages(root, space)
+    return pages - refs, len(pages)
 
 
 def orphans_at(root, rev, space):
@@ -192,9 +228,72 @@ def orphans_at(root, rev, space):
     return pages - parse_refs(text, space)
 
 
-def allowed():
-    raw = os.environ.get('DOC_LINT_ALLOW_ORPHAN', '')
-    return {t for t in re.split(r'[\s,]+', raw) if t}
+def entries(root):
+    """The `orphan:` acknowledgments, or a hard error if the register is broken.
+
+    A malformed register is exit 2, never an empty one: reading it as empty
+    would fail a PR that HAD acknowledged its finding correctly, and the author
+    would have a valid-looking entry in the diff and a red gate with no
+    explanation.
+    """
+    try:
+        return allowlist.load(root)[SECTION]
+    except allowlist.AllowlistError as exc:
+        print(f'navcheck: {allowlist.allowlist_path(root)} is malformed — {exc}',
+              file=sys.stderr)
+        print("          Fix the entry; the accepted shape is in allowlist.py's "
+              'header. A\n          malformed register is a hard error rather '
+              'than an empty one, so an\n          acknowledgment can never be '
+              'silently lost.', file=sys.stderr)
+        raise SystemExit(2)
+
+
+def allowed(root):
+    """Paths exempt from the orphan gate, and whether the whole gate is off.
+
+    The union of the checked-in register and DOC_LINT_ALLOW_ORPHAN. Only the
+    environment variable can say "all" -- see allowlist.py's header.
+    """
+    env = {t for t in re.split(r'[\s,]+', os.environ.get('DOC_LINT_ALLOW_ORPHAN', '')) if t}
+    return ({e['path'] for e in entries(root)} | (env - {'all'})), ('all' in env)
+
+
+def stale(root, acks):
+    """Acknowledgments that are no longer true, as [(entry, why)].
+
+    Three ways an entry stops applying, all of them the register's own defect
+    rather than a finding about a page -- so they are reported whatever the
+    file scope of the run is, and whether or not DOC_LINT_ALLOW_ORPHAN=all is
+    set.
+    """
+    out = []
+    spaces = set(all_spaces(root))
+    for e in acks:
+        rel = e['path']
+        if not (pathlib.Path(root) / rel).is_file():
+            out.append((e, 'no such file'))
+            continue
+        space = rel.split('/')[0]
+        if space not in spaces or not is_page(rel, space):
+            out.append((e, 'not a nav-listable page in any space'))
+            continue
+        sm = pathlib.Path(root) / space / SUMMARY
+        if rel in parse_refs(sm.read_text(encoding='utf-8', errors='replace'), space):
+            out.append((e, f'now listed in {space}/{SUMMARY}'))
+    return out
+
+
+def report_stale(bad):
+    print(f'navcheck: {len(bad)} stale acknowledgment'
+          f'{"" if len(bad) == 1 else "s"} in {allowlist.REL_PATH}:',
+          file=sys.stderr)
+    for e, why in bad:
+        print(f'  line {e["line"]}: {e["path"]} — {why}', file=sys.stderr)
+    print("\n          An acknowledgment that is no longer true is worse than "
+          'none: it\n          exempts a page that nobody has looked at since. '
+          'Delete these entries\n          in this PR — the register is meant '
+          'to prune itself at the point\n          someone forgets (DOCS-6586).',
+          file=sys.stderr)
 
 
 # Above this many findings the copy-paste exemption line is longer than the
@@ -213,29 +312,57 @@ def report(found, label):
           '          see this, because the markup is valid and the links resolve\n'
           '          (DOCS-6566). Add a nav entry in the space\'s SUMMARY.md, placed\n'
           '          where a reader would look for it.', file=sys.stderr)
+    print(f'\n          Deliberately unlisted? Add an entry with its reason to the\n'
+          f'          `{SECTION}:` section of {allowlist.REL_PATH}, so the\n'
+          '          acknowledgment is in the diff a reviewer reads (DOCS-6586).',
+          file=sys.stderr)
     if len(found) <= HINT_MAX:
-        print('          Deliberately unlisted? Re-run with\n'
-              f'          DOC_LINT_ALLOW_ORPHAN=\'{" ".join(found)}\'\n'
-              '          and say why in the commit message.', file=sys.stderr)
-    else:
-        print('          Deliberately unlisted? Name those paths in\n'
-              '          DOC_LINT_ALLOW_ORPHAN and say why in the commit message.',
-              file=sys.stderr)
+        print('          For a local one-off run, DOC_LINT_ALLOW_ORPHAN does the same:\n'
+              f'          DOC_LINT_ALLOW_ORPHAN=\'{" ".join(found)}\'', file=sys.stderr)
+
+
+def audit(root):
+    """The stale-acknowledgment pass. Returns 1 if the register needs pruning.
+
+    Run by every mode, because a stale entry belongs to the register rather
+    than to any one PR's file set -- and because the alternative, a separate
+    audit somebody has to remember, is exactly what Daniel's go-ahead on
+    DOCS-6586 asked this not to be.
+    """
+    bad = stale(root, entries(root))
+    if not bad:
+        return 0
+    report_stale(bad)
+    return 1
+
+
+def cmd_stale(args):
+    """The audit on its own, for triage and for a scheduled run."""
+    root = repo_root(args[0] if args else '.')
+    rc = audit(root)
+    if not rc:
+        n = len(entries(root))
+        print(f'navcheck: {n} orphan acknowledgment(s), none stale')
+    return rc
 
 
 def cmd_check(args):
     root = repo_root(args[0] if args else '.')
-    skip = allowed()
-    if 'all' in skip:
-        return 0
+    rc = audit(root)
+    skip, off = allowed(root)
+    if off:
+        return rc
     found = []
+    pages = 0
     for space in spaces_for(root, args):
-        found += sorted(orphans_now(root, space) - skip)
+        orphans, n = orphans_now(root, space)
+        pages += n
+        found += sorted(orphans - skip)
     if found:
         report(sorted(found), 'present')
         return 1
-    print('navcheck: no orphaned pages')
-    return 0
+    print(f'navcheck: no orphaned pages ({pages} page(s) scanned)')
+    return rc
 
 
 def cmd_new(args):
@@ -245,9 +372,11 @@ def cmd_new(args):
     rev, paths = args[0], args[1:]
     root = repo_root(paths[0] if paths else '.')
 
-    skip = allowed()
-    if 'all' in skip:
-        return 0
+    rc = audit(root)
+
+    skip, off = allowed(root)
+    if off:
+        return rc
 
     # The base side is read out of the object store, so `root` must be the top of the repo
     # that store belongs to. If this tree is NESTED inside an unrelated git repo -- an unpacked
@@ -262,16 +391,19 @@ def cmd_new(args):
     if ok and pathlib.Path(top.strip()).resolve() != pathlib.Path(root).resolve():
         print(f'navcheck: {root} is not the top of its git repository '
               f'({top.strip()} is) — SKIPPED', file=sys.stderr)
-        return 0
+        return rc
 
     ok, _ = git(root, 'rev-parse', '--verify', '-q', rev + '^{commit}')
     if not ok:
         print(f'navcheck: base revision {rev!r} not found — SKIPPED', file=sys.stderr)
-        return 0
+        return rc
 
-    fresh, pre = [], 0
+    fresh, pre, pages, spaces = [], 0, 0, 0
     for space in spaces_for(root, paths):
-        now = orphans_now(root, space) - skip
+        now, n = orphans_now(root, space)
+        now -= skip
+        pages += n
+        spaces += 1
         before = orphans_at(root, rev, space)
         pre += len(now & before)
         fresh += sorted(now - before)
@@ -281,8 +413,9 @@ def cmd_new(args):
         return 1
 
     print(f'navcheck: no newly orphaned pages vs {rev} '
-          f'({pre} pre-existing, unchanged)')
-    return 0
+          f'({pre} pre-existing, unchanged; '
+          f'{pages} page(s) scanned in {spaces} space(s))')
+    return rc
 
 
 def main(argv):
@@ -294,7 +427,10 @@ def main(argv):
         return cmd_check(args)
     if mode == 'new':
         return cmd_new(args)
-    print(f'navcheck: unknown mode {mode!r} (expected `check` or `new`)', file=sys.stderr)
+    if mode == 'stale':
+        return cmd_stale(args)
+    print(f'navcheck: unknown mode {mode!r} (expected `check`, `new` or `stale`)',
+          file=sys.stderr)
     return 2
 
 

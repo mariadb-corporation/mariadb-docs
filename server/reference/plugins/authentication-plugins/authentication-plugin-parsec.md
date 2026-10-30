@@ -102,7 +102,7 @@ Warning (1231): parsec_iterations rounded up to 8192
 
 ## Future
 
-PARSEC is currently available in latest MariaDB versions, but [not installed or used by default yet](https://lists.mariadb.org/hyperkitty/list/developers@lists.mariadb.org/thread/SGQUUHRSSPAURX5JZAGXYXRIBMCKK52F/). Once [MDEV-12320](https://jira.mariadb.org/browse/MDEV-12320) is implemented, MariaDB plans to start using PARSEC as the default password authentication method.
+PARSEC is available from MariaDB 11.6, but it is [not installed or used by default](https://lists.mariadb.org/hyperkitty/list/developers@lists.mariadb.org/thread/SGQUUHRSSPAURX5JZAGXYXRIBMCKK52F/). [MDEV-12320](https://jira.mariadb.org/browse/MDEV-12320) tracks making PARSEC the default password authentication method.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

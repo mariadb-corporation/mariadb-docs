@@ -30,7 +30,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
 | AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
-| HTAP (MariaDB Exa) | Not available                             | Available (technical preview)             | Available (technical preview)                               |
+| HTAP (MariaDB Exa) | Not available                             | Available on request (technical preview)  | Available on request (technical preview)                    |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
 | Support            | Basic and Standard support                | Basic, Standard, and Remote DBA (RDBA) support | Basic, Standard, and Remote DBA (RDBA) support         |
 
@@ -46,7 +46,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Storage scaling         | On demand (provisioned); autoscaling (serverless)                | On demand and autoscaling                                             | On demand and autoscaling                                             |
 | Read replicas           | Up to 1                                                          | Up to 4                                                               | Up to 4                                                               |
 | Redundant MaxScale      | No                                                               | Yes                                                                   | Yes                                                                   |
-| Bring Your Own Account  | No                                                               | Yes                                                                   | Yes                                                                   |
+| Bring Your Own Cloud  | No                                                               | Yes                                                                   | Yes                                                                   |
 
 {% hint style="info" %}
 One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memory. Serverless services size themselves automatically, so you do not select an instance size when launching one.
@@ -76,16 +76,16 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 * **Redundant MaxScale** — with [MaxScale Redundancy](../reference/maxscale-redundancy.md), MaxScale nodes are deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
 * **Point-in-time restore (PITR)** — [restores a service to a moment in time](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md); it requires additional binary log retention to be configured in advance.
 * **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
-* **[Bring Your Own Account (BYOA)](../quickstart/bring-your-own-account-byoa.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOA extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
+* **[Bring Your Own Cloud (BYOC)](../quickstart/bring-your-own-cloud-byoc.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOC extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
 * **[MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md)** (PowerPlus) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
-* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database.
+* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database. Available on request; see [Requesting access to MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Uptime SLA** — see the [MariaDB Cloud Uptime SLA](../reference/uptime-sla.md) page for the performance standard, measurement details, exclusions, service credits, and customer obligations.
 * **[Support](../reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](../reference/clouddba.md) is available on Power and PowerPlus.
 
 {% hint style="warning" %}
-**Technical preview features**
+**Preview features**
 
-MariaDB Enterprise Cluster, HTAP using MariaDB Exa, and BYOA are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use. BYOA is currently available on AWS and Microsoft Azure, with Google Cloud support to follow.
+HTAP using MariaDB Exa is available as a preview feature. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
 {% endhint %}
 
 ## Selecting a Tier
@@ -120,6 +120,6 @@ The [`/provisioning/v1/sizes` API endpoint](https://apidocs.skysql.com/#/Offerin
 
 Moving to Power or PowerPlus is a commercial change to your subscription. Submit a request from the MariaDB Cloud Portal or contact your account representative. Discounts are typically available for one-year and three-year commitments, and MariaDB Cloud can be procured through the AWS, Google Cloud, and Azure marketplaces, including as a private offer.
 
-BYOA has additional prerequisites beyond the tier: Power or PowerPlus, Standard Support with the Remote DBA add-on enabled, and an annual contract or minimum spend commitment.
+BYOC has additional prerequisites beyond the tier: Power or PowerPlus, Standard Support with the Remote DBA add-on enabled, and an annual contract or minimum spend commitment.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

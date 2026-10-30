@@ -11,17 +11,21 @@ reading order. Pages not listed there (375 in `server/`) are unpublished and
 excluded on purpose.
 
 Pipeline: SUMMARY.md -> manifest -> preprocess -> Pandoc (md->html) ->
-headless Chrome --print-to-pdf. Chrome rather than LaTeX because the corpus
-contains raw HTML tables and Mermaid diagrams that a TeX engine cannot render.
+headless Chrome (Page.printToPDF over the DevTools protocol). Chrome rather
+than LaTeX because the corpus contains raw HTML tables and Mermaid diagrams
+that a TeX engine cannot render.
 """
 
 import argparse
+import base64
 import datetime
+import fcntl
 import hashlib
 import html
 import json
 import os
 import re
+import select
 import shutil
 import subprocess
 import sys
@@ -50,6 +54,8 @@ SPACE_TITLES = {
     "general-resources": "MariaDB General Resources",
     "galera-cluster": "MariaDB Galera Cluster",
     "home": "MariaDB Documentation",
+    "gridgain-8": "GridGain 8",
+    "gridgain-9": "GridGain 9",
 }
 
 # `help-tables/` is generated SQL, and the remaining top-level directories are
@@ -57,7 +63,7 @@ SPACE_TITLES = {
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
     "analytics", "tools", "mariadb-cloud", "general-resources",
-    "galera-cluster", "home",
+    "galera-cluster", "home", "gridgain-8", "gridgain-9",
 ]
 
 CHROME_CANDIDATES = [
@@ -340,73 +346,173 @@ class RenderError(RuntimeError):
     """Chrome failed to produce a PDF for one space."""
 
 
-# Headless Chrome writes a complete, valid PDF and then sometimes fails to
-# exit -- observed on `tools` and `mariadb-cloud`, where the finished file was
-# already on disk while the process sat idle for tens of minutes. So the PDF on
-# disk is the completion signal, not the process exit, and Chrome is terminated
-# once its output stops growing. `--virtual-time-budget` is virtual-clock only
-# and bounds nothing in wall-clock terms.
+# Chrome is driven over the DevTools protocol, not with --print-to-pdf. That
+# flag hands the finished PDF back in one piece, and Chrome 155's renderer dies
+# on one that large: release-notes (~308 MB before qpdf) failed on every run
+# with "V8 error: Empty MaybeLocal" while each half of it printed fine
+# (DOCS-6945). Page.printToPDF with transferMode=ReturnAsStream returns the PDF
+# in chunks instead, and gives the same pages, links and destinations.
+#
+# The protocol runs over --remote-debugging-pipe -- Chrome reads fd 3, writes
+# fd 4, NUL-delimited JSON -- so it needs no WebSocket library. Controlling the
+# session also retires two workarounds: the page itself says when it is ready
+# (`window.__renderComplete`, set after Mermaid), where --virtual-time-budget
+# only advanced a virtual clock; and the build closes Chrome itself, where
+# --print-to-pdf sometimes left it idling for tens of minutes after writing the
+# file.
 CHROME_TIMEOUT_S = 1800
-STABLE_CHECKS = 3          # consecutive equal sizes before the file is settled
-POLL_INTERVAL_S = 2.0
+READY_POLL_S = 0.5
+PDF_CHUNK = 8 << 20         # bytes per IO.read; the result is base64 on top
+PAGE_READY_JS = ("document.readyState === 'complete'"
+                 " && window.__renderComplete === true")
+
+
+class ChromePipe:
+    """One headless Chrome, spoken to over the DevTools protocol pipe."""
+
+    def __init__(self, chrome, deadline):
+        self.deadline = deadline
+        # Private profile: never contend with another instance's singleton lock.
+        self.profile = tempfile.mkdtemp(prefix="mariadb-pdf-chrome-")
+        self.log = open(os.path.join(self.profile, "stderr.log"), "w+")
+        to_r, self.wr = os.pipe()        # Chrome reads on fd 3
+        self.rd, from_w = os.pipe()      # Chrome writes on fd 4
+
+        def child_fds():
+            # Park both ends above fd 9 first. os.pipe() can itself return 3
+            # or 4, and dup2 onto the same number would keep close-on-exec.
+            a = fcntl.fcntl(to_r, fcntl.F_DUPFD_CLOEXEC, 10)
+            b = fcntl.fcntl(from_w, fcntl.F_DUPFD_CLOEXEC, 10)
+            os.dup2(a, 3)
+            os.dup2(b, 4)
+
+        self.proc = subprocess.Popen(
+            [chrome, "--headless", "--disable-gpu", "--no-sandbox",
+             "--remote-debugging-pipe", f"--user-data-dir={self.profile}",
+             "--no-first-run", "--disable-extensions",
+             "--allow-file-access-from-files", "about:blank"],
+            # close_fds runs after preexec_fn and would close fds 3 and 4
+            # again. Everything else Python opens is non-inheritable anyway.
+            close_fds=False, preexec_fn=child_fds,
+            stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+            stderr=self.log)
+        os.close(to_r)
+        os.close(from_w)
+        self.buf = b""
+        self.next_id = 0
+
+    def diagnosis(self):
+        """Chrome's own account of a failure, without the dbus noise."""
+        self.log.seek(0)
+        lines = self.log.read().splitlines()
+        fatal = [ln for ln in lines
+                 if "FATAL" in ln or "renderer termination" in ln]
+        return "\n".join(fatal or lines[-20:])[:2000]
+
+    def _recv(self):
+        while b"\0" not in self.buf:
+            left = self.deadline - time.monotonic()
+            if left <= 0:
+                raise RenderError(
+                    f"Chrome exceeded {CHROME_TIMEOUT_S}s with no complete PDF")
+            ready, _, _ = select.select([self.rd], [], [], min(left, 5))
+            if not ready:
+                continue
+            chunk = os.read(self.rd, 1 << 20)
+            if not chunk:
+                raise RenderError(
+                    f"Chrome exited mid-render:\n{self.diagnosis()}")
+            self.buf += chunk
+        msg, self.buf = self.buf.split(b"\0", 1)
+        return json.loads(msg)
+
+    def call(self, method, params=None, session=None):
+        self.next_id += 1
+        msg = {"id": self.next_id, "method": method, "params": params or {}}
+        if session:
+            msg["sessionId"] = session
+        data = json.dumps(msg).encode() + b"\0"
+        while data:
+            data = data[os.write(self.wr, data):]
+        while True:
+            reply = self._recv()
+            if reply.get("method") == "Inspector.targetCrashed":
+                raise RenderError(
+                    f"Chrome's renderer crashed:\n{self.diagnosis()}")
+            if reply.get("id") == self.next_id:
+                if "error" in reply:
+                    raise RenderError(
+                        f"{method} failed: {reply['error'].get('message')}\n"
+                        f"{self.diagnosis()}")
+                return reply["result"]
+            # Anything else is an event this build has no use for.
+
+    def close(self):
+        try:
+            if self.proc.poll() is None:
+                self.deadline = time.monotonic() + 10
+                self.call("Browser.close")
+        except (RenderError, OSError):
+            pass
+        try:
+            self.proc.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            self.proc.kill()
+            self.proc.wait(timeout=30)
+        for fd in (self.wr, self.rd):
+            os.close(fd)
+        self.log.close()
+        shutil.rmtree(self.profile, ignore_errors=True)
 
 
 def html_to_pdf(html_path, pdf_path, chrome):
     if os.path.exists(pdf_path):
         os.remove(pdf_path)     # a stale file would look like instant success
 
-    profile = tempfile.mkdtemp(prefix="mariadb-pdf-chrome-")
-    cmd = [
-        chrome,
-        "--headless",
-        "--disable-gpu",
-        "--no-sandbox",
-        "--no-pdf-header-footer",
-        "--allow-file-access-from-files",
-        # Private profile: never contend with another instance's singleton lock.
-        f"--user-data-dir={profile}",
-        "--no-first-run",
-        "--disable-extensions",
-        "--virtual-time-budget=600000",
-        f"--print-to-pdf={pdf_path}",
+    chrome_pipe = ChromePipe(chrome, time.monotonic() + CHROME_TIMEOUT_S)
+    try:
+        target = chrome_pipe.call(
+            "Target.createTarget", {"url": "about:blank"})["targetId"]
+        session = chrome_pipe.call(
+            "Target.attachToTarget",
+            {"targetId": target, "flatten": True})["sessionId"]
+        chrome_pipe.call("Inspector.enable", session=session)
         # Percent-encode: an --out-dir containing spaces would otherwise
         # truncate the URL and Chrome would print an error page.
-        "file://" + quote(os.path.abspath(html_path)),
-    ]
+        chrome_pipe.call(
+            "Page.navigate",
+            {"url": "file://" + quote(os.path.abspath(html_path))},
+            session=session)
 
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, text=True)
-    deadline = time.monotonic() + CHROME_TIMEOUT_S
-    last_size, stable = -1, 0
-    try:
-        while True:
-            if proc.poll() is not None:
-                break           # exited on its own: the normal path
-            size = os.path.getsize(pdf_path) if os.path.isfile(pdf_path) else -1
-            if size >= 0 and size == last_size:
-                stable += 1
-                if stable >= STABLE_CHECKS:
-                    break       # output settled; Chrome is just not leaving
-            else:
-                stable = 0
-            last_size = size
-            if time.monotonic() > deadline:
-                raise RenderError(
-                    f"Chrome exceeded {CHROME_TIMEOUT_S}s with no complete PDF")
-            time.sleep(POLL_INTERVAL_S)
+        # Wait until images have loaded and Mermaid has run.
+        while not chrome_pipe.call(
+                "Runtime.evaluate",
+                {"expression": PAGE_READY_JS, "returnByValue": True},
+                session=session)["result"].get("value"):
+            time.sleep(READY_POLL_S)
+
+        stream = chrome_pipe.call(
+            "Page.printToPDF",
+            {"printBackground": True, "preferCSSPageSize": True,
+             "transferMode": "ReturnAsStream"},
+            session=session)["stream"]
+        with open(pdf_path, "wb") as fh:
+            while True:
+                chunk = chrome_pipe.call(
+                    "IO.read", {"handle": stream, "size": PDF_CHUNK},
+                    session=session)
+                data = chunk.get("data", "")
+                fh.write(base64.b64decode(data) if chunk.get("base64Encoded")
+                         else data.encode("latin-1"))
+                if chunk.get("eof"):
+                    break
+        chrome_pipe.call("IO.close", {"handle": stream}, session=session)
     finally:
-        if proc.poll() is None:
-            proc.terminate()
-            try:
-                proc.wait(timeout=30)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                proc.wait(timeout=30)
-        shutil.rmtree(profile, ignore_errors=True)
+        chrome_pipe.close()
 
-    if not os.path.isfile(pdf_path) or os.path.getsize(pdf_path) == 0:
-        stderr = (proc.stderr.read() if proc.stderr else "")[:2000]
-        raise RenderError(f"Chrome produced no PDF:\n{stderr}")
+    with open(pdf_path, "rb") as fh:
+        if fh.read(5) != b"%PDF-":
+            raise RenderError(f"Chrome's output is not a PDF: {pdf_path}")
 
 
 # Cover treatments, both verified against WCAG (see pdf/style.css).

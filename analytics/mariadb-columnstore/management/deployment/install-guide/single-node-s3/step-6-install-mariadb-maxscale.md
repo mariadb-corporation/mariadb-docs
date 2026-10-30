@@ -1,5 +1,7 @@
 ---
-description: 'Step 6: Install MariaDB MaxScale'
+description: >-
+  Step 6 of the MariaDB ColumnStore install with object storage: retrieve a
+  download token, set up the repository, and install MaxScale.
 hidden: true
 ---
 

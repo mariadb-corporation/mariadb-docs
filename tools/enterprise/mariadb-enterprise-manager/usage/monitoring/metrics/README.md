@@ -1,0 +1,66 @@
+---
+description: >-
+  Overview of the metrics collected by Enterprise Manager, including MariaDB
+  Server counters, MaxScale performance data, GridGain 8 cluster metrics, and
+  node-level system resource utilization.
+---
+
+# Metrics
+
+## MariaDB Server Metrics
+
+MariaDB Server metrics are gathered with the Prometheus exporter for MySQL and stored in Enterprise Manager’s Prometheus with the `mariadb` prefix. The agent runs the exporter with the following collector flags:
+
+| Collector name                           | Description                                                                                                                             |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| collect.binlog\_size                     | Reports binary log files and their sizes to track binlog count and total disk usage/growth.                                             |
+| collect.engine\_innodb\_status           | Parses `SHOW ENGINE INNODB STATUS` to expose InnoDB internals (waits, deadlocks, transaction and I/O snapshots).                        |
+| collect.info\_schema.innodb\_metrics     | Reads `INFORMATION_SCHEMA.INNODB_METRICS` for detailed InnoDB counters (buffer pool, I/O, log, lock, purge, recovery, etc.).            |
+| collect.info\_schema.innodb\_tablespaces | Exposes per-tablespace/file size and allocation details from Information Schema for space-usage monitoring.                             |
+| collect.info\_schema.processlist         | Exposes current session/thread activity (users, hosts, commands, states, runtimes) based on the process list.                           |
+| collect.info\_schema.replica\_host       | Discovers replica hosts via Information Schema (MariaDB-friendly alternative to `SHOW SLAVE HOSTS`) for topology visibility.            |
+| collect.slave\_hosts                     | Emits replica host topology using `SHOW SLAVE HOSTS`/`SHOW REPLICA HOSTS` (note: MariaDB expects the legacy `SHOW SLAVE HOSTS` syntax). |
+| collect.slave\_status                    | Exposes replication status from `SHOW SLAVE/REPLICA STATUS` (I/O/SQL thread states, positions/GTID, seconds behind, etc.).              |
+
+## MaxScale Metrics
+
+MariaDB Enterprise Manager collects a wide range of time-series metrics from your MariaDB MaxScale instances to provide deep insight into their performance, health, and activity. Monitoring these metrics is crucial for diagnosing performance bottlenecks, ensuring high availability, and understanding how your database proxy is handling application traffic.
+
+Here is the list of available [MaxScale metrics](../../../../mariadb-enterprise-operator/metrics.md#maxscale-metrics) collected by Enterprise Manager.
+
+## GridGain 8 Cluster Metrics
+
+GridGain 8 nodes push their metrics to Enterprise Manager with the GridGain OpenTelemetry metric exporter (`OpenTelemetryMetricExporterSpi`). Enterprise Manager receives them over OTLP/HTTP on port `4318` and stores them in its Prometheus. To configure the exporter on a cluster, see [Add a GridGain 8 Cluster](../../../administration/deployment/adding-databases/add-gridgain-8-cluster.md#send-cluster-metrics-to-enterprise-manager).
+
+Every GridGain 8 series carries two labels:
+
+| Label      | Example                                | Meaning                                        |
+| ---------- | -------------------------------------- | ---------------------------------------------- |
+| `job`      | `gridgain/cluster1`                    | The cluster, as `gridgain/<cluster name>`      |
+| `instance` | `bca8aa76-c330-4270-b79e-b30ce33fde00` | The node's consistent ID                       |
+
+Metric names are the GridGain metric names with dots replaced by underscores. For example, `sys.CpuLoad` is stored as `sys_CpuLoad`. Cache, cache group, data region, thread pool, and data center names are part of the metric name rather than labels. For example, `io.dataregion.default.OffHeapSize` is stored as `io_dataregion_default_OffHeapSize`.
+
+<!-- DOCS-6280 TODO: link the GridGain 8 metrics reference once the GridGain docs are migrated into mariadb-docs. -->
+
+For the list of GridGain 8 metrics and their meaning, see the GridGain 8 metrics documentation.
+
+## Node Metrics
+
+Node metrics provide crucial information about the health and performance of the underlying hardware and operating system on each monitored host. These metrics are essential for diagnosing infrastructure bottlenecks, understanding resource utilization, and planning for future capacity.
+
+MariaDB Enterprise Manager gathers these metrics using **Prometheus Node Exporter**, which includes a default set of collectors.
+
+Key metrics collected by default include:
+
+* **CPU Usage**: Overall and per-core utilization, load average, and context switching.
+* **Memory**: Total, used, free, and cached memory, including swap space.
+* **Disk I/O**: Read/write operations, throughput (bytes per second), and I/O time.
+* **Filesystem Usage**: Total, used, and available space for each mounted filesystem.
+* **Network Traffic**: Data sent and received, packets, and network interface errors.
+
+For a complete and detailed list of all metrics gathered by the default collectors, please refer to the official [Prometheus Node Exporter documentation](https://prometheus.io/docs/guides/node-exporter/).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

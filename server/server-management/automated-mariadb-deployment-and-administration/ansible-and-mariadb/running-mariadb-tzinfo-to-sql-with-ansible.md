@@ -1,7 +1,7 @@
 ---
 description: >-
   Demonstrates how to automate the loading of time zone data into MariaDB using
-  the `mysql_tzinfo_to_sql` utility, with techniques to ensure the task is
+  the mysql_tzinfo_to_sql utility, with techniques to ensure the task is
   idempotent.
 ---
 

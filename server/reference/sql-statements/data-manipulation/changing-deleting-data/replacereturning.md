@@ -6,9 +6,7 @@ description: >-
 
 # REPLACE...RETURNING
 
-{% hint style="info" %}
-`REPLACE ... RETURNING` was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), and returns a result set of the replaced rows.
-{% endhint %}
+`REPLACE ... RETURNING` returns a result set of the replaced rows.
 
 ## Syntax
 

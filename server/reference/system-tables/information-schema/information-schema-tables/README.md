@@ -81,6 +81,5 @@ description: >-
 - [Information Schema WSREP\_THD\_STATE\_HISTORY](information-schema-wsrep_thd_state_history.md)
 - [Information Schema InnoDB Tables](information-schema-innodb-tables/README.md)
 - [Information Schema MyRocks Tables](information-schema-myrocks-tables/README.md)
-- [Information Schema XtraDB Tables](information-schema-xtradb-tables/README.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
