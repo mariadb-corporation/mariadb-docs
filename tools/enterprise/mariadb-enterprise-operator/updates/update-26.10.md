@@ -46,7 +46,7 @@ helm repo update mariadb-enterprise-operator
 helm upgrade --install mariadb-enterprise-operator-crds mariadb-enterprise-operator/mariadb-enterprise-operator-crds --version 26.10.0
 ```
 
-- **Helm values changes**: the default images are now MariaDB Enterprise Server `12.3.3-0` (`config.mariadbDefaultVersion` is `12.3`) and MaxScale `26.10.0`. If you set `config.mariadbImage` or `config.maxscaleImage` explicitly in your `values.yaml`, your values are kept. The new `config.enterpriseLicenseKeyRef` value references the default MaxScale license Secret (`enterprise-license-key`, key `license`), and `fips.enabled` / `fips.strict` run the operator in FIPS mode.
+- **Helm values changes**: the default images are now MariaDB Enterprise Server `12.3.3-1` (`config.mariadbDefaultVersion` is `12.3`) and MaxScale `26.10.0`. If you set `config.mariadbImage` or `config.maxscaleImage` explicitly in your `values.yaml`, your values are kept. The new `config.enterpriseLicenseKeyRef` value references the default MaxScale license Secret (`enterprise-license-key`, key `license`), and `fips.enabled` / `fips.strict` run the operator in FIPS mode.
 
 - At this point, the operator can be updated to `26.10.0`:
 
@@ -80,7 +80,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-+ image: docker.mariadb.com/enterprise-server:12.3.3-0
++ image: docker.mariadb.com/enterprise-server:12.3.3-1
   updateStrategy:
 +   mariadbAutoUpgradeEnabled: true
 ```

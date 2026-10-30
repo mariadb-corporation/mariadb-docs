@@ -135,7 +135,7 @@ metadata:
   name: mariadb
 spec:
   # [...]
-  image: docker.mariadb.com/enterprise-server:12.3.3-0
+  image: docker.mariadb.com/enterprise-server:12.3.3-1
   updateStrategy:
     type: ReplicasFirstPrimaryLast
     mariadbAutoUpgradeEnabled: true
