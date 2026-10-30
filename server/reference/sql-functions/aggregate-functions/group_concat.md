@@ -48,6 +48,23 @@ GROUP_CONCAT([DISTINCT] expr [,expr ...]
 
 The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.
 
+### Memory Usage with ORDER BY
+
+{% hint style="info" %}
+This behavior applies from MariaDB 13.2.
+{% endhint %}
+
+With `ORDER BY`, the rows of each group are sorted in memory. The memory used for sorting is limited to the larger of these two values:
+
+* [group\_concat\_max\_len](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#group_concat_max_len)
+* The smaller of [tmp\_memory\_table\_size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmp_memory_table_size) and [max\_heap\_table\_size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size)
+
+With the default settings, the limit is 16 MB. The limit is never set so low that the sort cannot hold a few rows. Values of `BLOB` and `TEXT` arguments are not counted toward it.
+
+When the sort reaches two thirds of the limit, the server discards the rows that come after the end of the result in `ORDER BY` order and can therefore never be returned. If the rows that belong to the result do not fit into a third of the limit, the result is shorter than `group_concat_max_len`, and the same warning as for a truncated result is issued.
+
+Before MariaDB 13.2, the rows were only discarded once the strings being sorted added up to about 1024 times `group_concat_max_len`, which is 1 GB with the default settings, so a large group could use a lot of memory.
+
 ## Examples
 
 ```sql
