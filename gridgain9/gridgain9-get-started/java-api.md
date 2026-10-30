@@ -403,4 +403,4 @@ Now that you've explored the basics of connecting to GridGain and interacting wi
 
 ## See Also
 
-- [Connect With the Java Thin Client](../gridgain9-tutorials/distributed-sql-foundations/connect-java-thin-client.md)
+- [Connect With the Java Thin Client](learning-paths/distributed-sql-foundations/connect-java-thin-client.md)

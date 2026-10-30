@@ -25,7 +25,7 @@ The integration process has three steps:
 
 ## Configure GridGain
 
-To export metrics from your GridGain cluster, you need to modify the cluster configuration via the [CLI tool](../using-the-cli-tool.md).
+To export metrics from your GridGain cluster, you need to modify the cluster configuration via the [CLI tool](../../gridgain9-management/using-the-cli-tool.md).
 
 1. Open the CLI and connect to any node in the cluster.
 2. Specify the `exporterName` as the name for your OTLP endpoint and the `endpoint` as the address of your Prometheus server.
@@ -37,7 +37,7 @@ To export metrics from your GridGain cluster, you need to modify the cluster con
 
 4. After successfully running the command, you see a `Cluster configuration was updated successfully` message, and GridGain automatically starts sending metrics to the specified endpoint.
 
-If it is your first time setting up a GridGain cluster, check the corresponding [documentation section](../cluster-configuration.md) for more details.
+If it is your first time setting up a GridGain cluster, check the corresponding [documentation section](../../gridgain9-management/cluster-configuration.md) for more details.
 
 ## Configure the Prometheus Server
 
@@ -117,9 +117,9 @@ To help you quickly start collecting and visualizing GridGain metrics, we have p
 
    ![GridGain cluster metrics in Grafana](../../.gitbook/assets/guides/monitor-gridgain9-prometheus-grafana/metrics.png)
 
-Now that your dashboard is set up, you have a comprehensive view of your GridGain metrics, enabling efficient monitoring, analysis, and performance tuning. To dive deeper into metrics and monitoring in GridGain, visit the corresponding [documentation section](configuring-metrics.md).
+Now that your dashboard is set up, you have a comprehensive view of your GridGain metrics, enabling efficient monitoring, analysis, and performance tuning. To dive deeper into metrics and monitoring in GridGain, visit the corresponding [documentation section](../../gridgain9-management/monitoring/configuring-metrics.md).
 
 ## Related
 
-- [Configuring Metrics](configuring-metrics.md) - Reference for the metrics subsystem and available exporters.
+- [Configuring Metrics](../../gridgain9-management/monitoring/configuring-metrics.md) - Reference for the metrics subsystem and available exporters.
 - [Prometheus getting started](https://prometheus.io/docs/prometheus/latest/getting_started/) - Set up and configure the Prometheus server.

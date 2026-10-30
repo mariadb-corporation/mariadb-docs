@@ -248,4 +248,4 @@ Follow these steps:
 
 ## See Also
 
-- [How to Monitor GridGain 9 With Prometheus and Grafana](prometheus-grafana-step-by-step.md)
+- [How to Monitor GridGain 9 With Prometheus and Grafana](../../gridgain9-get-started/how-to-guides/prometheus-grafana-step-by-step.md)

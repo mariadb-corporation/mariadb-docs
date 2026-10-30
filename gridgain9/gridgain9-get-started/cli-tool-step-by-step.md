@@ -7,8 +7,8 @@ description: >-
 
 ## Prerequisites
 
-- A running 3-node cluster ([How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md))
-- The GridGain CLI installed on your machine. Install it as described in [Installing Using ZIP](installation/installing-using-zip.md) and add the `bin/` directory to your PATH. Alternatively, use the CLI bundled inside the server Docker image via `docker exec`.
+- A running 3-node cluster ([How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md))
+- The GridGain CLI installed on your machine. Install it as described in [Installing Using ZIP](../gridgain9-management/installation/installing-using-zip.md) and add the `bin/` directory to your PATH. Alternatively, use the CLI bundled inside the server Docker image via `docker exec`.
 
 ## Overview
 
@@ -121,7 +121,7 @@ For quick one-off queries, skip the SQL sub-REPL entirely. Pass the query as an 
 The result prints inline and you stay at the `[node1]>` prompt.
 
 {% hint style="info" %}
-The examples in this guide use built-in SQL expressions that work on any cluster. If you have loaded the Music Store dataset from [Start Your Local GridGain 9 Development Cluster](../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md), you can also query those tables directly (e.g., `sql "SELECT COUNT(*) FROM Artist"`).
+The examples in this guide use built-in SQL expressions that work on any cluster. If you have loaded the Music Store dataset from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md), you can also query those tables directly (e.g., `sql "SELECT COUNT(*) FROM Artist"`).
 {% endhint %}
 
 {% hint style="success" %}
@@ -136,7 +136,7 @@ Loading SQL from a file is how you set up schemas and seed data. From the main R
 [node1]> sql --file /path/to/schema.sql
 ```
 
-Or non-interactively, which is the pattern most tutorials in the [GridGain 9 Tutorials](../gridgain9-tutorials/README.md) use:
+Or non-interactively, which is the pattern most tutorials in the [GridGain 9 Tutorials](learning-paths/README.md) use:
 
 ```bash
 gridgain9 sql --jdbc-url jdbc:ignite:thin://localhost:10800 --file /path/to/schema.sql
@@ -373,7 +373,7 @@ The cluster is already initialized with a different configuration. You cannot re
 
 ## Related
 
-- [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md)
-- [How to Manage Cluster Lifecycle With the REST API](manage-cluster-lifecycle-rest-api.md)
-- [Using the CLI Tool](using-the-cli-tool.md)
+- [How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md)
+- [How to Manage Cluster Lifecycle With the REST API](how-to-guides/manage-cluster-lifecycle-rest-api.md)
+- [Using the CLI Tool](../gridgain9-management/using-the-cli-tool.md)
 - [GridGain CLI Tool Reference](../reference/cli-tool.md)

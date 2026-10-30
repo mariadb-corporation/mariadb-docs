@@ -9,7 +9,7 @@ description: >-
 
 - **Java 11** or later
 - **A GridGain 9 thin client dependency** in your Maven or Gradle project
-- **A running cluster** for verification ([How to Start a Cluster With Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md))
+- **A running cluster** for verification ([How to Start a Cluster With Docker Compose](../start-cluster-docker-compose.md))
 - **Framework-specific** (pick one):
   - **java.util.logging**: No additional dependencies (included in the JDK)
   - **Logback**: `slf4j-api` 2.0+ and `logback-classic` 1.5+
@@ -473,4 +473,4 @@ Each client log message appears twice in the console output.
 
 ## Related
 
-- [How to Start a Cluster with Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md) - Set up the 3-node development cluster used to verify logging output.
+- [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md) - Set up the 3-node development cluster used to verify logging output.

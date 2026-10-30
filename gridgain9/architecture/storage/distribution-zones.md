@@ -266,4 +266,4 @@ CREATE TABLE IF NOT EXISTS Account (
 
 ## See Also
 
-- [Design a Schema for Distributed SQL](../../gridgain9-tutorials/schema-design-for-distributed-sql/schema-distributed-sql.md)
+- [Design a Schema for Distributed SQL](../../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-distributed-sql.md)

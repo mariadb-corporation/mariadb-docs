@@ -13,7 +13,7 @@ This tutorial builds a music store invoice workflow that writes to two tables in
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed** [Work with RecordView and KeyValueView](recordview-keyvalueview.md) (familiarity with `IgniteClient`, `IgniteSql`, and the Music Store schema)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -208,7 +208,7 @@ docker exec gridgain9-node1 /opt/gridgain9cli/bin/gridgain9 sql \
   "SELECT COUNT(*) AS tracks FROM Track;"
 ```
 
-**Expected result: 3503.** If you need to restore the cluster or reload the dataset, see the full restore instructions in [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md).
+**Expected result: 3503.** If you need to restore the cluster or reload the dataset, see the full restore instructions in [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md).
 
 </details>
 
@@ -996,7 +996,7 @@ TransactionOptions opts = new TransactionOptions()
 Transaction tx = client.transactions().begin(opts);
 ```
 
-See [Performing Transactions](../../gridgain9-development/transactions.md) for the full `TransactionOptions` reference.
+See [Performing Transactions](../../../gridgain9-development/transactions.md) for the full `TransactionOptions` reference.
 {% endhint %}
 
 ## Summary
@@ -1017,4 +1017,4 @@ You have written the same multi-table invoice workflow at three levels of sophis
 | `runInTransaction` | Standard production workflows, most multi-table operations |
 | `runInTransactionAsync` | High-concurrency services, event-driven architectures, reactive pipelines |
 
-Continue to [Design a Schema for Distributed SQL](../schema-design-for-distributed-sql/schema-distributed-sql.md) to learn how colocation and distribution zones shape performance. To run Java logic directly on the nodes where data lives, see [About Distributed Computing](../../gridgain9-development/distributed-computing/about-distributed-computing.md).
+Continue to [Design a Schema for Distributed SQL](../schema-design-for-distributed-sql/schema-distributed-sql.md) to learn how colocation and distribution zones shape performance. To run Java logic directly on the nodes where data lives, see [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md).

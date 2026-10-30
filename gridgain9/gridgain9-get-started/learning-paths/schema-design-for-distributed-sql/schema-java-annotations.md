@@ -14,7 +14,7 @@ Both paths produce identical schemas. The difference is where the design decisio
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed** [Design a Schema for Distributed SQL](schema-distributed-sql.md)
 - **Java 17+** and a Java IDE (IntelliJ IDEA, VS Code with Java extensions, or similar)
 
@@ -58,8 +58,8 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 
 Download the schema and data files:
 
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-schema.sql](../../../.gitbook/assets/music-store-schema.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 Copy the files into the container and load them:
 
@@ -1721,7 +1721,7 @@ Note that `createTable()` generates `CREATE TABLE IF NOT EXISTS`, so running `Cr
 
 The annotation-created tables are structurally identical to the SQL-created ones, so the same data files work without modification. Download the data file and load it:
 
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 ```bash
 docker cp music-store-data.sql gridgain9-node1:/tmp/

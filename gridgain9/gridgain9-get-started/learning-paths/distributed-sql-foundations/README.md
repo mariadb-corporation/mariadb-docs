@@ -9,7 +9,7 @@ Start here if you are new to GridGain 9. You start a local cluster and load the 
 
 | Tutorial | Time | Level |
 | -------- | ---- | ----- |
-| [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) | 30 min | Beginner |
+| [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md) | 30 min | Beginner |
 | [Create Tables and Query Data With SQL](query-music-store-sql.md) | 45 min | Beginner |
 | [Connect With the Java Thin Client](connect-java-thin-client.md) | 45 min | Beginner |
 | [Work With RecordView and KeyValueView](recordview-keyvalueview.md) | 90 min | Intermediate |

@@ -21,7 +21,7 @@ Your application needs a local GridGain 9 cluster for development and testing. I
 - **12 GB of available RAM** for three cluster nodes (4 GB minimum; see the memory note in Step 1)
 - **GridGain 9 only:** A GridGain 9 license file. If you are interested in trying out GridGain 9, contact our support. Save the license file as `gridgain-license.json` in your project directory alongside `docker-compose.yml`. The license can be either a JSON license file or a license token issued by MariaDB (a single line of text in JWT format). `cluster init --license`, `license update` and the REST init request accept both; a token issued for GridGain 8 is rejected. The examples below use a file named `gridgain-license.json`; if you have a token, substitute the name of the file you saved it in.
 
-If you just need the cluster running and don't need the guided walkthrough, follow [How to Start a Cluster with Docker Compose](../../gridgain9-management/installation/start-cluster-docker-compose.md) instead.
+If you just need the cluster running and don't need the guided walkthrough, follow [How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md) instead.
 
 ## What You Will Learn
 
@@ -155,11 +155,11 @@ curl -s http://localhost:10300/management/v1/cluster/state | jq .
 
 Both `cmgNodes` (cluster management group) and `msNodes` (metastorage nodes) list all three nodes. The cluster is healthy and accepting client connections on ports 10800-10802.
 
-For the full cluster setup procedure, lifecycle management (stop, restart, destroy), and troubleshooting, see [How to Start a Cluster with Docker Compose](../../gridgain9-management/installation/start-cluster-docker-compose.md).
+For the full cluster setup procedure, lifecycle management (stop, restart, destroy), and troubleshooting, see [How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md).
 
 Before moving on, download the sample data file you will load in Step 4. This file contains INSERT statements for over 15,000 records across all 11 tables:
 
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-data.sql](../.gitbook/assets/music-store-data.sql)
 
 If you plan to use the CLI via `docker exec` (the Docker CLI tab in the next steps), copy the file into the running node container so the CLI can access it:
 
@@ -194,7 +194,7 @@ connect http://localhost:10300
 
 {% tab title="Native CLI: GridGain 9" %}
 
-If you installed the GridGain CLI on your host machine (see [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md)), start it directly:
+If you installed the GridGain CLI on your host machine (see [How to Work with the GridGain CLI](cli-tool-step-by-step.md)), start it directly:
 
 ```bash
 gridgain9
@@ -685,9 +685,9 @@ This cluster and dataset are the foundation for every tutorial in this section. 
 
 ## Next Step
 
-Continue to [Create Tables and Query Data with SQL](query-music-store-sql.md) to explore the Music Store dataset you just loaded. You'll write queries against the 11 tables, use `EXPLAIN` to see how GridGain routes operations across the cluster, and learn how colocation affects join performance.
+Continue to [Create Tables and Query Data with SQL](learning-paths/distributed-sql-foundations/query-music-store-sql.md) to explore the Music Store dataset you just loaded. You'll write queries against the 11 tables, use `EXPLAIN` to see how GridGain routes operations across the cluster, and learn how colocation affects join performance.
 
 ## Related
 
-- [How to Start a Cluster with Docker Compose](../../gridgain9-management/installation/start-cluster-docker-compose.md) for the full cluster lifecycle: stop, restart, destroy, troubleshooting
-- [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for deeper coverage of the CLI tool
+- [How to Start a Cluster with Docker Compose](start-cluster-docker-compose.md) for the full cluster lifecycle: stop, restart, destroy, troubleshooting
+- [How to Work with the GridGain CLI](cli-tool-step-by-step.md) for deeper coverage of the CLI tool

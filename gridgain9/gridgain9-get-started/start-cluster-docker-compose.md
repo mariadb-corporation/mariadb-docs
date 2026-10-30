@@ -25,7 +25,7 @@ GridGain 9 has a distributed architecture that you manage through the REST API a
 You have two tools for managing the cluster once the containers are running:
 
 - **REST API** (port 10300) accepts HTTP requests for cluster initialization, health checks, and configuration. It is available as soon as a node starts, even before the cluster is initialized. Use this when you want scriptable, automatable management.
-- **CLI tool** is an interactive command-line shell that communicates with the cluster through the REST API. It is bundled inside the server image, so you access it via `docker exec` on any running node. Use it for interactive sessions, SQL queries, or one-off administration. For a deeper walkthrough, see [How to Work with the GridGain CLI](../cli-tool-step-by-step.md).
+- **CLI tool** is an interactive command-line shell that communicates with the cluster through the REST API. It is bundled inside the server image, so you access it via `docker exec` on any running node. Use it for interactive sessions, SQL queries, or one-off administration. For a deeper walkthrough, see [How to Work with the GridGain CLI](cli-tool-step-by-step.md).
 
 Each step shows both management approaches where they differ.
 
@@ -453,7 +453,7 @@ Your cluster is now accepting client connections on ports 10800-10802. You can c
 
 ## Related
 
-- [How to Manage Cluster Lifecycle with the REST API](../manage-cluster-lifecycle-rest-api.md) - Monitor startup, initialize, and verify cluster health using REST endpoints.
+- [How to Manage Cluster Lifecycle with the REST API](how-to-guides/manage-cluster-lifecycle-rest-api.md) - Monitor startup, initialize, and verify cluster health using REST endpoints.
 
-- [Start Your Local GridGain 9 Development Cluster](../../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md) - Tutorial that walks through this setup with deeper context, loads the Music Store dataset, and introduces cluster concepts.
-- [How to Work with the GridGain CLI](../cli-tool-step-by-step.md) - Interactive SQL, cluster inspection, output formatting, and profiles.
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) - Tutorial that walks through this setup with deeper context, loads the Music Store dataset, and introduces cluster concepts.
+- [How to Work with the GridGain CLI](cli-tool-step-by-step.md) - Interactive SQL, cluster inspection, output formatting, and profiles.

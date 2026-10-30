@@ -146,4 +146,4 @@ The value for `--url` is resolved in the following order:
 
 ## See Also
 
-- [How to Work With the GridGain CLI](cli-tool-step-by-step.md)
+- [How to Work With the GridGain CLI](../gridgain9-get-started/cli-tool-step-by-step.md)

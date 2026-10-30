@@ -1,13 +1,14 @@
 ---
 description: >-
-  Hands-on tutorials that teach GridGain 9 by building and operating working examples, organized into learning paths.
+  Hands-on tutorials that teach GridGain 9 by building and operating working examples, organized into learning paths from SQL basics to data pipelines.
+icon: route
 ---
 
-# Tutorials
+# Learning Paths
 
 Tutorials teach by doing: each one builds or operates something end to end on a local cluster. Use the reference sections of this documentation for complete configuration details, and use these tutorials to learn how the pieces fit together.
 
-New to GridGain 9? Run the [Quick Start](../gridgain9-get-started/quick-start.md) first, then follow a learning path below. The tutorials use a shared Music Store dataset that you load in the first tutorial.
+New to GridGain 9? Run the [Quick Start](../quick-start.md) first, then follow a learning path below. The tutorials use a shared Music Store dataset that you load in the first tutorial, [Start Your Local GridGain 9 Development Cluster](../start-local-cluster.md).
 
 ## Learning Paths
 
@@ -21,7 +22,4 @@ Complete Distributed SQL Foundations before the other paths, because they build 
 
 ## How-To Guides
 
-Task-focused guides live next to the reference pages they extend:
-
-* **Development:** [Configuring Logging for the Java Thin Client](../gridgain9-development/configuring-java-client-logging.md)
-* **Management:** [Starting a Cluster With Docker Compose](../gridgain9-management/installation/start-cluster-docker-compose.md), [Working With the CLI Step by Step](../gridgain9-management/cli-tool-step-by-step.md), [Managing the Cluster Lifecycle With the REST API](../gridgain9-management/manage-cluster-lifecycle-rest-api.md), [Monitoring With Prometheus and Grafana](../gridgain9-management/monitoring/prometheus-grafana-step-by-step.md)
+Looking for a solution to one specific task, such as logging, cluster lifecycle, or monitoring? See the [How-To Guides](../how-to-guides/README.md).

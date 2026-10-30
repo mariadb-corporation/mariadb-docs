@@ -9,7 +9,7 @@ description: >-
 
 ## Prerequisites
 
-- A running 3-node cluster from [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md)
+- A running 3-node cluster from [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md)
 - **curl** and [**jq**](https://jqlang.github.io/jq/download/) for JSON parsing
 - **Ports 10300-10302** accessible on your machine
 
@@ -20,7 +20,7 @@ Every GridGain 9 node exposes a REST management API on port 10300. The API is av
 Use this guide when you need scriptable cluster management, want to diagnose startup issues, or are building automation around cluster lifecycle.
 
 {% hint style="info" %}
-If you completed [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md) and your cluster is already running, every step in this guide still works. You will see `"state": "STARTED"` instead of `"STARTING"` in Steps 1-3, and the initialization request in Step 4 returns 200 OK as a safe no-op. No need to tear down and rebuild. Follow along as-is to learn the REST endpoints.
+If you completed [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md) and your cluster is already running, every step in this guide still works. You will see `"state": "STARTED"` instead of `"STARTING"` in Steps 1-3, and the initialization request in Step 4 returns 200 OK as a safe no-op. No need to tear down and rebuild. Follow along as-is to learn the REST endpoints.
 {% endhint %}
 
 ## Check Node State
@@ -325,6 +325,6 @@ These endpoints form the foundation for scripted cluster management. You can ext
 
 ## Related
 
-- [How to Start a Cluster with Docker Compose](installation/start-cluster-docker-compose.md) - Set up the 3-node development cluster this guide manages.
+- [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md) - Set up the 3-node development cluster this guide manages.
 
-- [Start Your Local GridGain 9 Development Cluster](../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md) - Tutorial that walks through cluster setup with deeper context and loads the Music Store dataset.
+- [Start Your Local GridGain 9 Development Cluster](../start-local-cluster.md) - Tutorial that walks through cluster setup with deeper context and loads the Music Store dataset.

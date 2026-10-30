@@ -827,4 +827,4 @@ This behavior is controlled by the `autoFlushInterval` property, which is set to
 
 ## See Also
 
-- [Stream Data With the Data Streamer API](../gridgain9-tutorials/data-pipeline-apis/data-streaming.md)
+- [Stream Data With the Data Streamer API](../gridgain9-get-started/learning-paths/data-pipeline-apis/data-streaming.md)

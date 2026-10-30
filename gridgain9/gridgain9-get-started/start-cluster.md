@@ -307,4 +307,4 @@ This will stop and remove all the containers. Your data will be lost unless you 
 
 ## See Also
 
-- [Start Your Local GridGain 9 Development Cluster](../gridgain9-tutorials/distributed-sql-foundations/start-local-cluster.md)
+- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)

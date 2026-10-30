@@ -1034,4 +1034,4 @@ Happy querying!
 
 ## See Also
 
-- [Create Tables and Query Data With SQL](../gridgain9-tutorials/distributed-sql-foundations/query-music-store-sql.md)
+- [Create Tables and Query Data With SQL](learning-paths/distributed-sql-foundations/query-music-store-sql.md)

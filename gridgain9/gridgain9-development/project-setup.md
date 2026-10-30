@@ -89,5 +89,5 @@ The `gridgain-hibernate`, `spring-data-ignite`, and `spring-boot-starter-ignite-
 
 ## See Also
 
-- [How to Configure Logging for the Java Thin Client](configuring-java-client-logging.md)
-- [Connect With the Java Thin Client](../gridgain9-tutorials/distributed-sql-foundations/connect-java-thin-client.md)
+- [How to Configure Logging for the Java Thin Client](../gridgain9-get-started/how-to-guides/configuring-java-client-logging.md)
+- [Connect With the Java Thin Client](../gridgain9-get-started/learning-paths/distributed-sql-foundations/connect-java-thin-client.md)

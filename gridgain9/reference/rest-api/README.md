@@ -26,4 +26,4 @@ Authenticate GridGain 9 REST API requests using Basic authentication or token-ba
 
 ## See Also
 
-- [How to Manage Cluster Lifecycle With the REST API](../../gridgain9-management/manage-cluster-lifecycle-rest-api.md)
+- [How to Manage Cluster Lifecycle With the REST API](../../gridgain9-get-started/how-to-guides/manage-cluster-lifecycle-rest-api.md)

@@ -17,7 +17,7 @@ GridGain 9 provides the RecordView, KeyValueView, SQL, and transaction APIs used
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed** [Implement Schema with Java Annotations](schema-java-annotations.md) (you need the entity classes and familiarity with composite primary keys)
 - **Java 17+** and a Java IDE (IntelliJ IDEA, VS Code with Java extensions, or similar)
 
@@ -41,7 +41,7 @@ docker compose up -d
 
 Data persists across restarts. Wait 15-30 seconds for the nodes to rejoin, then re-run the check above.
 
-**If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize. See [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md) for the full setup process.
+**If the cluster was destroyed** (`docker compose down`), start the containers and re-initialize. See [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md) for the full setup process.
 
 </details>
 

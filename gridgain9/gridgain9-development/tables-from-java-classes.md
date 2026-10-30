@@ -210,4 +210,4 @@ Once you have created a table using the Java API, you can manipulate it using th
 
 ## See Also
 
-- [Implement Schema With Java Annotations](../gridgain9-tutorials/schema-design-for-distributed-sql/schema-java-annotations.md)
+- [Implement Schema With Java Annotations](../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-java-annotations.md)

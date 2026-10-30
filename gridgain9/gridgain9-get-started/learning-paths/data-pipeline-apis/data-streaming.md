@@ -15,7 +15,7 @@ This tutorial builds a commerce data generator that streams Customer, Invoice, a
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed** [Connect With the Java Thin Client](../distributed-sql-foundations/connect-java-thin-client.md) (familiarity with `IgniteClient`, `RecordView`, and `Tuple`)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -60,8 +60,8 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 
 Download the schema and data files:
 
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-schema.sql](../../../.gitbook/assets/music-store-schema.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 Copy the files into the container and load them:
 
@@ -1566,4 +1566,4 @@ The patterns from this tutorial apply wherever individual writes are too slow:
 
 The `commerce-data-generator.jar` used in the schema design tutorial applies the same pattern at 50,000 customers, producing over 2.5 million rows.
 
-**What's next.** To process data where it lives instead of moving it to the client, see [About Distributed Computing](../../gridgain9-development/distributed-computing/about-distributed-computing.md).
+**What's next.** To process data where it lives instead of moving it to the client, see [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md).

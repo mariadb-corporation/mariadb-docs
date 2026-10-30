@@ -17,7 +17,7 @@ This tutorial starts with the API mechanics (operations, conditionals, bulk proc
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed** [Connect with the Java Thin Client](connect-java-thin-client.md) (familiarity with the thin client, Maven project setup, and RecordView basics)
 - **Java 17** or later
 - **Maven 3.8** or later
@@ -62,8 +62,8 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 
 Download the schema and data files:
 
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-schema.sql](../../../.gitbook/assets/music-store-schema.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 Copy the files into the container and load them:
 
@@ -1510,6 +1510,6 @@ All operations in this tutorial used implicit transactions (the `null` transacti
 
 ## Related
 
-- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
+- [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the thin client connection patterns and Table package hierarchy
-- [How to Configure Logging for the Java Thin Client](../../gridgain9-development/configuring-java-client-logging.md) for controlling log output in your application
+- [How to Configure Logging for the Java Thin Client](../../how-to-guides/configuring-java-client-logging.md) for controlling log output in your application

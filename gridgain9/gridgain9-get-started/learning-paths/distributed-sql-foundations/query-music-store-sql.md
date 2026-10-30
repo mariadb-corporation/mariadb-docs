@@ -7,12 +7,12 @@ description: >-
 
 ## Introduction
 
-A multi-table JOIN in a single-node database is straightforward. In a distributed cluster, the same JOIN might execute locally on each node or move data across the network. The difference depends on how you designed your schema: colocation applies only between tables that are partitioned by the same join key. In this tutorial, you run both kinds of joins against the Music Store dataset from the [first tutorial](start-local-cluster.md), read the EXPLAIN plans, and see exactly where the data moves.
+A multi-table JOIN in a single-node database is straightforward. In a distributed cluster, the same JOIN might execute locally on each node or move data across the network. The difference depends on how you designed your schema: colocation applies only between tables that are partitioned by the same join key. In this tutorial, you run both kinds of joins against the Music Store dataset from the [first tutorial](../../start-local-cluster.md), read the EXPLAIN plans, and see exactly where the data moves.
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset loaded** from [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
-- Familiarity with the GridGain CLI. See [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full reference.
+- **A running 3-node cluster with the Music Store dataset loaded** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
+- Familiarity with the GridGain CLI. See [How to Work with the GridGain CLI](../../cli-tool-step-by-step.md) for the full reference.
 
 <details>
 <summary>Returning to these tutorials? Verify your environment.</summary>
@@ -54,8 +54,8 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 
 Download the schema and data files:
 
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-schema.sql](../../../.gitbook/assets/music-store-schema.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 Copy the files into the container and load them:
 
@@ -596,7 +596,7 @@ Read the plan from bottom to top. Two `TableScan` operators read ALBUM and ARTIS
 
 **Exchange** is the network operator. It transfers rows between nodes. Every Exchange in a plan represents data moving across the network. Its position relative to join operators tells you whether the engine moved data *before* the join (expensive: shuffles raw rows) or *after* (cheap: collects final results).
 
-For the full operator reference, see the [EXPLAIN operators reference](../../reference/sql/explain-operators-list.md).
+For the full operator reference, see the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md).
 {% endhint %}
 
 In Step 4, the single-table plan had one `Exchange` that collected results. The two-table plan also has one Exchange, at the top, because Artist and Album are colocated by the join key. The three-table plan has more `Exchange` operators, including one between the Artist-Album join and the Track join that redistributes rows by `AlbumId`, because Track is partitioned by `AlbumId`, not `ArtistId`. Colocation helps the join it was designed for and does not extend to the next table.
@@ -851,7 +851,7 @@ This is a map-reduce pattern: compute locally, combine centrally.
 
 **ReduceHashAggregate** collects those partial results across the Exchange and combines them into the final answer.
 
-This two-phase pattern means each node processes only its own partition, regardless of cluster size. See the [EXPLAIN operators reference](../../reference/sql/explain-operators-list.md) for the full list of aggregation operators.
+This two-phase pattern means each node processes only its own partition, regardless of cluster size. See the [EXPLAIN operators reference](../../../reference/sql/explain-operators-list.md) for the full list of aggregation operators.
 {% endhint %}
 
 Combine the three-table join with aggregation to rank the top 10 artists by catalog value:
@@ -953,7 +953,7 @@ Data locality is the thread running through every plan you read in this tutorial
 - **Map-reduce aggregation** computes partial results locally, then combines them across the Exchange.
 - **Primary key operations** route directly to the node that owns the key.
 
-The same principle extends beyond SQL: the Compute API pushes application code to the node that owns the data, eliminating the network round-trip. See [About Distributed Computing](../../gridgain9-development/distributed-computing/about-distributed-computing.md) for that pattern.
+The same principle extends beyond SQL: the Compute API pushes application code to the node that owns the data, eliminating the network round-trip. See [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md) for that pattern.
 
 The cluster and dataset are ready for the next step: writing a Java application that connects to the cluster and works with the same data through the thin client API.
 
@@ -963,7 +963,7 @@ Continue to [Connect with the Java Thin Client](connect-java-thin-client.md) to 
 
 ## Related
 
-- [Start Your Local GridGain 9 Development Cluster](start-local-cluster.md) for the cluster setup and dataset loading this tutorial builds on
-- [How to Work with the GridGain CLI](../../gridgain9-management/cli-tool-step-by-step.md) for the full CLI reference: file loading, output formatting, cluster inspection
+- [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md) for the cluster setup and dataset loading this tutorial builds on
+- [How to Work with the GridGain CLI](../../cli-tool-step-by-step.md) for the full CLI reference: file loading, output formatting, cluster inspection
 
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the Java thin client, Table API, and RecordView

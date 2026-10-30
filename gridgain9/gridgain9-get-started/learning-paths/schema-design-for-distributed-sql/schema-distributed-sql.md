@@ -14,7 +14,7 @@ A distributed database changes that equation. Every table is split into partitio
 
 ## Prerequisites
 
-- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../distributed-sql-foundations/start-local-cluster.md)
+- **A running 3-node cluster with the Music Store dataset** from [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md)
 - **Completed the Foundations path:** [Create Tables and Query Data with SQL](../distributed-sql-foundations/query-music-store-sql.md) and [Use Transactions in GridGain 9](../distributed-sql-foundations/use-transactions.md)
 
 <details>
@@ -57,8 +57,8 @@ curl -X POST http://localhost:10300/management/v1/cluster/init \
 
 Download the schema and data files:
 
-* [music-store-schema.sql](../../.gitbook/assets/music-store-schema.sql)
-* [music-store-data.sql](../../.gitbook/assets/music-store-data.sql)
+* [music-store-schema.sql](../../../.gitbook/assets/music-store-schema.sql)
+* [music-store-data.sql](../../../.gitbook/assets/music-store-data.sql)
 
 Copy the files into the container and load them:
 
@@ -781,7 +781,7 @@ With 59 customers and 2,240 invoice lines, every query runs fast regardless of h
 
 Download the commerce data generator and run it against your cluster. The generator uses the Data Streamer API to load 3.4 million rows in well under a minute (about 17 seconds in our test run):
 
-* [commerce-data-generator.jar](../../.gitbook/assets/commerce-data-generator.jar)
+* [commerce-data-generator.jar](../../../.gitbook/assets/commerce-data-generator.jar)
 
 ```bash
 java -jar commerce-data-generator.jar --customers 50000

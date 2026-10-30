@@ -95,12 +95,60 @@ How to start and manage a GridGain 9 cluster from a Java project using embedded 
 
 {% columns %}
 {% column %}
-{% content-ref url="../gridgain9-tutorials/" %}
-[Tutorials](../gridgain9-tutorials/)
+{% content-ref url="start-local-cluster.md" %}
+[Start Your Local GridGain 9 Development Cluster](start-local-cluster.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Hands-on tutorials that take you from a local cluster to SQL, the Java thin client, transactions, schema design, and data streaming.
+Start a local GridGain 9 cluster and load the Music Store dataset used by the tutorials.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="start-cluster-docker-compose.md" %}
+[How to Start a Cluster With Docker Compose](start-cluster-docker-compose.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Start a 3-node GridGain 9 cluster for development using Docker Compose.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="cli-tool-step-by-step.md" %}
+[How to Work With the GridGain CLI](cli-tool-step-by-step.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Connect to a cluster, execute SQL, and manage cluster state using the GridGain 9 command-line interface.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="learning-paths/" %}
+[Learning Paths](learning-paths/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Tutorials that take you from a local cluster to SQL, the Java thin client, transactions, schema design, and data streaming.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="how-to-guides/" %}
+[How-To Guides](how-to-guides/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Task-focused guides for logging, cluster lifecycle, and monitoring.
 {% endcolumn %}
 {% endcolumns %}

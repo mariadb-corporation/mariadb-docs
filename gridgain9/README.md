@@ -43,18 +43,6 @@ A step-by-step introduction to GridGain 9: start a cluster, run SQL, persist dat
 
 {% columns %}
 {% column %}
-{% content-ref url="gridgain9-tutorials/" %}
-[Tutorials](gridgain9-tutorials/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Hands-on tutorials that take you from a local cluster to SQL, the Java thin client, transactions, schema design, and data streaming.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="architecture/" %}
 [Architecture](architecture/)
 {% endcontent-ref %}
