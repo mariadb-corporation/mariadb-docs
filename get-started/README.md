@@ -96,7 +96,7 @@ sudo mariadb
 
 Your distribution's package might be a few releases behind. To get the current release, [add the MariaDB package repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) first.
 
-A package install gives `root` no password. The `root` account signs in through Unix socket authentication, so open the client with `sudo mariadb`, and run the step 3 script after the [Server](readme/community-server.md) page creates the `shop_app` account.
+A package install gives `root` no password. The `root` account signs in through Unix socket authentication, so open the client with `sudo mariadb`, and run the step 3 script after the [Server](choose-your-path/community-server.md) page creates the `shop_app` account.
 {% endtab %}
 
 {% tab title="Cloud" %}
@@ -112,7 +112,7 @@ mariadb --host <host> --port <port> \
 
 The [MariaDB Cloud quickstart]({mariadb-cloud}/quickstart/using-the-portal) walks through each screen, and [Configuring Firewall]({mariadb-cloud}/security/configuring-firewall) covers the allowlist.
 
-In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](readme/cloud.md) page shows the full script.
+In steps 2 and 3, use the host, port, user, and password from the **Connect** dialog, and turn on TLS in the script with `ssl_verify_cert=True`. The [Cloud](choose-your-path/cloud.md) page shows the full script.
 {% endtab %}
 
 {% tab title="Kubernetes" %}

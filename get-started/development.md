@@ -17,7 +17,7 @@ The order itself raises two more problems. The sale has to record the order and 
 {% step %}
 ### Use a Connection Pool
 
-A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. The examples connect as the `shop_app` account from the [Server](readme/community-server.md) page. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
+A connection pool opens a set of connections once and lends them out, so each checkout borrows one instead of logging in again. The examples connect as the `shop_app` account from the [Server](choose-your-path/community-server.md) page. In MariaDB Connector/Python 1.1, the `ConnectionPool` class holds up to 64 connections, and calling `close()` on a pooled connection hands it back to the pool. The `connectionLimit` option in MariaDB Connector/Node.js and the `maxPoolSize` option in MariaDB Connector/J set the same cap.
 
 {% tabs %}
 {% tab title="Python" %}
