@@ -76,7 +76,7 @@ MariaDB Corporation offers vendor support for MariaDB Enterprise Server, includi
 * [Professional services](https://mariadb.com/services), including migration services, remote DBA services, and consulting
 * Customer communications, managed via the [MariaDB Customer Portal](https://customers.mariadb.com/)
 * [Training](https://mariadb.com/services/training)
-* [Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1/)
+* [Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/1H8tuThi64HJmOJHG6nV/)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
