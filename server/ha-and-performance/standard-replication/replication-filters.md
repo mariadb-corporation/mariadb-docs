@@ -25,7 +25,7 @@ The following options are available, and they are evaluated in the order that th
 
 The [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](replication-overview.md) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
 
-This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
+This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), or with cross-database DDL statements in any logging format, because DDL statements are always logged in statement format. See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
 This option cannot be set dynamically.
 
@@ -48,7 +48,7 @@ This will tell the primary to do the following:
 
 The [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](replication-overview.md) to **not** write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
 
-This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
+This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), or with cross-database DDL statements in any logging format, because DDL statements are always logged in statement format. See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
 This option cannot be set dynamically.
 
@@ -421,6 +421,10 @@ When an event is logged in its statement-based format, many replication filters 
 * [replicate\_rewrite\_db](replication-filters.md#replicate_rewrite_db)
 * [replicate\_do\_db](replication-filters.md#replicate_do_db)
 * [replicate\_ignore\_db](replication-filters.md#replicate_ignore_db)
+
+DDL statements, such as `CREATE TABLE`, are always logged in statement format, even when [binlog\_format](replication-and-binary-log-system-variables.md#binlog_format) is `ROW`. So the `binlog_do_db` and `binlog_ignore_db` filters always test DDL statements against the default database.
+
+If no default database is selected, [binlog\_ignore\_db](replication-filters.md#binlog_ignore_db) doesn't filter the statement out, and [binlog\_do\_db](replication-filters.md#binlog_do_db) does.
 
 When an event is logged in its statement-based format, many replication filters that affect a table will test the filter against the table in the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement). This applies to the following replication filters:
 
