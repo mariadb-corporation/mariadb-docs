@@ -71,6 +71,24 @@ You cannot **Clone** or **Clone and Deploy** units that were deployed via the CL
 
 ![Create draft from CLI-deployed unit](../../../../.gitbook/assets/cc-gg9-du_cli_unit_draft.png)
 
+### Pre-deployed Unit
+
+A GridGain 9 cluster includes one built-in deployment unit with GridGain 8 libraries that the nodes need for Change Data Capture (CDC) replication to a GridGain 8 cluster. For more information, see [Change Data Capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture).
+
+![Pre-deployed deployment unit](../../../../.gitbook/assets/cc-gg9-du_static_unit.png)
+
+{% hint style="warning" %}
+Keep this unit if you use CDC replication to GridGain 8. If you remove it, the node does not restore it on restart, and CDC replication cannot start until you redeploy the unit with the CLI as shown below.
+{% endhint %}
+
+For example, to redeploy the unit:
+
+```bash
+cluster unit deploy static-gridgain8-shaded --version $UNIT_VERSION --path $INSTALLATION_DIR/deployment/static-gridgain8-shaded/$UNIT_VERSION
+```
+
+Here `$INSTALLATION_DIR` refers to the installation directory, and `$UNIT_VERSION` is the version of the unit.
+
 ### Version History
 
 Control Center keeps a complete history of all deployment unit versions in the **Version History** table.
