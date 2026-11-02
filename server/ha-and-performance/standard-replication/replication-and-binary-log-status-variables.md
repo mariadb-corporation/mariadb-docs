@@ -13,7 +13,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 The following status variables are useful in [binary logging](../../server-management/server-monitoring-logs/binary-log/) and [replication](./). See [Server Status Variables](../optimization-and-tuning/system-variables/server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-status.md).
 
-See also the [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+See also the [Full list of MariaDB options, system and status variables](../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `Binlog_bytes_written`
 
@@ -44,7 +44,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 * Description: If [max-binlog-total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size) is not set to zero, shows the space usage of the binary log in bytes.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `Binlog_group_commit_trigger_count`
 
@@ -72,17 +72,17 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Binlog_gtid_index_hit`
 
-* Description: Incremented for each successful lookup in a [GTID index](gtid/README.md#binlog-indexing).
+* Description: Incremented for each successful lookup in a [GTID index](gtid/#binlog-indexing).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `Binlog_gtid_index_miss`
 
-* Description: Incremented when a [GTID index](gtid/README.md#binlog-indexing) lookup is not possible, which indicates that the index file is missing (eg. binlog written by old server version without GTID index support), or corrupt.
+* Description: Incremented when a [GTID index](gtid/#binlog-indexing) lookup is not possible, which indicates that the index file is missing (eg. binlog written by old server version without GTID index support), or corrupt.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `Binlog_snapshot_file`
 
@@ -119,7 +119,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
+* Introduced: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.2-release-notes)
 
 #### `Com_show_slave_hosts`
 
@@ -241,7 +241,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Transactions_gtid_foreign_engine`
 
-* Description: Number of replicated transactions where the update of the `gtid_slave_pos` table had to choose a storage engine that did not otherwise participate in the transaction. This can indicate that setting [gtid\_pos\_auto\_engines](gtid/README.md) might be useful. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of replicated transactions where the update of the `gtid_slave_pos` table had to choose a storage engine that did not otherwise participate in the transaction. This can indicate that setting [gtid\_pos\_auto\_engines](gtid/) might be useful. The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 

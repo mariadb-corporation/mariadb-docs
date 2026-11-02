@@ -19,7 +19,7 @@ variable_assignment:
 
 ![Railroad diagram of SET](../../../../.gitbook/assets/set-railroad.svg)
 
-![Railroad diagram of variable_assignment](../../../../.gitbook/assets/set-variable-assignment-railroad.svg)
+![Railroad diagram of variable\_assignment](../../../../.gitbook/assets/set-variable-assignment-railroad.svg)
 
 One can also set a user variable in any expression with this syntax:
 
@@ -165,7 +165,7 @@ SELECT @a;
 
 * [Using last\_value() to return data of used rows](../../../sql-functions/secondary-functions/information-functions/last_value.md)
 * [SET STATEMENT](set-statement.md)
-* [SET Variable](../../programmatic-compound-statements/set-variable.md)
+* [SET Variable](set-variable.md)
 * [SET Data Type](../../../data-types/string-data-types/set-data-type.md)
 * [DECLARE Variable](../../programmatic-compound-statements/declare-variable.md)
 

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Check out the MariaDB Server source code from GitHub, find source tarballs
-  for released versions, and see which branches development happens on.
+  Check out the MariaDB Server source code from GitHub, find source tarballs for
+  released versions, and see which branches development happens on.
 ---
 
 # MariaDB Source Code
@@ -40,7 +40,7 @@ Source repositories for the MariaDB Connectors are:
 See also:
 
 * [Using git](../../../reference/product-development/server-development/tools/using-git-with-mariadb/using-git.md) page for instructions on how to use git to check out the source code and switch between the various branches.
-* [Compiling MariaDB from source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/)
+* [Compiling MariaDB from source](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/)
 
 {% hint style="danger" %}
 The rest of this page contains information on checking out the MariaDB source from Launchpad. As the current source is now on GitHub, the information is mainly of historical interest and not useful for current development.
@@ -106,12 +106,11 @@ bzr log | less
 ```
 
 1. If you are going to be hacking on the MariaDB source code. See the [Contributing Code](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/contributing-participating/contributing-code) page for help.
-2. If you just want to compile MariaDB at this point, see the [Compiling MariaDB](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) page.
+2. If you just want to compile MariaDB at this point, see the [Compiling MariaDB](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) page.
 
 ## Source Tree Tarball
 
-For those that have trouble branching MariaDB from Launchpad we have created a
-tarball of a complete repository of the MariaDB tree.
+For those that have trouble branching MariaDB from Launchpad we have created a tarball of a complete repository of the MariaDB tree.
 
 ### Prerequisites
 
@@ -123,17 +122,9 @@ You need Bazaar to work with the repository.
 
 * The file is 267MB, so the download may take a long time to complete depending on your Internet connection.
 
-1. The .tgz file contains a .bzr directory. The parent directory of
-   this .bzr directory is (or becomes) a shared repository containing the\
-   MariaDB source code. It is recommended to create a new directory for
-   this, so the next step is to create a directory to house the
-   repository. Call this directory anything you like ("maria", "mariadb",\
-   "my", "src", etc...). Once created, cd into the directory and untar
-   the file. Here is an example using the name "mariadb" for the new
-   directory, with the directory located in a directory called "src" in
-   the home directory of the current user, and the
-   mariadb-shared-repo.tgz file located in a directory named Downloads
-   (also in the current user's home directory):
+1. The .tgz file contains a .bzr directory. The parent directory of this .bzr directory is (or becomes) a shared repository containing the\
+   MariaDB source code. It is recommended to create a new directory for this, so the next step is to create a directory to house the repository. Call this directory anything you like ("maria", "mariadb",\
+   "my", "src", etc...). Once created, cd into the directory and untar the file. Here is an example using the name "mariadb" for the new directory, with the directory located in a directory called "src" in the home directory of the current user, and the mariadb-shared-repo.tgz file located in a directory named Downloads (also in the current user's home directory):
 
 ```
 mariadbdir="mariadb"
@@ -145,9 +136,7 @@ cd ${mariadbdir}
 tar -zxvf ${downloadsdir}/mariadb-shared-repo.tgz
 ```
 
-1. After the untar step you will have a bzr shared repository, but not
-   a working tree. While in the shared repository directory, use the`bzr branch` command to branch the MariaDB trees you are
-   interested in. For example:
+1. After the untar step you will have a bzr shared repository, but not a working tree. While in the shared repository directory, use the`bzr branch` command to branch the MariaDB trees you are interested in. For example:
 
 * `bzr branch lp:maria`
 
@@ -163,15 +152,12 @@ bzr pull
 
 ## Alternate Bazaar Instructions
 
-The following alternative instructions are what we have used for setting up
-repositories on our build machines in [buildbot](../../../reference/product-development/server-development/tools/buildbot/about-buildbot.md).
+The following alternative instructions are what we have used for setting up repositories on our build machines in [buildbot](../../../reference/product-development/server-development/tools/buildbot/about-buildbot.md).
 
 ### Shell Variables
 
-To streamline later steps, we start by setting several shell variables. Set the
-values of the BZR and WORK\_DIR variables to the appropriate values for your\
-Linux distribution. The rest of the variables in this section should not need
-to be changed.
+To streamline later steps, we start by setting several shell variables. Set the values of the BZR and WORK\_DIR variables to the appropriate values for your\
+Linux distribution. The rest of the variables in this section should not need to be changed.
 
 #### Binaries:
 

@@ -43,8 +43,7 @@ For other storage engines, `TRUNCATE TABLE` differs from`DELETE` in the followin
 * Truncation operations cannot be performed if the session holds an active table lock.
 * Truncation operations do not return a meaningful value for the number of deleted rows. The usual result is "0 rows affected," which should be interpreted as "no information."
 * As long as the table format file `tbl_name.frm` is valid, the table can be re-created as an empty table with `TRUNCATE TABLE`, even if the data or index files have become corrupted.
-* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting
-  from the beginning. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.
+* The table handler does not remember the last used [AUTO\_INCREMENT](../../data-types/auto_increment.md) value, but starts counting from the beginning. This is true even for MyISAM and InnoDB, which normally do not reuse sequence values.
 * When used with partitioned tables, `TRUNCATE TABLE` preserves the partitioning; that is, the data and index files are dropped and re-created, while the partition definitions (.par) file is unaffected.
 * Since truncation of a table does not make any use of `DELETE`, the `TRUNCATE` statement does not invoke `ON DELETE` triggers.
 * `TRUNCATE TABLE` will only reset the values in the [Performance Schema summary tables](../../system-tables/performance-schema/performance-schema-tables/list-of-performance-schema-tables.md) to zero or null, and will not remove the rows.
@@ -65,7 +64,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../transactions/wait-and-nowait
 
 ### Oracle-mode
 
-[Oracle-mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) permits the optional keywords `REUSE STORAGE` or `DROP STORAGE` to be used.
+[Oracle-mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) permits the optional keywords `REUSE STORAGE` or `DROP STORAGE` to be used.
 
 ```sql
 TRUNCATE [TABLE] tbl_name [{DROP | REUSE} STORAGE] [WAIT n | NOWAIT]
@@ -86,7 +85,7 @@ Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engine
 ## See Also
 
 * [TRUNCATE function](../../sql-functions/numeric-functions/truncate.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

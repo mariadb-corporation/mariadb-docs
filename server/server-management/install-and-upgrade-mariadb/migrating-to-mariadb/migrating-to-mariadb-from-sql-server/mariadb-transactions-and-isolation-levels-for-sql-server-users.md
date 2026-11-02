@@ -145,7 +145,7 @@ See [check\_constraint\_checks](../../../../ha-and-performance/optimization-and-
 
 ## Isolation Levels and Locks
 
-For more information about MariaDB isolation levels see [SET TRANSACTION](../../../../reference/sql-statements/transactions/set-transaction.md).
+For more information about MariaDB isolation levels see [SET TRANSACTION](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set-transaction.md).
 
 ### Locking Reads
 
@@ -155,7 +155,7 @@ As a general rule:
 * To force a read to acquire a shared lock, use [SELECT ... LOCK IN SHARE MODE](../../../../reference/sql-statements/data-manipulation/selecting-data/lock-in-share-mode.md).
 * To force a read to acquire an exclusive lock, use [SELECT ... FOR UPDATE](../../../../reference/sql-statements/data-manipulation/selecting-data/for-update.md).
 
-The locks that a locking read acquires do depend on the isolation level. InnoDB takes no [gap locks](../../../../server-usage/storage-engines/innodb/innodb-lock-modes.md#gap-locks) at `READ COMMITTED` or `READ UNCOMMITTED`, so a locking read at those levels locks the index records it examines but not the gaps between them. See [Gap Locking at READ COMMITTED](../../../../reference/sql-statements/transactions/set-transaction.md#gap-locking-at-read-committed).
+The locks that a locking read acquires do depend on the isolation level. InnoDB takes no [gap locks](../../../../server-usage/storage-engines/innodb/innodb-lock-modes.md#gap-locks) at `READ COMMITTED` or `READ UNCOMMITTED`, so a locking read at those levels locks the index records it examines but not the gaps between them. See [Gap Locking at READ COMMITTED](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set-transaction.md#gap-locking-at-read-committed).
 
 `SERIALIZABLE` is the other level at which reads behave differently: within a transaction, InnoDB treats a plain `SELECT` as `LOCK IN SHARE MODE`. A consistent read run with `autocommit=1` is exempt, because a read-only transaction can be serialized as a consistent read.
 
@@ -163,7 +163,7 @@ The locks that a locking read acquires do depend on the isolation level. InnoDB 
 
 The default isolation level in MariaDB is `REPEATABLE READ`. This can be changed with the [transaction\_isolation](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_isolation) system variable. The older name `tx_isolation` still works, but has been deprecated since MariaDB 11.1 and produces a warning.
 
-Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems, since it is the level closest to the SQL Server default. Do not switch to it as a scalability measure, though, because neither level is uniformly faster: `READ COMMITTED` creates a new read view at the start of every statement, which costs more in a transaction made of many short statements and less in a long-running transaction made of complex ones. See [Choosing an Isolation Level](../../../../reference/sql-statements/transactions/set-transaction.md#choosing-an-isolation-level).
+Applications developed for SQL Server and later ported to MariaDB may run with `READ COMMITTED` without problems, since it is the level closest to the SQL Server default. Do not switch to it as a scalability measure, though, because neither level is uniformly faster: `READ COMMITTED` creates a new read view at the start of every statement, which costs more in a transaction made of many short statements and less in a long-running transaction made of complex ones. See [Choosing an Isolation Level](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set-transaction.md#choosing-an-isolation-level).
 
 To use `READ COMMITTED` by default, add the following line to the MariaDB configuration file:
 

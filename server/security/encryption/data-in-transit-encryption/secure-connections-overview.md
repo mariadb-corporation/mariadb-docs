@@ -7,7 +7,7 @@ description: >-
 
 # Secure Connections Overview
 
-Prior to [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), by default, MariaDB transmits data between the server and clients without encrypting it. This is generally acceptable when the server and client run on the same host or in networks where security is guaranteed through other means. However, in cases where the server and client exist on separate networks or they are in a high-risk network, the lack of encryption does introduce security concerns as a malicious actor could potentially eavesdrop on the traffic as it is sent over the network between them.
+Prior to [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements), by default, MariaDB transmits data between the server and clients without encrypting it. This is generally acceptable when the server and client run on the same host or in networks where security is guaranteed through other means. However, in cases where the server and client exist on separate networks or they are in a high-risk network, the lack of encryption does introduce security concerns as a malicious actor could potentially eavesdrop on the traffic as it is sent over the network between them.
 
 To mitigate this concern, MariaDB allows you to encrypt data in transit between the server and clients using the Transport Layer Security (TLS) protocol. TLS was formerly known as Secure Socket Layer (SSL), but strictly speaking the SSL protocol is a predecessor to TLS and, that version of the protocol is now considered insecure. The documentation still uses the term SSL often and for compatibility reasons TLS-related server system and status variables still use the prefix `ssl_`, but internally, MariaDB only supports its secure successors.
 
@@ -194,15 +194,15 @@ openssl rehash /etc/my.cnf.d/certificates/crl/
 
 Normally the TLS implementation performs numerous checks to verify whether the certificate is valid. It should be within its validity period, not revoked, signed by a trusted certificate authority, belong to the host that uses it.
 
-[Clients and utilities](../../../clients-and-utilities/) enable all these checks by default. Last two checks can be disabled with an option, such as `disable-ssl-verify-server-cert`. Before [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), all server certificate verification checks were disabled by default, and could be enabled with the `ssl-verify-server-cert` option.
+[Clients and utilities](../../../clients-and-utilities/) enable all these checks by default. Last two checks can be disabled with an option, such as `disable-ssl-verify-server-cert`. Before [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3-changes-and-improvements), all server certificate verification checks were disabled by default, and could be enabled with the `ssl-verify-server-cert` option.
 
 To verify whether the server's certificate belong to server's host, [clients and utilities](../../../clients-and-utilities/) will check the **Common Name (CN)** attribute located in the [**Subject**](https://tools.ietf.org/html/rfc5280#section-4.1.2.6) field of the certificate against the server's host name and IP address. If the **Common Name (CN)** matches either of those, then the certificate is verified.
 
 #### Server Certificate Verification with Subject Alternative Names (SANs)
 
-The [**Subject Alternative Name (SAN)**](https://tools.ietf.org/html/rfc5280#section-4.2.1.6) field, which is an X.509v3 extension, can also be used for server certificate verification, if it is present in the server certificate. This field is also sometimes called **subjectAltName**. When using a [client or utility](../../../clients-and-utilities/README.md) that supports server certificate verification with **subjectAltName** fields, if the server certificate contains any **subjectAltName** fields, then those fields will also be checked against the server's host name and IP address.
+The [**Subject Alternative Name (SAN)**](https://tools.ietf.org/html/rfc5280#section-4.2.1.6) field, which is an X.509v3 extension, can also be used for server certificate verification, if it is present in the server certificate. This field is also sometimes called **subjectAltName**. When using a [client or utility](../../../clients-and-utilities/) that supports server certificate verification with **subjectAltName** fields, if the server certificate contains any **subjectAltName** fields, then those fields will also be checked against the server's host name and IP address.
 
-Whether server certificate verification with **subjectAltName** fields is supported depends on the underlying TLS library used by the [client or utility](../../../clients-and-utilities/README.md).
+Whether server certificate verification with **subjectAltName** fields is supported depends on the underlying TLS library used by the [client or utility](../../../clients-and-utilities/).
 
 See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
@@ -244,7 +244,7 @@ The server verifies a client certificate by checking the client's known `SUBJECT
 * [Replication with Secure Connections](replication-with-secure-connections.md)
 * [Securing Communications in Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 * [SSL/TLS System Variables](ssltls-system-variables.md)
-* [Data-at-Rest Encryption](../data-at-rest-encryption/README.md)
+* [Data-at-Rest Encryption](../data-at-rest-encryption/)
 * [Cyberciti tutorial: How to set up MariaDB SSL and secure connections from clients](https://www.cyberciti.biz/faq/how-to-setup-mariadb-ssl-and-secure-connections-from-clients/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -14,7 +14,7 @@ Other recent versions of Boost, Judy or MSVC may work but these combinations hav
 
 * Download the source package for Boost 1.55 from the Boost project website, [www.boost.org](https://www.boost.org)
 * Download the source package for Judy 1.05 via
-* Follow the documented instructions for building under Windows from the command line: [Building\_MariaDB\_on\_Windows](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
+* Follow the documented instructions for building under Windows from the command line: [Building\_MariaDB\_on\_Windows](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
   * Ensure that the following variable is set to CMAKE: `JUDY_ROOT=path\to\judy\unzipped`
   * See also comments in `storage/oqgraph/cmake/FindJudy.cmake`
 

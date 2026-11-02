@@ -21,7 +21,7 @@ The precedence of the `NOT` operator can also be affected by the `HIGH_NOT_PRECE
 
 ## Other uses
 
-Parentheses must always be used to enclose [subqueries](../../../sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/).
+Parentheses must always be used to enclose [subqueries](../../../sql-statements/data-manipulation/selecting-data/subqueries/).
 
 Parentheses can also be used in a [JOIN](../../../sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) statement between multiple tables to determine which tables must be joined first.
 

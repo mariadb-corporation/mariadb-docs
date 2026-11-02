@@ -262,13 +262,13 @@ SELECT * FROM nulltest;
 
 ## Oracle Compatibility
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `NULL` can be used as a statement:
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `NULL` can be used as a statement:
 
 ```sql
 IF a=10 THEN NULL; ELSE NULL; END IF
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), [CONCAT](../sql-functions/string-functions/concat.md) and the [Logical OR operator ||](../sql-structure/operators/logical-operators/or.md) ignore [null](null-values.md).
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), [CONCAT](../sql-functions/string-functions/concat.md) and the [Logical OR operator ||](../sql-structure/operators/logical-operators/or.md) ignore [null](null-values.md).
 
 When setting [sql\_mode=EMPTY\_STRING\_IS\_NULL](../../server-management/variables-and-modes/sql_mode.md), empty strings and `NULL` values are the same thing.
 
@@ -290,7 +290,7 @@ INSERT INTO t1 VALUES (''); -- inserts NULL
 * [IFNULL function](../sql-functions/control-flow-functions/ifnull.md)
 * [NULLIF function](../sql-functions/control-flow-functions/nullif.md)
 * [CONNECT data types](../../server-usage/storage-engines/connect/connect-data-types.md#null-handling)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -7,7 +7,7 @@ description: >-
 # TO\_CHAR
 
 {% hint style="info" %}
-`TO_CHAR` is available from [MariaDB 10.6.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
+`TO_CHAR` is available from [MariaDB 10.6.](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements)
 {% endhint %}
 
 ## Syntax
@@ -214,7 +214,7 @@ SELECT TO_CHAR('21-01-03 08:30:00', 'Y-MONTH-DY HH:MI:SS');
 
 ## See Also
 
-* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

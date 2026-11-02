@@ -6,7 +6,7 @@ description: Reference for the system variables that configure the CONNECT stora
 
 This page documents system variables related to the [CONNECT storage engine](./). See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for instructions on setting them.
 
-See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+See also the [Full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `connect_class_path`
 
@@ -45,7 +45,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value:`5`
 * Range: `-1` to `16`
-* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16)
+* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.7-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.16-release-notes)
 
 #### `connect_default_prec`
 
@@ -56,7 +56,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value:`6`
 * Range: `0` to `16`
-* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18)
+* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.9-release-notes), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.18-release-notes)
 
 #### `connect_enable_mongo`
 
@@ -66,7 +66,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic:
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9)
+* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.9-release-notes)
 
 #### `connect_exact_info`
 
@@ -85,7 +85,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.18)
+* Introduced: [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.9-release-notes), [MariaDB 10.4.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.18-release-notes)
 
 #### `connect_indx_map`
 
@@ -114,7 +114,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16)
+* Introduced: [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.7-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.16-release-notes)
 
 #### `connect_json_grp_size`
 

@@ -16,7 +16,7 @@ In MariaDB, XA transactions can only be used with storage engines that support t
 
 Like regular transactions, XA transactions create [metadata locks](metadata-locking.md) on accessed tables.
 
-XA transactions require [REPEATABLE READ](set-transaction.md#repeatable-read) as a minimum isolation level. However, distributed transactions should always use [SERIALIZABLE](set-transaction.md#serializable).
+XA transactions require [REPEATABLE READ](../administrative-sql-statements/set-commands/set-transaction.md#repeatable-read) as a minimum isolation level. However, distributed transactions should always use [SERIALIZABLE](../administrative-sql-statements/set-commands/set-transaction.md#serializable).
 
 Trying to start more than one XA transaction at the same time produces a 1400 error ([SQLSTATE](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/sqlstate.md) 'XAE09'). The same error is produced when attempting to start an XA transaction while a regular transaction is in effect. Trying to start a regular transaction while an XA transaction is in effect produces a 1399 error ([SQLSTATE](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/sqlstate.md) 'XAE07').
 

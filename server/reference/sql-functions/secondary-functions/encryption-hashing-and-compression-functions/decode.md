@@ -12,7 +12,7 @@ description: >-
 DECODE(crypt_str,pass_str)
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle):
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle):
 
 ```sql
 DECODE(expr, search_expr, result_expr [, search_expr2, result_expr2 ...] [default_expr])
@@ -28,7 +28,7 @@ DECODE_ORACLE(expr, search_expr, result_expr [, search_expr2, result_expr2 ...] 
 
 In the default mode, `DECODE` decrypts the encrypted string <kbd>_crypt\_str_</kbd> using <kbd>_pass\_str_</kbd> as the password. _crypt\_str_ should be a string returned from [ENCODE()](encode.md). The resulting string will be the original string only if <kbd>_pass\_str_</kbd> is the same.
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `DECODE` compares <kbd>_expr_</kbd> to the search expressions, in order. If it finds a match, the corresponding result expression is returned. If no matches are found, the default expression is returned, or `NULL` if no default is provided.
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `DECODE` compares <kbd>_expr_</kbd> to the search expressions, in order. If it finds a match, the corresponding result expression is returned. If no matches are found, the default expression is returned, or `NULL` if no default is provided.
 
 `NULL` values are treated as equivalent.
 

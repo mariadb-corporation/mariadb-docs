@@ -31,7 +31,7 @@ If MariaDB needs to perform automatic crash recovery and if the [binary log](../
 [Note] Crash recovery finished.
 ```
 
-When the [InnoDB-based Binary Log](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md) (`--binary-storage-engine=innodb`) is enabled, the binary log is managed transactionally within InnoDB tablespaces. As a result, no separate log exists between InnoDB table data and the binary log. Hence, two-phase commit (2PC) and independent binary log crash recovery are no longer required.
+When the [InnoDB-based Binary Log](../binary-log/innodb-based-binary-log.md) (`--binary-storage-engine=innodb`) is enabled, the binary log is managed transactionally within InnoDB tablespaces. As a result, no separate log exists between InnoDB table data and the binary log. Hence, two-phase commit (2PC) and independent binary log crash recovery are no longer required.
 
 ### Automatic Crash Recovery with the Memory-Mapped File-Based Transaction Coordinator Log
 

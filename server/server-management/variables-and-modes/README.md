@@ -19,14 +19,18 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Variables and Modes
 
 {% columns %}
 {% column %}
-{% content-ref url="../../reference/full-list-of-mariadb-options-system-and-status-variables.md" %}
-[full-list-of-mariadb-options-system-and-status-variables.md](../../reference/full-list-of-mariadb-options-system-and-status-variables.md)
+{% content-ref url="full-list-of-mariadb-options-system-and-status-variables.md" %}
+[full-list-of-mariadb-options-system-and-status-variables.md](full-list-of-mariadb-options-system-and-status-variables.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -91,31 +95,31 @@ Describes the `OLD_MODE` system variable, used to revert specific behaviors to m
 {% endcolumn %}
 
 {% column %}
-Complete SQL_MODE reference: set via SET/SET GLOBAL/--sql-mode, view @@SQL_MODE, STRICT_TRANS_TABLES, ANSI_QUOTES, TRADITIONAL, and database emulation.
+Complete SQL\_MODE reference: set via SET/SET GLOBAL/--sql-mode, view @@SQL\_MODE, STRICT\_TRANS\_TABLES, ANSI\_QUOTES, TRADITIONAL, and database emulation.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql" %}
-[SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql)
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql" %}
+[SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-SQL_MODE=MSSQL enables Microsoft SQL Server compatibility behaviors in MariaDB.
+SQL\_MODE=MSSQL enables Microsoft SQL Server compatibility behaviors in MariaDB.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle" %}
-[SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle" %}
+[SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-SQL_MODE=ORACLE enables Oracle Database compatibility behaviors in MariaDB.
+SQL\_MODE=ORACLE enables Oracle Database compatibility behaviors in MariaDB.
 {% endcolumn %}
 {% endcolumns %}
 

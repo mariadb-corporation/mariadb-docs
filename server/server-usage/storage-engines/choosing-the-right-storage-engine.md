@@ -23,10 +23,10 @@ CONNECT, Mroonga, MyRocks, OQGRAPH, SphinxSE, and VIDEX are community contributi
 
 ### Scaling, Partitioning
 
-When you want to split your database load on several servers or optimize for scaling. We also suggest looking at [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide), a synchronous multi-master cluster.
+When you want to split your database load on several servers or optimize for scaling. We also suggest looking at [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview), a synchronous multi-master cluster.
 
 * [Spider](spider/) uses partitioning to provide data sharding through multiple servers.
-* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) utilizes a massively parallel distributed data architecture and is designed for big data scaling to process petabytes of data.
+* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) utilizes a massively parallel distributed data architecture and is designed for big data scaling to process petabytes of data.
 * The [MERGE](merge.md) storage engine is a collection of identical [MyISAM](myisam-storage-engine/) tables that can be used as one. "Identical" means that all tables have identical column and index information.
 
 ### Compression / Archive
@@ -64,7 +64,7 @@ Search engines optimized for search.
 * The [Archive](archive.md) storage engine is, unsurprisingly, best used for archiving.
 * [Aria](aria/), MariaDB's more modern improvement on MyISAM, has a small footprint and allows for easy copy between systems.
 * The [BLACKHOLE](blackhole.md) storage engine accepts data but does not store it and always returns an empty result. This can be useful in [replication](../../ha-and-performance/standard-replication/replication-overview.md) environments, for example, if you want to run complex filtering rules on a slave without incurring any overhead on a master.
-* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) utilizes a massively parallel distributed data architecture and is designed for big data scaling to process petabytes of data.
+* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) utilizes a massively parallel distributed data architecture and is designed for big data scaling to process petabytes of data.
 * [CONNECT](connect/) allows access to different kinds of text files and remote resources as if they were regular MariaDB tables.
 * The [CSV](csv/csv-overview.md) storage engine can read and append to files stored in CSV (comma-separated-values) format. However, CONNECT is a better choice and is more flexibly able to read and write such files.
 * [InnoDB](innodb/) is a good general transaction storage engine, and the best choice in most cases. It is the default storage engine.

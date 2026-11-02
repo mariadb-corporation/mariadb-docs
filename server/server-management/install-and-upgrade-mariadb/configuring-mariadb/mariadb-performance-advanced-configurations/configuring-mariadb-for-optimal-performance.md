@@ -69,8 +69,7 @@ If `Aria_pagecache_reads` is much smaller than `Aria_pagecache_read_request` and
 ## Using in memory temporary tables
 
 Using memory tables for internal temporary results can speed up execution.\
-However, if the memory table gets full, then the memory table will be moved to
-disk, which can hurt performance.
+However, if the memory table gets full, then the memory table will be moved to disk, which can hurt performance.
 
 You can check how the internal memory tables are performing by executing:
 
@@ -105,7 +104,7 @@ You can increase the storage for internal temporary tables by setting [max\_heap
 ## See Also
 
 * [MariaDB Memory Allocation](../../../../ha-and-performance/mariadb-memory-allocation.md)
-* [Full List of MariaDB Options, System and Status Variables](../../../../reference/full-list-of-mariadb-options-system-and-status-variables.md)
+* [Full List of MariaDB Options, System and Status Variables](../../../variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md)
 * [Server system variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md)
 * [mysqld options](../../../starting-and-stopping-mariadb/mariadbd-options.md)
 * [Performance schema](../../../../reference/system-tables/performance-schema/) helps you understand what is taking time and resources.

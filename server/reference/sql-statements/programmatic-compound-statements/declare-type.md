@@ -212,7 +212,7 @@ Starting with MariaDB 13.0.1, custom types defined with `DECLARE TYPE` (includin
 * Parameters of procedures and functions declared in a package
 * `RETURN` types of functions declared in a package
 
-This applies to package routines only. Standalone procedures and functions cannot use a TYPE-defined type as a parameter or as a `RETURN` type. From MariaDB 13.1, a type declared in a package specification can be referenced by qualified name from routines outside the package — including standalone routines — subject to its own restrictions. See [Package-Wide Types](#package-wide-types).
+This applies to package routines only. Standalone procedures and functions cannot use a TYPE-defined type as a parameter or as a `RETURN` type. From MariaDB 13.1, a type declared in a package specification can be referenced by qualified name from routines outside the package — including standalone routines — subject to its own restrictions. See [Package-Wide Types](declare-type.md#package-wide-types).
 
 {% hint style="warning" %}
 Associative array types (`TYPE ... IS TABLE OF ... INDEX BY`) cannot be used as a routine parameter or as a function `RETURN` type, even inside a package. Attempting it fails with `ERROR 4079 (HY000): Illegal parameter data type associative_array for operation '<routine parameter>'` (or `... for operation 'RETURN'` when it is a function's return type).
@@ -283,11 +283,11 @@ CALL pkg1.p1;
 
 ### Requirement
 
-This feature requires Oracle SQL mode at package creation time. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before running `CREATE PACKAGE` and `CREATE PACKAGE BODY`. It does not need to be set when calling the package's stored procedures or functions. &#x20;
+This feature requires Oracle SQL mode at package creation time. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before running `CREATE PACKAGE` and `CREATE PACKAGE BODY`. It does not need to be set when calling the package's stored procedures or functions.
 
 ## REF CURSOR Types
 
-MariaDB supports Oracle-compatible [`REF CURSOR`](#overview) type declarations as part of the `DECLARE TYPE` statement. Like any other `DECLARE TYPE` declaration, a `REF CURSOR` type can be declared in a `DECLARE ... BEGIN ... END` block, in a stored routine, in a package body, or — from MariaDB 13.1 — in a package specification (see [Package-Wide Types](#package-wide-types)). The complete examples below use anonymous blocks and standalone procedures.
+MariaDB supports Oracle-compatible [`REF CURSOR`](declare-type.md#overview) type declarations as part of the `DECLARE TYPE` statement. Like any other `DECLARE TYPE` declaration, a `REF CURSOR` type can be declared in a `DECLARE ... BEGIN ... END` block, in a stored routine, in a package body, or — from MariaDB 13.1 — in a package specification (see [Package-Wide Types](declare-type.md#package-wide-types)). The complete examples below use anonymous blocks and standalone procedures.
 
 `REF CURSOR` types must be specified with a `TYPE` declaration before any variables of that type can be declared. It can be defined as weak or strong based on whether a return type is specified.
 
@@ -457,7 +457,7 @@ This feature is available from MariaDB 13.1, in `sql_mode=ORACLE` only.
 
 A `TYPE` declaration can appear in a package specification. Such a type is public: routines outside the package can declare variables of it by qualifying the type name with the name of the package that declares it. A `TYPE` declaring a record, associative array, or `REF CURSOR` can therefore be shared between schema-level (standalone) and package routines.
 
-For using a `RECORD` type as a parameter or `RETURN` type inside its declaring package — available from MariaDB 13.0.1, without qualified names — see [RECORD Types in Package Routine Parameters and Function RETURN](#record-types-in-package-routine-parameters-and-function-return).
+For using a `RECORD` type as a parameter or `RETURN` type inside its declaring package — available from MariaDB 13.0.1, without qualified names — see [RECORD Types in Package Routine Parameters and Function RETURN](declare-type.md#record-types-in-package-routine-parameters-and-function-return).
 
 ### Syntax
 
@@ -517,27 +517,27 @@ CALL p1();
 
 A qualified package type is accepted as:
 
-* The type of a local variable, in a stored procedure, a stored function, a package routine, or an anonymous block:
+*   The type of a local variable, in a stored procedure, a stored function, a package routine, or an anonymous block:
 
     ```sql
     v1 pkg1.rec0_t;
     ```
-* The type of a parameter of a package routine, declared either in the package specification or in the package body:
+*   The type of a parameter of a package routine, declared either in the package specification or in the package body:
 
     ```sql
     PROCEDURE p1(param1 pkg1.rec0_t);
     ```
-* The `RETURN` type of a package function:
+*   The `RETURN` type of a package function:
 
     ```sql
     FUNCTION f1 RETURN pkg1.rec0_t;
     ```
-* The element type of an associative array:
+*   The element type of an associative array:
 
     ```sql
     TYPE assoc1_t IS TABLE OF pkg1.rec0_t INDEX BY INTEGER;
     ```
-* The `RETURN` type of a `REF CURSOR` type declaration:
+*   The `RETURN` type of a `REF CURSOR` type declaration:
 
     ```sql
     TYPE cur1_t IS REF CURSOR RETURN pkg1.rec0_t;
@@ -564,12 +564,12 @@ ERROR 4161 (HY000): Unknown data type: '`pkg1`.`no_such_type`'
 
 ### Where Package Types Cannot Be Used
 
-| Context | Result |
-| --- | --- |
+| Context                                                        | Result                                                                             |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Parameter of a schema-level (standalone) procedure or function | `ERROR HY000: Incorrect usage of parameter_declaration and package_name.type_name` |
-| `RETURN` type of a schema-level (standalone) function | `ERROR HY000: Incorrect usage of RETURN and package_name.type_name` |
-| Inside a trigger | `ERROR HY000: Incorrect usage of TRIGGER and` `` `pkg1`.`rec0_t` `` |
-| Inside an event | `ERROR HY000: Incorrect usage of EVENT and` `` `pkg1`.`rec0_t` `` |
+| `RETURN` type of a schema-level (standalone) function          | `ERROR HY000: Incorrect usage of RETURN and package_name.type_name`                |
+| Inside a trigger                                               | `ERROR HY000: Incorrect usage of TRIGGER and` `` `pkg1`.`rec0_t` ``                |
+| Inside an event                                                | `ERROR HY000: Incorrect usage of EVENT and` `` `pkg1`.`rec0_t` ``                  |
 
 Parameters and `RETURN` types of schema-level routines are exposed through [INFORMATION\_SCHEMA.PARAMETERS](../../system-tables/information-schema/information-schema-tables/information-schema-parameters-table.md), which cannot yet represent a package type.
 
@@ -646,7 +646,7 @@ When the dependency is between packages in the same database, dump and restore t
 * [CREATE PACKAGE](../data-definition/create/create-package.md)
 * [DECLARE CURSOR](programmatic-compound-statements-cursors/declare-cursor.md)
 * [DECLARE Variable](declare-variable.md)
-* [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle Mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 * [CREATE FUNCTION](../data-definition/create/create-function.md)
 * [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md)
 

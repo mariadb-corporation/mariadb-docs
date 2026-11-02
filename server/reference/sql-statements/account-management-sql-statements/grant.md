@@ -96,7 +96,7 @@ tls_option:
   | SUBJECT 'subject'
 ```
 
-GRANT has three top-level forms. Sub-rule diagrams are not included here — the `priv_type` production alone is a ~60-row alternative list; readers can consult the BNF above for the sub-rule expansions.
+GRANT has three top-level forms. Sub-rule diagrams are not included here — the `priv_type` production alone is a \~60-row alternative list; readers can consult the BNF above for the sub-rule expansions.
 
 ![Railroad diagram of GRANT (privileges form)](../../../.gitbook/assets/grant-privileges-railroad.svg)
 
@@ -195,8 +195,7 @@ GRANT SELECT ON `%test`.* TO 'jtest'@localhost;
 GRANT SELECT, INSERT, DELETE ON `j-%`.* TO 'jtest'@localhost;
 ```
 
-`` `%test`.* `` is considered more specific than `` `j-%`.* `` because it matches fewer database names. Since only the first matching grant is applied, the `SELECT`-only grant on `` `%test`.* `` takes precedence, and `INSERT` is not granted for the database `j-test`. &#x20;
-
+`` `%test`.* `` is considered more specific than `` `j-%`.* `` because it matches fewer database names. Since only the first matching grant is applied, the `SELECT`-only grant on `` `%test`.* `` takes precedence, and `INSERT` is not granted for the database `j-test`.
 
 ### Implicit Account Creation
 
@@ -529,7 +528,7 @@ The following table lists the privileges that can be granted at the database lev
 
 To set a privilege for a database, specify the database using`db_name.*` for _priv\_level_, or just use `*` to specify the current. database.
 
-<table><thead><tr><th width="236.5184326171875">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>CREATE</td><td>Create a database using the <a href="../data-definition/create/create-database.md">CREATE DATABASE</a> statement, when the privilege is granted for a database. You can grant the CREATE privilege on databases that do not yet exist. This also grants the CREATE privilege on all tables in the database.</td></tr><tr><td>CREATE ROUTINE</td><td>Create Stored Programs using the <a href="../../../server-usage/stored-routines/stored-procedures/create-procedure.md">CREATE PROCEDURE</a> and <a href="../data-definition/create/create-function.md">CREATE FUNCTION</a> statements.</td></tr><tr><td>CREATE TEMPORARY TABLES</td><td>Create temporary tables with the <a href="../data-definition/create/create-table.md">CREATE TEMPORARY TABLE</a> statement. This privilege enable writing and dropping those temporary tables</td></tr><tr><td>DROP</td><td>Drop a database using the <a href="../data-definition/drop/drop-database.md">DROP DATABASE</a> statement, when the privilege is granted for a database. This also grants the DROP privilege on all tables in the database.</td></tr><tr><td>EVENT</td><td>Create, drop and alter EVENTs.</td></tr><tr><td>GRANT OPTION</td><td>Grant database privileges. You can only grant privileges that you have.</td></tr><tr><td>LOCK TABLES</td><td>Acquire explicit locks using the <a href="../transactions/lock-tables.md">LOCK TABLES</a> statement; you also need to have the SELECT privilege on a table, in order to lock it.</td></tr><tr><td>SHOW CREATE ROUTINE</td><td>Permit viewing the SHOW CREATE definition statement of a routine, for example <a href="../administrative-sql-statements/show/show-create-function.md">SHOW CREATE FUNCTION</a>, even if not the routine owner. From <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0">MariaDB 11.3.0</a>.</td></tr></tbody></table>
+<table><thead><tr><th width="236.5184326171875">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>CREATE</td><td>Create a database using the <a href="../data-definition/create/create-database.md">CREATE DATABASE</a> statement, when the privilege is granted for a database. You can grant the CREATE privilege on databases that do not yet exist. This also grants the CREATE privilege on all tables in the database.</td></tr><tr><td>CREATE ROUTINE</td><td>Create Stored Programs using the <a href="../../../server-usage/stored-routines/stored-procedures/create-procedure.md">CREATE PROCEDURE</a> and <a href="../data-definition/create/create-function.md">CREATE FUNCTION</a> statements.</td></tr><tr><td>CREATE TEMPORARY TABLES</td><td>Create temporary tables with the <a href="../data-definition/create/create-table.md">CREATE TEMPORARY TABLE</a> statement. This privilege enable writing and dropping those temporary tables</td></tr><tr><td>DROP</td><td>Drop a database using the <a href="../data-definition/drop/drop-database.md">DROP DATABASE</a> statement, when the privilege is granted for a database. This also grants the DROP privilege on all tables in the database.</td></tr><tr><td>EVENT</td><td>Create, drop and alter EVENTs.</td></tr><tr><td>GRANT OPTION</td><td>Grant database privileges. You can only grant privileges that you have.</td></tr><tr><td>LOCK TABLES</td><td>Acquire explicit locks using the <a href="../transactions/lock-tables.md">LOCK TABLES</a> statement; you also need to have the SELECT privilege on a table, in order to lock it.</td></tr><tr><td>SHOW CREATE ROUTINE</td><td>Permit viewing the SHOW CREATE definition statement of a routine, for example <a href="../administrative-sql-statements/show/show-create-function.md">SHOW CREATE FUNCTION</a>, even if not the routine owner. From <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3.0-release-notes">MariaDB 11.3.0</a>.</td></tr></tbody></table>
 
 ### Table Privileges
 
@@ -826,7 +825,7 @@ By default, when you create a user without specifying an authentication plugin, 
 
 It is possible to set per-account limits for certain server resources. The following table shows the values that can be set per account:
 
-| Limit Type                  | Description                                                                                                                                                                                                                      |
+| Limit Type                  | Description                                                                                                                                                                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MAX\_QUERIES\_PER\_HOUR     | Number of statements that the account can issue per hour (including updates)                                                                                                                                                    |
 | MAX\_UPDATES\_PER\_HOUR     | Number of updates (not queries) that the account can issue per hour                                                                                                                                                             |

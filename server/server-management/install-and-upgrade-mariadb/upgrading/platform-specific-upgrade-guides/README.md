@@ -19,6 +19,10 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Platform Specific Upgrade Guides
@@ -37,8 +41,8 @@ Guide to upgrading MariaDB on Linux.
 
 {% columns %}
 {% column %}
-{% content-ref url="../upgrading-mariadb-on-windows.md" %}
-[upgrading-mariadb-on-windows.md](../upgrading-mariadb-on-windows.md)
+{% content-ref url="upgrading-mariadb-on-windows.md" %}
+[upgrading-mariadb-on-windows.md](upgrading-mariadb-on-windows.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

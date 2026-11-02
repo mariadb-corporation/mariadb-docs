@@ -10,9 +10,9 @@ The [S3 storage engine](./) is read only and allows one to archive MariaDB table
 
 ## Installing the Plugin
 
-The S3 storage engine is [gamma maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), so the following step can be omitted.
+The S3 storage engine is [gamma maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/release-criteria), so the following step can be omitted.
 
-On earlier releases, when it was [alpha maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), it does not load by default on a stable release of the server due to the default value of the [plugin\_maturity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#plugin_maturity) variable. Set to `alpha` (or below) in your config file to permit installation of the plugin:
+On earlier releases, when it was [alpha maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/release-criteria), it does not load by default on a stable release of the server due to the default value of the [plugin\_maturity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#plugin_maturity) variable. Set to `alpha` (or below) in your config file to permit installation of the plugin:
 
 ```ini
 [mariadbd]
@@ -83,7 +83,7 @@ To be able to use S3 for storage one _**must**_ define how to access S3 and wher
 
 For compatibility tweaks with different providers:
 
-* [s3\_provider](s3-storage-engine-system-variables.md#s3_provider): Enable S3 provider specific compatibility tweaks. "Default", "Amazon", or "Huawei". From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
+* [s3\_provider](s3-storage-engine-system-variables.md#s3_provider): Enable S3 provider specific compatibility tweaks. "Default", "Amazon", or "Huawei". From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.6-rolling-releases/mariadb-11.6.2-release-notes).
 
 If you are using an S3 service that is using HTTP to connect (like) you also need the set the following variables:
 
@@ -103,8 +103,8 @@ Other, less critical options, are:
 * [s3\_protocol\_version](s3-storage-engine-system-variables.md#s3_protocol_version): Protocol used to communication with S3. One of "Auto", "Amazon" or "Original" where "Auto" is the default. If you get errors like "8 Access Denied" when you are connecting to another service provider, then try to change this option. The reason for this variable is that Amazon has changed some parts of the S3 protocol since they originally introduced it but other service providers are still using the original protocol.
 * [s3\_block\_size](s3-storage-engine-system-variables.md#s3_block_size): Set to 4M as default. This is the default block size for a table, if not specified in [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md).
 * [s3\_pagecache\_buffer\_size](s3-storage-engine-system-variables.md#s3_pagecache_buffer_size): Default 128M. The size of the buffer used for data and index blocks for S3 tables. Increase this to get better index handling (for all reads and multiple writes) to as much as you can afford.
-* [s3\_ssl\_no\_verify](s3-storage-engine-system-variables.md#s3_ssl_no_verify): If true, SSL certificate verification for the S3 endpoint is disabled. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
-* [ss3\_no\_content\_type](s3-storage-engine-system-variables.md#s3_no_content_type): If true (false is default), disables the Content-Type header, required for some providers. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
+* [s3\_ssl\_no\_verify](s3-storage-engine-system-variables.md#s3_ssl_no_verify): If true, SSL certificate verification for the S3 endpoint is disabled. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.6-rolling-releases/mariadb-11.6.2-release-notes).
+* [ss3\_no\_content\_type](s3-storage-engine-system-variables.md#s3_no_content_type): If true (false is default), disables the Content-Type header, required for some providers. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.6-rolling-releases/mariadb-11.6.2-release-notes).
 
 Last some options you probably don't have to ever touch:
 
@@ -167,8 +167,7 @@ s3-use-http=ON
 
 The typical use case would be that there exists tables that after some time would become fairly inactive, but are still important so that they can not be removed. In that case, an option is to move such a table to an archiving service, which is accessible through an S3 API.
 
-Notice that S3 means the Cloud Object Storage API defined by Amazon AWS. Often the whole of Amazon’s Cloud Object Storage is referred to as S3. In the context of the S3 archive storage engine, it refers to the API itself that defines how to store objects in a cloud service,
-being it Amazon’s or someone else’s. OpenStack for example provides an S3 API for storing objects.
+Notice that S3 means the Cloud Object Storage API defined by Amazon AWS. Often the whole of Amazon’s Cloud Object Storage is referred to as S3. In the context of the S3 archive storage engine, it refers to the API itself that defines how to store objects in a cloud service, being it Amazon’s or someone else’s. OpenStack for example provides an S3 API for storing objects.
 
 The main benefit of storing things in an S3 compatible storage is that the cost of storage is much cheaper than many other alternatives. Many S3 implementations also provide reliable long-term storage.
 
@@ -182,19 +181,11 @@ The main benefit of storing things in an S3 compatible storage is that the cost 
 
 ## Discovery
 
-The S3 storage engine supports full [MariaDB discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md). This means that if
-you have the S3 storage engine enabled and properly configured, the
-table stored in S3 will automatically be discovered when it's accessed with [SHOW TABLES](../../../reference/sql-statements/administrative-sql-statements/show/show-tables.md), [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or any other operation that
-tries to access it. In the case of SELECT, the .frm file from S3 will
-be copied to the local storage to speed up future accesses.
+The S3 storage engine supports full [MariaDB discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md). This means that if you have the S3 storage engine enabled and properly configured, the table stored in S3 will automatically be discovered when it's accessed with [SHOW TABLES](../../../reference/sql-statements/administrative-sql-statements/show/show-tables.md), [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or any other operation that tries to access it. In the case of SELECT, the .frm file from S3 will be copied to the local storage to speed up future accesses.
 
-When an S3 table is opened for the first time (it's not in the table cache)
-and there is a local .frm file, the S3 engine will check if it's still
-relevant, and if not, update or delete the .frm file.
+When an S3 table is opened for the first time (it's not in the table cache) and there is a local .frm file, the S3 engine will check if it's still relevant, and if not, update or delete the .frm file.
 
-This means that if the table definition changes on S3 and it's in the
-local cache, one has to execute [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export.md) to
-get MariaDB to notice the change and update the .frm file.
+This means that if the table definition changes on S3 and it's in the local cache, one has to execute [FLUSH TABLES](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush-tables-for-export.md) to get MariaDB to notice the change and update the .frm file.
 
 If partitioning S3 tables are used, the partition definitions will also be stored on S3 storage and are discovered by other servers.
 
@@ -218,13 +209,11 @@ S3 works with [replication](../../../ha-and-performance/standard-replication/rep
 ## ANALYZE TABLE
 
 [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
-As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However
-using `ANALYZE TABLE table_name PERSISTENT FOR...` works.
+As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However using `ANALYZE TABLE table_name PERSISTENT FOR...` works.
 
 ## CHECK TABLE
 
-[CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) works. As S3 tables are read only
-it is very unlikely that they can become corrupted. The only known way an S3 table could be corrupted if either the original table copied to S3 was corrupted or the process of copying the original table to S3 was somehow interrupted.
+[CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) works. As S3 tables are read only it is very unlikely that they can become corrupted. The only known way an S3 table could be corrupted if either the original table copied to S3 was corrupted or the process of copying the original table to S3 was somehow interrupted.
 
 ## Current Limitations
 
@@ -241,20 +230,17 @@ All [ALTER PARTITION](../../../reference/sql-statements/data-definition/alter/al
 
 ## Performance Considerations
 
-Depending on your connection speed to your S3 provider, there can be some notable slowdowns in some
-operations.
+Depending on your connection speed to your S3 provider, there can be some notable slowdowns in some operations.
 
 ### Discovery
 
-As S3 is supporting discovery (automatically making tables available that are in S3) this can cause some
-small performance problems if the S3 engine is enabled. Partitioning S3 tables also support discovery.
+As S3 is supporting discovery (automatically making tables available that are in S3) this can cause some small performance problems if the S3 engine is enabled. Partitioning S3 tables also support discovery.
 
 * CREATE TABLE is a bit slower as the S3 engine has to check if the to-be-created table is already S3.
 * Queries on information\_schema tables are slower as S3 has to check if there is new tables in S3.
 * DROP of non existing tables are slower as S3 has to check if the table is in S3.
 
-There are no performance degradation's when accessing existing tables on the server. Accessing the S3
-table the first time will copy the .frm file from S3 to the local disk, speeding up future accesses to the table.
+There are no performance degradation's when accessing existing tables on the server. Accessing the S3 table the first time will copy the .frm file from S3 to the local disk, speeding up future accesses to the table.
 
 ### Caching
 

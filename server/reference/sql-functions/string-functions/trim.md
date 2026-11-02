@@ -16,7 +16,7 @@ TRIM_ORACLE([{BOTH | LEADING | TRAILING} [remstr] FROM] str), TRIM([remstr FROM]
 
 Returns the string `str` with all `remstr` prefixes or suffixes removed. If none of the specifiers `BOTH`, `LEADING`, or `TRAILING` is given, `BOTH` is assumed. `remstr` is optional and, if not specified, spaces are removed.
 
-Returns `NULL` if given a `NULL` argument. If the result is empty, returns either an empty string, or, with [SQL\_MODE=Oracle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `NULL`. `SQL_MODE=Oracle` is not set by default.
+Returns `NULL` if given a `NULL` argument. If the result is empty, returns either an empty string, or, with [SQL\_MODE=Oracle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `NULL`. `SQL_MODE=Oracle` is not set by default.
 
 The Oracle mode version of the function can be accessed in any mode by using `TRIM_ORACLE` as the function name.
 

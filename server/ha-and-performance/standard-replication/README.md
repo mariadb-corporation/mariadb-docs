@@ -19,6 +19,10 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Replication
@@ -61,8 +65,8 @@ Compare the three binary logging formats — statement-based, row-based, and mix
 
 {% columns %}
 {% column %}
-{% content-ref url="innodb-based-binary-log.md" %}
-[innodb-based-binary-log.md](innodb-based-binary-log.md)
+{% content-ref url="../../server-management/server-monitoring-logs/binary-log/innodb-based-binary-log.md" %}
+[innodb-based-binary-log.md](../../server-management/server-monitoring-logs/binary-log/innodb-based-binary-log.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -97,13 +101,13 @@ Complete guide to MariaDB replication setup. Complete walkthrough for primary-re
 
 {% columns %}
 {% column %}
-{% content-ref url="gtid/README.md" %}
-[gtid.md](gtid/README.md)
+{% content-ref url="gtid/" %}
+[gtid](gtid/)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Complete GTID replication reference: CHANGE MASTER master_use_gtid=current_pos|slave_pos, gtid_slave_pos table (InnoDB), START REPLICA UNTIL master_gtid_pos.
+Complete GTID replication reference: CHANGE MASTER master\_use\_gtid=current\_pos|slave\_pos, gtid\_slave\_pos table (InnoDB), START REPLICA UNTIL master\_gtid\_pos.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -361,8 +365,8 @@ Resolve row-based replication conflicts on the replica instead of stopping the S
 
 {% columns %}
 {% column %}
-{% content-ref url="selectively-skipping-replication-of-binlog-events.md" %}
-[selectively-skipping-replication-of-binlog-events.md](selectively-skipping-replication-of-binlog-events.md)
+{% content-ref url="../../server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events.md" %}
+[selectively-skipping-replication-of-binlog-events.md](../../server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

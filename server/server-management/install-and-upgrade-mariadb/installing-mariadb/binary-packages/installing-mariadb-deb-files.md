@@ -35,7 +35,7 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) and its dependencies.
+Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which only contains [Percona XtraBackup](../../../../server-usage/backup-and-restore/mariadb-backup/) and its dependencies.
 
 See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) for more information.
 
@@ -43,7 +43,7 @@ See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repositor
 
 If you want to install MariaDB with `apt`, then you can configure `apt` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config).
 
-The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `apt-get` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../clients-and-utilities/README.md), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
+The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `apt-get` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../clients-and-utilities/), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
 
 There are several ways to add the repository.
 
@@ -51,7 +51,7 @@ There are several ways to add the repository.
 
 One way to add an `apt` repository is by using the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command. This command will add the repository configuration to `/etc/apt/sources.list`.
 
-For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) on Ubuntu 18.04 LTS (Bionic), then you could use the following commands to add the MariaDB `apt` repository:
+For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) on Ubuntu 18.04 LTS (Bionic), then you could use the following commands to add the MariaDB `apt` repository:
 
 ```bash
 sudo apt-get install software-properties-common
@@ -68,7 +68,7 @@ sudo apt update
 
 Another way to add an `apt` repository is by creating a [source list](https://manpages.ubuntu.com/manpages/bionic/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`.
 
-For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) on Ubuntu 18.04 LTS (Bionic), then you could create the `MariaDB.list` file in `/etc/apt/sources.list.d/` with the following contents to add the MariaDB `apt` repository:
+For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) on Ubuntu 18.04 LTS (Bionic), then you could create the `MariaDB.list` file in `/etc/apt/sources.list.d/` with the following contents to add the MariaDB `apt` repository:
 
 ```bash
 # MariaDB 10.6 repository list - created 2019-01-27 09:50 UTC
@@ -113,11 +113,11 @@ If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setu
 
 See [Pinning the Repository to a Specific Minor Release](../../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) page for details.
 
-The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/JgKFgZu7Dzj6k1iFJ9sO) page.
 {% endtab %}
 
 {% tab title="MariaDB Foundation repo config tool" %}
-If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number. By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`. The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number. By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`. The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/Z5d11ub4hGPao31CexAZ) page.
 
 Archives are only of the distros and architectures supported at the time of release. For example, MariaDB Community Server 10.6.21 exists for Ubuntu `bionic`, `focal`, `jammy`, and `kinetic`, and the list of what distributions are available is obtained by looking in the `dists` folder of the [10.6.21 Debian](https://archive.mariadb.org/mariadb-10.6.21/repo/debian/dists/) or [Ubuntu](https://archive.mariadb.org/mariadb-10.6.21/repo/ubuntu/dists) repositories.
 
@@ -161,13 +161,13 @@ If you added the `apt` repository by using the [add-apt-repository](https://manp
 
 First, look for the repository string for the old version in `/etc/apt/sources.list`.
 
-And then, you can remove the repository for the old version by executing the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command and providing the `--remove` option. For example, if you wanted to remove a [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) repository, then you could do so by executing something like the following:
+And then, you can remove the repository for the old version by executing the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command and providing the `--remove` option. For example, if you wanted to remove a [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) repository, then you could do so by executing something like the following:
 
 ```bash
 sudo add-apt-repository --remove 'deb [arch=amd64,arm64,ppc64el] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.6/ubuntu bionic main'
 ```
 
-After that, you can add the repository for the new version with the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command. For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) on Ubuntu 18.04 LTS (Bionic), then you could use the following commands to add the MariaDB `apt` repository:
+After that, you can add the repository for the new version with the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command. For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) on Ubuntu 18.04 LTS (Bionic), then you could use the following commands to add the MariaDB `apt` repository:
 
 ```bash
 sudo apt-get install software-properties-common
@@ -180,11 +180,11 @@ And then you would have to update the package cache by executing the following c
 sudo apt update
 ```
 
-After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
+After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) and you can [upgrade to the new version of MariaDB](installing-mariadb-deb-files.md#upgrading-to-a-new-version-of-mariadb).
 
 **Updating a Source List File**
 
-If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/bionic/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to MariaDB 10.11, and if the source list file was at `/etc/apt/sources.list.d/MariaDB.list`, then you could execute the following:
+If you added the `apt` repository by creating a [source list](https://manpages.ubuntu.com/manpages/bionic/man5/sources.list.5.html) file in `/etc/apt/sources.list.d/`, then you can update the major release that the repository uses by updating the source list file in-place. For example, if you wanted to change the repository from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) to MariaDB 10.11, and if the source list file was at `/etc/apt/sources.list.d/MariaDB.list`, then you could execute the following:
 
 ```bash
 sudo sed -i 's/10.6/10.11/' /etc/apt/sources.list.d/MariaDB.list
@@ -250,7 +250,7 @@ The process to install MariaDB Galera Cluster with the MariaDB `apt-get` reposit
 
 Galera Cluster support is included in the standard MariaDB Server packages, so you will need to install the `mariadb-server` package, as you normally would.
 
-You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4 wsrep provider library.
+You also need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview) 4 wsrep provider library.
 
 To install MariaDB Galera Cluster, first you would have to update the package cache by executing the following command:
 
@@ -391,7 +391,7 @@ A tarball that contains the `.deb` packages can be downloaded from the following
 
 * [downloads.mariadb.com](https://downloads.mariadb.com)
 
-For example, to install the [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21) `.deb` packages on Ubuntu 18.04 LTS (Bionic), you could execute the following:
+For example, to install the [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.21-release-notes) `.deb` packages on Ubuntu 18.04 LTS (Bionic), you could execute the following:
 
 ```bash
 sudo apt-get update
@@ -413,7 +413,7 @@ sudo dpkg --install ./mariadb-server*.deb \
 
 After the installation is complete, you can start MariaDB.
 
-If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
+If you are using [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
 
 ## Upgrading to a new version of MariaDB
 
@@ -441,7 +441,7 @@ For MariaDB, the following DEBs are available:
 
 | Package Name                             | Description                                                                                                                                                                                                                                        |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) 4.                                                                                                                       |
+| `galera-4`                               | The WSREP provider for [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview) 4.                                                                                                          |
 | `libmariadb3`                            | Dynamic client libraries.                                                                                                                                                                                                                          |
 | `libmariadb-dev`                         | Development headers and static libraries.                                                                                                                                                                                                          |
 | `libmariadbclient18`                     | Virtual package to satisfy external depends                                                                                                                                                                                                        |

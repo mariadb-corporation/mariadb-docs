@@ -76,7 +76,7 @@ data_table='oq_backing' origid='origid' destid='destid';
 ERROR 1005 (HY000): Can't create table `test`.`oq_old` (errno: 140 "Wrong create options")
 ```
 
-The old, deprecated format can still be used prior to [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) if the value of the [oqgraph\_allow\_create\_integer\_latch](../../../ha-and-performance/optimization-and-tuning/system-variables/oqgraph-system-and-status-variables.md#oqgraph_allow_create_integer_latch) system variable is changed from its default, `FALSE`, to `TRUE`.
+The old, deprecated format can still be used prior to [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements) if the value of the [oqgraph\_allow\_create\_integer\_latch](../../../ha-and-performance/optimization-and-tuning/system-variables/oqgraph-system-and-status-variables.md#oqgraph_allow_create_integer_latch) system variable is changed from its default, `FALSE`, to `TRUE`.
 
 ```sql
 SET GLOBAL oqgraph_allow_create_integer_latch=1;

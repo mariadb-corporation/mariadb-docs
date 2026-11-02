@@ -76,7 +76,7 @@ SHOW WARNINGS;
 
 ## See Also
 
-* [List of Plugins](../../../plugins/information-on-plugins/list-of-plugins.md)
+* [List of Plugins](../../../plugins/list-of-plugins.md)
 * [Plugin Overview](../../../plugins/plugin-overview.md)
 * [INFORMATION\_SCHEMA.PLUGINS Table](../../../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md)
 * [mariadb-plugin](../../../../clients-and-utilities/administrative-tools/mariadb-plugin.md)

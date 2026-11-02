@@ -6,7 +6,7 @@ description: >-
 
 # mariadbd Options
 
-This page lists all of the options for `mariadbd`, ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+This page lists all of the options for `mariadbd`, ordered by topic. For a full alphabetical list of all mariadbd options, as well as server and status variables, see [Full list of MariaDB options, system and status variables](../variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
 
 In many cases, the entry here is a summary, and links to the full description.
 
@@ -78,12 +78,11 @@ Previously, the client used to be called `mysqld`, and can still be accessed und
 
 ## Compatibility Options
 
-The following options have been added to MariaDB to make it more compliant with
-other MariaDB and MySQL versions. Options that are also system variables are listed after:
+The following options have been added to MariaDB to make it more compliant with other MariaDB and MySQL versions. Options that are also system variables are listed after:
 
 #### `-a, --ansi`
 
-* Description: Use ANSI SQL syntax instead of MariaDB syntax. This mode will also set [transaction isolation level](../../reference/sql-statements/transactions/set-transaction.md) [serializable](../../reference/sql-statements/transactions/set-transaction.md#serializable).
+* Description: Use ANSI SQL syntax instead of MariaDB syntax. This mode will also set [transaction isolation level](../../reference/sql-statements/administrative-sql-statements/set-commands/set-transaction.md) [serializable](../../reference/sql-statements/administrative-sql-statements/set-commands/set-transaction.md#serializable).
 
 #### `--new`
 
@@ -200,7 +199,7 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--binlog-do-db=name`
 * Description: This option allows you to configure a [replication master](../../ha-and-performance/standard-replication/replication-overview.md) to write statements and transactions affecting databases that match a specified name into its [binary log](../server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
   * This option will not work with cross-database updates with [statement-based logging](../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](../../ha-and-performance/standard-replication/replication-filters.md#statement-based-logging) section for more information.
-  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_do_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
+  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_do_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes).
   * When setting it on the command-line or in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](../../ha-and-performance/standard-replication/replication-filters.md) for more information.
 
@@ -209,14 +208,14 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--binlog-ignore-db=name`
 * Description: This option allows you to configure a [replication master](../../ha-and-performance/standard-replication/replication-overview.md) to not write statements and transactions affecting databases that match a specified name into its [binary log](../server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
   * This option will not work with cross-database updates with [statement-based logging](../server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](../../ha-and-performance/standard-replication/replication-filters.md#statement-based-logging) section for more information.
-  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_ignore_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
+  * This option can not be set dynamically. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_ignore_db) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes).
   * When setting it on the command-line or in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](../../ha-and-performance/standard-replication/replication-filters.md) for more information.
 
 #### `--binlog-row-event-max-size`
 
 * Command line: `--binlog-row-event-max-size=#`
-* Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
+* Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes).
 * Default value `8192`
 
 #### `--disconnect-slave-event-count`
@@ -311,7 +310,7 @@ The following options are related to [replication](../../ha-and-performance/stan
 #### `--replicate-same-server-id`
 
 * Command line: `--replicate-same-server-id`
-* Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
+* Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements).
 
 #### `--sporadic-binlog-dump-fail`
 
@@ -853,7 +852,7 @@ The options related to [Galera Cluster](../../architecture/topologies/galera-clu
 
 ### Galera Cluster Options and System Variables
 
-Some options and system variables related to [Galera Cluster](../../architecture/topologies/galera-cluster/README.md) can be found [here](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables). Direct links to many of them can be found below.
+Some options and system variables related to [Galera Cluster](../../architecture/topologies/galera-cluster/) can be found [here](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables). Direct links to many of them can be found below.
 
 * [wsrep-allowlist](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_allowlist)
 * [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count)
@@ -949,7 +948,7 @@ These options are intended for developers and for the `mariadb-test` suite. Do n
 #### `--debug-crc-break`
 
 * Description: `--debug-crc-break=#`Call my\_debug\_put\_break\_here() if crc matches this number (for debug).
-* Removed: [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7)
+* Removed: [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.7-release-notes)
 
 #### `--debug-disconnect-slave-event-count`
 
@@ -967,7 +966,7 @@ These options are intended for developers and for the `mariadb-test` suite. Do n
 #### `--debug-flush`
 
 * Description: Default debug log with flush after write.
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements)
 
 #### `--debug-gdb`
 
@@ -1012,7 +1011,7 @@ These options are intended for developers and for the `mariadb-test` suite. Do n
 #### `--thread-alarm`
 
 * Description: Enable/disable system thread alarm calls. Should only be turned off (`--disable-thread-alarm`) when running tests or debugging! From MariaDB 5.5, replaced by [debug\_no\_thread\_alarm](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#debug_no_thread_alarm).
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements)
 
 ### Debugging Options and System Variables
 
@@ -1030,7 +1029,7 @@ Options that are also system variables are listed after:
 #### `--allow-suspicious-udfs`
 
 * Command line: `--allow-suspicious-udfs`
-* Description: Allows use of [user-defined functions](../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs) as well.
+* Description: Allows use of [user-defined functions](../../server-usage/user-defined-functions/) consisting of only one symbol `x()` without corresponding `x_init()` or `x_deinit()`. That also means that one can load any function from any library, for example `exit()` from `libc.so`. Not recommended unless you require old UDFs with one symbol that cannot be recompiled. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#allow_suspicious_udfs) as well.
 
 #### `--bootstrap`
 
@@ -1058,19 +1057,19 @@ Options that are also system variables are listed after:
 * Command line: `--getopt-prefix-matching={0|1}`
 * Description: Makes it possible to disable historical "unambiguous prefix" matching in the command-line option parsing.
 * Default: TRUE
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `--help`
 
 * Command line: `--help`
-* Description: Displays help with many commandline options described, and exits. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), includes deprecation information.
+* Description: Displays help with many commandline options described, and exits. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements), includes deprecation information.
 
 #### `--log-ddl-recovery`
 
 * Command line: `--log-ddl-recovery=name`
 * Description: Path to file used for recovery of DDL statements after a crash.
 * Default Value: `ddl-recover.log`
-* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1)
+* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes)
 
 #### `--log-short-format`
 
@@ -1148,12 +1147,12 @@ Options that are also system variables are listed after:
 #### `--show-slave-auth-info`
 
 * Command line: `--show-slave-auth-info`
-* Description: Show user and password in [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) (SHOW SLAVE HOSTS) on this primary. Also added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#show_slave_auth_info) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
+* Description: Show user and password in [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) (SHOW SLAVE HOSTS) on this primary. Also added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#show_slave_auth_info) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements).
 
 #### `--skip-grant-tables`
 
 * Command line: `--skip-grant-tables`
-* Description: Start without grant tables. This gives all users FULL ACCESS to all tables, which is useful in case of a lost root password. Use [mariadb-admin flush-privileges](../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables) as well.
+* Description: Start without grant tables. This gives all users FULL ACCESS to all tables, which is useful in case of a lost root password. Use [mariadb-admin flush-privileges](../../clients-and-utilities/administrative-tools/mariadb-admin.md), [mariadb-admin reload](../../clients-and-utilities/administrative-tools/mariadb-admin.md) or [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) to resume using the grant tables. From [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements), available as a [system variable](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables) as well.
 
 Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler/) also depends on the grant tables for its functionality, it is automatically disabled when running with `--skip-grant-tables`.
 
@@ -1170,7 +1169,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--skip-slave-start`
 
 * Command line: `--skip-slave-start`
-* Description: If set, replica is not autostarted. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120), server will display in the log if this option is set.
+* Description: If set, replica is not autostarted. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements), server will display in the log if this option is set.
 
 #### `--skip-ssl`
 
@@ -1185,7 +1184,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--stack-trace`
 
 * Command line: `--stack-trace`, `--skip-stack-trace`
-* Description: When the server crashes on a fatal signal, prints a symbolic stack trace to the [error log](../server-monitoring-logs/error-log.md), with a pointer to [How to Produce a Full Stack Trace for mariadbd](../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md). Include this output in bug reports. Enabled by default, except in builds with AddressSanitizer or MemorySanitizer. Disable with `--skip-stack-trace`.
+* Description: When the server crashes on a fatal signal, prints a symbolic stack trace to the [error log](../server-monitoring-logs/error-log.md), with a pointer to [How to Produce a Full Stack Trace for mariadbd](../../reference/product-development/mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd.md). Include this output in bug reports. Enabled by default, except in builds with AddressSanitizer or MemorySanitizer. Disable with `--skip-stack-trace`.
   * On Linux and other Unix-like systems, the fatal signals handled are `SIGSEGV`, `SIGABRT`, `SIGBUS`, `SIGILL`, and `SIGFPE`.
   * Only available on builds with stack-trace support.
   * To also get a core file, set [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file).

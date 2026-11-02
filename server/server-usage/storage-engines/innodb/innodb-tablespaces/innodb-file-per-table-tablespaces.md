@@ -47,9 +47,9 @@ InnoDB's file-per-table tablespaces are transportable, which means that you can 
 
 You can copy the transportable tablespace of a non-partitioned table from one server to another by exporting the tablespace file from the original server, and then importing the tablespace file into the new server.
 
-**MariaDB starting with** [**11.2.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.1)
+**MariaDB starting with** [**11.2.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.1-release-notes)
 
-The workflow is simplified starting from [MariaDB 11.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.1). On the source server, simply do:
+The workflow is simplified starting from [MariaDB 11.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.1-release-notes). On the source server, simply do:
 
 ```sql
 FLUSH TABLES t1 FOR EXPORT;

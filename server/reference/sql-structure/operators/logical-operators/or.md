@@ -1,8 +1,7 @@
 ---
 description: >-
-  Logical OR. OR and || return 1 if any operand is non-zero, 0 if all
-  operands are 0, and NULL otherwise. With PIPES_AS_CONCAT, || concatenates
-  strings.
+  Logical OR. OR and || return 1 if any operand is non-zero, 0 if all operands
+  are 0, and NULL otherwise. With PIPES_AS_CONCAT, || concatenates strings.
 ---
 
 # ||
@@ -25,7 +24,7 @@ Note that, if the `PIPES_AS_CONCAT` [SQL\_MODE](../../../../server-management/va
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `||` ignores [null](../../../data-types/null-values.md).
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `||` ignores [null](../../../data-types/null-values.md).
 
 ## Examples
 
@@ -66,7 +65,7 @@ SELECT 1 || NULL;
 +-----------+
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle):
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle):
 
 ```sql
 SELECT 0 || NULL;
@@ -80,7 +79,7 @@ SELECT 0 || NULL;
 ## See Also
 
 * [Operator Precedence](../operator-precedence.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

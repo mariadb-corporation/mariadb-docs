@@ -68,15 +68,15 @@ The following options relate to how MariaDB command-line tools handles option fi
 
 `mysql.server` also reads options from the following server [option groups](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-| Group            | Description                                                                                                                                                                                                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysqld]        | Options read by mysqld, which includes both MariaDB Server and MySQL Server.                                                                                                                                                                                               |
-| \[server]        | Options read by MariaDB Server.                                                                                                                                                                                                                                            |
-| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-5.5].                                                                                                                                             |
-| \[mariadbd]      | Options read by MariaDB Server.                                                                                                                                                                                                                                            |
-| \[mariadbd-X.Y]  | Options read by a specific version of MariaDB Server.                                                                                                                                                                                                                      |
-| \[client-server] | Options read by all MariaDB [client programs](../../clients-and-utilities/README.md) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
-| \[galera]        | Options read by a galera-capable MariaDB Server. Available on systems compiled with Galera support.                                                                                                                                                                        |
+| Group            | Description                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| \[mysqld]        | Options read by mysqld, which includes both MariaDB Server and MySQL Server.                                                                                                                             |
+| \[server]        | Options read by MariaDB Server.                                                                                                                                                                          |
+| \[mysqld-X.Y]    | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example, \[mysqld-5.5].                                                                           |
+| \[mariadbd]      | Options read by MariaDB Server.                                                                                                                                                                          |
+| \[mariadbd-X.Y]  | Options read by a specific version of MariaDB Server.                                                                                                                                                    |
+| \[client-server] | Options read by all MariaDB [client programs](../../clients-and-utilities/) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
+| \[galera]        | Options read by a galera-capable MariaDB Server. Available on systems compiled with Galera support.                                                                                                      |
 
 ### Customizing mysql.server
 
@@ -100,7 +100,7 @@ If you installed MariaDB on Linux using [RPMs](../install-and-upgrade-mariadb/in
 
 #### Manually Installing with SysVinit
 
-If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
+If you install MariaDB from [source](../install-and-upgrade-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
 
 In the examples below we will follow the historical convention of renaming the `mysql.server` script to '`mysql`' when we copy it to `/etc/init.d/`.
 

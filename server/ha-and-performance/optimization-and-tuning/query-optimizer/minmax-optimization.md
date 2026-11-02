@@ -1,7 +1,7 @@
 ---
 description: >-
-  The MIN/MAX optimization, which resolves MIN() and MAX() from an index
-  without scanning rows.
+  The MIN/MAX optimization, which resolves MIN() and MAX() from an index without
+  scanning rows.
 ---
 
 # MIN/MAX optimization
@@ -32,7 +32,7 @@ SELECT MAX(b) FROM t1 WHERE a=const AND b BETWEEN const AND const
 
 * Instead of `a=const` the condition `a IS NULL` can be used.
 
-The above optimization also works for [subqueries](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/):
+The above optimization also works for [subqueries](../../../reference/sql-statements/data-manipulation/selecting-data/subqueries/):
 
 ```sql
 SELECT x FROM t2 WHERE y= (SELECT MIN(b) FROM t1 WHERE a=const)

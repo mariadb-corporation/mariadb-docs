@@ -30,7 +30,7 @@ The forms that use _`FROM`_ are standard SQL syntax.
 
 It is also possible to use a negative value for _`pos`_. In this case, the beginning of the substring is _`pos`_ characters from the end of the string, rather than the beginning. A negative value may be used for _`pos`_ in any of the forms of this function.
 
-By default, the position of the first character in the string from which the substring is to be extracted is 1. If the value of _pos_ is 0, the result is empty string. For [Oracle compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), when `sql_mode` is set to '`oracle`', position 0 is treated as position 1.
+By default, the position of the first character in the string from which the substring is to be extracted is 1. If the value of _pos_ is 0, the result is empty string. For [Oracle compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), when `sql_mode` is set to '`oracle`', position 0 is treated as position 1.
 
 If any argument is `NULL`, returns `NULL`.
 

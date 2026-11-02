@@ -141,8 +141,8 @@ Complete reference for SET PASSWORD in MariaDB. Complete syntax guide with all o
 
 {% columns %}
 {% column %}
-{% content-ref url="../../../set-session-authorization.md" %}
-[set-session-authorization.md](../../../set-session-authorization.md)
+{% content-ref url="set-session-authorization.md" %}
+[set-session-authorization.md](set-session-authorization.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

@@ -28,8 +28,7 @@ The MariaDB Server source tree is maintained by MariaDB the company and its deve
 
 MariaDB Server began as a fork of MySQL. Each release builds off of the previous MariaDB Server releases, with backported features from MySQL and entirely new features not found anywhere else.
 
-Short descriptions of the various MariaDB Server releases and their main new features
-can be found on the [MariaDB Server Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server) page.
+Short descriptions of the various MariaDB Server releases and their main new features can be found on the [MariaDB Server Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes) page.
 
 ## Plans
 

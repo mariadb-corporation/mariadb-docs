@@ -7,7 +7,7 @@ This guide assumes you are running on a variant of Linux that uses `systemd` to 
 {% endhint %}
 
 {% hint style="info" %}
-Running MariaDB Enterprise Server in a **Galera Cluster**? See [Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-enterprise-server-10.6-to-11.8-with-galera-cluster) for the cluster-specific procedure (packages, shutdown order, and bootstrapping). The configuration changes below apply to every node.
+Running MariaDB Enterprise Server in a **Galera Cluster**? See [Upgrading from MariaDB Enterprise Server 10.6 to 11.8 with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-enterprise-server-10.6-to-11.8-with-galera-cluster) for the cluster-specific procedure (packages, shutdown order, and bootstrapping). The configuration changes below apply to every node.
 {% endhint %}
 
 ## Prerequisites
@@ -99,8 +99,7 @@ The repository setup only configures the source; you must explicitly install the
 
 * YUM: `sudo yum install MariaDB-server MariaDB-backup`
 * APT: `sudo apt update && sudo apt install mariadb-server mariadb-backup`
-*   ZYpp: `sudo zypper install MariaDB-server MariaDB-backup`
-
+* ZYpp: `sudo zypper install MariaDB-server MariaDB-backup`
 {% endstep %}
 
 {% step %}
@@ -204,7 +203,7 @@ These variables define the weights of the new optimizer. If query execution plan
 
 InnoDB used complex buffering (like the "Change Buffer") to delay writes because hard drives were slow at random I/O. In version 11.8, these legacy layers are being stripped back. The following [InnoDB System Variables](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md) allow MariaDB to communicate more directly with modern SSD/NVMe storage, reducing the "middleman" overhead of the Operating System's cache.
 
-<table><thead><tr><th width="415.5">Variable Name</th><th>11.8 Default</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.4#innodb"><code>INNODB_ADAPTIVE_HASH_INDEX_CELLS</code></a><sup>^</sup></td><td><code>16381</code> (derived from <code>innodb_buffer_pool_size</code> at startup)</td></tr><tr><td><a href="../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_alter_copy_bulk"><code>INNODB_ALTER_COPY_BULK</code></a><sup>#</sup></td><td><code>ON</code></td></tr><tr><td><code>INNODB_BUFFER_POOL_SIZE_AUTO_MIN</code></td><td><code>0</code> (auto: follows <code>innodb_buffer_pool_size_max</code>)</td></tr><tr><td><code>INNODB_BUFFER_POOL_SIZE_MAX</code></td><td>Auto-sized at startup</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_DATA_FILE_WRITE_THROUGH</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LINUX_AIO</code></td><td><code>auto</code></td></tr><tr><td><code>INNODB_LOG_CHECKPOINT_NOW</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_FILE_BUFFERING</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_FILE_MMAP</code></td><td><code>ON</code> (Linux and FreeBSD; <code>OFF</code> on other platforms)</td></tr><tr><td><code>INNODB_LOG_FILE_WRITE_THROUGH</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_SPIN_WAIT_DELAY</code></td><td><code>0</code> (deprecated; no effect)</td></tr><tr><td><code>INNODB_TRUNCATE_TEMPORARY_TABLESPACE_NOW</code></td><td><code>OFF</code></td></tr></tbody></table>
+<table><thead><tr><th width="415.5">Variable Name</th><th>11.8 Default</th></tr></thead><tbody><tr><td><a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.8-series/mariadb-11.8.4-release-notes#innodb"><code>INNODB_ADAPTIVE_HASH_INDEX_CELLS</code></a><sup>^</sup></td><td><code>16381</code> (derived from <code>innodb_buffer_pool_size</code> at startup)</td></tr><tr><td><a href="../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_alter_copy_bulk"><code>INNODB_ALTER_COPY_BULK</code></a><sup>#</sup></td><td><code>ON</code></td></tr><tr><td><code>INNODB_BUFFER_POOL_SIZE_AUTO_MIN</code></td><td><code>0</code> (auto: follows <code>innodb_buffer_pool_size_max</code>)</td></tr><tr><td><code>INNODB_BUFFER_POOL_SIZE_MAX</code></td><td>Auto-sized at startup</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_DATA_FILE_WRITE_THROUGH</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LINUX_AIO</code></td><td><code>auto</code></td></tr><tr><td><code>INNODB_LOG_CHECKPOINT_NOW</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_FILE_BUFFERING</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_FILE_MMAP</code></td><td><code>ON</code> (Linux and FreeBSD; <code>OFF</code> on other platforms)</td></tr><tr><td><code>INNODB_LOG_FILE_WRITE_THROUGH</code></td><td><code>OFF</code></td></tr><tr><td><code>INNODB_LOG_SPIN_WAIT_DELAY</code></td><td><code>0</code> (deprecated; no effect)</td></tr><tr><td><code>INNODB_TRUNCATE_TEMPORARY_TABLESPACE_NOW</code></td><td><code>OFF</code></td></tr></tbody></table>
 
 #### **Replication & Binlog Variables**
 
@@ -282,26 +281,26 @@ These variables may impact system stability and performance; please review durin
 
 During the maintenance window (after stopping 10.6 and before starting 11.8), you must scrub your `my.cnf` of all removed, superseded and renamed options.
 
-| Variable Name                                                                | 10.6 Default        | Technical Action / Replacement                                |
-| ---------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------- |
-| `DATETIME_FORMAT`<mark style="color:$warning;">²</mark>                      | `%Y-%m-%d %H:%i:%s` | Scrub. 11.8 enforces standard internal format strings.        |
-| `DATE_FORMAT`<mark style="color:$warning;">²</mark>                          | `%Y-%m-%d`          | Scrub. Enforced standard format.                              |
-| `DEBUG_NO_THREAD_ALARM`<mark style="color:$danger;">¹</mark>                 | `OFF`               | Remove. Retired legacy debug code.                            |
-| `INNODB_CHANGE_BUFFERING`<mark style="color:$warning;">²</mark>              | `none`              | Scrub. Logic replaced by SSD-optimized write paths.           |
-| `INNODB_CHANGE_BUFFER_MAX_SIZE`<mark style="color:$danger;">¹</mark>         | `25`                | Remove. Buffer size is now managed internally by the engine.  |
-| `INNODB_DEFRAGMENT`<mark style="color:$warning;">²</mark>                    | `OFF`               | Scrub. Manual defragmentation is no longer supported.         |
-| `INNODB_DEFRAGMENT_FILL_FACTOR`<mark style="color:$warning;">²</mark>        | `0.9`               | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_FILL_FACTOR_N_RECS`<mark style="color:$warning;">²</mark> | `20`                | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_FREQUENCY`<mark style="color:$warning;">²</mark>          | `40`                | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_N_PAGES`<mark style="color:$warning;">²</mark>            | `7`                 | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_STATS_ACCURACY`<mark style="color:$warning;">²</mark>     | `0`                 | Scrub. Feature retired; logic is now internal.                |
-| `MAX_TMP_TABLES`<mark style="color:$danger;">¹</mark>                        | `32`                | Remove. Internal temp table management is now automated.      |
-| `OLD_ALTER_TABLE`<mark style="color:$danger;">¹</mark>                       | `DEFAULT`           | Remove. Superseded by `ALTER_ALGORITHM`.                      |
-| `TIME_FORMAT`<mark style="color:$warning;">²</mark>                          | `%H:%i:%s`          | Scrub. Enforced standard format.                              |
-| `WSREP_CAUSAL_READS`<mark style="color:$warning;">²</mark>                   | `OFF`               | Scrub. Superseded by `wsrep_sync_wait`.                       |
-| `WSREP_LOAD_DATA_SPLITTING`<mark style="color:$danger;">¹</mark>             | `OFF`               | Remove. Legacy Galera splitting logic retired.                |
-| `WSREP_REPLICATE_MYISAM`<mark style="color:$danger;">¹</mark>                | `OFF`               | Remove. Galera no longer supports MyISAM replication.         |
-| `WSREP_STRICT_DDL` <mark style="color:$danger;">¹</mark>                     | `OFF`               | Remove. Replaced by `wsrep_mode=STRICT_REPLICATION`.          |
+| Variable Name                                                                | 10.6 Default        | Technical Action / Replacement                               |
+| ---------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------ |
+| `DATETIME_FORMAT`<mark style="color:$warning;">²</mark>                      | `%Y-%m-%d %H:%i:%s` | Scrub. 11.8 enforces standard internal format strings.       |
+| `DATE_FORMAT`<mark style="color:$warning;">²</mark>                          | `%Y-%m-%d`          | Scrub. Enforced standard format.                             |
+| `DEBUG_NO_THREAD_ALARM`<mark style="color:$danger;">¹</mark>                 | `OFF`               | Remove. Retired legacy debug code.                           |
+| `INNODB_CHANGE_BUFFERING`<mark style="color:$warning;">²</mark>              | `none`              | Scrub. Logic replaced by SSD-optimized write paths.          |
+| `INNODB_CHANGE_BUFFER_MAX_SIZE`<mark style="color:$danger;">¹</mark>         | `25`                | Remove. Buffer size is now managed internally by the engine. |
+| `INNODB_DEFRAGMENT`<mark style="color:$warning;">²</mark>                    | `OFF`               | Scrub. Manual defragmentation is no longer supported.        |
+| `INNODB_DEFRAGMENT_FILL_FACTOR`<mark style="color:$warning;">²</mark>        | `0.9`               | Scrub. Feature retired; logic is now internal.               |
+| `INNODB_DEFRAGMENT_FILL_FACTOR_N_RECS`<mark style="color:$warning;">²</mark> | `20`                | Scrub. Feature retired; logic is now internal.               |
+| `INNODB_DEFRAGMENT_FREQUENCY`<mark style="color:$warning;">²</mark>          | `40`                | Scrub. Feature retired; logic is now internal.               |
+| `INNODB_DEFRAGMENT_N_PAGES`<mark style="color:$warning;">²</mark>            | `7`                 | Scrub. Feature retired; logic is now internal.               |
+| `INNODB_DEFRAGMENT_STATS_ACCURACY`<mark style="color:$warning;">²</mark>     | `0`                 | Scrub. Feature retired; logic is now internal.               |
+| `MAX_TMP_TABLES`<mark style="color:$danger;">¹</mark>                        | `32`                | Remove. Internal temp table management is now automated.     |
+| `OLD_ALTER_TABLE`<mark style="color:$danger;">¹</mark>                       | `DEFAULT`           | Remove. Superseded by `ALTER_ALGORITHM`.                     |
+| `TIME_FORMAT`<mark style="color:$warning;">²</mark>                          | `%H:%i:%s`          | Scrub. Enforced standard format.                             |
+| `WSREP_CAUSAL_READS`<mark style="color:$warning;">²</mark>                   | `OFF`               | Scrub. Superseded by `wsrep_sync_wait`.                      |
+| `WSREP_LOAD_DATA_SPLITTING`<mark style="color:$danger;">¹</mark>             | `OFF`               | Remove. Legacy Galera splitting logic retired.               |
+| `WSREP_REPLICATE_MYISAM`<mark style="color:$danger;">¹</mark>                | `OFF`               | Remove. Galera no longer supports MyISAM replication.        |
+| `WSREP_STRICT_DDL` <mark style="color:$danger;">¹</mark>                     | `OFF`               | Remove. Replaced by `wsrep_mode=STRICT_REPLICATION`.         |
 
 {% hint style="danger" %}
 <mark style="color:$danger;">¹</mark>**Fatal Error**

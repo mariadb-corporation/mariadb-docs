@@ -8,7 +8,7 @@ description: >-
 
 This is the recipe for setting up a MariaDB Buildbot slave on Windows:
 
-1. Prepare the [development environment](../../../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
+1. Prepare the [development environment](../../../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
 2. Install [Python](https://www.python.org/download/), 32 bit. Twisted does not work on 64 bit and builtbot hasn't been tested properly with Python version 3.\
    Note: As of June 2016, there is no fresh Twistd for 32-bit Python, so a 64-bit version has to be installed. Installed 2.7.11 64-bit, it seems to work.
 3. Install [pywin32](https://sourceforge.net/projects/pywin32/files). Make sure the version matches your Python version perfectly, and get the .exe file, not the zip file.\
@@ -96,8 +96,7 @@ This is a sympthom of intermittent network issues, which cause Buildbot to abort
 This is an experimental setup.
 {% endhint %}
 
-In case the default Windows buildbot setup is not sufficiently reliable due to "connection lost in a non-clean fashion" errors, the following setup can be used
-instead. It runs the buildbot daemon on a linux host while doing the builds on Windows, thus working around Twisted issues on Windows.
+In case the default Windows buildbot setup is not sufficiently reliable due to "connection lost in a non-clean fashion" errors, the following setup can be used instead. It runs the buildbot daemon on a linux host while doing the builds on Windows, thus working around Twisted issues on Windows.
 
 **Note that the procedure below&#x20;**_**significantly**_**&#x20;degrades the overall security of your Windows host. It is strongly recommended that a properly-firewalled, standalone virtual machine is used.**
 

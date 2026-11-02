@@ -1,8 +1,8 @@
 ---
 description: >-
   Guidance on tuning Linux kernel settings for MariaDB performance, including
-  I/O schedulers (using none or mq-deadline), open file limits, and core
-  file sizes.
+  I/O schedulers (using none or mq-deadline), open file limits, and core file
+  sizes.
 ---
 
 # Configuring Linux for MariaDB
@@ -51,7 +51,7 @@ By default, the system limits how many open file descriptors a process can have 
 
 If you are using [mysqld\_safe or mariadbd-safe](../../../starting-and-stopping-mariadb/mariadbd-safe.md) to start `mysqld`, then see the instructions at [mariadbd-safe: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-open-files-limit).
 
-If you are using [systemd](../../../starting-and-stopping-mariadb/systemd/README.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
+If you are using [systemd](../../../starting-and-stopping-mariadb/systemd/) to start `mysqld`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
 
 Otherwise, you can set the soft and hard limits for the `mysql` user account by adding the following lines to [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf):
 
@@ -71,11 +71,11 @@ $ ulimit -Hn
 
 ### Configuring the Core File Size
 
-By default, the system limits the size of core files that could be created. It has both a soft and hard limit. On many systems, the soft limit defaults to 0. If you want to [enable core dumps](../../../../reference/product-development/debugging-mariadb/enabling-core-dumps.md), then you may need to increase this. Therefore, you may need to increase the soft and hard limits. There are a few ways to do so.
+By default, the system limits the size of core files that could be created. It has both a soft and hard limit. On many systems, the soft limit defaults to 0. If you want to [enable core dumps](../../../../reference/product-development/mariadb-fault-finding/enabling-core-dumps.md), then you may need to increase this. Therefore, you may need to increase the soft and hard limits. There are a few ways to do so.
 
 If you are using [mysqld\_safe or mariadbd-safe](../../../starting-and-stopping-mariadb/mariadbd-safe.md) to start `mysqld`, then see the instructions at [mariadb-safe: Configuring the Core File Size](../../../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-core-file-size).
 
-If you are using [systemd](../../../starting-and-stopping-mariadb/systemd/README.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Core File Size](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-core-file-size).
+If you are using [systemd](../../../starting-and-stopping-mariadb/systemd/) to start `mysqld`, then see the instructions at [systemd: Configuring the Core File Size](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-core-file-size).
 
 Otherwise, you can set the soft and hard limits for the `mysql` user account by adding the following lines to [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf):
 

@@ -2,7 +2,7 @@
 
 ## Testing method for segmented key cache performance
 
-We used [SysBench v0.5](https://launchpad.net/sysbench) from Launchpad to test the [segmented key cache](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md) performance for the MyISAM storage engine of [MariaDB 5.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.2)-gamma.
+We used [SysBench v0.5](https://launchpad.net/sysbench) from Launchpad to test the [segmented key cache](../../../../../../ha-and-performance/optimization-and-tuning/system-variables/segmented-key-cache.md) performance for the MyISAM storage engine of [MariaDB 5.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.2-series/mariadb-5.2.2-release-notes)-gamma.
 
 As wrapper scripts for automated running of SysBench we used the `sysbench/` directory from [MariaDB Tools](https://launchpad.net/mariadb-tools).
 
@@ -136,7 +136,7 @@ We chose our key buffer size to be big enough to hold the index file.
 
 ### MariaDB sources
 
-We used [MariaDB 5.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.2)-gamma with following revision from our launchpad repository [Revision #2878](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2878)
+We used [MariaDB 5.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.2-series/mariadb-5.2.2-release-notes)-gamma with following revision from our launchpad repository [Revision #2878](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2878)
 
 ```
 revno: 2878

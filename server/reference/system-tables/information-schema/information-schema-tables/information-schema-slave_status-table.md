@@ -7,7 +7,7 @@ description: >-
 # Information Schema SLAVE\_STATUS Table
 
 {% hint style="info" %}
-This table is available as of MariaDB [11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116).
+This table is available as of MariaDB [11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.6-rolling-releases/mariadb-11.6-changes-and-improvements).
 {% endhint %}
 
 The [Information Schema](../) `SLAVE_STATUS` table contains replica status information, similar to [SHOW REPLICA STATUS](../../../sql-statements/administrative-sql-statements/show/show-replica-status.md).

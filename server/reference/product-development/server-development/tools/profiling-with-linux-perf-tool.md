@@ -24,7 +24,7 @@ The `-g` option here records the calling stack. Because seeing time in a mutex f
 
 ### Viewing a sample
 
-To view a recording, you need the debug symbols for your executable. See [this page](../../debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md) on getting the debug symbols available.
+To view a recording, you need the debug symbols for your executable. See [this page](../../mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd.md) on getting the debug symbols available.
 
 Changing the ownership of the recording means you can run perf report without sudo.
 

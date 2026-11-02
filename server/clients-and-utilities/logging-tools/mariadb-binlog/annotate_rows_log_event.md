@@ -309,7 +309,7 @@ ROLLBACK /* added by mariadb-binlog */;
 
 * [mariadb-binlog Options](mariadb-binlog-options.md)
 * [Replication and Binary Log Server System Variables](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)
-* [Full List of MariaDB Options, System and Status Variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md)
+* [Full List of MariaDB Options, System and Status Variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md)
 * [mariadbd Options](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

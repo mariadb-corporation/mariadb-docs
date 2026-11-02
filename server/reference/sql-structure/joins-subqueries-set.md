@@ -63,7 +63,7 @@ Remember, practice is the key to mastering these advanced SQL concepts, like any
 ### See Also
 
 * [Joining Tables with JOIN Clauses Guide](../../mariadb-quickstart-guides/mariadb-join-guide.md)
-* [More Advanced Joins](../sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
+* [More Advanced Joins](../../mariadb-quickstart-guides/more-advanced-joins.md)
 * [JOIN Syntax](../sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
 * [Comma vs JOIN](../sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 

@@ -1,22 +1,21 @@
 ---
-description: >-
-  How to abort statements that exceed a maximum execution time.
+description: How to abort statements that exceed a maximum execution time.
 ---
 
 # Aborting Statements that Exceed a Certain Time to Execute
 
 ## Overview
 
-The [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) system variable sets a time limit for statements. When set to a non-zero value, the server attempts to abort any queries taking longer than this time in seconds.&#x20;
+The [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) system variable sets a time limit for statements. When set to a non-zero value, the server attempts to abort any queries taking longer than this time in seconds.
 
 {% hint style="danger" %}
-The abortion is not immediate; the server checks the timer status at specific intervals during execution. Consequently, a query may run slightly longer than the specified time before being detected and stopped.&#x20;
+The abortion is not immediate; the server checks the timer status at specific intervals during execution. Consequently, a query may run slightly longer than the specified time before being detected and stopped.
 {% endhint %}
 
 The default is zero, and no limits are then applied. The aborted query has no effect on any larger transaction or connection contexts. The variable is of type double, thus you can use subsecond timeout. For example you can use value 0.01 for 10 milliseconds timeout.
 
 The value can be set globally or per session, as well as per user or per query (see below).\
-Replicas are not affected by this variable, however from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), there is [slave\_max\_statement\_time](../../standard-replication/replication-and-binary-log-system-variables.md#slave_max_statement_time) which serves the same purpose on replicas only.
+Replicas are not affected by this variable, however from [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements), there is [slave\_max\_statement\_time](../../standard-replication/replication-and-binary-log-system-variables.md#slave_max_statement_time) which serves the same purpose on replicas only.
 
 An associated status variable, [max\_statement\_time\_exceeded](../system-variables/server-status-variables.md#max_statement_time_exceeded), stores the number of queries that have exceeded the execution time specified by [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time), and a `MAX_STATEMENT_TIME_EXCEEDED` column was added to the [CLIENT\_STATISTICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table.md) and [USER STATISTICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table.md) Information Schema tables.
 

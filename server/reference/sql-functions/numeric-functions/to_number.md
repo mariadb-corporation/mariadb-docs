@@ -7,7 +7,7 @@ description: >-
 # TO\_NUMBER
 
 {% hint style="info" %}
-`TO_NUMBER` is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements).
+`TO_NUMBER` is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.2-rolling-releases/mariadb-12.2-changes-and-improvements).
 {% endhint %}
 
 `TO_NUMBER` converts a string or a number to a number of the [DOUBLE](../../data-types/numeric-data-types/double.md) data type, optionally parsing the string with a format.
@@ -27,19 +27,19 @@ With one argument, `TO_NUMBER` converts a number, or a string that holds a plain
 
 With two arguments, `string_format` describes how `string_subject` is written. The format supports the following elements:
 
-| Element | Meaning |
-| --- | --- |
-| `0`, `9` | A digit. |
-| `X` | A hexadecimal digit. A format of `X` elements reads a hexadecimal string such as `'FF'`. |
-| `,` (comma) | A group separator. The string must have a comma in the same position. |
-| `.` (period) | The decimal point. |
-| `$` | A dollar sign. The string must contain it. |
-| `B` | Blank flag. Accepted in the format. |
-| `EEEE` | Scientific notation, such as `1.5E+03`. Group separators can't be used with `EEEE`. |
-| `S` | A sign, at the start or the end of the format. The string must have an explicit `+` or `-` in that position. |
-| `MI` | A trailing sign, at the end of the format. The string ends with `-` for a negative value. |
-| `PR` | A negative value in angle brackets, at the end of the format: `<1234.50>`. |
-| `FM` | Format flag. Accepted at the start of the format. |
+| Element      | Meaning                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `0`, `9`     | A digit.                                                                                                     |
+| `X`          | A hexadecimal digit. A format of `X` elements reads a hexadecimal string such as `'FF'`.                     |
+| `,` (comma)  | A group separator. The string must have a comma in the same position.                                        |
+| `.` (period) | The decimal point.                                                                                           |
+| `$`          | A dollar sign. The string must contain it.                                                                   |
+| `B`          | Blank flag. Accepted in the format.                                                                          |
+| `EEEE`       | Scientific notation, such as `1.5E+03`. Group separators can't be used with `EEEE`.                          |
+| `S`          | A sign, at the start or the end of the format. The string must have an explicit `+` or `-` in that position. |
+| `MI`         | A trailing sign, at the end of the format. The string ends with `-` for a negative value.                    |
+| `PR`         | A negative value in angle brackets, at the end of the format: `<1234.50>`.                                   |
+| `FM`         | Format flag. Accepted at the start of the format.                                                            |
 
 Without `S`, `MI`, or `PR`, a fixed-point format does not accept a sign, so `TO_NUMBER('-1234.50', '9999.99')` returns `NULL`.
 

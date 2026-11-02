@@ -21,8 +21,8 @@ MariaDB supports loading plugins at startup or runtime to extend functionality, 
 
 {% columns %}
 {% column %}
-{% content-ref url="information-on-plugins/list-of-plugins.md" %}
-[list-of-plugins.md](information-on-plugins/list-of-plugins.md)
+{% content-ref url="list-of-plugins.md" %}
+[list-of-plugins.md](list-of-plugins.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -45,8 +45,8 @@ Every MariaDB storage engine is implemented as a plugin. This section covers the
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-audit/README.md" %}
-[mariadb-enterprise-audit/README.md](mariadb-enterprise-audit/README.md)
+{% content-ref url="mariadb-enterprise-audit/" %}
+[mariadb-enterprise-audit](mariadb-enterprise-audit/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -63,7 +63,7 @@ The MariaDB Enterprise Audit plugin logs detailed data access and configuration 
 {% endcolumn %}
 
 {% column %}
-Complete MariaDB Audit Plugin reference: server_audit activity logging, connection/query event tracking, file/syslog output, and compliance configuration.
+Complete MariaDB Audit Plugin reference: server\_audit activity logging, connection/query event tracking, file/syslog output, and compliance configuration.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -87,7 +87,7 @@ Explore the authentication plugins available in MariaDB, such as ed25519, GSSAPI
 {% endcolumn %}
 
 {% column %}
-This section covers plugins specifically designed for high availability and clustering, including the wsrep_provider plugin used for Galera Cluster integration.
+This section covers plugins specifically designed for high availability and clustering, including the wsrep\_provider plugin used for Galera Cluster integration.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -111,7 +111,7 @@ Discover additional plugins that extend MariaDB Server functionality, such as th
 {% endcolumn %}
 
 {% column %}
-Password validation plugins, like simple_password_check and cracklib, enforce strong password policies by checking new passwords against defined complexity rules.
+Password validation plugins, like simple\_password\_check and cracklib, enforce strong password policies by checking new passwords against defined complexity rules.
 {% endcolumn %}
 {% endcolumns %}
 

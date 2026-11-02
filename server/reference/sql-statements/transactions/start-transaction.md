@@ -31,11 +31,11 @@ The BNF above documents four related statements together; each gets its own diag
 
 ![Railroad diagram of SET autocommit](../../../.gitbook/assets/set-autocommit-railroad.svg)
 
-![Railroad diagram of transaction_property](../../../.gitbook/assets/start-transaction-property-railroad.svg)
+![Railroad diagram of transaction\_property](../../../.gitbook/assets/start-transaction-property-railroad.svg)
 
 ## Description
 
-The `START TRANSACTION` or `BEGIN` statement begins a new transaction. [COMMIT](commit.md) commits the current transaction, making its changes permanent. [ROLLBACK](rollback.md) rolls back the current transaction, canceling its changes. The [SET](../programmatic-compound-statements/set-variable.md) [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) statement disables or enables the default autocommit mode for the current session.
+The `START TRANSACTION` or `BEGIN` statement begins a new transaction. [COMMIT](commit.md) commits the current transaction, making its changes permanent. [ROLLBACK](rollback.md) rolls back the current transaction, canceling its changes. The [SET](../administrative-sql-statements/set-commands/set-variable.md) [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) statement disables or enables the default autocommit mode for the current session.
 
 `START TRANSACTION` and `SET` autocommit = 1 implicitly commit the current transaction, if there is one.
 
@@ -65,7 +65,7 @@ The access mode specifies whether the transaction is allowed to write data or no
 
 It is not permitted to specify both `READ WRITE` and `READ ONLY` in the same statement.
 
-`READ WRITE` and `READ ONLY` can also be specified in the [SET TRANSACTION](set-transaction.md) statement, in which case the specified mode is valid for all sessions, or for all subsequent transaction used by the current session.
+`READ WRITE` and `READ ONLY` can also be specified in the [SET TRANSACTION](../administrative-sql-statements/set-commands/set-transaction.md) statement, in which case the specified mode is valid for all sessions, or for all subsequent transaction used by the current session.
 
 ### autocommit
 

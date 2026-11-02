@@ -10,7 +10,7 @@ description: >-
 
 The result of `EXCEPT` contains all records of the left `SELECT` result set except records which are in right `SELECT` result set. In other words, it is the subtraction of two result sets.
 
-`MINUS` is a synonym when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
+`MINUS` is a synonym when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is set.
 
 ## Syntax
 
@@ -39,7 +39,7 @@ All behavior for naming columns, `ORDER BY` and `LIMIT` is the same as for [UNIO
 
 The result of `EXCEPT` is all records of the left `SELECT` result except records which are in right `SELECT` result set, i.e. it is subtraction of two result sets.
 
-`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), in which case all three have the same precedence.
+`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), in which case all three have the same precedence.
 
 #### Parentheses
 

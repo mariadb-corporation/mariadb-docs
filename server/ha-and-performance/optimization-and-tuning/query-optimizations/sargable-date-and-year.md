@@ -1,12 +1,12 @@
 ---
 description: >-
-  The sargable DATE and YEAR optimization, letting the optimizer use indexes
-  for certain date and year conditions.
+  The sargable DATE and YEAR optimization, letting the optimizer use indexes for
+  certain date and year conditions.
 ---
 
 # Sargable DATE and YEAR
 
-Starting from [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111), conditions in the form
+Starting from [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1-changes-and-improvements), conditions in the form
 
 ```sql
 YEAR(indexed_date_col) CMP const_value

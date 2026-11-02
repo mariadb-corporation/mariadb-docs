@@ -212,7 +212,7 @@ Change the dump to be compatible with a given mode. By default, tables are dumpe
 
 #### -c, --complete-insert
 
-Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names. From MariaDB 13.1, [generated columns](#generated-columns) are omitted from the column list.
+Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statements that include column names. From MariaDB 13.1, [generated columns](mariadb-dump.md#generated-columns) are omitted from the column list.
 
 #### -C, --compress
 
@@ -346,7 +346,7 @@ Continue even if an SQL error occurs during a table dump. One use for this optio
 
 #### --gtid
 
-Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid/README.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid/README.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
+Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid/) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid/) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
 
 #### --header
 
@@ -400,7 +400,7 @@ For each dumped database, lock all tables to be dumped before dumping them. The 
 #### -L, --wildcards
 
 {% hint style="info" %}
-This option is available from [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).
+This option is available from [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.1-rolling-releases/mariadb-12.1-changes-and-improvements).
 {% endhint %}
 
 Usage of wildcards in the table or database name. Without the [--databases](mariadb-dump.md#b-databases) option, wildcards are only recognized in table names. With the "databases" option - in databases names.
@@ -731,12 +731,10 @@ Dump a database as well-formed XML.
 
 Some `mariadb-dump` options are shorthand for groups of other options:
 
-* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the
-  options that `--opt` stands for are also on by default because `--opt` is on by default.
+* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the options that `--opt` stands for are also on by default because `--opt` is on by default.
 * Use of `--compact` is the same as specifying `--skip-add-drop-table`, `--skip-add-locks`, `--skip-comments`, `--skip-disable-keys`, and `--skip-set-charset` options.
 
-To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It
-is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
+To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
 
 * To select the effect of `--opt` except for some features, use the `--skip` option for each feature. To disable extended inserts and memory buffering, use `--opt--skip-extended-insert` `--skip-quick`.\
   (Actually, `--skip-extended-insert--skip-quick` is sufficient because`--opt` is on by default.)
@@ -1006,8 +1004,7 @@ Or:
 shell> mariadb-dump --all-databases --flush-logs --master-data=2 > all_databases.sql
 ```
 
-The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are
-stored that use the InnoDB storage engine.
+The `--master-data` and `--single-transaction` options can be used simultaneously, which provides a convenient way to make an online backup suitable for use prior to point-in-time recovery if tables are stored that use the InnoDB storage engine.
 
 ## See Also
 

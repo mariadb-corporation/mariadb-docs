@@ -53,21 +53,21 @@ The SELECT grammar is broken out into named sub-clauses for readability. Each cl
 
 ![Railroad diagram of SELECT — top-level](../../../../.gitbook/assets/select-railroad.svg)
 
-![Railroad diagram of from_clause](../../../../.gitbook/assets/select-from-clause-railroad.svg)
+![Railroad diagram of from\_clause](../../../../.gitbook/assets/select-from-clause-railroad.svg)
 
-![Railroad diagram of group_by_clause](../../../../.gitbook/assets/select-group-by-clause-railroad.svg)
+![Railroad diagram of group\_by\_clause](../../../../.gitbook/assets/select-group-by-clause-railroad.svg)
 
-![Railroad diagram of order_by_clause](../../../../.gitbook/assets/select-order-by-clause-railroad.svg)
+![Railroad diagram of order\_by\_clause](../../../../.gitbook/assets/select-order-by-clause-railroad.svg)
 
-![Railroad diagram of limit_clause](../../../../.gitbook/assets/select-limit-clause-railroad.svg)
+![Railroad diagram of limit\_clause](../../../../.gitbook/assets/select-limit-clause-railroad.svg)
 
-![Railroad diagram of into_clause](../../../../.gitbook/assets/select-into-clause-railroad.svg)
+![Railroad diagram of into\_clause](../../../../.gitbook/assets/select-into-clause-railroad.svg)
 
-![Railroad diagram of locking_clause](../../../../.gitbook/assets/select-locking-clause-railroad.svg)
+![Railroad diagram of locking\_clause](../../../../.gitbook/assets/select-locking-clause-railroad.svg)
 
-![Railroad diagram of export_options](../../../../.gitbook/assets/select-export-options-railroad.svg)
+![Railroad diagram of export\_options](../../../../.gitbook/assets/select-export-options-railroad.svg)
 
-![Railroad diagram of lock_option](../../../../.gitbook/assets/select-lock-option-railroad.svg)
+![Railroad diagram of lock\_option](../../../../.gitbook/assets/select-lock-option-railroad.svg)
 
 {% tabs %}
 {% tab title="Current" %}
@@ -127,7 +127,7 @@ Before MariaDB 12.0:
 
 ## Description
 
-`SELECT` is used to retrieve rows selected from one or more tables, and can include [UNION](set-operations/union.md) statements and [subqueries](joins-subqueries/subqueries/).
+`SELECT` is used to retrieve rows selected from one or more tables, and can include [UNION](set-operations/union.md) statements and [subqueries](subqueries/).
 
 * Each `select_expr` expression indicates a column or data that you want to retrieve. You must have at least one select expression. See [Select Expressions](select.md#select-expressions) below.
 * The `FROM` clause indicates the table or tables from which to retrieve rows. Use either a single table name or a `JOIN` expression. See [JOIN](joins/join-syntax.md) for details. If no table is involved, [FROM DUAL](dual.md) can be specified.
@@ -159,7 +159,7 @@ If you use any [grouping functions](../../../sql-functions/aggregate-functions/)
 
 ### DISTINCT
 
-A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility).
+A query may produce some identical rows. By default, all rows are retrieved, even when their values are the same. To explicitly specify that you want to retrieve identical rows, use the `ALL` option. If you want duplicates to be removed from the result set, use the `DISTINCT` option. `DISTINCTROW` is a synonym for `DISTINCT`. See also [COUNT DISTINCT](../../../sql-functions/aggregate-functions/count-distinct.md) and [SELECT UNIQUE in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle#simple-syntax-compatibility).
 
 ### INTO
 
@@ -240,7 +240,7 @@ See [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-se
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
 * [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

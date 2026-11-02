@@ -1,13 +1,12 @@
 ---
-description: >-
-  The optimizer cost model introduced in MariaDB 11.0.
+description: The optimizer cost model introduced in MariaDB 11.0.
 ---
 
 # The Optimizer Cost Model from MariaDB 11.0
 
 ## Background
 
-Before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110), the MariaDB Query optimizer used a 'basic cost' of 1 for:
+Before [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0-changes-and-improvements), the MariaDB Query optimizer used a 'basic cost' of 1 for:
 
 * One disk access
 * Fetching a key
@@ -21,23 +20,15 @@ There were some smaller costs:
 * Fetching a row through an index from a temporary memory table: 0.05
 
 The above costs are reasonable for finding out the best index to use.\
-However, they where not good for finding out if we should use a table scan,
-index scan or range lookup. The cost for the different engines were
-not properly calibrated.
+However, they where not good for finding out if we should use a table scan, index scan or range lookup. The cost for the different engines were not properly calibrated.
 
 ## New Cost Model
 
-In [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) we have fixed the above shortcomings by changing the
-basic cost for 'storage engine operations' to be 1 millisecond. This
-means that for most queries the query cost (`LAST_QUERY_COST`) should be
-close (or at least proportional) to the time the server is spending in
-the storage engine + join\_cache + sorting.
+In [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0-changes-and-improvements) we have fixed the above shortcomings by changing the basic cost for 'storage engine operations' to be 1 millisecond. This means that for most queries the query cost (`LAST_QUERY_COST`) should be close (or at least proportional) to the time the server is spending in the storage engine + join\_cache + sorting.
 
-Note that the user level costs are in **microseconds** (as milliseconds
-would have so many zero's that it makes it hard to compare values).
+Note that the user level costs are in **microseconds** (as milliseconds would have so many zero's that it makes it hard to compare values).
 
-The engine costs have also been separated into smaller parts to make things more
-accurate.
+The engine costs have also been separated into smaller parts to make things more accurate.
 
 The "disk"-read cost now assumes a mid level SSD disk with 400MB/second. This can be changed by the end user by modifying `OPTIMIZER_DISK_READ_COST`.
 
@@ -65,10 +56,10 @@ OPTIMIZER_INDEX_BLOCK_COPY_COST: 0.035600
       OPTIMIZER_ROWID_COPY_COST: 0.002653
 ```
 
-The above costs are the default (base) for all engines and should be reasonable for engines that does not have a clustered index (like [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/README.md), [Aria](../../../server-usage/storage-engines/aria/README.md) etc). The default costs can be changed by specifying just the cost as an argument, like `mariadbd --optimizer-disk-read-cost=20` or from SQL: `set global optimizer_disk_read_cost=20`. An engine specific cost can be tuned by prefixing the cost with the engine name, like `set global innodb.optimizer_disk_read_cost=20`.
+The above costs are the default (base) for all engines and should be reasonable for engines that does not have a clustered index (like [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [Aria](../../../server-usage/storage-engines/aria/) etc). The default costs can be changed by specifying just the cost as an argument, like `mariadbd --optimizer-disk-read-cost=20` or from SQL: `set global optimizer_disk_read_cost=20`. An engine specific cost can be tuned by prefixing the cost with the engine name, like `set global innodb.optimizer_disk_read_cost=20`.
 
 An engine can tune some or all of the above cost in the storage engine interface.\
-Here follows the cost for the [InnoDB storage engine](../../../server-usage/storage-engines/innodb/README.md).
+Here follows the cost for the [InnoDB storage engine](../../../server-usage/storage-engines/innodb/).
 
 ```sql
 SELECT * FROM information_schema.optimizer_costs WHERE engine="innodb"\G
@@ -88,13 +79,9 @@ OPTIMIZER_INDEX_BLOCK_COPY_COST: 0.035600
       OPTIMIZER_ROWID_COPY_COST: 0.002653
 ```
 
-As can be seen, the `ROW_LOOKUP_COST` is close to the `KEY_LOOKUP_COST`,
-which is because InnoDB has clustered primary key indexes and is using it
-to find the row from a secondary index.
+As can be seen, the `ROW_LOOKUP_COST` is close to the `KEY_LOOKUP_COST`, which is because InnoDB has clustered primary key indexes and is using it to find the row from a secondary index.
 
-Some engines, like `HEAP`/`MEMORY` implement their own cost
-functions as different indexes in the same engine can have different costs. This is
-why some of the cost numbers for these engines are 0.
+Some engines, like `HEAP`/`MEMORY` implement their own cost functions as different indexes in the same engine can have different costs. This is why some of the cost numbers for these engines are 0.
 
 There are also some SQL level costs that are independent of the storage engine:
 
@@ -110,8 +97,7 @@ SELECT * FROM information_schema.global_variables WHERE variable_name LIKE "%WHE
 
 ## Description of the Different Cost Variables
 
-Time and cost are quite interchangeable in the new cost model. Below we will use cost for most
-things, except for `OPTIMIZER_DISK_READ_COST` as one should use published/tested timings for the SSD/harddisk if one wants to change the value..
+Time and cost are quite interchangeable in the new cost model. Below we will use cost for most things, except for `OPTIMIZER_DISK_READ_COST` as one should use published/tested timings for the SSD/harddisk if one wants to change the value..
 
 | Variable                            | Type    | Description                                                                                                                                                                                                                                                                                  |
 | ----------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

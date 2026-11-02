@@ -21,7 +21,7 @@ FB and Percona store RocksdDB files in $datadir/`.rocksdb`. MariaDB puts them in
 ## Compression Algorithms
 
 * FB's branch doesn't provide binaries. One needs to compile it with appropriate compression libraries.
-* In MariaDB, available compression algorithms can be seen in the [rocksdb\_supported\_compression\_types](myrocks-system-variables.md#rocksdb_supported_compression_types) variable. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md). In earlier versions, the set of supported compression algorithms depends on the platform.
+* In MariaDB, available compression algorithms can be seen in the [rocksdb\_supported\_compression\_types](myrocks-system-variables.md#rocksdb_supported_compression_types) variable. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md). In earlier versions, the set of supported compression algorithms depends on the platform.
   * On Ubuntu 16.04 (current LTS) it is `Snappy,Zlib,LZ4,LZ4HC` .
   * On CentOS 7.4 it is `Snappy,Zlib`.
   * In the bintar tarball it is `Snappy,Zlib`.

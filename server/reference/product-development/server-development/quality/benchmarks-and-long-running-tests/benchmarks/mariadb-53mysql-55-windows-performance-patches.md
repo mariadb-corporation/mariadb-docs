@@ -1,6 +1,6 @@
 # MariaDB 5.3/MySQL 5.5 Windows performance patches
 
-I just backported Windows performance patches I've done for 5.5 back to [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). There will be a bit more in Maria that in MySQL 5.5, but more on this later.
+I just backported Windows performance patches I've done for 5.5 back to [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.3-series/mariadb-5.3-changes-and-improvements). There will be a bit more in Maria that in MySQL 5.5, but more on this later.
 
 First, I feel Windows performance improvements in 5.5 were never adequately described, so here is the redux.\
 For those familiar with Windows systems programming, MySQL code used to offer of low-hanging performance fruits. I picked some of them those back in my days in MySQL/Sun. The result benchmark curve became really nice:\

@@ -20,7 +20,7 @@ The scope of a prepared statement is the session within which it is created. Oth
 
 If a prepared statement with the given name already exists, it is deallocated implicitly before the new statement is prepared. This means that if the new statement contains an error and cannot be prepared, an error is returned and no statement with the given name exists.
 
-Prepared statements can be `PREPARE` and [EXECUTE](execute-statement.md) in a stored procedure, but never in a trigger. In a stored function they are not permitted at all before MariaDB 13.2.1, and from MariaDB 13.2.1 only in the restricted context described in [Dynamic SQL in Stored Functions](#dynamic-sql-in-stored-functions). Also, even if the statement is prepared with `PREPARE` in a procedure, it will not be deallocated when the procedure execution ends.
+Prepared statements can be `PREPARE` and [EXECUTE](execute-statement.md) in a stored procedure, but never in a trigger. In a stored function they are not permitted at all before MariaDB 13.2.1, and from MariaDB 13.2.1 only in the restricted context described in [Dynamic SQL in Stored Functions](prepare-statement.md#dynamic-sql-in-stored-functions). Also, even if the statement is prepared with `PREPARE` in a procedure, it will not be deallocated when the procedure execution ends.
 
 A prepared statement can access [user-defined variables](../../sql-structure/sql-language-structure/user-defined-variables.md), but not [local variables](../programmatic-compound-statements/declare-variable.md) or procedure's parameters.
 
@@ -52,7 +52,7 @@ ERROR 1461 (42000): Can't create more than max_prepared_stmt_count statements
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
 
 ### LOCAL Statement Names
 
@@ -68,7 +68,7 @@ PREPARE LOCAL spvar FROM preparable_stmt;
 
 Here `spvar` is a local variable (or routine parameter) whose string value is used as the prepared statement name — useful when the name must be computed at runtime. `LOCAL` does not create a separate namespace: a statement prepared with `PREPARE LOCAL` can be executed or deallocated by its resolved name with a plain [EXECUTE](execute-statement.md) or [DEALLOCATE PREPARE](deallocate-drop-prepare.md), and the reverse also works.
 
-`PREPARE LOCAL` is only valid inside a stored procedure. Like the plain form, it is never permitted in a trigger, and in a stored function it is subject to the same restrictions as `PREPARE` — see [Dynamic SQL in Stored Functions](#dynamic-sql-in-stored-functions).
+`PREPARE LOCAL` is only valid inside a stored procedure. Like the plain form, it is never permitted in a trigger, and in a stored function it is subject to the same restrictions as `PREPARE` — see [Dynamic SQL in Stored Functions](prepare-statement.md#dynamic-sql-in-stored-functions).
 
 **Example:**
 
@@ -216,7 +216,7 @@ Prior to this, not all statements can be prepared. Only the following SQL comman
 * [SET GLOBAL SQL\_SLAVE\_SKIP\_COUNTER](../administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md)
 * [SET ROLE](../account-management-sql-statements/set-role.md)
 * [SET SQL\_LOG\_BIN](../administrative-sql-statements/set-commands/set-sql_log_bin.md)
-* [SET TRANSACTION ISOLATION LEVEL](../transactions/set-transaction.md)
+* [SET TRANSACTION ISOLATION LEVEL](../administrative-sql-statements/set-commands/set-transaction.md)
 * [SHOW EXPLAIN](../administrative-sql-statements/show/show-explain.md)
 * SHOW {[DATABASES](../administrative-sql-statements/show/show-databases.md) | [TABLES](../administrative-sql-statements/show/show-tables.md) | [OPEN TABLES](../administrative-sql-statements/show/show-open-tables.md) | [TABLE STATUS](../administrative-sql-statements/show/show-table-status.md) | [COLUMNS](../administrative-sql-statements/show/show-columns.md) | [INDEX](../administrative-sql-statements/show/show-index.md) | [TRIGGERS](../administrative-sql-statements/show/show-triggers.md) |[EVENTS](../administrative-sql-statements/show/show-events.md) | [GRANTS](../administrative-sql-statements/show/show-grants.md) | [CHARACTER SET](../administrative-sql-statements/show/show-character-set.md) | [COLLATION](../administrative-sql-statements/show/show-collation.md) | [ENGINES](../administrative-sql-statements/show/show-events.md) | \[PLUGINS [SONAME](../administrative-sql-statements/show/show-plugins.md)] | [PRIVILEGES](../administrative-sql-statements/show/show-privileges.md) |[PROCESSLIST](../administrative-sql-statements/show/show-processlist.md) | [PROFILE](../administrative-sql-statements/show/show-profile.md) | [PROFILES](../administrative-sql-statements/show/show-profiles.md) | [VARIABLES](../administrative-sql-statements/show/show-variables.md) | [STATUS](../administrative-sql-statements/show/show-status.md) | [WARNINGS](../administrative-sql-statements/show/show-warnings.md) | [ERRORS](../administrative-sql-statements/show/show-errors.md) |[TABLE\_STATISTICS](../administrative-sql-statements/show/show-table-statistics.md) | [INDEX\_STATISTICS](../administrative-sql-statements/show/show-index-statistics.md) | [USER\_STATISTICS](../administrative-sql-statements/show/show-user-statistics.md) | [CLIENT\_STATISTICS](../administrative-sql-statements/show/show-client-statistics.md) | [AUTHORS](../administrative-sql-statements/show/show-authors.md) |[CONTRIBUTORS](../administrative-sql-statements/show/show-contributors.md)}
 * SHOW CREATE {[DATABASE](../administrative-sql-statements/show/show-create-database.md) | [TABLE](../administrative-sql-statements/show/show-create-table.md) | [VIEW](../administrative-sql-statements/show/show-create-view.md) | [PROCEDURE](../administrative-sql-statements/show/show-create-procedure.md) | [FUNCTION](../administrative-sql-statements/show/show-create-function.md) | [TRIGGER](../administrative-sql-statements/show/show-create-trigger.md) | [EVENT](../administrative-sql-statements/show/show-create-event.md)}
@@ -322,7 +322,7 @@ DEALLOCATE PREPARE stmt;
 * [EXECUTE Statement](execute-statement.md)
 * [DEALLOCATE / DROP Prepared Statement](deallocate-drop-prepare.md)
 * [EXECUTE IMMEDIATE](execute-immediate.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

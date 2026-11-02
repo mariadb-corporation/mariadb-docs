@@ -41,9 +41,9 @@ routine_body:
 
 ![Railroad diagram of CREATE PROCEDURE — equivalent to the BNF above](../../../.gitbook/assets/create-procedure-railroad.svg)
 
-![Railroad diagram of proc_parameter](../../../.gitbook/assets/create-procedure-parameter-railroad.svg)
+![Railroad diagram of proc\_parameter](../../../.gitbook/assets/create-function-parameter-railroad.svg)
 
-![Railroad diagram of characteristic](../../../.gitbook/assets/create-procedure-characteristic-railroad.svg)
+![Railroad diagram of characteristic](../../../.gitbook/assets/create-function-characteristic-railroad.svg)
 
 The `IN OUT` parameter works only in [Oracle mode](create-procedure.md#oracle-mode).
 {% endtab %}
@@ -83,7 +83,7 @@ routine_body:
 
 Creates a [stored procedure](./). By default, a routine is associated with the default database. To associate the routine explicitly with a given database, specify the name as `db_name.sp_name` when you create it.
 
-When the routine is invoked, an implicit `USE`` `_`db_name`_ is performed (and undone when the routine terminates). The causes the routine to have the given default database while it executes. `USE` statements within stored routines are disallowed.
+When the routine is invoked, an implicit ` USE`` `` `_`db_name`_ is performed (and undone when the routine terminates). The causes the routine to have the given default database while it executes. `USE` statements within stored routines are disallowed.
 
 When a stored procedure has been created, you invoke it by using the `CALL` statement (see [CALL](../../../reference/sql-statements/stored-routine-statements/call.md)).
 
@@ -111,15 +111,13 @@ If the `IF NOT EXISTS` clause is used, then the procedure will only be created i
 
 Each parameter is an `IN` parameter by default. To specify otherwise for a parameter, use the keyword `OUT` or `INOUT` before the parameter name.
 
-An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be
-modified by the procedure, and any change made by the procedure is visible to the caller when the procedure returns.
+An `IN` parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns. An `OUT` parameter passes a value from the procedure back to the caller. Its initial value is `NULL` within the procedure, and its value is visible to the caller when the procedure returns. An `INOUT` parameter is initialized by the caller, can be modified by the procedure, and any change made by the procedure is visible to the caller when the procedure returns.
 
-For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure
-from within another stored procedure or function, you can also pass a routine parameter or local routine variable as an `IN` or `INOUT` parameter.
+For each `OUT` or `INOUT` parameter, pass a user-defined variable in the`CALL` statement that invokes the procedure so that you can obtain its value when the procedure returns. If you are calling the procedure from within another stored procedure or function, you can also pass a routine parameter or local routine variable as an `IN` or `INOUT` parameter.
 
 ### DEFAULT value or expression
 
-As of [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8), each parameter can be defined as having a default value or expression. This can be useful if needing to add extra parameters to a procedure which is already in use.
+As of [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.8-series), each parameter can be defined as having a default value or expression. This can be useful if needing to add extra parameters to a procedure which is already in use.
 
 ### DETERMINISTIC/NOT DETERMINISTIC
 
@@ -166,7 +164,7 @@ Procedure parameters can be declared with any character set/collation. If the ch
 
 ### Oracle Mode
 
-A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) for details on changes when running Oracle mode.
+A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) for details on changes when running Oracle mode.
 
 ## Examples
 

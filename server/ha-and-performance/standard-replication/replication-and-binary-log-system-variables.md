@@ -49,7 +49,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
+* Introduced: [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes)
 
 #### `binlog_annotate_row_events`
 
@@ -72,7 +72,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 * Range - 64 bit: `4096` to `18446744073709547520`
 
 {% hint style="info" %}
-From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine=innodb`), `binlog_cache_size` is still the size of each connection's in-memory buffer. A transaction that outgrows the buffer is not written to a temporary file; its changes are written to the [InnoDB-based binary log](innodb-based-binary-log.md) in pieces while the transaction runs.
+From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine=innodb`), `binlog_cache_size` is still the size of each connection's in-memory buffer. A transaction that outgrows the buffer is not written to a temporary file; its changes are written to the [InnoDB-based binary log](../../server-management/server-monitoring-logs/binary-log/innodb-based-binary-log.md) in pieces while the transaction runs.
 {% endhint %}
 
 #### `binlog_checksum`
@@ -133,7 +133,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 * Description: This option allows you to configure a [replication primary](./) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions are not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas are not be able to replicate them.
   * This option does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
-  * Until [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), only available as an option, not a system variable. This option can not be set dynamically.
+  * Until [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes), only available as an option, not a system variable. This option can not be set dynamically.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](replication-filters.md) for more information.
 * Command line: `--binlog-do-db=#`
@@ -141,18 +141,18 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Dynamic: No
 * Data Type: `string`
 * Default Value: NULL
-* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0) (as a system variable)
+* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes) (as a system variable)
 
 #### `binlog_expire_logs_seconds`
 
-* Description: If non-zero, binary logs are purged after `binlog_expire_logs_seconds` seconds. Possible purges happen at startup and at binary log rotation. From [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1), `binlog_expire_logs_seconds` and [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days) are forms of aliases, such that changes to one automatically reflect in the other.
+* Description: If non-zero, binary logs are purged after `binlog_expire_logs_seconds` seconds. Possible purges happen at startup and at binary log rotation. From [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes), `binlog_expire_logs_seconds` and [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days) are forms of aliases, such that changes to one automatically reflect in the other.
 * Command line: `--binlog-expire-logs-seconds=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `8553600`
-* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1)
+* Introduced: [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes)
 
 #### `binlog_file_cache_size`
 
@@ -176,35 +176,35 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_gtid_index`
 
-* Description: Enable the creation of a GTID index for every binlog file, and the use of such index for speeding up GTID lookup in the binlog. See [Binlog indexing](gtid/README.md#binlog-indexing).
+* Description: Enable the creation of a GTID index for every binlog file, and the use of such index for speeding up GTID lookup in the binlog. See [Binlog indexing](gtid/#binlog-indexing).
 * Command line: `--binlog-gtid-index{=0|1}`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `binlog_gtid_index_page_size`
 
-* Description: Page size to use for the binlog GTID index. See [Binlog indexing](gtid/README.md#binlog-indexing).
+* Description: Page size to use for the binlog GTID index. See [Binlog indexing](gtid/#binlog-indexing).
 * Command line: `--binlog-gtid-index-page-size=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `4096`
 * Range: `64` to `16777216`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `binlog_gtid_index_span_min`
 
-* Description: Control sparseness of the binlog GTID index. If set, at most one index record is added for every `N` bytes of binlog file written, to reduce the size of the index. Normally, this does not need tuning. See [Binlog indexing](gtid/README.md#binlog-indexing).
+* Description: Control sparseness of the binlog GTID index. If set, at most one index record is added for every `N` bytes of binlog file written, to reduce the size of the index. Normally, this does not need tuning. See [Binlog indexing](gtid/#binlog-indexing).
 * Command line: `--binlog-gtid-index-span-min=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `65536`
 * Range: `1` to `1073741824`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `binlog_ignore_db`
 
@@ -217,7 +217,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Dynamic: No
 * Data Type: `string`
 * Default Value: NULL
-* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
+* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes)
 
 #### `binlog_large_commit_threshold`
 
@@ -228,7 +228,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Data Type: `bigint unsigned`
 * Default Value: `134217728`
 * Range: `10485760` to `18446744073709551615`
-* Introduced: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
+* Introduced: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.7-rolling-releases/mariadb-11.7-changes-and-improvements)
 
 #### `binlog_legacy_event_pos`
 
@@ -241,17 +241,17 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `binlog_optimize_thread_scheduling`
 
-* Description: Run fast part of group commit in a single thread, to optimize kernel thread scheduling. On by default. Disable to run each transaction in group commit in its own thread, which can be slower at very high concurrency. This option is mostly for testing one algorithm versus another, and it should not normally be necessary to change it. Deprecated in [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117), as the option was initially added to provide a safe alternative for the newly added binlog group commit logic, such that when `0`, it would disable a leader thread from performing the binlog write for all transactions that are a part of the group commit. Problems related to the binlog group commit optimization are expected to be addressed by now, so the option has been deprecated and is going to be removed in future.
+* Description: Run fast part of group commit in a single thread, to optimize kernel thread scheduling. On by default. Disable to run each transaction in group commit in its own thread, which can be slower at very high concurrency. This option is mostly for testing one algorithm versus another, and it should not normally be necessary to change it. Deprecated in [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.7-rolling-releases/mariadb-11.7-changes-and-improvements), as the option was initially added to provide a safe alternative for the newly added binlog group commit logic, such that when `0`, it would disable a leader thread from performing the binlog write for all transactions that are a part of the group commit. Problems related to the binlog group commit optimization are expected to be addressed by now, so the option has been deprecated and is going to be removed in future.
 * Command line: `--binlog-optimize-thread-scheduling` or `--skip-binlog-optimize-thread-scheduling`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
+* Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.7-rolling-releases/mariadb-11.7-changes-and-improvements)
 
 #### `binlog_row_event_fragment_threshold`
 
@@ -272,7 +272,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Data Type: `numeric`
 * Default Value: `8192`
 * Range: `256` to `4294967040` (in multiples of 256)
-* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
+* Introduced: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes)
 
 #### `binlog_row_image`
 
@@ -280,15 +280,15 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
   * `FULL`: All columns in the before and after image are logged. This is the default, and the only behavior in earlier versions.
   * `NOBLOB`: mariadbd avoids logging blob and text columns whenever possible (eg, blob column was not changed or is not part of primary key).
   * `MINIMAL`: A PK equivalent (PK columns or full row if there is no PK in the table) is logged in the before image, and only changed columns are logged in the after image.
-  * `FULL_NODUP`: All columns are logged in the before image but only changed columns or all columns of inserted record are logged in the after image. This is essentially the same as `FULL`, but takes less space. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114).
+  * `FULL_NODUP`: All columns are logged in the before image but only changed columns or all columns of inserted record are logged in the after image. This is essentially the same as `FULL`, but takes less space. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements).
 * Command line: `--binlog-row-image=value`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `enum`
 * Default Value: `FULL`
 * Valid Values:
-  * <= [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113): `FULL`, `NOBLOB` or `MINIMAL`
-  * \>=[MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114): `FULL`, `NOBLOB`, `MINIMAL` or `FULL_NODUP`
+  * <= [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3-changes-and-improvements): `FULL`, `NOBLOB` or `MINIMAL`
+  * \>=[MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements): `FULL`, `NOBLOB`, `MINIMAL` or `FULL_NODUP`
 
 #### `binlog_row_metadata`
 
@@ -303,12 +303,12 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Data Type: `enum`
 * Default Value: `NO_LOG`
 * Valid Values: `NO_LOG`, `MINIMAL`, `FULL`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `binlog_space_limit`
 
 * Description: Alias for [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size).
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `binlog_stmt_cache_size`
 
@@ -339,7 +339,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 * Data Type: `set`
 * Default Value: `STATEMENT`
 * Valid Values: `STATEMENT` or `MIXED,STATEMENT`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements)
 
 {% hint style="info" %}
 Starting with MariaDB Enterprise Server 11.8.9-6, this variable is [available in Enterprise Server](../optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/enterprise-server/system-variables-added-in-enterprise-server-11.8.md) as a backport of MDEV-36099, with a default value of `MIXED,STATEMENT` rather than the Community Server default of `STATEMENT`. Earlier Enterprise Server 11.8 releases do not have this variable.
@@ -358,7 +358,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `encrypt_binlog`
 
-* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/encryption/data-at-rest-encryption/README.md) and [Encrypting Binary Logs](../../security/encryption/data-at-rest-encryption/managing-binary-log-encryption.md).
+* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/encryption/data-at-rest-encryption/) and [Encrypting Binary Logs](../../security/encryption/data-at-rest-encryption/managing-binary-log-encryption.md).
 * Command line: `--encrypt-binlog[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -387,7 +387,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
     * Preventing Data Loss: If you restart a primary server and do not set `--init-rpl-role` to `SLAVE`, the server will not truncate transactions required by the replicas.
     * Requirements: This protection allows you to keep both `rpl_semi_sync_master_enabled` and `rpl_semi_sync_slave_enabled` active on a primary to ensure no transactions are lost during a restart.
 * Default Value: `MASTER`
-* Valid values: `MASTER` or `SLAVE`&#x20;
+* Valid values: `MASTER` or `SLAVE`
 * Introduced (as a variable): MariaDB 13.0.1 (prior, it was only an option you could set in a [configuration file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md)). The variable can be queried with `SHOW VARIABLES LIKE 'init_rpl_role'` or `SELECT @@init_rpl_role` ([MDEV-38202](https://jira.mariadb.org/browse/MDEV-38202)).
 
 #### `init_slave`
@@ -500,7 +500,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: No
 * Data Type: `string`
 * Default Value: `master.info`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements) (as a system variable, previously it was just an option)
 
 #### `master_verify_checksum`
 
@@ -550,7 +550,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `numeric`
 * Default Value: `0`
 * Range: `0` to `18446744073709551615`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `max_relay_log_size`
 
@@ -623,7 +623,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 #### `relay_log_recovery`
 
 * Description: If set to `1` (`0` is default), on startup the replica drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the primary. Can be useful after the replica has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
-  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid/README.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
+  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid/) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
   * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the replica has already acknowledged to the primary. Those transactions are refetched from the primary, so this is only a problem if the primary has lost them as well. Use `relay_log_recovery=0` on semisynchronous replicas that connect using binary log coordinates.
 * Command line: `--relay-log-recovery`
 * Scope: Global
@@ -679,7 +679,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_events_marked_for_skip`
 
-* Description: Tells the replica whether to [replicate](./) events that are marked with the `@@skip_replication` flag. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
+* Description: Tells the replica whether to [replicate](./) events that are marked with the `@@skip_replication` flag. See [Selectively skipping replication of binlog events](../../server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events.md) for more information.
 * Command line: `--replicate-events-marked-for-skip`
 * Scope: Global
 * Dynamic: Yes
@@ -725,7 +725,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `''` (empty)
-* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0)
+* Introduced: [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.0-release-notes)
 
 #### `replicate_same_server_id`
 
@@ -735,7 +735,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements) (as a system variable, previously just an option)
 
 #### `replicate_wild_do_table`
 
@@ -801,7 +801,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 * Description: This system variable is used with [MariaDB replication](./) to identify unique primary and replica servers in a topology. This system variable is also used with the [binary log](../../server-management/server-monitoring-logs/binary-log/) to determine which server a specific transaction originated on.
   * When [MariaDB replication](./) is used with standalone MariaDB Server, each server in the replication topology must have a unique `server_id` value.
-  * When [MariaDB replication](./) is used with [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), see [Using MariaDB Replication with MariaDB Galera Cluster: Setting server\_id on Cluster Nodes](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica#setting-server_id-on-cluster-nodes) for more information on how to set the `server_id` values.
+  * When [MariaDB replication](./) is used with [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), see [Using MariaDB Replication with MariaDB Galera Cluster: Setting server\_id on Cluster Nodes](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster#setting-server_id-on-cluster-nodes) for more information on how to set the `server_id` values.
 * Command line: `--server-id =#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -817,7 +817,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements) (as a system variable, previously it was just an option)
 
 #### `skip_parallel_replication`
 
@@ -830,7 +830,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `skip_replication`
 
-* Description: Changes are logged into the [binary log](../../server-management/server-monitoring-logs/binary-log/) with the @@skip\_replication flag set. Such events are not be [replicated](./) by replica that run with `--replicate-events-marked-for-skip` set different from its default of `REPLICATE`. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
+* Description: Changes are logged into the [binary log](../../server-management/server-monitoring-logs/binary-log/) with the @@skip\_replication flag set. Such events are not be [replicated](./) by replica that run with `--replicate-events-marked-for-skip` set different from its default of `REPLICATE`. See [Selectively skipping replication of binlog events](../../server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events.md) for more information.
 * Command line: None
 * Scope: Session
 * Dynamic: Yes
@@ -846,7 +846,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `double`
 * Default Value: `31536000.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
+* Introduced: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.7-rolling-releases/mariadb-11.7-changes-and-improvements)
 
 #### `slave_compressed_protocol`
 
@@ -860,15 +860,14 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 #### `slave_connections_needed_for_purge`
 
 * Description: Minimum number of connected replicas required for automatic [binary log](../../server-management/server-monitoring-logs/binary-log/) purge with [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) or [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days).\
-  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of
-  files satisfying the above two parameters and the value that is set itself.
+  Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of files satisfying the above two parameters and the value that is set itself.
 * Command line: `--slave-connections-needed-for-purge=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `1`; `0` on Galera cluster nodes.
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `slave_ddl_exec_mode`
 
@@ -882,8 +881,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_domain_parallel_threads`
 
-* Description: When set to a non-zero value, each [replication](./) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections
-  or replication domains to use in parallel. See [Parallel Replication](parallel-replication.md#configuration-variable-slave_domain_parallel_threads) for details.
+* Description: When set to a non-zero value, each [replication](./) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections or replication domains to use in parallel. See [Parallel Replication](parallel-replication.md#configuration-variable-slave_domain_parallel_threads) for details.
 * Command line: `--slave-domain-parallel-threads=#`
 * Scope: Global
 * Dynamic: Yes
@@ -928,7 +926,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `numeric`
 * Default Value: `0.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), MariaDB Enterprise Server 10.6.11-6
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements), MariaDB Enterprise Server 10.6.11-6
 
 #### `slave_net_timeout`
 
@@ -946,8 +944,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Description: When [parallel\_replication](parallel-replication.md) is used, the [SQL thread](replication-threads.md#replica-sql-thread) reads ahead in the relay logs, queueing events in memory while looking for opportunities for executing events in parallel. This system variable sets a limit for how much memory it uses for this.
   * The configured value of this system variable is actually allocated for each [worker thread](replication-threads.md#worker-threads), so the total allocation is actually equivalent to the following:
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
-  * This system variable is only meaningful when parallel
-    replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
+  * This system variable is only meaningful when parallel replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
   * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-replica-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`
 * Scope: Global
@@ -978,7 +975,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
   * If this system variable is set to a value greater than `0`, then its value determines how many replica [worker threads](replication-threads.md#worker-threads) are created to apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events in parallel.
   * If this system variable is set to `0` (which is the default value), no replica [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the replica's [SQL thread](replication-threads.md#replica-sql-thread).
   * The [replica threads](replication-threads.md#threads-on-the-replica) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
-  * Events that were logged with [GTIDs](gtid/README.md) with different [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
+  * Events that were logged with [GTIDs](gtid/) with different [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
   * Events that were [group-committed](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary can be applied in parallel in an [in-order](parallel-replication.md#in-order-parallel-replication) manner, and the specific behavior can be configured by setting [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode).
 * Command line: `--slave-parallel-threads=#`
 * Scope: Global
@@ -1040,10 +1037,10 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Dynamic: No
 * Data Type: `string`
 * Default Value:
-  * `1158,1159,1160,1161,1205,1213,1020,1429,2013,12701` (>= [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18), [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.8), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4), [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.2))
-  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (< [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.18))
+  * `1158,1159,1160,1161,1205,1213,1020,1429,2013,12701` (>= [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.18-release-notes), [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.8-release-notes), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0.6-release-notes), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1.5-release-notes), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.4-release-notes), [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4.2-release-notes))
+  * `1158,1159,1160,1161,1205,1213,1429,2013,12701` (< [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.18-release-notes))
 * Valid Values: _`comma-separated list of error codes`_
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.3-release-notes)
 
 #### `slave_transaction_retry_interval`
 
@@ -1096,7 +1093,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Default Value: `0`
 * Range: `0` to `4294967295`
 
-**Note**: When you enable the [InnoDB-based Binary Log](innodb-based-binary-log.md) (`--binary-storage-engine=innodb`), the `sync_binlog` option is ignored. Instead, the durability of the binary log is controlled by `--innodb-flush-log-at-trx-commit`, which applies to both InnoDB data and binary log writes.
+**Note**: When you enable the [InnoDB-based Binary Log](../../server-management/server-monitoring-logs/binary-log/innodb-based-binary-log.md) (`--binary-storage-engine=innodb`), the `sync_binlog` option is ignored. Instead, the durability of the binary log is controlled by `--innodb-flush-log-at-trx-commit`, which applies to both InnoDB data and binary log writes.
 
 #### `sync_master_info`
 
@@ -1133,7 +1130,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 ## See Also
 
-* [Full list of MariaDB options, system and status variables](../../reference/full-list-of-mariadb-options-system-and-status-variables.md)
+* [Full list of MariaDB options, system and status variables](../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

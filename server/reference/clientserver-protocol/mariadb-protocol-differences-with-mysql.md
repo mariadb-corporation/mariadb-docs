@@ -15,10 +15,10 @@ MariaDB/MySQL servers can advertise feature support using capabilities. To expan
 ### Enhanced Capabilities
 
 * `MARIADB_CLIENT_PROGRESS`: [Client progress reporting](../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md).
-* `MARIADB_CLIENT_CACHE_METADATA`: Enables clients to cache metadata and avoid repeated network transmissions (since [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)).
+* `MARIADB_CLIENT_CACHE_METADATA`: Enables clients to cache metadata and avoid repeated network transmissions (since [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.0-release-notes)).
 * `MARIADB_CLIENT_EXTENDED_METADATA` : Provides more detailed column metadata information for specific data types.
 * `MARIADB_CLIENT_STMT_BULK_OPERATIONS`: Introduces a dedicated command, [COM\_STMT\_BULK\_EXECUTE](3-binary-protocol-prepared-statements/com_stmt_bulk_execute.md), for efficient batch execution of statements.
-* MARIADB\_CLIENT\_BULK\_UNIT\_RESULTS: Allows for individual result sets for each bulk operation (since [MariaDB 11.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.1)).
+* MARIADB\_CLIENT\_BULK\_UNIT\_RESULTS: Allows for individual result sets for each bulk operation (since [MariaDB 11.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5.1-release-notes)).
 
 See [Connection Capabilities](1-connecting/connection.md#capabilities).
 
@@ -128,7 +128,7 @@ When the `MARIADB_CLIENT_EXTENDED_METADATA` capability is set, [column definitio
 ## Bulk
 
 {% hint style="info" %}
-Individual results for each bulk operation (unit results) are available from [MariaDB 11.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/11.5.1).
+Individual results for each bulk operation (unit results) are available from [MariaDB 11.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5.1-release-notes).
 {% endhint %}
 
 The `MARIADB_CLIENT_STMT_BULK_OPERATIONS` capability enables the [COM\_STMT\_BULK\_EXECUTE](3-binary-protocol-prepared-statements/com_stmt_bulk_execute.md) command for efficient batch processing. However, note that only one result (`OK` or `ERROR`) is returned per batch, containing the total affected rows and the first auto-generated ID. For individual results, the `MARIADB_CLIENT_BULK_UNIT_RESULTS` capability can be set. The server will then return a result set containing for each unitary results (containing auto generated ids and affected rows).
@@ -300,7 +300,7 @@ It indicates:
 * character\_set\_results = utf8mb4
 * redirect\_url =
 
-A connector knows that, if  `character_set_client` is set to `utf8mb4`, it can avoid executing a statement like `SET NAMES utf8mb4`.
+A connector knows that, if `character_set_client` is set to `utf8mb4`, it can avoid executing a statement like `SET NAMES utf8mb4`.
 
 ## MySQL Features Not Supported
 

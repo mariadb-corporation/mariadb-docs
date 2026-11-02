@@ -20,8 +20,8 @@ Assign values to different types of variables. Learn the syntax for setting user
 
 {% columns %}
 {% column %}
-{% content-ref url="../../../data-types/string-data-types/character-sets/set-character-set.md" %}
-[set-character-set.md](../../../data-types/string-data-types/character-sets/set-character-set.md)
+{% content-ref url="set-character-set.md" %}
+[set-character-set.md](set-character-set.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -33,19 +33,19 @@ Map strings to a specific character set. This command updates the character set 
 {% columns %}
 {% column %}
 {% content-ref url="../replication-statements/set-global-sql_slave_skip_counter.md" %}
-[set-global-sql_slave_skip_counter.md](../replication-statements/set-global-sql_slave_skip_counter.md)
+[set-global-sql\_slave\_skip\_counter.md](../replication-statements/set-global-sql_slave_skip_counter.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-SET GLOBAL sql_slave_skip_counter skips the next N events from the primary to recover from replication stops, and is valid only while the replica threads are stopped.
+SET GLOBAL sql\_slave\_skip\_counter skips the next N events from the primary to recover from replication stops, and is valid only while the replica threads are stopped.
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-{% content-ref url="../../../data-types/string-data-types/character-sets/set-names.md" %}
-[set-names.md](../../../data-types/string-data-types/character-sets/set-names.md)
+{% content-ref url="set-names.md" %}
+[set-names.md](set-names.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -81,7 +81,7 @@ SET PATH sets the list of schemas MariaDB searches when invoking stored routines
 {% columns %}
 {% column %}
 {% content-ref url="set-sql_log_bin.md" %}
-[set-sql_log_bin.md](set-sql_log_bin.md)
+[set-sql\_log\_bin.md](set-sql_log_bin.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -116,8 +116,8 @@ Set a system variable for the duration of a single query. This statement allows 
 
 {% columns %}
 {% column %}
-{% content-ref url="../../transactions/set-transaction.md" %}
-[set-transaction.md](../../transactions/set-transaction.md)
+{% content-ref url="set-transaction.md" %}
+[set-transaction.md](set-transaction.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -128,8 +128,8 @@ Define isolation levels and access modes for transactions. Learn to configure th
 
 {% columns %}
 {% column %}
-{% content-ref url="../../programmatic-compound-statements/set-variable.md" %}
-[set-variable.md](../../programmatic-compound-statements/set-variable.md)
+{% content-ref url="set-variable.md" %}
+[set-variable.md](set-variable.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

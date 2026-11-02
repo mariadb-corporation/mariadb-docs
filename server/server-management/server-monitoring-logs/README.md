@@ -19,6 +19,10 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Server Monitoring & Logs
@@ -37,8 +41,8 @@ An introductory guide to the various logs available in MariaDB, including the Er
 
 {% columns %}
 {% column %}
-{% content-ref url="../../security/securing-mariadb/securing-mariadb-logs.md" %}
-[securing-mariadb-logs.md](../../security/securing-mariadb/securing-mariadb-logs.md)
+{% content-ref url="securing-mariadb-logs.md" %}
+[securing-mariadb-logs.md](securing-mariadb-logs.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

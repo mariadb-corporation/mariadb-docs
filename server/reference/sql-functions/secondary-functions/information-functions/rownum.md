@@ -1,7 +1,7 @@
 # ROWNUM
 
 {% hint style="info" %}
-`ROWNUM()` is available from [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1).
+`ROWNUM()` is available from [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes).
 {% endhint %}
 
 ## Syntax
@@ -10,7 +10,7 @@
 ROWNUM()
 ```
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) one can just use `ROWNUM`, without the parentheses.
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) one can just use `ROWNUM`, without the parentheses.
 
 ## Description
 
@@ -74,8 +74,7 @@ In many cases where `ROWNUM()` is used, MariaDB will use the same optimizations 
   * `ROWNUM()` <= number.
   * `ROWNUM()` = 1`ROWNUM()` can be also be the right argument to the comparison function.
 
-In the above cases, `LIMIT` optimization can be done in the
-following cases:
+In the above cases, `LIMIT` optimization can be done in the following cases:
 
 * For the current subquery when the `ROWNUM` comparison is done on the top level:
 

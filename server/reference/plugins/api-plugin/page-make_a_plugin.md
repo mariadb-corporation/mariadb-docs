@@ -1,31 +1,35 @@
 ---
 description: >-
-  Plugin API reference: How to make a plugin . Generated from the MariaDB server headers by doxygen and moxygen.
+  Plugin API reference: How to make a plugin . Generated from the MariaDB server
+  headers by doxygen and moxygen.
 ---
 
-# How to make a plugin 
+# How to make a plugin
 
 This is a tutorial and a walk-through on how to bootstrap, implement, compile, test and distribute a MariaDB [Plugin Library](page-concepts.md#plugin-library).
 
 ## Architecture and Design Decisions.
+
 The most important architectural decision is to decide what [Plugin API](page-concepts.md#plugin-api) to implement. To make that determination you need to understand when your plugin needs to be called by the server and with what parameters.
 
-Sometimes just the base [st_maria_plugin](plugin_declaration.md#st_maria_plugin) API is good enough. [st_maria_plugin::init](plugin_declaration.md#init-1) is called when the plugin is loaded and [st_maria_plugin::deinit](plugin_declaration.md#deinit-1) is called when the plugin is unloaded. This will suffice if you are after implementing e.g. a network listener: you can start a background thread that listens for connections and processes connects, disconnects and commands in [st_maria_plugin::init](plugin_declaration.md#init-1). And then signal to it to shut down gracefully from [st_maria_plugin::deinit](plugin_declaration.md#deinit-1).
+Sometimes just the base [st\_maria\_plugin](plugin_api/plugin_declaration/#st_maria_plugin) API is good enough. [st\_maria\_plugin::init](plugin_api/plugin_declaration/#init-1) is called when the plugin is loaded and [st\_maria\_plugin::deinit](plugin_api/plugin_declaration/#deinit-1) is called when the plugin is unloaded. This will suffice if you are after implementing e.g. a network listener: you can start a background thread that listens for connections and processes connects, disconnects and commands in [st\_maria\_plugin::init](plugin_api/plugin_declaration/#init-1). And then signal to it to shut down gracefully from [st\_maria\_plugin::deinit](plugin_api/plugin_declaration/#deinit-1).
 
-In this case you implement the so called [Daemon Plugin](daemon_plugin_data.md). This has no API whatsoever. Just a version.
+In this case you implement the so called [Daemon Plugin](plugin_api/plugin_types/daemon_plugin_data.md). This has no API whatsoever. Just a version.
 
-But, in general, you need to understand the available [Plugin Types](plugin_types.md) and decide on implementing the one that suits your needs best.
+But, in general, you need to understand the available [Plugin Types](plugin_api/plugin_types/) and decide on implementing the one that suits your needs best.
 
-Do you want to provide a better password validation method? Look into [Password Validation Plugin](password_validation_plugin_data.md). Need to expose data in tabular format to server? Do a [Information Schema Plugin](information_schema_plugin_data.md).
+Do you want to provide a better password validation method? Look into [Password Validation Plugin](plugin_api/plugin_types/password_validation_plugin_data.md). Need to expose data in tabular format to server? Do a [Information Schema Plugin](plugin_api/plugin_types/information_schema_plugin_data.md).
 
 The good part is that you can actually combine multiple [Plugin](page-concepts.md#plugin) into a single [Plugin Library](page-concepts.md#plugin-library).
 
-So, back to the example above, if you need to implement a network listener, but also return the current connection table as an INFORMATION_SCHEMA table you can define the two [Plugin](page-concepts.md#plugin) implementations into your single [Plugin Library](page-concepts.md#plugin-library).
+So, back to the example above, if you need to implement a network listener, but also return the current connection table as an INFORMATION\_SCHEMA table you can define the two [Plugin](page-concepts.md#plugin) implementations into your single [Plugin Library](page-concepts.md#plugin-library).
 
 ## Code your plugin library
+
 It's easiest to just take one of the existing plugins and copy its code.
 
-But, in case you want to start afresh, here's a very minimal boilerplate to copy from 
+But, in case you want to start afresh, here's a very minimal boilerplate to copy from
+
 ```cpp
 #include <mysql/plugin.h>
 /* TODO: if needed: #include <mysql/specific plugin type, e.g. plugin_audit.h> */
@@ -64,7 +68,7 @@ maria_declare_plugin(plugin_one)
 maria_declare_plugin_end;
 ```
 
-**See also**: [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin), [maria_declare_plugin_end](plugin_declaration.md#maria_declare_plugin_end), [MYSQL_DAEMON_PLUGIN](plugin_types.md#mysql_daemon_plugin), [MYSQL_DAEMON_INTERFACE_VERSION](daemon_plugin_data.md#mysql_daemon_interface_version), [PLUGIN_LICENSE_GPL](plugin_license.md#plugin_license_gpl), [MariaDB_PLUGIN_MATURITY_EXPERIMENTAL](plugin_maturity.md#mariadb_plugin_maturity_experimental)
+**See also**: [maria\_declare\_plugin](plugin_api/plugin_declaration/#maria_declare_plugin), [maria\_declare\_plugin\_end](plugin_api/plugin_declaration/#maria_declare_plugin_end), [MYSQL\_DAEMON\_PLUGIN](plugin_api/plugin_types/#mysql_daemon_plugin), [MYSQL\_DAEMON\_INTERFACE\_VERSION](plugin_api/plugin_types/daemon_plugin_data.md#mysql_daemon_interface_version), [PLUGIN\_LICENSE\_GPL](plugin_api/plugin_declaration/plugin_license.md#plugin_license_gpl), [MariaDB\_PLUGIN\_MATURITY\_EXPERIMENTAL](plugin_api/plugin_declaration/plugin_maturity.md#mariadb_plugin_maturity_experimental)
 
 If you need to add system variables, you can add the following to the above:
 
@@ -108,9 +112,9 @@ static struct st_mysql_sys_var* sysvars[]= {
 };
 ```
 
-And then pass on the `sysvars` to the [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin) 's system variable placeholder.
+And then pass on the `sysvars` to the [maria\_declare\_plugin](plugin_api/plugin_declaration/#maria_declare_plugin) 's system variable placeholder.
 
-**See also**: [MYSQL_SYSVAR_UINT](plugin_sysvar_macros.md#mysql_sysvar_uint), [mysql_var_check_func](plugin_sys_vars.md#mysql_var_check_func), [mysql_var_update_func](plugin_sys_vars.md#mysql_var_update_func), [MYSQL_SYSVAR](implementation_only_plugin_vars.md#mysql_sysvar)
+**See also**: [MYSQL\_SYSVAR\_UINT](plugin_api/plugin_declaration/plugin_sys_vars/plugin_sysvar_macros.md#mysql_sysvar_uint), [mysql\_var\_check\_func](plugin_api/plugin_declaration/plugin_sys_vars/#mysql_var_check_func), [mysql\_var\_update\_func](plugin_api/plugin_declaration/plugin_sys_vars/#mysql_var_update_func), [MYSQL\_SYSVAR](plugin_api/plugin_declaration/plugin_sys_vars/implementation_only_plugin_vars.md#mysql_sysvar)
 
 Similarly, if you need status variables, you can add the following:
 
@@ -127,7 +131,6 @@ static struct st_mysql_show_var status_vars[]=
 };
 ```
 
-And then pass on the `status_vars` to the [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin) 's status variable placeholder.
+And then pass on the `status_vars` to the [maria\_declare\_plugin](plugin_api/plugin_declaration/#maria_declare_plugin) 's status variable placeholder.
 
-**See also**: [st_mysql_show_var](plugin_status_vars.md#st_mysql_show_var), [SHOW_INT](plugin_status_vars.md#show_int)
-
+**See also**: [st\_mysql\_show\_var](plugin_api/plugin_declaration/plugin_status_vars.md#st_mysql_show_var), [SHOW\_INT](plugin_api/plugin_declaration/plugin_status_vars.md#show_int)

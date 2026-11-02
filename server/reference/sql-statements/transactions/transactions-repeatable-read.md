@@ -9,7 +9,7 @@ description: >-
 
 `REPEATABLE READ` is one of the transaction isolation levels. All consistent reads within the same transaction read the snapshot established by the first read.
 
-See [Isolation Levels](set-transaction.md#isolation-levels) for details.
+See [Isolation Levels](../administrative-sql-statements/set-commands/set-transaction.md#isolation-levels) for details.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

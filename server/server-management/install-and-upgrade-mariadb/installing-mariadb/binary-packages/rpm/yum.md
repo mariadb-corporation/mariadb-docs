@@ -6,8 +6,7 @@ description: How to install MariaDB on systems that use the yum or dnf package m
 
 On RHEL, CentOS, Fedora, and other similar Linux RPM based distributions, these provide MariaDB packages. These are supported by those distributions. If you have a particular need for a later version than what is in the distribution, then MariaDB provides repositories for them.
 
-Using repositories rather than installing RPM allows for an ease of update when a new release is made. It is highly recommended to install the relevant [RPM packages](./) from MariaDB's
-repository using [yum](https://en.wikipedia.org/wiki/Yum_\(software\)) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Centos 7 still uses `yum`, most others use `dnf`, and SUSE/openSUSE use `zypper`.
+Using repositories rather than installing RPM allows for an ease of update when a new release is made. It is highly recommended to install the relevant [RPM packages](./) from MariaDB's repository using [yum](https://en.wikipedia.org/wiki/Yum_\(software\)) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Centos 7 still uses `yum`, most others use `dnf`, and SUSE/openSUSE use `zypper`.
 
 This page walks you through the simple installation steps using `dnf` and `yum`.
 
@@ -41,7 +40,7 @@ If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setu
 
 See [Pinning the Repository to a Specific Minor Release](../../../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) page for details.
 
-The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/JgKFgZu7Dzj6k1iFJ9sO) page.
 {% endtab %}
 
 {% tab title="MariaDB Foundation repo config tool" %}
@@ -49,7 +48,7 @@ If you used the [MariaDB Foundation's Repository Configuration tool](https://mar
 
 By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`.
 
-The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/Z5d11ub4hGPao31CexAZ) page.
 
 For example, to pin your repository to MariaDB 11.8.6 on RHEL/Alma/Rocky 8, 9, or 10, then you could use the following repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
 
@@ -79,13 +78,13 @@ If you configured `yum` to install from MariaDB Corporation's MariaDB Package Re
 
 ### Updating the Major Release with the MariaDB Repository Configuration Tool
 
-If you configured `yum` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/), then you can update the major release that the repository uses by updating the `yum` repository configuration file in-place. For example, if you wanted to change the repository from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), and if the repository configuration file was at `/etc/yum.repos.d/MariaDB.repo`, then you could execute the following:
+If you configured `yum` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/), then you can update the major release that the repository uses by updating the `yum` repository configuration file in-place. For example, if you wanted to change the repository from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6-changes-and-improvements) to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), and if the repository configuration file was at `/etc/yum.repos.d/MariaDB.repo`, then you could execute the following:
 
 ```bash
 sudo sed -i 's/10.6/10.11/' /etc/yum.repos.d/MariaDB.repo
 ```
 
-After that, the repository should refer to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011).
+After that, the repository should refer to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements).
 
 If the `yum` repository is pinned to a specific minor release, then the above `sed` command can result in an invalid repository configuration. In that case, the recommended options are:
 
@@ -130,8 +129,7 @@ To install MariaDB Galera Cluster, you could execute the following command:
 sudo dnf install MariaDB-server MariaDB-server-galera MariaDB-client galera-4
 ```
 
-If you haven't yet imported the MariaDB GPG public key, then `yum` will prompt you to
-import it after it downloads the packages, but before it prompts you to install them.
+If you haven't yet imported the MariaDB GPG public key, then `yum` will prompt you to import it after it downloads the packages, but before it prompts you to install them.
 
 See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.
 
@@ -171,7 +169,7 @@ sudo dnf install MariaDB-cracklib-password-check
 
 ### Installing Debug Info Packages with YUM
 
-The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](../../../../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md#obtaining-debugging-symbols-for-your-mariadbd-executable).
+The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](../../../../../reference/product-development/mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd.md#obtaining-debugging-symbols-for-your-mariadbd-executable).
 
 #### Installing Debug Info for the Most Common Packages with YUM
 
@@ -217,8 +215,7 @@ To install an older version of a package instead of the latest version we just n
 
 However, when installing an older version of a package, if dependencies need to be installed, then it will automatically choose to install the latest versions of those packages, which can sometimes break those dependencies. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
 
-The MariaDB packages that the `MariaDB-server` package depend on are: `MariaDB-client`, `MariaDB-shared`, and `MariaDB-common`. Therefore, to install MariaDB 12.0.2 from this `yum`
-repository, we could do the following (putting the version in a variable and each package on its own line so things are cleaner):
+The MariaDB packages that the `MariaDB-server` package depend on are: `MariaDB-client`, `MariaDB-shared`, and `MariaDB-common`. Therefore, to install MariaDB 12.0.2 from this `yum` repository, we could do the following (putting the version in a variable and each package on its own line so things are cleaner):
 
 ```bash
 ver=12.0.2

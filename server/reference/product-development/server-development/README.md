@@ -37,8 +37,8 @@ Outlines the workflow for contributing to MariaDB via GitHub, including branch m
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-fault-finding/" %}
-[mariadb-fault-finding](mariadb-fault-finding/)
+{% content-ref url="../mariadb-fault-finding/" %}
+[mariadb-fault-finding](../mariadb-fault-finding/)
 {% endcontent-ref %}
 {% endcolumn %}
 

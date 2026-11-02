@@ -38,7 +38,7 @@ The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.co
 
 ### Installing from Source
 
-When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default, on systems that support it.
+When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default, on systems that support it.
 
 Compilation is controlled by the following `cmake` arguments:
 

@@ -116,7 +116,7 @@ See Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migrati
 
 ### Migrating Functions and Procedures
 
-PostgreSQL's [functions](https://www.postgresql.org/docs/current/sql-createfunction.html) and [procedures](https://www.postgresql.org/docs/11/sql-createprocedure.html) use a language called [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html). This language is quite different than the default `SQL/PSM` language used for MariaDB's [stored procedures](../../../server-usage/stored-routines/stored-procedures/). `PL/pgSQL` is more similar to `PL/PSQL` from Oracle, so you may find it beneficial to try migrate with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) set.
+PostgreSQL's [functions](https://www.postgresql.org/docs/current/sql-createfunction.html) and [procedures](https://www.postgresql.org/docs/11/sql-createprocedure.html) use a language called [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html). This language is quite different than the default `SQL/PSM` language used for MariaDB's [stored procedures](../../../server-usage/stored-routines/stored-procedures/). `PL/pgSQL` is more similar to `PL/PSQL` from Oracle, so you may find it beneficial to try migrate with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) set.
 
 ## MariaDB / PostgreSQL Comparison
 

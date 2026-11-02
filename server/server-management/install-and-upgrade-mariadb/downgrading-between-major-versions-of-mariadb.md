@@ -1,8 +1,8 @@
 ---
 description: >-
   How to downgrade MariaDB Server to a lower release series: backup-based
-  approaches, replication rollback risks, and version-specific
-  incompatibilities for supported releases.
+  approaches, replication rollback risks, and version-specific incompatibilities
+  for supported releases.
 ---
 
 # Downgrading MariaDB
@@ -23,10 +23,10 @@ A downgrade succeeds only when you plan for it before you upgrade and avoid feat
 
 The right approach depends on whether you need to keep data written after the upgrade.
 
-| Scenario | Requires | Approach |
-| --- | --- | --- |
+| Scenario                                                                      | Requires                                   | Approach                    |
+| ----------------------------------------------------------------------------- | ------------------------------------------ | --------------------------- |
 | Roll back to the pre-upgrade state, discarding data written since the upgrade | A physical backup taken before the upgrade | Restore the physical backup |
-| Downgrade and keep data written after the upgrade | A logical dump from the upgraded server | Dump and restore |
+| Downgrade and keep data written after the upgrade                             | A logical dump from the upgraded server    | Dump and restore            |
 
 #### Rolling Back to the Pre-Upgrade State
 
@@ -123,23 +123,18 @@ Before starting, confirm all of the following:
 #### Process
 
 1. Take and verify a full backup before making any changes. This is the recovery path if the downgrade fails.
-2. Use `mariadb-dump` to create a full logical backup of your entire database.
+2.  Use `mariadb-dump` to create a full logical backup of your entire database.
 
-   {% code title="shell" %}
-   ```bash
-   mariadb-dump --all-databases > dumpfile
-   ```
-   {% endcode %}
-
+    <pre class="language-bash" data-title="shell"><code class="lang-bash">mariadb-dump --all-databases > dumpfile
+    </code></pre>
 3. Additionally, back up the `mysql` schema separately, as this is where the majority of version-specific upgrading changes occur.
 4. Store both backups securely and verify their readability before proceeding.
 5. Install MariaDB's target lower version on a separate server or environment. Then, set up the lower-version server as a replica and the current (higher version) server as the primary.
-6. Verify replication is working. On the lower version replica, run:
+6.  Verify replication is working. On the lower version replica, run:
 
-   ```sql
-   SHOW REPLICA STATUS\G
-   ```
-
+    ```sql
+    SHOW REPLICA STATUS\G
+    ```
 7. Let the replica run under production load long enough to encounter the application's full range of statements. A replica that is merely caught up has not been proven compatible; it has only proven that nothing incompatible has happened yet.
 8. Once validation is complete:
    1. Stop writes to the current (higher version) server.
@@ -184,7 +179,7 @@ This procedure will **not** work if the table format has changed in an incompati
 ### Version-Specific Considerations
 
 {% hint style="info" %}
-The entries below cover the downgrade paths relevant to currently supported releases. Always check the [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/) and the Changes and Improvements page for your target version, since further incompatibilities may apply to your specific version pair.
+The entries below cover the downgrade paths relevant to currently supported releases. Always check the [Release Notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes) and the Changes and Improvements page for your target version, since further incompatibilities may apply to your specific version pair.
 {% endhint %}
 
 #### Downgrading to MariaDB 10.6

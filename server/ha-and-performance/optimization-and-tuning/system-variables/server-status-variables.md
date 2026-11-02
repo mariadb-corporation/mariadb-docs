@@ -23,8 +23,7 @@ Most status variables are described on this page, but some are described elsewhe
 * [Sphinx Status Variables](sphinx-status-variables.md)
 * [Spider Status Variables](spider-status-variables.md)
 
-Use the [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md) statement to view status variables. This
-information also can be obtained using the [mariadb-admin extended-status](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) command, or by querying the [Information Schema GLOBAL\_STATUS and SESSION\_STATUS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_status-and-session_status-tables.md) tables.
+Use the [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md) statement to view status variables. This information also can be obtained using the [mariadb-admin extended-status](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) command, or by querying the [Information Schema GLOBAL\_STATUS and SESSION\_STATUS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_status-and-session_status-tables.md) tables.
 
 Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) will reset many status variables to zero.
 
@@ -197,7 +196,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of [ALTER TABLESPACE](../../../reference/sql-statements/data-definition/alter/alter-tablespace.md) commands executed (unsupported by MariaDB).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
+* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7.0-release-notes)
 
 #### `Com_alter_user`
 
@@ -222,14 +221,14 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1)
+* Introduced: [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.1-release-notes)
 
 #### `Com_backup_lock`
 
 * Description: Number of [BACKUP LOCK](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-lock.md) and `BACKUP UNLOCK` commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)
+* Introduced: [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.2-release-notes)
 
 #### `Com_begin`
 
@@ -1262,7 +1261,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Feature_invisible_columns`
 
@@ -1272,7 +1271,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Feature_json`
 
-* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/README.md), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-format-json).
+* Description: Number of times JSON functionality has been used, such as one of the [JSON functions](../../../reference/sql-functions/special-functions/json-functions/). Does not include the [CONNECT engine JSON type](../../../server-usage/storage-engines/connect/connect-table-types/connect-json-table-type/), or [EXPLAIN/ANALYZE FORMAT=JSON](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md#analyze-format-json).
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1549,7 +1548,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: The maximum memory allocation used by the current connection.
 * Scope: Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21)
+* Introduced: [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.21-release-notes)
 
 #### `Max_statement_time_exceeded`
 
@@ -1561,7 +1560,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Maximum temporary space used. See [Limiting Size of Created Disk Temporary Files and Tables Overview](../../../security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview.md)
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Max_used_connections`
 
@@ -1574,7 +1573,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: The time at which the last change of [max\_used\_connections](server-status-variables.md#max_used_connections) occurred. The global value can be flushed by [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `datetime`
-* Introduced: [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.2), [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.1)
+* Introduced: [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0.2-release-notes), [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1.1-release-notes)
 
 #### `Memory_used`
 
@@ -1582,7 +1581,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 `Memory_used` now encompasses `Innodb_buffer_pool_bytes_data` rather than reporting them as separate pools.
 {% endhint %}
 
-* Description: Memory used by the server (Global scope) or the current connection (Session scope), in bytes. Since [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), Global scope includes major buffers ([InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), [MyISAM key buffer](../../../server-usage/storage-engines/myisam-storage-engine/myisam-overview.md), and [Aria page cache](../../../security/encryption/data-at-rest-encryption/aria-encryption/)) that were previously excluded.
+* Description: Memory used by the server (Global scope) or the current connection (Session scope), in bytes. Since [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.16-release-notes), Global scope includes major buffers ([InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), [MyISAM key buffer](../../../server-usage/storage-engines/myisam-storage-engine/myisam-overview.md), and [Aria page cache](../../../security/encryption/data-at-rest-encryption/aria-encryption/)) that were previously excluded.
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1717,7 +1716,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Cumulative time in seconds, with microsecond precision, of running queries.
 * Scope: Global,Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)
 
 #### `Questions`
 
@@ -1730,7 +1729,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of times sending the metadata has been skipped. Metadata is not resent if metadata does not change between prepare and execute of prepared statement, or between executes.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
+* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.0-release-notes)
 
 #### `Rows_read`
 
@@ -1836,8 +1835,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Syncs`
 
-* Description: Number of times my\_sync() has been called, or the number of times the server has had to force data to disk. Covers the [binary log](../../../server-management/server-monitoring-logs/binary-log/), .frm creation (if these
-  operations are configured to sync) and some storage engines ([Archive](../../../server-usage/storage-engines/archive.md),[CSV](../../../server-usage/storage-engines/csv/), [Aria](../../../server-usage/storage-engines/aria/)), but not [XtraDB/InnoDB](../../../server-usage/storage-engines/innodb/)).
+* Description: Number of times my\_sync() has been called, or the number of times the server has had to force data to disk. Covers the [binary log](../../../server-management/server-monitoring-logs/binary-log/), .frm creation (if these operations are configured to sync) and some storage engines ([Archive](../../../server-usage/storage-engines/archive.md),[CSV](../../../server-usage/storage-engines/csv/), [Aria](../../../server-usage/storage-engines/aria/)), but not [XtraDB/InnoDB](../../../server-usage/storage-engines/innodb/)).
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1925,7 +1923,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Temporary space used. See [Limiting Size of Created Disk Temporary Files and Tables Overview](../../../security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview.md)
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Update_scan`
 

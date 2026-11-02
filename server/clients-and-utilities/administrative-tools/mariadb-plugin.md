@@ -1,8 +1,8 @@
 ---
 description: >-
-  mariadb-plugin enables or disables MariaDB plugins from the command line
-  while the server is offline, as an alternative to INSTALL PLUGIN and
-  UNINSTALL PLUGIN.
+  mariadb-plugin enables or disables MariaDB plugins from the command line while
+  the server is offline, as an alternative to INSTALL PLUGIN and UNINSTALL
+  PLUGIN.
 ---
 
 # mariadb-plugin
@@ -28,13 +28,13 @@ For the installation use case, adding a [plugin-load-add](../../reference/plugin
 mariadb-plugin [options] <plugin> ENABLE|DISABLE
 ```
 
-`mariadb-plugin` expects to find a configuration file that indicates how to configure the plugins. The configuration file has, by default, the same name as the plugin, with an  `.ini` extension:
+`mariadb-plugin` expects to find a configuration file that indicates how to configure the plugins. The configuration file has, by default, the same name as the plugin, with an `.ini` extension:
 
 ```bash
 mariadb-plugin crazyplugins ENABLE
 ```
 
-Here, `mariadb-plugin`  looks for a file called `crazyplugins.ini` :
+Here, `mariadb-plugin` looks for a file called `crazyplugins.ini` :
 
 ```
 crazyplugins
@@ -65,7 +65,7 @@ The following options can be specified on the command line, while some can be sp
 
 ## See Also
 
-* [List of Plugins](../../reference/plugins/information-on-plugins/list-of-plugins.md)
+* [List of Plugins](../../reference/plugins/list-of-plugins.md)
 * [Plugin Overview](../../reference/plugins/plugin-overview.md)
 * [INFORMATION\_SCHEMA.PLUGINS Table](../../reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md)
 * [INSTALL PLUGIN](../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md)

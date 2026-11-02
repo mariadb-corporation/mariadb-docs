@@ -4,7 +4,7 @@ description: Status variables added in the MariaDB 12.3 series.
 
 # Status Variables Added in MariaDB 12.3
 
-No new status variables were added in the [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements) series.
+No new status variables were added in the [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-12.3-series/mariadb-12.3-changes-and-improvements) series.
 
 ## See Also
 

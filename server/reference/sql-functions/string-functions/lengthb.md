@@ -14,7 +14,7 @@ LENGTHB(str)
 
 ## Description
 
-`LENGTHB()` returns the length of the given string, in bytes. When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is not set, this is a synonym for [LENGTH](length.md).
+`LENGTHB()` returns the length of the given string, in bytes. When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is not set, this is a synonym for [LENGTH](length.md).
 
 A multi-byte character counts as multiple bytes. This means that for a string containing five two-byte characters, `LENGTHB()` returns 10, whereas [CHAR\_LENGTH()](char_length.md) returns 5.
 

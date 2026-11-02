@@ -17,16 +17,16 @@ A storage engine is a type of [plugin](../../reference/plugins/) for MariaDB:
 * Different storage engines may be designed for different use cases, such as federated table access, table sharding, and table archiving in the cloud.
 * Different tables on the same server may use different storage engines.
 
-| Engine                                                                    | Target          | Optimization         | Availability |
-| ------------------------------------------------------------------------- | --------------- | -------------------- | ------------ |
-| [Aria](aria/)                                                             | Read-Heavy      | Reads                | ES           |
-| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) | Analytics, HTAP | Big Data, Analytical | ES           |
-| [InnoDB](innodb/)                                                         | General Purpose | Mixed Read/Write     | ES           |
-| [Memory](memory-storage-engine.md)                                        | Cache, Temp     | Temporary Data       | ES           |
-| [MyISAM](myisam-storage-engine/)                                          | Reads           | Reads                | ES           |
-| [MyRocks](myrocks/)                                                       | Write-Heavy     | I/O Reduction, SSD   | ES           |
-| [S3](s3-storage-engine/)                                                  | Cloud           | Read-Only            | ES           |
-| [Spider](spider/)                                                         | Federation      | Sharding, Interlink  | ES           |
+| Engine                                                                                  | Target          | Optimization         | Availability |
+| --------------------------------------------------------------------------------------- | --------------- | -------------------- | ------------ |
+| [Aria](aria/)                                                                           | Read-Heavy      | Reads                | ES           |
+| [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) | Analytics, HTAP | Big Data, Analytical | ES           |
+| [InnoDB](innodb/)                                                                       | General Purpose | Mixed Read/Write     | ES           |
+| [Memory](memory-storage-engine.md)                                                      | Cache, Temp     | Temporary Data       | ES           |
+| [MyISAM](myisam-storage-engine/)                                                        | Reads           | Reads                | ES           |
+| [MyRocks](myrocks/)                                                                     | Write-Heavy     | I/O Reduction, SSD   | ES           |
+| [S3](s3-storage-engine/)                                                                | Cloud           | Read-Only            | ES           |
+| [Spider](spider/)                                                                       | Federation      | Sharding, Interlink  | ES           |
 
 ## Examples
 
@@ -128,13 +128,13 @@ Standard MariaDB storage engines are used for System Table storage:
 
 ### What storage engine should I use for analytical or OLAP workloads?
 
-* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) is the recommended storage engine for analytical or OLAP workloads.
+* [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) is the recommended storage engine for analytical or OLAP workloads.
 
 ### What storage engine should I use if my application performs both transactional and analytical queries?
 
 An application that performs both transactional and analytical queries is known as [hybrid transactional-analytical processing (HTAP)](../../architecture/topologies/htap/).
 
-HTAP can be implemented with MariaDB by using [InnoDB](innodb/) for transactional queries and [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) for analytical queries.
+HTAP can be implemented with MariaDB by using [InnoDB](innodb/) for transactional queries and [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) for analytical queries.
 
 ## Reference
 

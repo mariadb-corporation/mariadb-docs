@@ -1,8 +1,8 @@
 ---
 description: >-
-  The MariaDB Direct Query Adapter is a Microsoft-certified connector that
-  lets Power BI Desktop query a MariaDB database remotely without downloading
-  the data set.
+  The MariaDB Direct Query Adapter is a Microsoft-certified connector that lets
+  Power BI Desktop query a MariaDB database remotely without downloading the
+  data set.
 ---
 
 # MariaDB Direct Query Adapter For Microsoft Power BI
@@ -17,7 +17,7 @@ Microsoft Power BI Desktop is a free business intelligence tool available as a d
 
 MariaDB database products support analytics and data warehousing in addition to transactional databases. Customers can meet the challenges from complex workloads using a single stack. MariaDB Enterprise Server includes pluggable smart storage engines to meet specific workload needs and connectors for high-performance data access by applications.
 
-[MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) is a columnar storage engine designed to handle the extremely large data sets and ad hoc queries of analytical workloads. Data is written to disk by column rather than row and is automatically partitioned. Columnar data storage is designed to deliver real time analysis on billions of rows. MariaDB Enterprise ColumnStore is a plugin storage engine and is included with MariaDB Enterprise Server.
+[MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore-release-notes) is a columnar storage engine designed to handle the extremely large data sets and ad hoc queries of analytical workloads. Data is written to disk by column rather than row and is automatically partitioned. Columnar data storage is designed to deliver real time analysis on billions of rows. MariaDB Enterprise ColumnStore is a plugin storage engine and is included with MariaDB Enterprise Server.
 
 MariaDB Direct Query Adapter enables Power BI users to work with remote data without the need to download it onto the local machine. Downloading analytical data sets can present challenges such as download speed and inadequate memory on a local machine, and even a powerful laptop or desktop is outperformed by the processing power of a high end server or MPP system. MariaDB's Direct Query Adapter enables users to avoid these limitations and provides robust querying and data visualization from any location.
 

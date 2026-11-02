@@ -73,7 +73,7 @@ Here is the comprehensive list of pages that document variables.
 
 ### Index / Master List
 
-* [Full list of MariaDB options, system and status variables](../reference/full-list-of-mariadb-options-system-and-status-variables.md)\
-  _Note: This page acts as a directory that links back to the detailed pages above._
+* [Full list of MariaDB options, system and status variables](../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md)\
+  _&#x4E;ote: This page acts as a directory that links back to the detailed pages above._
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

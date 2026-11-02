@@ -30,11 +30,11 @@ For the maximum capacity in the Redo Log, the Redo Log size should be the same a
 
 The method to configure the Redo Log size depends on the server version and whether a server restart is required:
 
-| Product Versions   | Server Restart? | Method                               |
-| ------------------ | --------------- | ------------------------------------ |
-| ES                 | No              | Configure size with SET GLOBAL       |
-| CS 10.9 and Later  | No              | Configure size with SET GLOBAL       |
-| CS 10.6            | Yes             | Configure size in configuration file |
+| Product Versions  | Server Restart? | Method                               |
+| ----------------- | --------------- | ------------------------------------ |
+| ES                | No              | Configure size with SET GLOBAL       |
+| CS 10.9 and Later | No              | Configure size with SET GLOBAL       |
+| CS 10.6           | Yes             | Configure size in configuration file |
 
 ## Configure the InnoDB Redo Log Size with SET GLOBAL
 
@@ -167,7 +167,7 @@ When this emergency path is in effect:
 * The database accepts no new writes or modifications.
 * Use [mariadb-dump](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (or another logical export tool) to extract the data, then re-import it into a fresh, supported instance.
 
-For the standard upgrade procedure between major versions, see [Upgrading Between Major MariaDB Versions](../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-between-major-mariadb-versions.md).
+For the standard upgrade procedure between major versions, see [Upgrading Between Major MariaDB Versions](../../../../server-management/install-and-upgrade-mariadb/upgrading/platform-specific-upgrade-guides/upgrading-on-linux/upgrading-between-major-mariadb-versions.md).
 
 This capability was added under [MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), available in MariaDB 11.4.11, MariaDB 11.8.7, and later releases.
 

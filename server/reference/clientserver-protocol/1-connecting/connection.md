@@ -40,7 +40,7 @@ Connection is done by many exchanges:
 * [int<1>](../protocol-data-types.md#fixed-length-integers) protocol version.
 * [string\<NUL>](../protocol-data-types.md#null-terminated-strings) server version:
   * MariaDB Server 10.X versions are by default prefixed "5.5.5-".
-  * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) and later versions do not have a "5.5.5-" default prefix.
+  * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0-changes-and-improvements) and later versions do not have a "5.5.5-" default prefix.
 * [int<4>](../protocol-data-types.md#fixed-length-integers) connection id.
 * [string<8>](../protocol-data-types.md#fixed-length-strings) authentication plugin data (1st part).
 * [string<1>](../protocol-data-types.md#fixed-length-strings) reserved byte.
@@ -80,9 +80,9 @@ If the client requests a TLS/SSL connection, the first response is an SSL connec
 
 ### Zero-Configuration SSL Encryption
 
-Automatic Encrypted Connections ([MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)+):
+Automatic Encrypted Connections ([MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)+):
 
-Previously, failed SSL connections due to self-signed certificates prevented communication. [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)+ introduces a secondary validation method that works for all servers.
+Previously, failed SSL connections due to self-signed certificates prevented communication. [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements)+ introduces a secondary validation method that works for all servers.
 
 #### **What Happens When SSL Validation Fails?**
 
@@ -106,7 +106,7 @@ Password hash is generated depending on authentication plugin:
 
 #### **Server 11.4+ Confirmation Details**
 
-For servers running [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) or later, the final confirmation packet contains:
+For servers running [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements) or later, the final confirmation packet contains:
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) encryption (actually only 0x01 = SHA256 encryption)
 * [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) shared secret.

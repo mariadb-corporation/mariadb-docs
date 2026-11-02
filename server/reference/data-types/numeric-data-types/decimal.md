@@ -19,7 +19,7 @@ A packed "exact" fixed-point number. `M` is the total number of digits (the prec
 * The decimal point and (for negative numbers) the "-" sign are not counted in `M`.
 * If `D` is `0`, values have no decimal point or fractional part, and on [INSERT](../../sql-statements/data-manipulation/inserting-loading-data/insert.md), the value will be rounded to the nearest `DECIMAL`.
 * The maximum number of digits (`M`) for `DECIMAL` is 65.
-* The maximum number of supported decimals (`D`) is `30` before [MariadB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1) and `38` afterwards.
+* The maximum number of supported decimals (`D`) is `30` before [MariadB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.1-release-notes) and `38` afterwards.
 * If `D` is omitted, the default is `0`. If `M` is omitted, the default is `10`.
 
 `UNSIGNED`, if specified, disallows negative values.
@@ -30,7 +30,7 @@ All basic calculations (+, -, \*, /) with `DECIMAL` columns are done with a prec
 
 For more details on the attributes, see [Numeric Data Type Overview](numeric-data-type-overview.md).
 
-`DEC`, `NUMERIC`, and `FIXED` are synonyms, as well as `NUMBER` in [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+`DEC`, `NUMERIC`, and `FIXED` are synonyms, as well as `NUMBER` in [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle).
 
 ## Examples
 
@@ -262,7 +262,7 @@ SELECT * FROM decimal_zerofill_example;
 ## See Also
 
 * [Numeric Data Type Overview](numeric-data-type-overview.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

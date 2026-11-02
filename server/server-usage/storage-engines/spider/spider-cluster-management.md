@@ -62,7 +62,7 @@ SELECT spider_bg_direct_sql( 'SELECT count(*) ,min(NOW(6)),min(DATABASE())) FROM
 
 ## Direct Handler Socket
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes)
 
 The Spider Handler Socket support has been removed, see [MDEV-26858](https://jira.mariadb.org/browse/MDEV-26858).
 
@@ -107,9 +107,9 @@ SELECT spider_direct_sql('1\t=\t1\t2\t100000\t0','res', 'host "192.168.0.202", t
 
 ## Inter Nodes Copy Table
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes)
 
-The UDF spider\_copy\_tables relies on Spider's high availability feature, which has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/replication-overview.md) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide).
+The UDF spider\_copy\_tables relies on Spider's high availability feature, which has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/replication-overview.md) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview).
 
 The UDF function [spider\_copy\_tables](spider-functions/spider_copy_tables.md) is available for copying table data from the source link ID to the destination link ID list without stopping your service for copying
 
@@ -139,7 +139,7 @@ SET GLOBAL spider_log_result_error_with_sql=3;
 
 ## Compiling in Debug Mode
 
-See [Compiling MariaDB for Debugging](../../../reference/product-development/debugging-mariadb/compiling-mariadb-for-debugging.md) and [Creating a Trace File](../../../reference/product-development/debugging-mariadb/creating-a-trace-file.md).
+See [Compiling MariaDB for Debugging](../../../reference/product-development/mariadb-fault-finding/compiling-mariadb-for-debugging.md) and [Creating a Trace File](../../../reference/product-development/mariadb-fault-finding/creating-a-trace-file.md).
 
 Report the issue in [MariaDB JIRA](https://jira.mariadb.org) (see [Reporting Bugs](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs)) or to the MariaDB Corporation support center.
 

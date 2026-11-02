@@ -48,7 +48,7 @@ MariaDB can also store [microseconds](../../sql-functions/date-time-functions/mi
 
 ## Automatic Values
 
-MariaDB has special behavior for the first column that uses the `TIMESTAMP` data type in a specific table when the system variable [explicit\_defaults\_for\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp) is not set (which was the default until [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)). For the first column that uses the `TIMESTAMP` data type in a specific table, MariaDB automatically assigns the following properties to the column:
+MariaDB has special behavior for the first column that uses the `TIMESTAMP` data type in a specific table when the system variable [explicit\_defaults\_for\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#explicit_defaults_for_timestamp) is not set (which was the default until [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)). For the first column that uses the `TIMESTAMP` data type in a specific table, MariaDB automatically assigns the following properties to the column:
 
 * `DEFAULT CURRENT_TIMESTAMP`
 * `ON UPDATE CURRENT_TIMESTAMP`

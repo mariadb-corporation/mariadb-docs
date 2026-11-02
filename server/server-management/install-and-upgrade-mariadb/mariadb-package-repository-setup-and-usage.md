@@ -436,22 +436,22 @@ The following MariaDB Community Server versions are supported:
 
 {% tabs %}
 {% tab title="MariaDB Enterprise Server" %}
-If you want to pin the repository of a specific minor release, such as [MariaDB Enterprise Server 11.8.5-2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/11.8.5-2), then you need to specify the full release version number, e.g. `11.8.5-2`. This may be helpful if you want to avoid automatic upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
+If you want to pin the repository of a specific minor release, such as [MariaDB Enterprise Server 11.8.5-2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/mariadb-enterprise-server-11.8/release-notes-for-mariadb-enterprise-server-11.8.5-2), then you need to specify the full release version number, e.g. `11.8.5-2`. This may be helpful if you want to avoid automatic upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
 
 {% hint style="info" %}
 Note: MariaDB Enterprise Server version numbers include a '_release_' suffix that differs from MariaDB Community Server version numbers, e.g. `-2` for MariaDB Enterprise Server `11.8.5-2` whereas the equivalent MariaDB Community Server release is just `11.8.5`. This suffix is required when specifying the full Enterprise Server version number.
 
-To see a list of all MariaDB Enterprise Server releases, see the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Enterprise Server release.
+To see a list of all MariaDB Enterprise Server releases, see the [Enterprise Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/JgKFgZu7Dzj6k1iFJ9sO) page. The Version column in the tables on that page list the version numbers of every MariaDB Enterprise Server release.
 {% endhint %}
 
 See the [Usage Example - MariaDB Enterprise Server](mariadb-package-repository-setup-and-usage.md#usage-example) section above for an example of pinning the repository to a specific version.
 {% endtab %}
 
 {% tab title="MariaDB Community Server" %}
-If you want to pin the repository of a specific minor release, such as [MariaDB Community Server 11.8.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.5), then you need to specify the complete release version, e.g. `mariadb-11.8.5`. This may be helpful if you want to avoid upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
+If you want to pin the repository of a specific minor release, such as [MariaDB Community Server 11.8.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.8-series/mariadb-11.8.5-release-notes), then you need to specify the complete release version, e.g. `mariadb-11.8.5`. This may be helpful if you want to avoid upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
 
 {% hint style="info" %}
-To see a list of all MariaDB Community Server releases, see the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Community Server release.
+To see a list of all MariaDB Community Server releases, see the [Community Server - All Releases](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/Z5d11ub4hGPao31CexAZ) page. The Version column in the tables on that page list the version numbers of every MariaDB Community Server release.
 {% endhint %}
 
 See the [Usage Example - MariaDB Community Server](mariadb-package-repository-setup-and-usage.md#usage-example) section above for an example of pinning the repository to a specific version.
@@ -629,8 +629,8 @@ The version number of each script is a date, which you can find by running the s
 {% hint style="info" %}
 For the list of changes made in each version, see the changelogs:
 
-* [mariadb\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools/mariadb-repo-setup-changelog)
-* [mariadb\_es\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools/mariadb-es-repo-setup-changelog)
+* [mariadb\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools-release-notes/mariadb_repo_setup-changelog)
+* [mariadb\_es\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools-release-notes/mariadb_es_repo_setup-changelog)
 {% endhint %}
 
 {% tabs %}

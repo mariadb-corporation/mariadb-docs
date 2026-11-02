@@ -83,9 +83,9 @@ SHOW CREATE USER 'amse'@'localhost';
 
 ## Checking When Passwords Expire
 
-**MariaDB starting with** [**11.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+**MariaDB starting with** [**11.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
-From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) and MariaDB Enterprise Server 10.6.20-16 and 11.4.4-2, the [Information Schema USERS table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-users-table.md) stores password expiry and password error information. An unprivileged user can access their own user data from the table.
+From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements) and MariaDB Enterprise Server 10.6.20-16 and 11.4.4-2, the [Information Schema USERS table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-users-table.md) stores password expiry and password error information. An unprivileged user can access their own user data from the table.
 
 The following query can also be used to check when the current passwords expire for all users:
 

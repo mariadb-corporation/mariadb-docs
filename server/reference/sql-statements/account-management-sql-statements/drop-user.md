@@ -51,7 +51,7 @@ Dropped users 'user'@'host[,...]' have active connections. Use KILL CONNECTION i
 
 This means that the user account with all its privileges is still active until the connection is terminated. As the warning implies, use a `KILL CONNECTION` statement to terminate a connection, or (more proactively) use the `FORCE` clause to forcibly close connections of the users named in the `DROP USER` statement. This ends connections, and immediately deletes the users.
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), if a user is connected, the `DROP USER` statement fails with an error:
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), if a user is connected, the `DROP USER` statement fails with an error:
 
 ```sql
 Operation DROP USER failed for 'foo'@'localhost'.

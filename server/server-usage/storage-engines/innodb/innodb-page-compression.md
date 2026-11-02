@@ -41,17 +41,17 @@ When this system variable is changed, the InnoDB page compression algorithm does
 
 This system variable can be set to one of the following values:
 
-| System Variable Value | Description                                                                                                                                                                                                                                                                                                                                                                |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| none                  | Pages are not compressed. |
+| System Variable Value | Description                                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| none                  | Pages are not compressed.                                                                                              |
 | zlib                  | Pages are compressed using the bundled [zlib](https://www.zlib.net/) compression algorithm. This is the default value. |
-| lz4                   | Pages are compressed using the [lz4](https://lz4.org/) compression algorithm.                                                                                                                                                                                                                                                                                |
-| lzo                   | Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.                                                                                                                                                                                                                                                                     |
-| lzma                  | Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.                                                                                                                                                                                                                                                                                      |
-| bzip2                 | Pages are compressed using the [bzip2](https://www.bzip.org/) compression algorithm.                                                                                                                                                                                                                                                                                       |
-| snappy                | Pages are compressed using the [snappy](https://google.github.io/snappy/) algorithm.                                                                                                                                                                                                                                                                                       |
+| lz4                   | Pages are compressed using the [lz4](https://lz4.org/) compression algorithm.                                          |
+| lzo                   | Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.                 |
+| lzma                  | Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.                                  |
+| bzip2                 | Pages are compressed using the [bzip2](https://www.bzip.org/) compression algorithm.                                   |
+| snappy                | Pages are compressed using the [snappy](https://google.github.io/snappy/) algorithm.                                   |
 
-However, on many distributions, the standard MariaDB builds do not support all InnoDB page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
+However, on many distributions, the standard MariaDB builds do not support all InnoDB page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
 
 This system variable can be changed dynamically with [SET GLOBAL](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session):
 
@@ -71,13 +71,13 @@ innodb_compression_algorithm=lzma
 
 On many distributions, the standard MariaDB builds do not support all InnoDB page compression algorithms by default. Therefore, if you want to use a specific InnoDB page compression algorithm, then you should check whether your MariaDB build supports it.
 
-The [zlib](https://www.zlib.net/) compression algorithm is always supported. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
+The [zlib](https://www.zlib.net/) compression algorithm is always supported. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
 
 A MariaDB build's support for other InnoDB page compression algorithms can be checked by querying the following status variables with [SHOW GLOBAL STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md):
 
 | Status Variable                                                                                                                            | Description                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| [Innodb\_have\_lz4](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_have_lz4)       | Whether InnoDB supports the [lz4](https://lz4.org/) compression algorithm.            |
+| [Innodb\_have\_lz4](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_have_lz4)       | Whether InnoDB supports the [lz4](https://lz4.org/) compression algorithm.                          |
 | [Innodb\_have\_lzo](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_have_lzo)       | Whether InnoDB supports the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm. |
 | [Innodb\_have\_lzma](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_have_lzma)     | Whether InnoDB supports the [lzma](https://tukaani.org/xz/) compression algorithm.                  |
 | [Innodb\_have\_bzip2](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_have_bzip2)   | Whether InnoDB supports the [bzip2](https://www.bzip.org/) compression algorithm.                   |
@@ -106,7 +106,7 @@ SHOW GLOBAL STATUS WHERE Variable_name IN (
 
 ### Adding Support for an InnoDB Page Compression Algorithm
 
-On many distributions, the standard MariaDB builds do not support all InnoDB page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md), but in earlier versions, if you want to use certain InnoDB page compression algorithms, then you may need to do the following:
+On many distributions, the standard MariaDB builds do not support all InnoDB page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements), algorithms can be [installed as a plugin](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md), but in earlier versions, if you want to use certain InnoDB page compression algorithms, then you may need to do the following:
 
 * Download the package for the desired compression library from the above links.
 * Install the package for the desired compression library.
@@ -122,7 +122,7 @@ tar -xvzf mariadb-11.4.8.tar.gz
 cd mariadb-11.4.8/
 ```
 
-* Configure the build using [cmake](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md):
+* Configure the build using [cmake](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md):
 
 ```bash
 cmake .
@@ -147,7 +147,7 @@ Or make a package to install:
 make package
 ```
 
-See [Compiling MariaDB From Source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) for more information.
+See [Compiling MariaDB From Source](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/) for more information.
 
 ## Enabling InnoDB Page Compression
 
@@ -406,13 +406,13 @@ With InnoDB page compression, pages are compressed when they are flushed to disk
 
 InnoDB page compression can be monitored by querying the following status variables with [SHOW GLOBAL STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md):
 
-| Status Variable                                                                                                                                                                            | Description                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
-| [Innodb\_page\_compression\_saved](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_page_compression_saved)                          | Bytes saved by compression      |
-| [Innodb\_num\_pages\_page\_compressed](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_compressed)                   | Number of pages compressed      |
-| [Innodb\_num\_page\_compressed\_trim\_op](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_page_compressed_trim_op)              | Number of trim operations       |
-| [Innodb\_num\_pages\_page\_decompressed](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_decompressed)               | Number of pages decompressed    |
-| [Innodb\_num\_pages\_page\_compression\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_compression_error)    | Number of compression errors    |
+| Status Variable                                                                                                                                                                         | Description                  |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| [Innodb\_page\_compression\_saved](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_page_compression_saved)                       | Bytes saved by compression   |
+| [Innodb\_num\_pages\_page\_compressed](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_compressed)                | Number of pages compressed   |
+| [Innodb\_num\_page\_compressed\_trim\_op](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_page_compressed_trim_op)           | Number of trim operations    |
+| [Innodb\_num\_pages\_page\_decompressed](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_decompressed)            | Number of pages decompressed |
+| [Innodb\_num\_pages\_page\_compression\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_num_pages_page_compression_error) | Number of compression errors |
 
 With InnoDB page compression, a page is only compressed when it is flushed to disk. This means that if you are monitoring InnoDB page compression via these status variables, then the status variables values will only get incremented when the dirty pages are flushed to disk, which does not necessarily happen immediately:
 
@@ -468,7 +468,7 @@ SHOW GLOBAL STATUS LIKE 'Innodb_num_pages_page_compressed';
 
 [mariadb-backup](../../backup-and-restore/mariadb-backup/mariadb-backup-overview.md) supports InnoDB page compression.
 
-[Percona XtraBackup](../../backup-and-restore/mariadb-backup/README.md) does not support InnoDB page compression.
+[Percona XtraBackup](../../backup-and-restore/mariadb-backup/) does not support InnoDB page compression.
 
 ## Acknowledgements
 

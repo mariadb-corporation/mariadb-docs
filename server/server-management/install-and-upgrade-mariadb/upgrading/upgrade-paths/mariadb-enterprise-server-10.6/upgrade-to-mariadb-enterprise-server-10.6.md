@@ -13,7 +13,7 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
-See [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new).
+See [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/mariadb-enterprise-server-10.6/whats-new-in-mariadb-enterprise-server-10.6).
 
 ## Incompatible Changes
 

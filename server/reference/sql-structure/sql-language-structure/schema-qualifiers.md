@@ -16,7 +16,7 @@ description: >-
 
 MariaDB offers schema qualifiers that allow you to define how data types and functions are managed when SQL modes result in operational differences.
 
-These qualifiers are used as prefixes and are part of the SQL language structure. These are not system databases or tables.&#x20;
+These qualifiers are used as prefixes and are part of the SQL language structure. These are not system databases or tables.
 
 The schema qualifiers listed below are supported:
 
@@ -25,7 +25,7 @@ The schema qualifiers listed below are supported:
 
 Both prefixes describe the same mechanism, however the behavior differs based on the desired compatibility.
 
-Certain SQL modes, such as [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), affect how MariaDB understands data type and functions. MariaDB translates several data type names and function behaviors according to Oracle Database standards when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active. This translation may lead to ambiguity: depending on the SQL mode in use, a data type or function name written without a qualifier could be interpreted differently.
+Certain SQL modes, such as [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), affect how MariaDB understands data type and functions. MariaDB translates several data type names and function behaviors according to Oracle Database standards when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is active. This translation may lead to ambiguity: depending on the SQL mode in use, a data type or function name written without a qualifier could be interpreted differently.
 
 For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time-data-types/date.md) is interpreted as [DATETIME](../../data-types/date-and-time-data-types/datetime.md#oracle-mode). This behavior can be explicitly overridden at the statement level using schema qualifiers, without modifying the SQL mode session.
 
@@ -34,7 +34,7 @@ For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time
 * `mariadb_schema` for data type qualification is supported.
 * `oracle_schema` is supported as part of the same schema qualifier mechanism.
 * Functional qualification using schema qualifiers is supported since:
-  * [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (see [MDEV-27744](https://jira.mariadb.org/browse/MDEV-27744))
+  * [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.17-release-notes) (see [MDEV-27744](https://jira.mariadb.org/browse/MDEV-27744))
 
 ### Why Schema Qualifiers are Needed
 
@@ -135,7 +135,7 @@ DESCRIBE t1;
 
 ### Using Both Qualifiers Together
 
-The following example demonstrates how to use both qualifiers together in a single table definition to control data type behavior.&#x20;
+The following example demonstrates how to use both qualifiers together in a single table definition to control data type behavior.
 
 To explicitly use Oracle-compatible behavior outside Oracle mode:
 
@@ -175,7 +175,7 @@ DESCRIBE t1;
 
 ### Function Qualification
 
-Starting with MariaDB 10.6.17, schema qualifiers can also be added to functions.&#x20;
+Starting with MariaDB 10.6.17, schema qualifiers can also be added to functions.
 
 Regardless of the current SQL mode, this enables the explicit selection of MariaDB-native or Oracle-compatible behavior.
 
@@ -194,8 +194,7 @@ oracle_schema.function_name(...)
 * `mariadb_schema.function_name(...)`: MariaDB-native behavior
 * `oracle_schema.function_name(...)`: Oracle-compatible behavior
 
-**Note**: Function behavior varies depending on the SQL mode and function.
-\
+**Note**: Function behavior varies depending on the SQL mode and function.\
 Detailed function-level differences are not fully listed here and may differ by version.
 
 ### SHOW CREATE TABLE
@@ -226,7 +225,7 @@ This makes it easier to determine whether a column uses MariaDB-native or Oracle
 
 ### History
 
-When running with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), MariaDB server translates the `DATE` data type to `DATETIME`, for Oracle compatibility.&#x20;
+When running with [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), MariaDB server translates the `DATE` data type to `DATETIME`, for Oracle compatibility.
 
 ```sql
 SET SQL_mode=ORACLE;
@@ -292,7 +291,7 @@ This enables consistent and unambiguous behavior across all SQL modes.
 ### See Also
 
 * [SQL Mode](../../../server-management/variables-and-modes/sql_mode.md)
-* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
+* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
 * [Data Types](../../data-types/)
 * [SHOW CREATE TABLE](../../sql-statements/administrative-sql-statements/show/show-create-table.md)
 

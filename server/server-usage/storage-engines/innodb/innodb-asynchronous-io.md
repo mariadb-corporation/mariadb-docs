@@ -45,7 +45,7 @@ The number of completion tasks (EXECUTING\_COMPLETION\_TASK stage) that can run 
 
 ### Variables
 
-From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), a number of status variables were added to give insight into the above operations:
+From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements), a number of status variables were added to give insight into the above operations:
 
 * [innodb\_async\_reads\_pending](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_async_reads_pending) – Number of read IO operations currently in progress (from SUBMITTED to COMPLETED).
 * [innodb\_async\_reads\_tasks\_running](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_async_reads_tasks_running) – Number of read IO operations currently in the EXECUTING\_COMPLETION\_TASK state.

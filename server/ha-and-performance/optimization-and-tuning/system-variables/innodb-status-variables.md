@@ -1,6 +1,5 @@
 ---
-description: >-
-  InnoDB server status variables, viewable with SHOW STATUS.
+description: InnoDB server status variables, viewable with SHOW STATUS.
 ---
 
 # InnoDB Server Status Variables
@@ -9,105 +8,105 @@ See [Server Status Variables](server-status-variables.md) for a complete list of
 
 Much of the [InnoDB](../../../server-usage/storage-engines/innodb/) information here can also be seen with a [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) statement.
 
-See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
+See also the [Full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `Innodb_adaptive_hash_hash_searches`
 
 * Description: Hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_adaptive_hash_non_hash_searches`
 
-* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default).
+* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.2-release-notes), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_async_reads_pending`
 
 * Description: Number of async read I/O operations currently in progress (from SUBMITTED to COMPLETED). See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_reads_queue_size`
 
 * Description: Current size of the async I/O read queue. See [InnoDB Asynchronous I/O Queuing Mechanism](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md#queuing-mechanism).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_reads_tasks_running`
 
 * Description: Number of async read I/O operations currently in the EXECUTING\_COMPLETION\_TASK state. See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_reads_total_count`
 
 * Description: Total number of async read completion tasks that have finished execution. See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_reads_total_enqueues`
 
 * Description: Total number of async read operations that were queued. Includes those still waiting and making up [innodb\_async\_reads\_queue\_size](innodb-status-variables.md#innodb_async_reads_queue_size). See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_reads_wait_slot_sec`
 
 * Description: Total wait time for a free I/O slot (see Waiting for IO Slots). See [InnoDB Asynchronous I/O Waiting for IO Slots](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md#waiting-for-io-slots).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_pending`
 
 * Description: Number of async write I/O operations currently in progress (from SUBMITTED to COMPLETED). See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_queue_size`
 
 * Description: Current size of the async I/O write queue. See [InnoDB Asynchronous I/O Queuing Mechanism](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md#queuing-mechanism).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_tasks_running`
 
 * Description: Number of async write I/O operations currently in the EXECUTING\_COMPLETION\_TASK state. See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_total_count`
 
 * Description: Total number of async write completion tasks that have finished execution. See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_total_enqueues`
 
 * Description: Total number of async write operations that were queued. Includes those still waiting and making up [innodb\_async\_writes\_queue\_size](innodb-status-variables.md#innodb_async_writes_queue_size). See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_async_writes_wait_slot_sec`
 
 * Description: See [InnoDB Asynchronous I/O](../../../server-usage/storage-engines/innodb/innodb-asynchronous-io.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.5-rolling-releases/mariadb-11.5-changes-and-improvements)
 
 #### `Innodb_available_undo_logs`
 
@@ -120,7 +119,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: As shown in the BACKGROUND THREAD section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_buffer_pool_bytes_data`
 
@@ -139,21 +138,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: A text description of the progress or final status of the last Innodb buffer pool dump.
 * Scope: Global
 * Data Type: `string`
-* Introduced: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
+* Introduced: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0.0-release-notes)
 
 #### `Innodb_buffer_pool_load_incomplete`
 
 * Description: Whether or not the loaded buffer pool is incomplete, for example after a shutdown or abort during innodb buffer pool load from file caused an incomplete save.
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5)
+* Introduced: [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.5-release-notes)
 
 #### `Innodb_buffer_pool_load_status`
 
 * Description: A text description of the progress or final status of the last Innodb buffer pool load.
 * Scope: Global
 * Data Type: `string`
-* Introduced: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.0)
+* Introduced: [MariaDB 10.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_data`
 
@@ -178,14 +177,14 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Flush list as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_LRU_freed`
 
 * Description: Monitor the number of pages that were freed by a buffer pool LRU eviction scan, without flushing.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
+* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_free`
 
@@ -198,14 +197,14 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Pages not young as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_made_young`
 
 * Description: Pages made young as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_misc`
 
@@ -218,7 +217,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Old database page, as shown in the BUFFER POOL AND MEMORY section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_buffer_pool_pages_total`
 
@@ -261,7 +260,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Progress of the dynamic [InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) resizing operation. See [Setting Innodb Buffer Pool Size Dynamically](setting-innodb-buffer-pool-size-dynamically.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2)
+* Introduced: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.2-release-notes)
 
 #### `Innodb_buffer_pool_wait_free`
 
@@ -280,21 +279,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Number of bulk insert operations to InnoDB tables.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3)
+* Introduced: [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1.6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4.3-release-notes)
 
 #### `Innodb_checkpoint_age`
 
 * Description: The amount of data written to the InnoDB redo log since the last checkpoint, as shown in the LOG section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. (This is equivalent to subtracting "Last checkpoint at" from "Log sequence number", cf the [RedoLog details](../../../server-usage/storage-engines/innodb/innodb-redo-log.md)). Despite the name ("age"), the value is not a duration, but really an amount of data (in bytes) !
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_checkpoint_max_age`
 
 * Description: Max checkpoint age, as shown in the LOG section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_data_fsyncs`
 
@@ -340,7 +339,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_data_written`
 
-* Description: Number of InnoDB bytes written since server startup. Does not include writes to the redo log file `ib_logfile0`, which are counted by [Innodb\_os\_log\_written](innodb-status-variables.md#innodb_os_log_written). An error in counting affected releases before [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.13), [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.8), [MariaDB 10.9.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.6), [MariaDB 10.10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.4) and [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.3) ([MDEV-31124](https://jira.mariadb.org/browse/MDEV-31124)): writes via the doublewrite buffer were counted incorrectly, without multiplying them by innodb\_page\_size. A workaround for the error could be the following formulae: real\_data\_written = Innodb\_data\_written + (innodb\_page\_size - 1) \* Innodb\_dblwr\_pages\_writteninnodb\_written = real\_data\_written + Innodb\_os\_log\_written
+* Description: Number of InnoDB bytes written since server startup. Does not include writes to the redo log file `ib_logfile0`, which are counted by [Innodb\_os\_log\_written](innodb-status-variables.md#innodb_os_log_written). An error in counting affected releases before [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.13-release-notes), [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.8-release-notes), [MariaDB 10.9.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.9-series/mariadb-10.9.6-release-notes), [MariaDB 10.10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10.4-release-notes) and [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.3-release-notes) ([MDEV-31124](https://jira.mariadb.org/browse/MDEV-31124)): writes via the doublewrite buffer were counted incorrectly, without multiplying them by innodb\_page\_size. A workaround for the error could be the following formulae: real\_data\_written = Innodb\_data\_written + (innodb\_page\_size - 1) \* Innodb\_dblwr\_pages\_writteninnodb\_written = real\_data\_written + Innodb\_os\_log\_written
 * Scope: Global
 * Data Type: `numeric`
 
@@ -361,245 +360,245 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Total number of InnoDB deadlocks. Deadlocks occur when at least two transactions are waiting for the other to finish, creating a circular dependency. InnoDB usually detects these quickly, returning an error.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_defragment_compression_failures`
 
 * Description: Number of defragment re-compression failures. See [Defragmenting InnoDB Tablespaces](../optimizing-tables/defragmenting-innodb-tablespaces.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
+* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.1-release-notes)
 
 #### `Innodb_defragment_count`
 
 * Description: Number of defragment operations. See [Defragmenting InnoDB Tablespaces](../optimizing-tables/defragmenting-innodb-tablespaces.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
+* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.1-release-notes)
 
 #### `Innodb_defragment_failures`
 
 * Description: Number of defragment failures. See [Defragmenting InnoDB Tablespaces](../optimizing-tables/defragmenting-innodb-tablespaces.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
+* Introduced: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.1-release-notes)
 
 #### `Innodb_encryption_key_rotation_list_length`
 
 * Description: Intended to show the number of tablespaces in the key rotation list. InnoDB never updated the counter, so it always returned `0`. [INFORMATION\_SCHEMA.INNODB\_TABLESPACES\_ENCRYPTION](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md) reports the key rotation state of each tablespace.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.8-release-notes), [MariaDB 10.5.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.16-release-notes), [MariaDB 10.4.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.25-release-notes), [MariaDB 10.3.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.35-release-notes)
 
 #### `Innodb_encryption_n_merge_blocks_decrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.28), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
+* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.28-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.9-release-notes), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes)
 
 #### `Innodb_encryption_n_merge_blocks_encrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.28), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
+* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.28-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.9-release-notes), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes)
 
 #### `Innodb_encryption_n_rowlog_blocks_decrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.28), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
+* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.28-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.9-release-notes), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes)
 
 #### `Innodb_encryption_n_rowlog_blocks_encrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.28), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.9), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
+* Introduced: [MariaDB 10.1.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.28-release-notes), [MariaDB 10.2.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.9-release-notes), [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes)
 
 #### `Innodb_encryption_n_temp_blocks_decrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7)
+* Introduced: [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.26-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.17-release-notes), [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.7-release-notes)
 
 #### `Innodb_encryption_n_temp_blocks_encrypted`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.26), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17), [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7)
+* Introduced: [MariaDB 10.2.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.26-release-notes), [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.17-release-notes), [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.7-release-notes)
 
 #### `Innodb_encryption_num_key_requests`
 
 * Description: Number of requests for the latest version of an encryption key.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
+* Introduced: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.4-release-notes)
 
 #### `Innodb_encryption_rotation_estimated_iops`
 
 * Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/innodb-encryption/).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_encryption_rotation_pages_flushed`
 
 * Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/innodb-encryption/).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_encryption_rotation_pages_modified`
 
 * Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/innodb-encryption/).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_encryption_rotation_pages_read_from_cache`
 
 * Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/innodb-encryption/).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_encryption_rotation_pages_read_from_disk`
 
 * Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/innodb-encryption/).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_have_bzip2`
 
 * Description: Whether the server has the bzip2 compression method available. See [InnoDB/XtraDB Page Compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md).
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
 
 #### `Innodb_have_lz4`
 
 * Description: Whether the server has the lz4 compression method available. See [InnoDB/XtraDB Page Compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md).
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
 
 #### `Innodb_have_lzma`
 
 * Description: Whether the server has the lzma compression method available. See [InnoDB/XtraDB Page Compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md).
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
 
 #### `Innodb_have_lzo`
 
 * Description: Whether the server has the lzo compression method available. See [InnoDB/XtraDB Page Compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md).
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
 
 #### `Innodb_have_punch_hole`
 
 * Description:
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4)
+* Introduced: [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.4-release-notes)
 
 #### `Innodb_have_snappy`
 
 * Description: Whether the server has the snappy compression method available. See [InnoDB/XtraDB Page Compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md).
 * Scope: Global
 * Data Type: `boolean`
-* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
+* Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.3-release-notes)
 
 #### `Innodb_history_list_length`
 
 * Description: History list length as shown in the TRANSACTIONS section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_discarded_delete_marks`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_discarded_deletes`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_discarded_inserts`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_free_list`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_merged_delete_marks`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_merged_deletes`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_merged_inserts`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_merges`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_segment_size`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_ibuf_size`
 
 * Description: As shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_instant_alter_column`
 
 * Description: See [Instant ADD COLUMN for InnoDB](../../../server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb.md).
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2)
+* Introduced: [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.2-release-notes)
 
 #### `Innodb_log_waits`
 
@@ -624,21 +623,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Log sequence number as shown in the LOG section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_lsn_flushed`
 
 * Description: Flushed up to log sequence number as shown in the LOG section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_lsn_last_checkpoint`
 
 * Description: Log sequence number last checkpoint as shown in the LOG section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_lsn_archived`
 
@@ -652,51 +651,51 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: As shown in the BACKGROUND THREAD section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.9) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0):
+* Introduced: [MariaDB 10.0.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0.9-release-notes) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes):
 
 #### `Innodb_master_thread_idle_loops`
 
 * Description: As shown in the BACKGROUND THREAD section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.9) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0):
+* Introduced: [MariaDB 10.0.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0.9-release-notes) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes):
 
 #### `Innodb_max_trx_id`
 
 * Description: As shown in the TRANSACTIONS section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_mem_adaptive_hash`
 
 * Description: As shown in the BUFFER POOL AND MEMORY section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_mem_dictionary`
 
 * Description: As shown in the BUFFER POOL AND MEMORY section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+* Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.0-release-notes)
 
 #### `Innodb_num_index_pages_written`
 
 * Description: Intended to show the number of index pages written. The code that updated the counter was lost, so it always returns `0`.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
-* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.8-release-notes), [MariaDB 10.5.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.16-release-notes), [MariaDB 10.4.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.25-release-notes), [MariaDB 10.3.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.35-release-notes)
 
 #### `Innodb_num_non_index_pages_written`
 
 * Description: Intended to show the number of non-index pages written. The code that updated the counter was lost, so it always returns `0`.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.0)
-* Removed: [MariaDB 10.6.8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.8), [MariaDB 10.5.16](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.16), [MariaDB 10.4.25](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.25), [MariaDB 10.3.35](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.35)
+* Introduced: [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.1-series/mariadb-10.1.0-release-notes)
+* Removed: [MariaDB 10.6.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.8-release-notes), [MariaDB 10.5.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5.16-release-notes), [MariaDB 10.4.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.4-series/mariadb-10.4.25-release-notes), [MariaDB 10.3.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.35-release-notes)
 
 #### `Innodb_num_open_files`
 
@@ -763,21 +762,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Number of InnoDB log fsync (sync-to-disk) requests.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108)
+* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements)
 
 #### `Innodb_os_log_pending_fsyncs`
 
 * Description: Number of pending InnoDB log fsync (sync-to-disk) requests.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108)
+* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements)
 
 #### `Innodb_os_log_pending_writes`
 
 * Description: Number of pending InnoDB log writes.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108)
+* Removed: [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements)
 
 #### `Innodb_os_log_written`
 
@@ -850,70 +849,70 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Number of rows deleted from InnoDB tables that where not system tables. Almost equivalent to [Handler\_delete](server-status-variables.md#handler_delete) which does include system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_rows_inserted`
 
 * Description: Number of rows inserted into InnoDB tables that where not system tables. No direct equivalent in [Handler](server-status-variables.md#handler_commit) status variables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_rows_read`
 
 * Description: Number of rows read from InnoDB tables that where not system tables. Almost equivalent to the sum of [Handler\_read\*](server-status-variables.md#handler_read_first) status variables which do include system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_rows_updated`
 
 * Description: Number of rows updated in InnoDB tables that where not system tables. Almost equivalent to [Handler\_update](server-status-variables.md#handler_update) which does include system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_secondary_index_triggered_cluster_reads`
 
-* Description: Used to track the effectiveness of the Prefix Index Queries Optimization ([MDEV-6929](https://jira.mariadb.org/browse/MDEV-6929)). Removed in [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010) as the optimization is now always enabled.
+* Description: Used to track the effectiveness of the Prefix Index Queries Optimization ([MDEV-6929](https://jira.mariadb.org/browse/MDEV-6929)). Removed in [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements) as the optimization is now always enabled.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_secondary_index_triggered_cluster_reads_avoided`
 
-* Description: Used to track the effectiveness of the Prefix Index Queries Optimization ([MDEV-6929](https://jira.mariadb.org/browse/MDEV-6929)). Removed in [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010) as the optimization is now always enabled.
+* Description: Used to track the effectiveness of the Prefix Index Queries Optimization ([MDEV-6929](https://jira.mariadb.org/browse/MDEV-6929)). Removed in [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements) as the optimization is now always enabled.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_system_rows_deleted`
 
 * Description: Number of rows deleted on system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_system_rows_inserted`
 
 * Description: Number of rows inserted on system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Removed: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10-changes-and-improvements)
 
 #### `Innodb_system_rows_read`
 
 * Description: Number of rows read on system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.0)
+* Removed: [MariaDB 10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10.0-release-notes)
 
 #### `Innodb_system_rows_updated`
 
 * Description: Number of rows updated on system tables.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.0)
+* Removed: [MariaDB 10.10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.10-series/mariadb-10.10.0-release-notes)
 
 #### `Innodb_truncated_status_writes`
 
@@ -926,4 +925,4 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Number of undo tablespace truncation operations.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10)
+* Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.3-series/mariadb-10.3.10-release-notes)

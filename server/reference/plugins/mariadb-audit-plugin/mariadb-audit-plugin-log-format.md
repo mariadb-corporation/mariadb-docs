@@ -7,7 +7,7 @@ description: >-
 
 # Audit Plugin Log Format
 
-The audit plugin logs user access to MariaDB and its objects. The audit trail (that is, the audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format.&#x20;
+The audit plugin logs user access to MariaDB and its objects. The audit trail (that is, the audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format.
 
 ## Formal Specification
 
@@ -31,18 +31,18 @@ Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<
 {% endtab %}
 {% endtabs %}
 
-| Field | Component      | Data Type      | Standardized Name / Description                                                                                                              |
-| ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format). |
-| 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                          |
-| 3     | `username`     | `String`       | The MariaDB user account that triggered the event.                                                                                           |
+| Field | Component      | Data Type      | Standardized Name / Description                                                                                                                                                                                                                                                                                                              |
+| ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server\_audit\_timestamp\_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format).                                                                                                                                                     |
+| 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                                                                                                                                                                                                                          |
+| 3     | `username`     | `String`       | The MariaDB user account that triggered the event.                                                                                                                                                                                                                                                                                           |
 | 4     | `host`:`port`  | `String`       | The client host the user connected from, followed by a colon and the client's TCP port. From MariaDB 12.0.1. When the client did not connect over TCP/IP, such as over a Unix socket or a named pipe, the colon and the port are both omitted and the field holds the host alone. Before MariaDB 12.0.1, the field is always the host alone. |
-| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                           |
-| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                    |
-| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`). The change-user connection event is logged as `CHANGEUSER`, without an underscore.  |
-| 8     | `database`     | `String`       | The database the event applies to.                                                                                                           |
-| 9     | `object`       | `String`       | The table or object involved in the operation, or the statement text on `QUERY` events. Connection events use this field for other values: from MariaDB 12.0.1, the negotiated TLS version, and on `PROXY_CONNECT` records, the proxy user. |
-| 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                                                                               |
+| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                                                                                                                                                                                                                           |
+| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                                                                                                                                                                                                                    |
+| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`). The change-user connection event is logged as `CHANGEUSER`, without an underscore.                                                                                                                                                                                                  |
+| 8     | `database`     | `String`       | The database the event applies to.                                                                                                                                                                                                                                                                                                           |
+| 9     | `object`       | `String`       | The table or object involved in the operation, or the statement text on `QUERY` events. Connection events use this field for other values: from MariaDB 12.0.1, the negotiated TLS version, and on `PROXY_CONNECT` records, the proxy user.                                                                                                  |
+| 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                                                                                                                                                                                                                                                                               |
 
 {% hint style="warning" %}
 **Changed in MariaDB 12.0.1**
@@ -56,7 +56,7 @@ Two changes to the log format require updates to tools that parse the audit log:
 {% hint style="info" %}
 **On MariaDB Enterprise Server**
 
-From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit/README.md), which has written `unavailable` since it gained the client port. Community Server is unaffected.
+From MariaDB Enterprise Server 12.3.3-1, this plugin writes `host:unavailable` when the client did not connect over TCP/IP, instead of omitting the colon and the port. That matches [MariaDB Enterprise Audit](../mariadb-enterprise-audit/), which has written `unavailable` since it gained the client port. Community Server is unaffected.
 {% endhint %}
 
 ### Audit Log Format with Syslog
@@ -113,7 +113,7 @@ Passwords are hidden in the log for certain types of queries. They are replaced 
 From MariaDB 10.11.16:
 {% endhint %}
 
-For [Galera Cluster replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica) applier operations, audit log plugin logs events with a generic name of `<wsrep_applier>` .
+For [Galera Cluster replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster) applier operations, audit log plugin logs events with a generic name of `<wsrep_applier>` .
 
 This addresses an issue where the user was logged on the primary node, but stripped from other cluster nodes. See [MDEV-35511](https://jira.mariadb.org/browse/MDEV-35511) for details.
 {% endtab %}

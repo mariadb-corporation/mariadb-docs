@@ -109,9 +109,9 @@ _Topology C (sharding) routes a client through three Spider nodes to three non-o
 
 In the default high availability setup Spider Nodes produce SQL errors when a backend server is not responding. Per table monitoring can be setup to enable availability in case of unresponsive backends `monotoring_bg_kind=1` or `monotoring_bg_kind=2`. The Monitoring Spider Nodes are inter-connected with usage of the system table `mysql.link_mon_servers` to manage network partitioning. Better known as split brain, an even number of `Spider Monitor Nodes` should be setup to allow a consensus based on the majority. Rather a single separated shared `Monitoring Node` instance or a minimum set of 3 `Spider Nodes`. More information can be found [here](https://fr.slideshare.net/Kentoku/spider-ha-20100922dtt7).
 
-**MariaDB starting with** [**10.7.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5)
+**MariaDB starting with** [**10.7.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7.5-release-notes)
 
-Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/) or [galera-cluster](../../../../galera-cluster/README.md).
+Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/) or [galera-cluster](../../../../galera-cluster/).
 
 ### Spider Storage Engine Federation
 
@@ -255,16 +255,13 @@ Spider stores resultsets into memory, but [spider\_quick\_mode](spider-system-va
 
 Spider tables connect to remote servers by reading connection information from one or more sources. MariaDB supports several methods for defining this information, each introduced at different versions. When more than one method is present, a defined precedence order determines which takes effect.
 
-Connection information for Spider tables can be provided in different
-ways:
+Connection information for Spider tables can be provided in different ways:
 
 * Foreign server options (using `CREATE SERVER`)
 * `CONNECTION` or `COMMENT` strings
 * Engine-defined options (such as `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE`)
 
-Connection information for Spider tables can also be specified for
-different levels, where partition-level info overrides table-level
-info.
+Connection information for Spider tables can also be specified for different levels, where partition-level info overrides table-level info.
 
 Spider has a predefined precedence order when using multiple methods.
 
@@ -272,20 +269,13 @@ Spider has a predefined precedence order when using multiple methods.
 
 The following behavior applies to both CS and ES:
 
-* Connection specification methods: (foreign server options, `COMMENT` string,
-  `CONNECTION` string, and engine-defined options).
-* Precedence rules (engine-defined options > `COMMENT` string >
-  `CONNECTION` string > foreign server options; partition-level
-  overrides table-level)
-* Version-based behavior, such as the deprecation of
-  `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of
-  engine-defined options `REMOTE_SERVER`, `REMOTE_DATABASE`, and
-  `REMOTE_TABLE` in 10.8.1 and further options in 11.3.1
+* Connection specification methods: (foreign server options, `COMMENT` string, `CONNECTION` string, and engine-defined options).
+* Precedence rules (engine-defined options > `COMMENT` string > `CONNECTION` string > foreign server options; partition-level overrides table-level)
+* Version-based behavior, such as the deprecation of `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of engine-defined options `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE` in 10.8.1 and further options in 11.3.1
 
 **ES Additional Behavior (ODBC)**
 
-ODBC connection strings are used by Spider in Enterprise Server to
-create connections via ODBC drivers.
+ODBC connection strings are used by Spider in Enterprise Server to create connections via ODBC drivers.
 
 The source of the ODBC connection string could be:
 
@@ -322,7 +312,7 @@ PARTITION BY RANGE (a) (
 
 **Engine-defined options: `REMOTE_SERVER`, `REMOTE_DATABASE`, `REMOTE_TABLE` (Since 10.8.1)**
 
-Since [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) ([MDEV-27106](https://jira.mariadb.org/browse/MDEV-27106)), engine-defined table options can be used to directly specify connection details:
+Since [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes) ([MDEV-27106](https://jira.mariadb.org/browse/MDEV-27106)), engine-defined table options can be used to directly specify connection details:
 
 ```sql
 CREATE TABLE t (id INT) ENGINE=SPIDER
@@ -335,22 +325,20 @@ These engine-defined options override `COMMENT=` when both are present. These op
 
 **Extended Engine-defined options (Since 11.3.1)**
 
-Since [MariaDB 11.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.1) ([MDEV-28856](https://jira.mariadb.org/browse/MDEV-28856)), more engine-defined options are available. `COMMENT=` and `CONNECTION=` are ignored if there are any engine-defined options and warnings may be generated. Set `spider_suppress_comment_ignored_warning = 1` to suppress the warning that is generated when they are ignored.
+Since [MariaDB 11.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3.1-release-notes) ([MDEV-28856](https://jira.mariadb.org/browse/MDEV-28856)), more engine-defined options are available. `COMMENT=` and `CONNECTION=` are ignored if there are any engine-defined options and warnings may be generated. Set `spider_suppress_comment_ignored_warning = 1` to suppress the warning that is generated when they are ignored.
 
 **COMMENT and CONNECTION Deprecated (Since 11.4.1)**
 
-Since [MariaDB 11.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.1) ([MDEV-28861](https://jira.mariadb.org/browse/MDEV-28861)), the Spider connection information specified by `COMMENT=` and `CONNECTION=` has been deprecated. Instead, use the engine-defined parameters.
+Since [MariaDB 11.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4.1-release-notes) ([MDEV-28861](https://jira.mariadb.org/browse/MDEV-28861)), the Spider connection information specified by `COMMENT=` and `CONNECTION=` has been deprecated. Instead, use the engine-defined parameters.
 
 **ODBC Connection String via CONNECTION (Since 11.4.3-1 ES)**
 
-In the following instances, `CONNECTION=` is used directly as the ODBC connection string since [MariaDB Enterprise Server 11.4.3-1 ](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/11.4.3-1)([MENT-2070](https://jira.mariadb.org/browse/MENT-2070)):
+In the following instances, `CONNECTION=` is used directly as the ODBC connection string since [MariaDB Enterprise Server 11.4.3-1 ](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/mariadb-enterprise-server-11.4/release-notes-for-mariadb-enterprise-server-11.4.3-1)([MENT-2070](https://jira.mariadb.org/browse/MENT-2070)):
 
 * `COMMENT=` / `CONNECTION=` are explicitly ignored (i.e., engine-defined options are present, per [MDEV-28856](https://jira.mariadb.org/browse/MDEV-28856))
 * The value of `CONNECTION=` follows the ODBC connection string format (`param1=val1;param2=val2;...`)
 
-In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and
-`OPTIONS` fields were used to create the ODBC connection string. See
-[MENT-2076 comment](https://jira.mariadb.org/browse/MENT-2076?focusedCommentId=312663&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-312663) for a complete list of fields used.
+In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and `OPTIONS` fields were used to create the ODBC connection string. See [MENT-2076 comment](https://jira.mariadb.org/browse/MENT-2076?focusedCommentId=312663\&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-312663) for a complete list of fields used.
 
 **CREATE SERVER with FOREIGN DATA WRAPPER ODBC**
 
@@ -366,11 +354,11 @@ CREATE SERVER s
 
 `CREATE SERVER ... FOREIGN DATA WRAPPER` supports the following wrapper types:
 
-| Wrapper Value | Description                                         | Availability |
-| ------------- | --------------------------------------------------- | ------------ |
-| `mysql`       | Connects to a remote MySQL server natively | CS + ES      |
-| `mariadb`     | Connects to a remote MariaDB server natively                 | CS + ES      |
-| `odbc`        | Connects to a remote server via ODBC                | ES only      |
+| Wrapper Value | Description                                  | Availability |
+| ------------- | -------------------------------------------- | ------------ |
+| `mysql`       | Connects to a remote MySQL server natively   | CS + ES      |
+| `mariadb`     | Connects to a remote MariaDB server natively | CS + ES      |
+| `odbc`        | Connects to a remote server via ODBC         | ES only      |
 
 **Note**: The `odbc` wrapper value is only available in MariaDB Enterprise Server (ES). It is not supported in Community Server (CS).
 
@@ -385,7 +373,7 @@ The MariaDB version and configuration method determine the exact resolution beha
 * [Spider Table Parameters](spider-table-parameters.md)
 * [Spider System Variables](spider-system-variables.md)
 * [CREATE SERVER Statement](../../../reference/sql-statements/data-definition/create/create-server.md)
-* [Spider Storage Engine](../../../architecture/topologies/spider-storage-engine.md)&#x20;
+* [Spider Storage Engine](../../../architecture/topologies/spider-storage-engine.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
