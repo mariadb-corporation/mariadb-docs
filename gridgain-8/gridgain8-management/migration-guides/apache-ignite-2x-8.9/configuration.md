@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Configuration changes when migrating from Apache Ignite 2 to GridGain 8:
   changed defaults, removed and unsupported properties, and binary field ordering.

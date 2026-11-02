@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Apache Ignite 2 features that work differently or have no equivalent in
   GridGain 8, with what to do and how to verify each replacement.

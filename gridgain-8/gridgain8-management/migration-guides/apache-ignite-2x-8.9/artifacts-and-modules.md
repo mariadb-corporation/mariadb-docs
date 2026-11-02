@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   GridGain distribution formats, per-language build coordinate changes, Docker
   differences, and module and extension availability when migrating from Apache Ignite 2.

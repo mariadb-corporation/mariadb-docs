@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to migrate authorization from a secured Apache Ignite 2.x cluster to
   GridGain 8: retired permissions, coarser admin grants, and user management.
