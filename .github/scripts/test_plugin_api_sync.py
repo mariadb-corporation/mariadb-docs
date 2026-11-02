@@ -26,6 +26,7 @@ member_anchors = load(HERE / 'fix_plugin_api_member_anchors.py',
                       'member_anchors')
 summary = load(HERE / 'add_server_plugin_api_to_summary.py', 'summary')
 drop_api = load(HERE / 'drop_plugin_api_md.py', 'drop_api')
+alerts = load(HERE / 'fix_plugin_api_alerts.py', 'alerts')
 
 FRONTMATTER = '---\ndescription: >-\n  Generated page.\n---\n\n'
 
@@ -294,6 +295,67 @@ class SummaryNav(TempDir):
     def test_missing_anchor_entry_fails(self):
         with self.assertRaises(SystemExit):
             summary.rewrite_summary('# Table of contents\n', self.block())
+
+
+
+class Alerts(unittest.TestCase):
+    """GitHub alerts from moxygen --flavour=github -> GitBook hints (DOCS-7041)."""
+
+    def test_warning_becomes_hint(self):
+        src = ('text\n\n> [!WARNING]\n> Status variables are not prefixed!\n'
+               '> See [Arrays](page-implementation.md#arrays).\n\nmore\n')
+        self.assertEqual(alerts.convert(src),
+                         'text\n\n{% hint style="warning" %}\n'
+                         'Status variables are not prefixed!\n'
+                         'See [Arrays](page-implementation.md#arrays).\n'
+                         '{% endhint %}\n\nmore\n')
+
+    def test_note_is_info(self):
+        self.assertEqual(alerts.convert('> [!NOTE]\n> Mix them.\n'),
+                         '{% hint style="info" %}\nMix them.\n{% endhint %}\n')
+
+    def test_all_styles(self):
+        for kind, style in [('TIP', 'success'), ('IMPORTANT', 'info'),
+                            ('CAUTION', 'danger')]:
+            self.assertIn(f'{{% hint style="{style}" %}}',
+                          alerts.convert(f'> [!{kind}]\n> x\n'))
+
+    def test_gitbook_escaped_one_line_form(self):
+        # What GitBook writes back to Git after rendering an alert.
+        self.assertEqual(alerts.convert('> \\[!WARNING] Prefix it.\n'),
+                         '{% hint style="warning" %}\nPrefix it.\n{% endhint %}\n')
+
+    def test_code_fence_inside_note_is_kept(self):
+        src = ('> [!NOTE]\n> The syntax is:\n> ```\n> %[<flag>]<format>\n'
+               '> ```\n')
+        self.assertEqual(alerts.convert(src),
+                         '{% hint style="info" %}\nThe syntax is:\n```\n'
+                         '%[<flag>]<format>\n```\n{% endhint %}\n')
+
+    def test_empty_alert_is_dropped(self):
+        # @note followed by a blank line in the Doxygen source.
+        src = 'Intro.\n\n> [!NOTE]\n>\n\nNormally prefer X.\n'
+        self.assertEqual(alerts.convert(src),
+                         'Intro.\n\nNormally prefer X.\n')
+
+    def test_plain_quote_untouched(self):
+        src = '> Just a quote.\n> [!NOTE] in the middle is not a marker\n'
+        self.assertEqual(alerts.convert(src), src)
+
+    def test_marker_inside_code_block_untouched(self):
+        src = '```markdown\n> [!WARNING]\n> example\n```\n'
+        self.assertEqual(alerts.convert(src), src)
+
+    def test_indented_alert(self):
+        # page-implementation.md: a @note after a code block in index.dox.
+        src = '```\n}\n```\n\n  > [!NOTE]\n  > Mix them.\n\n## Next\n'
+        self.assertEqual(alerts.convert(src),
+                         '```\n}\n```\n\n{% hint style="info" %}\nMix them.\n'
+                         '{% endhint %}\n\n## Next\n')
+
+    def test_idempotent(self):
+        once = alerts.convert('> [!WARNING]\n> x\n')
+        self.assertEqual(alerts.convert(once), once)
 
 
 if __name__ == '__main__':
