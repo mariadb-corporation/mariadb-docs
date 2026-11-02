@@ -113,7 +113,7 @@ Start only once [preparation is complete](#when-is-preparation-complete). Do the
 The cutover has three parts:
 
 - [steps 1–4](#id-1.-stop-running-applications) take the cluster down cleanly and secure your way back;
-- [steps 5–7](#id-5.-configure-gridgain-8) switch it to GridGain 8;
+- [steps 5–7](#id-5.-configure-gridgain-8.10) switch it to GridGain 8;
 - [steps 8–11](#id-8.-activate-and-verify) bring the service back: verify the cluster, reload the data if nothing was carried over, reconnect clients, and smoke-test. On a persistent cluster, the point of no return is [step 7](#id-7.-start-gridgain): once GridGain 8 writes to the data, the migration is irreversible.
 
 ### 1. Stop Running Applications
