@@ -1056,6 +1056,7 @@ This endpoint requires that the `state` parameter is passed with the request. Th
 | running     | Server is up and running         |
 | synced      | Server is a Galera node          |
 | drain       | Server is drained of connections |
+| throttle    | Server transactions are throttled|
 
 For example, to set the server _db-server-1_ into maintenance mode, a request to the following URL must be made:
 
@@ -1064,6 +1065,18 @@ PUT /v1/servers/db-server-1/set?state=maintenance
 ```
 
 This endpoint also supports the `force=yes` parameter that will cause all connections to the server to be closed if `state=maintenance` is also set. By default setting a server into maintenance mode will cause connections to be closed only after the next request is sent.
+
+{% tabs %}
+{% tab title="Current" %}
+The master server of a `mariadbmon` cluster can be set into maintenance mode
+with `force=yes`.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The master server of a `mariadbmon` cluster cannot be set into maintenance
+mode.
+{% endtab %}
+{% endtabs %}
 
 The following example forcefully closes all connections to server _db-server-1_ and sets it into maintenance mode:
 

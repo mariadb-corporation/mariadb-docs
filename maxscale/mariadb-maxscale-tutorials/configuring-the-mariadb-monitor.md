@@ -35,6 +35,10 @@ GRANT REPLICA MONITOR ON *.* TO 'monitor_user'@'%';
 
 If the automatic failover feature is used, the monitor user needs additional grants. See [monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#required-grants) for more information.
 
+For a tutorial on setting up automatic failover with `mariadbmon` and
+making it transparent to applications using the ReadWriteSplit router, see
+[Using MariaDB Monitor With ReadWriteSplit](automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

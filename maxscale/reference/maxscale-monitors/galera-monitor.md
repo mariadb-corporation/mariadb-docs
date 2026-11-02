@@ -256,6 +256,193 @@ A server can only be removed if it is not explicitly used by any other module, e
 maxctrl call command galeramon discover-replicas monitor=MyGaleraMonitor remove=true
 ```
 
+## External replication management
+
+A Galera Cluster node typically only replicates from other members of the
+cluster using its own, [synchronous replication implementation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication.md).
+A Galera node can, in addition,
+[replicate asynchronously](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/README.md)
+from a normal MariaDB Server, or even from a different Galera Cluster. Normally,
+the MaxScale Galera Monitor will not manage the asynchronous replication in any
+way. This means that if the primary server of either the Galera Cluster or the
+external cluster changes, the replication connection will not be moved or
+redirected.
+
+As of MaxScale 26.10, the Galera Monitor supports external replication
+management. This feature requires that the local MaxScale monitors the external
+cluster using a dedicated monitor. The local Galera monitor ensures that the
+primary server of its cluster always replicates from the external cluster. If
+the current external primary goes down or its role changes, the monitor
+redirects the external replication connection to replicate from another server
+in the external cluster. If there is no valid external primary in the external
+cluster, the local monitor stops the replication. If the DBA manually stops the
+external replication (i.e. `STOP SLAVE`), the monitor will not restart it.
+
+External replication management requires that the local cluster has a valid
+primary server in *Write*-status. If this is not the case, the monitor skips
+external replication management. MaxScale must also be in *active* mode, i.e.
+`passive=false`. If the external monitor is not running, the local monitor will
+not modify external replication.
+
+External replication management does not alter the GTID domains of either
+cluster. The DBA is responsible for configuring the clusters and designing the
+schemas such that one cluster can replicate from another. The Galera Monitor
+user account (defined with `user`) requires the `REPLICATION SLAVE ADMIN`
+privilege for external replication management to work.
+
+This feature works very similarly to the equivalent feature in
+the [MariaDB Monitor](mariadb-monitor.md#external-replication-management). The
+most significant difference between the two implementations is that when
+`external_replication_monitor` is set, the Galera Monitor will remove
+replication connections from any Galera Cluster member other than the primary.
+This culling is required so that stale external replication connections get
+removed whenever the primary server in a Galera Cluster changes. Only
+replication connections on Galera Cluster members that have the *Read* status
+are culled.
+
+To take the feature into use, designate the external monitor with
+`external_replication_monitor`. Also, define the replication credentials with
+`replication_user` and `replication_password`.
+
+```ini
+[MyGaleraMonitor]
+type=monitor
+module=galeramon
+servers=galera1,galera2,galera3
+user=galeramon
+password=galeramon
+replication_user=repl
+replication_password=repl
+external_replication_monitor=MyExternalClusterMonitor
+
+[MyExternalClusterMonitor]
+type=monitor
+#Using mariadbmon here, but could also be a Galera Monitor.
+module=mariadbmon
+servers=server1,server2
+user=mariadbmon
+password=mariadbmon
+```
+
+### Settings
+
+#### `external_replication_monitor`
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Names the monitor of an external cluster from which the Galera primary replicates, which enables external replication management.
+
+Defines the monitor for the external cluster. Must be a valid monitor name. The
+external cluster monitor needs to be running for replication management to
+function.
+See [MariaDB Monitor documentation](mariadb-monitor.md#external_replication_monitor)
+for more information.
+
+```
+external_replication_monitor=MyExternalClusterMonitor
+```
+
+#### `external_replication_primary_role`
+
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+* Introduced: MaxScale 26.10
+* Description: Defines the ordered list of server roles the monitor looks for when selecting the external server to replicate from.
+
+Defines the external primary server to replicate from. This setting only has an
+effect when `external_replication_monitor` is set. The value defines a list of
+server roles the monitor looks for when selecting the external primary.
+See [MariaDB Monitor documentation](mariadb-monitor.md#external_replication_primary_role)
+for more information.
+
+```
+external_replication_primary_role=replica
+```
+
+#### `replication_user`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the user the monitor uses when it sets up external replication.
+
+This and `replication_password` specify the credentials for the
+replication user. These are given as the values for `MASTER_USER` and
+`MASTER_PASSWORD` whenever the monitor executes a `CHANGE MASTER TO`-command.
+
+Both `replication_user` and `replication_password` parameters must be defined if
+a custom replication user is used. If neither of the parameters is defined, the
+`CHANGE MASTER TO`-command will use the monitor credentials for the replication
+user.
+
+The credentials used for replication must have the `REPLICATION SLAVE`
+privilege.
+
+#### `replication_password`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Introduced: MaxScale 26.10
+* Description: Specifies the password of the user the monitor uses when it sets up external replication.
+
+See [replication\_user](#replication_user). `replication_password` uses the same
+encryption scheme as other password parameters. If password encryption is in
+use, `replication_password` must be encrypted with the same key to avoid
+erroneous decryption.
+
+#### `replication_master_ssl`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `auto`
+* Values: `auto`, `off`, `on`
+* Introduced: MaxScale 26.10
+* Description: Controls the `MASTER_SSL` option in the `CHANGE MASTER TO` commands the monitor generates for external replication.
+
+This controls the `MASTER_SSL`-option for any `CHANGE MASTER TO`-commands the
+monitor generates. Thus, this setting affects asynchronous replication
+connections only, not Galera replication.
+
+If set to `on`, the monitor will always set `MASTER_SSL=1` to enable encryption
+for the replication stream. `on` should only be used if the backend servers are
+configured for ssl.
+
+If set to `off`, monitors sets `MASTER_SSL=0` instead, disabling encryption
+for replication connections. Use `off` when you want to ensure that the monitor
+always sets up unencrypted replication.
+
+In `auto`-mode (default), the monitor attempts to guess the correct value for
+`MASTER_SSL`. The logic is as follows:
+
+1. When redirecting an existing replication connection, do not define the
+   `MASTER_SSL`-option at all. This preserves the existing value.
+2. When recreating a previously removed external replication connection, use the
+   settings from the removed connection.
+3. If no previous settings are available, e.g. due to MaxScale restart, match
+   monitor connection SSL-mode.
+
+`auto` should work for most cases. It allows for a mix of SSL-modes, with some
+replication connections encrypted and others unencrypted.
+
+If MaxScale has to guess the encryption mode, then the replication connection
+will use SSL if the primary server for the replication connection is monitored
+via an encrypted connection.
+
+```
+replication_master_ssl=off
+```
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
