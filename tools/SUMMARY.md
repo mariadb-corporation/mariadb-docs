@@ -175,6 +175,7 @@
       * [OpenID Connect Authentication](enterprise/control-center/admin-guide/open-id.md)
       * [Enterprise Manager Integration](enterprise/control-center/admin-guide/enterprise-manager-integration.md)
       * [Managing Licenses](enterprise/control-center/admin-guide/license.md)
+      * [Software Bill of Materials](enterprise/control-center/admin-guide/sbom.md)
       * [Control Center with External Cluster](enterprise/control-center/admin-guide/external-cluster.md)
       * [Active-Passive Deployment](enterprise/control-center/admin-guide/active-passive.md)
       * [Control Center in Kubernetes with TLS](enterprise/control-center/admin-guide/kubernetes-tls.md)
