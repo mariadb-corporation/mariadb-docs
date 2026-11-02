@@ -14,6 +14,7 @@ description: A list of all MariaDB Connector/Python releases
 
 | Release                             | Release Date | Release Status         |
 | ----------------------------------- | ------------ | ---------------------- |
+| [1.1.15](1.1/1.1.15.md)             | 2025-11-03   | Stable (GA)            |
 | [1.1.14](1.1/1.1.14.md)             | 2025-10-10   | Stable (GA)            |
 | [1.1.13](1.1/1.1.13.md)             | 2025-07-15   | Stable (GA)            |
 | [1.1.12](1.1/1.1.12.md)             | 2025-02-24   | Stable (GA)            |
