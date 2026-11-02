@@ -3888,6 +3888,14 @@ description: >-
 * Default: `""`
 * Description: Specifies the path to the client SSL private key for Kafka connections.
 
+[**lower\_case\_table\_names**](maxscale-routers/maxscale-kafkacdc.md#lower_case_table_names)
+
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+* Description: Enables conversion of database and table names to lowercase.
+
 [**match**](maxscale-routers/maxscale-kafkacdc.md#match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)

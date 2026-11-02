@@ -274,6 +274,10 @@ On startup, the latest GTID is by default read from the Kafka cluster. This make
 
 If enabled, all events will have their database and table names converted to their lowercase form. The conversion only works for names in the ASCII character set.
 
+Enable this parameter when the MariaDB server runs with [lower\_case\_table\_names](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names) set to `1`. The server then writes lowercase table names into row events but keeps the original case in DDL statements, so without this parameter KafkaCDC can't match the row events to the table definitions.
+
+This parameter was added in MaxScale 23.02.19, 24.02.10, 25.01.7, and 25.10.3.
+
 ### `kafka_ssl`
 
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
