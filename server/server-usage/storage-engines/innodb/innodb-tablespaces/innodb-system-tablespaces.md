@@ -36,7 +36,9 @@ Under this configuration, when the last system tablespace grows beyond the size 
 
 ### Decreasing the Size
 
-**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112)
+{% hint style="info" %}
+This feature is available from MariaDB 11.2, and from MariaDB Enterprise Server 10.6.19-15.
+{% endhint %}
 
 From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), when MariaDB starts up, unused InnoDB tablespace can be reclaimed, reducing the file size ([MDEV-14795](https://jira.mariadb.org/browse/MDEV-14795)). This is disabled by default and is enabled by adding the `:autoshrink` attribute to the [innodb\_data\_file\_path](../innodb-system-variables.md#innodb_data_file_path) system variable, e.g.:
 
@@ -46,7 +48,8 @@ From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 innodb_data_file_path=ibdata1:12M;ibdata2:50M:autoextend:autoshrink
 ```
 
-Alternatively, starting with [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3), the shrinking can be set to happen during a slow shutdown (e.g. after `SET GLOBAL innodb_fast_shutdown=0`) ([MDEV-32452](https://jira.mariadb.org/browse/MDEV-32452)).\
+Alternatively, starting with [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3), the shrinking can be set to happen during a slow shutdown (e.g. after `SET GLOBAL innodb_fast_shutdown=0`) ([MDEV-32452](https://jira.mariadb.org/browse/MDEV-32452)). MariaDB Enterprise Server 10.6 shrinks the file at startup only.
+
 Technically, how this works is:
 
 1. Find the last used extent in the system tablespace by iterating through the BITMAP in the extent descriptor page.

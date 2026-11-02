@@ -20,7 +20,7 @@ The launcher scripts, `mariadb-mcp-launcher.sh` and `mariadb-mcp-launcher.cmd`, 
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `MARIADB_SHELL_VERSION` | `26.10.3` | The minimum acceptable MariaDB Shell version. A binary on the `PATH` or in the local install directory is used when it is this version or later; otherwise the newest release is installed. |
+| `MARIADB_SHELL_VERSION` | `26.10.4` | The minimum acceptable MariaDB Shell version. A binary on the `PATH` or in the local install directory is used when it is this version or later; otherwise the newest release is installed. |
 | `MARIADB_SHELL_BIN` | — | The path of a MariaDB Shell binary to use. Skips all other resolution. |
 | `MARIADB_SHELL_BINDIR` | `~/.local/bin` | Where the installer links the binary, and where the launcher looks for a local install. On Windows: `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. |
 | `MARIADB_SHELL_PREFIX` | — | Passed to the installer: where it unpacks releases. |
@@ -62,6 +62,7 @@ The launcher scripts of the SQL language server, `mariadb-lsp-launcher.sh` and `
 | --- | --- |
 | Claude Code | The plugin's `.mcp.json`, installed with the plugin. |
 | Codex | The plugin's `.mcp.json`, installed with the plugin. |
+| Cursor | The Claude Code plugin's `.mcp.json`, installed with the plugin. |
 | OpenCode | The `mcp` block you merge into `opencode.json`. |
 | Pi | None. The extension registers the server when it loads. A `mariadb` entry in `~/.pi/agent/mcp.json` or `.pi/mcp.json` overrides it. |
 | Hermes Agent | The plugin's `mcp.json`, installed with the plugin. A `mariadb` entry under `mcp_servers` in the Hermes `config.yaml` overrides it; native Windows requires such an entry. |

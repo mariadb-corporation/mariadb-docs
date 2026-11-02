@@ -358,7 +358,7 @@ Using `255.255.255.255` is equivalent to not using a netmask at all. Netmasks ca
 
 Note that the credentials added when creating a user with the `'%'` wildcard host will not grant access in all cases. For example, some systems come with an anonymous localhost user, and when connecting from localhost this will take precedence.
 
-Before [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), the host name component could be up to 60 characters in length. Starting from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106), it can be up to 255 characters.
+The host name component can be up to 255 characters long.
 
 ### User Name Component
 
@@ -403,7 +403,7 @@ If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privile
 
 If the matching account has no grant at all at a given level, a grant belonging to a less specific account can still apply. Without the `test.t1` grant to `'joffrey'@'192.168.0.3'`, the grant to `'joffrey'@'%'` would be the only match, and a connection from `192.168.0.3` would have the `INSERT` privilege on `test.t1`.
 
-Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
+User names can be up to 128 characters long. They are stored in the `utf8mb3` character set, so a user name is at most 384 bytes. A 4-byte character such as an emoji is stored as `?`, without a warning.
 
 Patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
 

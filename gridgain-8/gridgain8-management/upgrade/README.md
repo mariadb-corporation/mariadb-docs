@@ -1,0 +1,45 @@
+---
+description: >-
+  Upgrade a GridGain 8 cluster — a standard version upgrade, or a rolling
+  upgrade that keeps the cluster available throughout.
+---
+
+# Upgrade
+
+GridGain supports upgrading a cluster to a newer version, either with a standard version upgrade or with a rolling upgrade that keeps the cluster online.
+
+{% columns %}
+{% column %}
+{% content-ref url="version-upgrade.md" %}
+[Version Upgrade](version-upgrade.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The basic GridGain version upgrade process, including upgrading nodes safely without overwriting persistent data and checking version compatibility.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="rolling-upgrades.md" %}
+[Rolling Upgrades](rolling-upgrades.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to use GridGain Enterprise/Ultimate Rolling Upgrades to upgrade a cluster version without downtime, including the process, monitoring, guidelines, and the Java API.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../migration-guides/gridgain-8-9-to-8-10/README.md" %}
+[Upgrading from 8.9 to 8.10](../migration-guides/gridgain-8-9-to-8-10/README.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+How to upgrade from GridGain 8.9.x to 8.10: choosing a rolling or offline path, the step-by-step procedure with rollback, and the changes to review first.
+{% endcolumn %}
+{% endcolumns %}

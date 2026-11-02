@@ -185,10 +185,12 @@ SPACE_DIRS = {
     'gmXC0YXB3rRhXvpg5mb1': 'home',
     'JqgUabdZsoY5EiaJmqgn': 'platform',
     'CjGYMsT2MVP4nd3IyW2L': 'connectors',
-    'BfPLkyMnD0BAfMCRhZKr': 'gridgain9',
+    'BfPLkyMnD0BAfMCRhZKr': 'gridgain-9',
     'kuTXWg0NDbRx6XUeYpGD': 'tools',
     'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
+    'COKIFe0hm2r19L2bFQTW': 'exa',
+    'y3YOhOKd2kxEEm0gLKs4': 'ai-tools',
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.
@@ -638,6 +640,25 @@ def unpublished(path, base):
     return relpath(path, base).startswith(UNPUBLISHED)
 
 
+def git_ignored(root):
+    """Resolved paths of the .md files under root that git ignores.
+
+    `new` walks the working tree but its baseline is a clean worktree, which
+    never contains ignored files. So a dead anchor in a writer's ignored notes
+    (a gitignored `working/` folder, say) had no baseline twin and was reported
+    as a regression, blocking a commit that never touched it (DOCS-7039).
+    --exclude-standard honours .gitignore, .git/info/exclude and the user's
+    core.excludesFile alike. Outside a git work tree this returns nothing, so
+    the walk keeps every file, as it did before.
+    """
+    ls = subprocess.run(['git', '-C', str(root), 'ls-files', '-z', '--others',
+                         '--ignored', '--exclude-standard', '--', '*.md'],
+                        capture_output=True, text=True)
+    if ls.returncode != 0:
+        return set()
+    return {(root / p).resolve() for p in ls.stdout.split('\0') if p}
+
+
 def md_files(root, base):
     """Published .md files under root, each real file once.
 
@@ -652,11 +673,12 @@ def md_files(root, base):
     if root.is_file():
         return [] if unpublished(root, base) else [root]
     out, seen = [], set()
+    ignored = git_ignored(root)
     for p in sorted(root.rglob('*.md')):
         if unpublished(p, base):
             continue
         real = p.resolve()
-        if real in seen:
+        if real in seen or real in ignored:
             continue
         seen.add(real)
         out.append(p)

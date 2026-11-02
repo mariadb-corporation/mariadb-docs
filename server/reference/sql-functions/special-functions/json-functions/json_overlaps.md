@@ -8,7 +8,7 @@ description: >-
 # JSON\_OVERLAPS
 
 {% hint style="info" %}
-`JSON_OVERLAPS` is available from MariaDB 10.9.
+`JSON_OVERLAPS` is available from MariaDB 10.9, and from MariaDB Enterprise Server 10.6.15-10.
 {% endhint %}
 
 ## Syntax

@@ -150,6 +150,7 @@ Some notes about this:
 * A detailed host description option supersedes a global option description
 * sslMode, pipe and localSocket are available since 3.4.1 version
 * the `allow` sslMode value is available since 3.5.11 and 4.0.0
+* Before 4.0.0, when a host name resolves to several addresses, the connector tries only one of them: the first address the JVM returns, which is an IPv4 address by default, or an IPv6 address when the JVM runs with `-Djava.net.preferIPv6Addresses=true`. If that address is unreachable, for example because IPv4 traffic is blocked, the connection to that host fails without trying the other addresses. Since 4.0.0, the connector tries each resolved address in turn, starting with the address that last connected, within the [connectTimeout](about-mariadb-connector-j.md#connecttimeout) budget.
 
 Examples:
 

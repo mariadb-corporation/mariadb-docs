@@ -1,0 +1,258 @@
+---
+description: >-
+  How to set up GridGain, including system requirements, binary and Maven
+  installation, Docker, work directory, and enabling optional modules.
+---
+
+# Project Setup
+
+## System Requirements
+
+{% include "../.gitbook/includes/gg8-prereqs.md" %}
+
+## Running GridGain with Java 17 or Later
+
+{% include "../.gitbook/includes/gg8-java9.md" %}
+
+## Using Binary Distribution
+
+To install GridGain from the binary (ZIP) distribution, refer to the [Installing Using ZIP Archive](../gridgain8-management/installation/installing-using-zip.md) section.
+
+## Using Maven
+
+The easiest way to start developing with GridGain is to use Maven.
+
+- Add GridGain’s External Repository to the maven configuration file
+(see the configuration example below).
+- Set the `gridgain.version` property to the actual version you want to
+use.
+- Add the `gridgain-core` dependency for GridGain Enterprise Edition, or `gridgain-ultimate` for Ultimate Edition.
+
+{% tabs %}
+{% tab title="Enterprise Edition" %}
+```xml
+<properties>
+    <gridgain.version>8.10</gridgain.version>
+</properties>
+
+<repositories>
+    <repository>
+        <id>GridGain Repository</id>
+        <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
+    </repository>
+</repositories>
+
+<dependencies>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-core</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-spring</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-indexing</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <!-- GridGain Enterprise Edition features -->
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>gridgain-core</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+</dependencies>
+
+```
+{% endtab %}
+
+{% tab title="Ultimate Edition" %}
+```xml
+<properties>
+    <gridgain.version>8.10</gridgain.version>
+</properties>
+
+<repositories>
+    <repository>
+        <id>GridGain Repository</id>
+        <url>https://www.gridgainsystems.com/nexus/content/repositories/external</url>
+    </repository>
+</repositories>
+
+<dependencies>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-core</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-spring</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-indexing</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+    <!-- GridGain Ultimate Edition features. -->
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>gridgain-ultimate</artifactId>
+        <version>${gridgain.version}</version>
+    </dependency>
+
+</dependencies>
+```
+{% endtab %}
+{% endtabs %}
+
+## Using Docker
+
+If you want to run GridGain in Docker, refer to the [Docker Deployment](../gridgain8-management/installation/installing-using-docker.md) section.
+
+## Configuring Work Directory
+
+GridGain uses a work directory to store your application data (if you use the [Native Persistence](../architecture/storage/native-persistence.md) feature), index files, metadata information, logs, and other files. The default work directory is as follows:
+
+- `$IGNITE_HOME/work`, if the `IGNITE_HOME` system property is defined. This is the case when you start GridGain using the `bin/ignite.sh` script from the distribution package.
+- `./ignite/work`, this path is relative to the directory where you launch your application.
+
+There are several ways you can change the default work directory:
+
+1. As an environmental variable:
+
+   ```text
+   export IGNITE_WORK_DIR=/path/to/work/directory
+   ```
+
+2. In the node configuration:
+
+   {% tabs %}
+   {% tab title="XML" %}
+   ```xml
+   <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+       <property name="workDirectory" value="/path/to/work/directory"/>
+       <!-- other properties -->
+   </bean>
+   ```
+   {% endtab %}
+
+   {% tab title="Java" %}
+   ```java
+   IgniteConfiguration igniteCfg = new IgniteConfiguration();
+
+   //setting the work directory
+   igniteCfg.setWorkDirectory("/path/to/work/directory");
+   ```
+   {% endtab %}
+
+   {% tab title="C#/.NET" %}
+   ```csharp
+   var cfg = new IgniteConfiguration
+   {
+       WorkDirectory = "/path/to/work/directory"
+   };
+   ```
+   {% endtab %}
+
+   {% tab title="C++" %}
+   ```cpp
+   IgniteConfiguration cfg;
+
+   cfg.igniteHome = "/path/to/work/directory";
+   ```
+   {% endtab %}
+   {% endtabs %}
+
+## Enabling Modules
+
+GridGain ships with a number of modules that provide various functionality. You can enable modules one by one, as required.
+
+The modules in the `libs` directory of the binary distribution are enabled by default: `ignite-core`, `ignite-spring`, `ignite-indexing`, and `ignite-lucene-9`.
+Other modules are disabled by default. They are in the `libs/optional` directory of the distribution package, each in a separate sub-directory.
+
+Some modules and integrations are not in the binary distribution:
+
+- `ignite-hibernate-7.4`, `ignite-spring-data`, and `ignite-spring-data-commons` are available from Maven only. If code that uses them runs on a standalone node, for example in a compute task or a service, add the artifact and its dependencies to the node's classpath.
+- The Oracle GoldenGate integrations are in the separate GridGain Integrations download. See [GridGain Handler](../integrations/oracle-goldengate/gridgain-handler.md).
+
+Depending on how you use GridGain, you can enable modules using one of the following methods:
+
+- If you use the binary distribution, move the `libs/optional/{module-dir}` to the `libs` directory before starting the node.
+- Add libraries from `libs/optional/{module-dir}` to the classpath of your application.
+- Add a module as a Maven dependency to your project.
+
+  ```xml
+  <dependency>
+      <groupId>org.gridgain</groupId>
+      <artifactId>ignite-indexing</artifactId>
+      <version>${gridgain.version}</version>
+  </dependency>
+  ```
+
+The following modules are available:
+
+|Module’s artifactId |Description|
+|---|---|
+|control-center-agent| Connects the cluster to [GridGain Control Center](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center) for monitoring and management. Must be enabled on all server nodes. Requires Java 17 or later.|
+|gridgain-bulkload|Support for SQL `COPY FROM INTO` statement that can be used to import or export data in csv, parquet, and iceberg formats. See [COPY INTO](../reference/sql/operational-commands.md#copy-into) for details.|
+|gridgain-sql| Support for JSON functions.  See [JSON Functions](../reference/sql/functions/json-functions.md) for details.|
+|gridgain-vector-query| Support for vector storage and indexing. See [Vector Storage](vector-search/README.md) for details.|
+|ignite-cassandra-serializers | The GridGain Cassandra Serializers module provides additional serializers to store objects as BLOBs in Cassandra. The module could be used as in conjunction with the GridGain Cassandra Store module.|
+|ignite-cassandra-store | GridGain Cassandra Store provides a CacheStore implementation backed by the Cassandra database. See [Cassandra Cache Store](../integrations/cassandra-store.md) for details.|
+|ignite-direct-io | GridGain Direct IO is a plugin that provides a page store with the ability to write and read cache partitions in O_DIRECT mode.|
+|ignite-gce | GridGain GCE provides Google Cloud Storage based implementations of IP finder for TCP discovery.|
+|ignite-hibernate-7.4 | GridGain Hibernate 7.4 module provides a Hibernate L2 (second-level) cache implementation based on the GridGain In-Memory Data Grid for Hibernate ORM 7.4. Supports `READ_ONLY`, `READ_WRITE`, and `NONSTRICT_READ_WRITE` concurrency strategies. Add this module to your application as a Maven dependency. See [Hibernate Second-Level Cache](../integrations/hibernate-l2-cache.md) for details.|
+|ignite-indexing | [SQL querying and indexing](sql/indexes.md)|
+|ignite-jcl |Support for the Jakarta Common Logging (JCL) framework.|
+|ignite-jta |Integration of GridGain transactions with JTA.|
+|ignite-kafka | GridGain Kafka Streamer provides capability to stream data from Kafka to GridGain caches.|
+|ignite-kubernetes | GridGain Kubernetes module provides a TCP Discovery IP Finder that uses a dedicated Kubernetes service for IP addresses lookup of GridGain pods containerized by Kubernetes.|
+|ignite-log4j2 |Support for Log4j2|
+|ignite-lucene-9 |Lucene 9 library. Provides full text and vector search on Java 17 and later. Enabled by default: the binary distribution ships it in the `libs` directory.|
+|ignite-lucene-10 |Lucene 10 library. Provides full text and vector search on Java 21 and later. Disabled by default: the binary distribution ships it in the `libs/optional` directory. It replaces `ignite-lucene-9` on a node. On Java 22 and later, you can use `ignite-lucene-10-java22` instead. See [Choosing a Lucene Line](vector-search/README.md#choosing-a-lucene-line).|
+|ignite-opencensus | Support for [OpenCensus tracing](../gridgain8-management/monitoring/tracing.md) and the [OpenCensus metrics exporter](../reference/monitoring/generic-metrics.md#opencensus). Disabled by default. A node configured with `OpenCensusTracingSpi` or `OpenCensusMetricExporterSpi` fails at startup with `ClassNotFoundException` unless the module is enabled.|
+|ignite-opentelemetry | Support for exporting metrics to an [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) compatible backend. See [OpenTelemetry](../reference/monitoring/generic-metrics.md#opentelemetry) for information on configuring the exporter..|
+|ignite-osgi | This module provides bridging components to make GridGain run seamlessly inside an OSGi container such as Apache Karaf.|
+|ignite-osgi-karaf | This module contains a feature repository to facilitate installing GridGain into an Apache Karaf container.|
+|ignite-osgi-paxlogging | This module is an OSGi fragment that exposes the following packages from the Pax Logging API bundle:<br><br>• org.apache.log4j.varia<br>• org.apache.log4j.xml<br><br>These packages are required when installing the ignite-log4j bundle, and are not exposed by default by the Pax Logging API - the logging framework used by Apache Karaf.|
+|ignite-rest-http | GridGain REST-HTTP starts a Jetty-based server within a node that can be used to execute tasks and/or cache commands in grid using HTTP-based [RESTful APIs](../reference/rest-api/README.md).|
+|ignite-schedule | This  module provides functionality for scheduling jobs locally using UNIX cron-based syntax.|
+|ignite-slf4j | Support for [SLF4J logging framework](../gridgain8-management/cluster-configuration/logging.md#using-slf4j).|
+|ignite-spring-data | GridGain Spring Data provides an integration with the Spring Data 4 framework. The repository API is in the `org.apache.ignite.springdata` package. The module was previously named `ignite-spring-data_2.2`. When upgrading from GridGain 8.9.x, change the Maven `artifactId` to `ignite-spring-data` and replace `org.apache.ignite.springdata22` with `org.apache.ignite.springdata` in your imports. Available from Maven only.|
+|ignite-urideploy | GridGain URI Deploy module provides capabilities to deploy tasks from different sources such as File System, HTTP, or even Email.|
+|ignite-web | GridGain Web allows you to start nodes inside any web container based on servlet and servlet context listener. In addition, this module provides capabilities to cache web sessions in a GridGain cache.|
+|ignite-zookeeper | GridGain ZooKeeper provides a TCP Discovery IP Finder that uses a ZooKeeper directory to discover other GridGain nodes.|
+
+## Configuration Recommendations
+
+Below are some recommended configuration tips aimed at making it easier for
+you to operate a GridGain cluster or develop applications with GridGain.
+
+### Setting Work Directory
+
+If you are going to use either binary distribution or Maven, you are
+encouraged to set up the work directory for GridGain.
+The work directory is used to store metadata information, index files, your application data (if you use the [Native Persistence](../architecture/storage/native-persistence.md) feature), logs, and other files.
+We recommend you always set up the work directory.
+
+### Recommended Logging Configuration
+
+Logs play an important role when it comes to troubleshooting and finding what went wrong. Here are a few general tips on how to manage your log files:
+
+- Do not store log files in the `/tmp` folder. This folder is cleared up every time the server is restarted.
+- Make sure that there is enough space available on the storage where the log files are stored.
+- Archive old log files periodically to save on storage space.

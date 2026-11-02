@@ -142,7 +142,7 @@ ALTER TABLE t1 COALESCE PARTITION 2;
 ### Converting Partitions to/from Tables
 
 {% hint style="info" %}
-This feature is available from MariaDB 10.7.
+This feature is available from MariaDB 10.7, and from MariaDB Enterprise Server 10.6.11-6.
 {% endhint %}
 
 ```sql

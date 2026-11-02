@@ -1,13 +1,13 @@
 {% tabs %}
 {% tab title="pip3" %}
 ```shell
-pip3 install pygridgain
+pip3 install "pygridgain<9"
 ```
 {% endtab %}
 
 {% tab title="pip" %}
 ```shell
-pip install pygridgain
+pip install "pygridgain<9"
 ```
 {% endtab %}
 {% endtabs %}

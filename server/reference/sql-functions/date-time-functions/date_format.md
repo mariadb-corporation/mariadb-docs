@@ -56,8 +56,8 @@ The options that can be used by `DATE_FORMAT()`, as well as its inverse [STR\_TO
 | %x     | Year with 4 digits when first day of the week is Monday. Used with %v.                                                                                                                           |
 | %Y     | Year with 4 digits.                                                                                                                                                                              |
 | %y     | Year with 2 digits.                                                                                                                                                                              |
-| %Z     | Timezone abbreviation. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0).                                                          |
-| %z     | Numeric timezone +hhmm or -hhmm presenting the hour and minute offset from UTC. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0). |
+| %Z     | Timezone abbreviation. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0) and MariaDB Enterprise Server 10.6.16-11.                                                          |
+| %z     | Numeric timezone +hhmm or -hhmm presenting the hour and minute offset from UTC. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0) and MariaDB Enterprise Server 10.6.16-11. |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                                         |
 | %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                                           |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                                |
@@ -134,7 +134,7 @@ SELECT DATE_FORMAT(NOW(),'%W, %e. %M %Y, %k:%i Uhr (%Z)','de_DE');
 ```
 
 {% hint style="info" %}
-Timezone information from MariaDB 11.3:
+Timezone information from MariaDB 11.3 and MariaDB Enterprise Server 10.6.16-11:
 {% endhint %}
 
 ```sql

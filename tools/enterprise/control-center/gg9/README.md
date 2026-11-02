@@ -32,8 +32,8 @@ This section covers the Control Center features available for GridGain 9 cluster
 [events/events.md](events/events.md)
 {% endcontent-ref %}
 
-{% content-ref url="data-schema-import/data-schema-import.md" %}
-[data-schema-import/data-schema-import.md](data-schema-import/data-schema-import.md)
+{% content-ref url="data-schema-import.md" %}
+[data-schema-import.md](data-schema-import.md)
 {% endcontent-ref %}
 
 {% content-ref url="tables/tables.md" %}

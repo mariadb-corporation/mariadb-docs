@@ -37,7 +37,7 @@ Before 10.6, in case of a crash, there was a small possibility that one of the f
 
 ## Which DDL Operations are Now Atomic
 
-* [CREATE TABLE](create/create-table.md), except when used with [CREATE OR REPLACE](create/create-table.md), which is only crash safe.
+* [CREATE TABLE](create/create-table.md). [CREATE OR REPLACE TABLE](create/create-table.md#create-or-replace) is atomic from MariaDB 13.2, except where the existing table is dropped first. Before MariaDB 13.2, it is only crash safe.
 * [RENAME TABLE](rename-table.md) and [RENAME TABLES](rename-table.md).
 * [CREATE VIEW](../../../server-usage/views/create-view.md)
 * [CREATE SEQUENCE](../../sql-structure/sequences/create-sequence.md)
@@ -47,25 +47,27 @@ Before 10.6, in case of a crash, there was a small possibility that one of the f
 * [ALTER TABLE](alter/alter-table/)
 * [ALTER SEQUENCE](../../sql-structure/sequences/alter-sequence.md) is not listed above as it is internally implemented as a DML.
 
-## Which DDL Operations are Now Crash Safe
-
-### DROP TABLE of Multiple Tables.
-
-[DROP TABLE](drop/drop-table.md) over multiple tables is treated as if every DROP is a separate, atomic operation. This means that after a crash, all fully, or partly, dropped tables will be dropped and logged to the binary log. The undropped tables will be left untouched.
-
 ### CREATE OR REPLACE TABLE
 
-[CREATE OR REPLACE TABLE foo](create/create-table.md) is implemented as:
+From MariaDB 13.2, [CREATE OR REPLACE TABLE](create/create-table.md#create-or-replace) is atomic by default: the existing table is kept under a temporary backup name until the new table has been created, and is restored if the `CREATE` fails or the server crashes. The rest of this section describes earlier versions, and the cases in which the existing table is still dropped first.
+
+Before MariaDB 13.2, and when the existing table is dropped first (see [CREATE OR REPLACE](create/create-table.md#create-or-replace) for the cases), [CREATE OR REPLACE TABLE foo](create/create-table.md) is implemented as:
 
 ```sql
 DROP TABLE IF EXISTS foo;
 CREATE TABLE foo ...
 ```
 
-This means that if there is a crash during `CREATE TABLE` then the original table 'foo' will be dropped even if the new table was not created.\
-If the table was not re-created, the binary log will contain the`DROP TABLE`.
+In these cases, if there is a crash during `CREATE TABLE` then the original table 'foo' will be dropped even if the new table was not created.\
+When the existing table is dropped first and the table was not re-created, the binary log will contain the `DROP TABLE`.
 
-#### DROP DATABASE
+## Which DDL Operations are Now Crash Safe
+
+### DROP TABLE of Multiple Tables.
+
+[DROP TABLE](drop/drop-table.md) over multiple tables is treated as if every DROP is a separate, atomic operation. This means that after a crash, all fully, or partly, dropped tables will be dropped and logged to the binary log. The undropped tables will be left untouched.
+
+### DROP DATABASE
 
 [DROP DATABASE](drop/drop-database.md) is implemented as:
 

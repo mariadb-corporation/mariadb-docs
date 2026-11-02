@@ -7,12 +7,13 @@ description: >-
 
 # Stage Instrumentation
 
-> [`Instrumentation Interface`](Instrumentation_interface.md)
+> [`Plugin API`](plugin_api.md) / [`Services for Plugins`](plugin_api_services_for_plugins.md) / [`Instrumentation Interface`](Instrumentation_interface.md)
 
 ## Macros
 
 | Name | Description |
 |------|-------------|
+| [`PSI_STAGE_CALL`](#psi_stage_call)  |  |
 | [`mysql_stage_register`](#mysql_stage_register)  | Stage registration. |
 | [`MYSQL_SET_STAGE`](#mysql_set_stage)  | Set the current stage. Use this API when the file and line is passed from the caller. |
 | [`mysql_set_stage`](#mysql_set_stage-1)  | Set the current stage. |
@@ -25,13 +26,23 @@ description: >-
 
 ---
 
+### PSI_STAGE_CALL
+
+```cpp
+#define PSI_STAGE_CALL(M, M) PSI_DYNAMIC_CALL(M)
+```
+
+Defined in psi/mysql_stage.h:38
+
+---
+
 ### mysql_stage_register
 
 ```cpp
 #define mysql_stage_register(P1, P2, P3, P1, P2, P3) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:51
+Defined in psi/mysql_stage.h:49
 
 Stage registration.
 
@@ -43,7 +54,7 @@ Stage registration.
 #define MYSQL_SET_STAGE(K, F, L, K, F, L) NULL
 ```
 
-Defined in psi/mysql_stage.h:69
+Defined in psi/mysql_stage.h:67
 
 Set the current stage. Use this API when the file and line is passed from the caller. 
 #### Returns
@@ -68,7 +79,7 @@ the current stage progress
 #define mysql_set_stage(K, K) NULL
 ```
 
-Defined in psi/mysql_stage.h:83
+Defined in psi/mysql_stage.h:81
 
 Set the current stage. 
 #### Returns
@@ -89,7 +100,7 @@ the current stage progress
 #define mysql_end_stage() do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:95
+Defined in psi/mysql_stage.h:93
 
 End the last stage
 
@@ -101,7 +112,7 @@ End the last stage
 #define mysql_stage_set_work_completed(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:131
+Defined in psi/mysql_stage.h:129
 
 ---
 
@@ -111,7 +122,7 @@ Defined in psi/mysql_stage.h:131
 #define mysql_stage_get_work_completed(P1, P1) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:134
+Defined in psi/mysql_stage.h:132
 
 ---
 
@@ -121,7 +132,7 @@ Defined in psi/mysql_stage.h:134
 #define mysql_stage_inc_work_completed(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:142
+Defined in psi/mysql_stage.h:140
 
 ---
 
@@ -131,7 +142,7 @@ Defined in psi/mysql_stage.h:142
 #define mysql_stage_set_work_estimated(P1, P2, P1, P2) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:153
+Defined in psi/mysql_stage.h:151
 
 ---
 
@@ -141,5 +152,5 @@ Defined in psi/mysql_stage.h:153
 #define mysql_stage_get_work_estimated(P1, P1) do {} while (0)
 ```
 
-Defined in psi/mysql_stage.h:156
+Defined in psi/mysql_stage.h:154
 

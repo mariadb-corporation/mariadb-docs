@@ -44,11 +44,10 @@ SET STATEMENT max_statement_time=100 FOR
   SELECT field1 FROM table_name ORDER BY field1;
 ```
 
-max\_statement\_time per query\
-Individual queries can also be limited by adding a `MAX_STATEMENT_TIME` clause to the query. For example:
+From MariaDB 12.0, a `SELECT` can also be limited with the [MAX\_EXECUTION\_TIME](../optimizer-hints/expanded-optimizer-hints.md#max_execution_time) optimizer hint, in milliseconds:
 
 ```sql
-SELECT MAX_STATEMENT_TIME=2 * FROM t1;
+SELECT /*+ MAX_EXECUTION_TIME(2000) */ * FROM t1;
 ```
 
 ## Limitations
