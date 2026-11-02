@@ -31,13 +31,14 @@ Raft Cluster adds its own configuration and observability surface:
 * **Flow control**: the leader throttles requests when nodes drift too far apart in commit position
 * **Event store**: replication logs are held in a sized in-memory buffer backed by on-disk files, with configurable durability
 * **TLS**: cluster communication can be secured independently of client connections, with its own certificate, key, CA, cipher, and verification settings
+* **Data-at-rest encryption**: the Raft log can be encrypted with the same `encrypt_binlog` setting and key management plugins as the binary log, from MariaDB Enterprise Server 12.3.3-1
 * **Status variables**: `raft_*` status variables report the current leader, term, log index, and flow-control activity
 * **Information Schema tables**: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`
 
 Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships on except Microsoft Windows.
 
 {% hint style="warning" %}
-Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
+Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. The `galera_group_members` Performance Schema table is not implemented.
 {% endhint %}
 
 MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
