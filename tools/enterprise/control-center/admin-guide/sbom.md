@@ -9,6 +9,10 @@ hidden: true
 
 A Software Bill of Materials (SBOM) lists the components that make up a software package. An SBOM is published for each Control Center and Cloud Connector download and Docker image. You can use it to track third-party components, scan them for known vulnerabilities, or meet your own supply-chain requirements.
 
+{% hint style="info" %}
+SBOMs are published starting with Control Center and Cloud Connector 2026.2. Earlier versions have no SBOM.
+{% endhint %}
+
 ## SBOM Format
 
 The SBOMs are [CycloneDX](https://cyclonedx.org/specification/overview/) 1.6 documents in JSON format. They meet the NTIA and CISA 2026 minimum elements for SBOMs.
