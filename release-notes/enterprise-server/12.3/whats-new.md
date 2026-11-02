@@ -41,7 +41,7 @@ Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships
 Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. The `galera_group_members` Performance Schema table is not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
+MariaDB Enterprise Server 12.3 ships Raft Cluster 1.0.0. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
 
 ### Conflict Detection and Resolution
 
@@ -237,14 +237,15 @@ From MariaDB Enterprise Server 12.3.3-1, MariaDB Enterprise Audit can also write
 
 MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The differences that matter most for this series:
 
-| Capability                                 | Enterprise Server 12.3 | Community Server 12.3       |
-| ------------------------------------------ | ---------------------- | --------------------------- |
-| MariaDB Raft Cluster (`raft`)              | Available              | Not available               |
-| Conflict Detection and Resolution          | Available              | Not available               |
-| `tls_certificate` authentication plugin    | Available              | Not available               |
-| MariaDB Enterprise Audit (`server_audit2`) | Available              | Community audit plugin only |
-| Videx storage engine                       | Not shipped            | Available                   |
-| Sphinx, OQGraph, Mroonga storage engines   | Not shipped            | Available                   |
+| Capability                                         | Enterprise Server 12.3 | Community Server 12.3       |
+| -------------------------------------------------- | ---------------------- | --------------------------- |
+| MariaDB Raft Cluster (`raft`)                      | Available              | Not available               |
+| Conflict Detection and Resolution                  | Available              | Not available               |
+| `tls_certificate` authentication plugin            | Available              | Not available               |
+| MariaDB Enterprise Audit (`server_audit2`)         | Available              | Community audit plugin only |
+| JSON audit log format (`server_audit_log_format`)  | Available              | Not available               |
+| Videx storage engine                               | Not shipped            | Available                   |
+| Sphinx, OQGraph, Mroonga storage engines           | Not shipped            | Available                   |
 
 For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/).
 
@@ -290,6 +291,7 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 * [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
 * [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
 * [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* [Install MariaDB Raft Cluster](../../advanced-cluster/mariadb-advanced-cluster-quickstart-guide.md#installation-on-each-node): Raft Cluster installs from the same repository as Enterprise Server, with one additional package
 
 ## What's new in older release series
 
