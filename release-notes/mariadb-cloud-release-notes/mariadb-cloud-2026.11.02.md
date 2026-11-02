@@ -1,22 +1,16 @@
 ---
 description: >-
-  MariaDB Cloud YYYY.MM.DD is a Technical Preview release. It adds independent
-  sizing, scaling, monitoring, and logs for MariaDB Exa on MariaDB Provisioned
-  services.
+  MariaDB Cloud 2026.11.02 is a Technical Preview release, released on
+  2026-11-02. It adds independent sizing, scaling, monitoring, and logs for
+  MariaDB Exa on MariaDB Provisioned services.
 icon: rocket-launch
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6500 (epic MCDEV-3354, fixVersion MariaDB Cloud Oct. 2026). HIDDEN until release is confirmed.
-Reveal checklist: set date -> rename to mariadb-cloud-YYYY.MM.DD.md -> update SUMMARY + README content-ref -> drop hidden: true -> expand {alias} links (direct-main commit).
-Open items before reveal: (1) release date: Allen (Jira, 2026-10-26) says Wed-Fri, Oct 28-30; wait for the update in #mariadb-exa-in-the-cloud-ga-mcdev-3354, then set the exact day; (2) stage and access (user, 2026-10-26): Technical Preview, available only on request (epic MCDEV-3354 is named PP; MCDEV-5430 would open it later);
-(3) 50 MB transaction limit: treat as final (user, 2026-10-26); (4) Allen (2026-10-26): MCDEV-5338, MCDEV-5412 and MCDEV-5387 will not be fixed for this release, so their limitations stay (Jira shows MCDEV-5412 Ready for Production, but Allen's comment wins); MCDEV-5403 (CDC loses rows on Exasol restart) is not listed; (5) BYOC: offered in the TP (Allen, Kalin's thread 2026-10-26: "we've been offering it for BYOC so far"; a 6-month TP license was applied on Test and Prod), so soft wording only; MCDEV-5523 (BYOC storage pricing) open. (6) Allen (Jira 2026-10-26): removed the DDL replication and case-sensitivity limitations from the HTAP page (resolved) and added the stop-or-pause-writes warning for Exa scaling. Monitoring is an Exasol dashboard (UI dashboard title "Exasol"). Evidence: research/DOCS-6500.md -->
+# MariaDB Cloud 2026.11.02 Release Notes: MariaDB Exa
 
-# MariaDB Cloud YYYY.MM.DD Release Notes: MariaDB Exa
+**Release Date:** 2 November 2026
 
-**Release Date:** DD Month 2026
-
-Release YYYY.MM.DD is a Technical Preview release.
+Release 2026.11.02 is a Technical Preview release.
 
 ## New Features
 
@@ -61,7 +55,6 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * On port 3311, queries that return rows with non-ASCII (UTF-8) characters, such as emoji, Cyrillic, or symbols like `©`, return no rows. The data is replicated to Exa. To read it, query on port 3306 or 3310.
 * The portal does not show replication failures between MariaDB and Exa.
 * You cannot turn off Exa on its own on an existing service.
-* MariaDB Exa is not supported on Insync (Galera) services. If you create a Galera service through the REST API with `"analytics": true`, the API accepts the request and creates the service without Exa, instead of returning an error.
 * Errors in syntax or replication on ports 3310 and 3311 can expose usernames and passwords in plaintext in the proxy logs.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

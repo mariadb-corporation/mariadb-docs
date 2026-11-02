@@ -4,6 +4,12 @@ description: A list of all MariaDB Cloud releases, grouped by month
 
 # All Releases
 
+## November 2026
+
+| Version                                   | Release Date | Highlights                                     | Release Status |
+| ----------------------------------------- | ------------ | ---------------------------------------------- | -------------- |
+| [2026.11.02](mariadb-cloud-2026.11.02.md) | 2026-11-02   | MariaDB Exa: separate sizing, scaling, monitoring, and logs | Tech Preview   |
+
 ## October 2026
 
 | Version                                   | Release Date | Highlights                                     | Release Status |

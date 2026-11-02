@@ -152,9 +152,10 @@ For **API keys**, client IP **allow list**, checking service **`ready`** status,
 
 **HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (the **Analytics (HTAP)** add-on in the portal) on top of the replicated **es-replica** topology. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing.
 
-* **Access:** `"analytics": true` takes effect only when Exa is enabled for your organization. Otherwise the API ignores it and creates the service without the Exa node. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
+* **Access:** `"analytics": true` takes effect only when Exa is enabled for your organization. Otherwise the API rejects the request with a validation error (HTTP 400): "analytics(HTAP) is not available for provisioned services in this environment". See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 * **Architecture:** `architecture` must be `amd64`. The API rejects any other value with a validation error (HTTP 400).
 * **Tier:** the API rejects the request with a validation error (HTTP 400) for any tier other than `power` or `powerplus`.
+* **Topology:** Exa is available only on `es-replica`. The API rejects `"analytics": true` on other topologies, such as Galera, with a validation error (HTTP 400).
 * **Exa node size:** set `analytics_node_pool` with a `size` (for example `sky-4x32`) and `nodes` set to `1`. The minimum Exa size is 4 vCPU / 32 GB RAM. Each service has one Exasol node.
 * **Exa storage:** set `analytics_storage_volume` with `size` (GB) and, where the provider supports it, `volume_type`, `iops`, and `throughput`. If you omit it, Exa uses the MariaDB volume configuration.
 
@@ -272,7 +273,6 @@ Deep Dive: For a full list of supported SQL functions, detailed data type mappin
 * On port 3311, queries that return rows with non-ASCII (UTF-8) characters, such as emoji, Cyrillic, or symbols like `©`, return no rows. The data is replicated to Exa. To read it, query on port 3306 or 3310.
 * The portal does not show replication failures between MariaDB and Exa.
 * You can't turn off Exa on its own on an existing service.
-* MariaDB Exa is not supported on Insync (Galera) services. If you create a Galera service through the REST API with `"analytics": true`, the API accepts the request and creates the service without Exa, instead of returning an error.
 * Errors in syntax or replication on ports 3310 and 3311 can expose usernames and passwords in plaintext in the proxy logs.
 
 **SQL dialect** The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
