@@ -27,7 +27,7 @@ and:
 
 |Software|Requirement|
 |---|---|
-|Python|Version 3.4 or above|
+|Python|Version 3.11 or later|
 
 ### (Optional) Open Ports
 

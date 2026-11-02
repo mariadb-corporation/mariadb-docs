@@ -216,10 +216,14 @@ docker run -d \
 
 By default, GridGain Docker image starts with the following modules enabled:
 
-- ignite-log4j,
+- ignite-core,
 - ignite-spring,
 - ignite-indexing,
-- ignite-opencensus.
+- ignite-lucene-9.
+
+{% hint style="warning" %}
+The `ignite-opencensus` module is not enabled by default. If your configuration uses `OpenCensusTracingSpi` or `OpenCensusMetricExporterSpi`, add `ignite-opencensus` to `OPTION_LIBS`, or the node fails at startup with `ClassNotFoundException`. This also applies to the .NET images (`gridgain/<edition>-dotnet`).
+{% endhint %}
 
 ## Environment Variables
 
@@ -228,7 +232,7 @@ The following parameters can be passed as environment variables in the docker co
 | Parameter Name | Description | Default |
 |---|---|---|
 | `CONFIG_URI` | URL to the GridGain configuration file (can also be relative to the META-INF folder on the class path). The downloaded configuration file is saved to `./ignite-config.xml` | N/A |
-| `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) that will be enabled for the node. | ignite-log4j, ignite-spring, ignite-indexing |
+| `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) that will be enabled for the node, in addition to the modules enabled by default. | N/A |
 | `JVM_OPTS` | JVM arguments passed to the GridGain instance. | N/A |
 | `EXTERNAL_LIBS` | A list of URL's to external libraries. Refer to [Deploying User Libraries](#deploying-user-libraries). | N/A |
 | `LICENCE_URL` | URL to the license file. A license is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |

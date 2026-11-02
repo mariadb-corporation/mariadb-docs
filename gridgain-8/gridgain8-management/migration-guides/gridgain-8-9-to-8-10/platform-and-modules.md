@@ -28,7 +28,7 @@ The following modules are removed in GridGain 8.10. Take the action in the *What
 | `ignite-lucene-8` | `ignite-lucene-9`, or the Lucene 10 line in `libs/optional`. See [Lucene](#lucene). |
 | `ignite-aop` and the Gridify API in `ignite-core` | The [compute API](../../../gridgain8-development/distributed-computing/distributed-computing.md). See [Gridify API Removed](#gridify-api-removed). |
 | `ignite-cloud` (`TcpDiscoveryCloudIpFinder`) | Another [IP finder](../../clustering/discovery-in-the-cloud.md). |
-| `ignite-ssh` | [Contact GridGain Support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). |
+| `ignite-ssh` | Contact MariaDB [support](https://mariadb.com/support/) if you use `IgniteCluster.startNodes()`. See [SSH Module Removed](#ssh-module-removed). |
 | `ignite-aws` (S3 checkpoint SPI, S3, ELB, and ALB IP finders, S3 IP finder encryption) | The Apache Ignite `ignite-aws-ext` extension. See [AWS Module Removed](#aws-module-removed). |
 | `ignite-mesos` | None. Mesos deployments stay on 8.9.x. |
 | `ignite-ml`, `ignite-ml-spark-model-parser`, `ignite-ml-xgboost-model-parser`, `ignite-ml-mleap-model-parser` | The Apache Ignite `ignite-ml-ext` extension or the standalone GridGain ML download. See [Machine Learning Module Removed](#machine-learning-module-removed). |
@@ -47,7 +47,7 @@ This section applies if you start remote nodes with `IgniteCluster.startNodes()`
 
 The `ignite-ssh` module is removed and no longer ships in `libs/optional`. The `org.gridgain:ignite-ssh` artifact is no longer published. `IgniteCluster.startNodes()` and `startNodesAsync()` remain in the API, but they need an SSH implementation on the node classpath. Without one, `startNodes()` throws an `IgniteException` with the message `Failed to create Ignite component (consider adding ignite-ssh module to classpath)`.
 
-[Contact GridGain Support](https://mariadb.com/support/) before you upgrade.
+Contact MariaDB [support](https://mariadb.com/support/) before you upgrade.
 
 ### AWS Module Removed
 
@@ -179,6 +179,8 @@ You build the 8.10 `libs` folder from the new distribution.
   - *Kafka Connect source connectors with `failoverPolicy=BACKLOG`.* Put `gridgain-kafka-connect-<version>.jar` from the component's `lib/` folder into `libs` of every GridGain server node. Add the Kafka `connect-api` and `kafka-clients` jars that match the Kafka version of your Connect workers.
 - *Maven-only modules.* `ignite-hibernate-7.4`, `ignite-spring-data`, and `ignite-spring-data-commons` are published to Maven only and are no longer in `libs/optional`. They are application libraries that a node does not load, so most deployments only need to depend on them from Maven. If code that uses them runs on a standalone node (for example, a compute task), copy the artifacts and their dependencies into `libs`, skipping jars that `libs` already has.
 - *OpenCensus.* `ignite-opencensus` moves from `libs` to `libs/optional`. To keep OpenCensus tracing, move the `ignite-opencensus` folder back into `libs`.
+  - *Third-party libraries.* The module's bundled libraries (Guava, gRPC, Zipkin, the Prometheus `simpleclient` and `simpleclient_httpserver`, `opencensus-api`) are no longer on the default classpath of a node, even if you never configured OpenCensus. If your task, service, or other user jars in `libs` rely on them, for example on `com.google.common.*` or `io.prometheus.*`, bundle those libraries with your jars, or the node fails with `NoClassDefFoundError`.
+  - *Control Center tracing.* A node exports traces to Control Center only when `ignite-opencensus` is on its classpath, even with a custom `TracingSpi`.
 - *Control Center agent.* `control-center-agent` is in `libs/optional`. A node does not load the agent, and does not connect to Control Center, until you move the `control-center-agent` folder into `libs`. Use the agent from the 8.10 package with Control Center 2026.2.
 - *Bulk load.* `gridgain-bulkload` stays in `libs/optional` of the Enterprise, Ultimate, and z/OS packages. You still enable it by moving it into `libs`. It is now under 100 MB instead of several hundred MB.
   - *Removed dependencies.* The AWS SDK `bundle` jar, the Hadoop YARN and HDFS dependencies, and `commons-math3` are removed. The granular `s3`, `sts`, and `glue` clients remain, so reading from S3 still works.

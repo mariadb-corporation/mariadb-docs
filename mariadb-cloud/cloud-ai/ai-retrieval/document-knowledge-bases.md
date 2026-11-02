@@ -22,7 +22,7 @@ A document knowledge base indexes files so that applications can retrieve passag
 3. Enter a **Name**. The **Description** is optional.
 4. Under **Cloud Provider & Region**, select **AWS** and a region.
 5. Under **Vector Store Configuration**, select one of these options:
-   * **Use existing service** lists the MariaDB services in the same cloud and region that run MariaDB 11.8 or later.
+   * **Use existing service** lists the Provisioned and Serverless MariaDB services in the same cloud and region that run MariaDB 11.8 or later.
    * **Auto-provision new service** creates a MariaDB Serverless instance for you. Enter a **Service Name** that starts with a letter and contains only lowercase letters, numbers, and hyphens.
 6. Optionally, open **Advanced Options** to change the models and the reranker.
 7. Select **Create Knowledge Base**.
@@ -258,6 +258,6 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 
 ### A Document Produces No Text
 
-Scanned documents are not supported yet. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
+Scanned documents are not supported yet. A PDF that contains only images of pages is ingested with 0 chunks, and no error is shown. Use a PDF that contains selectable text. Images inside documents are skipped.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

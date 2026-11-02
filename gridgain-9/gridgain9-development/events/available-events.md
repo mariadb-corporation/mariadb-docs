@@ -43,7 +43,7 @@ These events are fired when the user performs an action that is covered by licen
 | Event Type | Description |
 | --- | --- |
 | LICENSE_APPLIED | New license is applied successfully. |
-| LICENSE_REJECTED | New license was rejected. Contact the support team for help with the license. |
+| LICENSE_REJECTED | New license was rejected. Contact MariaDB [support](https://mariadb.com/support/) for help with the license. |
 | LICENSE_EXPIRED | License has expired. Cluster will shut down. |
 | LICENSE_VIOLATED | License limitations were violated. Check if the hardware used to run the cluster fits the license limitations. |
 | LICENSE_NODE_REJECTED | The node tried to enter the cluster and was rejected due to license limitations. |

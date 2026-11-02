@@ -25,6 +25,8 @@ doxygen_refs = load(HERE / 'fix_plugin_api_doxygen_refs.py', 'doxygen_refs')
 member_anchors = load(HERE / 'fix_plugin_api_member_anchors.py',
                       'member_anchors')
 summary = load(HERE / 'add_server_plugin_api_to_summary.py', 'summary')
+drop_api = load(HERE / 'drop_plugin_api_md.py', 'drop_api')
+alerts = load(HERE / 'fix_plugin_api_alerts.py', 'alerts')
 
 FRONTMATTER = '---\ndescription: >-\n  Generated page.\n---\n\n'
 
@@ -129,6 +131,112 @@ class MemberAnchorPairing(TempDir):
         self.assertEqual(len(unresolved), 1)
 
 
+class CrossPageMemberAnchors(TempDir):
+    TARGET = ('# Full-Text Parser Plugin Data\n\n### st_mysql_ftparser\n\n'
+              '#### parse\n\n#### init\n\n#### deinit\n\n'
+              '### st_mysql_ftparser_param\n\n#### flags\n\n'
+              '### st_mysql_ftparser_boolean_info\n\n#### flags\n')
+
+    def fix(self, text):
+        self.page('ftparser_plugin_data.md', self.TARGET)
+        page = self.page('api.md', text)
+        rewrites, unresolved = member_anchors.fix_page(page, fragcheck)
+        return page, rewrites, unresolved
+
+    def test_unique_heading_on_sibling_page_is_retargeted(self):
+        # MDBF-1224 (DOCS-7004): moxygen numbered `deinit` across its whole
+        # model; the target page has one `deinit` heading and publishes
+        # #deinit.
+        page, rewrites, unresolved = self.fix(
+            '# API\n\nbefore [st_mysql_ftparser::deinit()]'
+            '(ftparser_plugin_data.md#deinit-2) call\n')
+        self.assertEqual(unresolved, [])
+        self.assertEqual(rewrites, [(3, 'ftparser_plugin_data.md#deinit-2',
+                                     'ftparser_plugin_data.md#deinit')])
+        self.assertIn('(ftparser_plugin_data.md#deinit) call', page.read_text())
+
+    def test_ambiguous_heading_on_sibling_page_is_left_alone(self):
+        text = '# API\n\n[flags](ftparser_plugin_data.md#flags-5)\n'
+        page, rewrites, unresolved = self.fix(text)
+        self.assertEqual(rewrites, [])
+        self.assertEqual(unresolved,
+                         [(3, 'ftparser_plugin_data.md#flags-5', 2)])
+        self.assertEqual(page.read_text(), text)
+
+    def test_live_and_out_of_directory_links_are_untouched(self):
+        text = ('# API\n\n[parse](ftparser_plugin_data.md#parse)\n\n'
+                '[flags](ftparser_plugin_data.md#flags-1)\n\n'
+                '[x](../other/page.md#deinit-2)\n\n'
+                '[y](missing.md#deinit-2)\n')
+        page, rewrites, unresolved = self.fix(text)
+        self.assertEqual((rewrites, unresolved), ([], []))
+        self.assertEqual(page.read_text(), text)
+
+
+class DropApiMd(TempDir):
+    API = ('# API Reference\n\n## Macros\n\n'
+           '### MARIA_DECLARE_PLUGIN__\n\n### maria_declare_plugin\n\n'
+           '## Enumerations\n\n### PSI_table_io_operation\n\n'
+           '## Typedefs\n\n### PSI_table_io_operation\n\n### my_bool\n\n'
+           '### orphan\n')
+
+    def drop(self, pages):
+        self.page('api.md', self.API)
+        for name, text in pages.items():
+            self.page(name, text)
+        return drop_api.drop(self.dir, fragcheck,
+                             member_anchors.published_anchors)
+
+    def test_links_follow_the_heading_text_not_the_slug(self):
+        # MARIA_DECLARE_PLUGIN__ and maria_declare_plugin share a slug; the
+        # my_bool typedef shares its name with a struct member (h4) elsewhere.
+        result = self.drop({
+            'plugin_declaration.md': '# Decl\n\n### MARIA_DECLARE_PLUGIN__\n\n'
+                                     '### maria_declare_plugin\n',
+            'plugin_api.md': '# Plugin API\n\n### my_bool\n',
+            'sql.md': '# SQL\n\n### st\n\n#### my_bool\n\n'
+                      '[a](api.md#maria_declare_plugin) '
+                      '[b](api.md#maria_declare_plugin-1) '
+                      '[c](api.md#my_bool)\n'})
+        self.assertEqual(result, (3, []))
+        self.assertIn('[a](plugin_declaration.md#maria_declare_plugin) '
+                      '[b](plugin_declaration.md#maria_declare_plugin-1) '
+                      '[c](plugin_api.md#my_bool)',
+                      (self.dir / 'sql.md').read_text())
+        self.assertFalse((self.dir / 'api.md').exists())
+
+    def test_repeated_heading_pairs_by_order_and_same_page_is_local(self):
+        result = self.drop({
+            'Instrumentation_interface.md':
+                '# PSI\n\n### PSI_table_io_operation\n\n'
+                '### PSI_table_io_operation\n\n'
+                '[x](api.md#psi_table_io_operation) '
+                '[y](api.md#psi_table_io_operation-1)\n'})
+        self.assertEqual(result, (2, []))
+        self.assertIn('[x](#psi_table_io_operation) '
+                      '[y](#psi_table_io_operation-1)',
+                      (self.dir / 'Instrumentation_interface.md').read_text())
+
+    def test_bare_link_goes_to_plugin_api_and_orphans_become_text(self):
+        result = self.drop({
+            'plugin_api.md': '# Plugin API\n',
+            'README.md': '* [API reference](api.md#)\n'
+                         'see [`orphan`](api.md#orphan) and [gone](api.md#nope)\n'
+                         '```\n[kept](api.md#nope)\n```\n'})
+        self.assertEqual(result[0], 1)
+        self.assertEqual([link for _, _, link in result[1]],
+                         ['[`orphan`](api.md#orphan)', '[gone](api.md#nope)'])
+        self.assertEqual((self.dir / 'README.md').read_text(),
+                         '* [API reference](plugin_api.md)\n'
+                         'see `orphan` and gone\n'
+                         '```\n[kept](api.md#nope)\n```\n')
+
+    def test_no_api_md_is_a_no_op(self):
+        self.page('plugin_api.md', '# Plugin API\n')
+        self.assertIsNone(drop_api.drop(self.dir, fragcheck,
+                                        member_anchors.published_anchors))
+
+
 class SummaryNav(TempDir):
     SUMMARY = ('# Table of contents\n\n'
                '* [Plugins](reference/plugins/README.md)\n'
@@ -149,7 +257,6 @@ class SummaryNav(TempDir):
         self.page('page-implementation.md',
                   FRONTMATTER + '# Plugin API Implementation\n')
         self.page('page-verification.md', FRONTMATTER + '# Plugin Verification\n')
-        self.page('api.md', FRONTMATTER + '# API Reference\n')
         self.page('plugin_api.md', FRONTMATTER + '# Plugin API\n')
         self.page('plugin_client_api.md', FRONTMATTER + '# Client Plugin API\n')
         self.page('plugin_types.md', FRONTMATTER + '# Plugin Types\n\n'
@@ -175,7 +282,6 @@ class SummaryNav(TempDir):
             f'        * [Plugin Types]({d}/plugin_types.md)',
             f'          * [Audit Plugin]({d}/audit.md)',
             f'          * [Daemon Plugin]({d}/daemon.md)',
-            f'      * [API Reference]({d}/api.md)',
         ])
 
     def test_replaces_the_whole_old_section_and_is_idempotent(self):
@@ -189,6 +295,67 @@ class SummaryNav(TempDir):
     def test_missing_anchor_entry_fails(self):
         with self.assertRaises(SystemExit):
             summary.rewrite_summary('# Table of contents\n', self.block())
+
+
+
+class Alerts(unittest.TestCase):
+    """GitHub alerts from moxygen --flavour=github -> GitBook hints (DOCS-7041)."""
+
+    def test_warning_becomes_hint(self):
+        src = ('text\n\n> [!WARNING]\n> Status variables are not prefixed!\n'
+               '> See [Arrays](page-implementation.md#arrays).\n\nmore\n')
+        self.assertEqual(alerts.convert(src),
+                         'text\n\n{% hint style="warning" %}\n'
+                         'Status variables are not prefixed!\n'
+                         'See [Arrays](page-implementation.md#arrays).\n'
+                         '{% endhint %}\n\nmore\n')
+
+    def test_note_is_info(self):
+        self.assertEqual(alerts.convert('> [!NOTE]\n> Mix them.\n'),
+                         '{% hint style="info" %}\nMix them.\n{% endhint %}\n')
+
+    def test_all_styles(self):
+        for kind, style in [('TIP', 'success'), ('IMPORTANT', 'info'),
+                            ('CAUTION', 'danger')]:
+            self.assertIn(f'{{% hint style="{style}" %}}',
+                          alerts.convert(f'> [!{kind}]\n> x\n'))
+
+    def test_gitbook_escaped_one_line_form(self):
+        # What GitBook writes back to Git after rendering an alert.
+        self.assertEqual(alerts.convert('> \\[!WARNING] Prefix it.\n'),
+                         '{% hint style="warning" %}\nPrefix it.\n{% endhint %}\n')
+
+    def test_code_fence_inside_note_is_kept(self):
+        src = ('> [!NOTE]\n> The syntax is:\n> ```\n> %[<flag>]<format>\n'
+               '> ```\n')
+        self.assertEqual(alerts.convert(src),
+                         '{% hint style="info" %}\nThe syntax is:\n```\n'
+                         '%[<flag>]<format>\n```\n{% endhint %}\n')
+
+    def test_empty_alert_is_dropped(self):
+        # @note followed by a blank line in the Doxygen source.
+        src = 'Intro.\n\n> [!NOTE]\n>\n\nNormally prefer X.\n'
+        self.assertEqual(alerts.convert(src),
+                         'Intro.\n\nNormally prefer X.\n')
+
+    def test_plain_quote_untouched(self):
+        src = '> Just a quote.\n> [!NOTE] in the middle is not a marker\n'
+        self.assertEqual(alerts.convert(src), src)
+
+    def test_marker_inside_code_block_untouched(self):
+        src = '```markdown\n> [!WARNING]\n> example\n```\n'
+        self.assertEqual(alerts.convert(src), src)
+
+    def test_indented_alert(self):
+        # page-implementation.md: a @note after a code block in index.dox.
+        src = '```\n}\n```\n\n  > [!NOTE]\n  > Mix them.\n\n## Next\n'
+        self.assertEqual(alerts.convert(src),
+                         '```\n}\n```\n\n{% hint style="info" %}\nMix them.\n'
+                         '{% endhint %}\n\n## Next\n')
+
+    def test_idempotent(self):
+        once = alerts.convert('> [!WARNING]\n> x\n')
+        self.assertEqual(alerts.convert(once), once)
 
 
 if __name__ == '__main__':

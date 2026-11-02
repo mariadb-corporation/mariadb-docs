@@ -19,12 +19,7 @@ This example demonstrates how to configure and run both the Source and Sink conn
 
 ### 1.1. Prepare GridGain Connector Package
 
-The connector is in the `$IGNITE_HOME/integration/gridgain-kafka-connect` directory. Execute the following script on one of the GridGain nodes to pull the missing connector dependencies into the package:
-
-```bash
-cd $IGNITE_HOME/integration/gridgain-kafka-connect
-./copy-dependencies.sh
-```
+Download the [`gridgain/gridgain-kafka-connect`](https://www.confluent.io/hub/gridgain/gridgain-kafka-connect) component that matches your GridGain version from Confluent Hub, unzip it, and rename the extracted directory to `gridgain-kafka-connect`. If you run GridGain Ultimate Edition, copy `$IGNITE_HOME/libs/gridgain-ultimate/*.jar` into the `gridgain-kafka-connect/lib` directory.
 
 ### 1.2. Register GridGain Connector with Kafka
 
@@ -32,7 +27,7 @@ In this example, we assume `/opt/kafka/connect` is the Kafka connector installat
 
 For every Kafka Connect Worker:
 
-1. Copy the GridGain Connector package directory you prepared in the previous step from the GridGain node to `/opt/kafka/connect` on the Kafka Connect worker.
+1. Copy the `gridgain-kafka-connect` directory you prepared in the previous step to `/opt/kafka/connect` on the Kafka Connect worker.
 2. Edit the Kafka Connect Worker configuration (`$KAFKA_HOME/config/connect-standalone.properties` for single-worker Kafka Connect cluster or `$KAFKA_HOME/config/connect-distributed.properties` for multiple node Kafka Connect cluster) to register the connector in the plugin path:
 
    {% code title="connect-standalone.properties" %}
