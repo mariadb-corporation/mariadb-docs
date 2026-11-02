@@ -12,16 +12,16 @@ The **Data and Schema Import** feature lets you migrate database schemas and dat
 You can open **Import Schema**/**Import Data** from:
 
 - The **Import Schemas** menu [option](#managing-imported-schemas), accessible via the user profile menu.
-- The **Queries** [screen](../queries/querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
+- The **Queries** [screen](queries/querying-gg9.md) — via the **Import Schema**/**Import Data** action button.
 
 The import process consists of up to six steps:
 
 1. [Connection](#connection)
-2. [Schemas & Tables](#schemas-and-tables)
+2. [Schema Selection](#schema-selection)
 3. [Table Settings](#table-settings)
 4. [Column Settings](#column-settings)
 5. [Data Import](#data-import)
-6. [Overview](#script-overview)
+6. [Overview](#overview)
 
 {% hint style="success" %}
 You can open **Data Import** directly from the **Queries** screen without going through the schema setup steps. Do this when the target tables already exist in GridGain cluster and you only need to load or reload data.
@@ -44,7 +44,7 @@ Choose the type of source system:
 
 ### JDBC Connection
 
-![Connection step — JDBC](../../../../.gitbook/assets/cc-gg9-import-step1-jdbc.png)
+![Connection step — JDBC](../../../.gitbook/assets/cc-gg9-import-step1-jdbc.png)
 
 When **JDBC** is selected, provide the following:
 
@@ -70,7 +70,7 @@ When **Apache Iceberg** is selected, choose the catalog type:
 - **JDBC** — connect via a JDBC-backed Iceberg catalog.
 - **REST** — connect via an Iceberg REST catalog endpoint.
 
-![Connection step — Apache Iceberg REST](../../../../.gitbook/assets/cc-gg9-import-step1-iceberg.png)
+![Connection step — Apache Iceberg REST](../../../.gitbook/assets/cc-gg9-import-step1-iceberg.png)
 
 For REST catalogs, provide the following:
 
@@ -84,7 +84,7 @@ For REST catalogs, provide the following:
 
 Click **Test Connection** to verify the Iceberg catalog is reachable before proceeding.
 
-## Schemas & Tables
+## Schema Selection
 
 After a successful connection, Control Center lists all schemas and tables available in the source database.
 
@@ -95,7 +95,7 @@ After a successful connection, Control Center lists all schemas and tables avail
 At least one schema and one table must be selected to proceed.
 {% endhint %}
 
-![Schemas & Tables step](../../../../.gitbook/assets/cc-gg9-import-step2-tables.png)
+![Schema Selection step](../../../.gitbook/assets/cc-gg9-import-step2-tables.png)
 
 The imported schema will be loaded into one of the existing GridGain 9 clusters.
 
@@ -113,19 +113,19 @@ If a schema with the same name already exists in the target cluster, select how 
 
 - **Merge with existing schema** is set by default. When selected, the imported tables are added to the existing schema. Existing tables and data are not affected.
 
-  ![Conflict Resolution](../../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-merge.png)
+  ![Conflict Resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-merge.png)
 - When **Rename schema** is selected, the imported schema is renamed by adding a configurable prefix and/or suffix, avoiding any conflict with the existing schema.
 
-  ![Table Settings step — rename conflict resolution](../../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-rename.png)
+  ![Table Settings step — rename conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-rename.png)
 - When **Drop and recreate** is selected, note that **all existing data will be lost**:
 
-  ![Table Settings step — drop and recreate conflict resolution](../../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-drop.png)
+  ![Table Settings step — drop and recreate conflict resolution](../../../.gitbook/assets/cc-gg9-import-step3-conflict-resolve-drop.png)
 
 ### Per-Table Storage Configuration
 
 Expand any table row to configure GridGain-specific storage parameters for that table:
 
-![Table Settings step — expanded table row](../../../../.gitbook/assets/cc-gg9-import-step3-table-settings.png)
+![Table Settings step — expanded table row](../../../.gitbook/assets/cc-gg9-import-step3-table-settings.png)
 
 | Parameter | Description |
 |---|---|
@@ -145,7 +145,7 @@ You can leave zone, storage profile, and key fields empty to use cluster default
 
 Review and adjust the mapping of source columns to GridGain column definitions.
 
-![Column Settings step](../../../../.gitbook/assets/cc-gg9-import-step4-column-settings.png)
+![Column Settings step](../../../.gitbook/assets/cc-gg9-import-step4-column-settings.png)
 
 Each table can be expanded to inspect its columns. For each column you can modify:
 
@@ -157,14 +157,14 @@ Each table can be expanded to inspect its columns. For each column you can modif
 
 Columns with unmapped or incompatible types are highlighted in red and require manual resolution before you can advance to the next step.
 
-![Column Settings step — column type error](../../../../.gitbook/assets/cc-gg9-import-step4-column-settings-error.png)
+![Column Settings step — column type error](../../../.gitbook/assets/cc-gg9-import-step4-column-settings-error.png)
 
 Each table can also be expanded to review its indexes. For each index you can:
 
 - Change the index **Type** — switch between `SORT` and `HASH`.
 - Reorder index columns.
 
-![Column Settings step — index](../../../../.gitbook/assets/cc-gg9-import-step4-column-settings-index.png)
+![Column Settings step — index](../../../.gitbook/assets/cc-gg9-import-step4-column-settings-index.png)
 
 ## Data Import
 
@@ -182,41 +182,41 @@ Configure the data import parameters for each table:
 - Select the target table.
 - Select columns to import.
 
-![Data Import step — source/target](../../../../.gitbook/assets/cc-gg9-import-step5-source.png)
+![Data Import step — source/target](../../../.gitbook/assets/cc-gg9-import-step5-source.png)
 
 You can also configure additional parameters if your files use non-standard formatting — such as a custom delimiter, a non-default quote character, or custom null values.
 
-![Data Import step — additional params](../../../../.gitbook/assets/cc-gg9-import-step5-additional-params.png)
+![Data Import step — additional params](../../../.gitbook/assets/cc-gg9-import-step5-additional-params.png)
 
-## Script Overview
+## Overview
 
 This tab displays the generated scripts to review and edit before execution.
 
-![Overview](../../../../.gitbook/assets/cc-gg9-import-step6-overview.png)
+![Overview](../../../.gitbook/assets/cc-gg9-import-step6-overview.png)
 
 From this step you can:
 
 - **Copy** the script to the clipboard.
 - **Download** the script as an `.sql` file for use in future deployments or manual execution.
-- Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](../queries/querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
+- Open the script in **SQL Notebook**: Control Center redirects you to the **Queries** [screen](queries/querying-gg9.md), where this script will be available for editing. After you execute the script, the corresponding tables will be created or updated.
 
-You can track execution progress and results in the **Queries log** [tab](../queries/querying-gg9.md#queries-log). If an error occurs, it will also appear there with detailed logs.
+You can track execution progress and results in the **Queries log** [tab](queries/querying-gg9.md#queries-log). If an error occurs, it will also appear there with detailed logs.
 
 ## Managing Imported Schemas
 
 To view and manage all saved import configurations, choose the **Import Schemas** menu option in the user profile menu.
 
-![Import Schemas menu option](../../../../.gitbook/assets/cc-gg9-import-schemas-menu.png)
+![Import Schemas menu option](../../../.gitbook/assets/cc-gg9-import-schemas-menu.png)
 
 The screen lists all saved configurations with their name, connection type, dialect, target cluster, and last run date. You can filter the list by name, connection type, dialect, and cluster.
 
-![Import Schemas screen](../../../../.gitbook/assets/cc-gg9-import-schemas-screen.png)
+![Import Schemas screen](../../../.gitbook/assets/cc-gg9-import-schemas-screen.png)
 
 For each configuration, the row-level context menu provides the following actions:
 
 - **Edit** — reopen the configuration to modify it.
 - **Rename** — rename the configuration.
-- **Open in SQL Notebook** — open the generated script in the [Queries](../queries/querying-gg9.md) screen for review or manual execution.
+- **Open in SQL Notebook** — open the generated script in the [Queries](queries/querying-gg9.md) screen for review or manual execution.
 - **Remove** — delete the configuration.
 
 To view the generated script and connection details for a configuration, click on a schema name to open the side panel on the right.
