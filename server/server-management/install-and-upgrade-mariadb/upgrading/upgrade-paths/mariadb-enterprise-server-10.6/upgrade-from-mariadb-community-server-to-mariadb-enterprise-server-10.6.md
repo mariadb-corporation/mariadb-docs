@@ -22,8 +22,8 @@ When switching from MariaDB Community Server to [MariaDB Enterprise Server](http
 
 MariaDB Enterprise Server 10.6 is not identical to MariaDB Community Server 10.6:
 
-* MariaDB Enterprise Server includes features and fixes backported from later MariaDB versions. For details, see [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/mariadb-enterprise-server-10.6/whats-new-in-mariadb-enterprise-server-10.6).
-* MariaDB Enterprise Server does not include plugins that are not supported for enterprise use. Before upgrading, review [Differences in Available Plugins for Enterprise Server](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/about/mariadb-enterprise-server-differences/differences-in-available-plugins-for-enterprise-server) to confirm that the plugins you rely on are available.
+* MariaDB Enterprise Server includes features and fixes backported from later MariaDB versions. For details, see [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new).
+* MariaDB Enterprise Server does not include plugins that are not supported for enterprise use. Before upgrading, review [Differences in Available Plugins for Enterprise Server](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/differences-in-available-plugins-for-enterprise-server) to confirm that the plugins you rely on are available.
 
 ### Data Backup
 
@@ -53,16 +53,16 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
 ### Audit Plugin Considerations
 
-If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed, then the audit plugin should be removed prior to the upgrade to prevent conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/) that is included in MariaDB Enterprise Server 10.6.
+If you have the [MariaDB Audit Plugin](../../../../../reference/plugins/mariadb-audit-plugin/) installed, then the audit plugin should be removed prior to the upgrade to prevent conflict with the [MariaDB Enterprise Audit Plugin](../../../../../reference/plugins/mariadb-enterprise-audit/README.md) that is included in MariaDB Enterprise Server 10.6.
 
 The two plugins differ mainly in how audit logging can be filtered:
 
-| Capability             | MariaDB Audit Plugin                       | MariaDB Enterprise Audit                         |
+| Capability | MariaDB Audit Plugin | MariaDB Enterprise Audit |
 | ---------------------- | ------------------------------------------ | ------------------------------------------------ |
-| Event selection        | Global event types (connect, query, table) | Event filters defined per audit filter           |
-| Per-user control       | Include/exclude user lists                 | Default and named per-user audit filters         |
-| Per-object control     | Not available                              | Object filters for specific databases and tables |
-| Configuration auditing | Not available                              | Changes to the audit configuration are logged    |
+| Event selection | Global event types (connect, query, table) | Event filters defined per audit filter |
+| Per-user control | Include/exclude user lists | Default and named per-user audit filters |
+| Per-object control | Not available | Object filters for specific databases and tables |
+| Configuration auditing | Not available | Changes to the audit configuration are logged |
 
 It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) statement:
 
@@ -70,7 +70,7 @@ It can be removed by using the [UNINSTALL SONAME](../../../../../reference/sql-s
 UNINSTALL SONAME 'server_audit';
 ```
 
-And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) option — a [mariadbd](../../../../starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
+And if you load the plugin in a configuration file using the [plugin\_load\_add](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) option — a [mariadbd](../../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) startup option that loads a plugin library when the server starts — then the option should also be removed.
 
 The MariaDB Enterprise Audit Plugin will automatically be installed after installing MariaDB Enterprise Server 10.6.
 
@@ -181,7 +181,7 @@ Before the old version can be uninstalled, we first need to stop the current Mar
 MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, CentOS, Rocky Linux), APT (Debian, Ubuntu), and ZYpp (SLES).
 
 {% hint style="info" %}
-If the server is a node in a Galera Cluster, also install the Enterprise Galera provider package, `galera-enterprise-4`, which replaces MariaDB Community Server's `galera-4` package. Cluster nodes are also upgraded one node at a time — see [Upgrading Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) for the cluster-specific procedure.
+If the server is a node in a Galera Cluster, also install the Enterprise Galera provider package, `galera-enterprise-4`, which replaces MariaDB Community Server's `galera-4` package. Cluster nodes are also upgraded one node at a time — see [Upgrading Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) for the cluster-specific procedure.
 {% endhint %}
 
 {% tabs %}

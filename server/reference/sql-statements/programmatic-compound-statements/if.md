@@ -24,7 +24,7 @@ END IF
 ## See Also
 
 * The [IF() function](../../sql-functions/control-flow-functions/if-function.md), which differs from the `IF` statement described above.
-* [Changes in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle).
+* [Changes in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 * The [CASE statement](case-statement.md).
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

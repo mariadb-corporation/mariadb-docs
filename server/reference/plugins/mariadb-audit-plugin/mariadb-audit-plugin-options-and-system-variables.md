@@ -36,7 +36,7 @@ server_audit_excl_users='bob,ted'
 
 ## System Variables
 
-Below is a list of all system variables related to the Audit Plugin. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them. See also the [full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
+Below is a list of all system variables related to the Audit Plugin. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them. See also the [full list of MariaDB options, system and status variables](../../full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `server_audit_events`
 
@@ -227,7 +227,7 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 
 #### `server_audit_timestamp_format`
 
-* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE\_FORMAT](../../sql-functions/date-time-functions/date_format.md).
+* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE_FORMAT](../../sql-functions/date-time-functions/date_format.md).
 * Command line: `--server-audit-timestamp-format=value`
 * Scope: Global
 * Dynamic: Yes

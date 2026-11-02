@@ -8,9 +8,11 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-11-8-to-mariadb-12-3.md" %}
-[upgrading-from-mariadb-11-8-to-mariadb-12-3.md](upgrading-from-mariadb-11-8-to-mariadb-12-3.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3.md" %}
+[upgrading-from-mariadb-11-8-to-mariadb-12-3.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -20,9 +22,11 @@ Upgrade guide for moving from MariaDB 11.8 to 12.3, covering removed options and
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-11-4-to-mariadb-11-8.md" %}
-[upgrading-from-mariadb-11-4-to-mariadb-11-8.md](upgrading-from-mariadb-11-4-to-mariadb-11-8.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-4-to-mariadb-11-8.md" %}
+[upgrading-from-mariadb-11-4-to-mariadb-11-8.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-4-to-mariadb-11-8.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -32,9 +36,11 @@ Upgrade guide for moving from MariaDB 11.4 to 11.8, covering new features like v
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-11-3-to-mariadb-11-4.md" %}
-[upgrading-from-mariadb-11-3-to-mariadb-11-4.md](upgrading-from-mariadb-11-3-to-mariadb-11-4.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-3-to-mariadb-11-4.md" %}
+[upgrading-from-mariadb-11-3-to-mariadb-11-4.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-3-to-mariadb-11-4.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -44,9 +50,11 @@ Instructions for upgrading from the rolling release 11.3 to the long-term suppor
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-10-11-to-mariadb-11-4.md" %}
-[upgrading-from-mariadb-10-11-to-mariadb-11-4.md](upgrading-from-mariadb-10-11-to-mariadb-11-4.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md" %}
+[upgrading-from-mariadb-10-11-to-mariadb-11-4.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -56,9 +64,11 @@ Guide for upgrading from the previous LTS version 10.11 to 11.4, highlighting ma
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-10-6-to-mariadb-10-11.md" %}
-[upgrading-from-mariadb-10-6-to-mariadb-10-11.md](upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md" %}
+[upgrading-from-mariadb-10-6-to-mariadb-10-11.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -68,9 +78,11 @@ Complete MariaDB 10.6 to 10.11 upgrade: repository config, apt-get/yum/zypper re
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-from-mariadb-10-5-to-mariadb-10-6.md" %}
-[upgrading-from-mariadb-10-5-to-mariadb-10-6.md](upgrading-from-mariadb-10-5-to-mariadb-10-6.md)
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md" %}
+[upgrading-from-mariadb-10-5-to-mariadb-10-6.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}

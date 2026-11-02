@@ -94,7 +94,7 @@ SHOW FULL TABLES;
 +----------------+------------+
 ```
 
-Showing temporary tables: <= [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1-changes-and-improvements)
+Showing temporary tables: <= [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111)
 
 ```sql
 CREATE TABLE t (t INT(11));
@@ -109,7 +109,7 @@ SHOW TABLES;
 +----------------+
 ```
 
-From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes):
+From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0):
 
 ```sql
 CREATE TABLE t (t INT(11));

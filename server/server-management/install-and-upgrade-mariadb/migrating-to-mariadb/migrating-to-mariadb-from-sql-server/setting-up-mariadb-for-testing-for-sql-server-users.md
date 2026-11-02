@@ -12,11 +12,11 @@ This page contains links and hints to setup MariaDB for testing. The page is des
 
 ## Choosing a MariaDB Version
 
-As a general rule, for new installations it's better to choose the [latest Generally Available (GA) version](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/download-latest-releases).
+As a general rule, for new installations it's better to choose the [latest Generally Available (GA) version](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/latest-releases).
 
 If you need a feature that is only present in a version that is not yet production-ready, and the project will surely not go to production before that version is GA, it could make sense to use a non-GA version. In this case however, keep in mind that you are using a version that is only suitable for testing.
 
-If you need to work with an existing production instance, you should of course use the same version in testing. However, deprecated versions should not be used in production, because they could be exposed to vulnerabilities that will never be fixed. See [deprecation policies](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/platform-deprecation-policy) if you are not sure about the version you are using.
+If you need to work with an existing production instance, you should of course use the same version in testing. However, deprecated versions should not be used in production, because they could be exposed to vulnerabilities that will never be fixed. See [deprecation policies](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/platform-deprecation-policy) if you are not sure about the version you are using.
 
 ## Setting up MariaDB on Windows
 

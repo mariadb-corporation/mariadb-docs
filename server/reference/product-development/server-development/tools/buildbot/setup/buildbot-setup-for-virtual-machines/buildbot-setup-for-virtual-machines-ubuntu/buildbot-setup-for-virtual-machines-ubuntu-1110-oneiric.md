@@ -89,7 +89,7 @@ for i in '/kvm/vms/vm-oneiric-amd64-serial.qcow2 2255 qemu64' '/kvm/vms/vm-oneir
 done
 ```
 
-Install cmake (required for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-5.5-series/mariadb-5.5-changes-and-improvements)) with:
+Install cmake (required for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)) with:
 
 ```
 kvm -m 1024 -hda ${vm} -redir tcp:22565::22 -boot c -smp 2 -cpu qemu64 -net nic,model=virtio -net user -nographic

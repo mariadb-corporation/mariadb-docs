@@ -331,7 +331,7 @@ CREATE TABLE: CREATE TABLE `t2` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci
 ```
 
-Similarly, to do the reverse and convert a table into a partition [`ALTER TABLE`](../../reference/sql-statements/data-definition/alter/alter-table/) `... EXCHANGE PARTITION` can also be used, with the following manual steps required:
+Similarly, to do the reverse and convert a table into a partition [`ALTER TABLE`](../../reference/sql-statements/data-definition/alter/alter-table/README.md) `... EXCHANGE PARTITION` can also be used, with the following manual steps required:
 
 * create the partition
 * exchange the partition with the table
@@ -488,7 +488,7 @@ The following requirements must be met:
 * Table t1 must be partitioned, and table t2 cannot be partitioned.
 * Table t2 cannot be a temporary table.
 * Table t1 and t2 must otherwise be identical.
-* Any existing row in t2 must match the conditions for storage in the exchanged partition p1 unless, from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements), the `WITHOUT VALIDATION` option is specified.
+* Any existing row in t2 must match the conditions for storage in the exchanged partition p1 unless, from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), the `WITHOUT VALIDATION` option is specified.
 
 By default, MariaDB performs the validation to see that each row meets the partition requirements, and the statement fails if a row does not fit.
 

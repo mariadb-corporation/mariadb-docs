@@ -52,7 +52,7 @@ Learn how to perform essential SQL operations such as creating tables, inserting
 {% endcolumn %}
 
 {% column %}
-Complete MariaDB basics guide: connect with mariadb -u/-p/-h, CREATE DATABASE/USE, CREATE TABLE with AUTO\_INCREMENT, INSERT/SELECT/UPDATE/DELETE commands.
+Complete MariaDB basics guide: connect with mariadb -u/-p/-h, CREATE DATABASE/USE, CREATE TABLE with AUTO_INCREMENT, INSERT/SELECT/UPDATE/DELETE commands.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -154,8 +154,8 @@ This guide introduces the different types of JOINs (INNER, LEFT, RIGHT, CROSS) a
 
 {% columns %}
 {% column %}
-{% content-ref url="more-advanced-joins.md" %}
-[more-advanced-joins.md](more-advanced-joins.md)
+{% content-ref url="../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md" %}
+[more-advanced-joins.md](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -244,7 +244,7 @@ Restore MariaDB data from mariadb-dump backup files using the mariadb client, in
 {% endcolumn %}
 
 {% column %}
-This guide explores MariaDB functions for performing calculations and modifications on date and time values, like DATE\_ADD and DATE\_SUB.
+This guide explores MariaDB functions for performing calculations and modifications on date and time values, like DATE_ADD and DATE_SUB.
 {% endcolumn %}
 {% endcolumns %}
 

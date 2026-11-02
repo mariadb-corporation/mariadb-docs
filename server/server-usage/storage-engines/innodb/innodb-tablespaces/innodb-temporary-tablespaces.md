@@ -53,7 +53,7 @@ Unlike normal tablespaces, temporary tablespaces are deleted when you stop Maria
 
 ## Shrinking the Tablespace
 
-From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3.0-release-notes), the temporary tablespace can be shrunk by setting [innodb\_truncate\_temporary\_tablespace\_now](../innodb-system-variables.md#innodb_truncate_temporary_tablespace_now) to `ON`:
+From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), the temporary tablespace can be shrunk by setting [innodb\_truncate\_temporary\_tablespace\_now](../innodb-system-variables.md#innodb_truncate_temporary_tablespace_now) to `ON`:
 
 ```sql
 SET GLOBAL innodb_truncate_temporary_tablespace_now=1;

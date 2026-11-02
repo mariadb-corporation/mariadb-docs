@@ -33,7 +33,7 @@ If you attempt to insert a value other than an empty string, MariaDB returns an 
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `RAW` is a synonym for `VARBINARY`.
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `RAW` is a synonym for `VARBINARY`.
 
 ## Examples
 
@@ -150,7 +150,7 @@ ERROR 1406 (22001): Data too long for column 'example' at row 1
 
 * [VARCHAR](varchar.md)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -1,12 +1,13 @@
 ---
-description: Status variables for semisynchronous replication.
+description: >-
+  Status variables for semisynchronous replication.
 ---
 
 # Semisynchronous Replication Status Variables
 
 This page documents status variables related to [Semisynchronous Replication](../../standard-replication/semisynchronous-replication.md), which is built into the server. See [Server Status Variables](server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).
 
-See also the [Full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
+See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `Rpl_semi_sync_master_clients`
 

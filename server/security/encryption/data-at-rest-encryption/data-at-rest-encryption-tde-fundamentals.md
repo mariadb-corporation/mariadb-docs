@@ -43,7 +43,7 @@ MariaDB provides flexible control over what is encrypted, though support and req
 
 {% hint style="info" %}
 **Enterprise Server** provides encryption for **Galera Cluster** via GCache.\
-How GCache encryption is enabled and disabled is detailed [on this page](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview#data-in-transit-encryption).
+How GCache encryption is enabled and disabled is detailed [on this page](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide#data-in-transit-encryption).
 {% endhint %}
 
 ## Limitations
@@ -195,7 +195,7 @@ innodb_encryption_threads = 4
 {% endcode %}
 
 {% hint style="info" %}
-[innodb\_encryption\_threads](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) deserves attention on an existing database. The settings above encrypt InnoDB tables that are _created_ from now on, but converting tables that already exist is the job of the background encryption threads. The variable defaults to `0`, meaning no threads run, so without it your existing tables stay unencrypted and the next step has no progress to report.
+[innodb\_encryption\_threads](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) deserves attention on an existing database. The settings above encrypt InnoDB tables that are *created* from now on, but converting tables that already exist is the job of the background encryption threads. The variable defaults to `0`, meaning no threads run, so without it your existing tables stay unencrypted and the next step has no progress to report.
 
 The same applies in reverse when you disable encryption: the threads are what decrypt existing tables. For details, see [InnoDB Background Encryption Threads](innodb-encryption/innodb-background-encryption-threads.md).
 {% endhint %}

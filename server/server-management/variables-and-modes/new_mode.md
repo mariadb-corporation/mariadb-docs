@@ -1,12 +1,12 @@
 ---
 description: >-
-  Explains the NEW_MODE system variable (from MariaDB 11.4), which lets you opt
-  in to new behaviors and optimizations in otherwise stable versions.
+  Explains the NEW_MODE system variable (from MariaDB 11.4), which lets you
+  opt in to new behaviors and optimizations in otherwise stable versions.
 ---
 
 # NEW\_MODE
 
-The `NEW_MODE` system variable and command line switch were introduced in [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4-changes-and-improvements) to provide a way to enable new behavior in otherwise stable versions. Specifying a flag in the `NEW_MODE` variable enables the corresponding new behavior; otherwise, the old (stable) behavior is used. This can be useful to preserve execution plans in stable versions that may change when the new behavior is active.
+The `NEW_MODE` system variable and command line switch were introduced in [MariaDB 11.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) to provide a way to enable new behavior in otherwise stable versions. Specifying a flag in the `NEW_MODE` variable enables the corresponding new behavior; otherwise, the old (stable) behavior is used. This can be useful to preserve execution plans in stable versions that may change when the new behavior is active.
 
 A sample usage scenario is:
 

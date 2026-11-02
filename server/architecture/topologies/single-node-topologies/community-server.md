@@ -158,8 +158,8 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 MariaDB Community Server can be configured in the following ways:
 
-* [System variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md) can be set in a configuration file (such as `/etc/my.cnf`). MariaDB Community Server must be restarted to apply changes made to the configuration file.
-* [System variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md) can be set on the command-line.
+* [System variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md) can be set in a configuration file (such as `/etc/my.cnf`). MariaDB Community Server must be restarted to apply changes made to the configuration file.
+* [System variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md) can be set on the command-line.
 * If a system variable supports dynamic changes, then it can be set on-the-fly using the [SET](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement.
 
 ### Configuration Files
@@ -194,7 +194,7 @@ And on Debian and Ubuntu, custom configuration files from the following director
 
 ### Configuring MariaDB
 
-1.  Determine which [system variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md) you need to configure.
+1.  Determine which [system variables](../../../ha-and-performance/optimization-and-tuning/system-variables/) and [options](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md) you need to configure.
 
     Useful system variables and options for MariaDB Community Server include:
 
@@ -207,7 +207,7 @@ And on Debian and Ubuntu, custom configuration files from the following director
     | [thread\_handling](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_handling) | Sets how MariaDB Community Server handles threads for client connections.                                                                                                                                                                               |
     | [log\_error](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#list-of-server-system-variables)                         | Sets the file name for the error log.                                                                                                                                                                                                                   |
     | [innodb\_buffer\_pool\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size)                                         | Sets the amount of memory InnoDB reserves for the Buffer Pool.                                                                                                                                                                                          |
-    | [innodb\_log\_file\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)                                               | Sets the size of the InnoDB Redo Log file.                                                                                                                                                                                                              |
+    | [innodb\_log\_file\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_file_size)                                               | Sets the size of the InnoDB Redo Log file.                           |
     | [innodb\_io\_capacity](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_io_capacity)                                                    | Sets the maximum number of I/O operations per second that InnoDB can use.                                                                                                                                                                               |
 2.  Choose a configuration file in which to configure your system variables and options.
 

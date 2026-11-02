@@ -20,11 +20,11 @@ The `CREATE PACKAGE` statement can be used in any mode.
 Before MariaDB 11.4:
 {% endhint %}
 
-The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is set.
+The `CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 {% endtab %}
 {% endtabs %}
 
-In [Oracle SQL mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
+In [Oracle SQL mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), the PL/SQL dialect is used, while if Oracle mode is not set (the default), SQL/PSM is used.
 
 ## Syntax (Oracle mode)
 
@@ -134,7 +134,7 @@ A package whose specification was created by the `CREATE PACKAGE` statement, sho
 
 ## Function parameter quantifiers IN | OUT | INOUT | IN OUT
 
-**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.0-release-notes)
+**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 {% tabs %}
 {% tab title="Current" %}
@@ -197,7 +197,7 @@ DELIMITER ;
 * [DECLARE TYPE](../../programmatic-compound-statements/declare-type.md)
 * [SHOW CREATE PACKAGE](../../administrative-sql-statements/show/show-create-package.md)
 * [DROP PACKAGE](../drop/drop-package.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

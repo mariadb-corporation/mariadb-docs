@@ -32,8 +32,8 @@ Introduction to joining tables in MariaDB.
 
 {% columns %}
 {% column %}
-{% content-ref url="../../../../../mariadb-quickstart-guides/more-advanced-joins.md" %}
-[more-advanced-joins.md](../../../../../mariadb-quickstart-guides/more-advanced-joins.md)
+{% content-ref url="../joins-subqueries/joins/more-advanced-joins.md" %}
+[more-advanced-joins.md](../joins-subqueries/joins/more-advanced-joins.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

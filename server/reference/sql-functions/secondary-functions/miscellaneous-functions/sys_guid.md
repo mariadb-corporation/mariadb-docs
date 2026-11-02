@@ -7,7 +7,7 @@ description: >-
 # SYS\_GUID
 
 {% hint style="info" %}
-`SYS_GUID` is available from MariaDB [10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes).
+`SYS_GUID` is available from MariaDB [10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1).
 {% endhint %}
 
 The `SYS_GUID` function was introduced to enhance Oracle compatibility. Similar functionality can be achieved with the [UUID](uuid.md) function.

@@ -1,7 +1,7 @@
 ---
 description: >-
-  How MariaDB compares row constructors such as (a, b) = (1, 2), and which row
-  comparisons the optimizer can use an index for.
+  How MariaDB compares row constructors such as (a, b) = (1, 2), and which
+  row comparisons the optimizer can use an index for.
 ---
 
 # Row Constructor Optimization
@@ -42,7 +42,7 @@ SELECT (1, NULL) = (1, 2), (1, NULL) = (2, 2), (1, NULL) < (2, 0), (1, 2) < (1, 
 
 `(1, NULL) = (2, 2)` is false because the first elements already differ, and `(1, NULL) < (2, 0)` is true for the same reason.
 
-A row constructor can't be a column of a result set: `SELECT (1, 2)` fails with error 1241. To compare a row with the result of a query, use a [row subquery](../../../reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-row-subqueries.md).
+A row constructor can't be a column of a result set: `SELECT (1, 2)` fails with error 1241. To compare a row with the result of a query, use a [row subquery](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-row-subqueries.md).
 
 ## What the Optimizer Does
 
@@ -130,7 +130,7 @@ This pattern is common in [pagination](pagination-optimization.md) that continue
 
 ## See Also
 
-* [Row Subqueries](../../../reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-row-subqueries.md)
+* [Row Subqueries](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-row-subqueries.md)
 * [IN](../../../reference/sql-structure/operators/comparison-operators/in.md)
 * [Conversion of Big IN Predicates Into Subqueries](subquery-optimizations/conversion-of-big-in-predicates-into-subqueries.md)
 

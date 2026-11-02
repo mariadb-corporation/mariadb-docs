@@ -19,7 +19,7 @@ Some features are meant to improve syntax and semantics compatibility between Ma
 
 SQL semantics and syntax, in MariaDB, are affected by the [sql\_mode](../../../variables-and-modes/sql_mode.md) variable. Its value is a comma-separated list of flags, and each of them, if specified, affects a different aspect of SQL syntax and semantics.
 
-A particularly important flag for users familiar with SQL Server is [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql).
+A particularly important flag for users familiar with SQL Server is [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql).
 
 sql\_mode can be changed locally, in which case it only affects the current session; or globally, in which case it will affect all new connections (but not the connections already established). sql\_mode must be assigned a comma-separated list of flags.
 
@@ -281,7 +281,7 @@ See also [How to Quickly Insert Data Into MariaDB](../../../../ha-and-performanc
 
 * [SQL Server and MariaDB Types Comparison](sql-server-and-mariadb-types-comparison.md)
 * [MariaDB Transactions and Isolation Levels for SQL Server Users](mariadb-transactions-and-isolation-levels-for-sql-server-users.md)
-* [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql)
+* [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

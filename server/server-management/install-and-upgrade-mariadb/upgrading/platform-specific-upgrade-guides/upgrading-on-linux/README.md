@@ -16,18 +16,14 @@ layout:
     visible: true
   tags:
     visible: true
-  actions:
-    visible: true
-  anchors:
-    visible: true
 ---
 
 # Upgrading on Linux
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-between-major-mariadb-versions.md" %}
-[upgrading-between-major-mariadb-versions.md](upgrading-between-major-mariadb-versions.md)
+{% content-ref url="../../upgrading-between-major-mariadb-versions.md" %}
+[../../upgrading-between-major-mariadb-versions.md](../../upgrading-between-major-mariadb-versions.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -38,8 +34,8 @@ Upgrade between major MariaDB versions, which is normally straightforward thanks
 
 {% columns %}
 {% column %}
-{% content-ref url="upgrading-between-minor-versions-on-linux.md" %}
-[upgrading-between-minor-versions-on-linux.md](upgrading-between-minor-versions-on-linux.md)
+{% content-ref url="../../upgrading-between-minor-versions-on-linux.md" %}
+[../../upgrading-between-minor-versions-on-linux.md](../../upgrading-between-minor-versions-on-linux.md)
 {% endcontent-ref %}
 {% endcolumn %}
 

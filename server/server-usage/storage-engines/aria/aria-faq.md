@@ -101,7 +101,7 @@ All except Guilhem Bichot are working for [MariaDB Corporation Ab](https://maria
 
 ### What is the release policy/schedule of Aria?
 
-Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/release-criteria) as for MariaDB. Some clarifications, unique for the Aria storage engine:
+Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) as for MariaDB. Some clarifications, unique for the Aria storage engine:
 
 * Aria index and data file formats should be backwards and forwards compatible to ensure easy upgrades and downgrades.
 * The [log file](aria-storage-engine.md#aria-log-files) format should also be compatible, but we don't make any guarantees yet. In some cases when upgrading, you must remove the old `aria_log.%` and `maria_log.%` files before restarting MariaDB.
@@ -273,7 +273,8 @@ Note that this automatic detection doesn't work if you copy tables within the sa
 
 If you want to remove the [Aria log files](aria-storage-engine.md#aria-log-files) (`aria_log.%`) with `rm` or delete, then you must first shut down MariaDB cleanly (for example, with [mariadb-admin shutdown](../../../clients-and-utilities/administrative-tools/mariadb-admin.md)) before deleting the old files.
 
-The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between releases.
+The same rules apply when upgrading MariaDB; When upgrading, first take down MariaDB in a clean way and then upgrade. This will allow you to remove the old log files if there are incompatible problems between
+releases.
 
 Don't remove the `aria_log_control` file! This is not a log file, but a file that contains information about the Aria setup (current transaction id, unique id, next log file number etc.).
 

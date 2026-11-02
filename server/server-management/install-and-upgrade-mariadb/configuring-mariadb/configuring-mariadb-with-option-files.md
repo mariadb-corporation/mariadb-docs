@@ -14,8 +14,8 @@ You can configure MariaDB to run the way you want by configuring the server with
 
 The following options relate to how MariaDB handles option files. These options can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). They must be given as the first argument on the command-line:
 
-| Option                                                                                                           | Description                                                                              |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Option                                                                                                            | Description                                                                              |
+| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | [--print-defaults](../../starting-and-stopping-mariadb/mariadbd-options.md#print-defaults)                       | Read options from option files, print all option values, and then exit the program.      |
 | [--no-defaults](../../starting-and-stopping-mariadb/mariadbd-options.md#no-defaults)                             | Don't read options from any option file.                                                 |
 | [--defaults-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-file) =path                   | Only read options from the given option file.                                            |
@@ -55,28 +55,28 @@ The option files are each scanned once, in the order given by `--help --verbose`
 
 On Linux and Unix operating systems, the default option file is called `my.cnf`. MariaDB looks for the MariaDB option file in the locations and orders listed below.
 
-The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](../compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
+The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](../installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
 
 * If the `DEFAULT_SYSCONFDIR` `cmake` option is **undefined**, MariaDB looks for the MariaDB option file in the following locations, and in the following order:
 
-| Location               | Scope                                                                                                                            |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `/etc/my.cnf`          | Global                                                                                                                           |
-| `/etc/mysql/my.cnf`    | Global                                                                                                                           |
-| `$MARIADB_HOME/my.cnf` | Server (from MariaDB 10.6)                                                                                                       |
-| `$MYSQL_HOME/my.cnf`   | Server (before MariaDB 10.6)                                                                                                     |
+| Location               | Scope                                                                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `/etc/my.cnf`          | Global                                                                                                                            |
+| `/etc/mysql/my.cnf`    | Global                                                                                                                            |
+| `$MARIADB_HOME/my.cnf` | Server (from MariaDB 10.6)                                                                                                        |
+| `$MYSQL_HOME/my.cnf`   | Server (before MariaDB 10.6)                                                                                                      |
 | `defaults-extra-file`  | File specified with [--defaults-extra-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-extra-file), if any |
-| `~/.my.cnf`            | User                                                                                                                             |
+| `~/.my.cnf`            | User                                                                                                                              |
 
 * If the `DEFAULT_SYSCONFDIR` `cmake` option is **defined**, MariaDB looks for the MariaDB option file in the following locations in the following order:
 
-| Location                    | Scope                                                                                                                            |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `DEFAULT_SYSCONFDIR/my.cnf` | Global                                                                                                                           |
-| `$MARIADB_HOME/my.cnf`      | Server (from MariaDB 10.6)                                                                                                       |
-| `$MYSQL_HOME/my.cnf`        | Server (before MariaDB 10.6)                                                                                                     |
+| Location                    | Scope                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `DEFAULT_SYSCONFDIR/my.cnf` | Global                                                                                                                            |
+| `$MARIADB_HOME/my.cnf`      | Server (from MariaDB 10.6)                                                                                                        |
+| `$MYSQL_HOME/my.cnf`        | Server (before MariaDB 10.6)                                                                                                      |
 | `defaults-extra-file`       | File specified with [--defaults-extra-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-extra-file), if any |
-| `~/.my.cnf`                 | User                                                                                                                             |
+| `~/.my.cnf`                 | User                                                                                                                              |
 
 * `MARIADB_HOME` or `MYSQL_HOME` is the [environment variable](mariadb-environment-variables.md) containing the path to the directory holding the server-specific `my.cnf` file. If `MYSQL_HOME` is not set, and the server is started with [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md), `MYSQL_HOME` is set as follows:
   * If there is a `my.cnf` file in the MariaDB data directory, but not in the MariaDB base directory, `MYSQL_HOME` is set to the MariaDB data directory.
@@ -92,22 +92,22 @@ On Windows, the option file can be called either `my.ini` or `my.cnf`. Depending
 \
 MariaDB looks for option files in the following locations, and in the following order:
 
-| Location                        | Scope                                                                                                                            |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| System Windows Directory\my.ini | Global                                                                                                                           |
-| System Windows Directory\my.cnf | Global                                                                                                                           |
-| Windows Directory\my.ini        | Global                                                                                                                           |
-| Windows Directory\my.cnf        | Global                                                                                                                           |
-| `c:\my.ini`                     | Global                                                                                                                           |
-| `c:\my.cnf`                     | Global                                                                                                                           |
-| `installdir\my.ini`             | Server                                                                                                                           |
-| `installdir\my.cnf`             | Server                                                                                                                           |
-| `installdir\data\my.ini`        | Server                                                                                                                           |
-| `installdir\data\my.cnf`        | Server                                                                                                                           |
-| `%mariadb_home%\my.ini`         | Server (from MariaDB 10.6)                                                                                                       |
-| `%mariadb_home%\my.cnf`         | Server (from MariaDB 10.6)                                                                                                       |
-| `%mysql_home%\my.ini`           | Server                                                                                                                           |
-| `%mysql_home%\my.cnf`           | Server                                                                                                                           |
+| Location                        | Scope                                                                                                                             |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| System Windows Directory\my.ini | Global                                                                                                                            |
+| System Windows Directory\my.cnf | Global                                                                                                                            |
+| Windows Directory\my.ini        | Global                                                                                                                            |
+| Windows Directory\my.cnf        | Global                                                                                                                            |
+| `c:\my.ini`                     | Global                                                                                                                            |
+| `c:\my.cnf`                     | Global                                                                                                                            |
+| `installdir\my.ini`             | Server                                                                                                                            |
+| `installdir\my.cnf`             | Server                                                                                                                            |
+| `installdir\data\my.ini`        | Server                                                                                                                            |
+| `installdir\data\my.cnf`        | Server                                                                                                                            |
+| `%mariadb_home%\my.ini`         | Server (from MariaDB 10.6)                                                                                                        |
+| `%mariadb_home%\my.cnf`         | Server (from MariaDB 10.6)                                                                                                        |
+| `%mysql_home%\my.ini`           | Server                                                                                                                            |
+| `%mysql_home%\my.cnf`           | Server                                                                                                                            |
 | `defaults-extra-file`           | File specified with [--defaults-extra-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-extra-file), if any |
 
 * The `System Windows Directory` is the directory returned by the [GetSystemWindowsDirectory](https://docs.microsoft.com/en-us/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya) function. The value is usually `C:\Windows`. To find its specific value on your system, open [cmd.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) and execute:
@@ -126,7 +126,7 @@ Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 
 ### MariaDB Enterprise Server Option File Locations
 
-MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
+MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
 
 ```
 /etc/my.cnf.d/mariadb-enterprise.cnf
@@ -152,8 +152,8 @@ If [--log-basename](../../starting-and-stopping-mariadb/mariadbd-options.md#log-
 
 MariaDB can be configured to read options from custom options files with the following command-line arguments. These command-line arguments can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). They must be given as the first argument on the command line:
 
-| Option                                                                                                     | Description                                                        |
-| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Option                                                                                                      | Description                                                        |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | [--defaults-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-file) =path             | Only read options from the given option file.                      |
 | [--defaults-extra-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-extra-file) =path | Read this extra option file after all other option files are read. |
 
@@ -233,30 +233,30 @@ Many MariaDB tools reads options from their own option groups as well:
 
 | Group              | Description                                                                                                                                                                                                                                                       |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysqld\_safe]    | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md), including both MariaDB Server and MySQL Server.                                                                                                                             |
-| \[safe\_mysqld]    | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md), including both MariaDB Server and MySQL Server.                                                                                                                             |
-| \[mariadbd-safe]   | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) from MariaDB Server.                                                                                                                                                         |
-| \[mariadb\_safe]   | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) from MariaDB Server. Deprecated, please avoid using this.                                                                                                                    |
+| \[mysqld\_safe]    | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md), including both MariaDB Server and MySQL Server.                                                                                                     |
+| \[safe\_mysqld]    | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md), including both MariaDB Server and MySQL Server.                                                                                                     |
+| \[mariadbd-safe]   | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) from MariaDB Server.                                                                                                                                 |
+| \[mariadb\_safe]   | Options read by [mysqld\_safe](../../starting-and-stopping-mariadb/mariadbd-safe.md) from MariaDB Server. Deprecated, please avoid using this.                                                                                            |
 | \[mariadb-backup]  | Options read by [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/).                                                                                                                                                                       |
 | \[xtrabackup]      | Options read by [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/) and Percona XtraBackup.                                                                                                                                                |
-| \[mysql\_upgrade]  | Options read by [mysql\_upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md), including both MariaDB Server and MySQL Server.                                                                                                             |
+| \[mysql\_upgrade]  | Options read by [mysql\_upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md), including both MariaDB Server and MySQL Server.                                                                                                   |
 | \[mariadb-upgrade] | Options read by [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md).                                                                                                                                                            |
 | \[sst]             | Specific options read by the [mariadb-backup SST method](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method) and the xtrabackup-v2 SST method.                            |
 | \[mysql]           | Options read by [mysql](../../../clients-and-utilities/mariadb-client/), including both MariaDB Server and MySQL Server.                                                                                                                                          |
 | \[mariadb-client]  | Options read by [mariadb](../../../clients-and-utilities/mariadb-client/).                                                                                                                                                                                        |
-| \[mysqldump]       | Options read by [mysqldump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md), including both MariaDB Server and MySQL Server.                                                                                                    |
+| \[mysqldump]       | Options read by [mysqldump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md), including both MariaDB Server and MySQL Server.                                                                                                            |
 | \[mariadb-dump]    | Options read by [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md).                                                                                                                                                 |
-| \[mysqlimport]     | Options read by [mysqlimport](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md), including both MariaDB Server and MySQL Server.                                                                                                |
+| \[mysqlimport]     | Options read by [mysqlimport](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md), including both MariaDB Server and MySQL Server.                                                                                                        |
 | \[mariadb-import]  | Options read by [mariadb-import](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md).                                                                                                                                             |
 | \[mysqlbinlog]     | Options read by [mysqlbinlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/), including both MariaDB Server and MySQL Server.                                                                                                                      |
 | \[mariadb-binlog]  | Options read by [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/).                                                                                                                                                                   |
-| \[mysqladmin]      | Options read by [mysqladmin](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), including both MariaDB Server and MySQL Server.                                                                                                               |
+| \[mysqladmin]      | Options read by [mysqladmin](../../../clients-and-utilities/administrative-tools/mariadb-admin.md), including both MariaDB Server and MySQL Server.                                                                                                          |
 | \[mariadb-admin]   | Options read by [mariadb-admin](../../../clients-and-utilities/administrative-tools/mariadb-admin.md).                                                                                                                                                            |
-| \[mysqlshow]       | Options read by [mysqlshow](../../../clients-and-utilities/administrative-tools/mariadb-show.md), including both MariaDB Server and MySQL Server.                                                                                                                 |
+| \[mysqlshow]       | Options read by [mysqlshow](../../../clients-and-utilities/administrative-tools/mariadb-show.md), including both MariaDB Server and MySQL Server.                                                                                                            |
 | \[mariadb-show]    | Options read by [mariadb-show](../../../clients-and-utilities/administrative-tools/mariadb-show.md). Note that this program reads `[client]` group options, too.                                                                                                  |
 | \[mysqlcheck]      | Options read by [mariadb-check](../../../clients-and-utilities/table-tools/mariadb-check.md), including both MariaDB Server and MySQL Server.                                                                                                                     |
 | \[mariadb-check]   | Options read by [mariadb-check](../../../clients-and-utilities/table-tools/mariadb-check.md).                                                                                                                                                                     |
-| \[mysqlslap]       | Options read by [mysqlslap](../../../clients-and-utilities/testing-tools/mariadb-slap.md), including both MariaDB Server and MySQL Server.                                                                                                                        |
+| \[mysqlslap]       | Options read by [mysqlslap](../../../clients-and-utilities/testing-tools/mariadb-slap.md), including both MariaDB Server and MySQL Server.                                                                                                            |
 | \[mariadb-slap]    | Options read by [mariadb-slap](../../../clients-and-utilities/testing-tools/mariadb-slap.md).                                                                                                                                                                     |
 | \[odbc]            | Options read by [MariaDB Connector/ODBC](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc), but only if the [USE\_MYCNF](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/connector-odbc-guide) parameter is set. |
 
@@ -264,8 +264,8 @@ Many MariaDB tools reads options from their own option groups as well:
 
 MariaDB can be configured to read options from option groups with a custom suffix by providing the following command-line argument. This command-line argument can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd.md). It must be given as the first argument on the command line:
 
-| Option                                                                                                           | Description                                                                              |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Option                                                                                                            | Description                                                                              |
+| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | [--defaults-group-suffix](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-group-suffix) =suffix | In addition to the default option groups, also read option groups with the given suffix. |
 
 The default group suffix can also be specified via the `MYSQL_GROUP_SUFFIX` [environment variable](mariadb-environment-variables.md).
@@ -329,8 +329,8 @@ If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool
 
 You can check which options a given program is going to use by using the [--print-defaults](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-file) command-line argument:
 
-| Option                                                                                     | Description                                                                         |
-| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| Option                                                                                      | Description                                                                         |
+| ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [--print-defaults](../../starting-and-stopping-mariadb/mariadbd-options.md#print-defaults) | Read options from option files, print all option values, and then exit the program. |
 
 This command-line argument can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). It must be given as the first argument on the command-line:
@@ -404,8 +404,8 @@ MariaDB and MariaDB Enterprise Server do not support this feature. The passwords
 
 MariaDB supports certain prefixes that can be used with options. The supported option prefixes are:
 
-| Option Prefix                                                              | Description                                                                                     |
-| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Option Prefix                                                                | Description                                                                                     |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | [autoset](../../starting-and-stopping-mariadb/mariadbd-options.md#autoset) | Sets the option value automatically. Only supported for certain options.                        |
 | [disable](../../starting-and-stopping-mariadb/mariadbd-options.md#disable) | For all boolean options, disables the setting (equivalent to setting it to 0). Same as skip.    |
 | [enable](../../starting-and-stopping-mariadb/mariadbd-options.md#enable)   | For all boolean options, enables the setting (equivalent to setting it to 1).                   |
@@ -581,7 +581,7 @@ loose-abort-source-on-error
 
 * [Configuring MariaDB Connector/C with Option Files](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/configuring-mariadb-connectorc-with-option-files)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
-* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/)
+* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit/README.md)
 * [Information\_schema.SYSTEM\_VARIABLES Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md)
 * [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md)
 

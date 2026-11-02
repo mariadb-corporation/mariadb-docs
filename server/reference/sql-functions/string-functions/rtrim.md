@@ -16,7 +16,7 @@ RTRIM(str)
 
 Returns the string `str` with trailing space characters removed.
 
-Returns NULL if given a NULL argument. If the result is empty, returns either an empty string, or, with [SQL\_MODE=Oracle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle), `NULL`.
+Returns NULL if given a NULL argument. If the result is empty, returns either an empty string, or, with [SQL\_MODE=Oracle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `NULL`.
 
 The Oracle mode version of the function can be accessed outside of Oracle mode by using `RTRIM_ORACLE` as the function name.
 

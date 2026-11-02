@@ -21,9 +21,9 @@ thread_type: IO_THREAD | SQL_THREAD
 
 ![Railroad diagram of START REPLICA — equivalent to the BNF above](../../../../.gitbook/assets/start-replica-railroad.svg)
 
-![Railroad diagram of until\_clause](../../../../.gitbook/assets/start-replica-until-clause-railroad.svg)
+![Railroad diagram of until_clause](../../../../.gitbook/assets/start-replica-until-clause-railroad.svg)
 
-![Railroad diagram of thread\_type](../../../../.gitbook/assets/stop-replica-thread-type-railroad.svg)
+![Railroad diagram of thread_type](../../../../.gitbook/assets/start-replica-thread-type-railroad.svg)
 
 ## Description
 
@@ -39,9 +39,9 @@ If `START SLAVE` succeeds in starting the replica threads, it returns without an
 
 `START SLAVE UNTIL` refers to the `SQL_THREAD` replication position at which the `SQL_THREAD` replication will halt. If `SQL_THREAD` isn't specified, both threads are started.
 
-`START SLAVE UNTIL master_gtid_pos=xxx` is also supported. See [Global Transaction ID/START REPLICA UNTIL master\_gtid\_pos=xxx](../../../../ha-and-performance/standard-replication/gtid/) for more details.
+`START SLAVE UNTIL master_gtid_pos=xxx` is also supported. See [Global Transaction ID/START REPLICA UNTIL master\_gtid\_pos=xxx](../../../../ha-and-performance/standard-replication/gtid/README.md) for more details.
 
-**MariaDB starting with** [**11.3.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3.0-release-notes)
+**MariaDB starting with** [**11.3.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 {% tabs %}
 {% tab title="Current" %}

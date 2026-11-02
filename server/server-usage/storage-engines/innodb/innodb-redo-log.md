@@ -65,7 +65,7 @@ When both [innodb\_flush\_log\_at\_trx\_commit=1](innodb-system-variables.md#inn
 
 ## Redo Log Capacity
 
-There is one redo log file, so the capacity of the redo log follows from [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) alone. The first 12288 bytes of the file hold the header and the two checkpoint blocks (see [Redo Log File Format](innodb-redo-log.md#redo-log-file-format)) and cannot hold log records, and InnoDB reserves a further 10% of the remainder as a safety margin. The capacity available for log records is therefore:
+There is one redo log file, so the capacity of the redo log follows from [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) alone. The first 12288 bytes of the file hold the header and the two checkpoint blocks (see [Redo Log File Format](#redo-log-file-format)) and cannot hold log records, and InnoDB reserves a further 10% of the remainder as a safety margin. The capacity available for log records is therefore:
 
 `log capacity` = ([innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) - 12288) \* 0.9
 
@@ -91,18 +91,18 @@ Recovery still completes; it is only slower. Size [innodb\_buffer\_pool\_size](i
 
 ### Changing the Redo Log Capacity
 
-From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.9-series/mariadb-10.9-changes-and-improvements), [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) is dynamic, and the redo log can be resized without restarting the server:
+From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) is dynamic, and the redo log can be resized without restarting the server:
 
 ```sql
 SET GLOBAL innodb_log_file_size=(2 * 1024 * 1024 * 1024);
 ```
 
-The resize is performed asynchronously in the background, by writing a new `ib_logfile101` and renaming it over `ib_logfile0`. Set [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) in a configuration file as well, so that the new size survives a restart. Before [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.9-series/mariadb-10.9-changes-and-improvements), the size could only be changed in a configuration file and took effect on the next restart.
+The resize is performed asynchronously in the background, by writing a new `ib_logfile101` and renaming it over `ib_logfile0`. Set [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) in a configuration file as well, so that the new size survives a restart. Before [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), the size could only be changed in a configuration file and took effect on the next restart.
 
 For the full procedure, see [Configure the InnoDB Redo Log](mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log.md).
 
 {% hint style="danger" %}
-Do not delete `ib_logfile0` to resize the redo log. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes), the server refuses to start when the file is missing. See [Redo Log File Requirements](innodb-redo-log.md#redo-log-file-requirements).
+Do not delete `ib_logfile0` to resize the redo log. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), the server refuses to start when the file is missing. See [Redo Log File Requirements](#redo-log-file-requirements).
 {% endhint %}
 
 ## Log Sequence Number (LSN)
@@ -172,37 +172,37 @@ If the calculated value for redo log occupancy is too close to `1.0`, then the I
 
 ## Redo Log File Format
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
 
-[MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) replaced the InnoDB redo log format in [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes) to reduce write amplification and to remove a scalability bottleneck.
+[MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425) replaced the InnoDB redo log format in [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) to reduce write amplification and to remove a scalability bottleneck.
 
 Before the change, the log was written in fixed 512-byte blocks, each carrying a 12-byte header and a 4-byte footer — 12 and 8 bytes respectively with [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log). Zero-filling, encrypting, and checksumming those blocks all happened while holding the global log mutex, which serialized commits. The current format has no block framing at all, so a transaction's log records are encrypted and checksummed in a thread-local buffer before the mutex is taken; the mutex then only covers a `memcpy()` into the shared log buffer.
 
-The format is not backward compatible: [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements) and earlier cannot read it. See [Upgrading Across the Format Change](innodb-redo-log.md#upgrading-across-the-format-change) and [Downgrading Between Major Versions of MariaDB](../../../server-management/install-and-upgrade-mariadb/downgrading-between-major-versions-of-mariadb.md).
+The format is not backward compatible: [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107) and earlier cannot read it. See [Upgrading Across the Format Change](#upgrading-across-the-format-change) and [Downgrading Between Major Versions of MariaDB](../../../server-management/install-and-upgrade-mariadb/downgrading-between-major-versions-of-mariadb.md).
 
 ### File Layout
 
 `ib_logfile0` opens with a fixed 12288-byte (`0x3000`) area, followed by the circular region that holds the log records:
 
-| Offset   | Size           | Contents                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| -------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0x0000` | 4096 bytes     | File header. The format identifier occupies the first 4 bytes, the LSN at which the file starts occupies 8 bytes at offset 8, and a creator string identifying what wrote the file (`MariaDB <version>`, or `Backup <version>` for a file written by [mariadb-backup](../../backup-and-restore/mariadb-backup/)) runs from offset 16 to 48. For an encrypted log, encryption information follows from offset 48. A CRC-32C of the first 508 bytes is stored at offset 508. |
-| `0x1000` | 64 bytes       | First checkpoint block.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `0x2000` | 64 bytes       | Second checkpoint block.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `0x3000` | To end of file | Log records, written circularly.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Offset   | Size             | Contents                                                                                                                                                                                                                                                                                                                       |
+| -------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `0x0000` | 4096 bytes       | File header. The format identifier occupies the first 4 bytes, the LSN at which the file starts occupies 8 bytes at offset 8, and a creator string identifying what wrote the file (`MariaDB <version>`, or `Backup <version>` for a file written by [mariadb-backup](../../backup-and-restore/mariadb-backup/)) runs from offset 16 to 48. For an encrypted log, encryption information follows from offset 48. A CRC-32C of the first 508 bytes is stored at offset 508. |
+| `0x1000` | 64 bytes         | First checkpoint block.                                                                                                                                                                                                                                                                                                        |
+| `0x2000` | 64 bytes         | Second checkpoint block.                                                                                                                                                                                                                                                                                                       |
+| `0x3000` | To end of file   | Log records, written circularly.                                                                                                                                                                                                                                                                                               |
 
 A checkpoint block holds the checkpoint LSN (8 bytes), the LSN at which the log ended when the checkpoint was written (8 bytes), zero padding, and a CRC-32C of the preceding 60 bytes. InnoDB alternates between the two blocks, so a checkpoint write never overwrites the last known-good one. On startup, InnoDB reads both and uses whichever holds the higher valid checkpoint LSN.
 
-Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes), the two checkpoint blocks were 512 bytes each, at offsets `0x200` and `0x600`, and log records started at `0x800`. Moving them to 4096-byte boundaries allows InnoDB to use 4096-byte aligned I/O throughout the file, which matters on storage with a 4096-byte physical block size.
+Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), the two checkpoint blocks were 512 bytes each, at offsets `0x200` and `0x600`, and log records started at `0x800`. Moving them to 4096-byte boundaries allows InnoDB to use 4096-byte aligned I/O throughout the file, which matters on storage with a 4096-byte physical block size.
 
 ### Mini-Transaction Framing
 
-Every change InnoDB makes to a page happens inside a mini-transaction. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes), each mini-transaction is its own variable-length unit in the log, and effectively takes the place of the old fixed-size log block. Each one ends with:
+Every change InnoDB makes to a page happens inside a mini-transaction. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), each mini-transaction is its own variable-length unit in the log, and effectively takes the place of the old fixed-size log block. Each one ends with:
 
 * One byte holding a sequence bit, which is toggled every time writing wraps back around to offset `0x3000`. Crash recovery and [mariadb-backup](../../backup-and-restore/mariadb-backup/) use it to find where the circular log logically ends.
 * A CRC-32C checksum covering the mini-transaction, excluding the sequence bit.
 
-With [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log), 8 bytes of initialization vector sit between the sequence bit and the checksum and are covered by it. What else is encrypted depends on the format identifier (see [Format Identifiers](innodb-redo-log.md#format-identifiers)):
+With [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log), 8 bytes of initialization vector sit between the sequence bit and the checksum and are covered by it. What else is encrypted depends on the format identifier (see [Format Identifiers](#format-identifiers)):
 
 * In the original encrypted subformat of the 10.8 format, identifier `0xd0687973`, file names, page identifiers, and checkpoint information are not encrypted. Only the page-level payload is, with the tablespace ID and page number forming part of the initialization vector. A new encryption context is set up for every snippet of record payload, which made encrypted logging much slower than unencrypted logging.
 * In the current encrypted format, identifier `0xf09f979d`, everything except the type and length of each log record is encrypted, including page identifiers and `FILE_` records. The initialization vector consists of the 8 bytes stored before the checksum plus the type and length of the first record of the mini-transaction, and page identifiers are no longer part of it. Crash recovery and `mariadb-backup --backup` decrypt each mini-transaction to parse it, so both need access to the encryption keys.
@@ -213,20 +213,20 @@ InnoDB does not pad the log to a block boundary. When a write ends partway throu
 
 The first 4 bytes of `ib_logfile0` identify the format, as a big-endian unsigned integer:
 
-| Value        | Format                                                                                          |
-| ------------ | ----------------------------------------------------------------------------------------------- |
-| `0x00000000` | MariaDB 10.2.1 and earlier (the original, untagged InnoDB format)                               |
-| `0x00000001` | MySQL 5.7.9 / MariaDB 10.2.2                                                                    |
-| `0x00000067` | MariaDB 10.3.2                                                                                  |
-| `0x00000068` | MariaDB 10.4.0                                                                                  |
-| `0x50485953` | MariaDB 10.5.1, the physical redo log format                                                    |
-| `0x50687973` | MariaDB 10.8.1, the current format for unencrypted logs                                         |
+| Value        | Format                                                                 |
+| ------------ | ---------------------------------------------------------------------- |
+| `0x00000000` | MariaDB 10.2.1 and earlier (the original, untagged InnoDB format)      |
+| `0x00000001` | MySQL 5.7.9 / MariaDB 10.2.2                                           |
+| `0x00000067` | MariaDB 10.3.2                                                         |
+| `0x00000068` | MariaDB 10.4.0                                                         |
+| `0x50485953` | MariaDB 10.5.1, the physical redo log format                           |
+| `0x50687973` | MariaDB 10.8.1, the current format for unencrypted logs                |
 | `0xd0687973` | MariaDB 10.8.1, encrypted logs (read, but no longer written, from the versions in the next row) |
-| `0xf09f979d` | MariaDB 10.11.15, 11.4.9, 11.8.4, 12.1.2 and later, encrypted logs only                         |
+| `0xf09f979d` | MariaDB 10.11.15, 11.4.9, 11.8.4, 12.1.2 and later, encrypted logs only |
 
 In the 10.4, 10.5, and 10.8 formats, an encrypted log has the high bit of the identifier set: `0x80000068`, `0xd0485953`, and `0xd0687973` respectively. The `0xf09f979d` identifier also has the high bit set.
 
-[MDEV-36024](https://jira.mariadb.org/browse/MDEV-36024) then redesigned [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log) to recover a performance regression, giving encrypted logs their own format identifier, `0xf09f979d`, from [MariaDB 10.11.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.15-release-notes), [MariaDB 11.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4.9-release-notes), [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.8-series/mariadb-11.8.4-release-notes) and MariaDB 12.1.2. Those versions still read an encrypted log in the 10.8 format, but with `innodb_encrypt_log=ON` they write only the new format. A log written with [innodb\_encrypt\_log=OFF](innodb-system-variables.md#innodb_encrypt_log) is unaffected.
+[MDEV-36024](https://jira.mariadb.org/browse/MDEV-36024) then redesigned [innodb\_encrypt\_log=ON](innodb-system-variables.md#innodb_encrypt_log) to recover a performance regression, giving encrypted logs their own format identifier, `0xf09f979d`, from [MariaDB 10.11.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.15), [MariaDB 11.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.9), [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.4) and MariaDB 12.1.2. Those versions still read an encrypted log in the 10.8 format, but with `innodb_encrypt_log=ON` they write only the new format. A log written with [innodb\_encrypt\_log=OFF](innodb-system-variables.md#innodb_encrypt_log) is unaffected.
 
 {% hint style="warning" %}
 Earlier releases can't read the `0xf09f979d` format, and no conversion back to the old encrypted format exists. To downgrade to a release before those versions, first restart the server with `innodb_encrypt_log=OFF`, so that the redo log is rebuilt unencrypted, and shut it down cleanly.
@@ -240,19 +240,19 @@ The smallest valid `ib_logfile0` is 12304 bytes (`0x3010`) — the 12288-byte fi
 [ERROR] InnoDB: File ./ib_logfile0 is too small
 ```
 
-This is also the size of the logically empty `ib_logfile0` that [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare) leaves in the prepared backup directory. Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes), that placeholder was a zero-length file.
+This is also the size of the logically empty `ib_logfile0` that [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare) leaves in the prepared backup directory. Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), that placeholder was a zero-length file.
 
 ## Redo Log File Requirements
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
 
-From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes) ([MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199)), InnoDB requires `ib_logfile0` to exist and to be valid in order to start. It no longer creates a replacement when the file is missing.
+From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) ([MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199)), InnoDB requires `ib_logfile0` to exist and to be valid in order to start. It no longer creates a replacement when the file is missing.
 
 The reason is data safety. To make an automatic re-creation possible, earlier versions wrote the shutdown LSN to the `FIL_PAGE_FILE_FLUSH_LSN` field of the first page of the system tablespace, bypassing both the redo log and the doublewrite buffer. A server killed during that write could leave the first page of the system tablespace corrupted and the server unable to start at all. Because the log is no longer re-created automatically, that field is no longer written.
 
 The practical consequences:
 
-* Deleting `ib_logfile0` — a common way to resize the redo log on older versions — now makes the server fail to start, rather than silently discarding the log. Use `SET GLOBAL innodb_log_file_size` instead; see [Changing the Redo Log Capacity](innodb-redo-log.md#changing-the-redo-log-capacity).
+* Deleting `ib_logfile0` — a common way to resize the redo log on older versions — now makes the server fail to start, rather than silently discarding the log. Use `SET GLOBAL innodb_log_file_size` instead; see [Changing the Redo Log Capacity](#changing-the-redo-log-capacity).
 * [mariadb-backup](../../backup-and-restore/mariadb-backup/) and the Galera state snapshot transfer scripts no longer delete `ib_logfile0` or leave a zero-length one behind.
 * Additional `ib_logfileN` files alongside a 10.8-format `ib_logfile0` are an error:
 
@@ -261,7 +261,7 @@ The practical consequences:
 ```
 
 {% hint style="warning" %}
-Creating a zero-length `ib_logfile0` by hand is not a way to discard the log. If the log is discarded while changes have already been written to data pages, any kind of corruption may follow, and errors such as "page LSN is in the future" are a typical symptom. A database initialized by [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes) or later refuses such a startup, because `FIL_PAGE_FILE_FLUSH_LSN` was never written and so holds no valid LSN. If an older server did once write a valid LSN to that field, this safety check cannot help, and the server may rewind to an earlier LSN.
+Creating a zero-length `ib_logfile0` by hand is not a way to discard the log. If the log is discarded while changes have already been written to data pages, any kind of corruption may follow, and errors such as "page LSN is in the future" are a typical symptom. A database initialized by [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) or later refuses such a startup, because `FIL_PAGE_FILE_FLUSH_LSN` was never written and so holds no valid LSN. If an older server did once write a valid LSN to that field, this safety check cannot help, and the server may rewind to an earlier LSN.
 {% endhint %}
 
 ### Reading a Database Without a Valid Redo Log
@@ -270,7 +270,7 @@ Creating a zero-length `ib_logfile0` by hand is not a way to discard the log. If
 
 ## Upgrading Across the Format Change
 
-[MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes) and later read the redo log formats of [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.2-series/mariadb-10.2.2-release-notes) through [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements), but only when the log is logically empty — that is, after a clean shutdown. On the first startup the old log is replaced with a new one in the current format, written as `ib_logfile101` and renamed over `ib_logfile0`.
+[MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) and later read the redo log formats of [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) through [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), but only when the log is logically empty — that is, after a clean shutdown. On the first startup the old log is replaced with a new one in the current format, written as `ib_logfile101` and renamed over `ib_logfile0`.
 
 Shut the old server down cleanly before upgrading. Upgrading on a log left dirty by a crash is not supported, and fails with:
 
@@ -280,7 +280,7 @@ The redo log was created with MariaDB 10.6.23.
 You must start up and shut down MariaDB 10.7 or earlier.
 ```
 
-The same applies to [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare), which reports that the prepare is not possible and that a `mariadb-backup` of 10.7 or earlier must be used. For the pre-[10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.5-series/mariadb-10.5-changes-and-improvements) log formats, the version named in the message is 10.4 or earlier instead.
+The same applies to [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare), which reports that the prepare is not possible and that a `mariadb-backup` of 10.7 or earlier must be used. For the pre-[10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) log formats, the version named in the message is 10.4 or earlier instead.
 
 A log in a format the server does not recognize — including one written by a newer release — is refused outright:
 
@@ -293,13 +293,13 @@ The log is also rebuilt at startup, in the same way, when [innodb\_log\_file\_si
 
 ## Parameters and Counters Removed in MariaDB 10.8
 
-With the block structure gone, the following were removed in [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8.1-release-notes):
+With the block structure gone, the following were removed in [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1):
 
-| Removed                                                                                                                                                                                                                                                                                                           | Notes                                                                                                                                                                                                                                                                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [innodb\_log\_write\_ahead\_size](innodb-system-variables.md#innodb_log_write_ahead_size)                                                                                                                                                                                                                         | Reintroduced in [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11.9-release-notes) and later series ([MDEV-33894](https://jira.mariadb.org/browse/MDEV-33894)). While it was absent, InnoDB detected the physical block size of the underlying storage on Linux and Windows and used that. |
-| [Innodb\_os\_log\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_os_log_fsyncs), [Innodb\_os\_log\_pending\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_os_log_pending_fsyncs) | Redo log fsyncs are counted by [Innodb\_data\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_data_fsyncs). The pending count was limited to at most 1 by design.                                                                                                                                                          |
-| `os_log_fsyncs`, `os_log_pending_fsyncs`, `log_pending_log_flushes`, `log_pending_checkpoint_writes`, `log_padded`                                                                                                                                                                                                | [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) counters.                                                                                                                                                                                |
+| Removed                                                                                                                                                                                                                                                                            | Notes                                                                                                                                                                                                                                                                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [innodb\_log\_write\_ahead\_size](innodb-system-variables.md#innodb_log_write_ahead_size)                                                                                                                                                                                          | Reintroduced in [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9) and later series ([MDEV-33894](https://jira.mariadb.org/browse/MDEV-33894)). While it was absent, InnoDB detected the physical block size of the underlying storage on Linux and Windows and used that.                                     |
+| [Innodb\_os\_log\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_os_log_fsyncs), [Innodb\_os\_log\_pending\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_os_log_pending_fsyncs) | Redo log fsyncs are counted by [Innodb\_data\_fsyncs](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_data_fsyncs). The pending count was limited to at most 1 by design.                                                                                                                             |
+| `os_log_fsyncs`, `os_log_pending_fsyncs`, `log_pending_log_flushes`, `log_pending_checkpoint_writes`, `log_padded`                                                                                                                                                                  | [INFORMATION\_SCHEMA.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) counters.                                                                                                                                                    |
 
 The minimum value of [innodb\_log\_buffer\_size](innodb-system-variables.md#innodb_log_buffer_size) was also raised to 2 MiB.
 

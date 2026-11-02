@@ -27,6 +27,8 @@ Outlines strict quality standards for new features, including requirements for d
 {% content-ref url="uploading-package-to-ppa.md" %}
 [uploading-package-to-ppa.md](uploading-package-to-ppa.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -36,9 +38,11 @@ Provides instructions for developers to upload MariaDB source packages to a Pers
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-fault-finding/" %}
-[mariadb-fault-finding](mariadb-fault-finding/)
+{% content-ref url="server-development/mariadb-fault-finding/" %}
+[mariadb-fault-finding](server-development/mariadb-fault-finding/)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -51,6 +55,8 @@ Offers deep-dive technical guides for diagnosing server issues, including trace 
 {% content-ref url="plugin-development/" %}
 [plugin-development](plugin-development/)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -63,6 +69,8 @@ Details the APIs and processes for extending MariaDB functionality through custo
 {% content-ref url="server-development/" %}
 [server-development](server-development/)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -75,6 +83,8 @@ Covers foundational engineering topics, including the server roadmap, GitHub col
 {% content-ref url="mariadb-internals/" %}
 [mariadb-internals](mariadb-internals/)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}

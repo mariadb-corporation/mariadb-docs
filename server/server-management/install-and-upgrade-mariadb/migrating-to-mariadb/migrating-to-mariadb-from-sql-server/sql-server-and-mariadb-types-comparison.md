@@ -1,7 +1,7 @@
 ---
 description: >-
-  A reference guide mapping SQL Server data types (e.g., money, bit) to their
-  MariaDB equivalents, highlighting differences in precision and storage.
+  A reference guide mapping SQL Server data types (e.g., money, bit) to
+  their MariaDB equivalents, highlighting differences in precision and storage.
 ---
 
 # SQL Server and MariaDB Types Comparison
@@ -81,7 +81,8 @@ The [BIT](../../../../reference/data-types/numeric-data-types/bit.md) type is su
 In MariaDB, binary values can be written in one of the following ways:
 
 * `b'value'`
-* `0value` where `value` is a sequence of 0 and 1 digits. Hexadecimal syntax can also be used. For more details, see [Binary Literals](../../../../reference/sql-structure/sql-language-structure/binary-literals.md) and [Hexadecimal Literals](../../../../reference/sql-structure/sql-language-structure/hexadecimal-literals.md).
+* `0value`
+  where `value` is a sequence of 0 and 1 digits. Hexadecimal syntax can also be used. For more details, see [Binary Literals](../../../../reference/sql-structure/sql-language-structure/binary-literals.md) and [Hexadecimal Literals](../../../../reference/sql-structure/sql-language-structure/hexadecimal-literals.md).
 
 MariaDB and SQL Server have different sets of bitwise operators. See [Bit Functions and Operators](../../../../reference/sql-functions/secondary-functions/bit-functions-and-operators/).
 
@@ -188,7 +189,7 @@ While MariaDB does not support the `uniqueidentifier` type, the [UUID](../../../
 
 `uniqueidentifier` columns contain 16-bit GUIDs. MariaDB UUID columns store UUIDv1 values (128 bits).
 
-The UUID type was implemented in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7-changes-and-improvements). On older versions, you can generate unique values with the [UUID()](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid.md) or [UUID\_SHORT()](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) functions, and store them in `BIT(128)` or `BIT(64)` columns, respectively.
+The UUID type was implemented in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107). On older versions, you can generate unique values with the [UUID()](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid.md) or [UUID\_SHORT()](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md) functions, and store them in `BIT(128)` or `BIT(64)` columns, respectively.
 
 ### xml
 

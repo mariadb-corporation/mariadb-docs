@@ -1,8 +1,8 @@
 ---
 description: >-
   Configuration reference for the official MariaDB Enterprise container images —
-  environment variables, command-line flags, and sidecar patterns for production
-  deployments.
+  environment variables, command-line flags, and sidecar patterns for
+  production deployments.
 ---
 
 # MariaDB Enterprise Container Image Configuration Reference
@@ -28,7 +28,7 @@ MariaDB Enterprise Server containers are primarily configured using [environment
 ## MariaDB Prometheus Exporter
 
 {% hint style="warning" %}
-**Configuration Methodology**\
+**Configuration Methodology** \
 For optimal security and management, exporter configuration is executed via command-line flags or configuration files. Environment variables are utilized strictly for sensitive data, ensuring credentials remain protected from exposure in configuration logs.
 {% endhint %}
 
@@ -55,7 +55,7 @@ GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'localhost';
 ## MaxScale Prometheus Exporter
 
 {% hint style="warning" %}
-**Configuration Methodology**\
+**Configuration Methodology** \
 For optimal security and management, exporter configuration is executed via command-line flags or configuration files. Environment variables are utilized strictly for sensitive data, ensuring credentials remain protected from exposure in configuration logs.
 {% endhint %}
 
@@ -76,7 +76,7 @@ Configuration options follow a hierarchy where environment variables override co
 
 ## MariaDB Enterprise nslcd Sidecar
 
-The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise-tools/mariadb-enterprise-kubernetes-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
+The [nslcd](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/plugins/pam#nslcd.conf) sidecar is utilized for integrating MariaDB with LDAP or Active Directory authentication through the Pluggable Authentication Module (PAM) framework.
 
 ### Configuration Requirements
 

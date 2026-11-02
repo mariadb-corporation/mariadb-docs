@@ -134,7 +134,7 @@ You **cannot** optionally specify a list of column names in parenthesis.
 {% endtab %}
 {% endtabs %}
 
-See also [Correlation Column List](../subqueries/subqueries-in-a-from-clause-derived-tables.md#correlation-column-list).
+See also [Correlation Column List](../joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables.md#correlation-column-list).
 
 ### System-Versioned Tabled
 
@@ -152,7 +152,7 @@ This feature is available from MariaDB 12.1.
 
 #### Overview
 
-When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is active, the Oracle-style `(+)` syntax can be used. For example, the following two queries are identical:
+When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, the Oracle-style `(+)`  syntax can be used. For example, the following two queries are identical:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;
@@ -207,7 +207,7 @@ Example of a single subexpression within a `WHERE` clause:
 ... WHERE t1.a = t2.a(+)
 ```
 
-Example of two subexpressions within a `WHERE` clause – here, both `t1.a = t2.a(+)` and `t2.a = t3.a(+)` are inner parts, because both contain a `(+)` operator:
+Example of two subexpressions within a `WHERE` clause – here, both `t1.a = t2.a(+)`  and `t2.a = t3.a(+)` are inner parts, because both contain a `(+)` operator:
 
 ```sql
 ... WHERE t1.a = t2.a(+) AND t2.a = t3.a(+)
@@ -264,7 +264,7 @@ SELECT left_tbl.*
 ## See Also
 
 * [Joining Tables with JOIN Clauses Guide](../../../../../mariadb-quickstart-guides/mariadb-join-guide.md)
-* [More Advanced Joins](../../../../../mariadb-quickstart-guides/more-advanced-joins.md)
+* [More Advanced Joins](../joins-subqueries/joins/more-advanced-joins.md)
 * [Comma vs JOIN](comma-vs-join.md)
 * [Joins, Subqueries and SET](../../../../sql-structure/joins-subqueries-set.md)
 

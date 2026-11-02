@@ -18,10 +18,6 @@ layout:
     visible: true
   tags:
     visible: true
-  actions:
-    visible: true
-  anchors:
-    visible: true
 ---
 
 # Securing MariaDB
@@ -31,6 +27,8 @@ layout:
 {% content-ref url="running-mariadbd-as-root.md" %}
 [running-mariadbd-as-root.md](running-mariadbd-as-root.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -43,6 +41,8 @@ Understand the implications of running MariaDB Server as root. This section high
 {% content-ref url="selinux.md" %}
 [selinux.md](selinux.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}
@@ -52,9 +52,11 @@ Secure MariaDB Server with SELinux. This section guides you through configuring 
 
 {% columns %}
 {% column %}
-{% content-ref url="../../server-management/server-monitoring-logs/securing-mariadb-logs.md" %}
-[securing-mariadb-logs.md](../../server-management/server-monitoring-logs/securing-mariadb-logs.md)
+{% content-ref url="securing-mariadb-logs.md" %}
+[securing-mariadb-logs.md](securing-mariadb-logs.md)
 {% endcontent-ref %}
+
+
 {% endcolumn %}
 
 {% column %}

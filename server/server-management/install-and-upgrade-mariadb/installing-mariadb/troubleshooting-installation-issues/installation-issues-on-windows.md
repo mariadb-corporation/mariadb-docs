@@ -8,7 +8,7 @@ description: >-
 
 ## Unsupported Versions of Windows
 
-Recent versions of MariaDB may not install on unsupported Windows versions. See [Deprecated Package Platforms](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/platform-deprecation-policy) to find the final supported versions.
+Recent versions of MariaDB may not install on unsupported Windows versions. See [Deprecated Package Platforms](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/platform-deprecation-policy) to find the final supported versions.
 
 ## Systems with User Account Control
 

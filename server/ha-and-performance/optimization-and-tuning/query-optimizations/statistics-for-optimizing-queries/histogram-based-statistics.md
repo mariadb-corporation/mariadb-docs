@@ -49,7 +49,7 @@ The [histogram\_size](../../system-variables/server-system-variables.md#histogra
 
 The [histogram\_type](../../system-variables/server-system-variables.md#histogram_type) variable determines whether single precision (`SINGLE_PREC_HB`) or double precision (`DOUBLE_PREC_HB`) height-balanced histograms are created. Double precision is the default.
 
-From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements), `JSON_HB`, JSON-format histograms, are accepted.
+From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), `JSON_HB`, JSON-format histograms, are accepted.
 
 ### optimizer\_use\_condition\_selectivity
 

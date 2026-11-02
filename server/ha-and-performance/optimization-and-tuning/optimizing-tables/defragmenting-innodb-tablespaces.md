@@ -21,7 +21,7 @@ You can run [OPTIMIZE TABLE](optimize-table.md) or [ALTER TABLE](../../../refere
 
 ## InnoDB Defragmentation
 
-The feature described below has been deprecated in [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.0-series/mariadb-11.0-changes-and-improvements) and was removed in [MariaDB 11.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.1-series/mariadb-11.1.0-release-notes). See [MDEV-30544](https://jira.mariadb.org/browse/MDEV-30544) and [MDEV-30545](https://jira.mariadb.org/browse/MDEV-30545).
+The feature described below has been deprecated in [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) and was removed in [MariaDB 11.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.0). See [MDEV-30544](https://jira.mariadb.org/browse/MDEV-30544) and [MDEV-30545](https://jira.mariadb.org/browse/MDEV-30545).
 
 MariaDB merged Facebook's defragmentation code prepared for MariaDB by Matt, Seong Uck Lee from Kakao. The only major difference to Facebook's code and Matt’s patch is that MariaDB does not introduce new literals to SQL and makes no changes to the server code. Instead, [OPTIMIZE TABLE](optimize-table.md) is used and all code changes are inside the InnoDB storage engine.
 

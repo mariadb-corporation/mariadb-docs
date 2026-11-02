@@ -25,7 +25,7 @@ UNLOCK TABLES
 
 ![Railroad diagram of LOCK TABLES](../../../.gitbook/assets/lock-tables-railroad.svg)
 
-![Railroad diagram of lock\_type](../../../.gitbook/assets/lock-tables-type-railroad.svg)
+![Railroad diagram of lock_type](../../../.gitbook/assets/lock-tables-type-railroad.svg)
 
 ![Railroad diagram of UNLOCK TABLES](../../../.gitbook/assets/unlock-tables-railroad.svg)
 
@@ -73,7 +73,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](wait-and-nowait.md).
 
 ## Limitations
 
-* `LOCK TABLES` [doesn't work when using Galera cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/known-limitations). You may experience crashes or locks when used with Galera.
+* `LOCK TABLES` [doesn't work when using Galera cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations). You may experience crashes or locks when used with Galera.
 * `LOCK TABLES` works on XtraDB/InnoDB tables only if the [innodb\_table\_locks](../../../server-usage/storage-engines/innodb/innodb-system-variables.md) system variable is set to 1 (the default) and [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is set to 0 (1 is default). Please note that no error message will be returned on LOCK TABLES with innodb\_table\_locks = 0.
 * `LOCK TABLES` [implicitly commits](sql-statements-that-cause-an-implicit-commit.md) the active transaction, if any. Also, starting a transaction always releases all table locks acquired with LOCK TABLES. This means that there is no way to have table locks and an active transaction at the same time. The only exceptions are the transactions in [autocommit](start-transaction.md#autocommit) mode. To preserve the data integrity between transactional and non-transactional tables, the [GET\_LOCK()](../../sql-functions/secondary-functions/miscellaneous-functions/get_lock.md) function can be used.
 * When using `LOCK TABLES` on a `TEMPORARY` table, it will always be locked with a `WRITE` lock.

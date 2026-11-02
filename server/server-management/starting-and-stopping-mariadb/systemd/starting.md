@@ -6,7 +6,7 @@ description: >-
 
 # Starting MariaDB on systemd
 
-This page covers the operational side of running MariaDB under [systemd](./). For drop-in configuration, limits, socket activation, and `mariadbd-safe`-to-systemd conversion, see [Configuring MariaDB for systemd](configuring.md).
+This page covers the operational side of running MariaDB under [systemd](README.md). For drop-in configuration, limits, socket activation, and `mariadbd-safe`-to-systemd conversion, see [Configuring MariaDB for systemd](configuring.md).
 
 ## Installing & Starting MariaDB
 
@@ -64,7 +64,7 @@ sudo systemctl status mariadb.service
 
 ### Interacting with Multiple MariaDB Server Processes
 
-On some operating systems, a `systemd` [template unit file](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) called `mariadb@.service` is installed in `INSTALL_SYSTEMD_UNITDIR`. See [Contents of the MariaDB Service's Unit File](./#contents-of-the-mariadb-services-unit-file) for how to inspect the unit file on your system.
+On some operating systems, a `systemd` [template unit file](https://www.freedesktop.org/software/systemd/man/systemd.unit.html) called `mariadb@.service` is installed in `INSTALL_SYSTEMD_UNITDIR`. See [Contents of the MariaDB Service's Unit File](README.md#contents-of-the-mariadb-services-unit-file) for how to inspect the unit file on your system.
 
 This template unit file allows you to interact with multiple MariaDB instances on the same system using the same template unit file. When you interact with a MariaDB instance using this template unit file, you have to provide an instance name as a suffix. For example, the following command tries to start a MariaDB instance with the name `node1`:
 
@@ -72,7 +72,7 @@ This template unit file allows you to interact with multiple MariaDB instances o
 sudo systemctl start mariadb@node1.service
 ```
 
-MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../../install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) versions older than 3.3.0, because these `cmake` versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character. To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
+MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) versions older than 3.3.0, because these `cmake` versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character. To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
 
 #### Default Configuration of Multiple Instances
 
@@ -88,7 +88,8 @@ When using multiple instances, each instance also needs their own [datadir](../.
 
 Because users may want to do many various things with their multiple instances, we've provided a way to let the user define how they wish their multiple instances to run. The systemd environment variable `MYSQLD_MULTI_INSTANCE` can be set to anything that [mariadbd](../mariadbd.md) and [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) recognize.
 
-A hosting environment where each user has their own instance looks like this (with `sudo systemctl edit mariadb@.service`):
+A hosting environment where each user has their own instance looks like this
+(with `sudo systemctl edit mariadb@.service`):
 
 ```ini
 [Service]
@@ -106,7 +107,7 @@ Here the instance name is the unix user of the service.
 
 ### Bootstrapping a New Cluster
 
-When using [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/mariadb-galera-cluster-overview) with systemd, the first node in a cluster has to be started with `galera_new_cluster`. See [Getting Started with MariaDB Galera Cluster: Bootstrapping a New Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster) for more information.
+When using [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) with systemd, the first node in a cluster has to be started with `galera_new_cluster`. See [Getting Started with MariaDB Galera Cluster: Bootstrapping a New Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster) for more information.
 
 ### Recovering a Node's Cluster Position
 

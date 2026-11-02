@@ -16,7 +16,7 @@ The `RETURN` statement terminates execution of a [stored function](../../../serv
 
 This statement is not used in [stored procedures](../../../server-usage/stored-routines/stored-procedures/), [triggers](../../../server-usage/triggers-events/triggers/), or [events](../../../server-usage/triggers-events/event-scheduler/events.md). [LEAVE](leave.md) can be used instead.
 
-The following example shows that `RETURN` can return the result of a [scalar subquery](../data-manipulation/selecting-data/subqueries/subqueries-scalar-subqueries.md):
+The following example shows that `RETURN` can return the result of a [scalar subquery](../data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-scalar-subqueries.md):
 
 ```sql
 CREATE FUNCTION users_count() RETURNS BOOL

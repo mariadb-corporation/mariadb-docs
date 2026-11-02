@@ -1,12 +1,12 @@
 ---
 description: >-
-  The sargable UPPER optimization, letting the optimizer use indexes for UPPER()
-  expressions.
+  The sargable UPPER optimization, letting the optimizer use indexes for
+  UPPER() expressions.
 ---
 
 # Sargable UPPER
 
-Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.3-rolling-releases/mariadb-11.3-changes-and-improvements) and MariaDB Enterprise Server 10.6.15-10, expressions in the form
+Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113) and MariaDB Enterprise Server 10.6.15-10, expressions in the form
 
 ```sql
 UPPER(key_col) = expr

@@ -53,13 +53,14 @@ service mysql status
 
 ## Manually Installing mysql.server with SysVinit
 
-If you install MariaDB from [source](../install-and-upgrade-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). See [mysql.server: Manually Installing with SysVinit](mysql-server.md) for more information.
+If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md)
+automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). See [mysql.server: Manually Installing with SysVinit](mysql-server.md) for more information.
 
 ## SysVinit and Galera Cluster
 
 ### Bootstrapping a New Cluster
 
-When using [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/quickstart-guides/mariadb-galera-cluster-guide) with sysVinit, the first node in a cluster has to be started with `service mysql bootstrap`. See [Getting Started with MariaDB Galera Cluster: Bootstrapping a New Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster) for more information.
+When using [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-guide) with sysVinit, the first node in a cluster has to be started with `service mysql bootstrap`. See [Getting Started with MariaDB Galera Cluster: Bootstrapping a New Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster) for more information.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -58,7 +58,7 @@ Both forms require a weak cursor variable (`SYS_REFCURSOR`). Using them with a s
 * [DECLARE CURSOR](declare-cursor.md)
 * [FETCH cursor\_name](fetch.md)
 * [CLOSE cursor\_name](close.md)
-* [Cursors in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [Cursors in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
