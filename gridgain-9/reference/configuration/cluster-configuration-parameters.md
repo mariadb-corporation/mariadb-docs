@@ -168,6 +168,8 @@ bin/gridgain9 cluster config show > cluster-config.conf
 |content|""|License content; a JSON string.|A JSON string with valid constraints|
 |signature|""|Signature for the license content.|A valid HEX string|
 
+When security is enabled, changing the `ignite.license` part of the cluster configuration requires the `MANAGE_LICENSE` privilege in addition to `WRITE_CLUSTER_CONFIG`. For details, see [User Permissions and Roles](../../security/user-permissions-and-roles.md#cluster-management).
+
 {% hint style="info" %}
 If a cluster license expires, the nodes will stop and fail to restart with a `License is expired` validation error. To recover the cluster, set the `GG_LICENSE_OVERRIDE` environment variable on every node to the path of a valid license file, then start the nodes. Each node applies the override license and persists it to the cluster configuration. Unset the variable after a successful start.
 {% endhint %}
