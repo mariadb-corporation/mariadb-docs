@@ -5,8 +5,6 @@ description: >-
 
 # Understand How Your Cache Is Distributed
 
-<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). The official `gridgain/enterprise:8.10.0` image is multi-arch (amd64 and arm64), so the pin is probably no longer needed. Decide whether to drop the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
-
 ## Introduction
 
 The cache API looks like a `ConcurrentMap`, and on a single-node cluster it behaves like one. It is not one. Entries are distributed across nodes by a hash of the key, each partition has a primary and, with `backups=1`, a backup on a different node. The partition layout shifts when the topology changes. A one-node development cluster hides every detail.

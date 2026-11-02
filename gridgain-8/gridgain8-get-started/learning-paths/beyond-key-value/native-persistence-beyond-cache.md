@@ -5,8 +5,6 @@ description: >-
 
 # Beyond Cache: The Persistence Problem
 
-<!-- TODO (decision): The `platform: linux/amd64` pin and the "amd64 only / Rosetta" guidance are kept as originally written (the author used Apple Silicon). The official `gridgain/enterprise:8.10.0` image is multi-arch (amd64 and arm64), so the pin is probably no longer needed. Decide whether to drop the pin (also in start-local-cache-cluster, understand-cache-distribution and native-persistence-beyond-cache), then delete this comment. -->
-
 ## Introduction
 
 In [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md), MariaDB held the truth and the cache absorbed read pressure. Production ran two systems, and the cache could be wiped at any moment without losing data.
