@@ -45,7 +45,7 @@ Auto-generated from the canonical `server/reference/sql-functions/string-functio
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/string-functions -->
-<!-- 59 functions, 7 pages skipped on extraction failure -->
+<!-- 57 functions, 7 pages skipped on extraction failure -->
 
 ### ASCII
 `ASCII(str)`  
@@ -98,10 +98,6 @@ Takes a numeric argument and a series of string arguments.
 ### EXPORT_SET
 `EXPORT_SET(bits, on, off[, separator[, number_of_bits]])`  
 Takes a minimum of three arguments.
-
-### EXTRACTVALUE
-`EXTRACTVALUE(xml_frag, xpath_expr)`  
-The `EXTRACTVALUE()` function takes two string arguments: a fragment of XML markup and an XPath expression, (also known as a locator).
 
 ### FIELD
 `FIELD(pattern, str1[,str2,...])`  
@@ -269,10 +265,6 @@ Returns the string `str` with all `remstr` prefixes or suffixes removed.
 ### UNHEX
 `UNHEX(str)`  
 Performs the inverse operation of HEX(str).
-
-### UPDATEXML
-`UpdateXML(xml_target, xpath_expr, new_xml)`  
-This function replaces a single portion of a given fragment of XML markup`xml_target` with a new XML fragment `new_xml`, and then returns the changed XML.
 
 ### UPPER
 `UPPER(str)`  
