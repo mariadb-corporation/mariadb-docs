@@ -149,7 +149,7 @@ When the table size limit is set, Control Center automatically cleans tables in 
 
 The `application.properties` file shipped with the on-premises distribution sets both these properties to `true`. In that default setup, all users are members of *Global Team*, and every cluster that connects to Control Center is shared with it automatically, without an attach token.
 
-To attach clusters with a token instead, set both properties to `false` in [`application.properties`](#configuration-parameters). Each cluster is then visible only to the users and teams you share it with.
+To attach clusters with a token instead, set both properties to `false` in `application.properties`. Each cluster is then visible only to the users and teams you share it with.
 
 | Parameter | Description | Default |
 |---|---|---|
