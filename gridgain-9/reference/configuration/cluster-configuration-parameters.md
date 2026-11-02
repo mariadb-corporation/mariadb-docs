@@ -88,6 +88,22 @@ bin/gridgain9 cluster config show > cluster-config.conf
 
 ## Configuration Parameters
 
+### Data Center Replication Configuration
+
+```json
+{
+  "ignite" : {
+    "dcr" : {
+      "sourceClusterAddressAllowList" : [ ]
+    }
+  }
+}
+```
+
+|Property|Default|Description|Acceptable Values|
+|---|---|---|---|
+|sourceClusterAddressAllowList|[]|Source cluster addresses that data center replications can connect to. If empty, any address is allowed except link-local, any-local, and multicast IP addresses and known cloud instance metadata addresses. For details, see [Restricting Source Cluster Addresses](../../gridgain9-management/data-center-replication/configuring-replication.md#restricting-source-cluster-addresses).|An array of `host` or `host:port` strings. An entry without a port matches any port|
+
 ### Encryption Configuration
 
 ```json

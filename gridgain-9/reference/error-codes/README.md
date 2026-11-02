@@ -162,6 +162,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | `GG-DCR-11` | There is no specified table on the source cluster. | Check the source table name. |
 | `GG-DCR-12` | Replication to self is not allowed. | Remove the local cluster endpoint from the replication target configuration and use a different remote cluster. |
 | `GG-DCR-13` | A stop was requested for a replication that is already stopped. | No action is required. Check the replication state before issuing a stop request. |
+| `GG-DCR-14` | The source cluster address is not an allowed replication target. | Use an address listed in `ignite.dcr.sourceClusterAddressAllowList`, or add the address to the list. |
 
 ## Distribution Zone Exceptions
 

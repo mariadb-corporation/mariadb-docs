@@ -40,6 +40,8 @@ dcr create --name replication_name --source-cluster-address=127.0.0.1:10800
 
 This command will create the replication on the replica cluster, but not start the replication process yet. You can review the configuration and make sure the source cluster is prepared for replication prior to [Starting Replication](#starting-replication). No additional configuration on source cluster is required.
 
+If the replica cluster restricts source cluster addresses, every address you specify must be allowed. For details, see [Restricting Source Cluster Addresses](#restricting-source-cluster-addresses).
+
 You can also specify multiple nodes from the same cluster, in which case GridGain will connect to the first node listed, or the first node that it can establish connection to. It then establishes background connections to other nodes and uses those connections if the connection to the primary node fails:
 
 ```bash
@@ -170,6 +172,23 @@ dcr create --name replication_ssl --source-cluster-address=127.0.0.1:10800 --key
 
 dcr start --name replication_ssl --schema=PUBLIC --all
 ```
+
+### Restricting Source Cluster Addresses
+
+By default, a replication can connect to any source cluster address, except link-local, any-local, and multicast IP addresses and known cloud instance metadata addresses. To limit the addresses that replications on the replica cluster can connect to, set the `ignite.dcr.sourceClusterAddressAllowList` cluster configuration property:
+
+```bash
+cluster config update 'ignite.dcr.sourceClusterAddressAllowList=["10.0.0.5:10800", "dc2.example.com"]'
+```
+
+Each entry is a host name or IP address, optionally followed by a port. An entry without a port allows any port on that host. A source cluster address without a port uses the default port `10800`. GridGain does not resolve host names when it compares addresses, so to allow a host by both its name and its IP address, list both. An address that is refused by default is allowed when you list it explicitly.
+
+GridGain checks the source cluster addresses when a replication is created or started:
+
+- `dcr create` and `dcr start` fail with the `GG-DCR-14` error if any address is not allowed.
+- If GridGain restarts a replication automatically, for example to retry after an error, and an address is no longer allowed, the replication moves to the `FAILED` state.
+
+Changes to the list take effect without a cluster restart. They do not affect replications that are already running, and you can always stop a replication.
 
 ## Checking Replication Status
 
