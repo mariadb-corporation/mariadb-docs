@@ -17,7 +17,7 @@ With automated deployment, you can programmatically manage:
 - **Users** - Create and update user accounts with profiles and admin privileges
 - **Teams** - Create teams and manage team membership
 - **Clusters** - Attach GridGain 9 or Apache Ignite 3 clusters and configure sharing with teams or users
-- **Notification Channels** - Set up EMAIL, SMS, and WEBHOOK notification endpoints
+- **Notification Channels** - Set up EMAIL, SMS, WEBHOOK, and IN_APP notification endpoints
 - **Alert Configurations** - Define metric-based alerts with thresholds and notification routing
 
 This approach enables you to:
@@ -268,6 +268,11 @@ Define notification endpoints for each cluster:
           "tag": "sms-critical",
           "type": "SMS",
           "phones": ["+1234567890"]
+        },
+        {
+          "tag": "ops-in-app",
+          "type": "IN_APP",
+          "usernames": ["admin@example.com", "operator@example.com"]
         }
       ]
     }
@@ -280,6 +285,11 @@ Supported notification types:
 - `EMAIL` - Send alerts to email addresses
 - `WEBHOOK` - POST alerts to a webhook URL
 - `SMS` - Send SMS messages to phone numbers
+- `IN_APP` - Send alerts as in-app notifications to Control Center users
+
+{% hint style="info" %}
+You can manage `IN_APP` channels only through the REST API. For details, see how to configure in-app notifications in [GridGain 8](../gg8/alerting/alerting.md#configure-in-app-notifications) and [GridGain 9](../gg9/alerting/alerting.md#configure-in-app-notifications).
+{% endhint %}
 
 ### Alert Configurations
 
@@ -314,7 +324,7 @@ Define metric-based alerts with conditions and notification routing:
             "gracePeriod": 120000,
             "autoClosePeriod": 300000
           },
-          "notificationChannelTags": ["ops-email-alerts"]
+          "notificationChannelTags": ["ops-email-alerts", "ops-in-app"]
         }
       ]
     }
@@ -328,7 +338,7 @@ Condition types include:
 - `GREATER_THAN` - Alert when metric exceeds threshold
 - `EQUALS` - Alert when metric equals threshold
 
-The `gracePeriod` (in milliseconds) prevents alert flapping by requiring the condition to persist before triggering. The optional `autoClosePeriod` automatically closes alerts when the condition is no longer met.
+The `gracePeriod` (in milliseconds) prevents alert flapping by requiring the condition to persist before triggering. The optional `autoClosePeriod` (in milliseconds) is the minimum time, counted from the moment the alert is generated, that must pass before the alert can be closed automatically. After the condition is no longer met, the alert is closed once this period has passed. If `autoClosePeriod` is omitted or set to `0`, the alert is closed as soon as the condition is no longer met.
 
 ## Getting Started
 

@@ -45,6 +45,10 @@ This section is dedicated to managing your Control Center installation, includin
 [license.md](license.md)
 {% endcontent-ref %}
 
+{% content-ref url="sbom.md" %}
+[sbom.md](sbom.md)
+{% endcontent-ref %}
+
 {% content-ref url="external-cluster.md" %}
 [external-cluster.md](external-cluster.md)
 {% endcontent-ref %}

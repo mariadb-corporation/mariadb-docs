@@ -928,7 +928,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Data Type: `numeric`
 * Default Value: `0.000000`
 * Range: `0` to `31536000`
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010), MariaDB Enterprise Server 10.6.11-6
 
 #### `slave_net_timeout`
 

@@ -21,9 +21,9 @@ From the Dashboard, you can see a list of your MariaDB Cloud services and status
 
 ## Launch
 
-To launch a new service, click the "+ Launch New Service" button on the Dashboard.
+To create a new service, click the **+ Create New Service** button on the Dashboard.
 
-See "[Service Launch](launch-page.md)" for details on the service launch process and launch-time selections.
+See "[Launch Page](launch-page.md)" for details on the service creation process and the available selections.
 
 ## Service-Specific Interfaces
 

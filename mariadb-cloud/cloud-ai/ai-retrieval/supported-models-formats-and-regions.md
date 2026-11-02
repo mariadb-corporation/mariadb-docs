@@ -64,7 +64,7 @@ Documents must be in English.
 Scanned documents, which are PDFs that contain only images of pages, and password-protected PDFs are not supported yet.
 {% endhint %}
 
-For the maximum document size and the other limits, see [Quotas](README.md#quotas).
+For the maximum document size and the other limits, see [Service Quotas](service-quotas.md).
 
 <!-- Egor, 2026-10-26: keep the upload limits of the portal (5 files at a time, 50 MB per file) off this page; quotas go on their own page. Present scanned documents as a current limitation, not a design choice. TODO: point to the Service Quotas page once it exists. -->
 

@@ -22,7 +22,7 @@ A document knowledge base indexes files so that applications can retrieve passag
 3. Enter a **Name**. The **Description** is optional.
 4. Under **Cloud Provider & Region**, select **AWS** and a region.
 5. Under **Vector Store Configuration**, select one of these options:
-   * **Use existing service** lists the MariaDB services in the same cloud and region that run MariaDB 11.8 or later.
+   * **Use existing service** lists the Provisioned and Serverless MariaDB services in the same cloud and region that run MariaDB 11.8 or later.
    * **Auto-provision new service** creates a MariaDB Serverless instance for you. Enter a **Service Name** that starts with a letter and contains only lowercase letters, numbers, and hyphens.
 6. Optionally, open **Advanced Options** to change the models and the reranker.
 7. Select **Create Knowledge Base**.
@@ -84,7 +84,7 @@ The **Documents** table shows the status of each document, and the **Chunks** co
 
 To monitor ingestion from an application, register a webhook with the ingestion API. AI Retrieval then notifies your endpoint when a document is ingested and when an ingestion job completes or fails.
 
-<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. TODO: link the webhook section of the API reference (Swagger) once it is published, and confirm that webhooks are public in the preview, because Egor said the ingestion job endpoints will be hidden. -->
+<!-- Source: ai-retrieval-cloud services/ingestion/api/routes/webhooks.py (prefix /ingestion/v1/webhooks: register, list, get, delete, activate, deactivate, reset, test, deliveries) and api/schemas/enums.py (events document.ingested, job.completed, job.failed) @ f9bd8c0e. The portal also receives DATA_SOURCE_SYNC_UPDATED and KB_PROVISIONING_UPDATED server-sent events through the API gateway (ai-service pkg/events), which customers do not call directly. Egor (2026-10-20) asked for the portal status plus a pointer to the API. Egor\'s unified API spec of 2026-10-27 keeps a public "Webhooks for Document KB" group while hiding ingestion jobs. TODO: link that section of the API reference once it is published. -->
 
 ### Connect a Storage Bucket
 
@@ -227,7 +227,7 @@ The stream endpoint sends server-sent events. A `token` event carries part of th
 
 If your organization exceeds a request limit, the API returns HTTP status 429.
 
-See [Quotas](README.md#quotas) for the limits.
+See [Service Quotas](service-quotas.md) for the limits.
 
 ## Manage Documents
 
@@ -258,6 +258,6 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 
 ### A Document Produces No Text
 
-Scanned documents are not supported yet. If a PDF contains only images of pages, it produces no chunks. Use a PDF that contains selectable text.
+Scanned documents are not supported yet. A PDF that contains only images of pages is ingested with 0 chunks, and no error is shown. Use a PDF that contains selectable text. Images inside documents are skipped.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

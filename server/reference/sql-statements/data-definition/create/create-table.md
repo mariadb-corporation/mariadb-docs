@@ -616,7 +616,7 @@ If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/vari
 
 ```bnf
 table_option:    
-    [STORAGE] ENGINE [=] engine_name
+    ENGINE [=] engine_name
   | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
@@ -651,9 +651,9 @@ table_option:
   | WITH SYSTEM VERSIONING
 ```
 
-### \[STORAGE] ENGINE
+### ENGINE
 
-`[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+`ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
 
 ### ADAPTIVE\_HASH\_INDEX
 
