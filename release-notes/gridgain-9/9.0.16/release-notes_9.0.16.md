@@ -153,4 +153,4 @@ The table below includes the changes you need to do to continue using system vie
 
 ## We Value Your Feedback
 
-Your comments and suggestions are always welcome. You can reach us here: http://support.gridgain.com/.
+Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/.

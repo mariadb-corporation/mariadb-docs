@@ -23,7 +23,7 @@ This quickstart creates a knowledge base with the default settings and runs a fi
 2. For **Type**, select **Document Knowledge Base**.
 3. Enter a **Name**.
 4. Leave **AWS** and the region as they are.
-5. Under **Vector Store Configuration**, select **Auto-provision new service**. MariaDB Cloud creates a MariaDB Serverless service to store the vectors.
+5. Under **Vector Store Configuration**, select **Auto-provision new service**. MariaDB Cloud creates a MariaDB Serverless service to store the vectors. To use an existing Provisioned or Serverless service instead, select **Use existing service**.
 6. Select **Create Knowledge Base**.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-quickstart-create.png" alt="The Create Knowledge Base form with Document Knowledge Base, the name quickstart-docs, AWS in Frankfurt, and Auto-provision new service selected."><figcaption><p>The Create Knowledge Base form with the default settings</p></figcaption></figure>
@@ -61,22 +61,24 @@ To call the knowledge base from an application, see [Connect Your Application](d
 
 ## Create a Database Knowledge Base
 
-A database knowledge base reads the tables of a MariaDB service that already holds your data.
+A database knowledge base reads the tables of a MariaDB service that already holds your data. To try it without your own data, use the Northwind demo database.
 
 1. Select **AI Retrieval** in the navigation, and then **Create Knowledge Base**.
 2. For **Type**, select **Database Knowledge Base**.
 3. Enter a **Name**.
-4. Under **Datasource**, select your service. The hostname, the port, and the default user are filled in.
-5. Enter the **Schema** that holds your tables.
+4. Under **Datasource**, choose one:
+   * **Demo**: AI Retrieval uses the Northwind demo schema. Continue with step 6.
+   * **Existing service**: select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
+5. For an existing service, select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
 6. Select **Create Knowledge Base**.
-7. On the knowledge base page, select **Sync Now**. The sync reads the tables that the user can see and builds the semantic map, which AI Retrieval uses to turn a question into a query.
-8. When the sync finishes, select **Test**, and ask a question about your data.
+7. AI Retrieval connects to the database and builds the semantic map automatically, from the tables that the user can see. You do not need to do anything. Wait until the knowledge base shows **Ready**.
+8. Select **Test**, and ask a question about your data.
 
 For access requirements, such as the IP allowlist and restricting what the knowledge base can read, see [Access and Security](access-and-security.md).
 
 <!-- TODO: the database knowledge base UI is not merged yet (Egor, 2026-10-20), so these steps follow the test environment form in the recording: Datasource service, Hostname (FQDN), Port, Schema, Username, Password, Always include tables, Never include tables. Re-check every step, the sync button name, and the test steps against the final UI, and add screenshots then. -->
 <!-- TODO: say where the IP address to allow is shown once Egor answers (see access-and-security.md). -->
-<!-- TODO: Egor said a demo database will be available as a datasource. Mention it here when it ships. -->
+<!-- Demo datasource and schema fetch: skysql-ui-client src/locales/en.json (datasource.database: existingService, demo, demoAlert, fetchSchemas, schemasEmpty) @ d9c5b422. Phil (2026-10-21): the database KB UI changes are on the test environment; capture screenshots there. -->
 
 ## Next Steps
 

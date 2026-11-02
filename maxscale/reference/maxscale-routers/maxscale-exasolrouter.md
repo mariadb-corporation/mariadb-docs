@@ -26,13 +26,13 @@ depending on which one can provide the response faster.
 Unlike the other routers of MaxScale, the targets _ExasolRouter_ routes to
 are not specified using `servers`, `targets`, or `cluster` settings in
 the configuration file. Instead, Exasol is specified using the
-[connection\_string](#connection_string) setting.
+[odbc\_connection\_string](#odbc_connection_string) setting.
 
 However, if _ExasolRouter_ is used standalone, a MariaDB server or a service
 should be specified using `targets`. _ExasolRouter_ will not route to it,
 but it will use it for authenticating clients. Exasol will still be accessed
 on behalf of all clients using the credentials specified in the
-[connection\_string](#connection_string).
+[odbc\_connection\_string](#odbc_connection_string).
 
 _ExasolRouter_ is intended to be used with the value of the Exasol
 setting `SQL_IDENTIFIER_COMPARISON` being `IGNORE CASE`. The value
@@ -51,7 +51,7 @@ password=
 ```
 
 The user and password to be used when accessing Exasol must be specified
-using `UID` and `PWD` in the [connection\_string](maxscale-exasolrouter.md#connection_string).
+using `UID` and `PWD` in the [odbc\_connection\_string](maxscale-exasolrouter.md#odbc_connection_string).
 
 ## Preprocessing
 
@@ -62,7 +62,7 @@ selected using the setting [preprocessor](#preprocessor).
 
 ## Settings
 
-### `connection_string`
+### `odbc_connection_string`
 
 * Type: string
 * Mandatory: Yes
@@ -74,16 +74,29 @@ contents of `odbc.ini` and `odbcinst.ini`.
 
 For example:
 ```
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 Here it is assumed there is an `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
-### `login_timeout`
+**From MaxScale 26.10,** the values of the credential keys `UID`, `USER`,
+`USERNAME`, `PWD`, `PASSWORD` and `PASSWD` are shown as `*****` where
+MaxScale displays the setting, for instance in the output of
+`maxctrl show service`.
+
+**From MaxScale 26.10,** unless the connection string contains
+`ANSIDATAENCODING`, MaxScale adds `ANSIDATAENCODING=UTF-8` to it. Without
+it the Exasol ODBC driver would encode character data using the locale
+of the MaxScale process and characters outside ASCII would be lost. If
+the connection string already contains `ANSIDATAENCODING`, it is left as
+it is and a warning is logged, as _ExasolRouter_ will not function
+properly unless the value is equivalent to UTF-8.
+
+### `odbc_login_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 * Description: Sets the login timeout for a connection, overriding `LOGINTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
@@ -92,11 +105,14 @@ Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeo
 will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
 
-### `query_timeout`
+**From MaxScale 26.10,** the setting can be modified at runtime. A change
+only affects sessions that are created after the change.
+
+### `odbc_query_timeout`
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
-* Dynamic: No
+* Dynamic: Yes
 * Default: 30s
 * Description: Sets the query timeout for a connection, overriding `QUERYTIMEOUT` in the connection string. A value of `0` leaves the connection string value in effect.
 
@@ -104,6 +120,9 @@ Defines the query timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
 will not explicitly be set, which means that a `QUERYTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
+
+**From MaxScale 26.10,** the setting can be modified at runtime. A change
+only affects sessions that are created after the change.
 
 ### `preprocessor`
 
@@ -212,6 +231,80 @@ statement and when the value of `preprocessor` is `disabled`.
 In the latter case, it only affects whether 'USE db' becomes
 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
+### `impersonate`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: false
+* Description: Determines whether the Exasol session of a client assumes the identity of the authenticated MariaDB user by using `IMPERSONATE`.
+
+Whether the Exasol session of a client should assume the identity of the
+client.
+
+By default all clients access Exasol using the account specified in
+[odbc\_connection\_string](#odbc_connection_string). If `impersonate` is
+enabled, MaxScale issues `IMPERSONATE` on the Exasol connection using the
+name of the authenticated MariaDB user, so that the privileges of the
+client's own Exasol user are applied.
+
+* The account in `odbc_connection_string` must have the Exasol system
+  privilege `IMPERSONATE ANY USER`.
+* The client must have an Exasol user with the name of the MariaDB user.
+  A client that has none will not get a usable session.
+* Exasol user names are always upper case, so the MariaDB users `bob` and
+  `BOB` both map to the Exasol user `BOB`.
+* The users to be impersonated need not have the privilege `CREATE SESSION`,
+  as the session is opened by the account in `odbc_connection_string`.
+
+An Exasol `IMPERSONATE` cannot be undone, so changing the user of a
+session is not supported, see [Limitations](#limitations).
+
+### `gtid_polling`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+* Description: Determines whether MaxScale polls the GTID position that `exasol_cdc` writes into Exasol, for use in SmartRouter causal reads.
+
+Whether MaxScale should poll the GTID position that `exasol_cdc` writes into
+the Exasol table `maxscale_cdc.gtid_current_pos`.
+
+The position is used for causal reads when the service is a target of
+[SmartRouter](maxscale-smartrouter.md). A read that SmartRouter would send to
+Exasol is then held until the position shows that Exasol has applied the last
+write of the session, see
+[causal\_reads](maxscale-smartrouter.md#causal_reads).
+
+The setting should be disabled if `exasol_cdc` is not used.
+
+### `gtid_poll_interval`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 1s
+* Description: Sets how often the GTID position is polled when `gtid_polling` is enabled.
+
+How often the GTID position is polled, see [gtid\_polling](#gtid_polling).
+The minimum is 100ms.
+
+A causal read may have to wait up to this long, in addition to the time it
+takes `exasol_cdc` to apply a change.
+
 ## Transformations
 
 ### `COM_INIT_DB`
@@ -261,15 +354,15 @@ driver can be referred to using the directory and not the symbolic link,
 as that will no longer work, if the included Exasol driver is updated
 in a MaxScale patch release.
 
-In [connection_string](#connection_string), the driver can be referred
+In [odbc_connection_string](#odbc_connection_string), the driver can be referred
 to directly as in
 ```
-connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DRIVER=/path/to/exasol/current/lib/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 
 Alternatively, the driver location can be specified in `/etc/odbcinst.ini`
 or `~/.odbcinst.ini`, in which case it need not be specified in
-`connection_string`.
+`odbc_connection_string`.
 ```
 [EXAODBC]
 Description = Exasol ODBC Driver
@@ -279,7 +372,7 @@ FileUsage = 1
 ```
 With that file present, the connection string could be like:
 ```
-connection_string=DRIVER=EXAODBC;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DRIVER=EXAODBC;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
 By creating an `/etc/odbc.ini` or `~/.odbc.ini`, the information that must
 be provided in the connection string can further be reduced. For instance,
@@ -294,8 +387,40 @@ FINGERPRINT=NOCERTCHECK
 ```
 the connection string can be reduced to
 ```
-connection_string=DSN=ExasolDSN
+odbc_connection_string=DSN=ExasolDSN
 ```
+
+## Result Sets
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.
+{% endhint %}
+
+The type of each column is derived from the metadata of the result that the
+Exasol ODBC driver provides.
+
+## Killing a Query
+
+A statement running on Exasol is killed using the `KILL STATEMENT` statement
+of Exasol, and not using a MariaDB `KILL` statement. The session in which the
+statement runs is found in the table `EXA_DBA_SESSIONS`.
+```
+SELECT SESSION_ID, SQL_TEXT FROM EXA_DBA_SESSIONS WHERE STATUS = 'EXECUTE SQL';
+KILL STATEMENT IN SESSION <session-id>;
+```
+The statement is sent to Exasol as is, irrespective of the value of
+[preprocessor](#preprocessor).
+
+A MariaDB `KILL` statement, such as `KILL QUERY 123`, is handled by MaxScale
+and does not reach Exasol. The number is the connection id that MaxScale has
+given the client, which Exasol does not know. MaxScale carries out such a
+statement by sending a kill to the connections it has to MariaDB servers, and
+as _ExasolRouter_ has no such connections, nothing is killed in Exasol.
+
+[SmartRouter](maxscale-smartrouter.md) kills the query on Exasol when it has
+received the response from another target and no longer needs the response
+from Exasol. The kill is made using a separate connection, which is kept alive
+for [kill\_connection\_timeout](#kill_connection_timeout) after the last use.
 
 ## Examples
 
@@ -321,7 +446,7 @@ servers=Server1
 [ExasolService]
 type=service
 router=exasolrouter
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol
 user=
 password=
 
@@ -373,7 +498,7 @@ servers=Server1
 [ExasolService]
 type=service
 router=exasolrouter
-connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+odbc_connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 targets=Server1
 user=MyServiceUser
 password=MyServicePassword
@@ -386,5 +511,37 @@ port=4008
 
 With this setup, it is possible to connect using the regular `mariadb` command line
 utility to the port 4008 and all queries will be sent to Exasol.
+
+## Router Diagnostics
+
+{% hint style="info" %}
+This functionality is available from MaxScale 26.10.
+{% endhint %}
+
+The `router_diagnostics` output of _ExasolRouter_, for instance in the output
+of `maxctrl show service`, has the following field.
+
+* `gtid_polling`: The state of the polling of the GTID position, see
+  [gtid\_polling](#gtid_polling). If polling is disabled, the object only
+  has the field `state`, with the value `disabled`. Otherwise it has the
+  following fields.
+  * `state`: `starting` before the first poll has completed, `ok` if the
+    last poll succeeded and `failing` if it did not.
+  * `interval`: The polling interval, e.g. `1000ms`.
+  * `gtid`: The GTID position most recently read from Exasol, or `null` if
+    none has been read.
+  * `last_success`: The time of the last successful poll, or `null`.
+  * `last_failure`: The time of the last failed poll, or `null`.
+  * `last_error`: The error of the last failed poll, or `null`.
+  * `consecutive_failures`: The number of failed polls since the last
+    successful one.
+
+## Limitations
+
+* Changing the user of a session using `COM_CHANGE_USER` is not supported.
+  The session is closed with an error message and the client must reconnect
+  as the desired user.
+* A MariaDB `KILL` statement does not kill a running statement on Exasol, see
+  [Killing a Query](#killing-a-query).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

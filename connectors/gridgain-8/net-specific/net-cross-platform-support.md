@@ -15,8 +15,8 @@ GridGain.NET supports both .NET Framework and .NET Core. It is possible to run .
 
 **Requirements:**
 
-- [.NET Core SDK 2.0+](https://www.microsoft.com/net/download/)
-- [Java 8+](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (macOS requires JDK, otherwise JRE works)
+- [.NET SDK 8+](https://dotnet.microsoft.com/download/dotnet) (the examples target `net8.0`)
+- [Java 17+](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (macOS requires JDK, otherwise JRE works)
 
 **Running Examples**
 [Binary distribution](https://ignite.apache.org/download.cgi#binaries) includes .NET Core examples:

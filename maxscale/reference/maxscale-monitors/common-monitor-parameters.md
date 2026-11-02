@@ -7,7 +7,8 @@ description: >-
 
 # Common Monitor Parameters
 
-This document settings supported by all monitors. These should be defined in the monitor section of the configuration file.
+This document settings supported by all monitors. These should be defined
+in the monitor section of the configuration file.
 
 ## Settings
 
@@ -27,7 +28,8 @@ The monitor module this monitor should use. Typically `mariadbmon` or`galeramon`
 * Dynamic: Yes
 * Description: Specifies the monitor's username for connecting to backend servers; if defined, this overrides the server's `monitoruser`. 
 
-Username used by the monitor to connect to the backend servers. If a server defines the `monitoruser` parameter, that value will be used instead.
+Username used by the monitor to connect to the backend servers. If a server defines
+the `monitoruser` parameter, that value will be used instead.
 
 ### `password`
 
@@ -36,9 +38,11 @@ Username used by the monitor to connect to the backend servers. If a server defi
 * Dynamic: Yes
 * Description: Defines the password for the user defined in the user parameter; overrides older `passwd` settings.
 
-Password for the user defined with the `user` parameter. If a server defines the `monitorpw` parameter, that value will be used instead.
+Password for the user defined with the `user` parameter. If a server defines
+the `monitorpw` parameter, that value will be used instead.
 
-**Note:** In older versions of MaxScale this parameter was called `passwd`. The use of `passwd` was deprecated in MaxScale 2.3.0.
+**Note:** In older versions of MaxScale this parameter was called `passwd`. The
+use of `passwd` was deprecated in MaxScale 2.3.0.
 
 ### `role`
 
@@ -48,7 +52,16 @@ Password for the user defined with the `user` parameter. If a server defines the
 * Default: None
 * Description: Specifies a user role to activate when the monitor connects to a server, providing privilege separation between monitoring and service operations.
 
-[Role](../../../server/security/user-account-management/roles/roles_overview.md) the monitor should activate right after connecting to a server. If empty, no role is set. This setting may be useful if the same username is used for both monitors and services. As monitors and services require different privileges, these privileges can be granted to the monitor and the service roles separately instead of granting them all to the same user. MariaDB Monitor and Galera Monitor use this setting. If the monitor is configured to use a role, the role is taken into use even if the server uses a [custom monitor username](../maxscale-servers.md#monitoruser).
+[Role](../../../server/security/user-account-management/roles/roles_overview.md)
+the monitor should activate
+right after connecting to a server. If empty, no role is set. This setting may
+be useful if the same username is used for both monitors and services.
+As monitors and services require different privileges, these privileges can
+be granted to the monitor and the service roles separately instead of
+granting them all to the same user. MariaDB Monitor and Galera Monitor
+currently use this setting. If the monitor is configured to use a role, the role
+is taken into use even if the server uses a
+[custom monitor username](../maxscale-servers.md#monitoruser).
 
 ### `servers`
 
@@ -71,24 +84,31 @@ servers=MyServer1,MyServer2
 * Default: `2s`
 * Description: Determines how often the monitor checks and updates the status of servers; shorter intervals result in more frequent checks.
 
-Defines how often the monitor updates the status of the servers. Choose a lower value if servers should be queried more often. The smallest possible value is 100 milliseconds. If querying the servers takes longer than `monitor_interval`, the effective update rate is reduced.
+Defines how often the monitor updates the status of the servers. Choose a lower
+value if servers should be queried more often. The smallest possible value is
+100 milliseconds. If querying the servers takes longer than `monitor_interval`,
+the effective update rate is reduced.
 
 ```
 monitor_interval=2s
 ```
 
-If no explicit unit is provided, the value is interpreted as milliseconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected.
+If no explicit unit is provided, the value is interpreted as milliseconds in
+MaxScale 2.4. In subsequent versions a value without a unit may be rejected.
 
 ### `backend_timeout`
 
-* **Type**: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
-* **Mandatory**: No
-* **Dynamic**: Yes
-* **Default**: `3s`
+- **Type**: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+- **Mandatory**: No
+- **Dynamic**: Yes
+- **Default**: `3s`
 
-Controls the timeout for communicating with a monitored server. The parameter sets the timeout for connecting, writing and reading from a server.
+Controls the timeout for communicating with a monitored server. The parameter
+sets the timeout for connecting, writing and reading from a server.
 
-The timeout is specified as documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations). A value without a unit is rejected. The minimum value is 1 second.
+The timeout is specified as documented
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations).
+A value without a unit is rejected. The minimum value is 1 second.
 
 ```
 backend_timeout=3s
@@ -102,9 +122,13 @@ backend_timeout=3s
 * Default: `3s`
 * Description: Sets the maximum amount of time allowed to connect to a backend server; deprecated in favor of backend timeout.
 
-This parameter controls the timeout for connecting to a monitored server. The timeout is specified as documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations) A value without a unit is rejected. The minimum value is 1 second.
+This parameter controls the timeout for connecting to a monitored server.
+The timeout is specified as documented
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+A value without a unit is rejected. The minimum value is 1 second.
 
-This parameter has been deprecated since MaxScale 25.10.0 and is an alias of `backend_timeout`.
+This parameter has been deprecated since MaxScale 25.10.0 and is an alias of
+`backend_timeout`.
 
 ```
 backend_connect_timeout=3s
@@ -130,7 +154,11 @@ Deprecated and ignored since MaxScale 25.10.0.
 
 Deprecated and ignored since MaxScale 25.08.0.
 
-This parameter controls the timeout for reading a query result from a monitored server. The timeout is specified as documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations) A value without a unit is rejected, as are values specified in milliseconds. The minimum value is 1 second.
+This parameter controls the timeout for reading a query result from a
+monitored server. The timeout is specified as documented
+[here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+A value without a unit is rejected, as are values specified in
+milliseconds. The minimum value is 1 second.
 
 ```
 backend_read_timeout=3s
@@ -144,7 +172,10 @@ backend_read_timeout=3s
 * Default: `1`
 * Description: Specifies the maximum number of times MaxScale attempts to connect to a backend during each monitoring cycle.
 
-This parameter defines the maximum times a backend connection is attempted every monitoring loop. Every attempt may take up to `backend_connect_timeout` seconds to perform. If none of the attempts are successful, the backend is considered to be unreachable and down.
+This parameter defines the maximum times a backend connection is attempted every
+monitoring loop. Every attempt may take up to `backend_connect_timeout` seconds
+to perform. If none of the attempts are successful, the backend is considered to
+be unreachable and down.
 
 ```
 backend_connect_attempts=1
@@ -158,13 +189,23 @@ backend_connect_attempts=1
 * Default: None
 * Description: Defines the disk usage limit (per path) that creates alerts. It can be set globally in the monitor or individually per server if disk configurations differ.
 
-This parameter duplicates the `disk_space_threshold` [server parameter](../maxscale-servers.md#disk_space_threshold). If the parameter has _not_ been specified for a server, then the one specified for the monitor is applied.
+This parameter duplicates the `disk_space_threshold`
+[server parameter](../maxscale-servers.md#disk_space_threshold).
+If the parameter has _not_ been specified for a server, then the one specified
+for the monitor is applied.
 
-**NOTE**: The information is available _only_ if the monitor user has the `FILE` privilege.
+**NOTE**: The information is available _only_ if the monitor user has the `FILE`
+privilege.
 
-That is, if the disk configuration is the same on all servers monitored by the monitor, it is sufficient (and more convenient) to specify the disk space threshold in the monitor section, but if the disk configuration is different on all or some servers, then the disk space threshold can be specified individually for each server.
+That is, if the disk configuration is the same on all servers monitored by
+the monitor, it is sufficient (and more convenient) to specify the disk
+space threshold in the monitor section, but if the disk configuration is
+different on all or some servers, then the disk space threshold can be
+specified individually for each server.
 
-For example, suppose `server1`, `server2` and `server3` are identical in all respects. In that case we can specify `disk_space_threshold` in the monitor.
+For example, suppose `server1`, `server2` and `server3` are identical
+in all respects. In that case we can specify `disk_space_threshold`
+in the monitor.
 
 ```ini
 [server1]
@@ -186,7 +227,9 @@ disk_space_threshold=/data:80
 ...
 ```
 
-However, if the servers are heterogeneous with the disk used for the data directory mounted on different paths, then the disk space threshold must be specified separately for each server.
+However, if the servers are heterogeneous with the disk used for the
+data directory mounted on different paths, then the disk space threshold
+must be specified separately for each server.
 
 ```ini
 [server1]
@@ -210,7 +253,9 @@ servers=server1,server2,server3
 ...
 ```
 
-If _most_ of the servers have the data directory disk mounted on the same path, then the disk space threshold can be specified on the monitor and separately on the server with a different setup.
+If _most_ of the servers have the data directory disk mounted on
+the same path, then the disk space threshold can be specified on
+the monitor and separately on the server with a different setup.
 
 ```
 [server1]
@@ -233,7 +278,8 @@ disk_space_threshold=/data:80
 ...
 ```
 
-Above, `server1` has the disk used for the data directory mounted at `/DbData` while both `server2` and `server3` have it mounted on`/data` and thus the setting in the monitor covers them both.
+Above, `server1` has the disk used for the data directory mounted
+at `/DbData` while both `server2` and `server3` have it mounted on`/data` and thus the setting in the monitor covers them both.
 
 ### `disk_space_check_interval`
 
@@ -243,9 +289,18 @@ Above, `server1` has the disk used for the data directory mounted at `/DbData` w
 * Default: `0s`
 * Description: Sets the minimum interval between disk space checks; a value of `0` disables automatic checks.
 
-With this parameter it can be specified the minimum amount of time between disk space checks. If no explicit unit is provided, the value is interpreted as milliseconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. The default value is 0, which means that by default the disk space will not be checked.
+With this parameter it can be specified the minimum amount of time
+between disk space checks.
+If no explicit unit is provided, the value is interpreted as milliseconds in MaxScale 2.4.
+In subsequent versions a value without a unit may be rejected.
+The default value is 0, which means that by default the disk space
+will not be checked.
 
-Note that as the checking is made as part of the regular monitor interval cycle, the disk space check interval is affected by the value of`monitor_interval`. In particular, even if the value of`disk_space_check_interval` is smaller than that of `monitor_interval`, the checking will still take place at `monitor_interval` intervals.
+Note that as the checking is made as part of the regular monitor interval
+cycle, the disk space check interval is affected by the value of`monitor_interval`.
+In particular, even if the value of`disk_space_check_interval` is smaller than
+that of `monitor_interval`, the checking will still take place at `monitor_interval`
+intervals.
 
 ### `script`
 
@@ -255,7 +310,14 @@ Note that as the checking is made as part of the regular monitor interval cycle,
 * Default: None
 * Description: Specifies a command to execute when the server status changes, with the help of placeholders (such as `$INITIATOR`, `$EVENT`, and `$MASTERLIST`) that MaxScale replaces with relevant server information; script output is reported based on message prefixes.
 
-This command will be executed on a server state change. The parameter should be an absolute path to a command or the command should be in the executable path. The user running MaxScale should have execution rights to the file itself and the directory it resides in. The script may have placeholders which MaxScale will substitute with useful information when launching the script.
+This command will be executed on a server state change. The value should be an
+absolute path to a command. The user running MaxScale should have execution
+rights to the file itself and the directory it resides in. If the value points
+to a script file (as opposed to an executable program), the file should begin
+with a shebang (e.g. `#!/usr/bin/env bash`) or it will likely not execute.
+
+The value may include placeholders after the file path. MaxScale will substitute
+the placeholders with useful information when launching the script.
 
 The placeholders and their substitution results are:
 
@@ -266,10 +328,17 @@ The placeholders and their substitution results are:
 * `$SLAVELIST` -> list of IPs and ports of all replica servers
 * `$MASTERLIST` -> list of IPs and ports of all primary servers
 * `$SYNCEDLIST` -> list of IPs and ports of all synced Galera nodes
-* `$PARENT` -> IP and port of the parent of the server which initiated the event. For primary-replica setups, this will be the primary if the initiating server is a replica.
-* `$CHILDREN` -> list of IPs and ports of the child nodes of the server who initiated the event. For primary-replica setups, this will be a list of replica servers if the initiating server is a primary.
+* `$PARENT` -> IP and port of the parent of the server which initiated the event.
+  For primary-replica setups, this will be the primary if the initiating server is a
+  replica.
+* `$CHILDREN` -> list of IPs and ports of the child nodes of the server who
+  initiated the event. For primary-replica setups, this will be a list of replica
+  servers if the initiating server is a primary.
 
-The expanded variable value can be an empty string if no servers match the variable's requirements. For example, if no primaries are available `$MASTERLIST` will expand into an empty string. The list-type substitutions will only contain servers monitored by the current monitor.
+The expanded variable value can be an empty string if no servers match the
+variable's requirements. For example, if no primaries are available `$MASTERLIST`
+will expand into an empty string. The list-type substitutions will only contain
+servers monitored by the current monitor.
 
 ```
 script=/home/user/myscript.sh initiator=$INITIATOR event=$EVENT live_nodes=$NODELIST
@@ -281,13 +350,22 @@ The above script could be executed as:
 /home/user/myscript.sh initiator=[192.168.0.10]:3306 event=master_down live_nodes=[192.168.0.201]:3306,[192.168.0.121]:3306
 ```
 
-See section [Script example](common-monitor-parameters.md#script-example) below for an example script.
+See section [Script example](common-monitor-parameters.md#script-example) below
+for an example script.
 
-Any output by the executed script will be logged into the MaxScale log. Each outputted line will be logged as a separate log message.
+Any output by the executed script will be logged into the MaxScale log. Each
+outputted line will be logged as a separate log message.
 
-The log level on which the messages are logged depends on the format of the messages. If the first word in the output line is one of `alert:`, `error:`,`warning:`, `notice:`, `info:` or `debug:`, the message will be logged on the corresponding level. If the message is not prefixed with one of the keywords, the message will be logged on the notice level. Whitespace before, after or between the keyword and the colon is ignored and the matching is case-insensitive.
+The log level on which the messages are logged depends on the format of the
+messages. If the first word in the output line is one of `alert:`, `error:`,
+`warning:`, `notice:`, `info:` or `debug:`, the message will be logged on the
+corresponding level. If the message is not prefixed with one of the keywords,
+the message will be logged on the notice level. Whitespace before, after or
+between the keyword and the colon is ignored and the matching is
+case-insensitive.
 
-The script must not execute any of the following MaxCtrl calls as they cause a deadlock:
+Currently, the script must not execute any of the following MaxCtrl
+calls as they cause a deadlock:
 
 * `alter monitor` to the monitor executing the script
 * `stop monitor` to the monitor executing the script
@@ -301,9 +379,15 @@ The script must not execute any of the following MaxCtrl calls as they cause a d
 * Default: `90s`
 * Description: Sets a maximum period of time a script can execute; if this limit exceeds the allowed duration, the script is issued `SIGTERM`, followed by `SIGKILL` if it does not stop.
 
-The timeout for the executed script. If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
+The timeout for the executed script. If no explicit unit
+is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
+versions a value without a unit may be rejected. Note that since the granularity
+of the timeout is seconds, a timeout specified in milliseconds will be rejected,
+even if the duration is longer than a second.
 
-If the script execution exceeds the configured timeout, it is stopped by sending a SIGTERM signal to it. If the process does not stop, a SIGKILL signal will be sent to it once the execution time is greater than twice the configured timeout.
+If the script execution exceeds the configured timeout, it is stopped by sending
+a SIGTERM signal to it. If the process does not stop, a SIGKILL signal will be
+sent to it once the execution time is greater than twice the configured timeout.
 
 ### `events`
 
@@ -314,13 +398,16 @@ If the script execution exceeds the configured timeout, it is stopped by sending
 * Default: All events
 * Description: Specifies which server events cause a script to execute; if not provided, it defaults to all events.
 
-A list of event names which cause the script to be executed. If this option is not defined, all events cause the script to be executed. The list must contain a comma separated list of event names.
+A list of event names which cause the script to be executed. If this option is
+not defined, all events cause the script to be executed. The list must contain a
+comma separated list of event names.
 
 ```
 events=master_down,slave_down
 ```
 
-The following table contains all the possible event types and their descriptions.
+The following table contains all the possible event types and their
+descriptions.
 
 | Event Name   | Description                                  |
 | ------------ | -------------------------------------------- |
@@ -343,9 +430,15 @@ The following table contains all the possible event types and their descriptions
 * Default: `28800s`
 * Description: Sets the maximum age of journal files; older files are deleted when the monitor starts.
 
-The maximum journal file age. If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the max age is seconds, a max age specified in milliseconds will be rejected, even if the duration is longer than a second.
+The maximum journal file age. If no explicit unit
+is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
+versions a value without a unit may be rejected. Note that since the granularity
+of the max age is seconds, a max age specified in milliseconds will be rejected,
+even if the duration is longer than a second.
 
-When the monitor starts, it reads any stored journal files. If the journal file is older than the value of _journal\_max\_age_, it will be removed and the monitor starts with no prior knowledge of the servers.
+When the monitor starts, it reads any stored journal files. If the journal file
+is older than the value of _journal\_max\_age_, it will be removed and the monitor
+starts with no prior knowledge of the servers.
 
 ### `primary_state_sql`
 
@@ -355,20 +448,24 @@ When the monitor starts, it reads any stored journal files. If the journal file 
 * Default: None
 * Description: Specifies custom SQL commands to be executed on a primary (Master) server when it achieves Master status or when the monitor starts, allowing for role-based configuration changes.
 
-Defines custom SQL that is run on a primary server, i.e. a server with _Master_-status. The SQL is run on the primary when:
-
+Defines custom SQL that is run on a primary server, i.e. a server with
+*Master*-status. The SQL is run on the primary when:
 1. Monitor starts
-2. Server gains _Master_-status
-3. Server gained _Master_-status on a previous monitor tick but running the SQL failed due to a network failure
+2. Server gains *Master*-status
+3. Server gained *Master*-status on a previous monitor tick but running the SQL
+   failed due to a network failure
 
-Use this setting to e.g. change global MariaDB Server settings depending on the server role. Multiple SQL queries can be set by combining them to a multiquery. If the query string spans multiple lines, each line after the first must start with empty space.
-
+Use this setting to e.g. change global MariaDB Server settings depending on the
+server role. Multiple SQL queries can be set by combining them to a multiquery.
+If the query string spans multiple lines, each line after the first must start
+with empty space.
 ```
 primary_state_sql="set global binlog_commit_wait_count=10;
     set global binlog_commit_wait_usec=1000;"
 ```
-
-When testing this feature to see exactly when the queries are run, look for a log message like `Monitor MyMonitor ran the SQL defined in primary_state_sql on MyServer1.`
+When testing this feature to see exactly when the queries are run, look for
+a log message like `Monitor MyMonitor ran the SQL defined in primary_state_sql
+on MyServer1.`
 
 ### `replica_state_sql`
 
@@ -378,8 +475,7 @@ When testing this feature to see exactly when the queries are run, look for a lo
 * Default: None
 * Description: Specifies custom SQL commands to run on a replica (Slave) server when they get Slave status or when the monitor starts, allowing role-based configuration changes.
 
-Similar to `primary_state_sql`, but for replica servers, i.e. servers with _Slave_-status.
-
+Similar to `primary_state_sql`, but for replica servers, i.e. servers with *Slave*-status.
 ```
 replica_state_sql="set global binlog_commit_wait_count=0;
     set global binlog_commit_wait_usec=0;"
@@ -387,11 +483,21 @@ replica_state_sql="set global binlog_commit_wait_count=0;
 
 ## Monitor Crash Safety
 
-Starting with MaxScale 2.2.0, the monitor modules keep an on-disk journal of the latest server states. This change makes the monitors crash-safe when options that introduce states are used. It also allows the monitors to retain stateful information when MaxScale is restarted.
+Starting with MaxScale 2.2.0, the monitor modules keep an on-disk journal of the
+latest server states. This change makes the monitors crash-safe when options
+that introduce states are used. It also allows the monitors to retain stateful
+information when MaxScale is restarted.
 
-For MySQL monitor, options that introduce states into the monitoring process are the `detect_stale_master` and `detect_stale_slave` options, both of which are enabled by default. Galeramon has the `disable_master_failback` parameter which introduces a state.
+For MySQL monitor, options that introduce states into the monitoring process are
+the `detect_stale_master` and `detect_stale_slave` options, both of which are
+enabled by default. Galeramon has the `disable_master_failback` parameter which
+introduces a state.
 
-The default location for the server state journal is in`/var/lib/maxscale/<monitor name>/monitor.dat` where `<monitor name>` is the name of the monitor section in the configuration file. If MaxScale crashes or is shut down in an uncontrolled fashion, the journal will be read when MaxScale is started. To skip the recovery process, manually delete the journal file before starting MaxScale.
+The default location for the server state journal is in`/var/lib/maxscale/<monitor name>/monitor.dat` where `<monitor name>` is the
+name of the monitor section in the configuration file. If MaxScale crashes or is
+shut down in an uncontrolled fashion, the journal will be read when MaxScale is
+started. To skip the recovery process, manually delete the journal file before
+starting MaxScale.
 
 ## Script example
 
@@ -409,7 +515,6 @@ password=password
 monitor_interval=10s
 script=/path/to/maxscale_monitor_alert_script.sh --initiator=$INITIATOR --parent=$PARENT --children=$CHILDREN --event=$EVENT --node_list=$NODELIST --list=$LIST --master_list=$MASTERLIST --slave_list=$SLAVELIST --synced_list=$SYNCEDLIST
 ```
-
 
 File "maxscale_monitor_alert_script.sh":
 

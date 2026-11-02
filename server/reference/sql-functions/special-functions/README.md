@@ -67,4 +67,16 @@ Explore window functions in MariaDB Server. This section details SQL functions t
 {% endcolumn %}
 {% endcolumns %}
 
+{% columns %}
+{% column %}
+{% content-ref url="xml-functions/" %}
+[xml-functions](xml-functions/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Work with XML fragments stored as strings. EXTRACTVALUE() reads text from an XML fragment with an XPath expression, and UPDATEXML() replaces part of it.
+{% endcolumn %}
+{% endcolumns %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

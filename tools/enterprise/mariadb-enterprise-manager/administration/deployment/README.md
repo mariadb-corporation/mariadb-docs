@@ -25,14 +25,6 @@ After confirming your hardware, system, and network are compliant, proceed with 
 
 To monitor a MariaDB Server and MaxScale host, [install agent](adding-databases/agent-installation-t-copy.md) on it. Then, use the Enterprise Manager UI to [add the database](adding-databases/) topology and generate the agent setup command. This command includes the correct metric labels for that host.
 
-### Quick start
-
-{% hint style="info" %}
-You can quickly set up and launch MariaDB Enterprise Manager with a single-line command. This allows you to start exploring its capabilities without extensive configuration.
-
-Enterprise Manager includes a helper tool, integrated in the UI, for adding agents. The helper prompts you to download a small (< 50M) binary and then provides command-line instructions to install and register agents, enabling quick and seamless addition of new MariaDB databases to Enterprise Manager.
-{% endhint %}
-
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
 {% @marketo/form formId="4316" %}

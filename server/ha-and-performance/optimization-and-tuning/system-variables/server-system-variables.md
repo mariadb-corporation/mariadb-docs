@@ -424,10 +424,29 @@ The suffix can be upper or lower-case.
   * `d:t:i:o,/tmp/mariadbd.trace` (Unix) or `d:t:i:O,\mariadbd.trace` (Windows)
 * Debug Options: See the option flags on the [mysql\_debug](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_debug) page
 
+#### `debug_binlog_fsync_sleep`
+
+* Description: Extra time, in microseconds, to sleep after each `fsync()` of the [binary log](../../../server-management/server-monitoring-logs/binary-log/). Use it to artificially increase the cost of binary log flushes when testing. `0` adds no sleep. Debug builds only (built with `-DCMAKE_BUILD_TYPE=Debug`).
+* Command line: `--debug-binlog-fsync-sleep=#`
+* Scope: Global
+* Dynamic: Yes
+* Data Type: `numeric`
+* Default Value: `0`
+* Range: `0` to `4294967295`
+
+#### `debug_mutex_deadlock_detector`
+
+* Description: Enable checking of wrong mutex usage, such as mutexes locked in an order that can lead to a deadlock. Only available when the server is built with `SAFE_MUTEX`, which debug builds (built with `-DCMAKE_BUILD_TYPE=Debug`) enable by default.
+* Command line: `--debug-mutex-deadlock-detector[={0|1}]`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+
 #### `debug_no_thread_alarm`
 
 * Description: Disable system thread alarm calls. Disabling it may be useful in debugging or testing, never do it in production.
-* Command line: `--debug-no-thead-alarm=#`
+* Command line: `--debug-no-thread-alarm=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `boolean`
@@ -550,6 +569,16 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value: `4`
 * Range: `0` to `30`
+
+#### `drop_before_create_or_replace`
+
+* Description: If set, [CREATE OR REPLACE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace) drops the existing table before creating the new one. If not set, the existing table is temporarily renamed and renamed back if the create fails.
+* Command line: `--drop-before-create-or-replace[={0|1}]`
+* Scope: Session
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`
+* Introduced: MariaDB 13.2
 
 #### `encrypt_tmp_disk_tables`
 
@@ -1916,7 +1945,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `reorder_outer_joins` - see [reorder\_outer\_joins](../query-optimizations/reorder_outer_joins.md) ([MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/mariadb-12.3-changes-and-improvements))
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
-  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0))
+  * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), MariaDB Enterprise Server 10.6.15-10)
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
   * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](../query-optimizer/block-based-join-algorithms.md)
   * `split_materialized={on|off}`

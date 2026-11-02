@@ -63,6 +63,10 @@ The above operation should use the `INSTANT` algorithm, because the `ADD COLUMN`
 
 ### Specifying an Alter Algorithm Using System Variables
 
+{% hint style="info" %}
+This section applies to MariaDB 11.4 and earlier. From MariaDB 11.5, the server ignores the `alter_algorithm` system variable and returns warning 4200 when it is set. Use the `ALGORITHM` clause instead. See [MDEV-33655](https://jira.mariadb.org/browse/MDEV-33655).
+{% endhint %}
+
 The [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable can be used to pick the _least efficient_ algorithm that the user is willing to accept.
 
 For example, if a user wanted to add a column to a table, but only if the operation used an algorithm that is at least as efficient as the `INPLACE`, then they could execute the following:
@@ -114,7 +118,7 @@ RENAME TABLE tmp_tab TO original_tab;
 
 This algorithm is very inefficient, but it is generic, so it works for all storage engines.
 
-If the `COPY` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable, then the `COPY` algorithm are used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement, so that the table is only rebuilt once.
+If the `COPY` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or, in MariaDB 11.4 and earlier, with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable, then the `COPY` algorithm are used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) statement, so that the table is only rebuilt once.
 
 #### Using the COPY Algorithm with InnoDB
 
@@ -137,13 +141,11 @@ A more accurate name for the algorithm would have been the `ENGINE` algorithm, s
 
 If an [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation supports the `INPLACE` algorithm, then it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
 
-If the `INPLACE` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `INPLACE` algorithm, then an error are raised:
+If the `INPLACE` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or, in MariaDB 11.4 and earlier, with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `INPLACE` algorithm, then an error are raised:
 
 ```sql
-SET SESSION alter_algorithm='INPLACE';
-
-ALTER TABLE tab MODIFY COLUMN c INT;
-ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c INT, ALGORITHM=INPLACE;
+ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 In this case, raising an error is preferable, if the alternative is for the operation to make a copy of the table, and perform unexpectedly slowly.
@@ -175,13 +177,11 @@ The `NOCOPY` algorithm is supported. The `INPLACE` algorithm can sometimes be su
 
 If an [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation supports the `NOCOPY` algorithm, then it can be performed without rebuilding the clustered index.
 
-If the `NOCOPY` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `NOCOPY` algorithm, then an error are raised:
+If the `NOCOPY` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or, in MariaDB 11.4 and earlier, with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `NOCOPY` algorithm, then an error are raised:
 
 ```sql
-SET SESSION alter_algorithm='NOCOPY';
-
-ALTER TABLE tab MODIFY COLUMN c INT;
-ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c INT, ALGORITHM=NOCOPY;
+ERROR 1846 (0A000): ALGORITHM=NOCOPY is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 In this case, raising an error is preferable, if the alternative is for the operation to rebuild the clustered index, and perform unexpectedly slowly.
@@ -198,13 +198,11 @@ The `INSTANT` algorithm is supported. The `INPLACE` algorithm can sometimes be s
 
 If an [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation supports the `INSTANT` algorithm, then it can be performed without modifying any data files.
 
-If the `INSTANT` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `INSTANT` algorithm, then an error are raised:
+If the `INSTANT` algorithm is specified with the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause or, in MariaDB 11.4 and earlier, with the [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable and if the [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) operation does not support the `INSTANT` algorithm, then an error are raised:
 
 ```sql
-SET SESSION alter_algorithm='INSTANT';
-
-ALTER TABLE tab MODIFY COLUMN c INT;
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
+ALTER TABLE tab MODIFY COLUMN c INT, ALGORITHM=INSTANT;
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type. Try ALGORITHM=COPY
 ```
 
 In this case, raising an error is preferable, if the alternative is for the operation to modify data files, and perform unexpectedly slowly.

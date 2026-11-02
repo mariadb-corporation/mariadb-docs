@@ -457,6 +457,42 @@ The default value is 10, which means that the load during the last 10 seconds is
 
 The minimum value is 1 and the maximum 60.
 
+#### `worker_assignment`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [enum](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `local`, `roundrobin`
+* Default: `local`
+* Description: Selects how new client connections are assigned to worker threads.
+
+Set the thread assignment method for new connections.
+
+Whenever MaxScale accepts a new connection, the client connection is assigned to
+one of the worker threads. All threads attempt to accept new connections and
+with the default `local` mode, the worker thread that accepts the connection is
+the one that the connection is assigned to. The benefit of this mode is that
+threads that are busy doing work have a smaller chance of accepting new
+connections and under a constant stream of new connections, threads with less
+work will naturally pick up more clients. Under bursty loads where connections
+come in batches and stay alive for a long time, the distribution of the
+connections may not be optimal. For workloads where the connections have short
+to moderate lifetimes, the default `local` mode is the best choice as it
+balances the load based on how busy each worker thread is.
+
+With the `roundrobin` mode, all worker threads still accept connections but the
+worker thread is assigned in a round-robin manner so that each thread gets an
+equal number of connections. This mode works well when clients connect to
+MaxScale in batches and the sessions stay alive for a long time. If the workload
+consists of a small number of connections with very long lifetimes, for example
+when client-side connection pooling is used, it guarantees an even distribution
+of the connections. This is also a good mode for doing performance evaluations
+with load generation frameworks that open up the connections on startup.
+
 #### `skip_name_resolve`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
@@ -531,8 +567,6 @@ Deprecated and ignored.
 * Dynamic: Yes
 * Default: `false`
 * Description: Deprecated - use [cooperative monitoring](../../../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.
-
-Deprecated since MariaDB MaxScale 25.01. Use [cooperative monitoring](../../../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.
 
 Controls whether MaxScale is a passive node in a cluster of multiple MaxScale instances.
 
@@ -671,6 +705,29 @@ Individual trace files may sometimes exceed this limit and under heavy load the 
 * Description: Log warning when a client with SUPER privilege connects.
 
 When enabled, a warning is logged whenever a client with SUPER-privilege successfully authenticates. This also applies to COM\_CHANGE\_USER-commands. The setting is intended for diagnosing situations where a client interferes with a primary server switchover. Super-users bypass the _read\_only_-flag which switchover uses to block writes to the primary.
+
+#### `log_timestamp_format`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [enum](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `default`, `datetime`, `iso_8601`
+* Default: `default`
+* Description: Selects the timestamp format used in log messages.
+
+The log timestamp format to use. The `default` and `iso_8601` values use ISO
+8601 timestamps with UTC timezone offset. The `datetime` is the legacy timestamp
+format. The formats, where the millisecond part is optional, are:
+
+* `iso_8601`: `YYYY-MM-DDTHH:MM:SS[.sss]+HH:MM`
+* `datetime`: `YYYY-MM-DD HH:MM:SS[.sss]`
+
+By default, if there are legacy log messages found in the first 100 lines of the
+MaxScale log, a warning is logged. To disable this warning, use `iso_8601`.
 
 #### `log_augmentation`
 
@@ -1204,14 +1261,14 @@ All runtime configuration changes are persisted in generated configuration files
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10`
+* Default: `0` from 26.10.0, `10` until 25.10
 * Description: Maximum number of authentication failures before temporarily blocking a host.
 
 {% hint style="info" %}
 In MaxScale 26.10, the default changes to `0`, which disables this feature. Hosts are blocked by [max\_connect\_errors](maxscale-configuration-guide.md#max_connect_errors) instead.
 {% endhint %}
 
-The maximum number of authentication failures that are tolerated before a host is temporarily blocked. The default value is 10 failures. To disable this feature, set the value to 0.
+The maximum number of authentication failures that are tolerated before a host is temporarily blocked.
 
 The block applies to the whole host, not to the user whose authentication failed. Every client that connects from that host is rejected, including applications that use other accounts. After a host is blocked, connections from it are rejected until no connection has been attempted from it for 60 seconds. Each attempt during the block restarts the 60 seconds. A successful authentication from the host resets its failure count.
 
@@ -1222,7 +1279,7 @@ Note that the configured value is not a hard limit. The number of tolerated fail
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `100` from 26.10.0, `0` until 25.10.
 * Description: Maximum number of aborted connection attempts before temporarily blocking a host.
 
 {% hint style="info" %}
@@ -1844,6 +1901,38 @@ As the synchronization involves selecting the configuration version from the dat
 
 Timeout for all SQL operations done during the configuration synchronization. If an operation exceeds this timeout, the configuration change is treated as failed and an error is reported to the client that did the change.
 
+#### `statistics`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [boolean](maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+* Description: Enables tracking of query statistics such as query execution latency.
+
+Enable tracking of query statistics.
+
+By default MaxScale tracks the latency of each executed query and keeps a record
+of the latency distribution. These latency measurements are then exported as
+metrics via the telemetry. The values are also exposed in the REST-API and the
+output of `maxctrl show qc_cache`. The `maxctrl show query_statistics` command
+also displays them.
+
+There is a cost to tracking the latency distribution. The most notable cost is
+an increase in memory usage per query which causes more pressure on the query
+classification cache. If the number of cache evictions reported in `maxctrl show
+threads` steadily increases, increase the value of `query_classifier_cache_size`
+from the default 15% of system memory to a value that's high enough that
+evictions no longer take place.
+
+There is also a CPU cost to tracking the latency but this is usually less of an
+issue. However, if telemetry is not being exported and the query statistics are
+not used, both the memory and CPU cost can be avoided by disabling the tracking
+of the statistics with `statistics=false`.
+
 #### `telemetry`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
@@ -1874,33 +1963,6 @@ Optional global attributes to send with every metric. Example `telemetry_attribu
 
 Minimum interval to send metrics to the collector.
 
-#### `telemetry_sql_count`
-
-* Type: count
-* Mandatory: No
-* Dynamic: Yes
-* Default: `50`
-
-The maximum number of SQL statements whose latency is exported as the `maxscale.query.latency` metric. The most frequently executed statements are exported first. A value of `0` disables the metric. For the full list of exported metrics, see [MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
-
-#### `telemetry_sql_match`
-
-* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `""`
-
-Only export latency metrics for SQL statements whose canonical form matches this regular expression.
-
-#### `telemetry_sql_exclude`
-
-* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
-* Mandatory: No
-* Dynamic: Yes
-* Default: `""`
-
-Do not export latency metrics for SQL statements whose canonical form matches this regular expression.
-
 #### `telemetry_ssl_insecure`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
@@ -1916,10 +1978,72 @@ When enable and SSL certificates are defined, MaxScale OpenTelemetry uses insecu
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `http://localhost:4318/v1/metrics`
+* Default: `http://localhost:4318`
 * Description: Defines the OpenTelemetry endpoint where MaxScale pushes metrics.
 
-The OpenTelemetrymetrics URL where MaxScale pushes metrics.
+{% tabs %}
+{% tab title="Current" %}
+The OpenTelemetry base URL where MaxScale pushes metrics and logs. The
+metrics and logs paths are appended to this URL. If the value ends in
+`/v1/metrics`, as the old default value `http://localhost:4318/v1/metrics`
+does, the suffix is automatically dropped.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The OpenTelemetry metrics URL where MaxScale pushes metrics. The default
+value is `http://localhost:4318/v1/metrics`.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_metrics_url`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Defines the URL where OpenTelemetry metrics are sent, overriding the one derived from `telemetry_url`.
+
+URL where OpenTelemetry metrics are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send metrics to a separate or non-standard location.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_logs_url`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+* Description: Defines the URL where OpenTelemetry logs are sent, overriding the one derived from `telemetry_url`.
+
+URL where OpenTelemetry logs are sent. This overrides the value that's automatically derived from `telemetry_url`. Use this if you want to send logs to a separate or non-standard location.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `telemetry_signals`
+
+* Type: [enum\_mask](maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `metrics`, `logs`
+* Default: `metrics,logs`
+* Description: Specifies which telemetry signals, metrics and logs, are sent.
+
+The telemetry signals to send. By default both metrics and logs are sent if telemetry is enabled.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later. Older versions
+only send metrics.
+{% endtab %}
+{% endtabs %}
 
 #### `telemetry_ssl_key`
 
@@ -1952,6 +2076,69 @@ The path to the TLS public certificate in PEM format. See `telemetry_ssl_key` an
 * Description: Path to trusted CA certificate (PEM) used for validating TLS connections in telemetry.
 
 The path to a TLS CA certificate in PEM format.
+
+#### `telemetry_sql_count`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: 50
+* Description: Defines the maximum number of the most used SQL query digests that are sent as metrics.
+
+How many of the most used SQL query digests are sent as metrics.
+
+The metrics track the approximate 50th, 75th, 95th and 99th percentile query
+execution latency for each unique query pattern as well as per server. By
+default only the top 50 most used queries by frequency are sent. If there are
+more than 50 different query digests that are of interest or you are not seeing
+the query you're interested in, increase the value of `telemetry_sql_count` or
+use `telemetry_sql_match` and `telemetry_sql_exclude` to filter the metrics to
+the important ones.
+
+For the full list of exported metrics, see
+[MaxScale Telemetry](../../../reference/maxscale-telemetry.md).
+
+#### `telemetry_sql_match`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Defines a regular expression that selects the SQL query digests that are sent as metrics.
+
+Regular expression that's used to select which SQL query digests are sent over
+as metrics.
+
+This regular expression is matched against the SQL query digest which has all
+the constant values replaced with question marks. Only query digests that match
+the pattern are included in the metrics.
+
+#### `telemetry_sql_exclude`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: [regex](maxscale-configuration-guide.md#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+* Description: Defines a regular expression that excludes matching SQL query digests from the metrics.
+
+Regular expression that's used to exclude SQL query digests from being sent over
+as metrics.
+
+This regular expression is matched against the SQL query digest which has all
+the constant values replaced with question marks. If the query matches, the
+digest is excluded from the metrics.
 
 #### `key_manager`
 
@@ -1986,8 +2173,8 @@ However, there are events whose seriousness is not self-evident. For instance, i
 To handle events like these, MaxScale defines _events_ whose logging facility and level can be controlled by the administrator. Given an event `X`, its facility and level are controlled in the following manner:
 
 ```
-event.X.facility=LOG_LOCAL0
-event.X.level=LOG_ERR
+event_X_facility=LOG_LOCAL0
+event_X_level=LOG_ERR
 ```
 
 The above means that if event _X_ occurs, then that is logged using the facility `LOG_LOCAL0` and the level `LOG_ERR`.
@@ -2008,16 +2195,16 @@ for the logged events to end up in `/var/log/auth.log`, where the initial`auth` 
 
 The available events are:
 
-#### 'authentication\_failure'
+#### `authentication_failure`
 
 This event occurs when there is an authentication failure.
 
 ```
-event.authentication_failure.facility=LOG_AUTH
-event.authentication_failure.level=LOG_CRIT
+event_authentication_failure_facility=LOG_AUTH
+event_authentication_failure_level=LOG_CRIT
 ```
 
-#### 'firewall\_incident'
+#### `firewall_incident`
 
 This event occurs when the firewall blocks a query.
 
@@ -2025,6 +2212,50 @@ This event occurs when the firewall blocks a query.
 event_firewall_incident_facility=LOG_AUTH
 event_firewall_incident_level=LOG_CRIT
 ```
+
+#### `session_start`
+
+{% hint style="info" %}
+This event is available from MaxScale 26.10.
+{% endhint %}
+
+This event occurs when a client session is successfully started.
+```
+event_session_start_facility=LOG_AUTH
+event_session_start_level=LOG_NOTICE
+```
+
+#### `session_stop`
+
+{% hint style="info" %}
+This event is available from MaxScale 26.10.
+{% endhint %}
+
+This event occurs when a client disconnects.
+```
+event_session_stop_facility=LOG_AUTH
+event_session_stop_level=LOG_NOTICE
+```
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+#### `transaction_replay_failure`
+
+This event occurs when a readwritesplit service with `transaction_replay=true` fails to replay a transaction.
+
+```
+event_transaction_replay_failure_level=LOG_INFO
+```
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
 
 ### Service
 
@@ -2767,6 +2998,110 @@ port=3006
 
 For a complete list of listener configuration parameters, see the [Listener Reference](../../../reference/maxscale-listeners.md).
 
+#### `sni_mapping_file`
+
+{% hint style="info" %}
+This setting is available from MaxScale 26.10.
+{% endhint %}
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: none
+* Description: Defines the path to a JSON file that maps SNI hostnames to certificates and services.
+
+Path to file that contains the
+[SNI](https://en.wikipedia.org/wiki/Server_Name_Indication) hostname-to-service
+mapping for this listener. SNI allows a client to connect to different MaxScale
+services through one listener. To work, SNI-mapping requires the following:
+
+* Client-to-MaxScale connection is encrypted.
+* Multiple hostnames are registered to the MaxScale host machine.
+* Client application or connector sends the target hostname during SSL
+  negotiation.
+
+Ensure that your client application or connector supports SNI before attempting
+to use SNI service mapping in MaxScale. For example,
+[Connector/C 3.4.8](https://mariadb.com/docs/release-notes/connectors/c/3.4/3.4.8) and
+[Connector/J 3.5.7](https://mariadb.com/docs/release-notes/connectors/java/3.5/3.5.7)
+include SNI support.
+
+When this feature is enabled, MaxScale reads the hostname the client wants to
+connect to during SSL negotiation. If the hostname is found in the SNI mapping
+configuration, MaxScale changes both the certificate MaxScale presents to the
+client and the MaxScale service the client connects to from the standard
+listener values to the ones defined in the mapping. The client essentially sees
+a different MaxScale depending on the hostname it connects to, even if the final
+IP address is unchanged. If the mapping contains no hostname that matches the
+one the client requested, the client will use the standard service configured to
+the listener.
+
+If set, `sni_mapping_file` must point to a readable file in JSON format. The
+file can contain two sub-elements: *certificates* and
+*hostname_to_service_mapping*.  The former defines the certificate and key files
+used in the latter.
+
+*certificates* is an object that contains sub-objects, one for each certificate
+and keyfile pair.  Each certificate sub-object must define the following:
+
+* ssl_cert: String. Path to the certificate file.
+* ssl_key: String. Path to the certificate private key file.
+
+The key of the sub-object defines the name for the certificate file pair. This
+name is used to refer to the certificate in *hostname_to_service_mapping*. The
+certificate files referred to by the SNI configuration are processed similarly
+to other MaxScale certificate files. Thus, it's recommended to also generate
+them using similar tools and settings.
+
+*hostname_to_service_mapping* defines an array of mapping elements. Each element
+ must contain:
+
+* hostnames: Array of strings. Each string must at least look like a valid
+  hostname. Defines the hostnames this mapping element applies to.
+* certificate: String. Name of the certificate presented to the client. Must
+  match one of the certificate names defined in *certificates*.
+* service: String. Name of the MaxScale service the client should be routed to.
+  Must be a valid MaxScale service.
+
+The certificates and the mapping are stored in different objects so that one
+certificate can be easily shared between multiple service mapping elements.
+
+An example SNI mapping file is below.
+
+```
+{
+    "certificates":
+    {
+        "my-alternate-crt1": {
+            "ssl_cert": "/home/me/ssl/alt-crt1.crt",
+            "ssl_key": "/home/me/ssl/alt-crt2.key"
+        },
+        "my-alternate-crt2": {
+            "ssl_cert": "/home/me/ssl/alt-crt2.crt",
+            "ssl_key": "/home/me/ssl/alt-crt2.key"
+        }
+    },
+
+    "hostname_to_service_mapping": [
+        {
+            "hostnames": ["alternate-host1", "alternate-host1b", "alternate-host1c"],
+            "certificate": "my-alternate-crt1",
+            "service": "Alt-Service-A"
+        },
+        {
+            "hostnames": ["alternate-host2"],
+            "certificate": "my-alternate-crt2",
+            "service": "Alt-Service-B"
+        },
+        {
+            "hostnames": ["alternate-host3"],
+            "certificate": "my-alternate-crt2",
+            "service": "Alt-Service-C"
+        }
+    ]
+}
+```
+
 ### Include
 
 An _include_ section defined common parameters used in other configuration sections. Consider the following configuration.
@@ -2873,37 +3208,74 @@ Accepts MongoDB® connections, yet stores and fetches results to/from MariaDB se
 
 This section describes TLS/SSL-related configuration parameters for both servers and listeners.
 
-To enable TLS/SSL for a listener or server, set the `ssl` parameter to `true`. If the clients expect a specific certificate from MaxScale, set the `ssl_cert` and `ssl_key` parameters for the listener. If the certificate is not defined, MaxScale will use an auto-generated self-signed certificate. The generated certificate can pass verification when used with a recent (11.4 or greater) client version.
+To enable TLS/SSL for a listener, set the `ssl` parameter to `allow` or
+`require`. Listeners are SSL-enabled by default. If the clients expect a
+specific certificate from MaxScale, set the `ssl_cert` and `ssl_key` parameters
+for the listener. If a certificate is not defined, MaxScale will use an
+auto-generated self-signed certificate. The generated certificate can pass
+verification when used with a recent (11.4 or greater) client version.
 
-If the backend database server has certificate verification enabled, configure the `ssl_cert` and `ssl_key` parameters of the server.
+To enable TLS/SSL-connections to a server, set its `ssl` parameter to `allow` or
+`require`. If the backend database server has certificate verification enabled,
+configure the `ssl_cert` and `ssl_key` parameters of the server. The database
+server itself must also be configured to use TLS/SSL-connections if backend
+connection encryption is enforced.
 
 Custom CA certificates can be defined with the `ssl_ca` parameter. If `ssl_verify_peer_certificate` is enabled yet `ssl_ca` is not set, MaxScale will load CA certificates from the system default location.
 
-After this, MaxScale connections between the server and/or the client will be encrypted. Note that the database must also be configured to use TLS/SSL connections if backend connection encryption is used.
+If a listener is configured with `ssl=require`, the listener will reject any
+unencrypted connections. To allow both encrypted and unencrypted connections to
+the same listener, set `ssl` to `allow`. `allow` is the default mode.
 
-**Note:** MaxScale does not allow mixed use of TLS/SSL and normal connections on the same port.
+Multiple listeners with different configurations can be created to enable
+different encryption schemes.
 
-If TLS encryption is enabled for a listener, any unencrypted connections to it will be rejected. MaxScale does this to improve security by preventing accidental creation of unencrypted connections.
-
-The separation of secure and insecure connections differs from the MariaDB Server which allows both secure and insecure connections on the same port. As MaxScale is the gateway through which all connections go, MaxScale enforces a stricter security policy than MariaDB Server. Multiple listeners with different configurations can be created to enable different encryption schemes.
-
-TLS encryption must be enabled for listeners when they are created. For servers, the TLS can be enabled after creation but it cannot be disabled or altered.
+If a server is configured with `ssl=require`, MaxScale enforces SSL usage for
+all connections to the server. If an encrypted connection to the server cannot
+be established, the connection fails.
 
 Starting with MaxScale 2.5.20, if the TLS certificate given to MaxScale has the X509v3 extended key usage information, MaxScale will check it and refuse to use a certificate with the wrong usage. This means that a certificate with only clientAuth can only be used with servers and a certificate with only serverAuth can only be used with listeners. In order to use the same certificate for both listeners and servers, it must have both the clientAuth and serverAuth usages.
+
+**From MaxScale 26.10,** listeners are SSL-enabled by default and can accept
+both encrypted and unencrypted connections. In earlier versions they are not
+SSL-enabled by default and cannot accept both.
 
 ### Settings for TLS/SSL Encryption
 
 #### `ssl`
 
-* Type: [boolean](maxscale-configuration-guide.md#booleans)
+* Type: [enumeration](maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: false
-* Description: Enables SSL encryption for connections when set to true.
+* Values: `disable`, `allow`, `require`
+* Default: `allow`
+* Description: Configures the SSL encryption for connections.
 
-This enables SSL connections when set to true. The legacy values `required` and `disabled` were removed in MaxScale 6.0.
+Enables SSL connections when set to `allow` or `require`. The old boolean values
+can still be used and map to `require` (true) and `disable` (false).
 
-Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and 24.08.1, if ssl is disabled for a listener, MariaDB user accounts that require ssl cannot log in through that listener. Any user account with a non-empty _ssl\_type_-field in _mysql.user_-table is blocked. This includes users created with `REQUIRE SSL` or `REQUIRE X509`.
+In listener configuration, `allow` means that the listener accepts both
+encrypted and unencrypted connections. `disable` only accepts unencrypted
+connections and `require` only accepts encrypted connections.
+
+In server configuration, `disable` only uses unencrypted connections to the
+server. `require` only uses encrypted connections. `allow`-mode is flexible, and
+means that MaxScale generally prefers to use encrypted connections but falls
+back to unencrypted connections if the server does not support encryption. In
+some cases (e.g. the
+[Binlogrouter](../../../reference/maxscale-routers/maxscale-binlogrouter.md))
+`allow` may default to unencrypted connections. Use `allow` when encryption is
+not essential, or when MariaDB Server SSL support may change while MaxScale is
+running.
+
+Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
+24.08.1, if SSL is disabled for a listener, MariaDB user accounts that require
+SSL cannot log in through that listener. Any user account with a non-empty
+_ssl\_type_-field in _mysql.user_-table is blocked. This includes users created
+with `REQUIRE SSL` or `REQUIRE X509`.
+
+**From MaxScale 26.10,** the value `allow` is available and is the default.
+In earlier versions the setting is a boolean and the default is `false`.
 
 #### `ssl_key`
 
@@ -3383,6 +3755,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the host where the KMIP server is.
 
 The host where the KMIP server is.
 

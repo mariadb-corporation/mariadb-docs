@@ -26,7 +26,7 @@ _A plugin is installed from GitHub (1 and 2), and downloads the native tools pac
 
 ### Coding Agent
 
-The coding agent, which this documentation calls the _harness_, is the AI tool you work with: Claude Code, Codex, OpenCode, Pi, or Hermes Agent. Each coding agent has its own way of installing and loading extensions, so there is a separate MariaDB plugin for each of them.
+The coding agent, which this documentation calls the _harness_, is the AI tool you work with: Claude Code, Codex, OpenCode, Pi, Hermes Agent, or Cursor. Each coding agent has its own way of installing and loading extensions, so there is a separate MariaDB plugin for each of them.
 
 You install the plugin with the commands of your coding agent (1). In Claude Code, for example, you add the MariaDB marketplace and install the plugin with these commands:
 
@@ -104,6 +104,7 @@ See [Configuration Reference](configuration-reference.md) for all launcher envir
 All harnesses get the same skills and the same MCP server, but the plugins are packaged differently:
 
 * **Claude Code** and **Codex** read a marketplace manifest and install a plugin directory.
+* **Cursor** reads the Claude Code marketplace manifest and installs the Claude Code plugins into its own directory. Claude Code doesn't need to be installed.
 * **OpenCode** has no marketplace. You merge an `mcp` block into your configuration, set an environment variable, and link the skills directory.
 * **Pi** has no marketplace. The repository-root `package.json` is the Pi package manifest, and the extension in the package registers the MCP server with Pi 1.0 or later.
 * **Hermes Agent** has no marketplace. Each plugin folder is a portable Agent Plugins v1 package with a root `plugin.json`, a `skills/` directory, and, for the `dev` and `sql` plugins, an `mcp.json` that declares the MCP server. Hermes installs the folder directly from the repository.

@@ -37,8 +37,10 @@ See the [Rolling Upgrades](https://docs.gridgain.com/docs/rolling-upgrades) page
 
 ## Related Information
 
+[Customer Support](https://mariadb.com/support/)
+
 ### We Value Your Feedback
 
-The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: docs@gridgain.com
+The GridGain documentation team is focused on constantly improving the product documentation. Your comments and suggestions are always welcome. You can reach us here: https://mariadb.com/support/
 
 Please visit the [documentation](https://docs.gridgain.com) for more information.

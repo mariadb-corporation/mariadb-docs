@@ -260,11 +260,7 @@ flowchart LR
 
 ## Dev tools for Enterprise Cluster
 
-You can manage, provision, and scale your Enterprise Cluster using standard MariaDB Cloud methods, including the MariaDB Cloud Portal and REST APIs.&#x20;
-
-{% hint style="info" %}
-Terraform Provider support is not currently available for Enterprise Cluster.
-{% endhint %}
+You can manage, provision, and scale your Enterprise Cluster using standard MariaDB Cloud methods, including the MariaDB Cloud Portal, REST APIs, and the [Terraform provider](launch-db-using-the-terraform-provider.md). To provision an Enterprise Cluster with Terraform, set `topology = "galera"` on the `skysql_service` resource.
 
 Enterprise Cluster is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
 

@@ -409,4 +409,29 @@ This panel appears on the service-wide view only. It shows the number of cache s
 
 This panel appears on an individual cache node's view rather than the service-wide one. It charts over the selected time interval the same eviction metric that **Evictions / sec** reports as a single figure.
 
+## MariaDB Exa (Exasol)
+
+On a service with MariaDB Exa enabled, the monitoring view includes an **Exasol** dashboard for the Exa node. It has these panels:
+
+* **Memory:** the memory of the Exasol node. The database RAM lines show the RAM that Exasol recommends, holds for data, and uses for temporary results. The used (RSS) memory and max available memory lines cover the whole container, so they also count the operating system and other processes. A new database can show no recommended or persistent database RAM at first.
+* **Recommended Database RAM:** the database RAM that Exasol recommends for maximum performance.
+* **CPU Usage:** the current CPU usage of the Exasol node.
+* **Memory Usage:** the used (RSS) memory of the Exasol node as a percentage of its max available memory.
+* **Database Storage:** the size of the Exasol data over the selected interval, split into raw size (uncompressed), compressed size, index size, multicopy data, and swap data. Multicopy data is the extra copies that Exasol keeps for open transactions and for read and write collisions, and it grows with long uncommitted transactions. Swap data is intermediate query results that did not fit into the database RAM. When it grows, queries slow down, and the node may need more RAM.
+* **Compression Ratio:** the raw data size divided by the compressed data size. A higher value means better compression.
+* **SQL Statements per Minute:** the number of read, write, and other statements per minute over the last 5 minutes.
+* **Concurrent Queries:** the largest number of queries that ran at the same time in the last 5 minutes.
+
+## MariaDB Exa alerts
+
+MariaDB Cloud adds three default warning alerts to services with MariaDB Exa enabled. Each fires when its condition holds for 30 minutes:
+
+| Alert | Condition |
+| ----- | --------- |
+| Exasol memory < 10% of raw data size | The instance memory of the Exa node is below 10% of the raw data size. |
+| Exasol index size > instance memory | The index size is larger than the instance memory. |
+| Exasol recommended RAM > 2x instance memory | The database RAM that Exasol recommends is more than twice the instance memory. |
+
+When an alert fires, consider scaling the Exa node to a bigger size. See [Scaling MariaDB Exa](../quickstart/htap-mariadb-exa.md#scaling-mariadb-exa).
+
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

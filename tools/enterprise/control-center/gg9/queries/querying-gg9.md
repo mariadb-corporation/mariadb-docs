@@ -18,7 +18,7 @@ The screen consists of two tabs:
 
 You can add multiple tabs to the screen, each containing an SQL expression and the query results (after you have executed the query). To add a tab, click the **+** icon on the tab bar.
 
-The screen also provides **Add Schema** and **Add Data** buttons in the top-right corner, which open the [Data and Schema Import](../data-schema-import/data-schema-import.md) feature for importing schemas from external databases or loading data into the cluster.
+The screen also provides **Add Schema** and **Add Data** buttons in the top-right corner, which open the [Data and Schema Import](../data-schema-import.md) feature for importing schemas from external databases or loading data into the cluster.
 
 ## Defining Queries
 

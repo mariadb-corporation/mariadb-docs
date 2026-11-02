@@ -1,6 +1,6 @@
 ---
 description: >-
-  Install MariaDB AI Plugins in Claude Code, Codex, OpenCode, Pi, or Hermes Agent.
+  Install MariaDB AI Plugins in Claude Code, Codex, OpenCode, Pi, Hermes Agent, or Cursor.
 ---
 
 # Installation
@@ -25,9 +25,9 @@ When the plugin starts for the first time, it downloads and extracts MariaDB She
 
 ## Prerequisites
 
-* A supported harness: Claude Code, Codex, OpenCode, Pi, or Hermes Agent.
+* A supported harness: Claude Code, Codex, OpenCode, Pi, Hermes Agent, or Cursor.
 * Linux, macOS, or Windows. The optional migration tooling is available on Linux and macOS only.
-* Network access on first start, unless MariaDB Shell 26.10.3 or later is already installed.
+* Network access on first start, unless MariaDB Shell 26.10.4 or later is already installed.
 
 You don't need a MariaDB Server installation. If you don't have a server, the MCP server can deploy a local [sandbox instance](../features/sandbox-instances.md).
 
@@ -51,6 +51,10 @@ You don't need a MariaDB Server installation. If you don't have a server, the MC
 
 {% content-ref url="hermes.md" %}
 [hermes.md](hermes.md)
+{% endcontent-ref %}
+
+{% content-ref url="cursor.md" %}
+[cursor.md](cursor.md)
 {% endcontent-ref %}
 
 ## Verify the Skills Are Loaded

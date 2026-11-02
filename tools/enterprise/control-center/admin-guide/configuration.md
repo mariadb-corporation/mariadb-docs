@@ -147,10 +147,14 @@ When the table size limit is set, Control Center automatically cleans tables in 
 
 ## Teams
 
+The `application.properties` file shipped with the on-premises distribution sets both these properties to `true`. In that default setup, all users are members of *Global Team*, and every cluster that connects to Control Center is shared with it automatically, without an attach token.
+
+To attach clusters with a token instead, set both properties to `false` in `application.properties`. Each cluster is then visible only to the users and teams you share it with.
+
 | Parameter | Description | Default |
 |---|---|---|
-| `account.globalTeam.enabled` | If true, automatically creates a team called *Global Team*, which includes all active users (local or AD/LDAP-managed). | true |
-| `account.globalTeam.attachCluster` | If true, and if Global Team is enabled, automatically shares all clusters in the environment with that team. Clusters attach without a token. | true |
+| `account.global-team.enabled` | If true, automatically creates a team called *Global Team*, which includes all active users (local or AD/LDAP-managed). | `true` |
+| `account.global-team.attach-cluster` | If true, and if Global Team is enabled, automatically shares all clusters in the environment with that team. Clusters attach without a token. | `true` |
 
 ## SSL/TLS
 
