@@ -404,7 +404,7 @@ If you do not need version control, downloading a pre-packaged source tarball is
 
 When running `cmake ..`, you can pass these options (using the `-D` prefix) to customize how MariaDB is built.
 
-<table><thead><tr><th width="150.58984375">Category</th><th width="336.92578125">Flag</th><th>Description</th></tr></thead><tbody><tr><td>Install Path</td><td><code>-DCMAKE_INSTALL_PREFIX=/opt/mariadb</code></td><td>Defines where the server is installed (default: <code>/usr/local</code>).</td></tr><tr><td>Build Type</td><td><code>-DCMAKE_BUILD_TYPE=RelWithDebInfo</code></td><td>Options: <code>Release</code>, <code>Debug</code>, <code>RelWithDebInfo</code> (recommended).</td></tr><tr><td>Features</td><td><code>-DWITH_EMBEDDED_SERVER=ON</code></td><td>Builds the <code>libmariadbd</code> embedded library.</td></tr><tr><td>Storage Engines</td><td><code>-DPLUGIN_ROCKSDB=NO</code></td><td>Explicitly disables a specific storage engine (use <code>YES</code> to force enable).</td></tr><tr><td>Security</td><td><code>-DWITH_SSL=system</code></td><td>Use the system's OpenSSL (default). Options: <code>system</code>, <code>openssl</code>, <code>gnutls</code>.</td></tr><tr><td>Debugging</td><td><code>-DWITH_ASAN=ON</code></td><td>Enables AddressSanitizer to find memory leaks.</td></tr><tr><td>Standardization</td><td><code>-DBUILD_CONFIG=mysql_release</code></td><td>Configures the build to match the official MariaDB release binaries.</td></tr></tbody></table>
+<table><thead><tr><th width="150.58984375">Category</th><th width="336.92578125">Flag</th><th>Description</th></tr></thead><tbody><tr><td>Install Path</td><td><code>-DCMAKE_INSTALL_PREFIX=/opt/mariadb</code></td><td>Defines where the server is installed (default: <code>/usr/local</code>).</td></tr><tr><td>Build Type</td><td><code>-DCMAKE_BUILD_TYPE=RelWithDebInfo</code></td><td>Options: <code>Release</code>, <code>Debug</code>, <code>RelWithDebInfo</code> (recommended).</td></tr><tr><td>Features</td><td><code>-DWITH_EMBEDDED_SERVER=ON</code> / <code>OFF</code></td><td>Builds (<code>ON</code>) or skips (<code>OFF</code>) the <code>libmariadbd</code> embedded library. Default: <code>OFF</code>.</td></tr><tr><td>Features</td><td><code>-DWITH_MARIABACKUP=OFF</code></td><td>Skips building MariaDB Backup. Default: <code>ON</code>.</td></tr><tr><td>Storage Engines</td><td><code>-DPLUGIN_ROCKSDB=NO</code></td><td>Explicitly disables a specific storage engine (use <code>YES</code> to force enable).</td></tr><tr><td>Security</td><td><code>-DWITH_SSL=system</code></td><td>Use the system's OpenSSL (default). Options: <code>system</code>, <code>openssl</code>, <code>gnutls</code>.</td></tr><tr><td>Debugging</td><td><code>-DWITH_ASAN=ON</code></td><td>Enables AddressSanitizer to find memory leaks.</td></tr><tr><td>Standardization</td><td><code>-DBUILD_CONFIG=mysql_release</code></td><td>Configures the build to match the official MariaDB release binaries.</td></tr></tbody></table>
 
 ### Pro-Tip: Managing Plugins
 
@@ -413,6 +413,19 @@ Most plugins are auto-detected based on the dependencies you installed in [step 
 ```bash
 cmake .. -LH
 ```
+
+### Reducing the Build Size
+
+To get a smaller build, leave out optional components you do not need. For example, RocksDB, the embedded server, and MariaDB Backup can each be turned off at configure time:
+
+```bash
+cmake .. \
+  -DPLUGIN_ROCKSDB=NO \
+  -DWITH_EMBEDDED_SERVER=OFF \
+  -DWITH_MARIABACKUP=OFF
+```
+
+See [Specifying Which Plugins to Build](compiling-mariadb-with-extra-modulesoptions/specifying-which-plugins-to-build.md) for the other `PLUGIN_xxx` values.
 
 ## The Quick Way: Using BUILD Scripts
 
