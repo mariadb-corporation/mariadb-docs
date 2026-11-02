@@ -17,7 +17,7 @@ Time candidate waits for a majority of granted votes during election. Uses expon
 | ------------ | ----------------- |
 | Command Line |                   |
 | Scope        | Global            |
-| Dynamic      | No                |
+| Dynamic      | Yes               |
 | Data Type    | Numeric (ms)      |
 | Range        | 100 to 4294967295 |
 | Default      | 200               |
@@ -56,7 +56,7 @@ Maximum size of single log file in bytes. When a log file reaches this size, a n
 | ------------ | -------------------------------------- |
 | Command Line |                                        |
 | Scope        | Global                                 |
-| Dynamic      | No                                     |
+| Dynamic      | Yes                                    |
 | Data Type    | Numeric (Bytes)                        |
 | Range        | 1048576 (1 MB) to 1048576000 (1000 MB) |
 | Default      | 128MB                                  |
@@ -69,7 +69,7 @@ Maximum size of the in-memory event store buffer in bytes. Events are cached in 
 | ------------ | ---------------------------------------- |
 | Command Line |                                          |
 | Scope        | Global                                   |
-| Dynamic      | No                                       |
+| Dynamic      | Yes                                      |
 | Data Type    | Numeric (Bytes)                          |
 | Range        | 1048576 (1 MB) to 10485760000 (10000 MB) |
 | Default      | 32MB                                     |
@@ -82,7 +82,7 @@ Maximum total size of the event store on disk in bytes. Older log files are purg
 | ------------ | -------------------------------------------- |
 | Command Line |                                              |
 | Scope        | Global                                       |
-| Dynamic      | No                                           |
+| Dynamic      | Yes                                          |
 | Data Type    | Numeric (Bytes)                              |
 | Range        | 1048576 (1 MB) to 1048576000000 (1000000 MB) |
 | Default      | 512MB                                        |
@@ -121,7 +121,7 @@ Time follower waits without leader messages before starting election. Should be 
 | ------------ | ----------------- |
 | Command Line |                   |
 | Scope        | Global            |
-| Dynamic      | No                |
+| Dynamic      | Yes               |
 | Data Type    | Numeric (ms)      |
 | Range        | 500 to 4294967295 |
 | Default      | 5000              |
@@ -134,7 +134,7 @@ Interval at which leader sends heartbeat messages (milliseconds). Shorter interv
 | ------------ | ----------------- |
 | Command Line |                   |
 | Scope        | Global            |
-| Dynamic      | No                |
+| Dynamic      | Yes               |
 | Data Type    | Numeric (ms)      |
 | Range        | 100 to 4294967295 |
 | Default      | 1000              |
@@ -231,7 +231,7 @@ Upper bound for raft\_vote\_timeout after exponential backoff. Limits how long a
 | ------------ | ----------------- |
 | Command Line |                   |
 | Scope        | Global            |
-| Dynamic      | No                |
+| Dynamic      | Yes               |
 | Data Type    | Numeric (ms)      |
 | Range        | 100 to 4294967295 |
 | Default      | 1500              |
@@ -244,7 +244,7 @@ Number of attempts to reconnect to the cluster after ending up in non-primary st
 | ------------ | --------------- |
 | Command Line |                 |
 | Scope        | Global          |
-| Dynamic      | Yes             |
+| Dynamic      | No              |
 | Data Type    | Numeric         |
 | Range        | 1 to 4294967295 |
 | Default      | 5               |
@@ -331,26 +331,68 @@ Read-only datacenter segment identifier. The identifier can be either a human-re
 | Range        | Human-readable string (max 15 chars) or UUID |
 | Default      | (unset)                                      |
 
-### raft-have-ssl
+### raft-key-rotation-check-interval
 
-Indicates whether SSL/TLS is enabled for cluster communication. Possible values are YES, NO, or DISABLED. This is a read-only variable that reflects the current SSL state.
+Interval, in seconds, at which the plugin checks for a rotated binary log master key and gives the updated key to the Raft server. Effective only when `encrypt_binlog` is `ON`. See [Raft Event Log Encryption](mariadb-advanced-cluster-quickstart-guide.md#raft-event-log-encryption).
 
-| Property     | Value              |
-| ------------ | ------------------ |
-| Command Line |                    |
-| Scope        | Global             |
-| Dynamic      | No                 |
-| Data Type    | Enumeration        |
-| Range        | YES, NO, DISABLED  |
-| Default      | YES                |
+| Property     | Value                                 |
+| ------------ | ------------------------------------- |
+| Command Line | --raft-key-rotation-check-interval=#  |
+| Scope        | Global                                |
+| Dynamic      | Yes                                   |
+| Data Type    | Numeric (s)                           |
+| Range        | 1 to 4294967295                       |
+| Default      | 60                                    |
+
+## TLS Variables
 
 {% hint style="info" %}
-The `VERIFY_PEER` value was removed. Peer certificate verification is now controlled by the separate [raft-ssl-verify-server-cert](raft-system-variables.md#raft-ssl-verify-server-cert) variable.
+The variables `raft_have_ssl` and `raft_ssl_verify_server_cert` were removed in Raft Cluster 1.0.0. Use [raft-tls-mode](#raft-tls-mode). A node does not start with a removed variable in its configuration.
 {% endhint %}
+
+### raft-tls-mode
+
+Protection of the Raft cluster connections. This variable is read-only and must be set at server startup.
+
+| Value       | Meaning                                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------------------- |
+| `DISABLED`  | No TLS. Connections are plaintext.                                                                          |
+| `ENCRYPT`   | TLS without peer authentication. Any peer is accepted, so an active man-in-the-middle is not excluded.      |
+| `VERIFY_CA` | TLS. Both ends validate the peer certificate against `raft_ssl_ca` or `raft_ssl_capath`.                    |
+
+`VERIFY_CA` needs this configuration. Without it, the node does not start:
+
+* A CA: `raft_ssl_ca` or `raft_ssl_capath`.
+* A certificate and key for this node: `raft_ssl_cert` and `raft_ssl_key`, or one of them alone if that file holds both. Each node accepts and initiates connections, and the peer requires a certificate on both.
+
+The default is `VERIFY_CA`, so a node with no TLS configuration does not start.
+
+Under `VERIFY_CA`, the node also validates its own certificates as a peer would, at startup and at `FLUSH SSL`. See [TLS Configuration Checks](mariadb-advanced-cluster-quickstart-guide.md#tls-configuration-checks). The node does not check a host name or a subject.
+
+A configured certificate does not change the mode. It changes only what the node presents. The node logs the mode at startup, and logs a warning when the mode does not authenticate the peer (`DISABLED` or `ENCRYPT`).
+
+The same mode applies to the connections of the plugin, of the Raft server process, and of the state transfer client.
+
+{% hint style="warning" %}
+You cannot change from `DISABLED` to `ENCRYPT` or `VERIFY_CA` with a rolling restart. The change needs a full cluster outage. A change from `ENCRYPT` to `VERIFY_CA` can be done with rolling restarts. See [Choose a TLS Setup](mariadb-advanced-cluster-quickstart-guide.md#choose-a-tls-setup-on-each-node).
+{% endhint %}
+
+| Property     | Value                          |
+| ------------ | ------------------------------ |
+| Command Line | --raft-tls-mode=name           |
+| Scope        | Global                         |
+| Dynamic      | No                             |
+| Data Type    | Enumeration                    |
+| Range        | DISABLED, ENCRYPT, VERIFY\_CA  |
+| Default      | VERIFY\_CA                     |
 
 ### raft-ssl-key
 
 Path to the SSL private key file in PEM format. This variable is read-only and must be set at server startup.
+
+The key must not have a passphrase. One file can hold the key and the certificate. Then this option alone is a complete configuration.
+
+The node does not start if all accounts can write the key file. It logs a warning if the group or other accounts have any access to it. This applies to each file that holds a private key.
 
 | Property     | Value   |
 | ------------ | ------- |
@@ -365,6 +407,12 @@ Path to the SSL private key file in PEM format. This variable is read-only and m
 
 Path to the SSL certificate file in PEM format. This variable is read-only and must be set at server startup.
 
+The file can hold intermediate CA certificates after the node certificate. If the file also holds the key, this option alone is a complete configuration.
+
+The node presents this certificate on the connections it accepts. It also presents it on the connections it initiates, unless `raft_ssl_client_cert` or `raft_ssl_client_key` is set. Under `VERIFY_CA`, a certificate with an extended key usage must then include `serverAuth` and `clientAuth`.
+
+If neither this nor `raft_ssl_key` is set, the node generates a self-signed certificate at startup for the connections it accepts. No CA signs it, so only `ENCRYPT` can use it.
+
 | Property     | Value   |
 | ------------ | ------- |
 | Command Line |         |
@@ -373,6 +421,34 @@ Path to the SSL certificate file in PEM format. This variable is read-only and m
 | Data Type    | String  |
 | Range        |         |
 | Default      | (empty) |
+
+### raft-ssl-client-cert
+
+Path to the certificate file in PEM format that the node presents on the connections it initiates. The file can hold intermediate CA certificates after the certificate. If the file also holds the key, this option alone is a complete configuration. This variable is read-only and must be set at server startup.
+
+Use it when the CA issues a certificate for one TLS role only. Then `raft_ssl_cert` holds a `serverAuth` certificate, and this option holds a `clientAuth` certificate. When neither this nor `raft_ssl_client_key` is set, `raft_ssl_cert` and `raft_ssl_key` serve both roles.
+
+| Property     | Value                          |
+| ------------ | ------------------------------ |
+| Command Line | --raft-ssl-client-cert=name    |
+| Scope        | Global                         |
+| Dynamic      | No                             |
+| Data Type    | String                         |
+| Range        |                                |
+| Default      | (empty)                        |
+
+### raft-ssl-client-key
+
+Path to the private key file in PEM format for `raft_ssl_client_cert`. The same rules apply as for [raft-ssl-key](#raft-ssl-key). This variable is read-only and must be set at server startup.
+
+| Property     | Value                          |
+| ------------ | ------------------------------ |
+| Command Line | --raft-ssl-client-key=name     |
+| Scope        | Global                         |
+| Dynamic      | No                             |
+| Data Type    | String                         |
+| Range        |                                |
+| Default      | (empty)                        |
 
 ### raft-ssl-ca
 
@@ -391,6 +467,8 @@ Path to the CA certificate file in PEM format used to verify peer certificates. 
 
 Path to a directory containing CA certificate files in PEM format. This variable is read-only and must be set at server startup.
 
+The TLS library does not read the directory. It opens a CA by its hashed name, `<8 hex digits>.<n>`. Run `openssl rehash` on the directory to make these names. A directory with the certificates under other names gives no CA.
+
 | Property     | Value   |
 | ------------ | ------- |
 | Command Line |         |
@@ -403,6 +481,8 @@ Path to a directory containing CA certificate files in PEM format. This variable
 ### raft-ssl-cipher
 
 OpenSSL cipher list for TLS 1.2 and below. Uses OpenSSL cipher string format. This variable is read-only and must be set at server startup.
+
+When unset, only forward-secret AEAD suites are used: ECDHE or DHE key exchange with AES-GCM or ChaCha20-Poly1305. The node does not start if the list selects no cipher that the TLS library supports.
 
 | Property     | Value   |
 | ------------ | ------- |
@@ -417,6 +497,10 @@ OpenSSL cipher list for TLS 1.2 and below. Uses OpenSSL cipher string format. Th
 
 Path to the Certificate Revocation List (CRL) file. This variable is read-only and must be set at server startup.
 
+When `raft_ssl_crl` or `raft_ssl_crlpath` is set, revocation is checked for each certificate in the peer chain, not only for the peer certificate. Thus each CA in the chain must have a current list. A CA without a list, or with an expired list, causes validation to fail. If nothing is revoked, configure an empty list. Issue a new list before the `Next Update` time of the current one.
+
+The file can hold the lists of more than one CA. The lists are read when a TLS context is built. To put a changed list in force, use `FLUSH SSL`. See [Reloading TLS Material](mariadb-advanced-cluster-quickstart-guide.md#reloading-tls-material).
+
 | Property     | Value   |
 | ------------ | ------- |
 | Command Line |         |
@@ -430,6 +514,8 @@ Path to the Certificate Revocation List (CRL) file. This variable is read-only a
 
 Path to a directory containing Certificate Revocation List files. This variable is read-only and must be set at server startup.
 
+The same rules apply as for [raft-ssl-crl](#raft-ssl-crl). The TLS library opens a list by its hashed name, `<8 hex digits>.r<n>`. Run `openssl rehash` on the directory to make these names.
+
 | Property     | Value   |
 | ------------ | ------- |
 | Command Line |         |
@@ -441,20 +527,22 @@ Path to a directory containing Certificate Revocation List files. This variable 
 
 ### raft-tls-version
 
-Comma-separated list of allowed TLS protocol versions. Supported values include TLSv1.2 and TLSv1.3. Default includes both TLSv1.2 and TLSv1.3. This variable is read-only and must be set at server startup.
+Comma-separated list of allowed TLS protocol versions: `TLSv1.2` and `TLSv1.3`. The default includes both. TLS 1.2 is the lowest version that the node negotiates. Renegotiation and TLS compression are always disabled. This variable is read-only and must be set at server startup.
 
 | Property     | Value            |
 | ------------ | ---------------- |
 | Command Line |                  |
 | Scope        | Global           |
 | Dynamic      | No               |
-| Data Type    | String           |
+| Data Type    | Set              |
 | Range        | TLSv1.2, TLSv1.3 |
 | Default      | TLSv1.2,TLSv1.3  |
 
 ### raft-ssl-ciphersuites
 
 List of permitted TLS 1.3 ciphersuites. This is separate from raft\_ssl\_cipher which applies to earlier TLS versions. This variable is read-only and must be set at server startup.
+
+When unset, the node uses `TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256`. The node does not start if the list selects no suite that the TLS library supports.
 
 | Property     | Value   |
 | ------------ | ------- |
@@ -467,7 +555,7 @@ List of permitted TLS 1.3 ciphersuites. This is separate from raft\_ssl\_cipher 
 
 ### raft-ssl-verbose
 
-Verbose logging level for SSL context initialization.
+Verbose logging level for SSL context initialization: `0` disables verbose logging, `1` enables it, and `2` also enables SSL diagnostic callbacks. This variable is read-only and must be set at server startup.
 
 | Property     | Value                |
 | ------------ | -------------------- |
@@ -476,7 +564,7 @@ Verbose logging level for SSL context initialization.
 | Dynamic      | No                   |
 | Data Type    | Numeric              |
 | Range        | 0 to 2               |
-| Default      | 1                    |
+| Default      | 0                    |
 
 ### raft-ssl-verify-depth
 
@@ -490,30 +578,5 @@ Maximum depth for certificate chain verification. This variable is read-only and
 | Data Type    | Numeric         |
 | Range        | 0 to 4294967295 |
 | Default      | 9               |
-
-### raft-ssl-verify-server-cert
-
-Enables verification of the peer's server certificate against the configured CA certificate or certificates. This variable is read-only and must be set at server startup.
-
-This variable replaces the removed `VERIFY_PEER` value of [raft-have-ssl](raft-system-variables.md#raft-have-ssl).
-
-As with other MariaDB system variables, the underscore and dash forms are interchangeable. By convention, use `raft_ssl_verify_server_cert` in configuration files and `raft-ssl-verify-server-cert` on the command line — see [Setting Server System Variables](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#setting-server-system-variables).
-
-| Property     | Value   |
-| ------------ | ------- |
-| Command Line |         |
-| Scope        | Global  |
-| Dynamic      | No      |
-| Data Type    | Boolean |
-| Range        |         |
-| Default      | NO      |
-
-{% hint style="warning" %}
-When this variable is set to `YES` and both `raft_ssl_cert` and `raft_ssl_ca` are configured, the cluster performs mutual TLS: each peer verifies the other peer's server certificate against the configured CA. One limitation remains, and it matters when you are planning cluster security:
-
-* It does **not** perform hostname verification. All communication in the cluster is bi-directional and there are no fixed client and server roles, so the accepting side has no independent way to verify the other peer's hostname.
-
-The default is `NO`, so unless you set `raft_ssl_verify_server_cert=YES` (and configure `raft_ssl_cert` and `raft_ssl_ca`), Raft inter-node TLS encrypts traffic without authenticating the peer at all. Certificate verification cannot be used with the self-signed certificate generated at startup when no certificate information is provided, because that certificate is not signed by the configured CA.
-{% endhint %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
