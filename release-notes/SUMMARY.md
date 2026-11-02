@@ -1478,6 +1478,7 @@
 * [MaxScale Release Notes](maxscale/README.md)
   * [All Releases](maxscale/all-releases.md)
   * [MariaDB MaxScale 26.10 Release Notes](maxscale/26.10/README.md)
+    * [What's New in MariaDB MaxScale 26.10](maxscale/26.10/whats-new.md)
     * [MaxScale 26.10.0 Release Notes](maxscale/26.10/26.10.0.md)
     * [MaxScale 26.10 Changelog](maxscale/26.10/26.10-changelog.md)
   * [MariaDB MaxScale 25.10 Release Notes](maxscale/25.10/README.md)
