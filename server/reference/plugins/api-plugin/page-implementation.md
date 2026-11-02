@@ -289,8 +289,9 @@ maria_declare_plugin(innobase)
 }
 ```
 
-  > [!NOTE]
-  > You can mix global and session variables into a single array.
+{% hint style="info" %}
+You can mix global and session variables into a single array.
+{% endhint %}
 
 ## Plugin Status Variables Implementation
 [Plugin Status Variables](page-concepts.md#plugin-status-variables) are defined similarly to [Plugin System Variables](page-concepts.md#plugin-system-variables) by creating a per-plugin `NULL` terminated array of [st_mysql_show_var](plugin_status_vars.md#st_mysql_show_var) structures and passing it down to [maria_declare_plugin](plugin_declaration.md#maria_declare_plugin).
