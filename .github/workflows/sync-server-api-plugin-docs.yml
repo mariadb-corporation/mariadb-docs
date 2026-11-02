@@ -119,6 +119,13 @@ jobs:
               "$f"
           done
 
+      - name: Turn GitHub alerts into GitBook hints
+        run: |
+          set -euo pipefail
+          # DOCS-7041: moxygen --flavour=github writes @note/@warning as
+          # "> [!NOTE]" alerts, which GitBook renders as a plain quote.
+          python3 .github/scripts/fix_plugin_api_alerts.py
+
       - name: Drop dead page-title breadcrumb fragments
         run: |
           set -euo pipefail
