@@ -11,7 +11,7 @@ The **Data and Schema Import** feature lets you migrate database schemas and dat
 
 You can open **Import Schema**/**Import Data** from:
 
-- The **Import Schemas** menu [option](#managing-imported-schemas), accessible via the user profile menu.
+- The **Import schemas** menu [option](#managing-imported-schemas), accessible via the user profile menu.
 - The **Queries** [screen](queries/querying.md) — via the **Import Schema**/**Import Data** action button.
 
 The import process consists of up to six steps:
@@ -52,7 +52,7 @@ When **JDBC** is selected, provide the following:
 |---|---|
 | Driver JAR | Select a preloaded driver JAR from the list, or upload a custom one. |
 | Driver class | The JDBC driver class name. Populated automatically when a known driver is selected. |
-| JDBC URL | The JDBC connection string for the source database (for example, `jdbc:mysql://localhost:3307`). |
+| JDBC URI | The JDBC connection string for the source database (for example, `jdbc:mysql://localhost:3307`). |
 | Username / Password | Optional credentials for the source database. Passwords are never stored by Control Center. |
 
 {% hint style="info" %}
@@ -76,10 +76,10 @@ For REST catalogs, provide the following:
 
 | Field | Description |
 |---|---|
-| REST URL | The base URL of the Iceberg REST catalog (for example, `http://localhost:8181`). |
+| REST URI | The base URL of the Iceberg REST catalog (for example, `http://localhost:8181`). |
 | Warehouse path | Path to the Iceberg warehouse (for example, `s3://iceberg.warehouse`). |
 | Catalog name | The name of the catalog to connect to. |
-| ID implementation | The FileIO implementation to use: **HadoopFileIO** or **S3FileIO**. |
+| IO implementation | The FileIO implementation to use: **HadoopFileIO** or **S3FileIO**. |
 | Username / Password | Optional credentials. Passwords are never stored. |
 
 Click **Test Connection** to verify the Iceberg catalog is reachable before proceeding.
@@ -88,7 +88,7 @@ Click **Test Connection** to verify the Iceberg catalog is reachable before proc
 
 After a successful connection, Control Center lists all schemas and tables available in the source database.
 
-1. In the **Configuration name** field, enter a name for this import configuration. The name is used to save your progress and identify this import job.
+1. In the **Configuration name** field, enter a name for this import configuration. The name is used to save your progress and identify this import job, so it must be unique among your import configurations.
 2. Expand schemas in the tree and select the tables you want to import. Use **Select all** to select everything, or expand individual schemas to pick specific tables.
 
 {% hint style="info" %}
@@ -132,6 +132,7 @@ Expand any table row to configure GridGain-specific storage parameters for that 
 | Primary key | The column(s) that uniquely identify each record and determine how data is distributed across the cluster. |
 | Cache group | The name of the cache group the underlying cache belongs to. Caches in the same group share internal storage structures to reduce overhead. |
 | Template | The cache template used to create the underlying cache — `PARTITIONED` or `REPLICATED` — controlling how data is distributed. |
+| Backups | The number of backup copies of each partition. Shown only when **Template** is `PARTITIONED`. |
 | Atomicity | The atomicity mode of the underlying cache: `ATOMIC` or `TRANSACTIONAL`. Determines the write mode for the table. If not set, `ATOMIC` is used. |
 | Data region | The data region in which the table's data is stored. |
 | Affinity key | A column from the primary key used to colocate related rows on the same nodes for faster joins. |
@@ -164,7 +165,7 @@ Each table can be expanded to inspect its columns. For each column, the wizard s
 | Default value type | The default value applied to the column: `No value` or `NULL`. |
 | Length / Precision (optional) | The length for character types or the precision for numeric and temporal types. Leave empty to use the type default shown below the field (for example, `Default: 65536` for `VARCHAR` or `Default: 6` for `TIMESTAMP`). |
 
-Columns with unmapped or incompatible types are highlighted in red and require manual resolution before you can advance to the next step.
+Columns with unmapped or incompatible types — for example, a PostgreSQL `ARRAY` column — are highlighted in red and require manual resolution before you can advance to the next step.
 
 ![Column Settings step — column type error](../../../.gitbook/assets/cc-gg8-import-step4-column-settings-error.png)
 
@@ -186,7 +187,7 @@ Reorder the index columns by dragging them using the handle on the left.
 
 ## Data Import
 
-This step is shown when **Import data after schema is created** is enabled on the [Connection](#connection) step. When the toggle is on, `COPY` statements are generated and included in the script alongside the `DDL` for execution in the final step.
+Turn on **Import data after schema is created** at the top of this step to generate `COPY` statements. They are included in the script alongside the `DDL` for execution in the final step.
 
 Configure the data import parameters for each table:
 
@@ -202,7 +203,7 @@ Configure the data import parameters for each table:
 
 ![Data Import step — source/target](../../../.gitbook/assets/cc-gg8-import-step5-source.png)
 
-You can also configure additional parameters if your files use non-standard formatting — such as a custom delimiter, a non-default quote character, or custom null values.
+You can also configure additional parameters if your files use non-standard formatting — such as a custom delimiter or null value. For CSV files, you can also set whether to ignore leading spaces and whether the file has a header row. For Parquet files, you can set a file name pattern.
 
 ![Data Import step — additional params](../../../.gitbook/assets/cc-gg8-import-step5-additional-params.png)
 
@@ -222,11 +223,11 @@ You can track execution progress and results in the **Queries log** tab. If an e
 
 ## Managing Imported Schemas
 
-To view and manage all saved import configurations, choose the **Import Schemas** menu option in the user profile menu.
+To view and manage all saved import configurations, choose the **Import schemas** menu option in the user profile menu.
 
 ![Import Schemas menu option](../../../.gitbook/assets/cc-gg8-import-schemas-menu.png)
 
-The screen lists all saved configurations with their name, connection type, dialect, target cluster, and last run date. You can filter the list by name, connection type, dialect, and cluster.
+The screen lists all saved configurations with their name, connection type, dialect, target cluster, and last update date. You can filter the list by name, connection type, dialect, and cluster.
 
 ![Import Schemas screen](../../../.gitbook/assets/cc-gg8-import-schemas-screen.png)
 
