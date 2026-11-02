@@ -84,6 +84,7 @@
     * [MariaDB Backup](cloud-data-handling/backup-and-restore/mariadb-backup.md)
 * [AI Agents & Copilot](cloud-ai/README.md)
   * [AI Agents](cloud-ai/copilot-guide.md)
+  * [AI Agents (Draft)](cloud-ai/ai-agents-draft.md)
   * [AI Agents API User Guide](cloud-ai/ai-api-guide.md)
   * [AI Retrieval](cloud-ai/ai-retrieval/README.md)
     * [Quickstart](cloud-ai/ai-retrieval/quickstart.md)
