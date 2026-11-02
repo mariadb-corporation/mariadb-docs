@@ -30,7 +30,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
 | AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
-| HTAP (MariaDB Exa) | Not available                             | Available on request (technical preview)  | Available on request (technical preview)                    |
+| HTAP (MariaDB Exa) | Not available                             | Available on request (private preview)    | Available on request (private preview)                      |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
 | Support            | Basic and Standard support                | Basic, Standard, and Remote DBA (RDBA) support | Basic, Standard, and Remote DBA (RDBA) support         |
 
@@ -85,7 +85,7 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 {% hint style="warning" %}
 **Preview features**
 
-HTAP using MariaDB Exa is available as a preview feature. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
+HTAP using MariaDB Exa is available as a private preview. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
 {% endhint %}
 
 ## Selecting a Tier

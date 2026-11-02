@@ -1,6 +1,6 @@
 ---
 description: >-
-  MariaDB Cloud 2026.11.02 is a Technical Preview release, released on
+  MariaDB Cloud 2026.11.02 is a Private Preview release, released on
   2026-11-02. It adds independent sizing, scaling, monitoring, and logs for
   MariaDB Exa on MariaDB Provisioned services.
 icon: rocket-launch
@@ -10,14 +10,14 @@ icon: rocket-launch
 
 **Release Date:** 2 November 2026
 
-Release 2026.11.02 is a Technical Preview release.
+Release 2026.11.02 is a Private Preview release.
 
 ## New Features
 
-### MariaDB Exa (Technical Preview)
+### MariaDB Exa (Private Preview)
 
 {% hint style="info" %}
-MariaDB Exa is a **Technical Preview**, available on request. Features and behavior may change before general availability.
+MariaDB Exa is a **Private Preview**, available on request. Features and behavior may change before general availability.
 {% endhint %}
 
 MariaDB Exa adds an analytics engine (powered by Exasol) to MariaDB Provisioned services. MaxScale replicates changes from MariaDB Server to Exasol and routes analytical queries to it. This release adds independent control over the Exa node and its storage, and portal support for monitoring and logs.
@@ -39,7 +39,7 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * Requires the **Power** or **PowerPlus** service tier.
 * Available on `amd64` (Intel/AMD) only.
 * Exa is enabled per organization. In the Cloud Portal, request access from the **MariaDB Exa** option when you launch a service.
-* During the Technical Preview, Exa is also available on request for Bring Your Own Cloud (BYOC) services.
+* During the Private Preview, Exa is also available on request for Bring Your Own Cloud (BYOC) services.
 
 ## Limitations
 

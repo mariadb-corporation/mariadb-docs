@@ -7,7 +7,7 @@ icon: chart-mixed
 MariaDB Exa adds **hybrid transactional/analytical processing (HTAP)** to MariaDB Cloud. You get MariaDB for **OLTP** and the in-memory **columnar** MariaDB Exa engine (powered by Exasol) behind one intelligent entry point—without standing up a separate analytics database, ETL pipelines, or custom CDC wiring.
 
 {% hint style="warning" %}
-**Technical preview**
+**Private preview**
 
 HTAP using MariaDB Exa is not intended for production use. This feature is available on Power and PowerPlus tiers only, and it is enabled per organization on request. See [Requesting access to MariaDB Exa](htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
 {% endhint %}
@@ -122,7 +122,7 @@ Each user can submit one request. If you submit again, the portal shows *HTAP re
 
 On the Foundation tier, the **Analytics (HTAP)** card opens the tier upgrade dialog instead of the request dialog. Upgrade to Power or PowerPlus first.
 
-During the technical preview, MariaDB Exa is also available on request for [Bring Your Own Cloud (BYOC)](bring-your-own-cloud-byoc.md) services.
+During the private preview, MariaDB Exa is also available on request for [Bring Your Own Cloud (BYOC)](bring-your-own-cloud-byoc.md) services.
 
 ## Launching a MariaDB Exa HTAP cluster
 
