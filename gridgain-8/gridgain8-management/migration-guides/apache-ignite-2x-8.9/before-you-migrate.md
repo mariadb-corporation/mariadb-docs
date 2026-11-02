@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Planning reference for migrating from Apache Ignite 2.18 to GridGain 8:
   prerequisites, migration constraints, a compatibility summary, and effort estimates.

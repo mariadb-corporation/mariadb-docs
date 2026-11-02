@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   How to migrate from Apache Ignite 2.18 to the GridGain 8.10 Ultimate release,
   with links to the step-by-step procedure and planning reference material.

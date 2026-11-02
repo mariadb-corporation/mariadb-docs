@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   SQL engine, per-language client, and plugin/SPI changes to account for when
   migrating applications from Apache Ignite 2 to GridGain 8.

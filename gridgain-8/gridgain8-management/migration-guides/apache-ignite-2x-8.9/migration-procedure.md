@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Step-by-step procedure for migrating a cluster, its data, clients, and tooling
   from Apache Ignite 2.18 to GridGain 8.10, with cutover, verification, and rollback.

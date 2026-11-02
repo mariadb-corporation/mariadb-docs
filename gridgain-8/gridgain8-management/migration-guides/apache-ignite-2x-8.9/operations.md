@@ -1,4 +1,5 @@
 ---
+hidden: true
 description: >-
   Monitoring and command-line changes when migrating from Apache Ignite 2 to
   GridGain 8, covering logs, metrics, system views, events, and the CLI tools.
