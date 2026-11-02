@@ -21,9 +21,6 @@ Alternatively, a plugin can use [thd_key_create_from_var(K,V)](#thd_key_create_f
 
 This API is also safe when using pool-of-threads in which case pthread_getspecific() is not, because the actual OS thread may change.
 
-> [!NOTE]
->
-
 Normally one should prefer MYSQL_THDVAR_* declarative API.
 
 The benefits are:

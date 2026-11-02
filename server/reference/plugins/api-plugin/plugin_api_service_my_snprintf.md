@@ -41,12 +41,13 @@ A portable, limited vsnprintf() implementation, with some extra features.
 #### Returns
 a number of bytes written to a buffer *excluding* terminating '\0'
 
-> [!NOTE]
-> The syntax of a format string is generally the same: 
-> ```
-> %[<flag>][<length>][.<precision>][<size modifier>]<format>[<format extension>]
-> ```
->  where everything but the `format` is optional.
+{% hint style="info" %}
+The syntax of a format string is generally the same:
+```
+%[<flag>][<length>][.<precision>][<size modifier>]<format>[<format extension>]
+```
+ where everything but the `format` is optional.
+{% endhint %}
 
 Two one-character `flags` are recognized:
 

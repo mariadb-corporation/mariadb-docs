@@ -25,8 +25,9 @@ The rotation can be forced with the [logger_rotate()](#logger_rotate) call.
 
 Finally the log should be closed with [logger_close()](#logger_close).
 
-> [!NOTE]
-> Implementation checks the size of the log file before it starts new printf into it. So the size of the file gets over the limit when it rotates.
+{% hint style="info" %}
+Implementation checks the size of the log file before it starts new printf into it. So the size of the file gets over the limit when it rotates.
+{% endhint %}
 
 The access is secured with the mutex, so the log is threadsafe.
 
