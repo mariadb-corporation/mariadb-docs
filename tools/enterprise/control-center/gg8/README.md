@@ -36,8 +36,8 @@ This section covers the Control Center features available for GridGain 8 and Apa
 [terminal/cluster-terminal.md](terminal/cluster-terminal.md)
 {% endcontent-ref %}
 
-{% content-ref url="data-schema-import/data-schema-import.md" %}
-[data-schema-import/data-schema-import.md](data-schema-import/data-schema-import.md)
+{% content-ref url="data-schema-import.md" %}
+[data-schema-import.md](data-schema-import.md)
 {% endcontent-ref %}
 
 {% content-ref url="compute/compute-grid.md" %}
