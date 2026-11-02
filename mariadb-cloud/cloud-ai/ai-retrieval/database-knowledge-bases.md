@@ -39,11 +39,13 @@ AI Retrieval connects to the database and synchronizes its schema. This usually 
 
 ## The Semantic Map
 
-The semantic map is a model of your database that AI Retrieval builds automatically: the tables and columns, the relationships between tables, the indexes, and descriptions of the data. AI Retrieval uses it to turn a question into an SQL query.
+The semantic map is the metadata layer that AI Retrieval builds automatically over the connected database. Schema metadata, including indexes and column relations, and exploration queries that a model generates feed table descriptions, two-tier column descriptions, and a column literals index. AI Retrieval uses the semantic map to turn a question into an SQL query.
+
+The semantic map improves as you use it. AI Retrieval indexes failed SQL queries to steer later queries, and it updates column descriptions when your questions clarify what a column means.
 
 AI Retrieval builds the semantic map automatically when you create the knowledge base, including a description of each table with sample rows. You do not need to change anything to start asking questions. The steps in [Customize the Semantic Map](#customize-the-semantic-map) are optional.
 
-<!-- TODO: replace the semantic map wording with the description that Egor will send (call of 2026-10-29). -->
+<!-- Wording from Egor, Slack DM 2026-10-30 17:36/17:38 IST. -->
 
 Synchronize the schema again after you change the tables of the database. Some changes in the portal also apply only after the next sync. In that case, the knowledge base page shows **Some schema changes apply only after the next sync**. Select **Sync Now**.
 
@@ -128,17 +130,6 @@ AI Retrieval protects your data when it runs a generated query:
 The database user is the main control over what a knowledge base can read. Use a user that has read privileges on the data that the knowledge base needs, and nothing more.
 
 <!-- Source: skysql-gen-ai copilot/lib/database.py check_sql (allowed first keywords WITH, SELECT, SHOW, DESCRIBE, DESC, EXPLAIN, ANALYZE, USE) and max_statement_time=30 / max_execution_time=30000; agent/base.py SQL_ROW_LIMIT_CEILING 10000; validation on by default since 67180d4. The check looks only at the first keyword of the statement, so the read-only user is the real protection. TODO: Ryan to confirm the wording. -->
-
-## Troubleshooting
-
-| Message | What to do |
-| --- | --- |
-| Couldn't list the schemas for this login. | Enter the schema name manually. |
-| Connected, but this login can't see any tables outside the system schemas. | Enter the schema name manually, or grant the user privileges on the tables. |
-| The knowledge base was created, but connecting the database failed. | Connect the database from the knowledge base page. |
-| The knowledge base shows an error after a sync. | Synchronize the schema again, or delete the database connection and connect a new one. |
-
-<!-- TODO: add the failure that a missing IP allowlist entry causes once its message is known. -->
 
 ## Next Steps
 

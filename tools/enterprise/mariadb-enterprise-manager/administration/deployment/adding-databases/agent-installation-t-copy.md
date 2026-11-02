@@ -123,23 +123,6 @@ sudo zypper update mema-agent
 {% endtab %}
 {% endtabs %}
 
-From `mema-agent` 1.1.3, an upgrade restarts a running agent, so it switches to the new version immediately. An agent that isn't running is not started. Releases up to and including 1.1.0 don't restart the agent. If you install one of them, restart it yourself:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart mema-agent.target
-```
-
-{% hint style="warning" %}
-**Nodes linked with OpenTelemetry credentials**
-
-On a node linked with `--otlp-user` and `--otlp-password`, the collector never started on any 1.0.x agent, so the node sent no metrics, even though `mema-agent setup` reported success. Upgrading the package doesn't fix the configuration that 1.0.x wrote. After upgrading such a node, run the setup command again with the same options. Nodes linked without OpenTelemetry credentials aren't affected.
-{% endhint %}
-
-{% hint style="info" %}
-Some `mema-agent` 1.0.1 deb packages enabled `mema-agent.target` when they were installed. An upgrade keeps that setting, so on a node that was never linked, the target can stay enabled without being configured. Linking the agent configures it. To leave the node unlinked instead, disable the target with `sudo systemctl disable mema-agent.target`.
-{% endhint %}
-
 ### Next Steps: Linking the Agent 🔗
 
 After the agent is installed, it is not yet configured or linked to your MariaDB Enterprise Manager server, and it doesn't run until it is linked.
