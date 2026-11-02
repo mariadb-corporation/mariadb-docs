@@ -40,7 +40,7 @@ plugin_load_add = file_key_management
 
 ## Uninstalling the Plugin
 
-Before you uninstall the plugin, you should ensure that [data-at-rest encryption](../) is completely disabled, and that MariaDB no longer needs the plugin to decrypt tables or other files.
+Before you uninstall the plugin, you should ensure that [data-at-rest encryption](../README.md) is completely disabled, and that MariaDB no longer needs the plugin to decrypt tables or other files.
 
 You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../../../reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md). For example:
 
@@ -333,13 +333,13 @@ Once the File Key Management Plugin is enabled, you can use it by creating an en
 CREATE TABLE t (i INT) ENGINE=InnoDB ENCRYPTED=YES
 ```
 
-Now, table `t` will be encrypted using the encryption key from the key file. For more information on how to use encryption, see [Data at Rest Encryption](../).
+Now, table `t` will be encrypted using the encryption key from the key file. For more information on how to use encryption, see [Data at Rest Encryption](../README.md).
 
 {% hint style="info" %}
 The following Information Schema table is available from MariaDB 11.8.
 {% endhint %}
 
-The [Information Schema FILE\_KEY\_MANAGEMENT\_KEYS table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-file_key_management_keys.md) provides information about files stored in tablespaces, such as those used by the InnoDB storage engine.
+The [Information Schema FILE\_KEY\_MANAGEMENT\_KEYS table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-files-table/information-schema-file_key_management_keys.md) provides information about files stored in tablespaces, such as those used by the InnoDB storage engine.
 
 ## Using Multiple Encryption Keys
 

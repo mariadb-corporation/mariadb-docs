@@ -31,17 +31,9 @@ flowchart LR
 
 _In the Spider Federated topology, a Spider Node uses the MariaDB Spider federation to read from and write to a Data Table on a separate Data Node._
 
-* Enterprise Server 10.6
-* Enterprise Server 11.4
+<ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
 
-**Read from and write to tables on remote ES nodes**
-
-* Spider Node uses Spider storage engine for Federated Spider Tables
-* Federated Spider Table is a "virtual" table
-* Spider uses MariaDB foreign data wrapper to query Data Table on Data Node
-* Data Node uses non-Spider storage engine for Data Tables
-* Supports transactions
-* Enterprise Server, Enterprise Spider
+<p><strong>Read from and write to tables on remote ES nodes</strong></p><ul><li>Spider Node uses Spider storage engine for Federated Spider Tables</li><li>Federated Spider Table is a "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Table on Data Node</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server, Enterprise Spider</li></ul>
 
 This procedure describes the deployment of the **Spider Federated topology** with MariaDB Enterprise Server
 
@@ -113,7 +105,7 @@ These requirements are for the Spider Federated topology when deployed with Mari
 
 ### Operating Systems
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/about/enterprise-server-lifecycle), the Spider Federated topology with MariaDB Enterprise Server is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the Spider Federated topology with MariaDB Enterprise Server is provided for:
 
 * AlmaLinux 8 (x86\_64, ARM64)
 * AlmaLinux 9 (x86\_64, ARM64)

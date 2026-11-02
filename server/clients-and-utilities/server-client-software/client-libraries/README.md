@@ -33,8 +33,8 @@ Proxy protocol support, which lets proxy programs relay client IP addresses to M
 
 {% columns %}
 {% column %}
-{% content-ref url="clientserver-protocol.md" %}
-[clientserver-protocol.md](clientserver-protocol.md)
+{% content-ref url="clientserver-protocol/" %}
+[clientserver-protocol](clientserver-protocol/)
 {% endcontent-ref %}
 {% endcolumn %}
 

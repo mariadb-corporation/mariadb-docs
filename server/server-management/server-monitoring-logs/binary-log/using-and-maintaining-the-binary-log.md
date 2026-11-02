@@ -9,7 +9,7 @@ description: >-
 
 See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is, and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.
 
-Binary log file security is documented on [Securing MariaDB Logs](../securing-mariadb-logs.md).
+Binary log file security is documented on [Securing MariaDB Logs](../../../security/securing-mariadb/securing-mariadb-logs.md).
 
 For details on using the binary log for replication, see the [Replication](../../../ha-and-performance/standard-replication/) section.
 
@@ -21,7 +21,7 @@ If a replica is active but has yet to read from a binary log you attempt to dele
 
 Logs can also be removed automatically with the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) system variable. This is set to `0` by default (no removal). It can be set to a time, in days, after which a binary log file is automatically removed. Log files are only checked for being older than [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) upon log rotation, so if your binary log fills up slowly and does not reach [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size) on a daily basis, you may see older logs still being kept. You can also force log rotation, and so expiry deletes, by running [FLUSH BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) on a regular basis. Always set [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) higher than any possible replica lag.
 
-From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion and takes precedence if both are non-zero.
+From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion and takes precedence if both are non-zero.
 
 {% hint style="warning" %}
 **Automatic Purging Requires Connected Replicas**

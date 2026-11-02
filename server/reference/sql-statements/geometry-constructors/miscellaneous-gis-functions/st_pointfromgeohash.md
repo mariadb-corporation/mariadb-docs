@@ -7,7 +7,7 @@ description: >-
 # ST\_PointFromGeoHash
 
 {% hint style="info" %}
-ST\_PointFromGeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-12.0-rolling-releases/mariadb-12.0-changes-and-improvements).
+ST\_PointFromGeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
 {% endhint %}
 
 ## Syntax

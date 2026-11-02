@@ -17,7 +17,8 @@ LENGTH(str)
 
 Returns the length of the string `str`.
 
-In the default mode, when [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle) is not set, the length is measured in bytes. In this case, a multi-byte character counts as multiple bytes. `LENGTH()` returns the length in bytes, whereas `CHAR_LENGTH()` returns the number of characters. This means that, for a string containing five two-byte characters, `LENGTH()` returns 10, whereas [CHAR\_LENGTH()](char_length.md) returns 5. When running Oracle mode, the length is measured in characters, and `LENGTH` is a synonym for [CHAR\_LENGTH()](char_length.md).
+In the default mode, when [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is not set, the length is measured in bytes. In this case, a multi-byte character counts as multiple bytes. `LENGTH()` returns the length in bytes, whereas `CHAR_LENGTH()` returns the number of characters. This means that, for a string containing five two-byte characters, `LENGTH()` returns 10, whereas [CHAR\_LENGTH()](char_length.md) returns 5.
+When running Oracle mode, the length is measured in characters, and `LENGTH` is a synonym for [CHAR\_LENGTH()](char_length.md).
 
 If `str` is not a string value, it is converted into a string. If `str` is `NULL`, the function returns `NULL`.
 
@@ -59,7 +60,7 @@ SELECT CHAR_LENGTH('π'), LENGTH('π'), LENGTHB('π'), OCTET_LENGTH('π');
 * [CHAR\_LENGTH()](char_length.md)
 * [LENGTHB()](lengthb.md)
 * [OCTET\_LENGTH()](octet_length.md)
-* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

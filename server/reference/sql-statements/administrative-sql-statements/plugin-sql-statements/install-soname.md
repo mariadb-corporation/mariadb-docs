@@ -60,7 +60,7 @@ INSTALL SONAME 'ha_sequence';
 
 ## See Also
 
-* [List of Plugins](../../../plugins/list-of-plugins.md)
+* [List of Plugins](../../../plugins/information-on-plugins/list-of-plugins.md)
 * [Plugin Overview](../../../plugins/plugin-overview.md)
 * [SHOW PLUGINS](../show/show-plugins.md)
 * [INSTALL PLUGIN](install-plugin.md)

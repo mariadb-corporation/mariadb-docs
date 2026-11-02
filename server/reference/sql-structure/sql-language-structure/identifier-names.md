@@ -8,7 +8,7 @@ description: >-
 
 Databases, tables, indexes, columns, aliases, views, stored routines, triggers, events, variables, partitions, tablespaces, savepoints, labels, users, roles, are collectively known as identifiers, and have certain rules for naming.
 
-Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql) flag is set, square brackets (`[` and `]`) can be used for quoting.
+Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) flag is set, square brackets (`[` and `]`) can be used for quoting.
 
 Even when using reserved words as names, [fully qualified names](identifier-qualifiers.md) do not need to be quoted. For example, `test.select` has only one possible meaning, so it is correctly parsed even without quotes.
 

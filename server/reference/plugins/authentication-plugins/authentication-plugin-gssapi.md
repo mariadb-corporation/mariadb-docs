@@ -14,12 +14,13 @@ On Unix systems, the most dominant GSSAPI service is [Kerberos](https://en.wikip
 
 The `gssapi` authentication plugin is most often used for authenticating with [Microsoft Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
 
-This article gives instructions on configuring the `gssapi` authentication plugin for MariaDB for passwordless login.
+This article gives instructions on configuring the `gssapi` authentication plugin
+for MariaDB for passwordless login.
 
 ## Installing the Plugin's Package
 
 {% hint style="info" %}
-Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), the GSSAPI server plugin was distributed on Windows as a dynamic plugin (`auth_gssapi.dll`). Since MariaDB 10.11, the plugin is statically compiled into the server and enabled by default. As a result, `auth_gssapi.dll` is no longer produced or required.
+Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the GSSAPI server plugin was distributed on Windows as a dynamic plugin (`auth_gssapi.dll`). Since MariaDB 10.11, the plugin is statically compiled into the server and enabled by default. As a result, `auth_gssapi.dll` is no longer produced or required.
 {% endhint %}
 
 The `gssapi` authentication plugin's shared library is included in MariaDB packages as the `auth_gssapi.so` or `auth_gssapi.dll` shared library on systems where it can be built.
@@ -63,13 +64,13 @@ sudo zypper install MariaDB-gssapi-server
 ### Installing on Windows
 
 {% hint style="info" %}
-Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), the `gssapi` authentication plugin is included in [MSI](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows.
+Before [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the `gssapi` authentication plugin is included in [MSI](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows.
 {% endhint %}
 
 ## Installing the Plugin
 
 {% hint style="info" %}
-Since [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), on Windows, the GSSAPI server plugin is statically compiled into the server and enabled by default. No separate installation is required.
+Since [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), on Windows, the GSSAPI server plugin is statically compiled into the server and enabled by default. No separate installation is required.
 {% endhint %}
 
 On Windows, and on other operating systems, although the plugin's shared library is distributed with MariaDB by default, the plugin is not actually installed by MariaDB by default. There are two methods that can be used to install the plugin with MariaDB.

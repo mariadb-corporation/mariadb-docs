@@ -30,7 +30,7 @@ Each event contains specific metadata to ensure the data lands in the right plac
 
 * Consistency: Row-based logging is much more "expensive" in terms of log size than statement-based logging, but it is significantly more reliable for data integrity.
 * Point-in-Time Recovery: Tools like `mysqlbinlog` read these events to reconstruct data if a crash occurs.
-* Performance: On the primary, it saves the overhead of complex query parsing for the logs, but it can create very large log files if you perform bulk updates (for instance, updating 1 million rows creates 1 million row events).
+* Performance: On the primary, it saves the overhead of complex query parsing for the logs, but it can create very large log files if you perform bulk updates (for instance, updating 1 million rows  creates 1 million row events).
 
 ### How to View Them
 
@@ -95,7 +95,7 @@ The configuration of splitting log events is described [here](binary-log-formats
 {% endhint %}
 
 {% hint style="info" %}
-Note on memory usage: While `Partial_rows_log_event` allows the server to write large updates in fragments to stay within `max_allowed_packet` limits, it does not reduce the memory consumption of the primary server. The transaction still maintains the full row event contiguously in the binary log cache memory before it is fragmented for writing. For reducing memory overhead of large transactions, see [InnoDB-based Binary Log](innodb-based-binary-log.md).
+Note on memory usage: While `Partial_rows_log_event` allows the server to write large updates in fragments to stay within `max_allowed_packet` limits, it does not reduce the memory consumption of the primary server. The transaction still maintains the full row event contiguously in the binary log cache memory before it is fragmented for writing. For reducing memory overhead of large transactions, see [InnoDB-based Binary Log](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md).
 {% endhint %}
 
 ### How Fragmentation Works
@@ -162,6 +162,8 @@ You can monitor how often fragmentation is occurring by checking the binary log 
 {% hint style="warning" %}
 The introduction of `Partial_rows_log_event` does _not_ change the transactional nature of MariaDB. The fragments are part of a single unit of work; if the connection is lost mid-fragment, the replica discards the partial buffer and waits for a re-transmission or restart of that event group.
 {% endhint %}
+
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

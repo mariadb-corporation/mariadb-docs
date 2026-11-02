@@ -35,17 +35,9 @@ flowchart LR
 
 _Spider Sharded: a Spider Node distributes the partitions of a virtual sharded table across multiple Data Nodes (shards) via the Spider foreign data wrapper._
 
-* Enterprise Server 10.6
-* Enterprise Server 11.4
+<ul><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul>
 
-**Shard tables for horizontal scalability**
-
-* Spider Node uses Spider storage engine for Sharded Spider Tables
-* Sharded Spider Table is a partitioned "virtual" table
-* Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition
-* Data Node uses non-Spider storage engine for Data Tables
-* Supports transactions
-* Enterprise Server, Enterprise Spider
+<p><strong>Shard tables for horizontal scalability</strong></p><ul><li>Spider Node uses Spider storage engine for Sharded Spider Tables</li><li>Sharded Spider Table is a partitioned "virtual" table</li><li>Spider uses MariaDB foreign data wrapper to query Data Tables on Data Nodes for each partition</li><li>Data Node uses non-Spider storage engine for Data Tables</li><li>Supports transactions</li><li>Enterprise Server, Enterprise Spider</li></ul>
 
 This procedure describes the deployment of the **Spider Sharded topology** with MariaDB Enterprise Server.
 
@@ -117,7 +109,7 @@ These requirements are for the Spider Sharded topology when deployed with MariaD
 
 ### Operating Systems
 
-In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server-release-notes/about/enterprise-server-lifecycle), the Spider Sharded topology with MariaDB Enterprise Server is provided for:
+In alignment to the [enterprise lifecycle](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle), the Spider Sharded topology with MariaDB Enterprise Server is provided for:
 
 * AlmaLinux 8 (x86\_64, ARM64)
 * AlmaLinux 9 (x86\_64, ARM64)

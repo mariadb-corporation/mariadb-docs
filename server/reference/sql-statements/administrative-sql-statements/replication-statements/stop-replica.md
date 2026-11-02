@@ -17,7 +17,7 @@ thread_type: IO_THREAD | SQL_THREAD
 
 ![Railroad diagram of STOP REPLICA — equivalent to the BNF above](../../../../.gitbook/assets/stop-replica-railroad.svg)
 
-![Railroad diagram of thread\_type](../../../../.gitbook/assets/stop-replica-thread-type-railroad.svg)
+![Railroad diagram of thread_type](../../../../.gitbook/assets/stop-replica-thread-type-railroad.svg)
 
 ## Description
 
@@ -39,7 +39,7 @@ The `connection_name` option is used for [multi-source replication](../../../../
 
 If there is only one nameless primary, or the default primary (as specified by the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable) is intended, `connection_name` can be omitted. If provided, the `STOP SLAVE` statement will apply to the specified primary. `connection_name` is case-insensitive.
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7.0-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 {% tabs %}
 {% tab title="Current" %}

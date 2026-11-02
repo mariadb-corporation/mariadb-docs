@@ -71,7 +71,7 @@ The server drops the existing table first, as in the `DROP TABLE IF EXISTS` and 
 * The [drop\_before\_create\_or\_replace](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#drop_before_create_or_replace) system variable is `ON`.
 * The statement creates a `TEMPORARY` table.
 * The existing object is a view.
-* The existing table uses a storage engine for which renaming a table is expensive, such as [S3](../../../../server-usage/storage-engines/s3-storage-engine/).
+* The existing table uses a storage engine for which renaming a table is expensive, such as [S3](../../../../server-usage/storage-engines/s3-storage-engine/README.md).
 * The statement runs on a [replica](../../../../ha-and-performance/standard-replication/) as part of replication.
 
 ### Things to be Aware of With CREATE OR REPLACE
@@ -201,7 +201,7 @@ To insert rows from a query into an existing table, [INSERT ... SELECT](../../da
 ## Column Definitions
 
 <pre class="language-bnf"><code class="lang-bnf">create_definition:
-  { col_name column_definition | <a data-footnote-ref href="#user-content-fn-4">index_definition</a> | <a data-footnote-ref href="#user-content-fn-5">period_definition</a> | CHECK (expr) }
+  { col_name column_definition | <a data-footnote-ref href="#user-content-fn-5">index_definition</a> | <a data-footnote-ref href="#user-content-fn-4">period_definition</a> | CHECK (expr) }
 
 column_definition:
   <a data-footnote-ref href="#user-content-fn-6">data_type</a>
@@ -210,7 +210,7 @@ column_definition:
     [AUTO_INCREMENT] [ZEROFILL] [UNIQUE [KEY] | [PRIMARY] KEY]
     [INVISIBLE] [{WITH|WITHOUT} SYSTEM VERSIONING]
     [COMMENT 'string'] [REF_SYSTEM_ID = value]
-    [<a data-footnote-ref href="#user-content-fn-4">reference_definition</a>]
+    [<a data-footnote-ref href="#user-content-fn-5">reference_definition</a>]
   | <a data-footnote-ref href="#user-content-fn-6">data_type</a> [GENERATED ALWAYS] 
   AS [ ROW {START|END} [NOT NULL ENABLE] [[PRIMARY] KEY]
         | (expression) [VIRTUAL | PERSISTENT | STORED] ]
@@ -258,7 +258,7 @@ CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
 CREATE TABLE t2 (a BIGINT PRIMARY KEY DEFAULT UUID_SHORT());
 ```
 
-The `DEFAULT` clause cannot contain any [stored functions](../../../../server-usage/stored-routines/stored-functions/) or [subqueries](../../data-manipulation/selecting-data/subqueries/), and a column used in the clause must already have been defined earlier in the statement.
+The `DEFAULT` clause cannot contain any [stored functions](../../../../server-usage/stored-routines/stored-functions/) or [subqueries](../../data-manipulation/selecting-data/joins-subqueries/subqueries/), and a column used in the clause must already have been defined earlier in the statement.
 
 It is possible to assign [BLOB](../../../data-types/string-data-types/blob.md) or [TEXT](../../../data-types/string-data-types/text.md) columns a `DEFAULT` value.
 
@@ -266,7 +266,8 @@ You can also use DEFAULT ([NEXT VALUE FOR sequence](../../../sql-structure/seque
 
 ### AUTO\_INCREMENT Column Option
 
-Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`. Use [LAST\_INSERT\_ID](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) to get the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value most recently used by an [INSERT](../../data-manipulation/inserting-loading-data/insert.md) statement.
+Use [AUTO\_INCREMENT](../../../data-types/auto_increment.md) to create a column whose value can be set automatically from a simple counter. You can only use `AUTO_INCREMENT` on a column with an integer type. The column must be a key, and there can only be one `AUTO_INCREMENT` column in a table. If you insert a row without specifying a value for that column (or if you specify `0`, `NULL`, or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md) as the value), the actual value will be taken from the counter, with each insertion incrementing the counter by one. You can still insert a value explicitly. If you insert a value that is greater than the current counter value, the counter is
+set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`. Use [LAST\_INSERT\_ID](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) to get the [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value most recently used by an [INSERT](../../data-manipulation/inserting-loading-data/insert.md) statement.
 
 ### ZEROFILL Column Option
 
@@ -502,21 +503,21 @@ Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-3
 
 Three additional [InnoDB](../../../../server-usage/storage-engines/innodb/) index options give fine-grained control over how the adaptive hash index is built for an index:
 
-| Option                                | Values                                                              | Effect                                                                                                                                                                                                                                                                                                   |
-| ------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `COMPLETE_FIELDS`                     | `0` to the number of columns the index is defined on (maximum `64`) | Number of complete index columns to include in the hash.                                                                                                                                                                                                                                                 |
-| `BYTES_FROM_INCOMPLETE_FIELD`         | `0` to `16383`                                                      | Number of leading bytes to take from the next column, beyond those covered by `COMPLETE_FIELDS`. Only meaningful for `memcmp()`-comparable index fields such as `VARBINARY` or integer types. For example, a 3-byte prefix on an `INT` returns one hash value for 0‥255, another for 256‥511, and so on. |
-| `FOR_EQUAL_HASH_POINT_TO_LAST_RECORD` | `DEFAULT`, `YES`, `NO`                                              | For a set of records that share the same hash value, controls which record the hash entry points to: `NO` points to the first record, `YES` points to the last.                                                                                                                                          |
+| Option | Values | Effect |
+| --- | --- | --- |
+| `COMPLETE_FIELDS` | `0` to the number of columns the index is defined on (maximum `64`) | Number of complete index columns to include in the hash. |
+| `BYTES_FROM_INCOMPLETE_FIELD` | `0` to `16383` | Number of leading bytes to take from the next column, beyond those covered by `COMPLETE_FIELDS`. Only meaningful for `memcmp()`-comparable index fields such as `VARBINARY` or integer types. For example, a 3-byte prefix on an `INT` returns one hash value for 0‥255, another for 256‥511, and so on. |
+| `FOR_EQUAL_HASH_POINT_TO_LAST_RECORD` | `DEFAULT`, `YES`, `NO` | For a set of records that share the same hash value, controls which record the hash entry points to: `NO` points to the first record, `YES` points to the last. |
 
 The default for all three is unset (automatic), in which case InnoDB chooses the values from its internal heuristic.
 
 {% hint style="warning" %}
-These are power-user options and are not needed for typical workloads. They override InnoDB's internal heuristic, which is computed and _then_ replaced by the values you supply. Because the three options work together, set **all three** to known-good values whenever you set even one of them — setting only one or two leaves the others to interact with the overridden heuristic and can produce unintended results.
+These are power-user options and are not needed for typical workloads. They override InnoDB's internal heuristic, which is computed and *then* replaced by the values you supply. Because the three options work together, set **all three** to known-good values whenever you set even one of them — setting only one or two leaves the others to interact with the overridden heuristic and can produce unintended results.
 
 InnoDB does not expose the values its heuristic would otherwise compute, so suitable settings must be derived from prior knowledge of the data and confirmed through performance testing.
 {% endhint %}
 
-The main reason to fix these values is to avoid _adaptive-hash-index churn_: when an index's lookup pattern is not constant, the internal heuristic keeps changing its parameters, repeatedly destroying and rebuilding the hash index. Pinning the parameters keeps a single hash index in place — less optimal for some queries, but stable and beneficial for the rest, instead of being continually rebuilt.
+The main reason to fix these values is to avoid *adaptive-hash-index churn*: when an index's lookup pattern is not constant, the internal heuristic keeps changing its parameters, repeatedly destroying and rebuilding the hash index. Pinning the parameters keeps a single hash index in place — less optimal for some queries, but stable and beneficial for the rest, instead of being continually rebuilt.
 
 These options apply only to [InnoDB](../../../../server-usage/storage-engines/innodb/), and only on servers built with adaptive hash index support.
 
@@ -544,7 +545,7 @@ Index columns names are listed between parenthesis. After each column, a prefix 
 Before MariaDB 11.4:
 {% endhint %}
 
-Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.8-series/mariadb-10.8-changes-and-improvements), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-11.4-series/mariadb-11.4.0-release-notes), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
+Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 {% endtabs %}
 
@@ -666,7 +667,7 @@ The `ADAPTIVE_HASH_INDEX` table and index options were added in **MariaDB 13.1.1
 * `YES` — request the adaptive hash index for this table. AHI is built for the table only when it is also enabled at the server level (`innodb_adaptive_hash_index` set to `ON` or `IF_SPECIFIED`).
 * `NO` — never use the adaptive hash index for this table, even when it is enabled at the server level.
 
-The option only affects [InnoDB](../../../../server-usage/storage-engines/innodb/) tables, and only on servers built with adaptive hash index support. The same option can be set per index (see [ADAPTIVE\_HASH\_INDEX Index Option](create-table.md#adaptive_hash_index-index-option)); an index-level `YES` or `NO` overrides the table-level setting for that index.
+The option only affects [InnoDB](../../../../server-usage/storage-engines/innodb/) tables, and only on servers built with adaptive hash index support. The same option can be set per index (see [ADAPTIVE\_HASH\_INDEX Index Option](#adaptive_hash_index-index-option)); an index-level `YES` or `NO` overrides the table-level setting for that index.
 
 ### AUTO\_INCREMENT
 
@@ -971,7 +972,7 @@ CREATE OR REPLACE TABLE t1 (x INT)
 
 ## Atomic DDL
 
-MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic. `CREATE OR REPLACE` is atomic from MariaDB 13.2, except where the existing table is dropped first (see [CREATE OR REPLACE](create-table.md#create-or-replace)). Before MariaDB 13.2, it is only crash-safe.
+MariaDB supports [Atomic DDL](../atomic-ddl.md). `CREATE TABLE` is atomic. `CREATE OR REPLACE` is atomic from MariaDB 13.2, except where the existing table is dropped first (see [CREATE OR REPLACE](#create-or-replace)). Before MariaDB 13.2, it is only crash-safe.
 
 ## Examples
 
@@ -1023,8 +1024,8 @@ CREATE TABLE t1(
 
 [^3]: [#partitions](create-table.md#partitions "mention")
 
-[^4]: [#index-definitions](create-table.md#index-definitions "mention")
+[^4]: [#periods](create-table.md#periods "mention")
 
-[^5]: [#periods](create-table.md#periods "mention")
+[^5]: [#index-definitions](create-table.md#index-definitions "mention")
 
 [^6]: [data-types](../../../data-types/ "mention")

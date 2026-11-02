@@ -65,6 +65,6 @@ The same applies to every other dynamic option. For example, set `wsrep_provider
 
 See the [wsrep\_provider\_options](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options) page for what you can configure for Galera Cluster.
 
-For plugin version and maturity level, see [this page](../list-of-plugins.md).
+For plugin version and maturity level, see [this page](../information-on-plugins/list-of-plugins.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

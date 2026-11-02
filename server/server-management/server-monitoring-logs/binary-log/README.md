@@ -19,10 +19,6 @@ layout:
     visible: true
   tags:
     visible: true
-  actions:
-    visible: true
-  anchors:
-    visible: true
 ---
 
 # Binary Log
@@ -91,8 +87,8 @@ The `Row_log_event` structure that row-based logging writes to the binary log, a
 
 {% columns %}
 {% column %}
-{% content-ref url="innodb-based-binary-log.md" %}
-[innodb-based-binary-log.md](innodb-based-binary-log.md)
+{% content-ref url="../../../ha-and-performance/standard-replication/innodb-based-binary-log.md" %}
+[innodb-based-binary-log.md](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -151,8 +147,8 @@ Overview of the relay log, a set of log files created by a replica server to sto
 
 {% columns %}
 {% column %}
-{% content-ref url="selectively-skipping-replication-of-binlog-events.md" %}
-[selectively-skipping-replication-of-binlog-events.md](selectively-skipping-replication-of-binlog-events.md)
+{% content-ref url="../../../ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events.md" %}
+[selectively-skipping-replication-of-binlog-events.md](../../../ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -161,8 +157,8 @@ Learn techniques to bypass specific replication events. This guide explains how 
 {% endcolumn %}
 {% endcolumns %}
 
-<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
-
 [^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.
 
 [^2]: DDL (Data Definition Language): The subset of SQL commands used to create, modify, or destroy the structure of database objects (like tables, indexes, and databases) rather than the data itself.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

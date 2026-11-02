@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete SHOW REPLICA STATUS statement reference: FOR CHANNEL/connection_name
-  syntax, SHOW ALL SLAVES option, thread states (Slave_IO/SQL_Running), and
-  lag/log/GTID fields.
+  Complete SHOW REPLICA STATUS statement reference: FOR CHANNEL/connection_name syntax, SHOW ALL
+  SLAVES option, thread states (Slave_IO/SQL_Running), and lag/log/GTID
+  fields.
 ---
 
 # SHOW REPLICA STATUS
@@ -35,7 +35,7 @@ The rows are sorted according to `Connection_name`.
 
 If you specify a `connection_name`, you only get the information about that connection. If `connection_name` is not used, then the name set by `default_master_connection` is used. If the connection name doesn't exist you will get an error:`There is no master connection for 'xxx'`.
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.7-series/mariadb-10.7.0-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `SHOW SLAVE`.
 
@@ -177,9 +177,9 @@ Additional behavior to be aware of:
 
 **Master\_SSL\_Crlpath:** The MASTER\_SSL\_CRLPATH option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
-**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid/) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
+**Using\_Gtid:** Whether or not [global transaction ID's](../../../../ha-and-performance/standard-replication/gtid/README.md) are being used for replication (can be `No`, `Slave_Pos`, or `Current_Pos`).
 
-**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid/) value.
+**Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid/README.md) value.
 
 **Replicate\_Do\_Domain\_Ids:** List of [domain\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being recognized for replication purposes, or an empty string for none, as specified in the `DO_DOMAIN_IDS` option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#do_domain_ids) statement.
 
@@ -227,7 +227,7 @@ Before MariaDB 10.11:
 
 **Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats. Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
+**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/gtid-system-variables.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid/README.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
 
 {% tabs %}
 {% tab title="Current" %}

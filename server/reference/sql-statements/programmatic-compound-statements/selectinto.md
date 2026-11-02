@@ -29,7 +29,7 @@ This statement can be used with both [local variables](declare-variable.md) and 
 
 For the complete syntax, see [SELECT](../data-manipulation/selecting-data/select.md).
 
-Another way to set a variable's value is the [SET](../administrative-sql-statements/set-commands/set-variable.md) statement.
+Another way to set a variable's value is the [SET](set-variable.md) statement.
 
 `SELECT ... INTO` results are not stored in the [query cache](../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) even if `SQL_CACHE` is specified.
 

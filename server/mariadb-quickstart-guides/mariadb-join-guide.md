@@ -172,7 +172,7 @@ While this syntax works, the explicit `JOIN` syntax (`INNER JOIN`, `LEFT JOIN`, 
 
 ### See Also
 
-* [More Advanced Joins](more-advanced-joins.md)
+* [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
 * [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
 * [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 * [Joins, Subqueries and SET](../reference/sql-structure/joins-subqueries-set.md)

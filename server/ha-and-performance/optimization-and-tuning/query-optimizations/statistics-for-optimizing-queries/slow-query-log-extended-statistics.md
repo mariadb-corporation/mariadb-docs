@@ -14,15 +14,15 @@
 
 You can set the verbosity of what's logged to the slow query log by setting the [log\_slow\_verbosity](../../system-variables/server-system-variables.md#log_slow_verbosity) variable to a combination of the following values:
 
-* `All` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.16-release-notes))
+* `All` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16))
   * Enable all verbosity options.
 * `Query_plan`
   * For select queries, log information about the query plan. This includes "Full\_scan", "Full\_join", "Tmp\_table", "Tmp\_table\_on\_disk", "Filesort", "Filesort\_on\_disk" and number of "Merge\_passes during sorting"
 * `explain`
   * EXPLAIN output is logged in the slow query log. See [explain-in-the-slow-query-log](../../../../server-management/server-monitoring-logs/slow-query-log/explain-in-the-slow-query-log.md) for details.
-* `Innodb` (From [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.15-release-notes). Before that this option did nothing)
+* `Innodb` (From [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15). Before that this option did nothing)
   * Kept for compatibility. Same as `engine`.
-* `engine` (From [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.15-release-notes))
+* `engine` (From [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15))
   * Writes statistics from the storage engine. This includes:
 
 | Option            | Description                                                                | Engine |
@@ -33,7 +33,7 @@ You can set the verbosity of what's logged to the slow query log by setting the 
 | Old\_rows\_read   | Number of retrievals of old versions of rows in the engine (versioning)    | InnoDB |
 | Engine\_time      | Milliseconds spent inside engine calls (read\_row / read\_next\_row etc)   | All    |
 
-* `Warnings` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.16-release-notes))
+* `Warnings` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16))
   * Print all errors, warnings and notes related to statement, up to `log_slow_max_warnings` lines.
 * `full`.
   * Old shortcut to enable all the verbosity options
@@ -42,11 +42,12 @@ The default value for `log_slow_verbosity` is ' ', to be compatible with MySQL 5
 
 The possible values for `log_slow_verbosity are`innodb,query\_plan,explain,engine,warnings`. Multiple options are separated by ','.` log\_slow\_verbosity is not supported when log\_output='TABLE'.
 
+
 ### log\_slow\_filter
 
 You can define which queries to log to the slow query log by setting the variable [log\_slow\_filter](../../system-variables/server-system-variables.md#log_slow_filter) to a combination of the following values:
 
-* `All` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.16-release-notes))
+* `All` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16))
   * Enable all filter options. `log_slow_filter` will be shown as having all options set.
 * `admin`
   * Log administrative statements (create, optimize, drop etc...)
@@ -84,7 +85,7 @@ Note that in any case, only queries that takes longer than **log\_slow\_time** o
 
 ### log\_slow\_max\_warnings
 
-**MariaDB starting with** [10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.16-release-notes)
+**MariaDB starting with** [10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)
 
 If one enables the warning option for `log_slow_verbosity`, all notes and warnings for a slow query will also be added to the slow query log. This is very usable when one has enabled warnings for [Notes when an index cannot be used](../../query-optimizer/notes-when-an-index-cannot-be-used.md). `log_slow_max_warnings` limits the number of warnings printed to the slow query log per query. The default value is 10.
 

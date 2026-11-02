@@ -4,7 +4,7 @@ description: >-
   mariadb-backup to provision a new replica from a master server.
 ---
 
-# Setting up a Replica (mariadb-backup)
+# Setting up a Replica with mariadb-backup
 
 {% hint style="info" %}
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
@@ -16,7 +16,7 @@ This page documents how to set up a replica from a backup.
 
 If you are using MariaDB Galera Cluster, then you may want to try one of the following pages instead:
 
-* [Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-mariadb-galera-cluster-and-mariadb-server)
+* [Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-mariadb-galera-cluster-and-mariadb)
 * [Configuring MariaDB Replication between Two MariaDB Galera Clusters](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters)
 
 {% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}

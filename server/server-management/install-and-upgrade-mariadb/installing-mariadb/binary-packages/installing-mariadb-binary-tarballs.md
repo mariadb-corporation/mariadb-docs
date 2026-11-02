@@ -7,7 +7,7 @@ description: >-
 # Installing MariaDB Binary Tarballs
 
 {% hint style="info" %}
-Starting with [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-12.3-series), the generic binary tarballs (bintars) no longer include the Galera Cluster library or management scripts by default. Users requiring cluster functionality should obtain these libraries from the official MariaDB repositories or via the `mariadb-server-galera` package.
+Starting with [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3), the generic binary tarballs (bintars) no longer include the Galera Cluster library or management scripts by default. Users requiring cluster functionality should obtain these libraries from the official MariaDB repositories or via the `mariadb-server-galera` package.
 {% endhint %}
 
 Binary tarballs (bintars) are compressed tar archives that contain pre-compiled executables, libraries, and other deployment dependencies. They can usually be installed on any modern Linux distribution.
@@ -133,7 +133,7 @@ Stop the service with this command:
 systemctl stop mariadb.service
 ```
 
-Please refer to the [systemd](../../../starting-and-stopping-mariadb/systemd/) page for further information.
+Please refer to the [systemd](../../../starting-and-stopping-mariadb/systemd/README.md) page for further information.
 
 ### Post Installation
 
@@ -147,7 +147,7 @@ On systems using systemd, instead, enable automatic startup during system boot w
 systemctl enable mariadb.service
 ```
 
-For details on the exact steps used to build the binaries, see the [compiling MariaDB section](../../compiling-mariadb-from-source/).
+For details on the exact steps used to build the binaries, see the [compiling MariaDB section](../compiling-mariadb-from-source/).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

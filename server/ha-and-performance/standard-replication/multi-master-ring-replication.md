@@ -13,7 +13,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 ## What is Multi-Master Ring Replication
 
-Multi-Master "Ring" Replication means that you have two or more masters where each master is replicating its data to another master asynchronously. This is not to be confused with [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster/what-is-galera-replication) multi-primary cluster for MariaDB.
+Multi-Master "Ring" Replication means that you have two or more masters where each master is replicating its data to another master asynchronously. This is not to be confused with [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication) multi-primary cluster for MariaDB.
 
 The benefit of asynchronous replication compared to [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), is that Ring Replication is resilient against bad network connections between the master servers. If a connection goes down, all masters will continue to serve its clients locally and data will automatically be synced when the link is available again.
 
@@ -56,7 +56,7 @@ First, follow the instructions in [setup replication](setting-up-replication.md)
 The main things that are different for Multi-Master Ring Replication are:
 
 * Give every master and slave in the replication setup a unique server\_id. This can be a number from 1 to 4294967295 or 1-255 if one is using [uuid\_short()](../../reference/sql-functions/secondary-functions/miscellaneous-functions/uuid_short.md). It is a good practice to ensure that you do not have any servers in your system with the same server\_id!
-* Use [global transaction id](gtid/) (as described above)
+* Use [global transaction id](gtid/README.md) (as described above)
 * Give each master a unique [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id). This will allow replication to apply transactions from a different master in parallel independent from other masters.
 
 Add the following into your [my.cnf](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) file for **all masters** and restart the servers.
@@ -144,7 +144,8 @@ To fix this:
 
 ## Multi-Master Ring Replication through slaves
 
-An alternative setup to use for Multi-master ring replications is to replicate to the other masters through slaves. The following setup shows how this can be done.
+An alternative setup to use for Multi-master ring replications is to replicate to the other
+masters through slaves. The following setup shows how this can be done.
 
 ```mermaid
 flowchart TD
@@ -213,7 +214,7 @@ Note that when one sets up a master->slave replication, all configurations are d
 Some other options:
 
 * For semi-sync setups, the old master1 can be reused as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
-* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements) or higher).
+* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) or higher).
 
 ### See also
 

@@ -1,7 +1,7 @@
 ---
 description: >-
-  An overview of MariaDB, the open-source relational database — its background,
-  licensing, and widespread adoption.
+  An overview of MariaDB, the open-source relational database — its
+  background, licensing, and widespread adoption.
 ---
 
 # About MariaDB Software
@@ -54,8 +54,8 @@ It's highly likely that, for any job to which you apply or take as a database de
 
 ### Related Pages
 
-* [MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/mariadb-versus-mysql-features)
-* [MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/mariadb-versus-mysql-compatibility)
+* [MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
+* [MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
 * [MariaDB Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

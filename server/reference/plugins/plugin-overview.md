@@ -337,7 +337,7 @@ Plugins that were enabled as a `--plugin-load` option do not need to be uninstal
 
 ## See Also
 
-* [List of Plugins](list-of-plugins.md)
+* [List of Plugins](information-on-plugins/list-of-plugins.md)
 * [INSTALL PLUGIN](../sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md)
 * [INSTALL SONAME](../sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md)
 * [UNINSTALL PLUGIN](../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md)

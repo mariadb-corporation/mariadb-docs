@@ -16,7 +16,7 @@ Those are quality-improving rules that everyone with a write access to the Maria
   * For tester's sake, develop in a dedicated branch with the version and the issue number in the branch name, for example, `bb-13.1-MDEV-11111`, and let the release master know when it's ready, so that they could cherry-pick it into a preview.
 * Features must not be pushed directly into the GA release bypassing the above
   * Keep an eye on the release schedule ([jira.mariadb.org](https://jira.mariadb.org)) to know when the next release is due
-  * Or simply remember that preview happen in mid-March/mid-June/mid-September/mid-December, innovation releases — in early February, early May, early August, early November, see [mariadb-release-model](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/release-model).
+  * Or simply remember that preview happen in mid-March/mid-June/mid-September/mid-December, innovation releases — in early February, early May, early August, early November, see [mariadb-release-model](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-model).
 * Get your commit reviewed.
   * If you don't know who would be the best reviewer for your PR, assign whoever github suggests — this person can reassign, if github was wrong
 * Don't push into the red (in buildbot) branch

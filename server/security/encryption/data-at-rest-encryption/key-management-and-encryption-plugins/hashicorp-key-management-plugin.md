@@ -22,7 +22,8 @@ The Hashicorp Key Management Plugin is used to implement encryption using keys s
 The current version of this plugin implements the following features:
 
 * Authentication is done using Hashicorp Vault's token authentication method.
-* If additional client authentication is required, then the path to the CA authentication bundle file may be passed as a plugin parameter;
+* If additional client authentication is required, then the path to the CA authentication bundle file may be passed
+  as a plugin parameter;
 * The creation of the keys and their management is carried out using the Hashicorp Vault KMS and its tools.
 * The plugin uses libcurl (https) as an interface to the HashiCorp Vault server.
 * JSON parsing is performed through the JSON service (through the include/mysql/service\_json.h).
@@ -37,7 +38,8 @@ Since we require support for key versioning, the key-value storage must be confi
 
 Key names must correspond to their numerical identifiers. Key identifiers themselves, their possible values, and rules of use are described in more detail in the MariaDB main documentation.
 
-From the point of view of the key-value storage (in terms of Hashicorp Vault), the key is a secret containing one key-value pair with the name "data" and a value representing a binary string containing the key value, for example:
+From the point of view of the key-value storage (in terms of Hashicorp Vault), the key is a secret containing one key-value pair with the name "data" and a value representing a binary string
+containing the key value, for example:
 
 ```bash
 ~$ vault kv get /test/1
@@ -161,7 +163,7 @@ The --hashicorp-key-management-token option value or the value of the correspond
 ```
 
 {% hint style="info" %}
-When the server reads the token from `hashicorp-key-management-token`, the plugin also sets `VAULT_TOKEN` in the server's environment. Programs the server starts inherit it, such as `mariadb-backup` during a Galera Cluster [state snapshot transfer](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method). A `mariadb-backup` that you start yourself doesn't inherit it.
+When the server reads the token from `hashicorp-key-management-token`, the plugin also sets `VAULT_TOKEN` in the server's environment. Programs the server starts inherit it, such as `mariadb-backup` during a Galera Cluster [state snapshot transfer](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method). A `mariadb-backup` that you start yourself doesn't inherit it.
 {% endhint %}
 
 ## Required Vault Token Permissions

@@ -2,7 +2,7 @@
 
 The [HandlerSocket](./) plugin has the following options.
 
-See also the [Full list of MariaDB options, system and status variables](../../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
+See also the [Full list of MariaDB options, system and status variables](../../../full-list-of-mariadb-options-system-and-status-variables.md).
 
 Add the options to the `[mysqld]` section of your `my.cnf` file.
 
@@ -113,7 +113,7 @@ Add the options to the `[mysqld]` section of your `my.cnf` file.
 
 #### `handlersocket_threads`
 
-* Description: Specify the number of worker threads for reads.\
+* Description: Specify the number of worker threads for reads. \
   Recommended value = number of CPU cores \* 2.
 * Command line: `--handlersocket-threads="value"`
 * Scope: Global

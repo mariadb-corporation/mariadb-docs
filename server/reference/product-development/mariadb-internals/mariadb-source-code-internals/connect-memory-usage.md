@@ -8,11 +8,12 @@ description: >-
 
 {% include "../../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-When creating a connection, a THD object is created for that connection. This contains all connection information and also caches to speed up queries and avoid frequent malloc() calls.
+When creating a connection, a THD object is created for that connection. This contains
+all connection information and also caches to speed up queries and avoid frequent malloc() calls.
 
 When creating a new connection, the following malloc() calls are done for the THD:
 
-The following information is the state in [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.6-series/mariadb-10.6.1-release-notes) when compiled without debugging.
+The following information is the state in [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1) when compiled without debugging.
 
 ## Local Thread Memory
 

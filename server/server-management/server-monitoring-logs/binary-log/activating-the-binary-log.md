@@ -29,7 +29,7 @@ The following applies:
 
 * If you specify a binary log basename with an extension (for example `.log`), the extension is silently ignored.
 * If you don't specify a path with the basename, the server logs into _`datadir` ._ (_`Datadir`_ is determined by the value of the [datadir](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) system variable.)
-* If you don't specify a basename, it is strongly recommended to use [`--log-basename`](../../starting-and-stopping-mariadb/mariadbd-options.md#log-basename) or to ensure that [replication](../../../ha-and-performance/standard-replication/) doesn't stop if the hostname of the computer changes.
+* If you don't specify a basename, it is strongly recommended to use  [`--log-basename`](../../starting-and-stopping-mariadb/mariadbd-options.md#log-basename) or to ensure that [replication](../../../ha-and-performance/standard-replication/) doesn't stop if the hostname of the computer changes.
 
 ## Verifying Logging is On
 
@@ -103,7 +103,7 @@ c525d37c-b2ff-4543-b06f-87012d142d44-bin.index
 * **The binary log index** is the file containing an `.index` extension. It is a plain-text file, containing a master list of the binary log files, in order.\
   By default, the name of the index file is _basename.index_. This can be overridden with the [`--log-bin-index`](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin_index) option.
 * **The binary log files** have an extension using consecutive numbers, starting with `.000001`. (The higher the number, the newer the log file is.)
-* **The binary log files for** [**GTID binlog indexing**](../../../ha-and-performance/standard-replication/gtid/#binlog-indexing) (available from MariaDB 11.4) have an `.idx` extension.
+* **The binary log files for** [**GTID binlog indexing**](../../../ha-and-performance/standard-replication/gtid/README.md#binlog-indexing) (available from MariaDB 11.4) have an `.idx` extension.
 
 A new binary log file with a new extension (number) is created:
 
@@ -148,7 +148,7 @@ mariadb-binlog c525d37c-b2ff-4543-b06f-87012d142d44-bin.000001 > binlog.sql
 
 {% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
-For instructions how to secure binary log **files**, see [Securing MariaDB Logs](../securing-mariadb-logs.md).
+For instructions how to secure binary log **files**, see [Securing MariaDB Logs](../../../security/securing-mariadb/securing-mariadb-logs.md).&#x20;
 
 ## Binary Log Format
 
@@ -159,7 +159,7 @@ There are three formats for the binary log. The default is [mixed logging](binar
 * [Setting sql\_log\_bin](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-sql_log_bin.md)
 * [PURGE LOGS](../../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md) - Delete logs
 * [FLUSH LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) - Close and rotate logs
-* [GTID binlog indexing](../../../ha-and-performance/standard-replication/gtid/#binlog-indexing)
+* [GTID binlog indexing](../../../ha-and-performance/standard-replication/gtid/README.md#binlog-indexing)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

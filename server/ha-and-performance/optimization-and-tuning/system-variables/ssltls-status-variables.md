@@ -1,5 +1,6 @@
 ---
-description: Status variables related to TLS/SSL-encrypted connections.
+description: >-
+  Status variables related to TLS/SSL-encrypted connections.
 ---
 
 # SSL/TLS Status Variables
@@ -90,14 +91,14 @@ Some of these status values are not under the control of the server, but are rep
 * Description: Last valid date for the server TLS certificate.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0-changes-and-improvements)
+* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 #### `Ssl_server_not_before`
 
 * Description: First valid date for the server TLS certificate.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-10.0-series/mariadb-10.0-changes-and-improvements)
+* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 #### `Ssl_session_cache_hits`
 
@@ -180,7 +181,7 @@ See also [#notes](https://docs.openssl.org/master/man3/SSL_CTX_set_verify/#notes
 ## See Also
 
 * [Server Status Variables](server-status-variables.md) - complete list of status variables.
-* [Full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md)
+* [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

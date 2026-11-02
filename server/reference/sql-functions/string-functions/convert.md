@@ -30,7 +30,7 @@ The type can be one of the following values:
 * SIGNED \[INTEGER]
 * UNSIGNED \[INTEGER]
 * [TIME](../../data-types/date-and-time-data-types/time.md)
-* [VARCHAR](../../data-types/string-data-types/varchar.md) (in [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle))
+* [VARCHAR](../../data-types/string-data-types/varchar.md) (in [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle))
 
 Note that in MariaDB, `INT` and `INTEGER` are the same thing.
 

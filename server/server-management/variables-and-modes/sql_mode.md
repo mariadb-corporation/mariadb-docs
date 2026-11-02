@@ -96,7 +96,7 @@ If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-st
 
 Additionally implies the following: [PIPES\_AS\_CONCAT](sql_mode.md#pipes_as_concat), [ANSI\_QUOTES](sql_mode.md#ansi_quotes), [IGNORE\_SPACE](sql_mode.md#ignore_space), [NO\_KEY\_OPTIONS](sql_mode.md#no_key_options), [NO\_TABLE\_OPTIONS](sql_mode.md#no_table_options), [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options).
 
-Additionally, implements a limited subset of Microsoft SQL Server's language. See [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql) for more.
+Additionally, implements a limited subset of Microsoft SQL Server's language. See [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) for more.
 
 If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) output will not display MariaDB-specific table attributes.
 
@@ -160,7 +160,7 @@ For [SELECT ... GROUP BY](../../reference/sql-statements/data-manipulation/selec
 
 This mode sets `sql_mode` to the equivalent of: [PIPES\_AS\_CONCAT](sql_mode.md#pipes_as_concat), [ANSI\_QUOTES](sql_mode.md#ansi_quotes), [IGNORE\_SPACE](sql_mode.md#ignore_space), [NO\_KEY\_OPTIONS](sql_mode.md#no_key_options), [NO\_TABLE\_OPTIONS](sql_mode.md#no_table_options), [NO\_FIELD\_OPTIONS](sql_mode.md#no_field_options), [NO\_AUTO\_CREATE\_USER](sql_mode.md#no_auto_create_user).
 
-This mode also sets [SIMULTANEOUS\_ASSIGNMENT](sql_mode.md#simultaneous_assignment) and configures the server to understand a large subset of Oracle's PL/SQL language instead of MariaDB's traditional syntax for stored routines. See [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle).
+This mode also sets [SIMULTANEOUS\_ASSIGNMENT](sql_mode.md#simultaneous_assignment) and configures the server to understand a large subset of Oracle's PL/SQL language instead of MariaDB's traditional syntax for stored routines. See [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 
 If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) output will not display MariaDB-specific table attributes.
 
@@ -300,8 +300,8 @@ Query OK, 1 row affected, 2 warnings (0.15 sec)
 
 ## See Also
 
-* [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-mssql)
-* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql)
+* [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

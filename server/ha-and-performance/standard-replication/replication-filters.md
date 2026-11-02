@@ -19,7 +19,7 @@ MariaDB provides options that can be used on a [replication primary](replication
 
 ### Binary Log Filter Options
 
-The following options are available, and they are evaluated in the order that they are listed below. If there are conflicting settings, _`binlog_do_db`_ prevails. Before [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes), they are only available as options; from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/old-mariadb-community-server-releases/release-notes-mariadb-11.2-series/mariadb-11.2.0-release-notes) they are also available as system variables.
+The following options are available, and they are evaluated in the order that they are listed below. If there are conflicting settings, _`binlog_do_db`_ prevails. Before [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), they are only available as options; from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0) they are also available as system variables.
 
 #### `binlog_do_db`
 
@@ -79,7 +79,7 @@ The following options and system variables are available, and they are evaluated
 
 #### `replicate_rewrite_db`
 
-The [replicate\_rewrite\_db](replication-and-binary-log-system-variables.md#replicate_rewrite_db) option (and, from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), system variable), allows you to configure a [replica](replication-overview.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica will apply the event in `replica_database` instead.
+The [replicate\_rewrite\_db](replication-and-binary-log-system-variables.md#replicate_rewrite_db) option (and, from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), system variable), allows you to configure a [replica](replication-overview.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica will apply the event in `replica_database` instead.
 
 This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
@@ -89,7 +89,7 @@ This option's rewrites are evaluated _before_ any other replication filters conf
 
 Statements that use table names qualified with database names do not work with other replication filters such as [replicate\_do\_table](replication-filters.md#replicate_do_table).
 
-Until [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/release-notes-mariadb-10.11-series/mariadb-10.11-changes-and-improvements), this option could not be set dynamically.
+Until [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), this option could not be set dynamically.
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
@@ -191,7 +191,8 @@ This option only affects statements that involve tables. This option does not af
 
 When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session), the system variable accepts a comma-separated list of filters.
 
-When setting it dynamically, it is not possible to specify database or table names or patterns that contain commas. If you need to specify database or table names that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](../../server-management/starting-and-stopping-mariadb/).
+When setting it dynamically, it is not possible to specify database or table names
+or patterns that contain commas. If you need to specify database or table names that contain commas, then you will need to specify them by either providing the command-line options or configuring them in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) when the server is [started](../../server-management/starting-and-stopping-mariadb/).
 
 When setting it dynamically, the [replica threads](replication-threads.md#threads-on-the-replica) must be stopped. For example:
 
@@ -401,11 +402,11 @@ The [IGNORE\_SERVER\_IDS](../../reference/sql-statements/administrative-sql-stat
 
 #### `DO_DOMAIN_IDS`
 
-The [DO\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#do_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to only apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](gtid/) is in a specific [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [DO\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#do_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to only apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](gtid/README.md) is in a specific [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 #### `IGNORE_DOMAIN_IDS`
 
-The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](gtid/) is in a specific [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](../../server-management/server-monitoring-logs/binary-log/README.md) events if the transaction's [GTID](gtid/README.md) is in a specific [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 ## Replication Filters and Binary Log Formats
 

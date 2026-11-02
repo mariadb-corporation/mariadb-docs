@@ -24,7 +24,7 @@ SHOW STATUS LIKE 'server_audit%';
 
 ### Status Variables
 
-Below is a list of all status variables related to the Audit Plugin. These cannot be set: These are not to be confused with system variables, which can be set. See [Server Status Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md) for a complete list of status variables that can be viewed with the [SHOW STATUS](../../sql-statements/administrative-sql-statements/show/show-status.md) statement. See also the [Full list of MariaDB options, system and status variables](../../../server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables.md).
+Below is a list of all status variables related to the Audit Plugin. These cannot be set: These are not to be confused with system variables, which can be set. See [Server Status Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md) for a complete list of status variables that can be viewed with the [SHOW STATUS](../../sql-statements/administrative-sql-statements/show/show-status.md) statement. See also the [Full list of MariaDB options, system and status variables](../../full-list-of-mariadb-options-system-and-status-variables.md).
 
 #### `Server_audit_active`
 

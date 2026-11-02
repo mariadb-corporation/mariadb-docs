@@ -45,7 +45,7 @@ collation_connection: utf8_general_ci
 * [SHOW CREATE PACKAGE](show-create-package.md)
 * [CREATE PACKAGE](../../data-definition/create/create-package.md)
 * [DROP PACKAGE](../../data-definition/drop/drop-package.md)
-* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/sql_mode-oracle)
+* [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

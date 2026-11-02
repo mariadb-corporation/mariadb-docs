@@ -41,7 +41,7 @@ This migration involves uninstalling software and wiping data directories on liv
 
 ### Incompatibilities and Feature Differences
 
-MariaDB maintains high levels of compatibility with MySQL, but you still need to [check for incompatibilities and feature differences](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server-release-notes/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql-8.0) to select the most suitable MariaDB version compatible with your current MySQL server.
+MariaDB maintains high levels of compatibility with MySQL, but you still need to [check for incompatibilities and feature differences](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql) to select the most suitable MariaDB version compatible with your current MySQL server.
 
 While MariaDB and MySQL share a common history, they have diverged significantly. You must "clean" the schema and configurations to ensure data compatibility before the migration begins.
 
