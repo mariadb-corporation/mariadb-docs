@@ -232,7 +232,7 @@ Jira: MXS-6264, MXS-6612, MXS-6772, MXS-6781, MXS-6881, MXS-6924, MXS-6821.
 
 **Insert-only tables.** `odbc_insert_only_tables` lists tables (`schema.table` or `schema.*`) for which `DELETE` row events are dropped, so deleted rows stay in Exasol. `UPDATE` and `INSERT` events still apply. `TRUNCATE`, `DROP TABLE`, and `DROP COLUMN` are blocked for these tables, and `DROP SCHEMA` is skipped when the schema holds an insert-only table. A listed table is replicated even if `odbc_include_tables` does not list it. `odbc_include_tables` now requires `schema.table` or `schema.*` entries.
 
-**Buffering and statistics.** The buffering of CDC is limited by time as well as by size. `odbc_perf_max_buffer_time` and `odbc_perf_max_buffer_time_in_idle` set the time limits, `odbc_perf_batch_size` sets the size of a load in bytes (default 200 MiB), and `odbc_perf_max_buffered_rows` remains a row-count trigger (default 750000). `cdc-stats` and the CDC diagnostics report cycle, row, lag, and per-table statistics, and `cdc-reset-stats` clears them. See the [binlogrouter]({maxscale}/reference/maxscale-routers/maxscale-binlogrouter) page for the details.
+**Buffering and statistics.** The buffering of CDC is limited by time as well as by size. `odbc_perf_max_buffer_time` and `odbc_perf_max_buffer_time_in_idle` set the time limits, `odbc_perf_batch_size` sets the size of a load in bytes (default 200 MiB), and `odbc_perf_max_buffered_rows` remains a row-count trigger (default 750000). `cdc-stats` and the CDC diagnostics report cycle, row, lag, and per-table statistics, and `cdc-reset-stats` clears them. See the [binlogrouter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-binlogrouter) page for the details.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
@@ -281,7 +281,7 @@ Jira: MXS-5375, MXS-5609, MXS-5335.
 
 * The listener page has Start and Stop actions next to Destroy. They ask for confirmation and call the listener start and stop REST endpoints.
 * In parameter lists, mandatory parameters and address, port, and socket are listed first by default, and the order can still be changed. The toggle is now called Show required only and shows only the mandatory parameters. The choice is stored per user.
-* The new Report page, reached from the help menu, collects the main REST resources and the server diagnostics into one JSON document. You can filter it, search it, and export it as `maxscale-report.json`. A setting controls how many log lines are included (default 1000). See the [MaxGUI]({maxscale}/reference/maxscale-maxgui) page for the details.
+* The new Report page, reached from the help menu, collects the main REST resources and the server diagnostics into one JSON document. You can filter it, search it, and export it as `maxscale-report.json`. A setting controls how many log lines are included (default 1000). See the [MaxGUI](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-maxgui) page for the details.
 
 ### Automatic Download of the MariaDB ODBC Driver
 
@@ -307,7 +307,7 @@ Jira: MXS-7571, MXS-6090.
 
 Jira: MXS-6230.
 
-This applies to licensed builds only. `license_key` is mandatory and is a JWT, either the token or an absolute path to a file that contains it. MaxScale verifies the signature locally against a key set embedded at build time. Expiry messages start 180 days before the license expires and become more frequent as it gets closer, and MaxScale shuts down when the license lifetime ends. See [Install a MaxScale License Key]({maxscale}/maxscale-management/installation-and-configuration/maxscale-license-key) for how to install a key.
+This applies to licensed builds only. `license_key` is mandatory and is a JWT, either the token or an absolute path to a file that contains it. MaxScale verifies the signature locally against a key set embedded at build time. Expiry messages start 180 days before the license expires and become more frequent as it gets closer, and MaxScale shuts down when the license lifetime ends. See [Install a MaxScale License Key](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/maxscale-management/installation-and-configuration/maxscale-license-key) for how to install a key.
 
 With `enable_feedback=true` (default, not dynamic), MaxScale sends a JSON document with the license id and system information (such as CPU cores, memory, operating system, and backend server versions) 30 seconds after startup. The document is saved as `feedback.json` in the data directory. It is skipped if the content is unchanged or `feedback.json` was written within the last 24 hours.
 
