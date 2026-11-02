@@ -14,8 +14,8 @@ The `mysql.global_priv` table contains the following fields:
 
 | Field | Type     | Null | Key | Default | Description                                                                |
 | ----- | -------- | ---- | --- | ------- | -------------------------------------------------------------------------- |
-| Host  | char(60) | NO   | PRI |         | Host (together with User makes up the unique identifier for this account). |
-| User  | char(80) | NO   | PRI |         | User (together with Host makes up the unique identifier for this account). |
+| Host  | char(255) | NO   | PRI |         | Host (together with User makes up the unique identifier for this account). |
+| User  | char(128) | NO   | PRI |         | User (together with Host makes up the unique identifier for this account). |
 | Priv  | longtext | NO   |     |         | Global privileges, granted to the account and other account properties     |
 
 In order to help the server understand which version a privilege record was written by, the `priv` field contains a JSON field, `version_id` ([MDEV-21704](https://jira.mariadb.org/browse/MDEV-21704)).

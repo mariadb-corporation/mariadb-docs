@@ -87,7 +87,7 @@ ddd ./mariadbd &
 In `ddd` or `gdb`
 
 ```
-run --datadir=/data --language=./share/english --gdb
+run --datadir=/data --language=./share/english --debug-gdb
 ```
 
 You can [set the options in your /.my.cnf file](../../../server-management/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md) so as not to have to repeat them on the `run` line.

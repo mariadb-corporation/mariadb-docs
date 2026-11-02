@@ -83,9 +83,9 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 * **[Support](../reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](../reference/clouddba.md) is available on Power and PowerPlus.
 
 {% hint style="warning" %}
-**Technical preview features**
+**Preview features**
 
-MariaDB Enterprise Cluster and HTAP using MariaDB Exa are currently available as technical previews. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
+HTAP using MariaDB Exa is available as a preview feature. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
 {% endhint %}
 
 ## Selecting a Tier

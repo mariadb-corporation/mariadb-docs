@@ -11,8 +11,6 @@ description: >-
 
 The tee filter is a "plumbing" fitting in the MariaDB MaxScale filter toolkit. It can be used in a filter pipeline of a service to make copies of requests from the client and send the copies to another service within MariaDB MaxScale.
 
-**Please Note:** Starting with MaxScale 2.2.0, any client that connects to a service which uses a tee filter will require a grant for the loopback address, i.e. `127.0.0.1`.
-
 ## Configuration
 
 The configuration block for the TEE filter requires the minimal filter parameters in its section within the MaxScale configuration file. The service to send the duplicates to must be defined.
@@ -54,7 +52,11 @@ The target where the filter will duplicate all queries. The target can be either
 * Default: none
 * Description: Specifies the service for which queries are replicated; deprecated in favor of the target parameter.
 
-The service where the filter will duplicate all queries. This parameter is deprecated in favor of the `target` parameter and will be removed in a future release. Both `target` and `service` cannot be defined.
+{% hint style="warning" %}
+This parameter is deprecated and will be removed in a future release. This parameter can always be replaced with the `target` parameter.
+{% endhint %}
+
+The service where the filter will duplicate all queries. You can't define both `target` and `service`.
 
 ### `match`
 
@@ -91,13 +93,9 @@ exclude=/select.*from.*t1/
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
 * Default: `ignorecase`
-* Description: Determines how regular expressions are parsed, including case sensitivity and extended syntax.
+* Description: Deprecated and has no effect. Do not use.
 
-How regular expressions should be interpreted.
-
-```
-options=case,extended
-```
+This option does nothing and has been deprecated ([MXS-7684](https://jira.mariadb.org/browse/MXS-7684)).
 
 ### `source`
 
@@ -142,9 +140,12 @@ In the synchronous routing mode, a failure of the branch target will cause the c
 ## Limitations
 
 * All statements that are executed on the branch target are done in an asynchronous manner. This means that when the client receives the response there is no guarantee that the statement has completed on the branch target. The `sync` feature provides some synchronization guarantees that can be used to verify successful execution on both targets.
+
 * Any errors on the branch target will cause the connection to it to be closed. If `target` is a service, it is up to the router to decide whether the connection is closed. For direct connections to servers, any network errors cause the connection to be closed. When the connection is closed, no new queries will be routed to the branch target.
 
-With `sync=true`, a failure of the branch target will cause the whole session to be closed.
+* With `sync=true`, a failure of the branch target will cause the whole session to be closed.
+
+* [MXS-7676](https://jira.mariadb.org/browse/MXS-7676): Even with `sync=false`, a slow branch target may cause MaxScale to throttle the amount of data read from the client to prevent an out-of-memory situation from happening.
 
 ## Module commands
 

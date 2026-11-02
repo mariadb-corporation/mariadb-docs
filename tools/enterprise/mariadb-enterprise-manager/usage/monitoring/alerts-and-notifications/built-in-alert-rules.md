@@ -54,7 +54,7 @@ A key feature of these rules is the use of a **"sustained for"** duration. This 
 
 ## GridGain 8 Cluster
 
-GridGain 8 alert rules are provisioned in the **GridGain Cluster** folder in Grafana and are evaluated every minute. In a notification, the cluster is identified as `gridgain/<cluster tag>` and the node by its consistent ID.
+GridGain 8 alert rules are provisioned in the **GridGain 8 Cluster** folder in Grafana and are evaluated every minute. In a notification, the cluster is identified as `gridgain/<cluster tag>` and the node by its consistent ID.
 
 GridGain 8 nodes push their metrics to Enterprise Manager rather than being scraped, so availability rules detect a node that stops reporting rather than an exporter that reports the node as down.
 

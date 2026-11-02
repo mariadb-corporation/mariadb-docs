@@ -276,7 +276,7 @@ MariaDB Cloud monitors and scales storage automatically:
 
 * **Continuous Monitoring**: PersistentVolumeClaim usage tracked
 * **Proactive Scaling**: Scaling initiated before capacity exhausted
-* **Block Storage Integration**: Currently uses cloud provider block storage (AWS EBS, Azure Disk, Google Persistent Disk)
+* **Block Storage Integration**: Uses cloud provider block storage (AWS EBS, Azure Disk, Google Persistent Disk)
 
 ### Future Storage Innovations
 

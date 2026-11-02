@@ -220,7 +220,7 @@ CALL sky.set_master_ssl();
 
 This stored procedure can be used to ignore a transaction that is causing a replication error.
 
-Executes the [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statement, then sets the [sql\_slave\_skip\_counter](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sql_slave_skip_counter) system variable, and then executes the [START REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) statement to skip a single transaction. Does not currently work with GTID.
+Executes the [STOP REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica) statement, then sets the [sql\_slave\_skip\_counter](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sql_slave_skip_counter) system variable, and then executes the [START REPLICA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica) statement to skip a single transaction. Does not work with GTID.
 
 ```sql
 CALL sky.skip_repl_error();

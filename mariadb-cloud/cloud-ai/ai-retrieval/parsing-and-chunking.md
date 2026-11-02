@@ -25,7 +25,7 @@ You choose a parsing strategy and a chunking strategy in the **Processing** step
 | Layout-aware (default) | Extracts the layout and the text of complex digital documents, where the meaning depends on the structure. | PDF, DOCX, PPTX, and static HTML files with headings, tables, lists, or several columns. |
 | Base | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
 
-Both strategies read digital documents only. AI Retrieval cannot parse scanned documents, which are PDFs that contain only images of pages. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
+Both strategies read digital documents only. Scanned documents, which are PDFs that contain only images of pages, are not supported yet. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
 
 Which strategy to choose:
 
@@ -74,7 +74,7 @@ Guidance:
 * A small chunk matches a question more precisely but carries less context. A large chunk carries more context but can mix several topics, which makes it match less precisely.
 * The overlap repeats the end of one chunk at the start of the next. A larger overlap keeps a sentence that falls on a boundary readable in both chunks, but it creates more chunks to store and to embed.
 * Chunk size has no upper limit other than the limit of the embedding model.
-* When the reranker is on, it reads only the first 512 tokens of each chunk and ignores the rest, so a larger chunk is ranked on its beginning only. Keep the chunk size at 512 tokens or below when you use the reranker. The portal warns you about larger chunk sizes.
+* When the reranker is on, it reads only the first 512 tokens of each chunk and ignores the rest, so a larger chunk is ranked on its beginning only. Keep the chunk size at 512 tokens or below when you use the reranker.
 
 <!-- Source: skysql-ui-client ChunkingFields.vue and src/utils/chunking.ts @ 5356829b; ai-retrieval-cloud chunk_rules.py @ 5393bced; chunking/registry.py and parsers/registry.py @ a66a013d. -->
 

@@ -7,7 +7,7 @@ hidden: true
 
 # Managing License
 
-Control Center requires a license to operate. Contact [the Sales team](mailto:sales@gridgain.com?subject=GridGain%20Control%20Center%20License%20Inquiry) to get a license, then upload it to Control Center.
+Control Center requires a license to operate. Contact [the Sales team](https://mariadb.com/contact/) to get a license, then upload it to Control Center.
 
 ## Uploading License via UI
 

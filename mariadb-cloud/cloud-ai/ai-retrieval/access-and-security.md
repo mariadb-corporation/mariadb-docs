@@ -66,7 +66,7 @@ AI Retrieval connects to the vector store service over a private network inside 
 
 ## Database Knowledge Bases
 
-A database knowledge base reads from a MariaDB service that already holds your data. The create form pre-fills the default user of the service, and you can enter a different user name and password instead. AI Retrieval builds its description of the database, called the semantic map, from the tables and columns that the account can see.
+A database knowledge base reads from a MariaDB service that already holds your data. The create form pre-fills the default user of the service, and you can enter a different user name and password instead. AI Retrieval builds the semantic map of the database only from the tables and columns that this account can see.
 
 To control what a database knowledge base can read, create a dedicated user:
 

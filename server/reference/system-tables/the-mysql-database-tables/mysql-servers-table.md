@@ -19,14 +19,14 @@ The `mysql.servers` table contains the following fields:
 | Field        | Type     | Null | Key | Default | Description      |
 | ------------ | -------- | ---- | --- | ------- | ---------------- |
 | Server\_name | char(64) | NO   | PRI |         |                  |
-| Host         | char(64) | NO   |     |         |                  |
+| Host         | varchar(2048) | NO   |     |         |                  |
 | Db           | char(64) | NO   |     |         |                  |
-| Username     | char(80) | NO   |     |         |                  |
+| Username     | char(128) | NO   |     |         |                  |
 | Password     | char(64) | NO   |     |         |                  |
 | Port         | int(4)   | NO   |     | 0       |                  |
-| Socket       | char(64) | NO   |     |         |                  |
+| Socket       | char(108) | NO   |     |         |                  |
 | Wrapper      | char(64) | NO   |     |         | mysql or mariadb |
-| Owner        | char(64) | NO   |     |         |                  |
+| Owner        | varchar(512) | NO   |     |         |                  |
 
 ## Example
 

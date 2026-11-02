@@ -82,7 +82,8 @@ jobs:
         run: |
           set -euo pipefail
           src=".generated-api-plugin/md"
-          # Full generated set (api.md plus per-group / per-page files).
+          # Full generated set (per-group / per-page files, plus api.md, which a
+          # later step removes once its links are repointed).
           dest_dir="server/reference/plugins/api-plugin"
           # delete the dest dir so that there's no stale files
           rm -rf "$dest_dir"
@@ -97,6 +98,11 @@ jobs:
           test -f "$dest_dir/page-index.md"
           test ! -e "$dest_dir/README.md"
           mv "$dest_dir/page-index.md" "$dest_dir/README.md"
+          # Doxygen's own list pages (\todo, \bug, \test, \deprecated) are
+          # notes for the server developers, not reference for plugin authors,
+          # and nothing else in the generated set links to them.
+          rm -f "$dest_dir/page-todo.md" "$dest_dir/page-bug.md" \
+            "$dest_dir/page-test.md" "$dest_dir/page-deprecated.md"
           rm -rf ".generated-api-plugin"
 
       - name: Flatten level 5 and 6 Markdown headers to level 4
@@ -123,6 +129,18 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/fix_plugin_api_member_anchors.py
 
+      - name: Retarget links whose fragment is a raw doxygen ID
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/fix_plugin_api_doxygen_refs.py
+
+      - name: Repoint links into api.md and stop publishing it
+        run: |
+          set -euo pipefail
+          # DOCS-6625: api.md repeats every group page and renders as ~20 MB.
+          # Since MDBF-1224 each of its entries is also on a group page.
+          python3 .github/scripts/drop_plugin_api_md.py
+
       - name: Title-case the ABI version in generated page titles
         run: |
           set -euo pipefail
@@ -144,7 +162,7 @@ jobs:
       - name: Update Plugin API Documentation section in SUMMARY.md
         run: |
           set -euo pipefail
-          bash .github/scripts/add_server_plugin_api_to_summary.sh
+          python3 .github/scripts/add_server_plugin_api_to_summary.py
 
       - name: Open a pull request if the generated docs changed
         id: cpr
