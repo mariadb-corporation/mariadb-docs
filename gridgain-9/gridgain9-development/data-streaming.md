@@ -824,3 +824,7 @@ var options = new DataStreamerOptions
 Additionally, the data streamer periodically flushes incomplete buffers to ensure that messages are not delayed indefinitely. This is especially useful when a buffer fills slowly or never completely fills due to uneven data distribution.
 
 This behavior is controlled by the `autoFlushInterval` property, which is set to 5000 ms by default. You can also configure the `retryLimit` parameter to define the maximum number of retry attempts for failed submissions, with a default value of 16.
+
+## See Also
+
+- [Stream Data With the Data Streamer API](../gridgain9-get-started/learning-paths/data-pipeline-apis/data-streaming.md)

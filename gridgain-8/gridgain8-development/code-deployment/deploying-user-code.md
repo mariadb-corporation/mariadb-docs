@@ -19,7 +19,7 @@ Items that can be deployed via `UriDeploymentSpi` are:
 - GridGain services
 - Java POJO that aren't included in the classpath
 
-For a more detailed description of all `UriDeploymentSpi`-based deployment cases, see [this tutorial](https://www.gridgain.com/docs/tutorials/code-deployment/code-deployment-tutorial).
+For a more detailed description of all `UriDeploymentSpi`-based deployment cases, see [Deploying Code With UriDeploymentSpi](../../gridgain8-get-started/how-to-guides/uri-deployment-spi.md).
 
 ## Deploying from a Local Directory
 

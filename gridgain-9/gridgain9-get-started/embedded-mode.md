@@ -47,13 +47,13 @@ First, you need to add GridGain to your project. The easiest way to do this is b
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-api</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-runner</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 </dependencies>
 ```

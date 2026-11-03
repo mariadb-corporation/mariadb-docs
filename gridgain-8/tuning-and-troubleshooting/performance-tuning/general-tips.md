@@ -46,25 +46,23 @@ GridGain has a number of internal properties that can be set to improve performa
 
 ### TLS Version Configuration
 
-By default, GridGain uses TLS 1.2 to secure connections. You can swap to TLS 1.3 instead by setting it in the properties: `-Djdk.tls.server.protocols=TLSv1.3`.
+By default, GridGain uses the generic `TLS` protocol, which on Java 17 enables TLSv1.2 and TLSv1.3. To restrict the connections to one version, set the `protocol` property of the `SslContextFactory`, or set the JVM property, for example `-Djdk.tls.server.protocols=TLSv1.3`.
 
 ### Enabling One Way SSL
 
-By default, all connections are secured by a two-way SSL. You can switch to one-way SSL to speed up connections by having the server not verify the client certificate by setting the `-DneedClientAuth=false` property.
+By default, all connections are secured by a two-way SSL. You can switch to one-way SSL to speed up connections by having the server not verify the client certificate. To do so, set the `needClientAuth` property of the `SslContextFactory` on the server nodes to `false` (see [SSL/TLS](../../security/ssl-tls.md)).
 
 ### Limiting Number of Active Compute Tasks
 
-Distributed computing can take a significant toll on network configuration. You can limit computing tasks throughput to make sure that all nodes in your cluster have a chance to `-DmaxActiveComputeTasksPerConnection=100`
+Distributed computing can take a significant toll on network configuration. You can limit computing tasks throughput to make sure that all nodes in your cluster have a chance to process other work. For thin clients, set the `maxActiveComputeTasksPerConnection` property of `ThinClientConfiguration` (reached through `ClientConnectorConfiguration`) to the maximum number of compute tasks that one connection can run at the same time. The default is 0.
 
 ### Recommended JVM Options
 
 Below is the list of recommended JVM options for high performance GridGain installations:
 
 ```
--server -XX:+AggressiveOpts -XX:MaxPermSize=256m \
+-server \
 -DIGNITE_WAIT_FOR_BACKUPS_ON_SHUTDOWN=true \
--DIGNITE_CLUSTER_ID={{ ignite_cluster_id }} \
--DCODE_DEPLOYMENT={{ code_deployment_enabled }} \
 -Djava.net.preferIPv4Stack=true -Dlog4j2.formatMsgNoLookups=true \
 -Dcom.sun.management.jmxremote=true \
 -Dcom.sun.management.jmxremote.port=9010 \
@@ -74,39 +72,39 @@ Below is the list of recommended JVM options for high performance GridGain insta
 -Djava.rmi.server.hostname={{ ansible_ec2_public_ipv4 }} \
 -Djavax.net.ssl.keyStore={{ gridgain_ssl_path }}/server.p12 \
 -Djavax.net.ssl.keyStorePassword={password} \
--DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false
+-DIGNITE_MBEAN_APPEND_CLASS_LOADER_ID=false \
 -DIGNITE_DISABLE_WAL_DURING_REBALANCING=true \
 -DIGNITE_PDS_WAL_REBALANCE_THRESHOLD=1 \
 -DIGNITE_WAL_MMAP=false \
 -DIGNITE_BINARY_SORT_OBJECT_FIELDS=true \
--XX:StartFlightRecording=dumponexit=true,filename={{ gridgain_logs_path }}/gridgain.jfr,maxsize=1g,maxage=1h,settings=profile
+-XX:StartFlightRecording=dumponexit=true,filename={{ gridgain_logs_path }}/gridgain.jfr,maxsize=1g,maxage=1h,settings=profile \
 -XX:+ScavengeBeforeFullGC \
 -Xlog:gc:{{ gridgain_logs_path }}/gc.log \
--XX:+PrintGC -XX:+PrintGCDetails \
 -XX:+PrintFlagsFinal \
 -XX:+UnlockDiagnosticVMOptions \
--XX:LogFile={{ gridgain_logs_path }}/safepoint.log \
--XX:+PrintSafepointStatistics \
--XX:PrintSafepointStatisticsCount=1
+-Xlog:safepoint:file={{ gridgain_logs_path }}/safepoint.log
 ```
+
+The `{{ ... }}` values are placeholders for your own paths and addresses. Java 17 and later reject options that were removed from the JVM, such as `-XX:+AggressiveOpts`, `-XX:MaxPermSize`, `-XX:+PrintSafepointStatistics`, and `-XX:PrintSafepointStatisticsCount`, and the JVM then does not start. Use the `-Xlog` options as shown.
 
 ### Additional Snapshot Options
 
-Snapshot operations require a significant amount of resources and may cause slowdown is service. You can configure extra snapshot options to offset possible issues by reducing (or increasing) parallelism in [GridGain parameters](../../gridgain8-management/cluster-configuration/understanding-configuration.md), or by introducing throttling:
+Snapshot operations require a significant amount of resources and may cause slowdown is service. You can configure extra snapshot options to offset possible issues by reducing (or increasing) parallelism, or by introducing throttling:
 
-- Set the level of parallelism for snapshot operations with the following option:
-`gg_snapshot_operation_parallelism: "4"`.
-- Configure snapshot throttling time in milliseconds with the following option:  `gg_snapshot_progress_throttling: "-1"`.
+- Set the level of parallelism for snapshot operations with `SnapshotConfiguration.snapshotOperationParallelism` (the default is 2).
+- Configure the snapshot progress throttling interval in milliseconds with `SnapshotConfiguration.snapshotProgressThrottlingInterval` (the default is 1000).
+
+Set both properties on the `SnapshotConfiguration` of the `GridGainConfiguration` plugin configuration.
 
 ### Write Ahead Log Options
 
-A number of WAL options can be added to make your WAL more reliable and compact. You can set them in [GridGain parameters](../../gridgain8-management/cluster-configuration/understanding-configuration.md).
+A number of WAL options can be added to make your WAL more reliable and compact. Set them on the `DataStorageConfiguration` of your [node configuration](../../gridgain8-management/cluster-configuration/understanding-configuration.md).
 
-- Set wal mode to log only `gridgain_wal_mode: "LOG_ONLY"`.
-- Increase the segment size `gridgain_wal_segment_size: "#{256 * 1024 * 1024}"`.
-- Enable WAL compaction `gridgain_wal_compaction_enabled: "true"`.
-- Set a WAL compaction level `gridgain_wal_compaction_level: "1"`.
-- Set a archive size to. We recommend setting just under 30GB by using the `gridgain_wal_archive_size: "29000000000"` property.
+- Set the WAL mode to log only with `DataStorageConfiguration.walMode` set to `LOG_ONLY` (the default).
+- Increase the segment size with `walSegmentSize`, for example `#{256 * 1024 * 1024}` in an XML configuration.
+- Enable WAL compaction with `walCompactionEnabled` set to `true`.
+- Set the WAL compaction level with `walCompactionLevel`, for example `1`.
+- Set the archive size with `maxWalArchiveSize`. We recommend setting just under 30GB, for example `29000000000`.
 
 ### Ulimits
 
@@ -213,3 +211,7 @@ As such, here are general recommendations depending on your environment:
 - In environments with high volumes of small messages the queue may get filled up before either acknowledgment threshold is reached and the connection is reset. In these environments, you may want to increase the limit to allow more messages to be processed before the `ackSendThresholdMillis` is triggered, or reduce the same threshold to send acknowledgments more often.
 - In environments with low to moderate volumes of large messages you may want to lower queue limit to reduce memory use. Make sure to fine-tune the `ackSendThresholdBytes` to send acknowledgments more often so that the queue does not fill up.
 - In environments with both high volume of messages and large messages, you may want to reduce both thresholds to reduce the amount of memory required to store messages in the queue at the cost of more acknowledgments being sent. In these environments, increasing the queue limit may lead to it requiring a lot of memory to store messages, and it is better to keep the queue low by other means.
+
+## See Also
+
+- [How to Configure NUMA-Aware Memory Allocation](../../gridgain8-get-started/how-to-guides/numa-memory-allocation.md)

@@ -263,3 +263,7 @@ CREATE TABLE IF NOT EXISTS Account (
   amount int
 ) PRIMARY ZONE EXAMPLEZONE;
 ```
+
+## See Also
+
+- [Design a Schema for Distributed SQL](../../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-distributed-sql.md)

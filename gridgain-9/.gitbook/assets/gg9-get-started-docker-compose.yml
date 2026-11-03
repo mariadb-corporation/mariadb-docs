@@ -1,6 +1,6 @@
 name: gridgain9
 x-gridgain-def: &gridgain-def
-  image: gridgain/gridgain9:${GRIDGAIN9_VERSION:-9.1.21}
+  image: gridgain/gridgain9:${GRIDGAIN9_VERSION:-9.1.28}
   environment:
     JVM_MAX_MEM: "4g"
     JVM_MIN_MEM: "4g"

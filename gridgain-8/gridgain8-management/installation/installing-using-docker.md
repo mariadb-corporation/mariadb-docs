@@ -45,8 +45,8 @@ Starting with version 8.8.21, docker images do not include a license. You must s
 By default, the latest version is downloaded but you can download a specific version too.
 
 ```shell
-# Pull a specific GridGain version
-docker pull gridgain/enterprise:8.10
+# Pull a specific GridGain version (use the full version tag)
+docker pull gridgain/enterprise:8.10.0
 ```
 
 For GridGain Ultimate Edition, use `gridgain/ultimate`.
@@ -68,7 +68,7 @@ To run a specific version of GridGain, use the following command:
 ```shell
 docker run -d \
 -e LICENCE_URL=http://myserver/license.xml \
-gridgain/enterprise:8.10
+gridgain/enterprise:8.10.0
 ```
 
 After you run the command, you can check if GridGain is running in the container logs.
@@ -90,6 +90,13 @@ To create a persistent volume, run the following command:
 
 ```shell
 docker volume create persistence-volume
+```
+
+The GridGain image runs as a non-root user (UID 10000), and a new volume is owned by `root`, so the node cannot write to it and fails to start with `Cannot write to work directory`. Give the user ownership of the volume first:
+
+```shell
+docker run --rm --user 0 -v persistence-volume:/persistence \
+  --entrypoint chown gridgain/enterprise:8.10.0 10000:10000 /persistence
 ```
 
 We mount this volume to a specific directory when running the GridGain docker image.
@@ -123,6 +130,7 @@ docker run -d \
 
 Instead of creating a volume, you can mount a local directory to the container in which the GridGain image is running and use this directory to store persistent data.
 When restarting the container with the same command, GridGain loads the data from the directory.
+The container user (UID 10000) must be able to write to the directory. On Docker Desktop this works as is; on a Linux host, make the directory writable for that user first (for example, `sudo chown 10000 work_dir`).
 
 ```shell
 mkdir work_dir
@@ -192,7 +200,7 @@ The license file can be specified using the 'LICENCE_URL' variable.
 ```shell
 docker run -d \
   -e LICENCE_URL=http://myserver/license.xml  \
-  gridgain/enterprise:8.10
+  gridgain/enterprise:8.10.0
 ```
 
 If you license file is stored locally, use the following syntax:
@@ -200,7 +208,7 @@ If you license file is stored locally, use the following syntax:
 ```shell
 docker run -d -v {absolute_path}/gridgain-license.xml:/opt/gridgain/gridgain-license.xml \
  -e "OPTION_LIBS=ignite-rest-http,control-center-agent" \
- gridgain/ultimate:8.10
+ gridgain/ultimate:8.10.0
 ```
 
 ## Enabling Modules
@@ -233,12 +241,16 @@ The following parameters can be passed as environment variables in the docker co
 |---|---|---|
 | `CONFIG_URI` | URL to the GridGain configuration file (can also be relative to the META-INF folder on the class path). The downloaded configuration file is saved to `./ignite-config.xml` | N/A |
 | `OPTION_LIBS` | A list of [modules](../../gridgain8-development/project-setup.md#enabling-modules) that will be enabled for the node, in addition to the modules enabled by default. | N/A |
-| `JVM_OPTS` | JVM arguments passed to the GridGain instance. | N/A |
+| `JVM_OPTS` | JVM arguments passed to the GridGain instance. Setting this variable replaces the default. | `-Xms1g -Xmx1g -server -XX:MaxMetaspaceSize=256m` |
 | `EXTERNAL_LIBS` | A list of URL's to external libraries. Refer to [Deploying User Libraries](#deploying-user-libraries). | N/A |
 | `LICENCE_URL` | URL to the license file. A license is required when you run the GridGain Ultimate or Enterprise Editions. | N/A |
 
 ## Software Identification
 
-The GridGain Docker image includes a SWID tag. It is located at `/opt/gridgain/swid/gridgain.swidtag` inside the Docker container.
+The GridGain Docker image includes a SWID tag. It is located in `/usr/share/swidtag/` and in `/opt/gridgain/swidtag/` inside the Docker container, in a file named `com.gridgain.gridgain-<edition>_<version>.swidtag`.
 
 See [Software Identification](../software-identification.md) for details.
+
+## See Also
+
+- [Start a Local Cache Development Cluster](../../gridgain8-get-started/quick-start/start-local-cache-cluster.md)
