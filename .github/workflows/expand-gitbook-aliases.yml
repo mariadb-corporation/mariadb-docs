@@ -127,6 +127,7 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]exa[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/COKIFe0hm2r19L2bFQTW#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]ai-tools[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/y3YOhOKd2kxEEm0gLKs4#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]raft-cluster[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW#g' \
             < "$CHANGED_MD"
 
           echo "Git status after expansion:"
