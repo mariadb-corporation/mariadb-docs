@@ -3,10 +3,9 @@ description: >-
   Choose a parsing strategy and a chunking strategy for the documents of a
   MariaDB Cloud AI Retrieval knowledge base, and set the chunk size and overlap.
 icon: scissors
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Moved out of document-knowledge-bases.md at Egor Ustinov's request on 2026-10-20, with guidance added. Open items are marked TODO. -->
+<!-- DOCS-6592. Moved out of document-knowledge-bases.md at Egor Ustinov's request on 2026-10-20, with guidance added. Open items are marked TODO. -->
 
 # Parsing and Chunking
 
@@ -15,8 +14,6 @@ When AI Retrieval ingests a document, it first parses the file to extract its te
 You choose a parsing strategy and a chunking strategy in the **Processing** step when you upload files, and again when you add a data source. The defaults are **Layout-aware** parsing and **Structure-aware** chunking.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-upload-processing.png" alt="The Processing step of the Upload Files dialog with the Layout-aware parsing strategy selected and the Structure-Aware chunking strategy."><figcaption><p>The Processing step</p></figcaption></figure>
-
-<!-- TODO: this screenshot shows "Basic" because the test environment has not picked up the rename to "Base" (MCDEV-1484). Recapture it when the environment shows Base. Egor noted that the parser selector may be removed from the portal; ask him before the launch. -->
 
 ## Choose a Parsing Strategy
 

@@ -4,12 +4,9 @@ description: >-
   upload or from an S3 or GCS bucket, test retrieval, and connect an
   application through the REST API.
 icon: file-lines
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Open items are marked TODO. -->
-
-<!-- TODO: screenshots were recaptured on 2026-10-20 in the test environment. Recapture ai-retrieval-upload-processing.png (used here and in parsing-and-chunking.md) and ai-retrieval-chunk-size-fields.png (parsing-and-chunking.md) once the environment shows "Base" instead of "Basic" (MCDEV-1484, comment 1143338). -->
+<!-- DOCS-6592. Open items are marked TODO. -->
 
 # Document Knowledge Bases
 

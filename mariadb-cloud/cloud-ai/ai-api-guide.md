@@ -3,6 +3,7 @@ description: >-
   MariaDB Cloud AI Agent API for embedding conversational AI in applications:
   stateful chat sessions, natural-language queries, and X-API-Key
   authentication — no LLM infrastructure required.
+hidden: true
 ---
 
 # AI Agents API User Guide

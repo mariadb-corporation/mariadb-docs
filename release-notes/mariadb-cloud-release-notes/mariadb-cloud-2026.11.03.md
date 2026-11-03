@@ -4,10 +4,9 @@ description: >-
   2026-11-03. It adds AI Retrieval, a managed retrieval service that answers
   questions from your documents or your MariaDB databases.
 icon: rocket-launch
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the AI Retrieval production launch. Confirm the release date (AI Service production rollout started 2026-11-03, Jeet in #sky-operations), then unhide and add the row to all-releases.md. Important Notes from Egor Ustinov, Slack DM 2026-10-29 17:04 India time. -->
+<!-- DOCS-6592. Released 2026-11-03 (AI Service production rollout, Jeet in #sky-operations). Important Notes from Egor Ustinov, Slack DM 2026-10-29 17:04 India time. -->
 
 # MariaDB Cloud 2026.11.03 Release Notes: AI Retrieval
 

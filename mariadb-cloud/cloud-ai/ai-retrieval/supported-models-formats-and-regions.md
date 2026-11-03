@@ -3,10 +3,9 @@ description: >-
   The embedding and generation models, the file formats, and the regions that
   MariaDB Cloud AI Retrieval supports, and how it keeps traffic in a region.
 icon: globe
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Follows Egor Ustinov's calls of 2026-10-22 and 2026-10-26: list the models without explaining design choices, say where the traffic goes, keep quota limits on the quotas page, separate document and database knowledge bases. Open items are marked TODO. -->
+<!-- DOCS-6592. Follows Egor Ustinov's calls of 2026-10-22 and 2026-10-26: list the models without explaining design choices, say where the traffic goes, keep quota limits on the quotas page, separate document and database knowledge bases. Open items are marked TODO. -->
 
 # Supported Models, Formats, and Regions
 
@@ -38,13 +37,11 @@ The create form lists the embedding models that are available in the region that
 
 For the regions of the Claude models, see [Anthropic models](https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html#model-regions-anthropic) in the Amazon Bedrock documentation.
 
-<!-- TODO: confirm the model lists in the create form of each region before unhiding. Sources: test environment create form (2026-10-20, eu-central-1); Egor's calls of 2026-10-22 (in-region embedding, Embed 4 only in us-east-1, Claude through geographic or global endpoints, Gemini over the public endpoint) and 2026-10-26 (add Claude Fable 5.1 and Gemini 3.8 Flash; list the models, do not explain design choices); pricing sheet Generate tab. -->
-
 ## Models for Database Knowledge Bases
 
 A database knowledge base has no model selector. To generate an answer from the rows, it uses GPT 5.6 Luna.
 
-<!-- Egor, Slack DM 2026-10-22 15:11 IST: GPT 5.6 Luna for RetrieveRowsAndGenerate. On 2026-10-26 he asked to drop the note about undisclosed models. -->
+<!-- Egor, Slack DM 2026-10-22 15:11 India time: GPT 5.6 Luna for RetrieveRowsAndGenerate. On 2026-10-26 he asked to drop the note about undisclosed models. -->
 
 ## Supported File Formats for Document Knowledge Bases
 
@@ -86,8 +83,6 @@ Google Cloud and Azure are not available yet. The create form shows both and off
 ### Database Knowledge Bases
 
 Database knowledge bases are available globally, in every region.
-
-<!-- TODO: Egor said on 2026-10-22 that four regions are planned, as in the product requirements (NFR-CLO-01), for document knowledge bases only. On 2026-10-26 he asked to say "in-region data processing" for document knowledge bases and "available globally in every region" for database knowledge bases, without mentioning the control plane. Confirm which regions are live on the release date. The test environment offers only eu-central-1. -->
 
 ## Next Steps
 

@@ -3,10 +3,9 @@ description: >-
   The default service quotas of MariaDB Cloud AI Retrieval, what happens when
   you reach one, and how to request a higher quota.
 icon: gauge
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Values confirmed by Karan Siddhpura (DOCS-6592 comment 1144511; Slack DM 2026-10-28) against the quota catalog in skysql-microservices ai-service (migrations 21 and 23) and ai-retrieval-cloud packages/quotas. Egor (2026-10-26): do not publish the ranges; tell customers to contact support. Open items are marked TODO. -->
+<!-- DOCS-6592. Values confirmed by Karan Siddhpura (DOCS-6592 comment 1144511; Slack DM 2026-10-28) against the quota catalog in skysql-microservices ai-service (migrations 21 and 23) and ai-retrieval-cloud packages/quotas. Egor (2026-10-26): do not publish the ranges; tell customers to contact support. Open items are marked TODO. -->
 
 # Service Quotas
 

@@ -3,10 +3,9 @@ description: >-
   Create a MariaDB Cloud AI Retrieval database knowledge base, build its
   semantic map, customize it, and query your data in natural language.
 icon: database
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Built from merged code on 2026-10-26: skysql-ui-client 4.13.37 (d9c5b422, src/locales/en.json, src/helpers/databaseKb.ts), skysql-gen-ai main (5dc0520, copilot/lib/database.py, agent/base.py), and skysql-microservices ai-service (ca4d8483d). Ryan Killea has not reviewed it yet. Screenshots wait for the production flip. Open items are marked TODO. -->
+<!-- DOCS-6592. Built from merged code on 2026-10-26: skysql-ui-client 4.13.37 (d9c5b422, src/locales/en.json, src/helpers/databaseKb.ts), skysql-gen-ai main (5dc0520, copilot/lib/database.py, agent/base.py), and skysql-microservices ai-service (ca4d8483d). Ryan Killea has not reviewed it yet. Screenshots wait for the production flip. Open items are marked TODO. -->
 
 # Database Knowledge Bases
 

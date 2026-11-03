@@ -2,7 +2,6 @@
 description: >-
   How MariaDB Cloud AI Retrieval measures usage in MariaDB Compute Units (MCUs)
   for document knowledge bases and database knowledge bases.
-hidden: true
 icon: receipt
 ---
 

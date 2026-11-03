@@ -3,7 +3,6 @@ description: >-
   MariaDB Cloud AI Retrieval indexes your documents or your database in a
   knowledge base and returns relevant passages, rows, or generated answers
   through a REST API.
-hidden: true
 icon: magnifying-glass
 ---
 
@@ -27,6 +26,10 @@ AI Retrieval is in Public Preview. Behavior and limits can change before general
 For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and [Database Knowledge Bases](database-knowledge-bases.md).
 
 ## How It Works
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-overview-diagram.png" alt="Clients such as AI applications, MCP servers, and AI agents call MariaDB Cloud AI Retrieval to retrieve chunks from a document knowledge base or rows from a database knowledge base, or to retrieve and generate an answer."><figcaption><p>A knowledge base is backed by a MariaDB database. A document knowledge base holds the chunks of your documents and their embeddings. A database knowledge base holds a semantic map of the source database, which AI Retrieval uses to generate SQL.</p></figcaption></figure>
+
+<!-- Diagram: "High-level service diagram" slide of Egor Ustinov's "Copy of 03 - AI - Training" deck (Drive 1YpiAQgyOOS4iPcOD0RJJv1-6SFtz26bh), placement and caption per his call of 2026-10-26. Slide title and caption bar cropped. -->
 
 ### Document Knowledge Bases
 

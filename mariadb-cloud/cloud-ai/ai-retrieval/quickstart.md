@@ -3,10 +3,9 @@ description: >-
   Create a document knowledge base or a database knowledge base in MariaDB
   Cloud AI Retrieval with the default settings, and run your first query.
 icon: rocket
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. One page with two sections, as Egor Ustinov asked on 2026-10-20: defaults only, no model names, no data sources. Built from the recording of that call and from the guide. Open items are marked TODO. -->
+<!-- DOCS-6592. One page with two sections, as Egor Ustinov asked on 2026-10-20: defaults only, no model names, no data sources. Built from the recording of that call and from the guide. Open items are marked TODO. -->
 
 # Quickstart
 
@@ -76,10 +75,7 @@ A database knowledge base reads the tables of a MariaDB service that already hol
 
 For access requirements, such as the IP allowlist and restricting what the knowledge base can read, see [Access and Security](access-and-security.md).
 
-<!-- TODO: the database knowledge base UI is not merged yet (Egor, 2026-10-20), so these steps follow the test environment form in the recording: Datasource service, Hostname (FQDN), Port, Schema, Username, Password, Always include tables, Never include tables. Re-check every step, the sync button name, and the test steps against the final UI, and add screenshots then. -->
 <!-- TODO: say where the IP address to allow is shown once Egor answers (see access-and-security.md). -->
-<!-- Demo datasource and schema fetch: skysql-ui-client src/locales/en.json (datasource.database: existingService, demo, demoAlert, fetchSchemas, schemasEmpty) @ d9c5b422. Phil (2026-10-21): the database KB UI changes are on the test environment; capture screenshots there. -->
-
 ## Next Steps
 
 {% content-ref url="document-knowledge-bases.md" %}
