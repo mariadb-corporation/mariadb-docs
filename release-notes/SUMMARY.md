@@ -2863,7 +2863,7 @@
       * [Connector/R2DBC 1.3.1 Changelog](connectors/r2dbc/changelogs/1.3.1.md)
       * [Connector/R2DBC 1.2.4 Changelog](connectors/r2dbc/changelogs/1.2.4.md)
       * [Connector/R2DBC 1.2.3 Changelog](connectors/r2dbc/changelogs/1.2.3.md)
-* [Enterprise Kubernetes Operator Release Notes](enterprise-operator/README.md)
+* [MariaDB Enterprise Kubernetes Operator Release Notes](enterprise-operator/README.md)
   * [MariaDB Enterprise Kubernetes Operator 1.0.0](enterprise-operator/1.0.0.md)
   * [MariaDB Enterprise Kubernetes Operator 25.08](enterprise-operator/25.08.md)
   * [MariaDB Enterprise Kubernetes Operator 25.10](enterprise-operator/25.10/README.md)
