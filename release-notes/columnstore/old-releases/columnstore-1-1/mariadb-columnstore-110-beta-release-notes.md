@@ -23,7 +23,7 @@ For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHq
 9. Several performance improvements in string handling, memory utilization and general area.
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
-For general "how to questions" ask questions [here]({columnstore}) or subscribe to mariadb-columnstore@googlegroups.com
+For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) or subscribe to mariadb-columnstore@googlegroups.com
 
 ## Bugs and issues fixed
 
