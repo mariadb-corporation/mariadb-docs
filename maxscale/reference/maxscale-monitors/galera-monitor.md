@@ -30,7 +30,7 @@ MaxScale 2.4.0 added support for replicas replicating off of Galera nodes. If a 
 ### MariaDB Raft Cluster support
 
 As of MaxScale 25.10.2, the Galera Monitor can monitor a
-[MariaDB Raft Cluster]({raft-cluster}).
+[MariaDB Raft Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW).
 Raft Cluster is a new synchronized replication scheme that offers reduced
 latency compared to the standard Galera implementation. A Raft Cluster
 promotes one server as the *leader*. The leader approves and orders
