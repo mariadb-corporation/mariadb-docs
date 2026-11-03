@@ -41,7 +41,7 @@ Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships
 Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. The `galera_group_members` Performance Schema table is not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Raft Cluster 1.0.0. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
+MariaDB Enterprise Server 12.3 ships Raft Cluster 1.0.0. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation]({raft-cluster}).
 
 ### Conflict Detection and Resolution
 
@@ -291,7 +291,7 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 * [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
 * [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
 * [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
-* [Install MariaDB Raft Cluster](../../advanced-cluster/mariadb-advanced-cluster-quickstart-guide.md#installation-on-each-node): Raft Cluster installs from the same repository as Enterprise Server, with one additional package
+* [Install MariaDB Raft Cluster]({raft-cluster}/mariadb-raft-cluster-quickstart-guide#installation-on-each-node): Raft Cluster installs from the same repository as Enterprise Server, with one additional package
 
 ## What's new in older release series
 
