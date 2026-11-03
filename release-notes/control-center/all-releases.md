@@ -9,6 +9,7 @@ Control Center uses date-based version numbers, in the form `<year>.<release>`.
 
 ## 2026
 
+- [2026.2](2026.2.md)
 - [2026.1](2026.1.md)
 
 ## 2025
