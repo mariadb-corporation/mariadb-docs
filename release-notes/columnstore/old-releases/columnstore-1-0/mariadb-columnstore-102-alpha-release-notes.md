@@ -2,13 +2,13 @@
 
 **Release date:** 23 August 2016
 
-[MariaDB ColumnStore 1.0.2](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
+[MariaDB ColumnStore 1.0.2]({columnstore}) is an alpha release of MariaDB ColumnStore. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
 MariaDB ColumnStore 1.0.2 is an [_**Alpha**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**alpha**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore]({columnstore}) see [MariaDB ColumnStore Architectural Overview]({columnstore}/architecture/columnstore-architectural-overview)
 
 MariaDB ColumnStore 1.0.2 is an Alpha release. This is the second alpha release of MariaDB ColumnStore with improvements over previous alpha release of 1.0.1.
 
@@ -51,7 +51,7 @@ For details on how to execute the workaround, see the ColumnStore 1.0.2 to 1.0.3
 ## Known Issues and Limitations
 
 There are a number bugs and known limitations within this early Alpha version of MariaDB ColumnStore, the most serious of these are listed below. These are expected to be fixed way before the Beta release.\
-There are some known security issues. They are listed [here](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/security/columnstore-security-vulnerabilities)
+There are some known security issues. They are listed [here]({columnstore}/security/columnstore-security-vulnerabilities)
 
 * [MCOL-82](https://jira.mariadb.org/browse/MCOL-82): Subquery using IN with VIEW returns incorrect results. Queries selecting from view and using IN in where clause with a subquery on another view returns incorrect results.
 * [MCOL-37](https://jira.mariadb.org/browse/MCOL-37): Following three window functions do not return correct value
@@ -81,7 +81,7 @@ There are some known security issues. They are listed [here](https://app.gitbook
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
+[MariaDB ColumnStore Documentation]({columnstore})
 
 ## Packaging
 
