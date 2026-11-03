@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.4.17 disables the SQL file-access functions such as CSVREAD/WRITE and FILE_READ/WRITE by default.
-hidden: true
 ---
 
 # GridGain 8.4.17 Release Notes

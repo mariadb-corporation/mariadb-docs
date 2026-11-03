@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.25 is a maintenance release focused on improving stability and providing better information.
-hidden: true
 ---
 
 # GridGain 8.9.25 Release Notes

@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.16 is a maintenance release with fixes and improvements across
   partition consistency, SQL, the storage engine, thin clients, data
   replication, and integrations.
-hidden: true
 ---
 
 # GridGain 8.7.16 Release Notes

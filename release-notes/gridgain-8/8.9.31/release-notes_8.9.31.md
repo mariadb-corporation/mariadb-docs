@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.31 is a maintenance release focused on improving cluster stability and expanding Control Center Agent features.
-hidden: true
 ---
 
 # GridGain 8.9.31 Release Notes

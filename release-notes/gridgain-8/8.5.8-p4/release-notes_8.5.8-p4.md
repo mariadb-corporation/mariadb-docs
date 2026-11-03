@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.8-p4 is a maintenance release with a single SQL bug fix.
-hidden: true
 ---
 
 # GridGain 8.5.8-p4 Release Notes

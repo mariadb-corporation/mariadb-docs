@@ -2,7 +2,6 @@
 description: >-
   Configuring and managing data center replication between GridGain 9 clusters
   from the Control Center Data Replication screen.
-hidden: true
 ---
 
 # Data Center Replication for GridGain 9 Clusters

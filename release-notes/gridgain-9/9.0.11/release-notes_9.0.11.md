@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.11 adds high availability distribution zones alongside stability
   and performance improvements.
-hidden: true
 ---
 
 # GridGain 9.0.11 Release Notes

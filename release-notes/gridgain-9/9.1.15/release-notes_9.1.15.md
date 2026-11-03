@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.15 brings multiple improvements and support for snapshots of data
   structures, drops support for table-based partition colocation, and updates the
   supported Python versions.
-hidden: true
 ---
 
 # GridGain 9.1.15 Release Notes

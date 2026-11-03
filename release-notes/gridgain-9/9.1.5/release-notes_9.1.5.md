@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.5 introduces change data capture, secondary storage archiving, and partition awareness for client SQL, along with Docker Compose changes.
-hidden: true
 ---
 
 # GridGain 9.1.5 Release Notes

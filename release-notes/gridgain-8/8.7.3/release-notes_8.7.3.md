@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.3 introduces Java 11 support, announces the deprecation of the VisorGUI monitoring tool, and includes several bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.3 Release Notes

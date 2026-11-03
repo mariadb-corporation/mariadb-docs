@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.28 is a stability release dedicated to fixing vulnerabilities and improving usability, with no major new features.
-hidden: true
 ---
 
 # GridGain 8.8.28 Release Notes

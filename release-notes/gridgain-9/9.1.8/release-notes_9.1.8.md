@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.8 is a public release featuring AWS KMS encryption and improved continuous queries, along with cumulative improvements since 9.1.0.
-hidden: true
 ---
 
 # GridGain 9.1.8 Release Notes

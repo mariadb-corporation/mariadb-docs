@@ -2,7 +2,6 @@
 description: >-
   Configuring predefined and custom alerts, notification channels, and webhook
   payloads for GridGain 8 clusters in Control Center.
-hidden: true
 ---
 
 # Alerting

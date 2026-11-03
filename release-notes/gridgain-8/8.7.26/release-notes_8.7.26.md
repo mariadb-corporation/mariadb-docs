@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.26 introduces memory warm-up from native persistence, tracing of cache operations and transactions, C++ thin client transactions, and .NET service invocation from Java, plus many fixes.
-hidden: true
 ---
 
 # GridGain 8.7.26 Release Notes

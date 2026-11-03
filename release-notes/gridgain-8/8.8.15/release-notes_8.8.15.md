@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.15 adds monitoring for Distributed Computing through GridGain Nebula and Control Center, along with Control Center Agent fixes.
-hidden: true
 ---
 
 # GridGain 8.8.15 Release Notes

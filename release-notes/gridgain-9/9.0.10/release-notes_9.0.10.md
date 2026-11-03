@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.10 improves Data Center Replication and adds an OpenTelemetry
   exporter and the IgniteClientGroup .NET API.
-hidden: true
 ---
 
 # GridGain 9.0.10 Release Notes

@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.16 brings a large number of new features, including a reworked
   JDBC driver, Java records support, custom object mapping in .NET, and new
   configuration options and metrics.
-hidden: true
 ---
 
 # GridGain 9.1.16 Release Notes

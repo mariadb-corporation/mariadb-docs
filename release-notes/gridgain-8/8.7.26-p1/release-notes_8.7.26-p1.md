@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.26-p1 fixes Cassandra cache store initialization errors caused by the POJO and PRIMITIVE strategies.
-hidden: true
 ---
 
 # GridGain 8.7.26-p1 Release Notes

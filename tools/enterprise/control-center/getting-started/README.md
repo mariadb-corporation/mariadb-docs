@@ -1,7 +1,6 @@
 ---
 description: >-
   Install GridGain Control Center, add a license, and attach your first cluster.
-hidden: true
 ---
 
 # Getting Started

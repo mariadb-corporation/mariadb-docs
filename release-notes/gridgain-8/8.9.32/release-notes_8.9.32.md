@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.32 introduces .NET query label support and includes maintenance updates for Control Center Agent and dependency versions.
-hidden: true
 ---
 
 # GridGain 8.9.32 Release Notes

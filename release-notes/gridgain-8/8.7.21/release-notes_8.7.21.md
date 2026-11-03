@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.21 upgrades the Jetty dependency to address security issues and delivers fixes across caching, thin clients, integrations, and the snapshot utility.
-hidden: true
 ---
 
 # GridGain 8.7.21 Release Notes

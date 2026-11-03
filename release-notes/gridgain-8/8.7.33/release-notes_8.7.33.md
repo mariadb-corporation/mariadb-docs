@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.33 deprecates the control.sh --deactivate command and delivers a
   broad set of improvements and fixed issues across the Community, Enterprise,
   and Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.33 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   Dashboards predefined by GridGain Control Center for monitoring GridGain 8
   cluster metrics.
-hidden: true
 ---
 
 # Predefined dashboards for GridGain 8

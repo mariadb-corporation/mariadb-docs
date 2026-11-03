@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.16 is a maintenance release that includes a number of bug fixes.
-hidden: true
 ---
 
 # GridGain 8.5.16 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.14-p2 is a patch release fixing excessive SQL memory consumption.
-hidden: true
 ---
 
 # GridGain 8.9.14-p2 Release Notes

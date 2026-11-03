@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.8 changes BigDecimal type derivation and adds cache write-behind
   mode, system property configuration, and snapshot storage path configuration.
-hidden: true
 ---
 
 # GridGain 9.0.8 Release Notes

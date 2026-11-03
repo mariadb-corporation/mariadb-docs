@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9 brings significant new features to GridGain ecosystem.
-hidden: true
 ---
 
 # GridGain 8.9.0 Release Notes

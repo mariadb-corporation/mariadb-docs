@@ -2,7 +2,6 @@
 description: >-
   The Cluster Management screen — viewing registered clusters, statuses, tokens,
   logs, sharing, activation, and license updates.
-hidden: true
 ---
 
 # Cluster Management Screen

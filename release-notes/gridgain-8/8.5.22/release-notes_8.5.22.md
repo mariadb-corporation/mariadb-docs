@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.22 is a maintenance release with fixes for communication, discovery, thin clients, partition map exchange, and integrations.
-hidden: true
 ---
 
 # GridGain 8.5.22 Release Notes

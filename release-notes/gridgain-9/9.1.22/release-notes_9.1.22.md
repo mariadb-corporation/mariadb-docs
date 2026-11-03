@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.1.22 adds new metrics, improved performance and memory control for
   clients, and a beta release of the GridGain 9 Kubernetes operator.
-hidden: true
 ---
 
 # GridGain 9.1.22 Release Notes

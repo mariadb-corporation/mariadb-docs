@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Ways to configure a GridGain.NET node: programmatically in C#, with application
   or web config files, or with Spring XML.

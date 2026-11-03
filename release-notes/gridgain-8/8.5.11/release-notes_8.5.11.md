@@ -3,7 +3,6 @@ description: >-
   GridGain 8.5.11 adds tracking of system and user time spent on transactions,
   a new clustername REST command, and communication message transmission time
   statistics, along with a number of bug fixes.
-hidden: true
 ---
 
 # GridGain 8.5.11 Release Notes

@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.37 adds data streaming to the .NET thin client, extends the .NET
   streaming API, and delivers improvements and fixed issues across the Community,
   Enterprise, and Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.37 Release Notes

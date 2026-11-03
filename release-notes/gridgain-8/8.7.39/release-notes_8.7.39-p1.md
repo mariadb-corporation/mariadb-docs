@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.7.39-p1 is a patch release dedicated to fixing rebalance issues.
-hidden: true
 ---
 
 # GridGain 8.7.39-p1 Release Notes

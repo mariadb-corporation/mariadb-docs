@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Use a GridGain (Ignite) cache as an ASP.NET output cache, with configuration
   for launching Ignite automatically or manually.

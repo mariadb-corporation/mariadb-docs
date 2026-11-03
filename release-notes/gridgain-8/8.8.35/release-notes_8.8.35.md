@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.35 brings stability improvements and multiple security dependency updates for GridGain.
-hidden: true
 ---
 
 # GridGain 8.8.35 Release Notes

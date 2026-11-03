@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.42 is largely dedicated to fixing followup Apache Log4j
   vulnerabilities CVE-2021-43797 and CVE-2021-45105, along with additional fixes.
-hidden: true
 ---
 
 # GridGain 8.7.42 Release Notes

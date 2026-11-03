@@ -2,7 +2,6 @@
 description: >-
   Setting up OpenID Connect authentication for GridGain Control Center,
   including RBAC, scopes, redirect URI, and provider configuration.
-hidden: true
 ---
 
 # OpenID Connect Authentication

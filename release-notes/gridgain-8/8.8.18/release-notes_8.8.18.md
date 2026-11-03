@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.8.18 moves DR metrics to a common metrics manager, adds a control script
   command to read an arbitrary metric, updates Spring, and includes many fixes.
-hidden: true
 ---
 
 # GridGain 8.8.18 Release Notes

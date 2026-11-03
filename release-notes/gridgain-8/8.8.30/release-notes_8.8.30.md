@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.30 brings stability improvements and adds Java 17 support for the Control Center Agent.
-hidden: true
 ---
 
 # GridGain 8.8.30 Release Notes

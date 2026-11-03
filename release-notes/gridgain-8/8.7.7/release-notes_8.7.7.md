@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.7.7 is a maintenance release that includes many bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.7 Release Notes

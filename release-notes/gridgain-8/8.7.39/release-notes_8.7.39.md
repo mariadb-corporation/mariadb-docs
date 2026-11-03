@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.39 adds C++ Java compute execution, Hibernate L2 cache templates,
   and configurable page replacement algorithms, along with improvements and
   fixed issues across all editions.
-hidden: true
 ---
 
 # GridGain 8.7.39 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.3 adds incremental snapshots, SQL sequences, and cache expiry
   policies.
-hidden: true
 ---
 
 # GridGain 9.0.3 Release Notes

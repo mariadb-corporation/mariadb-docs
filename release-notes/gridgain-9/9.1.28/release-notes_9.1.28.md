@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.28 hardens security around the distributed map, thin-client
   metadata, and LDAP role mapping, corrects the REST transactions API path, and
   deprecates the RocksDB partition storage engine.
-hidden: true
 ---
 
 # GridGain 9.1.28 Release Notes

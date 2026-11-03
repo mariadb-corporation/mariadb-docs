@@ -3,7 +3,6 @@ description: >-
   GridGain 9.0.12 adds high availability distribution zones, network backups,
   cancellation of queries, transactions and compute jobs, and cluster catalog
   pruning.
-hidden: true
 ---
 
 # GridGain 9.0.12 Release Notes

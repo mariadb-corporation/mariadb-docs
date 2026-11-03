@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.2 introduces snapshot encryption, SQL tracing, a C++ thin client SQL API, and new checkpoint metrics, along with many improvements and fixes.
-hidden: true
 ---
 
 # GridGain 8.8.2 Release Notes

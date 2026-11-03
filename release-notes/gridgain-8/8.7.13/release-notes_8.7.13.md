@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.13 delivers a number of improvements and bug fixes across the
   storage engine, SQL, transactions, data replication, and snapshots.
-hidden: true
 ---
 
 # GridGain 8.7.13 Release Notes

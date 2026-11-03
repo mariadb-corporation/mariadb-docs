@@ -2,7 +2,6 @@
 description: >-
   Executing SQL queries against a GridGain 9 cluster from the Control Center
   Queries screen, working with indexes, and using the queries log.
-hidden: true
 ---
 
 # Queries Screen for GridGain 9 Clusters

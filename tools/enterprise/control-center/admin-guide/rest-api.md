@@ -2,7 +2,6 @@
 description: >-
   The GridGain Control Center REST API for user management, cluster attachment,
   alerting configuration, and health monitoring.
-hidden: true
 ---
 
 # REST API

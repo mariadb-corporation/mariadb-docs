@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.8-p7 is a maintenance release with a fix for one critical storage engine issue.
-hidden: true
 ---
 
 # GridGain 8.5.8-p7 Release Notes

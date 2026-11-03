@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to use the GridGain 8 Java thin client: connecting to a cluster, partition awareness, key-value and SQL APIs, transactions, compute, services, data streaming, SSL/TLS, and authentication.
 ---

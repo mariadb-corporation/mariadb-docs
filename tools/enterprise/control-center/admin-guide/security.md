@@ -2,7 +2,6 @@
 description: >-
   The authentication and authorization model between GridGain clusters, Control
   Center, and Control Center users, and the trust levels involved.
-hidden: true
 ---
 
 # Control Center Security for Attached Clusters

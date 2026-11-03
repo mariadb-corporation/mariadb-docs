@@ -2,7 +2,6 @@
 description: >-
   Running GridGain Control Center and a GridGain cluster in Kubernetes with TLS
   encryption at every step, from certificate generation to cluster attachment.
-hidden: true
 ---
 
 # Running Control Center and GridGain with Encryption

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.15 adds memory quotas and query offloading, the .NET platform cache, protection against partition loss on shutdown, and communication with client nodes behind NAT.
-hidden: true
 ---
 
 # GridGain 8.7.15 Release Notes

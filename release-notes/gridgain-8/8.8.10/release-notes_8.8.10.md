@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.10 is a maintenance release with fixes across thin clients, the SQL engine, the storage engine, and the Control Center Agent.
-hidden: true
 ---
 
 # GridGain 8.8.10 Release Notes

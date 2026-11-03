@@ -2,7 +2,6 @@
 description: >-
   Creating, editing, locking, and removing GridGain Control Center users, and
   exporting cluster session history.
-hidden: true
 ---
 
 # Managing Users

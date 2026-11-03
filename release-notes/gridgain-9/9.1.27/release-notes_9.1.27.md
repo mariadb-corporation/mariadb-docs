@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.27 restricts server-side file access for SQL COPY, adds SQL over
   the management REST API, changes the default deadlock prevention policy, and
   hardens role and credential handling.
-hidden: true
 ---
 
 # GridGain 9.1.27 Release Notes

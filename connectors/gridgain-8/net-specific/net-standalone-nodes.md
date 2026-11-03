@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Start and configure standalone GridGain.NET nodes from the command line, XML files,
   or as a Windows service, and load user assemblies for remote code execution.

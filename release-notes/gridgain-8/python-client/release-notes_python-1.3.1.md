@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.3.1 adds support for the with statement, asynchronous I/O through
   asyncio, and a new API for retrieving and changing the cluster state.
-hidden: true
 ---
 
 # PyGridGain 1.3.1 Release Notes

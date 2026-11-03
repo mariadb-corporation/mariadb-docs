@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.16 is a stability release that standardizes system view column
   names, adds the INDEX_COLUMNS system view, and updates DCR command syntax.
-hidden: true
 ---
 
 # GridGain 9.0.16 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.41 is an emergency release dedicated to fixing the Apache Log4j
   vulnerabilities CVE-2021-45046 and CVE-2021-44228, with no functionality changes.
-hidden: true
 ---
 
 # GridGain 8.7.41 Release Notes

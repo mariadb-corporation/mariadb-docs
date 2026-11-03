@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.16 fixes tracing with Control Center and Nebula for clusters that had their ID changed.
-hidden: true
 ---
 
 # GridGain 8.8.16 Release Notes

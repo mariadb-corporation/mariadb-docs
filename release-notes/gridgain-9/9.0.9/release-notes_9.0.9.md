@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.9 changes CREATE TABLE syntax and adds extended system views, a
   Kafka sink connector, and disaster recovery for system RAFT groups.
-hidden: true
 ---
 
 # GridGain 9.0.9 Release Notes

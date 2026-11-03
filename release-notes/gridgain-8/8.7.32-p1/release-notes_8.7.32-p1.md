@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.32-p1 is a patch release that fixes a possible index corruption
   issue after an index drop with a failed checkpoint.
-hidden: true
 ---
 
 # GridGain 8.7.32-p1 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   Creating and managing Control Center teams, adding and promoting members, and
   using the system-managed Global Team.
-hidden: true
 ---
 
 # Managing Teams

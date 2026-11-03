@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.5 adds secondary columnar storage support and automatic host
   resolution in the node finder.
-hidden: true
 ---
 
 # GridGain 9.0.5 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.27-p1 expands data type support in the GridGain Kafka source and sink connectors.
-hidden: true
 ---
 
 # GridGain 8.7.27-p1 Release Notes

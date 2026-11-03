@@ -2,7 +2,6 @@
 description: >-
   Reference for GridGain Control Center configuration parameters: common
   properties, rate and size limits, sessions, SSL/TLS, mail, LDAP, and OpenID.
-hidden: true
 ---
 
 # Configuration Parameters

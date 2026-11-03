@@ -2,7 +2,6 @@
 description: >-
   Viewing the history of snapshot operations for GridGain 8 clusters on the
   Operation History tab of the Snapshots screen.
-hidden: true
 ---
 
 # Snapshot Operation History for GridGain 8 Clusters

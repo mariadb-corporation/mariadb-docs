@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Configure logging in GridGain.NET, including writing through IIgnite.Logger, custom
   ILogger implementations, and the NLog and log4net integrations.

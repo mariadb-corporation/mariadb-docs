@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.22 adds control script commands for binary metadata and a graceful shutdown policy, along with fixes across SQL, the storage engine, and thin clients.
-hidden: true
 ---
 
 # GridGain 8.7.22 Release Notes

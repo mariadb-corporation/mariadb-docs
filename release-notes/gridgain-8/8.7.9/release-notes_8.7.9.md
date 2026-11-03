@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.9 includes a number of critical bug fixes and a change to the public
   DrSenderStore interface.
-hidden: true
 ---
 
 # GridGain 8.7.9 Release Notes

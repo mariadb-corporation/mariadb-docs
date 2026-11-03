@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.6 adds a Python client and extended bootstrap configuration support, along with various SQL, storage, and client fixes.
-hidden: true
 ---
 
 # GridGain 9.1.6 Release Notes

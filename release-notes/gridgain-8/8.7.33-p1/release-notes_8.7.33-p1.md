@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.33-p1 deprecates the control.sh --deactivate command and fixes
   checkpoint pool sizing and lock-time issues in the storage engine.
-hidden: true
 ---
 
 # GridGain 8.7.33-p1 Release Notes

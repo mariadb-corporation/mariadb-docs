@@ -3,7 +3,6 @@ description: >-
   GridGain 8.5.8 is a maintenance release with many bug fixes, improved
   messaging, monitoring, and logging, memory-leak and performance fixes, and
   several Web Console improvements.
-hidden: true
 ---
 
 # GridGain 8.5.8 Release Notes

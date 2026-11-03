@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.36 adds graceful node drain over REST and bulk cache destroy in the Java thin client, along with performance, replication, and security fixes.
-hidden: true
 ---
 
 # GridGain 8.9.36 Release Notes

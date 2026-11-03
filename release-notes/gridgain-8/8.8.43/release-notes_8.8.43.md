@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.43 is a stability release, improving stability and updating libraries.
-hidden: true
 ---
 
 # GridGain 8.8.43 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.29 is a maintenance release focused on improving thin client handling and cluster stability.
-hidden: true
 ---
 
 # GridGain 8.9.29 Release Notes

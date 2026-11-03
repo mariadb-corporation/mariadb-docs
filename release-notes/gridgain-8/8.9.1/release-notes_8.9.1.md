@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.1 brings significant new features to GridGain ecosystem, as well as major changes to default configuration aimed at making GridGain more stable and consistent in modern environments.
-hidden: true
 ---
 
 # GridGain 8.9.1 Release Notes

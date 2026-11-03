@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.10-p1 fixes a deadlock that could occur when a node starts under concurrent compute load.
-hidden: true
 ---
 
 # GridGain 8.5.10-p1 Release Notes

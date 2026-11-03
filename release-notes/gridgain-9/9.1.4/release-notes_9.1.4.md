@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.4 enables partition colocation by default and improves SSL support, metrics, and near cache handling.
-hidden: true
 ---
 
 # GridGain 9.1.4 Release Notes

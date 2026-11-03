@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.37 brings stability improvements and adds new service monitoring events.
-hidden: true
 ---
 
 # GridGain 8.8.37 Release Notes

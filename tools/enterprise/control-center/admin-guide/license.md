@@ -3,7 +3,6 @@ description: >-
   Understand how Control Center is licensed by the cluster or by its own
   license, and upload or update a license through the UI, at startup, or
   automatically with the file watcher.
-hidden: true
 ---
 
 # Managing License

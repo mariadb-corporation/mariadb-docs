@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.38 extends C++ and Java interoperability, adds a snapshot retention option, and changes WAL archive and transaction logging behavior, along with fixes.
-hidden: true
 ---
 
 # GridGain 8.7.38 Release Notes

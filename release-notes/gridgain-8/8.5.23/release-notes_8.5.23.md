@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.23 is a maintenance release that improves node start-up time in the storage engine.
-hidden: true
 ---
 
 # GridGain 8.5.23 Release Notes

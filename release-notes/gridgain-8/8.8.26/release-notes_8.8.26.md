@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.26 fixes a previously discovered issue with complex SQL queries, with no major new features.
-hidden: true
 ---
 
 # GridGain 8.8.26 Release Notes

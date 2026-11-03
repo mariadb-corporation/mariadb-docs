@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Reference for the GridGain JDBC Thin Driver: connection strings, supported
   parameters, SSL, partition awareness, data streaming, and error codes.

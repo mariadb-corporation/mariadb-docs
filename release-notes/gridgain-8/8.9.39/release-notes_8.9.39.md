@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.39 reduces disk space needed for defragmentation, deprecates modules removed in 8.10, and fixes snapshot, rebalancing, and thin-client issues.
-hidden: true
 ---
 
 # GridGain 8.9.39 Release Notes

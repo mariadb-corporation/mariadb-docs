@@ -2,7 +2,6 @@
 description: >-
   Deploying compute-task dependencies to GridGain 8 clusters with Control Center
   deployment units, Maven repositories, and uploaded artifacts.
-hidden: true
 ---
 
 # Code Deployment with GridGain 8

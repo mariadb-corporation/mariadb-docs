@@ -3,7 +3,6 @@ description: >-
   GridGain 8.8 Beta (8.8.0.b2) provides early access to PDS defragmentation,
   Maintenance Mode, Transparent Data Encryption with key rotation, and dictionary-based
   data compression.
-hidden: true
 ---
 
 # GridGain 8.8.0.b2 BETA Release Notes

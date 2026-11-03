@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.7 extends C++ and Java client interoperability, adds an option to preserve snapshots on cleanup, and changes several default behaviors.
-hidden: true
 ---
 
 # GridGain 8.8.7 Release Notes

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.37-p1 is based on GridGain 8.8.37 and updates or removes dependencies to avoid false-positive vulnerability warnings.
-hidden: true
 ---
 
 # GridGain 8.8.37-p1 Release Notes

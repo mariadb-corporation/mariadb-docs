@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.2 reintroduces near caches and adds cluster topology metrics along with multiple SQL and client fixes.
-hidden: true
 ---
 
 # GridGain 9.1.2 Release Notes
