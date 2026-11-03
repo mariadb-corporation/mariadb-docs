@@ -45,7 +45,11 @@ The semantic map improves as you use it. AI Retrieval indexes failed SQL queries
 
 AI Retrieval builds the semantic map automatically when you create the knowledge base, including a description of each table with sample rows. You do not need to change anything to start asking questions. The steps in [Customize the Semantic Map](#customize-the-semantic-map) are optional.
 
-<!-- Wording from Egor, Slack DM 2026-10-30 17:36/17:38 IST. -->
+<!-- Wording from Egor, Slack DM 2026-10-30 17:36/17:38 India time. -->
+
+The semantic map covers up to 100 tables in each database schema and up to 1,000 columns in each table. AI Retrieval skips the other tables and columns automatically.
+
+<!-- Limits from Egor, Slack DM 2026-10-29 17:22 India time. -->
 
 Synchronize the schema again after you change the tables of the database. Some changes in the portal also apply only after the next sync. In that case, the knowledge base page shows **Some schema changes apply only after the next sync**. Select **Sync Now**.
 

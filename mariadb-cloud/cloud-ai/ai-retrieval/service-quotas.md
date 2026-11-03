@@ -44,6 +44,10 @@ What happens at these limits:
 
 <!-- Karan, launch channel 2026-10-30: 413 for oversized documents; oversized bucket files skipped; 5 documents processed at a time per upload session. TODO: Karan has not answered whether Egor's ingestion model (tasks of up to 20 documents and under 20 MB, documents processed in 10-page batches, 3 tasks per organization per region) replaces "5 concurrent ingestion jobs" as the customer-facing limit, nor what a customer sees when a size, concurrency, or count quota is reached (Slack DM 2026-10-27 questions 1 and 7). Update this table and add the error behavior when he does. -->
 
+## Database Knowledge Bases
+
+The semantic map of a database knowledge base covers up to 100 tables in each database schema and up to 1,000 columns in each table. AI Retrieval skips the rest automatically. See [The Semantic Map](database-knowledge-bases.md#the-semantic-map).
+
 ## Free Tier
 
 During Public Preview, each organization can use up to 100 MCUs per month for AI Retrieval operations. Usage above the free tier is not available. See [Usage and Billing](usage-and-billing.md#free-tier).
