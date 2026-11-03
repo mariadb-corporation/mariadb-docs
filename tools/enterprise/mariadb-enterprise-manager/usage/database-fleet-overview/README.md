@@ -83,6 +83,13 @@ admin_oidc_ssl_insecure=true
 | `admin_oidc_client_id`     | Default credentials used by Enterprise Manager to request the access token.      |
 | `admin_oidc_client_secret` | Default credentials used by Enterprise Manager to request the access token.      |
 | `admin_oidc_ssl_insecure`  | Skip TLS certificate verification in case certificates aren't configured         |
+
+{% hint style="info" %}
+From Enterprise Manager 26.10, Enterprise Manager accepts single sign-on requests only from known clients and host names. Set these in the `.env` file on the Enterprise Manager server:
+
+* If you set `admin_oidc_client_id` to a value other than the default, add that client ID to `MEMA_OAUTH_CLIENT_IDS`.
+* If you reach MaxScale under a different host name than the one it was registered with, add that host name to `MEMA_OAUTH_REDIRECT_HOSTS`.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
