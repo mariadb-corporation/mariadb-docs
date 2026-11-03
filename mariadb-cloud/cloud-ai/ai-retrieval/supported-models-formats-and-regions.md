@@ -73,10 +73,12 @@ A document knowledge base processes your data in the region that you select: its
 
 | Region | Location |
 | --- | --- |
-| `us-east-1` | N. Virginia |
+| `us-east-2` | Ohio |
 | `eu-west-2` | London |
 | `eu-central-1` | Frankfurt |
 | `ap-southeast-1` | Singapore |
+
+<!-- Regions from the production release (Jeet Parmar, #sky-operations 2026-11-03 12:17 India time: regional databases created in us-east-2, eu-west-2, ap-southeast-1, eu-central-1). -->
 
 Google Cloud and Azure are not available yet. The create form shows both and offers to register your interest.
 
