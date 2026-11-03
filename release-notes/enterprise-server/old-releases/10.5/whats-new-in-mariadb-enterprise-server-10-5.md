@@ -20,9 +20,9 @@ MariaDB Enterprise Server 10.5 introduces the new features listed below.
 
 ### ColumnStore Storage Engine
 
-The [ColumnStore storage engine](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) is a columnar storage engine that provides distributed, columnar storage for scalable analytical processing and smart transactions.
+The [ColumnStore storage engine]({columnstore}/architecture/columnstore-storage-engine-overview) is a columnar storage engine that provides distributed, columnar storage for scalable analytical processing and smart transactions.
 
-MariaDB Enterprise Server 10.5 includes an enterprise version of the [ColumnStore storage engine](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview) as a plugin:
+MariaDB Enterprise Server 10.5 includes an enterprise version of the [ColumnStore storage engine]({columnstore}/architecture/columnstore-storage-engine-overview) as a plugin:
 
 * It includes MariaDB ColumnStore 5, which has many improvements.
 * The installation process has been massively simplified.

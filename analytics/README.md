@@ -21,8 +21,8 @@ For fast, ad hoc analytics at scale, MariaDB ColumnStore is a powerful columnar 
 
 This integration allows you to access your InnoDB data in near-real time, processing it directly in the ColumnStore engine to run fast, parallel OLAP queries straight from your transactional data. This eliminates the need to maintain a separate pipeline or use delayed batch inserts to analyze your live data.
 
-{% content-ref url="mariadb-columnstore/" %}
-[mariadb-columnstore](mariadb-columnstore/)
+{% content-ref url="{columnstore}" %}
+[ColumnStore]({columnstore})
 {% endcontent-ref %}
 
 ## MariaDB Exa
