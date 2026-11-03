@@ -5,7 +5,7 @@ description: >-
 icon: seedling
 ---
 
-# Server Ecosystem Hub
+# MariaDB Server Ecosystem Hub
 
 ## MariaDB Server Ecosystem Hub and Solution Stacks
 
