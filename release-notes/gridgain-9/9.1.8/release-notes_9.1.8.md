@@ -37,7 +37,7 @@ This release has the following major changes:
 
 Starting with this release, all table views are `AutoCloseable` and can be wrapped in a `try-with-resources` statement.
 
-Only views for [near caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
+Only views for [near caches](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/caches-and-memory/near-caches#configuring-near-cache) require closing to ensure correct resource cleanup and must be wrapped in a `try-with-resources` statement.
 
 ```java
 // Using try-with-resources statement to safely handle a near cache.
@@ -73,7 +73,7 @@ These features were added in this release:
 
 ### AWS KMS Encryption
 
-When using [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/transparent-data-encryption) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
+When using [encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/security/encryption-and-transport/transparent-data-encryption) on the cluster, you can now set up [AWS KMS](https://docs.aws.amazon.com/kms/) provider. When used, AWS will manage your keys and provide them as required.
 
 The example below shows how to create a provider and use it on the cluster:
 
@@ -95,7 +95,7 @@ The example below shows how to create a provider and use it on the cluster:
 
 ### Skipping Old Entries in Continuous Queries
 
-A new `skipOldEntries` option was added to [continuous queries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/continuous-queries). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
+A new `skipOldEntries` option was added to [continuous queries](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/continuous-queries). When set to `true`, `TableRowEvent#oldEntry()` will return `null` for `TableRowEventType#UPDATED` events. This option can be used to reduce the network load and avoid resending old entries.
 
 ```java
 var options = ContinuousQueryOptions.builder()
@@ -157,7 +157,7 @@ Previously used configuration is temporarily supported for backwards compatibili
 
 ### CREATE ZONE Syntax Changes
 
-The  [CREATE ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/distribution-zones) and [ALTER ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/distribution-zones#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
+The  [CREATE ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/distribution-zones) and [ALTER ZONE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/distribution-zones#alter-zone) command syntax was significantly reworked. All additional parameters (specified in the `WITH` parameter) are now part of common syntax.
 
 Below is the example of creating a distribution zone:
 
@@ -203,7 +203,7 @@ These features were added in one of the releases between 9.1.0 and 9.1.8. If you
 
 This release reintroduces support for near caches in GridGain 9. Near caches provide a way to store data locally on your clients and avoid lengthy network queries for latest data from the cluster.
 
-You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
+You can configure near cache for any [table view](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/table-api#basic-table-operations). Data will be queried from the cluster when it is read, and stored locally for the configured duration for repeated access.
 
 Just like with table views, it is recommended to use `try-with-resources` statement to avoid any possible memory leaks.
 
@@ -226,7 +226,7 @@ try (KeyValueView<Tuple, Tuple> kvView = client.tables().table(myTable).keyValue
 }
 ```
 
-For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/near-caches) documentation.
+For more information on near caches, as well as limitations, see [Near Cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/caches-and-memory/near-caches) documentation.
 
 ### Python Client
 
@@ -281,7 +281,7 @@ To start CDC replication:
 
 ### Snapshot Encryption
 
-Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/security/encryption-and-transport/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
+Starting with this release, if [data encryption](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/security/encryption-and-transport/transparent-data-encryption) is enabled on the cluster, your snapshots will also be encrypted.
 
 You can also manually set snapshot encryption when creating them by using the `encryption-provider` parameter.
 
@@ -345,7 +345,7 @@ CREATE ZONE IF NOT EXISTS exampleZone (REPLICAS 3, QUORUM SIZE 3) STORAGE PROFIL
 
 This release features major changes in migration tools:
 
-- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
+- A new way of configuring mapping between caches and tables during [DCR from GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/dcr-from-gridgain-8) was added. By using it, you can map key and value cache fields separately, as well as ignore the fields that are not required. The example below shows how you can configure mapping:
   ```
   dr-service-config = {
     cacheMapping = [
@@ -368,11 +368,11 @@ This release features major changes in migration tools:
   }
   ```
 
-- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/migration-guides/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
+- [Code adapter](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/migration-guides/migration-from-gridgain-8/codebase-migration) now supports migration of GridGain 8 ScanQueries.
 
 ### Creating Caches From Java
 
-With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/caches) documentation.
+With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/caches-and-memory/caches) documentation.
 
 ```java
 class PojoKey {
@@ -442,11 +442,11 @@ The `executeBatch()` and `executeBatchAsync()` methods now return cancellation t
 
 ### New Method to Get Local Node
 
-With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode).
+With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode).
 
 ### Logging Improvement
 
-This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/error-codes).
+This release features major effort in improving logging in GridGain 9. A large number of errors that previously caused unexpected exceptions are now correctly caught, categorized and reported with a [correct code](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/error-codes).
 
 ### COPY INTO batchSize Parameter
 
@@ -474,7 +474,7 @@ WITH 'null'='no data'
 
 ### Cluster Topology Metrics
 
-This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
+This release includes new cluster topology metrics, that provide information about node name, id and version, as well as cluster name, id, and number of nodes in the cluster. For more information about these sources, see [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list).
 
 ### Improved SSL Support
 
@@ -506,7 +506,7 @@ This release includes multiple new metrics that can enhance monitoring your clus
 - Extended data region metrics.
 - A new data center replication lag metric.
 
-For a full list of metrics, see the [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list).
+For a full list of metrics, see the [Available Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list).
 
 ### Improved Monitoring
 

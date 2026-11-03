@@ -31,7 +31,7 @@ var newClusterNodes = ignite.cluster().nodes()
 
 ### Creating Caches From Java
 
-With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/caches-and-memory/caches) documentation.
+With this release, you can use the `@Cache` annotation in Java to create caches from Java classes. You can create caches from Key-Value POJOs. Once a cache is created, you can work with it as described in [cache](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/caches-and-memory/caches) documentation.
 
 ```java
 class PojoKey {
@@ -73,7 +73,7 @@ KeyValueView<PojoKey, PojoValue> view =  myTable.keyValueView(PojoKey.class, Poj
 
 ### New Method to Get Local Node
 
-With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode).
+With this release, you can use the new `ignite.cluster().localNode()` method to quickly get the local [embedded node](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode).
 
 ## Improvements and Fixed Issues
 
