@@ -22,7 +22,7 @@ Each organization has a monthly limit on the MCUs that AI Retrieval operations c
 
 ## Free Tier
 
-Each organization can use up to 100 MCUs per month for AI Retrieval operations at no charge. The free tier is available during Public Preview and may change when AI Retrieval moves to General Availability. The free tier is separate from the MCU allowance of Serverless services. It applies to the whole organization, across all regions, and usage in one region can take up to about 30 minutes to count in the other regions.
+Each organization can use up to 100 MCUs per month for AI Retrieval operations at no charge. The free tier is available during Public Preview and may change when AI Retrieval moves to General Availability. The free tier is separate from the MCU allowance of Serverless services. It applies to the whole organization, across all regions, and usage in one region can take up to about 30 minutes to count in the other regions. The **Monthly free tier** banner at the top of the portal shows how many of the 100 MCUs your organization has used this month.
 
 > **Note (Public Preview):** Usage above the free tier isn't available. When the organization reaches 100 MCUs in a month, AI Retrieval rejects new uploads, data source syncs, and retrieval and generation requests with HTTP status 403 and the error `ERR_MCU_LIMIT_REACHED` until the next month starts. Files of a sync that are over the free tier are not ingested. To raise the limit, contact MariaDB support.
 
@@ -30,7 +30,7 @@ Each organization can use up to 100 MCUs per month for AI Retrieval operations a
 
 | Operation                            | Unit                    | MCUs                                                  |
 | ------------------------------------ | ----------------------- | ----------------------------------------------------- |
-| Parsing with the Base parser         | 1,000 pages             | 6                                                     |
+| Parsing with the Basic parser        | 1,000 pages             | 6                                                     |
 | Parsing with the Layout-aware parser | 1,000 pages             | 48                                                    |
 | Embedding                            | 1 million input tokens  | Depends on the embedding model. See the table below.  |
 | Retrieve chunks                      | 1,000 queries           | 0                                                     |

@@ -20,16 +20,16 @@ You choose a parsing strategy and a chunking strategy in the **Processing** step
 | Parsing strategy | What it does | Use it for |
 | --- | --- | --- |
 | Layout-aware (default) | Extracts the layout and the text of complex digital documents, where the meaning depends on the structure. | PDF, DOCX, PPTX, and static HTML files with headings, tables, lists, or several columns. |
-| Base | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
+| Basic | Extracts plain text only. | TXT, Markdown, and JSON files, and digital DOCX or PDF files that contain linear prose. |
 
 Both strategies read digital documents only. Scanned documents, which are PDFs that contain only images of pages, are not supported yet. Layout-aware parsing uses OCR to detect the layout of a page, not to read scanned pages.
 
 Which strategy to choose:
 
 * Keep **Layout-aware** when a document has tables, a heading structure, or a page layout that carries meaning. Use it with the **Structure-aware** chunking strategy, which relies on the document structure that Layout-aware parsing extracts.
-* Choose **Base** for files that are plain text already. It does not add anything for a text or Markdown file.
+* Choose **Basic** for files that are plain text already. It does not add anything for a text or Markdown file.
 
-<!-- Billing: Layout-aware parsing consumes 48 MCUs per 1,000 pages and Base 6; see usage-and-billing.md. -->
+<!-- Billing: Layout-aware parsing consumes 48 MCUs per 1,000 pages and Basic 6; see usage-and-billing.md. -->
 
 ## Choose a Chunking Strategy
 
@@ -48,7 +48,7 @@ Which strategy to choose:
 * Start with **Structure-aware**. It needs no tuning, and tables and code stay in one piece.
 
 {% hint style="info" %}
-Use **Structure-aware** chunking with **Layout-aware** parsing. With **Base** parsing, Structure-aware chunking has no document structure to follow and falls back to the **Recursive** strategy.
+Use **Structure-aware** chunking with **Layout-aware** parsing. With **Basic** parsing, Structure-aware chunking has no document structure to follow and falls back to the **Recursive** strategy.
 {% endhint %}
 * Choose **Recursive** for prose that is organized in paragraphs, such as articles and manuals, when you want a size limit that you control.
 * Choose **Sentence-based** when a chunk should never end in the middle of a sentence.
