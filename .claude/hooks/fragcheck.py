@@ -191,6 +191,7 @@ SPACE_DIRS = {
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
     'COKIFe0hm2r19L2bFQTW': 'exa',
     'y3YOhOKd2kxEEm0gLKs4': 'ai-tools',
+    'AmWSwHTrMJB8ojX2p6gW': 'raft-cluster',
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.

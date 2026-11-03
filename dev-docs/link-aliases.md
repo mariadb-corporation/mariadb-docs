@@ -48,6 +48,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{general-resources}` | General Resources |
 | `{exa}` | Exa |
 | `{ai-tools}` | AI Tools |
+| `{raft-cluster}` | Raft Cluster |
 
 ## Rules for agents
 
