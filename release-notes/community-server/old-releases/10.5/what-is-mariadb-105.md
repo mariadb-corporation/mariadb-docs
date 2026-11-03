@@ -16,7 +16,7 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 ### ColumnStore
 
-* This release of MariaDB Server includes the [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) storage engine. Note, that plugins have [independent maturity levels](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema) and MariaDB ColumnStore in 10.5.4 has Beta maturity.
+* This release of MariaDB Server includes the [MariaDB ColumnStore]({columnstore}) storage engine. Note, that plugins have [independent maturity levels](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/plugins-table-information-schema) and MariaDB ColumnStore in 10.5.4 has Beta maturity.
 
 ### Binaries Named mariadb (mysql Symlinked)
 
