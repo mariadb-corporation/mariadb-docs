@@ -22,8 +22,8 @@ GridGain 8 and GridGain 9 each have their own documentation. Open either one fro
 [GridGain 8]({gridgain8})
 {% endcontent-ref %}
 
-{% content-ref url="{gridgain9}" %}
-[GridGain 9]({gridgain9})
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR" %}
+[GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR)
 {% endcontent-ref %}
 
 {% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center" %}
