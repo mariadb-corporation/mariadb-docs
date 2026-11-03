@@ -72,7 +72,7 @@ You cannot **Clone** or **Clone and Deploy** units that were deployed via the CL
 
 ### Pre-deployed Unit
 
-A GridGain 9 cluster includes one built-in deployment unit with GridGain 8 libraries that the nodes need for Change Data Capture (CDC) replication to a GridGain 8 cluster. For more information, see [Change Data Capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/change-data-capture).
+A GridGain 9 cluster includes one built-in deployment unit with GridGain 8 libraries that the nodes need for Change Data Capture (CDC) replication to a GridGain 8 cluster. For more information, see [Change Data Capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture).
 
 ![Pre-deployed deployment unit](../../../../.gitbook/assets/cc-gg9-du_static_unit.png)
 

@@ -43,7 +43,7 @@ public record Person(
 ) {}
 ```
 
-For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/table-api).
+For more information about using records, see [Record API documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/table-api).
 
 ### Custom Object Mapping in .NET
 
@@ -108,7 +108,7 @@ You can now configure heartbeats in [ODBC driver](https://app.gitbook.com/o/diTp
 
 ### String Configuration Support
 
-When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
+When starting the node in [embedded mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-get-started/embedded-mode), you can now provide configuration in string format. Previously, it was required to provide configuration as a path to the file.
 
 For example:
 

@@ -16,7 +16,7 @@ GridGain 9.0.15 is a release that brings a large number of new features and seve
 
 Prior to this release, you could only use the PUBLIC schema. You can now create other schemas and use it to create tables.
 
-To create a schema, use the [CREATE SCHEMA](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/sql/ddl#create-schema) statement:
+To create a schema, use the [CREATE SCHEMA](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/sql/ddl#create-schema) statement:
 
 ```sql
 CREATE SCHEMA myschema
