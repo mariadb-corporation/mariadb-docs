@@ -115,7 +115,7 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]galera[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]maxscale[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]analytics[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14#g' \
-            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]columnstore[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/2I4jZ8pGq8bT4w5n3q6r#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]columnstore[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]skysql[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]home[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]platform[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn#g' \
