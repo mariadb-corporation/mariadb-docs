@@ -19,7 +19,7 @@ This page has a list of MariaDB features that are not supported in SQL Server. T
 * [Storage engines](../../../../server-usage/storage-engines/).
 * [Authentication plugins](../../../../reference/plugins/authentication-plugins/).
 * [Encryption plugins](../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
-* [ColumnStore]({columnstore}) is a columnar storage engine designed to scale horizontally. It is installed as a storage engine plugin, so ColumnStore tables can be used alongside tables that use other storage engines.
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) is a columnar storage engine designed to scale horizontally. It is installed as a storage engine plugin, so ColumnStore tables can be used alongside tables that use other storage engines.
 
 ## SQL
 

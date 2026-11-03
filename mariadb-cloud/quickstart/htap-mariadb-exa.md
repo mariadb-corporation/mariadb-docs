@@ -249,7 +249,7 @@ The router applies **syntax translation** and **type coercion** from the MariaDB
 Use **standard MariaDB or MySQL-compatible** client libraries and connectors only.
 
 **SQL dialect**\
-Author application SQL in the [**MariaDB dialect**]({exa}/limitations#iv.-sql-syntax-differences). The intelligent router performs translation for the analytical path where needed.
+Author application SQL in the [**MariaDB dialect**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/COKIFe0hm2r19L2bFQTW/limitations#iv.-sql-syntax-differences). The intelligent router performs translation for the analytical path where needed.
 
 **Handling lag**\
 If the application must **immediately** see data just written (for example, right after a profile update), connect on **port 3306**. Use **port 3310** for dashboards, exploration, and **heavy analytics** where small CDC lag is acceptable.
@@ -257,7 +257,7 @@ If the application must **immediately** see data just written (for example, righ
 ## Known issues and limitations
 
 {% hint style="info" %}
-Deep Dive: For a full list of supported SQL functions, detailed data type mappings, and logic differences, see our [Limitations & Compatibility Reference]({exa}/limitations) page.&#x20;
+Deep Dive: For a full list of supported SQL functions, detailed data type mappings, and logic differences, see our [Limitations & Compatibility Reference](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/COKIFe0hm2r19L2bFQTW/limitations) page.&#x20;
 {% endhint %}
 
 **Service limits**
