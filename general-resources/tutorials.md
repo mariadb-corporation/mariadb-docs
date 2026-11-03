@@ -30,6 +30,7 @@ These tutorials should work for MariaDB, too.
 
 * [w3schools general SQL tutorial](https://www.w3schools.com/sql)
 * [sqltutorial](https://www.sqltutorial.org/). Helps you get started with SQL quickly and effectively through many practical examples.
+* [WebCheatSheet SQL tutorial](https://webcheatsheet.com/sql/index)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
