@@ -89,7 +89,7 @@ Queries in GridGain 8 do not preserve transactional boundaries. As a result, if 
 In most scenarios read operations can be executed safely, but in high-load environments multiple queries may start affecting each other.
 
 {% hint style="info" %}
-As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/overview), this behavior changes and concurrent queries are safe to execute.
+As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/sql/overview), this behavior changes and concurrent queries are safe to execute.
 {% endhint %}
 
 ## Working in Multiple Timezones

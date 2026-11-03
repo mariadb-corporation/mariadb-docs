@@ -26,7 +26,7 @@ To use Kubernetes operator, make sure you meet the prerequisites specified in th
 
 ### Memory Quota Block Size Configuration in Java Clients
 
-Java client now supports configuring memory quotas by using the `memoryQuotaBlockSize` [property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/accessing-data/sql/sql-api#memory-quota-block-size) for SQL statements. The default value is 512 KB. Setting a larger block size can improve performance for memory-intensive queries by reducing synchronization overhead with the node-level memory tracker.
+Java client now supports configuring memory quotas by using the `memoryQuotaBlockSize` [property](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/accessing-data/sql/sql-api#memory-quota-block-size) for SQL statements. The default value is 512 KB. Setting a larger block size can improve performance for memory-intensive queries by reducing synchronization overhead with the node-level memory tracker.
 
 The example below shows how you can configure memory quotas:
 
@@ -78,12 +78,12 @@ docker run --rm -it --network gridgain9_default gridgain/gridgain9-cli \
 
 This release adds new metrics that can be used to monitor Meta Storage health and schema synchronization performance:
 
-**Meta Storage Metrics** ([`metastorage`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#metastorage)):
+**Meta Storage Metrics** ([`metastorage`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#metastorage)):
 
 - `AvailablePeers` - Number of available Meta Storage voting peers in the current logical topology;
 - `MajorityAvailable` - Binary flag (1/0) indicating whether Meta Storage can execute commands. Updated every 5 seconds.
 
-**Schema Synchronization Metrics** ([`schema.sync`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/monitoring/metrics-list#schema.sync)):
+**Schema Synchronization Metrics** ([`schema.sync`](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/monitoring/metrics-list#schema.sync)):
 
 - `Waits` - Histogram of schema synchronization wait times in milliseconds. High values may indicate Meta Storage unavailability or slowness. Includes distribution buckets from 0-1ms to 5000ms+.
 

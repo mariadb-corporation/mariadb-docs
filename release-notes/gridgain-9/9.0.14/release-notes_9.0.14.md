@@ -35,7 +35,7 @@ For more information on using Python DB API, see the [Python Database API Driver
 
 ### Point in Time Recovery
 
-With this release, you can restore data to any point in time above the [low watermark](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/data-distribution/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/snapshots/data-snapshots).
+With this release, you can restore data to any point in time above the [low watermark](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/data-distribution/data-partitioning#version-storage). Older data below the low watermark can be restored by using [snapshots](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/snapshots/data-snapshots).
 
 To start point in time recovery, use the `recovery` command, for example:
 
