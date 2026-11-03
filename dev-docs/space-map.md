@@ -72,7 +72,7 @@ cannot see `{% include %}` at all, because it is template syntax rather than a M
 **`release-notes/`** is partitioned by product: `community-server/`, `enterprise-server/`,
 `maxscale/`, `columnstore/`, `galera-cluster/`, `connectors/`, `enterprise-operator/`,
 `enterprise-manager/`, `mcp-server-release-notes/`, `ai-rag-release-notes/`,
-`advanced-cluster/`, `mariadb-cloud-release-notes/`.
+`mariadb-cloud-release-notes/`.
 
 **Publishing a Cloud release note posts to #mariadb-product-releases**, the company-wide
 channel. A `mariadb-cloud-YYYY.MM.DD.md` page counts as published once it is on `main`, listed
