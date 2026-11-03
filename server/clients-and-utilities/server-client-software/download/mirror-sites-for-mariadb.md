@@ -15,22 +15,22 @@ The state of MariaDB mirrors is monitored at [https://mirmon.mariadb.org/](https
 ## How to Become a MariaDB Mirror
 
 The only requirements for becoming a mirror are:
-1. A willingness to mirror MariaDB
-1. Mirroring is done using rsync
-1. An https mirror should be utilised (http mirrors are not accepted any more)
-1. Available bandwidth and disk space
+1. A willingness to mirror MariaDB;
+1. Mirroring is done using rsync;
+1. An https mirror should be utilised (http mirrors are not accepted any more);
+1. Available bandwidth and disk space:
 
-   - Each release of MariaDB takes about between 110-140GB of disk space for
+   - Each release of MariaDB takes about between 60-120GB of disk space for
      all of the various packages we create. There are several MariaDB releases
      per year, but only the most recent two from each main MariaDB series (as
-     of March 2025 this is 10.5, 10.6, 10.11, 11.2, 11.4, 11.7 and 11.8) are
-     kept on the mirrors
+     of November 2026 this is 10.6, 10.11, 11.4, 11.8, 12.3, 13.0, 13.1 and 13.2) are
+     kept on the mirrors;
    - We recommend our mirrors have at least a 100Mbit/sec connection to the
-     Internet
+     Internet.
 
-1. The ability to do directory listings on mirrored sub-directories on your mirror host (for some platforms the [download](https://mariadb.org/download) page links directly to mirrored sub-directories)
-1. The mirror should update itself, preferably every 6 hours, but at the very least, twice a day. (See [Updating Notes](mirror-sites-for-mariadb.md) for more information)
-1. Not mandatory: provide `rsync` or `ftp` access to the mirror for our mirrorbits system (See: [Mirrorbits](https://mariadb.org/mirrorbits))
+1. The ability to do directory listings on mirrored sub-directories on your mirror host (for some platforms the [download](https://mariadb.org/download) page links directly to mirrored sub-directories);
+1. The mirror should update itself, preferably every 6 hours, but at the very least, twice a day. (See [Updating Notes](mirror-sites-for-mariadb.md) for more information);
+1. Not mandatory: provide `rsync` or `ftp` access to the mirror for our mirrorbits system (See: [Mirrorbits](https://mariadb.org/mirrorbits)).
 
 ### Updating Notes
 
@@ -70,7 +70,7 @@ Be aware that when using the above rsync command, a "mariadb" directory **will n
 
 It is also a good idea to test your rsync command before adding it to a cron job by adding the `-v --dry-run` flags to the command temporarily so you can see what it will do (without actually doing anything).
 
-As of June 2025, running the above command will use around 750GB of disk space in total.
+As of November 2026, running the above command will use around 640GB of disk space in total.
 
 See the [rsync documentation](https://rsync.samba.org/documentation.html) for details on what each of the arguments in the command above does.
 
@@ -382,7 +382,7 @@ rsync -avP archive.mariadb.org::mariadb/ /path/to/local/dir/
 rsync -avP archive.mariadb.org::mariadb/mariadb-10.4.13/ /path/to/local/dir/
 ```
 
-**Warning**, as of June 2025, the entire archive will use around 14 TB of disk space in total, and if you want to keep your mirror up to date (via cron routine for instance), please **first compare** the STATUS file **before** doing the rsync. This file is updated anytime a new content is added in the archive tree.
+**Warning**, as of November 2026, the entire archive will use around 15 TB of disk space in total, and if you want to keep your mirror up to date (via cron routine for instance), please **first compare** the STATUS file **before** doing the rsync. This file is updated anytime a new content is added in the archive tree.
 
 You can use something like the following:
 
