@@ -82,7 +82,7 @@ MariaDB Enterprise Kubernetes Operator provides stable Long-Term Support (LTS) v
 | Version | Supported Kubernetes Versions | Description                                              |
 | ------- | ----------------------------- | -------------------------------------------------------- |
 | `25.10` | `>=1.32.0-0 <= 1.34.0-0`      | LTS 25.10. It was tested to work up to kubernetes v1.34. |
-| `26.10` | `>=1.32.0-0 <= 1.36.0-0`      | LTS 26.10. It was tested to work up to kubernetes v1.36. |
+| `26.10` | `>=1.34.0-0 <= 1.36.0-0`      | LTS 26.10. It was tested to work up to kubernetes v1.36. |
 
 If you instead wish to install a specific LTS release, you can do:
 
