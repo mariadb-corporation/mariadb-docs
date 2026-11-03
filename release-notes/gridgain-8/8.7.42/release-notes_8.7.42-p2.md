@@ -2,6 +2,8 @@
 description: >-
   GridGain 8.7.42 Patch 2 is a patch release dedicated to fixing an issue with
   QueryEntity.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.42 Patch 2 Release Notes

@@ -1,6 +1,8 @@
 ---
 description: >-
   GridGain 8.9.9-p1 fixes a known issue with outer joins in SQL.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.9-p1 Release Notes

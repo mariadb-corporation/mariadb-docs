@@ -3,6 +3,8 @@ description: >-
   GridGain 8.5.8-p5 is a maintenance release that adds system and user time
   tracking for transactions and a new clustername REST command, along with
   several bug fixes.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.8-p5 Release Notes

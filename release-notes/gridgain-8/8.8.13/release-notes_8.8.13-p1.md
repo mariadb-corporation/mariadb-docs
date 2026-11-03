@@ -1,5 +1,7 @@
 ---
 description: GridGain 8.8.13 Patch 1 is dedicated to fixing a newly found corrupted tree exception.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.13 Patch 1 Release Notes

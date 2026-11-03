@@ -1,5 +1,7 @@
 ---
 description: GridGain 8.7.39-p3 is a patch release dedicated to fixing deployment and rebalance issues.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.39-p3 Release Notes
