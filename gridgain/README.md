@@ -18,8 +18,8 @@ GridGain 8 and GridGain 9 each have their own documentation. Open either one fro
 
 **Control Center** is the management and monitoring console for GridGain 8 and GridGain 9 clusters. Its documentation is in the Tools section.
 
-{% content-ref url="{gridgain8}" %}
-[GridGain 8]({gridgain8})
+{% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53" %}
+[GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53)
 {% endcontent-ref %}
 
 {% content-ref url="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR" %}
