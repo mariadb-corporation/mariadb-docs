@@ -25,7 +25,7 @@ The availability, maturity, and package inclusions of [plugins](https://app.gitb
 
 ## MariaDB Enterprise Server 10.5
 
-* [**ColumnStore Storage Engine Plugin**]({columnstore}/architecture/columnstore-storage-engine-overview): MariaDB ColumnStore 5 was introduced as an integrated enterprise plugin to provide distributed columnar storage for analytical workloads.
+* [**ColumnStore Storage Engine Plugin**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-engine-overview): MariaDB ColumnStore 5 was introduced as an integrated enterprise plugin to provide distributed columnar storage for analytical workloads.
 * [**Spider Storage Engine Plugin**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-storage-engine-introduction): Updated to support an ODBC foreign data wrapper and added the[ information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table) system table.
 * **Plugin Phase-outs & Repository Splits**:
   * **TokuDB** **and** **Cassandra**: Both storage engine plugins were removed from the installation packages in 10.5. They were subsequently removed from the server codebase entirely in 10.6.
