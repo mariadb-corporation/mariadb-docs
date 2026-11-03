@@ -63,7 +63,7 @@ The Enterprise ColumnStore node:
 
 * Receives queries from the application
 * Executes queries
-* Use [S3-compatible object storage]({columnstore}/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
+* Use [S3-compatible object storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
 
 ### High Availability
 

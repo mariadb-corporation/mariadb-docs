@@ -38,7 +38,7 @@ $ sudo systemctl stop mariadb-columnstore-cmapi
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | [character\_set\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#list-of-server-system-variables)                                          | Set this system variable to `utf8`                                                                                       |
 | [collation\_server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#list-of-server-system-variables)                                               | Set this system variable to `utf8_general_ci`                                                                            |
-| [loose-columnstore\_use\_import\_for\_batchinsert]({columnstore}/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select#batch-insert-mode) | Set this system variable to ALWAYS to always use cpimport for LOAD DATA INFILE and INSERT...SELECT statements.           |
+| [loose-columnstore\_use\_import\_for\_batchinsert](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select#batch-insert-mode) | Set this system variable to ALWAYS to always use cpimport for LOAD DATA INFILE and INSERT...SELECT statements.           |
 | [gtid\_strict\_mode](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid/gtid-system-variables#gtid_strict_mode)                                                                                                    | Set this system variable to ON.                                                                                          |
 | [log\_bin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin)                                                                                | Set this option to the file you want to use for the Binary Log. Setting this option enables binary logging.              |
 | [log\_bin\_index](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_bin_index)                                                                   | Set this option to the file you want to use to track binlog filenames.                                                   |
@@ -185,7 +185,7 @@ $ sudo mcsSetConfig CrossEngineSupport User util_user
 $ sudo mcsSetConfig CrossEngineSupport Password util_user_passwd
 ```
 
-For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore]({columnstore}/security/enterprise-columnstore-credentials-management)".
+For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/security/enterprise-columnstore-credentials-management)".
 
 Passwords should meet your organization's password policies. If your MariaDB Enterprise Server instance has a password validation plugin installed, then the password should also meet the configured requirements.
 
@@ -396,7 +396,7 @@ $ curl -k -s https://mcs1:8640/cmapi/0.4.0/cluster/status \
 
 Add the replica servers with CMAPI:
 
-1. For each replica server, use [CMAPI]({columnstore}/architecture/columnstore-architectural-overview#cluster-management-api-cmapi-server) to add the replica server to the cluster.\
+1. For each replica server, use [CMAPI](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-architectural-overview#cluster-management-api-cmapi-server) to add the replica server to the cluster.\
    The previously set API key needs to be provided as part of the X-API-key HTML header.
 
 For example, if the primary server's host name is mcs1 and the replica server's IP address is 192.0.2.2, use the following node command:

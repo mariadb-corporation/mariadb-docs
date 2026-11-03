@@ -1,6 +1,6 @@
 # Release Notes for Cluster Management API 6.4.1
 
-Cluster Management API (CMAPI) 6.4.1 is a maintenance release of CMAPI. CMAPI is a REST API for administering [MariaDB ColumnStore]({columnstore}) in multi-node topologies.
+Cluster Management API (CMAPI) 6.4.1 is a maintenance release of CMAPI. CMAPI is a REST API for administering [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) in multi-node topologies.
 
 Cluster Management API 6.4.1 was released on 2022-07-12. This release is of General Availability (GA) maturity.
 
@@ -17,7 +17,7 @@ auto_failover = False
 ```
 
 * The default value of the `auto_failover` option is `True`.
-* The `auto_failover` option should be set to `False` when [non-shared local storage]({columnstore}/architecture/columnstore-architectural-overview#storage-architecture) is used.
+* The `auto_failover` option should be set to `False` when [non-shared local storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-architectural-overview#storage-architecture) is used.
 * The format and logic of CMAPI logging has been improved. ([MCOL-4907](https://jira.mariadb.org/browse/MCOL-4907))
 * Transaction IDs are included more consistently in exception messages. ([MCOL-4921](https://jira.mariadb.org/browse/MCOL-4921))
 

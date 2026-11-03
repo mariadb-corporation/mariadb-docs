@@ -152,7 +152,7 @@ documentation.
 
 {% hint style="warning" %}
 **`PUSHED SELECT` does not always mean a ColumnStore table is involved.**
-ColumnStore's [Query Accelerator]({columnstore}/use-cases/query-accelerator)
+ColumnStore's [Query Accelerator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/use-cases/query-accelerator)
 feature can push down a query against plain `ENGINE=InnoDB` tables — with no
 ColumnStore table anywhere in the query — once the session or global variable
 `columnstore_innodb_queries_use_mcs` is enabled. If `EXPLAIN` reports
