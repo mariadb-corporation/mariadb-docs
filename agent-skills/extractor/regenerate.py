@@ -21,7 +21,9 @@ extract-function-skills.yml workflow runs before opening a regeneration PR.
 
 The skill -> source-directory map lives here (build config), not in
 .skills-manifest.json (a consumer-facing index). Add a line when a new Tier 2
-skill is created.
+skill is created. A skill can read several directories (a tuple); their
+functions are merged into one alphabetical catalog. Use that when a docs
+restructure moves pages out of a category the skill still covers.
 """
 from __future__ import annotations
 
@@ -36,10 +38,14 @@ SKILLS_ROOT = HERE.parent                        # agent-skills
 REPO_ROOT = SKILLS_ROOT.parent                   # repo root
 SQLF = REPO_ROOT / "server" / "reference" / "sql-functions"
 
-# Tier 2 skill directory name -> source category dir (relative to sql-functions/).
-CATEGORIES = {
+# Tier 2 skill directory name -> source category dir(s), relative to sql-functions/.
+CATEGORIES: dict[str, str | tuple[str, ...]] = {
     "mariadb-json-functions": "special-functions/json-functions",
-    "mariadb-string-functions": "string-functions",
+    # XML functions moved out of string-functions/ in DOCS-6912; the HELP
+    # extractor still files them under String Functions, so this skill keeps
+    # them (DOCS-7054).
+    "mariadb-string-functions": ("string-functions",
+                                 "special-functions/xml-functions"),
     "mariadb-date-time-functions": "date-time-functions",
     "mariadb-numeric-functions": "numeric-functions",
     "mariadb-aggregate-functions": "aggregate-functions",
@@ -55,22 +61,28 @@ MARKER_RE = re.compile(
 )
 
 
-def generate(category: str) -> str:
-    """Run the extractor for one category and return its Markdown, trimmed.
+def source_dirs(category: str | tuple[str, ...]) -> tuple[str, ...]:
+    """Normalize a CATEGORIES value to a tuple of directories."""
+    return (category,) if isinstance(category, str) else tuple(category)
+
+
+def generate(category: str | tuple[str, ...]) -> str:
+    """Run the extractor for one skill's source dir(s); return its Markdown, trimmed.
 
     Invoked with a repo-relative path and cwd=REPO_ROOT so the extractor's
     `<!-- Extracted from … -->` comment is stable regardless of where this
     script runs from (absolute paths would make the output non-reproducible).
     """
-    rel = f"server/reference/sql-functions/{category}"
+    rels = [f"server/reference/sql-functions/{d}" for d in source_dirs(category)]
     result = subprocess.run(
-        [sys.executable, "agent-skills/extractor/extract_function_category.py", rel],
+        [sys.executable, "agent-skills/extractor/extract_function_category.py", *rels],
         cwd=REPO_ROOT, capture_output=True, text=True, check=True,
     )
     return result.stdout.rstrip("\n")
 
 
-def regen_skill(skill_name: str, category: str, check: bool) -> bool:
+def regen_skill(skill_name: str, category: str | tuple[str, ...],
+                check: bool) -> bool:
     """Regenerate one skill's GENERATED block. Returns True if it changed."""
     skill = SKILLS_ROOT / "granular" / "functions" / skill_name / "SKILL.md"
     text = skill.read_text(encoding="utf-8")
