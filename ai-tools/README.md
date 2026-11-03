@@ -59,7 +59,7 @@ claude mcp add --transport http mariadb-docs \
   https://mariadb.com/docs/~gitbook/mcp
 ```
 
-[Plugin Variants](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-ai-plugins/plugin-variants) covers the three plugin variants and what each one installs, and [Installation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-ai-plugins/installation) has setup steps for OpenCode.
+[Plugin Variants](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/community/mariadb-ai-plugins/plugin-variants) covers the three plugin variants and what each one installs, and the [OpenCode installation page]({tools}/community/mariadb-ai-plugins/installation/opencode) has the setup steps.
 
 ## Give Agents Access to Live Data
 
