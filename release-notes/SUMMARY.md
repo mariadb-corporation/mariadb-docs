@@ -2911,6 +2911,7 @@
   * [All Releases](mariadb-cloud-release-notes/all-releases.md)
 * [Control Center Release Notes](control-center/README.md)
   * [All Releases](control-center/all-releases.md)
+  * [2026.2](control-center/2026.2.md)
   * [2026.1](control-center/2026.1.md)
   * [2025.5.2](control-center/2025.5.2.md)
   * [2025.5.1](control-center/2025.5.1.md)
