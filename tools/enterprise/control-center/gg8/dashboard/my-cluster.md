@@ -2,7 +2,6 @@
 description: >-
   The My Cluster screen for GridGain 8 clusters — cluster health, baseline
   topology, configuration, sharing, and activation.
-hidden: true
 ---
 
 # My Cluster Screen

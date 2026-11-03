@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.25 is a maintenance release with fixes for continuous queries, the SQL engine, and the snapshot utility.
-hidden: true
 ---
 
 # GridGain 8.5.25 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.1-p1 is a patch release that fixes an exception that could happen when closing memory trackers when data offloading was happening.
-hidden: true
 ---
 
 # GridGain 8.9.1-p1 Release Notes

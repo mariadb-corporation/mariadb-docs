@@ -1,6 +1,5 @@
 ---
 description: Release Notes for the GridGain Control Center Agent
-hidden: true
 ---
 
 # Control Center Agent Release Notes

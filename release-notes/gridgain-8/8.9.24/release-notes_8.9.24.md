@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.24 is a maintenance release focused on improving stability and providing better SQL query management.
-hidden: true
 ---
 
 # GridGain 8.9.24 Release Notes

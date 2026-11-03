@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.20 is a maintenance release with fixes and improvements across the storage engine, monitoring, snapshots, and integrations.
-hidden: true
 ---
 
 # GridGain 8.5.20 Release Notes

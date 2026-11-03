@@ -2,7 +2,6 @@
 description: >-
   Adding, configuring, and editing dashboard widgets for GridGain 8 clusters —
   gauges, nodes, metrics, heat maps, rebalance, SQL query, and caches widgets.
-hidden: true
 ---
 
 # Configuring Widgets for GridGain 8 Clusters

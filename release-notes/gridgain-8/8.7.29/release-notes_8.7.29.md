@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.29 adds scheduled snapshot checks and delivers fixes across the Control Center Agent, the SQL engine, storage, and thin clients.
-hidden: true
 ---
 
 # GridGain 8.7.29 Release Notes

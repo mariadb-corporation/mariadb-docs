@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.22 is a maintenance release that improves data center replication and brings a way to prevent transitive updates during it.
-hidden: true
 ---
 
 # GridGain 8.9.22 Release Notes

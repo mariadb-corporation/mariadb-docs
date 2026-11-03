@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.36 adds the index-reader and wal-reader diagnostic tools and continuous query support in the Java thin client, along with improvements and fixed issues.
-hidden: true
 ---
 
 # GridGain 8.7.36 Release Notes

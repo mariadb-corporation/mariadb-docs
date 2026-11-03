@@ -2,7 +2,6 @@
 description: >-
   Connecting to a GridGain 9 cluster from the Java, .NET, .NET LINQ, C++, and
   Python clients, and via the Python DB API.
-hidden: true
 ---
 
 # Connecting to Your Cluster

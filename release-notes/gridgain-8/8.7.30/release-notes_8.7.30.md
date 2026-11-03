@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.30 introduces SQL query tracing, offline readers for SQL indexes and WAL files, and incremental snapshots over newly added caches, along with fixes across all editions.
-hidden: true
 ---
 
 # GridGain 8.7.30 Release Notes

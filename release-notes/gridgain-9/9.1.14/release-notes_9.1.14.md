@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.14 is an emergency release that fixes issues discovered in
   GridGain 9.1.13, including a metadata format incompatibility and missing
   columnar libraries. No new features are included.
-hidden: true
 ---
 
 # GridGain 9.1.14 Release Notes

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.15 includes a number of critical bug fixes.
-hidden: true
 ---
 
 # GridGain 8.5.15 Release Notes

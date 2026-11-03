@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Use the GridGain.NET LINQ provider to write distributed SQL queries in C# with
   LINQ, including projections, joins, and compiled queries.

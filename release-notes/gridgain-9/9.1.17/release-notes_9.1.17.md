@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.17 brings monitoring improvements and new .NET features, removes
   APIs and REST endpoints for table-based partitions, and notes a Control Center
   compatibility requirement.
-hidden: true
 ---
 
 # GridGain 9.1.17 Release Notes

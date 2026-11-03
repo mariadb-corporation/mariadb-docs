@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.17 simplifies cluster initialization and adds a multicast node
   finder.
-hidden: true
 ---
 
 # GridGain 9.0.17 Release Notes

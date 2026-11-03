@@ -3,7 +3,6 @@ description: >-
   GridGain 9.1.20 brings improved AIPersist storage and rolling upgrade
   monitoring, new client connection events, and multiple API improvements
   including an editable cluster name.
-hidden: true
 ---
 
 # GridGain 9.1.20 Release Notes

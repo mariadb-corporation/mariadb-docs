@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.38 brings multiple improvements, including client connection limits and an update to Spring 5.3.
-hidden: true
 ---
 
 # GridGain 8.8.38 Release Notes

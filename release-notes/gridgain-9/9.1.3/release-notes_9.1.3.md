@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.3 adds cache creation from Java and a new method to get the local node, along with multiple stability and performance improvements.
-hidden: true
 ---
 
 # GridGain 9.1.3 Release Notes

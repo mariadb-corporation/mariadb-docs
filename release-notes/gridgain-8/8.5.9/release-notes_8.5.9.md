@@ -3,7 +3,6 @@ description: >-
   GridGain 8.5.9 introduces the Snapshot Security feature to protect snapshot
   integrity, along with numerous bug fixes across SQL, storage, discovery, and
   more.
-hidden: true
 ---
 
 # GridGain 8.5.9 Release Notes

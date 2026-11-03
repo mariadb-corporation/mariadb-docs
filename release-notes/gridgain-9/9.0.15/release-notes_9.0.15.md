@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.15 adds SQL schema support, metastorage compaction, and query and
   transaction cancellation from Java clients.
-hidden: true
 ---
 
 # GridGain 9.0.15 Release Notes

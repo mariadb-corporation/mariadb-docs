@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.23-p1 is a patch release that fixes a performance issue in data center replication.
-hidden: true
 ---
 
 # GridGain 8.9.23-p1 Release Notes

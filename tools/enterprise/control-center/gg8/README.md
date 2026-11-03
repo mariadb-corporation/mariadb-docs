@@ -1,7 +1,6 @@
 ---
 description: >-
   Using GridGain Control Center with GridGain 8 and Apache Ignite 2 clusters.
-hidden: true
 ---
 
 # GridGain 8

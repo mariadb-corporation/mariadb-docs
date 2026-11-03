@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How GridGain.NET interoperates with Java and C++ through the common binary format,
   including identifier mapping, type and collection compatibility, and mixed-platform clusters.

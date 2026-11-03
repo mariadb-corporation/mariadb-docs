@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.1 reworks CREATE ZONE syntax and adds snapshot encryption, .NET distributed computing, and further configuration and logging improvements.
-hidden: true
 ---
 
 # GridGain 9.1.1 Release Notes

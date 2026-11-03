@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.34 delivers a broad set of platform, thin-client, storage engine,
   and SQL improvements and fixed issues across the Community, Enterprise, and
   Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.34 Release Notes

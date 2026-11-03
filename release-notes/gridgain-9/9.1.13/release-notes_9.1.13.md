@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.13 adds WASM command mode and improved Kafka Sink configuration; due to known issues, avoid using this version.
-hidden: true
 ---
 
 # GridGain 9.1.13 Release Notes

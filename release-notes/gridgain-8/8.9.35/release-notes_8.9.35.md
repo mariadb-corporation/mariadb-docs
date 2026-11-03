@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.35 adds Kubernetes readiness probe, as well as a number of library updates.
-hidden: true
 ---
 
 # GridGain 8.9.35 Release Notes

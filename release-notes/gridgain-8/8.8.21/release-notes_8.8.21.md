@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.21 changes trial license packaging, adds new control script commands, and delivers fixes across Community, Enterprise, and Control Center Agent components.
-hidden: true
 ---
 
 # GridGain 8.8.21 Release Notes

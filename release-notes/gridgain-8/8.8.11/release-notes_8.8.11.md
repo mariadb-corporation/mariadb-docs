@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.8.11 adds new metrics, extended snapshot compression options, and a new
   option to exclude caches from snapshot operations, along with numerous fixes.
-hidden: true
 ---
 
 # GridGain 8.8.11 Release Notes

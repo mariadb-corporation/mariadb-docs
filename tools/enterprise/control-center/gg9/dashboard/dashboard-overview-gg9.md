@@ -2,7 +2,6 @@
 description: >-
   The default dashboard for GridGain 9 clusters — widgets, tabs, templates,
   export and import, time periods, zooming, and parameter-based filtering.
-hidden: true
 ---
 
 # Dashboard Overview for GridGain 9 Clusters

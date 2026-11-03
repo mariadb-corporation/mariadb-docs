@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.19 is a maintenance release that fixes a number of issues.
-hidden: true
 ---
 
 # GridGain 8.5.19 Release Notes

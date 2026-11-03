@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.12 focuses on stability and extended WebAssembly computing support.
-hidden: true
 ---
 
 # GridGain 9.1.12 Release Notes

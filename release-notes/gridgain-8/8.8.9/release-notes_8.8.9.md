@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.9 adds the ability to disable client SSL/TLS certificate validation, along with other improvements and fixes.
-hidden: true
 ---
 
 # GridGain 8.8.9 Release Notes

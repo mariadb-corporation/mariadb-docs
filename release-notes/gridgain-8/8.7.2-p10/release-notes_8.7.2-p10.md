@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.2-p10 is a maintenance release with a number of minor bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.2-p10 Release Notes

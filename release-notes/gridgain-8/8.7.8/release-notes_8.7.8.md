@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.8 introduces hash joins, experimental partition awareness for thin
   clients, and major Data Center Replication improvements, along with many fixes.
-hidden: true
 ---
 
 # GridGain 8.7.8 Release Notes

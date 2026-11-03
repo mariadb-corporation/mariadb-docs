@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   The SQL data types supported by the GridGain ODBC driver.
 ---

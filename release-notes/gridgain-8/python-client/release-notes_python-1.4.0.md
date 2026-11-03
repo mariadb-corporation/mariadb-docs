@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.4.0 adds Python 3.10 support, a handshake timeout, monitoring and
   event handling, transactions, and expiry policy configuration.
-hidden: true
 ---
 
 # PyGridGain 1.4.0 Release Notes

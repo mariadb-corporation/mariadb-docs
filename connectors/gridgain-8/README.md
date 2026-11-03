@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Client libraries and drivers for connecting applications to a GridGain 8
   cluster — thin clients, the .NET and C++ platform APIs, and the JDBC and ODBC

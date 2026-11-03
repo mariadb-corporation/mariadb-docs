@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.11 adds a large number of new metrics and system views, query plan staleness configuration, and CDC failover.
-hidden: true
 ---
 
 # GridGain 9.1.11 Release Notes

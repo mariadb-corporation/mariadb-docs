@@ -2,7 +2,6 @@
 description: >-
   Monitoring capabilities of GridGain Control Center for GridGain 9 clusters,
   including user-configurable graphical dashboards.
-hidden: true
 ---
 
 # Monitoring GridGain 9 Clusters

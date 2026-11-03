@@ -2,7 +2,6 @@
 description: >-
   Run GridGain's preconfigured demo cluster and streaming application, and
   attach it to Control Center.
-hidden: true
 ---
 
 # Connecting to Demo Cluster

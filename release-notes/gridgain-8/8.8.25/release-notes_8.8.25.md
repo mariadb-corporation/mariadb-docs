@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.25 is a stability release dedicated to fixing issues, with no major new features.
-hidden: true
 ---
 
 # GridGain 8.8.25 Release Notes

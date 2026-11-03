@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Release notes for PyGridGain, the GridGain 8 Python thin client, listing the
   new features, improvements, and fixed issues in each client release.

@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   ODBC interface conformance levels for the GridGain ODBC driver, including
   supported functions, attributes, descriptor fields, and data types.

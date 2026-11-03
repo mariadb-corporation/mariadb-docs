@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Release notes for the GridGain 8 platform, listing the changes, new features,
   improvements, and fixed issues in each release.

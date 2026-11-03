@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.0 introduces secondary columnar storage, a new JSON license format, reworked node and cluster configuration, and numerous SQL and client improvements.
-hidden: true
 ---
 
 # GridGain 9.1.0 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.7 improves cluster monitoring and migration tooling and adds Windows support for the C++ client.
-hidden: true
 ---
 
 # GridGain 9.1.7 Release Notes

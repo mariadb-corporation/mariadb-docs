@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.5 adds a GZIP compression option, new index-reader and WAL-reader debug tools, and the Continuous Query API in the Java thin client.
-hidden: true
 ---
 
 # GridGain 8.8.5 Release Notes

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.24 is a maintenance release with fixes for affinity configuration, continuous queries, SQL, and the storage engine.
-hidden: true
 ---
 
 # GridGain 8.5.24 Release Notes

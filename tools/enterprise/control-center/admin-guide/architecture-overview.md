@@ -2,7 +2,6 @@
 description: >-
   The functional architecture of GridGain Control Center and the Control Center
   Agent, for single-binary and Docker deployments.
-hidden: true
 ---
 
 # Architecture Overview

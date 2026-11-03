@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.8.17 adds thread pool monitoring for thin clients and includes a large
   number of fixes across thin clients, the storage and SQL engines, and data replication.
-hidden: true
 ---
 
 # GridGain 8.8.17 Release Notes

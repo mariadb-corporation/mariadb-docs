@@ -2,7 +2,6 @@
 description: >-
   Attaching an Apache Ignite 3 cluster to GridGain Control Center using either
   the Cloud Connector or the embedded connector.
-hidden: true
 ---
 
 # Attaching an Apache Ignite 3 Cluster

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.9 adds support for WebAssembly compute jobs and the ability to drop cached SQL plans from the CLI.
-hidden: true
 ---
 
 # GridGain 9.1.9 Release Notes

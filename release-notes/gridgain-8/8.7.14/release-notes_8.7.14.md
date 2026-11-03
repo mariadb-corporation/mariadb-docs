@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.14 adds transaction support and certificate-based authentication to thin clients, baseline topology autoadjustment, and the FIRSTVALUE and LASTVALUE SQL functions.
-hidden: true
 ---
 
 # GridGain 8.7.14 Release Notes

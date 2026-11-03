@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.30 is a maintenance release focused on improving cluster stability and observability.
-hidden: true
 ---
 
 # GridGain 8.9.30 Release Notes

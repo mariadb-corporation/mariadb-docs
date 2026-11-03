@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.40 adds extended snapshot compression options and a new option to
   exclude caches from snapshot operations, along with a number of improvements and
   bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.40 Release Notes

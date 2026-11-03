@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.40 brings a fix to a possible race during TCP connection and improvements on communication SPI configuration.
-hidden: true
 ---
 
 # GridGain 8.8.40 Release Notes

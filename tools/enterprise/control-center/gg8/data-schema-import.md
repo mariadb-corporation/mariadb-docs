@@ -2,7 +2,6 @@
 description: >-
   Migrating schemas and data from JDBC-compatible databases or Apache Iceberg
   into a GridGain 8 cluster with the Data and Schema Import wizard.
-hidden: true
 ---
 
 # Data and Schema Import

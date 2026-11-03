@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.9.18 is a release fully dedicated to bringing vector search to your
   GridGain caches.
-hidden: true
 ---
 
 # GridGain 8.9.18 Release Notes

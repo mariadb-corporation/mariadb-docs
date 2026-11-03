@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.1.21 is a stability and performance release. It requires an explicit
   JitPack repository declaration when running GridGain in embedded mode.
-hidden: true
 ---
 
 # GridGain 9.1.21 Release Notes

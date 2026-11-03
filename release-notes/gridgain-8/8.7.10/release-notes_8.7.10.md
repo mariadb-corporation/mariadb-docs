@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.10 introduces the @DurableStore annotation for durable sender
   storage in data center replication, together with a number of bug fixes and
   enhancements.
-hidden: true
 ---
 
 # GridGain 8.7.10 Release Notes

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.29 adds support for Amazon KMS integration in GridGain Nebula, letting managed clusters use KMS to encrypt their data.
-hidden: true
 ---
 
 # GridGain 8.8.29 Release Notes

@@ -1,6 +1,5 @@
 ---
 description: A list of all GridGain Control Center Agent releases
-hidden: true
 ---
 
 # All Releases

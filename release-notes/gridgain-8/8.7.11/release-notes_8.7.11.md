@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.11 is a maintenance release with a number of critical bug fixes
   across atomic caches, SQL, storage, thin clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.11 Release Notes

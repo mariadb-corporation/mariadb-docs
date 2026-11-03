@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.27 adds Service APIs for the Java and .NET thin clients and a Java thin client cluster API, along with SQL, communication, and snapshot fixes.
-hidden: true
 ---
 
 # GridGain 8.7.27 Release Notes

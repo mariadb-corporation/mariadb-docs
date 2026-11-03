@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.22-p2 is a patch release focused on a possible infinite loop during Data Center Replication partition tree cleanup.
-hidden: true
 ---
 
 # GridGain 8.9.22-p2 Release Notes

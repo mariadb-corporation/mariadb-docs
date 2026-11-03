@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Use GridGain.NET as an Entity Framework 6 second-level cache that stores query
   results in a distributed Ignite cache.

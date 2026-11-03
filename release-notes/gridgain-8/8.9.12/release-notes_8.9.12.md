@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.12 includes multiple updates to GridGain libraries and improvements to data center replication.
-hidden: true
 ---
 
 # GridGain 8.9.12 Release Notes

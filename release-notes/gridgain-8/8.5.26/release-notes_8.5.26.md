@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.26 is a maintenance release that fixes a throttling issue in the storage engine.
-hidden: true
 ---
 
 # GridGain 8.5.26 Release Notes

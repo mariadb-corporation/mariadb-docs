@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.14-p2 fixes an issue that caused an incremental snapshot to always contain the whole index.bin file.
-hidden: true
 ---
 
 # GridGain 8.5.14-p2 Release Notes

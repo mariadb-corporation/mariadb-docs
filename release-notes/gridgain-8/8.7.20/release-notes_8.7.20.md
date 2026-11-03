@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.20 delivers fixes and improvements across discovery, SQL, the storage engine, thin clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.20 Release Notes

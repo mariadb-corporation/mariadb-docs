@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.12 is a maintenance release with a number of bug fixes across the
   control script, SQL, storage engine, transactions, and the snapshot utility.
-hidden: true
 ---
 
 # GridGain 8.7.12 Release Notes

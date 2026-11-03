@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.10 adds ADO.NET integration, ZIP-based deployment units, improved CDC monitoring, and rolling upgrade improvements.
-hidden: true
 ---
 
 # GridGain 9.1.10 Release Notes

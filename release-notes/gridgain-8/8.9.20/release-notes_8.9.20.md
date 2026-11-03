@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.9.20 is a maintenance release, fixing known issues and expanding
   control script use cases.
-hidden: true
 ---
 
 # GridGain 8.9.20 Release Notes

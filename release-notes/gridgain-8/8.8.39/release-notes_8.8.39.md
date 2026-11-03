@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.39 brings a variety of bug fixes and improvements, including a new metadata management API and sender group management from thin clients.
-hidden: true
 ---
 
 # GridGain 8.8.39 Release Notes

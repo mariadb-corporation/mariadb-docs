@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.21 is a maintenance release with fixes for deployment, the storage engine, SQL, the web console, and snapshots.
-hidden: true
 ---
 
 # GridGain 8.5.21 Release Notes

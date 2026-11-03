@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.23-p1 fixes a rare issue with thin client authentication.
-hidden: true
 ---
 
 # GridGain 8.8.23-p1 Release Notes

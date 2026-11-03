@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.4 introduces new features and improvements, including .NET to Java type mappings and incremental Data Replication state transfer by default.
-hidden: true
 ---
 
 # GridGain 8.8.4 Release Notes

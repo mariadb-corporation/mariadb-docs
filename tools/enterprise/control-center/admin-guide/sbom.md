@@ -2,7 +2,6 @@
 description: >-
   The CycloneDX Software Bill of Materials (SBOM) published for Control Center
   and Cloud Connector downloads and Docker images, and where to find it.
-hidden: true
 ---
 
 # Software Bill of Materials (SBOM)
