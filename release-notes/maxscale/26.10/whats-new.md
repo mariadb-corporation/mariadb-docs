@@ -2,7 +2,6 @@
 description: >-
   An overview of the new features, changed defaults, and removed settings in
   MariaDB MaxScale 26.10
-hidden: true
 ---
 
 # What's New in MariaDB MaxScale 26.10
