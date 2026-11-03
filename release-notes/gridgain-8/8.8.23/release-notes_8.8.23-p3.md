@@ -1,5 +1,7 @@
 ---
 description: GridGain 8.8.23-p3 re-uploads 8.8.23-p2 artifacts and fixes a critical issue with complex SQL operations that use the IN operator.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.23-p3 Release Notes

@@ -2,9 +2,10 @@
 description: >-
   A curated discovery platform for the tools, services, platforms, and partners
   that work with MariaDB Server.
+icon: seedling
 ---
 
-# MariaDB Server Ecosystem Hub
+# Server Ecosystem Hub
 
 ## MariaDB Server Ecosystem Hub and Solution Stacks
 

@@ -1,6 +1,8 @@
 ---
 description: >-
   GridGain 8.9.16-p1 is a patch release with stability and logging improvements.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.16-p1 Release Notes

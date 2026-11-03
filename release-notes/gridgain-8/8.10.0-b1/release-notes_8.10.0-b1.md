@@ -1,6 +1,8 @@
 ---
 description: >-
   GridGain 8.10.0-b1 is a major release that raises the Java baseline to Java 17, consolidates optional modules and integrations, and extends vector search, thin clients, and Ignite 2 compatibility.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.10.0-b1 Release Notes

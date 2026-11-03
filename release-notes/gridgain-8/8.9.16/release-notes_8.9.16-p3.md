@@ -2,6 +2,8 @@
 description: >-
   GridGain 8.9.16-p3 is a patch release that fixes issues with checkpointing and
   improves partition eviction logging.
+hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.16-p3 Release Notes
