@@ -332,6 +332,10 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 - Khon Kaen University (Khon Kaen)
 - THZHost.com (Bangkok)
 
+### United Kingdom
+
+- Exascale (Wolverhampton)
+
 ### Ukraine
 
 - Distrohub (Kyiv)
