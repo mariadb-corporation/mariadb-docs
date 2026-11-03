@@ -26,14 +26,7 @@ Follow the link, fill out the fields on the page that opens, and click **Sign up
 You can change your password and profile data on the Profile page at any time. Click the user image in the top right corner and select **Profile**.
 {% endhint %}
 
-Control Center does not require a license to start, and you can attach a cluster right away. Control Center is licensed in one of two ways:
-
-* If the license of the attached cluster includes Control Center, no separate license is needed for that cluster.
-* Otherwise, upload a Control Center license. If necessary, get the license file from our sales team. Open **Admin** > **License**, click **Upload Control Center license**, and select the license file.
-
-If the selected cluster is not licensed for Control Center, a banner links administrators to the **License** page. See [Managing License](../admin-guide/license.md).
-
-Once Control Center is licensed, it is available for any user to work with.
+Once you sign up and log in to Control Center, you are prompted to provide a license. If necessary, get the license file from our sales team. Click **Upload license** and select the license file.
 
 ![](../../../.gitbook/assets/cc-getting-started-add_license.png)
 
