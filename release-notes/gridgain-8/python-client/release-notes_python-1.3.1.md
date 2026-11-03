@@ -25,8 +25,6 @@ with client.connect('127.0.0.1', 10800):
 
 Pygridgain now supports asyncio to provide asynchronous API. See https://docs.python.org/3/library/asyncio.html for details.
 
-See https://github.com/gridgain/python-thin-client/blob/master/examples/async_key_value.py and https://github.com/gridgain/python-thin-client/blob/master/examples/async_sql.py for detailed usage examples.
-
 ```python
 client = AioClient()
     async with client.connect('127.0.0.1', 10800):
