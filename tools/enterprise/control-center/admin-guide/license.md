@@ -38,7 +38,7 @@ When the license of the selected cluster includes Control Center, the page shows
 
 ![Licensed by cluster](../../../.gitbook/assets/cc-license-licensed-by-cluster.png)
 
-Control Center reports the cluster license expiration date as information. The date alone does not remove the Control Center license that the cluster provides, and a banner tells you when the cluster license is about to expire or has expired. To renew it, click **Update cluster license**.
+The cluster stops when its license expires. Control Center shows `Expired on` and the date, and a banner warns you before and after the expiration. To renew the license, click **Update cluster license**.
 
 ![Licensed by cluster, cluster license expired](../../../.gitbook/assets/cc-license-licensed-by-cluster-expired.png)
 
