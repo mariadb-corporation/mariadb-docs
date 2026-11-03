@@ -109,8 +109,8 @@ AI Retrieval limits request rates, document sizes, and concurrent ingestion for 
 
 * Syncs are manual. AI Retrieval does not sync a bucket on a schedule, so run a sync whenever you add files to the bucket.
 * You cannot change the embedding model after you create the knowledge base.
-* Follow-up questions in a session are not supported. Each request is answered on its own.
-* Scanned documents and images inside documents are not read. A scanned PDF is ingested with 0 chunks and no error.
+* Multi-turn queries are not supported. Each request is answered on its own.
+* Scanned documents and image documents are not supported yet.
 * If you restore the vector store service from a backup, or you change or delete its data directly, the knowledge base can fall out of step with the documents it lists. AI Retrieval does not detect this. Add the affected documents again to restore consistency.
 * If you remove a file from a bucket, AI Retrieval does not remove its document from the knowledge base. Delete the document in the knowledge base.
 * Deleting a knowledge base or a data source does not delete the chunks that it stored in the vector store service. Deleting a single document does delete its chunks.

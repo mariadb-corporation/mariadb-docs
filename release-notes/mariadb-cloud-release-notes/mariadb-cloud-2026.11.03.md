@@ -6,7 +6,7 @@ description: >-
 icon: rocket-launch
 ---
 
-<!-- DOCS-6592. Released 2026-11-03 (AI Service production rollout, Jeet in #sky-operations). Important Notes from Egor Ustinov, Slack DM 2026-10-29 17:04 India time. -->
+<!-- DOCS-6592. Released 2026-11-03 (AI Service production rollout, Jeet in #sky-operations). Important Notes from Egor Ustinov, Slack DM 2026-10-29 17:04 India time. Scanned-document and multi-turn limitations reworded per his DM of 2026-11-03 18:33 India time. -->
 
 # MariaDB Cloud 2026.11.03 Release Notes: AI Retrieval
 
@@ -45,11 +45,11 @@ For details, see [AI Retrieval](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/c
 ## Limitations
 
 * Document knowledge bases accept TXT, Markdown, HTML, JSON, Word (DOCX), PDF, and PowerPoint (PPTX) files of up to 50 MB.
-* Scanned PDFs are ingested with 0 chunks and no error. Images inside documents are skipped, and password-protected files are not supported.
+* Scanned documents and image documents are not supported yet.
 * Documents must be in English.
 * Bucket syncs are manual. AI Retrieval does not sync a bucket on a schedule.
 * You cannot change the embedding model of a document knowledge base after you create it.
-* Follow-up questions in a session are supported for database knowledge bases only.
+* Multi-turn queries are not supported for document knowledge bases.
 * The semantic map of a database knowledge base covers up to 100 tables in each database schema and up to 1,000 columns in each table. The rest are skipped.
 * Request rates, upload sessions, and concurrent ingestion are limited for each organization. See [Service Quotas](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/cloud-ai/ai-retrieval/service-quotas).
 
