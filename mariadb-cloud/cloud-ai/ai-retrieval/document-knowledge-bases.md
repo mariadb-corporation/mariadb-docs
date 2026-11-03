@@ -12,6 +12,10 @@ icon: file-lines
 
 A document knowledge base indexes files so that applications can retrieve passages or generated answers from them. This page shows how to create one, add documents, test it, and call it from an application.
 
+<figure><img src="../../.gitbook/assets/ai-retrieval-document-kb-diagram.png" alt="Documents from object storage or a direct upload are processed in the region of the knowledge base, using a MariaDB-hosted parser and an embedding model, and stored as chunks and embeddings in your MariaDB Cloud database. Clients retrieve chunks or generated answers through hybrid search, with a MariaDB-hosted reranker and a generation model."><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
+
+<!-- Diagram: "Unstructured RAG: Diagram" slide of Egor Ustinov's "Copy of 03 - AI - Training" deck, chosen by him for this page (call of 2026-10-29). Labels reworded to the docs terms (no structured/unstructured RAG), title and logo cropped. -->
+
 ## Create a Knowledge Base
 
 1. In the MariaDB Cloud portal, select **AI Retrieval**.
