@@ -60,15 +60,13 @@ To call the knowledge base from an application, see [Connect Your Application](d
 
 ## Create a Database Knowledge Base
 
-A database knowledge base reads the tables of a MariaDB service that already holds your data. To try it without your own data, use the Northwind demo database.
+A database knowledge base reads the tables of a MariaDB service that already holds your data.
 
 1. Select **AI Retrieval** in the navigation, and then **Create Knowledge Base**.
 2. For **Type**, select **Database Knowledge Base**.
 3. Enter a **Name**.
-4. Under **Datasource**, choose one:
-   * **Demo**: AI Retrieval uses the Northwind demo schema. Continue with step 6.
-   * **Existing service**: select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
-5. For an existing service, select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
+4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
+5. Select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
 6. Select **Create Knowledge Base**.
 7. AI Retrieval connects to the database and builds the semantic map automatically, from the tables that the user can see. You do not need to do anything. Wait until the knowledge base shows **Ready**.
 8. Select **Test**, and ask a question about your data.

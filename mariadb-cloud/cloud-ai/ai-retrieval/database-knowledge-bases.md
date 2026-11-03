@@ -11,7 +11,7 @@ icon: database
 
 A database knowledge base answers questions about the data in a MariaDB service. You ask a question in natural language. AI Retrieval turns it into an SQL query, checks that the query only reads data, runs it, and returns the rows. It can also write an answer from the rows.
 
-For a quick first run with the Northwind demo database, see [Quickstart](quickstart.md#create-a-database-knowledge-base).
+For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowledge-base).
 
 ## Before You Begin
 
@@ -23,14 +23,14 @@ For a quick first run with the Northwind demo database, see [Quickstart](quickst
 1. In the portal, select **AI Retrieval** in the navigation, and then **Create Knowledge Base**.
 2. For **Type**, select **Database Knowledge Base**.
 3. Enter a **Name**, and optionally a **Description**.
-4. Under **Datasource**, choose one:
-   * **Existing service**: select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
-   * **Demo**: AI Retrieval uses the Northwind demo schema. It is useful to try the features without your own data.
-5. For an existing service, select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
+4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
+5. Select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
 6. Optionally, expand **Advanced Options** and set these options:
    * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
    * **Golden Queries**: pairs of a question and its SQL query. AI Retrieval uses them as examples when it writes queries, so that it learns the terms and patterns of your data. Select **Add Example** to add a pair.
 7. Select **Create Knowledge Base**.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
 AI Retrieval connects to the database and synchronizes its schema. This usually takes a few minutes. If no database is connected within 15 minutes, the setup is marked as failed. When the knowledge base is ready, use **Test** to ask a question, or **Connect** to call it from your application.
 
@@ -55,6 +55,8 @@ Synchronize the schema again after you change the tables of the database. Some c
 ## Customize the Semantic Map
 
 Customize the semantic map only when you want to change what AI Retrieval uses, for example to correct a description or to keep a table out of every query.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
 
 ### Choose How Each Table Is Used
 
@@ -99,7 +101,9 @@ The results show the **Generated SQL** and the rows that it returned. If more ro
 | **SQL Limit** | The maximum number of rows that the generated query returns. |
 | **Multi Turn** | Keeps the conversation history across questions, so that a follow-up question builds on the earlier ones. It is on by default. |
 
-<!-- TODO: confirm the tab names of the Test drawer for a database knowledge base and add a screenshot after the production flip. -->
+The Test drawer has two tabs, **Retrieve** and **Retrieve & Generate**.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
 
 ## Query a Database Knowledge Base with the API
 
