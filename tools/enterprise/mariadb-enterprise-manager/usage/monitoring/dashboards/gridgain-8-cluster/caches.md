@@ -2,7 +2,6 @@
 description: >-
   The GridGain 8 Caches dashboard in Enterprise Manager: per-cache throughput,
   size, transactions, latency, and hit and rollback ratios.
-hidden: true
 ---
 
 # Caches

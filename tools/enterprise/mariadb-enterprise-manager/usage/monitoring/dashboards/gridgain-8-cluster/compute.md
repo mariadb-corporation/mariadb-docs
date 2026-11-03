@@ -2,7 +2,6 @@
 description: >-
   The GridGain 8 Compute dashboard in Enterprise Manager: compute job states
   and timings, CPU and heap, and the thread pool that runs compute jobs.
-hidden: true
 ---
 
 # Compute

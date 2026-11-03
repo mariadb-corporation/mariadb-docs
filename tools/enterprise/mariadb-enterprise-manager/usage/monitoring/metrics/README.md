@@ -41,9 +41,7 @@ Every GridGain 8 series carries two labels:
 
 Metric names are the GridGain metric names with dots replaced by underscores. For example, `sys.CpuLoad` is stored as `sys_CpuLoad`. Cache, cache group, data region, thread pool, and data center names are part of the metric name rather than labels. For example, `io.dataregion.default.OffHeapSize` is stored as `io_dataregion_default_OffHeapSize`.
 
-<!-- DOCS-6280 TODO: link the GridGain 8 metrics reference once the GridGain docs are migrated into mariadb-docs. -->
-
-For the list of GridGain 8 metrics and their meaning, see the GridGain 8 metrics documentation.
+For the list of GridGain 8 metrics and their meaning, see [Generic Metrics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/generic-metrics) in the GridGain 8 documentation.
 
 ## Node Metrics
 
