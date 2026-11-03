@@ -1,0 +1,281 @@
+---
+description: >-
+  Query Accelerator (Alpha, ColumnStore 25.10.0 + ES 11.8.3+) lets MariaDB
+  ColumnStore execute aggregation queries on InnoDB tables in parallel using
+  engine-independent statistics.
+---
+
+# Query Accelerator
+
+{% hint style="warning" %}
+MariaDB Query Accelerator is an **Alpha release**. Do not use it in production environments.\
+Query Accelerator works only in **ColumnStore 25.10.0** and with **MariaDB Enterprise Server 11.8.3+**.
+{% endhint %}
+
+## What is Query Accelerator
+
+Query Accelerator allows MariaDB to use ColumnStore to execute queries that are otherwise executed by InnoDB. Under the hood, ColumnStore:
+
+* receives a query;
+* searches for applicable Engine Independent statistics for InnoDB table index column;
+* applies RBO[^1] rule to transform its InnoDB tables into a number of `UNION` queries over non-overlapping ranges of a suitable InnoDB table index;
+* retrieves the data in parallel from MariaDB, and runs it using ColumnStore runtime.
+
+## Queries Benefitting From Query Accelerator
+
+Query Accelerator improves the performance of queries that use aggregation functions, for instance `SUM`, `AVG`, `MIN`, `MAX`, and `GROUP BY`, where the performance overhead of pulling the data out of InnoDB can be overcome by the performance optimization of running in the ColumnStore engine.
+
+This avoids the bottleneck/pipeline of having to move data out of InnoDB and into ColumnStore. Query Accelerator strives to parallelize data out of InnoDB, by utilizing table statistics to optimize multiple threads to data ranges on disk. If the InnoDB table in question uses an index, Query Accelerator is able to get the data much faster.
+
+Example of a query benefitting from Query Accelerator (assuming `column_a` is indexed):
+
+```sql
+SELECT column_a, SUM(column_b) FROM innodb_table GROUP BY column_a
+```
+
+The effectiveness of Query Accelerator can vary depending on the type of queries you run and the specific characteristics of your database schema. Certain types of queries or configurations may not benefit from Query Accelerator, or could potentially experience decreased performance. It's essential to understand when Query Accelerator is most advantageous and when traditional InnoDB operations might be more efficient. Consider the following points to optimize query performance with Query Accelerator:
+
+* Make sure your query uses tables that are indexed, and the index key has the first integer column.
+* Also, run `ANALYZE TABLE` before running Query Accelerator.
+
+## Queries not to run in Query Accelerator
+
+### Performance Issues
+
+Performance issues occur for queries like this:
+
+```sql
+ SELECT column_a FROM tbl WHERE column_a = column_b
+```
+
+InnoDB handles such comparison much better than ColumnStore in general, and in Query Accelerator, that would be even worse.
+
+* Generally, if your query takes longer than a minute in InnoDB, try Query Accelerator.
+
+### Queries not Working in Query Accelerator
+
+Query Accelerator has the same limitations as ColumnStore in general, in that it has a limited set of [functions](../reference/columnstore-distributed-functions.md) and [data types](../reference/columnstore-data-types.md) it can handle. Therefore, be aware of
+
+* syntax or functions that ColumnStore does not support;
+* data types ColumnStore does not support.
+
+## Enabling Query Accelerator
+
+{% stepper %}
+{% step %}
+**Edit the MariaDB configuration file (my.cnf or my.ini)**
+
+Locate (or create) the mariadb section, and add a line enabling Query Accelerator, like this:
+
+```ini
+[mariadb]
+loose-columnstore_innodb_queries_use_mcs = on
+```
+
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
+
+Restart MariaDB Server for the change to take effect.
+{% endstep %}
+
+{% step %}
+**Enable Query Accelerator in a client session**
+
+Use the routines in the `queryacc` schema to enable and disable Query Accelerator. These are automatically created during ColumnStore installation.
+
+```sql
+-- Enable Query Accelerator and save previous settings
+SET @old_settings = queryacc.enable_queryacc();
+
+-- Run your queries
+SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip;
+
+-- Disable and restore previous settings
+CALL queryacc.disable_queryacc(@old_settings);
+```
+
+To run a single query with Query Accelerator without manually managing enable/disable:
+
+```sql
+CALL queryacc.with_queryacc('SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip');
+```
+
+{% hint style="warning" %}
+Do not leave Query Accelerator enabled for an entire session. It changes `optimizer_switch` settings that effectively disable the MariaDB Optimizer for queries that ColumnStore cannot execute. Always call `disable_queryacc()` after your queries, or use `with_queryacc()` which handles this automatically.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+## Enabling Processing for InnoDB Tables
+
+There must be engine-independent statistics for an InnoDB table index column so that it can be used for Query Accelerator.
+
+```sql
+ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (column_name) indexes();
+```
+
+## Control Client Session Variables and Parameters
+
+* `columnstore_unstable_optimizer`\
+  \
+  enables unstable optimizer that is required for Query Accelerator RBO[^1] rule.
+* `columnstore_select_handler`
+  enables/disables ColumnStore processing for InnoDB tables.
+* `columnstore_query_accel_parallel_factor`
+  controls the number of parallel ranges to be used for Query Accelerator.
+
+{% hint style="warning" %}
+Watch out for `max_connections`. If you set `columnstore_query_accel_parallel_factor` to a high value, you may need to increase `max_connections` to avoid connection pool exhaustion.
+{% endhint %}
+
+{% hint style="info" %}
+`enable_queryacc()` sets `columnstore_query_accel_parallel_factor` to 5 by default. To use a different value, set it manually after calling `enable_queryacc()`.
+{% endhint %}
+
+## Verifying That Query Accelerator is Being Used
+
+There are two ways to verify Query Accelerator is being used:
+
+1. Use `select mcs_get_plan('rules')` to get a list of the rules that were applied to the query.
+2. Look for patterns like `derived table - $added_sub_#db_name_#table_name_X` in the optimized plan using `select mcs_get_plan('optimized')`.
+
+## Query Accelerator Quick Start
+
+This example shows a `SUM(x) GROUP BY y` query which runs \~2.6s in InnoDB with indexes, and 3x faster via ColumnStore query acceleration ( \~0.7s ), provided there's enough CPU and a high enough `parallel_factor`.
+
+{% stepper %}
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+CREATE DATABASE IF NOT EXISTS test; USE test;
+CREATE TABLE IF NOT EXISTS test.customer_indexed (  `c_d_id` int(2) NOT NULL, `c_w_id` int(6) NOT NULL, `c_first` varchar(16) , `c_middle` char(2) , `c_last` varchar(16) , `c_street_1` varchar(20) , `c_street_2` varchar(20) , `c_city` varchar(20) , `c_state` char(2) , `c_zip` int(5) , `c_phone` char(16) , `c_since` datetime DEFAULT NULL, `c_credit` char(2) , `c_credit_lim` decimal(12,2) DEFAULT NULL, `c_discount` decimal(4,4) DEFAULT NULL, `c_balance` decimal(12,2) DEFAULT NULL, `c_ytd_payment` decimal(12,2) DEFAULT NULL, `c_payment_cnt` int(8) DEFAULT NULL, `c_delivery_cnt` int(8) DEFAULT NULL, `c_data` varchar(500)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO test.customer_indexed  SELECT  ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()),1,2), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()),1,2), ROUND(RAND() * 42000, 0), substring(MD5(RAND()),1,16), CURRENT_TIMESTAMP - INTERVAL FLOOR(RAND() * 365 * 24 * 60 *60) SECOND, substring(MD5(RAND()),1,2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 0, 4), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,500) FROM seq_1_to_8000000; -- 3.5 min
+ALTER TABLE test.customer_indexed ADD INDEX idx_fast (`c_zip`, `c_payment_cnt`); -- ~1.5 min
+-- baseline
+SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;  --2.6s
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Turn on Query Accelerator - On CLI:
+
+{% code overflow="wrap" %}
+```bash
+sed -i 's/^\s*loose-columnstore_innodb_queries_use_mcs\s*=.*/loose-columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
+systemctl restart mariadb
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+# In mariadb (MariaDB command-line client)
+USE test;
+ANALYZE table test.customer_indexed PERSISTENT FOR COLUMNS (c_zip,c_payment_cnt) indexes(); --8s
+SELECT table_name, column_name, hist_type FROM mysql.column_stats WHERE table_name="customer_indexed";
+SHOW VARIABLES LIKE "%columnstore_innodb_queries_use_mcs%";
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Log out of mariadb (MariaDB command-line client), and log in again.
+
+
+{% endstep %}
+
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+SET @old_settings = queryacc.enable_queryacc();
+SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ; -- 0.7s
+CALL queryacc.disable_queryacc(@old_settings);
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Turn off Query Accelerator - On CLI:
+
+{% code overflow="wrap" %}
+```bash
+sed -i 's/^\s*loose-columnstore_innodb_queries_use_mcs\s*=.*/loose-columnstore_innodb_queries_use_mcs = off/' /etc/my.cnf.d/columnstore.cnf
+systemctl restart mariadb
+```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
+
+## Quick Verifications
+
+{% stepper %}
+{% step %}
+Tail the ColumnStore log `debug.log`, and confirm parallel access to InnoDB:
+
+```bash
+tail -f /var/log/mariadb/columnstore/debug.log
+```
+
+Increase or decrease parallelism with `columnstore_ces_optimization_parallel_factor`. Keep in mind you need enough max\_connections in MariaDB server:
+
+```sql
+SET columnstore_ces_optimization_parallel_factor=100;
+```
+{% endstep %}
+
+{% step %}
+Check the execution plan via `EXPLAIN FORMAT=JSON`. It should say <kbd>Pushed select</kbd>:
+
+{% code overflow="wrap" %}
+```sql
+EXPLAIN FORMAT=JSON SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;
+...
+| {
+  "query_block": {
+    "select_id": 1,
+    "table": {
+      "message": "Pushed select"
+    }
+  }
+} |
+...
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Verify that `mcs_get_plan` shows `parallel_ces`, and that the detailed ColumnStore execution plan shows <kbd>derived table</kbd>:
+
+```sql
+SELECT mcs_get_plan('rules');
++-----------------------+
+| mcs_get_plan('rules') |
++-----------------------+
+| parallel_ces          |
++-----------------------+
+
+SELECT mcs_get_plan('optimized');
++-----------------------+
+| mcs_get_plan('rules') |
++-----------------------+
+...
+>>From Tables
+  derived table - $added_sub_test_customer_indexed_0
+```
+{% endstep %}
+{% endstepper %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
+
+[^1]: Rule-based optimizer
