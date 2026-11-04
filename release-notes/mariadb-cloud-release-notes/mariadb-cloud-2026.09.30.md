@@ -27,6 +27,6 @@ Availability and behavior:
 * Selecting a version other than the default requires a paid plan. On a trial with no payment method on file — including the Free Developer Tier database — the version picker offers the default version only.
 * MariaDB Community Server versions are available on all service tiers. MariaDB Enterprise Server versions are available on the **Power** and **PowerPlus** tiers, in addition to the default Community version.
 
-For details, see [MariaDB Cloud Serverless](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/readme/serverless) and [MariaDB Server Version Support](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/reference/mariadb-server-versions).
+For details, see [MariaDB Cloud Serverless](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/serverless) and [MariaDB Server Version Support](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/reference/mariadb-server-versions).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
