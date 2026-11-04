@@ -25,10 +25,13 @@ For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowle
 3. Enter a **Name**, and optionally a **Description**.
 4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
 5. Select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
-6. Optionally, expand **Advanced Options** and set these options:
+6. Under **Tables**, check the tables that the knowledge base can use. All tables of the schema are included at first. Clear the check box of a table to leave it out, or expand a table to leave out some of its columns. **Exclude all tables** and **Include all tables** change every table at once. Keep at least one table and one of its columns.
+7. Optionally, expand **Advanced Options** and set these options:
    * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
-   * **Golden Queries**: pairs of a question and its SQL query. AI Retrieval uses them as examples when it writes queries, so that it learns the terms and patterns of your data. Select **Add Example** to add a pair.
-7. Select **Create Knowledge Base**.
+   * **Custom Instructions**: business terminology, domain context, and query conventions that AI Retrieval follows when it writes queries. For example: "revenue" always means net revenue after refunds, and test accounts are always filtered out.
+8. Select **Create Knowledge Base**.
+
+A column that you leave out is not described to the model, but the database user can still read it. Grant the user only the columns that the knowledge base should reach.
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
