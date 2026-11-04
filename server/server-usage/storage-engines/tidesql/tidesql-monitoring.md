@@ -79,3 +79,5 @@ Errors raised inside a statement are counted by cause instead:
 The last three reach the client as a lock wait timeout (1205). A rising `Tidesdb_stmt_conflicts` or `Tidesdb_commit_conflicts` is real contention between transactions, while a rising `Tidesdb_stmt_locked` or `Tidesdb_stmt_memory_limit` points at the engine falling behind rather than at the workload.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

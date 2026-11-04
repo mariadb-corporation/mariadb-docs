@@ -48,3 +48,5 @@ Describes the process of heuristic recovery using the TC log to resolve "in-doub
 {% endcolumns %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

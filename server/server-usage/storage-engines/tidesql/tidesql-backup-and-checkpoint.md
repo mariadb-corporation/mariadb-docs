@@ -43,3 +43,5 @@ The difference from a backup is the barrier on the live database, most notably t
 The engine accepts `FLUSH TABLES ... FOR EXPORT`, which takes a server-level table lock that blocks writes to the table until `UNLOCK TABLES`. The engine does nothing further for it. It does not flush the memtable, and the library's background flush and compaction keep rewriting files under the data directory while the lock is held, so copying column family directories under this lock does not produce a consistent copy.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
