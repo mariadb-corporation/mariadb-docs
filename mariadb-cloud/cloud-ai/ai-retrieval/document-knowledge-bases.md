@@ -264,3 +264,5 @@ A document can stay in **Queued** or **Retrying** for a long time. The warning i
 Scanned documents are not supported yet. A PDF that contains only images of pages is ingested with 0 chunks, and no error is shown. Use a PDF that contains selectable text. Images inside documents are skipped.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

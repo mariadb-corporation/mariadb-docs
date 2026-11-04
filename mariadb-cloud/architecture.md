@@ -391,3 +391,5 @@ MariaDB Cloud is evaluating distributed storage solutions:
 This architecture enables MariaDB Cloud Serverless to provide true serverless capabilities while maintaining the performance, reliability, and compatibility that enterprises require.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
