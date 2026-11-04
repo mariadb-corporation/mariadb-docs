@@ -23,3 +23,7 @@ Raft Cluster ships with MariaDB Enterprise Server 12.3. Raft Cluster 1.0.0 is th
 * [Raft System Variables](raft-system-variables.md): the system variables for heartbeats, elections, the Raft log, flow control, and TLS.
 * [A CA for One Raft Cluster](raft-cluster-ca.md): set up a private certificate authority for the node certificates, and revoke, replace, and rotate them.
 * [MariaDB Raft Cluster: Team FAQ & Architectural Guide](mariadb-raft-cluster-team-faq-and-architectural-guide.md): how Raft Cluster compares with Galera Cluster and MariaDB Enterprise Cluster, and when to choose it.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
