@@ -24,3 +24,7 @@ MariaDB Shell includes an MCP server, and the MariaDB AI plugins start it for co
 ## Open-Source MariaDB MCP Server
 
 The [`MariaDB/mcp`](https://github.com/MariaDB/mcp) project on GitHub is an open-source MCP server that you host yourself. Its repository has the source and the setup steps.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
