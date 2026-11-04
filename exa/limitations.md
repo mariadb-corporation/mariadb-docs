@@ -423,3 +423,7 @@ Errors you may see when running queries through MariaDB Exa, with their causes a
 | `single-row subquery returns more than one row`            | `LIMIT` in a correlated subquery that matches more than one row.                       | Use an aggregate such as `MIN()`. See [LIMIT in a Correlated Subquery](limitations.md#limit-in-a-correlated-subquery).                                               |
 | `object ... not found`                                     | The table name is unqualified and no default database is set.                          | Run `USE <database>;` or qualify the table name. See [Default Database](limitations.md#default-database).                                                            |
 | `Feature not supported: distinct predicate`                | The `<=>` operator.                                                                    | Rewrite the comparison, for example as `(a = b OR (a IS NULL AND b IS NULL))`.                                                                                       |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

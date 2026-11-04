@@ -171,3 +171,5 @@ Exasol treats an empty string (`''`) as a `NULL` value.
 * Mathematical Edge Cases: Operations such as `ATAN2(0,0)` return `0` in MariaDB but trigger a runtime exception in Exasol, causing the query to fail.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
