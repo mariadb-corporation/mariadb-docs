@@ -121,3 +121,5 @@ MariaDB Cloud Serverless is designed to handle diverse workload types:
 4. [**Monitor Performance**](cloud-management/observability.md) - Use built-in monitoring tools
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

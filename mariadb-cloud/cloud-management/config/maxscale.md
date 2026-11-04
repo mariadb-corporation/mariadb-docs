@@ -31,3 +31,5 @@ MariaDB Cloud Intelligent Proxy represents an optimized iteration of MariaDB Max
 | [use\_sql\_variables\_in](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-routers/maxscale-readwritesplit#use_sql_variables_in)                                                                                                | all                        |
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

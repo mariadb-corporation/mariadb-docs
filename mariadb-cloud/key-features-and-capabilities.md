@@ -68,3 +68,5 @@ For [MariaDB Enterprise Cluster](quickstart/enterprise-cluster.md), MaxScale is 
 For more detailed information, you can refer to this [blog post](https://skysql.com/2024/03/12/optimizing-database-resilience-and-cost-a-deep-dive-into-skysqls-unique-features/).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
