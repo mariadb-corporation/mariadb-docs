@@ -304,13 +304,6 @@ If [log\_warnings](../../ha-and-performance/optimization-and-tuning/system-varia
   'user2' host: '192.168.1.50' (KILLED)
 ```
 
-* Messages related to all closed connections:
-
-```
-[Warning] Aborted connection 56 to db: 'db1' user: 
-  'user2' host: '192.168.1.50' (CLOSE_CONNECTION)
-```
-
 * Messages related to released connections, such as when a transaction is committed and [completion\_type](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#completion_type) is set to `RELEASE`:
 
 ```
