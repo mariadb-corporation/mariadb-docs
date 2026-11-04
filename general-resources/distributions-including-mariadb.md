@@ -60,7 +60,7 @@ The term "default" in the list below refers to the distribution's default relati
 * [Springdale Linux](https://springdale.math.ias.edu/) —Defaulted to [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) in 7.2, 8.1 includes [MariaDB 10.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
 * [SuliX](https://distrowatch.com/table.php?distribution=sulix) — Defaults to [MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) in 8.
 * [SUSE Linux Enterprise](https://www.suse.com) — [MariaDB 10.6](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) is the default relational database option on 15-SP6
-* [Ubuntu](https://wiki.ubuntu.com/Releases/) —[MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) was included in Trusty Tahr 14.04. 22.04 [includes MariaDB 10.6](https://packages.ubuntu.com/jammy/database), and 24.04 [includes 10.11](https://packages.ubuntu.com/noble/database/).
+* [Ubuntu](https://wiki.ubuntu.com/Releases) —[MariaDB 5.5](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) was included in Trusty Tahr 14.04. 22.04 [includes MariaDB 10.6](https://packages.ubuntu.com/jammy/database), and 24.04 [includes 10.11](https://packages.ubuntu.com/noble/database/).
 * [Void](https://www.voidlinux.eu/) — [Includes MariaDB 10.5 in current](https://voidlinux.org/packages/)
 * [Wifislax](https://www.wifislax.com/) — Defaulted to [MariaDB 10.0](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) in 4.11.1
 
@@ -80,3 +80,5 @@ The term "default" in the list below refers to the distribution's default relati
 CC BY-SA / Gnu FDL
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}
