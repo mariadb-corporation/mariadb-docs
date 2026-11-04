@@ -17,7 +17,7 @@ This can also be done via the [Java API](../../gridgain9-development/tables-from
 {% endhint %}
 
 ```bnf
-CREATE ZONE [ IF NOT EXISTS ] qualified_zone_name
+CREATE ZONE [ IF NOT EXISTS ] zone_name
   [ ( zone_parameter [, zone_parameter]... ) ]
   STORAGE PROFILES [storage_profile [, storage_profile]...] ;
 ```
@@ -25,7 +25,7 @@ CREATE ZONE [ IF NOT EXISTS ] qualified_zone_name
 <!-- Diagram(
 Terminal("CREATE ZONE"),
 Optional(Terminal("IF NOT EXISTS")),
-NonTerminal("qualified_zone_name", { href: "./grammar-reference/#qualified-zone-name" }),
+NonTerminal("zone_name"),
 Optional(
 Sequence(
 Terminal("("),
@@ -54,7 +54,7 @@ Terminal(";")
 **Keywords and parameters**
 
 * `IF NOT EXISTS` - create a zone only if a different zone with the same name does not exist.
-* `qualified_zone_name` - a name of the distribution zone. Can be specified as a case-sensitive string or case-insensitive identifier. Does not need to exist at the moment of table creation, and can be created before writing data.
+* `zone_name` - a name of the distribution zone. Can be specified as a case-insensitive identifier or a case-sensitive quoted identifier. Zones are not schema-scoped, so the name must be a simple identifier: a compound (schema-qualified) name such as `a.b.c` is rejected with a parse error. Does not need to exist at the moment of table creation, and can be created before writing data.
 * `STORAGE PROFILES` - Required. Comma-separated list of the profiles of the storage engines to use.
 * `PARTITIONS` - the number of partition the data is divided into. Partitions are then split between nodes for storage.
 * `REPLICAS` - the number of copies of each partition.
@@ -127,26 +127,26 @@ It's also possible to combine multiple attribute-related expressions in one filt
 
 Modifies a distribution zone.
 
-### ALTER ZONE RENAME TO new_qualified_zone_name
+### ALTER ZONE RENAME TO new_zone_name
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name RENAME TO new_qualified_zone_name
+ALTER ZONE [ IF EXISTS ] zone_name RENAME TO new_zone_name
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Terminal('RENAME TO'),
-NonTerminal('new_qualified_zone_name'),
+NonTerminal('new_zone_name'),
 ) -->
 
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - the current name of the distribution zone.
+* `zone_name` - the current name of the distribution zone. Must be a simple identifier.
 * `RENAME TO` - renames the selected zone to the new name.
-* `new_qualified_zone_name` - the new name of the distribution zone (assigned by `RENAME`).
+* `new_zone_name` - the new name of the distribution zone (assigned by `RENAME`). Must be a simple identifier.
 
 **Examples**
 
@@ -159,14 +159,14 @@ ALTER ZONE IF EXISTS exampleZone RENAME TO renamedZone;
 ### ALTER ZONE SET
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name
+ALTER ZONE [ IF EXISTS ] zone_name
   { SET [(] parameter [, parameter]... [)] | SET parameter }
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Choice(0,
 Sequence(
 Terminal('SET'),
@@ -186,7 +186,7 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - a name of the distribution zone.
+* `zone_name` - a name of the distribution zone. Must be a simple identifier.
 * `SET` - assigns values to any or all of the following parameters:
   - `PARTITIONS` - the number of partitions.
   - `REPLICAS` - the number of copies of each partition.
@@ -225,13 +225,13 @@ NonTerminal('parameter', {href:'./grammar-reference/#parameter'})
 Sets the zone as the default zone to use if no other zone is specified.
 
 ```bnf
-ALTER ZONE [ IF EXISTS ] qualified_zone_name SET DEFAULT
+ALTER ZONE [ IF EXISTS ] zone_name SET DEFAULT
 ```
 
 <!-- Diagram(
 Terminal('ALTER ZONE'),
 Optional(Terminal('IF EXISTS')),
-NonTerminal('qualified_zone_name'),
+NonTerminal('zone_name'),
 Sequence(
 Terminal('SET'),
 Terminal('DEFAULT')
@@ -255,19 +255,19 @@ This can also be done via the [Java API](../../gridgain9-development/tables-from
 {% endhint %}
 
 ```bnf
-DROP ZONE IF EXISTS qualified_zone_name
+DROP ZONE IF EXISTS zone_name
 ```
 
 <!-- Diagram(
 Terminal('DROP ZONE'),
 Terminal('IF EXISTS'),
-NonTerminal('qualified_zone_name')
+NonTerminal('zone_name')
 ) -->
 
 **Keywords and parameters**
 
 * `IF EXISTS` - do not throw an error if a zone with the specified name does not exist.
-* `qualified_zone_name` - the name of the distribution zone.
+* `zone_name` - the name of the distribution zone. Must be a simple identifier.
 
 **Examples**
 
