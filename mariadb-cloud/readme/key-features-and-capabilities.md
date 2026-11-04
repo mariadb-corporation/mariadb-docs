@@ -17,11 +17,11 @@ icon: clouds
 * **Flexible Consistency:** Offers both causal and strong global consistency models.
 * **Custom Query Routing:** Allows fine-tuned performance optimization through customizable routing rules.
 
-### Integrated AI Agents
+### AI Services
 
-* **Semi Autonomous Agent Builder:** Create domain specific AI agents to ask questions of your data with human in the loop validation via UI interface
-* **App Integration:** Embed conversational interfaces into your apps with the associated agent REST API endpoints
-* **Built-in Developer and DBA Copilot Agents:** Improves productivity with general MariaDB Cloud questions, query performance tuning, and troubleshooting guidance.
+* **AI Retrieval (Public Preview):** Ask questions about your documents or your MariaDB databases in natural language, and call the knowledge base from your applications through a REST API. A document knowledge base returns passages or generated answers from your files, and a database knowledge base turns a question into SQL and returns the rows. See [AI Retrieval](../cloud-ai/ai-retrieval/).
+* **Built-in AI Agents:** The Developer Agent, the Data Agent, and the DBA Agent help with general MariaDB Cloud questions, querying your data, query performance tuning, and troubleshooting guidance.
+* **MariaDB Cloud MCP Server:** Connects AI-enabled development tools to your MariaDB Cloud databases. See [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md).
 
 ### Global Multi-Cloud Presence
 

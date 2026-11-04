@@ -28,7 +28,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Feature            | Foundation                                | Power                                     | PowerPlus                                                  |
 | ------------------ | ----------------------------------------- | ----------------------------------------- | ----------------------------------------------------------- |
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
-| AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
+| AI                 | AI Retrieval, AI Agents                   | AI Retrieval, AI Agents                   | AI Retrieval, AI Agents                                     |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
 | HTAP (MariaDB Exa) | Not available                             | Available on request (private preview)    | Available on request (private preview)                      |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
