@@ -179,7 +179,8 @@ eleven, so about 590 links into ColumnStore, GridGain, Raft Cluster, Exa and AI
 Tools were dropped, and the ColumnStore entry carried an ID that matched no
 space. Take new IDs from the `{alias}` table in `expand-gitbook-aliases.yml`.
 A space's site path is usually its directory name; the GridGain spaces are the
-exception, published under `/docs/gridgain/gridgain-8/…` (`SITE_PATHS`).
+exception, published under `/docs/gridgain/gridgain-8/…`, and Get Started is
+the site root (`SITE_PATHS`).
 
 This is checked twice, because the failure is invisible in a 6,000-page PDF —
 the link looks fine until someone clicks it. `build.py` warns if any editor URL
