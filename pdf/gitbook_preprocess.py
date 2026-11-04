@@ -512,7 +512,6 @@ GITBOOK_SPACE_IDS = {
     "WCInJQ9cmGjq1lsTG91E": "general-resources",
     "3VYeeVGUV4AMqrA3zwy7": "galera-cluster",
     "0pSbu5DcMSW4KwAkUcmX": "maxscale",
-    "rBEU9juWLfTDcdwF3Q14": "analytics",
     "kuTXWg0NDbRx6XUeYpGD": "tools",
     "JqgUabdZsoY5EiaJmqgn": "platform",
     "vPz15Lz0Iw3P3yKR3Prd": "mariadb-cloud",
@@ -531,9 +530,6 @@ GITBOOK_SPACE_IDS = {
     "y3YOhOKd2kxEEm0gLKs4": "ai-tools",
     # Get Started is the site root since the 2026-11-03 revamp (SITE_PATHS).
     "1H8tuThi64HJmOJHG6nV": "get-started",
-    # The site redirects `/docs/home` to `/docs/`; nothing links to it.
-    # Drop this entry and "analytics" above when those folders are retired.
-    "gmXC0YXB3rRhXvpg5mb1": "home",
 }
 
 # Spaces whose site path is not their directory name. The GridGain spaces are

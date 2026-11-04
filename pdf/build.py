@@ -48,13 +48,11 @@ SPACE_TITLES = {
     "maxscale": "MariaDB MaxScale",
     "platform": "MariaDB Enterprise Platform",
     "connectors": "MariaDB Connectors",
-    "analytics": "MariaDB Analytics",
     "columnstore": "MariaDB ColumnStore",
     "tools": "MariaDB Tools",
     "mariadb-cloud": "MariaDB Cloud",
     "general-resources": "MariaDB General Resources",
     "galera-cluster": "MariaDB Galera Cluster",
-    "home": "MariaDB Documentation",
     "gridgain-8": "GridGain 8",
     "gridgain-9": "GridGain 9",
     "raft-cluster": "MariaDB Raft Cluster",
@@ -67,12 +65,13 @@ SPACE_TITLES = {
 #
 # Left out on purpose (DOCS-7043): `get-started` and the `gridgain` hub are
 # navigation pages whose entries point into other spaces, so offline they would
-# be a PDF of links to other PDFs; and `home` is no longer published -- since
-# the 2026-11-03 revamp, Get Started is the site root. The download table moved
-# to general-resources/about/readme/offline-downloads.md.
+# be a PDF of links to other PDFs. The download table is on
+# general-resources/about/readme/offline-downloads.md. The Analytics and Home
+# spaces were retired in DOCS-7062: ColumnStore and Exa have their own spaces,
+# and Get Started is the site root.
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
-    "analytics", "columnstore", "tools", "mariadb-cloud", "general-resources",
+    "columnstore", "tools", "mariadb-cloud", "general-resources",
     "galera-cluster", "gridgain-8", "gridgain-9", "raft-cluster",
     "exa", "ai-tools",
 ]

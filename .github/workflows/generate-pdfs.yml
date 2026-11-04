@@ -3,7 +3,7 @@ name: Generate documentation PDFs
 # Builds one PDF per GitBook space and attaches them to a GitHub Release.
 #
 # Snapshot-based (DOCS-5710), never per-push: a full run produces ~450 MB across
-# 16 files. Two ways in:
+# 15 files. Two ways in:
 #
 #   * monthly cron, so a dated snapshot exists even in a month nobody cuts one;
 #   * manual dispatch, to re-cut after a Server release lands.

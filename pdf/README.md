@@ -52,14 +52,12 @@ near-identical release. Pass an explicit `tag` to keep a snapshot separate.
 | `general-resources` | 121 | ~230 |
 | `raft-cluster` | 5 | ~50 |
 | `exa` | 7 | ~30 |
-| `analytics` | 8 | ~30 |
 | `ai-tools` | 2 | ~6 |
 
-Three spaces get no PDF: `get-started` and the `gridgain` hub are
-navigation pages whose entries point into other spaces, and `home` is no
-longer published (Get Started is the site root since the 2026-11-03 revamp). `analytics` and `exa`
-overlap: since ColumnStore moved to its own space (DOCS-7056), `analytics`
-holds only the Exa pages, which the `exa` space also publishes.
+Two spaces get no PDF: `get-started` and the `gridgain` hub are navigation
+pages whose entries point into other spaces. The Analytics and Home spaces were
+retired in DOCS-7062; their content lives on in the `columnstore`, `exa` and
+`get-started` spaces.
 
 There is deliberately **no combined all-spaces PDF**: concatenating every space
 produces roughly 16,000 pages, which no reader handles usefully, and three
