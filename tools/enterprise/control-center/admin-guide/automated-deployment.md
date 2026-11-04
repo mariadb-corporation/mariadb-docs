@@ -15,7 +15,7 @@ With automated deployment, you can programmatically manage:
 
 - **Users** - Create and update user accounts with profiles and admin privileges
 - **Teams** - Create teams and manage team membership
-- **Clusters** - Attach GridGain 9 or Apache Ignite 3 clusters and configure sharing with teams or users
+- **Clusters** - Attach GridGain 9 clusters and configure sharing with teams or users
 - **Notification Channels** - Set up EMAIL, SMS, WEBHOOK, and IN_APP notification endpoints
 - **Alert Configurations** - Define metric-based alerts with thresholds and notification routing
 
