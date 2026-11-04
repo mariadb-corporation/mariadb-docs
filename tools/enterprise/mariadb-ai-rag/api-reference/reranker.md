@@ -191,3 +191,5 @@ You can also use built-in presets through `RERANKING_PRESET`.
 * For fully managed cloud reranking, use `RERANKING_MODEL_TYPE=cohere` and provide `RERANKING_API_KEY`.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -33,3 +33,5 @@ MariaDB Shell is an interactive client for MariaDB Server with SQL and Python mo
 {% endcontent-ref %}
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
