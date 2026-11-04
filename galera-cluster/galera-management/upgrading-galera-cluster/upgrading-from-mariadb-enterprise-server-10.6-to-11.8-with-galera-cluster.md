@@ -185,7 +185,7 @@ SHOW GLOBAL STATUS WHERE Variable_name IN
 * `wsrep_cluster_status` is `Primary` and `wsrep_local_state_comment` is `Synced`.
 * [`wsrep_provider_version`](../../reference/galera-cluster-status-variables.md#wsrep_provider_version) is consistent across all nodes.
 
-For general cluster health and quorum checks, see [What is MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-guide.md).
+For general cluster health and quorum checks, see [What is MariaDB Galera Cluster](../../mariadb-galera-cluster-guide.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -287,7 +287,7 @@ SET GLOBAL wsrep_provider_options="pc.bootstrap=YES";
 The node bootstraps the Primary Component onto itself. Other nodes in the cluster with network connectivity then submit state transfer requests to this node to bring their local databases into sync with what's available on this node.
 
 {% hint style="info" %}
-If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
 {% endhint %}
 
 ### State Transfers
@@ -389,7 +389,7 @@ For data-in-transit, MariaDB Enterprise Cluster supports encryption the same as 
 
 ### Data-in-Transit Encryption
 
-MariaDB Enterprise Server 10.6 encrypts Galera replication and SST traffic using the server's TLS configuration by default. With the `wsrep_ssl_mode` system variable, you can configure the node to use the TLS configuration of [wsrep Provider options](../reference/wsrep-variable-details/wsrep_provider_options.md).
+MariaDB Enterprise Server 10.6 encrypts Galera replication and SST traffic using the server's TLS configuration by default. With the `wsrep_ssl_mode` system variable, you can configure the node to use the TLS configuration of [wsrep Provider options](reference/wsrep-variable-details/wsrep_provider_options.md).
 
 TLS encryption is only available when used by all nodes in the cluster.
 

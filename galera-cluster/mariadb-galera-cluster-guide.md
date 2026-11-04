@@ -10,9 +10,9 @@ _MariaDB Galera Cluster is a Linux-exclusive, multi-primary cluster designed for
 
 ## About
 
-![galera\_small](../.gitbook/assets/1.PNG)
+![galera\_small](.gitbook/assets/1.PNG)
 
-MariaDB Galera Cluster is a [virtually synchronous](about-galera-replication.md) multi-primary cluster for MariaDB. It is available on Linux only and only supports the [InnoDB storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-storage-engine-introduction) (although there is experimental support for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) and, from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria). See the [wsrep\_replicate\_myisam](../reference/galera-cluster-system-variables.md#wsrep_replicate_myisam) system variable, or, from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [wsrep\_mode](../reference/galera-cluster-system-variables.md#wsrep_mode) system variable.
+MariaDB Galera Cluster is a [virtually synchronous](about-galera-replication.md) multi-primary cluster for MariaDB. It is available on Linux only and only supports the [InnoDB storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-storage-engine-introduction) (although there is experimental support for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) and, from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria). See the [wsrep\_replicate\_myisam](reference/galera-cluster-system-variables.md#wsrep_replicate_myisam) system variable, or, from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [wsrep\_mode](reference/galera-cluster-system-variables.md#wsrep_mode) system variable.
 
 ## Features
 
@@ -34,7 +34,7 @@ The above features yield several benefits for a DBMS clustering solution, includ
 * Smaller client latencies
 
 The [Getting Started with MariaDB\
-Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md) page has instructions on how to get up and running with MariaDB Galera Cluster.
+Galera Cluster](galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md) page has instructions on how to get up and running with MariaDB Galera Cluster.
 
 A great resource for Galera users is [Codership on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/codership-team) (_`codership-team`_ _`'at'`_ _`googlegroups`_ _`(dot)`_ _`com`_) - If you use Galera, it is recommended you subscribe.
 
@@ -53,7 +53,7 @@ See [Versioning Information](https://web.archive.org/web/20190722120303/https://
 
 The Galera 4 wsrep provider package is called `galera-4` when you install it with [yum](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum), [apt](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files), or [zypper](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
 
-For the provider version that each MariaDB Server release ships with, see [Galera wsrep Provider Versions](../reference/galera-wsrep-provider-versions.md).
+For the provider version that each MariaDB Server release ships with, see [Galera wsrep Provider Versions](reference/galera-wsrep-provider-versions.md).
 
 ## Cluster Failure and Recovery Scenarios
 
@@ -115,7 +115,7 @@ Recovery:
     ```
 
 {% hint style="info" %}
-If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
 {% endhint %}
 
 #### **All Nodes Go Down Without a Proper Shutdown**
@@ -151,7 +151,7 @@ A split-brain occurs when a network partition splits the cluster, and no resulti
 3. This group will now become operational. When network connectivity is restored, the nodes from the other partition will automatically detect this Primary Component and rejoin it.
 
 {% hint style="info" %}
-If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](../reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
+If the [wsrep\_provider plugin](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider) is enabled, `SET GLOBAL wsrep_provider_options` fails. Run `SET GLOBAL wsrep_provider_pc_bootstrap=ON;` instead. See [pc.bootstrap](reference/wsrep-variable-details/wsrep_provider_options.md#pc.bootstrap).
 {% endhint %}
 
 {% hint style="danger" %}
@@ -163,9 +163,9 @@ Never execute the bootstrap command on both sides of a partition. This will crea
 * [Codership on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/codership-team) (`codership-team 'at' googlegroups (dot) com`) - A great mailing list for Galera users.
 * [About Galera Replication](about-galera-replication.md)
 * [Codership: Using Galera Cluster](https://codership.com/content/using-galera-cluster)
-* [Galera Use Cases](../galera-use-cases.md)
-* [Getting Started with MariaDB Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
-* [MariaDB Galera Cluster - Known Limitations](../reference/mariadb-galera-cluster-known-limitations.md)
+* [Galera Use Cases](galera-use-cases.md)
+* [Getting Started with MariaDB Galera Cluster](galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
+* [MariaDB Galera Cluster - Known Limitations](reference/mariadb-galera-cluster-known-limitations.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
