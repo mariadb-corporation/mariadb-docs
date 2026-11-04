@@ -166,3 +166,5 @@ Evaluating specific telemetry variables inside this payload returns diagnostic i
 * Analysis Context: Under ideal operational layouts, the assigned `dbroots` values match the corresponding `module_id` tags, indicating that no node failovers have occurred. The master tracking node typically claims initial ownership mapping of `DBroot 1`. If a master node role change occurs, the structural database root execution responsibilities are shuffled across the surviving nodes.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
