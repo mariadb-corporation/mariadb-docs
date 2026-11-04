@@ -43,3 +43,5 @@ This function is deprecated, new implementations should use [`mysql_optionsv()`]
 * [mysql\_real\_connect()](mysql_real_connect.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
