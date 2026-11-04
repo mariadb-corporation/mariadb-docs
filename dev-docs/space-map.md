@@ -14,14 +14,12 @@ orient before searching — the repo is ~9,900 `.md` files.
 | Platform | `platform/` | MariaDB Enterprise Platform |
 | MaxScale | `maxscale/` | MaxScale database proxy |
 | Connectors | `connectors/` | Client connectors (C, C++, Java, ODBC, Python, Node.js, .NET, R2DBC) |
-| Analytics | `analytics/` | ColumnStore and analytics |
 | MariaDB Cloud | `mariadb-cloud/` | Cloud / DBaaS |
 | Tools | `tools/` | Two section pages, each with its own folder. Enterprise Tools (`enterprise/`): Enterprise Manager, MCP server, Kubernetes Operator, AI-RAG, Control Center. Community Tools (`community/`): MySQL to MariaDB Migrator |
 | GridGain | `gridgain/` | GridGain 8 and GridGain 9 — **placeholder**, content being migrated from AsciiDoc |
 | General Resources | `general-resources/` | About, community, style guide, legal, theory |
 | Galera Cluster | `galera-cluster/` | Galera synchronous replication |
 | Help Tables | `help-tables/` | **Generated** SQL `HELP` tables (do not hand-edit) |
-| Home | `home/` | Portal / landing |
 
 (12 browsable spaces + the generated `help-tables/`.)
 

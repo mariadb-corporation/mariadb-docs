@@ -16,7 +16,6 @@ Read the documentation offline. Each PDF covers one documentation set and links 
 | MariaDB MaxScale | [mariadb-maxscale.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-maxscale.pdf) | 4,069 |
 | MariaDB Enterprise Platform | [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) | 548 |
 | MariaDB Connectors | [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) | 942 |
-| MariaDB Analytics | [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) | 27 |
 | MariaDB ColumnStore | [mariadb-columnstore.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-columnstore.pdf) | 570 |
 | MariaDB Tools | [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) | 1,500 |
 | MariaDB Cloud | [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) | 391 |
