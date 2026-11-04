@@ -32,3 +32,5 @@ Sets local infile callback functions to MariaDB Connector/C internal default cal
 * [mysql\_set\_local\_infile\_handler()](mysql_set_local_infile_handler.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
