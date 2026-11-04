@@ -6,6 +6,9 @@ This page lists several books that cover both general and advanced topics relate
 
 ## General Topics
 
+[_SELECT to Ship : MariaDB for Application Developers_](https://www.amazon.com/dp/B0HP88T98Q/) by Alejandro Duarte, October 2026 (English)\
+A developer's guide to MariaDB, from running your first SQL query to shipping to production.\
+\
 [_PHP 7 et MariaDB : Coffret en 2 volumes_](https://www.amazon.co.uk/PHP-MariaDB-D%C3%A9veloppez-application-persistance/dp/2409016669/ref=sr_1_3?keywords=mariadb\&qid=1558010639\&s=books\&sr=1-3) by Stéphane Combaudon and Olivier Heurtel, December 2018 (French)\
 Build interactive, database-driven websites with PHP 7, MySQL 8, and MariaDB.\
 \
