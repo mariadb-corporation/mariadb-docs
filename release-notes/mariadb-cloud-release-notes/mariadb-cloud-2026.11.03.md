@@ -54,3 +54,5 @@ For details, see [AI Retrieval](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/c
 * Request rates, upload sessions, and concurrent ingestion are limited for each organization. See [Service Quotas](https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd/cloud-ai/ai-retrieval/service-quotas).
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

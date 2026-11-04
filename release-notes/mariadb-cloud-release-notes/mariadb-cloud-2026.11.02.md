@@ -58,3 +58,5 @@ For details, see [HTAP using MariaDB Exa](https://app.gitbook.com/o/diTpXxF5WsbH
 * Errors in syntax or replication on ports 3310 and 3311 can expose usernames and passwords in plaintext in the proxy logs.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

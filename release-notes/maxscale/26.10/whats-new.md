@@ -318,3 +318,7 @@ With `enable_feedback=true` (default, not dynamic), MaxScale sends a JSON docume
 | Removed | binlogrouter (Exasol CDC): `odbc_perf_max_idle_rows`. |
 | Removed with the avrorouter and CDC protocol (MXS-7582) | The avrorouter module, the CDC listener protocol, and their build options. The avrorouter settings `binlogdir`, `avrodir`, `filestem`, `group_rows`, `group_trx`, `start_index`, `block_size`, `codec`, `match`, `exclude`, `server_id`, `gtid_start_pos`, `cooperative_replication`, `max_file_size`, and `max_data_age` no longer exist for it. The module commands `convert`, `purge`, and `rotate` are gone. A configuration with `router=avrorouter` or `protocol=CDC` no longer loads. `match`, `exclude`, `server_id`, and `cooperative_replication` remain settings of kafkacdc, and `server_id` remains a setting of binlogrouter. |
 | Removed (MXS-7620) | The cache filter module `storage_memcached`. The remaining storages are `storage_inmemory`, `storage_redis`, and `storage_gridgain`. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
