@@ -521,6 +521,9 @@ GITBOOK_SPACE_IDS = {
     # these spaces (about 590, most of them into ColumnStore) was unlinked in
     # the PDFs, and the ColumnStore entry carried an ID that matched no space.
     "RaYUwfaLLE1EkMr1e8Ud": "columnstore",
+    # The GridGain overview (`/docs/gridgain/`) has no `{alias}` yet; mapped
+    # ahead of the first link to it (DOCS-7061).
+    "aCh6jmvBjQASgok5pZEH": "gridgain",
     "ArQLGGUSG0VzKl1t2Y53": "gridgain-8",
     "oHbGEk22iR73P3x6DryR": "gridgain-9",
     "AmWSwHTrMJB8ojX2p6gW": "raft-cluster",
@@ -529,6 +532,7 @@ GITBOOK_SPACE_IDS = {
     # Get Started is the site root since the 2026-11-03 revamp (SITE_PATHS).
     "1H8tuThi64HJmOJHG6nV": "get-started",
     # The site redirects `/docs/home` to `/docs/`; nothing links to it.
+    # Drop this entry and "analytics" above when those folders are retired.
     "gmXC0YXB3rRhXvpg5mb1": "home",
 }
 
