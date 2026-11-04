@@ -153,3 +153,5 @@ curl -k -s -X PUT https://127.0.0.1:8640/cmapi/0.4.0/cluster/node --header 'Cont
 6. **Finalize:** Save the working configuration as `Columnstore.xml.restore`, bounce the cluster (`mcsShutdown` followed by `mcsStart`), and clear MaxScale maintenance mode.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
