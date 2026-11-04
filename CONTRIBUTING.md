@@ -66,6 +66,6 @@ Before you start making larger contributions, make yourself familiar with [the b
 
 The source format of pages is Markdown. How to format text is [on this GitBook page](https://gitbook.com/docs/creating-content/formatting/markdown). A Markdown cheat sheet with a 10-minute tutorial and a Markdown "playground" [can be found here](https://commonmark.org/help/).
 
-Read our [style guide](https://mariadb.com/docs/general-resources/about/readme/documentation-style-guide), too. (It's short!)
+Read our [style guide](https://mariadb.com/docs/general-resources/about/documentation-style-guide), too. (It's short!)
 
-Also see the [About Links](https://mariadb.com/docs/general-resources/about/readme/about-links) page. It has useful information for when you are adding links to other pages.
+Also see the [About Links](https://mariadb.com/docs/general-resources/about/about-links) page. It has useful information for when you are adding links to other pages.
