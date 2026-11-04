@@ -14,8 +14,8 @@ In those versions, the GCache supports the following data-at-rest encryption fea
 
 For more information, see the following resources:
 
-* [Enabling GCache Encryption](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide#enabling-gcache-encryption)
-* [Disabling GCache Encryption](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide#disabling-gcache-encryption)
+* [Enabling GCache Encryption](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide#enabling-gcache-encryption)
+* [Disabling GCache Encryption](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide#disabling-gcache-encryption)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

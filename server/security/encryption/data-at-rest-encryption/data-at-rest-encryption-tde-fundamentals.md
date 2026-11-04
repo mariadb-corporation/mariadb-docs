@@ -43,7 +43,7 @@ MariaDB provides flexible control over what is encrypted, though support and req
 
 {% hint style="info" %}
 **Enterprise Server** provides encryption for **Galera Cluster** via GCache.\
-How GCache encryption is enabled and disabled is detailed [on this page](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide#data-in-transit-encryption).
+How GCache encryption is enabled and disabled is detailed [on this page](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/mariadb-galera-cluster-usage-guide#data-in-transit-encryption).
 {% endhint %}
 
 ## Limitations
