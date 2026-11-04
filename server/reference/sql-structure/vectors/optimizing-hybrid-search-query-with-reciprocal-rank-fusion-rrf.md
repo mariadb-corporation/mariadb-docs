@@ -282,3 +282,5 @@ In this experiment, k=60 is the winner. A key advantage of RRF is that its perfo
 * [Reciprocal Rank Fusion for IR (SIGIR '09): The original research paper that proposed the RRF method.](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}
