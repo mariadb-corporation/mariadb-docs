@@ -25,13 +25,15 @@ For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowle
 3. Enter a **Name**, and optionally a **Description**.
 4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
 5. Select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
-6. Under **Tables**, check the tables that the knowledge base can use. All tables of the schema are included at first. Clear the check box of a table to leave it out, or expand a table to leave out some of its columns. **Exclude all tables** and **Include all tables** change every table at once. Keep at least one table and one of its columns.
+6. Under **Tables**, check the tables that the knowledge base can use. All tables of the schema are included at first. Clear the check box of a table to leave it out, or expand a table to leave out some of its columns. **Exclude all tables** and **Include all tables** change every table at once. Keep at least one table and one of its columns. In an expanded table, each column also has an optional **Description** and, for text columns, a **Literals index** option. For what these do, see [Edit Descriptions and Columns](#edit-descriptions-and-columns).
 7. Optionally, expand **Advanced Options** and set these options:
-   * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
    * **Custom Instructions**: business terminology, domain context, and query conventions that AI Retrieval follows when it writes queries. For example: "revenue" always means net revenue after refunds, and test accounts are always filtered out.
+   * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
 8. Select **Create Knowledge Base**.
 
 A column that you leave out is not described to the model, but the database user can still read it. Grant the user only the columns that the knowledge base should reach.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-tables.png" alt="The Tables section of the Create Knowledge Base form with the customers table expanded. Each of its columns id, name, country, and signed_up has a check box, its data type, a Description field, and a Literals index option."><figcaption><p>The Tables section with a table expanded</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
