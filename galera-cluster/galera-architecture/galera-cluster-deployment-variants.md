@@ -73,3 +73,5 @@ The Galera Arbitrator acts as a voting member for quorum calculations but does n
 If the node running the arbitrator fails, the cluster reverts to a standard 2-node setup with no automatic failover capability. Therefore, the arbitrator itself should be [monitored](../high-availability/monitoring-mariadb-galera-cluster.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}
