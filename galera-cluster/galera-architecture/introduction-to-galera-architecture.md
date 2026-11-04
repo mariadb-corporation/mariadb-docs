@@ -104,3 +104,5 @@ A direct benefit of Galera's multi-master architecture is the ability to scale b
 This scaling is typically managed by a [load balancer,](../high-availability/load-balancing/load-balancing-in-mariadb-galera-cluster.md) which distributes traffic intelligently across the cluster.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}
