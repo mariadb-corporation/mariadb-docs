@@ -193,3 +193,7 @@ For each log message, the following attributes are set.
 * `session`: The client session ID if the log message was logged due to client activity.
 * `module`: The module which logged the message.
 * `scope`: The name of the configuration object that logged the message.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
