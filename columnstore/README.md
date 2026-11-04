@@ -9,6 +9,10 @@ icon: table-columns
 
 # MariaDB ColumnStore
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-columnstore.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-columnstore.pdf) (~570 pages, 6.8 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 {% content-ref url="columnstore-quickstart-guides/" %}
 [columnstore-quickstart-guides](columnstore-quickstart-guides/)
 {% endcontent-ref %}

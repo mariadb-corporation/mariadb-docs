@@ -7,6 +7,10 @@ icon: server
 
 # GridGain 9
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-gridgain-9.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-gridgain-9.pdf) (~1,170 pages, 14 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 ## What Is GridGain?
 
 GridGain is a unified real-time platform for storing and processing data at scale.

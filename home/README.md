@@ -81,13 +81,19 @@ Read the documentation offline. Each PDF covers one documentation set and links 
 | MariaDB MaxScale | [mariadb-maxscale.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-maxscale.pdf) | 5,803 |
 | MariaDB Enterprise Platform | [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) | 502 |
 | MariaDB Connectors | [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) | 659 |
-| MariaDB Analytics and ColumnStore | [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) | 587 |
+| MariaDB Analytics | [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) | 27 |
+| MariaDB ColumnStore | [mariadb-columnstore.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-columnstore.pdf) | 570 |
 | MariaDB Tools | [mariadb-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-tools.pdf) | 611 |
 | MariaDB Cloud | [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) | 295 |
 | MariaDB Galera Cluster | [mariadb-galera-cluster.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-galera-cluster.pdf) | 266 |
 | MariaDB General Resources | [mariadb-general-resources.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-general-resources.pdf) | 220 |
+| GridGain 8 | [mariadb-gridgain-8.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-gridgain-8.pdf) | 1,750 |
+| GridGain 9 | [mariadb-gridgain-9.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-gridgain-9.pdf) | 1,168 |
+| MariaDB Raft Cluster | [mariadb-raft-cluster.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-raft-cluster.pdf) | 50 |
+| MariaDB Exa | [mariadb-exa.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-exa.pdf) | 29 |
+| MariaDB AI Tools | [mariadb-ai-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-ai-tools.pdf) | 6 |
 
-Page counts describe the July 2026 snapshot and grow as the documentation does. [Browse every snapshot](https://github.com/mariadb-corporation/mariadb-docs/releases) to download an older set. This site is always the authoritative version.
+Page counts are approximate and grow as the documentation does. [Browse every snapshot](https://github.com/mariadb-corporation/mariadb-docs/releases) to download an older set. This site is always the authoritative version.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 
