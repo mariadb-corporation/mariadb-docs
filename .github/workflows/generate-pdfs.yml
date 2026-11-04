@@ -3,7 +3,7 @@ name: Generate documentation PDFs
 # Builds one PDF per GitBook space and attaches them to a GitHub Release.
 #
 # Snapshot-based (DOCS-5710), never per-push: a full run produces ~450 MB across
-# 17 files. Two ways in:
+# 16 files. Two ways in:
 #
 #   * monthly cron, so a dated snapshot exists even in a month nobody cuts one;
 #   * manual dispatch, to re-cut after a Server release lands.
@@ -113,8 +113,8 @@ jobs:
           [[ -n "$label" ]] || label="Snapshot $(date -u +%Y-%m-%d)"
           echo "label=$label" >> "$GITHUB_OUTPUT"
 
-          # A draft release does not move `releases/latest`, which the docs home
-          # page links to -- so an unattended run has to publish, or the monthly
+          # A draft release does not move `releases/latest`, which the Offline
+          # Downloads page links to -- so an unattended run has to publish, or the monthly
           # rebuild silently never reaches readers. Manual runs keep the draft
           # default, so a hand-cut snapshot can still be eyeballed first.
           if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
@@ -214,7 +214,7 @@ jobs:
           echo "$pdf -> $pages pages, $(du -h "$pdf" | cut -f1)"
           # A space that collapses to a couple of pages means the SUMMARY parse
           # or the preprocessor silently dropped nearly everything. The floor
-          # scales with the space: a few spaces (home, ai-tools) have fewer
+          # scales with the space: a few spaces (ai-tools) have fewer
           # than ten pages in their navigation, and for those the cover, the
           # contents and one page per entry is the minimum.
           entries=$(python3 -c 'import sys; sys.path.insert(0, "pdf"); import build; print(len(build.parse_summary(sys.argv[1])))' "${{ matrix.space }}")
@@ -330,9 +330,9 @@ jobs:
           The authoritative, continuously updated documentation is at
           https://mariadb.com/docs."
 
-          # An incomplete release must not reach readers as Latest: the docs
-          # home page links to releases/latest, so every missing PDF is a dead
-          # link there (DOCS-6945). So a new release always starts as a draft,
+          # An incomplete release must not reach readers as Latest: the
+          # Offline Downloads page links to releases/latest, so every missing
+          # PDF is a dead link there (DOCS-6945). So a new release always starts as a draft,
           # which leaves Latest on the previous, complete one, and is published
           # only once the release itself -- not just this run, which may build
           # a few spaces (DOCS-6947) -- holds a PDF for every space.
