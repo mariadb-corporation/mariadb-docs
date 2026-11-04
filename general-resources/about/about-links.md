@@ -21,7 +21,7 @@ See [About Spaces](about-links.md#about-spaces) for information on what Spaces a
 {% hint style="info" %}
 Both relative and space **links require the `.md` extension** when linking to a page.
 
-For instance, to create a link pointing to the [About MariaDB](../about-mariadb.md) page from this page, you write:
+For instance, to create a link pointing to the [About MariaDB](about-mariadb.md) page from this page, you write:
 
 ```
 [About MariaDB](../about/about-mariadb.md)
@@ -32,7 +32,7 @@ For instance, to create a link pointing to the [About MariaDB](../about-mariadb.
 
 In GitBook (our documentation system), _**Spaces**_ are the main sections of the site you see along the top of every docs page:
 
-<figure><picture><source srcset="../../.gitbook/assets/spaces-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/spaces-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/spaces-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/spaces-light.png" alt=""></picture><figcaption></figcaption></figure>
 
 What space you are in is very important in determining whether you need to use a [Relative](about-links.md#relative-links) or [Space](about-links.md#space-links) link. Gitbook identifies Spaces via a unique space identifier. See the [Space Links](about-links.md#space-links) section for more details. We also have a handy [list of Space prefixes](about-links.md#list-of-space-prefixes) for use when creating space links in Markdown.
 
@@ -52,7 +52,7 @@ Technically, you can use external links for links to docs content, you just put 
 
 ## Relative Links
 
-Relative links are links to a page in the same space, relative to the page you are editing. For example a relative link to the [Joining the Community](../../community/joining-the-community.md) page, from this page, looks like this in Markdown:
+Relative links are links to a page in the same space, relative to the page you are editing. For example a relative link to the [Joining the Community](../community/joining-the-community.md) page, from this page, looks like this in Markdown:
 
 ```
 [Joining the Community](../../community/joining-the-community.md)

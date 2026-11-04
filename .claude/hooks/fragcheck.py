@@ -197,7 +197,7 @@ SPACE_DIRS = {
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.
-# {general-resources} carries a path of its own (/about/readme), which this keeps.
+# An alias that carries a path of its own keeps it.
 ALIAS_WORKFLOW = '.github/workflows/expand-gitbook-aliases.yml'
 ALIAS_RULE = re.compile(r'\[\{\]([a-z-]+)\[\}\]#\\1https://app\.gitbook\.com/'
                         r'(?:o/[A-Za-z0-9]+/)?s/([^#]+)#g')

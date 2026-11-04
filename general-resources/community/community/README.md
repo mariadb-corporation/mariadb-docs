@@ -4,7 +4,7 @@ MariaDB Server is an open-source project developed by [MariaDB plc](https://mari
 
 This section provides information to help you participate in making MariaDB Server and other MariaDB products a success.
 
-If you're interested in contributing to the documentation, see [this page](../../about/readme/contributing-documentation.md).
+If you're interested in contributing to the documentation, see [this page](../../about/contributing-documentation.md).
 
 {% content-ref url="bug-tracking/" %}
 [bug-tracking](bug-tracking/)

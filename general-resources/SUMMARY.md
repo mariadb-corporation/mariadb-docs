@@ -3,11 +3,11 @@
 ## About
 
 * [About MariaDB Documentation](README.md)
-  * [Contributing Documentation](about/readme/contributing-documentation.md)
-  * [Documentation Style Guide](about/readme/documentation-style-guide.md)
-  * [Reporting Documentation Issues](about/readme/reporting-documentation-bugs.md)
-  * [About Links](about/readme/about-links.md)
-  * [Offline Downloads](about/readme/offline-downloads.md)
+* [Contributing Documentation](about/contributing-documentation.md)
+* [Documentation Style Guide](about/documentation-style-guide.md)
+* [Reporting Documentation Issues](about/reporting-documentation-bugs.md)
+* [About Links](about/about-links.md)
+* [Offline Downloads](about/offline-downloads.md)
 * [About MariaDB](about/about-mariadb.md)
 * [Contact Us](about/contact-us.md)
 
