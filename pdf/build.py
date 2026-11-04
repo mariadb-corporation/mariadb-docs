@@ -65,13 +65,15 @@ SPACE_TITLES = {
 # `help-tables/` is generated SQL, and the remaining top-level directories are
 # include containers or contributor docs -- none are browsable spaces.
 #
-# Two published spaces are left out on purpose (DOCS-7043): `get-started` and
-# the `gridgain` hub are navigation pages whose entries point into other
-# spaces, so offline they would be a PDF of links to other PDFs.
+# Left out on purpose (DOCS-7043): `get-started` and the `gridgain` hub are
+# navigation pages whose entries point into other spaces, so offline they would
+# be a PDF of links to other PDFs; and `home` is no longer published -- since
+# the 2026-11-03 revamp, Get Started is the site root. The download table moved
+# to general-resources/about/readme/offline-downloads.md.
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
     "analytics", "columnstore", "tools", "mariadb-cloud", "general-resources",
-    "galera-cluster", "home", "gridgain-8", "gridgain-9", "raft-cluster",
+    "galera-cluster", "gridgain-8", "gridgain-9", "raft-cluster",
     "exa", "ai-tools",
 ]
 

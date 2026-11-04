@@ -7,6 +7,7 @@
   * [Documentation Style Guide](about/readme/documentation-style-guide.md)
   * [Reporting Documentation Issues](about/readme/reporting-documentation-bugs.md)
   * [About Links](about/readme/about-links.md)
+  * [Offline Downloads](about/readme/offline-downloads.md)
 * [About MariaDB](about/about-mariadb.md)
 * [Contact Us](about/contact-us.md)
 

@@ -24,7 +24,8 @@ so it is cut per documentation snapshot rather than per push:
 - **Automatically**, at 04:00 UTC on the 15th of each month, so a current
   snapshot exists even in a month when nobody remembers to cut one. Scheduled
   runs publish immediately, because a draft release does not move
-  `releases/latest`, which the documentation home page links to.
+  `releases/latest`, which the Offline Downloads page in General Resources
+  links to.
 - **Manually** (`workflow_dispatch`), to re-cut after a Server release lands.
   Manual runs default to a draft so the output can be checked before it is
   published.
@@ -52,11 +53,11 @@ near-identical release. Pass an explicit `tag` to keep a snapshot separate.
 | `raft-cluster` | 5 | ~50 |
 | `exa` | 7 | ~30 |
 | `analytics` | 8 | ~30 |
-| `home` | 2 | ~8 |
 | `ai-tools` | 2 | ~6 |
 
-Two published spaces get no PDF: `get-started` and the `gridgain` hub are
-navigation pages whose entries point into other spaces. `analytics` and `exa`
+Three spaces get no PDF: `get-started` and the `gridgain` hub are
+navigation pages whose entries point into other spaces, and `home` is no
+longer published (Get Started is the site root since the 2026-11-03 revamp). `analytics` and `exa`
 overlap: since ColumnStore moved to its own space (DOCS-7056), `analytics`
 holds only the Exa pages, which the `exa` space also publishes.
 
