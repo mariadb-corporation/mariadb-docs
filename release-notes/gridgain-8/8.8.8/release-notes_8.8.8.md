@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.8 adds C++ support for Java compute, compute tasks in C++ thin clients, Hibernate L2 cache templates, and configurable page replacement algorithms.
-hidden: true
 ---
 
 # GridGain 8.8.8 Release Notes

@@ -86,7 +86,8 @@ This page shows information on each MaxScale object and allow to edit its parame
    * Monitor Detail page, there are icons to Stop, Start, and Destroy monitor.
    * Service Detail page, there are icons to Stop, Start, and Destroy service.
    * Server Detail page, there are icons to Set maintenance mode, Clear server state, Drain and Delete server.
-   * Filter and Listener Detail page, there is a delete icon to delete the object.
+   * Listener Detail page, there are icons to Stop, Start, and Destroy listener.
+   * Filter Detail page, there is a delete icon to delete the object.
 2. Switchover button. This button is shown on the mouse hover allowing to swap the running primary server with a designated secondary server.
 3. Edit parameters button. This button is shown on the mouse hover allowing to edit the MaxScale object's parameter. Clicking on it will enable editable mode on the table. After finishing editing the parameters, simply click the _Done Editing_ button.
 4. A Detail page has tables showing "Relationship" between other MaxScale object. This "unlink" icon is shown on the mouse hover allowing to remove the relationship between two objects.
@@ -174,6 +175,22 @@ This page show real-time MaxScale logs with filter options.
 
 1. Filter by priorities.
 2. Apply filter button.
+
+## Report
+
+This page collects the state of MaxScale into one JSON document, intended to
+help MariaDB support diagnose issues. When reporting a problem, attach the
+report to the support case.
+
+The report contains MaxScale itself, its servers, services, monitors,
+listeners, filters, sessions, users, modules and threads, diagnostics of the
+servers, and the latest lines of the MaxScale log.
+
+1. Filter by. Leaves the selected sections out of the report.
+2. Log lines. The number of lines collected from the MaxScale log.
+3. Search. Finds text in the report, optionally matching case, whole words or
+   a regular expression.
+4. Export as JSON. Downloads the report as `maxscale-report.json`.
 
 ## Workspace
 

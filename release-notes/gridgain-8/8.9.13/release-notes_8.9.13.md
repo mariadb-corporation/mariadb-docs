@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.9.13 aims to fix a possible issue introduced in the previous
   release that could lead to old licenses (issued prior to 2023) being blocked.
-hidden: true
 ---
 
 # GridGain 8.9.13 Release Notes

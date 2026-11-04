@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to connect to a GridGain cluster with the ODBC driver and run SQL queries
   to select, insert, update, and delete data.

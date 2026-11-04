@@ -2,7 +2,6 @@
 description: >-
   Creating, restoring, copying, moving, and verifying snapshots for GridGain 8
   clusters from the Control Center Snapshots screen.
-hidden: true
 ---
 
 # Snapshot Management for GridGain 8 Clusters

@@ -2,7 +2,6 @@
 description: >-
   Installing and configuring the Cloud Connector to monitor GridGain 9 clusters
   with Control Center, including Kubernetes and Helm Chart deployment.
-hidden: true
 ---
 
 # Cloud Connector

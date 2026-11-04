@@ -2,7 +2,6 @@
 description: >-
   Installing and updating GridGain Control Center from the binary package,
   Docker, or Kubernetes, including Cloud Connector setup.
-hidden: true
 ---
 
 # Installation and Update Guide

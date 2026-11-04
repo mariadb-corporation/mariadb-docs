@@ -3,10 +3,9 @@ description: >-
   How MariaDB Cloud AI Retrieval authenticates requests, connects to your
   database, and handles the region of your data.
 icon: shield-check
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Structure follows Egor Ustinov's call of 2026-10-20. Open items are marked TODO. -->
+<!-- DOCS-6592. Structure follows Egor Ustinov's call of 2026-10-20. Open items are marked TODO. -->
 
 # Access and Security
 
@@ -82,7 +81,7 @@ A database knowledge base connects to your service from outside the network of t
 34.41.226.174/32
 ```
 
-<!-- Egor gave this address on 2026-10-22 (Slack DM, 15:17 IST) as the production address for database knowledge bases. It is the address that the portal shows today in the AI Agents datasource dialog. The portal will show it in the knowledge base form later. Egor wants it in this guide. Keep the address out of research notes that are committed. -->
+<!-- Egor gave this address on 2026-10-22 (Slack DM, 15:17 India time) as the production address for database knowledge bases. It is the address that the portal shows today in the AI Agents datasource dialog. The portal will show it in the knowledge base form later. Egor wants it in this guide. Keep the address out of research notes that are committed. -->
 
 <!-- TODO: Database knowledge bases are not documented yet. The source is on the unmerged branch feature/MCDEV-3646-DBKB of skysql-gen-ai and in skysql-microservices ai-service. Confirm this section against the merged code and the final create form. -->
 
@@ -96,8 +95,6 @@ The create form marks where each embedding model runs. Text that is sent to a mo
 | --- | --- | --- |
 | AWS Bedrock, in the region of the knowledge base | Cohere Embed 3 English, Cohere Embed 3 Multilingual, Cohere Embed 4 | Traffic stays in the region. |
 | Google | Gemini Embedding 2 | Processed outside your cloud. |
-
-<!-- TODO: the model list is from the test environment on 2026-10-20 and the processing labels come from the create form. Confirm the final model list and the wording on data residency with Egor. Model names are not published elsewhere yet. -->
 
 <!-- TODO: Egor said document knowledge bases must be accessed through the regional endpoints. Replace the placeholder host in the guide with the production host once it is known. -->
 

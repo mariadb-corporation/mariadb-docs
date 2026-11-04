@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Overview of the GridGain ODBC driver: cluster configuration, thread-safety,
   prerequisites, and how to build and install the driver on Windows and Linux.

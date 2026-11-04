@@ -1,7 +1,6 @@
 ---
 description: >-
   Using GridGain Control Center with GridGain 9 clusters.
-hidden: true
 ---
 
 # GridGain 9

@@ -3,7 +3,6 @@ description: >-
   MariaDB Cloud AI Retrieval indexes your documents or your database in a
   knowledge base and returns relevant passages, rows, or generated answers
   through a REST API.
-hidden: true
 icon: magnifying-glass
 ---
 
@@ -28,6 +27,10 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 
 ## How It Works
 
+<figure><img src="../../.gitbook/assets/ai-retrieval-overview-diagram.png" alt="Clients such as AI applications, MCP servers, and AI agents call MariaDB Cloud AI Retrieval to retrieve chunks from a document knowledge base or rows from a database knowledge base, or to retrieve and generate an answer."><figcaption><p>A knowledge base is backed by a MariaDB database. A document knowledge base holds the chunks of your documents and their embeddings. A database knowledge base holds a semantic map of the source database, which AI Retrieval uses to generate SQL.</p></figcaption></figure>
+
+<!-- Diagram: "High-level service diagram" slide of Egor Ustinov's "Copy of 03 - AI - Training" deck (Drive 1YpiAQgyOOS4iPcOD0RJJv1-6SFtz26bh), placement and caption per his call of 2026-10-26. Slide title and caption bar cropped. -->
+
 ### Document Knowledge Bases
 
 1. You create a knowledge base. AI Retrieval stores its chunks and embeddings in a MariaDB service, the vector store. You can use an existing Provisioned or Serverless service, or let MariaDB Cloud provision a Serverless service for you.
@@ -39,7 +42,7 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 ### Database Knowledge Bases
 
 1. You create a knowledge base from a schema of a MariaDB service.
-2. AI Retrieval connects to the database, reads the tables and columns that the database user can see, and builds the semantic map: a model of your database that AI Retrieval builds automatically: the tables and columns, the relationships between tables, the indexes, and descriptions of the data. You do not need to do anything for this step. You can refine the semantic map later.
+2. AI Retrieval connects to the database, reads the tables and columns that the database user can see, and builds the semantic map: the metadata layer over the database, with the schema metadata (including indexes and column relations), generated table and column descriptions, and a column literals index. You do not need to do anything for this step. You can refine the semantic map later.
 3. Your application sends a question to the knowledge base endpoint.
 4. AI Retrieval uses the semantic map to turn the question into an SQL query, checks that the query only reads data, runs it, and returns the rows. For a generated answer, it writes the answer from the rows. A follow-up question in the same session can build on the earlier ones.
 
@@ -48,7 +51,7 @@ For the details, see [Document Knowledge Bases](document-knowledge-bases.md) and
 | Concept          | Meaning                                                                                                                                                                                          |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Knowledge base   | The searchable collection that you create and query. It has a type, a cloud region, and settings such as the models and the reranker.                                                            |
-| Vector store     | The MariaDB service that stores the chunks and embeddings of a document knowledge base.                                                                                                          |
+| Vector store     | The MariaDB service, Provisioned or Serverless, that stores the chunks and embeddings of a document knowledge base.                                                                             |
 | Document         | A file in a document knowledge base.                                                                                                                                                             |
 | Data source      | <p>An Amazon S3 or Google Cloud Storage bucket that is connected to a document knowledge base. </p><p></p><p>And MariaDB database connected as a source to database knowledge base.</p>          |
 | Chunk            | A passage of a document. A retrieval request returns chunks.                                                                                                                                     |
@@ -106,8 +109,9 @@ AI Retrieval limits request rates, document sizes, and concurrent ingestion for 
 
 * Syncs are manual. AI Retrieval does not sync a bucket on a schedule, so run a sync whenever you add files to the bucket.
 * You cannot change the embedding model after you create the knowledge base.
-* Follow-up questions in a session are not supported. Each request is answered on its own.
-* Scanned documents and images inside documents are not read. A scanned PDF is ingested with 0 chunks and no error.
+* Multi-turn queries are not supported. Each request is answered on its own.
+* Scanned documents and image documents are not supported yet.
+* Do not delete the vector store service of a knowledge base. If it is deleted, the knowledge base still shows **Ready**, but requests to it fail. Delete the knowledge base and create a new one. <!-- Launch channel 2026-11-02 (Tarique Saleem, Jeet Parmar; known issue MCDEV-5449, fix planned after the release) and 2026-09-16/17 (KB stays Ready; portal does not block deleting the service, checked skysql-ui-client 4.14.9). -->
 * If you restore the vector store service from a backup, or you change or delete its data directly, the knowledge base can fall out of step with the documents it lists. AI Retrieval does not detect this. Add the affected documents again to restore consistency.
 * If you remove a file from a bucket, AI Retrieval does not remove its document from the knowledge base. Delete the document in the knowledge base.
 * Deleting a knowledge base or a data source does not delete the chunks that it stored in the vector store service. Deleting a single document does delete its chunks.

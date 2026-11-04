@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.18 adds support for GridGain Control Center and includes fixes for
   metrics and monitoring, SQL, and snapshots.
-hidden: true
 ---
 
 # GridGain 8.7.18 Release Notes

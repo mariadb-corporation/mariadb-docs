@@ -3,6 +3,7 @@ description: >-
   GridGain 8.9.20-p1 is a patch release that fixes a possible null pointer
   exception. Only this issue is fixed in this release.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.20-p1 Release Notes

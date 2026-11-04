@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.32 brings stability improvements, including changes to how DROP COLUMN clears column attributes.
-hidden: true
 ---
 
 # GridGain 8.8.32 Release Notes

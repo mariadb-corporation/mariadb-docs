@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.5.18-p1 is a maintenance release with fixes across Communication, Integrations, and Snapshots.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.18-p1 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   Monitoring, filtering, and managing Compute tasks executed on GridGain 8
   clusters from the Control Center Compute screen.
-hidden: true
 ---
 
 # Compute Grid

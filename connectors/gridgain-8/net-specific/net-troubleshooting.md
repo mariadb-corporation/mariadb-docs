@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Troubleshooting techniques and common issues for building and running GridGain.NET
   applications, including console output, exception details, and .NET and JVM diagnostics.

@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.9.2 brings a number of bug fixes and improvements to performance of
   GridGain, including an update to using Spring 5.3.
-hidden: true
 ---
 
 # GridGain 8.9.2 Release Notes

@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.25-p1 fixes a critical issue with complex SQL operations by reverting a previous IN-operator index improvement.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.25-p1 Release Notes

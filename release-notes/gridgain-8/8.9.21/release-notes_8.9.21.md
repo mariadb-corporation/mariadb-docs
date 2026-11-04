@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.21 is a maintenance release that improves data center replication monitoring and product stability.
-hidden: true
 ---
 
 # GridGain 8.9.21 Release Notes

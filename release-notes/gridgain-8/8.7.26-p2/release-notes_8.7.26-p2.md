@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.7.26-p2 improves GridGain security to make it easier to debug and work around "Security context is not ready" errors.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.26-p2 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   Attaching a GridGain 8 cluster to Control Center: enabling the Control Center
   Agent module, setting the Control Center URI, and configuring the cluster.
-hidden: true
 ---
 
 # Attaching a GridGain 8 Cluster

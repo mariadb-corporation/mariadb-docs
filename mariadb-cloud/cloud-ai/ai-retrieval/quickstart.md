@@ -3,10 +3,9 @@ description: >-
   Create a document knowledge base or a database knowledge base in MariaDB
   Cloud AI Retrieval with the default settings, and run your first query.
 icon: rocket
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. One page with two sections, as Egor Ustinov asked on 2026-10-20: defaults only, no model names, no data sources. Built from the recording of that call and from the guide. Open items are marked TODO. -->
+<!-- DOCS-6592. One page with two sections, as Egor Ustinov asked on 2026-10-20: defaults only, no model names, no data sources. Built from the recording of that call and from the guide. Open items are marked TODO. -->
 
 # Quickstart
 
@@ -61,25 +60,26 @@ To call the knowledge base from an application, see [Connect Your Application](d
 
 ## Create a Database Knowledge Base
 
-A database knowledge base reads the tables of a MariaDB service that already holds your data. To try it without your own data, use the Northwind demo database.
+A database knowledge base reads the tables of a MariaDB service that already holds your data.
 
 1. Select **AI Retrieval** in the navigation, and then **Create Knowledge Base**.
 2. For **Type**, select **Database Knowledge Base**.
 3. Enter a **Name**.
-4. Under **Datasource**, choose one:
-   * **Demo**: AI Retrieval uses the Northwind demo schema. Continue with step 6.
-   * **Existing service**: select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
-5. For an existing service, select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
+4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in, and you can change them.
+5. Select **Fetch schemas**, and select the **Schema** that holds your tables. If the list is empty, enter the schema name.
 6. Select **Create Knowledge Base**.
 7. AI Retrieval connects to the database and builds the semantic map automatically, from the tables that the user can see. You do not need to do anything. Wait until the knowledge base shows **Ready**.
 8. Select **Test**, and ask a question about your data.
 
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>A Ready database knowledge base</p></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer with the generated SQL and the rows that it returned</p></figcaption></figure>
+
 For access requirements, such as the IP allowlist and restricting what the knowledge base can read, see [Access and Security](access-and-security.md).
 
-<!-- TODO: the database knowledge base UI is not merged yet (Egor, 2026-10-20), so these steps follow the test environment form in the recording: Datasource service, Hostname (FQDN), Port, Schema, Username, Password, Always include tables, Never include tables. Re-check every step, the sync button name, and the test steps against the final UI, and add screenshots then. -->
 <!-- TODO: say where the IP address to allow is shown once Egor answers (see access-and-security.md). -->
-<!-- Demo datasource and schema fetch: skysql-ui-client src/locales/en.json (datasource.database: existingService, demo, demoAlert, fetchSchemas, schemasEmpty) @ d9c5b422. Phil (2026-10-21): the database KB UI changes are on the test environment; capture screenshots there. -->
-
 ## Next Steps
 
 {% content-ref url="document-knowledge-bases.md" %}

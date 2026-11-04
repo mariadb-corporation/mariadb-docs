@@ -132,7 +132,7 @@ InnoDB supports `REPEATABLE READ` isolation layer and allows concurrent writes, 
 
 Many other storage engines do not support online schema change, for a variety of reasons:
 
-* [ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) does not support `REPEATABLE READ` isolation layer.
+* [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) does not support `REPEATABLE READ` isolation layer.
 * [Blackhole](../../../../../server-usage/storage-engines/blackhole.md) and [Sequence](../../../../../server-usage/storage-engines/sequence-storage-engine.md) don't support `LOCK=NONE` , or are read-only, like [S3](../../../../../server-usage/storage-engines/s3-storage-engine/).
 * [Connect](../../../../../server-usage/storage-engines/connect/) cannot perform reads during write operations.
 * [Spider](../../../../../server-usage/storage-engines/spider/) does not perform table-copy operations, but rather reassigns a table with a new set of metadata.

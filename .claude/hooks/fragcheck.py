@@ -185,12 +185,16 @@ SPACE_DIRS = {
     'gmXC0YXB3rRhXvpg5mb1': 'home',
     'JqgUabdZsoY5EiaJmqgn': 'platform',
     'CjGYMsT2MVP4nd3IyW2L': 'connectors',
-    'BfPLkyMnD0BAfMCRhZKr': 'gridgain-9',
+    'ArQLGGUSG0VzKl1t2Y53': 'gridgain-8',
+    'oHbGEk22iR73P3x6DryR': 'gridgain-9',
     'kuTXWg0NDbRx6XUeYpGD': 'tools',
     'aEnK0ZXmUbJzqQrTjFyb': 'release-notes',
     'WCInJQ9cmGjq1lsTG91E': 'general-resources',
     'COKIFe0hm2r19L2bFQTW': 'exa',
     'y3YOhOKd2kxEEm0gLKs4': 'ai-tools',
+    'AmWSwHTrMJB8ojX2p6gW': 'raft-cluster',
+    'RaYUwfaLLE1EkMr1e8Ud': 'columnstore',
+    '1H8tuThi64HJmOJHG6nV': 'get-started',
 }
 # An {alias} placeholder is expanded the way expand-gitbook-aliases.yml expands
 # it, read out of that workflow rather than copied, so the two cannot drift.
@@ -214,8 +218,6 @@ def aliases(base):
 # Space ids a link may carry that name no space in this repo, with the reason.
 # Identified through the GitBook API (getSpaceById), 2026-09-25.
 FOREIGN_SPACES = {
-    # {columnstore}: in the alias map, but no directory here and no link uses it.
-    '2I4jZ8pGq8bT4w5n3q6r': 'the ColumnStore space, not synced to this repo',
     # Only ever in ~/reusable/ include URLs, which are not pages.
     'GxVnu02ec8KJuFSxmB93': 'the private Marketing space (reusable blocks)',
 }

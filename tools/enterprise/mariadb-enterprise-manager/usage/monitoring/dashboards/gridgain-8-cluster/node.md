@@ -3,7 +3,6 @@ description: >-
   The GridGain 8 Node dashboard in Enterprise Manager: one node's JVM memory,
   CPU and threads, data region, storage and WAL, communication, thread pools,
   and workload.
-hidden: true
 ---
 
 # Node

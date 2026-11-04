@@ -1,11 +1,10 @@
 ---
 description: Release Notes for GridGain Control Center
-hidden: true
 ---
 
 # Control Center Release Notes
 
-Release notes for GridGain Control Center. The latest release is [2026.1](2026.1.md).
+Release notes for GridGain Control Center. The latest release is [2026.2](2026.2.md).
 
 For product documentation, see [Control Center](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/enterprise/control-center).
 

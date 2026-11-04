@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Store ASP.NET session state in a distributed GridGain cluster for high
   availability, load balancing, and fault tolerance.

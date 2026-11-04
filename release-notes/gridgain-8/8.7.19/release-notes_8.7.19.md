@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.19 adds experimental OpenCensus tracing of the transaction API and
   Java thin client enhancements, together with fixes across SQL, storage, thin
   clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.19 Release Notes

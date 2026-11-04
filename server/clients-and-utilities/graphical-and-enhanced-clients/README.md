@@ -139,6 +139,10 @@ The third-party tools described in this section are not developed or maintained 
 [sb-data-generator.md](sb-data-generator.md)
 {% endcontent-ref %}
 
+{% content-ref url="seqora.md" %}
+[seqora.md](seqora.md)
+{% endcontent-ref %}
+
 {% content-ref url="sql-diagnostic-manager-and-sqlyog.md" %}
 [sql-diagnostic-manager-and-sqlyog.md](sql-diagnostic-manager-and-sqlyog.md)
 {% endcontent-ref %}

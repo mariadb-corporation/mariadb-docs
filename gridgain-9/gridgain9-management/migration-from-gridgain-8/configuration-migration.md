@@ -56,10 +56,10 @@ There are two options for creating the required GridGain 9 configuration:
 
 To create a GridGain 9 cluster and node configuration HOCON files based on the GridGain 8 configuration XML file, you can use the migration tools:
 
-### Download and Install Migration Tools
+### Obtain and Install Migration Tools
 
-1. Download the migration tools from the [website](https://www.gridgain.com/tryfree).
-2. Unpack the downloaded archive to your machine.
+1. Obtain the migration tools from GridGain support.
+2. Unpack the archive you received to your machine.
 3. To explore the available commands in help, run the following command from the migration tools directory:
 
    ```bash

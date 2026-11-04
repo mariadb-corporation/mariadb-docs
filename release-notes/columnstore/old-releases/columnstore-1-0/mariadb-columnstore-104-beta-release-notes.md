@@ -2,16 +2,16 @@
 
 **Release date:** 26th October 2016
 
-[MariaDB ColumnStore 1.0.4](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
+[MariaDB ColumnStore 1.0.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) is a beta release of MariaDB ColumnStore. This is the first beta release of MariaDB ColumnStore with improvements over the previous 1.0.3 alpha release.
 
 MariaDB ColumnStore 1.0.4 is a [_**Beta**_](../../../community-server/about/release-criteria.md) release.
 
 **Do not use&#x20;**_**beta**_**&#x20;releases on production systems!**
 
-For an overview of [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview)
+For an overview of [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) see [MariaDB ColumnStore Architectural Overview](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-architectural-overview)
 
 Please provide feedback in [JIRA](https://jira.mariadb.org/browse/MCOL) for anything that is not working as expected so that we can fix it before we make the release available for the larger community.\
-For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) or subscribe to mariadb-columnstore@googlegroups.com
+For general "how to questions" ask questions [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud) or subscribe to mariadb-columnstore@googlegroups.com
 
 ## Notable Changes
 
@@ -88,17 +88,17 @@ There are a number bugs and known limitations within this beta version of MariaD
 ```
 
 * [MCOL-404](https://jira.mariadb.org/browse/MCOL-404): Non root user install does not work. Install as root instead for this release.
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-system-paths-and-logs).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-system-paths-and-logs).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.
   * Viewing SQL output should be done using client software that supports UTF-8 character sets.
   * UTF-8 characters are not supported in object names.
-* Known security issues are documented [here](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/security/columnstore-security-vulnerabilities).
+* Known security issues are documented [here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/security/columnstore-security-vulnerabilities).
 
 ## Documentation
 
-[MariaDB ColumnStore Documentation](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore)
+[MariaDB ColumnStore Documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud)
 
 ## Packaging
 

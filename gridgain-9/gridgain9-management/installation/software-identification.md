@@ -37,9 +37,9 @@ Package checksums are distributed separately, as SHA512 files.
 In the database and CLI archives, the tag is located in the `swidtag/` directory at the root of the unpacked archive:
 
 ```
-gridgain9-db-9.1/
+gridgain9-db-9.1.28/
 └── swidtag/
-    └── com.gridgain.gridgain9-db_9.1.swidtag
+    └── com.gridgain.gridgain9-db_9.1.28.swidtag
 ```
 
 The ODBC driver archives use a flat tree, so the tag is located in `lib/swidtag/` instead:
@@ -77,13 +77,13 @@ The tag is located in the `swidtag` subdirectory of the installation directory.
 The tag is located in `/usr/lib/swidtag/` inside the container. To extract it from a running container:
 
 ```bash
-docker cp my-gridgain-node:/usr/lib/swidtag/com.gridgain.gridgain9-docker_9.1.swidtag .
+docker cp my-gridgain-node:/usr/lib/swidtag/com.gridgain.gridgain9-docker_9.1.28.swidtag .
 ```
 
 Or from an image without starting a container:
 
 ```bash
-docker run --rm --entrypoint cat gridgain/gridgain9:9.1 /usr/lib/swidtag/com.gridgain.gridgain9-docker_9.1.swidtag
+docker run --rm --entrypoint cat gridgain/gridgain9:latest /usr/lib/swidtag/com.gridgain.gridgain9-docker_9.1.28.swidtag
 ```
 
 ## SWID Tag Fields

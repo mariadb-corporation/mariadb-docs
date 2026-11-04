@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.13 Patch 2 is dedicated to fixing an issue with Kubernetes deployment.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.13 Patch 2 Release Notes

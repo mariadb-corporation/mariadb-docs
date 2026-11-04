@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.7.43 Patch 1 is a patch release dedicated to fixing an SQL issue.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.43 Patch 1 Release Notes

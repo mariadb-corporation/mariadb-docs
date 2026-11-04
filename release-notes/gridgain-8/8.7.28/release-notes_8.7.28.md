@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.28 adds .NET thin client transactions, a Java thin client async API, and SFTP snapshot storage, plus many fixes across integrations, thin clients, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.28 Release Notes

@@ -31,16 +31,17 @@ Raft Cluster adds its own configuration and observability surface:
 * **Flow control**: the leader throttles requests when nodes drift too far apart in commit position
 * **Event store**: replication logs are held in a sized in-memory buffer backed by on-disk files, with configurable durability
 * **TLS**: cluster communication can be secured independently of client connections, with its own certificate, key, CA, cipher, and verification settings
+* **Data-at-rest encryption**: the Raft log can be encrypted with the same `encrypt_binlog` setting and key management plugins as the binary log, from MariaDB Enterprise Server 12.3.3-1
 * **Status variables**: `raft_*` status variables report the current leader, term, log index, and flow-control activity
 * **Information Schema tables**: `RAFT_CERT_FAILURES`, `RAFT_CLUSTER_CONNECTIONS`, `RAFT_TIMERS`, `RAFT_RPC_SENT`, `RAFT_LATENCY_STATS`, `RAFT_SERVER_INSTANCES`, `RAFT_FOLLOWER_INFO`, and `RAFT_STATUS`
 
 Raft Cluster is available on every platform MariaDB Enterprise Server 12.3 ships on except Microsoft Windows.
 
 {% hint style="warning" %}
-Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. Replication log encryption and the `galera_group_members` Performance Schema table are not implemented.
+Raft Cluster does not yet cover everything MariaDB Enterprise Cluster (Galera) does. The `galera_group_members` Performance Schema table is not implemented.
 {% endhint %}
 
-MariaDB Enterprise Server 12.3 ships Raft Cluster 0.9.1. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](../../advanced-cluster/).
+MariaDB Enterprise Server 12.3 ships Raft Cluster 1.0.0. For configuration details, the full variable reference, and current limitations, see the [Raft Cluster documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW).
 
 ### Conflict Detection and Resolution
 
@@ -207,6 +208,8 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 * **Client port in connection records**: a connection is identified as `HOST:PORT` rather than by host alone, which distinguishes concurrent connections from the same host. When no port is available, the field records `unavailable`
 * **TLS version in connection events**: `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, `CHANGE_USER`, and `CHANGE_USER_DONE` records each carry the TLS version negotiated for the session, so audit logs can evidence which sessions used which protocol version
 
+From MariaDB Enterprise Server 12.3.3-1, MariaDB Enterprise Audit can also write the audit log in **JSON format**, one JSON object per record, to a file or to the system log. Set the new `server_audit_log_format` system variable to `JSON`; the default, `CSV`, keeps the existing format. See [JSON Format](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit/mariadb-enterprise-audit-log-destinations-and-format#json-format) ([MENT-2469](https://jira.mariadb.org/browse/MENT-2469)).
+
 ## Observability and Information Schema
 
 * **New** [**INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) **table**: reports which columns a trigger is defined to fire on
@@ -234,14 +237,15 @@ Two capabilities from the MariaDB Community audit plugin are now available in Ma
 
 MariaDB Enterprise Server 12.3 is not a rebuild of Community Server 12.3. The differences that matter most for this series:
 
-| Capability                                 | Enterprise Server 12.3 | Community Server 12.3       |
-| ------------------------------------------ | ---------------------- | --------------------------- |
-| MariaDB Raft Cluster (`raft`)              | Available              | Not available               |
-| Conflict Detection and Resolution          | Available              | Not available               |
-| `tls_certificate` authentication plugin    | Available              | Not available               |
-| MariaDB Enterprise Audit (`server_audit2`) | Available              | Community audit plugin only |
-| Videx storage engine                       | Not shipped            | Available                   |
-| Sphinx, OQGraph, Mroonga storage engines   | Not shipped            | Available                   |
+| Capability                                         | Enterprise Server 12.3 | Community Server 12.3       |
+| -------------------------------------------------- | ---------------------- | --------------------------- |
+| MariaDB Raft Cluster (`raft`)                      | Available              | Not available               |
+| Conflict Detection and Resolution                  | Available              | Not available               |
+| `tls_certificate` authentication plugin            | Available              | Not available               |
+| MariaDB Enterprise Audit (`server_audit2`)         | Available              | Community audit plugin only |
+| JSON audit log format (`server_audit_log_format`)  | Available              | Not available               |
+| Videx storage engine                               | Not shipped            | Available                   |
+| Sphinx, OQGraph, Mroonga storage engines           | Not shipped            | Available                   |
 
 For the full list of differences, see [MariaDB Enterprise Server Differences](../about/mariadb-enterprise-server-differences/).
 
@@ -287,6 +291,7 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 * [Deploy MariaDB Enterprise with Repositories](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage)
 * [Deploy MariaDB Enterprise with Package Tarballs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/package-tarballs)
 * [Deploy MariaDB Enterprise with Docker](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* [Install MariaDB Raft Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW/mariadb-raft-cluster-quickstart-guide#installation-on-each-node): Raft Cluster installs from the same repository as Enterprise Server, with one additional package
 
 ## What's new in older release series
 

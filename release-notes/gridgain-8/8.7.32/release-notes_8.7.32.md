@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.32 delivers improvements and fixed issues, including new metrics,
   thin-client enhancements, and Control Center Agent fixes.
-hidden: true
 ---
 
 # GridGain 8.7.32 Release Notes

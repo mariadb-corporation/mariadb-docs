@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.3 delivers new features and improvements, including checkpoint interval randomization and off-heap storage of deletion tombstones.
-hidden: true
 ---
 
 # GridGain 8.8.3 Release Notes

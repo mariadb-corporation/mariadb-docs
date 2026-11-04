@@ -3,7 +3,6 @@ description: >-
   GridGain 8.8.1 introduces managed rolling upgrade, incremental data center replication,
   native persistence defragmentation, transparent data encryption key rotation, data
   compression, and SQL tracing.
-hidden: true
 ---
 
 # GridGain 8.8.1 Release Notes

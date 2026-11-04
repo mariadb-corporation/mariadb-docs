@@ -3,7 +3,6 @@ description: >-
   PyGridGain 1.6.0 lets you choose the similarity function used by vector search,
   adding DOT_PRODUCT, EUCLIDEAN, and MAXIMUM_INNER_PRODUCT alongside the default
   COSINE.
-hidden: true
 ---
 
 # PyGridGain 1.6.0 Release Notes

@@ -2,7 +2,6 @@
 description: >-
   Deploying GridGain Control Center in Kubernetes, covering the backend and
   frontend containers, services, ConfigMap, and health probes.
-hidden: true
 ---
 
 # Control Center in Kubernetes

@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Enable remote (peer) assembly loading in GridGain.NET so compute tasks and their
   dependencies are deployed automatically across cluster nodes.

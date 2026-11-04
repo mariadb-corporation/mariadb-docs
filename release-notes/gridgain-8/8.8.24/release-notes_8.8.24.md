@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.24 adds Native AOT support for .NET thin clients and delivers fixes across the Community and Enterprise editions.
-hidden: true
 ---
 
 # GridGain 8.8.24 Release Notes

@@ -3,6 +3,7 @@ description: >-
   MariaDB Cloud AI Agents (Tech Preview, 1M tokens/month free): Developer
   Copilot, DBA Copilot, and user-created Custom DB Agents for natural-language
   queries on MySQL or MariaDB schemas.
+hidden: true
 ---
 
 # AI Agents

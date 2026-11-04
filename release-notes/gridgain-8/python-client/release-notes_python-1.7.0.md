@@ -3,7 +3,6 @@ description: >-
   PyGridGain 1.7.0 supports Python 3.11 to 3.15, adds vector query filters and
   tuning parameters, and uses TLS 1.3 by default. Also covers langchain-gridgain
   and langgraph-checkpoint-gridgain 3.1.0.
-hidden: true
 ---
 
 # PyGridGain 1.7.0 Release Notes

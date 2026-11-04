@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.22 adds control script commands for full state transfer and manual checkpoints and IgniteSet support in the .NET thin client, along with fixes.
-hidden: true
 ---
 
 # GridGain 8.8.22 Release Notes

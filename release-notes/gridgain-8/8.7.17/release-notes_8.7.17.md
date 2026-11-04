@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.17 adds partition awareness to the Java thin client, along with
   fixes across the control script, SQL, the storage engine, data replication,
   and snapshots.
-hidden: true
 ---
 
 # GridGain 8.7.17 Release Notes

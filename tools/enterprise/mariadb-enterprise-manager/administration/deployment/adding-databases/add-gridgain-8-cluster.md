@@ -3,7 +3,6 @@ description: >-
   Connect Enterprise Manager to GridGain Control Center to show GridGain 8
   clusters in the Databases list, open them in Control Center with single
   sign-on, and send their metrics to Enterprise Manager.
-hidden: true
 ---
 
 # Add a GridGain 8 Cluster
@@ -14,10 +13,8 @@ GridGain 8 clusters are view-only in Enterprise Manager. To manage a cluster, op
 
 ## Requirements
 
-<!-- DOCS-6280 TODO: link the Control Center installation page once the Control Center docs are published in this space. -->
-
 * Enterprise Manager 26.10 or later.
-* GridGain Control Center 2026.2 or later, installed on its own host, with your GridGain 8 clusters attached to it. For installation steps, see the GridGain Control Center installation documentation.
+* GridGain Control Center 2026.2 or later, installed on its own host, with your GridGain 8 clusters attached to it. For installation steps, see [Installation and Update Guide](../../../../control-center/installation/README.md).
 * Control Center configured to use Enterprise Manager as its OpenID Connect provider, with the client secret you enter as the **SSO client secret** below. For the Control Center settings, see [Enterprise Manager Integration](../../../../control-center/admin-guide/enterprise-manager-integration.md).
 
 ## Connect Enterprise Manager to Control Center
@@ -87,8 +84,6 @@ For the Control Center settings, including the setup where Control Center signs 
 
 The GridGain 8 dashboards and alert rules in Enterprise Manager need metrics from the cluster. GridGain 8 nodes push their metrics to Enterprise Manager through the OpenTelemetry metric exporter, which you configure on every node of the cluster.
 
-<!-- DOCS-6280 TODO: link the GridGain 8 metric exporter setup page once its location is confirmed. -->
-
 1. In the **Databases** list, click the three-dot menu (⋮) next to the GridGain 8 cluster and select **Metrics configuration**. You need the `admin` role.
 2. Copy the three values the dialog shows:
 
@@ -99,7 +94,7 @@ The GridGain 8 dashboards and alert rules in Enterprise Manager need metrics fro
    | `serviceName`      | The cluster name                                               |
 3. Set these properties on the `OpenTelemetryMetricExporterSpi` bean in the configuration of every node. Also set `protocol` to `HTTP`: the dialog doesn't show it, the exporter uses gRPC by default, and port `4318` accepts only OTLP over HTTP. Without it, no metrics reach Enterprise Manager.
 4. If Enterprise Manager's certificate comes from a private CA, which is the default, add that CA's certificate to the Java trust store of every node. By default, it is `certs/ca-cert.pem` in the Enterprise Manager installation folder. Build the trust store from a copy of the JDK's `lib/security/cacerts`, so that the nodes keep trusting public CAs. The Enterprise Manager receiver accepts only TLS connections.
-5. Restart the nodes. For the full procedure, select **View setup instructions** in the dialog.
+5. Restart the nodes. For the full exporter procedure, select **View setup instructions** in the dialog, or see [OpenTelemetry](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/reference/monitoring/generic-metrics#opentelemetry) in the GridGain 8 documentation.
 
 When metrics arrive, the **Uptime** and **Last metric age** columns fill in for the cluster's nodes, and the **View monitoring dashboard** action opens the [GridGain 8 dashboards](../../../usage/monitoring/dashboards/).
 

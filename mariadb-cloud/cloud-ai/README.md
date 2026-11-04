@@ -1,34 +1,28 @@
 ---
 description: >-
-  MariaDB Cloud AI capabilities: preconfigured Developer/DBA Copilots, custom
-  semantic agents for natural-language queries, REST API integration, and the
-  MCP server for AI development tools.
+  MariaDB Cloud AI services: AI Retrieval, a managed retrieval service for your
+  documents and databases, and the MariaDB Cloud MCP Server for AI-enabled
+  development tools.
 icon: brain-circuit
 ---
 
-# AI Agents & Copilot
+# AI Services
 
-This space introduces MariaDB Cloud's AI-enabled capabilities that include preconfigured developer and DBA copilots as well as tools to create custom semantic agents that enable natural language capabilities over complex database schemas with accuracy and consistency. It shows how these agents operate, how they integrate with your databases, and how they can be accessed through APIs or MCP-enabled development tools.
+<!-- DOCS-6592: renamed from "AI Agents & Copilot" at Egor Ustinov's request (2026-11-03). The AI Agents and AI Agents API User Guide pages are hidden. -->
 
-## AI Agents
+This section covers the AI services of MariaDB Cloud and how to use them with your databases.
 
-Create, deploy, and manage intelligent AI-powered agents that can read your complex database schemas and convert natural language capabilities into valid SQL queries.
+## AI Retrieval
 
-{% content-ref url="copilot-guide.md" %}
-[copilot-guide.md](copilot-guide.md)
-{% endcontent-ref %}
+AI Retrieval is a managed retrieval-augmented generation (RAG) service. It indexes your documents or your MariaDB database in a knowledge base and returns relevant passages, rows, or generated answers through a REST API.
 
-## AI Agents API User Guide
-
-Integrate AI Agents directly into your applications using REST APIs. These agents support stateful chat sessions, send natural language queries, table filters, error handling, etc.
-
-{% content-ref url="ai-api-guide.md" %}
-[ai-api-guide.md](ai-api-guide.md)
+{% content-ref url="ai-retrieval/" %}
+[ai-retrieval](ai-retrieval/)
 {% endcontent-ref %}
 
 ## MariaDB Cloud MCP Server
 
-Learn about MariaDB Cloud Model Context Protocol (MCP) Server, which acts as a secure bridge that connects AI-enabled development tools like Cursor, Clause Desktop, and Visual Studio Code to MariaDB Cloud databases.
+Learn about MariaDB Cloud Model Context Protocol (MCP) Server, which acts as a secure bridge that connects AI-enabled development tools like Cursor, Claude Desktop, and Visual Studio Code to MariaDB Cloud databases.
 
 {% content-ref url="mcp-server.md" %}
 [mcp-server.md](mcp-server.md)

@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.9.15 is a regular release bringing new features and performance
   improvements.
-hidden: true
 ---
 
 # GridGain 8.9.15 Release Notes

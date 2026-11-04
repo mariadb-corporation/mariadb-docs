@@ -115,18 +115,20 @@ jobs:
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]galera[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]maxscale[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]analytics[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14#g' \
-            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]columnstore[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/2I4jZ8pGq8bT4w5n3q6r#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]columnstore[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]skysql[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]home[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]platform[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]connectors[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L#g' \
-            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]gridgain9[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]gridgain8[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]gridgain9[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]tools[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]mariadb-cloud[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]release-notes[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]general-resources[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]exa[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/COKIFe0hm2r19L2bFQTW#g' \
             -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]ai-tools[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/y3YOhOKd2kxEEm0gLKs4#g' \
+            -e 's#(^[[:space:]]*\[[^]]*\]:[[:space:]]*|\]\(|url="|href=")[{]raft-cluster[}]#\1https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW#g' \
             < "$CHANGED_MD"
 
           echo "Git status after expansion:"

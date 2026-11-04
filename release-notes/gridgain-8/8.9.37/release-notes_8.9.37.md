@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.37 adds REST commands for inspecting caches and rebalance progress, along with SFTP host key verification for network backups and a number of security, thin client, and replication fixes.
-hidden: true
 ---
 
 # GridGain 8.9.37 Release Notes

@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.9.20-p2 is a patch release that fixes a rare channel corruption.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.20-p2 Release Notes

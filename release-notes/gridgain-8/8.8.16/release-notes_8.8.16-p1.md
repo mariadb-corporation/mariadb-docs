@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.16 Patch 1 fixes a rare data center replication issue.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.16 Patch 1 Release Notes

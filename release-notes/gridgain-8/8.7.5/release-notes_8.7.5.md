@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.5 is a maintenance release with many bug fixes, updates, and
   improvements, including on-the-fly service redeployment and events on cluster
   activation and deactivation.
-hidden: true
 ---
 
 # GridGain 8.7.5 Release Notes

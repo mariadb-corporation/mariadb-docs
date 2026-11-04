@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.28 is a maintenance release focused on improving stability and introducing support for EntryProcessor in thin clients.
-hidden: true
 ---
 
 # GridGain 8.9.28 Release Notes

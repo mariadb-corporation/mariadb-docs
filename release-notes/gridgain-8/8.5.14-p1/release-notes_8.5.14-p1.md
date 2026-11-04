@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.5.14-p1 fixes an issue with processing DEBUG level messages that could cause an exception.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.14-p1 Release Notes

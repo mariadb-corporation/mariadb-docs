@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.5.7-p2 is a maintenance release with several bug fixes.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.7-p2 Release Notes

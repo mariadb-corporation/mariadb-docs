@@ -2,7 +2,6 @@
 description: >-
   The management.sh|bat Control Center Agent management tool: commands,
   connection options, and basic options.
-hidden: true
 ---
 
 # Control Center Agent Management Tool

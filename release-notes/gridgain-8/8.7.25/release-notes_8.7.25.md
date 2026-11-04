@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.25 improves Control Center Agent flexibility and adds index rebuild metrics, with fixes across SQL, storage, and data replication.
-hidden: true
 ---
 
 # GridGain 8.7.25 Release Notes

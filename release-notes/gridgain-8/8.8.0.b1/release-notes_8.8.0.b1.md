@@ -4,6 +4,7 @@ description: >-
   Replication, Managed Rolling Upgrade, Spring 5.2.0 support, and metrics framework
   improvements.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.0.b1 BETA Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 9.1.10 adds ADO.NET integration, ZIP-based deployment units, improved CDC monitoring, and rolling upgrade improvements.
-hidden: true
 ---
 
 # GridGain 9.1.10 Release Notes
@@ -41,7 +40,7 @@ For more information, see [ADO.NET](https://app.gitbook.com/o/diTpXxF5WsbHqTReoB
 
 With this release, you can deploy your code in a `zip` archive preserving its folder structure. To do this, you use the new `/management/v1/deployment/units/zip/{unitId}/{unitVersion}` REST endpoint. Once GridGain receives the archive, it will unpack it and the code will be available from your compute jobs.
 
-For more information about code deployment, see [Code Deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/code-deployment) documentation.
+For more information about code deployment, see [Code Deployment](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/code-deployment) documentation.
 
 ### Deployment Unit Context in Compute Jobs
 
@@ -65,15 +64,15 @@ public class DiagnosticJob implements ComputeJob<Void, String> {
 }
 ```
 
-For more information about distributed computing, see [Compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) documentation.
+For more information about distributed computing, see [Compute](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-development/distributed-computing-and-services/distributed-computing/about-distributed-computing) documentation.
 
 ### Improved CDC Monitoring
 
-This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/gridgain9-management/backup-and-replication/change-data-capture).
+This release adds the new `cdc sink status` and `cdc source status` commands. These commands can be used to more accurately monitor [change data capture](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/gridgain9-management/backup-and-replication/change-data-capture).
 
 ### Improved CLI Tool Configuration for Docker
 
-This release adds support for the new `GRIDGAIN_CLI_WORK_DIR` environment variable that can be used to configure the directory that will be used to store the files required for the [CLI tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/reference/cli-tool) as well as its logs.
+This release adds support for the new `GRIDGAIN_CLI_WORK_DIR` environment variable that can be used to configure the directory that will be used to store the files required for the [CLI tool](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/reference/cli-tool) as well as its logs.
 
 ## Improvements and Fixed Issues
 

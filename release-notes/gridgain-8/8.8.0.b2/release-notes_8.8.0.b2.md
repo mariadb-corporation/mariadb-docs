@@ -4,6 +4,7 @@ description: >-
   Maintenance Mode, Transparent Data Encryption with key rotation, and dictionary-based
   data compression.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.0.b2 BETA Release Notes

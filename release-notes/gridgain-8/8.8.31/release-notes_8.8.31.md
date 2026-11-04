@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.31 brings stability improvements, including monitoring events support in the Java thin client.
-hidden: true
 ---
 
 # GridGain 8.8.31 Release Notes

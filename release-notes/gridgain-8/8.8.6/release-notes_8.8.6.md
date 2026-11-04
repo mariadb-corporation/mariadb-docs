@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.6 adds data streaming and an extended streaming API to the .NET thin client.
-hidden: true
 ---
 
 # GridGain 8.8.6 Release Notes

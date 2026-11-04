@@ -2,7 +2,6 @@
 description: >-
   Use the Caches screen to monitor and manage active caches on GridGain 8
   clusters.
-hidden: true
 ---
 
 # Caches Screen

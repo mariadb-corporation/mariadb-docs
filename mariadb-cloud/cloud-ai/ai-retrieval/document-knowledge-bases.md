@@ -4,16 +4,17 @@ description: >-
   upload or from an S3 or GCS bucket, test retrieval, and connect an
   application through the REST API.
 icon: file-lines
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Open items are marked TODO. -->
-
-<!-- TODO: screenshots were recaptured on 2026-10-20 in the test environment. Recapture ai-retrieval-upload-processing.png (used here and in parsing-and-chunking.md) and ai-retrieval-chunk-size-fields.png (parsing-and-chunking.md) once the environment shows "Base" instead of "Basic" (MCDEV-1484, comment 1143338). -->
+<!-- DOCS-6592. Open items are marked TODO. -->
 
 # Document Knowledge Bases
 
 A document knowledge base indexes files so that applications can retrieve passages or generated answers from them. This page shows how to create one, add documents, test it, and call it from an application.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-document-kb-diagram.png" alt="Documents from object storage or a direct upload are processed in the region of the knowledge base, using a MariaDB-hosted parser and an embedding model, and stored as chunks and embeddings in your MariaDB Cloud database. Clients retrieve chunks or generated answers through hybrid search, with a MariaDB-hosted reranker and a generation model."><figcaption><p>How a document knowledge base ingests documents and answers requests.</p></figcaption></figure>
+
+<!-- Diagram: "Unstructured RAG: Diagram" slide of Egor Ustinov's "Copy of 03 - AI - Training" deck, chosen by him for this page (call of 2026-10-29). Labels reworded to the docs terms (no structured/unstructured RAG), title and logo cropped. -->
 
 ## Create a Knowledge Base
 
@@ -97,7 +98,7 @@ A data source connects a bucket to the knowledge base. AI Retrieval reads the do
    | --- | --- |
    | Name | 3 to 63 characters. It must start and end with a letter or number, and it can contain letters, numbers, spaces, hyphens, and underscores. |
    | Cloud Provider | **AWS** for Amazon S3, or **Google Cloud** for Google Cloud Storage. |
-   | Storage Path | The bucket, for example `s3://my_bucket`. The `s3://` prefix is optional. |
+   | Storage Path | The bucket, for example `s3://my_bucket`, or `gs://my_bucket` for Google Cloud Storage. The `s3://` prefix is optional. |
    | Prefix | Optional. Limits the scan to objects whose keys begin with this value, for example `documents/2026/`. Leave it empty to scan the whole bucket. |
    | Access Key ID and Access Key | The credentials of an AWS identity that can read the bucket. |
    | Region | The region of the bucket. |
@@ -115,7 +116,9 @@ The credentials need these permissions on the bucket:
 
 For Google Cloud Storage, the dialog asks for a service account key in JSON format instead of access keys.
 
-<!-- TODO: capture the Google Cloud Storage version of the dialog and the Processing step of the data source dialog, and document the permissions that a service account needs. -->
+<figure><img src="../../.gitbook/assets/ai-retrieval-add-datasource-gcs.png" alt="The Add Datasource dialog on the Connect step with Google Cloud selected, showing the Storage Path, Prefix, and Service Account Key (JSON) fields."><figcaption><p>The Connect step with Google Cloud selected</p></figcaption></figure>
+
+<!-- TODO: capture the Processing step of the data source dialog, and document the permissions that a service account needs. -->
 
 AI Retrieval does not ingest the documents of a data source automatically. Removing a file from the bucket does not remove its document from the knowledge base, so delete the document in the knowledge base. If you delete a document in the knowledge base while its file is still in the bucket, the next sync ingests the file again. Select **Sync Now**, or **Sync** in the data source list, whenever you add files to the bucket. To review earlier syncs, select **View Sync History**.
 
@@ -131,7 +134,7 @@ A parsing strategy controls how AI Retrieval reads a file. A chunking strategy c
 
 The **Retrieve** tab shows the matching chunks with the file name, the chunk text, and the chunk ID. The **Retrieve & Generate** tab shows the generated answer, with numbers such as `[1]` that refer to the chunks it used. The **Request & Response** panel shows the HTTP request that the portal sent and the response. Select **Copy as cURL** to reuse the request in a terminal.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-test-retrieve.png" alt="The Test Knowledge Base drawer on the Retrieve tab showing five matching chunks."><figcaption><p>Results on the Retrieve tab</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-test-retrieve.png" alt="The Test Knowledge Base drawer on the Retrieve tab showing four matching chunks."><figcaption><p>Results on the Retrieve tab</p></figcaption></figure>
 
 The portal highlights the words of your question in the results. The highlighting does not show why a chunk matched.
 

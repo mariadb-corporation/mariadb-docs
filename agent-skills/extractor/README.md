@@ -16,6 +16,11 @@ regex-based, no markdown-library dependency, reads the canonical doc template.
   [--exclude FUNCTION ...]
 ```
 
+Pass several directories to merge their functions into one alphabetical
+listing. `regenerate.py` does this for `mariadb-string-functions`, which reads
+`string-functions/` and `special-functions/xml-functions/` (the XML functions
+moved out of String Functions in DOCS-6912, DOCS-7054).
+
 Output is Markdown on stdout — the dense per-function listing. Assemble it into
 a `SKILL.md` by wrapping it with `templates/function-category.scaffold.md`.
 

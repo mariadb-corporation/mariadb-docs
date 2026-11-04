@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to install and use the GridGain 8 Python thin client: connecting to a cluster, partition awareness, key-value operations, transactions, scan, vector, and SQL queries, SSL/TLS, and authentication.
 ---

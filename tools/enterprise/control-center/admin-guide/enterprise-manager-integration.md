@@ -3,7 +3,6 @@ description: >-
   Configure Control Center for MariaDB Enterprise Manager: use it as the
   OpenID Connect provider, map its roles to Control Center access, and trust
   its certificate.
-hidden: true
 ---
 
 # Enterprise Manager Integration

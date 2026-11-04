@@ -75,11 +75,11 @@ Several syslog parameters can be changed for MariaDB Enterprise Audit by setting
 
 ## Audit Log Format
 
-The audit log format for MariaDB Enterprise Audit depends on the [audit log destination](#audit-log-destinations).
+The audit log format for MariaDB Enterprise Audit depends on the [audit log destination](#audit-log-destinations) and on the `server_audit_log_format` system variable. By default, records are written in a comma-separated (CSV) format. From MariaDB Enterprise Server 12.3.3-1, they can be written in [JSON format](#json-format) instead.
 
 ### Formal Specification
 
-When MariaDB Enterprise Audit is configured to use a dedicated file, it records events in a comma-separated (CSV) format. For tool developers, it is critical to use standardized field mappings to correlate audit data with other server logs.
+When MariaDB Enterprise Audit is configured to use a dedicated file and the CSV format, it records events in a comma-separated (CSV) format. For tool developers, it is critical to use standardized field mappings to correlate audit data with other server logs.
 
 Template: `<timestamp>,<serverhost>,<username>,<host>:<port>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 
@@ -142,6 +142,91 @@ To build accurate filters and parsers, the `<operation>` field corresponds to th
 ### Audit Log Format with Syslog
 
 When configured to use `SYSLOG`, the standard CSV line is prefixed with syslog metadata: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> [Standard CSV Fields]`
+
+The CSV fields have no timestamp of their own, because syslog records the time.
+
+### JSON Format
+
+{% hint style="info" %}
+The JSON format is available from MariaDB Enterprise Server 12.3.3-1.
+{% endhint %}
+
+When the `server_audit_log_format` system variable is set to `JSON`, MariaDB Enterprise Audit writes each record as a JSON object on a single line. JSON format makes the audit log easier to process with log analysis tools, and it is supported for both [audit log destinations](#audit-log-destinations).
+
+To switch to JSON format with the [SET GLOBAL](../../sql-statements/administrative-sql-statements/set-commands/set.md) statement:
+
+```sql
+SET GLOBAL server_audit_log_format = 'JSON';
+```
+
+To ensure that the JSON format is used when the server restarts, set the variable in a configuration file:
+
+```ini
+[mariadb]
+server_audit_log_format=JSON
+```
+
+#### `server_audit_log_format`
+
+* Description: The format of the audit log records. `CSV` writes the [comma-separated format](#formal-specification). `JSON` writes [one JSON object per record](#json-record-fields).
+* Command line: `--server-audit-log-format=value`
+* Scope: Global
+* Dynamic: Yes
+* Data type: `enum`
+* Default value: `CSV`
+* Valid values: `CSV`, `JSON`
+* Introduced: MariaDB Enterprise Server 12.3.3-1
+
+#### Changing the Format
+
+If the format is changed while audit logging to a file is active, MariaDB Enterprise Audit [rotates the audit log file](#audit-log-rotation), so that a file never contains records in both formats, and the statement returns this warning:
+
+```
+Warning (Code 1): Changing server_audit_log_format while file logging is active has triggered an automatic log rotation.
+```
+
+The new file starts with `AUDIT_CONFIG` records, in the new format, for the file path, rotation settings, and the new value of `log_format`.
+
+When audit logging to the system log, no rotation takes place. Records written after the change use the new format.
+
+#### JSON Record Fields
+
+Every JSON record starts with these fields:
+
+| Field           | JSON Type | Description                                                                                                                                                                |
+| --------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timestamp`     | String    | The time of the event, formatted according to `server_audit_timestamp_format` (see [Milliseconds Precision Timestamps](#milliseconds-precision-timestamps)). Omitted when logging to the system log, because syslog records the time. |
+| `serverhost`    | String    | The hostname of the server instance.                                                                                                                                       |
+| `username`      | String    | The MariaDB user account triggering the event.                                                                                                                             |
+| `host`          | String    | The client host from which the user connected.                                                                                                                             |
+| `port`          | String    | The client's TCP port, or `unavailable` when the client did not connect over TCP/IP, such as over a Unix socket or a named pipe. The port is a string, not a number.  |
+| `connection_id` | Number    | The thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                                                                   |
+| `query_id`      | Number    | A unique identifier for the specific query. Used to link Query and Table events. `0` for connection events.                                                                |
+| `operation`     | String    | The type of action, such as `CONNECT`, `QUERY`, or `WRITE`.                                                                                                                 |
+
+Which fields follow depends on the operation:
+
+| Operation                                                    | Additional Fields                                                                                                                                                                                                                      |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `QUERY`                                                      | `database`, `query` (the statement text, with passwords masked as in the CSV format), `error` (the error code as a number; `0` means success)                                                                                                                              |
+| `READ`, `WRITE`, `CREATE`, `ALTER`, `DROP`                   | `database`, `table`                                                                                                                                                                                                                    |
+| `RENAME`                                                     | `database`, `table`, `new_database`, `new_table`                                                                                                                                                                                       |
+| `CONNECT`, `FAILED_CONNECT`, `DISCONNECT`, `CHANGE_USER_DONE` | `database`, `tls_version` (the negotiated TLS version, such as `TLSv1.3`, or an empty string when the connection is not encrypted), `status` (the error code as a number; `0` means success)                                         |
+| `CHANGE_USER`                                                | `database`, `info` (the new user name, enclosed in backticks), `tls_version`, `status`                                                                                                                                                  |
+| `PROXY_CONNECT`                                              | `database`, `proxy_user`, `proxy_host`, `status`                                                                                                                                                                                      |
+| `AUDIT_CONFIG`                                               | `database`, a field named after the changed setting (such as `logging` or `log_format`) holding its new value as a string, `status`                                                                                                    |
+
+For example, a statement, the table it accessed, and a connection look like this:
+
+```json
+{"timestamp":"20261029 10:15:02","serverhost":"db1","username":"app","host":"192.0.2.10","port":"53412","connection_id":12,"query_id":0,"operation":"CONNECT","database":"sales","tls_version":"TLSv1.3","status":0}
+{"timestamp":"20261029 10:15:03","serverhost":"db1","username":"app","host":"192.0.2.10","port":"53412","connection_id":12,"query_id":45,"operation":"READ","database":"sales","table":"orders"}
+{"timestamp":"20261029 10:15:03","serverhost":"db1","username":"app","host":"192.0.2.10","port":"53412","connection_id":12,"query_id":45,"operation":"QUERY","database":"sales","query":"SELECT * FROM orders WHERE id = 7","error":0}
+```
+
+String values are escaped so that each record is valid JSON: double quotes and backslashes are escaped with a backslash, control characters such as newlines and tabs are written as escape sequences (for example `\n` or `\u0001`), and bytes that are not valid UTF-8 are written as `\u00XX`. A statement that spans several lines is therefore still written as a single line.
+
+When logging to the system log, the syslog metadata prefix is the same as for the CSV format, followed by the JSON object: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> {JSON object}`
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

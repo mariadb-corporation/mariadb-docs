@@ -56,8 +56,9 @@ Status variables are also lighter weight compared to [Plugin System Variables](#
 
 Similarly to system variables, the status variables become known to the server when the plugin is loaded and go away when it's unloaded.
 
-> [!WARNING]
-> Status variables are not automatically prefixed with the plugin name! You will need to prefix your status variables with the plugin name. See [Array Status Variables](page-implementation.md#array-status-variables) for a convenient way to do this.
+{% hint style="warning" %}
+Status variables are not automatically prefixed with the plugin name! You will need to prefix your status variables with the plugin name. See [Array Status Variables](page-implementation.md#array-status-variables) for a convenient way to do this.
+{% endhint %}
 
 The status variables also have a declared data type.
 

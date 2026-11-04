@@ -30,7 +30,7 @@ Foundation is the starting point, and moving up a tier is additive: Power includ
 | Database           | MariaDB Community Server                  | MariaDB Enterprise Server                 | MariaDB Enterprise Server                                   |
 | AI                 | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents     | Developer and DBA Copilots, AI Agents                       |
 | Topologies         | Single Node, Primary-Replica              | Single Node, Primary-Replica              | Single Node, Primary-Replica, Enterprise Cluster (Galera)   |
-| HTAP (MariaDB Exa) | Not available                             | Available on request (technical preview)  | Available on request (technical preview)                    |
+| HTAP (MariaDB Exa) | Not available                             | Available on request (private preview)    | Available on request (private preview)                      |
 | Uptime SLA         | 99.95% (multi-node)                       | 99.995% (multi-node)                      | 99.995% (multi-node)                                        |
 | Support            | Basic and Standard support                | Basic, Standard, and Remote DBA (RDBA) support | Basic, Standard, and Remote DBA (RDBA) support         |
 
@@ -72,7 +72,7 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 ## About the Features
 
 * **Free serverless database** — every account gets one free [serverless database](serverless.md) with a 0.5 vCPU / 2 GB baseline that autoscales up to 2 MCU. No credit card is required. The free database is capped at 10 MCU-hours per month; once that threshold is reached it stays inactive until the limit resets at the start of the next month.
-* **AI** — built-in Developer and DBA Copilot agents, the no-code [AI Agent builder](../cloud-ai/copilot-guide.md), and support for the [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md), on every tier.
+* **AI** — [AI Retrieval](../cloud-ai/ai-retrieval/) and support for the [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md), on every tier.
 * **Redundant MaxScale** — with [MaxScale Redundancy](../reference/maxscale-redundancy.md), MaxScale nodes are deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
 * **Point-in-time restore (PITR)** — [restores a service to a moment in time](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md); it requires additional binary log retention to be configured in advance.
 * **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
@@ -85,7 +85,7 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 {% hint style="warning" %}
 **Preview features**
 
-HTAP using MariaDB Exa is available as a preview feature. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
+HTAP using MariaDB Exa is available as a private preview. Preview features receive limited Problem Resolution Support on a best-effort basis and are excluded from the standard support SLAs; HTAP using MariaDB Exa is not intended for production use.
 {% endhint %}
 
 ## Selecting a Tier

@@ -2,7 +2,6 @@
 description: >-
   How to contact the GridGain support team about Control Center, billing, or
   account access issues.
-hidden: true
 ---
 
 # Contact Us

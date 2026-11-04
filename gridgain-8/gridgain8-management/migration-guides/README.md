@@ -12,8 +12,8 @@ The following guides are available:
 
 {% columns %}
 {% column %}
-{% content-ref url="apache-ignite-2x/" %}
-[Apache Ignite 2](apache-ignite-2x/)
+{% content-ref url="apache-ignite-2x-8.10/" %}
+[Apache Ignite 2](apache-ignite-2x-8.10/)
 {% endcontent-ref %}
 {% endcolumn %}
 

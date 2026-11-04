@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   ANSI SQLSTATE error codes returned by the GridGain JDBC drivers through
   SQLException, with their descriptions.

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.20 is dedicated to fixing issues and improving stability, with continued new thin client features.
-hidden: true
 ---
 
 # GridGain 8.8.20 Release Notes

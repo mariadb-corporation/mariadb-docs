@@ -3,6 +3,7 @@ description: >-
   GridGain 8.7.2-p14 is a maintenance release that reduces cache memory
   consumption when no caches use the TRANSACTIONAL_SNAPSHOT atomicity mode.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.2-p14 Release Notes

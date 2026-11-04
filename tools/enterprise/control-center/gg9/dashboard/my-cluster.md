@@ -2,7 +2,6 @@
 description: >-
   The My Cluster tab of the Control Center Dashboard shows numeric and tabular
   information for the currently selected GridGain 9 cluster.
-hidden: true
 ---
 
 # My Cluster Tab

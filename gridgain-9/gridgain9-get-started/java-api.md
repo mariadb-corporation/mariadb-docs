@@ -23,7 +23,7 @@ Create a Docker Compose file to run a three-node GridGain cluster:
 name: gridgain9
 
 x-gridgain-def: &gridgain-def
-  image: gridgain/gridgain9:9.1
+  image: gridgain/gridgain9:latest
   environment:
     JVM_MAX_MEM: "4g"
     JVM_MIN_MEM: "4g"
@@ -79,11 +79,11 @@ docker compose up -d
 Run the GridGain CLI and initialize the cluster:
 
 ```bash
-docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:9.1 cli
+docker run --rm -it --network=host -v /opt/etc/license.json:/opt/gridgain/etc/license.json gridgain/gridgain9:latest cli
 ```
 
 {% hint style="info" %}
-Get a free trial license for Enterprise edition from the [GridGain website](https://www.gridgain.com/tryfree). It will be required to initialize the cluster.
+You need a GridGain 9 license to initialize the cluster. If you are interested in trying out GridGain 9, contact our support.
 {% endhint %}
 {% endstep %}
 
@@ -160,7 +160,7 @@ Include the GridGain client dependency in your `pom.xml` file:
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>ignite-client</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 </dependencies>
 ```
@@ -400,3 +400,7 @@ Now that you've explored the basics of connecting to GridGain and interacting wi
 * Experiment with more complex schemas and data types;
 * Explore data partitioning strategies;
 * Investigate GridGain's distributed computing capabilities.
+
+## See Also
+
+- [Connect With the Java Thin Client](learning-paths/distributed-sql-foundations/connect-java-thin-client.md)

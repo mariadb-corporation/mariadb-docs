@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.5.10 introduces substantial improvements to Data Center Replication, including a disk-based sender store, new start/stop and pause/resume semantics, replication events, and JMX management.
-hidden: true
 ---
 
 # GridGain 8.5.10 Release Notes

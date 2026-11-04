@@ -50,7 +50,7 @@ The `pom.xml` example below shows how you can add spring support:
     <dependency>
         <groupId>org.gridgain</groupId>
         <artifactId>spring-data-ignite</artifactId>
-        <version>9.1</version>
+        <version>9.1.28</version>
     </dependency>
 
     <!-- Spring Boot Starter for JDBC -->

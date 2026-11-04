@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.5 adds secondary columnar storage support and automatic host
   resolution in the node finder.
-hidden: true
 ---
 
 # GridGain 9.0.5 Release Notes
@@ -35,7 +34,7 @@ SELECT count(*) FROM Person /*+ use_secondary_storage */
 
 GridGain will then automatically use the storage that can perform the operation faster.
 
-For more information, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/BfPLkyMnD0BAfMCRhZKr/architecture/storage/engines/columnar-storage).
+For more information, see [Columnar Storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/architecture/storage/engines/columnar-storage).
 
 ### Automatic Host Resolution in Node Finder
 

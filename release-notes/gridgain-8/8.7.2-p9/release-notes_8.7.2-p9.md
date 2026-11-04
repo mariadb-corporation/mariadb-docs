@@ -3,6 +3,7 @@ description: >-
   GridGain 8.7.2-p9 is a maintenance release with a number of bug fixes,
   including affinity, baseline topology, and data center replication.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.2-p9 Release Notes

@@ -207,3 +207,7 @@ System.out.println(
 ## Next Steps
 
 Once you have created a table using the Java API, you can manipulate it using the [SQL commands](../reference/sql/ddl.md).
+
+## See Also
+
+- [Implement Schema With Java Annotations](../gridgain9-get-started/learning-paths/schema-design-for-distributed-sql/schema-java-annotations.md)

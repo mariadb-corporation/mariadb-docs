@@ -49,7 +49,7 @@ The following components are deployed during this procedure:
 
 ### MariaDB Enterprise Server Components
 
-<table><thead><tr><th width="305.2591552734375" valign="top">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-engine-overview">MariaDB Enterprise ColumnStore</a></td><td valign="top"><ul><li>Columnar storage engine</li><li>Highly available</li><li>Optimized for Online Analytical Processing (OLAP) workloads</li><li>Scalable query execution</li><li><a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore/cmapi">Cluster Management API (CMAPI)</a> provides a REST API for multi-node administration</li></ul></td></tr></tbody></table>
+<table><thead><tr><th width="305.2591552734375" valign="top">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-engine-overview">MariaDB Enterprise ColumnStore</a></td><td valign="top"><ul><li>Columnar storage engine</li><li>Highly available</li><li>Optimized for Online Analytical Processing (OLAP) workloads</li><li>Scalable query execution</li><li><a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore/cmapi">Cluster Management API (CMAPI)</a> provides a REST API for multi-node administration</li></ul></td></tr></tbody></table>
 
 ### MariaDB MaxScale Components
 
@@ -74,7 +74,7 @@ The ColumnStore nodes:
 
 * Receive queries from MaxScale
 * Execute queries
-* Use [S3-compatible object storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
+* Use [S3-compatible object storage](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
 * Use shared local storage for the Storage Manager directory
 
 ## Requirements
@@ -91,7 +91,7 @@ These requirements are for the ColumnStore Object Storage topology.
 * Preferred Object Storage Providers: Hardware
 * Shared Local Storage Directories
 * Shared Local Storage Options
-* [Recommended Storage Options](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#recommended-storage-options)
+* [Recommended Storage Options](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#recommended-storage-options)
 
 ### Node Count
 
@@ -184,7 +184,7 @@ If you have any questions about using specific S3-compatible object storage with
 
 ### Shared Local Storage Directories
 
-The ColumnStore Object Storage topology uses shared local storage for the [Storage Manager directory](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-storage-architecture#storage-manager-directory) to store metadata.
+The ColumnStore Object Storage topology uses shared local storage for the [Storage Manager directory](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-architecture#storage-manager-directory) to store metadata.
 
 The Storage Manager directory is located at the following path by default:
 

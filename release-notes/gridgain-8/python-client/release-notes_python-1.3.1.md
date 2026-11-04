@@ -2,7 +2,6 @@
 description: >-
   PyGridGain 1.3.1 adds support for the with statement, asynchronous I/O through
   asyncio, and a new API for retrieving and changing the cluster state.
-hidden: true
 ---
 
 # PyGridGain 1.3.1 Release Notes
@@ -25,8 +24,6 @@ with client.connect('127.0.0.1', 10800):
 ### Asynchronous I/O Support
 
 Pygridgain now supports asyncio to provide asynchronous API. See https://docs.python.org/3/library/asyncio.html for details.
-
-See https://github.com/gridgain/python-thin-client/blob/master/examples/async_key_value.py and https://github.com/gridgain/python-thin-client/blob/master/examples/async_sql.py for detailed usage examples.
 
 ```python
 client = AioClient()

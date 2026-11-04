@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.31 adds a PROBE REST command for Kubernetes readiness probes and
   delivers improvements and fixed issues across the Community, Enterprise, and
   Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.31 Release Notes

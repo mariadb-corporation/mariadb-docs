@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.5.8-p3 is a maintenance release with several bug fixes in the storage engine and SQL.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.5.8-p3 Release Notes

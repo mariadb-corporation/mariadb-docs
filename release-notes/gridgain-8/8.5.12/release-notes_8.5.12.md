@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.5.12 is a maintenance release that includes two bug fixes.
-hidden: true
 ---
 
 # GridGain 8.5.12 Release Notes

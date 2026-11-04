@@ -3,7 +3,6 @@ description: >-
   GridGain 8.7.35 adds .NET-to-Java type mapping conventions and WAL Files Reader
   diagnostics, along with improvements and fixed issues across the Community,
   Enterprise, and Ultimate editions.
-hidden: true
 ---
 
 # GridGain 8.7.35 Release Notes

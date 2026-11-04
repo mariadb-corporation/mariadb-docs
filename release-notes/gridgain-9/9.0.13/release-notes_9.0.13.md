@@ -2,7 +2,6 @@
 description: >-
   GridGain 9.0.13 reworks the Compute API, disables fsync by default, and adds
   SQL memory offloading and partitioned compute jobs.
-hidden: true
 ---
 
 # GridGain 9.0.13 Release Notes

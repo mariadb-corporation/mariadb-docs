@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.7.29-p1 fixes SYSDATE return-type handling and adds implicit INTERVAL-to-long conversion in the SQL engine.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.7.29-p1 Release Notes

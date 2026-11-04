@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.23 adds support for Spark 2.4 and delivers fixes across caching, the control script, SQL, and snapshots.
-hidden: true
 ---
 
 # GridGain 8.7.23 Release Notes

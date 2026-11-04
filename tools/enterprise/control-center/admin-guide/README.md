@@ -2,7 +2,6 @@
 description: >-
   Managing a GridGain Control Center installation: version upgrades,
   configuration options, and automated deployment using the REST API.
-hidden: true
 ---
 
 # Administrator's Guide
@@ -43,6 +42,10 @@ This section is dedicated to managing your Control Center installation, includin
 
 {% content-ref url="license.md" %}
 [license.md](license.md)
+{% endcontent-ref %}
+
+{% content-ref url="sbom.md" %}
+[sbom.md](sbom.md)
 {% endcontent-ref %}
 
 {% content-ref url="external-cluster.md" %}

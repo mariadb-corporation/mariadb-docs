@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.38 adds an optional Jetty 12 REST connector (Java 17+) and new thread-pool and client-session queue tunables.
-hidden: true
 ---
 
 # GridGain 8.9.38 Release Notes

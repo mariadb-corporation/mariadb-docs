@@ -1,6 +1,7 @@
 ---
 description: GridGain 8.8.22-p2 fixes issues that could occur when running control.sh commands and data center replication with security enabled.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.22-p2 Release Notes

@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Call Java services from a GridGain.NET application, including service interface
   mapping and method resolution.

@@ -2,6 +2,7 @@
 description: >-
   GridGain 8.9.22-p1 is a patch release focused on fixing Data Center Replication issues.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.9.22-p1 Release Notes

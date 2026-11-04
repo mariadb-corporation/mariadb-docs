@@ -1,7 +1,6 @@
 ---
 description: >-
   The Control Center Queries screen for GridGain 8 clusters.
-hidden: true
 ---
 
 # Queries Screen

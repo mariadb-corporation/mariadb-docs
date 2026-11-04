@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   How to retrieve error codes from the GridGain ODBC driver, and a reference of
   the ANSI SQL error codes it returns.

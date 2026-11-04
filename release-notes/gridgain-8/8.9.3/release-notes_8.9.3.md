@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.3 brings a number of bug fixes and improvements to performance of GridGain.
-hidden: true
 ---
 
 # GridGain 8.9.3 Release Notes

@@ -2,7 +2,7 @@
 
 ## Overview
 
-[MariaDB Enterprise Server](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/architecture/columnstore-architectural-overview#mariadb-enterprise-server) and MariaDB Community Server support data-in-transit encryption, which secures data transmitted over the network. The server and clients encrypt data using the Transport Layer Security (TLS) protocol, a newer version of the Secure Socket Layer (SSL) protocol.
+[MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-architectural-overview#mariadb-enterprise-server) and MariaDB Community Server support data-in-transit encryption, which secures data transmitted over the network. The server and clients encrypt data using the Transport Layer Security (TLS) protocol, a newer version of the Secure Socket Layer (SSL) protocol.
 
 [Additional information](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) is available on the MariaDB documentation.
 

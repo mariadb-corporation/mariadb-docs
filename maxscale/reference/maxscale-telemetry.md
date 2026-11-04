@@ -164,3 +164,32 @@ in the MaxScale configuration guide.
   * Type: Gauge
   * Description: MaxScale CPU usage
   * Added in: MaxScale 25.10
+
+## Logs
+
+In addition to metrics, MaxScale also sends logs via OpenTelemetry.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+The following table contains the mapping of syslog log levels to OpenTelemetry log levels that MaxScale uses.
+
+| Log level | Severity |
+| --------- | -------- |
+| debug     | `DEBUG`  |
+| info      | `INFO`   |
+| notice    | `INFO4`  |
+| warning   | `WARN`   |
+| error     | `ERROR`  |
+| critical  | `ERROR4` |
+| alert     | `FATAL`  |
+| emergency | `FATAL4` |
+
+For each log message, the following attributes are set.
+
+* `session`: The client session ID if the log message was logged due to client activity.
+* `module`: The module which logged the message.
+* `scope`: The name of the configuration object that logged the message.

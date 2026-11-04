@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.19 adds DR diagnostic and partition repair tools and scan query support for the C++ and C# thin clients, along with numerous fixes across all editions.
-hidden: true
 ---
 
 # GridGain 8.8.19 Release Notes

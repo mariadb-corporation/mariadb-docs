@@ -2,7 +2,6 @@
 description: >-
   Cluster permissions required for Control Center actions on secured GridGain 8
   clusters — caches, queries, snapshots, compute, and more.
-hidden: true
 ---
 
 # Authorization and Permissions

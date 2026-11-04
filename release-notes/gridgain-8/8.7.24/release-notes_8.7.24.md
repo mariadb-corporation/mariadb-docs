@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.7.24 delivers fixes and improvements across continuous queries, rebalancing, SQL indexing, thin clients, and the storage engine.
-hidden: true
 ---
 
 # GridGain 8.7.24 Release Notes

@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.8.42 includes multiple fixes to GridGain data center replication and logging improvements.
-hidden: true
 ---
 
 # GridGain 8.8.42 Release Notes

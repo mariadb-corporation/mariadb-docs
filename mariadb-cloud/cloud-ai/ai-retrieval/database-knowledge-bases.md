@@ -3,16 +3,15 @@ description: >-
   Create a MariaDB Cloud AI Retrieval database knowledge base, build its
   semantic map, customize it, and query your data in natural language.
 icon: database
-hidden: true
 ---
 
-<!-- DRAFT for DOCS-6592. Hidden until the Public Preview launch. Built from merged code on 2026-10-26: skysql-ui-client 4.13.37 (d9c5b422, src/locales/en.json, src/helpers/databaseKb.ts), skysql-gen-ai main (5dc0520, copilot/lib/database.py, agent/base.py), and skysql-microservices ai-service (ca4d8483d). Ryan Killea has not reviewed it yet. Screenshots wait for the production flip. Open items are marked TODO. -->
+<!-- DOCS-6592. Built from merged code on 2026-10-26: skysql-ui-client 4.13.37 (d9c5b422, src/locales/en.json, src/helpers/databaseKb.ts), skysql-gen-ai main (5dc0520, copilot/lib/database.py, agent/base.py), and skysql-microservices ai-service (ca4d8483d). Ryan Killea has not reviewed it yet. Screenshots wait for the production flip. Open items are marked TODO. -->
 
 # Database Knowledge Bases
 
 A database knowledge base answers questions about the data in a MariaDB service. You ask a question in natural language. AI Retrieval turns it into an SQL query, checks that the query only reads data, runs it, and returns the rows. It can also write an answer from the rows.
 
-For a quick first run with the Northwind demo database, see [Quickstart](quickstart.md#create-a-database-knowledge-base).
+For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowledge-base).
 
 ## Before You Begin
 
@@ -24,14 +23,14 @@ For a quick first run with the Northwind demo database, see [Quickstart](quickst
 1. In the portal, select **AI Retrieval** in the navigation, and then **Create Knowledge Base**.
 2. For **Type**, select **Database Knowledge Base**.
 3. Enter a **Name**, and optionally a **Description**.
-4. Under **Datasource**, choose one:
-   * **Existing service**: select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
-   * **Demo**: AI Retrieval uses the Northwind demo schema. It is useful to try the features without your own data.
-5. For an existing service, select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
+4. Under **Datasource**, select your service. The hostname, the port, and the credentials of the service are filled in. You can change them, for example to use a user with fewer privileges.
+5. Select **Fetch schemas**, and select the **Schema** whose tables the knowledge base can query. If the list cannot be loaded, enter the schema name.
 6. Optionally, expand **Advanced Options** and set these options:
    * **Default max rows**, under **SQL Limits**: the most rows that a question returns, unless the question sets its own limit. The default is 20, and the value can be from 1 to 10,000.
    * **Golden Queries**: pairs of a question and its SQL query. AI Retrieval uses them as examples when it writes queries, so that it learns the terms and patterns of your data. Select **Add Example** to add a pair.
 7. Select **Create Knowledge Base**.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
 AI Retrieval connects to the database and synchronizes its schema. This usually takes a few minutes. If no database is connected within 15 minutes, the setup is marked as failed. When the knowledge base is ready, use **Test** to ask a question, or **Connect** to call it from your application.
 
@@ -39,17 +38,25 @@ AI Retrieval connects to the database and synchronizes its schema. This usually 
 
 ## The Semantic Map
 
-The semantic map is a model of your database that AI Retrieval builds automatically: the tables and columns, the relationships between tables, the indexes, and descriptions of the data. AI Retrieval uses it to turn a question into an SQL query.
+The semantic map is the metadata layer that AI Retrieval builds automatically over the connected database. Schema metadata, including indexes and column relations, and exploration queries that a model generates feed table descriptions, two-tier column descriptions, and a column literals index. AI Retrieval uses the semantic map to turn a question into an SQL query.
+
+The semantic map improves as you use it. AI Retrieval indexes failed SQL queries to steer later queries, and it updates column descriptions when your questions clarify what a column means.
 
 AI Retrieval builds the semantic map automatically when you create the knowledge base, including a description of each table with sample rows. You do not need to change anything to start asking questions. The steps in [Customize the Semantic Map](#customize-the-semantic-map) are optional.
 
-<!-- TODO: replace the semantic map wording with the description that Egor will send (call of 2026-10-29). -->
+<!-- Wording from Egor, Slack DM 2026-10-30 17:36/17:38 India time. -->
+
+The semantic map covers up to 100 tables in each database schema and up to 1,000 columns in each table. AI Retrieval skips the other tables and columns automatically.
+
+<!-- Limits from Egor, Slack DM 2026-10-29 17:22 India time. -->
 
 Synchronize the schema again after you change the tables of the database. Some changes in the portal also apply only after the next sync. In that case, the knowledge base page shows **Some schema changes apply only after the next sync**. Select **Sync Now**.
 
 ## Customize the Semantic Map
 
 Customize the semantic map only when you want to change what AI Retrieval uses, for example to correct a description or to keep a table out of every query.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
 
 ### Choose How Each Table Is Used
 
@@ -94,7 +101,9 @@ The results show the **Generated SQL** and the rows that it returned. If more ro
 | **SQL Limit** | The maximum number of rows that the generated query returns. |
 | **Multi Turn** | Keeps the conversation history across questions, so that a follow-up question builds on the earlier ones. It is on by default. |
 
-<!-- TODO: confirm the tab names of the Test drawer for a database knowledge base and add a screenshot after the production flip. -->
+The Test drawer has two tabs, **Retrieve** and **Retrieve & Generate**.
+
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
 
 ## Query a Database Knowledge Base with the API
 
@@ -128,17 +137,6 @@ AI Retrieval protects your data when it runs a generated query:
 The database user is the main control over what a knowledge base can read. Use a user that has read privileges on the data that the knowledge base needs, and nothing more.
 
 <!-- Source: skysql-gen-ai copilot/lib/database.py check_sql (allowed first keywords WITH, SELECT, SHOW, DESCRIBE, DESC, EXPLAIN, ANALYZE, USE) and max_statement_time=30 / max_execution_time=30000; agent/base.py SQL_ROW_LIMIT_CEILING 10000; validation on by default since 67180d4. The check looks only at the first keyword of the statement, so the read-only user is the real protection. TODO: Ryan to confirm the wording. -->
-
-## Troubleshooting
-
-| Message | What to do |
-| --- | --- |
-| Couldn't list the schemas for this login. | Enter the schema name manually. |
-| Connected, but this login can't see any tables outside the system schemas. | Enter the schema name manually, or grant the user privileges on the tables. |
-| The knowledge base was created, but connecting the database failed. | Connect the database from the knowledge base page. |
-| The knowledge base shows an error after a sync. | Synchronize the schema again, or delete the database connection and connect a new one. |
-
-<!-- TODO: add the failure that a missing IP allowlist entry causes once its message is known. -->
 
 ## Next Steps
 

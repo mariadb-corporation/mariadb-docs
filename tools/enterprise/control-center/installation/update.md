@@ -2,7 +2,6 @@
 description: >-
   How to update GridGain Control Center to a more recent version, including
   work folder backup and automatic update application.
-hidden: true
 ---
 
 # Control Center Version Update

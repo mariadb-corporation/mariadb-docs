@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.8.14 speeds up node start, adds continuous queries to the C++ thin client
   and thin client support to Spring Data, and includes numerous fixes.
-hidden: true
 ---
 
 # GridGain 8.8.14 Release Notes

@@ -904,6 +904,10 @@ For multi-region HA deployments, the same secrets must be available in all Kuber
 
 For TLS, the CA certificate used to issue client and server certificates must be the same across all clusters. When configuring `spec.tls.serverCASecretRef` and `spec.tls.clientCASecretRef`, point to the same CA secret in each cluster. The operator uses this CA to issue certificates and establish TLS trust between clusters, and a mismatched CA will result in TLS handshake failures.
 
+### TLS client authentication
+
+[TLS client certificate authentication](../security/tls-client-authentication.md) (`spec.tls.clientAuth`) is **not supported** with multi-cluster, and the validating webhook rejects enabling both. Cross-cluster replication connects to the remote primary through an [`ExternalMariaDB`](../external-mariadb.md), which authenticates with a username and password and does not support client certificate authentication. As a consequence, multi-cluster cannot be used under strict FIPS 140-3 mode.
+
 ## Troubleshooting
 
 ### Checking multi-cluster status

@@ -1,6 +1,5 @@
 ---
 description: GridGain 8.8.23 adds Java 17 support, thin client and metrics improvements, and a cache destroy control script command, along with many fixes.
-hidden: true
 ---
 
 # GridGain 8.8.23 Release Notes

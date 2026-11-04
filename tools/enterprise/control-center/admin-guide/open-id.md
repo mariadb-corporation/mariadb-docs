@@ -2,7 +2,6 @@
 description: >-
   Setting up OpenID Connect authentication for GridGain Control Center,
   including RBAC, scopes, redirect URI, and provider configuration.
-hidden: true
 ---
 
 # OpenID Connect Authentication
@@ -220,3 +219,8 @@ Possible reasons for the above failure are:
   {"error":"invalid_grant","error_description":"Code not valid"}
   ```
 - The remote OIDC provider uses self-signed SSL certificate - import this certificate to Control Center truststore.
+
+## See Also
+
+- [How to Integrate Control Center With Okta](okta-authentication.md)
+- [How to Integrate Control Center With PingOne](pingone-authentication.md)

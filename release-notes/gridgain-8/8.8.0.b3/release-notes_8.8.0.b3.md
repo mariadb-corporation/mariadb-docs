@@ -3,6 +3,7 @@ description: >-
   GridGain 8.8.0.b3 is a beta release providing early access to new features such as
   PDS defragmentation status and Transparent Data Encryption CLI management.
 hidden: true
+noIndex: true
 ---
 
 # GridGain 8.8.0.b3 BETA Release Notes

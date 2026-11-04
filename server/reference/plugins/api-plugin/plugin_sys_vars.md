@@ -146,8 +146,9 @@ Defined in plugin.h:413
 
 This function should parse the user provided value and store in the provided temporary storage any data as required by the update func. There is sufficient space in the temporary storage to store a double. Note that the update func may not be called if any other error occurs so any memory allocated should be thread-local so that it may be freed automatically at the end of the statement.
 
-> [!WARNING]
-> If this callback is supplied, it *MUST* store the new value into `save`, so that [mysql_var_update_func](#mysql_var_update_func) can pick it up later. The server will not do it on its own in addition to calling the callback.
+{% hint style="warning" %}
+If this callback is supplied, it *MUST* store the new value into `save`, so that [mysql_var_update_func](#mysql_var_update_func) can pick it up later. The server will not do it on its own in addition to calling the callback.
+{% endhint %}
 
 **See also**: [Check and Update Callbacks](page-implementation.md#check-and-update-callbacks)
 
@@ -183,8 +184,9 @@ Defined in plugin.h:432
 
 This function should use the validated value stored in the temporary store `save` and persist it in the provided pointer to the dynamic variable. For example, strings may require memory to be allocated.
 
-> [!WARNING]
-> If this callback is supplied, it *MUST* store the actual value from `save` to `var_ptr`. The server will not do it on its own in addition to calling the callback.
+{% hint style="warning" %}
+If this callback is supplied, it *MUST* store the actual value from `save` to `var_ptr`. The server will not do it on its own in addition to calling the callback.
+{% endhint %}
 
 **See also**: [Check and Update Callbacks](page-implementation.md#check-and-update-callbacks)
 

@@ -2,7 +2,6 @@
 description: >-
   GridGain 8.7.43 speeds up node startup with checkpoint history snapshots, applies
   multiple security updates, and includes a range of improvements and bug fixes.
-hidden: true
 ---
 
 # GridGain 8.7.43 Release Notes

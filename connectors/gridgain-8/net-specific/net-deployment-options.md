@@ -1,5 +1,4 @@
 ---
-hidden: true
 description: >-
   Deployment options for GridGain.NET applications: full binary package, NuGet,
   single-file, custom, and ASP.NET deployments.

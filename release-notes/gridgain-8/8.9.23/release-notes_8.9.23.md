@@ -1,7 +1,6 @@
 ---
 description: >-
   GridGain 8.9.23 is a maintenance release focused on improving logging and DR stability.
-hidden: true
 ---
 
 # GridGain 8.9.23 Release Notes
