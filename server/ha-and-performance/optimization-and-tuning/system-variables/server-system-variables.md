@@ -1339,19 +1339,24 @@ The suffix can be upper or lower-case.
       * Either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-info-file) option.
       * Either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
     * Information about a master's [binary log dump thread](../../standard-replication/replication-threads.md#binary-log-dump-thread).
+    * Connections aborted due to "Too many connections" errors.
+    * Connections closed normally without authentication.
   * log\_warnings >= 3
     * All errors and warnings during [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) repair and auto recover.
     * Information about old-style language options.
     * Information about [progress of InnoDB online DDL](../../../server-usage/storage-engines/innodb/innodb-online-ddl/).
   * log\_warnings >=4
-    * Connections aborted due to "Too many connections" errors.
-    * Connections closed normally without authentication.
     * Connections aborted due to [KILL](../../../reference/sql-statements/administrative-sql-statements/kill.md).
     * Connections closed due to released connections, such as when [completion\_type](server-system-variables.md#completion_type) is set to `RELEASE`.
     * Could not read packet: (a lot more information)
     * All read/write errors for a connection are logged to the error log.
   * log\_warnings >=9
     * Information about initializing plugins.
+
+{% hint style="info" %}
+Connections that authenticate and then close normally are not written to the error log at any `log_warnings` level (from MariaDB 10.4.29, 10.5.20, 10.6.13, 10.11.3).
+{% endhint %}
+
 * Command line: `-W [level]` or `--log-warnings[=level]`
 * Scope: Global, Session
 * Dynamic: Yes
