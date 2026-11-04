@@ -6,7 +6,7 @@ If you find issues in the documentation, please report them:
 
 1. Report only **one issue per request**. If you find multiple issues, report them one by one.\
    Only report documentation issues, not software issues or software help requests.
-2. Provide the **URL of the page** that has an issue, for example `https://mariadb.com/docs/general-resources/about/readme/reporting-documentation-bugs`.\
+2. Provide the **URL of the page** that has an issue, for example `https://mariadb.com/docs/general-resources/about/reporting-documentation-bugs`.\
    :information\_source: When **reporting via the rating system**, the URL of the page you're on is automatically  included in your response, so there's **no need to include the URL**.
 3. Indicate the **nature of the issue**:
    1. **Typo**, for example "known bucks should be known bugs".
@@ -16,9 +16,9 @@ If you find issues in the documentation, please report them:
 
 ## Reporting Channels
 
-Use one of the following channels to report documentation issues. Please don't report software issues via those channels — instructions for doing that are [on this page](../../community/community/bug-tracking/reporting-bugs.md).
+Use one of the following channels to report documentation issues. Please don't report software issues via those channels — instructions for doing that are [on this page](../community/community/bug-tracking/reporting-bugs.md).
 
-<div align="left"><figure><img src="../../.gitbook/assets/image (4).png" alt="Screenshot of the GitBook rating system, with sample text in the text field, and a Submit button." width="221"><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/image (4).png" alt="Screenshot of the GitBook rating system, with sample text in the text field, and a Submit button." width="221"><figcaption></figcaption></figure></div>
 
 ### GitHub Issues
 
@@ -35,7 +35,7 @@ This is a super quick way to provide feedback or report issues in the documentat
 
 Join the `#documentation` channel in [MariaDB Community Slack](https://r.mariadb.com/join-community-slack). This allows for more detailed feedback or reports, and naturally provides two-way communication.
 
-![Screenshot of the MariaDB Community Slack, with the #documentation channel highlighted.](../../.gitbook/assets/image.png)
+![Screenshot of the MariaDB Community Slack, with the #documentation channel highlighted.](../.gitbook/assets/image.png)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

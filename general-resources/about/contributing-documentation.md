@@ -10,7 +10,7 @@ The documentation for MariaDB products is
 * using Markdown format,
 * stored in Git.
 
-While the documentation is mainly maintained by the documentation team at MariaDB plc, **we are happy to get contributions**. Being stored in Git, it allows anyone to contribute to the documentation. You need [a GitHub account](https://github.com/), [a basic knowledge of Markdown](https://www.writethedocs.org/guide/writing/markdown/), and some expertise in what you’re writing about. You also have to agree to our [contributor agreement](../../community/community/legal-documents/mca.md).
+While the documentation is mainly maintained by the documentation team at MariaDB plc, **we are happy to get contributions**. Being stored in Git, it allows anyone to contribute to the documentation. You need [a GitHub account](https://github.com/), [a basic knowledge of Markdown](https://www.writethedocs.org/guide/writing/markdown/), and some expertise in what you’re writing about. You also have to agree to our [contributor agreement](../community/community/legal-documents/mca.md).
 
 Contributing is as simple as this:
 

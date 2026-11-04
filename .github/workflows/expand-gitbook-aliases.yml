@@ -69,7 +69,7 @@ jobs:
             ':(exclude)README.md' \
             ':(exclude)pdf/README.md' \
             ':(exclude,glob)**/CONTRIBUTING.md' \
-            ':(exclude,glob)**/general-resources/about/readme/about-links.md' \
+            ':(exclude,glob)**/general-resources/about/about-links.md' \
             ':(exclude)tools/community/mariadb-ai-plugins/' \
             ':(exclude)tools/community/mariadb-shell/' \
             > "$CHANGED_MD"

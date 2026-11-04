@@ -83,7 +83,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 - A few files are intentionally **excluded from alias expansion** by the Action, because they
   discuss the alias mechanism rather than use it: the repository's own `README.md` and
   `pdf/README.md`, `CONTRIBUTING.md`, everything under `dev-docs/` and `.claude/`, and
-  `general-resources/about/readme/about-links.md`. Don't rely on alias expansion in those —
+  `general-resources/about/about-links.md`. Don't rely on alias expansion in those —
   write the raw `https://app.gitbook.com/o/<org>/s/<space>/path` URL instead.
 - **Expansion is scoped to your PR's own changed Markdown files.** It used to walk the whole
   tree, so any alias that had reached `main` unexpanded was rewritten by whichever PR opened

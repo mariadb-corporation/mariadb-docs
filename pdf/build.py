@@ -66,7 +66,7 @@ SPACE_TITLES = {
 # Left out on purpose (DOCS-7043): `get-started` and the `gridgain` hub are
 # navigation pages whose entries point into other spaces, so offline they would
 # be a PDF of links to other PDFs. The download table is on
-# general-resources/about/readme/offline-downloads.md. The Analytics and Home
+# general-resources/about/offline-downloads.md. The Analytics and Home
 # spaces were retired in DOCS-7062: ColumnStore and Exa have their own spaces,
 # and Get Started is the site root.
 ALL_SPACES = [
