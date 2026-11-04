@@ -6,7 +6,7 @@ description: >-
 
 # Building the Galera wsrep Package on Fedora
 
-The instructions on this page were used to create the _galera_ package on the Fedora Linux distribution. This package contains the wsrep provider for [MariaDB Galera Cluster](../../../readme/mariadb-galera-cluster-usage-guide.md).
+The instructions on this page were used to create the _galera_ package on the Fedora Linux distribution. This package contains the wsrep provider for [MariaDB Galera Cluster](../../../mariadb-galera-cluster-usage-guide.md).
 
 For the list of Galera wsrep provider versions and the MariaDB release each one first shipped in, see:
 

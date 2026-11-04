@@ -62,11 +62,11 @@ Many components in the Galera replication library were redesigned and improved w
 
 Although the **Galera provider** certifies the write set associated with a transaction at commit time on each node in the cluster, this write set is not necessarily applied on that cluster node immediately. Instead, the write set is placed in the cluster node's receive queue on the node, and it is eventually applied by one of the cluster node's Galera slave threads.
 
-The number of Galera slave threads can be configured with the [wsrep\_slave\_threads](../reference/galera-cluster-system-variables.md#wsrep_slave_threads) system variable.
+The number of Galera slave threads can be configured with the [wsrep\_slave\_threads](reference/galera-cluster-system-variables.md#wsrep_slave_threads) system variable.
 
 The Galera slave threads are able to determine which write sets are safe to apply in parallel. However, if your cluster nodes seem to have frequent consistency problems, then setting the value to `1` will probably fix the problem.
 
-When a cluster node's state, as seen by [wsrep\_local\_state\_comment](../reference/galera-cluster-status-variables.md#wsrep_local_state_comment), is⁣`JOINED`, then increasing the number of slave threads may help the cluster node catch up with the cluster more quickly. In this case, it may be useful to set the number of threads to twice the number of CPUs on the system.
+When a cluster node's state, as seen by [wsrep\_local\_state\_comment](reference/galera-cluster-status-variables.md#wsrep_local_state_comment), is⁣`JOINED`, then increasing the number of slave threads may help the cluster node catch up with the cluster more quickly. In this case, it may be useful to set the number of threads to twice the number of CPUs on the system.
 
 ## Streaming Replication
 
@@ -76,7 +76,7 @@ In older versions of MariaDB Cluster, there was a 2GB limit on the size of the t
 
 Using streaming replication, the node breaks huge transactions up into smaller and more manageable fragments; it then replicates these fragments to the cluster as it works instead of waiting for the commit. Once certified, the fragment can no longer be aborted by conflicting transactions. As this can have performance consequences both during execution and in the event of rollback, it is recommended that you only use it with large transactions that are unlikely to experience conflict.
 
-For more information, see [Using Streaming Replication for Large Transactions](../galera-management/performance-tuning/using-streaming-replication-for-large-transactions.md).
+For more information, see [Using Streaming Replication for Large Transactions](galera-management/performance-tuning/using-streaming-replication-for-large-transactions.md).
 
 ## Group Commits
 
@@ -90,8 +90,8 @@ For more information on Group Commit, see the [Galera Cluster documentation on G
 
 * [Galera Cluster: Galera Replication](https://mariadb.com/products/enterprise/galera-cluster/)
 * [What is MariaDB Galera Cluster?](mariadb-galera-cluster-guide.md)
-* [Galera Use Cases](../galera-use-cases.md)
-* [Getting Started with MariaDB/Galera Cluster](../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
+* [Galera Use Cases](galera-use-cases.md)
+* [Getting Started with MariaDB/Galera Cluster](galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
