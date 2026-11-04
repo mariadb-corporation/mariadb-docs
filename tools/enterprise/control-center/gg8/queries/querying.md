@@ -35,7 +35,7 @@ When you use the CREATE TABLE command to create a table, GridGain creates an und
 
 ### SQL Queries
 
-Control Center allows you to execute both DML and DDL statements supported by GridGain/Apache Ignite. See the SQL Reference guide for details.
+Control Center allows you to execute both DML and DDL statements supported by GridGain. See the SQL Reference guide for details.
 
 To execute a SQL statement, click the `+` icon in the queries tab bar and select **SQL query** from the dropdown list. Then, enter a statement in the query editor, and click **Execute**.
 
