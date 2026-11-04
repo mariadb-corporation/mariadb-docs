@@ -32,13 +32,12 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 
 | Alias | Target space |
 |-------|--------------|
-| `{home}` | Home / Landing |
 | `{server}` | MariaDB Server |
 | `{maxscale}` | MariaDB MaxScale |
 | `{galera}` | Galera Cluster |
-| `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{gridgain}` | GridGain (overview of GridGain 8 and 9) |
 | `{gridgain8}` | GridGain 8 |
 | `{gridgain9}` | GridGain 9 |
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
@@ -50,6 +49,7 @@ Markdown files your own PR changes, so that follow-up commit never edits a file 
 | `{exa}` | Exa |
 | `{ai-tools}` | AI Tools |
 | `{raft-cluster}` | Raft Cluster |
+| `{get-started}` | Get Started (the site's home page, `/docs/`) |
 
 ## Rules for agents
 

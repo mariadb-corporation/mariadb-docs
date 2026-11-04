@@ -35,19 +35,24 @@ The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTp
 
 | Alias | Target Space |
 | :--- | :--- |
-| `{home}` | Home / Landing |
 | `{server}` | MariaDB Server |
 | `{maxscale}` | MariaDB MaxScale |
 | `{galera}` | Galera Cluster |
-| `{analytics}` | Analytics (ColumnStore) |
 | `{columnstore}` | ColumnStore |
 | `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{gridgain}` | GridGain (overview of GridGain 8 and 9) |
+| `{gridgain8}` | GridGain 8 |
+| `{gridgain9}` | GridGain 9 |
 | `{skysql}` | MariaDB Cloud (legacy alias — SkySQL was renamed MariaDB Cloud) |
 | `{platform}` | MariaDB Enterprise Platform |
 | `{mariadb-cloud}` | MariaDB Cloud |
 | `{tools}` | Tools |
 | `{release-notes}` | Release Notes |
 | `{general-resources}` | General Resources |
+| `{exa}` | Exa |
+| `{ai-tools}` | AI Tools |
+| `{raft-cluster}` | Raft Cluster |
+| `{get-started}` | Get Started (the site's home page, `/docs/`) |
 
 ⚠️ Important: Link Validity
 
