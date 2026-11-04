@@ -392,3 +392,5 @@ Navigation in the procedure "Deploy ColumnStore Object Storage Topology":
 Next: Step 1: Prepare ColumnStore Nodes.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

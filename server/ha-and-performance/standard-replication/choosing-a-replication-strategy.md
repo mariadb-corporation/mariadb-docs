@@ -342,3 +342,5 @@ Once you select your replication strategy, you must configure how data changes a
 [Statement-Based Replication (SBR)](unsafe-statements-for-statement-based-replication.md) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}
