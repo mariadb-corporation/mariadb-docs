@@ -16,7 +16,7 @@ For a short walkthrough, see [Quickstart](quickstart.md#create-a-database-knowle
 ## Before You Begin
 
 * You need a MariaDB service that holds the data, and a database user that can read it. AI Retrieval sees only the tables and columns that this user can see. To limit what a knowledge base can read, see [Access and Security](access-and-security.md#database-knowledge-bases).
-* Add the AI Retrieval IP address to the IP allowlist of the service. See [Network Access for Database Knowledge Bases](access-and-security.md#network-access-for-database-knowledge-bases).
+* If the service restricts connections with an IP allowlist, add the AI Retrieval IP address to it. See [Network Access for Database Knowledge Bases](access-and-security.md#network-access-for-database-knowledge-bases).
 
 ## Create a Database Knowledge Base
 
