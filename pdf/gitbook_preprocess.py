@@ -516,12 +516,34 @@ GITBOOK_SPACE_IDS = {
     "kuTXWg0NDbRx6XUeYpGD": "tools",
     "JqgUabdZsoY5EiaJmqgn": "platform",
     "vPz15Lz0Iw3P3yKR3Prd": "mariadb-cloud",
-    # These two have no space directory of their own; the site redirects them
-    # (`/docs/home` -> `/docs/`, `/docs/columnstore` -> `/docs/analytics`).
-    # Neither is linked from the corpus, so only the roots are exercised.
+    # The IDs below match the `{alias}` table in expand-gitbook-aliases.yml.
+    # Until DOCS-7043 the map stopped at the spaces above, so every link into
+    # these spaces (about 590, most of them into ColumnStore) was unlinked in
+    # the PDFs, and the ColumnStore entry carried an ID that matched no space.
+    "RaYUwfaLLE1EkMr1e8Ud": "columnstore",
+    "ArQLGGUSG0VzKl1t2Y53": "gridgain-8",
+    "oHbGEk22iR73P3x6DryR": "gridgain-9",
+    "AmWSwHTrMJB8ojX2p6gW": "raft-cluster",
+    "COKIFe0hm2r19L2bFQTW": "exa",
+    "y3YOhOKd2kxEEm0gLKs4": "ai-tools",
+    # The site redirects `/docs/home` to `/docs/`; nothing links to it.
     "gmXC0YXB3rRhXvpg5mb1": "home",
-    "2I4jZ8pGq8bT4w5n3q6r": "columnstore",
 }
+
+# Spaces whose site path is not their directory name. The GridGain spaces are
+# published inside the `gridgain` site section (`/docs/gridgain/gridgain-8/…`),
+# and `/docs/gridgain-8` is a 404.
+SITE_PATHS = {
+    "gridgain-8": "gridgain/gridgain-8",
+    "gridgain-9": "gridgain/gridgain-9",
+}
+
+
+def site_path(repo_path):
+    """Map a repo path whose first segment is a space to its site path."""
+    head, sep, rest = repo_path.partition("/")
+    return SITE_PATHS.get(head, head) + sep + rest
+
 
 # A published URL carries no source suffix, and a directory's `README.md`
 # publishes as the directory itself. Leaving the `.md` on gives a soft 404: the
@@ -604,7 +626,7 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
             for cand in (f"{path}.md", f"{path}/README.md"):
                 if cand in anchors:
                     return "#" + anchors[cand]
-        base = f"{web_base.rstrip('/')}/{space}"
+        base = f"{web_base.rstrip('/')}/{site_path(space)}"
         return f"{base}/{path}{frag}" if path else f"{base}{frag}"
 
     def anchor_target(url):
@@ -628,7 +650,8 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
             # the repo path into its published form. The fragment is kept here,
             # unlike an in-space link -- the target page is not in this PDF, so
             # its section anchor still does useful work on the site.
-            path = PUBLISHED_SUFFIX_RE.sub("", PARENT_PREFIX_RE.sub("", rel))
+            path = site_path(
+                PUBLISHED_SUFFIX_RE.sub("", PARENT_PREFIX_RE.sub("", rel)))
             base = f"{web_base.rstrip('/')}/{path}" if path else web_base
             return base + (f"#{frag}" if frag else "")
         return None

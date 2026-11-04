@@ -7,6 +7,10 @@ icon: robot
 
 # AI Tools
 
+{% hint style="info" %}
+📄 Read offline: [mariadb-ai-tools.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-ai-tools.pdf) (~6 pages, 0.2 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
+
 The shop's search box now finds the desk lamp when a customer asks for "something to light my desk", and a coding agent wrote most of the code behind it. That's the first of two jobs agents do with MariaDB. One helps you build, on your machine, against a sandbox server. The other acts on live data in production, such as a support bot that looks up an order, and it needs access you can control and audit. These pages cover the tools for both, plus the retrieval pipelines that sit between your data and a language model.
 
 Vector search itself isn't on this list, because it's built into MariaDB Server. Its reference stays with the [server documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors).

@@ -48,7 +48,8 @@ SPACE_TITLES = {
     "maxscale": "MariaDB MaxScale",
     "platform": "MariaDB Enterprise Platform",
     "connectors": "MariaDB Connectors",
-    "analytics": "MariaDB Analytics and ColumnStore",
+    "analytics": "MariaDB Analytics",
+    "columnstore": "MariaDB ColumnStore",
     "tools": "MariaDB Tools",
     "mariadb-cloud": "MariaDB Cloud",
     "general-resources": "MariaDB General Resources",
@@ -56,14 +57,22 @@ SPACE_TITLES = {
     "home": "MariaDB Documentation",
     "gridgain-8": "GridGain 8",
     "gridgain-9": "GridGain 9",
+    "raft-cluster": "MariaDB Raft Cluster",
+    "exa": "MariaDB Exa",
+    "ai-tools": "MariaDB AI Tools",
 }
 
 # `help-tables/` is generated SQL, and the remaining top-level directories are
 # include containers or contributor docs -- none are browsable spaces.
+#
+# Two published spaces are left out on purpose (DOCS-7043): `get-started` and
+# the `gridgain` hub are navigation pages whose entries point into other
+# spaces, so offline they would be a PDF of links to other PDFs.
 ALL_SPACES = [
     "server", "release-notes", "maxscale", "platform", "connectors",
-    "analytics", "tools", "mariadb-cloud", "general-resources",
-    "galera-cluster", "home", "gridgain-8", "gridgain-9",
+    "analytics", "columnstore", "tools", "mariadb-cloud", "general-resources",
+    "galera-cluster", "home", "gridgain-8", "gridgain-9", "raft-cluster",
+    "exa", "ai-tools",
 ]
 
 CHROME_CANDIDATES = [
@@ -284,6 +293,71 @@ def run_pandoc(markdown, title):
 
 
 MERMAID_JS = os.path.join(PDF_DIR, "vendor", "mermaid.min.js")
+FONT_DIR = os.path.join(PDF_DIR, "vendor", "fonts")
+LOGO_DIR = os.path.join(PDF_DIR, "assets")
+
+# The brand faces (Enterprise Platform 2027), fetched by `pdf/fetch-deps.sh`:
+# (family, weight, style, file, unicode-range or None). Figtree comes split
+# into the Latin and Latin Extended subsets that @fontsource publishes; Geist
+# and Geist Mono ship whole. The brand allows Figtree SemiBold only, and Geist
+# Regular and Medium, plus the italics prose needs.
+BRAND_FONTS = [
+    ("Figtree", 600, "normal", "figtree-latin-600-normal.woff2",
+     "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,"
+     "U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,"
+     "U+FEFF,U+FFFD"),
+    ("Figtree", 600, "normal", "figtree-latin-ext-600-normal.woff2",
+     "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,"
+     "U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,"
+     "U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"),
+    ("Geist", 400, "normal", "Geist-Regular.woff2", None),
+    ("Geist", 400, "italic", "Geist-Italic.woff2", None),
+    ("Geist", 500, "normal", "Geist-Medium.woff2", None),
+    ("Geist", 500, "italic", "Geist-MediumItalic.woff2", None),
+    ("Geist Mono", 400, "normal", "GeistMono-Regular.woff2", None),
+    ("Geist Mono", 400, "italic", "GeistMono-Italic.woff2", None),
+]
+
+
+def font_faces():
+    """Return @font-face rules for the brand faces that are present.
+
+    Missing files only warn: a local build without `pdf/fetch-deps.sh` still
+    renders, in the fallback faces. CI checks the finished PDF with `pdffonts`
+    instead, which also catches a face that is present but never applied.
+    """
+    rules, missing = [], []
+    for family, weight, style, name, urange in BRAND_FONTS:
+        path = os.path.join(FONT_DIR, name)
+        if not os.path.isfile(path):
+            missing.append(name)
+            continue
+        rules.append(
+            "@font-face {"
+            f" font-family: '{family}'; font-weight: {weight};"
+            f" font-style: {style}; font-display: block;"
+            f" src: url('file://{quote(path)}') format('woff2');"
+            + (f" unicode-range: {urange};" if urange else "")
+            + " }")
+    if missing:
+        print(f"  note: {len(missing)} brand font file(s) absent from "
+              "pdf/vendor/fonts -- text falls back to system faces "
+              "(run pdf/fetch-deps.sh)", file=sys.stderr)
+    return "\n".join(rules)
+
+
+def load_logo(cover):
+    """Return the horizontal lockup as inline SVG for the cover.
+
+    The brand's rule is one color only: white on a dark cover, Trench on a
+    light one. The files are the brand page's own downloads, unmodified.
+    """
+    variant = "white" if cover == "ultraviolet" else "trench"
+    path = os.path.join(LOGO_DIR, f"mariadb-lockup-horizontal-{variant}.svg")
+    with open(path, encoding="utf-8") as fh:
+        svg = fh.read()
+    return svg.replace("<svg ", '<svg class="logo" role="img" '
+                       'aria-label="MariaDB" ', 1)
 
 
 def load_mermaid():
@@ -301,21 +375,24 @@ def load_mermaid():
 
 
 def build_html(space, body_html, toc_html, entries, version_label,
-               cover="azure"):
+               cover="ultraviolet"):
     with open(os.path.join(PDF_DIR, "style.css"), encoding="utf-8") as fh:
-        css = fh.read()
+        css = font_faces() + "\n" + fh.read()
     mermaid_js = load_mermaid()
     mermaid_block = (
         f"<script>{mermaid_js}</script>\n<script>"
         "(async () => {"
         "  try {"
-        "    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });"
+        "    mermaid.initialize({ startOnLoad: false, theme: 'neutral',"
+        "                         fontFamily: 'Geist, sans-serif' });"
         "    await mermaid.run({ querySelector: 'pre.mermaid' });"
         "  } catch (e) { console.error('mermaid', e); }"
+        "  await document.fonts.ready;"
         "  window.__renderComplete = true;"
         "})();</script>"
         if mermaid_js else
-        "<script>window.__renderComplete = true;</script>"
+        "<script>document.fonts.ready.then("
+        "() => { window.__renderComplete = true; });</script>"
     )
 
     title = SPACE_TITLES.get(space, space)
@@ -326,8 +403,9 @@ def build_html(space, body_html, toc_html, entries, version_label,
 <style>{css}</style>
 </head><body>
 <section class="cover cover-{cover_class}">
+  {load_logo(cover)}
+  <p class="eyebrow">Documentation</p>
   <h1>{html.escape(title)}</h1>
-  <p class="subtitle">Documentation</p>
   <p class="meta">{html.escape(version_label)}<br>{len(entries)} pages</p>
   <p class="legal">&copy; MariaDB. Content licensed CC BY-SA / GNU FDL.
   The authoritative, continuously updated version of this documentation is at
@@ -516,11 +594,11 @@ def html_to_pdf(html_path, pdf_path, chrome):
 
 
 # Cover treatments, both verified against WCAG (see pdf/style.css).
-COVER_CLASS = {"azure": "azure", "sea-fresh": "sea"}
+COVER_CLASS = {"ultraviolet": "ultraviolet", "foam": "foam"}
 
 
 def build_space(space, out_dir, version_label, limit=None, keep_html=False,
-                no_optimize=False, cover="azure"):
+                no_optimize=False, cover="ultraviolet"):
     print(f"[{space}] parsing SUMMARY.md")
     entries = parse_summary(space)
     print(f"[{space}] {len(entries)} pages in navigation order")
@@ -634,9 +712,10 @@ def main():
                     help="retain the intermediate HTML for debugging")
     ap.add_argument("--no-optimize", action="store_true",
                     help="skip the qpdf lossless size pass")
-    ap.add_argument("--cover", choices=sorted(COVER_CLASS), default="azure",
-                    help="cover treatment: Blue Azure with white text "
-                         "(default) or Sea Fresh with Deep Ocean text")
+    ap.add_argument("--cover", choices=sorted(COVER_CLASS),
+                    default="ultraviolet",
+                    help="cover treatment: Ultraviolet with white text and "
+                         "logo (default) or Foam with Trench text and logo")
     ap.add_argument("--list-spaces", action="store_true",
                     help="print the buildable spaces as JSON and exit; with "
                          "space arguments, validate them first (CI matrix)")

@@ -12,7 +12,7 @@ MariaDB ColumnStore and MariaDB Exa are exclusive to MariaDB Enterprise Server.
 {% endhint %}
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) (~590 pages, 5.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-analytics.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-analytics.pdf) (~30 pages, 0.5 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 ## MariaDB ColumnStore

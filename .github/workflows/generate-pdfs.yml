@@ -3,7 +3,7 @@ name: Generate documentation PDFs
 # Builds one PDF per GitBook space and attaches them to a GitHub Release.
 #
 # Snapshot-based (DOCS-5710), never per-push: a full run produces ~450 MB across
-# 11 files. Two ways in:
+# 17 files. Two ways in:
 #
 #   * monthly cron, so a dated snapshot exists even in a month nobody cuts one;
 #   * manual dispatch, to re-cut after a Server release lands.
@@ -196,7 +196,7 @@ jobs:
       - name: Install qpdf and poppler
         run: sudo apt-get install -y qpdf poppler-utils
 
-      - name: Fetch Mermaid bundle
+      - name: Fetch the Mermaid bundle and the brand fonts
         run: ./pdf/fetch-deps.sh
 
       - name: Build ${{ matrix.space }} PDF
@@ -213,11 +213,30 @@ jobs:
           pages=$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')
           echo "$pdf -> $pages pages, $(du -h "$pdf" | cut -f1)"
           # A space that collapses to a couple of pages means the SUMMARY parse
-          # or the preprocessor silently dropped nearly everything.
-          if [[ "${{ matrix.space }}" != "home" && "$pages" -lt 10 ]]; then
-            echo "::error::only $pages pages -- build looks broken"
+          # or the preprocessor silently dropped nearly everything. The floor
+          # scales with the space: a few spaces (home, ai-tools) have fewer
+          # than ten pages in their navigation, and for those the cover, the
+          # contents and one page per entry is the minimum.
+          entries=$(python3 -c 'import sys; sys.path.insert(0, "pdf"); import build; print(len(build.parse_summary(sys.argv[1])))' "${{ matrix.space }}")
+          floor=$(( entries < 8 ? entries + 2 : 10 ))
+          if (( pages < floor )); then
+            echo "::error::only $pages pages for $entries navigation entries (floor $floor) -- build looks broken"
             exit 1
           fi
+
+          # The brand faces (DOCS-7043) are fetched, not committed. If the fetch
+          # half-failed or the @font-face rules stopped matching, Chrome
+          # silently falls back to a system face -- so check what the PDF
+          # actually embeds. Every space has headings and body text; not every
+          # space has code, so Geist Mono is not required.
+          pdffonts "$pdf" > fonts.txt
+          for face in Figtree Geist-Regular; do
+            if ! grep -q "+$face" fonts.txt; then
+              echo "::error::$pdf does not embed the brand face $face"
+              cat fonts.txt
+              exit 1
+            fi
+          done
 
           # Cross-space links arrive in the checkout as app.gitbook.com *editor*
           # URLs, which demand a login; the preprocessor maps them to
