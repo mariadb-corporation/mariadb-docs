@@ -49,3 +49,5 @@ TideSQL is a shared-object plugin that must be built against a matching MariaDB 
 Beyond standalone and replicated servers, TideSQL participates in Galera clustering through the server's wsrep interface, with engine-level write-set certification and cross-node conflict resolution. See [TideSQL Replication and High Availability](tidesql-replication-and-ha.md) for what the engine does in a cluster.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

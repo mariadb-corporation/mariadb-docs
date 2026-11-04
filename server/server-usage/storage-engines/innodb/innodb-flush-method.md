@@ -104,3 +104,5 @@ FUA can be detrimental for data file write performance, but beneficial for log w
 [^2]: Direct Memory Access; see [https://en.wikipedia.org/wiki/Direct\_memory\_access](https://en.wikipedia.org/wiki/Direct_memory_access) for details.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

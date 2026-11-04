@@ -61,3 +61,5 @@ The engine generates auto-increment values on the grid `auto_increment_offset` a
 On a single node, an optimistic write-write conflict surfaces at `COMMIT` as error 1180 wrapping handler error 149 (deadlock), or mid-statement as a deadlock (1213), and the application retries, described in [TideSQL Limitations](tidesql-limitations.md). Under Galera a conflict between two transactions on the same node surfaces the same way at `SNAPSHOT` and `SERIALIZABLE`, and at the levels below `SNAPSHOT` as a deadlock (1213) on the losing write. Across a cluster the losing transaction of a cross-node conflict is aborted and reaches the client as a deadlock, which an application should handle by retrying the transaction. Autocommit statements are retried by the server automatically, up to `wsrep_retry_autocommit` times. The winner's row stands identically on every node, so the replicas stay converged.
 
 <sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
