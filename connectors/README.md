@@ -26,7 +26,7 @@ layout:
 # MariaDB Connectors
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) (~660 pages, 6 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-connectors.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-connectors.pdf) (~940 pages, 12 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 {% content-ref url="connectors-quickstart-guides/" %}

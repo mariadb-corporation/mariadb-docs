@@ -9,7 +9,7 @@ icon: cloud-sun
 # MariaDB Cloud
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~300 pages, 5.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-mariadb-cloud.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-mariadb-cloud.pdf) (~390 pages, 11.5 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 ## Overview

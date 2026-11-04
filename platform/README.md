@@ -1,7 +1,7 @@
 # MariaDB Enterprise Platform
 
 {% hint style="info" %}
-📄 Read offline: [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) (~500 pages, 4.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+📄 Read offline: [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) (~550 pages, 6.5 MB). The PDF is a point-in-time snapshot; this site is always current.
 {% endhint %}
 
 ### What is MariaDB Enterprise Platform? <a href="#what-is-mariadb-enterprise-platform" id="what-is-mariadb-enterprise-platform"></a>
