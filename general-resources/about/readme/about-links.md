@@ -1,3 +1,9 @@
+---
+description: >-
+  How links work in the MariaDB documentation: when to use external, relative,
+  and space links, with the space link aliases and space prefixes.
+---
+
 # About Links
 
 {% hint style="info" %}
@@ -96,14 +102,21 @@ https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/install
 
 These space link aliases are available:
 
+* `{get-started}`
 * `{platform}`
 * `{server}`
 * `{maxscale}`
-* `{analytics}`
+* `{columnstore}`
 * `{galera}`
+* `{raft-cluster}`
+* `{exa}`
 * `{connectors}`
 * `{tools}`
+* `{ai-tools}`
 * `{mariadb-cloud}`
+* `{gridgain}`
+* `{gridgain8}`
+* `{gridgain9}`
 * `{release-notes}`
 * `{general-resources}`
 
@@ -129,6 +142,12 @@ See the [List of Space Prefixes](about-links.md#list-of-space-prefixes) section 
 
 A handy list of all space prefixes for the MariaDB Docs:
 
+#### [Get Started](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/1H8tuThi64HJmOJHG6nV/) space prefix
+
+```
+https://app.gitbook.com/s/1H8tuThi64HJmOJHG6nV
+```
+
 #### [MariaDB Platform](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn/) space prefix
 
 ```
@@ -147,16 +166,28 @@ https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV
 https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX
 ```
 
-#### [Analytics](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) space prefix
+#### [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/) space prefix
 
 ```
-https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14
+https://app.gitbook.com/s/RaYUwfaLLE1EkMr1e8Ud
 ```
 
 #### [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) space prefix
 
 ```
 https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7
+```
+
+#### [Raft Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/AmWSwHTrMJB8ojX2p6gW/) space prefix
+
+```
+https://app.gitbook.com/s/AmWSwHTrMJB8ojX2p6gW
+```
+
+#### [Exa](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/COKIFe0hm2r19L2bFQTW/) space prefix
+
+```
+https://app.gitbook.com/s/COKIFe0hm2r19L2bFQTW
 ```
 
 #### [Connectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/) space prefix
@@ -171,10 +202,34 @@ https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L
 https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD
 ```
 
+#### [AI Tools](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/y3YOhOKd2kxEEm0gLKs4/) space prefix
+
+```
+https://app.gitbook.com/s/y3YOhOKd2kxEEm0gLKs4
+```
+
 #### [MariaDB Cloud](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/) space prefix
 
 ```
 https://app.gitbook.com/s/vPz15Lz0Iw3P3yKR3Prd
+```
+
+#### [GridGain](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aCh6jmvBjQASgok5pZEH/) space prefix
+
+```
+https://app.gitbook.com/s/aCh6jmvBjQASgok5pZEH
+```
+
+#### [GridGain 8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/ArQLGGUSG0VzKl1t2Y53/) space prefix
+
+```
+https://app.gitbook.com/s/ArQLGGUSG0VzKl1t2Y53
+```
+
+#### [GridGain 9](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/oHbGEk22iR73P3x6DryR/) space prefix
+
+```
+https://app.gitbook.com/s/oHbGEk22iR73P3x6DryR
 ```
 
 #### [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/) space prefix
