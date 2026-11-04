@@ -37,22 +37,22 @@ near-identical release. Pass an explicit `tag` to keep a snapshot separate.
 
 | Space | Doc pages | PDF pages |
 |-------|----------:|----------:|
-| `server` | 4,101 | ~6,540 |
-| `release-notes` | 2,772 | ~5,720 |
-| `maxscale` | 771 | ~5,810 |
-| `platform` | 813 | ~500 |
-| `connectors` | 289 | ~660 |
+| `server` | 4,271 | ~7,340 |
+| `release-notes` | 3,230 | ~6,670 |
+| `maxscale` | 517 | ~4,070 |
 | `gridgain-8` | 341 | ~1,750 |
+| `tools` | 378 | ~1,500 |
 | `gridgain-9` | 196 | ~1,170 |
-| `tools` | 128 | ~610 |
+| `connectors` | 346 | ~940 |
 | `columnstore` | 164 | ~570 |
-| `mariadb-cloud` | 110 | ~300 |
-| `galera-cluster` | 101 | ~270 |
-| `general-resources` | 124 | ~220 |
+| `platform` | 848 | ~550 |
+| `mariadb-cloud` | 122 | ~390 |
+| `galera-cluster` | 99 | ~260 |
+| `general-resources` | 121 | ~230 |
 | `raft-cluster` | 5 | ~50 |
 | `exa` | 7 | ~30 |
 | `analytics` | 8 | ~30 |
-| `home` | 2 | ~7 |
+| `home` | 2 | ~8 |
 | `ai-tools` | 2 | ~6 |
 
 Two published spaces get no PDF: `get-started` and the `gridgain` hub are
