@@ -526,23 +526,26 @@ GITBOOK_SPACE_IDS = {
     "AmWSwHTrMJB8ojX2p6gW": "raft-cluster",
     "COKIFe0hm2r19L2bFQTW": "exa",
     "y3YOhOKd2kxEEm0gLKs4": "ai-tools",
+    # Get Started is the site root since the 2026-11-03 revamp (SITE_PATHS).
+    "1H8tuThi64HJmOJHG6nV": "get-started",
     # The site redirects `/docs/home` to `/docs/`; nothing links to it.
     "gmXC0YXB3rRhXvpg5mb1": "home",
 }
 
 # Spaces whose site path is not their directory name. The GridGain spaces are
 # published inside the `gridgain` site section (`/docs/gridgain/gridgain-8/…`),
-# and `/docs/gridgain-8` is a 404.
+# and `/docs/gridgain-8` is a 404. Get Started is the site root (`/docs/`).
 SITE_PATHS = {
     "gridgain-8": "gridgain/gridgain-8",
     "gridgain-9": "gridgain/gridgain-9",
+    "get-started": "",
 }
 
 
 def site_path(repo_path):
     """Map a repo path whose first segment is a space to its site path."""
-    head, sep, rest = repo_path.partition("/")
-    return SITE_PATHS.get(head, head) + sep + rest
+    head, _, rest = repo_path.partition("/")
+    return "/".join(x for x in (SITE_PATHS.get(head, head), rest) if x)
 
 
 # A published URL carries no source suffix, and a directory's `README.md`
@@ -626,7 +629,7 @@ def rewrite_links(text, page_path, space_dir, anchors, web_base):
             for cand in (f"{path}.md", f"{path}/README.md"):
                 if cand in anchors:
                     return "#" + anchors[cand]
-        base = f"{web_base.rstrip('/')}/{site_path(space)}"
+        base = "/".join(x for x in (web_base.rstrip("/"), site_path(space)) if x)
         return f"{base}/{path}{frag}" if path else f"{base}{frag}"
 
     def anchor_target(url):
