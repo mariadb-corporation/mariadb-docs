@@ -72,15 +72,15 @@ One MCU (MariaDB Cloud Compute Unit) is equivalent to 0.5 vCPU and 2 GB of memor
 ## About the Features
 
 * **Free serverless database** — every account gets one free [serverless database](serverless.md) with a 0.5 vCPU / 2 GB baseline that autoscales up to 2 MCU. No credit card is required. The free database is capped at 10 MCU-hours per month; once that threshold is reached it stays inactive until the limit resets at the start of the next month.
-* **AI** — [AI Retrieval](../cloud-ai/ai-retrieval/) and support for the [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md), on every tier.
-* **Redundant MaxScale** — with [MaxScale Redundancy](../reference/maxscale-redundancy.md), MaxScale nodes are deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
-* **Point-in-time restore (PITR)** — [restores a service to a moment in time](../cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md); it requires additional binary log retention to be configured in advance.
-* **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](../security/private-vpc-connections.md), in addition to IP allowlisting.
-* **[Bring Your Own Cloud (BYOC)](../quickstart/bring-your-own-cloud-byoc.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOC extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
-* **[MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md)** (PowerPlus) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
-* **[HTAP using MariaDB Exa](../quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database. Available on request; see [Requesting access to MariaDB Exa](../quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
-* **Uptime SLA** — see the [MariaDB Cloud Uptime SLA](../reference/uptime-sla.md) page for the performance standard, measurement details, exclusions, service credits, and customer obligations.
-* **[Support](../reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](../reference/clouddba.md) is available on Power and PowerPlus.
+* **AI** — [AI Retrieval](cloud-ai/ai-retrieval/) and support for the [MariaDB Cloud MCP Server](cloud-ai/mcp-server.md), on every tier.
+* **Redundant MaxScale** — with [MaxScale Redundancy](reference/maxscale-redundancy.md), MaxScale nodes are deployed active-active behind round-robin load balancing, with a selectable MaxScale instance size.
+* **Point-in-time restore (PITR)** — [restores a service to a moment in time](cloud-data-handling/backup-and-restore/restore-examples/point-in-time-restore.md); it requires additional binary log retention to be configured in advance.
+* **Private connectivity** — [AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link](security/private-vpc-connections.md), in addition to IP allowlisting.
+* **[Bring Your Own Cloud (BYOC)](quickstart/bring-your-own-cloud-byoc.md)** — database nodes run in your own cloud account, and infrastructure costs are billed directly by your cloud provider. On PowerPlus, BYOC extends to advanced topologies, including running Enterprise Cluster inside your own cloud account.
+* **[MariaDB Enterprise Cluster](quickstart/enterprise-cluster.md)** (PowerPlus) — synchronous, Galera-powered clustering with write-set certification, quorum management, and automated failover with no data loss (RPO 0). Enterprise Cluster requires a minimum of 3 nodes to maintain quorum. During the technical preview, MaxScale routes all writes to a single active writer node.
+* **[HTAP using MariaDB Exa](quickstart/htap-mariadb-exa.md)** — adds an in-memory columnar analytics engine behind the same entry point as your OLTP database. Available on request; see [Requesting access to MariaDB Exa](quickstart/htap-mariadb-exa.md#requesting-access-to-mariadb-exa).
+* **Uptime SLA** — see the [MariaDB Cloud Uptime SLA](reference/uptime-sla.md) page for the performance standard, measurement details, exclusions, service credits, and customer obligations.
+* **[Support](reference/support.md)** — Basic support is included with every subscription; Standard support adds Problem Resolution Support, Engineering Support, and 24×7 handling of the most severe issues. The [Remote DBA (RDBA) add-on](reference/clouddba.md) is available on Power and PowerPlus.
 
 {% hint style="warning" %}
 **Preview features**
@@ -90,7 +90,7 @@ HTAP using MariaDB Exa is available as a private preview. Preview features recei
 
 ## Selecting a Tier
 
-The tier applies to your whole organization, so services you launch inherit it. When you launch a service through the [MariaDB Cloud Portal](https://app.skysql.com), the options presented to you on the [Launch Page](../cloud-usage/launch-page.md) — instance sizes, node counts, topologies, MaxScale redundancy, connectivity — reflect your organization's tier.
+The tier applies to your whole organization, so services you launch inherit it. When you launch a service through the [MariaDB Cloud Portal](https://app.skysql.com), the options presented to you on the [Launch Page](cloud-usage/launch-page.md) — instance sizes, node counts, topologies, MaxScale redundancy, connectivity — reflect your organization's tier.
 
 When you launch through the REST API, the tier is passed in the request body:
 
@@ -114,7 +114,7 @@ curl --location 'https://api.skysql.com/provisioning/v1/services' \
   }'
 ```
 
-The [`/provisioning/v1/sizes` API endpoint](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_sizes) also returns tier-specific results, so the [instance sizes](../reference/mariadb-cloud-instance-sizes.md) it lists depend on whether your account is Foundation, Power, or PowerPlus.
+The [`/provisioning/v1/sizes` API endpoint](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_sizes) also returns tier-specific results, so the [instance sizes](reference/mariadb-cloud-instance-sizes.md) it lists depend on whether your account is Foundation, Power, or PowerPlus.
 
 ## Upgrading Your Tier
 

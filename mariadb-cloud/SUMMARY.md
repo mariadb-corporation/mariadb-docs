@@ -1,10 +1,10 @@
 # Table of contents
 
 * [MariaDB Cloud](README.md)
-  * [Key Features & Capabilities](readme/key-features-and-capabilities.md)
-  * [Service Tiers](readme/service-tiers.md)
-  * [MariaDB Cloud Serverless](readme/serverless.md)
-  * [MariaDB Cloud Serverless Architecture](readme/architecture.md)
+* [Key Features & Capabilities](key-features-and-capabilities.md)
+* [Service Tiers](service-tiers.md)
+* [MariaDB Cloud Serverless](serverless.md)
+* [MariaDB Cloud Serverless Architecture](architecture.md)
 * [Quickstart Guides](quickstart/README.md)
   * [Using the Portal](quickstart/using-the-portal.md)
   * [Launch DB Using REST API](quickstart/launch-db-using-the-rest-api.md)

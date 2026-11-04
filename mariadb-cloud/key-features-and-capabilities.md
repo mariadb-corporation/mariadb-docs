@@ -19,9 +19,9 @@ icon: clouds
 
 ### AI Services
 
-* **AI Retrieval (Public Preview):** Ask questions about your documents or your MariaDB databases in natural language, and call the knowledge base from your applications through a REST API. A document knowledge base returns passages or generated answers from your files, and a database knowledge base turns a question into SQL and returns the rows. See [AI Retrieval](../cloud-ai/ai-retrieval/).
+* **AI Retrieval (Public Preview):** Ask questions about your documents or your MariaDB databases in natural language, and call the knowledge base from your applications through a REST API. A document knowledge base returns passages or generated answers from your files, and a database knowledge base turns a question into SQL and returns the rows. See [AI Retrieval](cloud-ai/ai-retrieval/).
 * **Built-in AI Agents:** The Developer Agent, the Data Agent, and the DBA Agent help with general MariaDB Cloud questions, querying your data, query performance tuning, and troubleshooting guidance.
-* **MariaDB Cloud MCP Server:** Connects AI-enabled development tools to your MariaDB Cloud databases. See [MariaDB Cloud MCP Server](../cloud-ai/mcp-server.md).
+* **MariaDB Cloud MCP Server:** Connects AI-enabled development tools to your MariaDB Cloud databases. See [MariaDB Cloud MCP Server](cloud-ai/mcp-server.md).
 
 ### Global Multi-Cloud Presence
 
@@ -37,7 +37,7 @@ icon: clouds
 {% hint style="info" %}
 **Single-Writer Routing**&#x20;
 
-For [MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md), MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
+For [MariaDB Enterprise Cluster](quickstart/enterprise-cluster.md), MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### Disaster Recovery
