@@ -1,14 +1,19 @@
-name: Announce MariaDB Cloud release notes
+name: Announce release notes
 
-# Posts each newly published MariaDB Cloud release note to #mariadb-product-releases, the
-# company-wide channel where PMs announce releases (DOCS-6936, requested by Adam Luciano, who
-# posted the first three by hand on 2026-10-01). One message per note: the H1 in bold (it names
-# the feature), the note's own `description:`, and the live link.
+# Posts each newly published release note, for every product in the Release Notes space, to
+# #mariadb-product-releases, the company-wide channel where PMs announce releases. Requested by
+# Adam Luciano: first for MariaDB Cloud (DOCS-6936), then for the whole portfolio (DOCS-7076).
+# One message per note: the H1 in bold (it names the product and version), the note's own
+# `description:`, and the live link.
 #
-# "Newly published" is decided by .github/scripts/cloud_release_announce.py, whose header
-# explains why it is not "newly added": Cloud release notes are merged hidden and unhidden when
-# the release ships, often in a later push and often from the GitBook app. A GitBook-app commit
-# reaches main as a normal push, so it triggers this workflow like any other.
+# "Newly published" is decided by .github/scripts/release_announce.py, whose header explains
+# what counts as a release note and why it is not "newly added": notes are merged hidden and
+# unhidden when the release ships, often in a later push and often from the GitBook app. A
+# GitBook-app commit reaches main as a normal push, so it triggers this workflow like any other.
+#
+# The script also holds back notes that are published but are not news: a stated release date
+# older than MAX_AGE_DAYS (a backfill), or more than MAX_NOTES notes in one push (a migration).
+# Those are listed in the run summary and reported to #docs-notifications, never posted.
 #
 # It runs per push rather than nightly because the post is the announcement: a release made
 # public in the morning should not reach the company the next day.
@@ -34,9 +39,11 @@ on:
   push:
     branches: [main]
     paths:
-      - 'release-notes/mariadb-cloud-release-notes/**'
-      # Adding an existing page to the navigation publishes it too.
-      - 'release-notes/SUMMARY.md'
+      # Any note, any product; adding a page to the navigation (SUMMARY.md) or unhiding its
+      # parent publishes it too. The script reads the whole space in one git process, so a push
+      # that publishes nothing costs a few seconds.
+      - 'release-notes/**'
+      - '!release-notes/.gitbook/**'
   workflow_dispatch:
     inputs:
       before:
@@ -53,13 +60,23 @@ on:
         required: false
         default: false
         type: boolean
+      max_notes:
+        description: 'Most notes one run may announce; raise it to post a held-back batch'
+        required: false
+        default: '10'
+        type: string
+      max_age_days:
+        description: 'Hold back notes whose stated release date is older than this; raise it to post a late note'
+        required: false
+        default: '30'
+        type: string
 
 permissions:
   contents: read
 
 # Queued, never cancelled: two quick pushes must both announce what they published.
 concurrency:
-  group: announce-cloud-release-notes
+  group: announce-release-notes
   cancel-in-progress: false
 
 jobs:
@@ -119,11 +136,20 @@ jobs:
         env:
           BEFORE: ${{ steps.range.outputs.before }}
           AFTER: ${{ steps.range.outputs.after }}
+          # Via env, never interpolated into the script (DOCS-6361). Empty on push → default.
+          MAX_NOTES: ${{ inputs.max_notes }}
+          MAX_AGE_DAYS: ${{ inputs.max_age_days }}
         run: |
           set -euo pipefail
-          python3 .github/scripts/cloud_release_announce.py "$BEFORE" "$AFTER" > notes.json
-          count=$(jq 'length' notes.json)
-          echo "count=$count" >> "$GITHUB_OUTPUT"
+          # The script compares commit dates, so it needs the AFTER commit's metadata: the
+          # shallow fetch above has it.
+          python3 .github/scripts/release_announce.py "$BEFORE" "$AFTER" > result.json
+          jq '.announce' result.json > notes.json
+          jq '.skipped' result.json > skipped.json
+          {
+            echo "count=$(jq 'length' notes.json)"
+            echo "skipped=$(jq 'length' skipped.json)"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Build the Slack messages
         if: steps.find.outputs.count != '0'
@@ -189,14 +215,14 @@ jobs:
         run: |
           set -euo pipefail
           {
-            echo "## MariaDB Cloud release-note announcements"
+            echo "## Release-note announcements"
             echo
             echo "Range: \`${BEFORE:-?}\`..\`${AFTER:-?}\`, posting: ${POST:-?}"
             echo
             if [[ ! -s notes.json ]]; then
               echo "No result -- an earlier step failed."
             elif [[ "$(jq 'length' notes.json)" == 0 ]]; then
-              echo "No release note was published in this range."
+              echo "No release note to announce in this range."
             else
               # Fenced: the text comes from page content, and this summary renders GFM.
               for p in payloads/*.json; do
@@ -205,7 +231,37 @@ jobs:
                 echo '````'
               done
             fi
+            if [[ -s skipped.json && "$(jq 'length' skipped.json)" != 0 ]]; then
+              echo
+              echo "### Published but not announced"
+              echo
+              echo '````text'
+              jq -r '.[] | "\(.file): \(.reason)"' skipped.json
+              echo '````'
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Report held-back notes to #docs-notifications
+        # Not a failure: a migration or backfill is expected to land here. But a real release
+        # with a wrong date would too, so someone on the docs team has to see the list.
+        if: steps.find.outputs.skipped != '0' && steps.find.outputs.skipped != '' && steps.range.outputs.post == 'true'
+        env:
+          WEBHOOK: ${{ secrets.NOTIFICATIONS_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # jq builds the payload; file paths and reasons come from the repo, escaped for mrkdwn.
+          jq -n --slurpfile s skipped.json --arg run "$RUN_URL" '
+            def esc: gsub("&"; "&amp;") | gsub("<"; "&lt;") | gsub(">"; "&gt;");
+            ($s[0] | length) as $n
+            | { text: (":mute: *\($n) newly published release note(s) not announced* to #mariadb-product-releases. "
+                       + "If any is a real new release, replay the same range from the workflow with post on and a higher max_notes or max_age_days.\n"
+                       + ([$s[0][:15][] | "• `\(.file | esc)`: \(.reason | esc)"] | join("\n"))
+                       + (if $n > 15 then "\n• … and \($n - 15) more" else "" end)
+                       + "\n*Run:* " + $run),
+                unfurl_links: false }' > held.json
+          curl -sS --fail-with-body -X POST -H 'Content-Type: application/json' \
+            --data @held.json "$WEBHOOK"
 
       - name: Notify #docs-notifications on failure
         if: failure()
@@ -215,6 +271,6 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "❌ *Cloud release-note announcement failed* -- check whether it posted to #mariadb-product-releases before re-running.\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              "text": "❌ *Release-note announcement failed* -- check whether it posted to #mariadb-product-releases before re-running.\n*Repo:* ${{ github.repository }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
           errors: true
