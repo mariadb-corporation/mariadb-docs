@@ -852,7 +852,7 @@ PARTITION BY RANGE (a) (
 Engine-defined options have these restrictions:
 
 * They can't be set for a subpartition. Subpartitions use the options of their partition.
-* An option that the storage engine doesn't define is ignored without an error or warning. For a whole table, the same option fails with error 1911, `Unknown option`.
+* An option that the storage engine doesn't define is ignored without an error or warning. For a whole table, the same option fails with error 1911, `Unknown option` ([MDEV-42081](https://jira.mariadb.org/browse/MDEV-42081)).
 * [Exchanging a partition](#exchanging-partitions) with a table doesn't exchange the options. The partition keeps its options in the table definition, even though its data now has the options of the former table ([MDEV-33153](https://jira.mariadb.org/browse/MDEV-33153)).
 
 ### Other Table Options
