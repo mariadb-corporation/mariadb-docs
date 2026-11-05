@@ -946,7 +946,7 @@ The old MySQL 5.5 names of some of these options, without the `debug-` prefix (`
 * Command line: `--debug-gdb`, `--skip-debug-gdb`
 * Description: Sets up signal handling for running the server under a debugger such as `gdb`. Off by default. When enabled:
   * `SIGINT` is not blocked, so you can interrupt the server from the debugger (for example, with Ctrl+C). If `SIGINT` reaches the server, it shuts down normally.
-  * No core file is written on a crash, even if [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) is set.
+  * [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) has no effect. On Linux and other Unix-like systems, the server doesn't raise the core file size limit, so the operating system writes a core dump on a crash only if its own limit already allows it. See [Enabling Core Dumps](../../reference/product-development/debugging-mariadb/enabling-core-dumps.md).
   * On Windows, the server doesn't install its own unhandled-exception filter, so an attached debugger or Windows Error Reporting handles the crash.
   * It doesn't turn off [--stack-trace](mariadbd-options.md#stack-trace). Use `--skip-stack-trace` for that.
 
@@ -1151,8 +1151,8 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * Description: When the server crashes on a fatal signal, prints a symbolic stack trace to the [error log](../server-monitoring-logs/error-log.md), with a pointer to [How to Produce a Full Stack Trace for mariadbd](../../reference/product-development/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md). Include this output in bug reports. Enabled by default, except in builds with AddressSanitizer or MemorySanitizer. Disable with `--skip-stack-trace`.
   * On Linux and other Unix-like systems, the fatal signals handled are `SIGSEGV`, `SIGABRT`, `SIGBUS`, `SIGILL`, and `SIGFPE`.
   * Only available on builds with stack-trace support.
-  * To also get a core file, set [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file).
-  * With `--skip-stack-trace`, what happens on a crash depends on `core_file`. If it is off, the server installs no handler for these signals, so the operating system's default action ends the server and nothing is written to the error log. If it is on, the server still writes the crash report (`got signal ...`, the server version and, if available, the current query) and a core file, but no stack trace.
+  * To also get a core dump, set [core\_file](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file). On Linux and other Unix-like systems, the core dump is written by the operating system, not by the server, after the server has written its crash report. Whether it's written, and where it ends up, depends on the operating system's settings. On Windows, the server writes a minidump file itself. See [Enabling Core Dumps](../../reference/product-development/debugging-mariadb/enabling-core-dumps.md).
+  * With `--skip-stack-trace`, what happens on a crash depends on `core_file`. If it is off, the server installs no handler for these signals, so the operating system's default action ends the server and nothing is written to the error log. If it is on, the server still writes the crash report (`got signal ...`, the server version and, if available, the current query), but no stack trace, before letting the operating system write a core dump.
 
 #### `--symbolic-links`
 
