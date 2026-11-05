@@ -161,18 +161,27 @@ The value of `kernel.core_pattern` is printed to the [error log](../../../server
 
 **Note:** Ensure that you have enough free disk space in the path pointed to by `kernel.core_pattern`.
 
-#### Extracting Linux core dumps with systemd-coredump
+#### Extracting Linux Core Dumps with systemd-coredump
 
 Core dump management can be automated using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
 
-This is enabled per default on Red Hat Enterprise Linux 8 and CentOS 8, and maybe other contemporary Linux distribution releases by now, too. It can be easily checked for by looking at the `kernel.core_pattern setting`. If it looks like this systemd-coredump is enabled:
+This is enabled by default on Red Hat Enterprise Linux 8 and later and on distributions derived from it. To check whether it is enabled, look at the `kernel.core_pattern` setting. If it looks like this, systemd-coredump is enabled:
 
 ```
 # sysctl kernel.core_pattern
 kernel.core_pattern = |/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e
 ```
 
-On other distributions like Ubuntu (at least up to 21.10) it is not enabled by default, but can be set up manually.
+On other distributions, such as Ubuntu, it is not enabled by default, but can be set up manually.
+
+{% hint style="info" %}
+When `kernel.core_pattern` starts with a pipe (`|`), the kernel doesn't write a core file itself. It passes the core to the program named after the pipe. With systemd-coredump, that means:
+
+* No core file appears in the data directory, even with [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file) enabled. systemd-coredump stores the core in `/var/lib/systemd/coredump/` instead, compressed, and deletes it after a few days by default.
+* Cores larger than the `ProcessSizeMax` and `ExternalSizeMax` limits in [coredump.conf](https://www.freedesktop.org/software/systemd/man/latest/coredump.conf.html) aren't stored. A `mariadbd` process with a large buffer pool can exceed them, so raise both limits if `coredumpctl list` doesn't show `present` in the `COREFILE` column.
+
+The `Core pattern:` line that `mariadbd` writes to the [error log](../../../server-management/server-monitoring-logs/error-log.md) when it crashes shows which case applies.
+{% endhint %}
 
 To see all recent core dumps on the system you can then simply run
 
@@ -205,6 +214,33 @@ Starting with `systemd` 248 it is also possible to invoke the `gdb` debugger dir
 ```
 
 This requires `systemd` 248 or later, as shipped with Ubuntu 22.04, Debian 12, and RHEL 9 and later.
+
+#### Writing Core Files to the Data Directory Instead of systemd-coredump
+
+If you need a plain core file in the data directory, for example because a support engineer asks for one, replace the systemd-coredump pattern with a file name that has no path. The kernel then writes the core file to the working directory of the crashing process. For `mariadbd`, that is the [data directory](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir); the error log shows it in the `Working directory at` line after a crash.
+
+1. Set the pattern for the running system:
+
+   ```bash
+   sudo sysctl kernel.core_pattern=core kernel.core_uses_pid=1
+   ```
+2. Make it permanent. systemd sets its pattern in `/usr/lib/sysctl.d/50-coredump.conf`, and a file whose name sorts later takes precedence, so use a name such as `90-mariadb-core.conf`:
+
+   ```bash
+   sudo tee /etc/sysctl.d/90-mariadb-core.conf <<EOF
+   kernel.core_pattern=core
+   kernel.core_uses_pid=1
+   EOF
+   ```
+
+   On systems where the `systemd-coredumpd.service` service is active, the service sets the pattern itself, so stop and disable it as well:
+
+   ```bash
+   sudo systemctl disable --now systemd-coredumpd.service
+   ```
+3. Make sure that core dumps are allowed for `mariadbd`: enable [core\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#core_file), remove the [core file size limit](#disabling-core-file-size-restrictions-on-linux), and set [fs.suid\_dumpable](#core-dumps-and-setuid-on-linux) if needed. With `fs.suid_dumpable=2`, the kernel refuses to write a core file of a process that changed its user unless the pattern is an absolute path, so in that case use the full path of the data directory instead, such as `kernel.core_pattern=/var/lib/mysql/core`.
+
+Core files of a busy server can be as large as its memory use, so make sure the file system that holds the data directory has enough free space.
 
 ### Core Dumps and setuid on Linux
 
