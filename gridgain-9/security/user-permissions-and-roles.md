@@ -36,6 +36,7 @@ These privileges are listed below as `Has selector`.
 | Name | Has Selector | Description |
 |---|---|---|
 |RENAME_CLUSTER|no|Allows the user to rename an initialized cluster.|
+|MANAGE_LICENSE|no|Allows the user to replace the cluster license with the REST API or the `license update` CLI command. A cluster configuration update that changes the `ignite.license` part of the configuration requires both `MANAGE_LICENSE` and `WRITE_CLUSTER_CONFIG`. On upgrade, the `system` role gets this action automatically. Other roles, including roles that were granted all actions, do not: grant it explicitly.|
 
 ### Code Deployment
 
