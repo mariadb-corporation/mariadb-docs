@@ -174,6 +174,7 @@ From GridGain 9.2:
 | LICENSE_COMMON_INFO | STRING | A list of key-value pairs providing information about the license requester/owner. |
 | LICENSE_LIMITS | STRING | A list of key-value pairs providing information about the license validity period, cores and heap size limits, etc. |
 | LICENSE_FEATURES | STRING | A list of GridGain features the license grants to the user. |
+| RELEASE_TYPE | STRING | The release type the license is issued for. |
 {% endtab %}
 
 {% tab title="< 9.2" %}
@@ -193,6 +194,7 @@ Before GridGain 9.2:
 | INFOS | STRING | **Deprecated**. A list of key-value pairs providing information about the license requester/owner. |
 | LIMITS | STRING | **Deprecated**. A list of key-value pairs providing information about the license validity period, cores and heap size limits, etc. |
 | FEATURES | STRING | **Deprecated**. A list of GridGain features the license grants to the user. |
+| RELEASE_TYPE | STRING | The release type the license is issued for. |
 {% endtab %}
 {% endtabs %}
 
@@ -661,6 +663,7 @@ From GridGain 9.2:
 | IS_DEFAULT_ZONE | BOOLEAN | If the data zone is used by default. |
 | ZONE_CONSISTENCY_MODE | STRING | The zone's consistency mode. Possible values: `STRONG_CONSISTENCY`, `HIGH_AVAILABILITY`. |
 | ZONE_ID | INT32 | Unique zone identifier. |
+| ZONE_QUORUM_SIZE | INT32 | The quorum size of the distribution zone. It depends on the number of replicas and ranges from 1 to `round(replicas / 2)`. |
 | CATALOG_VERSION | INT32 | The version of the current catalog that contains this distribution zone. |
 {% endtab %}
 
@@ -684,6 +687,7 @@ Before GridGain 9.2:
 | PARTITIONS | INT32 | **Deprecated**. The number of partitions in the distribution zone. |
 | REPLICAS | STRING | **Deprecated**. The number of copies of each partition in the distribution zone. |
 | CONSISTENCY_MODE | STRING | **Deprecated**. The zone's consistency mode. Possible values: `STRONG_CONSISTENCY`, `HIGH_AVAILABILITY`. |
+| ZONE_QUORUM_SIZE | INT32 | The quorum size of the distribution zone. It depends on the number of replicas and ranges from 1 to `round(replicas / 2)`. |
 | CATALOG_VERSION | INT32 | The version of the current catalog that contains this distribution zone. |
 {% endtab %}
 {% endtabs %}
