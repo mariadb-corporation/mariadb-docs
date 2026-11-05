@@ -19,7 +19,7 @@ The STIG applies to MariaDB Enterprise Server 11.4, 11.8, and 12.x, installed on
 The STIG covers MariaDB Enterprise Server only. One of its requirements is that MariaDB runs in a version supported by the vendor, and it names MariaDB Enterprise as the only supported product. MariaDB Community Server can't be used in a STIG-compliant deployment.
 {% endhint %}
 
-An earlier STIG, for MariaDB Enterprise 10.x, was approved in 2022.
+This STIG supersedes the earlier MariaDB Enterprise 10.x STIG, approved in 2022.
 
 ## Downloading the STIG
 
