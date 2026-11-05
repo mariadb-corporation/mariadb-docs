@@ -1211,24 +1211,6 @@ long partitionId = partition.Id;
 {% endtab %}
 {% endtabs %}
 
-As `PartitionManager` API is now deprecated and will be removed in upcoming releases, use `PartitionDistribution` [API](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/partition/PartitionDistribution.html) instead.
-
-{% tabs %}
-{% tab title="Java" %}
-```java
-Table table = client.tables().table("PUBLIC.Person");
-PartitionDistribution partDistribution = table.partitionDistribution();
-```
-{% endtab %}
-
-{% tab title=".NET" %}
-```csharp
-var table = await Client.Tables.GetTableAsync("PUBLIC.Person");
-var partitionDistribution = table!.PartitionDistribution;
-```
-{% endtab %}
-{% endtabs %}
-
 For more details on data partitioning, see the following [article](../architecture/storage/data-partitioning.md).
 
 ## See Also
