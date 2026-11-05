@@ -66,6 +66,18 @@ Learn how to harden MariaDB log files by implementing at-rest encryption, TLS fo
 
 {% columns %}
 {% column %}
+{% content-ref url="mariadb-enterprise-server-stig.md" %}
+[mariadb-enterprise-server-stig.md](mariadb-enterprise-server-stig.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The DISA Security Technical Implementation Guide (STIG) for MariaDB Enterprise Server: which versions it covers, where to download it, and how to use it.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../cve/" %}
 [cve](../cve/)
 {% endcontent-ref %}
