@@ -190,11 +190,6 @@ The following options and system variables are related to using MariaDB on Windo
 
 The following options are related to [replication](../../ha-and-performance/standard-replication/) and the [binary log](../server-monitoring-logs/binary-log/). Options that are also system variables are listed after:
 
-#### `--abort-slave-event-count`
-
-* Command line: `--abort-slave-event-count=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
-
 #### `--binlog-do-db`
 
 * Command line: `--binlog-do-db=name`
@@ -218,11 +213,6 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--binlog-row-event-max-size=#`
 * Description: The maximum size of a row-based [binary log](../server-monitoring-logs/binary-log/) event in bytes. Rows will be grouped into events smaller than this size if possible. The value has to be a multiple of 256. Available as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_max_size) from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0).
 * Default value `8192`
-
-#### `--disconnect-slave-event-count`
-
-* Command line: `--disconnect-slave-event-count=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
 
 #### `--flashback`
 
@@ -303,20 +293,10 @@ The following options are related to [replication](../../ha-and-performance/stan
 * Command line: `--master-user=name`
 * Description: The username the replica thread will use for authentication when connecting to the primary. The user must have FILE privilege. If the primary user is not set, user test is assumed. The value in master.info will take precedence if it can be read.
 
-#### `--max-binlog-dump-events`
-
-* Command line: `--max-binlog-dump-events=#`
-* Description: Option used by mysql-test for debugging and testing of replication.
-
 #### `--replicate-same-server-id`
 
 * Command line: `--replicate-same-server-id`
 * Description: In replication, if set to 1, do not skip events having our server id. Default value is 0 (to break infinite loops in circular replication). Can't be set to 1 if [log-slave-updates](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) is used. Added as a [system variable](../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#replicate_same_server_id) in [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120).
-
-#### `--sporadic-binlog-dump-fail`
-
-* Command line: `--sporadic-binlog-dump-fail`
-* Description: Option used by mysql-test for debugging and testing of replication.
 
 #### `--sysdate-is-now`
 
@@ -912,6 +892,8 @@ These options are for developers and for the MariaDB test suite (`mariadb-test`)
 
 Options marked **debug builds only** exist only in a server compiled as a debug build (`-DCMAKE_BUILD_TYPE=Debug`). The release packages are not debug builds; there, the server rejects these options as unknown. Options marked **no effect in release builds** are accepted by every server but do nothing unless it is a debug build.
 
+The old MySQL 5.5 names of some of these options, without the `debug-` prefix (`--abort-slave-event-count`, `--disconnect-slave-event-count`, `--exit-info`, `--max-binlog-dump-events` and `--sporadic-binlog-dump-fail`), do nothing. The server accepts them only so that old option files still work, and writes a warning to the [error log](../server-monitoring-logs/error-log.md) when it finds one.
+
 #### `--debug-abort-slave-event-count`
 
 * Command line: `--debug-abort-slave-event-count=#`
@@ -1033,11 +1015,6 @@ Options that are also system variables are listed after:
 * Command line: `--des-key-file=name`
 * Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and [des\_decrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_decrypt.md) from the given file.
 * Removed: MariaDB 13.0, together with the `DES_ENCRYPT()`/`DES_DECRYPT()` functions and the `FLUSH DES_KEY_FILE` statement.
-
-#### `--exit-info`
-
-* Command line: `--exit-info[=#]`
-* Description: Used for debugging. Use at your own risk.
 
 #### `--getopt-prefix-matching`
 
