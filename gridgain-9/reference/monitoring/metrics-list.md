@@ -390,11 +390,25 @@ Metrics for SQL cache planning.
 | TotalEmptySize | Total size of completely empty pages allocated by the `aipersist` storage engine for a given table, in bytes. |
 | TotalUsedSize | Total size of non-empty pages allocated by the `aipersist` storage engine for a given table, in bytes. |
 
-## `storage.aipersist.{profile}`
+## `storage.aipersist.profiles.{profile}`
 
-{% hint style="info" %}
 Each [storage profile](../../architecture/storage/README.md) with `aipersist` storage engine has an individual metrics exporter.
-{% endhint %}
+
+The metric source name depends on the GridGain version:
+
+{% tabs %}
+{% tab title="GridGain 9.2" %}
+
+The metric source name is `storage.aipersist.profiles.{profile}`.
+
+{% endtab %}
+
+{% tab title="GridGain 9.1" %}
+
+The metric source name is `storage.aipersist.{profile}`.
+
+{% endtab %}
+{% endtabs %}
 
 | Metric name | Description |
 | --- | --- |
