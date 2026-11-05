@@ -67,9 +67,10 @@ Before a MariaDB release, a team member downloads the generated artifact from Gi
 1. Go to the [**Actions**](https://github.com/mariadb-corporation/mariadb-docs/actions) tab in the `mariadb-docs` GitHub repo
 2. Click on the title of the latest successful **Generate Help Tables SQL** run on `main`
    * It will be a successful run closest to the top of the [`generate-help-tables.yml`](https://github.com/mariadb-corporation/mariadb-docs/actions/workflows/generate-help-tables.yml) page where the 2nd column says `main`
-4. The run page will have various info about the run, but we're interesting in the **Artifacts** section at the bottom of the run summary
-5. Download **fill_help_tables** — this is the ready-to-use SQL file
-6. Put this file where it needs to go in the MariaDB source and commit it
+4. The run page will have various info about the run, but we're interested in the **Artifacts** section at the bottom of the run summary
+5. Download **fill_help_tables** — this is the ready-to-use SQL file, zipped
+6. Unzip the downloaded file to get `fill_help_tables.sql`
+7. Put this file where it needs to go in the MariaDB source and commit it
 
 **Purpose:** Get the updated help tables into the server release without requiring an automated cross-repo workflow.
 
