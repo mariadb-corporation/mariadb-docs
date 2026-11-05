@@ -127,8 +127,7 @@ Will show a different plan, like:
        type: SORTED
        predicate: =(COL1, _UTF-8'1')
        searchBounds: [ExactBounds [bound=_UTF-8'1']]
-       ieldNames: [ID]
-       collation: []
+       fieldNames: [ID]
        est: (rows=1)
 ```
 
