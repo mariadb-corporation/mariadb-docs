@@ -15,22 +15,22 @@ The state of MariaDB mirrors is monitored at [https://mirmon.mariadb.org/](https
 ## How to Become a MariaDB Mirror
 
 The only requirements for becoming a mirror are:
-1. A willingness to mirror MariaDB;
-1. Mirroring is done using rsync;
-1. An https mirror should be utilised (http mirrors are not accepted any more);
-1. Available bandwidth and disk space:
+1. A willingness to mirror MariaDB
+1. Mirroring is done using rsync
+1. An https mirror should be utilised (http mirrors are not accepted any more)
+1. Available bandwidth and disk space
 
    - Each release of MariaDB takes about between 60-120GB of disk space for
      all of the various packages we create. There are several MariaDB releases
-     per year, but only the most recent two from each main MariaDB series (as
+     per year, but only the latest release of each main MariaDB series (as
      of November 2026 this is 10.6, 10.11, 11.4, 11.8, 12.3, 13.0, 13.1 and 13.2) are
-     kept on the mirrors;
+     kept on the mirrors
    - We recommend our mirrors have at least a 100Mbit/sec connection to the
-     Internet.
+     Internet
 
-1. The ability to do directory listings on mirrored sub-directories on your mirror host (for some platforms the [download](https://mariadb.org/download) page links directly to mirrored sub-directories);
-1. The mirror should update itself, preferably every 6 hours, but at the very least, twice a day. (See [Updating Notes](mirror-sites-for-mariadb.md) for more information);
-1. Not mandatory: provide `rsync` or `ftp` access to the mirror for our mirrorbits system (See: [Mirrorbits](https://mariadb.org/mirrorbits)).
+1. The ability to do directory listings on mirrored sub-directories on your mirror host (for some platforms the [download](https://mariadb.org/download) page links directly to mirrored sub-directories)
+1. The mirror should update itself, preferably every 6 hours, but at the very least, twice a day. (See [Updating Notes](mirror-sites-for-mariadb.md) for more information)
+1. Not mandatory: provide `rsync` or `ftp` access to the mirror for our mirrorbits system (See: [Mirrorbits](https://mariadb.org/mirrorbits))
 
 ### Updating Notes
 
@@ -76,9 +76,9 @@ See the [rsync documentation](https://rsync.samba.org/documentation.html) for de
 
 ### Secondary rsync mirrors
 
-We also have several secondary rsync mirrors you can pull from. In many instances pulling from the secondary mirror is faster than pulling from the primary rsync mirrors. Here they are, with the country they are located in. Simply replace the rsync URI in the example above with one from this list to use it.
+We also have several secondary rsync mirrors you can pull from. In many instances, pulling from a secondary mirror is faster than pulling from the primary rsync mirrors. To use one, replace the rsync URI in the example above with its URI.
 
-The country sorted and actualized list of rsync mirrors can be found on https://mirmon.mariadb.org/.
+For an up-to-date list of the rsync mirrors, sorted by country and with their current status, see [mirmon.mariadb.org](https://mirmon.mariadb.org/). Rsync mirrors are listed there as `host::module`, for example `mirror.aarnet.edu.au::mariadb`, which is the same as `rsync://mirror.aarnet.edu.au/mariadb/`.
 
 ### The MariaDB Foundation mirrorbits system
 
@@ -102,11 +102,11 @@ Thank you for volunteering to mirror MariaDB!
 
 The primary MariaDB mirrors have been generously provided by the [Oregon State University Open Source Lab](https://osuosl.org) (at rsync.osuosl.org) and [NetCologne](https://www.netcologne.de) (at mirror.netcologne.de).
 
-Other mirrors are listed on https://mirmon.mariadb.org/ and can be selected on the [mariadb.org/download/](https://mariadb.org/download/) site.
+Other mirrors are listed on [mirmon.mariadb.org](https://mirmon.mariadb.org/) and can be selected on the [mariadb.org/download/](https://mariadb.org/download/) site.
 
 ## The MariaDB Archive
 
-The distributed mirrors above only hold the most recent 3-4 releases of each MariaDB series (10.6, 10.11, etc...). If you need to access older MariaDB releases, there is an archive server that contains every MariaDB release. This server is available via the web at [archive.mariadb.org](https://archive.mariadb.org) and via rsync at:
+The distributed mirrors above only hold the latest release of each MariaDB series (10.6, 10.11, etc...). If you need to access older MariaDB releases, there is an archive server that contains every MariaDB release. This server is available via the web at [archive.mariadb.org](https://archive.mariadb.org) and via rsync at:
 
 ```
 archive.mariadb.org::mariadb
@@ -128,7 +128,9 @@ rsync -avP archive.mariadb.org::mariadb/ /path/to/local/dir/
 rsync -avP archive.mariadb.org::mariadb/mariadb-10.4.13/ /path/to/local/dir/
 ```
 
-**Warning**, as of November 2026, the entire archive will use around 15 TB of disk space in total, and if you want to keep your mirror up to date (via cron routine for instance), please **first compare** the STATUS file **before** doing the rsync. This file is updated anytime a new content is added in the archive tree.
+{% hint style="warning" %}
+As of November 2026, the entire archive uses around 15 TB of disk space. If you keep your copy up to date, for example with a cron job, **first compare** the `STATUS` file **before** running rsync. This file is updated whenever new content is added to the archive tree.
+{% endhint %}
 
 You can use something like the following:
 
