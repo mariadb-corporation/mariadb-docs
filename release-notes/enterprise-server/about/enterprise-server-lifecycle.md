@@ -46,11 +46,11 @@ Planned releases of MariaDB Enterprise Server are [scheduled](enterprise-server-
 MariaDB Enterprise Server is available to MariaDB subscription customers:
 
 * From the [Enterprise Server download page](https://mariadb.com/downloads/enterprise/enterprise-server/)
-* From the [MariaDB Enterprise Repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb-enterprise-server-repository)
-* As [Enterprise Docker images]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
-* As part of the [MariaDB Enterprise Kubernetes Operator]({tools}/enterprise/mariadb-enterprise-operator)
+* From the [MariaDB Enterprise Repository](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb-enterprise-server-repository)
+* As [Enterprise Docker images](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* As part of the [MariaDB Enterprise Kubernetes Operator](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator)
 
-MariaDB Enterprise Server is also available as a managed service in [MariaDB Cloud]({mariadb-cloud}), on the [Power and PowerPlus service tiers]({mariadb-cloud}/service-tiers).
+MariaDB Enterprise Server is also available as a managed service in [MariaDB Cloud](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd), on the [Power and PowerPlus service tiers](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd/service-tiers).
 
 If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact) for more information.
 
