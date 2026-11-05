@@ -34,7 +34,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_flushing_lwm`
 
-* Description: Low-water mark, as a percentage of the [InnoDB redo log](innodb-redo-log.md) capacity. When the checkpoint age exceeds it, the page cleaner starts flushing dirty pages to advance the checkpoint. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled.
+* Description: Low-water mark, as a percentage of the [InnoDB redo log](innodb-redo-log.md) capacity (about 90% of [innodb\_log\_file\_size](#innodb_log_file_size)). When the checkpoint age, in bytes, exceeds this percentage of the capacity, the page cleaner flushes dirty pages to advance the checkpoint. Takes effect even if [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is disabled. An idle page cleaner isn't woken up at this mark while [innodb\_max\_dirty\_pages\_pct\_lwm](#innodb_max_dirty_pages_pct_lwm) is `0` ([MDEV-39824](https://jira.mariadb.org/browse/MDEV-39824)).
   * See [InnoDB Page Flushing](innodb-page-flushing.md#innodb_adaptive_flushing_lwm) for more information.
 * Command line: `--innodb-adaptive-flushing-lwm=#`
 * Scope: Global

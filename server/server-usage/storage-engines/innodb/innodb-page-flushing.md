@@ -11,7 +11,7 @@ InnoDB uses a single `buf_flush_page_cleaner` thread to flush dirty pages—modi
 * **Checkpoint flushing** writes the pages with the oldest changes first, so that the [checkpoint](innodb-redo-log.md#checkpoints) can advance and the [redo log](innodb-redo-log.md) space they occupy can be reused. The settings on this page control mainly this kind of flushing.
 * **LRU flushing** writes and evicts the least recently used pages when the buffer pool needs free pages.
 
-The page cleaner works in cycles of about one second. It stays idle until one of the conditions described below makes flushing necessary.
+While it has work to do, the page cleaner writes one batch of pages about once per second, and it runs continuously when the redo log is nearly full or the buffer pool is running out of free pages. When none of the conditions described below applies, the page cleaner is idle: it writes no pages, and the [checkpoint](innodb-redo-log.md#checkpoints) doesn't advance.
 
 ## When Flushing Starts
 
@@ -31,7 +31,11 @@ To make flushing more eager and ensure more consistent background I/O, you can s
 
 ### innodb\_adaptive\_flushing\_lwm
 
-The [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) variable sets a low-water mark for the [redo log](innodb-redo-log.md), as a percentage of its capacity (default `10`). When the [checkpoint age](innodb-redo-log.md#determining-the-checkpoint-age), the amount of redo log written since the last checkpoint, exceeds this percentage, the page cleaner starts flushing to advance the checkpoint, even if the dirty page percentage is below both limits above. This applies whether [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is `ON` or `OFF`.
+The [innodb\_adaptive\_flushing\_lwm](innodb-system-variables.md#innodb_adaptive_flushing_lwm) variable sets a low-water mark for the [redo log](innodb-redo-log.md), as a percentage of its capacity (default `10`). The [checkpoint age](innodb-redo-log.md#determining-the-checkpoint-age) is the number of bytes of redo log written since the last checkpoint. When it exceeds this percentage of the redo log capacity, which is about 90% of [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size), the page cleaner flushes pages to advance the checkpoint, even if the dirty page percentage is below both limits above. This applies whether [innodb\_adaptive\_flushing](innodb-system-variables.md#innodb_adaptive_flushing) is `ON` or `OFF`.
+
+{% hint style="warning" %}
+**Known issue:** an idle page cleaner isn't woken up when the checkpoint age exceeds `innodb_adaptive_flushing_lwm`, as long as `innodb_max_dirty_pages_pct_lwm` is `0` (the default). On a server with a large buffer pool, where the dirty page percentage stays below `innodb_max_dirty_pages_pct`, no pages are written until the redo log is nearly full. InnoDB then has to flush in a burst. To work around this, set `innodb_max_dirty_pages_pct_lwm` to a small non-zero value, as in the tip above. See [MDEV-39824](https://jira.mariadb.org/browse/MDEV-39824).
+{% endhint %}
 
 ## Adaptive Flushing
 
