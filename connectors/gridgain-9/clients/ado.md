@@ -88,6 +88,17 @@ while (await reader.ReadAsync())
 }
 ```
 
+In addition to the standard getters, the data reader supports the following:
+
+- `GetChar` reads a `VARCHAR` value that contains exactly one character. Any other length throws `InvalidCastException`.
+- `GetByte` reads integer columns holding values from 0 to 255, such as the `INT` columns that Entity Framework Core uses for `byte` properties. Values from -128 to -1 are returned as 128 to 255. Other values throw an exception.
+- `GetFieldValue<T>` supports these types:
+  - `char`: same rules as `GetChar`.
+  - `DateOnly`: reads `DATE` columns.
+  - `TimeOnly`: reads `TIME` columns.
+  - `DateTimeOffset`: reads `TIMESTAMP WITH LOCAL TIME ZONE` columns, with a zero (UTC) offset. It also parses `VARCHAR` columns that hold a `DateTimeOffset` string, such as the ISO 8601 round-trip (`o`) format that Entity Framework Core writes.
+  - `TimeSpan`: parses `VARCHAR` columns in the `c` format, for example values written as `TimeSpan` parameters.
+
 ## Using Parameters
 
 {% hint style="info" %}
@@ -122,6 +133,24 @@ DbParameter param = cmd.CreateParameter();
 param.Value = null;
 cmd.Parameters.Add(param);
 ```
+
+### Parameter Types
+
+The driver converts the following .NET parameter types before sending them to the cluster:
+
+| .NET Type | Sent As |
+|---|---|
+| `DateTime` | `TIMESTAMP` |
+| `DateTimeOffset` | `TIMESTAMP WITH LOCAL TIME ZONE`. The value is converted to a point in time, so the offset is not stored. |
+| `DateOnly` | `DATE` |
+| `TimeOnly` | `TIME` |
+| `TimeSpan` | `VARCHAR` in the `c` (constant) format, for example `1.02:03:04.0050000` |
+| `char` | `VARCHAR` with a single character |
+| `byte` | `TINYINT`. Values greater than 127 wrap around to negative numbers. |
+| `ushort` | `SMALLINT`. Values greater than 32767 wrap around to negative numbers. |
+| `uint` | `INT`. Values greater than `int.MaxValue` wrap around to negative numbers. |
+| `ulong` | `BIGINT`. Values greater than `long.MaxValue` wrap around to negative numbers. `GetFieldValue<ulong>` reads them back unchanged. |
+| `DBNull` | `NULL` |
 
 ## Transactions
 
