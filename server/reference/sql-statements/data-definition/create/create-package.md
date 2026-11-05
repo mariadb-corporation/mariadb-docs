@@ -132,6 +132,8 @@ package_routine_characteristic:
 
 A package whose specification was created by the `CREATE PACKAGE` statement, should later be implemented using the [CREATE PACKAGE BODY](create-package-body.md) statement.
 
+If the `OR REPLACE` clause is used and the package exists, its specification is replaced and the existing package body is dropped, so you must create the body again with `CREATE PACKAGE BODY`. Existing privileges on the package and on its body are kept, unlike with [DROP PACKAGE](../drop/drop-package.md) followed by `CREATE PACKAGE`. See [Stored Routine Privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md#dropping-stored-routines).
+
 ## Function parameter quantifiers IN | OUT | INOUT | IN OUT
 
 **MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
