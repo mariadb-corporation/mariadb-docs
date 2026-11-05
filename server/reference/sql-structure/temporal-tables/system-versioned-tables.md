@@ -432,7 +432,10 @@ CREATE TABLE t (x INT) WITH SYSTEM VERSIONING
 
 MariaDB starts writing history rows into partition `p0`, and at the end of the statement that wrote the 100000th row, MariaDB will switch to partition `p1`. There are only two historical partitions, so when `p1` overflows, MariaDB will issue a warning, but will continue writing into it.
 
-**Note on `LIMIT` precision**: When using `LIMIT` to specify partition rotation, the specified value is just an estimate of the partition size. Although the partition's intended size is specified by the `LIMIT` setting, the actual number of rows may differ. This occurs because partition rotation is triggered during internal operations rather than when the specified row count is met. Partitions may therefore contain significantly more or fewer rows than the set `LIMIT` value.
+**Note on `LIMIT` precision**: When using `LIMIT` to specify partition rotation, the specified value is just an estimate of the partition size. Partitions may contain significantly more or fewer rows than the `LIMIT` value, for these reasons:
+
+* MariaDB switches to the next history partition only after a statement finishes, never while it runs. A single statement that writes more history rows than `LIMIT` puts all of them into the current history partition. For example, with `LIMIT 100`, a `DELETE` of 150 rows writes all 150 history rows into `p0`, and only later statements write into `p1` ([MDEV-28411](https://jira.mariadb.org/browse/MDEV-28411)).
+* When statements in several sessions reach the limit at the same time, they can all decide to switch, and they all switch to the same partition. That partition then exceeds `LIMIT`, and other partitions stay smaller than `LIMIT` ([MDEV-28459](https://jira.mariadb.org/browse/MDEV-28459)).
 
 Similarly, one can rotate partitions by time:
 
@@ -459,6 +462,22 @@ CREATE TABLE t (x INT) WITH SYSTEM VERSIONING
     PARTITION pc CURRENT
   );
 ```
+
+#### Adding History Partitions to a Table Rotated by `INTERVAL`
+
+When the time range of the last history partition has ended, MariaDB keeps writing history into it, so it can hold rows from after the end of its own range. In the `INTERVAL 1 WEEK` example above, `p2` holds all history from the third week onward.
+
+If you add a history partition with `ALTER TABLE ... ADD PARTITION` after the last history partition's time range has ended, MariaDB reorganizes that last history partition. It moves every row whose timestamp falls after the end of the partition's range into the new partition. Older history partitions are not touched. For example:
+
+```sql
+ALTER TABLE t ADD PARTITION (PARTITION p3 HISTORY);
+```
+
+If the last history partition's time range has not ended yet, nothing is moved, and the new partition is added empty.
+
+During the reorganization, the table is locked for writes, but it can still be read, and queries find all rows in the partitions where they were before the `ALTER TABLE` started. When the rows are copied, MariaDB briefly locks the table exclusively, so that it can neither be read nor written, while the reorganized partition and the new one replace the old partition. The exclusive lock is released when the `ALTER TABLE` finishes.
+
+Partitions that MariaDB creates automatically with `AUTO` (see below) never trigger this reorganization.
 
 #### Default Partitions
 
@@ -509,10 +528,10 @@ ERROR 4128 (HY000): Wrong partitions for `t`: must have at least one HISTORY and
 #### Automatically Creating Partitions
 
 {% hint style="info" %}
-Creating partitions with `AUTO` is available from MariaDB 10.9.1.
+Creating partitions with `AUTO` is available from MariaDB 10.9.
 {% endhint %}
 
-**T**he `AUTO` keyword can be used to automatically create history partitions:
+The `AUTO` keyword can be used to automatically create history partitions:
 
 ```sql
 CREATE TABLE t1 (x INT) WITH SYSTEM VERSIONING
