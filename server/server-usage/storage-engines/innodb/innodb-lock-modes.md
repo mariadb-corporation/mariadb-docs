@@ -133,6 +133,53 @@ LOCK IN SHARE MODE;
 
 The UPDATE will now wait while the clustered index is accessed.
 
+## Locks Are Taken on Every Record That Is Read
+
+`UPDATE`, `DELETE`, and locking reads (`SELECT ... FOR UPDATE` and `SELECT ... LOCK IN SHARE MODE`) lock each index record that InnoDB visits, before the `WHERE` condition is checked for that record. A statement therefore locks, or waits for, records that turn out not to match its `WHERE` condition. Which records are visited depends on the index the statement uses. A condition on a column that isn't indexed doesn't reduce the number of records that are visited and locked.
+
+Unlike a plain `SELECT`, which reads a consistent snapshot of the data, these statements operate on the latest version of each record. If another transaction has inserted or changed a record and hasn't committed yet, a statement that visits the record waits for that transaction, even with the `REPEATABLE READ` isolation level, and even if the record doesn't match the `WHERE` condition.
+
+After a record has been checked:
+
+* With `READ COMMITTED` or `READ UNCOMMITTED`, InnoDB releases the lock on a record that doesn't match the `WHERE` condition. The statement still has to acquire that lock first, so it still waits for a conflicting transaction.
+* With `REPEATABLE READ` or `SERIALIZABLE`, the locks on all visited records are kept until the transaction ends.
+
+### Example
+
+The table has an index only on its primary key, `id`:
+
+```sql
+CREATE TABLE t (id INT PRIMARY KEY, flag BOOLEAN) ENGINE=InnoDB;
+INSERT INTO t VALUES (1, 1), (2, 1);
+```
+
+Connection 1 inserts a row and doesn't commit:
+
+```sql
+BEGIN;
+INSERT INTO t VALUES (3, 0);
+```
+
+Connection 2 deletes the rows where `flag` isn't `0`:
+
+```sql
+BEGIN;
+DELETE FROM t WHERE flag <> 0;
+```
+
+The `DELETE` waits, although the new row has `flag = 0` and doesn't match the `WHERE` condition. Because `flag` isn't indexed, the `DELETE` reads all records through the primary key, including the uncommitted row with `id = 3`, and needs to lock it before it can check the condition. What happens next depends on connection 1:
+
+* If connection 1 rolls back, or commits, the `DELETE` continues and deletes the two matching rows.
+* If connection 1 doesn't finish within [innodb\_lock\_wait\_timeout](innodb-system-variables.md#innodb_lock_wait_timeout) seconds, the `DELETE` fails with error 1205, `Lock wait timeout exceeded`.
+
+There is an exception when connection 1 commits. If connection 2 uses `REPEATABLE READ` and has already read data in its transaction before the `DELETE`, the committed row isn't part of its snapshot. With [innodb\_snapshot\_isolation](innodb-system-variables.md#innodb_snapshot_isolation)`=ON`, the default from MariaDB 11.8, the `DELETE` then fails with error 1020, `Record has changed since last read`, and the transaction is rolled back.
+
+### How to Avoid Waiting for Records That Don't Match
+
+* Index the columns of the `WHERE` condition, so that InnoDB visits fewer records.
+* For locking reads, use `SKIP LOCKED` to skip records that are locked by other transactions instead of waiting for them. In the example above, `SELECT id FROM t WHERE flag <> 0 FOR UPDATE SKIP LOCKED` returns the rows with `id` `1` and `2` without waiting. See [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md).
+* Keep transactions that modify data short, so that other transactions don't wait for them for long.
+
 ## Intention Locks
 
 InnoDB also permits table locking, and to allow locking at both table and row level to co-exist gracefully, a series of locks called _intention locks_ exist.
