@@ -814,6 +814,51 @@ The [MERGE](../storage-engines/merge.md) storage engine allows one to:
 
 See also: [Using CONNECT - Partitioning and Sharding](../storage-engines/connect/using-connect/using-connect-partitioning-and-sharding.md)
 
+## Options per Partition
+
+Most [table options](../../reference/sql-statements/data-definition/create/create-table.md#table-options) apply to the whole table. Only the following options can be set for an individual partition, in its `PARTITION` definition.
+
+### Server Options
+
+These options can be set for partitions and subpartitions:
+
+* `ENGINE`: all partitions must use the same storage engine, so this can only repeat the table's engine.
+* `COMMENT`: shown in the `PARTITION_COMMENT` column of [INFORMATION\_SCHEMA.PARTITIONS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-partitions-table.md).
+* `DATA DIRECTORY` and `INDEX DIRECTORY`: where the storage engine creates the files of the partition.
+* `MAX_ROWS` and `MIN_ROWS`.
+* `TABLESPACE` and `NODEGROUP`: accepted for compatibility with MySQL, with no effect.
+
+### Engine-Defined Options
+
+{% hint style="info" %}
+Engine-defined options for partitions are available from MariaDB 10.8.
+{% endhint %}
+
+A partition can also have the [engine-defined table options](../../reference/product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md) of the table's storage engine. For example:
+
+* [InnoDB](../storage-engines/innodb/): `PAGE_COMPRESSED`, `PAGE_COMPRESSION_LEVEL`, `ENCRYPTED`, and `ENCRYPTION_KEY_ID`.
+* [Spider](../storage-engines/spider/): `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE`, so that each partition can point to a different data node.
+
+An option set for a partition overrides the same option set for the table. This example creates a table in which only partition `p0` is page-compressed:
+
+```sql
+CREATE TABLE t (a INT) ENGINE=InnoDB
+PARTITION BY RANGE (a) (
+  PARTITION p0 VALUES LESS THAN (10) PAGE_COMPRESSED=1 PAGE_COMPRESSION_LEVEL=5,
+  PARTITION p1 VALUES LESS THAN MAXVALUE
+);
+```
+
+Engine-defined options have these restrictions:
+
+* They can't be set for a subpartition. Subpartitions use the options of their partition.
+* An option that the storage engine doesn't define is ignored without an error or warning. For a whole table, the same option fails with error 1911, `Unknown option`.
+* [Exchanging a partition](#exchanging-partitions) with a table doesn't exchange the options. The partition keeps its options in the table definition, even though its data now has the options of the former table ([MDEV-33153](https://jira.mariadb.org/browse/MDEV-33153)).
+
+### Other Table Options
+
+All other table options, such as `ROW_FORMAT`, `AUTO_INCREMENT`, or `CHECKSUM`, can be set only for the whole table. Setting them for a partition causes a syntax error.
+
 ## See Also
 
 * [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)

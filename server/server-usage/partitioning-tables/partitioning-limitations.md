@@ -12,6 +12,7 @@ The following limitations apply to partitioning in MariaDB:
 * Queries are never parallelized, even when they involve multiple partitions.
 * A table can only be partitioned if the storage engine supports partitioning.
 * All partitions must use the same storage engine. For a workaround, see [Using CONNECT - Partitioning and Sharding](../storage-engines/connect/using-connect/using-connect-partitioning-and-sharding.md).
+* Only a few table options can be set for individual partitions. See [Options per Partition](partitioning-overview.md#options-per-partition).
 * A partitioned table cannot contain, or be referenced by, [foreign keys](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md).
 * The [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is not aware of partitioning and partition pruning. Modifying a partition will invalidate the entries related to the whole table.
 * Updates can run more slowly when [binlog\_format=ROW](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) and a partitioned table is updated than an equivalent update of a non-partitioned table.
