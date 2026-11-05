@@ -38,6 +38,7 @@ The MariaDB Connector/C API provides functions for establishing connections, exe
 | [`mariadb_field_attr()`](mariadb_field_attr.md) | Returns extended metadata for pluggable field types such as JSON and GEOMETRY. |
 | [`mariadb_get_info()`](mariadb_get_info.md) | Retrieves generic or connection-related information. |
 | [`mariadb_get_infov()`](mariadb_get_infov.md) | Retrieves generic or connection-specific information from a MariaDB Connector/C handle, accepting a value-type enum and a pointer to store the result. |
+| [`mariadb_net_field_length()`](mariadb_net_field_length.md) | Returns the length of a length-encoded field and advances the pointer past it. |
 | [`mariadb_reconnect()`](mariadb_reconnect.md) | Attempts to re-establish a dropped MariaDB Connector/C connection using the original credentials, and requires the MYSQL_OPT_RECONNECT option to be set. |
 | [`mysql_affected_rows()`](mysql_affected_rows.md) | Returns the number of rows affected by the last INSERT, UPDATE, DELETE, or REPLACE statement executed on a MariaDB Connector/C connection. |
 | [`mysql_autocommit()`](mysql_autocommit.md) | Enables or disables autocommit mode for the current database connection, returning zero on success or nonzero on failure. |

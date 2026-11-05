@@ -23,11 +23,14 @@ Returns the length of a length encoded field and increments the pointer to the b
 Returns the length of the field.
 
 {% hint style="info" %}
-This function is part of the **low level protocol API** and can be used to retrieve data if a callback function was provided for fetching results from prepared statements.
+* This function is deprecated since MariaDB Connector/C 3.3.22 and 3.4.12. Use [`mariadb_net_field_length()`](mariadb_net_field_length.md) instead.
+
+* This function is part of the **low level protocol API** and can be used to retrieve data if a callback function was provided for fetching results from prepared statements.
 {% endhint %}
 
 ## See Also
 
+* [`mariadb_net_field_length()`](mariadb_net_field_length.md)
 * [`mysql_net_read_packet()`](mysql_net_read_packet.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
