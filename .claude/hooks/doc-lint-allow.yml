@@ -51,6 +51,8 @@
 orphan:
 
 shrink:
+  - path: server/clients-and-utilities/server-client-software/download/mirror-sites-for-mariadb.md
+    reason: "hand-kept mirror lists replaced by a link to mirmon.mariadb.org, which lists every mirror with its status — PR #1443 (MariaDB Foundation)"
   - path: gridgain-8/gridgain8-management/installation/aws/README.md
     reason: "AMI and Terraform child pages removed (GG-51429), remaining children still listed — DOCS-6980"
   - path: server/reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md
