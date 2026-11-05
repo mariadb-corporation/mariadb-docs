@@ -218,10 +218,23 @@ def build_nav_url_map(space_dir: Path, space: str) -> dict:
     children; failing that, at the first occurrence.
     """
     summary = space_dir / "SUMMARY.md"
-    entries = []          # {"rel", "url", "indent", "has_child"}
-    stack = []            # (indent, url) of the open ancestors; url None = external
+    entries = nav_entries(summary.read_text(encoding="utf-8"), space_dir.name, space)
+    return {rel: entry["url"] for rel, entry in entries.items()}
 
-    for line in summary.read_text(encoding="utf-8").splitlines():
+
+def nav_entries(summary_text: str, space_dir_name: str, space: str) -> dict:
+    """The nav entry GitBook publishes for each file a SUMMARY.md lists.
+
+    Takes the SUMMARY.md text rather than a path, so callers can read it at any
+    commit (.github/scripts/release_announce.py does, DOCS-7076). Returns
+    {repo-relative path: {"rel", "url", "indent", "has_child", "parents"}},
+    where "parents" lists the repo-relative paths of the entry's nav ancestors,
+    nearest last. Rules: see build_nav_url_map().
+    """
+    entries = []          # {"rel", "url", "indent", "has_child", "parents"}
+    stack = []            # (indent, url, rel) of the open ancestors; url None = external
+
+    for line in summary_text.splitlines():
         m = SUMMARY_ENTRY.match(line)
         if not m:
             continue
@@ -232,23 +245,25 @@ def build_nav_url_map(space_dir: Path, space: str) -> dict:
 
         # Cross-space and external links occupy a nav slot but have no local file.
         if target.startswith(("http://", "https://", "#")):
-            stack.append((indent, None))
+            stack.append((indent, None, None))
             continue
 
         rel = target.split("#")[0]
         if rel == "README.md":
             url = space                      # the space's own landing page
         else:
-            parent = next((u for _, u in reversed(stack) if u), space)
+            parent = next((u for _, u, _ in reversed(stack) if u), space)
             url = f"{parent}/{nav_slug(rel)}"
 
+        full_rel = str(Path(space_dir_name) / rel)
         entries.append({
-            "rel": str(Path(space_dir.name) / rel),
+            "rel": full_rel,
             "url": url,
             "indent": indent,
             "has_child": False,
+            "parents": [r for _, _, r in stack if r],
         })
-        stack.append((indent, url))
+        stack.append((indent, url, full_rel))
 
     for i, entry in enumerate(entries):
         if i + 1 < len(entries) and entries[i + 1]["indent"] > entry["indent"]:
@@ -259,7 +274,7 @@ def build_nav_url_map(space_dir: Path, space: str) -> dict:
         current = winners.get(entry["rel"])
         if current is None or (entry["has_child"] and not current["has_child"]):
             winners[entry["rel"]] = entry
-    return {rel: entry["url"] for rel, entry in winners.items()}
+    return winners
 
 
 # file path relative to REPO_ROOT -> published URL path. Populated by main().
