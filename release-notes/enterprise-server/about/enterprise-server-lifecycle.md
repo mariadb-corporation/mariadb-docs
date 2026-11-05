@@ -19,6 +19,7 @@ MariaDB Enterprise Server incorporates enhancements that are not present in Mari
 
 For details on features added to enhance, harden, and secure MariaDB Enterprise Server, see the following pages:
 
+* [What's New in MariaDB Enterprise Server 12.3](../12.3/whats-new.md)
 * [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md)
 * [What's New in MariaDB Enterprise Server 11.4](../11.4/whats-new.md)
 * [What's New in MariaDB Enterprise Server 10.6](../10.6/whats-new.md)
@@ -32,6 +33,7 @@ Releases of MariaDB Enterprise Server are predictable because,
 * Critical fixes from newer release series are selectively backported.
 * Enterprise-grade testing drives a low defect rate.
 * Specific changes present in each release are communicated.
+* A [Software Bill of Materials (SBOM)](sbom.md) is published for every release.
 
 Additional information on the release cycle for MariaDB Enterprise Server can be found in [MariaDB Corporation Engineering Policy](https://mariadb.com/engineering-policies/).
 
@@ -41,21 +43,26 @@ Planned releases of MariaDB Enterprise Server are [scheduled](enterprise-server-
 
 ### Obtaining MariaDB Enterprise Server <a href="#obtaining-mariadb-enterprise-server" id="obtaining-mariadb-enterprise-server"></a>
 
-MariaDB Enterprise Server is available to MariaDB subscription customers via the [MariaDB Customer Portal](https://customers.mariadb.com/).
+MariaDB Enterprise Server is available to MariaDB subscription customers:
+
+* From the [Enterprise Server download page](https://mariadb.com/downloads/enterprise/enterprise-server/)
+* From the [MariaDB Enterprise Repository]({server}/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb-enterprise-server-repository)
+* As [Enterprise Docker images]({server}/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/deploy-mariadb-enterprise-server-with-docker)
+* As part of the [MariaDB Enterprise Kubernetes Operator]({tools}/enterprise/mariadb-enterprise-operator)
+
+MariaDB Enterprise Server is also available as a managed service in [MariaDB Cloud]({mariadb-cloud}), on the [Power and PowerPlus service tiers]({mariadb-cloud}/service-tiers).
 
 If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact) for more information.
 
-MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
-
 ### Enterprise Server Release Identifiers <a href="#enterprise-server-release-identifiers" id="enterprise-server-release-identifiers"></a>
 
-Releases of MariaDB Enterprise Server are given an identifier such as 'MariaDB Enterprise Server 10.5.8-5,' whose components are,
+Releases of MariaDB Enterprise Server are given an identifier such as 'MariaDB Enterprise Server 11.8.9-6,' whose components are,
 
 * The product name (MariaDB Enterprise Server).
-* Release series (10.5, spoken "ten-five").
-* The point release of MariaDB Community Server used as the base of this Enterprise Server release (.8, spoken "ten-five-eight").
-* The release postfix of MariaDB Enterprise Server starts with '-1' and is incremented for subsequent releases in that release series (-5, spoken "ten-five-eight-dash-five").
-* On the Debian and Ubuntu platforms, the release postfix contains a period instead of a dash, such that release postfixes start with .1 and increment for subsequent releases in that release series (.5, spoken "ten-five-eight-dot-five").
+* Release series (11.8, spoken "eleven-eight").
+* The point release of MariaDB Community Server used as the base of this Enterprise Server release (.9, spoken "eleven-eight-nine").
+* The release postfix of MariaDB Enterprise Server starts with '-1' and is incremented for subsequent releases in that release series (-6, spoken "eleven-eight-nine-dash-six").
+* On the Debian and Ubuntu platforms, the release postfix contains a period instead of a dash, such that release postfixes start with .1 and increment for subsequent releases in that release series (.6, spoken "eleven-eight-nine-dot-six").
 
 {% hint style="info" %}
 **Note:** The release postfix (for example, the `-4` in `11.8.6-4`) increases consecutively with each new Enterprise Server release in a series, but the Community Server point release it is based on does not. As a result:
@@ -70,7 +77,7 @@ Additional information on the release numbering for MariaDB Enterprise Server ca
 
 ## Enterprise Server Support <a href="#enterprise-server-support" id="enterprise-server-support"></a>
 
-MariaDB Corporation offers vendor support for MariaDB Enterprise Server, including,
+MariaDB Enterprise Server is part of the [MariaDB Enterprise Platform](https://mariadb.com/products/platform/) subscription. MariaDB Corporation offers vendor support for MariaDB Enterprise Server, including,
 
 * Customer support as detailed in the [Subscription Services Policy](https://mariadb.com/subscription-services-policies)
 * [Professional services](https://mariadb.com/services), including migration services, remote DBA services, and consulting
