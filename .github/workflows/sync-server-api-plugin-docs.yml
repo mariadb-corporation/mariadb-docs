@@ -166,6 +166,11 @@ jobs:
           set -euo pipefail
           bash .github/scripts/add_frontmatter_to_server_plugin_api.sh
 
+      - name: Add the license line and feedback form to the generated pages
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/add_footer_to_server_plugin_api.py
+
       - name: Update Plugin API Documentation section in SUMMARY.md
         run: |
           set -euo pipefail
