@@ -93,3 +93,7 @@ A fully functional demo project is available on GitHub in the [Langchain demo](h
 
 - [GridGain-Demos/gg8_langchain_demo](https://github.com/GridGain-Demos/gg8_langchain_demo) - The full laptop-recommendation RAG demo with setup instructions and sample code.
 - [LangChain](https://www.langchain.com/) - The framework used to build the LLM application.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

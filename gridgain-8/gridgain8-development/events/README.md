@@ -29,3 +29,7 @@ How to enable, listen to, and query local and remote events in GridGain, includi
 Reference of GridGain event types, describing when and where each event is generated and how to use them.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

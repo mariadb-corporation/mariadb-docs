@@ -43,3 +43,7 @@ GridGain Native (Ignite) Persistence — how data partitions, checkpointing, and
 How GridGain uses operating-system swapping to move in-memory data to disk as an extension of RAM, and how to enable it in the data region configuration.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -257,3 +257,7 @@ You have successfully completed the tutorial. You have learned how to query semi
 
 - [JSON Functions](../../reference/sql/functions/json-functions.md) for the full reference on `JSON_VALUE` and `JSON_QUERY`
 - [Enabling modules](../../gridgain8-development/project-setup.md#enabling-modules) for enabling the `gridgain-sql` module
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

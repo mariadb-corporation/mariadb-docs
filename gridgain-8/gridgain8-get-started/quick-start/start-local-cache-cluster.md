@@ -248,3 +248,7 @@ You started a single-node cache-centric cluster with Docker Compose and verified
 ## Next Step
 
 In **Cache Data and Experience the Speed**, you connect a Java application as a thick client, create caches, and store your first data. The thick client joins the cluster ring and enables features like near-cache that are unique to the cache-centric architecture.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

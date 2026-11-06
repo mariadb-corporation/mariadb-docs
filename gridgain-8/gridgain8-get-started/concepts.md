@@ -119,3 +119,7 @@ for performance. This configuration, where the data set is stored in bulk on dis
 native persistence).
 
 Refer to [this section](../gridgain8-management/installation/deployment-modes.md#cluster-deployment-modes) for more details.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

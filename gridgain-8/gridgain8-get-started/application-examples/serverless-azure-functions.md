@@ -572,3 +572,7 @@ Congratulations! You've completed the tutorial and learned how to use serverless
 ## Related
 
 - [Configure Ignite Persistence](../../gridgain8-management/installation/kubernetes/azure-deployment.md#kubernetes-configuration) for your Azure Kubernetes Service deployment to keep full copy of records on disk and to enable fast restarts of the Ignite cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

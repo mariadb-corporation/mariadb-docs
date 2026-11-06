@@ -31,3 +31,7 @@ Use the SQLLine console utility shipped with GridGain and Ignite to connect to a
 Connect Tableau to a GridGain or Ignite cluster over the ODBC driver to query and visualize distributed data.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

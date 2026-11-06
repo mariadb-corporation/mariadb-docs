@@ -190,3 +190,7 @@ Set up a GridGain Enterprise Edition or Ultimate Edition instance on AWS using t
 
 - [GridGain Kafka Connector](../../integrations/kafka/certified-kafka-connector.md) - The certified, configuration-driven connector used in this guide.
 - [Kafka Streamer](../../integrations/apache-ignite-extensions.md) - The alternative code-based streaming integration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

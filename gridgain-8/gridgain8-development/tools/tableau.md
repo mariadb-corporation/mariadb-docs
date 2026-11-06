@@ -48,3 +48,7 @@ Once the connection is successfully established between the cluster and Tableau,
 ![Creating new dataset](../../.gitbook/assets/gg8-tab-creating_dataset.png)
 
 ![Visualizing data](../../.gitbook/assets/gg8-tab-visualizing_data.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

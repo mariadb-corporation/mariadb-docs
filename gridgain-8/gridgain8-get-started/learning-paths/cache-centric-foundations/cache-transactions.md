@@ -1606,3 +1606,7 @@ This tutorial closed the Foundations path. You have seen the cache in three mode
 
 - [Cache Sizing and Expiry](cache-sizing-and-expiry.md) covers eviction and expiry policies that control what stays in the cache.
 - [Cache-Aside Under Load](cache-aside-under-load.md) covers the mediation pattern where the cache sits in front of a source-of-truth database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

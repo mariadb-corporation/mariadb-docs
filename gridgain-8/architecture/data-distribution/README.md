@@ -43,3 +43,7 @@ How GridGain partitions data across server nodes with the affinity function, the
 How affinity colocation stores related cache entries together on the same node so multi-entry queries run locally, and how to configure a custom affinity key.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

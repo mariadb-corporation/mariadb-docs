@@ -698,3 +698,7 @@ To switch on optimizations for the legacy framework while upgrading to a new Gri
 5. Restart the client node.
 
 If your entire cluster (server and client nodes) is already on GridGain 8.8.39+ or 8.9.4+, all you need to do to switch on the optimizations is to set `IGNITE_SERVICES_SET_REMOTE_FILTER_ON_START=true` when reloading your thick client.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

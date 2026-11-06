@@ -97,3 +97,7 @@ As all SQL operations are transactional in [GridGain 9](https://app.gitbook.com/
 Each GridGain cluster exists in one timezone. All `DATE`, `TIME` or `TIMESTAMP` operations are performed relative to this specific timezone. However, because clients can operate in different timezones, GridGain converts time for operations performed from thin clients to represent a local user's timezone.
 
 For operations performed directly on caches, cluster's timezone is used. If you perform direct cache operations from multiple time zones, make sure you keep track of the timezone users are in.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

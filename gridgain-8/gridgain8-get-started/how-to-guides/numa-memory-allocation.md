@@ -220,3 +220,7 @@ A non-empty list of pages allocated with NUMA means that your data region is now
 
 - [Non-Uniform Memory Access (NUMA)](https://en.wikipedia.org/wiki/Non-uniform_memory_access) - Background on the memory design this guide optimizes for.
 - [HotSpot (virtual machine)](https://en.wikipedia.org/wiki/HotSpot_(virtual_machine)) - The Java implementation required for `-XX:+UseNUMA`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

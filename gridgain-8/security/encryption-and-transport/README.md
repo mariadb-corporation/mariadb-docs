@@ -52,3 +52,7 @@ Restrict deserialization in GridGain with the IGNITE_MARSHALLER_WHITELIST and IG
 Secure the JMX server that GridGain nodes start, by disabling remote JMX or enabling password authentication and SSL.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

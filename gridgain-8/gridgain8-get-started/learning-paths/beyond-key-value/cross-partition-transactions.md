@@ -1011,3 +1011,7 @@ The next tutorial in this learning path, [Compute Where the Data Lives: The Roun
 
 - [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md) covers the transaction API on a single-node cluster, including the `OPTIMISTIC + SERIALIZABLE` retry pattern that this tutorial extends.
 - [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) covers the partition layout and the Affinity API for inspecting placement. This tutorial reuses that cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -427,3 +427,7 @@ unsupported
 - [Design Keys for Colocation](../../gridgain8-get-started/learning-paths/data-locality/design-keys-for-colocation.md)
 - [Verify Colocation Is Working](../../gridgain8-get-started/learning-paths/data-locality/verify-colocation.md)
 - [When to Break Colocation](../../gridgain8-get-started/learning-paths/data-locality/when-to-break-colocation.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

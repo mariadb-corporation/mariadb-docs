@@ -138,3 +138,7 @@ You can pass the following parameter in the URL:
 |Parameter | Description | Default Value|
 |---|---|---|
 | `freq` |  Scanning frequency in milliseconds. | `300000`|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
