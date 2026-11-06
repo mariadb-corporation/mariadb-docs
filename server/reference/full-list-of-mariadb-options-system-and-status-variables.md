@@ -1112,7 +1112,7 @@ description: >-
 * [performance\_schema\_max\_metadata\_locks](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_metadata_locks)
 * [performance\_schema\_max\_mutex\_classes](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_mutex_classes)
 * [performance\_schema\_max\_mutex\_instances](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_mutex_instances)
-* [performance\_schema\_max\_prepared\_statement\_instances](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_prepared_statement_instances)
+* [performance\_schema\_max\_prepared\_statements\_instances](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_prepared_statements_instances)
 * [performance\_schema\_max\_program\_instances](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_program_instances)
 * [performance\_schema\_max\_sql\_text\_length](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_sql_text_length)
 * [performance\_schema\_max\_rwlock\_classes](system-tables/performance-schema/performance-schema-system-variables.md#performance_schema_max_rwlock_classes)
