@@ -373,19 +373,20 @@ spec:
   storage:
     azureBlob:
       containerName: physicalbackup
-      serviceURL: https://physicalbackup.blob.core.windows.net # Format is: `https://%s.blob.core.windows.net/` where `%s` is the containerName
+      serviceURL: https://examplestorageaccount.blob.core.windows.net # Format is: `https://%s.blob.core.windows.net/` where `%s` is the storage account name
       prefix: mariadb
-      storageAccountName: exampleStorageAccount
+      storageAccountName: examplestorageaccount
       storageAccountKey:
         name: azurite-key
         key: storageAccountKey
-      # Optional.
-      # tls:
-      #   enabled: true
-      #   caSecretKeyRef:
-      #     name: azurite-certs
-      #     key: cert.pem
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: azurite-certs
+          key: cert.pem
 ```
+
+The backup `Job` image does not include a CA certificate bundle, so a CA must be provided through `tls` even when connecting to public Azure endpoints. `caSecretKeyRef` is only used when `tls.enabled` is `true`; otherwise the `Secret` is ignored. The referenced PEM, either a single certificate or a concatenated bundle, replaces the default trust store, so it must include every root certificate that the storage endpoint's chain uses.
 
 Alternatively, you may choose to omit the `storageAccountKey` and `storageAccountName` if you are using [managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview)
 
