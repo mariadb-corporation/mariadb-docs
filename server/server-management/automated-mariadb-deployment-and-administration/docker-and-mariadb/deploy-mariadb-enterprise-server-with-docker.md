@@ -178,7 +178,7 @@ SHOW GLOBAL VARIABLES
 ```
 *************************** 1. row ***************************
 Variable_name: version
-        Value: 11.8.3-1-MariaDB-enterprise-log
+        Value: 12.3.3-1-MariaDB-enterprise-log
 ```
 
 Exit the container using `exit`:
