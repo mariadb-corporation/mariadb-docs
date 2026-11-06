@@ -761,3 +761,7 @@ The next tutorial in this learning path, [Beyond Cache: The Persistence Problem]
 - [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md) is the project this tutorial extends. It teaches the SQL surface and colocation declaration this tutorial reuses.
 - [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) is the cluster topology this tutorial runs against. It introduces the partition mental model and ships the three-node compose with the `BasicAddressResolver` configuration.
 - [Affinity-Aware Compute at Scale](../data-locality/affinity-aware-compute.md) is the design-driven companion. Same APIs, scale experiment from 1,000 to 100,000 customers.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

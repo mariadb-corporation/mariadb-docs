@@ -1190,3 +1190,7 @@ The next tutorial in this learning path, [Atomic Operations Across Keys: The Tra
 
 - [Use Transactions with the Cache API](../cache-centric-foundations/cache-transactions.md) covers the atomicity tools that let multi-key writes succeed or fail together on a single partition.
 - [Cache-Aside Under Load](../cache-centric-foundations/cache-aside-under-load.md) covers the mediation pattern where the cache sits in front of a source-of-truth database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

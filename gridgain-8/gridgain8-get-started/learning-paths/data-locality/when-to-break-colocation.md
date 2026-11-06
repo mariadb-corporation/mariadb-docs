@@ -1178,3 +1178,7 @@ This is the final tutorial in the Design for Data Locality path. Two supporting 
 - [Design Keys for Colocation](design-keys-for-colocation.md) introduced `@AffinityKeyMapped` and the composite-key mechanism this tutorial reuses for Versions B and C.
 - [Verify Colocation Is Working](verify-colocation.md) taught the runtime checks for affinity contracts. Apply them to Version B and Version C to confirm Invoice colocates with Customer as expected.
 - [Affinity-Aware Compute at Scale](affinity-aware-compute.md) covered three affinity-aware compute patterns that run against PARTITIONED caches. They compose with REPLICATED dimensions when the compute needs to enrich results.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

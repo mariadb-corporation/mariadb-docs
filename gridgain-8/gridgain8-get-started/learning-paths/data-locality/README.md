@@ -15,3 +15,7 @@ Complete [Cache-Centric Foundations](../cache-centric-foundations/README.md) fir
 | [Verify Colocation Is Working](verify-colocation.md) | 60 min | Advanced |
 | [Affinity-Aware Compute at Scale](affinity-aware-compute.md) | 75 min | Advanced |
 | [When to Break Colocation](when-to-break-colocation.md) | 60 min | Advanced |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

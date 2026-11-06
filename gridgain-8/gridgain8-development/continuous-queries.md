@@ -594,3 +594,7 @@ GridGain manages a special per-partition update counter that helps to avoid dupl
 ## See Also
 
 - [Real-Time Event Processing: The Streaming Problem](../gridgain8-get-started/learning-paths/beyond-key-value/continuous-queries-streaming.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

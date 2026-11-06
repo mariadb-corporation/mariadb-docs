@@ -82,3 +82,7 @@ The distributed atomic sequence provided by IgniteCacheAtomicSequence is an effi
 ## See Also
 
 - [Distributed Primitives: The Coordination Problem](../../gridgain8-get-started/learning-paths/beyond-key-value/distributed-data-structures.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

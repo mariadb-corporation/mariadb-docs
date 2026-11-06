@@ -15,3 +15,7 @@ Start here if you are new to GridGain 8. You set up a local cluster, work with t
 | [Cache-Aside Under Load](cache-aside-under-load.md) | 60 min | Beginner |
 | [Use Transactions With the Cache API](cache-transactions.md) | 60 min | Intermediate |
 | [Understand How Your Cache Is Distributed](understand-cache-distribution.md) | 45 min | Beginner |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -98,3 +98,7 @@ To import the dashboard and use it for viewing the cluster metrics:
 
 - [OpenTelemetry Java instrumentation](https://github.com/open-telemetry/opentelemetry-java-instrumentation) - The agent used to export GridGain metrics and logs.
 - [Principles of Logging in Apache Ignite](https://university.gridgain.com/courses/course/principles-of-logging-in-apache-ignite) - GridGain University lesson on choosing the metrics to track.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

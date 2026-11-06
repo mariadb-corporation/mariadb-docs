@@ -92,3 +92,7 @@ A fully functional demo project is available on GitHub in the [Langflow demo](ht
 
 - [Langflow](https://www.langflow.org/) - The no-code platform used to build the visual AI workflow.
 - [Langflow demo repository](https://github.com/GridGain-Demos/langflow_example) - The full sample project with setup instructions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

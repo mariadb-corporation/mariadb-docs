@@ -337,3 +337,7 @@ To change the certificate in this case:
 ## See Also
 
 - [How to Configure SSL/TLS/HTTPS Security](../gridgain8-get-started/how-to-guides/ssl-tls-step-by-step.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

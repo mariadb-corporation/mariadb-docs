@@ -80,3 +80,7 @@ Standalone example applications: a Spring Boot REST service, a Micronaut microse
 Task-focused guides for security, monitoring, performance, operations, and integrations.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

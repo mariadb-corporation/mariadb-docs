@@ -811,3 +811,7 @@ For the next path, choose between Design for Data Locality for the design-driven
 - [Distributed Primitives: The Coordination Problem](distributed-data-structures.md) - the prior step in this path. Cluster-wide JUC-shaped APIs replace coordination libraries.
 - [From Key-Value to SQL: The JOIN Problem](from-keyvalue-to-sql.md) - the source of the `SqlFieldsQuery` vocabulary you brought into Step 2.
 - [Cache Sizing and Expiry](../cache-centric-foundations/cache-sizing-and-expiry.md) - the foundations tutorial that deferred listeners to "later content". This tutorial is the later content.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -324,3 +324,7 @@ Re-run Step 2 of the diagnosis procedure. The `max / mean` ratio should drop to 
 - [Verify Colocation Is Working](../learning-paths/data-locality/verify-colocation.md) teaches `SYS.CACHE_GROUPS`, `SYS.PARTITION_STATES`, and the local-scan broadcast pattern used in Step 2.
 - [Design Keys for Colocation](../learning-paths/data-locality/design-keys-for-colocation.md) covers the three mechanisms that Fix 2 and Fix 3 draw from.
 - [When to Break Colocation](../learning-paths/data-locality/when-to-break-colocation.md) covers the `PARTITIONED` vs `REPLICATED` decision that Fix 5 depends on.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

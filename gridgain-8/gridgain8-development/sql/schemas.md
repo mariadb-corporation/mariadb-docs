@@ -105,3 +105,7 @@ If you do not use this parameter, the cache name is defined in the following for
 ```
 SQL_<SCHEMA_NAME>_<TABLE_NAME>
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

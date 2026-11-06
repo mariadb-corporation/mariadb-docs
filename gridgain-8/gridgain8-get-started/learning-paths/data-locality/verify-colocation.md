@@ -1388,3 +1388,7 @@ The three techniques are not redundant. They probe different surfaces of the sam
 
 - [Design Keys for Colocation](design-keys-for-colocation.md) built the three mechanisms this tutorial verifies.
 - [Understand How Your Cache Is Distributed](../cache-centric-foundations/understand-cache-distribution.md) introduced `Affinity<K>` and the 3-node cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

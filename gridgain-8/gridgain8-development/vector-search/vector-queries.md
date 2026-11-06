@@ -147,3 +147,7 @@ GridGain limits the size of vectors and vector queries. To change the limits, se
 {% hint style="info" %}
 The memory usage and search time of a vector index grow with the number of dimensions. Vectors with more than 8192 dimensions exceed the 32 KB read buffer of the index storage, so each vector read takes several buffer reads.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

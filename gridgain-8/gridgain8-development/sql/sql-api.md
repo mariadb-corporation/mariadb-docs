@@ -538,3 +538,7 @@ unsupported
 ## Example
 
 The GridGain distribution package includes a ready-to-run `SqlDmlExample` that demonstrates the usage of all the above-mentioned DML operations.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -916,3 +916,7 @@ Congratulations! You've completed the tutorial and learned how to use GridGain w
 ## Related
 
 - [Spring Boot reference documentation](https://docs.spring.io/spring-boot/index.html) for details on the Spring Boot features used here
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
