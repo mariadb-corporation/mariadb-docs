@@ -117,3 +117,7 @@ Various errors may occur during the source or sink connector operation:
 By default, an error of any type will cause the connector to stop the task in which the error has occurred. Out-of-the-box, Kafka enables you to customize the Kafka-side error handling. Learn more from [this blog](https://www.confluent.io/blog/kafka-connect-deep-dive-error-handling-dead-letter-queues/).
 
 Starting from GridGain 8.9.14, Kafka Connector provides the `errorHandlingPolicy` option that allows you to customize the GridGain-side errors handling for [sources](configuration.md#source-connector) and [sinks](configuration.md#sink-connector).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

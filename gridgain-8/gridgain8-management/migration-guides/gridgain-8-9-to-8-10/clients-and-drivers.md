@@ -44,3 +44,7 @@ GridGain 8.9.39 tells its peers that it supports three thin client features that
 
 - *Features that an 8.9 server lacks are refused by the client.* The thin client protocol version is the same in 8.9 and 8.10, and new capabilities are negotiated with feature flags, so a client built with the 8.10 libraries connects to an 8.9 server. From an 8.10 client, `withPartitionRecover()` on an 8.9 server fails with `ClientFeatureNotSupportedByServerException: Feature CACHE_WITH_PARTITION_RECOVER is not supported by the server`, and a vector index with HNSW build parameters or quantization is refused in the same way. Upgrade the servers first, or do not use these features until the whole cluster runs 8.10.
 - *8.9 clients work with 8.10 servers.* The 8.9 thin clients (Java, .NET, and C++), the JDBC driver, and the ODBC driver connect to an 8.10 server.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -440,3 +440,7 @@ group=SPIs,name=TcpDiscoverySpi
 |---|---|---|---|
 |MessageWorkerQueueSize|int|The size of the queue of discovery messages that are waiting to be sent to other nodes.|Node|
 |AvgMessageProcessingTime|long|Average message processing time.|Node|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

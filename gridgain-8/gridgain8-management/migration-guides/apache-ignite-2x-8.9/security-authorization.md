@@ -75,3 +75,7 @@ Most deployments configure security through files and never touch code. If you a
 4. Review any role that now requires the broader `ADMIN_OPS`, and confirm that is acceptable under least privilege.
 5. Start a secured node. If it fails to start because of an unknown permission, or prints a warning about an ignored Apache Ignite 2.x permission, remove or remap that permission and start the node again.
 6. Test each migrated role end to end: cluster activate/deactivate, baseline change, node stop, SQL `KILL QUERY`, and user create/drop.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

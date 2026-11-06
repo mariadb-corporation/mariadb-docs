@@ -272,3 +272,7 @@ If the call fails, see [Troubleshooting](operations.md#troubleshooting).
 Hosts ask you for permission before the assistant uses a tool, unless you allow it in advance.
 All GridGain MCP Server tools are marked as read-only, so a host may offer to run them without asking.
 Before you allow this, read [Security](security.md), especially the part about user-defined functions.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

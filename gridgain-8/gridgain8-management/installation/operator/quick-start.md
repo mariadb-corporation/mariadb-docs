@@ -85,3 +85,7 @@ In this quick start guide, we showed how to deploy the GridGain Enterprise Editi
 ## What's Next
 
 Playing around the default cluster might be a good starting point, but for advanced usage please refer to the [Operator Configuration](operator-configuration.md) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

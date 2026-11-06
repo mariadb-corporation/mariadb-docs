@@ -45,3 +45,7 @@ How to upgrade a GridGain 8.9.x cluster to 8.10: choosing a rolling or offline p
 How Oracle Coherence Data Grid concepts map to GridGain — entry processors, queries, indexing, locking, transactions, affinity colocation, and binary objects.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

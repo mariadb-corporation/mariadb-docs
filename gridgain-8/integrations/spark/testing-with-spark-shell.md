@@ -133,3 +133,7 @@ Now that you have your cluster up and running, you can run `spark-shell` and che
    ```
    res0: Long = 50000
    ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

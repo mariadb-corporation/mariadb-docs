@@ -197,3 +197,7 @@ unsupported
 {% endtabs %}
 
 For more information about cache settings, see [Cache Configuration](../gridgain8-development/configuring-caches/configuration-overview.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -38,3 +38,7 @@ Updates from the source database can be performed in different modes. If the rep
 ### Conflict Resolution
 
 In `active-active` scenarios, updates to a key in the cache occurring from multiple sources is called a conflict. To ensure a consistent conflict resolution across different data centers, users can plug in their own implementation of conflict resolver. See [Conflicts Resolution](../../gridgain8-management/conflict-resolution.md) for more information.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

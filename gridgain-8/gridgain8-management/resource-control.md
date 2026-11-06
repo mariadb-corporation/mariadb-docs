@@ -82,3 +82,7 @@ The following example sandboxes multiple small nodes on a single machine. These 
 ```shell
 taskset --cpu-list 0-3 bin/ignite.sh; taskset --cpu-list 4-7 bin/ignite.sh
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

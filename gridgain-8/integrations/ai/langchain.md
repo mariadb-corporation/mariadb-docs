@@ -377,3 +377,7 @@ Version 2.0.0 changed the following:
 GridGain provides a tutorial with a demonstration project. The project uses `langchain-gridgain` to build a laptop recommendation system and shows GridGain as a backend for several LangChain components.
 
 The tutorial is available in the [How to Build Retrieval-Augmented Generation With GridGain and LangChain](../../gridgain8-get-started/how-to-guides/langchain-rag-tutorial.md) page.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

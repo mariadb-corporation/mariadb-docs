@@ -610,3 +610,7 @@ $ curl http://13.86.186.145:8080/ignite?cmd=version
 
 Join our free instructor-led training sessions to explore the best practices of using Kubernetes and Apache Ignite.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

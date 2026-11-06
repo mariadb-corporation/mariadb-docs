@@ -989,3 +989,7 @@ try (IgniteClient igniteClient = Ignition.startClient(cfg)) {
 ```
 
 You can also query system views in the Control Center UI, form the **SQL** screen. Add `SYS.` before the view name; for example: `select * FROM SYS.CLIENT_CONNECTIONS;`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

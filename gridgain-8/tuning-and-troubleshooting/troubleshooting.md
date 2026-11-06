@@ -261,3 +261,7 @@ The example below shows the correct way to configure a consistent ID for reintro
 ## See Also
 
 - [How to Debug a Hot Partition](../gridgain8-get-started/how-to-guides/debug-hot-partition.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

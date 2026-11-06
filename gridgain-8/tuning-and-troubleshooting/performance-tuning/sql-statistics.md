@@ -168,3 +168,7 @@ The steps below show an example of obtaining an optimized execution plan for bas
    WHERE ("__Z0"."COL2" > 'val2')
    AND ("__Z0"."COL3" > DATE '2020-12-01')
    ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -185,3 +185,7 @@ GridGain Operator for Kubernetes automates the deployment and management of Grid
 Upgrade a GridGain 8 cluster — a standard version upgrade, or a rolling upgrade that keeps the cluster available throughout.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

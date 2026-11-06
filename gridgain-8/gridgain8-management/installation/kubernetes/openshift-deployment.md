@@ -33,3 +33,7 @@ oc create -f statefulset.yaml
 ```
 
 Replace `kubectl` with `oc` in the remaining commands as well, for example `oc get pods -n gridgain`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -298,3 +298,7 @@ INSERT INTO City (id, name) VALUES (4, 'Oakland');
 In DBeaver, see the Sink Connector created the new `quickstart-SQL_PUBLIC_CITY` table containing the 2 entries:
 
 ![](../../.gitbook/assets/gg8-kc-ex-persistdb04.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

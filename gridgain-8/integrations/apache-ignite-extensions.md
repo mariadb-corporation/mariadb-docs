@@ -43,3 +43,7 @@ Binaries are available in Maven Repository. For example, the following snippet s
 ```
 
 Binaries must be available to a GridGain node at runtime. It could be achieved by copying the corresponding `jar`-files to the `libs` folder of the GridGain distribution directory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
