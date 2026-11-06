@@ -1002,8 +1002,8 @@ You ran `txStart` against a three-node cluster, and the transaction committed ac
 ### What's Next
 
 - `setDistributedJoins(true)` for the case where colocation is not possible, covered in [When to Break Colocation](../data-locality/when-to-break-colocation.md).
-- Deadlock detection on `PESSIMISTIC` via the four-argument `txStart(c, i, timeout, txSize)` overload (coming soon). In the meantime, see [Deadlock Detection](../../../gridgain8-development/transactions.md#deadlock-detection) in Performing Transactions.
-- `TransactionConfiguration` for cluster-wide defaults that change every transaction's behavior at once (coming soon). In the meantime, see [Performing Transactions](../../../gridgain8-development/transactions.md).
+- Deadlock detection on `PESSIMISTIC` via the four-argument `txStart(c, i, timeout, txSize)` overload. See [Deadlock Detection](../../../gridgain8-development/transactions.md#deadlock-detection) in Performing Transactions.
+- `TransactionConfiguration`, which sets cluster-wide transaction defaults. [Performing Transactions](../../../gridgain8-development/transactions.md) shows how to set the default transaction timeout and the partition map exchange timeout.
 
 The next tutorial in this learning path, [Compute Where the Data Lives: The Round-Trip Problem](colocated-compute.md), moves from atomic writes to compute. When the data is too large to pull to the client, the answer is to ship the code to the data.
 

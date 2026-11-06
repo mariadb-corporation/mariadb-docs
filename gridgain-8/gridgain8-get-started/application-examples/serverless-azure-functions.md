@@ -6,7 +6,7 @@ description: >-
 
 # Serverless Computing With Ignite and Azure Functions
 
-<!-- TODO (rewrite): This is the largest rewrite. The page is written for Apache Ignite 2.8 and Java 8; the 8.10 client needs Java 17, and the statement that Azure Functions supports only Java 8 (here and in the build steps) is third-party and unchecked. Needs an Azure subscription and AKS to retest. Delete this comment when done. -->
+<!-- TODO (rewrite for 8.10): The page is written for Apache Ignite 2.8 and Java 8 and is hidden until it is rewritten for GridGain 8.10. The 8.10 client needs Java 17, so the Java version, Ignite version and sample project must be updated and retested. Needs an Azure subscription and AKS. Do not add 8.10 or Java 17 claims before retesting. Delete this comment and unhide the page when done. -->
 
 ## Introduction
 
@@ -22,7 +22,7 @@ By the end of the tutorial, you are going to finish this sample [GitHub project]
 
 - A Microsoft Azure account with an active subscription.
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) tools.
-- [Apache Ignite 2.8](https://ignite.apache.org/download.cgi#binaries) or later version.
+- [Apache Ignite 2.8](https://ignite.apache.org/download.cgi#binaries).
 - The Java Developer Kit, version 8.
 - [Apache Maven 3.0](https://maven.apache.org) or later version.
 - Favourite IDE such as IntelliJ IDEA or Eclipse.
@@ -150,7 +150,7 @@ Check `ignite_world_db.sql` for the following key settings:
 
 Follow the steps below to load sample data using the Apache Ignite JDBC driver:
 
-1. To get the driver, download the [Apache Ignite binary distribution](https://ignite.apache.org/download.cgi#binaries) of 2.8 or later version and unpackage it in a local directory. Go to the `bin` folder of that local directory:
+1. To get the driver, download the [Apache Ignite binary distribution](https://ignite.apache.org/download.cgi#binaries) of version 2.8 and unpackage it in a local directory. Go to the `bin` folder of that local directory:
 
    ```bash
    cd {ignite-binary-release}/bin/
@@ -190,7 +190,7 @@ Now you will develop an Azure Function that serves two types of HTTP requests. T
 Open the sample project in your favorite IDE, such as IntelliJ IDEA or Eclipse, and locate the `org.gridgain.demo.azurefunction.functions.AzurePopulationFunction` class, which is a source code template with a single method annotated with `@FunctionName("population")`. Once you finish this section, the method will embody the Azure Function's logic that processes HTTP requests.
 
 {% hint style="warning" %}
-Make sure the sample project as well as Maven use Java 1.8. Currently, Azure Functions do not support later versions of Java.
+Make sure the sample project as well as Maven use Java 1.8, the version this sample is built for.
 {% endhint %}
 
 ### Establish Thin Client Connection
@@ -518,7 +518,7 @@ Before deploying the function to Azure, you can confirm that it works as expecte
    ```
 
 {% hint style="warning" %}
-   Make sure the sample project as well as Maven use Java 1.8 to build the artifacts. Currently, Azure Functions do not support later versions of Java.
+   Make sure the sample project as well as Maven use Java 1.8 to build the artifacts, the version this sample is built for.
 {% endhint %}
 
 1. Look for a line similar to `population: [GET,POST] http://localhost:7071/api/population` in the output of the previous command.
