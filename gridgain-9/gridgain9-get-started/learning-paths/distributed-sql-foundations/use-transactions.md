@@ -1018,3 +1018,7 @@ You have written the same multi-table invoice workflow at three levels of sophis
 | `runInTransactionAsync` | High-concurrency services, event-driven architectures, reactive pipelines |
 
 Continue to [Design a Schema for Distributed SQL](../schema-design-for-distributed-sql/schema-distributed-sql.md) to learn how colocation and distribution zones shape performance. To run Java logic directly on the nodes where data lives, see [About Distributed Computing](../../../gridgain9-development/distributed-computing/about-distributed-computing.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

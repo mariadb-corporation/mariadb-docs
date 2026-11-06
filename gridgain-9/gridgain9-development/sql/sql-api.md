@@ -310,3 +310,7 @@ handle->cancel_async(ignite_result<void> cancellationResult) {
 {% endtabs %}
 
 Another way to cancel queries is by using the SQL [KILL QUERY](../../reference/sql/operational-commands.md#kill-query) command. The query id can be retrieved via the `SQL_QUERIES` [system view](../../reference/monitoring/system-views.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

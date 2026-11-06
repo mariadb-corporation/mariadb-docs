@@ -848,3 +848,7 @@ Note that the property names are in `camelCase`.
 |expiration.batchSize|1000|The number of items that can be expired at once.|1 - inf|
 |expiration.checkInterval|30000|How often the data is checked for expiration, in milliseconds.|1 - inf|
 |expiration.parallelismLevel|1|The number of threads used for data expiry.|1 - Integer.MAX_VALUE|
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

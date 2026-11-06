@@ -23,3 +23,7 @@ Complete Distributed SQL Foundations before the other paths, because they build 
 ## How-To Guides
 
 Looking for a solution to one specific task, such as logging, cluster lifecycle, or monitoring? See the [How-To Guides](../how-to-guides/README.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

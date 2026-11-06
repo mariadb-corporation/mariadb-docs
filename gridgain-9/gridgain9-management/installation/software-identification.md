@@ -162,3 +162,7 @@ These attributes are omitted from the ZIP, TAR, RPM, DEB, and MSI tags, because 
 
 ISO/IEC 19770-2:2015 permits attributes from other namespaces on the `<Meta>` element, so the tag remains valid against the standard schema.
 SAM tools that do not recognize the extension namespace ignore these attributes.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

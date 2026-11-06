@@ -159,3 +159,7 @@ NonTerminal('booleanExpression')
 ### Parameters
 
 - `booleanExpression` - an SQL expression that returns a boolean value. Only the records for which `TRUE` was returned will be updated. If not specified, all records will be updated.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

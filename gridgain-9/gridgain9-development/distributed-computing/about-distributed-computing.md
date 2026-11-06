@@ -1301,3 +1301,7 @@ public static class PartitionPersonCountJob implements ComputeJob<Long, Long> {
 {% hint style="info" %}
 `PartitionDistribution.primaryReplicas()` captures partition locations at a point in time. If a partition is reassigned between the split phase and job execution, the job may run on a non-primary node and the query will not be local. Use `BroadcastJobTarget.table()` (see [Partition-Local Queries with BroadcastJobTarget.table()](#partition-local-queries-with-broadcastjobtarget.table)) when local execution must be guaranteed.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

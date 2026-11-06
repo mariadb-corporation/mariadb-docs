@@ -532,3 +532,7 @@ Transaction metrics.
 | --- | --- |
 | LocalUnrebalancedPartitionsCount | Number of partitions that should be moved to this node. |
 | TotalUnrebalancedPartitionsCount | Total number of partitions that should be moved to a new owner. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

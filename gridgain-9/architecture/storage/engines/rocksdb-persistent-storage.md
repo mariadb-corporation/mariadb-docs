@@ -44,3 +44,7 @@ In GridGain 9, you can create and maintain configuration in either HOCON or JSON
 ```
 
 You can then use the profile (in this case, `rocks_profile`) in your distribution zone configuration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

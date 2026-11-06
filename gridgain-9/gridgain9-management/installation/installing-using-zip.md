@@ -102,3 +102,7 @@ See [Software Identification](software-identification.md) for details.
 ## Next Steps
 
 With the GridGain installed, you can proceed with the [Getting Started](../../gridgain9-get-started/quick-start.md) or [use the available APIs](../../gridgain9-development/table-api.md) immediately.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

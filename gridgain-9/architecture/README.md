@@ -95,3 +95,7 @@ How ACID transactions work in GridGain 9 — transaction types, guarantees, isol
 Overview of the GridGain 9 storage system: how tables, distribution zones, storage profiles, and storage engines work together to store your data.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

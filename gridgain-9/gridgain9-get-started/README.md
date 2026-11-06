@@ -152,3 +152,7 @@ Tutorials that take you from a local cluster to SQL, the Java thin client, trans
 Task-focused guides for logging, cluster lifecycle, and monitoring.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

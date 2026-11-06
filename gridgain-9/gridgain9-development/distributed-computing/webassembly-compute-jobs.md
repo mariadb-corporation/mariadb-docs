@@ -418,3 +418,7 @@ public class ComputePythonJobExample {
 ```
 
 The `commandBuilder()` method automatically configures the job to use command mode execution. The input string is passed to the program's `stdin`, and the output is captured from `stdout`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

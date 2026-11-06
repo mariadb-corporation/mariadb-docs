@@ -92,3 +92,7 @@ Distributed data structures in GridGain 9, including distributed maps for storin
 Deploy machine learning models to a GridGain 9 cluster and run inference predictions using the GridGain ML engine.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

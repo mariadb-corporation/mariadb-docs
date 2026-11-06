@@ -135,3 +135,7 @@ Below are the available options for near cache configuration:
 | `expireAfterUpdate` | The period of time since the latest update from cluster after which the entry expires and is removed from the near cache, in milliseconds.  Zero means no expiration. Negative values are not allowed. | 0 |
 | `updatePollInterval` | The period of time with which updates are requested from the server, in milliseconds. If 0, update polling is disabled. | 0 (disabled) |
 | `updateLongPollingWaitTimeMs` | The period of time each polling request waits on the server for updates, in milliseconds. Only used if `updatePollInterval` is greater than 0. 0 means polling requests return immediately. Negative values are not supported. | 10000 |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

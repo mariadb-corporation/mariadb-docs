@@ -14,3 +14,7 @@ Start here if you are new to GridGain 9. You start a local cluster and load the 
 | [Connect With the Java Thin Client](connect-java-thin-client.md) | 45 min | Beginner |
 | [Work With RecordView and KeyValueView](recordview-keyvalueview.md) | 90 min | Intermediate |
 | [Use Transactions in GridGain 9](use-transactions.md) | 60 min | Intermediate |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -91,3 +91,7 @@ By default, the command performs a safety check and fails if a read-only transac
 {% hint style="danger" %}
 `--force` removes the locks but does not cancel the transactions or operations that own them. Removing a lock that an active reader still needs can cause that reader to fail or to read data that has since been collected. Use `--force` only for recovery, after confirming the affected readers are no longer needed.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

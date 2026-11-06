@@ -202,3 +202,7 @@ dcr delete --name replication_name
 ```
 
 This will permanently delete the replication configuration. If replication is recreated, it will need to first synchronize the clusters, instead of resuming where it stopped before.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

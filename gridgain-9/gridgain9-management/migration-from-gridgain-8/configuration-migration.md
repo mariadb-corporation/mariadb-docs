@@ -215,3 +215,7 @@ Cluster security and authorization was completely rewritten from the ground up a
 - Each role specifies a list of permissions that users with this role can perform.
 
 All security configuration is part of cluster configuration and is shared across all nodes. For more information on configuring security, see [Authentication](../../security/authentication.md) documentation.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

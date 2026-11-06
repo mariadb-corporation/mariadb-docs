@@ -57,3 +57,7 @@ The operator ships with several `ClusterRoles` to support different access level
 Assign the editor or viewer roles to teams that need to manage or inspect clusters without full operator privileges.
 
 For more information about securing your clusters, see [Security](security.md) documentation.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -447,3 +447,7 @@ The architecture patterns demonstrated here apply to many domains beyond transit
 - [Apache Ignite Documentation](https://ignite.apache.org/docs/ignite3/latest/)
 - [Apache Ignite GitHub Repository](https://github.com/apache/ignite-3)
 - [Transit Monitor Source Code](https://github.com/maglietti/transit-monitor)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

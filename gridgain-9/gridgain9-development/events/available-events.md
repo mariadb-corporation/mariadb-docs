@@ -190,3 +190,7 @@ The user identity is available in the standard event [`user`](working-with-event
 | status | HTTP response status code. Applicable only to `REST_API_REQUEST_FINISHED` events. |
 | durationMs | Request duration in milliseconds. Applicable only to `REST_API_REQUEST_FINISHED` events. |
 | message | Error message. Applicable only to `REST_API_REQUEST_FINISHED` events when an unhandled error occurred. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

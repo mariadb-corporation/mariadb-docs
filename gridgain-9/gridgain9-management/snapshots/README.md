@@ -31,3 +31,7 @@ Create full and incremental data snapshots in GridGain 9, restore them, manage s
 Restore a GridGain 9 cluster to any point in time within the low watermark window with point-in-time recovery (PITR).
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

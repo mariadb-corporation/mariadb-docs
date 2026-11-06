@@ -271,3 +271,7 @@ DROP POLICY developers_own;
 - [CREATE / ALTER / DROP POLICY](../reference/sql/access-control-functions.md#create-policy) — the policy command syntax reference.
 - [Role-Based Authorization](role-based-authorization.md) — how roles and privileges work.
 - [User Permissions and Roles](user-permissions-and-roles.md#table) — the `MANAGE_RLS` privilege.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -1513,3 +1513,7 @@ All operations in this tutorial used implicit transactions (the `null` transacti
 - [Start Your Local GridGain 9 Development Cluster](../../start-local-cluster.md) for the cluster setup and dataset this tutorial connects to
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the thin client connection patterns and Table package hierarchy
 - [How to Configure Logging for the Java Thin Client](../../how-to-guides/configuring-java-client-logging.md) for controlling log output in your application
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

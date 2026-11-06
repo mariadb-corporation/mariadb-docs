@@ -315,3 +315,7 @@ public void analyzeVehicleData(List<VehiclePosition> positions) {
 This module built and tested a GTFS client that forms the data acquisition layer of the transit monitoring system. The client handles connecting to external data sources, parsing protocol buffer formats, and transforming the data into the domain model.
 
 The next module implements a data ingestion service that uses this client to regularly fetch transit data and store it in the Ignite database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

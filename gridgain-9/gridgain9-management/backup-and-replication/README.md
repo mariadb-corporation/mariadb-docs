@@ -52,3 +52,7 @@ Use GridGain 9 Change Data Capture (CDC) to replicate table changes to external 
 Data center replication (DCR) keeps tables in sync across multiple GridGain 9 clusters through one-way, asynchronous, last-write-wins replication.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

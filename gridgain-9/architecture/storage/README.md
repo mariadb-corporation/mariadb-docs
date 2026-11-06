@@ -191,3 +191,7 @@ How the GridGain 9 low watermark controls data retention and garbage collection,
 How storage engines and storage profiles work in GridGain 9, the engines available (aimem, aipersist, rocksdb, columnar), and how node-local configuration affects them.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -93,3 +93,7 @@ Configure the experimental GridGain 9 RocksDB persistent storage engine, based o
 Configure the GridGain 9 columnar storage engine for analytical queries, including engine and storage profile parameters.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

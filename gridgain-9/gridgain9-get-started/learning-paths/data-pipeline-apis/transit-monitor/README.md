@@ -104,3 +104,7 @@ cd transit-monitor
 Each module builds on the previous ones, with clear checkpoints to validate progress. Complete the modules in a single session or spread them across multiple days.
 
 Start with [Module 1: Project Setup](project-setup.md) to set up the project structure and configure the Ignite cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
