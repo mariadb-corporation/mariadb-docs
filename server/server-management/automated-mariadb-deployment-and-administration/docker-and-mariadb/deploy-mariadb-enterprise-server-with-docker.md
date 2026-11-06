@@ -29,6 +29,7 @@ MariaDB Enterprise Server can be deployed with Docker to support use cases that 
 
 The following products and versions can be deployed using the MariaDB Enterprise Docker Registry:
 
+* MariaDB Enterprise Server 12.3
 * MariaDB Enterprise Server 11.8
 * MariaDB Enterprise Server 11.4
 * MariaDB Enterprise Server 10.6
