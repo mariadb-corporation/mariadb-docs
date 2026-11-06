@@ -1530,3 +1530,7 @@ At every call site, three considerations determine the API: key availability, op
 - [Work with RecordView and KeyValueView](../distributed-sql-foundations/recordview-keyvalueview.md) covers the full operation set for both APIs
 - [Use Transactions in GridGain 9](../distributed-sql-foundations/use-transactions.md) covers explicit transactions, read-only snapshots, and auto-retry closures
 - [Design a Schema for Distributed SQL](schema-distributed-sql.md) covers the colocation decisions that shape API selection
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

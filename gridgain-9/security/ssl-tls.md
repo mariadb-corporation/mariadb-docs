@@ -352,3 +352,7 @@ The CLI also writes log files, which record the underlying SSL handshake errors.
 By default they are in `~/.local/state/ignitecli/logs/`.
 If the `XDG_STATE_HOME` environment variable is set, the CLI writes to `$XDG_STATE_HOME/ignitecli/logs/` instead.
 The `IGNITE_CLI_LOGS_DIR` environment variable overrides both.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

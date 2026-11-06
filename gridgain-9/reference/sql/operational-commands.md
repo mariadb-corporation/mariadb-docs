@@ -346,3 +346,7 @@ Optional(Terminal('NO WAIT'))
 
 - `job_id` - job identifier that can be retrieved via the `COMPUTE_JOBS` [system view](../monitoring/system-views.md).
 - `NO WAIT` - if specified, the command will return control immediately, without waiting for the job to be cancelled. You can monitor job status through the `COMPUTE_JOBS` [system view](../monitoring/system-views.md) to make sure it was cancelled.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

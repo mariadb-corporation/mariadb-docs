@@ -808,3 +808,7 @@ The following list shows the keywords in GridGain 9.1.
 | YEAR | Reserved | Reserved |
 | YEARS |  |  |
 | ZONE |  |  |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

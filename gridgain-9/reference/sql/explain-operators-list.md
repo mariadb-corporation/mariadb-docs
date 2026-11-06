@@ -499,3 +499,7 @@ Attributes:
 - `est`: Estimated number of output rows.
 - `fieldNames`: List of names of columns in produced rows.
 Optional.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

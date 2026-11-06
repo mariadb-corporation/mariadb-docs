@@ -31,3 +31,7 @@ Reference of all metrics that GridGain 9 exposes, grouped by metric source, with
 Reference of the built-in SQL system views in the GridGain 9 SYSTEM schema, with the columns and data types of each view.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

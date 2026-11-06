@@ -189,3 +189,7 @@ spec:
 {% hint style="info" %}
 Setting `readOnlyRootFilesystem` to `true` may prevent GridGain from writing temporary files. Leave it as `false` unless you have verified that all writable paths are covered by volume mounts.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

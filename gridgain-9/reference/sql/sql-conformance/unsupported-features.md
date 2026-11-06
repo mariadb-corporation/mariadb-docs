@@ -562,3 +562,7 @@ GridGain does not support the following ANSI SQL 2016 features.
 | X305 | XMLTable: initializing an XQuery variable | X305 |  |  |
 | X400 | Name and identifier mapping | X400 |  |  |
 | X410 | Alter column data type: XML type | X410 |  |  |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

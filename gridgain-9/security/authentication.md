@@ -196,3 +196,7 @@ A node whose stored configuration already pairs a `bindDn` with empty `bindCrede
 that provider are not blocked, so review your existing providers after an upgrade rather than relying on the check to find them.
 
 You can provide LDAP configuration in a similar way you provide basic authentication configuration, by passing the configuration file during cluster initialization, or by updating the configuration of a running cluster with the `cluster config update` command.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

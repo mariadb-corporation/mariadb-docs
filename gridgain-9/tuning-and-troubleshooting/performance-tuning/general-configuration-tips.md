@@ -124,3 +124,7 @@ By default, `FileHandler.append` property is set to `true`, so restarting a node
 You can also configure client logging for the [Java client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/clients/java#logging).
 If you are running GridGain 9 cluster in Kubernetes, see the corresponding documentation [page](../../gridgain9-management/installation/installing-on-kubernetes.md).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

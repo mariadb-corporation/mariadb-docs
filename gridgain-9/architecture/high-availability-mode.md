@@ -89,3 +89,7 @@ recovery partitions states --zones EXAMPLEZONE --partitions 0,1,2 --global
 This helps focus on partitions you know were affected by the failure. Compare the partition states before and after the failure event to confirm recovery completed as expected.
 
 Monitor for partitions remaining in degraded state for extended periods. While degraded partitions function normally, they have reduced fault tolerance and another failure could make them unavailable. Plan to restore failed nodes or trigger rebalancing to return degraded partitions to their full replica count.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

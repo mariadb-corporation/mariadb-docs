@@ -40,3 +40,7 @@ How GridGain 9 partitions and replicates table data across cluster nodes, includ
 How to store related data on the same node in GridGain 9 using the COLOCATE BY clause to speed up multi-entry queries.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

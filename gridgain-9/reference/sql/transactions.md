@@ -55,3 +55,7 @@ INSERT INTO Person (id, name, surname) VALUES (3, 'Adam', 'Mason');
 
 COMMIT;
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

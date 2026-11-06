@@ -28,3 +28,7 @@ Configure SSL/TLS encryption between GridGain 9 cluster nodes and the clients th
 Encrypt GridGain 9 data at rest with transparent data encryption (TDE), using a Java keystore or AWS KMS key encryption key provider.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

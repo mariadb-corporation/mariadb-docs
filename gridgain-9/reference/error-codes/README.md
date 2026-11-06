@@ -463,3 +463,7 @@ When the exception happens, GridGain 9 provides a UUID of the specific exception
 | Exception Code | Description | Recommended Action |
 | --- | --- | --- |
 | `UNKNOWN-UNKNOWN{groupCode}-{errorCode}` | The client received an error code it does not recognize. This occurs when an older client connects to a newer server version that introduced error codes unknown to the client. | Update the client to a version compatible with the server to receive proper error details. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

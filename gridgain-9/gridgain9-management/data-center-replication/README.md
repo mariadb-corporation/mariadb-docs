@@ -184,3 +184,7 @@ Configure GridGain 9 clusters for data center replication with the CLI tool — 
 How GridGain 9 data center replication resolves conflicting writes — last-write-wins by source timestamp, and how topologies converge.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

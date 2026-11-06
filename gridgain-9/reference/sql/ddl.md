@@ -936,3 +936,7 @@ DROP SEQUENCE [IF EXISTS] name
 <!-- railroad-source:
 Diagram(Terminal('DROP SEQUENCE'),Optional(Terminal('IF EXISTS')),NonTerminal('name'))
 -->
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

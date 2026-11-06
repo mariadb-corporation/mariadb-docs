@@ -17,3 +17,7 @@ The concepts live in the Architecture section; this section focuses on applying 
 - [Data Consistency and Replication](../../architecture/data-consistency-and-replication.md) — how replication underpins availability.
 - [Distribution Zones](../../architecture/storage/distribution-zones.md) — controlling replica counts and data placement.
 - [Performance Tuning](../performance-tuning/README.md) — keeping a highly available cluster performant under load.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

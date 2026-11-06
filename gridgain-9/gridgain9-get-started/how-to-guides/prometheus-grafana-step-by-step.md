@@ -121,3 +121,7 @@ Now that your dashboard is set up, you have a comprehensive view of your GridGai
 
 - [Configuring Metrics](../../gridgain9-management/monitoring/configuring-metrics.md) - Reference for the metrics subsystem and available exporters.
 - [Prometheus getting started](https://prometheus.io/docs/prometheus/latest/getting_started/) - Set up and configure the Prometheus server.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

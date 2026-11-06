@@ -155,3 +155,7 @@ Use the following commands to create and manage profiles:
   ```
 
 To see the settings stored in a profile, use `cli config show`, as described in [Managing Configuration Parameters](#managing-configuration-parameters).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

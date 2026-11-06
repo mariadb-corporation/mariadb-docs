@@ -27,3 +27,7 @@ Authenticate GridGain 9 REST API requests using Basic authentication or token-ba
 ## See Also
 
 - [How to Manage Cluster Lifecycle With the REST API](../../gridgain9-get-started/how-to-guides/manage-cluster-lifecycle-rest-api.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

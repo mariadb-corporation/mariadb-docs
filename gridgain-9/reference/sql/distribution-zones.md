@@ -276,3 +276,7 @@ Drop Person table if the one exists:
 ```sql
 DROP ZONE IF EXISTS exampleZone;
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

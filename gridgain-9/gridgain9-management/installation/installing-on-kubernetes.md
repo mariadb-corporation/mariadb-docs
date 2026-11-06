@@ -763,3 +763,7 @@ The updated configuration will take effect after the pods are recreated by the K
 {% hint style="warning" %}
 While it is technically possible to make the node configuration writable by using an init container that copies the mounted configuration from one location to another (and pointing GridGain 9 to this new location), we **strongly discourage** this approach. It is not native to the Kubernetes model, and any changes made to the configuration will be lost during pod restarts or re-deployments.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

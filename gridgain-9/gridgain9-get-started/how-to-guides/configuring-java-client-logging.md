@@ -475,3 +475,7 @@ Each client log message appears twice in the console output.
 ## Related
 
 - [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md) - Set up the 3-node development cluster used to verify logging output.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

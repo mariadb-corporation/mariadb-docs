@@ -321,3 +321,7 @@ Route 22: 80 records
 This module implemented a data ingestion service that periodically fetches vehicle position data from GTFS-realtime feeds, stores it efficiently using batch transactions, handles errors gracefully, and provides performance statistics.
 
 The next module builds on this foundation by implementing a monitoring service that detects service disruptions in real-time.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

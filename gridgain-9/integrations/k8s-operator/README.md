@@ -121,3 +121,7 @@ Perform rolling upgrades and automatic or manual rollbacks of GridGain 9 cluster
 Complete field reference for the GridGain9Cluster custom resource definition, covering all spec and status fields organized by functional area.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

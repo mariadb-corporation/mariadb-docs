@@ -242,3 +242,7 @@ Supported DML privileges:
 A selector **without a dot** (e.g., `STATICDATA`) targets a **schema**,
 and the grant covers both existing and future tables in that schema. For more details check the `role privilege grant` [command syntax](../reference/cli-tool.md).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

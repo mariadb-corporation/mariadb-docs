@@ -242,3 +242,7 @@ spec:
 ```
 
 This tells the scheduler to balance pods as evenly as possible across zones while still allowing scheduling when perfect balance is not achievable.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

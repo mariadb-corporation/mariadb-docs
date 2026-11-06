@@ -10,3 +10,7 @@ Load data at high throughput with the Data Streamer API. Complete [Distributed S
 | Tutorial | Time | Level |
 | -------- | ---- | ----- |
 | [Stream Data With the Data Streamer API](data-streaming.md) | 90 min | Intermediate |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

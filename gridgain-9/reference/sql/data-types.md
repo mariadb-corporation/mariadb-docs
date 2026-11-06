@@ -364,3 +364,7 @@ In GridGain 9, implicit type conversion is limited to types within the same type
 | Time | `TIME` |
 | Datetime | `TIMESTAMP`, `TIMESTAMP WITH LOCAL TIME ZONE` |
 | UUID | `UUID` |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

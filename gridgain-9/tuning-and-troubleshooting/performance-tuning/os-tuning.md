@@ -165,3 +165,7 @@ Refer to the [persistence tuning](persistence-tuning.md) section for the optimiz
 ### Clock tuning
 
 GridGain relies on loosely synchronized clock. It's very important to set up a source of time synchronization between cluster nodes, like [chrony](https://chrony-project.org).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

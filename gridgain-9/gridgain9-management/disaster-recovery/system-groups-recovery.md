@@ -68,3 +68,7 @@ If MG loses majority:
 {% hint style="info" %}
 If one of the nodes has a revision in its metastorage that is not present on any of the nodes that had participated in the repair, this means that its metastorage has diverged from the MG leader's metastorage. Such a node will not be allowed to join the cluster. Its startup will fail with `MetastorageDivergedException (error code META-7)`. Remove the data from the above metastorage-divergent node and have it join the cluster as a blank node.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
