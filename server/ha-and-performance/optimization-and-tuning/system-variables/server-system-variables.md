@@ -1355,6 +1355,8 @@ The suffix can be upper or lower-case.
 
 {% hint style="info" %}
 Connections that authenticate and then close normally are not written to the error log at any `log_warnings` level (from MariaDB 10.4.29, 10.5.20, 10.6.13, 10.11.3).
+
+Messages about aborted connections are controlled by the global value of `log_warnings` only. Changing the session value has no effect on them.
 {% endhint %}
 
 * Command line: `-W [level]` or `--log-warnings[=level]`
