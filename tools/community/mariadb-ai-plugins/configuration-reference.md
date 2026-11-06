@@ -18,16 +18,29 @@ description: >-
 
 The launcher scripts, `mariadb-mcp-launcher.sh` and `mariadb-mcp-launcher.cmd`, read these variables. The harness passes `MARIADB_SHELL_VERSION` from the plugin's MCP configuration; the others are unset unless you set them.
 
+The Hermes Agent plugins' launchers install a fixed release rather than the newest one. See [Hermes Agent](#hermes-agent) for how they differ.
+
 | Variable | Default | Description |
 | --- | --- | --- |
 | `MARIADB_SHELL_VERSION` | `26.10.4` | The minimum acceptable MariaDB Shell version. A binary on the `PATH` or in the local install directory is used when it is this version or later; otherwise the newest release is installed. |
 | `MARIADB_SHELL_BIN` | — | The path of a MariaDB Shell binary to use. Skips all other resolution. |
 | `MARIADB_SHELL_BINDIR` | `~/.local/bin` | Where the installer links the binary, and where the launcher looks for a local install. On Windows: `%LOCALAPPDATA%\Programs\mariadb-shell\bin`. |
 | `MARIADB_SHELL_PREFIX` | — | Passed to the installer: where it unpacks releases. |
+| `MARIADB_SHELL_LOCK_WAIT` | `180` | `mariadb-mcp-launcher.sh` only: how many seconds to wait while another launcher or installer installs MariaDB Shell into the same place. When the time is up, the launcher starts the newest MariaDB Shell present instead of installing. |
 | `MARIADB_SHELL_TAG` | — | Passed to the installer: install this release tag rather than the newest. |
 | `MARIADB_SHELL_PRERELEASE` | — | Unset: prefer a stable release, and install a prerelease only when no stable release exists. `1`: install a prerelease. `0`: never install a prerelease. |
 | `MARIADB_SHELL_REPO` | `mariadb-corporation/mariadb-shell` | Passed to the installer: the GitHub repository to install from. |
 | `MARIADB_SHELL_TOKEN` | — | A GitHub token for a private repository. The launcher also checks `GH_TOKEN`, `GITHUB_TOKEN`, and `gh auth token`, in that order. |
+
+### Hermes Agent
+
+The launchers of the Hermes Agent `dev` and `sql` plugins install exactly the MariaDB Shell release the plugin was tested with, `v` followed by `MARIADB_SHELL_VERSION`. A newer MariaDB Shell that you install yourself, on the `PATH` or in the local install directory, is still used. They differ from the other launchers as follows:
+
+* They fetch the installer from a fixed MariaDB Shell commit instead of the `main` branch.
+* They verify the package against a copy of the release's `SHA256SUMS` that the plugin carries, `scripts/mariadb-shell-v<version>.SHA256SUMS`, instead of the file published with the release. A package that doesn't match is not installed.
+* `MARIADB_SHELL_TAG` defaults to `v` followed by `MARIADB_SHELL_VERSION`. A release that the plugin carries no checksums for is verified against its own published `SHA256SUMS`.
+* They don't read `MARIADB_SHELL_PRERELEASE`. A named release is installed whether or not it is a prerelease.
+* They don't read `MARIADB_SHELL_TOKEN`, `GH_TOKEN`, `GITHUB_TOKEN`, or `gh auth token`, and send no credentials.
 
 ## LSP Launcher Environment Variables
 
