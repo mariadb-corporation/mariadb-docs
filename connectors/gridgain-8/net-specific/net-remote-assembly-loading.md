@@ -74,3 +74,7 @@ Keep that in mind when using heavy frameworks and libraries: single compute call
 Currently available `CurrentAppDomain` mode uses existing `AppDomain`, which means all peer-deployed assemblies will stay
 loaded while current `AppDomain` lives. This may cause increased memory usage.
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

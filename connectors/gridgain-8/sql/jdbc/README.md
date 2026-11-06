@@ -12,3 +12,7 @@ Two drivers are supported:
 
 - [JDBC Thin Driver](jdbc-driver.md) — the default, lightweight driver. It connects to one of the cluster nodes and forwards all queries to it for execution.
 - [JDBC Client Driver](jdbc-client-driver.md) — interacts with the cluster by means of a client node.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

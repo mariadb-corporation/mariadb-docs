@@ -56,3 +56,7 @@ While the `name` and `type` attributes are required, the other attributes listed
 | `cacheName` | Session state cache name. Default is `ASPNET_SESSION_STATE`. |
 
 For more details on how to start Ignite within an ASP.NET application, refer to [ASP.NET Output Caching](asp-net-output-caching.md). Also, see [ASP.NET Deployment](net-deployment-options.md#asp.net-deployment) for web deployment specifics related to the `IGNITE_HOME` variable.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

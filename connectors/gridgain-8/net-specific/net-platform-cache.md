@@ -133,3 +133,7 @@ Ignite uses `ConcurrentDictionary<object, object>` by default to store platform 
 Incorrect `KeyTypeName` and/or `ValueTypeName` settings can cause runtime cast exceptions.
 {% endhint %}
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
