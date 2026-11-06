@@ -518,3 +518,6 @@ Defined in plugin_auth_common.h:137
 
 Fills in a [st_plugin_vio_info](#st_plugin_vio_info) structure, providing the information about the connection.
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

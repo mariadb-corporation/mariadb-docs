@@ -1152,3 +1152,6 @@ Defined in psi/mysql_socket.h:94
 
 The instrumentation hook. Note that this hook is not conditionally defined, for binary compatibility of the `MYSQL_SOCKET` interface.
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
