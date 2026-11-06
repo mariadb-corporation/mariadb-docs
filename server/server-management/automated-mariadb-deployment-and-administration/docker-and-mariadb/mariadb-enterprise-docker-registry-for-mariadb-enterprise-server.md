@@ -93,7 +93,7 @@ The `enterprise-server` repository in the MariaDB Enterprise Docker Registry con
 | Specific minor release  | <ul><li><code>11.8.3-1</code></li><li><code>11.4.8-5</code></li><li><code>10.6.23-19</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases). |
 
 {% hint style="info" %}
-The version numbers in the **Specific minor release** row are examples, not a complete or current list. For every MariaDB Enterprise Server release, see [MariaDB Enterprise Server All Releases]({release-notes}/enterprise-server/all-releases).
+The version numbers in the **Specific minor release** row are examples, not a complete or current list. For every MariaDB Enterprise Server release, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases).
 {% endhint %}
 
 ## Examples
