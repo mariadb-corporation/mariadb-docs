@@ -341,3 +341,6 @@ int(* set_rotations)(LOGGER_HANDLE *log, unsigned int new_rotations)
 
 Defined in service_logger.h:87
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

@@ -85,3 +85,6 @@ Defined in plugin_password_validation.h:55
 
 Function provided by the plugin which should perform password validation and return 0 if the password has passed the validation.
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}
