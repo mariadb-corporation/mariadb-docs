@@ -15,3 +15,7 @@ You can easily monitor your cluster metrics with dashboards which were predefine
 {% content-ref url="dr-receiver.md" %}
 [dr-receiver.md](dr-receiver.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

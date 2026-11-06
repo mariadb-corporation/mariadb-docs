@@ -17,3 +17,7 @@ One of the possible reasons is incorrect data distribution. This can be checked 
 If everything is fine, you should look into the number of operations performed at each node. If, for example, one of the caches has a lot of operations performed on a single node, the problem is localized. In this case it is likely to be what is known as **Celebrity Users** problem. For example, a company is much bigger than others and has a lot more operations related to it.
 
 Yet another possible issue is in cache configuration options, available from the **Caches** screen. Check the `readFromBackup` parameter. If it is set to `false`, GridGain always tries to read data from the cache, and this can cause a lot of load. If you have this parameter disabled, you will always read the latest update, but at a cost of repeated read requests. Set the parameter to `true` and recreate the cache.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

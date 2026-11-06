@@ -224,3 +224,7 @@ Possible reasons for the above failure are:
 
 - [How to Integrate Control Center With Okta](okta-authentication.md)
 - [How to Integrate Control Center With PingOne](pingone-authentication.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

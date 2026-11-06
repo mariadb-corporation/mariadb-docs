@@ -383,3 +383,7 @@ For detailed API documentation, refer to the OpenAPI specification.
 {% hint style="info" %}
 By default, GridGain 8 clusters are attached automatically and shared with all members of the [global team](configuration.md#teams), because `account.globalTeam.enabled` and `account.globalTeam.attachCluster` are `true`.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

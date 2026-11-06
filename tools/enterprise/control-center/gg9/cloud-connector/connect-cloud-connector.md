@@ -121,3 +121,7 @@ sudo service gridgain-cloud-connector start
 ## Attach the Cluster to Control Center
 
 To start using the connector with Control Center and your cluster, refer to the documentation on attaching a [GridGain 9](../../getting-started/connect/connect-gridgain9-cluster.md) cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

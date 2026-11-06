@@ -11,3 +11,7 @@ This section collects practical tips for diagnosing cluster issues with Control 
 {% content-ref url="data-skew.md" %}
 [data-skew.md](data-skew.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

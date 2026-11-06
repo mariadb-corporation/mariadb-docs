@@ -161,3 +161,7 @@ To delete the channel, send a `DELETE` request to the same endpoint. A successfu
 To send alerts through the channel, add its tag to the `notificationChannelTags` list when you create or update the alert configuration through the `/rest/v1/clusters/<connectionId>/alert-configurations` endpoint. See [Automated Deployment](../../admin-guide/automated-deployment.md) for an example.
 
 When the state of an alert changes, that is, when the alert is generated and when the condition is no longer met, every user in the `usernames` list receives a notification. The title of the notification is the cluster tag followed by the alert name, and the message is the alert message.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

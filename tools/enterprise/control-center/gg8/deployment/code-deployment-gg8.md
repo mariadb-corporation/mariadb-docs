@@ -147,3 +147,7 @@ To find all deployment units that use a specific artifact, click ⋮ and select 
 ### Deleting Artifacts
 
 To delete an artifact, click ⋮ and select **Remove**. If the selected artifact has dependents, they show in the **Dependent list** dialog - see [Checking Dependent List](#checking-dependent-list). Delete the listed dependents, then the artifact itself.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

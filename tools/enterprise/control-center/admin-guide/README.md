@@ -67,3 +67,7 @@ This section is dedicated to managing your Control Center installation, includin
 {% content-ref url="automated-deployment.md" %}
 [automated-deployment.md](automated-deployment.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

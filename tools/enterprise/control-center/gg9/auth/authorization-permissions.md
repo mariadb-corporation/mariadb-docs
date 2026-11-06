@@ -75,3 +75,7 @@ The [snapshot](../snapshots/snapshots-gg9.md) actions require the following perm
 | Create snapshot | CREATE_SNAPSHOT |
 | Remove snapshot | DELETE_SNAPSHOT |
 | Restore snapshot | RESTORE_SNAPSHOT |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

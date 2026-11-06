@@ -228,3 +228,7 @@ The update is performed without cluster or node downtime.
 ## Next Steps
 
 - [My cluster overview](gg9/dashboard/my-cluster.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

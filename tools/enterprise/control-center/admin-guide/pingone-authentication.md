@@ -184,3 +184,7 @@ With both halves configured, check that each one behaves as expected for a user 
 
 - [Control Center configuration](configuration.md) - Configure Control Center via the `application.properties` file.
 - [Authorization and permissions](https://www.gridgain.com/docs/gridgain8/latest/administrators-guide/security/authorization-permissions) - GridGain 8 cluster action permissions reference.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

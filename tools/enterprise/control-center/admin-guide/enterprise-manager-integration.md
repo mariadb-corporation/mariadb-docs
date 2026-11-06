@@ -104,3 +104,7 @@ Control Center calls Enterprise Manager over HTTPS to read its key set and excha
    Setting `JVM_OPTS` replaces the default memory settings of `control-center.sh`, so include your heap settings as well, for example `-Xms1g -Xmx2g`. In Docker and Kubernetes, set `JVM_OPTS` as an environment variable of the Control Center backend container and mount the trust store file.
 
 3. Restart Control Center.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

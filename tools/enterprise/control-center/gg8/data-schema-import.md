@@ -240,3 +240,7 @@ For each configuration, the row-level context menu provides the following action
 To view the generated script and connection details for a configuration, click on a schema name to open the side panel on the right.
 
 You can also start a new import from this screen by using the **Import schema** or **Import data** buttons in the top-right corner of the screen.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
