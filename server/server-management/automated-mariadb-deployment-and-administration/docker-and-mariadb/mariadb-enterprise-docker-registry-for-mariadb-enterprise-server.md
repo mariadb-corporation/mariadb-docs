@@ -98,7 +98,7 @@ The available plugins differ between releases and between image tiers. For examp
 
 ### Repositories
 
-The images for MariaDB Enterprise Server are in the `enterprise-server` repository of the MariaDB Enterprise Docker Registry. The registry also has repositories for other products, such as MariaDB MaxScale and MariaDB Enterprise Kubernetes Operator. For those images, see [Docker Images]({tools}/enterprise/mariadb-enterprise-operator/docker-images).
+The images for MariaDB Enterprise Server are in the `enterprise-server` repository of the MariaDB Enterprise Docker Registry. The registry also has repositories for other products, such as MariaDB MaxScale and MariaDB Enterprise Kubernetes Operator. For those images, see [Docker Images](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD/enterprise/mariadb-enterprise-operator/docker-images).
 
 ### Tags
 
