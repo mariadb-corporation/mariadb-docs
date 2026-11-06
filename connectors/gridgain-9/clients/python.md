@@ -275,3 +275,7 @@ with conn.cursor() as cursor:
 {% hint style="info" %}
 The `rollback` command rolls back all uncommitted data.
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

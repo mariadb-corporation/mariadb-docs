@@ -277,3 +277,7 @@ ctx.ContextOptions.ProxyCreationEnabled = false;
 See [Ignite Serialization Performance](https://ptupitsyn.github.io/Ignite-Serialization-Performance/) blog
 post for more details on serialization performance of various modes introduced on this page.
 </content>
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

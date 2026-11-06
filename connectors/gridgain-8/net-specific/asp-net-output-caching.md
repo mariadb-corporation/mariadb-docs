@@ -72,3 +72,7 @@ You can start an Ignite instance manually and specify it's name in the provider 
 The Ignite instance needs to be started before any request is served. Typically this is done in the `Application_Start` method of the `global.asax`.
 
 See [ASP.NET Deployment](net-deployment-options.md#asp.net-deployment) for web deployment specifics related to the `IGNITE_HOME` variable.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

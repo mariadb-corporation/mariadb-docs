@@ -27,3 +27,7 @@ The following SQL data types, listed in this [specification](https://docs.micros
 - `SQL_TYPE_DATE`
 - `SQL_TYPE_TIMESTAMP`
 - `SQL_TYPE_TIME`
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

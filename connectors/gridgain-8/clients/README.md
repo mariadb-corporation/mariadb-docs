@@ -18,3 +18,7 @@ GridGain provides the following thin clients:
 - [PHP Thin Client](php-thin-client.md)
 
 For a feature comparison of the clients and details on connection failover, partition awareness, and authentication, see [Thin Clients Overview](getting-started-with-thin-clients.md). For details on authorizing thin client connections, see [Client Authorization](authorization.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -733,3 +733,7 @@ The following APIs are not supported in Native AOT mode:
 When compiling an application in Native AOT mode, unsupported APIs produce trimming warnings that indicate the issue and suggest compatible alternatives.
 
 For more details refer to the official Microsoft [documentation](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?utm_source=chatgpt.com&tabs=windows%2Cnet8#publish-native-aot-using-the-cli).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
