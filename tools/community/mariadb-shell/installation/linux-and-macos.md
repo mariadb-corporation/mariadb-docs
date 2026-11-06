@@ -78,6 +78,17 @@ curl -fsSL https://github.com/mariadb-corporation/mariadb-shell/raw/main/install
 
 Each release also carries a copy of `install.sh` as a release asset.
 
+## Verify Against Your Own Checksums
+
+By default, the script checks the package against the `SHA256SUMS` file published with the release. To check it against checksums that you keep instead, save a copy of that release's `SHA256SUMS` and set `MARIADB_SHELL_SHA256SUMS` to its path. The script then reads the package list and checksums from your copy and downloads only the package. This setting requires `MARIADB_SHELL_TAG`, because a `SHA256SUMS` file lists the packages of one release:
+
+```sh
+curl -fsSL https://github.com/mariadb-corporation/mariadb-shell/raw/main/install.sh \
+  | MARIADB_SHELL_TAG=v26.10.4 MARIADB_SHELL_SHA256SUMS=./SHA256SUMS bash
+```
+
+If the downloaded package does not match your copy, the script stops with `checksum mismatch` and installs nothing.
+
 ## Add the Command Directory to PATH
 
 The script does not edit your shell startup files. If `~/.local/bin` is not on your `PATH`, the script prints a reminder at the end. Add the directory to your shell profile, for example `~/.bashrc` or `~/.zshrc`:
@@ -102,6 +113,7 @@ The script reads the following environment variables:
 | `MARIADB_SHELL_PREFIX` | `~/.local/share/mariadb-shell` | Directory that holds the unpacked versions. |
 | `MARIADB_SHELL_BINDIR` | `~/.local/bin` | Directory where the `mariadb-shell`, `msh` and `mariadb-lsp` links are created. |
 | `MARIADB_SHELL_REPO` | `mariadb-corporation/mariadb-shell` | GitHub repository, in `owner/repo` form, to install from. It must be public. |
+| `MARIADB_SHELL_SHA256SUMS` | The release's own `SHA256SUMS` | Path to a local copy of the release's `SHA256SUMS`, used to select and verify the package. Requires `MARIADB_SHELL_TAG`. |
 
 The script accepts these options:
 
@@ -156,7 +168,8 @@ To also remove your history, settings, plugins, log file, and sandbox instances,
 | `no compatible package for linux 2.31 / x86-64bit` | The system's glibc is older than any package in the release. The script lists the available packages. Upgrade to a distribution with glibc 2.34 or later. |
 | `unsupported CPU architecture` | Only x86-64 and ARM64 packages are built. |
 | `could not download SHA256SUMS from the latest release` | The release does not exist or is a prerelease. Use `--pre-release` or set `MARIADB_SHELL_TAG`. |
-| `checksum mismatch` | The download is corrupt or incomplete. Run the script again. |
+| `checksum mismatch` | The download is corrupt or incomplete. Run the script again. If you set `MARIADB_SHELL_SHA256SUMS`, check that the file belongs to the release in `MARIADB_SHELL_TAG`. |
+| `MARIADB_SHELL_SHA256SUMS needs MARIADB_SHELL_TAG` | A local `SHA256SUMS` lists the packages of one release. Set `MARIADB_SHELL_TAG` to that release. |
 | `this install needs jq or python3 to read the release listing` | Install `jq` or `python3`, which the script needs for `--pre-release`. |
 
 <sub>_This page is licensed: GPLv2_</sub>

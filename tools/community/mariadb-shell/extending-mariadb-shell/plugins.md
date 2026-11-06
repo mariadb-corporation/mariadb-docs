@@ -31,8 +31,16 @@ The shell searches two locations:
 
 | Location | Contents | Disable with |
 | --- | --- | --- |
-| `lib/mariadb-shell/plugins/` in the installation directory | The built-in plugins. | `--disable-builtin-plugins` |
+| `lib/mariadb-shell/plugins/` in the installation directory | The built-in plugins. | `--disable-builtin-plugins` or `MARIADB_SHELL_DISABLE_BUILTIN_PLUGINS=1` |
 | `plugins/` in the user configuration directory: `~/.mariadb-shell/plugins/` on Linux and macOS, `%AppData%\MariaDB\mariadb-shell\plugins\` on Windows | Your plugins, and plugins installed with `plugins.install()`. | `--disable-plugins` |
+
+To load user plugins from other directories, list them in the `MARIADB_SHELL_PLUGINS_PATH` environment variable, separated by `:` (`;` on Windows). When the variable is set, the shell searches those directories, in the order given, **instead of** the `plugins` directory of the user configuration directory. To keep loading the plugins there as well, include it in the list:
+
+```bash
+MARIADB_SHELL_PLUGINS_PATH=$HOME/.mariadb-shell/plugins:/opt/acme/shell-plugins mariadb-shell
+```
+
+A directory listed more than once is searched once. `plugins.install()` always installs into the user configuration directory, so a plugin installed while the variable leaves that directory out does not load.
 
 The rules for a plugin directory:
 
@@ -62,6 +70,58 @@ A directory without `init.py` can hold several plugins, one level deep. This is 
 ```
 
 For plugins in a group, the plugins directory itself is on `sys.path` during loading, so modules are imported with the group name as prefix, for example `from acme.audit.checks import run_checks`.
+
+### Load Order and Dependencies
+
+The shell discovers plugins in name order: the built-in directory first, then the user directories, and within each directory the plugin directories sorted by name. A plugin that extends an object another plugin creates, for example by registering functions under it with `@plugin(parent=...)`, must load after that plugin. It declares this in an optional `plugin.json` file next to its `init.py`. If the `capacity` plugin above adds functions to the `audit` object, its manifest is:
+
+```json
+{
+  "requires": ["audit"]
+}
+```
+
+`requires` lists the fully qualified names of the objects the plugin needs: a global object name, optionally followed by member names. A member can be named as it was registered (`acme.myStorage`) or as Python exposes it (`acme.my_storage`); the shell accepts both. Only objects defined outside the plugin belong there; built-in objects such as `util` count too.
+
+The shell reads every manifest before running any plugin, then loads plugins in passes: first those whose requirements are already met, then those whose required objects now exist, until nothing more can load. A plugin whose requirements are never met isn't loaded, and the shell prints an error naming the missing objects:
+
+```text
+ERROR: Plugin 'capacity' was not loaded: it requires the object 'audit', which no loaded plugin provides.
+```
+
+A manifest that can't be read, isn't valid JSON, isn't an object, or whose `requires` isn't an array of object names also keeps its plugin from loading, with an error saying why. `requires` is always an array of object names; other information goes in other keys, and keys the shell doesn't know are ignored, so a manifest written for a newer shell still loads. A plugin without a manifest has no requirements.
+
+#### Saying Where a Required Object Comes From
+
+The error above tells the user what is missing, not what to install. A plugin that depends on an object from a plugin it isn't shipped with, such as one from another repository, can say where that object comes from in the optional `providedBy` key:
+
+```json
+{
+  "requires": ["acme.storage"],
+  "providedBy": {
+    "acme.storage": {
+      "plugin": "acme",
+      "repository": "github/acme-corp/acme-shell-plugins"
+    }
+  }
+}
+```
+
+`plugin` is the name of the plugin in its repository manifest, as `plugins.install()` takes it. `repository` is optional and is whatever `plugins.repositories.add()` accepts: the `github/<user>[/<repo>]` shorthand or the URL of the manifest. A plugin bundled with the shell, or shipped in the same group, needs no `repository`.
+
+When the object is missing, the error turns the hint into the steps to run:
+
+```text
+ERROR: Plugin 'acme_backup' was not loaded: it requires the object 'acme.storage', which no loaded plugin provides.
+  The object 'acme.storage' is provided by the plugin 'acme' from the repository 'github/acme-corp/acme-shell-plugins'. To install it, run:
+    plugins.repositories.add("github/acme-corp/acme-shell-plugins")
+    plugins.install("acme")
+  then restart the shell.
+```
+
+Without `repository` the steps only name the plugin to install. Running `plugins.repositories.add()` for a repository that is already registered just says so.
+
+The hint is advisory. Loading uses only `requires`: a missing or malformed `providedBy` is noted in the log and never keeps a plugin from loading. A `plugin` or `repository` value with spaces, quotes or control characters counts as malformed, since the error prints both as they are. The shell never adds a repository on its own from a hint; it only prints the calls, and running `plugins.repositories.add()` shows the usual warning and asks for confirmation, so a manifest can't quietly bring in code from elsewhere.
 
 ## Built-in Plugins
 
