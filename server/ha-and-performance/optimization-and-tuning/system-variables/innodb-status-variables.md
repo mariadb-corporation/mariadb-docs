@@ -928,4 +928,6 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10)
 
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
 {% @marketo/form formId="4316" %}
