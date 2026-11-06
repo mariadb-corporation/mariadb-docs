@@ -137,3 +137,7 @@ Some Java variables are not configured correctly.
    ```
 
 2. Place the GoldenGate trail files into the `dirdat` directory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

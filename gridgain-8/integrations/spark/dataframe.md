@@ -326,3 +326,7 @@ There are several examples available on GitHub that demonstrate how to use Spark
 - [DataFrame](https://github.com/apache/ignite-extensions/tree/master/modules/spark-ext/examples/src/main/java/org/apache/ignite/examples/spark/IgniteDataFrameExample.scala)
 - [Saving DataFrame](https://github.com/apache/ignite-extensions/tree/master/modules/spark-ext/examples/src/main/java/org/apache/ignite/examples/spark/IgniteDataFrameWriteExample.scala)
 - [Catalog](https://github.com/apache/ignite-extensions/tree/master/modules/spark-ext/examples/src/main/java/org/apache/ignite/examples/spark/IgniteCatalogExample.scala)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

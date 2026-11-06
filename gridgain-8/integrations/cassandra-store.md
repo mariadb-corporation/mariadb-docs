@@ -195,3 +195,7 @@ GridGain 8.10 moves the Cassandra cache store from the DataStax Java driver 3.2 
 * **Authentication.** Set either `user` and `password`, or `credentials`, but not both.
 * **Dynamically created caches.** GridGain 8.10 cannot read a `DataSource` serialized by an earlier version. If a cache that uses the Cassandra cache store was created dynamically, deserialization fails with `Unsupported DataSource serialization format version`. Drop such caches and create them again after the upgrade.
 * **Large transactions.** The cache store writes the changes of a transaction to Cassandra as a single logged batch. A large transaction can exceed the `batch_size_fail_threshold` limit of Cassandra. Keep transactions small, or raise the limit in the Cassandra configuration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

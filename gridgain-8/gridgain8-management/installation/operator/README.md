@@ -79,3 +79,7 @@ Troubleshooting GridGain Operator deployments: diagnosing pods that fail to star
 Basic examples of using GridGain Operator: scaling a cluster, switching to Ignite, rolling upgrades, switching to in-memory mode, and adjusting configuration.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

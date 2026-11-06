@@ -43,3 +43,7 @@ How to use GridGain Enterprise/Ultimate Rolling Upgrades to upgrade a cluster ve
 How to upgrade from GridGain 8.9.x to 8.10: choosing a rolling or offline path, the step-by-step procedure with rollback, and the changes to review first.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

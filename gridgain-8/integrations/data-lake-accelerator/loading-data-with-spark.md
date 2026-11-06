@@ -320,3 +320,7 @@ public class LoadingFromSelectExample {
 The class above takes the client node configuration file as an input parameter (an example file can be found in `${GG_HADOOP_CONNECTOR_HOME}/examples/gridgain-spark-loader-examples/config/client.xml`).
 
 The application will create a Spark job that will stream the records from the Person table in Hive where the `company` field equals "bank" into the GridGain cluster.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -91,3 +91,7 @@ The SQL functions supported by GridGain 8, grouped by category — aggregate, nu
 Reference of the SQL data types available in GridGain — boolean, numeric, string, date/time, and binary types — and their language and driver mappings.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

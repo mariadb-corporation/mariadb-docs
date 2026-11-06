@@ -52,3 +52,7 @@ How to start server and client nodes in GridGain, shut them down gracefully, set
 Configuring how GridGain nodes discover each other and form a cluster, including TCP/IP and ZooKeeper discovery, network settings, and client nodes.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

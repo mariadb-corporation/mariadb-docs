@@ -227,3 +227,7 @@ For the meaning of each error code, see [Query Errors](tools-and-resources.md#qu
 | The result is truncated (`truncated` is `true`). | Narrow the query with `WHERE` or `LIMIT`. To get more data, raise `MCP_MAX_ROWS` or `MCP_MAX_RESPONSE_BYTES`. |
 | A join returns fewer rows than expected. | Distributed joins are not enabled, and the tables may not be colocated. Read the `gridgain://sql-dialect` resource. |
 | The server does not start because of the audit log. | The log folder is open to other users, belongs to another user, or is not writable. See [Location and Permissions](#location-and-permissions). |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

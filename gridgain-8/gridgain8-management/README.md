@@ -116,3 +116,7 @@ Keep a running GridGain cluster healthy — control the CPU and memory a node us
 Guides for migrating to GridGain 8 from other data platforms, including Apache Ignite 2.x and Oracle Coherence.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

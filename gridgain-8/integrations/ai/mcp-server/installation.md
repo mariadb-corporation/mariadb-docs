@@ -108,3 +108,7 @@ This keeps passwords out of the command line.
 
 - [Connect your assistant to the server](agent-hosts.md)
 - [Configure the server](configuration.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

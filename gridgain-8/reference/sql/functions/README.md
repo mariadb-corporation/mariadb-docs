@@ -79,3 +79,7 @@ Reference of the SQL date and time functions supported by GridGain — current d
 Reference of the SQL system functions supported by GridGain — CASEWHEN, CAST, COALESCE, CONVERT, DECODE, GREATEST, IFNULL, LEAST, NULLIF, NVL2, and TABLE.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

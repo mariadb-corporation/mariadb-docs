@@ -206,3 +206,7 @@ The server checks the stores before it starts. It does not start in the followin
 - Your Java security settings disable the protocol. Java 17, for one, disables `TLSv1`.
 
 The server ignores the `javax.net.ssl.*` Java system properties. Only the settings on this page define the stores.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

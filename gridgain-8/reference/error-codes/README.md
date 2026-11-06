@@ -38,3 +38,7 @@ Exceptions supported by the Ignite API and actions you can take related to these
 {% hint style="info" %}
 For how GridGain detects and handles critical failures, see [Critical Failures Handling](../../tuning-and-troubleshooting/critical-failures-handling.md).
 {% endhint %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -104,3 +104,7 @@ Monitoring and command-line changes when migrating from Apache Ignite 2 to GridG
 How to migrate authorization from a secured Apache Ignite 2.x cluster to GridGain 8: retired permissions, coarser admin grants, and user management.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

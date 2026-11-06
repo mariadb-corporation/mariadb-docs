@@ -222,3 +222,7 @@ To upgrade:
 3. If you build the classpath manually, add `micrometer-observation`, `micrometer-commons`, and `jspecify` from `libs/ignite-spring`.
 
 Existing Spring XML configuration files continue to work. If they use `org.springframework.beans.factory.config.PropertyPlaceholderConfigurer`, consider switching to `org.springframework.context.support.PropertySourcesPlaceholderConfigurer`: `PropertyPlaceholderConfigurer` is deprecated in Spring Framework 7 and marked for removal.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

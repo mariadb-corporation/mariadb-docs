@@ -43,3 +43,7 @@ Reference of the built-in GridGain SQL system views in the SYS schema — caches
 The GridGain generic metrics system — metric registers, exporters (JMX, SQL view, log, OpenCensus, OpenTelemetry), and the full catalog of available metrics.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

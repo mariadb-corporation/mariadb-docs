@@ -62,3 +62,7 @@ Ignite 2 signals a successful restart by writing a file (`RESTART_SUCCESS_FILE`,
 ### ignite-cdc.sh
 
 Not available. GridGain 8 has no CDC feature or tooling. For cross-cluster replication, use [Data Center Replication](../../data-center-replication/introduction.md); for other consumers, see the CDC entry in [Features to Replace](features-to-replace.md).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

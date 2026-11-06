@@ -275,3 +275,7 @@ COPY FROM '/path/to/local/file.csv' INTO city (
 ```
 
 In the above command, substitute `/path/to/local/file.csv` with the actual path to your CSV file. For instance, you can use `city.csv` that is shipped with the latest GridGain distribution. You can find it in your `{gridgain_dir}/examples/src/main/resources/sql/` directory.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

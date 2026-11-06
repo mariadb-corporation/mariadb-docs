@@ -75,3 +75,7 @@ For the complete instructions on available Docker images and installation, see [
 - GridGain 8.10 adds `mcp/` (the GridGain MCP server) and the GridGain-specific modules `gridgain-sql`, `gridgain-vector-query`, `gridgain-compress`, `gridgain-bulkload`, and `control-center-agent`, none of which exist in Ignite 2.
 - Most `ignite-*-ext` extensions from Maven Central are compatible with GridGain 8, but GridGain 8.10 runs on Java 17 and Spring 7, so confirm each extension's Java and Spring requirements on staging. Several extensions have built-in GridGain 8 equivalents (GCE, Spring, ZooKeeper IP finder).
 - Incompatible extensions with no equivalent: `ignite-azure-ext` (use DNS-based discovery), `ignite-performance-statistics-ext` (use JMX/APM), `ignite-spring-session-ext`, and `ignite-storm-ext`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

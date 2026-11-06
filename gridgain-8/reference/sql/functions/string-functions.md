@@ -974,3 +974,7 @@ Create the 'data' XML text element:
 ```sql
 XMLTEXT(('data'))
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
