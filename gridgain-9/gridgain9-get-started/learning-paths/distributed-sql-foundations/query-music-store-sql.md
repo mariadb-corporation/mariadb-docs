@@ -967,3 +967,7 @@ Continue to [Connect with the Java Thin Client](connect-java-thin-client.md) to 
 - [How to Work with the GridGain CLI](../../cli-tool-step-by-step.md) for the full CLI reference: file loading, output formatting, cluster inspection
 
 - [Connect with the Java Thin Client](connect-java-thin-client.md) for the Java thin client, Table API, and RecordView
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

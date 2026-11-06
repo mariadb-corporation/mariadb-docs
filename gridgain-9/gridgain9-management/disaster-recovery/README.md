@@ -30,3 +30,7 @@ Disaster recovery operations for GridGain 9 data partitions — minority and maj
 Disaster recovery operations for GridGain 9 system RAFT groups — recovering the Cluster Management Group and the Metastorage Group after permanent majority loss.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

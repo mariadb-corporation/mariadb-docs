@@ -328,3 +328,7 @@ These endpoints form the foundation for scripted cluster management. You can ext
 - [How to Start a Cluster with Docker Compose](../start-cluster-docker-compose.md) - Set up the 3-node development cluster this guide manages.
 
 - [Start Your Local GridGain 9 Development Cluster](../start-local-cluster.md) - Tutorial that walks through cluster setup with deeper context and loads the Music Store dataset.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -287,3 +287,7 @@ Transaction label will be visible in:
 ## See Also
 
 - [Use Transactions in GridGain 9](../gridgain9-get-started/learning-paths/distributed-sql-foundations/use-transactions.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

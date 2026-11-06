@@ -455,3 +455,7 @@ await foreach (var batch in view.QueryContinuouslyAsync(
 {% endtabs %}
 
 The LINQ expression maps to the SQL form as follows: `e.Entry.<column>` becomes `CUR.<column>`, `e.OldEntry.<column>` becomes `OLD.<column>`, and `e.Type` becomes `EVENT.TYPE_ID`. For key-value views, use `e.Entry.Key.<column>` or `e.Entry.Value.<column>`.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -36,3 +36,7 @@ A complete, working example of deploying and using a sentiment analysis model wi
 Deploy machine learning models to a GridGain 9 cluster and run simple, batch, SQL-based, and colocated predictions, including advanced custom translators and compute jobs.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

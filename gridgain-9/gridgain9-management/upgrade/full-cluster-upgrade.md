@@ -95,3 +95,7 @@ When you start a cluster on new binaries against existing persistent state, the 
 ### Note on the Recorded Cluster Version
 
 The cluster's recorded version is updated only by the rolling-upgrade `commit` step. A full-cluster upgrade does not run that step, so after a full-cluster upgrade the recorded version reflects the version at which the cluster last completed a rolling upgrade — or the version at which the cluster was first initialised — not the version of the binaries currently running.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

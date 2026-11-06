@@ -40,3 +40,7 @@ In most cases, write throttling is caused by a slow drive, or a high update rate
 ## Storage Configuration
 
 In GridGain 9, all storage configuration is consolidated under `ignite.storage` [node configuration](../../../reference/configuration/node-configuration-parameters.md#storage-configuration). For more information on how storage is configured, see [Storage Profiles and Engines](../README.md) documentation.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

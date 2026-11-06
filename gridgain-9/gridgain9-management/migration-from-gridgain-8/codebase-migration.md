@@ -229,3 +229,7 @@ SELECT * FROM Person WHERE __PARTITION_ID = ?
 ```
 
 Pass the partition ID returned by `partition.id()` (Option 1) or the `long` ID passed as the job argument (Option 2) as the query parameter.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

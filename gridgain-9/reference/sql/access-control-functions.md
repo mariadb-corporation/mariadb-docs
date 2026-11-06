@@ -561,3 +561,7 @@ Referenced by:
 - [REVOKE FROM role](access-control-functions.md#revoke-from-role)
 - [GRANT TO user](access-control-functions.md#grant-to-user)
 - [REVOKE FROM user](access-control-functions.md#revoke-from-user)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

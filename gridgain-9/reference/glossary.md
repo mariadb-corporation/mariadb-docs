@@ -67,3 +67,7 @@ description: >-
 ## U
 
 **Update buffer** — Buffer that stores transactions to the primary storage before committing them to a replica storage. This reduces the number of transactions added to the latter.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

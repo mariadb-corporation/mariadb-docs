@@ -169,3 +169,7 @@ GridGain supports most of the major features of ANSI SQL 2016 standard out-of-th
 | T828 | JSON_QUERY | T828 |  | Full |  |
 | T829 | JSON_QUERY: array wrapper options | T829 |  | Full |  |
 | T839 | Formatted cast of datetimes to/from character strings | T839 |  | Full |  |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

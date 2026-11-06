@@ -571,3 +571,7 @@ Once data replication is no longer needed (for example, the load was shifted to 
 ```bash
 ./stop.sh
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

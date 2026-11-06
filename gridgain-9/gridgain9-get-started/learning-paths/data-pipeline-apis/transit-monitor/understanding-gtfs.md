@@ -343,3 +343,7 @@ This SQL query counts records matching a specific vehicle ID, demonstrating how 
 This module covered the GTFS data format, Ignite 3's annotation system for schema definition, the `VehiclePosition` model class, and basic operations for working with the schema.
 
 The schema provides the foundation for the transit monitoring system. The next module builds a client to fetch real-time GTFS data from a transit agency and feed it into the Ignite database.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

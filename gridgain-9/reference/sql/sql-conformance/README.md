@@ -34,3 +34,7 @@ ANSI SQL:2016 features that GridGain 9 supports out of the box, with the support
 The ANSI SQL:2016 features that GridGain 9 does not support, listed by feature ID with alternatives where available.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

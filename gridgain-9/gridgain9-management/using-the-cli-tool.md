@@ -147,3 +147,7 @@ The value for `--url` is resolved in the following order:
 ## See Also
 
 - [How to Work With the GridGain CLI](../gridgain9-get-started/cli-tool-step-by-step.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

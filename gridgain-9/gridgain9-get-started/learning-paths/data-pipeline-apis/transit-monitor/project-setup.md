@@ -266,3 +266,7 @@ The development environment is now complete:
 - A Maven project with all necessary dependencies
 - A reusable connection management class
 - A working example application that verifies connectivity
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

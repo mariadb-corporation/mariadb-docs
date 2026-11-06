@@ -34,3 +34,7 @@ Enable events in GridGain 9 by configuring event channels and sinks, and learn t
 Reference of all event types available in GridGain 9, grouped by category, with the fields carried by each event.
 {% endcolumn %}
 {% endcolumns %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

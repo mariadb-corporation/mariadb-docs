@@ -102,3 +102,7 @@ Each distribution zone adds additional overhead in maintaining its topology. Do 
 - Use atomic table operations when possible.
   - For example, [`getAndPut`](https://www.gridgain.com/sdk/gridgain9/latest/javadoc/org/apache/ignite/table/KeyValueView.html#getAndPut\(org.apache.ignite.tx.Transaction,K,V\)) is more efficient than `get` and subsequent `put`.
 - Avoid using low-selectivity SQL queries in read-write transactions. Such queries can quickly exhaust the lock table size. You might want to increase the lock table size if you get a "lock table overflow" error.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

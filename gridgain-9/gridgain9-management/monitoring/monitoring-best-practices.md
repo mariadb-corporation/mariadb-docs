@@ -295,3 +295,7 @@ Alert on these log signals:
 
 * [Configuring Metrics](configuring-metrics.md) — how to enable metric sources and set up exporters.
 * [System Views](../../reference/monitoring/system-views.md) — the full catalog of views used in [Diagnostics](#diagnostics).
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

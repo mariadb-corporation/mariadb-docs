@@ -308,3 +308,7 @@ cluster snapshot restore --id=8eb10b48-6885-4922-a1af-c28d8473ba28 --source=abso
 
 - *Only give snapshot privileges to administrators.* Grant the `CREATE_SNAPSHOT`, `RESTORE_SNAPSHOT`, `DELETE_SNAPSHOT`, and `CHECK_SNAPSHOT` [privileges](../../security/user-permissions-and-roles.md) only to the roles that need them.
 - *Preserve encryption providers and keys.* An encrypted snapshot can only be restored when its encryption provider is configured on the target cluster. Retain the provider and its keys for as long as you keep the snapshot.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

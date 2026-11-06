@@ -458,3 +458,7 @@ The replication never skips to the current binary log position. If the saved fil
 - Recovery uses binary log file positions of the original MariaDB server. GTID-based failover to another server is not supported.
 - Each replicated table uses its own binary log connection.
 - In a mixed-version cluster, create `mariadb` sources only after every node is upgraded. Older nodes cannot read the new source type.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

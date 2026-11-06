@@ -91,3 +91,7 @@ Here is how you can revoke all tokens from a specific user:
 ```bash
 curl -X 'DELETE' 'http://localhost:10300/management/v1/authentication/jwt?username=John' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

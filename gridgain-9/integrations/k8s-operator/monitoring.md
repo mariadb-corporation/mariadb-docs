@@ -92,3 +92,7 @@ spec:
 ```
 
 For clusters that only need internal Prometheus scraping, the pod annotations are sufficient and no additional service is required.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

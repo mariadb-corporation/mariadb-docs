@@ -161,3 +161,7 @@ Read-only transactions may survive primary replica failures, depending on how th
 Read-write transactions must coordinate with the primary replica for each partition they access. If a primary replica fails during the transaction, the transaction fails with a retriable error. Applications should catch these errors and retry the transaction, which will coordinate with the newly elected primary replica.
 
 Transactions that access multiple partitions see the effects of primary failures on any of those partitions. Even if only one partition loses its primary during a transaction, the entire transaction fails and must be retried. This is because transactions provide atomicity - either all operations succeed or none do.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
