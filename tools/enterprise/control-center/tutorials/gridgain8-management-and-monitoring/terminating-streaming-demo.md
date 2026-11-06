@@ -32,3 +32,7 @@ To remove the containers and network instead of just stopping them, use `docker 
 {% endhint %}
 
 You have completed the GridGain 8 management and monitoring guide. Don't hesitate to share feedback by using the `Documentation Feedback` button in the bottom-right corner of the page. Help us fix issues and expand the tutorial, and let us know which topics you'd like new parts to cover.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

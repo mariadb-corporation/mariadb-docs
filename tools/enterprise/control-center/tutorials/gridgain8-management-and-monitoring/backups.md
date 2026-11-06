@@ -63,3 +63,7 @@ You removed records only from the `Trade` table, so restore just that cache inst
 Congratulations! You've finished all the steps of the tutorial. Now you can stop the demo:
 
 - [Part 7: Stop the demo application](terminating-streaming-demo.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

@@ -167,3 +167,7 @@ Start the external GridGain cluster, then start Control Center.
 The client node connects to the external cluster, storing all Control Center data there.
 
 Now, all Control Center data, including users, attached clusters, dashboards, alerts, metrics, and query history, is reliably stored in the external GridGain cluster. If Control Center loses its local persistent data, it will reconnect to the external storage after recovery and continue operating without data loss.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

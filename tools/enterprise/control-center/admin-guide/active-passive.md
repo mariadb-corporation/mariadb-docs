@@ -61,3 +61,7 @@ Certificates are configured on your side. The component that terminates TLS depe
 - Some events can be lost during a failover. Control Center is a monitoring system, and event loss is possible in any setup.
 - Active-active deployment is not supported. In an active-active setup, a browser connects to one backend while a cluster connects to another, so actions, metrics, and other events have to be relayed between backend instances. Relaying them would require a message broker, which Control Center does not provide.
 - Load balancer selection and configuration are out of scope for Control Center. Extending Control Center functionality through the load balancer, for example adding two-factor authentication, is not supported.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

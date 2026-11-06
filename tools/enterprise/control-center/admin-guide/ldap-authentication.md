@@ -10,7 +10,7 @@ description: >-
 - A running **GridGain 8** cluster
 - **GridGain Control Center** binaries
 - **Docker**, to run the OpenLDAP server
-- An LDAP viewer such as [**JXplorer**](http://jxplorer.org)
+- An LDAP viewer such as [**JXplorer**](https://github.com/pegacat/jxplorer)
 
 ## Overview
 
@@ -57,7 +57,7 @@ In this example, you use the OpenLDAP server. You can read about the server on t
 To simplify the process, you use Docker images with the OpenLDAP service. For configuration of the OpenLDAP server on a Windows host, you complete the steps below. The steps for other operating systems are similar:
 
 1. Install [Docker for Windows](https://docs.docker.com/docker-for-windows/install/).
-2. When installation is complete, install the LDAP viewer. The viewer can be any tool that enables you to view and modify the LDAP structure. If possible, you should use a tool that can work with LDIF files, because you will use LDIF files later. For example, it can be [http://jxplorer.org](http://jxplorer.org). However, you can use the CMD interface instead.
+2. When installation is complete, install the LDAP viewer. The viewer can be any tool that enables you to view and modify the LDAP structure. If possible, you should use a tool that can work with LDIF files, because you will use LDIF files later. For example, it can be [JXplorer](https://github.com/pegacat/jxplorer). However, you can use the CMD interface instead.
 3. Prepare the structure of your LDAP tree and store it to the `gridgain.ldif` file.
 
    ```text
@@ -177,3 +177,7 @@ As you see, Ben has a special admin panel that provides additional functionality
 
 - [OpenLDAP](https://www.openldap.org/) - The open-source LDAP server used in this guide.
 - [Role-based Authorization with Active Directory for GridGain](https://medium.com/@valentin.kulichenko/role-based-authorization-with-active-directory-for-gridgain-eaad394ba173) - Building an authorization system from LDAP search filters.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

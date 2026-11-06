@@ -20,3 +20,7 @@ Control Center does not monitor Apache Ignite 2, Apache Ignite 3, or GridGain Co
 {% content-ref url="connect-gridgain-cluster.md" %}
 [connect-gridgain-cluster.md](connect-gridgain-cluster.md)
 {% endcontent-ref %}
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

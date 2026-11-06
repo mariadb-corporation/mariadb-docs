@@ -205,3 +205,7 @@ The statistics include the following:
 ![](../../../../.gitbook/assets/cc-gg8-query-statistics.png)
 
 You can find the queries that match a specific text string by using the **Filters** field. Simply enter the text in the input field, and the list is filtered as you type.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

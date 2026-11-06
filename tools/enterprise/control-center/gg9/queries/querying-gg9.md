@@ -123,3 +123,7 @@ To select queries to track:
 ![](../../../../.gitbook/assets/cc-gg9-rq_config.png)
 
 For example, entering "500" in the **Duration** field will track only queries lasting longer than 500 ms. This applies even to queries already in `Running` status when you save the configuration.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

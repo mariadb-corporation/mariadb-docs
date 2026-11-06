@@ -54,3 +54,7 @@ Any tool that reads CycloneDX 1.6 can import these files, for example [Dependenc
 ```shell
 jq -r '.components[] | "\(.name) \(.version)"' gridgain-control-center-on-premise-<version>.cdx.json
 ```
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

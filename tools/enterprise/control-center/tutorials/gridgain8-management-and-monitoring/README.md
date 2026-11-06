@@ -29,3 +29,7 @@ Start with the demo application, then continue through the monitoring, alerting,
 7. **[Stop the demo application](terminating-streaming-demo.md)** - Shut down the demo cleanly
 
 Start with [Part 1: Start the demo application](starting-streaming-demo.md) to deploy the cluster and streaming demo.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

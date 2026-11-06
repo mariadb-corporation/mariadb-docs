@@ -321,3 +321,7 @@ To enable and configure the GridGain 9 connector, which is required to for GridG
 | `connector.sql.query-timeout` | 1 | The timeout of SQL query execution in 1 hours. |
 | `connector.sql.fetch-timeout` | 10 | The timeout of cursor fetch execution in minutes. |
 | `connector.sql.cursor-timeout` | 1 | The cursor lifetime duration in hours. If cursor in not fetched within this period, it is closed. |
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

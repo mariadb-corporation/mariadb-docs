@@ -20,3 +20,7 @@ In distributed systems, queries are executed in 2 phases:
 - **Reduce** - invoked on the query coordinator node and aggregate data from other nodes.
 
 For example, one of possible reasons is that SQL uses `scan` instead of `index`. In this case, you can create a secondary index and speed up query execution dramatically.
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

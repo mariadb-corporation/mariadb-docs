@@ -480,3 +480,7 @@ management.sh -uri http://<frontend.gridgain-control-center>:8008/
 - [Change Configuration Parameters](../admin-guide/configuration.md) - make sure you [optimize the disk space utilization](../admin-guide/disk-space-optimization.md)
 - [Add a License](../getting-started/adding-license.md)
 - Connect a [GridGain 8](../getting-started/connect/connect-gridgain-cluster.md) or [GridGain 9](../getting-started/connect/connect-gridgain9-cluster.md) cluster
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

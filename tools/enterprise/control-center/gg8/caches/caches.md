@@ -61,3 +61,7 @@ To manage a cache, use that cache's context menu. The menu contains the followin
 When running **Start full state transfer** for clusters that [support](../../README.md#supported-gridgain-8-versions) targeting specific data centers, you must select one or more `DC ID` from the list.
 
 ![Run FST for selected DC ID](../../../../.gitbook/assets/cc-gg8-caches_fst_select_dc_id.png)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
