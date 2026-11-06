@@ -7,6 +7,7 @@
     * [Enterprise Server Lifecycle](enterprise-server/about/enterprise-server-lifecycle.md)
     * [Enterprise Server Release Schedule](enterprise-server/about/enterprise-server-release-schedule.md)
     * [MariaDB Enterprise Server Differences](enterprise-server/about/mariadb-enterprise-server-differences/README.md)
+      * [Differences in MariaDB Enterprise Server 12.3](enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-12.3.md)
       * [Differences in MariaDB Enterprise Server 11.8](enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-11.8.md)
       * [Differences in MariaDB Enterprise Server 11.4](enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-11.4.md)
       * [Differences in MariaDB Enterprise Server 10.6](enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.6.md)
