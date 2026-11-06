@@ -68,3 +68,7 @@ Control Center uses date-based version numbers, in the form `<year>.<release>`.
 - [2020.10.00](2020.10.00.md)
 - [2020.09.00](2020.09.00.md)
 - [2020.08.00](2020.08.00.md)
+
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}

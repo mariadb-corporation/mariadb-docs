@@ -12,3 +12,6 @@ For product documentation, see [Control Center](https://app.gitbook.com/s/kuTXWg
 [all-releases.md](all-releases.md)
 {% endcontent-ref %}
 
+<sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
+
+{% @marketo/form formId="4316" %}
