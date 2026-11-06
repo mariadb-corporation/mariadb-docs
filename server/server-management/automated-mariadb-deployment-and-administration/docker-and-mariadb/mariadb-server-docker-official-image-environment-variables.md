@@ -29,6 +29,10 @@ Set to a non-empty value, like `1`, to allow the container to be started with a 
 Setting this variable to yes is not recommended unless you really know what you are doing, since this will leave your MariaDB instance completely unprotected, allowing anyone to gain complete superuser access.
 {% endhint %}
 
+{% hint style="info" %}
+The MariaDB Enterprise Server images enable the [simple\_password\_check](../../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md) plugin, which rejects an empty password. With these images, setting this variable makes initialization fail and the container exit.
+{% endhint %}
+
 ### `MARIADB_RANDOM_ROOT_PASSWORD / MYSQL_RANDOM_ROOT_PASSWORD`
 
 Define a non-empty value, such as "yes," to auto-generate a random initial password for the root user. The password will be output to stdout, prefixed with "GENERATED ROOT PASSWORD: ...".

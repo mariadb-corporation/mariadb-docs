@@ -17,7 +17,8 @@ The MariaDB Enterprise Docker Registry provides Docker images for MariaDB Enterp
 
 MariaDB Enterprise Server containers are primarily configured using [environment variables](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#environment-variables) during initialization:
 
-* `MARIADB_ROOT_PASSWORD`: Specifies the password for the MariaDB `root` user. It can be set to a specific string, `RANDOM` to generate a password, or `EMPTY` for no password.
+* `MARIADB_ROOT_PASSWORD`: Specifies the password for the MariaDB `root` user.
+* `MARIADB_RANDOM_ROOT_PASSWORD`: When set to any non-empty value, the container generates a random password for the `root` user and prints it to the container log, prefixed with `GENERATED ROOT PASSWORD:`.
 * `MARIADB_DATABASE`: If provided, the container creates this database on startup if it does not already exist.
 * `MARIADB_USER` and `MARIADB_PASSWORD`: These must be used together to create a non-root user account with the specified credentials.
 * `MARIADB_ROOT_HOST`: Defines the host from which the `root` user is allowed to connect, defaulting to `%` (any host).
@@ -26,6 +27,10 @@ MariaDB Enterprise Server containers are primarily configured using [environment
 * `MARIADB_UNIX_SOCKET_AUTHENTICATION`: When set to `1`, this enables Unix socket-based authentication for the root user, allowing passwordless access when connecting locally.
 * `MARIADB_INITDB_SKIP_TZINFO`: Setting this to any non-empty value prevents the automatic loading of timezone data into the system tables.
 * `SKIP_INIT_WSREP_OFF`: When set, the temporary server used during initialization is allowed to start with Galera Cluster replication (`wsrep`) enabled.
+
+{% hint style="warning" %}
+The images enable the [simple\_password\_check](../../../reference/plugins/password-validation-plugins/simple-password-check-plugin.md) plugin. Every password that the environment variables set must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character. If a password doesn't meet these requirements, initialization fails and the container exits. For the same reason, the `root` user can't have an empty password.
+{% endhint %}
 
 ## MariaDB Prometheus Exporter
 
