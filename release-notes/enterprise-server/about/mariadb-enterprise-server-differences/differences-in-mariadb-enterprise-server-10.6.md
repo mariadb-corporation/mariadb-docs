@@ -17,12 +17,12 @@ In addition to this there are Enterprise Features and some backported features. 
 * [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
 * [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
 * Index limit increased to 128 indexes
-* [Slow master shutdown]({server}/server-management/variables-and-modes/server-system-variables#shutdown_wait_for_slaves) as default
+* [Slow master shutdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#shutdown_wait_for_slaves) as default
 * [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
   * XA Support
-  * [Non-Blocking Operations (NBO) for DDLs]({galera}/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo)
-  * TLS certificate expiration monitoring, with the [wsrep\_certificate\_expiration\_hours\_warning]({galera}/reference/wsrep-variable-details/wsrep_certificate_expiration_hours_warning) system variable
-  * [SSL/TLS enabled by default]({galera}/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes)
+  * [Non-Blocking Operations (NBO) for DDLs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo)
+  * TLS certificate expiration monitoring, with the [wsrep\_certificate\_expiration\_hours\_warning](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_certificate_expiration_hours_warning) system variable
+  * [SSL/TLS enabled by default](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes)
   * Performance Schema tables `galera_group_members` and `galera_group_member_stats`, with the cluster's configuration and each node's performance
 * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
 * [Hashicorp Vault Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin)
