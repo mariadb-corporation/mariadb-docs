@@ -14,10 +14,10 @@ In addition to this, there are Enterprise Features and some backported features.
 
 ## Enterprise Features
 
-* [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
-* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
+* [MariaDB Backup](../../server-usage/backup-and-restore/mariadb-backup/README.md)
+* [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit/README.md)
 * Index limit increased to 128 indexes.
-* [Slow master shutdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#shutdown_wait_for_slaves) as default
+* [Slow master shutdown](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#shutdown_wait_for_slaves) as default
 * [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
   * XA Support
   * [Non-Blocking Operations (NBO) for DDLs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo)
@@ -25,8 +25,8 @@ In addition to this, there are Enterprise Features and some backported features.
   * [SSL/TLS enabled by default](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes)
   * Performance Schema tables `galera_group_members` and `galera_group_member_stats`, with the cluster's configuration and each node's performance
 * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
-* Dynamic resize of [InnoDB redo log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log)
-* Dynamic change of [InnoDB purge](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-purge) threads
+* Dynamic resize of [InnoDB redo log](../../server-usage/storage-engines/innodb/innodb-redo-log.md)
+* Dynamic change of [InnoDB purge](../../server-usage/storage-engines/innodb/innodb-purge.md) threads
 * Sybase SQL mode for extended aliases
 
 ## **Backported Features**
@@ -41,7 +41,7 @@ In addition to this, there are Enterprise Features and some backported features.
 * The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive
 * [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added ([MENT-2233](https://jira.mariadb.org/browse/MENT-2233))
 * Segmented key cache for Aria
-  * A new variable [aria-pagecache-segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) (default 1) to define the number of segments has been added. The default disables the new feature.
+  * A new variable [aria-pagecache-segments](../../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_segments) (default 1) to define the number of segments has been added. The default disables the new feature.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

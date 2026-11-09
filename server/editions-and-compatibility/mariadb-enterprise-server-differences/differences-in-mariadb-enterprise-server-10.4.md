@@ -16,27 +16,27 @@ In addition to this there are Enterprise Features and some backported features. 
 
 ## Enterprise Features
 
-* [MariaDB Enterprise Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-enterprise-backup)
-* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
+* [MariaDB Enterprise Backup](../../server-usage/backup-and-restore/backup-and-restore-with-mariadb-enterprise-server/mariadb-enterprise-backup.md)
+* [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit/README.md)
 * Index limit increased to 128 indexes
 * Slow master shutdown as default
 * [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) (powered by Galera)
   * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
-* [Hashicorp Vault Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin)
+* [Hashicorp Vault Plugin](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md)
 
 ## Backported Features
 
-* [S3 Storage Engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine)
-* New option [--require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport)
+* [S3 Storage Engine](../../server-usage/storage-engines/s3-storage-engine/README.md)
+* New option [--require\_secure\_transport](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#require_secure_transport)
 * GTID support for MariaDB Enterprise Cluster (powered by Galera)
 * Crash recovery for semi-synchronous replication
-* [mariadb-dump option --as-of](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options) to dump data as of a given time for system versioned tables
+* [mariadb-dump option --as-of](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) to dump data as of a given time for system versioned tables
 * JSON functions
-  * [JSON\_NORMALIZE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_normalize)
-  * [JSON\_EQUALS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_equals)
-  * [JSON\_OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps)
-  * [JSON\_SCHEMA\_VALID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid)
-* [Password Reuse Prevention Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-reuse-check-plugin)
+  * [JSON\_NORMALIZE](../../reference/sql-functions/special-functions/json-functions/json_normalize.md)
+  * [JSON\_EQUALS](../../reference/sql-functions/special-functions/json-functions/json_equals.md)
+  * [JSON\_OVERLAPS](../../reference/sql-functions/special-functions/json-functions/json_overlaps.md)
+  * [JSON\_SCHEMA\_VALID](../../reference/sql-functions/special-functions/json-functions/json_schema_valid.md)
+* [Password Reuse Prevention Plugin](../../reference/plugins/password-validation-plugins/password-reuse-check-plugin.md)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

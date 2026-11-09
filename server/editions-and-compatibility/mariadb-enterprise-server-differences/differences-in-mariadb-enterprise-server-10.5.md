@@ -16,32 +16,32 @@ In addition to this there are Enterprise Features and some backported features. 
 
 ## Enterprise Features
 
-* [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
-* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
+* [MariaDB Backup](../../server-usage/backup-and-restore/mariadb-backup/README.md)
+* [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit/README.md)
 * Index limit increased to 128 indexes
 * Slow master shutdown as default
 * [MariaDB Enterprise Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides) (powered by Galera)
   * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
   * Non-Blocking operation for DDLs
 * [Hashicorp Vault Plugin](https://app.gitbook.com/s/JqgUabdZsoY5EiaJmqgn/mariadb-faqs/plugins/mariadb-hashicorp-vault-plugin)
-* Dynamic resize of [InnoDB redo log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log)
-* Dynamic change of [InnoDB purge](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-purge) threads
+* Dynamic resize of [InnoDB redo log](../../server-usage/storage-engines/innodb/innodb-redo-log.md)
+* Dynamic change of [InnoDB purge](../../server-usage/storage-engines/innodb/innodb-purge.md) threads
 * Sybase SQL mode for extended aliases
 
 ## Backported Features
 
 * Crash recovery for semi-synchronous replication
-* [mariadb-dump option --as-of](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options) to dump data as of a given time for system versioned tables
+* [mariadb-dump option --as-of](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) to dump data as of a given time for system versioned tables
 * JSON functions
-  * [JSON\_NORMALIZE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_normalize)
-  * [JSON\_EQUALS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_equals)
-  * [JSON\_OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps)
-  * [JSON\_SCHEMA\_VALID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid)
-  * [JSON\_ARRAY\_INTERSECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_array_intersect)
-  * [JSON\_OBJECT\_TO ARRAY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_object_to_array)
-  * [JSON\_OBJECT\_FILTER\_KEYS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_object_filter_keys)
-  * [JSON\_KEY\_VALUE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_key_value)
-* [Password Reuse Prevention Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-reuse-check-plugin)
+  * [JSON\_NORMALIZE](../../reference/sql-functions/special-functions/json-functions/json_normalize.md)
+  * [JSON\_EQUALS](../../reference/sql-functions/special-functions/json-functions/json_equals.md)
+  * [JSON\_OVERLAPS](../../reference/sql-functions/special-functions/json-functions/json_overlaps.md)
+  * [JSON\_SCHEMA\_VALID](../../reference/sql-functions/special-functions/json-functions/json_schema_valid.md)
+  * [JSON\_ARRAY\_INTERSECT](../../reference/sql-functions/special-functions/json-functions/json_array_intersect.md)
+  * [JSON\_OBJECT\_TO ARRAY](../../reference/sql-functions/special-functions/json-functions/json_object_to_array.md)
+  * [JSON\_OBJECT\_FILTER\_KEYS](../../reference/sql-functions/special-functions/json-functions/json_object_filter_keys.md)
+  * [JSON\_KEY\_VALUE](../../reference/sql-functions/special-functions/json-functions/json_key_value.md)
+* [Password Reuse Prevention Plugin](../../reference/plugins/password-validation-plugins/password-reuse-check-plugin.md)
 * Option for SQL thread to limit maximum execution time per query
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>

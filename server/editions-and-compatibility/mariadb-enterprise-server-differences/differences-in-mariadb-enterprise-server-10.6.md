@@ -14,10 +14,10 @@ In addition to this there are Enterprise Features and some backported features. 
 
 ## Enterprise Features
 
-* [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
-* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
+* [MariaDB Backup](../../server-usage/backup-and-restore/mariadb-backup/README.md)
+* [MariaDB Enterprise Audit](../../reference/plugins/mariadb-enterprise-audit/README.md)
 * Index limit increased to 128 indexes
-* [Slow master shutdown](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#shutdown_wait_for_slaves) as default
+* [Slow master shutdown](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#shutdown_wait_for_slaves) as default
 * [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
   * XA Support
   * [Non-Blocking Operations (NBO) for DDLs](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management/general-operations/performing-schema-upgrades-in-galera-cluster#non-blocking-operations-nbo)
@@ -25,32 +25,32 @@ In addition to this there are Enterprise Features and some backported features. 
   * [SSL/TLS enabled by default](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes)
   * Performance Schema tables `galera_group_members` and `galera_group_member_stats`, with the cluster's configuration and each node's performance
 * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
-* [Hashicorp Vault Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin)
-* Dynamic resize of [InnoDB redo log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log)
-* Dynamic change of [InnoDB purge](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-purge) threads
+* [Hashicorp Vault Plugin](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md)
+* Dynamic resize of [InnoDB redo log](../../server-usage/storage-engines/innodb/innodb-redo-log.md)
+* Dynamic change of [InnoDB purge](../../server-usage/storage-engines/innodb/innodb-purge.md) threads
 * Sybase SQL mode for extended aliases
 
 ## **Backported Features**
 
-* [mariadb-dump option --as-of](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options) to dump data as of a given time for [system versioned tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables)
-* [JSON functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions)
-  * [JSON\_NORMALIZE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_normalize)
-  * [JSON\_EQUALS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_equals)
-  * [JSON\_OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps)
-  * [JSON\_SCHEMA\_VALID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid)
-* [Password Reuse Prevention Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-reuse-check-plugin)
-* [Datatype Plugin UUID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/uuid-data-type)
-* [CONVERT\_PARTITION / CONVERT\_TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/partitioning-tables/partitioning-overview)
-* [Option for SQL thread to limit maximum execution time per query](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/query-limits-and-timeouts)
-* Allow [innodb\_undo\_tablespaces](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_undo_tablespaces) to be changed after database creation
-* [Make the optimizer handle `UCASE(varchar_col)=...`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/sargable-upper)
-* [Easier way to retrieve all users who have privileges on a specific table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-table_privileges-table)
-* Make [s3\_debug](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables#s3_debug) dynamic
-* Add timezone information to [DATE\_FORMAT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/date_format)
-* [Autoshrink](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-tablespaces/innodb-system-tablespaces#decreasing-the-size) option for `innodb_data_file_path` system variable
-* [New, Detailed Replication Lag Representation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/delayed-replication)
-* [New Information Schema Table For Password Related Data](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-users-table)
-* [GTID binlog events now include the thread ID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/binary-log-formats)
+* [mariadb-dump option --as-of](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) to dump data as of a given time for [system versioned tables](../../reference/sql-structure/temporal-tables/system-versioned-tables.md)
+* [JSON functions](../../reference/sql-functions/special-functions/json-functions/README.md)
+  * [JSON\_NORMALIZE](../../reference/sql-functions/special-functions/json-functions/json_normalize.md)
+  * [JSON\_EQUALS](../../reference/sql-functions/special-functions/json-functions/json_equals.md)
+  * [JSON\_OVERLAPS](../../reference/sql-functions/special-functions/json-functions/json_overlaps.md)
+  * [JSON\_SCHEMA\_VALID](../../reference/sql-functions/special-functions/json-functions/json_schema_valid.md)
+* [Password Reuse Prevention Plugin](../../reference/plugins/password-validation-plugins/password-reuse-check-plugin.md)
+* [Datatype Plugin UUID](../../reference/data-types/string-data-types/uuid-data-type.md)
+* [CONVERT\_PARTITION / CONVERT\_TABLE](../../server-usage/partitioning-tables/partitioning-overview.md)
+* [Option for SQL thread to limit maximum execution time per query](../../ha-and-performance/optimization-and-tuning/query-optimizations/query-limits-and-timeouts.md)
+* Allow [innodb\_undo\_tablespaces](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_tablespaces) to be changed after database creation
+* [Make the optimizer handle `UCASE(varchar_col)=...`](../../ha-and-performance/optimization-and-tuning/query-optimizations/sargable-upper.md)
+* [Easier way to retrieve all users who have privileges on a specific table](../../reference/system-tables/information-schema/information-schema-tables/information-schema-table_privileges-table.md)
+* Make [s3\_debug](../../server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables.md#s3_debug) dynamic
+* Add timezone information to [DATE\_FORMAT](../../reference/sql-functions/date-time-functions/date_format.md)
+* [Autoshrink](../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-system-tablespaces.md#decreasing-the-size) option for `innodb_data_file_path` system variable
+* [New, Detailed Replication Lag Representation](../../ha-and-performance/standard-replication/delayed-replication.md)
+* [New Information Schema Table For Password Related Data](../../reference/system-tables/information-schema/information-schema-tables/information-schema-users-table.md)
+* [GTID binlog events now include the thread ID](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
 * [**Software Bill of Materials (SBOM)** ](../sbom.md)JSON file generates in the downloads archive.
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
