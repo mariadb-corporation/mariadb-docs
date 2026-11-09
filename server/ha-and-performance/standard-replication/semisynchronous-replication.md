@@ -71,13 +71,13 @@ If this is not done, then the replica IO thread will continue to use the previou
 ### Using Semisynchronous Replication with the InnoDB-Based Binary Log
 
 {% hint style="info" %}
-This is available from MariaDB 13.2.
+This is available from MariaDB 13.2. In MariaDB 12.3, enabling semisynchronous replication on a primary that uses the InnoDB-based binary log fails with the error `Semi-synchronous replication is not yet supported with --binlog-storage-engine`.
 {% endhint %}
 
 Semisynchronous replication works when the primary uses the [InnoDB-based binary log](innodb-based-binary-log.md), with these restrictions:
 
-* Only the `AFTER_COMMIT` [wait point](#configuring-the-primary-wait-point) is available. It is the default, so you don't need to set it. Setting [rpl\_semi\_sync\_master\_wait\_point](#rpl_semi_sync_master_wait_point) to `AFTER_SYNC` fails with the error `rpl_semi_sync_master_wait_point=AFTER_SYNC is not available when --binlog-storage-engine is enabled`. If semisynchronous replication is enabled on the primary with `AFTER_SYNC` in an option file, the server doesn't start.
-* Semisynchronous replicas must run MariaDB 13.2 or later, because the primary identifies acknowledged transactions by their GTID. When an older replica with semisynchronous replication enabled connects, its replica I/O thread stops with error 1236 and the message `MariaDB >= 13.2.1 is required on semi-sync slave when master uses --binlog-storage-engine`. Upgrade the replica, or set `rpl_semi_sync_slave_enabled=OFF` on it to replicate asynchronously.
+* Only the `AFTER_COMMIT` [wait point](#configuring-the-primary-wait-point) is available. It is the default, so you don't need to set it. `AFTER_SYNC` isn't supported, because it waits between the prepare and commit phases of the two-phase commit, and the InnoDB-based binary log doesn't use two-phase commit. Setting [rpl\_semi\_sync\_master\_wait\_point](#rpl_semi_sync_master_wait_point) to `AFTER_SYNC` fails with the error `rpl_semi_sync_master_wait_point=AFTER_SYNC is not available when --binlog-storage-engine is enabled`. If semisynchronous replication is enabled on the primary with `AFTER_SYNC` in an option file, the server doesn't start.
+* Semisynchronous replicas must run MariaDB 13.2 or later. In MariaDB 13.2, semisynchronous connections can identify transactions by their GTID, and a primary that uses the InnoDB-based binary log requires this. When an older replica with semisynchronous replication enabled connects, its replica I/O thread stops with error 1236 and the message `MariaDB >= 13.2.1 is required on semi-sync slave when master uses --binlog-storage-engine`. Upgrade the replica, or set `rpl_semi_sync_slave_enabled=OFF` on it to replicate asynchronously.
 
 ## Configuring the Primary Timeout
 
@@ -124,10 +124,6 @@ The wait point is configured by the [rpl\_semi\_sync\_master\_wait\_point](semis
 
 * `AFTER_SYNC`
 * `AFTER_COMMIT`&#x20;
-
-{% hint style="info" %}
-When the primary uses the [InnoDB-based binary log](innodb-based-binary-log.md) (`binlog_storage_engine=innodb`), only `AFTER_COMMIT` is available, because the two-phase commit between the binary log and InnoDB, in the middle of which `AFTER_SYNC` waits, isn't used. Setting the wait point to `AFTER_SYNC` fails with an error. Semisynchronous replication with the InnoDB-based binary log is available from MariaDB 13.2; see [Using Semisynchronous Replication with the InnoDB-Based Binary Log](#using-semisynchronous-replication-with-the-innodb-based-binary-log).
-{% endhint %}
 
 It can be set dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session). For example:
 
