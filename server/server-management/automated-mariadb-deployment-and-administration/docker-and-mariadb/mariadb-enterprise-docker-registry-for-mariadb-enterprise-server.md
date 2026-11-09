@@ -109,9 +109,14 @@ The `enterprise-server` repository in the MariaDB Enterprise Docker Registry con
 | Latest release series   | <ul><li><code>latest</code></li></ul>                                                                 | This tag refers to the most recent image for the latest MariaDB Enterprise Server release series.                                                                                                                                              |
 | Specific release series | <ul><li><code>12.3</code></li><li><code>11.8</code></li><li><code>11.4</code></li><li><code>10.6</code></li></ul> | These tags refer to the images for the most recent minor release of each specific MariaDB Enterprise Server release series.                                                                                                                                                                       |
 | Specific minor release  | <ul><li><code>11.8.3-1</code></li><li><code>11.4.8-5</code></li><li><code>10.6.23-19</code></li></ul> | These tags refer to images for specific MariaDB Enterprise Server minor releases. The listed tags are examples of minor releases. For a full list of minor releases, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases). |
+| Specific tier           | <ul><li><code>12.3-standard</code></li><li><code>11.8.8-5-minimal</code></li></ul>                   | Add `-minimal` or `-standard` to a release series or minor release tag to choose an image tier. A tag without a tier suffix refers to the `minimal` tier. The `latest` tag has no tier variants. For what each tier contains, see [MariaDB Enterprise Server Tiered Images]({tools}/enterprise/mariadb-enterprise-operator/docker-images#mariadb-enterprise-server-tiered-images). |
 
 {% hint style="info" %}
 The version numbers in the **Specific minor release** row are examples, not a complete or current list. For every MariaDB Enterprise Server release, see [MariaDB Enterprise Server All Releases](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases).
+{% endhint %}
+
+{% hint style="warning" %}
+Starting with the 10.6.25-21.1, 11.4.10-7.1, and 11.8.6-3.1 images, and in every 12.3 image, a tag without a tier suffix, such as `11.8` or `latest`, refers to the `minimal` tier. Earlier images had no tiers and were closer to the current `standard` tier. The `minimal` tier leaves out the MariaDB utilities, such as `mariadb-admin`, as well as Perl and plugins such as S3, HashiCorp Key Management, and Cracklib Password Check. If you need any of these, use a `-standard` tag.
 {% endhint %}
 
 ## Examples
