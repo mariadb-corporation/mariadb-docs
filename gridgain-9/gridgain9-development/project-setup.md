@@ -63,6 +63,44 @@ implementation 'org.gridgain:ignite-client:9.1'
 
 All GridGain modules share the `org.gridgain` group ID and the `9.1` version. Always declare the version that matches your cluster.
 
+### Managing Versions With the BOM
+
+Starting with GridGain 9.2.0, a bill of materials (BOM), `org.gridgain:gridgain9-bom`, pins every GridGain 9 module to the same release version. Import the BOM once with the version that matches your cluster, and declare GridGain dependencies without a version. The BOM does not manage the versions of third-party libraries.
+
+{% tabs %}
+{% tab title="Maven" %}
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.gridgain</groupId>
+            <artifactId>gridgain9-bom</artifactId>
+            <version>9.2.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <dependency>
+        <groupId>org.gridgain</groupId>
+        <artifactId>ignite-client</artifactId>
+    </dependency>
+</dependencies>
+```
+{% endtab %}
+
+{% tab title="Gradle" %}
+```groovy
+dependencies {
+    implementation platform('org.gridgain:gridgain9-bom:9.2.0')
+    implementation 'org.gridgain:ignite-client'
+}
+```
+{% endtab %}
+{% endtabs %}
+
 ## Required Modules
 
 The following table lists the GridGain modules an application developer adds as dependencies. Add `ignite-client` for any thin-client application; add the other modules only when you use the corresponding feature or integration.

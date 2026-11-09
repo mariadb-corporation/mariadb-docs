@@ -36,6 +36,8 @@ These privileges are listed below as `Has selector`.
 | Name | Has Selector | Description |
 |---|---|---|
 |RENAME_CLUSTER|no|Allows the user to rename an initialized cluster.|
+|RESET_CLUSTER|no|Allows the user to reset the cluster management group and, optionally, repair the metastorage group with the `recovery cluster reset` command. The reset restarts the cluster.|
+|MIGRATE_CLUSTER|no|Allows the user to migrate the nodes of the contacted node's topology to the cluster created by a cluster reset, with the `recovery cluster migrate` command. The migration restarts these nodes.|
 
 ### Code Deployment
 
