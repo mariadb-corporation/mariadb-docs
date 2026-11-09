@@ -511,6 +511,10 @@ From MariaDB 11.4:
 {% endhint %}
 
 The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
+
+{% hint style="warning" %}
+From MariaDB 11.4, TLS and server certificate verification are both enabled by default for the replica connection. If the primary does not have TLS configured, for example a 10.6 primary, the replica cannot connect and fails with `SSL is required, but the server does not support it`. To connect, set either `MASTER_SSL=0` or `MASTER_SSL_VERIFY_SERVER_CERT=0` in `CHANGE MASTER`.
+{% endhint %}
 {% endtab %}
 
 {% tab title="< 11.4" %}
