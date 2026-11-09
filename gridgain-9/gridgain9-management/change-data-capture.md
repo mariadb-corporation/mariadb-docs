@@ -30,7 +30,7 @@ Command arguments:
 | type |  | Data source type. Supported values: `gridgain`, `mariadb`, `mssql`. |
 | tables |  | Comma-separated list of tables that will be replicated. |
 | parameters |  | Optional additional parameters. The following parameters are supported:<br>- page-size - the size of each page sent via replication.<br>- poll-interval - the interval at which GridGain checks for updates in source tables. |
-| experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. |
+| experimental | false | Optional. Enables experimental source types. Creating or updating a source with an experimental type fails unless this flag is set. No source type currently requires it. |
 
 Below is an example of a CDC data source:
 
@@ -368,7 +368,7 @@ The source reads the capture instance named `<schema>_<table>`, which is the SQL
 
 ## Replicating from MariaDB
 
-This section describes how to replicate changes from MariaDB tables into GridGain 9 tables. MariaDB acts as the CDC source: GridGain reads the row-based binary log, optionally after a consistent initial snapshot, and a GridGain 9 sink applies the changes to local tables. Inserts and updates are applied as upserts, and deletes remove the corresponding rows.
+This section describes how to replicate changes from MariaDB tables into GridGain 9 tables. MariaDB acts as the CDC source: GridGain reads the row-based binary log, optionally after a consistent initial snapshot, and a GridGain 9 sink applies the changes to local tables. Inserts and updates are applied as upserts, and deletes remove the corresponding rows. An update that changes the primary key is applied as a delete of the row with the old key followed by an insert of the row with the new key.
 
 ### Supported Configurations
 
@@ -424,9 +424,9 @@ Source parameters:
 | user |  | Required. MariaDB account with the privileges listed above. |
 | password |  | Required. Password of the MariaDB account. |
 | jdbcUrl |  | Optional JDBC URL for metadata and snapshot reads, for example to set TLS options. It does not change the binary log connection. |
-| batchSize | 1000 | Maximum number of rows in a batch. A single MariaDB transaction that changes more rows than this fails the replication; raise the value for larger transactions. |
-| reconnectAttempts | 30 | Number of reconnect attempts after the binary log connection drops. When they are exhausted, the replication fails. |
-| reconnectBackoffMs | 1000 | Initial delay between reconnect attempts, in milliseconds. The delay doubles after each attempt. |
+| batchSize | 1000 | Maximum number of rows in a batch. A single MariaDB transaction that changes more rows than this fails the replication; raise the value for larger transactions. An update that changes the primary key counts as two rows. |
+| reconnectAttempts | 30 | Number of consecutive failed reconnect attempts after the binary log connection drops. When they are exhausted, the replication fails. The count and the delay are reset as soon as a connection delivers an event, so separate short outages do not add up. |
+| reconnectBackoffMs | 1000 | Initial delay between reconnect attempts, in milliseconds. The delay doubles after each failed attempt. |
 | reconnectMaxBackoffMs | 60000 | Maximum delay between reconnect attempts, in milliseconds. |
 | serverId | Random value between 1000000 and 3999999999 | Replica server ID used for the binary log connection. Each replicated table uses its own connection with the next consecutive ID. The IDs must not clash with other replicas of the same MariaDB server. |
 
@@ -450,11 +450,14 @@ In `ALL` mode, GridGain holds a global read lock only while it starts a repeatab
 
 GridGain saves the binary log position after the sink applies each batch. After a lost connection, a MariaDB restart, or a GridGain node restart, the replication resumes from the last saved position, so changes made while it was stopped are replicated. If an `ALL` snapshot is interrupted, it is restarted, and changes are replayed from the position of the first snapshot attempt. Rolled-back transactions are not replicated.
 
-The replication never skips to the current binary log position. If the saved file has been purged, the replication fails; restore the binary logs or recreate the replication.
+The saved position of a table also moves forward while the table has no changes, so a quiet table does not hold on to old binary log files. The position is not saved when a replication is stopped. After a restart, the replication can resume up to about 12 seconds behind the point where it stopped and apply those changes again.
+
+The replication never skips to the current binary log position. If the file that holds the saved position has been purged, the replication fails at once, without reconnect attempts, and the error names the unavailable position. Restore the binary logs, or delete and recreate the replication. Deleting a replication also deletes its saved positions, so a replication recreated with the same name starts as its mode specifies.
 
 ### Limitations
 
 - Schema and DDL changes are not propagated. Do not change the schema of a replicated table while its replication is running.
+- Statements that remove or replace rows without writing row events to the binary log cannot be replicated: `TRUNCATE TABLE`; `TRUNCATE`, `DROP`, `EXCHANGE` or `CONVERT` of a partition; `DISCARD` or `IMPORT TABLESPACE`; and `ALTER IGNORE TABLE`. If one of them runs on a replicated table, the replication fails, and restarting it fails again on the same statement. To recover, delete the rows of the target table, then delete the replication and create it again in `ALL` mode.
 - Recovery uses binary log file positions of the original MariaDB server. GTID-based failover to another server is not supported.
 - Each replicated table uses its own binary log connection.
 - In a mixed-version cluster, create `mariadb` sources only after every node is upgraded. Older nodes cannot read the new source type.
