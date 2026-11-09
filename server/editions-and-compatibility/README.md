@@ -1,12 +1,12 @@
 ---
 description: >-
-  How MariaDB Enterprise Server differs from MariaDB Community Server, and where
-  to find the documentation for Enterprise Server features in this space.
+  Compare MariaDB Community Server and MariaDB Enterprise Server, and find the
+  Enterprise Server documentation and compatibility information in this space.
 ---
 
 # Editions & Compatibility
 
-MariaDB Server is available in two editions:
+MariaDB Server is available in two editions, MariaDB Community Server and MariaDB Enterprise Server:
 
 * **MariaDB Community Server** is the open-source edition. Its releases are listed in [MariaDB Community Server Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server).
 * **MariaDB Enterprise Server** is the commercial edition, offered and supported by MariaDB plc. It's built from selected MariaDB Community Server versions that are further stabilized, hardened for security, and extended with Enterprise features. Its releases are listed in [MariaDB Enterprise Server Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server).
@@ -39,6 +39,10 @@ These pages cover Enterprise Server features and procedures. Each one lives in t
 * [MariaDB Enterprise Spider Operations](../server-usage/storage-engines/spider/spider-storage-engine-introduction/mariadb-enterprise-spider-operations/README.md)
 * [Authentication with Enterprise Server](../security/authentication-with-enterprise-server/README.md)
 * [Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server](../security/cve/enterprise-server.md)
+
+## MySQL Compatibility
+
+MariaDB Server was originally designed as a drop-in replacement for MySQL, and the two have diverged since. For the differences to plan for when moving from MySQL, see [MySQL to MariaDB Compatibility Matrix](../server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix.md).
 
 ## Release Policy
 
