@@ -102,8 +102,8 @@ message.
 
 Behavior differs once the product is already running:
 
-* **MaxScale** keeps running if the license lapses while it is up. It logs a warning at its
-  next three-hourly check rather than stopping.
+* **MaxScale** stops when its license expires while it is running. Before that, it logs
+  increasingly frequent messages about the expiry in the MaxScale log.
 * **AI RAG** validates only at startup, so a lapsed license takes effect the next time it
   restarts.
 
