@@ -8,8 +8,8 @@ description: >-
 
 MariaDB Server is available in two editions:
 
-* **MariaDB Community Server** is the open-source edition. Its releases are listed in [MariaDB Community Server Release Notes]({release-notes}/community-server).
-* **MariaDB Enterprise Server** is the commercial edition, offered and supported by MariaDB plc. It's built from selected MariaDB Community Server versions that are further stabilized, hardened for security, and extended with Enterprise features. Its releases are listed in [MariaDB Enterprise Server Release Notes]({release-notes}/enterprise-server).
+* **MariaDB Community Server** is the open-source edition. Its releases are listed in [MariaDB Community Server Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server).
+* **MariaDB Enterprise Server** is the commercial edition, offered and supported by MariaDB plc. It's built from selected MariaDB Community Server versions that are further stabilized, hardened for security, and extended with Enterprise features. Its releases are listed in [MariaDB Enterprise Server Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server).
 
 This documentation covers both editions. Where a feature or behavior applies to only one of them, the page says so.
 
@@ -44,8 +44,8 @@ These pages cover Enterprise Server features and procedures. Each one lives in t
 
 How long each Enterprise Server release series is supported, and when new releases come out, are covered in Release Notes:
 
-* [Enterprise Server Lifecycle]({release-notes}/enterprise-server/about/enterprise-server-lifecycle)
-* [Enterprise Server Release Schedule]({release-notes}/enterprise-server/about/enterprise-server-release-schedule)
+* [Enterprise Server Lifecycle](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle)
+* [Enterprise Server Release Schedule](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-release-schedule)
 
 <sub>_This page is: Copyright © 2026 MariaDB. All rights reserved._</sub>
 

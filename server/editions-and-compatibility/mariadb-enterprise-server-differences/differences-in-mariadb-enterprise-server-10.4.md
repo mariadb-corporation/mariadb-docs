@@ -8,7 +8,7 @@ description: >-
 
 MariaDB Enterprise Server is a premium version of MariaDB Community Server that focuses on stability, robustness, and predictability.
 
-MariaDB Enterprise Server enables a predictable development and operations experience through an enterprise lifecycle. This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support. For more information about the Enterprise Server Lifecycle [look here]({release-notes}/enterprise-server/about/enterprise-server-lifecycle).
+MariaDB Enterprise Server enables a predictable development and operations experience through an enterprise lifecycle. This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support. For more information about the Enterprise Server Lifecycle [look here](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/enterprise-server-lifecycle).
 
 In addition to different release cycle, QA, and etc..., there are also feature differences. MariaDB Enterprise Server has different default settings to be more secure from the start and also only includes features that are fully supported and maintained.
 
