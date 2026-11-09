@@ -21,7 +21,7 @@ The availability, maturity, and package inclusions of [plugins](https://app.gitb
 
 ## MariaDB Enterprise Server 10.6
 
-* **Object Filtering for Audit**: Advanced filtering was added to MariaDB Enterprise Audit, allowing administrators to define JSON filters (`ignore_databases`, `ignore_tables`, `log_databases`, `log_tables`) to restrict logging to specific databases or tables. This capability was also backported to [Enterprise Server 10.5.12-8]({release-notes}/enterprise-server/old-releases/10.5/10.5.12-8) and [Enterprise Server 10.4.21-13]({release-notes}/enterprise-server/old-releases/10.4/10.4.21-13).
+* **Object Filtering for Audit**: Advanced filtering was added to MariaDB Enterprise Audit, allowing administrators to define JSON filters (`ignore_databases`, `ignore_tables`, `log_databases`, `log_tables`) to restrict logging to specific databases or tables. This capability was also backported to [Enterprise Server 10.5.12-8](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/10.5.12-8) and [Enterprise Server 10.4.21-13](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/10.4.21-13).
 
 ## MariaDB Enterprise Server 10.5
 
