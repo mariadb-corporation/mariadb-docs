@@ -184,6 +184,10 @@ Maximum length: `2147483647`
 
 ### TIME
 
+{% hint style="warning" %}
+The time data type stores fractional seconds up to microseconds (6 digits). Digits past the 6th are truncated.
+{% endhint %}
+
 {% hint style="info" %}
 The following Java types are not supported and cannot be used from [table API](../../gridgain9-development/table-api.md):
 
@@ -195,7 +199,7 @@ Possible values: The time data type. The format is `hh:mm:ss`.
 
 Default precision: `0`
 
-Maximum precision: `3`
+Maximum precision: `9`
 
 Minimum value: `00:00:00.000000000`
 
@@ -237,7 +241,7 @@ Mapped to: `LocalDate`
 ### TIMESTAMP
 
 {% hint style="warning" %}
-The timestamp data type only supports precision up to milliseconds (3 symbols). Any values past the 3rd symbol will be ignored.
+The timestamp data type stores fractional seconds up to microseconds (6 digits). Digits past the 6th are truncated.
 {% endhint %}
 
 {% hint style="info" %}
@@ -247,7 +251,7 @@ The following Java types are not supported and cannot be used from [table API](.
 - `java.util.Date`
 {% endhint %}
 
-Possible values: The timestamp data type. The format is `yyyy-MM-dd hh:mm:ss[.mmm]`.
+Possible values: The timestamp data type. The format is `yyyy-MM-dd hh:mm:ss[.ffffff]`.
 
 Default precision: `6`
 
@@ -268,7 +272,7 @@ Mapped to: `LocalDateTime`
 ### TIMESTAMP WITH LOCAL TIME ZONE
 
 {% hint style="warning" %}
-In SQL, the timestamp with local time zone data type only supports precision up to milliseconds (3 symbols). Any values past the 3rd symbol will be ignored.
+In SQL, the timestamp with local time zone data type stores fractional seconds up to microseconds (6 digits). Digits past the 6th are truncated.
 {% endhint %}
 
 {% hint style="info" %}
@@ -280,7 +284,7 @@ The following Java types are not supported and cannot be used from [table API](.
 
 Possible values: The timestamp data type that represents an absolute point in time. The time zone offset is not stored as part of column data. When the value is written or retrieved, it is automatically converted to or from the time zone of the session.
 
-The format is `yyyy-MM-dd hh:mm:ss[.mmm]`.
+The format is `yyyy-MM-dd hh:mm:ss[.ffffff]`.
 
 Default precision: `6`
 
