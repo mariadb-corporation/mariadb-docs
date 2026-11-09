@@ -196,3 +196,6 @@ returns the length of the encrypted data
 
 it returns the exact length, given only the source length. which means, this API only supports encryption algorithms where the length of the encrypted data only depends on the length of the input (a.k.a. compression is not supported).
 
+<sub>_This page is licensed: GPLv2_</sub>
+
+{% @marketo/form formId="4316" %}

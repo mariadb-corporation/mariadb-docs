@@ -35,7 +35,7 @@ A column that you leave out is not described to the model, but the database user
 
 <figure><img src="../../.gitbook/assets/ai-retrieval-database-tables.png" alt="The Tables section of the Create Knowledge Base form with the customers table expanded. Each of its columns id, name, country, and signed_up has a check box, its data type, a Description field, and a Literals index option."><figcaption><p>The Tables section with a table expanded</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo-kb, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-create.png" alt="The Create Knowledge Base form with Database Knowledge Base selected, the service docs-demo, the schema shop, and its four tables listed."><figcaption><p>The Create Knowledge Base form for a database knowledge base</p></figcaption></figure>
 
 AI Retrieval connects to the database and synchronizes its schema. This usually takes a few minutes. If no database is connected within 15 minutes, the setup is marked as failed. When the knowledge base is ready, use **Test** to ask a question, or **Connect** to call it from your application.
 
@@ -61,7 +61,7 @@ Synchronize the schema again after you change the tables of the database. Some c
 
 Customize the semantic map only when you want to change what AI Retrieval uses, for example to correct a description or to keep a table out of every query.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, order_items, customers, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-kb-ready.png" alt="The page of a Ready database knowledge base, with its data source, the statistics of 4 tables, 16 columns, and 0 golden queries, and the Schema Annotations table that lists the tables orders, customers, order_items, and products, each with the status Retrievable."><figcaption><p>The page of a database knowledge base, with the Schema Annotations table</p></figcaption></figure>
 
 ### Choose How Each Table Is Used
 
@@ -108,7 +108,7 @@ The results show the **Generated SQL** and the rows that it returned. If more ro
 
 The Test drawer has two tabs, **Retrieve** and **Retrieve & Generate**.
 
-<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and a table of 5 rows with the columns customer and widgets_ordered."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ai-retrieval-database-test.png" alt="The Test Knowledge Base drawer of a database knowledge base on the Retrieve tab, with the question Which customer ordered the most widgets, the generated SQL query, and one row with the columns customer_id, name, and widget_quantity."><figcaption><p>The Test drawer of a database knowledge base</p></figcaption></figure>
 
 ## Query a Database Knowledge Base with the API
 

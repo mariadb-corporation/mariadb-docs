@@ -41,19 +41,17 @@ Do these steps before you install the license key:
 1. Go to the [MariaDB License Portal](https://customers.mariadb.com/license/).
 2. Sign in with your MariaDB ID. If you do not have an account, create one with your email
    address or with your Google, GitHub, or LinkedIn account.
-3. Select the Enterprise Platform card. Then follow the instructions on the page to generate
-   your key. One Enterprise Platform key is valid for all MariaDB products that use a license key.
-4. Copy or download the key. You add it to the configuration file in
+3. On the **License Products** page, select the **Enterprise** tab. On the card for your
+   subscription, click **View License Keys**. If the card shows **Generate Key** instead, click it
+   first. One key covers all the products in your subscription.
+4. In the list of license keys, click **Copy** or **Download** next to the key. You add it to the
+   configuration file in
    [Install the Key](#install-the-key).
 
 {% hint style="info" %}
 If you do not see a card for your subscription, contact
 [MariaDB](https://mariadb.com/maxscale-contact/). MariaDB then sends you the key directly.
 {% endhint %}
-
-<!-- TODO (DOCS-6634): confirm with Allen Herrera that the Enterprise Platform card is live on
-     customers.mariadb.com/license/ and whether it has a deep link, as the trial does at
-     /license/maxscale-trial/. Adjust step 3 and the hint accordingly before publishing. -->
 
 ## Install the Key
 

@@ -401,6 +401,23 @@ An enumeration option specifying how data is shared between threads. The allowed
 * `shared`: The cached data is shared between threads. On the one hand it implies that there will be synchronization between threads, on the other hand that all threads will use data fetched by any thread.
 * `thread_specific`: The cached data is specific to a thread. On the one hand it implies that no synchronization is needed between threads, on the other hand that the very same data may be fetched and stored multiple times.
 
+The above applies to `storage_inmemory`. With a shared storage
+(`storage_redis`, `storage_gridgain`) the cached data is held by the
+storage server and is the same for all threads, irrespective of the value
+of `cached_data`; data stored by one thread is used by all. The value only
+affects the bookkeeping MaxScale itself does. With `thread_specific`:
+
+* the queries known to be faster than
+  [min\_query\_duration](maxscale-cache.md#min_query_duration) are
+  remembered by each thread separately, so each thread must learn them, and
+* an entry that has become stale may be refreshed once per thread, instead
+  of once.
+
+The number of connections to the storage server does not depend on
+`cached_data`: `storage_redis` uses one connection per client session and
+`storage_gridgain` one per thread. `storage_gridgain` can only be used with
+`cached_data=thread_specific`.
+
 ```
 cached_data=shared
 ```
@@ -519,6 +536,10 @@ An enumeration option specifying how the cache should invalidate cache entries.
 ```
 
 The effect of `current` depends upon the value of `cached_data`. If the value is `shared`, that is, all threads share the same cache, then the effect of an invalidation is immediately visible to all sessions, as there is just one cache. However, if the value is `thread_specific`, then an invalidation will affect only the cache that the session happens to be using.
+
+This applies to `storage_inmemory`. With `storage_redis` the invalidation
+is performed in the storage server, so it is immediately visible to all
+sessions, irrespective of the value of `cached_data`.
 
 If it is important and _sufficient_ that an application immediately sees a change that it itself has caused, then a combination of `invalidate=current` and `cached_data=thread_specific` can be used.
 
@@ -726,6 +747,10 @@ SET @maxscale.cache.populate=FALSE;
 
 What caching approach is used and how different users are treated has a significant impact on the behaviour of the cache. In the following the implication of different combinations is explained.
 
+The table and the following subsections describe `storage_inmemory`. With a
+shared storage the cached data is not duplicated across threads; see
+[cached\_data](maxscale-cache.md#cached_data).
+
 | cached\_data/users | mixed                                                                                                                          | isolated                                                                                                                        |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | thread\_specific   | No thread contention. Data/work duplicated across threads. May cause unintended sharing.                                       | No thread contention. Data/work duplicated across threads and users. No unintended sharing. Requires the most amount of memory. |
@@ -739,7 +764,7 @@ Invalidation takes place only in the current cache, so how _visible_ the invalid
 
 The invalidation is visible only to the sessions that are handled by the same worker thread where the invalidation occurred. Sessions of the same or other users that are handled by different worker threads will not see the new value before the TTL causes the value to be refreshed.
 
-#### `cache_data=shared`
+#### `cached_data=shared`
 
 The invalidation is immediately visible to all sessions of all users.
 
