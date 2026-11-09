@@ -131,6 +131,8 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 | [CVE-2026-107816](https://www.cve.org/CVERecord?id=CVE-2026-107816)             | 6.4                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-107815](https://www.cve.org/CVERecord?id=CVE-2026-107815)             | 8.5                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-107814](https://www.cve.org/CVERecord?id=CVE-2026-107814)             | 8.4                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-101797](https://www.cve.org/CVERecord?id=CVE-2026-101797)             | 7.5                    | [MariaDB 10.6.28](10.6.28.md) |
+| [CVE-2026-101770](https://www.cve.org/CVERecord?id=CVE-2026-101770)             | 8.1                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-97380](https://www.cve.org/CVERecord?id=CVE-2026-97380)               | 8.8                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-92262](https://www.cve.org/CVERecord?id=CVE-2026-92262)               | 9.9                    | [MariaDB 10.6.28](10.6.28.md) |
 | [CVE-2026-86047](https://www.cve.org/CVERecord?id=CVE-2026-86047)               | 7.7                    | [MariaDB 10.6.28](10.6.28.md) |
