@@ -48,12 +48,13 @@ your subscription. You do not need a separate key for each product.
 1. Navigate to the [MariaDB License Portal](https://customers.mariadb.com/license/).
 2. Sign in with your MariaDB ID. If you do not have an account, you can create one using your
    email, Google, GitHub, or LinkedIn credentials.
-3. On the **License Products** page, select the **Enterprise** tab, then generate a key from the
-   card for your subscription.
+3. On the **License Products** page, select the **Enterprise** tab. On the card for your
+   subscription, click **View License Keys**. If the card shows **Generate Key** instead, click it
+   first.
 
    If you are evaluating a product, select the **Trial** tab instead, then click **Get License**
    on the product's trial card and follow the prompts.
-4. Copy or download the key.
+4. In the list of license keys, click **Copy** or **Download** next to the key.
 5. Install the key as described in the product's documentation.
 
 {% hint style="info" %}
