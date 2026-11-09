@@ -4,20 +4,20 @@ description: Plugin Evolution Across Enterprise Releases
 
 # Differences in Available Plugins for Enterprise Server
 
-The availability, maturity, and package inclusions of [plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/plugin-overview) continuously change from version to version to maintain a predictable operational ecosystem:
+The availability, maturity, and package inclusions of [plugins](../../reference/plugins/plugin-overview.md) continuously change from version to version to maintain a predictable operational ecosystem:
 
 ## MariaDB Enterprise Server 11.8
 
-* [**caching\_sha2\_password**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password#overview) **Plugin**: This authentication plugin was added to provide MySQL-compatible authentication, allowing users to be moved from MySQL to MariaDB without changing their passwords (it is not installed by default). It also shipped in the Enterprise Server 11.4 maintenance series.
-* [**HashiCorp Vault**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb) **Upgrade**: Namespace support was added to HashiCorp Vault to integrate with HashiCorp enterprise namespaces.
-* [**file\_key\_management**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) **Encryption Plugin**: This plugin can now read keys from a named pipe instead of just local files. It also added key rotation capability along with a new Information Schema table named [FILE\_KEY\_MANAGEMENT\_KEYS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-file_key_management_keys).
-* [**Enterprise Audit**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit) **Buffering**: Audit logging buffer writes are now possible, controlled by the server\_audit\_file\_buffer\_size variable, with synchronous flushing of buffered writes to disk controlled by `server_audit_sync_log_file`.
+* [**caching\_sha2\_password**](../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md#overview) **Plugin**: This authentication plugin was added to provide MySQL-compatible authentication, allowing users to be moved from MySQL to MariaDB without changing their passwords (it is not installed by default). It also shipped in the Enterprise Server 11.4 maintenance series.
+* [**HashiCorp Vault**](../../server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb.md) **Upgrade**: Namespace support was added to HashiCorp Vault to integrate with HashiCorp enterprise namespaces.
+* [**file\_key\_management**](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) **Encryption Plugin**: This plugin can now read keys from a named pipe instead of just local files. It also added key rotation capability along with a new Information Schema table named [FILE\_KEY\_MANAGEMENT\_KEYS](../../reference/system-tables/information-schema/information-schema-tables/information-schema-files-table/information-schema-file_key_management_keys.md).
+* [**Enterprise Audit**](../../reference/plugins/mariadb-enterprise-audit/README.md) **Buffering**: Audit logging buffer writes are now possible, controlled by the server\_audit\_file\_buffer\_size variable, with synchronous flushing of buffered writes to disk controlled by `server_audit_sync_log_file`.
 
 ## MariaDB Enterprise Server 11.4
 
 * **`PARSEC` Authentication**: This plugin (Password Authentication using Response Signed with Elliptic Curve) is included as a backported feature. It uses salted passwords, pbkdf2 key derivation, and signed responses to mitigate replay and man-in-the-middle attacks.
-* [**password\_reuse\_check**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/password-validation-plugins/password-reuse-check-plugin) **Plugin**: Included as a backported feature to prevent users from reusing previous passwords. _(Note: Upgrading this plugin to version 2.0 alters the data storage format to fix a weakness under_ [_MDEV-28838_](https://jira.mariadb.org/browse/MDEV-28838)_, which invalidates older v1.0 history)_.
-* [**SQL Error Log**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/sql-error-log-plugin) **Plugin**: Enhanced to display the active thread ID and the default schema for errors when `sql_error_log_with_db_and_thread_info=ON` is set.
+* [**password\_reuse\_check**](../../reference/plugins/password-validation-plugins/password-reuse-check-plugin.md) **Plugin**: Included as a backported feature to prevent users from reusing previous passwords. _(Note: Upgrading this plugin to version 2.0 alters the data storage format to fix a weakness under_ [_MDEV-28838_](https://jira.mariadb.org/browse/MDEV-28838)_, which invalidates older v1.0 history)_.
+* [**SQL Error Log**](../../server-management/server-monitoring-logs/sql-error-log-plugin.md) **Plugin**: Enhanced to display the active thread ID and the default schema for errors when `sql_error_log_with_db_and_thread_info=ON` is set.
 
 ## MariaDB Enterprise Server 10.6
 
@@ -26,10 +26,10 @@ The availability, maturity, and package inclusions of [plugins](https://app.gitb
 ## MariaDB Enterprise Server 10.5
 
 * [**ColumnStore Storage Engine Plugin**](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/RaYUwfaLLE1EkMr1e8Ud/architecture/columnstore-storage-engine-overview): MariaDB ColumnStore 5 was introduced as an integrated enterprise plugin to provide distributed columnar storage for analytical workloads.
-* [**Spider Storage Engine Plugin**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-storage-engine-introduction): Updated to support an ODBC foreign data wrapper and added the[ information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table) system table.
+* [**Spider Storage Engine Plugin**](../../server-usage/storage-engines/spider/spider-storage-engine-introduction/README.md): Updated to support an ODBC foreign data wrapper and added the[ information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) system table.
 * **Plugin Phase-outs & Repository Splits**:
   * **TokuDB** **and** **Cassandra**: Both storage engine plugins were removed from the installation packages in 10.5. They were subsequently removed from the server codebase entirely in 10.6.
-  * [**CONNECT Storage Engine**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect): Moved from the main Enterprise repository to an "unsupported" repository. To ensure it functions, you must explicitly include the `--include-unsupported` flag in the `mariadb_es_repo_setup` script, or else the library `ha_connect.so` will be unavailable.
+  * [**CONNECT Storage Engine**](../../server-usage/storage-engines/connect/README.md): Moved from the main Enterprise repository to an "unsupported" repository. To ensure it functions, you must explicitly include the `--include-unsupported` flag in the `mariadb_es_repo_setup` script, or else the library `ha_connect.so` will be unavailable.
 
 ## MariaDB Enterprise Server 10.4
 
