@@ -342,7 +342,7 @@ Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options
 
 #### MASTER\_SSL
 
-The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect.
+The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect. This option is enabled by default from MariaDB 11.4.
 
 For example:
 
