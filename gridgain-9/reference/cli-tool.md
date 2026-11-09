@@ -3285,9 +3285,11 @@ cdc replication status --name=myreplication
 
 {% code title="Output" %}
 ```
-Status ok.
+Replication myreplication: RUNNING, running on node1
 ```
 {% endcode %}
+
+The output shows the replication status and the node that runs the replication. For a replication that is not running, it shows the last node that ran it (`last node <node>`), or `no node` if no node is recorded for it.
 
 ---
 
