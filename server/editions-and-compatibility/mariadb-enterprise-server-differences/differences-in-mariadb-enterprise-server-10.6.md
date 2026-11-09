@@ -6,7 +6,7 @@ description: >-
 
 # Differences in MariaDB Enterprise Server 10.6
 
-MariaDB Enterprise Server is a premium version of MariaDB Community Server that focuses on stability, robustness, and predictability. For more information about MariaDB Enterprise Server in general please [look here](../README.md).
+MariaDB Enterprise Server is a hardened, secured, and fully supported version of MariaDB Server with added Enterprise-only features. For how it compares with MariaDB Community Server, see [Editions & Compatibility](../README.md).
 
 In addition to different release cycle, QA, and etc..., there are also feature differences. MariaDB Enterprise Server has different default settings to be more secure from the start and also only includes features that are fully supported and maintained.
 
