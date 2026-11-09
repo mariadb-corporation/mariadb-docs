@@ -3363,7 +3363,7 @@
       * [Error 1699: SET PASSWORD has no significance for users authenticating via plugins](reference/error-codes/mariadb-error-codes-1600-to-1699/e1699.md)
     * [MariaDB Error Codes 1700 to 1799](reference/error-codes/mariadb-error-codes-1700-to-1799/README.md)
       * [Error 1700: GRANT with IDENTIFIED WITH is illegal because the user already exists](reference/error-codes/mariadb-error-codes-1700-to-1799/e1700.md)
-      * [Error 1701: Cannot truncate a table referenced in a foreign key constraint](reference/error-codes/mariadb-error-codes-1700-to-1799/e1701.md)
+      * [Error 1701: Cannot %s a table referenced in a foreign key constraint (%s)](reference/error-codes/mariadb-error-codes-1700-to-1799/e1701.md)
       * [Error 1702: Plugin is force\_plus\_permanent and can not be unloaded](reference/error-codes/mariadb-error-codes-1700-to-1799/e1702.md)
       * [Error 1703: The requested value for the heartbeat period is less than 1 millisecond](reference/error-codes/mariadb-error-codes-1700-to-1799/e1703.md)
       * [Error 1704: The requested value for the heartbeat period exceeds the value of slave\_net\_timeout seco](reference/error-codes/mariadb-error-codes-1700-to-1799/e1704.md)
