@@ -12,7 +12,7 @@ hidden: true
 ## About this Release
 
 * MariaDB Server 11.4.14 was released on TBD
-* [What's new in this release?]({release-notes}/community-server/11.4/11.4.14)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.14)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -24,8 +24,8 @@ hidden: true
 
 ## Release History
 
-* The prior release in this series was [MariaDB 11.4.13]({release-notes}/community-server/11.4/11.4.13), released on 24 Aug 2026
-* This release ([MariaDB 11.4.14]({release-notes}/community-server/11.4/11.4.14)) was released on TBD
+* The prior release in this series was [MariaDB 11.4.13](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.13), released on 24 Aug 2026
+* This release ([MariaDB 11.4.14](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.14)) was released on TBD
 
 {% include "../.gitbook/includes/most-recent-11.4.md" %}
 
