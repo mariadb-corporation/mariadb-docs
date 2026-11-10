@@ -1473,6 +1473,298 @@ The data in the redis server is _not_ encrypted. Consequently, _anybody_ with ac
 
 Unless [SSL](maxscale-cache.md#ssl) has been enabled, _anybody_ with access to the network has access to the cached data.
 
+## Diagnostics
+
+The diagnostics of the cache are shown by `maxctrl show filter` and are
+available in the REST API at `/v1/filters/<name>`, under
+`data.attributes.filter_diagnostics`. They contain the following keys:
+
+* `rules`: The rules in use.
+* `statistics`: What the cache has done since MaxScale was started or the
+  statistics were last cleared. Available since MaxScale 26.10.1.
+* `storage`: The state of the storage.
+* `threads`: The state of the cache of each thread, if `cached_data` is
+  `thread_specific`.
+* `uncached_queries`: The bookkeeping of
+  [min\_query\_duration](maxscale-cache.md#min_query_duration).
+
+Up until MaxScale 26.10.0, the information of each thread was reported
+using keys called `thread-0`, `thread-1`, etc. Since MaxScale 26.10.1 it
+is reported in the array `threads`, and the keys `storage` and
+`uncached_queries` are always present.
+
+With `storage_inmemory` and `cached_data` being `shared`, the diagnostics
+look like this, with the details left out:
+
+```
+{
+    "rules": [ ... ],
+    "storage": {
+        "lru": {
+            "size": 1474560,
+            "items": 82,
+            "hits": 705,
+            ...
+        },
+        "connected": true,
+        "real_storage": { ... }
+    },
+    "uncached_queries": {
+        "items": 5,
+        "hits": 5,
+        "misses": 5
+    },
+    "threads": [],
+    "statistics": { ... }
+}
+```
+
+### Statistics
+
+The statistics have the following layout. Of the distributions, only
+`lookup` is shown in full; the others have the same keys.
+
+```
+"statistics": {
+    "queries": 1000,
+    "not_cached": {
+        "multi_statement": 0,
+        "prepared_statement": 0,
+        "transaction": 12,
+        "not_select": 180,
+        "non_cacheable": 0,
+        "disabled": 0,
+        "rules": 8,
+        "key_error": 0
+    },
+    "lookups": {
+        "hit": 700,
+        "stale_served": 0,
+        "stale_refresh": 5,
+        "miss": 90,
+        "discarded": 0,
+        "unavailable": 0,
+        "error": 0
+    },
+    "populate_only": 0,
+    "skipped": 5,
+    "puts": {
+        "stored": 87,
+        "unavailable": 0,
+        "error": 0,
+        "too_large": 3,
+        "too_many_rows": 0,
+        "not_resultset": 0,
+        "unparsable": 0,
+        "information_schema": 0,
+        "below_threshold": 10
+    },
+    "durations": {
+        "lookup": {
+            "moving": {
+                "count": 120,
+                "sum": 0.000264,
+                "mean": 2.2e-06,
+                "p25": 1.84e-06,
+                "p50": 2.07e-06,
+                "p75": 2.33e-06,
+                "p90": 2.71e-06,
+                "p95": 3.06e-06,
+                "p99": 4.14e-06
+            },
+            "cumulative": {
+                "count": 795,
+                ...
+            }
+        },
+        "put": { "moving": { ... }, "cumulative": { ... } },
+        "backend": { "moving": { ... }, "cumulative": { ... } },
+        "filter": { "moving": { ... }, "cumulative": { ... } }
+    },
+    "value_bytes": { "moving": { ... }, "cumulative": { ... } }
+}
+```
+
+In this example, of the 1000 statements, 200 were not cached, 795 were
+looked up and 5 were not looked up as they are known to be faster than
+`min_query_duration`. The 100 results fetched from the server after a miss,
+a stale refresh or a skipped lookup led to 100 attempts to store them, of
+which 87 were stored. 10 were not, as the queries were faster than
+`min_query_duration`: the 5 skipped ones, and 5 that were looked up before
+they were known to be fast.
+
+`queries` is the number of statements, that is, `COM_QUERY` and
+`COM_STMT_EXECUTE` packets, the cache has seen. Each of them is counted in
+exactly one of `not_cached`, `lookups`, `populate_only` and `skipped`.
+
+`not_cached` tells why a statement was not cached at all:
+
+* `multi_statement`: The statement contained several statements.
+* `prepared_statement`: The statement was an execution of a prepared
+  statement. See [Prepared Statements](maxscale-cache.md#prepared-statements).
+* `transaction`: The statement was not cached due to the transaction state
+  and [cache\_in\_transactions](maxscale-cache.md#cache_in_transactions).
+* `not_select`: The statement was not a `SELECT`.
+* `non_cacheable`: The `SELECT` was not cacheable, for instance because it
+  uses a function such as `RAND()`. Only with
+  [selects](maxscale-cache.md#selects) being `verify_cacheable`.
+* `disabled`: Caching was disabled, by
+  [enabled](maxscale-cache.md#enabled) being `false` or for the session
+  using `@maxscale.cache.use` and `@maxscale.cache.populate`. See
+  [Runtime Configuration](maxscale-cache.md#runtime-configuration).
+  Caching is also disabled if clearing the cache fails.
+* `rules`: The [rules](maxscale-cache.md#rules) did not allow the result
+  to be cached.
+* `key_error`: The cache key could not be created.
+
+`lookups` tells the outcome of looking up the result in the cache:
+
+* `hit`: The result was returned from the cache.
+* `stale_served`: The result was older than the soft ttl, but was returned
+  from the cache, as another session was already fetching a fresh one.
+* `stale_refresh`: The result was older than the soft ttl, and a fresh one
+  was fetched from the server.
+* `miss`: The result was not found.
+* `discarded`: The result was older than the hard ttl and was discarded.
+* `unavailable`: The storage could not be used, for instance because the
+  connection to Redis or GridGain was down.
+* `error`: The lookup failed.
+
+`populate_only` is the number of results fetched from the server and
+stored without a lookup, for instance because `@maxscale.cache.use` was
+`false`. `skipped` is the number of lookups skipped because the query is
+known to be faster than `min_query_duration`.
+
+`puts` tells the outcome of each attempt to store a result:
+
+* `stored`: The result was stored.
+* `unavailable`: The storage could not be used.
+* `error`: Storing failed.
+* `too_large`: The result was larger than
+  [max\_resultset\_size](maxscale-cache.md#max_resultset_size).
+* `too_many_rows`: The result had more rows than
+  [max\_resultset\_rows](maxscale-cache.md#max_resultset_rows).
+* `not_resultset`: The reply was not a result set, for instance an error.
+* `unparsable`: The statement could not be parsed, so the tables it
+  accesses are not known and the result could not be invalidated. Only with
+  [invalidate](maxscale-cache.md#invalidate) being `current`.
+* `information_schema`: The statement accessed `information_schema`. Only
+  with `invalidate` being `current`.
+* `below_threshold`: The query was faster than `min_query_duration`.
+
+`durations` contains the distribution of durations, in seconds:
+
+* `lookup`: From asking the storage for a result to having its answer.
+* `put`: From asking the storage to store a result to having its answer.
+* `backend`: The response time of the server, for the statements whose
+  result was fetched from the server although a lookup was made or could
+  have been made, that is, those counted in `lookups` without being returned
+  from the cache, in `populate_only` and in `skipped`.
+* `filter`: The time the cache itself spends on a statement, excluding the
+  time spent by the server, the storage and the other components of the
+  service. Measured for each `COM_QUERY` that is not a multi-statement.
+
+`value_bytes` is the distribution of the sizes, in bytes, of the results
+handed to the storage, that is, those counted in `puts` as `stored`,
+`unavailable` or `error`.
+
+Each distribution is reported as `moving`, the values of the current and
+the four preceding minutes, and as `cumulative`, all values. Both contain
+`count`, `sum`, `mean` and the percentiles `p25`, `p50`, `p75`, `p90`,
+`p95` and `p99`.
+
+The values are estimates with a relative accuracy of 2%. Durations from
+1 microsecond to at least 1 hour and sizes from 1 byte to at least 4 GiB
+are distinguished. A smaller value is reported as the lower limit, and a
+larger one as roughly the upper limit, for instance, a duration of two
+hours as about one hour. A percentile
+is one of the recorded values, so with few values it may be smaller than
+the largest one: of ten values, `p99` is the second largest.
+
+### Storage
+
+`connected` tells whether the storage can be used. It is `null` if no
+attempt to use the storage has yet been made. With `storage_inmemory` it is
+always `true`, and with `storage_redis` it reflects the outcome of the most
+recent operation, as each session has a connection of its own.
+
+If `cached_data` is `shared`, `storage` also contains what the storage
+itself reports; with `storage_inmemory`, for instance, the number of items
+and their size.
+
+If `cached_data` is `thread_specific`, what each storage reports is in
+`threads`, and `storage` contains a summary. `connected` is `false` if the
+storage of any thread is not connected, otherwise `true` if the storage of
+any thread is connected, and otherwise `null`. With `storage_inmemory`,
+`size` and `evictions` are the sums over the threads. With `storage_redis`
+and `storage_gridgain`, all threads use the same data, so no sums are
+reported.
+
+### Threads
+
+If `cached_data` is `thread_specific`, `threads` contains an object for each
+thread that has a cache, with the keys `id`, the index of the thread,
+`storage` and `uncached_queries`. If `cached_data` is `shared`, `threads` is
+an empty array.
+
+With `storage_inmemory`, `cached_data` being `thread_specific` and two
+threads, `storage`, `uncached_queries` and `threads` look like this:
+
+```
+"storage": {
+    "connected": true,
+    "size": 2949120,
+    "evictions": 0
+},
+"uncached_queries": {
+    "hits": 5,
+    "misses": 9
+},
+"threads": [
+    {
+        "storage": {
+            "lru": { "size": 1474560, "items": 82, ... },
+            "connected": true,
+            "real_storage": { ... }
+        },
+        "uncached_queries": { "items": 5, "hits": 5, "misses": 5 },
+        "id": 0
+    },
+    {
+        "storage": {
+            "lru": { "size": 1474560, "items": 82, ... },
+            "connected": true,
+            "real_storage": { ... }
+        },
+        "uncached_queries": { "items": 4, "hits": 0, "misses": 4 },
+        "id": 1
+    }
+]
+```
+
+### Uncached Queries
+
+`uncached_queries` contains `hits`, the number of lookups that were skipped,
+`misses`, the number of queries faster than `min_query_duration` whose
+lookup was not skipped, and `items`, the number of queries remembered. If
+`cached_data` is `thread_specific`, `hits` and `misses` are the sums over
+the threads, and `items` is reported for each thread only. See
+[max\_uncached\_query\_count](maxscale-cache.md#max_uncached_query_count).
+
+### Clearing the Statistics
+
+The statistics are cleared with
+
+```
+maxctrl clear statistics MyCache
+```
+
+or with a `PUT` request to `/v1/filters/MyCache/statistics/clear`. That
+resets `statistics`, the `hits` and `misses` of `uncached_queries` and the
+counters of the storage, such as the number of hits of `storage_inmemory`.
+It does not affect what is cached, nor the number of items, their size or
+`connected`.
+
 ## Example
 
 In the following we define a cache _MyCache_ that uses the cache storage module`storage_inmemory` and whose _soft ttl_ is `30` seconds and whose _hard ttl_ is`45` seconds. The cached data is shared between all threads and the maximum size of the cached data is `50` mebibytes. The rules for the cache are in the file`cache_rules.json`.
