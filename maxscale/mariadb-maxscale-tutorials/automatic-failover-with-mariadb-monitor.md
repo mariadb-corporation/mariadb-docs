@@ -283,7 +283,7 @@ For more details on what exactly switchover does, see [MariaDB Monitor documenta
 ## Using MariaDB Monitor With ReadWriteSplit
 
 When a cluster managed by `mariadbmon` is accessed through a
-[readwritesplit](../reference/maxscale-routers/maxscale-readwritesplit.md)
+[readwritesplit](../reference/maxscale-routers/maxscale-readwritesplit/README.md)
 service, enabling `transaction_replay` on the router makes failover and
 switchover transparent to the application. When the primary fails, the router
 remembers any in-progress transaction and replays it on the newly promoted

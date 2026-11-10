@@ -31,6 +31,19 @@ Every line of it comes from the module page:
 
 To change what the reference page says about a setting, edit its module page and regenerate.
 
+### Module pages split into a folder
+
+A long module page can be split into a folder (DOCS-6367): `maxscale-readwritesplit.md` became
+`maxscale-readwritesplit/README.md`, which keeps the URL, plus `readwritesplit-settings.md`,
+which holds the settings. The script treats a folder that has a `README.md` and sits at least
+two levels below `reference/` as **one** module page. Its settings stay under the page's old
+heading (`[maxscale-readwritesplit](…/README.md)`), and each entry links to the file that holds
+it. The group is still the heading one level up, which in a settings child page is its H1 (for
+example "MaxScale Readwritesplit Settings").
+
+Category folders such as `reference/maxscale-routers/` also have a `README.md`, but they sit only
+one level below `reference/`, so they are scanned as before.
+
 ## Writing a description
 
 Put a `* Description:` bullet after the other bullets of every setting:

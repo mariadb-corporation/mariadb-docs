@@ -474,7 +474,7 @@ either `Server1` or `ExasolService`, depending on which one is likely to provide
 the response faster.
 
 Here, a single server was used as `master`. It could just as well be a
-[ReadWriteSplit](maxscale-readwritesplit.md) service in front of a MariaDB cluster,
+[ReadWriteSplit](maxscale-readwritesplit/README.md) service in front of a MariaDB cluster,
 which would provide HA.
 
 ### Stand-Alone
