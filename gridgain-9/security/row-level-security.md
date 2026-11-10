@@ -167,6 +167,8 @@ When row-level security is enabled but no policy exists yet, regular users see n
 Suppose an `employees` table stores the owning user name in the `username` column.
 We want users with role `MANAGER` to see all rows of the table, and the users with role `DEVELOPER` to see only their own rows.
 
+{% tabs %}
+{% tab title="9.2" %}
 User and role names are case-sensitive, and SQL converts unquoted identifiers to upper case. The script below therefore creates the users `JACK` and `SARAH` and the roles `MANAGER` and `DEVELOPER`, and the users log in with these exact names. `CURRENT_USER` returns the name as stored, so the data uses the same spelling.
 
 Run the following script as an administrator.
@@ -210,6 +212,52 @@ With these policies in place:
 - If user connects to the cluster using `JACK` credentials, the query `SELECT * FROM employees` returns all three rows.
 - If user connects to the cluster using `SARAH` credentials, the query returns only the row where `username = 'SARAH'`.
 - The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `SARAH` cannot insert or update a row whose `username` is not `SARAH`.
+{% endtab %}
+
+{% tab title="9.1" %}
+Run the following script as an administrator.
+
+```sql
+CREATE SCHEMA TEST;
+CREATE TABLE test.employees (id INT PRIMARY KEY, username VARCHAR, salary INT);
+
+-- Create users and roles
+CREATE USER Jack IDENTIFIED WITH plain_password BY 'password';
+CREATE USER Sarah IDENTIFIED WITH plain_password BY 'password';
+CREATE ROLE MANAGER;
+CREATE ROLE DEVELOPER;
+GRANT MANAGER to Jack;
+GRANT DEVELOPER to Sarah;
+GRANT PRIVILEGES SELECT_FROM_TABLE ON TEST TO DEVELOPER, MANAGER;
+
+-- Turn on row-level security. At this point no policy exists,
+-- so regular users see no rows at all.
+ALTER TABLE test.employees SET ROW LEVEL SECURITY ON;
+
+-- Create policy for managers (can see all rows).
+CREATE POLICY managers_all ON test.employees
+        TO MANAGER
+        USING (TRUE);
+
+-- Create policy for developers (can see only the rows they own).
+CREATE POLICY developers_own ON test.employees
+        TO DEVELOPER
+        USING (CURRENT_USER = username);
+
+-- Add some data to the table
+INSERT INTO test.employees (id, username, salary) VALUES
+        (1, 'jack', 100),
+        (2, 'sarah', 200),
+        (3, 'bob', 150);
+```
+
+With these policies in place:
+
+- If user connects to the cluster using `Jack` credentials, the query `SELECT * FROM employees` returns all three rows.
+- If user connects to the cluster using `Sarah` credentials, the query returns only the row where `username = 'sarah'`.
+- The same rules apply to `UPDATE`, `DELETE`, and `INSERT`; for example, `Sarah` cannot insert or update a row whose `username` is not `sarah`.
+{% endtab %}
+{% endtabs %}
 
 ## Managing Row-Level Security
 

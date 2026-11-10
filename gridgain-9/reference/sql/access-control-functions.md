@@ -28,9 +28,19 @@ CREATE USER [IF NOT EXISTS] user_name IDENTIFIED WITH auth_type BY pass
 
 Parameters:
 
-- `user_name` - the name of the user. User names are case-sensitive, and an unquoted name is converted to upper case: `user1` creates the user `USER1`. To keep the exact spelling, quote the name (`"user1"`). Use the same spelling to log in, alter, and drop the user.
+- `user_name` - the name of the user.
 - `auth_type` - type of authentication for the user. Only `plain_password` is available.
 - `pass` - user password.
+
+{% tabs %}
+{% tab title="9.2" %}
+User names are case-sensitive, and an unquoted name is converted to upper case: `user1` creates the user `USER1`. To keep the exact spelling, quote the name (`"user1"`). Use the same spelling to log in, alter, and drop the user.
+{% endtab %}
+
+{% tab title="9.1" %}
+User names are case-insensitive.
+{% endtab %}
+{% endtabs %}
 
 Examples:
 
@@ -148,7 +158,17 @@ NonTerminal('role_name')
 
 Parameters:
 
-- `role_name` - the name of the role. Role names are case-sensitive, and an unquoted name is converted to upper case. To refer to the built-in `system` role, quote it: `"system"`.
+- `role_name` - the name of the role.
+
+{% tabs %}
+{% tab title="9.2" %}
+Role names are case-sensitive, and an unquoted name is converted to upper case. To refer to the built-in `system` role, quote it: `"system"`.
+{% endtab %}
+
+{% tab title="9.1" %}
+Role names are case-insensitive.
+{% endtab %}
+{% endtabs %}
 
 Examples:
 

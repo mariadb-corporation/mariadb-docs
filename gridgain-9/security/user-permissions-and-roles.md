@@ -191,11 +191,19 @@ access before either privilege has any effect.
 
 GridGain protects two built-in roles: the `system` super role, which cluster initialization seeds with every action, and the internal `gridgain-system-bypass` role.
 
+{% tabs %}
+{% tab title="9.2" %}
 User and role names are case-sensitive, so `system` and `SYSTEM` are different roles. The `system` restrictions apply to the exact name `system` only; `SYSTEM` is an ordinary role that you can create, drop, grant privileges to and assign. The `gridgain-system-bypass` restrictions apply in any letter case.
 
 In SQL, unquoted identifiers are converted to upper case, so you must quote the super role: `DROP ROLE "system"` targets the super role, while `DROP ROLE system` targets the ordinary role `SYSTEM`. Quoting is not needed over the REST API. `SHOW` commands print role names as stored, so the super role appears as `system`.
 
 The operations below are refused over both SQL and the REST API:
+{% endtab %}
+
+{% tab title="9.1" %}
+The operations below are refused whatever letter case you use, over both SQL and the REST API:
+{% endtab %}
+{% endtabs %}
 
 | Operation | `system` | `gridgain-system-bypass` |
 |---|---|---|
@@ -211,7 +219,7 @@ A refused assignment or revocation is recorded as a [`USER_OPERATION_REFUSED`](.
 
 ## Upgrading from Earlier Releases
 
-Earlier releases treated user and role names as case-insensitive. When you upgrade a cluster (on commit of the rolling upgrade), GridGain runs a one-time migration, tracked by the `roleNamesMigrationVersion` [cluster configuration parameter](../reference/configuration/cluster-configuration-parameters.md):
+This section applies to GridGain 9.2. Earlier releases treated user and role names as case-insensitive. When you upgrade a cluster (on commit of the rolling upgrade), GridGain runs a one-time migration, tracked by the `roleNamesMigrationVersion` [cluster configuration parameter](../reference/configuration/cluster-configuration-parameters.md):
 
 - Existing role names become upper case, and the role assignments of basic-authentication users are updated to match. The `system` role keeps the name `system`, including when it was stored in another case. If two roles would end up with the same name after upper-casing, the upgrade fails and reports the conflicting names.
 - Existing user names keep their stored spelling. In SQL, quote the old spelling to manage such a user: `ALTER USER "alice"`, `DROP USER "alice"`. Unquoted `alice` means `ALICE`.
