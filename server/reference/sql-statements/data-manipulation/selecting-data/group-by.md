@@ -10,7 +10,7 @@ Use the `GROUP BY` clause in a [SELECT](select.md) statement to group rows toget
 
 When grouping rows, grouping values are compared as if by the [=](../../../sql-structure/operators/comparison-operators/) operator. For string values, the `=` operator ignores trailing whitespace and may normalize characters and ignore case, depending on the [collation](../../../data-types/string-data-types/character-sets/) in use.
 
-You can use any of the grouping functions in your select expression. Their values will be calculated based on all the rows that have been grouped together for each result row. If you select a non-grouped column or a value computed from a non-grouped column, it is undefined which row the returned value is taken from. This is not permitted if the `ONLY_FULL_GROUP_BY` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is used.
+You can use any of the grouping functions in your select expression. Their values will be calculated based on all the rows that have been grouped together for each result row. If you select a non-grouped column or a value computed from a non-grouped column, it is undefined which row the returned value is taken from. This is not permitted if the `ONLY_FULL_GROUP_BY` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is used. From MariaDB 13.2, you can select such a column by wrapping it in [ANY\_VALUE()](../../../sql-functions/aggregate-functions/any_value.md), which makes it explicit that any row's value will do.
 
 You can use multiple expressions in the `GROUP BY` clause, separated by commas.
 Rows are grouped together if they match on each of the expressions.
