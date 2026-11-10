@@ -569,7 +569,7 @@ The [OQGRAPH](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storag
 
 The [Sphinx](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sphinx-storage-engine) storage engine
 
-* [current.html](https://sphinxsearch.com/docs/current.html)
+* [current.html](https://web.archive.org/web/20261102011335/http://www.sphinxsearch.com/docs/current.html)
 * Created by Andrew Aksyonoff.
 * License: GPL
 
