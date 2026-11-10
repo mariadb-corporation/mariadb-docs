@@ -12,7 +12,7 @@ hidden: true
 ## About this Release
 
 * MariaDB Server 12.3.4 was released on TBD
-* [What's new in this release?]({release-notes}/community-server/12.3/12.3.4)
+* [What's new in this release?](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.4)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity
 
@@ -24,8 +24,8 @@ hidden: true
 
 ## Release History
 
-* The prior release in this series was [MariaDB 12.3.3]({release-notes}/community-server/12.3/12.3.3), released on 24 Aug 2026
-* This release ([MariaDB 12.3.4]({release-notes}/community-server/12.3/12.3.4)) was released on TBD
+* The prior release in this series was [MariaDB 12.3.3](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.3), released on 24 Aug 2026
+* This release ([MariaDB 12.3.4](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3/12.3.4)) was released on TBD
 
 {% include "../.gitbook/includes/most-recent-12.3.md" %}
 
