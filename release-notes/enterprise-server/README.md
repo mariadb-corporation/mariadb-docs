@@ -14,8 +14,8 @@ description: >-
 
 * [Enterprise Server Lifecycle](about/enterprise-server-lifecycle.md)
 * [Enterprise Server Release Schedule](about/enterprise-server-release-schedule.md)
-* [Enterprise Server Differences]({server}/editions-and-compatibility/mariadb-enterprise-server-differences)
-* [Software Bill of Materials (SBOM)]({server}/editions-and-compatibility/sbom)
+* [Enterprise Server Differences](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/mariadb-enterprise-server-differences)
+* [Software Bill of Materials (SBOM)](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/editions-and-compatibility/sbom)
 * [Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server)
 
 ## Current Releases
