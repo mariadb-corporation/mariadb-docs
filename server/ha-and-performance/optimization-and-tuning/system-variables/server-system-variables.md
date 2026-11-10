@@ -2863,7 +2863,7 @@ Before MariaDB 12.0:
 #### `transaction_read_only`
 
 * Description: Default transaction access mode. If set to `OFF`, the default, access is read/write. If set to `ON`, access is read-only. The `SET TRANSACTION` statement can also change the value of this variable. See [SET TRANSACTION](../../../reference/sql-statements/transactions/set-transaction.md) and [START TRANSACTION](../../../reference/sql-statements/transactions/start-transaction.md).
-* Command line: None
+* Command line: `--transaction-read-only[={0|1}]`
 * Scope: Global, Session
 * Dynamic: Yes
 * Type: boolean
